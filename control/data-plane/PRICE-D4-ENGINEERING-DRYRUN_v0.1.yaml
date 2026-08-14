@@ -1,0 +1,150 @@
+record_id: SEMI-PRICE-D4-ENGINEERING-DRYRUN
+version: v0.1
+status: WORKING_ENGINEERING
+canonical_status: NON_CANONICAL
+promotion_status: NON_PROMOTING
+recorded_at: '2026-08-15T07:28:00+09:00'
+project_id: semiconductor-research
+repository: AofSpds/semiconductor-research
+branch: main
+
+task: NON_PROMOTING_D4_ENGINEERING_DRYRUN
+purpose: >-
+  Exercise the evidence-gated PRICE D4 corporate-action join over the frozen raw price
+  dataset while CA completeness remains blocked. This is an engineering-only dry-run;
+  it cannot create canonical bytes, a released dataset id, a current/frozen pointer,
+  or canonical cutover authority.
+
+latest_control_inputs:
+  price_schema: control/schemas/v0.1/price.schema.yaml
+  price_schema_status: FROZEN
+  d0_d3_audit: control/data-plane/PRICE-CANONICAL-DRY-RUN-AUDIT_D0-D3_v0.2.yaml
+  price_implementation: control/data-plane/PRICE-ENGINEERING-DRYRUN-IMPLEMENTATION_v0.1.yaml
+  ca_completeness: control/data-plane/CA-COMPLETENESS-FINAL-SCAN_v0.2.yaml
+  ca_reconciliation: control/data-plane/CA-EVENT-RECONCILIATION_v0.1.yaml
+  ca_gate_status: BLOCKED
+  four_exception_rows_adjudicated: 2/4
+
+source_dataset:
+  dataset_id: SEMI-PRICE-MARCAP-KRX-2024-2026_v1
+  dataset_identity_sha256: 419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7
+  source_rows: 1819147
+  input_hash_gate: PASS
+  components:
+    '2024': {sha256: b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb, rows: 687708}
+    '2025': {sha256: 2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e, rows: 696524}
+    '2026': {sha256: 5da710a2fc56f8fe9b1f5126295cc30c3b15c0ee35d28ba808a505ec4a2243c1, rows: 434915}
+  raw_bytes_changed: false
+  price_dataset_identity_changed: false
+  provider_mixing: false
+
+implementation:
+  engine: tools/price/price_d4_engineering_dryrun.py
+  config: tools/price/price_d4_dryrun_config.yaml
+  tests: tools/price/tests/test_price_d4_engineering.py
+  code_commit: d691dd9c0ffee5d681c34936636ac817cc740c34
+  config_commit: c637debeec5db3c907aba9ded8279d17bad8a8fc
+  test_commit: 2dea8b2a636a5bf2184e5edb5ec07e6caa9f0c10
+  mode: engineering-d4-dryrun
+  official_mode_firewall: >-
+    CA_COMPLETENESS_GATE != PASS blocks official D4. The engineering CLI also refuses
+    to execute official D4 even if PASS, requiring a separate authorized production path.
+  company_id_policy: SECURITY_CODE_TECHNICAL_JOIN_SEPARATE_FROM_D3_IDENTITY_AUTHORITY
+  company_id_guessing: false
+
+execution:
+  execution_id: e1052dc4896f5726c2c5ca19
+  d4_dryrun_content_hash: e1052dc4896f5726c2c5ca19de0e7edea00115cbf2877d205464248f8282283d
+  rerun_count: 2
+  deterministic_rerun: PASS
+  byte_identical_machine_readable_output: true
+  result: ENGINEERING_DRYRUN_PASS_WITH_DECLARED_BLOCKERS
+
+ca_event_input:
+  input_count: 2
+  evidence_validated_count: 2
+  joined_event_identity_count: 2
+  rejected_count: 0
+  rejected_list: []
+  events:
+    - event_id: CA-OMISSION-033170-20260807
+      security_code: '033170'
+      event_type: SHARE_CONSOLIDATION
+      effective_at: '2026-08-07'
+      evidence_refs: [EVI_KRX_KIND_20260619000897_CA]
+      source_row_reference: '2026:422844'
+      join_status: PASS
+      adjustment_factor_status: NOT_MATERIALIZED_IN_DRYRUN
+      comparable_price_transform_applied: false
+    - event_id: CA-OMISSION-183300-20260731
+      security_code: '183300'
+      event_type: STOCK_SPLIT
+      effective_at: '2026-07-31'
+      evidence_refs: [EVI_KRX_KIND_20260716000843_CA]
+      source_row_reference: '2026:406476'
+      join_status: PASS
+      adjustment_factor_status: NOT_MATERIALIZED_IN_DRYRUN
+      comparable_price_transform_applied: false
+  comico_may_bonus_and_july_split_separated: true
+  evidence_free_ca_created: false
+  evidence_free_adjustment_factor_created: false
+  new_canonical_adjustment_factors_created: 0
+
+exception_propagation:
+  - {date: '2024-03-28', code: '001527', status: PARTIAL, disposition: QUARANTINE_Q006, reason_code: PRICE-Q006, source_row_reference: '2024:167532'}
+  - {date: '2024-12-30', code: '076340', status: RESOLVED_NON_CA, adjustment_created: false, source_row_reference: '2024:687293'}
+  - {date: '2025-03-21', code: '145210', status: RESOLVED_NON_CA, adjustment_created: false, source_row_reference: '2025:148670'}
+  - {date: '2026-05-08', code: '403360', status: PARTIAL, disposition: QUARANTINE_Q006, reason_code: PRICE-Q006, source_row_reference: '2026:244862'}
+  fully_adjudicated: 2
+  partial_unresolved: 2
+
+zero_ohl_policy:
+  zero_ohl_zero_trade_rows: 84107
+  preserved_rows: 84107
+  ohl_imputation_performed: false
+  automatic_trading_status_inference: false
+  automatic_ca_inference_from_zero_pattern: false
+  note: >-
+    Two rows in this technical class are also the exact effective-date rows for the two
+    evidence-resolved CA events, so their exclusive D4 disposition is CA_EVENT_LINKED;
+    they remain physically preserved and are not dropped or imputed.
+
+exclusive_row_accounting:
+  UNCHANGED_NORMAL: 1735036
+  CA_EVENT_LINKED: 2
+  RESOLVED_NON_CA_EXCEPTION: 2
+  PENDING_SEMANTICS: 84105
+  QUARANTINE_Q006: 2
+  OTHER_QUARANTINE: 0
+  ERROR: 0
+  total: 1819147
+  equation: '1819147 = 1735036 + 2 + 2 + 84105 + 2 + 0 + 0'
+  check: PASS
+  silent_row_drop: false
+  silent_deduplication: false
+
+D3_dependency:
+  status: WAITING_FOR_LATEST_WORKBOOK_BYTES
+  latest_workbook_version_used: NONE
+  company_id_FK_certification: WAITING_FOR_LATEST_WORKBOOK_BYTES
+  reported_research_counts_used_to_fabricate_mapping: false
+
+firewalls:
+  canonical: false
+  promotion_allowed: false
+  cutover_allowed: false
+  canonical_bytes_created: false
+  canonical_dataset_id_assigned: false
+  official_D4_executed: false
+  outcome_data_used: false
+  model_tuning_performed: false
+  architecture_change: NONE
+  schema_change_request: NONE
+
+blockers:
+  - CA Completeness Gate is BLOCKED because strict raw-OHLC exception adjudication is 2/4.
+  - 001527/2024-03-28 exact KRX transaction/session locator remains unresolved.
+  - 403360/2026-05-08 exact KRX transaction print remains unresolved.
+  - D3 latest authoritative U127 workbook bytes are unavailable to this lane.
+  - Official D4 requires CA_COMPLETENESS_GATE=PASS and separate authorization.
+  - Official D5 has not been executed.
