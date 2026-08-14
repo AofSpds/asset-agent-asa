@@ -1,0 +1,48 @@
+artifact_id: SEMI-MIGRATION-PACKAGE
+artifact_version: v1.0
+status: FROZEN
+materialization_status: MATERIALIZED_VERIFIED
+repository_path: control/migration/v1.0
+source_bundle:
+  filename: 1차.zip
+  sha256: 6029bca7c30ed9935dc183714aa5d1333483831de111fb947120f7063add3ecc
+  release_manifest_member: SEMI-RELEASE-MANIFEST_v1.0.yaml
+component_count: 5
+components:
+  - filename: SEMI-MIGRATION-INVENTORY_v1.0.csv
+    bytes: 10364
+    sha256: dcb095931bc2271fc41727362e4864f2a5d588203de6c33bf2f4df12083c9677
+  - filename: SEMI-MIGRATION-MANIFEST_v1.0.csv
+    bytes: 10034
+    sha256: 4d1525848f27c6389a0f6f7dac8b6518c1feed6584716535a7418c983476774e
+  - filename: SEMI-LEGACY-TO-CANONICAL-MAP_v1.0.csv
+    bytes: 26615
+    sha256: eea8609827903b3cecb8e65cbb080977935c5f823249c69e201280a22d659c9a
+  - filename: SEMI-MIGRATION-ISSUE-REGISTER_v1.0.csv
+    bytes: 3038
+    sha256: a2b21443fd0c9663a2c94cf9c0e983b9d460591ace79663e87c994a0c86a9e65
+  - filename: SEMI-LEGACY-HASH-MANIFEST_v1.0.csv
+    bytes: 3755
+    sha256: 875295c79c317e45dc638a8522baefb744c5741644e2c3f8614133e71f65415d
+component_hash_manifest:
+  path: manifests/hashes/migration-package-v1.0.sha256
+  sha256: 43e20219fd69a04b94199d38d99828855e8a44e339ad9ee59ee87e21c3eb5faa
+materialization_verification:
+  workflow: .github/workflows/materialize-migration-v1.yml
+  run_id: 31825411254
+  conclusion: success
+  exact_component_hashes_verified: true
+  exact_component_byte_sizes_verified: true
+immutability_policy:
+  frozen_components_must_not_be_overwritten: true
+  issue_register_is_historical_snapshot: true
+  issue_resolution_must_be_recorded_separately: true
+  changes_require_new_package_version_or_change_control: true
+scope_restrictions:
+  canonical_data_cutover: false
+  actual_data_migration: false
+  legacy_source_content_revision: false
+notes:
+  - This package materializes the frozen migration planning/control artifacts only.
+  - SEMI-MIGRATION-ISSUE-REGISTER_v1.0.csv is preserved exactly as frozen; later resolutions do not rewrite it.
+  - MIR-001 was resolved separately by G1-C Architecture v1.0 repository materialization and is tracked in the Architecture materialization manifest, not by editing the frozen issue register.
