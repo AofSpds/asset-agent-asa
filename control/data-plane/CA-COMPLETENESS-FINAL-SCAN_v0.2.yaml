@@ -1,0 +1,254 @@
+doc_id: SEMI-CA-COMPLETENESS-FINAL-SCAN
+version: v0.2
+status: WORKING_BLOCKED
+recorded_at: '2026-08-15T06:59:00+09:00'
+project_id: semiconductor-research
+repository: AofSpds/semiconductor-research
+branch: main
+
+history:
+  parent_version: v0.1
+  parent_artifact: control/data-plane/CA-COMPLETENESS-FINAL-SCAN_v0.1.yaml
+  parent_creation_commit: 42e80d82509a763160232f0ca7b874599020504c
+  parent_overwritten: false
+  purpose_of_v0_2: >-
+    Close only the four blockers identified by independent CA v0.1 and rerun the
+    outcome-blind CA Completeness Gate. Full CA research was not repeated.
+
+main_state_at_followup_start:
+  observed_sha: c5040082b8c20f22309fdf49eec29e2867ea47f7
+  branch: main
+
+frozen_price_dataset:
+  dataset_id: SEMI-PRICE-MARCAP-KRX-2024-2026_v1
+  dataset_identity_sha256: 419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7
+  components:
+    '2024': {sha256: b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb}
+    '2025': {sha256: 2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e}
+    '2026': {sha256: 5da710a2fc56f8fe9b1f5126295cc30c3b15c0ee35d28ba808a505ec4a2243c1}
+  cutoff: '2026-08-13'
+  raw_price_bytes_changed: false
+  price_dataset_identity_changed: false
+  provider_mixing: false
+  canonical_cutover: false
+
+outcome_blind_firewall:
+  enforced: true
+  prohibited_inputs: [future_return, MFE, Rank, Top3, Top10, Top20, Preliminary_Winner, Official_Winner]
+
+engineering_scan_reference:
+  artifact: control/data-plane/PRICE-CANONICAL-DRY-RUN-AUDIT_D0-D3_v0.2.yaml
+  source_rows: 1819147
+  classifications:
+    OHLC_CLASS_NORMAL: 1735036
+    OHLC_CLASS_ZERO_OHL_NO_TRADE_METRICS: 84107
+    OHLC_CLASS_ZERO_OHL_WITH_TRADE_METRICS: 4
+    OHLC_CLASS_OTHER_INCONSISTENCY: 0
+  row_accounting: PASS
+  silent_row_drop: false
+
+parent_closed_exception_rows:
+  - date: '2024-12-30'
+    code: '076340'
+    name: 관악산업
+    status: VERIFIED
+    result: NON_CA_OFF_HOURS_TRANSACTION
+    evidence_source_id: '20250106000440'
+    note: '35,536 shares at 5,000 = raw Amount 177,680,000.'
+  - date: '2025-03-21'
+    code: '145210'
+    name: 다이나믹디자인
+    status: VERIFIED_COMPOSED
+    result: NON_CA_SESSION_SEMANTICS
+    note: 'Trading suspension began 08:58 before 09:00 regular open; 1,015 x 1,126 = 1,142,890.'
+
+blocker_A_001527:
+  date: '2024-03-28'
+  code: '001527'
+  name: 동양2우B
+  raw_close: 11480
+  raw_volume: 2
+  raw_amount: 23060
+  implied_average_execution_price: 11530
+  status: PARTIAL
+  transaction_type: LOW_LIQUIDITY_30_MIN_SINGLE_PRICE_REGIME__EXACT_EXECUTION_SESSION_UNRESOLVED
+  findings:
+    - >-
+      KRX's official low-liquidity framework uses 30-minute single-price call auctions;
+      KRX also states that off-hours and block trading remain separately executable under
+      single-price regimes.
+    - >-
+      Search evidence supports that 동양2우B was included in the 2024 low-liquidity
+      30-minute single-price population, and KRX has an exact official target notice for
+      the same security for 2025. However, an exact 2024-03-28 KRX transaction/session
+      print tying Volume=2 and Amount=23,060 to one specific session was not retrieved.
+  exact_locator: NOT_FOUND
+  primary_support_locators:
+    - 'https://kind.krx.co.kr/external/2024/12/30/000473/20241230001046/99452.htm'
+    - 'https://global.krx.co.kr/contents/GLB/06/0602/0602020204/GLB0602020204T6.jsp'
+  strict_adjudication: NOT_CLOSED
+  CA_relation: NOT_ESTABLISHED_AS_CA
+  failure_semantics: RETRIEVAL_FAILURE_NOT_NONEXISTENCE
+
+blocker_B_403360:
+  date: '2026-05-08'
+  code: '403360'
+  name: 라피치
+  market: KONEX
+  raw_close: 6900
+  raw_volume: 11000
+  raw_amount: 79200000
+  implied_average_execution_price: 7200
+  status: PARTIAL
+  transaction_type: KONEX_NEGOTIATED_BLOCK_OR_OFF_HOURS_BLOCK_COMPATIBLE__EXACT_PRINT_UNRESOLVED
+  findings:
+    - >-
+      KRX states that KONEX generally follows KOSDAQ trading arrangements but uniquely
+      permits a block trade even when the issue had no regular-session trade that day
+      (or previous day for pre-hours).
+    - >-
+      KRX block-trading rules permit negotiated-price block/off-hours block transactions,
+      with a KRW50 million minimum and off-hours windows 08:00-09:00 and 15:40-18:00.
+      Raw Amount KRW79.2 million exceeds that threshold, making the row structurally
+      compatible with KONEX block/off-hours semantics.
+    - >-
+      No exact authoritative KRX issue-level transaction print matching 11,000 shares
+      and KRW79,200,000 (implied 7,200) was retrieved.
+  exact_locator: NOT_FOUND
+  primary_support_locators:
+    - 'https://global.krx.co.kr/contents/GLB/06/0602/0602030101/GLB0602030101.jsp'
+    - 'https://global.krx.co.kr/contents/GLB/06/0602/0602020203/GLB0602020203T3.jsp'
+    - 'https://global.krx.co.kr/contents/GLB/06/0602/0602020204/GLB0602020204T1.jsp'
+  strict_adjudication: NOT_CLOSED
+  CA_relation: NOT_ESTABLISHED_AS_CA
+  failure_semantics: RETRIEVAL_FAILURE_NOT_NONEXISTENCE
+
+four_exception_gate:
+  total: 4
+  fully_adjudicated: 2
+  partial_unresolved: 2
+  results:
+    - '001527/2024-03-28: PARTIAL; exact KRX transaction/session print unresolved.'
+    - '076340/2024-12-30: VERIFIED; non-CA off-hours transaction.'
+    - '145210/2025-03-21: VERIFIED_COMPOSED; non-CA pre-open/off-hours session semantics.'
+    - '403360/2026-05-08: PARTIAL; KONEX block/off-hours compatible but exact print unresolved.'
+  strict_status: BLOCKED
+
+CA_register_reconciliation:
+  artifact: control/data-plane/CA-EVENT-RECONCILIATION_v0.1.yaml
+  artifact_commit: 72114d829d3087dfe944671bac5665539c88b271
+  interface: tools/price/price_ca_interface.py
+  total: 2/2
+  status: PASS
+  events:
+    - event_id: CA-OMISSION-033170-20260807
+      code: '033170'
+      company: 시그네틱스
+      event_type: SHARE_CONSOLIDATION
+      event_status: SOURCE_VERIFIED_RECONCILED_FOR_D4_INPUT
+      effective_at: '2026-08-07'
+      par_value_change: '500 -> 2500'
+      share_change: '85728319 -> 17145663'
+      suspension_from: '2026-08-05'
+      suspension_to: '2026-08-24'
+      relisting_date: '2026-08-25'
+      evidence_refs: [EVI_KRX_KIND_20260619000897_CA]
+      evidence_locator: 'https://kind.krx.co.kr/external/2026/06/19/000475/20260619000897/00591.htm'
+      frozen_cutoff_post_relisting_row: false
+      adjustment_factor_authorized: false
+    - event_id: CA-OMISSION-183300-20260731
+      code: '183300'
+      company: 코미코
+      event_type: STOCK_SPLIT
+      event_status: SOURCE_VERIFIED_RECONCILED_FOR_D4_INPUT
+      effective_at: '2026-07-31'
+      par_value_change: '500 -> 200'
+      share_change: '20545310 -> 51363275'
+      suspension_from: '2026-07-29'
+      suspension_to: '2026-08-20'
+      relisting_date: '2026-08-21'
+      evidence_refs: [EVI_KRX_KIND_20260716000843_CA]
+      evidence_locator: 'https://kind.krx.co.kr/external/2026/07/16/000397/20260716000843/70128.htm'
+      frozen_cutoff_post_relisting_row: false
+      adjustment_factor_authorized: false
+  coMiCo_May_bonus_and_July_split_separated: true
+  coMiCo_identity_note: >-
+    The July split remains a distinct event from the inherited May 2026 bonus issue.
+    The July filing explicitly states that its pre-split share count is after completion
+    of the 2026-05-12 bonus issue; no merge is permitted.
+  evidence_refs_resolve_in_reconciliation_artifact: 2/2
+  evidence_to_source_refs_resolve_in_reconciliation_artifact: 2/2
+  new_adjustment_factors_authorized: 0
+  D4_executed: false
+
+U127_material_review:
+  rows_reviewed: 200/200
+  companies_reviewed: 13/13
+  A2_exception_rows_within_U127: 0
+  unexplained_material_CA_signal_list: []
+
+axis_results:
+  stocks_count_discontinuity_axis: CLOSED_PASS_24_OF_24
+  raw_OHLC_material_axis:
+    status: BLOCKED
+    reason: 'Strict four-exception criterion remains 2/4 because exact locators are unresolved for 001527 and 403360.'
+  known_KRX_comparable_price_unit_change_axis:
+    status: PASS
+    reason: >-
+      The two independently identified source-verified omissions were reconciled append-only
+      into the committed evidence-gated CA interface input with resolvable Source/Evidence
+      records and distinct event identities. No factor is authorized in this lane.
+
+new_event_accounting_this_followup:
+  newly_discovered_CA_events: 0
+  newly_adjudicated_event_semantics: 0
+  previously_discovered_registry_omissions_reconciled: 2
+  new_adjustment_factors_authorized: 0
+
+price_schema_compliance:
+  schema: control/schemas/v0.1/price.schema.yaml
+  PRI_C04: ENFORCED
+  PRI_C08: ENFORCED
+  PRI_C09: ENFORCED
+  PRI_A04: ENFORCED
+  PRI_A06: ENFORCED
+  evidence_free_adjustment: false
+  schema_change_request: NONE
+
+unresolved_evidence_locators:
+  - '001527 / 2024-03-28: exact KRX transaction/session print locator.'
+  - '403360 / 2026-05-08: exact KRX transaction/session print matching 11,000 shares / KRW79,200,000.'
+
+final_gate:
+  ca_signal_adjudication: PASS_24_OF_24
+  ca_regression: PASS_2_OF_2
+  ca_completeness_final_scan: NOT_CLOSED
+  ca_completeness_gate: BLOCKED
+  gate_reason: >-
+    The known-KRX registry omission blocker is closed 2/2, but the strict raw-OHLC
+    exceptional-row criterion remains only 2/4. Primary exchange rules establish plausible
+    session mechanisms for both open rows, but the requested exact issue/date transaction
+    locators were not obtained. Outcome-blind protocol prohibits converting compatibility
+    into a verified exact-session adjudication. The gate therefore remains BLOCKED.
+  price_D4_ready: false
+
+change_control:
+  architecture_change: NONE
+  schema_change_request: NONE
+  raw_price_bytes_changed: false
+  price_dataset_identity_changed: false
+  provider_mixing: false
+  canonical_cutover: false
+  official_winner_release: BLOCKED
+  user_decision_required: NONE
+
+next_action:
+  - >-
+    Retrieve an exchange-level 2024-03-28 transaction/session print for KRX:001527 that
+    directly explains Volume=2 and Amount=23,060; do not infer from low-liquidity status alone.
+  - >-
+    Retrieve an exchange-level 2026-05-08 KONEX transaction/session print for KRX:403360
+    matching 11,000 shares and KRW79,200,000; generic KONEX block-trading compatibility is insufficient.
+  - >-
+    Re-run only the four-exception strict gate after those locators resolve. Do not execute D4
+    until CA_COMPLETENESS_GATE=PASS.
