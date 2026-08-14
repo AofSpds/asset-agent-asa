@@ -1,0 +1,153 @@
+schema_id: SEMI-MODEL-DEFINITION-SCHEMA
+schema_version: v0.1
+status: FROZEN
+architecture_reference:
+  artifact: SEMI-ARCHITECTURE-SPEC_v1.0.md
+  version: v1.0
+  status: FROZEN / ACTIVE ARCHITECTURE
+migration_package_reference:
+  inventory: SEMI-MIGRATION-INVENTORY_v1.0.csv
+  manifest: SEMI-MIGRATION-MANIFEST_v1.0.csv
+  legacy_to_canonical_map: SEMI-LEGACY-TO-CANONICAL-MAP_v1.0.csv
+  issue_register: SEMI-MIGRATION-ISSUE-REGISTER_v1.0.csv
+  status: FROZEN v1.0
+logical_object: MODEL-DEFINITION
+description: Immutable model methodology separated from PIT. Current Rolling 3M v0.1 meanings remain those of frozen SEMI-EVAL-CORE.
+logical_key:
+- model_version
+write_policy: Immutable by model_version; methodology change creates a new model_version.
+version_policy:
+  methodology_change: new model_version
+  schema_breaking_change: new schema_version
+  schema_change_does_not_imply_model_change: true
+  model_change_does_not_imply_snapshot_schema_change: true
+dependencies: []
+type_policy:
+  identifier: string; never integer
+  krx_code: string; preserve leading zero
+  datetime: timezone-aware ISO-8601; default operational timezone Asia/Seoul
+  date: YYYY-MM-DD
+  date_or_datetime_tz: either YYYY-MM-DD when only date precision is evidenced, or timezone-aware ISO-8601 when exact time
+    is evidenced; never invent an intraday time
+  decimal: exact decimal semantics; persistent binary floating point is prohibited
+  decimal_precision: precision/scale is not invented by this contract; physical implementation must preserve source precision
+    and pass audit
+  'null': field not applicable or value absent for this record
+  NOT_FOUND: Evidence.status only; retrieval failure and never numeric zero/FALSE
+  UNKNOWN: only when an explicit field enum defines UNKNOWN
+  zero: actual numeric zero
+  empty_string: MUST NOT substitute for NULL, NOT_FOUND, UNKNOWN, or 0
+nullable_policy:
+  rule: Nullable is field-specific. NULL does not mean NOT_FOUND, UNKNOWN, FALSE, or 0.
+  historical_valid_from: If historical effective start is unsupported by evidence, valid_from remains NULL and provenance/status
+    records the non-inference.
+fields:
+- name: model_version
+  type: string
+  nullable: false
+  description: Immutable model-methodology identifier and logical key.
+- name: model_name
+  type: string
+  nullable: false
+  description: Human-readable model name.
+- name: model_family
+  type: string
+  nullable: false
+  description: Model family, e.g. Rolling 3M Opportunity.
+- name: scoring_protocol_version
+  type: string
+  nullable: false
+  description: Scoring protocol version.
+- name: effective_from
+  type: date_or_datetime_tz
+  nullable: true
+  description: Methodology effective start when explicitly established; do not invent intraday time.
+- name: definition_status
+  type: string
+  nullable: false
+  description: Definition lifecycle status; this schema does not invent a new lifecycle enum.
+- name: trigger_definition_ref
+  type: string
+  nullable: true
+  description: Reference to authoritative Trigger definition/rule.
+- name: component_definition_ref
+  type: string
+  nullable: false
+  description: Collection-level reference to SCORE-COMPONENT-DEFINITION for this model version.
+- name: model_rule_ref
+  type: string
+  nullable: false
+  description: Authoritative model rule reference, e.g. SEMI-EVAL-CORE v1.0.
+- name: created_at
+  type: datetime_tz
+  nullable: false
+  description: Definition materialization timestamp.
+- name: schema_version
+  type: string
+  nullable: false
+  description: Schema version.
+  default: v0.1
+constraints:
+- id: MOD-C01
+  severity: ERROR
+  rule: MODEL-DEFINITION is immutable by model_version.
+- id: MOD-C02
+  severity: ERROR
+  rule: Model changes must not mutate PIT-SNAPSHOT or automatically change snapshot_schema_version.
+- id: MOD-C03
+  severity: ERROR
+  rule: Rolling 3M v0.1 Trigger C0/C1/C2a/C2b/C3, β seven types, M1/M2/M3/M4/S, and score component semantics remain unchanged
+    from SEMI-EVAL-CORE v1.0.
+- id: MOD-C04
+  severity: ERROR
+  rule: Current Rolling 3M component maxima are 30/25/20/15/5/5 in the frozen model definition; these values are never PIT
+    schema columns.
+foreign_references: []
+audit_rules:
+- id: MOD-A01
+  severity: ERROR
+  rule: Reject in-place methodology edit under an existing model_version.
+- id: MOD-A02
+  severity: ERROR
+  rule: When Rolling 3M v0.1 is materialized, validate component names/maxima and Trigger/β/Maturity semantics exactly against
+    frozen SEMI-EVAL-CORE.
+preserved_model_contract:
+  rolling_3m_v0_1_components:
+  - component_key: trigger_catalyst
+    component_name: Trigger/Catalyst
+    max_score: 30
+  - component_key: forward_earnings_order
+    component_name: Forward Earnings/Order
+    max_score: 25
+  - component_key: expectations_gap_valuation
+    component_name: Expectations Gap/Valuation
+    max_score: 20
+  - component_key: conversion_visibility
+    component_name: Conversion Visibility
+    max_score: 15
+  - component_key: market_recognition
+    component_name: Market Recognition
+    max_score: 5
+  - component_key: evidence_integrity_freshness
+    component_name: Evidence Integrity/Freshness
+    max_score: 5
+  trigger_enum:
+  - C0
+  - C1
+  - C2a
+  - C2b
+  - C3
+  maturity_enum:
+  - M1
+  - M2
+  - M3
+  - M4
+  - S
+  beta_enum:
+  - Equipment-fill β
+  - Utilization β
+  - Process-intensity β
+  - Packaging/HBM β
+  - Test/Product-cycle β
+  - Metrology/System-yield β
+  - Foundry-cycle β
