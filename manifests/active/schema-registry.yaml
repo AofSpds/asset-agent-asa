@@ -1,0 +1,13 @@
+artifact_id: SEMI-SCHEMA-REGISTRY
+active_version: v0.1
+status: FROZEN_ACTIVE_BASELINE
+repository_path: control/schemas/v0.1
+registry_manifest: control/schemas/v0.1/REGISTRY-MANIFEST.yaml
+approved_archive_sha256: 57916b73d86de7bef0f22ed5d733a32a70e726c1bffed6499503afb0ea57ccf6
+component_manifest_sha256: 1ae7f10d6642ecc22bc96b3750371d566371d8d47edb64519e28c24b8a17c5ba
+activation_scope: SCHEMA_CONTROL_PLANE_ONLY
+canonical_data_cutover: false
+next_candidate:
+  change_request: SEMI-CR-20260814-001
+  target_version: v0.2
+  status: NOT_YET_FROZEN
