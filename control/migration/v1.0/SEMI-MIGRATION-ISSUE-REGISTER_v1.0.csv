@@ -1,0 +1,14 @@
+﻿issue_id,source_doc,source_field,issue_type,description,discovered_at,severity,migration_blocking,recommended_later_action
+MIR-001,Architecture,artifact,CONTROL-PLANE GAP,Frozen v1.0 Contract의 standalone immutable artifact/hash가 Inventory Freeze 시점에 확인되지 않음,2026-08-14,HIGH,YES before actual migration,frozen text를 exact materialize 후 hash/release 등록
+MIR-002,DATA-ROUTE,v1.0 vs v1.1,DUPLICATE ACTIVE,v1.0과 v1.1 모두 검색 가능하며 v1.0에도 ACTIVE 문구 존재,2026-08-14,HIGH,YES before cutover,"v1.0 archive/superseded, v1.1 active pointer"
+MIR-003,SEMI-UNIVERSE,신규 8개 다음 작업,STALE,“F1 구축 필요” 문구와 Company Master 46/46 seeded 상태 불일치,2026-08-14,MEDIUM,NO,Content Revision 단계에서만 정정
+MIR-004,SEMI-PIT-LEDGER,whole schema/key,ARCHITECTURE OVERRIDE,combined PIT/Score/Validation 및 old logical key가 Freeze Architecture와 충돌,2026-08-14,CRITICAL,YES for direct migration,mandatory structural split
+MIR-005,SEMI-DATA-ROUTE,F3/output,ARCHITECTURE OVERRIDE,Trigger/Gap/Conversion/Recognition과 raw F3 observation 혼합,2026-08-14,HIGH,YES for direct migration,observation/model interpretation split
+MIR-006,Price schema,Universe_Eligible_Flag,ARCHITECTURE OVERRIDE,Price가 Universe authority를 보유하는 Legacy field,2026-08-14,HIGH,YES for canonical schema,preserve legacy only; derive externally
+MIR-007,Price blocked audit,Reason,STALE HISTORICAL AUDIT,Audit에는 parquet ingest 불가라고 기록되어 있으나 현재 2024/25/26 raw files가 존재,2026-08-14,MEDIUM,NO,원문 수정 금지; 새로운 success audit later
+MIR-008,Company Master,DART corp id / listing date / URLs,INCOMPLETE IDENTITY,NOT_FOUND / NOT_VERIFIED가 다수 존재,2026-08-14,MEDIUM,NO,그대로 Migration 후 별도 identity backfill
+MIR-009,Raw Price,yearly physical metadata,SCHEMA DRIFT,2024/25와 2026 Parquet writer/version 및 일부 Arrow dtype metadata 차이,2026-08-14,MEDIUM,NO for RAW; YES audit before canonical,schema normalization audit
+MIR-010,Fab Master,interpretation / activated β,BOUNDARY MIX,source-derived Fab state와 model-derived interpretation이 flat row에 혼재,2026-08-14,MEDIUM,NO if split,state vs MODEL_DERIVED feature/evidence 분리
+MIR-011,TOP38 v2.2,38 historical scores,PIT BINDING GAP,새 Architecture에서는 MODEL-SCORE가 PIT-SNAPSHOT을 참조해야 하나 corresponding new PIT objects가 현재 없음,2026-08-14,CRITICAL,YES for score promotion,raw archive first; score canonicalization deferred
+MIR-012,SEMI-PIT-LEDGER,actual data,DATA GAP,현재 확인된 asset은 PIT schema/spec이고 actual historical PIT row dataset은 발견되지 않음,2026-08-14,HIGH,YES for data migration; not for schema migration,historical reconstruction은 별도 미래 Gate
+MIR-013,Source Index,Retrieval Order,LEGACY ROUTING,routing이 legacy PIT Ledger를 직접 가리키며 frozen Architecture objects를 모름,2026-08-14,MEDIUM,NO for inventory,post-migration generated retrieval/index refresh

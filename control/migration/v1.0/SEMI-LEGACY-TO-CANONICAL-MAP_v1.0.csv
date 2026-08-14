@@ -1,0 +1,162 @@
+﻿mapping_id,legacy_doc,legacy_field,legacy_semantics,target_object,target_field_or_concept,canonical_status,transformation_type,semantic_change,override_reference,notes
+MAP-0001,SEMI-EVAL-CORE,__DOCUMENT__,Rule + model methodology,EVAL-CORE; MODEL-DEFINITION; SCORE-COMPONENT-DEFINITION,rule/model/component definitions,CANONICAL,STRUCTURAL_SPLIT,NO — storage-boundary change only,Architecture Model/PIT split,Existing weights/Trigger/β/Maturity preserved.
+MAP-0002,SEMI-DATA-ROUTE v1.1,__DOCUMENT__,Routing/refresh + F3 observation + legacy PIT/output + validation,DATA-ROUTE; OBSERVATION; MODEL-SCORE interpretation; VALIDATION protocol,split rule and data-boundary semantics,CANONICAL,STRUCTURAL_SPLIT,NO — storage-boundary change only,Override A/E,MIXED source must be decomposed.
+MAP-0003,SEMI-SOURCE-INDEX,__DOCUMENT__,Retrieval rule + locator registry,DATA-ROUTE; COMPANY-IDENTITY; SOURCE-REGISTRY,rule + locator split,CANONICAL,STRUCTURAL_SPLIT,NO — storage-boundary change only,,LLM index may later be GENERATED.
+MAP-0004,SEMI-PIT-LEDGER,__DOCUMENT__,Legacy combined Snapshot+Evidence+Interpretation+Score+Validation,PIT-SNAPSHOT; EVIDENCE; MODEL-SCORE; MODEL-SCORE-COMPONENT; VALIDATION,decoupled objects,CANONICAL,STRUCTURAL_SPLIT,NO — storage-boundary change only,Override A/B/E,Legacy key is not reused.
+MAP-0005,SEMI-UNIVERSE,__DOCUMENT__,Current U46 + historical eligibility intent,UNIVERSE-RELEASE; OPERATIONAL-UNIVERSE-HISTORY; TRADABILITY-HISTORY,separate current release / actual operational history / tradability,CANONICAL,STRUCTURAL_SPLIT,NO — storage-boundary change only,Override C,Later reconstructed/expanded backtest uses separate release + new run.
+MAP-0006,marcap-2024/2025/2026,__DOCUMENT__,Provider raw yearly price datasets,PRICE-RAW,RAW_IMMUTABLE preserved input,RAW_IMMUTABLE / NON-CANONICAL,COPY_AS_IS,NO,,PRICE-CANONICAL is separate future output after normalization/audit.
+MAP-0007,TOP38 v2.2 Detail,__DOCUMENT__,Legacy 12M methodology + 38 scores,MODEL-DEFINITION; historical MODEL-SCORE DEFERRED,methodology now; score promotion later,CANONICAL / DEFERRED,STRUCTURAL_SPLIT,NO — storage-boundary change only,,MODEL-SCORE requires valid PIT-SNAPSHOT binding.
+MAP-0008,SEMI-COMPANY-MASTER,company_id,stable identifier,COMPANY-IDENTITY,company_id,CANONICAL,DIRECT,NO,,immutable identity
+MAP-0009,SEMI-COMPANY-MASTER,회사명,current canonical name,COMPANY-IDENTITY,canonical_name/history,CANONICAL,NORMALIZE,NO,,name changes not silently overwritten
+MAP-0010,SEMI-COMPANY-MASTER,영문명,identity attr,COMPANY-IDENTITY,english_name,CANONICAL,DIRECT,NO,,
+MAP-0011,SEMI-COMPANY-MASTER,KRX code,security identifier,COMPANY-IDENTITY,krx_code,CANONICAL,DIRECT,NO,,
+MAP-0012,SEMI-COMPANY-MASTER,시장,listing identity attr,COMPANY-IDENTITY,market,CANONICAL,NORMALIZE,NO,,
+MAP-0013,SEMI-COMPANY-MASTER,DART corp id,official locator,COMPANY-IDENTITY,dart_corp_id,CANONICAL,PRESERVE_STATUS,NO,,NOT_FOUND preserved
+MAP-0014,SEMI-COMPANY-MASTER,상장일,listing metadata,COMPANY-IDENTITY,listing_date,CANONICAL,PRESERVE_STATUS,NO,,NOT_FOUND preserved
+MAP-0015,SEMI-COMPANY-MASTER,과거명 / aliases,alias history,COMPANY-IDENTITY,aliases,CANONICAL,NORMALIZE_COLLECTION,NO,,
+MAP-0016,SEMI-COMPANY-MASTER,DART/KIND 검색 식별자,retrieval locator,SOURCE-REGISTRY,locator/query,CANONICAL,SPLIT,NO — storage-boundary change only,,
+MAP-0017,SEMI-COMPANY-MASTER,공식 홈페이지,official locator/source,SOURCE-REGISTRY,official locator,CANONICAL,SPLIT,NO — storage-boundary change only,,
+MAP-0018,SEMI-COMPANY-MASTER,IR 페이지 / Newsroom,official locator/source,SOURCE-REGISTRY,official locator,CANONICAL,SPLIT,NO — storage-boundary change only,,
+MAP-0019,SEMI-COMPANY-MASTER,주요 고객 공식자료 경로,retrieval route,SOURCE-REGISTRY; DATA-ROUTE,customer source route,CANONICAL,SPLIT,NO — storage-boundary change only,,
+MAP-0020,SEMI-COMPANY-MASTER,Business Type [R1],structural business classification,COMPANY-STRUCTURE-HISTORY,business_type,CANONICAL,HISTORY_SEED,NO,,R1→STRUCTURE
+MAP-0021,SEMI-COMPANY-MASTER,Core Product [R1],structural product baseline,COMPANY-STRUCTURE-HISTORY,core_product,CANONICAL,HISTORY_SEED,NO,,R1→STRUCTURE
+MAP-0022,SEMI-COMPANY-MASTER,Process Position [R1],structural process position,COMPANY-STRUCTURE-HISTORY,process_position,CANONICAL,HISTORY_SEED,NO,,R1→STRUCTURE
+MAP-0023,SEMI-COMPANY-MASTER,Primary / Secondary β [R1/R2],durable β transmission structure,COMPANY-STRUCTURE-HISTORY,beta exposure baseline,CANONICAL,HISTORY_SEED,NO,,Structure baseline; event-driven activation is separate state/feature.
+MAP-0024,SEMI-COMPANY-MASTER,Equipment Entry Timing [R1],structural Fab-cycle position,COMPANY-STRUCTURE-HISTORY,entry_timing,CANONICAL,HISTORY_SEED,NO,,R1→STRUCTURE
+MAP-0025,SEMI-COMPANY-MASTER,Recurring Model [R1/R2],recurring revenue archetype + time-varying intensity,COMPANY-STRUCTURE-HISTORY; COMPANY-STATE-HISTORY,structural recurring model + effective state,CANONICAL,SPLIT_BY_SEMANTICS,NO — storage-boundary change only,,Baseline→STRUCTURE; current mix/intensity changes→STATE.
+MAP-0026,SEMI-COMPANY-MASTER,Installed Base 구조 [R2],changeable accumulated installed base,COMPANY-STATE-HISTORY,installed_base state,CANONICAL,STATE_SEED,NO,,R2→STATE
+MAP-0027,SEMI-COMPANY-MASTER,Qualification Barrier [R2],slow-moving moat state,COMPANY-STATE-HISTORY,qualification_barrier state,CANONICAL,STATE_SEED,NO,,R2→STATE
+MAP-0028,SEMI-COMPANY-MASTER,Switching Cost [R2],slow-moving customer/vendor switching state,COMPANY-STATE-HISTORY,switching_cost state,CANONICAL,STATE_SEED,NO,,R2→STATE
+MAP-0029,SEMI-COMPANY-MASTER,Process Criticality [R1/R2],baseline importance + effective application-specific change,COMPANY-STRUCTURE-HISTORY; COMPANY-STATE-HISTORY,criticality baseline + effective state,CANONICAL,SPLIT_BY_SEMANTICS,NO — storage-boundary change only,,Baseline→STRUCTURE; event-driven effective change→STATE.
+MAP-0030,SEMI-COMPANY-MASTER,IP / Recipe Dependency [R2],current IP/recipe dependency state,COMPANY-STATE-HISTORY,ip_recipe_dependency state,CANONICAL,STATE_SEED,NO,,R2→STATE
+MAP-0031,SEMI-COMPANY-MASTER,Customer Structure [R2],customer structure state,COMPANY-STATE-HISTORY,customer_structure,CANONICAL,STATE_SEED,NO,,R2→STATE
+MAP-0032,SEMI-COMPANY-MASTER,Overseas Exposure [R2],overseas customer/fab application state,COMPANY-STATE-HISTORY,overseas_exposure,CANONICAL,STATE_SEED,NO,,R2→STATE
+MAP-0033,SEMI-COMPANY-MASTER,Manufacturing Capacity [R2/RE],capacity/expansion/bottleneck state,COMPANY-STATE-HISTORY,manufacturing_capacity state,CANONICAL,STATE_SEED,NO,,R2/RE→STATE
+MAP-0034,SEMI-COMPANY-MASTER,Substitution Risk [R2/RE],competition/substitution/customer-loss state,COMPANY-STATE-HISTORY,substitution_risk state,CANONICAL,STATE_SEED,NO,,R2/RE→STATE
+MAP-0035,SEMI-COMPANY-MASTER,Future Tech Tags [R1/R2],structural exposure + active adoption/maturity,COMPANY-STRUCTURE-HISTORY; COMPANY-STATE-HISTORY,tech exposure baseline + active state,CANONICAL,SPLIT_BY_SEMANTICS,NO — storage-boundary change only,,Structure exposure vs adoption/maturity state.
+MAP-0036,SEMI-COMPANY-MASTER,Refresh,refresh semantics,DATA-ROUTE,refresh rule reference,CANONICAL,DETACH_RULE,NO,,
+MAP-0037,SEMI-COMPANY-MASTER,FACT block,source-derived support,EVIDENCE,SOURCE_DERIVED,CANONICAL,SPLIT,NO,,
+MAP-0038,SEMI-COMPANY-MASTER,INDUSTRY_ESTIMATE block,estimated support,EVIDENCE,SOURCE_DERIVED / estimate,CANONICAL,SPLIT,NO,,
+MAP-0039,SEMI-COMPANY-MASTER,MODEL_ASSUMPTION block,project-derived grading basis,EVIDENCE,MODEL_DERIVED,CANONICAL,SPLIT,NO — origin clarified,,Not external fact.
+MAP-0040,SEMI-COMPANY-MASTER,Evidence status,evidence completeness/confidence,EVIDENCE,status/confidence,CANONICAL,SPLIT,NO,,
+MAP-0041,SEMI-FAB-MASTER,fab_id,stable project ID,FAB-IDENTITY,fab_id,CANONICAL,DIRECT,NO,,
+MAP-0042,SEMI-FAB-MASTER,customer,stable customer identity,FAB-IDENTITY,customer,CANONICAL,DIRECT,NO,,
+MAP-0043,SEMI-FAB-MASTER,site,project location identity,FAB-IDENTITY,site,CANONICAL,DIRECT,NO,,uncertainty preserved
+MAP-0044,SEMI-FAB-MASTER,project_or_line,project identity,FAB-IDENTITY,project_or_line,CANONICAL,DIRECT,NO,,
+MAP-0045,SEMI-FAB-MASTER,memory_or_foundry,long-lived classification,FAB-IDENTITY,memory_or_foundry,CANONICAL,DIRECT,NO,,
+MAP-0046,SEMI-FAB-MASTER,application,time-varying allocation,FAB-STATE-HISTORY,application state,CANONICAL,STATE_SEED,NO,,
+MAP-0047,SEMI-FAB-MASTER,technology_generation,time-varying technology generation,FAB-STATE-HISTORY,technology_generation,CANONICAL,STATE_SEED,NO,,
+MAP-0048,SEMI-FAB-MASTER,fab_stage,fab lifecycle stage,FAB-STATE-HISTORY,fab_stage,CANONICAL,STATE_SEED,NO,,append-only
+MAP-0049,SEMI-FAB-MASTER,construction_status,construction state,FAB-STATE-HISTORY,construction_status,CANONICAL,STATE_SEED,NO,,
+MAP-0050,SEMI-FAB-MASTER,cleanroom_status,cleanroom state,FAB-STATE-HISTORY,cleanroom_status,CANONICAL,STATE_SEED,NO,,
+MAP-0051,SEMI-FAB-MASTER,equipment_order_status,equipment-order state,FAB-STATE-HISTORY,equipment_order_status,CANONICAL,STATE_SEED,NO,,
+MAP-0052,SEMI-FAB-MASTER,move_in_status,move-in state,FAB-STATE-HISTORY,move_in_status,CANONICAL,STATE_SEED,NO,,
+MAP-0053,SEMI-FAB-MASTER,qualification_status,qualification state,FAB-STATE-HISTORY,qualification_status,CANONICAL,STATE_SEED,NO,,
+MAP-0054,SEMI-FAB-MASTER,ramp_status,ramp state,FAB-STATE-HISTORY,ramp_status,CANONICAL,STATE_SEED,NO,,
+MAP-0055,SEMI-FAB-MASTER,expected_move_in_range,fact/estimate timing,FAB-STATE-HISTORY; EVIDENCE,move-in expectation + evidence class,CANONICAL,SPLIT,NO,,
+MAP-0056,SEMI-FAB-MASTER,expected_ramp_range,fact/estimate timing,FAB-STATE-HISTORY; EVIDENCE,ramp expectation + evidence class,CANONICAL,SPLIT,NO,,
+MAP-0057,SEMI-FAB-MASTER,WFE_or_equipment_scope,current WFE/equipment scope,FAB-STATE-HISTORY,WFE/equipment scope,CANONICAL,STATE_SEED,NO,,
+MAP-0058,SEMI-FAB-MASTER,relevant_process_tags,effective process exposure,FAB-STATE-HISTORY,process tags,CANONICAL,STATE_SEED,NO,,
+MAP-0059,SEMI-FAB-MASTER,activated_beta_types,β-rule-derived activation,MODEL_DERIVED feature,beta activation feature,MODEL_DERIVED,RECLASSIFY_BOUNDARY,NO — storage-boundary change only,,Not Source Evidence fact.
+MAP-0060,SEMI-FAB-MASTER,source_tier / source_id / source_url,source locator,SOURCE-REGISTRY,source locator,CANONICAL,SPLIT,NO,,
+MAP-0061,SEMI-FAB-MASTER,publication_date,publication timestamp,EVIDENCE,publication_at,CANONICAL,SPLIT,NO,,
+MAP-0062,SEMI-FAB-MASTER,fact,source-derived fact,EVIDENCE,SOURCE_DERIVED,CANONICAL,SPLIT,NO,,
+MAP-0063,SEMI-FAB-MASTER,interpretation,model/project interpretation,EVIDENCE / model-specific feature,MODEL_DERIVED,CANONICAL,SPLIT,NO — storage-boundary change only,,
+MAP-0064,SEMI-FAB-MASTER,confidence,evidence confidence,EVIDENCE,confidence,CANONICAL,SPLIT,NO,,
+MAP-0065,SEMI-FAB-MASTER,refresh_code,refresh rule ref,DATA-ROUTE,refresh rule reference,CANONICAL,DETACH_RULE,NO,,
+MAP-0066,SEMI-FAB-MASTER,last_verified,verification metadata,EVIDENCE,verification metadata,CANONICAL,SPLIT,NO,,
+MAP-0067,SEMI-DATA-ROUTE v1.1,Source Tier S1~S8,source priority rule,DATA-ROUTE,source tier rule,RULE,RULE,NO,,
+MAP-0068,SEMI-DATA-ROUTE v1.1,변수별 Source Routing,routing rule,DATA-ROUTE,field routing rule,RULE,RULE,NO,,
+MAP-0069,SEMI-DATA-ROUTE v1.1,Refresh R0/R1/R2/R3Q/R3M/RE/RD,refresh rule,DATA-ROUTE,refresh code rule,RULE,RULE,NO,,
+MAP-0070,SEMI-DATA-ROUTE v1.1,Price / Market Cap,market observation,OBSERVATION; PIT-SNAPSHOT,model-independent observation,CANONICAL,NORMALIZE,NO,,
+MAP-0071,SEMI-DATA-ROUTE v1.1,PER/PBR/EV/Valuation source value,valuation observation,OBSERVATION; PIT-SNAPSHOT,source-defined valuation,CANONICAL,NORMALIZE,NO,,
+MAP-0072,SEMI-DATA-ROUTE v1.1,Forward EPS / OP,consensus observation,OBSERVATION; PIT-SNAPSHOT,forward estimate observation,CANONICAL,NORMALIZE,NO,,
+MAP-0073,SEMI-DATA-ROUTE v1.1,EPS Revision,consensus revision observation,OBSERVATION; PIT-SNAPSHOT,revision observation,CANONICAL,NORMALIZE,NO,,
+MAP-0074,SEMI-DATA-ROUTE v1.1,최근 실적 / Guidance,source evidence / observation / discrete event,EVIDENCE; OBSERVATION; EVENT when discrete,fact/observation,CANONICAL,CLASSIFY,NO,,Event optional.
+MAP-0075,SEMI-DATA-ROUTE v1.1,PO / Backlog / Shipment,commercial facts,EVENT or OBSERVATION; PIT-SNAPSHOT ref,commercial facts,CANONICAL,CLASSIFY,NO,,
+MAP-0076,SEMI-DATA-ROUTE v1.1,Customer CAPEX,customer capex observation/event,OBSERVATION; EVENT,customer CAPEX fact,CANONICAL,CLASSIFY,NO,,
+MAP-0077,SEMI-DATA-ROUTE v1.1,Fab move-in / Cleanroom,Fab state,FAB-STATE-HISTORY; PIT-SNAPSHOT ref,effective Fab state,CANONICAL,NORMALIZE,NO,,
+MAP-0078,SEMI-DATA-ROUTE v1.1,Utilization / Wafer start,periodic observation,OBSERVATION,utilization/wafer observation,CANONICAL,NORMALIZE,NO,,
+MAP-0079,SEMI-DATA-ROUTE v1.1,Qualification completed,discrete business fact,EVENT; COMPANY-STATE-HISTORY,qualification state/event,CANONICAL,NORMALIZE,NO,,
+MAP-0080,SEMI-DATA-ROUTE v1.1,Volume / Repeat order,discrete business fact,EVENT; COMPANY-STATE-HISTORY,order state/event,CANONICAL,NORMALIZE,NO,,
+MAP-0081,SEMI-DATA-ROUTE v1.1,Trigger Stage,model-derived interpretation,MODEL-SCORE / model-specific feature,Trigger classification,CANONICAL,RECLASSIFY_BOUNDARY,NO — storage-boundary change only,Override E,Not PIT authoritative state.
+MAP-0082,SEMI-DATA-ROUTE v1.1,Expectations Gap,model-derived interpretation,MODEL-SCORE / MODEL-SCORE-COMPONENT,Expectations Gap interpretation,CANONICAL,RECLASSIFY_BOUNDARY,NO — storage-boundary change only,Override E,
+MAP-0083,SEMI-DATA-ROUTE v1.1,Conversion Visibility,model-derived interpretation,MODEL-SCORE / MODEL-SCORE-COMPONENT,Conversion interpretation,CANONICAL,RECLASSIFY_BOUNDARY,NO — storage-boundary change only,Override E,
+MAP-0084,SEMI-DATA-ROUTE v1.1,Market Recognition,model-derived interpretation,MODEL-SCORE / MODEL-SCORE-COMPONENT,Recognition interpretation,CANONICAL,RECLASSIFY_BOUNDARY,NO — storage-boundary change only,Override E,
+MAP-0085,SEMI-DATA-ROUTE v1.1,Evidence Freshness raw days,deterministic timing observation,PIT-SNAPSHOT / audit,freshness observable,CANONICAL,DERIVE,NO,,
+MAP-0086,SEMI-DATA-ROUTE v1.1,Evidence Integrity judgment,model-dependent evidence quality judgment,MODEL-SCORE-COMPONENT,evidence integrity component,CANONICAL,RECLASSIFY_BOUNDARY,NO — storage-boundary change only,Override E,
+MAP-0087,SEMI-DATA-ROUTE v1.1,PIT Evidence fact,source fact,EVIDENCE,SOURCE_DERIVED,CANONICAL,NORMALIZE,NO,,
+MAP-0088,SEMI-DATA-ROUTE v1.1,PIT Evidence interpretation,model/project interpretation,EVIDENCE,MODEL_DERIVED,CANONICAL,RECLASSIFY_BOUNDARY,NO — origin clarified,,
+MAP-0089,SEMI-DATA-ROUTE v1.1,publication_date/time,publication time,EVIDENCE,publication_at,CANONICAL,NORMALIZE,NO,,
+MAP-0090,SEMI-DATA-ROUTE v1.1,available_before_entry,legacy audit timing,EVIDENCE audit metadata,timing audit field,CANONICAL,PRESERVE,NO,Override A,Not score cutoff authority.
+MAP-0091,SEMI-DATA-ROUTE v1.1,snapshot_date,date convenience,PIT-SNAPSHOT,snapshot_date,CANONICAL,PRESERVE,NO,,Convenience/search field only.
+MAP-0092,SEMI-DATA-ROUTE v1.1,legacy model_version in Snapshot identity,legacy model coupling,MODEL-DEFINITION; MODEL-SCORE,model_version,CANONICAL,DETACH_FROM_PIT_KEY,NO — storage-boundary change only,Override E,
+MAP-0093,SEMI-DATA-ROUTE v1.1,3M score columns,model score components,MODEL-SCORE-COMPONENT,extensible components,CANONICAL,STRUCTURAL_SPLIT,NO — storage-boundary change only,Override E,
+MAP-0094,SEMI-DATA-ROUTE v1.1,Total,model total score,MODEL-SCORE,total_score,CANONICAL,STRUCTURAL_SPLIT,NO,Override E,
+MAP-0095,SEMI-DATA-ROUTE v1.1,Entry/Exit/Return/MFE/MAE/Universe Excess,evaluation outcome,VALIDATION,validation metrics,CANONICAL,STRUCTURAL_SPLIT,NO,Override E,Bind to model_score_id.
+MAP-0096,SEMI-PIT-LEDGER,company_id,company identity,PIT-SNAPSHOT,company_id,CANONICAL,DIRECT,NO,,
+MAP-0097,SEMI-PIT-LEDGER,snapshot_date,date convenience,PIT-SNAPSHOT,snapshot_date,CANONICAL,PRESERVE,NO,,Not authoritative identity.
+MAP-0098,SEMI-PIT-LEDGER,model_version,legacy PIT coupling,MODEL-DEFINITION; MODEL-SCORE,model_version,CANONICAL,DETACH_FROM_PIT_KEY,NO — storage-boundary change only,Override E,
+MAP-0099,SEMI-PIT-LEDGER,record_revision,combined correction revision,PIT-SNAPSHOT or MODEL-SCORE,snapshot_revision or score_revision,CANONICAL,CLASSIFY_CORRECTION_DOMAIN,NO — revision axis split,Override B,
+MAP-0100,SEMI-PIT-LEDGER,supersedes_ref,combined supersession,PIT-SNAPSHOT or MODEL-SCORE,supersedes_ref,CANONICAL,CLASSIFY_CORRECTION_DOMAIN,NO,Override B,
+MAP-0101,SEMI-PIT-LEDGER,listed / listing_date,listing facts,TRADABILITY-HISTORY; PIT ref,listing state,CANONICAL,NORMALIZE,NO,Override C,
+MAP-0102,SEMI-PIT-LEDGER,tradable / trading_status / actual_entry_tradeable,tradability facts,TRADABILITY-HISTORY; PIT-SNAPSHOT ref,tradability state,CANONICAL,NORMALIZE,NO,Override C,
+MAP-0103,SEMI-PIT-LEDGER,universe_eligible,legacy combined eligibility,OPERATIONAL-UNIVERSE-HISTORY + TRADABILITY-HISTORY derived decision,eligibility derivation,CANONICAL,STRUCTURAL_SPLIT,NO — storage-boundary change only,Override C,
+MAP-0104,SEMI-PIT-LEDGER,corporate action fields,corporate action state,TRADABILITY-HISTORY; EVIDENCE,corporate action state,CANONICAL,NORMALIZE,NO,,
+MAP-0105,SEMI-PIT-LEDGER,qualification/design_win/installed_base/maturity/share_change,company state,COMPANY-STATE-HISTORY; PIT effective ref,effective company state,CANONICAL,NORMALIZE,NO,,
+MAP-0106,SEMI-PIT-LEDGER,price/market_cap/valuation/forward_eps/forward_op/revision,observations,OBSERVATION; PIT-SNAPSHOT,observed values,CANONICAL,NORMALIZE,NO,,
+MAP-0107,SEMI-PIT-LEDGER,PO/backlog/shipment/customer_capex/utilization,commercial event/observation,EVENT/OBSERVATION; PIT-SNAPSHOT ref,fact/observation,CANONICAL,CLASSIFY,NO,,
+MAP-0108,SEMI-PIT-LEDGER,Trigger stage,model interpretation,MODEL-SCORE,Trigger classification,CANONICAL,STRUCTURAL_SPLIT,NO — storage-boundary change only,Override E,
+MAP-0109,SEMI-PIT-LEDGER,Conversion Visibility,model interpretation,MODEL-SCORE / MODEL-SCORE-COMPONENT,Conversion interpretation,CANONICAL,STRUCTURAL_SPLIT,NO — storage-boundary change only,Override E,
+MAP-0110,SEMI-PIT-LEDGER,Recognition,model interpretation,MODEL-SCORE / MODEL-SCORE-COMPONENT,Recognition interpretation,CANONICAL,STRUCTURAL_SPLIT,NO — storage-boundary change only,Override E,
+MAP-0111,SEMI-PIT-LEDGER,Expectations Gap,model interpretation,MODEL-SCORE / MODEL-SCORE-COMPONENT,Expectations Gap interpretation,CANONICAL,STRUCTURAL_SPLIT,NO — storage-boundary change only,Override E,
+MAP-0112,SEMI-PIT-LEDGER,evidence_id/source_tier/publication time/fact,evidence fields,EVIDENCE,evidence fields,CANONICAL,NORMALIZE,NO,,
+MAP-0113,SEMI-PIT-LEDGER,interpretation,model/project interpretation,EVIDENCE MODEL_DERIVED or MODEL-SCORE,derived interpretation,CANONICAL,CLASSIFY,NO — storage-boundary change only,,
+MAP-0114,SEMI-PIT-LEDGER,Trigger_30 etc,hard-coded model components,MODEL-SCORE-COMPONENT,extensible component records,CANONICAL,STRUCTURAL_SPLIT,NO,Override E,
+MAP-0115,SEMI-PIT-LEDGER,Total,total model score,MODEL-SCORE,total_score,CANONICAL,STRUCTURAL_SPLIT,NO,Override E,
+MAP-0116,SEMI-PIT-LEDGER,score_frozen/frozen_at,score freeze,MODEL-SCORE,score_frozen/score_frozen_at,CANONICAL,DIRECT,NO,Override E,Does not imply snapshot_frozen.
+MAP-0117,SEMI-PIT-LEDGER,snapshot_frozen,no legacy equivalent,PIT-SNAPSHOT,snapshot_frozen,CANONICAL,NO_INFERENCE,N/A,Override E,Do not synthesize from score_frozen.
+MAP-0118,SEMI-PIT-LEDGER,Validation fields,evaluation outcomes,VALIDATION,entry/exit/return/MFE/MAE/etc,CANONICAL,STRUCTURAL_SPLIT,NO,Override E,Bind to model_score_id.
+MAP-0119,SEMI-PIT-LEDGER,Status,context-dependent status,record-specific object,status,CANONICAL,CLASSIFY,NO,,
+MAP-0120,SEMI-UNIVERSE,Current U46,current actual operational release,UNIVERSE-RELEASE,release membership=46,CANONICAL,DIRECT,NO,Override C,Current release fact.
+MAP-0121,SEMI-UNIVERSE,CURRENT_COUNT=46,release metadata,UNIVERSE-RELEASE,member_count,CANONICAL,DIRECT,NO,Override C,
+MAP-0122,SEMI-UNIVERSE,기존 TOP38,operational membership provenance,OPERATIONAL-UNIVERSE-HISTORY,historical valid_from=NOT_INFERRED,CANONICAL,PRESERVE_UNKNOWN,NO,Override C,No arbitrary date.
+MAP-0123,SEMI-UNIVERSE,신규 8개,actual project operational inclusion history,OPERATIONAL-UNIVERSE-HISTORY,operational membership records,CANONICAL,HISTORY_SEED,NO,Override C,
+MAP-0124,SEMI-UNIVERSE,ADDED_2026-08-14,project actual operational inclusion date,OPERATIONAL-UNIVERSE-HISTORY,operational_membership_valid_from=2026-08-14,CANONICAL,DIRECT,NO,Override C,Not tradability valid_from.
+MAP-0125,SEMI-UNIVERSE,신규 8개 과거 상장/거래 여부,market tradability history,TRADABILITY-HISTORY,historical tradability,CANONICAL,DEFERRED_RECONSTRUCTION,NO,Override C,Separate problem.
+MAP-0126,SEMI-UNIVERSE,과거 실제 모델 평가대상,actual operational history,OPERATIONAL-UNIVERSE-HISTORY,historical membership,CANONICAL,PRESERVE_HISTORY,NO,Override C,Never rewritten by later research expansion.
+MAP-0127,SEMI-UNIVERSE,후대 과거 Universe 확장,research reconstructed universe,UNIVERSE-RELEASE,reconstructed/expanded release,CANONICAL,NEW_RELEASE,NO,Override C,"Separate release, not history rewrite."
+MAP-0128,SEMI-UNIVERSE,Expanded 과거 Backtest,new research execution,RUN-MANIFEST,new backtest run,CANONICAL,NEW_RUN,NO,Override C,New run required.
+MAP-0129,SEMI-UNIVERSE,Historical Backtest Universe,Operational × Tradable within release/run context,UNIVERSE-RELEASE / VALIDATION,eligible universe context,CANONICAL,DERIVE,NO,Override C,
+MAP-0130,SEMI-UNIVERSE,Discovery Universe,future scanner universe,DISCOVERY-UNIVERSE-HISTORY,future membership,CANONICAL,DEFERRED,NO,Override C,No direct current rows in legacy file.
+MAP-0131,SEMI-PRICE-LEDGER_v1.0_SCHEMA,Date,price date,PRICE-CANONICAL,Date,CANONICAL,NORMALIZE,NO,,
+MAP-0132,SEMI-PRICE-LEDGER_v1.0_SCHEMA,Code,security code,PRICE-CANONICAL,Code,CANONICAL,NORMALIZE,NO,,
+MAP-0133,SEMI-PRICE-LEDGER_v1.0_SCHEMA,Name,provider label,PRICE-CANONICAL,Name,CANONICAL,PRESERVE_DENORMALIZED,NO,,Not identity authority.
+MAP-0134,SEMI-PRICE-LEDGER_v1.0_SCHEMA,Open,OHLC,PRICE-CANONICAL,Open,CANONICAL,NORMALIZE,NO,,
+MAP-0135,SEMI-PRICE-LEDGER_v1.0_SCHEMA,High,OHLC / MFE input,PRICE-CANONICAL,High,CANONICAL,NORMALIZE,NO,,
+MAP-0136,SEMI-PRICE-LEDGER_v1.0_SCHEMA,Low,OHLC / MAE input,PRICE-CANONICAL,Low,CANONICAL,NORMALIZE,NO,,
+MAP-0137,SEMI-PRICE-LEDGER_v1.0_SCHEMA,Close,OHLC,PRICE-CANONICAL,Close,CANONICAL,NORMALIZE,NO,,
+MAP-0138,SEMI-PRICE-LEDGER_v1.0_SCHEMA,Volume,market observation,PRICE-CANONICAL,Volume,CANONICAL,NORMALIZE,NO,,
+MAP-0139,SEMI-PRICE-LEDGER_v1.0_SCHEMA,Amount,market observation,PRICE-CANONICAL,Amount,CANONICAL,NORMALIZE,NO,,
+MAP-0140,SEMI-PRICE-LEDGER_v1.0_SCHEMA,Marcap,market observation,PRICE-CANONICAL,Marcap,CANONICAL,NORMALIZE,NO,,
+MAP-0141,SEMI-PRICE-LEDGER_v1.0_SCHEMA,Stocks,shares outstanding observation,PRICE-CANONICAL,Stocks,CANONICAL,NORMALIZE,NO,,
+MAP-0142,SEMI-PRICE-LEDGER_v1.0_SCHEMA,Market,provider market,PRICE-CANONICAL,Market,CANONICAL,NORMALIZE,NO,,
+MAP-0143,SEMI-PRICE-LEDGER_v1.0_SCHEMA,Corporate_Action_Flag,evidence-backed corporate-action marker,PRICE-CANONICAL,Corporate_Action_Flag,CANONICAL,NORMALIZE,NO,,Evidence-backed only.
+MAP-0144,SEMI-PRICE-LEDGER_v1.0_SCHEMA,Adjustment_Factor,evidence-backed adjustment,PRICE-CANONICAL,Adjustment_Factor,CANONICAL,NORMALIZE,NO,,No inferred adjustment.
+MAP-0145,SEMI-PRICE-LEDGER_v1.0_SCHEMA,Trading_Status,market tradability state,PRICE-CANONICAL; TRADABILITY-HISTORY,Trading_Status / tradability state,CANONICAL,ONE_TO_MANY,NO,,
+MAP-0146,SEMI-PRICE-LEDGER_v1.0_SCHEMA,Corporate_Action_Type,corporate action type,PRICE-CANONICAL; EVIDENCE,action type / evidence,CANONICAL,ONE_TO_MANY,NO,,
+MAP-0147,SEMI-PRICE-LEDGER_v1.0_SCHEMA,Action_Source,action provenance,SOURCE-REGISTRY; EVIDENCE,source reference,CANONICAL,SPLIT,NO,,
+MAP-0148,SEMI-PRICE-LEDGER_v1.0_SCHEMA,Action_Confidence,action confidence,EVIDENCE,confidence,CANONICAL,SPLIT,NO,,
+MAP-0149,SEMI-PRICE-LEDGER_v1.0_SCHEMA,Raw_Provider,provider identity,PRICE-DATASET-MANIFEST,provider,CANONICAL,SPLIT,NO,,
+MAP-0150,SEMI-PRICE-LEDGER_v1.0_SCHEMA,Universe_Eligible_Flag,legacy price-contained eligibility,Legacy retention only; GENERATED derivation later,non-authoritative legacy field,GENERATED/LEGACY_ONLY,DO_NOT_MAP_AS_PRICE_AUTHORITY,NO — storage-boundary change only,Override D,Must not become authoritative PRICE-CANONICAL field.
+MAP-0151,SEMI-SOURCE-INDEX,Retrieval Order,LLM retrieval routing rule,DATA-ROUTE,retrieval rule,CANONICAL,STRUCTURAL_SPLIT,NO,,
+MAP-0152,SEMI-SOURCE-INDEX,Company / KRX,company reference,COMPANY-IDENTITY,company_id/krx_code reference,CANONICAL,STRUCTURAL_SPLIT,NO,,
+MAP-0153,SEMI-SOURCE-INDEX,Aliases,company aliases,COMPANY-IDENTITY,aliases,CANONICAL,STRUCTURAL_SPLIT,NO,,
+MAP-0154,SEMI-SOURCE-INDEX,DART/KIND identifiers,source locator,SOURCE-REGISTRY,locator,CANONICAL,STRUCTURAL_SPLIT,NO,,
+MAP-0155,SEMI-SOURCE-INDEX,Official URL,source locator,SOURCE-REGISTRY,official locator,CANONICAL,STRUCTURAL_SPLIT,NO,,
+MAP-0156,SEMI-SOURCE-INDEX,Keywords,search metadata,SOURCE-REGISTRY; LLM FLAT VIEW,search metadata,CANONICAL,STRUCTURAL_SPLIT,NO,,Generated flat view later.
+MAP-0157,Samsung Future Technology v1.1,__BASELINE_DISPOSITION__,Narrative technology baseline,TECHNOLOGY-BASELINE,narrative preservation; selected stable table extraction later,CANONICAL BASELINE,FORMAT_CONVERSION,NO,,P2; no forced over-structuring.
+MAP-0158,Future System Architecture v1.0,__BASELINE_DISPOSITION__,Narrative system/memory baseline,TECHNOLOGY-BASELINE,narrative preservation; selected glossary/matrix later,CANONICAL BASELINE,FORMAT_CONVERSION,NO,,P2.
+MAP-0159,CAPEX Early-Revenue Map v1.0,__BASELINE_DISPOSITION__,CAPEX timing baseline,CAPEX-BASELINE,narrative preservation; stable timing tables later,CANONICAL BASELINE,FORMAT_CONVERSION,NO,,P2.
+MAP-0160,SK Hynix CAPEX Report v0,__BASELINE_DISPOSITION__,working scenario baseline,CAPEX-BASELINE,narrative preservation; assumptions stay tagged,CANONICAL BASELINE,FORMAT_CONVERSION,NO,,P2.
+MAP-0161,TOP38 Scorecard v2.2,__BASELINE_DISPOSITION__,legacy model/score baseline,MODEL-DEFINITION; MODEL-SCORE DEFERRED,methodology may structure now; scores deferred pending PIT binding,CANONICAL / DEFERRED,STRUCTURAL_SPLIT / DEFERRED,NO,,P1; historical score promotion deferred.
