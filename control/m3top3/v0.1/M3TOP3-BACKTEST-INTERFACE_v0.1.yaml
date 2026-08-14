@@ -1,0 +1,63 @@
+interface_id: M3TOP3-BACKTEST-INTERFACE
+version: v0.1
+status: WORKING_ENGINEERING
+
+pipeline:
+  - load_exact_snapshot
+  - derive_model_input
+  - score_with_model_plugin
+  - apply_eligibility_before_ranking
+  - deterministic_rank_or_block_on_unresolved_tie_policy
+  - append_immutable_prediction
+  - build_future_outcome
+  - compute_metrics
+  - emit_validation_run_artifact
+
+interfaces:
+  UniverseProvider:
+    output: effective universe/tradability states for one snapshot date
+  PITFeatureProvider:
+    output: model-independent records filtered to publication_at <= cutoff
+  PriceProvider:
+    output: observed trading dates and OHLC rows under one immutable dataset identity
+  ModelScorer:
+    method: score(model_input) -> ScoreResult
+    requirement: model_version immutable; same PIT may be rescored by multiple versions
+  RankingEngine:
+    eligibility_before_ranking: true
+    default_tie_policy: UNRESOLVED_CONTROL
+  OutcomeBuilder:
+    window_resolver_required: true
+    future_data_visible_to_model: false
+  RiskMetric:
+    status: INTERFACE_ONLY
+    official_definition: NOT_FROZEN
+  MetricsEngine:
+    plugin_like: true
+
+prediction_ledger:
+  append_only: true
+  identity_fields: [pit_snapshot_id, model_version, company_id, rank]
+  future_outcome_mutates_prediction: false
+  collision_policy: same prediction_id + different bytes => FAIL
+
+raw_price_validation_policy:
+  canonical_validation_emit: false
+  result_status: PRELIMINARY
+  ca_status: UNADJUSTED_RAW
+  comparability: CA_PENDING
+
+canonical_price_validation_policy:
+  interface_ready: true
+  actual_cutover: false
+  prerequisite: separately authorized PRICE-CANONICAL materialization + CA gate
+
+run_metadata_required:
+  - validation_run_id
+  - snapshot_content_hash
+  - model_id
+  - model_version
+  - price_dataset_id
+  - price_source_semantics
+  - validation_protocol_version
+  - coverage counts
