@@ -1,0 +1,34 @@
+artifact_id: SEMI-ARCHITECTURE-SPEC
+artifact_version: v1.0
+status: FROZEN_ACTIVE_ARCHITECTURE_CONTRACT
+freeze_date: 2026-08-14
+freeze_decision: APPROVED
+canonical_filename: SEMI-ARCHITECTURE-SPEC_v1.0.md
+source_bundle:
+  filename: 1차.zip
+  sha256: 6029bca7c30ed9935dc183714aa5d1333483831de111fb947120f7063add3ecc
+  member_path: 1차/SEMI-ARCHITECTURE-SPEC_v1.0.md
+artifact_identity:
+  bytes: 71000
+  sha256: 2f92853d8609a13d9ecbb5bdce28221785bbf7874fadcd1f8def6f1e90a21b8d
+  git_blob_sha1_expected: 9667025517cff566cce7f5362a2ba3156a25202b
+release_manifest_reference:
+  source_member: 1차/SEMI-RELEASE-MANIFEST_v1.0.yaml
+  release_id: SEMI-CONTROL-PLANE-FREEZE-20260814-v1.0
+  architecture_sha256_matches: true
+repository_materialization:
+  target_path: control/architecture/v1.0/SEMI-ARCHITECTURE-SPEC_v1.0.md
+  exact_source_bytes_verified_in_runtime: true
+  standalone_repository_bytes_status: PENDING_EXACT_BYTE_UPLOAD
+  manifest_materialized: true
+migration_issue_resolution:
+  issue_id: MIR-001
+  original_issue_register_immutable: true
+  status: EVIDENCE_RESOLVED_PENDING_REPOSITORY_BYTE_COMMIT
+  resolution_basis: standalone frozen artifact and SHA-256 located and independently verified from frozen source bundle
+immutability_policy:
+  frozen_artifact_must_not_be_overwritten: true
+  changes_require_new_architecture_version: true
+  materialization_must_not_change_semantics: true
+canonical_cutover: NOT_PERFORMED
+actual_data_migration: NOT_PERFORMED
