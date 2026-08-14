@@ -1,0 +1,67 @@
+name: Materialize Migration Package v1.0
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/materialize-migration-v1.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Reconstruct and verify frozen Migration Package v1.0
+        shell: bash
+        run: |
+          set -euo pipefail
+          base='control/migration/v1.0'
+          stage="$base/.materialization"
+
+          cat \
+            "$stage/migration-v1.tar.gz.b64.part00" \
+            "$stage/migration-v1.tar.gz.b64.part01" \
+            "$stage/migration-v1.tar.gz.b64.part02" \
+            "$stage/migration-v1.tar.gz.b64.part03" \
+            "$stage/migration-v1.tar.gz.b64.part04" \
+            "$stage/migration-v1.tar.gz.b64.part05" \
+            | tr -d '\r\n' | base64 -d > /tmp/migration-v1.tar.gz
+
+          echo 'f927f3f439ab48c0ac65f15cce6b8afaba0edf6b15155e937f4e22ace741779d  /tmp/migration-v1.tar.gz' | sha256sum -c -
+          tar -xzf /tmp/migration-v1.tar.gz -C "$base"
+
+          echo 'dcb095931bc2271fc41727362e4864f2a5d588203de6c33bf2f4df12083c9677  control/migration/v1.0/SEMI-MIGRATION-INVENTORY_v1.0.csv' | sha256sum -c -
+          echo '4d1525848f27c6389a0f6f7dac8b6518c1feed6584716535a7418c983476774e  control/migration/v1.0/SEMI-MIGRATION-MANIFEST_v1.0.csv' | sha256sum -c -
+          echo 'eea8609827903b3cecb8e65cbb080977935c5f823249c69e201280a22d659c9a  control/migration/v1.0/SEMI-LEGACY-TO-CANONICAL-MAP_v1.0.csv' | sha256sum -c -
+          echo 'a2b21443fd0c9663a2c94cf9c0e983b9d460591ace79663e87c994a0c86a9e65  control/migration/v1.0/SEMI-MIGRATION-ISSUE-REGISTER_v1.0.csv' | sha256sum -c -
+          echo '875295c79c317e45dc638a8522baefb744c5741644e2c3f8614133e71f65415d  control/migration/v1.0/SEMI-LEGACY-HASH-MANIFEST_v1.0.csv' | sha256sum -c -
+
+          test "$(wc -c < control/migration/v1.0/SEMI-MIGRATION-INVENTORY_v1.0.csv)" -eq 10364
+          test "$(wc -c < control/migration/v1.0/SEMI-MIGRATION-MANIFEST_v1.0.csv)" -eq 10034
+          test "$(wc -c < control/migration/v1.0/SEMI-LEGACY-TO-CANONICAL-MAP_v1.0.csv)" -eq 26615
+          test "$(wc -c < control/migration/v1.0/SEMI-MIGRATION-ISSUE-REGISTER_v1.0.csv)" -eq 3038
+          test "$(wc -c < control/migration/v1.0/SEMI-LEGACY-HASH-MANIFEST_v1.0.csv)" -eq 3755
+
+      - name: Commit exact frozen bytes
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'semiconductor-research materializer'
+          git config user.email 'actions@users.noreply.github.com'
+          git add \
+            control/migration/v1.0/SEMI-MIGRATION-INVENTORY_v1.0.csv \
+            control/migration/v1.0/SEMI-MIGRATION-MANIFEST_v1.0.csv \
+            control/migration/v1.0/SEMI-LEGACY-TO-CANONICAL-MAP_v1.0.csv \
+            control/migration/v1.0/SEMI-MIGRATION-ISSUE-REGISTER_v1.0.csv \
+            control/migration/v1.0/SEMI-LEGACY-HASH-MANIFEST_v1.0.csv
+          if git diff --cached --quiet; then
+            echo 'Migration Package v1.0 already materialized with identical bytes.'
+            exit 0
+          fi
+          git commit -m 'Materialize frozen Migration Package v1.0 exact bytes'
+          git push
