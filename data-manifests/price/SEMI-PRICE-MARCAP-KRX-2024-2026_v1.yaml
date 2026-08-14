@@ -1,0 +1,109 @@
+dataset_id: SEMI-PRICE-MARCAP-KRX-2024-2026_v1
+dataset_version: v1
+dataset_status: RAW_IMMUTABLE_IDENTITY_VERIFIED
+control_record_status: ACTIVE
+gate: G1-G
+created_at: '2026-08-15T03:16:00+09:00'
+provider: FinanceData / marcap
+provenance: KRX-derived yearly Parquet
+market: KRX
+format: Parquet
+storage_class: DATA_PLANE
+schema_reference:
+  canonical_target_schema: control/schemas/v0.1/price.schema.yaml
+  schema_id: SEMI-PRICE-SCHEMA
+  schema_version: v0.1
+  role: DOWNSTREAM_PRICE_CANONICAL_CONTRACT
+  raw_provider_shape_status: PRESERVED_PROVIDER_RAW; not asserted to conform to PRICE-CANONICAL before normalization/audit
+component_count: 3
+coverage:
+  '2024': calendar year 2024 provider file
+  '2025': calendar year 2025 provider file
+  '2026': 2026 YTD provider file as captured in Frozen Migration Inventory
+components:
+- filename: marcap-2024.parquet
+  year: 2024
+  bytes: 24572111
+  sha256: b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb
+  hash_verification_status: PASS
+  byte_location_status: RUNTIME_LOCATED
+  runtime_observation: runtime bytes present and SHA-256 reverified at G1-G; runtime path is not stored as a stable locator
+  stable_storage_locator: PENDING_DATA_PLANE
+- filename: marcap-2025.parquet
+  year: 2025
+  bytes: 25153419
+  sha256: 2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e
+  hash_verification_status: PASS
+  byte_location_status: RUNTIME_LOCATED
+  runtime_observation: runtime bytes present and SHA-256 reverified at G1-G; runtime path is not stored as a stable locator
+  stable_storage_locator: PENDING_DATA_PLANE
+- filename: marcap-2026.parquet
+  year: 2026
+  bytes: 16198533
+  sha256: 5da710a2fc56f8fe9b1f5126295cc30c3b15c0ee35d28ba808a505ec4a2243c1
+  hash_verification_status: PASS
+  byte_location_status: RUNTIME_LOCATED
+  runtime_observation: runtime bytes present and SHA-256 reverified at G1-G; runtime path is not stored as a stable locator
+  stable_storage_locator: PENDING_DATA_PLANE
+dataset_hash_rule:
+  rule: For each component use filename + " " + file_sha256; order by year 2024, 2025, 2026; join lines with LF; SHA-256 the
+    resulting UTF-8 bytes.
+  trailing_newline: false
+  dataset_identity_sha256: 419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7
+  overwrite_policy: Any component byte/hash change requires a new dataset version/release; do not overwrite this dataset identity.
+interface_manifest_protocol_hash: 56d36d51e9f7b8870aa75cc41ee241603f6cf7446cb2386187c6ebcbb88b73c4
+interface_manifest_protocol_fixed: true
+interface_manifest_bytes_verified: false
+interface_manifest_bytes_status: STANDALONE_IMMUTABLE_BYTES_NOT_VERIFIED_AT_G1_G
+price_protocol:
+  protocol_id: M3TOP3_WINNER_PRICE_PROTOCOL
+  control_plane_reference: SEMI-CR-20260814-001 / Dependency B = M3TOP3 MODEL VALIDATION / RESOLVED
+  repository_artifact_status: NOT_MATERIALIZED_AT_G1_G
+  binding_summary:
+  - Entry = first trading day Open after Window Start
+  - MFE = Entry trading day through Window End valid High maximum
+  - Comparable-price corporate-action adjustment = evidence-backed only
+  - Provider mixing = prohibited
+  note: No standalone repository protocol artifact was found at G1-G; this manifest binds only the approved price principles
+    and does not create a new model release.
+corporate_action_protocol_reference:
+  schema: control/schemas/v0.1/price.schema.yaml
+  rule_ids:
+  - PRI-C04
+  - PRI-C08
+  - PRI-C09
+  - PRI-A04
+  - PRI-A06
+  policy: Evidence-backed only; no adjustment is inferred from share-count discontinuity alone.
+provider_mixing_allowed: false
+legacy_price_linkage:
+  registry: manifests/legacy/legacy-artifact-registry.yaml
+  schema_asset:
+    legacy_artifact_id: INV-009
+    filename: SEMI-PRICE-LEDGER_v1.0_SCHEMA.csv
+    policy: Historical Legacy identity only; do not rewrite.
+  import_manifest_asset:
+    legacy_artifact_id: INV-010
+    filename: SEMI-PRICE-LEDGER_IMPORT-MANIFEST_v1.0.csv
+    policy: Historical Legacy identity only; do not rewrite.
+  blocked_audit_asset:
+    legacy_artifact_id: INV-011
+    filename: SEMI-PRICE-LEDGER_v1.0_INGEST-AUDIT_BLOCKED_2026-08-14.csv
+    policy: Historical BLOCKED audit remains immutable; current component availability does not rewrite the historical failure
+      record.
+canonical_status: NOT_YET_CUT_OVER
+raw_semantics: RAW_IMMUTABLE
+normalization_audit_status: NOT_PERFORMED
+price_canonical_materialization_status: NOT_PERFORMED
+data_plane_permanent_byte_materialization: PENDING
+scope_restrictions:
+  parquet_git_commit: false
+  runtime_path_as_permanent_locator: false
+  legacy_audit_overwrite: false
+  canonical_price_cutover: false
+  actual_price_migration: false
+  universe_release_activation: false
+  model_release_activation: false
+  architecture_change: false
+  schema_change: false
+next_gate: DATA PLANE PERMANENT STORAGE DECISION or repository cleanup / bootstrap gate
