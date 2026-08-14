@@ -1,0 +1,186 @@
+contract_id: SEMI-DATA-PLANE-STORAGE-CONTRACT
+contract_version: v1.0
+status: DRAFT / STORAGE_PROVIDER_PENDING
+gate: G1-H
+project_id: semiconductor-research
+repository: AofSpds/semiconductor-research
+created_at: '2026-08-15T03:24:00+09:00'
+
+purpose: >-
+  Define the permanent large-byte DATA PLANE storage interface, locator contract,
+  immutability, verification, security, and backup requirements. This contract is
+  Control Plane metadata only. G1-H performs no byte upload, canonical cutover,
+  normalization, or actual migration.
+
+control_plane_boundary:
+  git_role: rules / schemas / manifests / hashes / control records / small structured data / bootstrap
+  data_plane_role: large raw documents / binary source archive / parquet / large PIT and history partitions / validation and analytical datasets
+  invariant: Git != DATA PLANE
+  parquet_git_commit: PROHIBITED
+
+storage_interface:
+  interface: S3_COMPATIBLE_OBJECT_STORAGE
+  provider: PENDING_USER_DECISION
+  provider_account: NOT_ASSUMED
+  endpoint: PENDING_PROVIDER_SELECTION
+  required_capabilities:
+    - PERSISTENT
+    - PRIVATE
+    - VERSION_IDENTIFIABLE
+    - STABLE_OBJECT_LOCATOR
+    - PROGRAMMATIC_READ_WRITE
+    - SHA256_VERIFICATION
+    - IMMUTABLE_FROZEN_OBJECT_PRESERVATION
+    - BACKUP_RECOVERY_CAPABLE
+    - MULTI_DEVICE_ACCESSIBLE
+    - PARQUET_BYTE_PRESERVING
+    - DUCKDB_ANALYTICS_COMPATIBLE
+
+privacy_and_security:
+  public_access: PROHIBITED
+  private_access: REQUIRED
+  credentials_in_repository: PROHIBITED
+  secrets_in_manifest: PROHIBITED
+  access_keys_in_manifest: PROHIBITED
+  signed_urls_in_manifest: PROHIBITED
+  secret_bearing_locator: PROHIBITED
+  credential_storage: OUT_OF_BAND_SECRET_STORE_OR_RUNTIME_SECRET_INJECTION
+
+storage_classes:
+  raw:
+    prefix: raw/
+    meaning: source bytes / provider originals / immutable raw inputs
+  canonical:
+    prefix: canonical/
+    meaning: validated canonical large partitions after an authorized canonicalization/cutover gate
+  snapshots:
+    prefix: snapshots/
+    meaning: PIT snapshot large datasets and snapshot partitions
+  validation:
+    prefix: validation/
+    meaning: M3 backtest outcomes, validation datasets, and derived evaluation data
+  archive:
+    prefix: archive/
+    meaning: superseded or historical binary source archives retained for lineage
+
+stable_locator_contract:
+  authority: MACHINE_LOCATOR
+  runtime_paths_are_stable_locators: false
+  canonical_locator_components:
+    - provider_id
+    - bucket_or_container
+    - immutable_object_key
+  provider_neutral_machine_locator_format: 'object://<provider_id>/<bucket_or_container>/<immutable_object_key>'
+  provider_native_locator: MAY_BE_ADDED_AFTER_PROVIDER_SELECTION
+  human_display_url_authority: false
+  secret_material_allowed: false
+  pending_state: PENDING_DATA_PLANE
+  rule: >-
+    A stable locator is established only after provider selection, bucket/container
+    creation, immutable object-key assignment, successful byte materialization,
+    and post-upload verification. Temporary runtime locations such as /mnt/data
+    MUST NOT be promoted to stable locators.
+
+object_key_contract:
+  requirements:
+    - deterministic logical hierarchy
+    - dataset/version identity embedded where applicable
+    - original component filename preserved where applicable
+    - no credential or signed token material
+  price_dataset_template: 'raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/<component_filename>'
+  minimal_hierarchy_only: true
+
+immutability_contract:
+  frozen_overwrite: PROHIBITED
+  same_dataset_id_changed_bytes: PROHIBITED
+  changed_bytes_policy: NEW_DATASET_VERSION_OR_RELEASE_REQUIRED
+  sha256_is_identity_authority: true
+  filename_identity_sufficient: false
+  provider_side_versioning: REQUIRED_CAPABILITY
+  provider_side_immutability_or_equivalent_retention: REQUIRED_FOR_FROZEN_OBJECTS
+  deletion_policy: FROZEN_OBJECT_DELETION_REQUIRES_EXPLICIT_CHANGE_CONTROL_AND_RECOVERY_SAFEGUARD
+
+verification_contract:
+  materialization_verified_requires:
+    - source_or_local_sha256_computed_or_authoritatively_known
+    - upload_completed
+    - remote_byte_retrieval_or_trusted_remote_checksum_verification
+    - remote_sha256_matches_authoritative_sha256
+    - stable_locator_recorded_in_control_manifest
+  upload_complete_equals_materialized_verified: false
+  hash_algorithm: SHA-256
+  mismatch_policy: FAIL_AND_DO_NOT_PROMOTE_LOCATOR_OR_STATUS
+  recovery_verification: SHA-256
+
+backup_contract:
+  frozen_control_metadata: Git
+  large_bytes: DATA_PLANE
+  hash_identity: Git
+  recovery_verification: SHA-256
+  secondary_backup_provider: PENDING
+  backup_policy: REQUIRED_BEFORE_CANONICAL_CUTOVER
+  canonical_cutover_allowed_without_backup_policy_satisfied: false
+
+analytics_contract:
+  parquet_byte_preservation: REQUIRED
+  duckdb_direct_or_downloaded_object_access_compatibility: REQUIRED
+  provider_mixing_for_single_frozen_dataset: PROHIBITED_UNLESS_EXPLICIT_NEW_DATASET_RELEASE
+
+price_dataset_binding:
+  dataset_id: SEMI-PRICE-MARCAP-KRX-2024-2026_v1
+  dataset_manifest: data-manifests/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1.yaml
+  hash_record: manifests/hashes/price-dataset-v1.sha256
+  dataset_identity_sha256: 419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7
+  current_stable_locator_state: PENDING_DATA_PLANE
+  target_logical_path: raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/
+  components:
+    - filename: marcap-2024.parquet
+      sha256: b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb
+      target_object_key: raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/marcap-2024.parquet
+    - filename: marcap-2025.parquet
+      sha256: 2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e
+      target_object_key: raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/marcap-2025.parquet
+    - filename: marcap-2026.parquet
+      sha256: 5da710a2fc56f8fe9b1f5126295cc30c3b15c0ee35d28ba808a505ec4a2243c1
+      target_object_key: raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/marcap-2026.parquet
+  identity_change_authorized: false
+  byte_upload_performed_by_g1_h: false
+
+future_data_classes:
+  legacy_docx_binary_source_archive:
+    preferred_storage_class: archive/
+  raw_provider_datasets:
+    preferred_storage_class: raw/
+  large_pit_partitions:
+    preferred_storage_class: snapshots/
+  large_evidence_event_history:
+    preferred_storage_class: canonical/
+    note: only after canonicalization is separately authorized
+  validation_datasets:
+    preferred_storage_class: validation/
+  generated_large_analytical_datasets:
+    preferred_storage_class: validation/
+    note: classification may be refined by a later approved control record without changing Architecture v1.0
+
+promotion_gates:
+  provider_selection_required_before_freeze: true
+  provider_and_locator_contract_approval_required_before_freeze: true
+  hash_record_creation: AT_FREEZE_ONLY
+  g1_i_byte_materialization_allowed_before_provider_selection: false
+  g1_i_post_upload_manifest_locator_update_required: true
+
+scope_restrictions:
+  actual_byte_upload: false
+  git_parquet_upload: false
+  canonical_cutover: false
+  price_normalization: false
+  actual_migration: false
+  cleanup: false
+  architecture_change: false
+  schema_change: false
+  existing_hash_change: false
+  runtime_path_promotion: false
+
+next_gate:
+  if_provider_selected: G1-I DATA PLANE BYTE MATERIALIZATION
+  otherwise: PROVIDER SELECTION REQUIRED
