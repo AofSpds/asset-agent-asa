@@ -1,0 +1,48 @@
+project_id: semiconductor-research
+repository: AofSpds/semiconductor-research
+default_branch: main
+visibility: PRIVATE
+architecture:
+  artifact_id: SEMI-ARCHITECTURE-SPEC
+  active_version: v1.0
+  status: FROZEN_ACTIVE
+  repository_path: control/architecture/v1.0/SEMI-ARCHITECTURE-SPEC_v1.0.md
+  manifest_path: control/architecture/v1.0/ARCHITECTURE-MANIFEST.yaml
+  active_descriptor: manifests/active/architecture.yaml
+  hash_record: manifests/hashes/architecture-v1.0.sha256
+  sha256: 2f92853d8609a13d9ecbb5bdce28221785bbf7874fadcd1f8def6f1e90a21b8d
+  git_blob_sha1: 9667025517cff566cce7f5362a2ba3156a25202b
+schema_registry:
+  artifact_id: SEMI-SCHEMA-REGISTRY
+  active_version: v0.1
+  status: FROZEN_ACTIVE_BASELINE
+  repository_path: control/schemas/v0.1/
+  manifest_path: control/schemas/v0.1/REGISTRY-MANIFEST.yaml
+  active_descriptor: manifests/active/schema-registry.yaml
+  hash_record: manifests/hashes/schema-registry-v0.1.sha256
+  sha256: 57916b73d86de7bef0f22ed5d733a32a70e726c1bffed6499503afb0ea57ccf6
+  component_hash_manifest_sha256: 1ae7f10d6642ecc22bc96b3750371d566371d8d47edb64519e28c24b8a17c5ba
+  schema_count: 14
+migration_package:
+  artifact_id: SEMI-MIGRATION-PACKAGE
+  version: v1.0
+  status: FROZEN
+  materialization_status: MATERIALIZED_VERIFIED
+  repository_path: control/migration/v1.0/
+  manifest_path: control/migration/v1.0/MIGRATION-PACKAGE-MANIFEST.yaml
+  hash_record: manifests/hashes/migration-package-v1.0.sha256
+  component_hash_manifest_sha256: 43e20219fd69a04b94199d38d99828855e8a44e339ad9ee59ee87e21c3eb5faa
+repository_release_record:
+  path: manifests/releases/repository-materialization-v1.0.yaml
+  sha256: 0c5d79834b31374bab03d8d74a07eccfd8319d73b97f9b239a839776ec9d235e
+  status: FROZEN_RECORD
+canonical_data_cutover: false
+actual_data_migration: false
+current_universe_release:
+  status: NOT_AVAILABLE
+  reason: No canonical Universe Release is active before canonical cutover.
+current_model_release:
+  status: NOT_AVAILABLE
+  reason: No model release is activated by repository materialization.
+historical_frozen_manifest_policy: PRESERVE; never rewrite historical frozen manifests to reflect current repository state.
+updated_at: '2026-08-15T02:51:00+09:00'
