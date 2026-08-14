@@ -1,0 +1,226 @@
+audit_id: SEMI-PRICE-CANONICAL-DRY-RUN-D0-D3
+version: v0.2
+status: WORKING_AUDIT_RESULT
+executed_at: '2026-08-15T06:49:00+09:00'
+project_id: semiconductor-research
+repository: AofSpds/semiconductor-research
+
+history:
+  preserves: control/data-plane/PRICE-CANONICAL-DRY-RUN-AUDIT_D0-D3_v0.1.yaml
+  overwrite_of_v0_1: false
+  purpose_of_v0_2: reproducible engineering rerun with committed code, reason-code engine, row disposition, tests, and D4 interface
+
+implementation_reference:
+  control_record: control/data-plane/PRICE-ENGINEERING-DRYRUN-IMPLEMENTATION_v0.1.yaml
+  code_commit: a02145cabf0c057591adf4098b630fca3a6453dc
+  engine: tools/price/price_canonical_dryrun.py
+  execution_id: 6fb57dd2609298d30398950c
+
+source_dataset:
+  dataset_id: SEMI-PRICE-MARCAP-KRX-2024-2026_v1
+  dataset_identity_sha256: 419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7
+  raw_semantics: RAW_IMMUTABLE/PRESERVED_RAW
+  primary_copy: Amazon S3 MATERIALIZED_VERIFIED
+  secondary_copy: Cloudflare R2 MATERIALIZED_VERIFIED
+  backup_policy: SATISFIED
+  source_byte_identity_changed: false
+  components:
+    '2024':
+      filename: marcap-2024.parquet
+      bytes: 24572111
+      sha256: b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb
+      hash_gate: PASS
+      rows: 687708
+      trading_dates: 244
+      date_min: '2024-01-02'
+      date_max: '2024-12-30'
+      distinct_codes: 2928
+      date_source_precision: ns
+      ohlc_normal: 656995
+      zero_ohl_no_trade_metrics: 30711
+      zero_ohl_with_trade_metrics: 2
+      other_ohlc_inconsistency: 0
+    '2025':
+      filename: marcap-2025.parquet
+      bytes: 25153419
+      sha256: 2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e
+      hash_gate: PASS
+      rows: 696524
+      trading_dates: 242
+      date_min: '2025-01-02'
+      date_max: '2025-12-30'
+      distinct_codes: 2985
+      date_source_precision: ns
+      ohlc_normal: 664832
+      zero_ohl_no_trade_metrics: 31691
+      zero_ohl_with_trade_metrics: 1
+      other_ohlc_inconsistency: 0
+    '2026':
+      filename: marcap-2026.parquet
+      bytes: 16198533
+      sha256: 5da710a2fc56f8fe9b1f5126295cc30c3b15c0ee35d28ba808a505ec4a2243c1
+      hash_gate: PASS
+      rows: 434915
+      trading_dates: 151
+      date_min: '2026-01-02'
+      date_max: '2026-08-13'
+      distinct_codes: 2944
+      date_source_precision: us
+      ohlc_normal: 413209
+      zero_ohl_no_trade_metrics: 21705
+      zero_ohl_with_trade_metrics: 1
+      other_ohlc_inconsistency: 0
+    total_rows: 1819147
+
+D0_structural:
+  status: PASS_WITH_PHYSICAL_METADATA_DRIFT
+  expected_column_count: 18
+  logical_column_set_equal_across_components: true
+  required_mapping_inputs_present: true
+  date_physical_precision_drift: '2024/2025 ns; 2026 us'
+
+D1_normalization:
+  status: PASS
+  date_null_rows: 0
+  date_target: YYYY-MM-DD
+  deterministic_ns_us_conversion: PASS
+  code_null_rows: 0
+  code_lexical_failures: 0
+  code_policy: six-character uppercase alphanumeric string; numeric-only validation prohibited; leading zeros preserved
+  numeric_nonfinite_rows: 0
+  volume_nonintegral_rows: 0
+  exact_decimal_value_preservation: PASS
+  exact_decimal_roundtrip_failures: 0
+  final_decimal_precision_scale_invented: false
+
+D2_key_and_ohlc:
+  status: BLOCKED_ON_OHLC_SEMANTICS
+  duplicate_date_code_rows: 0
+  required_ohlc_null_rows: 0
+  classifications:
+    OHLC_CLASS_NORMAL: 1735036
+    OHLC_CLASS_ZERO_OHL_NO_TRADE_METRICS: 84107
+    OHLC_CLASS_ZERO_OHL_WITH_TRADE_METRICS: 4
+    OHLC_CLASS_OTHER_INCONSISTENCY: 0
+    total: 1819147
+  dominant_zero_pattern:
+    disposition: CLASSIFIED_PENDING_SEMANTICS
+    rows: 84107
+    trading_status_inferred: false
+    corporate_action_inferred: false
+  exceptional_zero_pattern:
+    disposition: QUARANTINE
+    reason_code: PRICE-Q006
+    rows: 4
+    records:
+      - {date: '2024-03-28', code: '001527', name: '동양2우B', close: 11480, volume: 2, amount: 23060, source_row_reference: '2024:167532'}
+      - {date: '2024-12-30', code: '076340', name: '관악산업', close: 5590, volume: 35536, amount: 177680000, source_row_reference: '2024:687293'}
+      - {date: '2025-03-21', code: '145210', name: '다이나믹디자인', close: 1126, volume: 1015, amount: 1142890, source_row_reference: '2025:148670'}
+      - {date: '2026-05-08', code: '403360', name: '라피치', close: 6900, volume: 11000, amount: 79200000, source_row_reference: '2026:244862'}
+
+quarantine_reason_code_engine:
+  implemented: true
+  codes:
+    PRICE-Q001: MISSING_REQUIRED_DATE
+    PRICE-Q002: MISSING_REQUIRED_CODE
+    PRICE-Q003: DUPLICATE_DATE_CODE
+    PRICE-Q004: MISSING_REQUIRED_OHLC
+    PRICE-Q005: OHLC_OTHER_INCONSISTENCY
+    PRICE-Q006: ZERO_OHL_WITH_TRADE_METRICS_REQUIRES_ADJUDICATION
+    PRICE-Q007: NUMERIC_NONFINITE
+    PRICE-Q008: VOLUME_NONINTEGRAL
+    PRICE-Q009: CODE_LEXICAL_CORRUPTION
+    PRICE-Q010: COMPANY_ID_FOREIGN_KEY_FAILURE
+    PRICE-Q011: RAW_LINEAGE_UNRESOLVED
+    PRICE-Q012: CA_EVIDENCE_REQUIRED
+    PRICE-Q013: CA_EVIDENCE_UNRESOLVED
+    PRICE-Q014: UNSUPPORTED_NUMERIC_ROUNDING_REQUIRED
+  observed_counts:
+    PRICE-Q001: 0
+    PRICE-Q002: 0
+    PRICE-Q003: 0
+    PRICE-Q004: 0
+    PRICE-Q005: 0
+    PRICE-Q006: 4
+    PRICE-Q007: 0
+    PRICE-Q008: 0
+    PRICE-Q009: 0
+    PRICE-Q010: NOT_EVALUATED_WITHOUT_EXECUTABLE_U127_MAPPING_BYTES
+    PRICE-Q011: 0
+    PRICE-Q012: NOT_EXECUTED_D4
+    PRICE-Q013: NOT_EXECUTED_D4
+    PRICE-Q014: 0
+  quarantine_total_rows: 4
+
+row_preservation:
+  source_rows: 1819147
+  transformed_pass_rows: 1735036
+  classified_pending_rows: 84107
+  quarantined_rows: 4
+  equation: '1819147 = 1735036 + 84107 + 4'
+  check: PASS
+  silent_row_drop: false
+
+lineage:
+  raw_storage_ref_check: PASS
+  raw_provider: FinanceData / marcap
+  provider_mixing: false
+
+D3_company_id_mapping:
+  status: WAITING_FOR_WORKBOOK_BYTES
+  latest_reported_research_version: v0.8
+  expected_workbook: U127_Data_Expansion_Working_v0.8_2026-08-15.xlsx
+  executable_v0_8_bytes_available_in_runtime: false
+  fabricated_from_reported_counts: false
+  executable_mapping_refresh_performed: false
+  listing_boundary_refresh_performed: false
+  foreign_key_failure_count: NOT_EVALUATED_WITHOUT_EXECUTABLE_MAPPING_BYTES
+  prior_v0_1_control_baseline:
+    company_id_binding_reported: 127/127
+    executable_mapping_version_used_then: v0.7
+    v0_7_resolved_listing_dates: 58
+    v0_7_rows_before_resolved_listing_date: 0
+  latest_v0_8_report_only:
+    company_id_binding: 127/127
+    listing_date_coverage: 68/127
+    verified_effective_history_companies: 59/127
+    protocol_certified_bp_cells: 473/1016
+    bp_populated_cells: 489/1016
+  next_requirement: rerun D3 when actual v0.8 or later workbook bytes are available
+
+D4_corporate_action_interface:
+  implementation_status: READY
+  execution_status: NOT_EXECUTED
+  CA_completeness_gate: PENDING_FINAL_SCAN
+  evidence_free_adjustment: PROHIBITED
+  control_rules: [PRI-C04, PRI-C08, PRI-C09, PRI-A04, PRI-A06]
+
+unit_tests:
+  status: PASS
+  passed: 16
+  total: 16
+
+performance:
+  full_rows: 1819147
+  elapsed_seconds_with_row_issue_output_and_tests: 10.28
+  max_rss_kb: 595908
+  correctness_priority_over_performance: true
+
+exit:
+  overall_status: D0_D1_REPRODUCED_PASS__D2_REPRODUCED_BLOCKED_SEMANTICS__D3_WAITING_BYTES
+  canonical_promotion_allowed: false
+  canonical_materialization_performed: false
+  canonical_dataset_id_assigned: false
+  canonical_cutover_performed: false
+  raw_bytes_changed: false
+  price_dataset_identity_changed: false
+  blockers:
+    - CA Completeness Gate pending
+    - OHLC zero-OHL semantics final rule not yet approved
+    - four zero-OHL/nonzero-trade rows require CA/source adjudication
+    - D3 latest v0.8 workbook refresh requires actual bytes
+    - D4 not executed
+    - D5 final audit not executed
+  user_decision_required: NONE
+  architecture_change: NONE
+  schema_change_request: NONE
