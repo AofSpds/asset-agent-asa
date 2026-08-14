@@ -1,0 +1,51 @@
+name: Materialize Architecture v1.0
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/materialize-architecture-v1.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Reconstruct and verify frozen Architecture v1.0
+        shell: bash
+        run: |
+          set -euo pipefail
+          base='control/architecture/v1.0'
+          artifact="$base/SEMI-ARCHITECTURE-SPEC_v1.0.md"
+
+          cat \
+            "$base/.materialization/architecture.md.gz.b64.part01" \
+            "$base/.materialization/architecture.md.gz.b64.part02" \
+            "$base/.materialization/architecture.md.gz.b64.part03" \
+            "$base/.materialization/architecture.md.gz.b64.part04" \
+            | tr -d '\r\n' | base64 -d > /tmp/architecture.md.gz
+
+          echo '044b14c65114e38211d21bbf3fcd9801caa1f37f87c9fbae1b95f7e03028e206  /tmp/architecture.md.gz' | sha256sum -c -
+          gzip -dc /tmp/architecture.md.gz > "$artifact"
+          echo "2f92853d8609a13d9ecbb5bdce28221785bbf7874fadcd1f8def6f1e90a21b8d  $artifact" | sha256sum -c -
+          test "$(wc -c < "$artifact")" -eq 71000
+
+      - name: Commit exact frozen bytes
+        shell: bash
+        run: |
+          set -euo pipefail
+          artifact='control/architecture/v1.0/SEMI-ARCHITECTURE-SPEC_v1.0.md'
+          git config user.name 'semiconductor-research materializer'
+          git config user.email 'actions@users.noreply.github.com'
+          git add "$artifact"
+          if git diff --cached --quiet; then
+            echo 'Artifact already materialized with identical bytes.'
+            exit 0
+          fi
+          git commit -m 'Materialize frozen Architecture v1.0 exact bytes'
+          git push
