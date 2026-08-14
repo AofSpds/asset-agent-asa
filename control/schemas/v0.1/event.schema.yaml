@@ -1,0 +1,227 @@
+schema_id: SEMI-EVENT-SCHEMA
+schema_version: v0.1
+status: FROZEN
+architecture_reference:
+  artifact: SEMI-ARCHITECTURE-SPEC_v1.0.md
+  version: v1.0
+  status: FROZEN / ACTIVE ARCHITECTURE
+migration_package_reference:
+  inventory: SEMI-MIGRATION-INVENTORY_v1.0.csv
+  manifest: SEMI-MIGRATION-MANIFEST_v1.0.csv
+  legacy_to_canonical_map: SEMI-LEGACY-TO-CANONICAL-MAP_v1.0.csv
+  issue_register: SEMI-MIGRATION-ISSUE-REGISTER_v1.0.csv
+  status: FROZEN v1.0
+logical_object: EVENT
+description: Append-only ledger for discrete economic/state changes. Periodic observations are not forced through Event.
+logical_key:
+  logical_event:
+  - event_id
+  record_identity:
+  - event_record_id
+write_policy: Append-only; correction/cancellation creates new event_record_id with stable event_id, record_revision, and
+  supersedes_ref.
+version_policy:
+  breaking_change: new schema_version
+  event_correction: record_revision/supersession
+dependencies:
+- company.schema.yaml
+- fab.schema.yaml
+- evidence.schema.yaml
+type_policy:
+  identifier: string; never integer
+  krx_code: string; preserve leading zero
+  datetime: timezone-aware ISO-8601; default operational timezone Asia/Seoul
+  date: YYYY-MM-DD
+  date_or_datetime_tz: either YYYY-MM-DD when only date precision is evidenced, or timezone-aware ISO-8601 when exact time
+    is evidenced; never invent an intraday time
+  decimal: exact decimal semantics; persistent binary floating point is prohibited
+  decimal_precision: precision/scale is not invented by this contract; physical implementation must preserve source precision
+    and pass audit
+  'null': field not applicable or value absent for this record
+  NOT_FOUND: Evidence.status only; retrieval failure and never numeric zero/FALSE
+  UNKNOWN: only when an explicit field enum defines UNKNOWN
+  zero: actual numeric zero
+  empty_string: MUST NOT substitute for NULL, NOT_FOUND, UNKNOWN, or 0
+nullable_policy:
+  rule: Nullable is field-specific. NULL does not mean NOT_FOUND, UNKNOWN, FALSE, or 0.
+  historical_valid_from: If historical effective start is unsupported by evidence, valid_from remains NULL and provenance/status
+    records the non-inference.
+fields:
+- name: event_record_id
+  type: string
+  nullable: false
+  description: Immutable physical Event record ID.
+- name: event_id
+  type: string
+  nullable: false
+  description: Stable logical economic Event identity across corrections.
+- name: entity_type
+  type: enum
+  nullable: false
+  description: Primary Event entity domain. Only domains with an actual canonical entity registry in this Schema Registry
+    are allowed. CUSTOMER and TECHNOLOGY are not permitted as unresolved entity_type values.
+  enum:
+  - COMPANY
+  - FAB
+- name: entity_id
+  type: string
+  nullable: false
+  description: Identifier within the applicable entity domain.
+- name: event_type
+  type: string
+  nullable: false
+  description: Extensible discrete economic/state-change type. Core values are defined by event_type_contract; additional
+    values are permitted only for genuinely discrete events with explicit event_type_definition.
+- name: event_type_definition
+  type: string
+  nullable: true
+  description: Required semantic definition when event_type is not one of event_type_contract.core_values.
+  required_when: event_type is not one of event_type_contract.core_values
+- name: event_effective_at
+  type: datetime_tz
+  nullable: true
+  description: Exact Event effective timestamp when known.
+- name: event_effective_date
+  type: date
+  nullable: true
+  description: Date-level effective date when exact time is unknown.
+- name: recorded_at
+  type: datetime_tz
+  nullable: false
+  description: Time this Event record is written.
+- name: record_revision
+  type: integer
+  nullable: false
+  description: Correction revision; initial 0.
+  default: 0
+- name: supersedes_ref
+  type: string
+  nullable: true
+  description: Prior event_record_id superseded by this correction/cancellation.
+- name: ingest_idempotency_key
+  type: string
+  nullable: true
+  description: Deterministic key preventing duplicate ingestion of the same input.
+- name: event_fingerprint
+  type: string
+  nullable: false
+  description: Similarity/economic-identity fingerprint across distinct Evidence.
+- name: evidence_refs
+  type: array[string]
+  nullable: true
+  description: N:M-capable Evidence references.
+- name: schema_version
+  type: string
+  nullable: false
+  description: Schema version.
+  default: v0.1
+constraints:
+- id: EVT-C01
+  severity: ERROR
+  rule: Event is for discrete economic/state change. Price, Consensus, Valuation, and regular periodic observations must be
+    able to feed PIT without creating Event records.
+- id: EVT-C02
+  severity: ERROR
+  rule: 'ingest_idempotency_key and event_fingerprint have different purposes: ingestion deduplication vs possible economic-event
+    identity.'
+- id: EVT-C03
+  severity: ERROR
+  rule: A matching event_fingerprint alone must not force a merge; economic identity requires validation.
+- id: EVT-C04
+  severity: ERROR
+  rule: Multiple Evidence references confirming one economic Event must not multiply economic quantity.
+- id: EVT-C05
+  severity: ERROR
+  rule: If event_effective_at is populated it must be timezone-aware; if only date precision is known, event_effective_date
+    may be used without inventing a time.
+- id: EVT-C06
+  severity: ERROR
+  rule: 'entity_type must resolve to an actual canonical entity domain: COMPANY resolves to company.schema.yaml COMPANY-IDENTITY.company_id;
+    FAB resolves to fab.schema.yaml FAB-IDENTITY.fab_id. CUSTOMER/TECHNOLOGY must not appear as unresolved entity_type values.'
+- id: EVT-C07
+  severity: ERROR
+  rule: event_type is extensible rather than a closed enum. SHIPMENT, ACCEPTANCE, and REVENUE_RECOGNITION are valid core commercial
+    discrete events. A non-core event_type requires event_type_definition and UPPER_SNAKE_CASE naming.
+- id: EVT-C08
+  severity: ERROR
+  rule: Customer or technology context may be carried by Evidence/claim content or other applicable resolved records, but
+    must not be represented as an unresolved primary Event entity.
+- id: EVT-C09
+  severity: ERROR
+  rule: When supersedes_ref is populated, it must resolve to an earlier EVENT record with the same event_id and entity_type/entity_id;
+    record_revision must be greater than the superseded record revision.
+foreign_references:
+- id: EVT-FK01
+  local_fields:
+  - entity_id
+  target_schema: company.schema.yaml
+  target_object: COMPANY-IDENTITY
+  target_fields:
+  - company_id
+  resolution: IMMEDIATE
+  required_when: entity_type=COMPANY
+- id: EVT-FK02
+  local_fields:
+  - entity_id
+  target_schema: fab.schema.yaml
+  target_object: FAB-IDENTITY
+  target_fields:
+  - fab_id
+  resolution: IMMEDIATE
+  required_when: entity_type=FAB
+- id: EVT-FK03
+  local_fields:
+  - evidence_refs
+  target_schema: evidence.schema.yaml
+  target_object: EVIDENCE
+  target_fields:
+  - evidence_id
+  resolution: IMMEDIATE
+  required_when: evidence_refs is populated
+- id: EVT-FK04
+  local_fields:
+  - supersedes_ref
+  target_schema: event.schema.yaml
+  target_object: EVENT
+  target_fields:
+  - event_record_id
+  resolution: IMMEDIATE
+  required_when: supersedes_ref is populated
+audit_rules:
+- id: EVT-A01
+  severity: ERROR
+  rule: Reject forced Event creation for periodic Price/Consensus/Valuation observations.
+- id: EVT-A02
+  severity: ERROR
+  rule: Reject duplicate economic counting solely because multiple sources confirm the same Event.
+- id: EVT-A03
+  severity: ERROR
+  rule: Validate stable event_id and revision/supersession chain.
+- id: EVT-A04
+  severity: ERROR
+  rule: Reject entity_type outside COMPANY/FAB or an entity_id that does not resolve in the matching canonical entity registry.
+- id: EVT-A05
+  severity: ERROR
+  rule: Reject non-core event_type without event_type_definition; verify event is discrete and is not merely a periodic observation.
+event_type_contract:
+  extensible: true
+  core_values:
+  - PO
+  - QUALIFICATION
+  - VOLUME_ORDER
+  - REPEAT_ORDER
+  - SHIPMENT
+  - ACCEPTANCE
+  - REVENUE_RECOGNITION
+  - EARNINGS
+  - BACKLOG
+  - GUIDANCE
+  - CAPACITY_EXPANSION
+  - FAB_MOVE_IN
+  - RAMP
+  - DESIGN_WIN
+  - TECHNOLOGY_MATURITY
+  additional_value_format: UPPER_SNAKE_CASE
+  additional_value_rule: Additional values are allowed only when they represent a discrete economic/state change not faithfully
+    represented by a core value. The event_type_definition field must document the meaning. Periodic observations remain outside
+    Event.
