@@ -1,0 +1,22 @@
+{
+  "timezone": "Asia/Seoul",
+  "cutoff_local_time": "23:59:59",
+  "snapshot_schema_version": "v0.1",
+  "model_input_schema_version": "m3top3-input-v0.1-working",
+  "generator_version": "m3top3-infra-v0.1",
+  "generator_git_commit": null,
+  "reconstruction_version": "RECONSTRUCTION_v0.1_WORKING",
+  "universe_jsonl": "/data/control/u127-history.jsonl",
+  "universe_release_id": "U127_FREEZE_CANDIDATE_WORKING",
+  "universe_authority_status": "WORKING_FREEZE_CANDIDATE",
+  "features_jsonl": "/data/control/pit-features-working.jsonl",
+  "feature_source_version": "U127_WORKING_v0.8_OR_LATER",
+  "price_paths": [
+    "/data/raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/marcap-2024.parquet",
+    "/data/raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/marcap-2025.parquet",
+    "/data/raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/marcap-2026.parquet"
+  ],
+  "price_dataset_id": "SEMI-PRICE-MARCAP-KRX-2024-2026_v1",
+  "price_dataset_hash": "419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7",
+  "price_source_semantics": "RAW_IMMUTABLE"
+}
