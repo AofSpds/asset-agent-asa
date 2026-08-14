@@ -1,0 +1,216 @@
+schema_id: SEMI-EVIDENCE-SCHEMA
+schema_version: v0.1
+status: FROZEN
+architecture_reference:
+  artifact: SEMI-ARCHITECTURE-SPEC_v1.0.md
+  version: v1.0
+  status: FROZEN / ACTIVE ARCHITECTURE
+migration_package_reference:
+  inventory: SEMI-MIGRATION-INVENTORY_v1.0.csv
+  manifest: SEMI-MIGRATION-MANIFEST_v1.0.csv
+  legacy_to_canonical_map: SEMI-LEGACY-TO-CANONICAL-MAP_v1.0.csv
+  issue_register: SEMI-MIGRATION-ISSUE-REGISTER_v1.0.csv
+  status: FROZEN v1.0
+logical_object: EVIDENCE
+description: Atomic SOURCE_DERIVED claim or explicit MODEL_DERIVED inference with PIT-safe timing and frozen class/status
+  semantics.
+logical_key:
+- evidence_id
+write_policy: Evidence is immutable; corrections create explicit replacement/supersession records under migration/ingest audit
+  policy.
+version_policy:
+  breaking_change: new schema_version
+  evidence_correction: new immutable evidence record with lineage; no silent overwrite
+dependencies:
+- source.schema.yaml
+type_policy:
+  identifier: string; never integer
+  krx_code: string; preserve leading zero
+  datetime: timezone-aware ISO-8601; default operational timezone Asia/Seoul
+  date: YYYY-MM-DD
+  date_or_datetime_tz: either YYYY-MM-DD when only date precision is evidenced, or timezone-aware ISO-8601 when exact time
+    is evidenced; never invent an intraday time
+  decimal: exact decimal semantics; persistent binary floating point is prohibited
+  decimal_precision: precision/scale is not invented by this contract; physical implementation must preserve source precision
+    and pass audit
+  'null': field not applicable or value absent for this record
+  NOT_FOUND: Evidence.status only; retrieval failure and never numeric zero/FALSE
+  UNKNOWN: only when an explicit field enum defines UNKNOWN
+  zero: actual numeric zero
+  empty_string: MUST NOT substitute for NULL, NOT_FOUND, UNKNOWN, or 0
+nullable_policy:
+  rule: Nullable is field-specific. NULL does not mean NOT_FOUND, UNKNOWN, FALSE, or 0.
+  historical_valid_from: If historical effective start is unsupported by evidence, valid_from remains NULL and provenance/status
+    records the non-inference.
+fields:
+- name: evidence_id
+  type: string
+  nullable: false
+  description: Immutable atomic evidence/inference identifier.
+- name: evidence_origin
+  type: enum
+  nullable: false
+  description: Origin of the evidence unit.
+  enum:
+  - SOURCE_DERIVED
+  - MODEL_DERIVED
+- name: source_id
+  type: string
+  nullable: true
+  description: Source identifier; required for SOURCE_DERIVED evidence.
+- name: publication_at
+  type: datetime_tz
+  nullable: true
+  description: Exact publication timestamp when known; score eligibility compares this to snapshot_cutoff_at.
+- name: publication_date
+  type: date
+  nullable: true
+  description: Publication date when exact time is unavailable.
+- name: publication_precision
+  type: enum
+  nullable: false
+  description: Publication time precision.
+  enum:
+  - EXACT_DATETIME
+  - DATE_ONLY
+  - MONTH_ONLY
+  - YEAR_ONLY
+  - UNKNOWN
+- name: evidence_class
+  type: enum
+  nullable: false
+  description: Frozen Evidence Class.
+  enum: &id001
+  - FACT
+  - INDUSTRY_ESTIMATE
+  - MODEL_ASSUMPTION
+  - SPECULATIVE_OPTION
+- name: fact_or_claim
+  type: string
+  nullable: false
+  description: Atomic source-derived claim or explicit model-derived inference.
+- name: source_tier
+  type: enum
+  nullable: true
+  description: Source tier for SOURCE_DERIVED evidence.
+  enum:
+  - S1
+  - S2
+  - S3
+  - S4
+  - S5
+  - S6
+  - S7
+  - S8
+- name: confidence
+  type: string
+  nullable: true
+  description: Confidence notation preserved from source/model protocol; no new scale is invented.
+- name: status
+  type: enum
+  nullable: false
+  description: Frozen Evidence Status.
+  enum: &id002
+  - VERIFIED
+  - PARTIAL
+  - NOT_FOUND
+  - CONFLICT
+  - STALE
+- name: extracted_at
+  type: datetime_tz
+  nullable: false
+  description: Time the evidence unit was extracted/created.
+- name: locator
+  type: string
+  nullable: true
+  description: Page, paragraph, filing number, URL fragment, dataset row, or project source locator.
+- name: available_before_entry
+  type: boolean
+  nullable: true
+  description: Legacy/audit helper only; not authoritative for score eligibility.
+  derived: true
+- name: schema_version
+  type: string
+  nullable: false
+  description: Schema version.
+  default: v0.1
+constraints:
+- id: EVI-C01
+  severity: ERROR
+  rule: SOURCE_DERIVED evidence requires source_id; MODEL_DERIVED evidence may have source_id=NULL.
+- id: EVI-C02
+  severity: ERROR
+  rule: evidence_class=MODEL_ASSUMPTION requires evidence_origin=MODEL_DERIVED.
+- id: EVI-C03
+  severity: ERROR
+  rule: MODEL_ASSUMPTION must never be represented as SOURCE_DERIVED FACT.
+- id: EVI-C04
+  severity: ERROR
+  rule: NOT_FOUND means retrieval failure only and must not be converted to numeric 0, FALSE, or a negative business fact.
+- id: EVI-C05
+  severity: ERROR
+  rule: Score evidence eligibility is publication_at <= PIT-SNAPSHOT.snapshot_cutoff_at when an exact timestamp is available.
+- id: EVI-C06
+  severity: ERROR
+  rule: available_before_entry is an audit helper and is not authoritative score-cutoff logic.
+- id: EVI-C07
+  severity: ERROR
+  rule: If timing precision is insufficient to prove publication_at <= snapshot_cutoff_at, tooling must not invent a timestamp.
+- id: EVI-C08
+  severity: ERROR
+  rule: For SOURCE_DERIVED Evidence, Evidence publication metadata must not be earlier than referenced SOURCE publication
+    metadata.
+- id: EVI-C09
+  severity: ERROR
+  rule: For SOURCE_DERIVED Evidence, publication_precision must not be more precise than referenced SOURCE publication_precision
+    according to publication_lineage_contract.precision_rank.
+- id: EVI-C10
+  severity: ERROR
+  rule: If referenced SOURCE has publication_precision=EXACT_DATETIME and publication_at is non-NULL, SOURCE_DERIVED Evidence
+    with EXACT_DATETIME must not set publication_at earlier than SOURCE.publication_at. If SOURCE has lower precision, Evidence
+    must retain equal or lower precision and must not fabricate publication_at.
+foreign_references:
+- id: EVI-FK01
+  local_fields:
+  - source_id
+  target_schema: source.schema.yaml
+  target_object: SOURCE
+  target_fields:
+  - source_id
+  resolution: IMMEDIATE
+  required_when: evidence_origin=SOURCE_DERIVED
+audit_rules:
+- id: EVI-A01
+  severity: ERROR
+  rule: Reject SOURCE_DERIVED evidence with missing source_id.
+- id: EVI-A02
+  severity: ERROR
+  rule: Reject MODEL_ASSUMPTION with SOURCE_DERIVED origin.
+- id: EVI-A03
+  severity: ERROR
+  rule: Reject NOT_FOUND converted to business zero/FALSE.
+- id: EVI-A04
+  severity: ERROR
+  rule: Reject available_before_entry used as sole score cutoff authority.
+- id: EVI-A05
+  severity: ERROR
+  rule: Join every SOURCE_DERIVED Evidence to SOURCE by source_id and fail if Evidence publication metadata precedes the SOURCE
+    publication metadata.
+- id: EVI-A06
+  severity: ERROR
+  rule: Compare publication precision ranks for SOURCE_DERIVED Evidence and fail if Evidence precision is finer than the referenced
+    SOURCE precision or if a timestamp was fabricated.
+evidence_class_enum: *id001
+evidence_status_enum: *id002
+publication_lineage_contract:
+  precision_rank:
+    UNKNOWN: 0
+    YEAR_ONLY: 1
+    MONTH_ONLY: 2
+    DATE_ONLY: 3
+    EXACT_DATETIME: 4
+  source_derived_rule: For SOURCE_DERIVED Evidence, publication metadata is lineage-constrained by the referenced SOURCE.
+    Evidence publication metadata must not be earlier than referenced SOURCE publication metadata and must not be more precise
+    than referenced SOURCE publication_precision. If exact SOURCE publication_at exists and Evidence uses EXACT_DATETIME,
+    Evidence publication_at must be equal to or later than SOURCE.publication_at; the system must not invent a finer timestamp.
+    If SOURCE precision is DATE_ONLY/MONTH_ONLY/YEAR_ONLY/UNKNOWN, Evidence cannot promote that metadata to a finer precision.
