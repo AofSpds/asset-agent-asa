@@ -1,0 +1,16 @@
+artifact_id: SEMI-ARCHITECTURE-SPEC
+active_version: v1.0
+logical_status: FROZEN_ACTIVE_ARCHITECTURE_CONTRACT
+freeze_date: 2026-08-14
+repository_manifest: control/architecture/v1.0/ARCHITECTURE-MANIFEST.yaml
+repository_artifact_path: control/architecture/v1.0/SEMI-ARCHITECTURE-SPEC_v1.0.md
+approved_sha256: 2f92853d8609a13d9ecbb5bdce28221785bbf7874fadcd1f8def6f1e90a21b8d
+exact_repository_byte_status: PENDING
+materialization_gate: G1-C
+materialization_status: MANIFEST_COMPLETE_ARTIFACT_BYTES_PENDING
+canonical_data_cutover: false
+actual_data_migration: false
+notes:
+  - Logical ACTIVE status comes from the frozen Architecture contract and original active-manifest.
+  - Repository materialization is not declared complete until the exact 71000-byte artifact exists at repository_artifact_path and matches approved_sha256.
+  - No pointer change authorizes data migration or canonical cutover.
