@@ -1,0 +1,313 @@
+audit_id: SEMI-PRICE-CANONICAL-DRY-RUN-D0-D3
+version: v0.1
+status: WORKING_AUDIT_RESULT
+executed_at: '2026-08-15T06:10:00+09:00'
+project_id: semiconductor-research
+repository: AofSpds/semiconductor-research
+
+purpose: >-
+  Record D0-D3 dry-run results against the frozen PRICE-CANONICAL v0.1 contract.
+  This audit does not create, materialize, promote, freeze, or activate any canonical
+  price dataset. Findings are used to identify normalization blockers before D4/D5.
+
+plan_reference:
+  path: control/data-plane/PRICE-CANONICAL-NORMALIZATION-AUDIT-PLAN_v0.1.yaml
+  status: WORKING_CONTROL_PLAN
+
+governing_schema:
+  path: control/schemas/v0.1/price.schema.yaml
+  schema_id: SEMI-PRICE-SCHEMA
+  schema_version: v0.1
+  relevant_rules:
+    - PRI-C02
+    - PRI-C06
+    - PRI-C07
+    - PRI-A03
+    - PRI-A05
+
+source_dataset:
+  dataset_id: SEMI-PRICE-MARCAP-KRX-2024-2026_v1
+  dataset_identity_sha256: 419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7
+  raw_semantics: RAW_IMMUTABLE/PRESERVED_RAW
+  primary_copy: Amazon S3 MATERIALIZED_VERIFIED
+  secondary_copy: Cloudflare R2 MATERIALIZED_VERIFIED
+  source_byte_identity_changed: false
+
+execution_evidence:
+  method: LOCAL_VERIFIED_PARQUET_BYTE_DECODE_AND_FULL_ROW_SCAN
+  byte_identity_basis: local component bytes have the same authoritative SHA-256 values already verified against both S3 and R2
+  parquet_metadata_method: Thrift compact-protocol footer decode
+  parquet_page_method: Snappy page decode with dictionary/RLE decoding
+  identity_workbook_basis: U127_Data_Expansion_Working_v0.7_2026-08-15.xlsx for executable company_id map; v0.8 return reported company_id remains 127/127 PASS but v0.8 workbook bytes were not present in this execution runtime
+
+raw_components:
+  '2024':
+    rows: 687708
+    trading_dates: 244
+    date_min: '2024-01-02'
+    date_max: '2024-12-30'
+    date_source_precision: datetime64[ns]
+    creator: parquet-cpp-arrow 21.0.0
+    distinct_codes: 2928
+  '2025':
+    rows: 696524
+    trading_dates: 242
+    date_min: '2025-01-02'
+    date_max: '2025-12-30'
+    date_source_precision: datetime64[ns]
+    creator: parquet-cpp-arrow 21.0.0
+    distinct_codes: 2985
+  '2026':
+    rows: 434915
+    trading_dates: 151
+    date_min: '2026-01-02'
+    date_max: '2026-08-13'
+    date_source_precision: datetime64[us]
+    creator: parquet-cpp-arrow 25.0.1
+    distinct_codes: 2944
+  total_rows: 1819147
+
+D0_structural:
+  status: PASS_WITH_PHYSICAL_METADATA_DRIFT
+  logical_column_set_equal_across_components: true
+  common_column_count: 18
+  common_columns:
+    - Code
+    - Name
+    - Close
+    - Dept
+    - ChangeCode
+    - Changes
+    - ChangesRatio
+    - Volume
+    - Amount
+    - Open
+    - High
+    - Low
+    - Marcap
+    - Stocks
+    - Market
+    - MarketId
+    - Rank
+    - Date
+  date_physical_precision_drift:
+    status: OBSERVED
+    details: 2024/2025 datetime64[ns]; 2026 datetime64[us]
+  required_mapping_inputs_present: true
+
+D1_normalization_dry_run:
+  date_normalization:
+    status: PASS
+    target: YYYY-MM-DD
+    null_dates: 0
+    deterministic_ns_us_conversion: PASS
+  code_normalization:
+    status: PASS
+    null_codes: 0
+    lexical_length_6_rows: 1819147
+    lexical_length_6_failures: 0
+    charset_observed: uppercase alphanumeric
+    note: >-
+      KRX source contains legitimate alphanumeric six-character security codes.
+      Canonical validation MUST preserve Code as a string and MUST NOT introduce a
+      numeric-only rule. Leading-zero preservation remains mandatory.
+  numeric_conversion:
+    status: PASS_FOR_VALUE_PRESERVATION
+    fields_checked:
+      - Open
+      - High
+      - Low
+      - Close
+      - Volume
+      - Amount
+      - Marcap
+    null_values_in_checked_fields: 0
+    nonfinite_values: 0
+    fractional_values_in_all_checked_fields: 0
+    decimal_shortest_roundtrip_failures: 0
+    volume_integrality: PASS
+    note: >-
+      All observed source values in the checked float64 fields are integral and
+      finite. A decimal conversion can preserve the observed numeric value without
+      rounding. Final physical decimal precision/scale remains a later implementation
+      choice and is not invented by this dry run.
+  stocks_integer_semantics:
+    status: PASS
+    nulls: 0
+
+D2_key_and_OHLC_audit:
+  logical_key_provisional_scope: date + code
+  duplicate_date_code_rows:
+    '2024': 0
+    '2025': 0
+    '2026': 0
+    total: 0
+    status: PASS
+  required_OHLC_nulls:
+    Open: 0
+    High: 0
+    Low: 0
+    Close: 0
+    status: PASS
+  ohlc_consistency:
+    status: BLOCKED_REQUIRES_SEMANTIC_ADJUDICATION
+    failed_rule_pattern: High < Close
+    other_detected_inequality_patterns: 0
+    failed_rows:
+      '2024': 30713
+      '2025': 31692
+      '2026': 21706
+      total: 84111
+      fraction_of_all_rows: 0.0462365054
+    deterministic_pattern:
+      open_high_low_all_zero: 84111
+      open_high_low_volume_amount_all_zero: 84107
+      interpretation_status: NOT_INFERRED
+      note: >-
+        The dominant source pattern is Open=High=Low=0 with positive Close, usually
+        also Volume=Amount=0. This dry run does NOT infer trading_status or treat the
+        pattern as a valid OHLC row without an approved provider-semantic rule.
+    exceptional_rows_with_zero_OHL_but_nonzero_trade_metrics:
+      count: 4
+      rows:
+        - date: '2024-03-28'
+          code: '001527'
+          raw_name: 동양2우B
+          close: 11480
+          volume: 2
+          amount: 23060
+        - date: '2024-12-30'
+          code: '076340'
+          raw_name: 관악산업
+          close: 5590
+          volume: 35536
+          amount: 177680000
+        - date: '2025-03-21'
+          code: '145210'
+          raw_name: 다이나믹디자인
+          close: 1126
+          volume: 1015
+          amount: 1142890
+        - date: '2026-05-08'
+          code: '403360'
+          raw_name: 라피치
+          close: 6900
+          volume: 11000
+          amount: 79200000
+    provisional_row_preservation_if_PRI_A03_is_strictly_applied:
+      source_rows: 1819147
+      pass_rows: 1735036
+      quarantine_rows: 84111
+      silent_drop_allowed: false
+      canonical_promotion_allowed: false
+  U127_OHLC_exposure:
+    affected_rows: 200
+    affected_distinct_companies: 13
+    company_codes:
+      - '011930'
+      - '024850'
+      - '025560'
+      - '030530'
+      - '033170'
+      - '058470'
+      - '097800'
+      - '112290'
+      - '114810'
+      - '183300'
+      - '256630'
+      - '323350'
+      - '355150'
+    note: >-
+      These rows must not be silently discarded because they intersect the project
+      universe and may affect snapshot/entry/CA semantics.
+
+D3_company_id_mapping:
+  status: PASS_FOR_CURRENT_EXECUTABLE_MAPPING_WITH_BOUNDARY_CAUTION
+  mapping_rule: map only resolved project security codes; all non-project codes remain company_id NULL
+  company_id_binding_source_count: 127
+  company_id_format_mismatch: 0
+  raw_observation_by_year:
+    '2024':
+      mapped_rows: 29098
+      observed_U127_codes: 120
+      U127_codes_absent_from_raw: 7
+    '2025':
+      mapped_rows: 29882
+      observed_U127_codes: 125
+      U127_codes_absent_from_raw: 2
+    '2026':
+      mapped_rows: 18954
+      observed_U127_codes: 127
+      U127_codes_absent_from_raw: 0
+  absent_codes:
+    '2024': ['0017J0','081180','153890','212710','388210','482630','489500']
+    '2025': ['0017J0','153890']
+  listing_boundary_audit:
+    executable_resolved_listing_dates_in_v0_7: 58
+    raw_rows_before_resolved_listing_date: 0
+    status: PASS_FOR_AVAILABLE_RESOLVED_DATES
+    note: next execution should use the v0.8 workbook once its bytes are available; reported listing-date coverage is 68/127
+  raw_name_drift_for_same_U127_code:
+    distinct_codes_with_multiple_raw_names: 6
+    cases:
+      '089970': ['에이피티씨','브이엠']
+      '187870': ['디바이스이엔지','디바이스']
+      '232140': ['와이아이케이','와이씨']
+      '232680': ['라온테크','라온로보틱스']
+      '241790': ['오션브릿지','티이엠씨씨엔에스']
+      '381620': ['제닉스','제닉스로보틱스']
+    decision: >-
+      company_id mapping must not depend on current display name. Code/entity-boundary
+      evidence remains authoritative for historical identity handling.
+
+D0_D3_exit:
+  D0: PASS_WITH_PHYSICAL_METADATA_DRIFT
+  D1: PASS
+  D2: BLOCKED_ON_OHLC_SEMANTICS
+  D3: PASS_WITH_CURRENT_MAPPING_BASELINE
+  overall_status: PARTIAL_PASS_BLOCKED_BEFORE_CANONICAL_PROMOTION
+  canonical_materialization_performed: false
+  canonical_cutover_performed: false
+  canonical_promotion_authorized: false
+
+new_blockers:
+  - id: PRICE-DRYRUN-OHLC-001
+    severity: ERROR_BEFORE_PROMOTION
+    issue: >-
+      84,111 rows violate the naive PRICE-CANONICAL OHLC inequality High>=Close
+      because raw provider rows contain zero Open/High/Low with positive Close.
+    required_resolution: >-
+      Establish evidence-backed provider semantics and an approved deterministic
+      treatment for non-trading/carry-close style rows; separately adjudicate the
+      four zero-OHL rows with nonzero Volume/Amount. Do not infer trading_status from
+      zeros without explicit control approval.
+  - id: PRICE-DRYRUN-IDENTITY-002
+    severity: CONTROL_REFRESH
+    issue: D3 executable identity/listing audit used Working v0.7 because v0.8 workbook bytes were not available in runtime.
+    required_resolution: rerun D3 boundary checks against v0.8 or later workbook before promotion.
+
+interaction_with_CA_lane:
+  ca_completeness_gate: PENDING_FINAL_SCAN
+  material_raw_OHLC_axis: >-
+    The D2 findings are direct input to the outstanding CA/material-OHLC completeness
+    lane but do not themselves classify any row as a corporate action.
+  known_KRX_unit_change_axis: STILL_OPEN
+  D4_corporate_action_join: NOT_AUTHORIZED_UNTIL_CA_COMPLETENESS_CLOSE
+
+next_actions:
+  - investigate and define provider semantics for zero-OHL positive-Close rows without outcome-driven tuning
+  - prioritize the 4 zero-OHL rows with nonzero Volume/Amount as source anomalies
+  - feed the 13 affected U127 companies and 200 rows to the CA completeness lane
+  - rerun D3 against Working v0.8 or later bytes when available
+  - keep D4 blocked until CA completeness closes
+  - do not create PRICE-CANONICAL bytes yet
+
+scope_restrictions:
+  architecture_change: false
+  schema_change: false
+  raw_byte_change: false
+  dataset_identity_change: false
+  provider_mixing: false
+  canonical_materialization: false
+  canonical_cutover: false
+  official_winner_release: false
