@@ -1,0 +1,126 @@
+record_id: SEMI-POST-BACKUP-CANONICALIZATION-READINESS
+record_version: v0.1
+status: WORKING_CONTROL_ASSESSMENT
+assessed_at: '2026-08-15T06:04:00+09:00'
+project_id: semiconductor-research
+repository: AofSpds/semiconductor-research
+
+purpose: >-
+  Record post-backup readiness for later canonicalization without performing,
+  authorizing, or implying canonical cutover. This is a working control assessment
+  and may be superseded by a later version as research and audit blockers close.
+
+completed_infrastructure_prerequisites:
+  primary_data_plane:
+    provider: Amazon S3
+    region: ap-northeast-2
+    bucket: semi-data-plane-aofspds-20260815
+    status: MATERIALIZED_VERIFIED
+    audit: control/data-plane/G1-I-MATERIALIZATION-AUDIT_v1.0.yaml
+  secondary_backup:
+    provider: Cloudflare R2
+    bucket: semi-secondary-backup-aofspds-20260815
+    status: MATERIALIZED_VERIFIED
+    backup_policy: SATISFIED
+    audit: control/data-plane/SECONDARY-BACKUP-AUDIT_v1.0.yaml
+  price_dataset:
+    dataset_id: SEMI-PRICE-MARCAP-KRX-2024-2026_v1
+    dataset_identity_sha256: 419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7
+    primary_remote_sha256: 3/3 PASS
+    secondary_remote_sha256: 3/3 PASS
+    provider_mixing: false
+
+canonical_price_contract:
+  schema: control/schemas/v0.1/price.schema.yaml
+  schema_id: SEMI-PRICE-SCHEMA
+  schema_version: v0.1
+  target_object: PRICE-CANONICAL
+  raw_state: RAW_IMMUTABLE/PRESERVED_RAW
+  normalization_audit_required: true
+  raw_may_be_labeled_canonical_without_audit: false
+  key_rules:
+    - preserve code as string with leading zeros
+    - exact-decimal semantics for price/amount/marcap/adjustment fields
+    - validate OHLC consistency
+    - evidence-backed corporate-action normalization only
+    - company_id mapping must resolve when populated
+    - action evidence references must resolve when action fields are populated
+
+research_state_observation:
+  authority: WORKING_RESEARCH_ONLY
+  source_observation: U127 Data Expansion Working v0.7 and research-team return reported in chat
+  canonical_authority: false
+  u127_membership: 127/127 PASS
+  company_id_binding: 127/127 PASS
+  verified_effective_history_companies: 44/127
+  protocol_certified_bp_cells: 353/1016
+  bp_populated_cells: 370/1016
+  residual_research_queue: 1
+  listing_date_coverage: 58/127
+  ca_signal_adjudication: PASS 24/24
+  ca_regression: PASS 2/2
+  ca_completeness_final_scan: STARTED / NOT_CLOSED
+  ca_completeness_gate: PENDING_FINAL_SCAN
+  official_winner_candidate: 0/8
+  official_winner_release: BLOCKED
+  u127_release_state: WORKING/STAGING; NOT CURRENT/FROZEN
+
+readiness_checks:
+  backup_prerequisite:
+    status: PASS
+    blocker: false
+  raw_price_identity_and_remote_byte_integrity:
+    status: PASS
+    blocker: false
+  price_normalization_audit:
+    status: NOT_PERFORMED
+    blocker: true
+    reason: PRICE-CANONICAL cannot be created merely by preserving raw Parquet; schema requires later normalization/audit.
+  ca_completeness:
+    status: PENDING_FINAL_SCAN
+    blocker: true
+    reason: Corporate-action normalization must remain evidence-backed and final completeness scan is not closed.
+  u127_research_completion:
+    status: IN_PROGRESS
+    blocker: true
+    reason: Historical BP certification and identity/listing coverage remain incomplete.
+  u127_release_activation:
+    status: NOT_AVAILABLE
+    blocker: true
+    reason: Working/Staging research has not been frozen and promoted to a current Universe Release.
+  official_winner_release:
+    status: BLOCKED
+    blocker: true
+    reason: Winner ground-truth release prerequisites remain incomplete.
+
+canonicalization_decision:
+  canonical_cutover_ready: false
+  canonical_cutover_authorized: false
+  canonical_cutover_performed: false
+  reason: >-
+    Infrastructure and backup prerequisites are satisfied, but normalization/audit,
+    CA completeness, U127 research completion, and Universe release activation remain unresolved.
+
+next_work_packages:
+  p0_research_lane:
+    - continue Historical BP in strict membership order beginning at 46
+    - continue Listing/Identity research in the same membership range
+    - close CA Completeness Final Scan without outcome-driven tuning
+  p0_control_plane_lane:
+    - prepare PRICE-CANONICAL normalization/audit plan against SEMI-PRICE-SCHEMA v0.1
+    - define deterministic raw-to-canonical column mapping and exact-decimal serialization
+    - define OHLC consistency, duplicate-key, code-format, company_id, and CA evidence audit tests
+    - perform dry-run only before any canonical promotion
+  prohibited_until_separate_authorization:
+    - canonical cutover
+    - raw dataset relabeling as PRICE-CANONICAL
+    - official winner release
+    - universe release activation
+    - model release activation
+    - architecture change
+    - schema change
+
+next_control_action:
+  action: PRICE-CANONICAL NORMALIZATION/AUDIT PLAN AND DRY-RUN SPEC
+  execution_mode: CONTROL_DESIGN_FIRST; NO_CANONICAL_PROMOTION
+  user_cloud_ui_action_required: false
