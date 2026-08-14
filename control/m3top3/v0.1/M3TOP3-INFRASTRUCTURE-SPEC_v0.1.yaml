@@ -1,0 +1,115 @@
+spec_id: M3TOP3-INFRASTRUCTURE-SPEC
+version: v0.1
+status: WORKING_ENGINEERING
+created_at: '2026-08-15T06:38:00+09:00'
+repository: AofSpds/semiconductor-research
+base_main_commit: a02145cabf0c057591adf4098b630fca3a6453dc
+lane: M3TOP3_INFRASTRUCTURE
+
+authority:
+  architecture: control/architecture/v1.0/SEMI-ARCHITECTURE-SPEC_v1.0.md
+  frozen_schemas:
+    - control/schemas/v0.1/pit_snapshot.schema.yaml
+    - control/schemas/v0.1/model_definition.schema.yaml
+    - control/schemas/v0.1/model_score.schema.yaml
+    - control/schemas/v0.1/validation.schema.yaml
+    - control/schemas/v0.1/price.schema.yaml
+    - control/schemas/v0.1/run_manifest.schema.yaml
+  storage_contract: control/data-plane/DATA-PLANE-STORAGE-CONTRACT_v1.0.yaml
+  primary_materialization_audit: control/data-plane/G1-I-MATERIALIZATION-AUDIT_v1.0.yaml
+  secondary_backup_audit: control/data-plane/SECONDARY-BACKUP-AUDIT_v1.0.yaml
+
+normative_separation:
+  pit_snapshot: model-independent knowable state at snapshot_cutoff_at
+  model_input: derived working view from one exact PIT snapshot; never canonical PIT itself
+  model_score: model-dependent evaluation of one exact PIT snapshot
+  prediction: immutable recommendation/rank record at prediction time
+  validation: future outcome bound to one immutable model score
+  invariant: model changes never rewrite PIT snapshots
+
+pit_cutoff:
+  authoritative_rule: publication_at <= snapshot_cutoff_at
+  timezone: Asia/Seoul
+  working_daily_cutoff_local_time: '23:59:59'
+  working_cutoff_note: operational parameter; may be changed by a later approved run configuration without schema change
+
+snapshot_identity:
+  frozen_business_key: [company_id, snapshot_cutoff_at]
+  frozen_revision_key: [company_id, snapshot_cutoff_at, snapshot_revision]
+  model_version_in_pit: PROHIBITED
+  generated_snapshot_content_hash: deterministic SHA-256 over sorted company PIT rows + derived model-input rows
+  idempotency: existing date snapshot is reused only when stored snapshot_content_hash matches rebuilt content
+  corrections: append snapshot_revision; do not overwrite frozen rows
+
+layers:
+  A_PIT_FACT_SNAPSHOT:
+    artifact: pit_snapshot.jsonl
+    schema_authority: SEMI-PIT-SNAPSHOT-SCHEMA v0.1
+  B_MODEL_INPUT_SNAPSHOT:
+    artifact: model_input.jsonl
+    status: GENERATED_WORKING_VIEW
+    output_fields_prohibited: [future_return, close_return, MFE, MAE, future_high, future_close, winner_label, validation_id]
+  C_MODEL_OUTPUT:
+    authority: MODEL-SCORE + RankingEngine
+  D_OUTCOME:
+    authority: VALIDATION + working diagnostic outcome extension
+
+universe_semantics:
+  authoritative_architecture: BacktestUniverse_T = OperationalUniverse_T INTERSECT TradableEligible_T
+  eligible_enum_preserved: [TRUE, FALSE, UNRESOLVED]
+  unresolved_as_true: PROHIBITED
+  current_u127_status: FREEZE_CANDIDATE
+  u127_used_as_frozen_current: false
+
+price_interface:
+  raw_adapter:
+    semantics: RAW_IMMUTABLE
+    dataset_id: SEMI-PRICE-MARCAP-KRX-2024-2026_v1
+    dataset_identity_sha256: 419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7
+    allowed_use: WORKING / PRELIMINARY outcomes only
+    ca_default: CA_PENDING
+  canonical_adapter:
+    semantics: PRICE_CANONICAL
+    interface_ready: true
+    cutover_performed: false
+  provider_mixing: PROHIBITED
+
+outcome_protocol:
+  authoritative_frozen_validation:
+    entry: first trading-day Open after Snapshot/Window Start
+    exit: first trading-day Open after configured Window End
+    mfe: maximum High from Entry trading day through Window End
+    mae: minimum Low from Entry trading day through Window End
+  m3top3_diagnostic_extension:
+    horizon_close: last valid Close on or before configured Window End
+    status: NON_CANONICAL_DIAGNOSTIC_EXTENSION
+    rationale: preserves user-required 3M Close analysis without changing frozen VALIDATION schema
+  window_definition:
+    hardcoded_w1_w8: false
+    resolver_required: true
+    default_authority_when_missing: UNRESOLVED_CONTROL
+
+ranking:
+  official_tie_break_policy: UNRESOLVED_CONTROL
+  default_behavior_on_score_tie: BLOCK
+  diagnostic_fallback: COMPANY_ID_ASC_DIAGNOSTIC
+
+reproducibility:
+  deterministic_json: sorted-key canonical JSON serialization
+  hash_algorithm: SHA-256
+  trading_calendar: observed distinct trading dates from selected price provider
+  batch_features: [date_range, single_date, idempotent_reuse, retry, resume, accounting]
+  batch_accounting_rule: requested = generated + failed + reused
+  parallel_policy: not enabled in v0.1; future parallel implementation must hash-match serial results
+
+storage:
+  git_large_parquet: PROHIBITED
+  data_plane_snapshot_prefix: snapshots/
+  data_plane_validation_prefix: validation/
+  local_jsonl_role: working/test bootstrap only; production large partition writer may use Parquet adapter
+
+no_tuning_firewall:
+  model_weight_change: PROHIBITED
+  feature_semantics_change: PROHIBITED
+  outcome_based_tuning: PROHIBITED
+  winner_release: PROHIBITED
