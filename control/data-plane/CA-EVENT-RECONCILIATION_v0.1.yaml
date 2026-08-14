@@ -1,0 +1,214 @@
+record_id: SEMI-CA-EVENT-RECONCILIATION
+version: v0.1
+status: WORKING_CONTROL_RECONCILIATION
+recorded_at: '2026-08-15T06:59:00+09:00'
+project_id: semiconductor-research
+repository: AofSpds/semiconductor-research
+branch: main
+parent_ca_artifact: control/data-plane/CA-COMPLETENESS-FINAL-SCAN_v0.1.yaml
+parent_main_observed_sha: c5040082b8c20f22309fdf49eec29e2867ea47f7
+
+purpose: >-
+  Append-only reconciliation of the two source-verified unit-change events identified
+  by the independent CA completeness lane. This record supplies resolvable Source,
+  Evidence, Event, and PRICE-D4-interface inputs without changing frozen schemas,
+  authorizing an adjustment factor, or executing D4.
+
+reconciliation_target:
+  implementation: tools/price/price_ca_interface.py
+  implementation_status: READY_FOR_CA_INPUT
+  event_schema: control/schemas/v0.1/event.schema.yaml
+  evidence_schema: control/schemas/v0.1/evidence.schema.yaml
+  source_schema: control/schemas/v0.1/source.schema.yaml
+  price_schema: control/schemas/v0.1/price.schema.yaml
+  standalone_CA_register_found_on_main: false
+  treatment: >-
+    The repository's committed evidence-gated price_ca_interface is the executable D4
+    CA interface. This working reconciliation artifact records the missing event inputs
+    append-only; future canonical EVENT/EVIDENCE ingestion must preserve these stable
+    event identities and evidence lineage.
+
+outcome_blindness:
+  enforced: true
+  prohibited_inputs: [future_return, MFE, Rank, Top3, Top10, Top20, Preliminary_Winner, Official_Winner]
+
+source_records:
+  - source_id: KRX_KIND_20260619000897
+    source_type: KRX_KIND_ISSUER_FILING
+    source_tier: S1
+    title: '시그네틱스 제64기 임시주주총회 소집공고 / 주식 액면병합 승인의 건'
+    publisher: '시그네틱스 / KRX KIND'
+    publication_at: null
+    publication_date: '2026-06-19'
+    publication_precision: DATE_ONLY
+    canonical_locator: 'https://kind.krx.co.kr/external/2026/06/19/000475/20260619000897/00591.htm'
+    raw_storage_ref: null
+    acquired_at: '2026-08-15T06:59:00+09:00'
+    raw_hash: null
+    status: ACTIVE_VERIFIED_LOCATOR
+    schema_version: v0.1
+  - source_id: KRX_KIND_20260716000843
+    source_type: KRX_KIND_ISSUER_FILING
+    source_tier: S1
+    title: '코미코 주식분할 결정 정정신고'
+    publisher: '코미코 / KRX KIND'
+    publication_at: null
+    publication_date: '2026-07-16'
+    publication_precision: DATE_ONLY
+    canonical_locator: 'https://kind.krx.co.kr/external/2026/07/16/000397/20260716000843/70128.htm'
+    raw_storage_ref: null
+    acquired_at: '2026-08-15T06:59:00+09:00'
+    raw_hash: null
+    status: ACTIVE_VERIFIED_LOCATOR
+    schema_version: v0.1
+
+evidence_records:
+  - evidence_id: EVI_KRX_KIND_20260619000897_CA
+    evidence_origin: SOURCE_DERIVED
+    source_id: KRX_KIND_20260619000897
+    publication_at: null
+    publication_date: '2026-06-19'
+    publication_precision: DATE_ONLY
+    evidence_class: FACT
+    fact_or_claim: >-
+      시그네틱스는 액면금액 500원 주식 5주를 액면금액 2,500원 주식 1주로 병합하며,
+      발행주식총수는 85,728,319주에서 17,145,663주로 변경된다. 효력발생일은
+      2026-08-07, 매매거래정지 예정기간은 2026-08-05~2026-08-24,
+      신주 상장예정일은 2026-08-25이다.
+    source_tier: S1
+    confidence: High
+    status: VERIFIED
+    extracted_at: '2026-08-15T06:59:00+09:00'
+    locator: 'KRX KIND 20260619000897; sections 주식 병합 승인의 건 / 액면병합 일정'
+    available_before_entry: null
+    schema_version: v0.1
+  - evidence_id: EVI_KRX_KIND_20260716000843_CA
+    evidence_origin: SOURCE_DERIVED
+    source_id: KRX_KIND_20260716000843
+    publication_at: null
+    publication_date: '2026-07-16'
+    publication_precision: DATE_ONLY
+    evidence_class: FACT
+    fact_or_claim: >-
+      코미코는 1주당 액면가를 500원에서 200원으로 분할하고 발행주식총수를
+      20,545,310주에서 51,363,275주로 변경한다. 정정된 효력발생일은
+      2026-07-31, 매매거래정지 예정기간은 2026-07-29~2026-08-20,
+      신주권상장예정일은 2026-08-21이다. 공시는 분할 전 주식수가 2026-05-12
+      무상증자 완료 후 기준임을 명시하여 May bonus issue와 July split을 구분한다.
+    source_tier: S1
+    confidence: High
+    status: VERIFIED
+    extracted_at: '2026-08-15T06:59:00+09:00'
+    locator: 'KRX KIND 20260716000843; 주식분할 결정 정정신고'
+    available_before_entry: null
+    schema_version: v0.1
+
+canonical_event_working_records:
+  - event_record_id: EVTREC_CA_OMISSION_033170_20260807_R0
+    event_id: CA-OMISSION-033170-20260807
+    entity_type: COMPANY
+    entity_id: KRX:033170
+    event_type: SHARE_CONSOLIDATION
+    event_type_definition: 'Discrete listed-security unit change consolidating five existing shares into one share.'
+    event_effective_at: null
+    event_effective_date: '2026-08-07'
+    recorded_at: '2026-08-15T06:59:00+09:00'
+    record_revision: 0
+    supersedes_ref: null
+    ingest_idempotency_key: KRX_KIND_20260619000897__033170__20260807
+    event_fingerprint: 033170__SHARE_CONSOLIDATION__20260807__5_TO_1
+    evidence_refs: [EVI_KRX_KIND_20260619000897_CA]
+    schema_version: v0.1
+  - event_record_id: EVTREC_CA_OMISSION_183300_20260731_R0
+    event_id: CA-OMISSION-183300-20260731
+    entity_type: COMPANY
+    entity_id: KRX:183300
+    event_type: STOCK_SPLIT
+    event_type_definition: 'Discrete listed-security unit change splitting each 500-won par-value share into 2.5 shares at 200-won par value.'
+    event_effective_at: null
+    event_effective_date: '2026-07-31'
+    recorded_at: '2026-08-15T06:59:00+09:00'
+    record_revision: 0
+    supersedes_ref: null
+    ingest_idempotency_key: KRX_KIND_20260716000843__183300__20260731
+    event_fingerprint: 183300__STOCK_SPLIT__20260731__500_TO_200
+    evidence_refs: [EVI_KRX_KIND_20260716000843_CA]
+    schema_version: v0.1
+
+price_D4_interface_events:
+  - event_id: CA-OMISSION-033170-20260807
+    security_code: '033170'
+    company_id: KRX:033170
+    event_date: '2026-08-07'
+    event_type: SHARE_CONSOLIDATION
+    publication_at: '2026-06-19'
+    publication_precision: DATE_ONLY
+    effective_at: '2026-08-07'
+    suspension_from: '2026-08-05'
+    suspension_to: '2026-08-24'
+    relisting_date: '2026-08-25'
+    par_value_change: '500 -> 2500'
+    share_change: '85728319 -> 17145663'
+    unit_change: '5 existing shares -> 1 share'
+    comparable_price_impact: true
+    adjustment_required: false
+    adjustment_scope_note: >-
+      Frozen raw dataset ends 2026-08-13 while the issue is suspended; there is no
+      post-relisting observation in the frozen horizon. Future D4 handling after relisting
+      must use the evidence-backed event and must not infer a factor here.
+    adjustment_factor_if_supported: null
+    evidence_refs: [EVI_KRX_KIND_20260619000897_CA]
+    validation_status: SOURCE_VERIFIED_RECONCILED_FOR_D4_INPUT
+  - event_id: CA-OMISSION-183300-20260731
+    security_code: '183300'
+    company_id: KRX:183300
+    event_date: '2026-07-31'
+    event_type: STOCK_SPLIT
+    publication_at: '2026-07-16'
+    publication_precision: DATE_ONLY
+    effective_at: '2026-07-31'
+    suspension_from: '2026-07-29'
+    suspension_to: '2026-08-20'
+    relisting_date: '2026-08-21'
+    par_value_change: '500 -> 200'
+    share_change: '20545310 -> 51363275'
+    unit_change: '1 existing share -> 2.5 shares'
+    comparable_price_impact: true
+    adjustment_required: false
+    adjustment_scope_note: >-
+      Frozen raw dataset ends 2026-08-13 while the issue is suspended; there is no
+      post-relisting observation in the frozen horizon. Future D4 handling after relisting
+      must use the evidence-backed event and must not infer a factor here.
+    adjustment_factor_if_supported: null
+    evidence_refs: [EVI_KRX_KIND_20260716000843_CA]
+    validation_status: SOURCE_VERIFIED_RECONCILED_FOR_D4_INPUT
+
+reconciliation_checks:
+  stable_parent_event_ids_preserved: true
+  source_refs_present: 2/2
+  evidence_refs_resolve_within_this_artifact: 2/2
+  evidence_to_source_refs_resolve_within_this_artifact: 2/2
+  event_evidence_refs_nonempty: 2/2
+  interface_required_fields_present: 2/2
+  evidence_free_adjustment_factor: false
+  new_adjustment_factors_authorized: 0
+  frozen_cutoff_post_relisting_rows_present: 0
+  coMiCo_may_bonus_and_july_split_event_identity:
+    separated: true
+    july_event_id: CA-OMISSION-183300-20260731
+    may_bonus_issue: SEPARATE_INHERITED_CLOSED_EVENT_NOT_MERGED
+  reconciliation_total: 2/2
+  status: PASS_FOR_WORKING_CA_INTERFACE_RECONCILIATION
+  D4_execution_status: NOT_EXECUTED
+  canonical_event_materialization: false
+
+change_control:
+  append_only: true
+  parent_CA_artifact_overwritten: false
+  architecture_change: NONE
+  schema_change_request: NONE
+  raw_price_bytes_changed: false
+  price_dataset_identity_changed: false
+  provider_mixing: false
+  canonical_cutover: false
+  official_winner_release: BLOCKED
