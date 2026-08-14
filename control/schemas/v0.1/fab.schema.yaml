@@ -1,0 +1,255 @@
+schema_id: SEMI-FAB-SCHEMA
+schema_version: v0.1
+status: FROZEN
+architecture_reference:
+  artifact: SEMI-ARCHITECTURE-SPEC_v1.0.md
+  version: v1.0
+  status: FROZEN / ACTIVE ARCHITECTURE
+migration_package_reference:
+  inventory: SEMI-MIGRATION-INVENTORY_v1.0.csv
+  manifest: SEMI-MIGRATION-MANIFEST_v1.0.csv
+  legacy_to_canonical_map: SEMI-LEGACY-TO-CANONICAL-MAP_v1.0.csv
+  issue_register: SEMI-MIGRATION-ISSUE-REGISTER_v1.0.csv
+  status: FROZEN v1.0
+logical_object: &id001
+- FAB-IDENTITY
+- FAB-STATE-HISTORY
+description: Canonical Fab identity and append-only Fab state history. Physical Fab states remain distinct from model-derived
+  β activation interpretation.
+logical_key:
+  FAB-IDENTITY:
+  - fab_id
+  FAB-STATE-HISTORY:
+  - record_id
+write_policy:
+  FAB-IDENTITY: fab_id immutable.
+  FAB-STATE-HISTORY: append-only; state changes append; corrections use record_revision/supersedes_ref.
+version_policy:
+  breaking_change: new schema_version
+  state_change: new state record, not schema version
+  data_correction: record_revision
+dependencies:
+- evidence.schema.yaml
+type_policy:
+  identifier: string; never integer
+  krx_code: string; preserve leading zero
+  datetime: timezone-aware ISO-8601; default operational timezone Asia/Seoul
+  date: YYYY-MM-DD
+  date_or_datetime_tz: either YYYY-MM-DD when only date precision is evidenced, or timezone-aware ISO-8601 when exact time
+    is evidenced; never invent an intraday time
+  decimal: exact decimal semantics; persistent binary floating point is prohibited
+  decimal_precision: precision/scale is not invented by this contract; physical implementation must preserve source precision
+    and pass audit
+  'null': field not applicable or value absent for this record
+  NOT_FOUND: Evidence.status only; retrieval failure and never numeric zero/FALSE
+  UNKNOWN: only when an explicit field enum defines UNKNOWN
+  zero: actual numeric zero
+  empty_string: MUST NOT substitute for NULL, NOT_FOUND, UNKNOWN, or 0
+nullable_policy:
+  rule: Nullable is field-specific. NULL does not mean NOT_FOUND, UNKNOWN, FALSE, or 0.
+  historical_valid_from: If historical effective start is unsupported by evidence, valid_from remains NULL and provenance/status
+    records the non-inference.
+fields:
+- name: record_type
+  type: enum
+  nullable: false
+  description: Discriminates Fab identity from Fab state history.
+  applies_to: *id001
+  enum: *id001
+- name: fab_id
+  type: string
+  nullable: false
+  description: Immutable Fab/project identifier.
+  applies_to: *id001
+- name: customer
+  type: string
+  nullable: true
+  description: Customer/owner label as evidenced.
+  applies_to:
+  - FAB-IDENTITY
+- name: site
+  type: string
+  nullable: true
+  description: Fab/project site.
+  applies_to:
+  - FAB-IDENTITY
+- name: project_or_line
+  type: string
+  nullable: true
+  description: Project or line designation.
+  applies_to:
+  - FAB-IDENTITY
+- name: memory_or_foundry
+  type: string
+  nullable: true
+  description: Long-lived memory/foundry classification.
+  applies_to:
+  - FAB-IDENTITY
+- name: record_id
+  type: string
+  nullable: true
+  description: Immutable Fab state-history record ID.
+  applies_to:
+  - FAB-STATE-HISTORY
+  required_when: record_type=FAB-STATE-HISTORY
+- name: field_key
+  type: string
+  nullable: true
+  description: Fab state field key.
+  applies_to:
+  - FAB-STATE-HISTORY
+  required_when: record_type=FAB-STATE-HISTORY
+- name: value
+  type: json
+  nullable: true
+  description: Fab state value. For fab_stage the value must use the frozen stage enum.
+  applies_to:
+  - FAB-STATE-HISTORY
+- name: knowledge_status
+  type: enum
+  nullable: true
+  description: Known/partial/unknown state; NOT_FOUND remains an Evidence status.
+  applies_to:
+  - FAB-STATE-HISTORY
+  enum:
+  - KNOWN
+  - PARTIAL
+  - UNKNOWN
+- name: valid_from
+  type: date_or_datetime_tz
+  nullable: true
+  description: Effective start when evidenced; do not infer unsupported history.
+  applies_to:
+  - FAB-STATE-HISTORY
+- name: valid_from_provenance
+  type: string
+  nullable: true
+  description: Evidence/provenance supporting valid_from or explaining non-inference.
+  applies_to:
+  - FAB-STATE-HISTORY
+- name: recorded_at
+  type: datetime_tz
+  nullable: true
+  description: Record creation time.
+  applies_to:
+  - FAB-STATE-HISTORY
+  required_when: record_type=FAB-STATE-HISTORY
+- name: record_revision
+  type: integer
+  nullable: true
+  description: Correction revision; initial 0.
+  applies_to:
+  - FAB-STATE-HISTORY
+  default: 0
+  required_when: record_type=FAB-STATE-HISTORY
+- name: supersedes_ref
+  type: string
+  nullable: true
+  description: Prior Fab state record superseded by this correction.
+  applies_to:
+  - FAB-STATE-HISTORY
+- name: evidence_refs
+  type: array[string]
+  nullable: true
+  description: Evidence supporting the identity/state.
+  applies_to: *id001
+- name: schema_version
+  type: string
+  nullable: false
+  description: Schema version.
+  applies_to: *id001
+  default: v0.1
+constraints:
+- id: FAB-C01
+  severity: ERROR
+  rule: 'fab_stage must use exactly: [''PLANNING'', ''CONSTRUCTION'', ''UTILITY_CLEANROOM'', ''PROCESS_FLOW_FIXED'', ''EQUIPMENT_ORDER'',
+    ''MOVE_IN'', ''INSTALL_SETUP'', ''QUALIFICATION'', ''PILOT'', ''RAMP'', ''MASS_PRODUCTION''].'
+- id: FAB-C02
+  severity: ERROR
+  rule: 'FAB-STATE-HISTORY.field_key must be one of: [''application'', ''technology_generation'', ''fab_stage'', ''construction_status'',
+    ''cleanroom_status'', ''equipment_order_status'', ''move_in_status'', ''qualification_status'', ''ramp_status'', ''expected_move_in_range'',
+    ''expected_ramp_range'', ''wfe_or_equipment_scope'', ''relevant_process_tags''].'
+- id: FAB-C03
+  severity: ERROR
+  rule: Construction, cleanroom, process-flow-fixed, equipment order, move-in, install/setup, qualification, pilot, ramp,
+    and mass production remain semantically distinct.
+- id: FAB-C04
+  severity: ERROR
+  rule: activated_beta_types is not an authoritative physical Fab state field. It is a regenerable MODEL_DERIVED feature under
+    frozen β Transmission rules.
+- id: FAB-C05
+  severity: ERROR
+  rule: valid_to is not a mutable canonical field.
+- id: FAB-C06
+  severity: ERROR
+  rule: Unsupported historical valid_from remains NULL; no stage date may be invented during migration.
+- id: FAB-C07
+  severity: ERROR
+  rule: A missing/NOT_FOUND source result must not be serialized as a physical status literal; value may remain NULL with
+    Evidence.status=NOT_FOUND.
+- id: FAB-C08
+  severity: ERROR
+  rule: When supersedes_ref is populated, it must resolve to a prior FAB-STATE-HISTORY record with the same fab_id and field_key;
+    record_revision must be greater.
+foreign_references:
+- id: FAB-FK01
+  local_fields:
+  - evidence_refs
+  target_schema: evidence.schema.yaml
+  target_object: EVIDENCE
+  target_fields:
+  - evidence_id
+  resolution: IMMEDIATE
+  required_when: evidence_refs is populated
+- id: FAB-FK02
+  local_fields:
+  - supersedes_ref
+  target_schema: fab.schema.yaml
+  target_object: FAB-STATE-HISTORY
+  target_fields:
+  - record_id
+  resolution: IMMEDIATE
+  required_when: record_type=FAB-STATE-HISTORY and supersedes_ref is populated
+audit_rules:
+- id: FAB-A01
+  severity: ERROR
+  rule: Reject activated_beta_types as a FAB-STATE-HISTORY field_key.
+- id: FAB-A02
+  severity: ERROR
+  rule: Validate fab_stage enum exactly.
+- id: FAB-A03
+  severity: ERROR
+  rule: Reject silent promotion from construction/cleanroom to move-in/qualification/ramp without supporting state evidence.
+- id: FAB-A04
+  severity: ERROR
+  rule: Reject valid_to in canonical fields.
+- id: FAB-A05
+  severity: ERROR
+  rule: Validate supersedes_ref self-reference and same fab_id/field_key revision lineage.
+record_types: *id001
+fab_stage_enum:
+- PLANNING
+- CONSTRUCTION
+- UTILITY_CLEANROOM
+- PROCESS_FLOW_FIXED
+- EQUIPMENT_ORDER
+- MOVE_IN
+- INSTALL_SETUP
+- QUALIFICATION
+- PILOT
+- RAMP
+- MASS_PRODUCTION
+field_key_contract:
+- application
+- technology_generation
+- fab_stage
+- construction_status
+- cleanroom_status
+- equipment_order_status
+- move_in_status
+- qualification_status
+- ramp_status
+- expected_move_in_range
+- expected_ramp_range
+- wfe_or_equipment_scope
+- relevant_process_tags
