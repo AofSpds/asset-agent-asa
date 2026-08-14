@@ -1,0 +1,76 @@
+release_id: SEMI-G1-I-DATA-PLANE-MATERIALIZATION-20260815-v1.0
+release_version: v1.0
+release_type: DATA_PLANE_BYTE_MATERIALIZATION
+status: FROZEN_RECORD
+created_at: '2026-08-15T04:50:00+09:00'
+project_id: semiconductor-research
+repository: AofSpds/semiconductor-research
+default_branch: main
+scope: Verified permanent S3 byte materialization for the frozen raw price dataset. No canonical cutover, normalization, architecture change, schema change, or model release activation.
+
+g1_h_contract:
+  path: control/data-plane/DATA-PLANE-STORAGE-CONTRACT_v1.0.yaml
+  status: FROZEN
+  sha256: 24a7fcaff779c06ef949c4d89ee81dbde996c395f086bd40b1d0f03fd7cd147d
+
+materialization_audit:
+  path: control/data-plane/G1-I-MATERIALIZATION-AUDIT_v1.0.yaml
+  status: FROZEN_RECORD
+  sha256: 91c78ea3d8e3e8f9a1d0a4a01b8da2c16dd3f4d87d5005bd424e75131cb5601a
+  git_blob_sha1: 9ca28cf79c1827f4a2a605487c46acb1af62d95e
+  creation_commit: f8820c0a7078c116f25788192770f6d4bfdf1de6
+  hash_record: manifests/hashes/g1-i-data-plane-materialization-v1.0.sha256
+  hash_record_commit: 05c35c70b2030d3ea948adc88d091b9fd0305d1d
+
+storage:
+  provider: Amazon S3
+  provider_id: aws-s3-apne2
+  region: ap-northeast-2
+  bucket: semi-data-plane-aofspds-20260815
+  private_only: true
+  public_access: BLOCKED
+  versioning: ENABLED
+  object_lock_capability: ENABLED
+  stable_locator_prefix: s3://semi-data-plane-aofspds-20260815/raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/
+
+price_dataset:
+  dataset_id: SEMI-PRICE-MARCAP-KRX-2024-2026_v1
+  dataset_identity_sha256: 419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7
+  dataset_manifest: data-manifests/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1.yaml
+  dataset_manifest_materialization_update_commit: caa0020fbd3c1113eba17b5fe290a48bcaa15dfa
+  component_count: 3
+  remote_sha256_results: 3/3 PASS
+  materialization_status: MATERIALIZED_VERIFIED
+
+stable_locators:
+  marcap-2024.parquet: s3://semi-data-plane-aofspds-20260815/raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/marcap-2024.parquet
+  marcap-2025.parquet: s3://semi-data-plane-aofspds-20260815/raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/marcap-2025.parquet
+  marcap-2026.parquet: s3://semi-data-plane-aofspds-20260815/raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/marcap-2026.parquet
+
+verification:
+  remote_retrieval_method: AWS CloudShell aws s3 cp object to stdout piped to sha256sum
+  executor: USER
+  evidence_observation: ASSISTANT_OBSERVED_USER_PROVIDED_CLOUDSHELL_OUTPUT
+  expected_hashes_matched: true
+  dataset_identity_changed: false
+
+scope_restrictions:
+  raw_parquet_in_git: false
+  canonical_cutover: false
+  normalization: false
+  canonical_price_materialization: false
+  actual_canonical_migration: false
+  universe_release_activation: false
+  model_release_activation: false
+  architecture_change: false
+  schema_change: false
+
+backup_gate:
+  secondary_backup_provider: PENDING
+  backup_required_before_canonical_cutover: true
+  canonical_cutover_allowed_without_backup: false
+
+g1_i_exit:
+  status: COMPLETE
+  blockers: []
+  next_required_control_action: SATISFY_SECONDARY_BACKUP_POLICY_BEFORE_CANONICAL_CUTOVER
