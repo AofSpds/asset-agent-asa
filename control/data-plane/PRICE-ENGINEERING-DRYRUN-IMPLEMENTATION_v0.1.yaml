@@ -1,0 +1,151 @@
+record_id: SEMI-PRICE-ENGINEERING-DRYRUN-IMPLEMENTATION
+version: v0.1
+status: WORKING_CONTROL_RECORD
+recorded_at: '2026-08-15T06:49:00+09:00'
+project_id: semiconductor-research
+repository: AofSpds/semiconductor-research
+branch: main
+
+purpose: >-
+  Record the reproducible engineering implementation used to rerun PRICE-CANONICAL
+  D0-D3 dry-run audits over the verified immutable RAW price dataset. This record
+  does not create or authorize canonical bytes, a released price_dataset_id, or cutover.
+
+governing_controls:
+  - control/data-plane/DATA-PLANE-STORAGE-CONTRACT_v1.0.yaml
+  - control/data-plane/G1-I-MATERIALIZATION-AUDIT_v1.0.yaml
+  - control/data-plane/SECONDARY-BACKUP-AUDIT_v1.0.yaml
+  - control/data-plane/POST-BACKUP-CANONICALIZATION-READINESS_v0.1.yaml
+  - control/data-plane/PRICE-CANONICAL-NORMALIZATION-AUDIT-PLAN_v0.1.yaml
+  - control/data-plane/PRICE-CANONICAL-DRY-RUN-AUDIT_D0-D3_v0.1.yaml
+  - control/data-plane/PRICE-OHLC-SEMANTIC-RESEARCH_v0.1.yaml
+  - control/schemas/v0.1/price.schema.yaml
+  - data-manifests/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1.yaml
+
+software_commit:
+  commit: a02145cabf0c057591adf4098b630fca3a6453dc
+  message: 'Price engineering: add reproducible D0-D3 dry-run engine'
+  relationship_to_parallel_main_updates: preserved by later fast-forward main commits
+
+code_artifacts:
+  - tools/price/price_canonical_dryrun.py
+  - tools/price/price_audit_rules.py
+  - tools/price/price_ca_interface.py
+  - tools/price/price_parquet_reader.py
+  - tools/price/price_dryrun_config.yaml
+  - tools/price/tests/test_price_engineering.py
+  - tools/price/tests/__init__.py
+
+implementation_contract:
+  deterministic: true
+  idempotent_read_only_dry_run: true
+  raw_overwrite: false
+  canonical_materialization: false
+  canonical_cutover: false
+  released_price_dataset_id_assignment: false
+  provider_mixing: false
+  silent_row_drop: false
+  silent_deduplication: false
+  silent_numeric_rounding: false
+  outcome_blind: true
+  machine_readable_audit: JSON
+  row_issue_output: JSONL
+  hard_contract_failure_exit: NON_ZERO
+
+implemented_capabilities:
+  - pre-scan local component byte-size and SHA-256 gate against the authoritative manifest
+  - D0 logical column-set and physical metadata inspection
+  - deterministic ns/us Date normalization to YYYY-MM-DD
+  - six-character uppercase alphanumeric Code validation without numeric-only coercion
+  - leading-zero preservation
+  - finite/integral numeric audits and exact-decimal value-preservation checks without inventing precision/scale
+  - duplicate date/code detection without deduplication
+  - four-way OHLC technical classification without inferring trading_status
+  - PRICE-Q001 through PRICE-Q014 reason-code registry
+  - quarantine versus CLASSIFIED_PENDING_SEMANTICS disposition
+  - source/pass/pending/quarantine row-accounting closure
+  - component S3 raw_storage_ref lineage validation
+  - optional CSV/YAML/JSON/XLSX code-to-company_id mapping adapters with unresolved values left NULL
+  - optional listing-boundary checks when executable workbook/mapping bytes are supplied
+  - evidence-gated D4 CA interface validation and deterministic date/code candidate matching
+
+parquet_runtime_adapter:
+  reason: pyarrow and duckdb were not installed in the execution runtime and external package installation was unavailable
+  implementation: read-only flat-Parquet fallback using Thrift compact-protocol metadata/page headers, libsnappy, and vectorized NumPy RLE/bit-pack decoding
+  observed_scope: frozen FinanceData/marcap components; one row group; observed PLAIN/RLE_DICTIONARY encodings and SNAPPY codec
+  raw_write_capability: false
+  canonical_write_capability: false
+
+execution_environment:
+  python: 3.13.5
+  numpy: 2.3.5
+  pandas: 2.2.3
+  pyarrow: NOT_INSTALLED
+  duckdb: NOT_INSTALLED
+  thrift: INSTALLED_VERSION_NOT_EXPOSED
+  libsnappy: AVAILABLE
+
+unit_and_integration_tests:
+  status: PASS
+  passed: 16
+  total: 16
+  required_cases_covered:
+    - leading-zero code preservation
+    - alphanumeric KRX code preservation
+    - ns date normalization
+    - us date normalization
+    - duplicate date/code detection
+    - normal OHLC classification
+    - zero-OHL zero-trade classification
+    - zero-OHL nonzero-trade classification
+    - other OHLC inconsistency quarantine
+    - fractional Volume rejection
+    - non-finite numeric rejection
+    - company_id nullable behavior
+    - unresolved company_id not guessed
+    - raw_storage_ref preservation
+    - evidence-free CA adjustment rejection
+    - row-accounting closure
+
+full_dataset_execution:
+  status: PASS_FOR_EXECUTABLE_D0_D2_AND_LINEAGE; D3_REFRESH_WAITING_FOR_WORKBOOK_BYTES
+  source_rows: 1819147
+  elapsed_seconds_with_issue_output_and_tests: 10.28
+  max_rss_kb: 595908
+  machine_readable_audit_generated: true
+  row_issue_records_generated: 84111
+  canonical_bytes_generated: false
+
+D4_interface:
+  implementation_status: READY_FOR_CA_INPUT
+  execution_status: NOT_EXECUTED
+  expected_fields:
+    - event_id
+    - security_code
+    - company_id
+    - event_date
+    - event_type
+    - publication_at
+    - effective_at
+    - comparable_price_impact
+    - adjustment_required
+    - adjustment_factor_if_supported
+    - evidence_refs
+    - validation_status
+  enforced_control_intent:
+    - PRI-C04
+    - PRI-C08
+    - PRI-C09
+    - PRI-A04
+    - PRI-A06
+  evidence_free_adjustment: PROHIBITED
+
+scope_restrictions:
+  architecture_change: false
+  schema_change: false
+  frozen_artifact_overwrite: false
+  raw_byte_change: false
+  price_dataset_identity_change: false
+  canonical_materialization: false
+  canonical_cutover: false
+  official_winner_release: false
