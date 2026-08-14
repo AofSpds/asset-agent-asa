@@ -1,0 +1,206 @@
+schema_id: SEMI-MODEL-SCORE-SCHEMA
+schema_version: v0.1
+status: FROZEN
+architecture_reference:
+  artifact: SEMI-ARCHITECTURE-SPEC_v1.0.md
+  version: v1.0
+  status: FROZEN / ACTIVE ARCHITECTURE
+migration_package_reference:
+  inventory: SEMI-MIGRATION-INVENTORY_v1.0.csv
+  manifest: SEMI-MIGRATION-MANIFEST_v1.0.csv
+  legacy_to_canonical_map: SEMI-LEGACY-TO-CANONICAL-MAP_v1.0.csv
+  issue_register: SEMI-MIGRATION-ISSUE-REGISTER_v1.0.csv
+  status: FROZEN v1.0
+logical_object: MODEL-SCORE
+description: Model-dependent evaluation result for one exact PIT-SNAPSHOT under one immutable MODEL-DEFINITION.
+logical_key:
+  business_key:
+  - pit_snapshot_id
+  - model_version
+  revision_key:
+  - pit_snapshot_id
+  - model_version
+  - score_revision
+  immutable_id:
+  - model_score_id
+write_policy: Append-only score revisions; frozen Score revisions are not destructively mutated.
+version_policy:
+  score_schema_change: score_schema_version
+  score_data_correction: score_revision
+  model_methodology_change: new model_version
+  snapshot_correction: new pit_snapshot_id lineage, not merely score_revision
+dependencies:
+- pit_snapshot.schema.yaml
+- model_definition.schema.yaml
+- evidence.schema.yaml
+type_policy:
+  identifier: string; never integer
+  krx_code: string; preserve leading zero
+  datetime: timezone-aware ISO-8601; default operational timezone Asia/Seoul
+  date: YYYY-MM-DD
+  date_or_datetime_tz: either YYYY-MM-DD when only date precision is evidenced, or timezone-aware ISO-8601 when exact time
+    is evidenced; never invent an intraday time
+  decimal: exact decimal semantics; persistent binary floating point is prohibited
+  decimal_precision: precision/scale is not invented by this contract; physical implementation must preserve source precision
+    and pass audit
+  'null': field not applicable or value absent for this record
+  NOT_FOUND: Evidence.status only; retrieval failure and never numeric zero/FALSE
+  UNKNOWN: only when an explicit field enum defines UNKNOWN
+  zero: actual numeric zero
+  empty_string: MUST NOT substitute for NULL, NOT_FOUND, UNKNOWN, or 0
+nullable_policy:
+  rule: Nullable is field-specific. NULL does not mean NOT_FOUND, UNKNOWN, FALSE, or 0.
+  historical_valid_from: If historical effective start is unsupported by evidence, valid_from remains NULL and provenance/status
+    records the non-inference.
+fields:
+- name: model_score_id
+  type: string
+  nullable: false
+  description: Immutable identifier for one exact Model Score revision.
+- name: pit_snapshot_id
+  type: string
+  nullable: false
+  description: Exact PIT Snapshot revision evaluated.
+- name: model_version
+  type: string
+  nullable: false
+  description: Immutable MODEL-DEFINITION version used.
+- name: score_schema_version
+  type: string
+  nullable: false
+  description: MODEL-SCORE schema version.
+- name: score_revision
+  type: integer
+  nullable: false
+  description: Score-output correction revision for same PIT Snapshot and model; initial 0.
+  default: 0
+- name: supersedes_ref
+  type: string
+  nullable: true
+  description: Prior MODEL-SCORE superseded by correction.
+- name: scoring_run_id
+  type: string
+  nullable: false
+  description: Run that produced this Score revision.
+- name: score_frozen
+  type: boolean
+  nullable: false
+  description: Whether this Score revision is frozen.
+  default: false
+- name: score_frozen_at
+  type: datetime_tz
+  nullable: true
+  description: Freeze timestamp; required when score_frozen=TRUE.
+- name: total_score
+  type: decimal
+  nullable: true
+  description: Exact-decimal total score; required for a completed evaluation.
+- name: evaluation_status
+  type: string
+  nullable: false
+  description: Evaluation completion/status marker; existing protocol vocabulary is preserved.
+- name: feature_refs
+  type: array[string]
+  nullable: true
+  description: Optional references to model-specific derived features.
+- name: top_evidence_refs
+  type: array[string]
+  nullable: true
+  description: Evidence IDs selected by the evaluation.
+- name: created_at
+  type: datetime_tz
+  nullable: false
+  description: Score creation timestamp.
+- name: schema_version
+  type: string
+  nullable: false
+  description: Envelope schema version.
+  default: v0.1
+constraints:
+- id: MSC-C01
+  severity: ERROR
+  rule: Business key is pit_snapshot_id + model_version.
+- id: MSC-C02
+  severity: ERROR
+  rule: Revision key is pit_snapshot_id + model_version + score_revision.
+- id: MSC-C03
+  severity: ERROR
+  rule: One PIT Snapshot may have multiple model_version Scores concurrently.
+- id: MSC-C04
+  severity: ERROR
+  rule: score_revision corrects scoring output for the same exact pit_snapshot_id and model_version only.
+- id: MSC-C05
+  severity: ERROR
+  rule: A corrected PIT Snapshot revision starts a new score lineage; it is not represented solely by incrementing score_revision
+    on the old pit_snapshot_id.
+- id: MSC-C06
+  severity: ERROR
+  rule: score_frozen is independent from PIT-SNAPSHOT.snapshot_frozen; score_frozen=TRUE requires score_frozen_at.
+- id: MSC-C07
+  severity: ERROR
+  rule: total_score uses exact-decimal semantics; persistent binary float is prohibited.
+- id: MSC-C08
+  severity: ERROR
+  rule: When supersedes_ref is populated, it must resolve to a prior MODEL-SCORE for the same pit_snapshot_id + model_version;
+    score_revision must be greater than the superseded score_revision.
+foreign_references:
+- id: MSC-FK01
+  local_fields:
+  - pit_snapshot_id
+  target_schema: pit_snapshot.schema.yaml
+  target_object: PIT-SNAPSHOT
+  target_fields:
+  - pit_snapshot_id
+  resolution: IMMEDIATE
+- id: MSC-FK02
+  local_fields:
+  - model_version
+  target_schema: model_definition.schema.yaml
+  target_object: MODEL-DEFINITION
+  target_fields:
+  - model_version
+  resolution: IMMEDIATE
+- id: MSC-FK03
+  local_fields:
+  - top_evidence_refs
+  target_schema: evidence.schema.yaml
+  target_object: EVIDENCE
+  target_fields:
+  - evidence_id
+  resolution: IMMEDIATE
+  required_when: top_evidence_refs is populated
+- id: MSC-FK04
+  local_fields:
+  - supersedes_ref
+  target_schema: model_score.schema.yaml
+  target_object: MODEL-SCORE
+  target_fields:
+  - model_score_id
+  resolution: IMMEDIATE
+  required_when: supersedes_ref is populated
+- id: MSC-FK05
+  local_fields:
+  - scoring_run_id
+  target_schema: run_manifest.schema.yaml
+  target_object: RUN-MANIFEST
+  target_fields:
+  - run_id
+  resolution: DEFERRED_BIDIRECTIONAL_PROVENANCE
+  notes: Run Manifest also references output_model_score_id; this is an intentional provenance back-reference and not a dependency
+    edge.
+audit_rules:
+- id: MSC-A01
+  severity: ERROR
+  rule: Fail duplicate pit_snapshot_id + model_version + score_revision.
+- id: MSC-A02
+  severity: ERROR
+  rule: Reject score_revision used to repair Snapshot data.
+- id: MSC-A03
+  severity: ERROR
+  rule: Reject score_frozen used as a substitute for snapshot_frozen.
+- id: MSC-A04
+  severity: ERROR
+  rule: For completed evaluations, validate total_score against matching score-component records and MODEL-DEFINITION.
+- id: MSC-A05
+  severity: ERROR
+  rule: Validate MODEL-SCORE supersedes_ref self-reference and same pit_snapshot_id/model_version revision lineage.
