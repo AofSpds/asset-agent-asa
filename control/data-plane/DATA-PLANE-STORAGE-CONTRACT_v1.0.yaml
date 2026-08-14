@@ -1,10 +1,11 @@
 contract_id: SEMI-DATA-PLANE-STORAGE-CONTRACT
 contract_version: v1.0
-status: DRAFT / STORAGE_PROVIDER_PENDING
+status: FREEZE_CANDIDATE
 gate: G1-H
 project_id: semiconductor-research
 repository: AofSpds/semiconductor-research
 created_at: '2026-08-15T03:24:00+09:00'
+provider_decision_at: '2026-08-15T03:31:00+09:00'
 
 purpose: >-
   Define the permanent large-byte DATA PLANE storage interface, locator contract,
@@ -19,10 +20,15 @@ control_plane_boundary:
   parquet_git_commit: PROHIBITED
 
 storage_interface:
-  interface: S3_COMPATIBLE_OBJECT_STORAGE
-  provider: PENDING_USER_DECISION
+  interface: NATIVE_S3
+  provider: Amazon S3
+  provider_id: aws-s3-apne2
+  region: ap-northeast-2
+  default_storage_class: S3_STANDARD
   provider_account: NOT_ASSUMED
-  endpoint: PENDING_PROVIDER_SELECTION
+  bucket: PENDING_G1_I_MATERIALIZATION
+  versioning: ENABLED
+  object_lock_capability: ENABLED
   required_capabilities:
     - PERSISTENT
     - PRIVATE
@@ -37,7 +43,7 @@ storage_interface:
     - DUCKDB_ANALYTICS_COMPATIBLE
 
 privacy_and_security:
-  public_access: PROHIBITED
+  public_access: BLOCKED
   private_access: REQUIRED
   credentials_in_repository: PROHIBITED
   secrets_in_manifest: PROHIBITED
@@ -67,19 +73,18 @@ stable_locator_contract:
   authority: MACHINE_LOCATOR
   runtime_paths_are_stable_locators: false
   canonical_locator_components:
-    - provider_id
-    - bucket_or_container
+    - private_bucket
     - immutable_object_key
-  provider_neutral_machine_locator_format: 'object://<provider_id>/<bucket_or_container>/<immutable_object_key>'
-  provider_native_locator: MAY_BE_ADDED_AFTER_PROVIDER_SELECTION
+  machine_locator_format: 's3://<private-bucket>/<immutable_object_key>'
+  provider_native_locator: REQUIRED
   human_display_url_authority: false
   secret_material_allowed: false
-  pending_state: PENDING_DATA_PLANE
+  pending_state_before_g1_i_verification: PENDING_DATA_PLANE
   rule: >-
-    A stable locator is established only after provider selection, bucket/container
-    creation, immutable object-key assignment, successful byte materialization,
-    and post-upload verification. Temporary runtime locations such as /mnt/data
-    MUST NOT be promoted to stable locators.
+    A stable locator is established only after private bucket creation, immutable
+    object-key assignment, successful byte materialization, and post-upload SHA-256
+    verification. Temporary runtime locations such as /mnt/data MUST NOT be promoted
+    to stable locators.
 
 object_key_contract:
   requirements:
@@ -96,8 +101,13 @@ immutability_contract:
   changed_bytes_policy: NEW_DATASET_VERSION_OR_RELEASE_REQUIRED
   sha256_is_identity_authority: true
   filename_identity_sufficient: false
-  provider_side_versioning: REQUIRED_CAPABILITY
-  provider_side_immutability_or_equivalent_retention: REQUIRED_FOR_FROZEN_OBJECTS
+  provider_side_versioning: ENABLED
+  object_lock_capability: ENABLED
+  object_lock_policy:
+    working_staging: HARD_LOCK_NOT_REQUIRED
+    frozen_released: OBJECT_LOCK_REQUIRED
+    initial_retention_mode: GOVERNANCE
+    compliance_mode: PROHIBITED_WITHOUT_SEPARATE_APPROVAL
   deletion_policy: FROZEN_OBJECT_DELETION_REQUIRES_EXPLICIT_CHANGE_CONTROL_AND_RECOVERY_SAFEGUARD
 
 verification_contract:
@@ -118,6 +128,7 @@ backup_contract:
   hash_identity: Git
   recovery_verification: SHA-256
   secondary_backup_provider: PENDING
+  preferred_future_candidate: Backblaze B2
   backup_policy: REQUIRED_BEFORE_CANONICAL_CUTOVER
   canonical_cutover_allowed_without_backup_policy_satisfied: false
 
@@ -163,10 +174,11 @@ future_data_classes:
     note: classification may be refined by a later approved control record without changing Architecture v1.0
 
 promotion_gates:
-  provider_selection_required_before_freeze: true
+  provider_selection_required_before_freeze: false
   provider_and_locator_contract_approval_required_before_freeze: true
+  current_gate_status: FREEZE_CANDIDATE_READY
   hash_record_creation: AT_FREEZE_ONLY
-  g1_i_byte_materialization_allowed_before_provider_selection: false
+  g1_i_byte_materialization_allowed_before_freeze_approval: false
   g1_i_post_upload_manifest_locator_update_required: true
 
 scope_restrictions:
@@ -182,5 +194,5 @@ scope_restrictions:
   runtime_path_promotion: false
 
 next_gate:
-  if_provider_selected: G1-I DATA PLANE BYTE MATERIALIZATION
-  otherwise: PROVIDER SELECTION REQUIRED
+  required: G1-H FREEZE APPROVAL
+  after_freeze_approval: G1-I DATA PLANE BYTE MATERIALIZATION
