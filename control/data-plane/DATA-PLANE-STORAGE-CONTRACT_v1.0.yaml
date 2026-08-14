@@ -1,6 +1,8 @@
 contract_id: SEMI-DATA-PLANE-STORAGE-CONTRACT
 contract_version: v1.0
-status: FREEZE_CANDIDATE
+status: FROZEN
+freeze_decision: APPROVED
+frozen_at: '2026-08-15T03:49:00+09:00'
 gate: G1-H
 project_id: semiconductor-research
 repository: AofSpds/semiconductor-research
@@ -176,8 +178,8 @@ future_data_classes:
 promotion_gates:
   provider_selection_required_before_freeze: false
   provider_and_locator_contract_approval_required_before_freeze: true
-  current_gate_status: FREEZE_CANDIDATE_READY
-  hash_record_creation: AT_FREEZE_ONLY
+  current_gate_status: FROZEN_APPROVED
+  hash_record_creation: COMPLETED_AT_FREEZE
   g1_i_byte_materialization_allowed_before_freeze_approval: false
   g1_i_post_upload_manifest_locator_update_required: true
 
@@ -194,5 +196,5 @@ scope_restrictions:
   runtime_path_promotion: false
 
 next_gate:
-  required: G1-H FREEZE APPROVAL
-  after_freeze_approval: G1-I DATA PLANE BYTE MATERIALIZATION
+  required: G1-I DATA PLANE BYTE MATERIALIZATION
+  entry_condition: G1-H FROZEN
