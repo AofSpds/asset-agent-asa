@@ -1,0 +1,105 @@
+record_id: SEMI-SECONDARY-BACKUP-AUDIT
+record_version: v1.0
+status: FROZEN_RECORD
+control_action: SECONDARY_BACKUP_POLICY_SATISFACTION
+project_id: semiconductor-research
+repository: AofSpds/semiconductor-research
+verified_at: '2026-08-15T06:01:00+09:00'
+
+governing_contract:
+  path: control/data-plane/DATA-PLANE-STORAGE-CONTRACT_v1.0.yaml
+  status: FROZEN
+  contract_sha256: 24a7fcaff779c06ef949c4d89ee81dbde996c395f086bd40b1d0f03fd7cd147d
+  requirement: backup_policy REQUIRED_BEFORE_CANONICAL_CUTOVER
+
+primary_copy:
+  provider: Amazon S3
+  region: ap-northeast-2
+  bucket: semi-data-plane-aofspds-20260815
+  materialization_status: MATERIALIZED_VERIFIED
+  audit: control/data-plane/G1-I-MATERIALIZATION-AUDIT_v1.0.yaml
+
+secondary_backup:
+  provider: Cloudflare R2
+  service: R2 Object Storage
+  placement_mode: AUTOMATIC
+  placement_observed: ASIA_PACIFIC
+  bucket: semi-secondary-backup-aofspds-20260815
+  public_access: DISABLED
+  storage_class: STANDARD
+  bucket_lock:
+    status: ENABLED
+    rule_name: price-raw-90d
+    prefix: raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/
+    retention_period: 90 DAYS
+  credential_policy:
+    token_scope: OBJECT_READ_ONLY
+    bucket_scope: semi-secondary-backup-aofspds-20260815
+    credentials_recorded_in_git: false
+    secrets_recorded_in_manifest: false
+
+price_dataset:
+  dataset_id: SEMI-PRICE-MARCAP-KRX-2024-2026_v1
+  dataset_identity_sha256: 419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7
+  backup_prefix: raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/
+  component_count: 3
+  components:
+    - filename: marcap-2024.parquet
+      bytes: 24572111
+      expected_sha256: b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb
+      observed_backup_sha256: b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb
+      backup_bucket: semi-secondary-backup-aofspds-20260815
+      backup_object_key: raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/marcap-2024.parquet
+      verification_status: PASS
+    - filename: marcap-2025.parquet
+      bytes: 25153419
+      expected_sha256: 2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e
+      observed_backup_sha256: 2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e
+      backup_bucket: semi-secondary-backup-aofspds-20260815
+      backup_object_key: raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/marcap-2025.parquet
+      verification_status: PASS
+    - filename: marcap-2026.parquet
+      bytes: 16198533
+      expected_sha256: 5da710a2fc56f8fe9b1f5126295cc30c3b15c0ee35d28ba808a505ec4a2243c1
+      observed_backup_sha256: 5da710a2fc56f8fe9b1f5126295cc30c3b15c0ee35d28ba808a505ec4a2243c1
+      backup_bucket: semi-secondary-backup-aofspds-20260815
+      backup_object_key: raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/marcap-2026.parquet
+      verification_status: PASS
+
+verification:
+  method: AWS_CLOUDSHELL_TO_R2_S3_COMPATIBLE_REMOTE_RETRIEVAL_PIPE_TO_SHA256SUM
+  region_parameter: auto
+  executor: USER
+  evidence_observation: ASSISTANT_OBSERVED_USER_PROVIDED_CLOUDSHELL_OUTPUT
+  object_listing_verified: true
+  component_byte_sizes_match_authoritative_manifest: true
+  component_results_passed: 3
+  component_results_total: 3
+  dataset_identity_changed: false
+  status: PASS
+
+backup_policy_decision:
+  secondary_provider_selected: Cloudflare R2
+  previous_preferred_candidate: Backblaze B2
+  preferred_candidate_was_binding: false
+  secondary_backup_materialized_verified: true
+  backup_recovery_verification_authority: SHA-256
+  backup_policy_status: SATISFIED
+  canonical_cutover_backup_prerequisite: SATISFIED
+  canonical_cutover_performed: false
+  canonical_cutover_authorized_by_this_record: false
+
+scope_restrictions:
+  architecture_change: false
+  schema_change: false
+  primary_dataset_identity_change: false
+  primary_s3_locator_change: false
+  canonical_cutover: false
+  normalization: false
+  model_release_activation: false
+  universe_release_activation: false
+
+exit:
+  status: COMPLETE
+  blockers: []
+  next_action: PROCEED_ONLY_TO_SEPARATELY_AUTHORIZED_POST_BACKUP_CONTROL_OR_CANONICALIZATION_GATE
