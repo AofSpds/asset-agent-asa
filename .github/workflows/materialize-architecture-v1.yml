@@ -1,5 +1,6 @@
 name: Materialize Architecture v1.0
 
+# All four frozen-byte staging parts are present before this trigger commit.
 on:
   workflow_dispatch:
   push:
