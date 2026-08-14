@@ -1,0 +1,429 @@
+schema_id: SEMI-PIT-SNAPSHOT-SCHEMA
+schema_version: v0.1
+status: FROZEN
+architecture_reference:
+  artifact: SEMI-ARCHITECTURE-SPEC_v1.0.md
+  version: v1.0
+  status: FROZEN / ACTIVE ARCHITECTURE
+migration_package_reference:
+  inventory: SEMI-MIGRATION-INVENTORY_v1.0.csv
+  manifest: SEMI-MIGRATION-MANIFEST_v1.0.csv
+  legacy_to_canonical_map: SEMI-LEGACY-TO-CANONICAL-MAP_v1.0.csv
+  issue_register: SEMI-MIGRATION-ISSUE-REGISTER_v1.0.csv
+  status: FROZEN v1.0
+logical_object: PIT-SNAPSHOT
+description: Model-independent Point-in-Time freeze answering 'what was knowable at snapshot_cutoff_at'. Model interpretation,
+  score, and validation remain outside this object.
+logical_key:
+  business_key:
+  - company_id
+  - snapshot_cutoff_at
+  revision_key:
+  - company_id
+  - snapshot_cutoff_at
+  - snapshot_revision
+  immutable_id:
+  - pit_snapshot_id
+write_policy: Append-only Snapshot revisions; frozen Snapshot revisions are not destructively mutated.
+version_policy:
+  snapshot_schema_change: snapshot_schema_version
+  snapshot_data_correction: snapshot_revision
+  model_change: does not alter PIT Snapshot schema or revision
+dependencies:
+- company.schema.yaml
+- universe.schema.yaml
+- evidence.schema.yaml
+- event.schema.yaml
+- source.schema.yaml
+- price.schema.yaml
+- company_fab.schema.yaml
+- fab.schema.yaml
+type_policy:
+  identifier: string; never integer
+  krx_code: string; preserve leading zero
+  datetime: timezone-aware ISO-8601; default operational timezone Asia/Seoul
+  date: YYYY-MM-DD
+  date_or_datetime_tz: either YYYY-MM-DD when only date precision is evidenced, or timezone-aware ISO-8601 when exact time
+    is evidenced; never invent an intraday time
+  decimal: exact decimal semantics; persistent binary floating point is prohibited
+  decimal_precision: precision/scale is not invented by this contract; physical implementation must preserve source precision
+    and pass audit
+  'null': field not applicable or value absent for this record
+  NOT_FOUND: Evidence.status only; retrieval failure and never numeric zero/FALSE
+  UNKNOWN: only when an explicit field enum defines UNKNOWN
+  zero: actual numeric zero
+  empty_string: MUST NOT substitute for NULL, NOT_FOUND, UNKNOWN, or 0
+nullable_policy:
+  rule: Nullable is field-specific. NULL does not mean NOT_FOUND, UNKNOWN, FALSE, or 0.
+  historical_valid_from: If historical effective start is unsupported by evidence, valid_from remains NULL and provenance/status
+    records the non-inference.
+fields:
+- name: pit_snapshot_id
+  type: string
+  nullable: false
+  description: Immutable identifier for one exact PIT Snapshot revision.
+- name: company_id
+  type: string
+  nullable: false
+  description: Company identifier.
+- name: snapshot_cutoff_at
+  type: datetime_tz
+  nullable: false
+  description: Authoritative business cutoff and PIT identity timestamp.
+- name: snapshot_date
+  type: date
+  nullable: false
+  description: Convenience/search/reporting date derived from snapshot_cutoff_at.
+  derived: true
+- name: snapshot_schema_version
+  type: string
+  nullable: false
+  description: PIT Snapshot schema version.
+- name: snapshot_revision
+  type: integer
+  nullable: false
+  description: Snapshot data-correction revision; initial 0.
+  default: 0
+- name: supersedes_ref
+  type: string
+  nullable: true
+  description: Prior pit_snapshot_id superseded by corrected Snapshot revision.
+- name: capture_run_id
+  type: string
+  nullable: false
+  description: Run identifier that captured this Snapshot revision.
+- name: snapshot_frozen
+  type: boolean
+  nullable: false
+  description: Whether this Snapshot revision is frozen as historical input.
+  default: false
+- name: snapshot_frozen_at
+  type: datetime_tz
+  nullable: true
+  description: Freeze timestamp; required when snapshot_frozen=TRUE.
+- name: f1_f2_effective_refs
+  type: array[typed_reference]
+  nullable: true
+  description: Typed references to effective model-independent F1/F2 records. Allowed domains are declared in reference_contracts;
+    opaque strings are prohibited.
+- name: f3_observation_refs
+  type: array[typed_reference]
+  nullable: true
+  description: Typed references to model-independent F3 observations/events. Allowed domains are declared in reference_contracts;
+    opaque strings are prohibited.
+- name: evidence_refs
+  type: array[string]
+  nullable: true
+  description: Evidence units available at cutoff.
+- name: dataset_refs
+  type: array[typed_reference]
+  nullable: true
+  description: Typed immutable dataset/source references. Allowed domains are declared in reference_contracts; opaque strings
+    are prohibited.
+- name: universe_release_id
+  type: string
+  nullable: true
+  description: Universe release/context used by the capture/run when applicable.
+- name: tradability_state_ref
+  type: typed_reference
+  nullable: true
+  description: Typed reference to exactly one UNIVERSE schema TRADABILITY-HISTORY record; opaque strings are prohibited.
+- name: schema_version
+  type: string
+  nullable: false
+  description: Envelope schema version.
+  default: v0.1
+constraints:
+- id: PIT-C01
+  severity: ERROR
+  rule: Authoritative Business Snapshot Key is company_id + snapshot_cutoff_at.
+- id: PIT-C02
+  severity: ERROR
+  rule: Revision identity is company_id + snapshot_cutoff_at + snapshot_revision.
+- id: PIT-C03
+  severity: ERROR
+  rule: model_version is prohibited from PIT-SNAPSHOT fields and logical identity.
+- id: PIT-C04
+  severity: ERROR
+  rule: Trigger Stage, Expectations Gap, Conversion Visibility, Market Recognition grade, Evidence Integrity score, model-specific
+    components, Total Score, and Validation Return are prohibited as authoritative PIT fields.
+- id: PIT-C05
+  severity: ERROR
+  rule: PIT-SNAPSHOT may reference model-independent effective F1/F2 state, F3 observations, Evidence, datasets, Universe
+    release/context, and Tradability state.
+- id: PIT-C06
+  severity: ERROR
+  rule: snapshot_revision is independent from MODEL-SCORE.score_revision.
+- id: PIT-C07
+  severity: ERROR
+  rule: snapshot_frozen is independent from MODEL-SCORE.score_frozen.
+- id: PIT-C08
+  severity: ERROR
+  rule: snapshot_frozen=TRUE requires snapshot_frozen_at; corrections append a new snapshot_revision.
+- id: PIT-C09
+  severity: ERROR
+  rule: Evidence eligibility uses publication_at <= snapshot_cutoff_at; Entry-day information after the cutoff is not retroactively
+    admitted.
+- id: PIT-C10
+  severity: ERROR
+  rule: snapshot_date is convenience metadata only and must never replace snapshot_cutoff_at in logical identity.
+- id: PIT-C11
+  severity: ERROR
+  rule: tradability_state_ref, f1_f2_effective_refs, f3_observation_refs, and dataset_refs must use the structured typed-reference
+    shapes in reference_contracts. Opaque string references are prohibited.
+- id: PIT-C12
+  severity: ERROR
+  rule: Each typed reference domain must match exactly one allowed target object and key shape; generic untyped ref_id values
+    are invalid.
+- id: PIT-C13
+  severity: ERROR
+  rule: SOURCE_DATASET and SOURCE_DATASET_LOCATOR references must resolve to registered SOURCE assets representing datasets/raw/API
+    data; locator is required for row/observation-level source references.
+- id: PIT-C14
+  severity: ERROR
+  rule: When supersedes_ref is populated, it must resolve to the immediately or explicitly superseded PIT-SNAPSHOT for the
+    same company_id + snapshot_cutoff_at; snapshot_revision must be greater than the superseded snapshot_revision.
+foreign_references:
+- id: PIT-FK01
+  local_fields:
+  - company_id
+  target_schema: company.schema.yaml
+  target_object: COMPANY-IDENTITY
+  target_fields:
+  - company_id
+  resolution: IMMEDIATE
+- id: PIT-FK02
+  local_fields:
+  - evidence_refs
+  target_schema: evidence.schema.yaml
+  target_object: EVIDENCE
+  target_fields:
+  - evidence_id
+  resolution: IMMEDIATE
+  required_when: evidence_refs is populated
+- id: PIT-FK03
+  local_fields:
+  - universe_release_id
+  target_schema: universe.schema.yaml
+  target_object: UNIVERSE-RELEASE
+  target_fields:
+  - universe_release_id
+  resolution: IMMEDIATE
+  required_when: universe_release_id is populated
+- id: PIT-FK04
+  local_fields:
+  - supersedes_ref
+  target_schema: pit_snapshot.schema.yaml
+  target_object: PIT-SNAPSHOT
+  target_fields:
+  - pit_snapshot_id
+  resolution: IMMEDIATE
+  required_when: supersedes_ref is populated
+- id: PIT-FK05
+  local_fields:
+  - capture_run_id
+  target_schema: run_manifest.schema.yaml
+  target_object: RUN-MANIFEST
+  target_fields:
+  - run_id
+  resolution: DEFERRED_BIDIRECTIONAL_PROVENANCE
+  notes: Run Manifest also references output_pit_snapshot_id; this is an intentional provenance back-reference and is not
+    a schema dependency edge.
+- id: PIT-FK06
+  local_fields:
+  - tradability_state_ref.ref_id
+  target_schema: universe.schema.yaml
+  target_object: TRADABILITY-HISTORY
+  target_fields:
+  - universe_record_id
+  resolution: IMMEDIATE
+  required_when: tradability_state_ref is populated
+- id: PIT-FK07
+  local_fields:
+  - f1_f2_effective_refs[].ref_id
+  target_schema: company.schema.yaml
+  target_object: COMPANY-STRUCTURE-HISTORY
+  target_fields:
+  - record_id
+  resolution: IMMEDIATE
+  required_when: reference domain=COMPANY_STRUCTURE_HISTORY
+- id: PIT-FK08
+  local_fields:
+  - f1_f2_effective_refs[].ref_id
+  target_schema: company.schema.yaml
+  target_object: COMPANY-STATE-HISTORY
+  target_fields:
+  - record_id
+  resolution: IMMEDIATE
+  required_when: reference domain=COMPANY_STATE_HISTORY
+- id: PIT-FK09
+  local_fields:
+  - f1_f2_effective_refs[].ref_id
+  target_schema: fab.schema.yaml
+  target_object: FAB-STATE-HISTORY
+  target_fields:
+  - record_id
+  resolution: IMMEDIATE
+  required_when: reference domain=FAB_STATE_HISTORY
+- id: PIT-FK10
+  local_fields:
+  - f1_f2_effective_refs[].ref_id
+  target_schema: company_fab.schema.yaml
+  target_object: COMPANY-FAB
+  target_fields:
+  - company_fab_record_id
+  resolution: IMMEDIATE
+  required_when: reference domain=COMPANY_FAB
+- id: PIT-FK11
+  local_fields:
+  - f3_observation_refs[].reference_payload.evidence_id
+  target_schema: evidence.schema.yaml
+  target_object: EVIDENCE
+  target_fields:
+  - evidence_id
+  resolution: IMMEDIATE
+  required_when: reference domain=EVIDENCE
+- id: PIT-FK12
+  local_fields:
+  - f3_observation_refs[].reference_payload.event_record_id
+  target_schema: event.schema.yaml
+  target_object: EVENT
+  target_fields:
+  - event_record_id
+  resolution: IMMEDIATE
+  required_when: reference domain=EVENT
+- id: PIT-FK13
+  local_fields:
+  - f3_observation_refs[].reference_payload.price_dataset_id
+  - f3_observation_refs[].reference_payload.date
+  - f3_observation_refs[].reference_payload.code
+  target_schema: price.schema.yaml
+  target_object: PRICE-CANONICAL
+  target_fields:
+  - price_dataset_id
+  - date
+  - code
+  resolution: IMMEDIATE
+  required_when: reference domain=PRICE_CANONICAL
+- id: PIT-FK14
+  local_fields:
+  - f3_observation_refs[].reference_payload.source_id
+  target_schema: source.schema.yaml
+  target_object: SOURCE
+  target_fields:
+  - source_id
+  resolution: IMMEDIATE
+  required_when: reference domain=SOURCE_DATASET_LOCATOR
+- id: PIT-FK15
+  local_fields:
+  - dataset_refs[].source_id
+  target_schema: source.schema.yaml
+  target_object: SOURCE
+  target_fields:
+  - source_id
+  resolution: IMMEDIATE
+  required_when: dataset_refs is populated
+audit_rules:
+- id: PIT-A01
+  severity: ERROR
+  rule: Fail if model_version appears in PIT fields or logical key.
+- id: PIT-A02
+  severity: ERROR
+  rule: Fail if Trigger/Gap/Conversion/Recognition grade or Evidence Integrity score is an authoritative PIT field.
+- id: PIT-A03
+  severity: ERROR
+  rule: Fail if current 30/25/20/15/5/5 component columns are hard-coded in PIT.
+- id: PIT-A04
+  severity: ERROR
+  rule: Fail duplicate company_id + snapshot_cutoff_at + snapshot_revision.
+- id: PIT-A05
+  severity: ERROR
+  rule: Validate Snapshot freeze/supersession independently from Score freeze/revision.
+- id: PIT-A06
+  severity: ERROR
+  rule: Validate every typed reference domain, required payload, target object, and referenced key before Snapshot freeze.
+- id: PIT-A07
+  severity: ERROR
+  rule: Reject opaque string values in tradability_state_ref, f1_f2_effective_refs, f3_observation_refs, or dataset_refs.
+reference_contracts:
+  tradability_state_ref:
+    shape:
+      domain: TRADABILITY_HISTORY
+      ref_id: universe_record_id
+    allowed_targets:
+    - domain: TRADABILITY_HISTORY
+      target_schema: universe.schema.yaml
+      target_object: TRADABILITY-HISTORY
+      target_fields:
+      - universe_record_id
+  f1_f2_effective_refs:
+    shape:
+      domain: enum
+      ref_id: string
+    allowed_targets:
+    - domain: COMPANY_STRUCTURE_HISTORY
+      target_schema: company.schema.yaml
+      target_object: COMPANY-STRUCTURE-HISTORY
+      target_fields:
+      - record_id
+    - domain: COMPANY_STATE_HISTORY
+      target_schema: company.schema.yaml
+      target_object: COMPANY-STATE-HISTORY
+      target_fields:
+      - record_id
+    - domain: FAB_STATE_HISTORY
+      target_schema: fab.schema.yaml
+      target_object: FAB-STATE-HISTORY
+      target_fields:
+      - record_id
+    - domain: COMPANY_FAB
+      target_schema: company_fab.schema.yaml
+      target_object: COMPANY-FAB
+      target_fields:
+      - company_fab_record_id
+  f3_observation_refs:
+    shape:
+      domain: enum
+      reference_payload: domain-specific structured key
+    allowed_targets:
+    - domain: EVIDENCE
+      target_schema: evidence.schema.yaml
+      target_object: EVIDENCE
+      target_fields:
+      - evidence_id
+    - domain: EVENT
+      target_schema: event.schema.yaml
+      target_object: EVENT
+      target_fields:
+      - event_record_id
+    - domain: PRICE_CANONICAL
+      target_schema: price.schema.yaml
+      target_object: PRICE-CANONICAL
+      target_fields:
+      - price_dataset_id
+      - date
+      - code
+    - domain: SOURCE_DATASET_LOCATOR
+      target_schema: source.schema.yaml
+      target_object: SOURCE
+      target_fields:
+      - source_id
+      required_payload:
+      - source_id
+      - locator
+      rule: Used for model-independent observations in a registered dataset/source where no dedicated canonical observation
+        schema exists.
+  dataset_refs:
+    shape:
+      domain: SOURCE_DATASET
+      source_id: string
+      content_hash: string_or_null
+      locator: string_or_null
+    allowed_targets:
+    - domain: SOURCE_DATASET
+      target_schema: source.schema.yaml
+      target_object: SOURCE
+      target_fields:
+      - source_id
+      rule: Referenced SOURCE must represent a dataset/raw/API data asset. content_hash must be supplied when the underlying
+        immutable dataset hash is available.
