@@ -1,0 +1,334 @@
+schema_id: SEMI-COMPANY-SCHEMA
+schema_version: v0.1
+status: FROZEN
+architecture_reference:
+  artifact: SEMI-ARCHITECTURE-SPEC_v1.0.md
+  version: v1.0
+  status: FROZEN / ACTIVE ARCHITECTURE
+migration_package_reference:
+  inventory: SEMI-MIGRATION-INVENTORY_v1.0.csv
+  manifest: SEMI-MIGRATION-MANIFEST_v1.0.csv
+  legacy_to_canonical_map: SEMI-LEGACY-TO-CANONICAL-MAP_v1.0.csv
+  issue_register: SEMI-MIGRATION-ISSUE-REGISTER_v1.0.csv
+  status: FROZEN v1.0
+logical_object: &id001
+- COMPANY-IDENTITY
+- COMPANY-STRUCTURE-HISTORY
+- COMPANY-STATE-HISTORY
+description: Canonical company identity plus append-only structural and time-varying state history. Frozen Migration Mapping
+  R1/R2/RE semantics determine the history boundary.
+logical_key:
+  COMPANY-IDENTITY:
+  - company_id
+  COMPANY-STRUCTURE-HISTORY:
+  - record_id
+  COMPANY-STATE-HISTORY:
+  - record_id
+write_policy:
+  COMPANY-IDENTITY: company_id is immutable; identity corrections create a new identity revision/record under migration tooling
+    without changing company_id.
+  COMPANY-STRUCTURE-HISTORY: append-only; correction creates new record_revision and supersedes_ref.
+  COMPANY-STATE-HISTORY: append-only; event/state changes create new records; corrections use record_revision.
+version_policy:
+  breaking_change: new schema_version required for logical key, object boundary, field meaning, enum meaning, or incompatible
+    required-field change
+  non_breaking_change: nullable metadata/field addition or description clarification may use compatible schema evolution
+  data_correction: record_revision; never model_version
+dependencies:
+- evidence.schema.yaml
+type_policy:
+  identifier: string; never integer
+  krx_code: string; preserve leading zero
+  datetime: timezone-aware ISO-8601; default operational timezone Asia/Seoul
+  date: YYYY-MM-DD
+  date_or_datetime_tz: either YYYY-MM-DD when only date precision is evidenced, or timezone-aware ISO-8601 when exact time
+    is evidenced; never invent an intraday time
+  decimal: exact decimal semantics; persistent binary floating point is prohibited
+  decimal_precision: precision/scale is not invented by this contract; physical implementation must preserve source precision
+    and pass audit
+  'null': field not applicable or value absent for this record
+  NOT_FOUND: Evidence.status only; retrieval failure and never numeric zero/FALSE
+  UNKNOWN: only when an explicit field enum defines UNKNOWN
+  zero: actual numeric zero
+  empty_string: MUST NOT substitute for NULL, NOT_FOUND, UNKNOWN, or 0
+nullable_policy:
+  rule: Nullable is field-specific. NULL does not mean NOT_FOUND, UNKNOWN, FALSE, or 0.
+  historical_valid_from: If historical effective start is unsupported by evidence, valid_from remains NULL and provenance/status
+    records the non-inference.
+fields:
+- name: record_type
+  type: enum
+  nullable: false
+  description: Discriminates the logical record type stored in this schema.
+  applies_to: *id001
+  enum: *id001
+- name: company_id
+  type: string
+  nullable: false
+  description: Immutable project company identifier.
+  applies_to: *id001
+- name: krx_code
+  type: string
+  nullable: true
+  description: KRX security code; leading zeros must be preserved.
+  applies_to:
+  - COMPANY-IDENTITY
+  required_when: listed security identity exists
+- name: canonical_name
+  type: string
+  nullable: false
+  description: Canonical company name for the identity record.
+  applies_to:
+  - COMPANY-IDENTITY
+- name: english_name
+  type: string
+  nullable: true
+  description: English company name when evidenced.
+  applies_to:
+  - COMPANY-IDENTITY
+- name: market
+  type: string
+  nullable: true
+  description: Listing market metadata when evidenced.
+  applies_to:
+  - COMPANY-IDENTITY
+- name: aliases
+  type: array[string]
+  nullable: true
+  description: Historical/retrieval aliases; aliases are not separate company identities.
+  applies_to:
+  - COMPANY-IDENTITY
+- name: dart_corp_id
+  type: string
+  nullable: true
+  description: DART corporate identifier when verified; retrieval failure is represented in Evidence, not as a literal value.
+  applies_to:
+  - COMPANY-IDENTITY
+- name: listing_date
+  type: date
+  nullable: true
+  description: Verified listing date when known; migration must not infer this date.
+  applies_to:
+  - COMPANY-IDENTITY
+- name: listing_metadata
+  type: json
+  nullable: true
+  description: Additional identity/listing metadata that does not justify a new schema field.
+  applies_to:
+  - COMPANY-IDENTITY
+- name: record_id
+  type: string
+  nullable: true
+  description: Immutable history record ID.
+  applies_to:
+  - COMPANY-STRUCTURE-HISTORY
+  - COMPANY-STATE-HISTORY
+  required_when: record_type is a history record
+- name: field_key
+  type: string
+  nullable: true
+  description: Canonical history field key. Allowed values depend on record_type.
+  applies_to:
+  - COMPANY-STRUCTURE-HISTORY
+  - COMPANY-STATE-HISTORY
+  required_when: record_type is a history record
+- name: value
+  type: json
+  nullable: true
+  description: Preserves the semantic value of the history field; numeric values must use exact-decimal semantics.
+  applies_to:
+  - COMPANY-STRUCTURE-HISTORY
+  - COMPANY-STATE-HISTORY
+- name: knowledge_status
+  type: enum
+  nullable: true
+  description: Whether the state value is known, partial, or genuinely unknown. NOT_FOUND is not allowed here.
+  applies_to:
+  - COMPANY-STRUCTURE-HISTORY
+  - COMPANY-STATE-HISTORY
+  enum:
+  - KNOWN
+  - PARTIAL
+  - UNKNOWN
+- name: valid_from
+  type: date_or_datetime_tz
+  nullable: true
+  description: Economic/operational effective start when evidenced; may be NULL when historical start is unsupported.
+  applies_to:
+  - COMPANY-STRUCTURE-HISTORY
+  - COMPANY-STATE-HISTORY
+- name: valid_from_provenance
+  type: string
+  nullable: true
+  description: Evidence/provenance supporting valid_from or explaining why it is not inferred.
+  applies_to:
+  - COMPANY-STRUCTURE-HISTORY
+  - COMPANY-STATE-HISTORY
+- name: recorded_at
+  type: datetime_tz
+  nullable: true
+  description: Time the history record is written.
+  applies_to:
+  - COMPANY-STRUCTURE-HISTORY
+  - COMPANY-STATE-HISTORY
+  required_when: record_type is a history record
+- name: record_revision
+  type: integer
+  nullable: true
+  description: Correction revision for the same logical history statement; initial revision is 0.
+  applies_to:
+  - COMPANY-STRUCTURE-HISTORY
+  - COMPANY-STATE-HISTORY
+  default: 0
+  required_when: record_type is a history record
+- name: supersedes_ref
+  type: string
+  nullable: true
+  description: Prior history record superseded by this correction.
+  applies_to:
+  - COMPANY-STRUCTURE-HISTORY
+  - COMPANY-STATE-HISTORY
+- name: evidence_refs
+  type: array[string]
+  nullable: true
+  description: Evidence IDs supporting the identity/history statement.
+  applies_to: *id001
+- name: refresh_code
+  type: enum
+  nullable: true
+  description: Frozen refresh semantics applicable to this history field.
+  applies_to:
+  - COMPANY-STRUCTURE-HISTORY
+  - COMPANY-STATE-HISTORY
+  enum:
+  - R1
+  - R2
+  - R3Q
+  - RE
+  - R1/R2
+  - R2/RE
+  - R2/R3Q
+- name: schema_version
+  type: string
+  nullable: false
+  description: Schema version used to serialize the record.
+  applies_to: *id001
+  default: v0.1
+constraints:
+- id: COMP-C01
+  severity: ERROR
+  rule: company_id is immutable and all identifiers including krx_code are strings.
+- id: COMP-C02
+  severity: ERROR
+  rule: 'COMPANY-STRUCTURE-HISTORY.field_key must be one of: [''business_type'', ''core_product'', ''process_position'', ''primary_beta'',
+    ''secondary_beta'', ''equipment_entry_timing'', ''recurring_model_baseline'', ''process_criticality_baseline'', ''future_tech_tags_baseline''].'
+- id: COMP-C03
+  severity: ERROR
+  rule: 'COMPANY-STATE-HISTORY.field_key must be one of: [''installed_base'', ''qualification_barrier'', ''switching_cost'',
+    ''ip_recipe_dependency'', ''customer_structure'', ''overseas_exposure'', ''manufacturing_capacity'', ''substitution_risk'',
+    ''recurring_model_state'', ''process_criticality_state'', ''future_tech_tags_state'', ''customer_qualification'', ''design_win_repeat_order'',
+    ''vendor_share'', ''technology_maturity'', ''moat_baseline'', ''customer_expansion'', ''capacity_ceiling''].'
+- id: COMP-C04
+  severity: ERROR
+  rule: R1 maps to COMPANY-STRUCTURE-HISTORY; R2/RE maps to COMPANY-STATE-HISTORY; R1/R2 fields are split between structural
+    baseline and time-varying state by field semantics.
+- id: COMP-C05
+  severity: ERROR
+  rule: Qualification Barrier, Switching Cost, IP/Recipe Dependency, Customer Structure, Overseas Exposure, Manufacturing
+    Capacity, and Substitution Risk must not be migrated as structure-history-only fields.
+- id: COMP-C06
+  severity: ERROR
+  rule: Recurring Model, Process Criticality, and Future Tech Tags may have a structural baseline plus later state records;
+    the same semantic state must not be duplicated across both histories.
+- id: COMP-C07
+  severity: ERROR
+  rule: valid_to is not a canonical mutable field; generated views derive it from the next effective valid_from.
+- id: COMP-C08
+  severity: ERROR
+  rule: If historical valid_from is not evidenced, valid_from remains NULL and valid_from_provenance records the non-inference;
+    migration must not invent a date.
+- id: COMP-C09
+  severity: ERROR
+  rule: NOT_FOUND is prohibited as a literal business value; retrieval failure belongs to Evidence.status.
+- id: COMP-C10
+  severity: ERROR
+  rule: When supersedes_ref is populated, it must resolve to a prior record of the same record_type, company_id, and field_key;
+    record_revision must be greater than the superseded record_revision.
+foreign_references:
+- id: COMP-FK01
+  local_fields:
+  - evidence_refs
+  target_schema: evidence.schema.yaml
+  target_object: EVIDENCE
+  target_fields:
+  - evidence_id
+  resolution: IMMEDIATE
+  required_when: evidence_refs is populated
+- id: COMP-FK02
+  local_fields:
+  - supersedes_ref
+  target_schema: company.schema.yaml
+  target_object: COMPANY-STRUCTURE-HISTORY
+  target_fields:
+  - record_id
+  resolution: IMMEDIATE
+  required_when: record_type=COMPANY-STRUCTURE-HISTORY and supersedes_ref is populated
+- id: COMP-FK03
+  local_fields:
+  - supersedes_ref
+  target_schema: company.schema.yaml
+  target_object: COMPANY-STATE-HISTORY
+  target_fields:
+  - record_id
+  resolution: IMMEDIATE
+  required_when: record_type=COMPANY-STATE-HISTORY and supersedes_ref is populated
+audit_rules:
+- id: COMP-A01
+  severity: ERROR
+  rule: Reject integer KRX codes or any loss of leading zeros.
+- id: COMP-A02
+  severity: ERROR
+  rule: Reject valid_to as a canonical field.
+- id: COMP-A03
+  severity: ERROR
+  rule: Reject unsupported historical valid_from without provenance.
+- id: COMP-A04
+  severity: ERROR
+  rule: Validate R1/R2/RE placement against frozen SEMI-EVAL-CORE and Migration Mapping.
+- id: COMP-A05
+  severity: ERROR
+  rule: Reject NOT_FOUND converted to NULL-without-evidence, FALSE, or 0 where retrieval failure is the actual state.
+- id: COMP-A06
+  severity: ERROR
+  rule: Validate supersedes_ref self-reference and same company_id/field_key/record_type revision lineage.
+record_types: *id001
+field_key_contract:
+  COMPANY-STRUCTURE-HISTORY:
+  - business_type
+  - core_product
+  - process_position
+  - primary_beta
+  - secondary_beta
+  - equipment_entry_timing
+  - recurring_model_baseline
+  - process_criticality_baseline
+  - future_tech_tags_baseline
+  COMPANY-STATE-HISTORY:
+  - installed_base
+  - qualification_barrier
+  - switching_cost
+  - ip_recipe_dependency
+  - customer_structure
+  - overseas_exposure
+  - manufacturing_capacity
+  - substitution_risk
+  - recurring_model_state
+  - process_criticality_state
+  - future_tech_tags_state
+  - customer_qualification
+  - design_win_repeat_order
+  - vendor_share
+  - technology_maturity
+  - moat_baseline
+  - customer_expansion
+  - capacity_ceiling
