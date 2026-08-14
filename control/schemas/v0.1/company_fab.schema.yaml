@@ -1,0 +1,175 @@
+schema_id: SEMI-COMPANY-FAB-SCHEMA
+schema_version: v0.1
+status: FROZEN
+architecture_reference:
+  artifact: SEMI-ARCHITECTURE-SPEC_v1.0.md
+  version: v1.0
+  status: FROZEN / ACTIVE ARCHITECTURE
+migration_package_reference:
+  inventory: SEMI-MIGRATION-INVENTORY_v1.0.csv
+  manifest: SEMI-MIGRATION-MANIFEST_v1.0.csv
+  legacy_to_canonical_map: SEMI-LEGACY-TO-CANONICAL-MAP_v1.0.csv
+  issue_register: SEMI-MIGRATION-ISSUE-REGISTER_v1.0.csv
+  status: FROZEN v1.0
+logical_object: COMPANY-FAB
+description: Structural exposure bridge between Company and Fab. Fab stage is not duplicated here.
+logical_key:
+- company_fab_record_id
+write_policy: Append-only relationship history; corrections use record_revision and supersedes_ref.
+version_policy:
+  breaking_change: new schema_version
+  relationship_change: new relationship record
+  data_correction: record_revision
+dependencies:
+- company.schema.yaml
+- fab.schema.yaml
+- evidence.schema.yaml
+type_policy:
+  identifier: string; never integer
+  krx_code: string; preserve leading zero
+  datetime: timezone-aware ISO-8601; default operational timezone Asia/Seoul
+  date: YYYY-MM-DD
+  date_or_datetime_tz: either YYYY-MM-DD when only date precision is evidenced, or timezone-aware ISO-8601 when exact time
+    is evidenced; never invent an intraday time
+  decimal: exact decimal semantics; persistent binary floating point is prohibited
+  decimal_precision: precision/scale is not invented by this contract; physical implementation must preserve source precision
+    and pass audit
+  'null': field not applicable or value absent for this record
+  NOT_FOUND: Evidence.status only; retrieval failure and never numeric zero/FALSE
+  UNKNOWN: only when an explicit field enum defines UNKNOWN
+  zero: actual numeric zero
+  empty_string: MUST NOT substitute for NULL, NOT_FOUND, UNKNOWN, or 0
+nullable_policy:
+  rule: Nullable is field-specific. NULL does not mean NOT_FOUND, UNKNOWN, FALSE, or 0.
+  historical_valid_from: If historical effective start is unsupported by evidence, valid_from remains NULL and provenance/status
+    records the non-inference.
+fields:
+- name: company_fab_record_id
+  type: string
+  nullable: false
+  description: Immutable Company-Fab bridge record ID.
+- name: company_id
+  type: string
+  nullable: false
+  description: Company identifier.
+- name: fab_id
+  type: string
+  nullable: false
+  description: Fab identifier.
+- name: process_exposure
+  type: string
+  nullable: true
+  description: Structural process exposure linking the company to the Fab.
+- name: beta_type
+  type: enum
+  nullable: true
+  description: Frozen β transmission type.
+  enum: &id001
+  - Equipment-fill β
+  - Utilization β
+  - Process-intensity β
+  - Packaging/HBM β
+  - Test/Product-cycle β
+  - Metrology/System-yield β
+  - Foundry-cycle β
+- name: exposure_strength
+  type: string
+  nullable: true
+  description: Structural exposure strength using source-preserved vocabulary; no new scale is invented here.
+- name: valid_from
+  type: date_or_datetime_tz
+  nullable: true
+  description: Effective start when evidenced; unsupported history remains NULL.
+- name: valid_from_provenance
+  type: string
+  nullable: true
+  description: Evidence/provenance for valid_from or non-inference.
+- name: recorded_at
+  type: datetime_tz
+  nullable: false
+  description: Record creation time.
+- name: record_revision
+  type: integer
+  nullable: false
+  description: Correction revision; initial 0.
+  default: 0
+- name: supersedes_ref
+  type: string
+  nullable: true
+  description: Prior bridge record superseded by correction.
+- name: evidence_refs
+  type: array[string]
+  nullable: true
+  description: Evidence supporting the structural exposure.
+- name: schema_version
+  type: string
+  nullable: false
+  description: Schema version.
+  default: v0.1
+constraints:
+- id: CF-C01
+  severity: ERROR
+  rule: Fab stage, cleanroom, move-in, qualification, and ramp state must not be copied into COMPANY-FAB.
+- id: CF-C02
+  severity: ERROR
+  rule: 'beta_type, when populated, must be one of the frozen seven β types: [''Equipment-fill β'', ''Utilization β'', ''Process-intensity
+    β'', ''Packaging/HBM β'', ''Test/Product-cycle β'', ''Metrology/System-yield β'', ''Foundry-cycle β''].'
+- id: CF-C03
+  severity: ERROR
+  rule: valid_to is not a mutable canonical field.
+- id: CF-C04
+  severity: ERROR
+  rule: Unsupported historical valid_from remains NULL.
+- id: CF-C05
+  severity: ERROR
+  rule: When supersedes_ref is populated, it must resolve to a prior COMPANY-FAB record for the same company_id + fab_id +
+    process_exposure + beta_type semantic relationship; record_revision must be greater.
+foreign_references:
+- id: CF-FK01
+  local_fields:
+  - company_id
+  target_schema: company.schema.yaml
+  target_object: COMPANY-IDENTITY
+  target_fields:
+  - company_id
+  resolution: IMMEDIATE
+- id: CF-FK02
+  local_fields:
+  - fab_id
+  target_schema: fab.schema.yaml
+  target_object: FAB-IDENTITY
+  target_fields:
+  - fab_id
+  resolution: IMMEDIATE
+- id: CF-FK03
+  local_fields:
+  - evidence_refs
+  target_schema: evidence.schema.yaml
+  target_object: EVIDENCE
+  target_fields:
+  - evidence_id
+  resolution: IMMEDIATE
+  required_when: evidence_refs is populated
+- id: CF-FK04
+  local_fields:
+  - supersedes_ref
+  target_schema: company_fab.schema.yaml
+  target_object: COMPANY-FAB
+  target_fields:
+  - company_fab_record_id
+  resolution: IMMEDIATE
+  required_when: supersedes_ref is populated
+audit_rules:
+- id: CF-A01
+  severity: ERROR
+  rule: Reject any bridge row containing duplicated Fab lifecycle state.
+- id: CF-A02
+  severity: ERROR
+  rule: Reject β value outside the frozen seven-type enum.
+- id: CF-A03
+  severity: ERROR
+  rule: Reject duplicate economic/structural exposure records created solely because multiple sources confirm the same exposure.
+- id: CF-A04
+  severity: ERROR
+  rule: Validate COMPANY-FAB supersedes_ref self-reference and relationship identity continuity.
+beta_type_enum: *id001
