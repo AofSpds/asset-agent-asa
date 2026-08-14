@@ -1,0 +1,322 @@
+schema_id: SEMI-RUN-MANIFEST-SCHEMA
+schema_version: v0.1
+status: FROZEN
+architecture_reference:
+  artifact: SEMI-ARCHITECTURE-SPEC_v1.0.md
+  version: v1.0
+  status: FROZEN / ACTIVE ARCHITECTURE
+migration_package_reference:
+  inventory: SEMI-MIGRATION-INVENTORY_v1.0.csv
+  manifest: SEMI-MIGRATION-MANIFEST_v1.0.csv
+  legacy_to_canonical_map: SEMI-LEGACY-TO-CANONICAL-MAP_v1.0.csv
+  issue_register: SEMI-MIGRATION-ISSUE-REGISTER_v1.0.csv
+  status: FROZEN v1.0
+logical_object: RUN-MANIFEST
+description: Immutable execution provenance for Snapshot Capture, Model Scoring, and Validation with explicit Run Mode and
+  Run Role separation.
+logical_key:
+- run_id
+write_policy: Run manifests are immutable; every execution receives a new run_id.
+version_policy:
+  run_schema_breaking_change: new schema_version
+  new_execution: new run_id
+  model_or_snapshot_or_score_version: independent axes
+dependencies:
+- pit_snapshot.schema.yaml
+- model_definition.schema.yaml
+- model_score.schema.yaml
+- validation.schema.yaml
+- price.schema.yaml
+- universe.schema.yaml
+type_policy:
+  identifier: string; never integer
+  krx_code: string; preserve leading zero
+  datetime: timezone-aware ISO-8601; default operational timezone Asia/Seoul
+  date: YYYY-MM-DD
+  date_or_datetime_tz: either YYYY-MM-DD when only date precision is evidenced, or timezone-aware ISO-8601 when exact time
+    is evidenced; never invent an intraday time
+  decimal: exact decimal semantics; persistent binary floating point is prohibited
+  decimal_precision: precision/scale is not invented by this contract; physical implementation must preserve source precision
+    and pass audit
+  'null': field not applicable or value absent for this record
+  NOT_FOUND: Evidence.status only; retrieval failure and never numeric zero/FALSE
+  UNKNOWN: only when an explicit field enum defines UNKNOWN
+  zero: actual numeric zero
+  empty_string: MUST NOT substitute for NULL, NOT_FOUND, UNKNOWN, or 0
+nullable_policy:
+  rule: Nullable is field-specific. NULL does not mean NOT_FOUND, UNKNOWN, FALSE, or 0.
+  historical_valid_from: If historical effective start is unsupported by evidence, valid_from remains NULL and provenance/status
+    records the non-inference.
+fields:
+- name: run_id
+  type: string
+  nullable: false
+  description: Immutable Run identifier.
+- name: run_mode
+  type: enum
+  nullable: false
+  description: Execution mode.
+  enum: &id001
+  - LIVE_PIT
+  - HISTORICAL_RECONSTRUCTION
+  - REPLAY
+  - DIAGNOSTIC
+- name: run_role
+  type: enum
+  nullable: false
+  description: Execution role.
+  enum: &id002
+  - SNAPSHOT_CAPTURE
+  - MODEL_SCORING
+  - VALIDATION
+- name: created_at
+  type: datetime_tz
+  nullable: false
+  description: Run creation/start timestamp.
+- name: input_artifact_manifest
+  type: string
+  nullable: true
+  description: Input/release artifact manifest reference.
+- name: input_hashes
+  type: map[string,string]
+  nullable: true
+  description: Hashes of immutable input artifacts/datasets.
+- name: code_commit_sha
+  type: string
+  nullable: true
+  description: Code commit SHA when Control Plane Git is materialized; nullable until available.
+- name: executor_type
+  type: string
+  nullable: false
+  description: Executor type such as deterministic code, LLM-assisted protocol, or reviewed pipeline.
+- name: canonical_output
+  type: boolean
+  nullable: false
+  description: Whether this Run output is designated canonical after required gates. REPLAY/DIAGNOSTIC must be FALSE.
+  default: false
+- name: parent_run_ids
+  type: array[string]
+  nullable: true
+  description: Optional upstream Run lineage.
+- name: universe_release_id
+  type: string
+  nullable: true
+  description: Universe release used by the Run when applicable.
+- name: universe_release_hash
+  type: string
+  nullable: true
+  description: Universe release content hash when applicable.
+- name: snapshot_date
+  type: date
+  nullable: true
+  description: Snapshot convenience date.
+  required_when: run_role=SNAPSHOT_CAPTURE
+- name: snapshot_cutoff_at
+  type: datetime_tz
+  nullable: true
+  description: Authoritative PIT cutoff.
+  required_when: run_role=SNAPSHOT_CAPTURE
+- name: output_pit_snapshot_id
+  type: string
+  nullable: true
+  description: PIT Snapshot revision produced.
+  required_when: run_role=SNAPSHOT_CAPTURE
+- name: snapshot_schema_version
+  type: string
+  nullable: true
+  description: PIT Snapshot schema version.
+  required_when: run_role=SNAPSHOT_CAPTURE
+- name: input_pit_snapshot_id
+  type: string
+  nullable: true
+  description: Exact PIT Snapshot revision evaluated.
+  required_when: run_role=MODEL_SCORING
+- name: model_version
+  type: string
+  nullable: true
+  description: MODEL-DEFINITION version.
+  required_when: run_role=MODEL_SCORING
+- name: scoring_protocol_version
+  type: string
+  nullable: true
+  description: Scoring protocol version.
+  required_when: run_role=MODEL_SCORING
+- name: prompt_spec_version
+  type: string
+  nullable: true
+  description: Prompt protocol version when a prompt-based executor is used.
+  required_when: run_role=MODEL_SCORING and prompt-based executor
+- name: prompt_hash
+  type: string
+  nullable: true
+  description: Prompt content/spec hash when a prompt-based executor is used.
+  required_when: run_role=MODEL_SCORING and prompt-based executor
+- name: output_model_score_id
+  type: string
+  nullable: true
+  description: MODEL-SCORE revision produced.
+  required_when: run_role=MODEL_SCORING
+- name: llm_model_id
+  type: string
+  nullable: true
+  description: LLM model identifier when an LLM executor is used.
+  required_when: run_role=MODEL_SCORING and LLM executor
+- name: input_model_score_id
+  type: string
+  nullable: true
+  description: MODEL-SCORE evaluated by validation.
+  required_when: run_role=VALIDATION
+- name: price_dataset_id
+  type: string
+  nullable: true
+  description: Price dataset used for validation.
+  required_when: run_role=VALIDATION
+- name: price_dataset_hash
+  type: string
+  nullable: true
+  description: Hash of validation price dataset/release.
+  required_when: run_role=VALIDATION
+- name: validation_protocol_version
+  type: string
+  nullable: true
+  description: Validation protocol version.
+  required_when: run_role=VALIDATION
+- name: output_validation_id
+  type: string
+  nullable: true
+  description: Validation record produced.
+  required_when: run_role=VALIDATION
+- name: schema_version
+  type: string
+  nullable: false
+  description: Run Manifest schema version.
+  default: v0.1
+constraints:
+- id: RUN-C01
+  severity: ERROR
+  rule: run_id is immutable and unique.
+- id: RUN-C02
+  severity: ERROR
+  rule: 'run_mode must be one of: [''LIVE_PIT'', ''HISTORICAL_RECONSTRUCTION'', ''REPLAY'', ''DIAGNOSTIC''].'
+- id: RUN-C03
+  severity: ERROR
+  rule: 'run_role must be one of: [''SNAPSHOT_CAPTURE'', ''MODEL_SCORING'', ''VALIDATION''].'
+- id: RUN-C04
+  severity: ERROR
+  rule: REPLAY and DIAGNOSTIC must have canonical_output=FALSE and may not automatically create/correct Canonical PIT-SNAPSHOT
+    or MODEL-SCORE.
+- id: RUN-C05
+  severity: ERROR
+  rule: SNAPSHOT_CAPTURE does not require model_version and must preserve PIT model independence.
+- id: RUN-C06
+  severity: ERROR
+  rule: MODEL_SCORING requires input_pit_snapshot_id and model_version; scoring output never mutates input PIT Snapshot.
+- id: RUN-C07
+  severity: ERROR
+  rule: VALIDATION requires input_model_score_id plus price dataset identity/hash and validation protocol.
+- id: RUN-C08
+  severity: ERROR
+  rule: Only LIVE_PIT or HISTORICAL_RECONSTRUCTION may become canonical candidates, and only after later Audit/Regression
+    gates; Schema Freeze alone does not authorize cutover.
+foreign_references:
+- id: RUN-FK01
+  local_fields:
+  - parent_run_ids
+  target_schema: run_manifest.schema.yaml
+  target_object: RUN-MANIFEST
+  target_fields:
+  - run_id
+  resolution: IMMEDIATE
+  required_when: parent_run_ids is populated
+- id: RUN-FK02
+  local_fields:
+  - universe_release_id
+  target_schema: universe.schema.yaml
+  target_object: UNIVERSE-RELEASE
+  target_fields:
+  - universe_release_id
+  resolution: IMMEDIATE
+  required_when: universe_release_id is populated
+- id: RUN-FK03
+  local_fields:
+  - output_pit_snapshot_id
+  target_schema: pit_snapshot.schema.yaml
+  target_object: PIT-SNAPSHOT
+  target_fields:
+  - pit_snapshot_id
+  resolution: IMMEDIATE
+  required_when: run_role=SNAPSHOT_CAPTURE
+- id: RUN-FK04
+  local_fields:
+  - input_pit_snapshot_id
+  target_schema: pit_snapshot.schema.yaml
+  target_object: PIT-SNAPSHOT
+  target_fields:
+  - pit_snapshot_id
+  resolution: IMMEDIATE
+  required_when: run_role=MODEL_SCORING
+- id: RUN-FK05
+  local_fields:
+  - model_version
+  target_schema: model_definition.schema.yaml
+  target_object: MODEL-DEFINITION
+  target_fields:
+  - model_version
+  resolution: IMMEDIATE
+  required_when: run_role=MODEL_SCORING
+- id: RUN-FK06
+  local_fields:
+  - output_model_score_id
+  target_schema: model_score.schema.yaml
+  target_object: MODEL-SCORE
+  target_fields:
+  - model_score_id
+  resolution: IMMEDIATE
+  required_when: run_role=MODEL_SCORING
+- id: RUN-FK07
+  local_fields:
+  - input_model_score_id
+  target_schema: model_score.schema.yaml
+  target_object: MODEL-SCORE
+  target_fields:
+  - model_score_id
+  resolution: IMMEDIATE
+  required_when: run_role=VALIDATION
+- id: RUN-FK08
+  local_fields:
+  - price_dataset_id
+  target_schema: price.schema.yaml
+  target_object: PRICE-CANONICAL
+  target_fields:
+  - price_dataset_id
+  resolution: IMMEDIATE
+  required_when: run_role=VALIDATION
+- id: RUN-FK09
+  local_fields:
+  - output_validation_id
+  target_schema: validation.schema.yaml
+  target_object: VALIDATION
+  target_fields:
+  - validation_id
+  resolution: IMMEDIATE
+  required_when: run_role=VALIDATION
+audit_rules:
+- id: RUN-A01
+  severity: ERROR
+  rule: Fail REPLAY/DIAGNOSTIC if canonical_output=TRUE.
+- id: RUN-A02
+  severity: ERROR
+  rule: Validate role-conditional required fields.
+- id: RUN-A03
+  severity: ERROR
+  rule: Validate immutable input/output references and hashes where present.
+- id: RUN-A04
+  severity: ERROR
+  rule: At later canonicalization, only one authoritative capture Run may map to a Snapshot revision and only one authoritative
+    scoring Run to a Score revision.
+- id: RUN-A05
+  severity: ERROR
+  rule: Reject Active Manifest/cutover change triggered solely by Schema or Run creation without required Audit/Regression
+    PASS.
+run_mode_enum: *id001
+run_role_enum: *id002
