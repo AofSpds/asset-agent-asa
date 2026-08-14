@@ -1,0 +1,33 @@
+config_id: SEMI-PRICE-D4-ENGINEERING-DRYRUN-CONFIG
+version: v0.1
+status: WORKING_ENGINEERING
+mode: engineering-d4-dryrun
+canonical: false
+promotion_allowed: false
+cutover_allowed: false
+official_d4_allowed_when_ca_gate_blocked: false
+source_dataset_id: SEMI-PRICE-MARCAP-KRX-2024-2026_v1
+schema_version: v0.1
+join_authority:
+  - security_code
+  - effective temporal relationship
+  - event_id
+company_id_policy: OPTIONAL_AUTHORITY_ONLY_NO_GUESSING
+adjustment_factor_policy: DO_NOT_INVENT
+zero_ohl_zero_trade_policy: PRESERVE_PENDING_SEMANTICS
+exception_policy:
+  '2024-03-28|001527': PRICE-Q006
+  '2024-12-30|076340': RESOLVED_NON_CA
+  '2025-03-21|145210': RESOLVED_NON_CA
+  '2026-05-08|403360': PRICE-Q006
+forbidden:
+  - canonical materialization
+  - canonical dataset id assignment
+  - canonical cutover
+  - automatic trading_status inference
+  - OHL imputation
+  - evidence-free CA
+  - evidence-free adjustment factor
+  - company_id guessing
+  - provider mixing
+  - outcome data use
