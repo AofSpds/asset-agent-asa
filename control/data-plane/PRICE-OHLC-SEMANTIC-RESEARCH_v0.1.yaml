@@ -1,0 +1,80 @@
+research_id: SEMI-PRICE-OHLC-SEMANTIC-RESEARCH
+version: v0.1
+status: WORKING_RESEARCH_RECORD
+created_at: '2026-08-15T06:10:00+09:00'
+project_id: semiconductor-research
+repository: AofSpds/semiconductor-research
+
+purpose: >-
+  Investigate the 84,111 zero-OHL positive-Close rows discovered by the D0-D3
+  PRICE-CANONICAL dry run. This record provides primary-source interpretation input
+  only. It does not modify the frozen schema or authorize canonical normalization.
+
+dry_run_reference:
+  path: control/data-plane/PRICE-CANONICAL-DRY-RUN-AUDIT_D0-D3_v0.1.yaml
+  finding_id: PRICE-DRYRUN-OHLC-001
+
+primary_source_observations:
+  FinanceData_marcap_collector:
+    repository: FinanceData/marcap
+    file: krx_marcap.py
+    observation: >-
+      marcap maps KRX all-issues quote fields directly: TDD_CLSPRC->Close,
+      TDD_OPNPRC->Open, TDD_HGPRC->High, TDD_LWPRC->Low,
+      ACC_TRDVOL->Volume, ACC_TRDVAL->Amount, then performs numeric conversion.
+      No OHLC imputation rule is applied by the collector before yearly Parquet creation.
+    url: https://github.com/FinanceData/marcap/blob/master/krx_marcap.py
+  KRX_no_transaction_price_semantics:
+    observation: >-
+      KRX states that closing price is the last regular-session traded price and that
+      when there was no trade, the prior base price can be deemed the closing price;
+      KRX also states that a last traded price can fall back to the prior closing/base
+      price when there has been no transaction for the day.
+    urls:
+      - https://global.krx.co.kr/contents/GLB/06/0602/0602010201/GLB0602010201T6.jsp
+      - https://global.krx.co.kr/contents/GLB/06/0602/0602020202/GLB0602020202T5.jsp
+  KRX_trading_suspension_reference:
+    observation: >-
+      KRX trading-suspension statistics explicitly note that quote information for a
+      suspended issue is based on the immediately preceding trading day.
+    urls:
+      - https://data.krx.co.kr/contents/MDC/STAT/issue/MDCSTAT212.jsp
+      - https://data.krx.co.kr/contents/MDC/STAT/issue/MDCSTAT213.jsp
+
+interpretation:
+  dominant_pattern:
+    rows: 84107
+    raw_condition: Open=0 AND High=0 AND Low=0 AND Volume=0 AND Amount=0 AND Close>0
+    conclusion: >-
+      This pattern is compatible with a no-transaction/carry-price or suspension-like
+      source state and must not be treated as a malformed traded OHLC bar merely because
+      High<Close. The exact trading-status classification is not established by this
+      observation alone.
+  exceptional_pattern:
+    rows: 4
+    raw_condition: Open=High=Low=0 AND Close>0 AND (Volume>0 OR Amount>0)
+    conclusion: >-
+      Requires separate source/session semantics adjudication. Do not group these rows
+      automatically with the dominant zero-volume pattern.
+
+control_recommendation:
+  schema_change_required: false
+  immediate_schema_change_requested: false
+  proposed_audit_refinement: >-
+    PRI-A03 implementation should distinguish executed regular-session OHLC bars from
+    no-transaction/carry-price source rows. Strict High>=Close should not be blindly
+    applied to the latter. Any deterministic exemption/classification must be approved
+    by control evidence and must preserve the raw row rather than drop it.
+  trading_status_inference_from_zero_pattern_only: PROHIBITED_UNTIL_APPROVED
+  silent_row_drop: PROHIBITED
+  four_exception_rows: SEPARATE_ADJUDICATION_REQUIRED
+  CA_lane_use: >-
+    The pattern set and affected U127 rows should be consumed by the outstanding
+    material-OHLC and known-KRX completeness lane, but the pattern alone is not a
+    corporate-action classification.
+
+next_action:
+  - cross-check zero-OHL U127 rows against KRX suspension/no-transaction evidence where material
+  - adjudicate four zero-OHL/nonzero-volume-or-amount rows separately
+  - define a deterministic PRICE-CANONICAL OHLC audit treatment after evidence review
+  - keep canonical materialization and D4 blocked until relevant control gates close
