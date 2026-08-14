@@ -1,0 +1,71 @@
+record_id: SEMI-G1-H-FREEZE-APPROVAL
+record_version: v1.0
+status: FROZEN_RECORD
+gate: G1-H DATA PLANE STORAGE CONTRACT
+project_id: semiconductor-research
+repository: AofSpds/semiconductor-research
+approved_at: '2026-08-15T03:49:00+09:00'
+decision: APPROVED
+
+review_basis:
+  recovered_candidate_commit: 916de8712eb4d4a445addd7d5f868ae96a9b22aa
+  recovered_candidate_message: Promote G1-H data plane contract to freeze candidate with AWS S3 provider decision
+  contract_path: control/data-plane/DATA-PLANE-STORAGE-CONTRACT_v1.0.yaml
+  freeze_commit: 48a5bf4d78ea8352db766205f5000034d1252321
+  frozen_git_blob_sha1: f7c3f88d10a683d8e5f107e9c3a8e7816bcd5ed9
+  frozen_sha256: 24a7fcaff779c06ef949c4d89ee81dbde996c395f086bd40b1d0f03fd7cd147d
+  hash_record: manifests/hashes/data-plane-storage-contract-v1.0.sha256
+  hash_record_commit: fafc47de350d39ce86e9780ead8de4997fbb6a56
+
+decision_checks:
+  provider_region_consistency:
+    status: PASS
+    decision: Amazon S3 / ap-northeast-2 / NATIVE_S3 is internally consistent.
+  private_only_public_access:
+    status: PASS
+    decision: private access is REQUIRED and public access is BLOCKED.
+  versioning:
+    status: PASS
+    decision: provider-side versioning is ENABLED.
+  object_lock:
+    status: PASS
+    decision: Object Lock capability is ENABLED; initial retention mode is GOVERNANCE; COMPLIANCE requires separate approval.
+  lock_scope:
+    status: PASS
+    decision: WORKING/STAGING hard lock is not required; FROZEN/RELEASED objects require Object Lock.
+  stable_locator:
+    status: PASS
+    decision: s3://<private-bucket>/<immutable_object_key> is the machine locator contract; runtime paths are prohibited as stable locators.
+  byte_identity:
+    status: PASS
+    decision: SHA-256 remains the byte identity and recovery verification authority.
+  git_data_plane_boundary:
+    status: PASS
+    decision: raw Parquet bytes remain prohibited from Git; Git stores control metadata, manifests, hashes, and records.
+  secondary_backup_pending:
+    status: PASS_WITH_GATE
+    decision: secondary provider may remain PENDING at G1-H because backup completion is required before canonical cutover, not before contract freeze.
+  canonical_cutover_guard:
+    status: PASS
+    decision: canonical cutover remains prohibited until backup policy is satisfied.
+
+blockers: []
+user_decision_required: false
+
+immutability:
+  candidate_history_preserved_by_git: true
+  frozen_contract_overwrite_prohibited: true
+  future_semantic_change_requires_new_contract_version_or_explicit_change_control: true
+
+scope_confirmation:
+  byte_upload_performed: false
+  canonical_cutover_performed: false
+  actual_data_migration_performed: false
+  architecture_changed: false
+  schema_changed: false
+  existing_price_dataset_identity_changed: false
+
+next_gate:
+  gate: G1-I DATA PLANE BYTE MATERIALIZATION
+  allowed: true
+  required_precondition: this G1-H freeze approval remains valid and the frozen contract hash verifies
