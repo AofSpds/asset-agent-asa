@@ -1,0 +1,143 @@
+schema_id: SEMI-SOURCE-SCHEMA
+schema_version: v0.1
+status: FROZEN
+architecture_reference:
+  artifact: SEMI-ARCHITECTURE-SPEC_v1.0.md
+  version: v1.0
+  status: FROZEN / ACTIVE ARCHITECTURE
+migration_package_reference:
+  inventory: SEMI-MIGRATION-INVENTORY_v1.0.csv
+  manifest: SEMI-MIGRATION-MANIFEST_v1.0.csv
+  legacy_to_canonical_map: SEMI-LEGACY-TO-CANONICAL-MAP_v1.0.csv
+  issue_register: SEMI-MIGRATION-ISSUE-REGISTER_v1.0.csv
+  status: FROZEN v1.0
+logical_object: SOURCE
+description: Registry for documents, files, pages, reports, and datasets. Source assets remain separate from atomic Evidence
+  claims.
+logical_key:
+- source_id
+write_policy: Source identity is immutable; corrections use explicit supersession/versioning in source-management workflow
+  rather than silent overwrite.
+version_policy:
+  breaking_change: new schema_version
+  source_version_change: new source artifact/version or explicit correction lineage
+dependencies: []
+type_policy:
+  identifier: string; never integer
+  krx_code: string; preserve leading zero
+  datetime: timezone-aware ISO-8601; default operational timezone Asia/Seoul
+  date: YYYY-MM-DD
+  date_or_datetime_tz: either YYYY-MM-DD when only date precision is evidenced, or timezone-aware ISO-8601 when exact time
+    is evidenced; never invent an intraday time
+  decimal: exact decimal semantics; persistent binary floating point is prohibited
+  decimal_precision: precision/scale is not invented by this contract; physical implementation must preserve source precision
+    and pass audit
+  'null': field not applicable or value absent for this record
+  NOT_FOUND: Evidence.status only; retrieval failure and never numeric zero/FALSE
+  UNKNOWN: only when an explicit field enum defines UNKNOWN
+  zero: actual numeric zero
+  empty_string: MUST NOT substitute for NULL, NOT_FOUND, UNKNOWN, or 0
+nullable_policy:
+  rule: Nullable is field-specific. NULL does not mean NOT_FOUND, UNKNOWN, FALSE, or 0.
+  historical_valid_from: If historical effective start is unsupported by evidence, valid_from remains NULL and provenance/status
+    records the non-inference.
+fields:
+- name: source_id
+  type: string
+  nullable: false
+  description: Immutable source/document/file/dataset identifier.
+- name: source_type
+  type: string
+  nullable: false
+  description: Source type such as filing, IR, newsroom, report, dataset, or raw file.
+- name: source_tier
+  type: enum
+  nullable: true
+  description: Frozen source priority tier where applicable.
+  enum:
+  - S1
+  - S2
+  - S3
+  - S4
+  - S5
+  - S6
+  - S7
+  - S8
+- name: title
+  type: string
+  nullable: true
+  description: Source title.
+- name: publisher
+  type: string
+  nullable: true
+  description: Publisher/issuer.
+- name: publication_at
+  type: datetime_tz
+  nullable: true
+  description: Exact publication timestamp when known.
+- name: publication_date
+  type: date
+  nullable: true
+  description: Publication date when exact time is not known.
+- name: publication_precision
+  type: enum
+  nullable: false
+  description: Precision of publication timing.
+  enum:
+  - EXACT_DATETIME
+  - DATE_ONLY
+  - MONTH_ONLY
+  - YEAR_ONLY
+  - UNKNOWN
+- name: canonical_locator
+  type: string
+  nullable: true
+  description: Stable URL, filing ID, project source ID, or equivalent locator.
+- name: raw_storage_ref
+  type: string
+  nullable: true
+  description: Reference to preserved raw bytes/object.
+- name: acquired_at
+  type: datetime_tz
+  nullable: false
+  description: Project acquisition timestamp.
+- name: raw_hash
+  type: string
+  nullable: true
+  description: Raw-byte hash when bytes are available; never fabricated.
+- name: status
+  type: string
+  nullable: false
+  description: Source lifecycle/availability status. This is not Evidence.status.
+- name: schema_version
+  type: string
+  nullable: false
+  description: Schema version.
+  default: v0.1
+constraints:
+- id: SRC-C01
+  severity: ERROR
+  rule: SOURCE and EVIDENCE must remain separate logical objects.
+- id: SRC-C02
+  severity: ERROR
+  rule: publication_at, when populated, must be timezone-aware ISO-8601.
+- id: SRC-C03
+  severity: ERROR
+  rule: When exact publication time is unknown, tooling must not invent a time to make PIT cutoff eligibility pass.
+- id: SRC-C04
+  severity: ERROR
+  rule: raw_hash must remain NULL when bytes are unavailable; it must never be fabricated.
+- id: SRC-C05
+  severity: ERROR
+  rule: source_tier meanings remain those of frozen SEMI-DATA-ROUTE v1.1.
+foreign_references: []
+audit_rules:
+- id: SRC-A01
+  severity: ERROR
+  rule: Reject timezone-naive publication_at or acquired_at.
+- id: SRC-A02
+  severity: ERROR
+  rule: Reject fabricated raw_hash or locator.
+- id: SRC-A03
+  severity: ERROR
+  rule: Validate source_tier against S1-S8 when populated.
