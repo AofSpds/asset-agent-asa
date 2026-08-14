@@ -7,12 +7,28 @@ created_at: '2026-08-15T03:16:00+09:00'
 latest_materialization_gate: G1-I
 materialized_verified_at: '2026-08-15T04:50:00+09:00'
 materialization_audit: control/data-plane/G1-I-MATERIALIZATION-AUDIT_v1.0.yaml
+latest_backup_control_action: SECONDARY_BACKUP_POLICY_SATISFACTION
+backup_verified_at: '2026-08-15T06:01:00+09:00'
+backup_audit: control/data-plane/SECONDARY-BACKUP-AUDIT_v1.0.yaml
 primary_data_plane:
   provider: Amazon S3
   provider_id: aws-s3-apne2
   region: ap-northeast-2
   bucket: semi-data-plane-aofspds-20260815
   status: MATERIALIZED_VERIFIED
+secondary_backup:
+  provider: Cloudflare R2
+  service: R2 Object Storage
+  placement_mode: AUTOMATIC
+  placement_observed: ASIA_PACIFIC
+  bucket: semi-secondary-backup-aofspds-20260815
+  public_access: DISABLED
+  storage_class: STANDARD
+  status: MATERIALIZED_VERIFIED
+  bucket_lock_rule:
+    name: price-raw-90d
+    prefix: raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/
+    retention_period: 90 DAYS
 provider: FinanceData / marcap
 provenance: KRX-derived yearly Parquet
 market: KRX
@@ -36,27 +52,36 @@ components:
   sha256: b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb
   hash_verification_status: PASS
   remote_sha256_verification_status: PASS
+  secondary_backup_sha256_verification_status: PASS
   byte_location_status: PERMANENT_S3_MATERIALIZED_VERIFIED
   g1_g_runtime_observation: runtime bytes were present and SHA-256 reverified at G1-G; runtime path was never promoted to a stable locator
   stable_storage_locator: s3://semi-data-plane-aofspds-20260815/raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/marcap-2024.parquet
+  secondary_backup_bucket: semi-secondary-backup-aofspds-20260815
+  secondary_backup_object_key: raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/marcap-2024.parquet
 - filename: marcap-2025.parquet
   year: 2025
   bytes: 25153419
   sha256: 2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e
   hash_verification_status: PASS
   remote_sha256_verification_status: PASS
+  secondary_backup_sha256_verification_status: PASS
   byte_location_status: PERMANENT_S3_MATERIALIZED_VERIFIED
   g1_g_runtime_observation: runtime bytes were present and SHA-256 reverified at G1-G; runtime path was never promoted to a stable locator
   stable_storage_locator: s3://semi-data-plane-aofspds-20260815/raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/marcap-2025.parquet
+  secondary_backup_bucket: semi-secondary-backup-aofspds-20260815
+  secondary_backup_object_key: raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/marcap-2025.parquet
 - filename: marcap-2026.parquet
   year: 2026
   bytes: 16198533
   sha256: 5da710a2fc56f8fe9b1f5126295cc30c3b15c0ee35d28ba808a505ec4a2243c1
   hash_verification_status: PASS
   remote_sha256_verification_status: PASS
+  secondary_backup_sha256_verification_status: PASS
   byte_location_status: PERMANENT_S3_MATERIALIZED_VERIFIED
   g1_g_runtime_observation: runtime bytes were present and SHA-256 reverified at G1-G; runtime path was never promoted to a stable locator
   stable_storage_locator: s3://semi-data-plane-aofspds-20260815/raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/marcap-2026.parquet
+  secondary_backup_bucket: semi-secondary-backup-aofspds-20260815
+  secondary_backup_object_key: raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/marcap-2026.parquet
 dataset_hash_rule:
   rule: For each component use filename + " " + file_sha256; order by year 2024, 2025, 2026; join lines with LF; SHA-256 the
     resulting UTF-8 bytes.
@@ -88,6 +113,7 @@ corporate_action_protocol_reference:
   - PRI-A06
   policy: Evidence-backed only; no adjustment is inferred from share-count discontinuity alone.
 provider_mixing_allowed: false
+secondary_backup_is_not_provider_mixing: true
 legacy_price_linkage:
   registry: manifests/legacy/legacy-artifact-registry.yaml
   schema_asset:
@@ -108,7 +134,8 @@ raw_semantics: RAW_IMMUTABLE
 normalization_audit_status: NOT_PERFORMED
 price_canonical_materialization_status: NOT_PERFORMED
 data_plane_permanent_byte_materialization: MATERIALIZED_VERIFIED
-backup_status: SECONDARY_PROVIDER_PENDING
+backup_status: SECONDARY_BACKUP_VERIFIED_POLICY_SATISFIED
+canonical_cutover_backup_prerequisite: SATISFIED
 scope_restrictions:
   parquet_git_commit: false
   runtime_path_as_permanent_locator: false
@@ -119,4 +146,4 @@ scope_restrictions:
   model_release_activation: false
   architecture_change: false
   schema_change: false
-next_gate: SECONDARY BACKUP POLICY SATISFACTION BEFORE CANONICAL CUTOVER
+next_gate: SEPARATELY AUTHORIZED POST-BACKUP CONTROL OR CANONICALIZATION GATE
