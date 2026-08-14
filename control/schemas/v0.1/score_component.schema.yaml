@@ -1,0 +1,233 @@
+schema_id: SEMI-SCORE-COMPONENT-SCHEMA
+schema_version: v0.1
+status: FROZEN
+architecture_reference:
+  artifact: SEMI-ARCHITECTURE-SPEC_v1.0.md
+  version: v1.0
+  status: FROZEN / ACTIVE ARCHITECTURE
+migration_package_reference:
+  inventory: SEMI-MIGRATION-INVENTORY_v1.0.csv
+  manifest: SEMI-MIGRATION-MANIFEST_v1.0.csv
+  legacy_to_canonical_map: SEMI-LEGACY-TO-CANONICAL-MAP_v1.0.csv
+  issue_register: SEMI-MIGRATION-ISSUE-REGISTER_v1.0.csv
+  status: FROZEN v1.0
+logical_object: &id001
+- SCORE-COMPONENT-DEFINITION
+- MODEL-SCORE-COMPONENT
+description: Extensible component definitions plus MODEL-SCORE child records. Current 3M 30/25/20/15/5/5 remains model-definition
+  content and is never hard-coded into PIT.
+logical_key:
+  SCORE-COMPONENT-DEFINITION:
+  - model_version
+  - component_key
+  MODEL-SCORE-COMPONENT:
+  - model_score_id
+  - component_key
+write_policy:
+  definition: immutable within model_version; methodology change creates new model_version
+  score_child: belongs to immutable MODEL-SCORE revision; corrected Score produces new MODEL-SCORE lineage/revision and corresponding
+    child set
+version_policy:
+  schema_breaking_change: new schema_version
+  component_methodology_change: new model_version
+dependencies:
+- model_definition.schema.yaml
+- model_score.schema.yaml
+- evidence.schema.yaml
+type_policy:
+  identifier: string; never integer
+  krx_code: string; preserve leading zero
+  datetime: timezone-aware ISO-8601; default operational timezone Asia/Seoul
+  date: YYYY-MM-DD
+  date_or_datetime_tz: either YYYY-MM-DD when only date precision is evidenced, or timezone-aware ISO-8601 when exact time
+    is evidenced; never invent an intraday time
+  decimal: exact decimal semantics; persistent binary floating point is prohibited
+  decimal_precision: precision/scale is not invented by this contract; physical implementation must preserve source precision
+    and pass audit
+  'null': field not applicable or value absent for this record
+  NOT_FOUND: Evidence.status only; retrieval failure and never numeric zero/FALSE
+  UNKNOWN: only when an explicit field enum defines UNKNOWN
+  zero: actual numeric zero
+  empty_string: MUST NOT substitute for NULL, NOT_FOUND, UNKNOWN, or 0
+nullable_policy:
+  rule: Nullable is field-specific. NULL does not mean NOT_FOUND, UNKNOWN, FALSE, or 0.
+  historical_valid_from: If historical effective start is unsupported by evidence, valid_from remains NULL and provenance/status
+    records the non-inference.
+fields:
+- name: record_type
+  type: enum
+  nullable: false
+  description: Discriminates model component definition from actual score child record.
+  applies_to: *id001
+  enum: *id001
+- name: component_definition_id
+  type: string
+  nullable: true
+  description: Immutable component definition ID.
+  applies_to:
+  - SCORE-COMPONENT-DEFINITION
+  required_when: record_type=SCORE-COMPONENT-DEFINITION
+- name: model_version
+  type: string
+  nullable: true
+  description: Owning MODEL-DEFINITION version.
+  applies_to:
+  - SCORE-COMPONENT-DEFINITION
+  required_when: record_type=SCORE-COMPONENT-DEFINITION
+- name: component_key
+  type: string
+  nullable: false
+  description: Stable component key. Definition key is unique within model_version; score child must match its model definition.
+  applies_to: *id001
+- name: component_name
+  type: string
+  nullable: true
+  description: Human-readable component name.
+  applies_to:
+  - SCORE-COMPONENT-DEFINITION
+  required_when: record_type=SCORE-COMPONENT-DEFINITION
+- name: component_order
+  type: integer
+  nullable: true
+  description: Component display/evaluation order.
+  applies_to:
+  - SCORE-COMPONENT-DEFINITION
+  required_when: record_type=SCORE-COMPONENT-DEFINITION
+- name: value_type
+  type: string
+  nullable: true
+  description: Component value type. Current 3M components are exact-decimal scores; future model components may differ without
+    changing PIT.
+  applies_to:
+  - SCORE-COMPONENT-DEFINITION
+  required_when: record_type=SCORE-COMPONENT-DEFINITION
+- name: max_score
+  type: decimal
+  nullable: true
+  description: Exact-decimal maximum score where the component is score-bounded.
+  applies_to:
+  - SCORE-COMPONENT-DEFINITION
+- name: weight_or_rule
+  type: string
+  nullable: true
+  description: Weight, formula, or rule reference defining component evaluation.
+  applies_to:
+  - SCORE-COMPONENT-DEFINITION
+  required_when: record_type=SCORE-COMPONENT-DEFINITION
+- name: required
+  type: boolean
+  nullable: true
+  description: Whether this component is required for a completed evaluation.
+  applies_to:
+  - SCORE-COMPONENT-DEFINITION
+  required_when: record_type=SCORE-COMPONENT-DEFINITION
+- name: definition_ref
+  type: string
+  nullable: true
+  description: Authoritative rule/source reference defining component semantics.
+  applies_to:
+  - SCORE-COMPONENT-DEFINITION
+  required_when: record_type=SCORE-COMPONENT-DEFINITION
+- name: score_component_id
+  type: string
+  nullable: true
+  description: Immutable score-child record ID.
+  applies_to:
+  - MODEL-SCORE-COMPONENT
+  required_when: record_type=MODEL-SCORE-COMPONENT
+- name: model_score_id
+  type: string
+  nullable: true
+  description: Owning MODEL-SCORE.
+  applies_to:
+  - MODEL-SCORE-COMPONENT
+  required_when: record_type=MODEL-SCORE-COMPONENT
+- name: component_value
+  type: decimal
+  nullable: true
+  description: Exact-decimal evaluated component score/value.
+  applies_to:
+  - MODEL-SCORE-COMPONENT
+- name: component_status
+  type: string
+  nullable: true
+  description: Component evaluation status; model protocol vocabulary is not invented by schema.
+  applies_to:
+  - MODEL-SCORE-COMPONENT
+  required_when: record_type=MODEL-SCORE-COMPONENT
+- name: explanation_ref
+  type: string
+  nullable: true
+  description: Reference to structured explanation/rationale if retained.
+  applies_to:
+  - MODEL-SCORE-COMPONENT
+- name: evidence_refs
+  type: array[string]
+  nullable: true
+  description: Evidence supporting the component evaluation.
+  applies_to:
+  - MODEL-SCORE-COMPONENT
+- name: schema_version
+  type: string
+  nullable: false
+  description: Schema version.
+  applies_to: *id001
+  default: v0.1
+constraints:
+- id: SCO-C01
+  severity: ERROR
+  rule: Component definitions are extensible records; component names/count/maxima must not become PIT-SNAPSHOT fixed columns.
+- id: SCO-C02
+  severity: ERROR
+  rule: Definition logical key is model_version + component_key; score-child logical key is model_score_id + component_key.
+- id: SCO-C03
+  severity: ERROR
+  rule: MODEL-SCORE-COMPONENT.component_key must resolve to a component definition for the model_version reached through model_score_id.
+- id: SCO-C04
+  severity: ERROR
+  rule: For Rolling 3M v0.1, component semantics/maxima must remain exactly 30/25/20/15/5/5 under the frozen model definition.
+- id: SCO-C05
+  severity: ERROR
+  rule: max_score and component_value use exact-decimal semantics.
+foreign_references:
+- id: SCO-FK01
+  local_fields:
+  - model_version
+  target_schema: model_definition.schema.yaml
+  target_object: MODEL-DEFINITION
+  target_fields:
+  - model_version
+  resolution: IMMEDIATE
+  required_when: record_type=SCORE-COMPONENT-DEFINITION
+- id: SCO-FK02
+  local_fields:
+  - model_score_id
+  target_schema: model_score.schema.yaml
+  target_object: MODEL-SCORE
+  target_fields:
+  - model_score_id
+  resolution: IMMEDIATE
+  required_when: record_type=MODEL-SCORE-COMPONENT
+- id: SCO-FK03
+  local_fields:
+  - evidence_refs
+  target_schema: evidence.schema.yaml
+  target_object: EVIDENCE
+  target_fields:
+  - evidence_id
+  resolution: IMMEDIATE
+  required_when: evidence_refs is populated
+audit_rules:
+- id: SCO-A01
+  severity: ERROR
+  rule: Reject component_key not defined for the owning MODEL-SCORE.model_version.
+- id: SCO-A02
+  severity: ERROR
+  rule: Reject missing required component for a completed evaluation.
+- id: SCO-A03
+  severity: ERROR
+  rule: Reject component_value above max_score when max_score is the applicable ceiling.
+- id: SCO-A04
+  severity: ERROR
+  rule: Reject any migration that creates PIT columns named for current 3M components.
+record_types: *id001
