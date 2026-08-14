@@ -1,0 +1,380 @@
+schema_id: SEMI-UNIVERSE-SCHEMA
+schema_version: v0.1
+status: FROZEN
+architecture_reference:
+  artifact: SEMI-ARCHITECTURE-SPEC_v1.0.md
+  version: v1.0
+  status: FROZEN / ACTIVE ARCHITECTURE
+migration_package_reference:
+  inventory: SEMI-MIGRATION-INVENTORY_v1.0.csv
+  manifest: SEMI-MIGRATION-MANIFEST_v1.0.csv
+  legacy_to_canonical_map: SEMI-LEGACY-TO-CANONICAL-MAP_v1.0.csv
+  issue_register: SEMI-MIGRATION-ISSUE-REGISTER_v1.0.csv
+  status: FROZEN v1.0
+logical_object:
+- DISCOVERY-UNIVERSE-HISTORY
+- OPERATIONAL-UNIVERSE-HISTORY
+- TRADABILITY-HISTORY
+- UNIVERSE-RELEASE
+description: Separates discovery membership, actual project operational membership, market tradability, and immutable actual/reconstructed/expanded
+  Universe releases.
+logical_key:
+  DISCOVERY-MEMBERSHIP:
+  - universe_record_id
+  OPERATIONAL-MEMBERSHIP:
+  - universe_record_id
+  TRADABILITY-HISTORY:
+  - universe_record_id
+  UNIVERSE-RELEASE:
+  - universe_release_id
+write_policy:
+  history: append-only; corrections use record_revision/supersedes_ref
+  release: immutable after creation; later reconstructed/expanded research uses a new universe_release_id
+version_policy:
+  universe_rule_change: new universe_rule_version
+  release_change: new universe_release_id
+  schema_breaking_change: new schema_version
+dependencies:
+- company.schema.yaml
+- evidence.schema.yaml
+type_policy:
+  identifier: string; never integer
+  krx_code: string; preserve leading zero
+  datetime: timezone-aware ISO-8601; default operational timezone Asia/Seoul
+  date: YYYY-MM-DD
+  date_or_datetime_tz: either YYYY-MM-DD when only date precision is evidenced, or timezone-aware ISO-8601 when exact time
+    is evidenced; never invent an intraday time
+  decimal: exact decimal semantics; persistent binary floating point is prohibited
+  decimal_precision: precision/scale is not invented by this contract; physical implementation must preserve source precision
+    and pass audit
+  'null': field not applicable or value absent for this record
+  NOT_FOUND: Evidence.status only; retrieval failure and never numeric zero/FALSE
+  UNKNOWN: only when an explicit field enum defines UNKNOWN
+  zero: actual numeric zero
+  empty_string: MUST NOT substitute for NULL, NOT_FOUND, UNKNOWN, or 0
+nullable_policy:
+  rule: Nullable is field-specific. NULL does not mean NOT_FOUND, UNKNOWN, FALSE, or 0.
+  historical_valid_from: If historical effective start is unsupported by evidence, valid_from remains NULL and provenance/status
+    records the non-inference.
+fields:
+- name: record_type
+  type: enum
+  nullable: false
+  description: Universe record discriminator.
+  applies_to: &id001
+  - DISCOVERY-MEMBERSHIP
+  - OPERATIONAL-MEMBERSHIP
+  - TRADABILITY-HISTORY
+  - UNIVERSE-RELEASE
+  enum: *id001
+- name: universe_record_id
+  type: string
+  nullable: true
+  description: Immutable history record ID.
+  applies_to:
+  - DISCOVERY-MEMBERSHIP
+  - OPERATIONAL-MEMBERSHIP
+  - TRADABILITY-HISTORY
+  required_when: record_type is membership/history
+- name: universe_id
+  type: string
+  nullable: true
+  description: Logical universe or eligibility-domain identifier.
+  applies_to:
+  - DISCOVERY-MEMBERSHIP
+  - OPERATIONAL-MEMBERSHIP
+  - TRADABILITY-HISTORY
+  required_when: record_type is membership/history
+- name: universe_type
+  type: enum
+  nullable: true
+  description: Membership/history semantic layer.
+  applies_to:
+  - DISCOVERY-MEMBERSHIP
+  - OPERATIONAL-MEMBERSHIP
+  - TRADABILITY-HISTORY
+  enum:
+  - DISCOVERY
+  - OPERATIONAL
+  - TRADABLE_ELIGIBILITY
+  required_when: record_type is membership/history
+- name: company_id
+  type: string
+  nullable: true
+  description: Company identifier.
+  applies_to:
+  - DISCOVERY-MEMBERSHIP
+  - OPERATIONAL-MEMBERSHIP
+  - TRADABILITY-HISTORY
+  required_when: record_type is membership/history
+- name: included
+  type: boolean
+  nullable: true
+  description: Membership state for discovery/operational history.
+  applies_to:
+  - DISCOVERY-MEMBERSHIP
+  - OPERATIONAL-MEMBERSHIP
+- name: valid_from
+  type: date_or_datetime_tz
+  nullable: true
+  description: Effective membership/tradability start when evidenced; may be NULL when historical start is not inferred.
+  applies_to:
+  - DISCOVERY-MEMBERSHIP
+  - OPERATIONAL-MEMBERSHIP
+  - TRADABILITY-HISTORY
+- name: valid_from_status
+  type: enum
+  nullable: true
+  description: Explicitly distinguishes evidenced start from deliberately non-inferred history.
+  applies_to:
+  - DISCOVERY-MEMBERSHIP
+  - OPERATIONAL-MEMBERSHIP
+  - TRADABILITY-HISTORY
+  enum:
+  - KNOWN
+  - NOT_INFERRED
+- name: recorded_at
+  type: datetime_tz
+  nullable: true
+  description: Record creation time.
+  applies_to:
+  - DISCOVERY-MEMBERSHIP
+  - OPERATIONAL-MEMBERSHIP
+  - TRADABILITY-HISTORY
+  required_when: record_type is membership/history
+- name: inclusion_reason
+  type: string
+  nullable: true
+  description: Operational/discovery inclusion reason or tradability basis.
+  applies_to:
+  - DISCOVERY-MEMBERSHIP
+  - OPERATIONAL-MEMBERSHIP
+  - TRADABILITY-HISTORY
+- name: legacy_provenance_code
+  type: string
+  nullable: true
+  description: Legacy provenance marker such as ADDED_2026-08-14; does not itself define tradability.
+  applies_to:
+  - OPERATIONAL-MEMBERSHIP
+- name: universe_rule_version
+  type: string
+  nullable: true
+  description: Universe rule version used to interpret the record/release.
+  applies_to: *id001
+  required_when: all record types
+- name: record_revision
+  type: integer
+  nullable: true
+  description: Correction revision; initial 0.
+  applies_to:
+  - DISCOVERY-MEMBERSHIP
+  - OPERATIONAL-MEMBERSHIP
+  - TRADABILITY-HISTORY
+  default: 0
+- name: supersedes_ref
+  type: string
+  nullable: true
+  description: Prior history record superseded by this correction.
+  applies_to:
+  - DISCOVERY-MEMBERSHIP
+  - OPERATIONAL-MEMBERSHIP
+  - TRADABILITY-HISTORY
+- name: evidence_refs
+  type: array[string]
+  nullable: true
+  description: Evidence supporting history state.
+  applies_to:
+  - DISCOVERY-MEMBERSHIP
+  - OPERATIONAL-MEMBERSHIP
+  - TRADABILITY-HISTORY
+- name: listed
+  type: boolean
+  nullable: true
+  description: Verified listing state when known.
+  applies_to:
+  - TRADABILITY-HISTORY
+- name: tradable
+  type: boolean
+  nullable: true
+  description: Verified tradable state when known.
+  applies_to:
+  - TRADABILITY-HISTORY
+- name: trading_status
+  type: string
+  nullable: true
+  description: Observed/normalized market trading status.
+  applies_to:
+  - TRADABILITY-HISTORY
+- name: actual_entry_tradeable
+  type: boolean
+  nullable: true
+  description: Whether the security was actually tradable at the relevant Entry when evaluated.
+  applies_to:
+  - TRADABILITY-HISTORY
+- name: universe_release_id
+  type: string
+  nullable: true
+  description: Immutable Universe Release ID.
+  applies_to:
+  - UNIVERSE-RELEASE
+  required_when: record_type=UNIVERSE-RELEASE
+- name: release_type
+  type: enum
+  nullable: true
+  description: Semantic release type.
+  applies_to:
+  - UNIVERSE-RELEASE
+  enum:
+  - OPERATIONAL_CURRENT
+  - HISTORICAL_ACTUAL
+  - RECONSTRUCTED
+  - EXPANDED
+  required_when: record_type=UNIVERSE-RELEASE
+- name: member_company_ids
+  type: array[string]
+  nullable: true
+  description: Immutable member set for the release; canonical ordering must be defined by release tooling.
+  applies_to:
+  - UNIVERSE-RELEASE
+  required_when: record_type=UNIVERSE-RELEASE
+- name: member_count
+  type: integer
+  nullable: true
+  description: Count of unique member_company_ids.
+  applies_to:
+  - UNIVERSE-RELEASE
+  required_when: record_type=UNIVERSE-RELEASE
+- name: generated_at
+  type: datetime_tz
+  nullable: true
+  description: Release generation timestamp.
+  applies_to:
+  - UNIVERSE-RELEASE
+  required_when: record_type=UNIVERSE-RELEASE
+- name: content_hash
+  type: string
+  nullable: true
+  description: Immutable release-content hash.
+  applies_to:
+  - UNIVERSE-RELEASE
+  required_when: record_type=UNIVERSE-RELEASE
+- name: source_release_ref
+  type: string
+  nullable: true
+  description: Source/project release provenance when applicable.
+  applies_to:
+  - UNIVERSE-RELEASE
+- name: schema_version
+  type: string
+  nullable: false
+  description: Schema version.
+  applies_to: *id001
+  default: v0.1
+constraints:
+- id: UNI-C01
+  severity: ERROR
+  rule: Operational membership, tradable eligibility, and reconstructed/expanded release membership are separate semantics
+    and must not overwrite one another.
+- id: UNI-C02
+  severity: ERROR
+  rule: If an OPERATIONAL-MEMBERSHIP record carries legacy_provenance_code=ADDED_2026-08-14 for the approved new eight companies,
+    valid_from may be the date 2026-08-14 with valid_from_status=KNOWN.
+- id: UNI-C03
+  severity: ERROR
+  rule: ADDED_2026-08-14 must never be interpreted as the start of TRADABILITY-HISTORY.
+- id: UNI-C04
+  severity: ERROR
+  rule: Existing TOP38 historical operational membership starts remain valid_from=NULL with valid_from_status=NOT_INFERRED
+    unless independent project provenance establishes an earlier start.
+- id: UNI-C05
+  severity: ERROR
+  rule: A later 2025-or-other retrospective inclusion must use a distinct RECONSTRUCTED or EXPANDED universe_release_id and
+    a new backtest run; it must not rewrite actual OPERATIONAL history.
+- id: UNI-C06
+  severity: ERROR
+  rule: valid_from_status=KNOWN requires valid_from non-NULL; valid_from_status=NOT_INFERRED requires valid_from=NULL.
+- id: UNI-C07
+  severity: ERROR
+  rule: UNIVERSE-RELEASE.member_count must equal the number of unique member_company_ids.
+- id: UNI-C08
+  severity: ERROR
+  rule: Current release membership is not evidence of historical membership valid_from.
+- id: UNI-C09
+  severity: ERROR
+  rule: When supersedes_ref is populated on membership/history, it must resolve to a prior record of the same record_type,
+    universe_id, company_id, and universe_type; record_revision must be greater.
+foreign_references:
+- id: UNI-FK01
+  local_fields:
+  - company_id
+  target_schema: company.schema.yaml
+  target_object: COMPANY-IDENTITY
+  target_fields:
+  - company_id
+  resolution: IMMEDIATE
+  required_when: record_type is membership/history
+- id: UNI-FK02
+  local_fields:
+  - member_company_ids
+  target_schema: company.schema.yaml
+  target_object: COMPANY-IDENTITY
+  target_fields:
+  - company_id
+  resolution: IMMEDIATE
+  required_when: record_type=UNIVERSE-RELEASE
+- id: UNI-FK03
+  local_fields:
+  - evidence_refs
+  target_schema: evidence.schema.yaml
+  target_object: EVIDENCE
+  target_fields:
+  - evidence_id
+  resolution: IMMEDIATE
+  required_when: evidence_refs is populated
+- id: UNI-FK04
+  local_fields:
+  - supersedes_ref
+  target_schema: universe.schema.yaml
+  target_object: DISCOVERY-UNIVERSE-HISTORY
+  target_fields:
+  - universe_record_id
+  resolution: IMMEDIATE
+  required_when: record_type=DISCOVERY-MEMBERSHIP and supersedes_ref is populated
+- id: UNI-FK05
+  local_fields:
+  - supersedes_ref
+  target_schema: universe.schema.yaml
+  target_object: OPERATIONAL-UNIVERSE-HISTORY
+  target_fields:
+  - universe_record_id
+  resolution: IMMEDIATE
+  required_when: record_type=OPERATIONAL-MEMBERSHIP and supersedes_ref is populated
+- id: UNI-FK06
+  local_fields:
+  - supersedes_ref
+  target_schema: universe.schema.yaml
+  target_object: TRADABILITY-HISTORY
+  target_fields:
+  - universe_record_id
+  resolution: IMMEDIATE
+  required_when: record_type=TRADABILITY-HISTORY and supersedes_ref is populated
+audit_rules:
+- id: UNI-A01
+  severity: ERROR
+  rule: Fail if ADDED_2026-08-14 is copied into Tradability start.
+- id: UNI-A02
+  severity: ERROR
+  rule: Fail if an existing TOP38 company receives an invented historical operational valid_from.
+- id: UNI-A03
+  severity: ERROR
+  rule: Fail if RECONSTRUCTED/EXPANDED release creation mutates actual OPERATIONAL history.
+- id: UNI-A04
+  severity: ERROR
+  rule: Validate member_count equals unique release member set.
+- id: UNI-A05
+  severity: ERROR
+  rule: Validate each release member resolves to Company identity.
+- id: UNI-A06
+  severity: ERROR
+  rule: Validate Universe-history supersedes_ref self-reference and same membership/tradability identity lineage.
+record_types: *id001
