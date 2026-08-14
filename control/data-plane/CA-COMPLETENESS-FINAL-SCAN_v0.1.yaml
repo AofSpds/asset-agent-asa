@@ -1,0 +1,316 @@
+doc_id: SEMI-CA-COMPLETENESS-FINAL-SCAN
+version: v0.1
+status: WORKING_BLOCKED
+created_at: '2026-08-15T06:34:00+09:00'
+project_id: semiconductor-research
+repository: AofSpds/semiconductor-research
+branch: main
+lane: INDEPENDENT_CA_COMPLETENESS_VALIDATION
+parent_main_observed_sha: fbfae599431bd88f96f6a6677e803cb07cd79d3c
+
+purpose: >-
+  Independently validate the two remaining Corporate Action Completeness axes against
+  the frozen KRX-derived raw OHLC history: material raw-OHLC discontinuities and
+  known-KRX comparable-price/unit-change omissions. This lane is outcome-blind and
+  does not perform D4, canonical materialization, schema change, or architecture change.
+
+outcome_blindness:
+  enforced: true
+  prohibited_inputs:
+    - future_return
+    - MFE
+    - rank
+    - Top3
+    - Top10
+    - Top20
+    - Preliminary_Winner
+    - Official_Winner
+  note: >-
+    Corporate-action and session adjudication below use raw source observations and
+    exchange/issuer evidence only. Realized outcome/rank information was not used as
+    an adjudication input.
+
+frozen_price_dataset:
+  dataset_id: SEMI-PRICE-MARCAP-KRX-2024-2026_v1
+  dataset_identity_sha256: 419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7
+  components:
+    '2024':
+      sha256: b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb
+      rows: 687708
+    '2025':
+      sha256: 2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e
+      rows: 696524
+    '2026':
+      sha256: 5da710a2fc56f8fe9b1f5126295cc30c3b15c0ee35d28ba808a505ec4a2243c1
+      rows: 434915
+  total_rows: 1819147
+  raw_price_bytes_changed: false
+  dataset_identity_changed: false
+  canonical_cutover: false
+
+inherited_closed_state:
+  ca_signal_adjudication: PASS_24_OF_24
+  ca_regression: PASS_2_OF_2
+  stocks_count_discontinuity_axis: CLOSED_24_OF_24
+  note: >-
+    These are inherited closed-axis states. The independent lane did not retune them.
+
+raw_ohlc_independent_scan:
+  total_rows_scanned: 1819147
+  zero_OHL_positive_close_rows: 84111
+  zero_OHL_zero_volume_amount_rows: 84107
+  zero_OHL_nonzero_trade_exception_rows: 4
+  other_material_OHLC_discontinuity_rows: 0
+  deterministic_accounting_check: PASS
+  dominant_pattern_semantics:
+    raw_condition: Open=0 AND High=0 AND Low=0 AND Volume=0 AND Amount=0 AND Close>0
+    result: >-
+      Evidence-compatible with no regular-session execution, suspension, or maintained
+      closing/base-price semantics. It is not a malformed traded OHLC bar solely because
+      High<Close. The zero pattern alone is insufficient to infer a specific trading_status.
+    trading_status_inference_from_zero_pattern_only: PROHIBITED
+    silent_drop: PROHIBITED
+  axis_status: BLOCKED
+  axis_block_reason: >-
+    The dominant 84,107-row class is semantically explained, and no A3 class was found,
+    but two of the four zero-OHL/nonzero-trade exceptions still lack an exact exchange
+    transaction/session locator. Strict 4/4 individual-adjudication criteria are not met.
+
+four_exception_rows:
+  - date: '2024-03-28'
+    code: '001527'
+    raw_name: 동양2우B
+    close: 11480
+    volume: 2
+    amount: 23060
+    implied_average_trade_price: 11530
+    adjudication_status: PARTIAL_BLOCKER
+    result: >-
+      Non-regular/session-specific transaction is plausible, but the exact KRX transaction
+      session/print locator for 2024-03-28 was not resolved. Do not classify the row as CA,
+      invalid, or a specific trading_status without that locator.
+    corporate_action_relation: NOT_ESTABLISHED
+  - date: '2024-12-30'
+    code: '076340'
+    raw_name: 관악산업
+    close: 5590
+    volume: 35536
+    amount: 177680000
+    implied_average_trade_price: 5000
+    adjudication_status: VERIFIED
+    result: >-
+      Exact issuer/KIND major-holder record identifies 35,536 shares on 2024-12-30 as
+      시간외매매 at unit price 5,000; 35,536 x 5,000 equals the raw Amount exactly.
+      Therefore the row represents off-hours transaction metrics rather than a regular
+      OHLC bar or a corporate action.
+    evidence:
+      - source: KRX_KIND
+        source_id: '20250106000440'
+        publication_date: '2025-01-06'
+        locator: https://kind.krx.co.kr/external/2025/01/06/000144/20250106000440/00636.htm
+    corporate_action_relation: NONE
+  - date: '2025-03-21'
+    code: '145210'
+    raw_name: 다이나믹디자인
+    close: 1126
+    volume: 1015
+    amount: 1142890
+    implied_average_trade_price: 1126
+    adjudication_status: VERIFIED_COMPOSED
+    result: >-
+      KRX suspended the issue at 08:58 on 2025-03-21. KRX market rules allow pre-open
+      off-hours closing-price transactions before the 09:00 regular session. Raw Amount
+      equals 1,015 x 1,126 exactly. With regular-session execution prevented by the 08:58
+      halt, the observed transaction metrics are deterministically consistent with
+      pre-open/off-hours carried-close execution, not a corporate action.
+    evidence:
+      - source: KRX_KIND
+        source_id: '20250321000242'
+        publication_date: '2025-03-21'
+        locator: https://kind.krx.co.kr/external/2025/03/21/000060/20250321000242/99810.htm
+      - source: KRX_GLOBAL_MARKET_RULES
+        locator: https://global.krx.co.kr/contents/GLB/06/0602/0602010203/GLB0602010203T1.jsp
+    corporate_action_relation: NONE
+  - date: '2026-05-08'
+    code: '403360'
+    raw_name: 라피치
+    close: 6900
+    volume: 11000
+    amount: 79200000
+    implied_average_trade_price: 7200
+    adjudication_status: PARTIAL_BLOCKER
+    result: >-
+      KONEX permits block/off-hours executions even where a regular-session trade is absent,
+      and the row is compatible with that source/session structure. However an exact KRX
+      2026-05-08 transaction/session locator matching 11,000 shares at the implied 7,200
+      price was not resolved. No evidence-backed CA explanation for this row was found.
+    corporate_action_relation: NOT_ESTABLISHED_AS_CA
+
+u127_material_OHLC_review:
+  rows_reviewed: 200
+  companies_reviewed: 13
+  all_rows_in_dominant_A1_class: true
+  A2_exception_rows_within_U127: 0
+  company_codes:
+    - '011930'
+    - '024850'
+    - '025560'
+    - '030530'
+    - '033170'
+    - '058470'
+    - '097800'
+    - '112290'
+    - '114810'
+    - '183300'
+    - '256630'
+    - '323350'
+    - '355150'
+  material_classifications:
+    - code: '011930'
+      company: 신성이엔지
+      result: suspension block associated with 10:1 share consolidation; post-resumption share count approximately one tenth
+    - code: '024850'
+      company: HLB이노베이션
+      result: suspension block associated with 5:1 share consolidation
+    - code: '025560'
+      company: 미래산업
+      result: two distinct blocks; 2025 capital-reduction/basis-price boundary and 2026 1:5 stock split; do not collapse to one factor
+    - code: '030530'
+      company: 원익홀딩스
+      result: one-day trading suspension control; no unit-change CA required
+    - code: '033170'
+      company: 시그네틱스
+      result: 5:1 share consolidation event effective during frozen horizon; frozen raw ends while issue remains suspended before scheduled relisting
+    - code: '058470'
+      company: 리노공업
+      result: 1:5 stock split suspension/relisting boundary
+    - code: '097800'
+      company: 윈팩
+      result: 5:1 share consolidation suspension/relisting boundary
+    - code: '112290'
+      company: 와이씨켐
+      result: 1:2 stock split suspension/relisting boundary
+    - code: '114810'
+      company: 한솔아이원스
+      result: accounting/listing-review suspension control; no unit-change CA required
+    - code: '183300'
+      company: 코미코
+      result: 500-to-200 par-value stock split event effective during frozen horizon; frozen raw ends while issue remains suspended before relisting
+    - code: '256630'
+      company: 포인트엔지니어링
+      result: 5:1 share consolidation suspension/relisting boundary
+    - code: '323350'
+      company: 다원넥스뷰
+      result: SPAC/merger listed-security boundary; not a simple blanket adjustment-factor event
+    - code: '355150'
+      company: 코스텍시스
+      result: 5:1 par-value share consolidation suspension/relisting boundary
+  unexplained_material_CA_signal_list: []
+  registry_omission_reconciliation_required:
+    - '033170'
+    - '183300'
+
+known_KRX_comparable_price_cross_check:
+  scope_result: >-
+    The U127 material zero-OHL blocks were cross-classified against exchange/issuer
+    unit-change and suspension semantics. Twelve material CA/unit/entity-boundary
+    events and two non-CA suspension controls were distinguished. The inherited
+    research-team nine-event final-scan candidate list was also checked for coverage,
+    without using any associated outcome/rank fields.
+  material_CA_unit_or_entity_boundary_events_checked: 12
+  non_CA_suspension_controls_checked: 2
+  newly_confirmed_registry_omissions:
+    - event_id: CA-OMISSION-033170-20260807
+      code: '033170'
+      company: 시그네틱스
+      event_type: SHARE_CONSOLIDATION_5_TO_1
+      effective_at: '2026-08-07'
+      par_value_change: '500 -> 2500'
+      shares_change: '85728319 -> 17145663'
+      suspension_range: '2026-08-05 through planned 2026-08-24'
+      scheduled_relisting: '2026-08-25'
+      comparable_price_impact: YES_FUTURE_POST_RELIST_COMPARABILITY
+      adjustment_required_in_frozen_rows_through_2026_08_13: NO_POST_RELIST_ROW_PRESENT
+      evidence:
+        - source: KRX_KIND_ISSUER_FILING
+          source_id: '20260619000897'
+          publication_date: '2026-06-19'
+          locator: https://kind.krx.co.kr/external/2026/06/19/000475/20260619000897/00591.htm
+      validation_status: VERIFIED_EVENT_SEMANTICS_REGISTRY_RECONCILIATION_REQUIRED
+    - event_id: CA-OMISSION-183300-20260731
+      code: '183300'
+      company: 코미코
+      event_type: STOCK_SPLIT_PAR_500_TO_200
+      effective_at: '2026-07-31'
+      par_value_change: '500 -> 200'
+      shares_change: '20545310 -> 51363275'
+      suspension_range: '2026-07-29 through 2026-08-20'
+      relisting_date: '2026-08-21'
+      comparable_price_impact: YES_FUTURE_POST_RELIST_COMPARABILITY
+      adjustment_required_in_frozen_rows_through_2026_08_13: NO_POST_RELIST_ROW_PRESENT
+      evidence:
+        - source: KRX_KIND_ISSUER_FILING
+          source_id: '20260716000843'
+          publication_date: '2026-07-16'
+          locator: https://kind.krx.co.kr/external/2026/07/16/000397/20260716000843/70128.htm
+      validation_status: VERIFIED_EVENT_SEMANTICS_REGISTRY_RECONCILIATION_REQUIRED
+  note_on_coMiCo_event_identity: >-
+    The July 2026 500-to-200 stock split is distinct from the separately inherited and
+    already-closed May 2026 CoMiCo bonus-issue event. They must not be merged.
+  new_CA_events_found_by_independent_lane: 2
+  new_CA_events_event_semantics_adjudicated: 2
+  new_adjustment_factors_authorized: 0
+  adjustment_factor_note: >-
+    Authoritative unit/share ratios are recorded, but this lane does not authorize D4
+    factor materialization. Both newly found events have no post-relisting raw row inside
+    the frozen dataset cutoff, and evidence-free or premature adjustment_factor creation
+    is prohibited by PRI-C04/PRI-A04.
+  axis_status: BLOCKED
+  axis_block_reason: >-
+    Two source-verified unit-change events are absent from the inherited final-scan
+    registration checklist and require append-only reconciliation before the known-KRX
+    completeness axis can be certified closed.
+
+price_schema_compliance:
+  schema_path: control/schemas/v0.1/price.schema.yaml
+  PRI_C04_evidence_required_for_adjustment: ENFORCED
+  PRI_C08_CA_fields_require_resolvable_refs: ENFORCED
+  PRI_C09_CA_type_requires_flag_true: ENFORCED
+  PRI_A04_evidence_free_adjustment_rejected: ENFORCED
+  PRI_A06_unresolved_CA_evidence_rejected: ENFORCED
+  schema_change_request: NONE
+
+unresolved_evidence_locators:
+  - 'A2 exception 001527 / 2024-03-28: exact KRX transaction/session print locator'
+  - 'A2 exception 403360 / 2026-05-08: exact KRX transaction/session print locator'
+
+final_gate:
+  ca_completeness_final_scan: NOT_CLOSED
+  ca_completeness_gate: BLOCKED
+  price_D4_ready: false
+  blockers:
+    - 'Four-exception criterion is only 2/4 fully adjudicated; exact session locators remain unresolved for 001527 and 403360.'
+    - 'Two source-verified unit-change events, 033170 and 183300-July-split, require append-only reconciliation into the authoritative CA event/register interface.'
+  reason: >-
+    Dominant raw-OHLC semantics and all 200 U127 material rows are explained, but strict
+    PASS criteria fail on 4/4 exceptional-row adjudication and on independently detected
+    CA-register omissions. PASS is therefore not promoted to match the inherited research
+    verdict.
+
+change_control:
+  architecture_change: NONE
+  schema_change_request: NONE
+  raw_price_bytes_changed: false
+  price_dataset_identity_changed: false
+  provider_mixing: false
+  canonical_cutover: false
+  price_canonical_materialization: false
+  official_winner_release: BLOCKED
+
+next_action:
+  - resolve exact KRX transaction/session print locator for 001527 on 2024-03-28
+  - resolve exact KRX transaction/session print locator for 403360 on 2026-05-08
+  - append/reconcile 033170 and 183300-July-split events into the authoritative CA event interface with their resolvable evidence refs
+  - rerun this gate without outcome fields; only then authorize Price D4 if every PASS criterion is met
+
+user_decision_required: NONE
