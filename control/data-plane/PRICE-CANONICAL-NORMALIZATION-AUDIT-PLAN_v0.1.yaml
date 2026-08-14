@@ -1,0 +1,241 @@
+plan_id: SEMI-PRICE-CANONICAL-NORMALIZATION-AUDIT-PLAN
+plan_version: v0.1
+status: WORKING_CONTROL_PLAN
+created_at: '2026-08-15T06:06:00+09:00'
+project_id: semiconductor-research
+repository: AofSpds/semiconductor-research
+
+purpose: >-
+  Define a deterministic dry-run normalization and audit plan from the verified
+  RAW_IMMUTABLE marcap yearly Parquet inputs into the frozen PRICE-CANONICAL v0.1
+  target contract. This plan does not create, promote, freeze, or activate a
+  canonical price dataset.
+
+governing_schema:
+  path: control/schemas/v0.1/price.schema.yaml
+  schema_id: SEMI-PRICE-SCHEMA
+  schema_version: v0.1
+  logical_object: PRICE-CANONICAL
+  status: FROZEN
+
+source_dataset:
+  dataset_id: SEMI-PRICE-MARCAP-KRX-2024-2026_v1
+  dataset_identity_sha256: 419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7
+  raw_semantics: RAW_IMMUTABLE/PRESERVED_RAW
+  primary_data_plane: Amazon S3
+  primary_status: MATERIALIZED_VERIFIED
+  secondary_backup: Cloudflare R2
+  secondary_status: MATERIALIZED_VERIFIED
+  provider_mixing: PROHIBITED
+
+raw_schema_observation:
+  evidence_method: LOCAL_VERIFIED_PARQUET_FOOTER_METADATA_OBSERVATION
+  local_bytes_identity_basis: same component SHA-256 as verified S3 and R2 copies
+  common_columns:
+    - Code
+    - Name
+    - Close
+    - Dept
+    - ChangeCode
+    - Changes
+    - ChangesRatio
+    - Volume
+    - Amount
+    - Open
+    - High
+    - Low
+    - Marcap
+    - Stocks
+    - Market
+    - MarketId
+    - Rank
+    - Date
+  component_metadata:
+    '2024':
+      creator: pyarrow 21.0.0
+      pandas_version: 2.3.3
+      date_physical_observation: datetime64[ns]
+    '2025':
+      creator: pyarrow 21.0.0
+      pandas_version: 2.3.3
+      date_physical_observation: datetime64[ns]
+    '2026':
+      creator: pyarrow 25.0.1
+      pandas_version: 3.0.5
+      date_physical_observation: datetime64[us]
+  schema_drift_decision:
+    logical_column_set_drift: NONE_OBSERVED
+    physical_metadata_drift: OBSERVED
+    audit_required: true
+
+raw_to_canonical_mapping:
+  price_dataset_id:
+    source: GENERATED_AT_SEPARATE_CANONICAL_PROMOTION_GATE
+    dry_run_policy: no released canonical dataset id assigned by this plan
+  date:
+    source: Date
+    transform: normalize to YYYY-MM-DD trading date; discard unsupported intraday precision without inventing time
+    audit: non-null and deterministic date conversion across ns/us physical source precision
+  code:
+    source: Code
+    transform: string identity; preserve leading zeros exactly
+    audit: non-null; no integer coercion; source-to-output lexical preservation
+  company_id:
+    source: COMPANY-IDENTITY mapping by applicable security code/entity context
+    transform: populate only when mapping resolves; otherwise NULL
+    audit: when populated, foreign reference must resolve immediately
+  open:
+    source: Open
+    transform: convert source numeric value to persistent exact-decimal representation
+    audit: no persistent binary float; source-value round-trip test required
+  high:
+    source: High
+    transform: convert source numeric value to persistent exact-decimal representation
+    audit: no persistent binary float; source-value round-trip test required
+  low:
+    source: Low
+    transform: convert source numeric value to persistent exact-decimal representation
+    audit: no persistent binary float; source-value round-trip test required
+  close:
+    source: Close
+    transform: convert source numeric value to persistent exact-decimal representation
+    audit: no persistent binary float; source-value round-trip test required
+  volume:
+    source: Volume
+    transform: nullable integer only after integral-value audit; no silent rounding
+    audit: fail any non-null fractional source value until explicitly adjudicated
+  amount:
+    source: Amount
+    transform: nullable exact-decimal representation
+    audit: source-value round-trip test required
+  marcap:
+    source: Marcap
+    transform: nullable exact-decimal representation
+    audit: source-value round-trip test required
+  stocks:
+    source: Stocks
+    transform: nullable integer identity
+    audit: integer type/range preservation
+  market:
+    source: Market
+    transform: nullable source market/provider label
+    audit: no unsupported semantic remapping
+  trading_status:
+    source: NONE_DIRECT
+    transform: NULL unless a separately approved deterministic evidence-backed mapping is established
+    audit: do not infer from zero volume, ChangeCode, or missingness without explicit rule
+  corporate_action_flag:
+    source: EVIDENCE_BACKED_CA_LEDGER
+    transform: default FALSE; TRUE only with resolved evidence
+    audit: enforce PRI-C04/PRI-C08/PRI-C09/PRI-A04/PRI-A06
+  corporate_action_type:
+    source: EVIDENCE_BACKED_CA_LEDGER
+    transform: NULL unless supported by resolved evidence
+  adjustment_factor:
+    source: EVIDENCE_BACKED_CA_LEDGER
+    transform: NULL unless supported by resolved evidence; share-count discontinuity alone is insufficient
+  action_evidence_refs:
+    source: EVIDENCE records
+    transform: resolved evidence_id array when any action field requires support
+  raw_provider:
+    source: DATASET MANIFEST
+    transform: 'FinanceData / marcap'
+  raw_storage_ref:
+    source: verified primary S3 component stable locator
+    transform: component-level stable raw object reference applicable to each row/year
+  schema_version:
+    source: CONSTANT
+    transform: v0.1
+
+raw_only_fields_not_promoted_as_price_canonical_authority:
+  - Name
+  - Dept
+  - ChangeCode
+  - Changes
+  - ChangesRatio
+  - MarketId
+  - Rank
+  policy: >-
+    These fields remain preserved in RAW_IMMUTABLE input. They are not silently
+    discarded from lineage; they are simply not authoritative PRICE-CANONICAL
+    fields under schema v0.1 unless a later schema/change-control action says otherwise.
+
+mandatory_dry_run_audits:
+  structural:
+    - verify all three components expose the expected logical raw column set
+    - detect physical type/metadata drift across yearly components
+    - verify no required raw mapping input column is absent
+  identity_and_key:
+    - preserve Code lexically as string including leading zeros
+    - validate canonical logical key uniqueness for provisional dataset scope: date + code
+    - fail rather than silently deduplicate duplicate date/code rows
+  date:
+    - normalize Date deterministically to YYYY-MM-DD
+    - verify ns/us source physical precision produces identical date semantics
+    - reject null required dates
+  ohlc:
+    - reject null Open/High/Low/Close
+    - validate High >= Open, High >= Low, High >= Close
+    - validate Low <= Open, Low <= High, Low <= Close
+    - do not invent positivity rules beyond the frozen schema
+  numeric_serialization:
+    - persistent binary float prohibited for canonical price/amount/marcap/adjustment fields
+    - prove deterministic source-to-decimal conversion and round-trip equivalence under the approved serialization rule
+    - Volume may convert to integer only if every non-null converted value is integral; no rounding
+    - Stocks integer semantics preserved
+  provider_and_lineage:
+    - fail provider mixing
+    - populate raw_provider consistently
+    - every output partition/record must retain resolvable raw_storage_ref lineage
+  company_mapping:
+    - company_id is nullable
+    - when populated it must resolve against COMPANY-IDENTITY immediately
+    - mapping failure must not be converted into a guessed company_id
+  corporate_actions:
+    - CA Completeness Final Scan must close before any canonical promotion relying on action normalization
+    - share-count discontinuity alone is an audit signal and not an adjustment rule
+    - any TRUE/non-NULL action fields require resolved evidence references
+  row_preservation:
+    - dry-run must report source row count, transformed row count, rejected/quarantined row count
+    - silent row dropping is prohibited
+    - any rejected row class requires explicit reason code and review
+  schema_contract:
+    - Universe_Eligible_Flag must not appear as an authoritative canonical price field
+    - exact target field set and nullability must validate against SEMI-PRICE-SCHEMA v0.1
+
+promotion_preconditions:
+  required_before_any_PRICE_CANONICAL_release:
+    - dry-run execution completed
+    - all ERROR-severity schema/audit constraints PASS or are explicitly blocked without promotion
+    - CA Completeness Gate closed for any action-normalized output
+    - output dataset identity/version assigned by separate authorized promotion control
+    - canonical bytes materialized to canonical/ data-plane prefix
+    - canonical remote SHA-256/manifest verification completed
+    - secondary backup policy remains satisfied for released canonical bytes before cutover
+  this_plan_satisfies_promotion_preconditions: false
+
+execution_sequence:
+  - D0 inspect raw schema and component metadata
+  - D1 deterministic type/column normalization dry-run
+  - D2 key/date/OHLC/numeric serialization audit
+  - D3 company_id mapping audit where applicable
+  - D4 corporate-action evidence join audit after CA completeness closure
+  - D5 produce dry-run audit report with counts and blockers
+  - D6 separate user/control authorization required before any canonical materialization or cutover
+
+prohibited_actions:
+  - relabel raw Parquet as PRICE-CANONICAL
+  - silently round Volume or other numeric values
+  - infer adjustment_factor from Stocks discontinuity alone
+  - infer trading_status without an approved deterministic rule
+  - drop rows silently
+  - assign released price_dataset_id in this working plan
+  - canonical materialization
+  - canonical cutover
+  - architecture change
+  - schema change
+
+next_action:
+  action: EXECUTE_D0_D3_DRY_RUN_WHEN_EXECUTION_ENGINE_HAS_PARQUET_ACCESS
+  ca_dependent_step: D4
+  canonical_promotion: NOT_AUTHORIZED
