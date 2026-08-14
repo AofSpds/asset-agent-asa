@@ -1,0 +1,101 @@
+registry_id: SEMI-LEGACY-ARTIFACT-REGISTRY
+registry_version: v1.0
+status: ACTIVE_CONTROL_RECORD
+gate: G1-F
+project_id: semiconductor-research
+repository: AofSpds/semiconductor-research
+created_at: '2026-08-15T02:59:00+09:00'
+purpose: Repository-level control registry linking Frozen Migration Inventory legacy identities to byte-location, storage-plane classification, and frozen migration routing. No legacy content is migrated or rewritten.
+authority:
+  migration_inventory: control/migration/v1.0/SEMI-MIGRATION-INVENTORY_v1.0.csv
+  migration_manifest: control/migration/v1.0/SEMI-MIGRATION-MANIFEST_v1.0.csv
+  legacy_to_canonical_map: control/migration/v1.0/SEMI-LEGACY-TO-CANONICAL-MAP_v1.0.csv
+  migration_issue_register: control/migration/v1.0/SEMI-MIGRATION-ISSUE-REGISTER_v1.0.csv
+  legacy_hash_manifest: control/migration/v1.0/SEMI-LEGACY-HASH-MANIFEST_v1.0.csv
+  authority_policy: Frozen authority files are immutable and are not overwritten by this registry.
+inventory_coverage:
+  migration_inventory_total_assets: 20
+  nonlegacy_control_asset_count: 1
+  legacy_asset_count: 19
+  legacy_assets_registered: 19
+  full_inventory_coverage_status: PASS
+  inventory_nonlegacy_reference:
+    inventory_id: INV-000
+    artifact_id: SEMI-ARCHITECTURE-SPEC
+    classification: NONLEGACY_FROZEN_ARCHITECTURE_REFERENCE
+    repository_path: control/architecture/v1.0/SEMI-ARCHITECTURE-SPEC_v1.0.md
+    sha256: 2f92853d8609a13d9ecbb5bdce28221785bbf7874fadcd1f8def6f1e90a21b8d
+    materialization_status: MATERIALIZED_VERIFIED
+summary:
+  legacy_assets: 19
+  located: 18
+  not_located: 1
+  control_plane: 3
+  data_plane: 16
+  archive_only: 1
+  split_required: 8
+  P0: 5
+  P1: 10
+  P2: 4
+  P3: 0
+  hash_manifest_identity_linked: 19
+  sha256_available_in_frozen_hash_manifest: 18
+  sha256_unavailable_in_frozen_hash_manifest: 1
+  runtime_hash_mismatch: 0
+classification_policy:
+  CONTROL_PLANE: rules / schemas / manifests / hashes / control records / small structured data
+  DATA_PLANE: raw binary/source archive / parquet / large data
+  docx_source_archive_rule: Legacy DOCX original bytes are treated as raw binary/source archive in DATA_PLANE; normalized future control objects follow the Frozen Migration Manifest separately.
+  runtime_locator_policy: RUNTIME_TEMPORARY is observation-only and is never a stable locator.
+  missing_byte_policy: NOT_LOCATED is preserved; missing bytes are never reconstructed.
+historical_frozen_release_manifest:
+  artifact: SEMI-RELEASE-MANIFEST_v1.0.yaml
+  known_source: source-bundle:1차.zip
+  g1_e_repository_status: NOT_PRESENT_AT_G1_E
+  byte_location_status: LOCATED
+  source_locator: RUNTIME_TEMPORARY
+  stable_locator: PENDING
+  sha256: bc7cb94d9b6e35f35e70f9c11ab6d71318431dc0dbf08a2c37acfcd6d765b5fe
+  control_or_data_plane: CONTROL_PLANE
+  materialization_status: CANDIDATE_NOT_MATERIALIZED
+  policy: Frozen original must be preserved exact and must not be rewritten to reflect current repository state.
+issue_overlay:
+  MIR-001:
+    historical_issue_status: FROZEN_ISSUE_REGISTER_SNAPSHOT_UNCHANGED
+    current_resolution_overlay: control/architecture/v1.0/ARCHITECTURE-MANIFEST.yaml
+    current_resolution_status: RESOLVED_BY_REPOSITORY_MATERIALIZATION
+    frozen_issue_register_modified: false
+  MIR-002_to_MIR-013:
+    status: NO_RESOLUTION_CHANGE_RECORDED_BY_G1-F
+    policy: Do not mark resolved without separate evidence/overlay.
+legacy_assets:
+  - {legacy_artifact_id: INV-001, legacy_filename: Semi_Eval_Core_v1.0_2026-08-14.docx, legacy_version: v1.0, legacy_sha256: 3a8c70df26dee0b3c1430846cd9934aa237fd2075f322d78d899ed8cb81acc54, source_type: RULE, migration_priority: P0, migration_action: STRUCTURAL_SPLIT, target_canonical_objects: [EVAL-CORE, MODEL-DEFINITION, SCORE-COMPONENT-DEFINITION], control_or_data_plane: DATA_PLANE, source_locator: RUNTIME_TEMPORARY, stable_locator: PENDING, byte_location_status: LOCATED, materialization_status: NOT_MATERIALIZED, original_format: DOCX, archive_only: false, split_required: true, canonical_authority_after_cutover: 'EVAL-CORE / MODEL-DEFINITION', notes: 'Frozen authority linked; no content revision.'}
+  - {legacy_artifact_id: INV-002, legacy_filename: Semi_Data_Route_v1.1_2026-08-14.docx, legacy_version: v1.1, legacy_sha256: 508f98e88c150ceb751db2227727db529eb04da467c53a6eed5278ca5e17aa02, source_type: MIXED, migration_priority: P0, migration_action: STRUCTURAL_SPLIT, target_canonical_objects: [DATA-ROUTE, 'OBSERVATION definitions', 'model-dependent mappings', 'VALIDATION rule refs'], control_or_data_plane: DATA_PLANE, source_locator: RUNTIME_TEMPORARY, stable_locator: PENDING, byte_location_status: LOCATED, materialization_status: NOT_MATERIALIZED, original_format: DOCX, archive_only: false, split_required: true, canonical_authority_after_cutover: DATA-ROUTE, notes: 'Frozen authority linked; no content revision.'}
+  - {legacy_artifact_id: INV-003, legacy_filename: Semi_Data_Route_v1.0_2026-08-14.docx, legacy_version: v1.0, legacy_sha256: null, hash_status: PROJECT_SEARCH_REFERENCE_ONLY_HASH_UNAVAILABLE, source_type: MIXED, migration_priority: P0, migration_action: ARCHIVE_ONLY, target_canonical_objects: ['Legacy archive', 'SOURCE-REGISTRY entry'], control_or_data_plane: DATA_PLANE, source_locator: PROJECT_SEARCH_REFERENCE_ONLY, stable_locator: PENDING, byte_location_status: NOT_LOCATED, materialization_status: NOT_MATERIALIZED, original_format: DOCX, archive_only: true, split_required: false, canonical_authority_after_cutover: 'v1.1 route, not v1.0', notes: 'Frozen hash manifest has no bytes/hash; do not reconstruct.'}
+  - {legacy_artifact_id: INV-004, legacy_filename: Semi_Universe_v1.0_2026-08-14.docx, legacy_version: v1.0, legacy_sha256: eef313bc71bd0a5cb019f92e43e1bf38c2a63633bb847320d1cb4c8fe4ea9023, source_type: MIXED, migration_priority: P1, migration_action: STRUCTURAL_SPLIT, target_canonical_objects: [UNIVERSE-RELEASE, OPERATIONAL-UNIVERSE-HISTORY, 'TRADABILITY-HISTORY rule mapping'], control_or_data_plane: DATA_PLANE, source_locator: RUNTIME_TEMPORARY, stable_locator: PENDING, byte_location_status: LOCATED, materialization_status: NOT_MATERIALIZED, original_format: DOCX, archive_only: false, split_required: true, canonical_authority_after_cutover: 'Universe histories/releases', notes: 'Frozen authority linked; no content revision.'}
+  - {legacy_artifact_id: INV-005, legacy_filename: SEMI-COMPANY-MASTER_v0.1.docx, legacy_version: v0.1, legacy_sha256: 03842717f3bb6815610541496b1f5dadfd44a0e277dc9364c5632cbfb5520cd6, source_type: MIXED, migration_priority: P1, migration_action: STRUCTURAL_SPLIT, target_canonical_objects: [COMPANY-IDENTITY, COMPANY-STRUCTURE-HISTORY, COMPANY-STATE-HISTORY, 'EVIDENCE refs'], control_or_data_plane: DATA_PLANE, source_locator: RUNTIME_TEMPORARY, stable_locator: PENDING, byte_location_status: LOCATED, materialization_status: NOT_MATERIALIZED, original_format: DOCX, archive_only: false, split_required: true, canonical_authority_after_cutover: 'Company canonical objects', notes: 'Frozen authority linked; no content revision.'}
+  - {legacy_artifact_id: INV-006, legacy_filename: SEMI-FAB-MASTER_v1.0_2026-08-14.docx, legacy_version: v1.0, legacy_sha256: 528d1a59ac5b6796b95f70605675f273d80ef744da8d6460da60204d3cff4159, source_type: MIXED, migration_priority: P1, migration_action: STRUCTURAL_SPLIT, target_canonical_objects: [FAB-IDENTITY, FAB-STATE-HISTORY, 'EVIDENCE/SOURCE refs'], control_or_data_plane: DATA_PLANE, source_locator: RUNTIME_TEMPORARY, stable_locator: PENDING, byte_location_status: LOCATED, materialization_status: NOT_MATERIALIZED, original_format: DOCX, archive_only: false, split_required: true, canonical_authority_after_cutover: 'Fab canonical objects', notes: 'Frozen authority linked; no content revision.'}
+  - {legacy_artifact_id: INV-007, legacy_filename: SEMI-SOURCE-INDEX_v1.0.docx, legacy_version: v1.0, legacy_sha256: 2131ebe6724a8c2d235e7e6f06d4fdde2819ab460bd5c907e2f7ca32e02dac46, source_type: MIXED, migration_priority: P1, migration_action: STRUCTURAL_SPLIT, target_canonical_objects: ['DATA-ROUTE retrieval rule', 'COMPANY-IDENTITY locator attrs', SOURCE-REGISTRY], control_or_data_plane: DATA_PLANE, source_locator: RUNTIME_TEMPORARY, stable_locator: PENDING, byte_location_status: LOCATED, materialization_status: NOT_MATERIALIZED, original_format: DOCX, archive_only: false, split_required: true, canonical_authority_after_cutover: 'DATA-ROUTE / Company/Source registry', notes: 'Frozen authority linked; no content revision.'}
+  - {legacy_artifact_id: INV-008, legacy_filename: SEMI-PIT-LEDGER_v1.0.docx, legacy_version: v1.0, legacy_sha256: acde50e7090382e95cc585227c4dd52df6b3f342258b6debfa0aabb7db94006a, source_type: MIXED, migration_priority: P1, migration_action: STRUCTURAL_SPLIT, target_canonical_objects: ['PIT-SNAPSHOT schema/rule', 'MODEL-SCORE mapping', 'MODEL-SCORE-COMPONENT mapping', 'VALIDATION mapping', 'EVIDENCE refs'], control_or_data_plane: DATA_PLANE, source_locator: RUNTIME_TEMPORARY, stable_locator: PENDING, byte_location_status: LOCATED, materialization_status: NOT_MATERIALIZED, original_format: DOCX, archive_only: false, split_required: true, canonical_authority_after_cutover: 'new decoupled objects', notes: 'Frozen authority linked; no content revision.'}
+  - {legacy_artifact_id: INV-009, legacy_filename: SEMI-PRICE-LEDGER_v1.0_SCHEMA.csv, legacy_version: v1.0, legacy_sha256: 67c8633579c3b624ffa2254bdf4173f205b1617b64ed960b9b1e200bc1e01c25, source_type: SCHEMA, migration_priority: P0, migration_action: SCHEMA_ONLY, target_canonical_objects: ['SCHEMA-REGISTRY / price schema'], control_or_data_plane: CONTROL_PLANE, source_locator: RUNTIME_TEMPORARY, stable_locator: PENDING, byte_location_status: LOCATED, materialization_status: NOT_MATERIALIZED, original_format: CSV, archive_only: false, split_required: false, canonical_authority_after_cutover: SCHEMA-REGISTRY, notes: 'Frozen authority linked; no content revision.'}
+  - {legacy_artifact_id: INV-010, legacy_filename: SEMI-PRICE-LEDGER_IMPORT-MANIFEST_v1.0.csv, legacy_version: v1.0, legacy_sha256: ca8f117a83cd3da800a2a2b5e0ebdca3c89ff658ff3fd21b5083e4aae9ab98ce, source_type: MANIFEST, migration_priority: P0, migration_action: FORMAT_CONVERSION, target_canonical_objects: [PRICE-DATASET-MANIFEST], control_or_data_plane: CONTROL_PLANE, source_locator: RUNTIME_TEMPORARY, stable_locator: PENDING, byte_location_status: LOCATED, materialization_status: NOT_MATERIALIZED, original_format: CSV, archive_only: false, split_required: false, canonical_authority_after_cutover: PRICE-DATASET-MANIFEST, notes: 'Frozen authority linked; no content revision.'}
+  - {legacy_artifact_id: INV-011, legacy_filename: SEMI-PRICE-LEDGER_v1.0_INGEST-AUDIT_BLOCKED_2026-08-14.csv, legacy_version: v1.0, legacy_sha256: 6e8d0eabbd4cafaf8f3073528a3d75c7ec15713a4efa27ba5308a176776e0728, source_type: AUDIT, migration_priority: P1, migration_action: STRUCTURAL_NORMALIZATION, target_canonical_objects: [PRICE-AUDIT], control_or_data_plane: CONTROL_PLANE, source_locator: RUNTIME_TEMPORARY, stable_locator: PENDING, byte_location_status: LOCATED, materialization_status: NOT_MATERIALIZED, original_format: CSV, archive_only: false, split_required: false, canonical_authority_after_cutover: PRICE-AUDIT, notes: 'Frozen authority linked; historical audit unchanged.'}
+  - {legacy_artifact_id: INV-012, legacy_filename: marcap-2024.parquet, legacy_version: 'provider dataset', legacy_sha256: b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb, source_type: RAW, migration_priority: P1, migration_action: COPY_AS_IS, target_canonical_objects: [PRICE-RAW], control_or_data_plane: DATA_PLANE, source_locator: RUNTIME_TEMPORARY, stable_locator: PENDING, byte_location_status: LOCATED, materialization_status: NOT_MATERIALIZED, original_format: Parquet, archive_only: false, split_required: false, canonical_authority_after_cutover: 'RAW provenance truth only; PRICE-CANONICAL later', notes: 'RAW_IMMUTABLE source; no canonicalization.'}
+  - {legacy_artifact_id: INV-013, legacy_filename: marcap-2025.parquet, legacy_version: 'provider dataset', legacy_sha256: 2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e, source_type: RAW, migration_priority: P1, migration_action: COPY_AS_IS, target_canonical_objects: [PRICE-RAW], control_or_data_plane: DATA_PLANE, source_locator: RUNTIME_TEMPORARY, stable_locator: PENDING, byte_location_status: LOCATED, materialization_status: NOT_MATERIALIZED, original_format: Parquet, archive_only: false, split_required: false, canonical_authority_after_cutover: 'RAW provenance truth only; PRICE-CANONICAL later', notes: 'RAW_IMMUTABLE source; no canonicalization.'}
+  - {legacy_artifact_id: INV-014, legacy_filename: marcap-2026.parquet, legacy_version: 'provider dataset', legacy_sha256: 5da710a2fc56f8fe9b1f5126295cc30c3b15c0ee35d28ba808a505ec4a2243c1, source_type: RAW, migration_priority: P1, migration_action: COPY_AS_IS, target_canonical_objects: [PRICE-RAW], control_or_data_plane: DATA_PLANE, source_locator: RUNTIME_TEMPORARY, stable_locator: PENDING, byte_location_status: LOCATED, materialization_status: NOT_MATERIALIZED, original_format: Parquet, archive_only: false, split_required: false, canonical_authority_after_cutover: 'RAW provenance truth only; PRICE-CANONICAL later', notes: 'RAW_IMMUTABLE source; no canonicalization.'}
+  - {legacy_artifact_id: INV-015, legacy_filename: Samsung_Semiconductor_Future_Technology_Platform_Map_v1.1_2026-08-09.docx, legacy_version: v1.1, legacy_sha256: b3d011c16cc3bd33ffd5235f2f2af93bbc7d4ed5affb407cbe5ec635ee32f087, source_type: BASELINE, migration_priority: P2, migration_action: FORMAT_CONVERSION, target_canonical_objects: [TECHNOLOGY-BASELINE, SOURCE-REGISTRY], control_or_data_plane: DATA_PLANE, source_locator: RUNTIME_TEMPORARY, stable_locator: PENDING, byte_location_status: LOCATED, materialization_status: NOT_MATERIALIZED, original_format: DOCX, archive_only: false, split_required: false, canonical_authority_after_cutover: TECHNOLOGY-BASELINE, notes: 'Frozen authority linked; no content revision.'}
+  - {legacy_artifact_id: INV-016, legacy_filename: Future_Semiconductor_System_Architecture_Memory_Manufacturing_Map_v1.0_2026-08-10.docx, legacy_version: v1.0, legacy_sha256: 99e4a200921fa44cbc8792f64705efccf7ff2c79e7e91fc1f425d9bfc559395e, source_type: BASELINE, migration_priority: P2, migration_action: FORMAT_CONVERSION, target_canonical_objects: [TECHNOLOGY-BASELINE, SOURCE-REGISTRY], control_or_data_plane: DATA_PLANE, source_locator: RUNTIME_TEMPORARY, stable_locator: PENDING, byte_location_status: LOCATED, materialization_status: NOT_MATERIALIZED, original_format: DOCX, archive_only: false, split_required: false, canonical_authority_after_cutover: TECHNOLOGY-BASELINE, notes: 'Frozen authority linked; no content revision.'}
+  - {legacy_artifact_id: INV-017, legacy_filename: Korea_Semiconductor_Equipment_CAPEX_Early_Revenue_Response_Map_v1.0_2026-08-11.docx, legacy_version: v1.0, legacy_sha256: 4871de83a6c6ce6bc0fdbf0e0779731e11225d3284505a1c7b7ea00d3d348909, source_type: BASELINE, migration_priority: P2, migration_action: FORMAT_CONVERSION, target_canonical_objects: [CAPEX-BASELINE, SOURCE-REGISTRY], control_or_data_plane: DATA_PLANE, source_locator: RUNTIME_TEMPORARY, stable_locator: PENDING, byte_location_status: LOCATED, materialization_status: NOT_MATERIALIZED, original_format: DOCX, archive_only: false, split_required: false, canonical_authority_after_cutover: CAPEX-BASELINE, notes: 'Frozen authority linked; no content revision.'}
+  - {legacy_artifact_id: INV-018, legacy_filename: SK_Hynix_CAPEX_Korea_Equipment_Ecosystem_Report_v0_2026-08-14.docx, legacy_version: v0, legacy_sha256: 2d160445a9726d69e257299d67a699e4874e4e4d39d1acecfb36466cf6ac5e4b, source_type: BASELINE, migration_priority: P2, migration_action: FORMAT_CONVERSION, target_canonical_objects: [CAPEX-BASELINE, SOURCE-REGISTRY], control_or_data_plane: DATA_PLANE, source_locator: RUNTIME_TEMPORARY, stable_locator: PENDING, byte_location_status: LOCATED, materialization_status: NOT_MATERIALIZED, original_format: DOCX, archive_only: false, split_required: false, canonical_authority_after_cutover: 'CAPEX-BASELINE / working baseline', notes: 'Frozen authority linked; MODEL assumptions remain tagged.'}
+  - {legacy_artifact_id: INV-019, legacy_filename: Korea_Semiconductor_SupplyChain_TOP38_Master_Scorecard_v2.2_Detail_2026-08-14.docx, legacy_version: 'v2.2 Detail', legacy_sha256: e41b02dcb642f72b447c6c468c6d590e19aff468e6bc99413b7da5ef0cde6300, source_type: MIXED, migration_priority: P1, migration_action: 'STRUCTURAL_SPLIT / DEFERRED score promotion', target_canonical_objects: ['legacy SOURCE-REGISTRY', MODEL-DEFINITION, 'historical MODEL-SCORE DEFERRED'], control_or_data_plane: DATA_PLANE, source_locator: RUNTIME_TEMPORARY, stable_locator: PENDING, byte_location_status: LOCATED, materialization_status: NOT_MATERIALIZED, original_format: DOCX, archive_only: false, split_required: true, canonical_authority_after_cutover: 'MODEL-DEFINITION / later MODEL-SCORE', notes: 'Historical score promotion remains deferred pending valid PIT binding.'}
+scope_restrictions:
+  actual_data_migration: false
+  canonical_data_creation: false
+  canonical_cutover: false
+  schema_change: false
+  architecture_change: false
+  legacy_content_revision: false
+  universe_activation: false
+  model_activation: false
+  u127_working_workbook_included: false
+next_gate: G1-G Price Data Manifest / Data Plane Registry — NOT_STARTED
