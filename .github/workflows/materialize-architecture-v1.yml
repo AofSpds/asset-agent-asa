@@ -1,6 +1,6 @@
 name: Materialize Architecture v1.0
 
-# All four frozen-byte staging parts are present before this trigger commit.
+# Exact frozen-byte staging chunks are verified by Git blob identity before this trigger.
 on:
   workflow_dispatch:
   push:
@@ -27,7 +27,9 @@ jobs:
           cat \
             "$base/.materialization/architecture.md.gz.b64.part01" \
             "$base/.materialization/architecture.md.gz.b64.part02" \
-            "$base/.materialization/architecture.md.gz.b64.part03" \
+            "$base/.materialization/architecture.md.gz.b64.part03a1" \
+            "$base/.materialization/architecture.md.gz.b64.part03a2" \
+            "$base/.materialization/architecture.md.gz.b64.part03b" \
             "$base/.materialization/architecture.md.gz.b64.part04" \
             | tr -d '\r\n' | base64 -d > /tmp/architecture.md.gz
 
