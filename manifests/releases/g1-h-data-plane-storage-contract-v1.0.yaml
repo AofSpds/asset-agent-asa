@@ -1,0 +1,72 @@
+release_id: SEMI-G1-H-DATA-PLANE-STORAGE-CONTRACT-FREEZE-20260815-v1.0
+release_version: v1.0
+release_type: CONTROL_CONTRACT_FREEZE
+status: FROZEN_RECORD
+created_at: '2026-08-15T03:49:00+09:00'
+project_id: semiconductor-research
+repository: AofSpds/semiconductor-research
+default_branch: main
+scope: Freeze record for the G1-H permanent DATA PLANE storage contract. No byte upload, canonical cutover, normalization, or actual migration is performed by this release.
+
+contract:
+  artifact_id: SEMI-DATA-PLANE-STORAGE-CONTRACT
+  version: v1.0
+  gate: G1-H
+  status: FROZEN
+  repository_path: control/data-plane/DATA-PLANE-STORAGE-CONTRACT_v1.0.yaml
+  freeze_approval_record: control/data-plane/G1-H-FREEZE-APPROVAL_v1.0.yaml
+  hash_record: manifests/hashes/data-plane-storage-contract-v1.0.sha256
+  sha256: 24a7fcaff779c06ef949c4d89ee81dbde996c395f086bd40b1d0f03fd7cd147d
+  git_blob_sha1: f7c3f88d10a683d8e5f107e9c3a8e7816bcd5ed9
+  candidate_commit: 916de8712eb4d4a445addd7d5f868ae96a9b22aa
+  freeze_commit: 48a5bf4d78ea8352db766205f5000034d1252321
+
+provider_binding:
+  primary_provider: Amazon S3
+  provider_id: aws-s3-apne2
+  region: ap-northeast-2
+  interface: NATIVE_S3
+  default_storage_class: S3_STANDARD
+  bucket: PENDING_G1_I_MATERIALIZATION
+  public_access: BLOCKED
+  private_access: REQUIRED
+  versioning: ENABLED
+  object_lock_capability: ENABLED
+  object_lock_policy:
+    working_staging: HARD_LOCK_NOT_REQUIRED
+    frozen_released: OBJECT_LOCK_REQUIRED
+    initial_retention_mode: GOVERNANCE
+    compliance_mode: PROHIBITED_WITHOUT_SEPARATE_APPROVAL
+
+stable_locator_contract:
+  format: s3://<private-bucket>/<immutable_object_key>
+  status_before_g1_i_verification: PENDING_DATA_PLANE
+  runtime_path_promotion: PROHIBITED
+  post_upload_sha256_verification_required: true
+
+price_dataset_binding:
+  dataset_id: SEMI-PRICE-MARCAP-KRX-2024-2026_v1
+  dataset_identity_sha256: 419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7
+  identity_change_authorized: false
+  target_prefix: raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/
+  stable_locator_status: PENDING_DATA_PLANE
+
+backup_gate:
+  secondary_backup_provider: PENDING
+  preferred_future_candidate: Backblaze B2
+  backup_required_before_canonical_cutover: true
+  canonical_cutover_allowed_without_backup_policy_satisfied: false
+
+scope_restrictions:
+  byte_upload: false
+  git_parquet_upload: false
+  canonical_cutover: false
+  normalization: false
+  actual_data_migration: false
+  architecture_change: false
+  schema_change: false
+  existing_hash_change: false
+
+next_gate:
+  gate: G1-I DATA PLANE BYTE MATERIALIZATION
+  entry_status: READY_AFTER_G1_H_FREEZE
