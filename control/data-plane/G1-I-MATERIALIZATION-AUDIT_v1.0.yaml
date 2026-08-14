@@ -1,0 +1,109 @@
+record_id: SEMI-G1-I-DATA-PLANE-MATERIALIZATION-AUDIT
+record_version: v1.0
+status: FROZEN_RECORD
+gate: G1-I DATA PLANE BYTE MATERIALIZATION
+project_id: semiconductor-research
+repository: AofSpds/semiconductor-research
+verified_at: '2026-08-15T04:50:00+09:00'
+
+g1_h_dependency:
+  contract: control/data-plane/DATA-PLANE-STORAGE-CONTRACT_v1.0.yaml
+  contract_status: FROZEN
+  contract_sha256: 24a7fcaff779c06ef949c4d89ee81dbde996c395f086bd40b1d0f03fd7cd147d
+  freeze_approval: control/data-plane/G1-H-FREEZE-APPROVAL_v1.0.yaml
+
+storage_materialization:
+  provider: Amazon S3
+  provider_id: aws-s3-apne2
+  region: ap-northeast-2
+  bucket: semi-data-plane-aofspds-20260815
+  bucket_scope: PRIVATE
+  public_access: BLOCKED
+  versioning: ENABLED
+  object_lock_capability: ENABLED
+  default_storage_class: S3_STANDARD
+  stable_locator_format: s3://<private-bucket>/<immutable_object_key>
+
+bucket_configuration_verification:
+  evidence_method: USER_CONSOLE_CONFIGURATION_AND_SCREENSHOT_OBSERVED_IN_CHAT
+  region:
+    expected: ap-northeast-2
+    observed: ap-northeast-2
+    status: PASS
+  public_access:
+    expected: BLOCKED
+    observed: ALL_PUBLIC_ACCESS_BLOCKED
+    status: PASS
+  versioning:
+    expected: ENABLED
+    observed: ENABLED
+    status: PASS
+  object_lock:
+    expected: ENABLED
+    observed: ENABLED
+    status: PASS
+
+price_dataset:
+  dataset_id: SEMI-PRICE-MARCAP-KRX-2024-2026_v1
+  dataset_identity_sha256: 419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7
+  target_prefix: raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/
+  upload_result:
+    component_count: 3
+    uploaded_count: 3
+    failed_count: 0
+    console_reported_total_size: 62.9MB
+    status: PASS
+  components:
+    - filename: marcap-2024.parquet
+      expected_sha256: b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb
+      observed_remote_sha256: b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb
+      stable_locator: s3://semi-data-plane-aofspds-20260815/raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/marcap-2024.parquet
+      verification_status: PASS
+    - filename: marcap-2025.parquet
+      expected_sha256: 2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e
+      observed_remote_sha256: 2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e
+      stable_locator: s3://semi-data-plane-aofspds-20260815/raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/marcap-2025.parquet
+      verification_status: PASS
+    - filename: marcap-2026.parquet
+      expected_sha256: 5da710a2fc56f8fe9b1f5126295cc30c3b15c0ee35d28ba808a505ec4a2243c1
+      observed_remote_sha256: 5da710a2fc56f8fe9b1f5126295cc30c3b15c0ee35d28ba808a505ec4a2243c1
+      stable_locator: s3://semi-data-plane-aofspds-20260815/raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/marcap-2026.parquet
+      verification_status: PASS
+
+remote_byte_verification:
+  method: AWS_CLOUDSHELL_REMOTE_RETRIEVAL_PIPE_TO_SHA256SUM
+  command_pattern: aws s3 cp "s3://<bucket>/<object_key>" - --only-show-errors | sha256sum
+  executor: USER
+  evidence_observation: ASSISTANT_OBSERVED_USER_PROVIDED_CLOUDSHELL_OUTPUT
+  component_results_passed: 3
+  component_results_total: 3
+  dataset_identity_changed: false
+  status: PASS
+
+materialization_decision:
+  upload_complete: true
+  remote_sha256_verified: true
+  stable_locators_established: true
+  materialized_verified: true
+  canonical_cutover_performed: false
+  normalization_performed: false
+  canonical_price_materialization_performed: false
+
+immutability_and_scope:
+  raw_parquet_in_git: false
+  runtime_path_promoted: false
+  existing_dataset_identity_changed: false
+  g1_h_frozen_contract_modified: false
+  canonical_cutover: false
+  architecture_change: false
+  schema_change: false
+
+backup_gate:
+  secondary_backup_provider: PENDING
+  backup_required_before_canonical_cutover: true
+  canonical_cutover_allowed_now: false
+
+g1_i_exit:
+  status: COMPLETE
+  blockers: []
+  next_required_control_action: SATISFY_SECONDARY_BACKUP_POLICY_BEFORE_CANONICAL_CUTOVER
