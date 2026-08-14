@@ -1,0 +1,208 @@
+schema_id: SEMI-PRICE-SCHEMA
+schema_version: v0.1
+status: FROZEN
+architecture_reference:
+  artifact: SEMI-ARCHITECTURE-SPEC_v1.0.md
+  version: v1.0
+  status: FROZEN / ACTIVE ARCHITECTURE
+migration_package_reference:
+  inventory: SEMI-MIGRATION-INVENTORY_v1.0.csv
+  manifest: SEMI-MIGRATION-MANIFEST_v1.0.csv
+  legacy_to_canonical_map: SEMI-LEGACY-TO-CANONICAL-MAP_v1.0.csv
+  issue_register: SEMI-MIGRATION-ISSUE-REGISTER_v1.0.csv
+  status: FROZEN v1.0
+logical_object: PRICE-CANONICAL
+description: Target schema for normalized canonical KRX-derived daily price records. Yearly marcap Parquet remains RAW_IMMUTABLE/PRESERVED_RAW
+  until normalization/audit.
+logical_key:
+- price_dataset_id
+- date
+- code
+write_policy: PRICE-CANONICAL is created only after a later normalization/audit Gate; released price_dataset_id versions are
+  immutable.
+version_policy:
+  raw_input: RAW_IMMUTABLE/PRESERVED_RAW; no canonical promotion in this Schema Freeze step
+  price_schema_breaking_change: new schema_version
+  price_dataset_change: new price_dataset_id/version
+  model_version: independent
+dependencies:
+- company.schema.yaml
+- evidence.schema.yaml
+type_policy:
+  identifier: string; never integer
+  krx_code: string; preserve leading zero
+  datetime: timezone-aware ISO-8601; default operational timezone Asia/Seoul
+  date: YYYY-MM-DD
+  date_or_datetime_tz: either YYYY-MM-DD when only date precision is evidenced, or timezone-aware ISO-8601 when exact time
+    is evidenced; never invent an intraday time
+  decimal: exact decimal semantics; persistent binary floating point is prohibited
+  decimal_precision: precision/scale is not invented by this contract; physical implementation must preserve source precision
+    and pass audit
+  'null': field not applicable or value absent for this record
+  NOT_FOUND: Evidence.status only; retrieval failure and never numeric zero/FALSE
+  UNKNOWN: only when an explicit field enum defines UNKNOWN
+  zero: actual numeric zero
+  empty_string: MUST NOT substitute for NULL, NOT_FOUND, UNKNOWN, or 0
+nullable_policy:
+  rule: Nullable is field-specific. NULL does not mean NOT_FOUND, UNKNOWN, FALSE, or 0.
+  historical_valid_from: If historical effective start is unsupported by evidence, valid_from remains NULL and provenance/status
+    records the non-inference.
+fields:
+- name: price_dataset_id
+  type: string
+  nullable: false
+  description: Immutable PRICE-CANONICAL dataset/version identifier.
+- name: date
+  type: date
+  nullable: false
+  description: Trading date.
+- name: code
+  type: string
+  nullable: false
+  description: Security code; leading zeros preserved.
+- name: company_id
+  type: string
+  nullable: true
+  description: Normalized project-company mapping when applicable.
+- name: open
+  type: decimal
+  nullable: false
+  description: Opening price.
+- name: high
+  type: decimal
+  nullable: false
+  description: Daily high.
+- name: low
+  type: decimal
+  nullable: false
+  description: Daily low.
+- name: close
+  type: decimal
+  nullable: false
+  description: Closing price.
+- name: volume
+  type: integer
+  nullable: true
+  description: Trading volume.
+- name: amount
+  type: decimal
+  nullable: true
+  description: Trading amount.
+- name: marcap
+  type: decimal
+  nullable: true
+  description: Market capitalization.
+- name: stocks
+  type: integer
+  nullable: true
+  description: Shares outstanding observation.
+- name: market
+  type: string
+  nullable: true
+  description: Market/provider market label.
+- name: trading_status
+  type: string
+  nullable: true
+  description: Observed/normalized trading status.
+- name: corporate_action_flag
+  type: boolean
+  nullable: false
+  description: Evidence-backed corporate-action marker.
+  default: false
+- name: corporate_action_type
+  type: string
+  nullable: true
+  description: Evidence-backed corporate-action type.
+- name: adjustment_factor
+  type: decimal
+  nullable: true
+  description: Evidence-backed adjustment factor; NULL when not established.
+- name: action_evidence_refs
+  type: array[string]
+  nullable: true
+  description: Evidence supporting corporate-action/adjustment fields.
+- name: raw_provider
+  type: string
+  nullable: false
+  description: Raw provider identifier for lineage.
+- name: raw_storage_ref
+  type: string
+  nullable: true
+  description: Reference to RAW_IMMUTABLE/PRESERVED_RAW source partition/object.
+- name: schema_version
+  type: string
+  nullable: false
+  description: Schema version.
+  default: v0.1
+constraints:
+- id: PRI-C01
+  severity: ERROR
+  rule: This contract defines PRICE-CANONICAL target records; raw yearly Parquet is not canonical merely because it is preserved
+    raw input.
+- id: PRI-C02
+  severity: ERROR
+  rule: Logical key is price_dataset_id + date + code.
+- id: PRI-C03
+  severity: ERROR
+  rule: Universe_Eligible_Flag is prohibited as an authoritative PRICE-CANONICAL field; eligibility is derived from Universe/Tradability/PIT
+    context.
+- id: PRI-C04
+  severity: ERROR
+  rule: Adjustment factor and corporate-action normalization require evidence; share-count discontinuity alone is only an
+    audit signal.
+- id: PRI-C05
+  severity: ERROR
+  rule: A validation price dataset must not mix incompatible providers/definitions.
+- id: PRI-C06
+  severity: ERROR
+  rule: Price/amount/marcap/adjustment fields use exact-decimal semantics; persistent binary floats are prohibited.
+- id: PRI-C07
+  severity: ERROR
+  rule: code is a string and must preserve leading zeros.
+- id: PRI-C08
+  severity: ERROR
+  rule: If corporate_action_flag=TRUE, or corporate_action_type is non-NULL, or adjustment_factor is non-NULL, action_evidence_refs
+    must be non-empty and all references must resolve.
+- id: PRI-C09
+  severity: ERROR
+  rule: corporate_action_type non-NULL requires corporate_action_flag=TRUE. corporate_action_flag=FALSE must not coexist with
+    a non-NULL corporate_action_type.
+foreign_references:
+- id: PRI-FK01
+  local_fields:
+  - company_id
+  target_schema: company.schema.yaml
+  target_object: COMPANY-IDENTITY
+  target_fields:
+  - company_id
+  resolution: IMMEDIATE
+  required_when: company_id is populated
+- id: PRI-FK02
+  local_fields:
+  - action_evidence_refs
+  target_schema: evidence.schema.yaml
+  target_object: EVIDENCE
+  target_fields:
+  - evidence_id
+  resolution: IMMEDIATE
+  required_when: action_evidence_refs is populated
+audit_rules:
+- id: PRI-A01
+  severity: ERROR
+  rule: Fail if Universe_Eligible_Flag appears as an authoritative field.
+- id: PRI-A02
+  severity: ERROR
+  rule: Fail if RAW_IMMUTABLE input is labeled PRICE-CANONICAL without normalization/audit.
+- id: PRI-A03
+  severity: ERROR
+  rule: Validate OHLC consistency and exact-decimal serialization.
+- id: PRI-A04
+  severity: ERROR
+  rule: Reject evidence-free adjustment_factor.
+- id: PRI-A05
+  severity: ERROR
+  rule: When company_id is populated, validate code/company identity mapping.
+- id: PRI-A06
+  severity: ERROR
+  rule: Fail any record with corporate_action_flag=TRUE, corporate_action_type non-NULL, or adjustment_factor non-NULL when
+    action_evidence_refs is empty or unresolved.
