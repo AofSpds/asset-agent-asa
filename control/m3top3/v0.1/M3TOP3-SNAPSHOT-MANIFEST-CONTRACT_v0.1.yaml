@@ -1,0 +1,45 @@
+contract_id: M3TOP3-SNAPSHOT-MANIFEST-CONTRACT
+version: v0.1
+status: WORKING_ENGINEERING
+purpose: machine-readable per-trading-day snapshot artifact identity and audit envelope
+
+required_fields:
+  - snapshot_date
+  - snapshot_cutoff_at
+  - snapshot_content_hash
+  - snapshot_status
+  - blockers
+  - pit_row_count
+  - model_input_row_count
+  - pit_file_sha256
+  - model_input_file_sha256
+  - generator_version
+  - generator_git_commit
+  - universe_release_id
+  - universe_authority_status
+  - feature_source_version
+  - price_dataset_id
+  - price_dataset_hash
+  - price_source_semantics
+  - reconstruction_version
+
+snapshot_status_enum: [SNAPSHOT_READY, SNAPSHOT_PARTIAL, SNAPSHOT_BLOCKED]
+price_source_semantics_enum: [RAW_IMMUTABLE, PRICE_CANONICAL]
+universe_authority_status_examples: [WORKING_FREEZE_CANDIDATE, FROZEN_CURRENT]
+
+hash_policy:
+  algorithm: SHA-256
+  snapshot_content_hash: aggregate hash of deterministic PIT row hashes and model-input row hashes
+  existing_snapshot_reuse: allowed only if snapshot_content_hash matches
+  silent_overwrite: PROHIBITED
+
+file_layout_working:
+  root: '<snapshot-root>/<YYYY-MM-DD>/'
+  manifest: manifest.json
+  pit_snapshot: pit_snapshot.jsonl
+  model_input: model_input.jsonl
+
+production_large_data_note: >-
+  JSONL is the v0.1 stdlib working/test writer. Large production snapshots belong in the
+  external Data Plane and may be materialized as Parquet without changing the frozen PIT
+  logical schema. A Parquet physical writer is an implementation extension, not a schema change.
