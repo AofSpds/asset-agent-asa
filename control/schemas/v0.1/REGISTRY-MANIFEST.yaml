@@ -1,0 +1,26 @@
+artifact_id: SEMI-SCHEMA-REGISTRY
+artifact_version: v0.1
+status: FROZEN
+materialization_status: MATERIALIZED
+schema_count: 14
+repository_path: control/schemas/v0.1
+approved_archive:
+  canonical_filename: SEMI-SCHEMA-REGISTRY_v0.1_FROZEN.zip
+  sha256: 57916b73d86de7bef0f22ed5d733a32a70e726c1bffed6499503afb0ea57ccf6
+component_manifest:
+  path: manifests/hashes/schema-registry-v0.1.sha256
+  sha256: 1ae7f10d6642ecc22bc96b3750371d566371d8d47edb64519e28c24b8a17c5ba
+  total_schema_bytes: 119294
+materialization_basis:
+  source: approved frozen archive bytes available in project runtime
+  archive_hash_verified: true
+  archive_member_count_verified: 14
+  component_hashes_verified_against_archive: true
+immutability_policy:
+  frozen_files_must_not_be_overwritten: true
+  changes_require_new_version_or_change_request: true
+  schema_version_independent_from_model_version: true
+notes:
+  - Materialization does not authorize canonical data cutover.
+  - Architecture and Migration Package repository materialization are separate G1 gates.
+  - Schema Registry v0.1 remains the immutable baseline for later v0.2 compatibility work.
