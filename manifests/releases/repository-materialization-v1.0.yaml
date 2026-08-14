@@ -1,0 +1,58 @@
+release_id: SEMI-REPOSITORY-CONTROL-PLANE-BASELINE-20260815
+release_version: v1.0
+release_type: REPOSITORY_MATERIALIZATION
+status: FROZEN_RECORD
+created_at: '2026-08-15T02:51:00+09:00'
+project_id: semiconductor-research
+repository: AofSpds/semiconductor-research
+default_branch: main
+visibility: PRIVATE
+scope: Repository-level materialization record linking already frozen Architecture v1.0, Schema Registry v0.1, and Migration
+  Package v1.0. No data migration or canonical cutover.
+architecture:
+  artifact_id: SEMI-ARCHITECTURE-SPEC
+  version: v1.0
+  status: FROZEN_ACTIVE
+  repository_path: control/architecture/v1.0/SEMI-ARCHITECTURE-SPEC_v1.0.md
+  repository_manifest: control/architecture/v1.0/ARCHITECTURE-MANIFEST.yaml
+  active_descriptor: manifests/active/architecture.yaml
+  hash_record: manifests/hashes/architecture-v1.0.sha256
+  sha256: 2f92853d8609a13d9ecbb5bdce28221785bbf7874fadcd1f8def6f1e90a21b8d
+  git_blob_sha1: 9667025517cff566cce7f5362a2ba3156a25202b
+  materialization_status: MATERIALIZED_VERIFIED
+schema_registry:
+  artifact_id: SEMI-SCHEMA-REGISTRY
+  version: v0.1
+  status: FROZEN_ACTIVE_BASELINE
+  repository_path: control/schemas/v0.1/
+  registry_manifest: control/schemas/v0.1/REGISTRY-MANIFEST.yaml
+  active_descriptor: manifests/active/schema-registry.yaml
+  hash_record: manifests/hashes/schema-registry-v0.1.sha256
+  approved_frozen_archive_sha256: 57916b73d86de7bef0f22ed5d733a32a70e726c1bffed6499503afb0ea57ccf6
+  component_hash_manifest_sha256: 1ae7f10d6642ecc22bc96b3750371d566371d8d47edb64519e28c24b8a17c5ba
+  schema_count: 14
+  materialization_status: MATERIALIZED_VERIFIED
+migration_package:
+  artifact_id: SEMI-MIGRATION-PACKAGE
+  version: v1.0
+  status: FROZEN
+  repository_path: control/migration/v1.0/
+  package_manifest: control/migration/v1.0/MIGRATION-PACKAGE-MANIFEST.yaml
+  hash_record: manifests/hashes/migration-package-v1.0.sha256
+  component_hash_manifest_sha256: 43e20219fd69a04b94199d38d99828855e8a44e339ad9ee59ee87e21c3eb5faa
+  materialization_status: MATERIALIZED_VERIFIED
+  issue_register_policy: HISTORICAL_SNAPSHOT_IMMUTABLE
+historical_release_manifest:
+  artifact: SEMI-RELEASE-MANIFEST_v1.0.yaml
+  known_source: source-bundle:1차.zip
+  repository_status: NOT_PRESENT_AT_G1_E
+  policy: DO_NOT_REWRITE; preserve original if/when separately materialized
+canonical_data_cutover: false
+actual_data_migration: false
+current_universe_release:
+  status: NOT_AVAILABLE
+  reason: Canonical cutover has not been performed; no canonical Universe Release is activated by G1-E.
+current_model_release:
+  status: NOT_AVAILABLE
+  reason: No model release is activated by G1-E.
+next_gate: G1-F Legacy Artifact Registry
