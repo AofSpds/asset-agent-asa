@@ -1,0 +1,98 @@
+audit_id: M3TOP3-INFRA-IMPLEMENTATION-AUDIT
+version: v0.1
+status: WORKING_ENGINEERING_AUDIT
+executed_at: '2026-08-15T06:38:00+09:00'
+base_main_commit_read: a02145cabf0c057591adf4098b630fca3a6453dc
+
+main_control_artifacts_read:
+  - README.md
+  - control/architecture/v1.0/SEMI-ARCHITECTURE-SPEC_v1.0.md
+  - control/schemas/v0.1/pit_snapshot.schema.yaml
+  - control/schemas/v0.1/model_definition.schema.yaml
+  - control/schemas/v0.1/model_score.schema.yaml
+  - control/schemas/v0.1/validation.schema.yaml
+  - control/schemas/v0.1/price.schema.yaml
+  - control/schemas/v0.1/run_manifest.schema.yaml
+  - control/data-plane/DATA-PLANE-STORAGE-CONTRACT_v1.0.yaml
+  - control/data-plane/G1-I-MATERIALIZATION-AUDIT_v1.0.yaml
+  - control/data-plane/SECONDARY-BACKUP-AUDIT_v1.0.yaml
+
+implementation:
+  package: tools/m3top3
+  generator: implemented
+  pit_guard: implemented
+  raw_price_adapter: implemented_optional_duckdb
+  canonical_price_adapter_interface: implemented_by_semantics_mode
+  model_scorer_plugin: implemented
+  ranking_engine: implemented
+  prediction_ledger: implemented_append_only
+  outcome_builder: implemented
+  backtest_runner: implemented
+  metrics_engine: implemented
+  risk_metric: interface_only
+  machine_readable_audit: implemented
+
+local_runtime_verification:
+  raw_price_component_hashes:
+    marcap-2024.parquet: b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb
+    marcap-2025.parquet: 2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e
+    marcap-2026.parquet: 5da710a2fc56f8fe9b1f5126295cc30c3b15c0ee35d28ba808a505ec4a2243c1
+  raw_bytes_changed: false
+  price_dataset_identity_changed: false
+  parquet_reader_available_in_execution_sandbox: false
+  note: core tests therefore use deterministic CSV fixtures; production Parquet adapter is optional DuckDB
+
+tests:
+  framework: Python stdlib unittest
+  total: 25
+  passed: 25
+  failed: 0
+  representative_dates:
+    - 2025-08-13
+    - 2025-11-13
+    - 2026-02-13
+    - 2026-05-13
+  representative_regression_status: PASS
+  leakage_guard_status: PASS
+  eligibility_semantics_status: PASS
+  leading_zero_code_status: PASS
+  batch_resume_status: PASS
+  batch_retry_status: PASS
+  prediction_immutability_status: PASS
+  multi_model_same_snapshot_status: PASS
+  outcome_input_separation_status: PASS
+
+scale_dry_run:
+  type: DIAGNOSTIC_SYNTHETIC_OBSERVED_CALENDAR_FIXTURE
+  requested_trading_days: 420
+  generated_first_run: 420
+  failed_first_run: 0
+  reused_first_run: 0
+  requested_second_run: 420
+  generated_second_run: 0
+  failed_second_run: 0
+  reused_second_run: 420
+  accounting: PASS
+  scope_note: proves generator/resume/hash mechanics; does not claim U127 historical content completion
+
+frozen_authority_preservation:
+  architecture_change: false
+  frozen_schema_change: false
+  model_tuning: false
+  u127_promoted_to_current: false
+  canonical_cutover: false
+  official_winner_release: false
+
+blockers_to_real_two_year_backtest:
+  - U127 effective-history/universe/feature rows are not yet materialized as the machine-readable input export consumed by this lane
+  - official M3Top3 frozen scorer/model definition is not yet supplied to the plugin interface
+  - authoritative rolling/fixed Window End mapping remains external control input
+  - CA_COMPLETENESS_GATE remains pending
+  - PRICE-CANONICAL is not materialized/cut over
+  - current execution sandbox lacks DuckDB/PyArrow, so actual Parquet scale run was not executed here
+
+readiness_decision:
+  engineering_400_day_scale: PASS
+  actual_u127_two_year_materialization: BLOCKED_BY_INPUT_GATES
+  canonical_validation: BLOCKED
+  official_winner: BLOCKED
