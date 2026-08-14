@@ -1,0 +1,16 @@
+{
+  "scorer_plugin": "project_model_package:M3Top3Scorer",
+  "scorer_kwargs": {},
+  "tie_break_policy": "UNRESOLVED_CONTROL",
+  "price_paths": [
+    "/data/raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/marcap-2024.parquet",
+    "/data/raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/marcap-2025.parquet",
+    "/data/raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/marcap-2026.parquet"
+  ],
+  "price_dataset_id": "SEMI-PRICE-MARCAP-KRX-2024-2026_v1",
+  "price_dataset_hash": "419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7",
+  "price_source_semantics": "RAW_IMMUTABLE",
+  "window_protocol_version": "UNRESOLVED_CONTROL",
+  "window_end_by_snapshot_date": {},
+  "validation_protocol_version": "m3top3-outcome-working-v0.1"
+}
