@@ -12,6 +12,8 @@ artifact_identity:
   bytes: 71000
   sha256: 2f92853d8609a13d9ecbb5bdce28221785bbf7874fadcd1f8def6f1e90a21b8d
   git_blob_sha1_expected: 9667025517cff566cce7f5362a2ba3156a25202b
+  git_blob_sha1_actual: 9667025517cff566cce7f5362a2ba3156a25202b
+  git_blob_identity_match: true
 release_manifest_reference:
   source_member: 1차/SEMI-RELEASE-MANIFEST_v1.0.yaml
   release_id: SEMI-CONTROL-PLANE-FREEZE-20260814-v1.0
@@ -19,13 +21,16 @@ release_manifest_reference:
 repository_materialization:
   target_path: control/architecture/v1.0/SEMI-ARCHITECTURE-SPEC_v1.0.md
   exact_source_bytes_verified_in_runtime: true
-  standalone_repository_bytes_status: PENDING_EXACT_BYTE_UPLOAD
+  standalone_repository_bytes_status: MATERIALIZED_VERIFIED
   manifest_materialized: true
+  verification_workflow: .github/workflows/materialize-architecture-v1.yml
+  verification_run_id: 31824931165
+  verification_run_conclusion: success
 migration_issue_resolution:
   issue_id: MIR-001
   original_issue_register_immutable: true
-  status: EVIDENCE_RESOLVED_PENDING_REPOSITORY_BYTE_COMMIT
-  resolution_basis: standalone frozen artifact and SHA-256 located and independently verified from frozen source bundle
+  status: RESOLVED_BY_REPOSITORY_MATERIALIZATION
+  resolution_basis: standalone frozen artifact is present in Git with exact approved byte identity; SHA-256 and Git blob identity were independently verified
 immutability_policy:
   frozen_artifact_must_not_be_overwritten: true
   changes_require_new_architecture_version: true
