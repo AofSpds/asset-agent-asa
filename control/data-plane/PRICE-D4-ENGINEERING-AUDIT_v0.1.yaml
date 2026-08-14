@@ -1,0 +1,188 @@
+audit_id: SEMI-PRICE-D4-ENGINEERING-AUDIT
+version: v0.1
+status: WORKING_ENGINEERING
+canonical_status: NON_CANONICAL
+promotion_status: NON_PROMOTING
+recorded_at: '2026-08-15T07:29:00+09:00'
+project_id: semiconductor-research
+repository: AofSpds/semiconductor-research
+branch: main
+
+task: PARTIAL_D5_ENGINEERING_AUDIT
+scope: D0 + D1 + D2 + ENGINEERING_D4_DRYRUN
+not_in_scope:
+  - official D4
+  - official D5
+  - canonical materialization
+  - canonical promotion
+  - canonical cutover
+  - D3 latest U127 certification without workbook bytes
+  - M3Top3 scoring or tuning
+
+references:
+  d4_working_record: control/data-plane/PRICE-D4-ENGINEERING-DRYRUN_v0.1.yaml
+  d0_d3: control/data-plane/PRICE-CANONICAL-DRY-RUN-AUDIT_D0-D3_v0.2.yaml
+  ca_completeness: control/data-plane/CA-COMPLETENESS-FINAL-SCAN_v0.2.yaml
+  ca_reconciliation: control/data-plane/CA-EVENT-RECONCILIATION_v0.1.yaml
+  price_schema: control/schemas/v0.1/price.schema.yaml
+  engine: tools/price/price_d4_engineering_dryrun.py
+  tests: tools/price/tests/test_price_d4_engineering.py
+
+execution:
+  execution_id: e1052dc4896f5726c2c5ca19
+  d4_dryrun_content_hash: e1052dc4896f5726c2c5ca19de0e7edea00115cbf2877d205464248f8282283d
+  source_dataset_id: SEMI-PRICE-MARCAP-KRX-2024-2026_v1
+  source_dataset_identity_sha256: 419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7
+  source_rows: 1819147
+  input_hash_gate: PASS
+  ca_completeness_gate: BLOCKED
+  engineering_D4_authorized: true
+  official_D4_authorized: false
+
+partial_D5_checks:
+  source_count_closure:
+    status: PASS
+    evidence: '1819147 exclusive output dispositions = 1819147 source rows.'
+  D0_D3_reference_count_consistency:
+    status: PASS
+    evidence: 'D0-D3 v0.2 source count = 1819147.'
+  quarantine_preservation:
+    status: PASS
+    evidence: '001527 and 403360 remain PRICE-Q006; count=2.'
+  zero_ohl_zero_trade_preservation:
+    status: PASS
+    evidence: '84107/84107 source rows preserved; no row deletion.'
+  CA_evidence_resolution:
+    status: PASS
+    evidence: '2/2 accepted CA interface events resolve evidence -> source -> canonical locator.'
+  duplicate_event_join:
+    status: PASS
+    evidence: 'No duplicate event identity or multi-row exact effective-date join observed.'
+  event_temporal_join:
+    status: PASS
+    evidence: '033170 joins 2026-08-07; 183300 July split joins 2026-07-31.'
+  CA_type_flag_consistency:
+    status: PASS
+    evidence: 'Working CA-linked records carry flag/type consistently; PRI-C09 intent preserved.'
+  unresolved_evidence_in_accepted_CA_events:
+    status: PASS
+    evidence: '0 unresolved evidence/source locators among accepted CA events.'
+  accidental_factor_creation:
+    status: PASS
+    evidence: '0 working or canonical adjustment-factor values created.'
+  raw_lineage:
+    status: PASS
+    evidence: 'All scanned components retain authoritative S3 raw_storage_ref; joined rows retain source row references.'
+  silent_drop:
+    status: PASS
+    evidence: 'Exclusive accounting closes exactly; no drop.'
+  provider_mixing:
+    status: PASS
+    evidence: 'Price input remains FinanceData/marcap frozen dataset only.'
+  OHL_imputation:
+    status: PASS
+    evidence: 'No Close -> Open/High/Low copy or other OHL imputation.'
+  automatic_trading_status_inference:
+    status: PASS
+    evidence: 'No SUSPENDED/NO_TRADE inference from zero-OHL pattern.'
+  CoMiCo_May_July_separation:
+    status: PASS
+    evidence: 'Inherited May bonus event remains distinct from CA-OMISSION-183300-20260731.'
+
+row_accounting:
+  UNCHANGED_NORMAL: 1735036
+  CA_EVENT_LINKED: 2
+  RESOLVED_NON_CA_EXCEPTION: 2
+  PENDING_SEMANTICS: 84105
+  QUARANTINE_Q006: 2
+  OTHER_QUARANTINE: 0
+  ERROR: 0
+  source_rows: 1819147
+  exclusive_sum: 1819147
+  check: PASS
+
+CA_join_audit:
+  events_input: 2
+  events_evidence_accepted: 2
+  event_identities_joined: 2
+  events_rejected: 0
+  CA_033170_join: PASS
+  CA_183300_July_join: PASS
+  CoMiCo_May_July_separation: PASS
+  adjustment_factor_values_created: 0
+  comparable_price_transform_applied: false
+  note: >-
+    Both reconciled events occur before the frozen price cutoff but their post-relisting
+    observations fall outside the frozen dataset horizon. The dry-run links evidenced
+    event identity to the exact effective-date raw row but does not invent or apply a
+    comparable-price factor.
+
+four_exception_audit:
+  fully_adjudicated: 2
+  partial: 2
+  '076340/2024-12-30': RESOLVED_NON_CA
+  '145210/2025-03-21': RESOLVED_NON_CA
+  '001527/2024-03-28': PARTIAL_PRICE-Q006
+  '403360/2026-05-08': PARTIAL_PRICE-Q006
+
+D3:
+  status: WAITING_FOR_LATEST_WORKBOOK_BYTES
+  latest_authoritative_workbook_bytes_available: false
+  workbook_version_used: NONE
+  company_id_FK_status: WAITING_FOR_LATEST_WORKBOOK_BYTES
+  fabricated_from_reported_counts: false
+
+reproducibility:
+  deterministic_content_hash: e1052dc4896f5726c2c5ca19de0e7edea00115cbf2877d205464248f8282283d
+  same_input_reruns: 2
+  content_hash_match: PASS
+  machine_readable_output_byte_identity: PASS
+  rerun_idempotence: PASS
+
+verification:
+  existing_price_tests_preserved: 16
+  new_D4_tests_added: 20
+  combined_unit_tests: 36/36 PASS
+  full_dataset_D4_dryrun: PASS
+  full_dataset_rows_scanned: 1819147
+  integration_exit_code: 0
+
+partial_D5_decision:
+  status: ENGINEERING_DRYRUN_PASS_WITH_DECLARED_BLOCKERS
+  official_D5_complete: false
+  reason: >-
+    All engineering consistency checks in the currently executable D0/D1/D2/D4-dryrun
+    scope pass, but CA completeness remains BLOCKED and latest D3 workbook certification
+    is unavailable. This record is not a canonical gate pass.
+
+canonical_firewall:
+  canonical: false
+  canonical_bytes_created: false
+  canonical_dataset_id_assigned: false
+  promotion_allowed: false
+  cutover_allowed: false
+  official_D4_executed: false
+  official_D5_executed: false
+
+change_control:
+  raw_bytes_changed: false
+  price_dataset_identity_changed: false
+  provider_mixing: false
+  architecture_change: NONE
+  schema_change_request: NONE
+  outcome_data_used: false
+  model_tuning_performed: false
+  official_winner_release: BLOCKED
+
+blockers:
+  - CA Completeness Gate BLOCKED: strict four-exception gate remains 2/4.
+  - 001527/2024-03-28 exact transaction/session locator unresolved.
+  - 403360/2026-05-08 exact transaction print unresolved.
+  - D3 latest authoritative U127 workbook bytes unavailable.
+  - Official D4 requires CA gate PASS plus separate authorization.
+  - Official D5 remains unexecuted.
+
+next_action:
+  - Await independent CA closure of 001527 and 403360 exact locators and CA_COMPLETENESS_GATE=PASS.
+  - Await latest authoritative U127 machine-readable workbook bytes for D3 refresh.
+  - Do not auto-run official D4/D5; require orchestration approval after upstream gates close.
