@@ -1,0 +1,201 @@
+schema_id: SEMI-VALIDATION-SCHEMA
+schema_version: v0.1
+status: FROZEN
+architecture_reference:
+  artifact: SEMI-ARCHITECTURE-SPEC_v1.0.md
+  version: v1.0
+  status: FROZEN / ACTIVE ARCHITECTURE
+migration_package_reference:
+  inventory: SEMI-MIGRATION-INVENTORY_v1.0.csv
+  manifest: SEMI-MIGRATION-MANIFEST_v1.0.csv
+  legacy_to_canonical_map: SEMI-LEGACY-TO-CANONICAL-MAP_v1.0.csv
+  issue_register: SEMI-MIGRATION-ISSUE-REGISTER_v1.0.csv
+  status: FROZEN v1.0
+logical_object: VALIDATION
+description: Outcome validation bound to one immutable MODEL-SCORE using the frozen Entry/Exit/MFE/MAE semantics.
+logical_key:
+- validation_id
+write_policy: Append-only validation records; corrections create new immutable validation records under explicit protocol/version
+  lineage.
+version_policy:
+  validation_protocol_change: new validation_protocol_version
+  schema_breaking_change: new schema_version
+  model_version_change: does not mutate existing validation records
+dependencies:
+- model_score.schema.yaml
+- price.schema.yaml
+- universe.schema.yaml
+type_policy:
+  identifier: string; never integer
+  krx_code: string; preserve leading zero
+  datetime: timezone-aware ISO-8601; default operational timezone Asia/Seoul
+  date: YYYY-MM-DD
+  date_or_datetime_tz: either YYYY-MM-DD when only date precision is evidenced, or timezone-aware ISO-8601 when exact time
+    is evidenced; never invent an intraday time
+  decimal: exact decimal semantics; persistent binary floating point is prohibited
+  decimal_precision: precision/scale is not invented by this contract; physical implementation must preserve source precision
+    and pass audit
+  'null': field not applicable or value absent for this record
+  NOT_FOUND: Evidence.status only; retrieval failure and never numeric zero/FALSE
+  UNKNOWN: only when an explicit field enum defines UNKNOWN
+  zero: actual numeric zero
+  empty_string: MUST NOT substitute for NULL, NOT_FOUND, UNKNOWN, or 0
+nullable_policy:
+  rule: Nullable is field-specific. NULL does not mean NOT_FOUND, UNKNOWN, FALSE, or 0.
+  historical_valid_from: If historical effective start is unsupported by evidence, valid_from remains NULL and provenance/status
+    records the non-inference.
+fields:
+- name: validation_id
+  type: string
+  nullable: false
+  description: Immutable validation record ID.
+- name: model_score_id
+  type: string
+  nullable: false
+  description: Authoritative MODEL-SCORE evaluation reference.
+- name: price_dataset_id
+  type: string
+  nullable: false
+  description: PRICE-CANONICAL dataset/version used.
+- name: validation_protocol_version
+  type: string
+  nullable: false
+  description: Validation protocol version.
+- name: universe_release_id
+  type: string
+  nullable: true
+  description: Universe release used for Universe Excess.
+  required_when: universe_excess is populated
+- name: entry
+  type: decimal
+  nullable: false
+  description: 'Entry price: Snapshot next trading day Open under frozen rule.'
+- name: exit
+  type: decimal
+  nullable: false
+  description: 'Exit price: next 3M Snapshot''s next trading day Open under frozen rule.'
+- name: return
+  type: decimal
+  nullable: false
+  description: Entry-to-Exit return under frozen rule.
+- name: MFE
+  type: decimal
+  nullable: false
+  description: 'Holding-period Maximum Favorable Excursion price: the maximum observed High price while the position is actually
+    held. If Exit occurs at Exit-day Open, later Exit-day intraday High is outside the holding period and is excluded.'
+- name: MAE
+  type: decimal
+  nullable: false
+  description: 'Holding-period Maximum Adverse Excursion price: the minimum observed Low price while the position is actually
+    held. If Exit occurs at Exit-day Open, later Exit-day intraday Low is outside the holding period and is excluded.'
+- name: universe_excess
+  type: decimal
+  nullable: true
+  description: Excess return versus Eligible Universe Equal-weight for the referenced release/context.
+- name: time_to_peak
+  type: json
+  nullable: true
+  description: Time from Entry to MFE peak; may preserve trading_days and calendar_days.
+- name: giveback
+  type: decimal
+  nullable: true
+  description: 'Return giveback from the holding-period MFE peak to Exit, measured relative to Entry: giveback = MFE_return
+    - return, where MFE_return=(MFE/entry)-1 and return=(exit/entry)-1; therefore giveback=(MFE-exit)/entry. This field is
+    a return ratio, not a price.'
+- name: entry_date
+  type: date
+  nullable: true
+  description: Actual Entry trading date used.
+- name: exit_date
+  type: date
+  nullable: true
+  description: Actual Exit trading date used.
+- name: created_at
+  type: datetime_tz
+  nullable: false
+  description: Validation creation timestamp.
+- name: schema_version
+  type: string
+  nullable: false
+  description: Schema version.
+  default: v0.1
+constraints:
+- id: VAL-C01
+  severity: ERROR
+  rule: model_score_id is the authoritative evaluation binding; Validation must not bind only to a Snapshot.
+- id: VAL-C02
+  severity: ERROR
+  rule: Entry = Snapshot next trading day Open.
+- id: VAL-C03
+  severity: ERROR
+  rule: Exit = next 3M Snapshot's next trading day Open.
+- id: VAL-C04
+  severity: ERROR
+  rule: MFE is the holding-period maximum High price. It is a price level, not an excursion return. Only High observations
+    inside the actual holding interval are eligible; if Exit is Exit-day Open, later Exit-day intraday High is excluded.
+- id: VAL-C05
+  severity: ERROR
+  rule: MAE is the holding-period minimum Low price. It is a price level, not an excursion return. Only Low observations inside
+    the actual holding interval are eligible; if Exit is Exit-day Open, later Exit-day intraday Low is excluded.
+- id: VAL-C06
+  severity: ERROR
+  rule: Universe Excess uses Eligible Universe Equal-weight under reproducible Universe Release context.
+- id: VAL-C07
+  severity: ERROR
+  rule: Validation does not mutate PIT-SNAPSHOT, MODEL-SCORE, model weights, Trigger, β, or Maturity semantics.
+- id: VAL-C08
+  severity: ERROR
+  rule: Price/return fields use exact-decimal semantics.
+- id: VAL-C09
+  severity: ERROR
+  rule: giveback is fixed as MFE_return - return = ((MFE / entry) - 1) - ((exit / entry) - 1) = (MFE - exit) / entry. giveback
+    is an exact-decimal return ratio and must not be serialized as a price.
+- id: VAL-C10
+  severity: ERROR
+  rule: For a valid holding period, MFE >= entry and MAE <= entry.
+foreign_references:
+- id: VAL-FK01
+  local_fields:
+  - model_score_id
+  target_schema: model_score.schema.yaml
+  target_object: MODEL-SCORE
+  target_fields:
+  - model_score_id
+  resolution: IMMEDIATE
+- id: VAL-FK02
+  local_fields:
+  - price_dataset_id
+  target_schema: price.schema.yaml
+  target_object: PRICE-CANONICAL
+  target_fields:
+  - price_dataset_id
+  resolution: IMMEDIATE
+- id: VAL-FK03
+  local_fields:
+  - universe_release_id
+  target_schema: universe.schema.yaml
+  target_object: UNIVERSE-RELEASE
+  target_fields:
+  - universe_release_id
+  resolution: IMMEDIATE
+  required_when: universe_excess is populated
+audit_rules:
+- id: VAL-A01
+  severity: ERROR
+  rule: Reject Validation without model_score_id.
+- id: VAL-A02
+  severity: ERROR
+  rule: Verify Entry/Exit/MFE/MAE against frozen Architecture/Data Route semantics.
+- id: VAL-A03
+  severity: ERROR
+  rule: Reject provider mixing within one validation price_dataset_id.
+- id: VAL-A04
+  severity: ERROR
+  rule: Reject Universe Excess without reproducible universe_release_id.
+- id: VAL-A05
+  severity: ERROR
+  rule: Recompute MFE as holding-period Max High price and MAE as holding-period Min Low price from the referenced price dataset
+    and holding dates.
+- id: VAL-A06
+  severity: ERROR
+  rule: Recompute giveback exactly as (MFE - exit) / entry and compare under exact-decimal semantics.
