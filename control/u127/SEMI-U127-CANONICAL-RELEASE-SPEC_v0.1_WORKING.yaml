@@ -1,0 +1,172 @@
+spec_id: SEMI-U127-CANONICAL-RELEASE-SPEC
+version: v0.1_WORKING
+status: DESIGN_ONLY_NOT_AUTHORIZED_TO_MATERIALIZE
+project: semiconductor-research
+as_of: '2026-08-15T23:03:00+09:00'
+owner_persona: SEMI-CONTROL-ARCHITECT
+
+purpose: >-
+  Define how the current Control-accepted logical U127 state can become a new machine-readable governed release
+  without pretending to recover or recreate missing historical workbook versions v0.8-v1.9.
+
+core_principles:
+  - RECOVERY_IS_NOT_REMATERIALIZATION
+  - NEW_CANONICAL_RELEASE_MUST_HAVE_NEW_ARTIFACT_IDENTITY
+  - HISTORICAL_v0_7_REMAINS_IMMUTABLE_FORENSIC_ANCHOR
+  - MISSING_EARLY_CELL_PROVENANCE_MUST_REMAIN_BOUNDED_UNKNOWN
+  - FINAL_CELL_STATE_AND_HISTORICAL_PROVENANCE_ARE_DISTINCT_FIELDS
+  - NO_FILENAME_OR_LOGICAL_VERSION_MAY_IMPLY_HISTORICAL_BYTE_CONTINUITY
+
+historical_anchor:
+  file: U127_Data_Expansion_Working_v0.7_2026-08-15.xlsx
+  byte_size: 550774
+  sha256: 1fc47fd131479e6ebb4375206853f39a730610d8b9f29160c33aa292881ad50a
+  authority: HISTORICAL_LEVEL_3
+  final_GT_authority: false
+  mutation_allowed: false
+  primary_persistence: NOT_YET
+  secondary_persistence: NOT_YET
+
+current_control_accepted_logical_state:
+  membership: 127
+  total_BP_cells: 1016
+  READY: 1013
+  UNRESOLVED: 3
+  PARTIAL: 0
+  complete_histories: 125
+  freeze_policy: POLICY_B_APPROVED
+  logical_readiness: READY_WITH_WARNINGS
+  physical_freeze: BLOCKED
+  exact_unresolved:
+    - company: 제닉스로보틱스
+      krx_code: '381620'
+      window: W1
+      state: UNRESOLVED
+      residual_class: R7
+    - company: 세미티에스
+      krx_code: 0017J0
+      window: W1
+      state: UNRESOLVED
+      residual_class: R7
+    - company: 세미티에스
+      krx_code: 0017J0
+      window: W2
+      state: UNRESOLVED
+      residual_class: R7
+
+bounded_historical_unknowns:
+  GAP_A1:
+    scope: membership_46_60_exact_historical_cell_payload_and_10_listing_additions
+    state: HISTORICAL_PAYLOAD_NOT_RECOVERABLE_IN_CURRENT_ARCHIVE
+  GAP_A2:
+    scope: membership_61_75_exact_prestate_provenance_and_14_listing_additions
+    state: PARTIAL_ARCHIVE_EXHAUSTED
+  later_early_batches:
+    scope: selected_nonlegacy_READY_prestate_and_per_cell_provenance
+    state: PARTIAL
+
+proposed_release_identity:
+  release_family: U127_GROUND_TRUTH_MACHINE_RELEASE
+  proposed_release_id: SEMI-U127-GT-RELEASE-v1.0
+  proposed_artifact_version: v1.0
+  historical_workbook_version_namespace_reuse: FORBIDDEN
+  status_if_created: RECONCILED_NEW_RELEASE_NOT_HISTORICAL_WORKBOOK
+
+required_machine_components:
+  - component_id: U127_MEMBERSHIP
+    format: csv_or_parquet
+    required_fields: [company_id, krx_code, canonical_name, membership_order, membership_state]
+  - component_id: U127_BP_CELL_STATE
+    format: parquet_or_csv
+    required_fields:
+      - company_id
+      - krx_code
+      - window_id
+      - final_control_state
+      - residual_class
+      - control_decision_ref
+      - historical_prestate_status
+      - historical_provenance_status
+      - source_lineage_refs
+  - component_id: U127_WINDOW_REGISTRY
+    format: yaml_or_csv
+    required_fields: [window_id, snapshot_cutoff_at, window_start, window_end, mapping_contract_version]
+  - component_id: U127_RELEASE_MANIFEST
+    format: yaml_or_json
+    required_fields:
+      - release_id
+      - created_at
+      - parent_historical_anchor_sha256
+      - control_state_version
+      - delta_ledger_version
+      - bounded_unknowns
+      - component_hashes
+      - primary_locators
+      - secondary_locators
+      - validation_status
+      - control_decision
+      - owner_approval_state
+
+state_semantics:
+  final_control_state:
+    authority: CURRENT_CONTROL_ACCEPTED_LOGICAL_STATE
+    allowed_values: [READY, UNRESOLVED]
+  historical_prestate_status:
+    authority: RECOVERED_HISTORICAL_LINEAGE_ONLY
+    allowed_values: [KNOWN, PARTIAL, UNKNOWN]
+  historical_provenance_status:
+    authority: RECOVERED_HISTORICAL_LINEAGE_ONLY
+    allowed_values: [KNOWN, PARTIAL, UNKNOWN]
+  rule: UNKNOWN_HISTORICAL_PRESTATE_OR_PROVENANCE_DOES_NOT_AUTOMATICALLY_NULLIFY_A_SEPARATELY_CONTROL_ACCEPTED_FINAL_STATE_BUT_MUST_REMAIN_EXPLICIT_FOR_AUDIT
+
+required_source_bindings_before_materialization:
+  membership_source:
+    status: MUST_BIND_TO_EXISTING_AUTHORITATIVE_U127_MEMBERSHIP_ASSET
+  final_state_source:
+    status: MUST_BIND_TO_CONTROL_ACCEPTED_1013_READY_3_UNRESOLVED_STATE_AND_TYPED_DELTA_LEDGER
+  company_identity_source:
+    status: MUST_BIND_TO_COMPANY_MASTER_OR_EQUIVALENT_CANONICAL_IDENTITY_ASSET
+  window_source:
+    status: MUST_BIND_TO_SHARED_WINDOW_MAPPING_CONTRACT
+  price_CA_source:
+    status: NOT_REQUIRED_TO_DEFINE_GT_CELL_STATE_BUT_REQUIRED_FOR_OFFICIAL_REPLAY_VALIDATION_DATASET
+
+materialization_gate:
+  G1_control_source_binding_complete: NOT_YET
+  G2_membership_and_identity_binding_complete: NOT_YET_VERIFIED_IN_THIS_SPEC
+  G3_window_mapping_contract_ready: BLOCKED_SHARED_CONTRACT_OPEN
+  G4_bounded_unknown_policy_accepted: YES_WORKING
+  G5_v0_7_primary_persistence: BLOCKED
+  G6_v0_7_secondary_persistence: BLOCKED
+  G7_release_schema_independent_validation: NOT_EXECUTED
+  G8_control_authorization_to_materialize: NO
+  G9_owner_freeze_approval: NO
+
+materialization_rule: >-
+  Do not create release bytes until G1-G8 are explicitly closed. Creation itself does not imply freeze.
+  After creation, reopen/reimport, structural validation, content reconciliation, SHA256, primary/secondary persistence,
+  registry entry, Control Event, independent validation, and owner approval remain separate gates.
+
+forbidden_actions:
+  - create_file_named_U127_Data_Expansion_Working_v1_8_or_v1_9_as_reconstruction
+  - overwrite_v0_7
+  - infer_missing_historical_prestate_from_final_READY
+  - infer_missing_listing_additions_from_aggregate_counts
+  - claim_original_byte_continuity
+  - treat_new_release_as_historical_workbook
+  - use_future_MFE_MAE_rank_to_fill_PIT_evidence
+
+next_actions:
+  CORE_A:
+    - bind_authoritative_membership_and_company_identity_assets
+    - complete_v0_7_durable_persistence_when_storage_write_path_is_available
+    - prepare_release_schema_validation_work_order
+  SHARED_CORE_A_CORE_B:
+    - freeze_generalized_window_mapping_contract_before_release_candidate
+  VALIDATION:
+    - independently_check_state_arithmetic_schema_and_lineage_manifest_before_freeze
+
+safe_to_materialize_now: false
+safe_to_freeze_now: false
+ground_truth_changed_by_this_spec: false
+historical_artifact_modified: false
