@@ -1,0 +1,51 @@
+{
+  "result_id": "RESULT-AAA-T17-P09-REMEDIATION-v0.1",
+  "run_id": "RUN-AAA-T17-P09-REMEDIATION-20260816-001",
+  "work_order_id": "WO-AAA-T17-P09-REMEDIATION-20260816",
+  "result_type": "ENGINEERING_REMEDIATION",
+  "verdict": "PASS",
+  "repository": "AofSpds/asset-agent-asa",
+  "exact_base_commit": "30fdb278c218b24e44d66eb5f47935a196dc4f8c",
+  "branch": "aaa-integration-v0.2",
+  "failed_independent_validation_target": "80378610f9ac9e688c52417f0416e01c057400a7",
+  "isolated_engineering_branch": "aaa-t17-p09-remediation-v0",
+  "isolated_engineering_head": "27a30360f72a86d706cc8b84961aaac20cef7eb5",
+  "integration_candidate_branch": "aaa-t17-p09-remediation-integration-candidate-v0",
+  "integration_candidate_commit": "1921c8f97714b9cc0eda821c80246a5d5dc93d78",
+  "integration_pr": 29,
+  "integration_merge_commit": "30fdb278c218b24e44d66eb5f47935a196dc4f8c",
+  "ci": {
+    "integration_candidate_push_run": 31909472218,
+    "integration_candidate_pr_run": 31909502381,
+    "integration_push_run": 31909527442,
+    "python_tests": {
+      "test_count": 115,
+      "pass_count": 115,
+      "fail_count": 0,
+      "error_count": 0
+    },
+    "owner_console_locked_install_build": "PASS"
+  },
+  "finding_regression_matrix": {
+    "AAA-IV-T17-FND-01-FUTURE-HEARTBEAT-FALSE-RUNNING": "ENGINEERING_PASS",
+    "AAA-IV-T17-FND-02-TERMINAL-STATE-VERDICT-MISMATCH": "ENGINEERING_PASS",
+    "AAA-IV-T17-FND-03-TERMINAL-RESULT-PERSISTENCE-NOT-VERIFIED": "ENGINEERING_PASS",
+    "AAA-IV-T17-FND-04-WORK-ORDER-RUN-RESULT-REFERENTIAL-INTEGRITY": "ENGINEERING_PASS",
+    "AAA-IV-T17-FND-05-TIMEZONE-STRING-ACTIVITY-ORDER": "ENGINEERING_PASS"
+  },
+  "persistent_identity_migration": {
+    "historical_result_preserved": "control/aaa/results/RESULT-AAA-T17-INTEGRATION-v0.2.json",
+    "referential_successor": "control/aaa/results/RESULT-AAA-T17-INTEGRATION-v0.3.json",
+    "historical_overwrite": false
+  },
+  "authority_boundary": {
+    "engineering_only": true,
+    "independent_validation_pass": false,
+    "production_release_authorized": false,
+    "controlled_cutover_authorized": false,
+    "model_methodology_changed": false,
+    "shared_contract_changed": false,
+    "ground_truth_pit_u127_changed": false
+  },
+  "completed_at": "2026-08-16T06:28:41+09:00"
+}
