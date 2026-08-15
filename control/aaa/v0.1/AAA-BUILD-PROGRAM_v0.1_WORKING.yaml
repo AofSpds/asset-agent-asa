@@ -1,0 +1,47 @@
+program_id: AAA-BUILD-PROGRAM
+version: v0.1_WORKING
+status: STEP_1_ACTIVE
+project: Asset Agent ASA
+short_name: AAA
+execution_principle: DETERMINISTIC_FIRST_WORKFLOW_FIRST_ADDITIVE_SHADOW_FIRST
+phases:
+  - phase: 0
+    name: OWNER_NAMING_AND_AUTHORITY_ACTIVATION
+    output: AAA_NAMING_TRANSITION_CONTRACT
+  - phase: 1
+    name: READ_ONLY_RECOVERY_AND_PARALLEL_SCOUT
+    outputs: [AAA_GAP_MAP, AAA_BUILD_CONTRACT, AAA_BUILD_MATRIX]
+  - phase: 2
+    name: ADDITIVE_FOUNDATION_BUILD
+    tracks: [DETERMINISTIC_CORE, STATE_WORK_RESULT, CLI_API, UI_SCAFFOLD, MODEL_GATEWAY, AGENT_RUNTIME, STORAGE_SECURITY]
+  - phase: 3
+    name: INTEGRATION
+    dependency_order: [DETERMINISTIC_CORE, STATE_WORK_RESULT, CLI_API, UI, MODEL_GATEWAY, AGENT_RUNTIME, STORAGE_WRITE]
+  - phase: 4
+    name: SHADOW_AND_VALIDATION
+    tests: [DETERMINISM, STALE_RESULT, IDEMPOTENCY, PERMISSION, LLM_OFF, PROVIDER_SWAP, RECOVERY, SHADOW_MATCH]
+  - phase: 5
+    name: CONTROLLED_CUTOVER
+    trigger: GATES_ONLY_NOT_TIME
+parallel_policy:
+  scout_lanes: 4
+  build_lanes_target: 7
+  max_execution_lanes_target: 8_to_11
+  same_file_parallel_write: PROHIBITED
+  exact_base_identity_required: true
+  isolated_branch_or_worktree_required: true
+non_interference:
+  m3top3_p0_priority: PRESERVE
+  active_control_paths_mutation: AVOID
+  frozen_architecture_mutation: PROHIBITED
+  u127_mutation: PROHIBITED
+  general_agent_canonical_write: PROHIBITED
+step_1:
+  status: ACTIVE
+  lanes:
+    - REPOSITORY_GAP_SCOUT
+    - CONTROL_DATA_SCOUT
+    - ARCHITECTURE_CONTRACT_SCOUT
+    - UX_WORKFLOW_SCOUT
+  write_scope: BUILD_CONTROL_ARTIFACTS_ONLY
+  source_code_change: NOT_IN_STEP_1
