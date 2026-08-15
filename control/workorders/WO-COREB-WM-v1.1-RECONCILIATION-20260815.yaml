@@ -1,0 +1,63 @@
+work_order_id: WO-COREB-WM-v1.1-RECONCILIATION-20260815
+status: READY_TO_DISPATCH
+priority: P0
+project: semiconductor-research / M3Top3
+requesting_persona:
+  name: 문서·통제 아키텍트
+  persona_id: SEMI-CONTROL-ARCHITECT
+  alias: CORE_A
+target_persona:
+  name: 모델 검증·설계 아키텍트
+  persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+  alias: CORE_B
+purpose: Reconcile a newly discovered byte-verified incompatibility between WM-v1.0 and historical W1-W8 before any machine implementation or U127 release window component is bound.
+evidence:
+  anchor: U127_Data_Expansion_Working_v0.7_2026-08-15.xlsx
+  anchor_sha256: 1fc47fd131479e6ebb4375206853f39a730610d8b9f29160c33aa292881ad50a
+  audit: control/continuity/v1.0/SEMI-WINDOW-MAPPING-COMPATIBILITY-AUDIT_v0.1_WORKING.yaml
+  conflicting_windows: [W2, W5, W8]
+  examples:
+    - W2 snapshot_cutoff=2024-11-08; historical period anchor=2024-11-10; historical last trade=2025-02-10; WM-v1.0 nominal end from cutoff=2025-02-08.
+    - W5 snapshot_cutoff=2025-08-08; historical period anchor=2025-08-10; historical last trade=2025-11-10; WM-v1.0 nominal end from cutoff=2025-11-08.
+    - W8 snapshot_cutoff=2026-05-08; historical period anchor=2026-05-10; historical last trade=2026-08-10; WM-v1.0 nominal end from cutoff=2026-08-08.
+core_a_candidate_WM_v1_1:
+  anchor_date: A = nominal calendar evaluation anchor
+  snapshot_cutoff: last KRX trading timestamp/date on or before A
+  window_start: A
+  entry: first KRX trading day strictly after A
+  nominal_end: A + exactly 3 calendar months
+  evaluation_last_trade: last KRX trading day on or before nominal_end
+  exit: first KRX trading day strictly after nominal_end
+  daily_replay: for ordinary daily trading-day snapshots set A=snapshot trading date, so cutoff=A
+tasks:
+  - Independently verify the W1-W8 evidence and the incompatibility finding.
+  - ACCEPT, MODIFY, or REJECT the WM-v1.1 candidate.
+  - State whether MFE/MAE/Exit semantics remain unchanged apart from separating anchor date from PIT cutoff.
+  - State migration impact on existing feature/scorer/baseline lock assets.
+  - Do not inspect Actual U127 future outcomes.
+  - Do not execute replay.
+  - Do not change GT/Price/CA.
+required_return:
+  single_markdown_fenced_block: true
+  first_line: '[RETURN PACKET — WINDOW MAPPING v1.1 RECONCILIATION]'
+  fields:
+    - WORK_ORDER_ID
+    - TASK_COMPLETED
+    - BYTE_VERIFIED_EVIDENCE_REVIEWED
+    - WM_v1_0_COMPATIBILITY_VERDICT
+    - WM_v1_1_DECISION
+    - FINAL_WINDOW_MAPPING_SEMANTICS
+    - HISTORICAL_W1_W8_COMPATIBILITY
+    - DAILY_REPLAY_COMPATIBILITY
+    - MFE_MAE_EXIT_SEMANTICS_CHANGED
+    - BASELINE_LOCK_VERSION_IMPACT
+    - MODEL_IMPLEMENTATION_IMPACT
+    - SHARED_CONTRACT_READY_TO_PROMOTE
+    - OWNER_ESCALATION_REQUIRED
+    - ACTUAL_REPLAY_EXECUTED
+    - OUTCOME_DATA_INSPECTED
+    - GROUND_TRUTH_CHANGED
+    - PRICE_CHANGED
+    - CA_CHANGED
+    - RECOMMENDED_CONTROL_DECISION
+    - NEXT_ACTION
