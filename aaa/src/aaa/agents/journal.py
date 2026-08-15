@@ -7,9 +7,14 @@ import os
 from pathlib import Path
 from typing import Any, Iterator, Mapping
 
-from aaa.core.identity import canonical_json_bytes, sha256_hex
-from aaa.agents.runtime import AgentRunRecord, PermissionLevel, RunStatus, WorkOrderIdentity
-from aaa.core.identity import ExactBaseIdentity
+from aaa.agents.runtime import (
+    AgentRunRecord,
+    PermissionLevel,
+    RunStatus,
+    WorkOrderIdentity,
+    assert_status_transition,
+)
+from aaa.core.identity import ExactBaseIdentity, canonical_json_bytes, sha256_hex
 
 
 class JournalIntegrityError(RuntimeError):
@@ -103,6 +108,9 @@ class AgentRunJournal:
                 raise JournalIntegrityError(f"JOURNAL_EVENT_HASH_MISMATCH:{line_no}")
             if material.get("previous_event_sha256") != previous:
                 raise JournalIntegrityError(f"JOURNAL_CHAIN_MISMATCH:{line_no}")
+            event_type = material.get("event_type")
+            if not isinstance(event_type, str) or not event_type:
+                raise JournalIntegrityError(f"INVALID_EVENT_TYPE:{line_no}")
             record_payload = material.get("record")
             if not isinstance(record_payload, dict):
                 raise JournalIntegrityError(f"MISSING_RECORD:{line_no}")
@@ -114,6 +122,19 @@ class AgentRunJournal:
             record = _decode_record(record_payload)
             if record.immutable_run_sha256 != current_identity:
                 raise JournalIntegrityError(f"RUN_IDENTITY_HASH_MISMATCH:{line_no}")
+            if not events:
+                if record.status != RunStatus.CREATED:
+                    raise JournalIntegrityError(f"JOURNAL_MUST_START_CREATED:{line_no}")
+            else:
+                prior_record = _decode_record(events[-1]["record"])
+                if prior_record.status == record.status:
+                    if prior_record != record:
+                        raise JournalIntegrityError(f"SAME_STATUS_RECORD_DRIFT:{line_no}")
+                else:
+                    try:
+                        assert_status_transition(prior_record.status, record.status)
+                    except RuntimeError as exc:
+                        raise JournalIntegrityError(f"INVALID_JOURNAL_TRANSITION:{line_no}:{exc}") from exc
             previous = claimed
             events.append(event)
         return events
@@ -125,15 +146,26 @@ class AgentRunJournal:
         return _decode_record(events[-1]["record"])
 
     def append(self, record: AgentRunRecord, *, event_type: str) -> dict[str, Any]:
+        if not event_type:
+            raise JournalIntegrityError("EVENT_TYPE_REQUIRED")
         with _exclusive_lock(self.path):
             events = self.read_events()
             latest = _decode_record(events[-1]["record"]) if events else None
-            if latest is not None and latest.immutable_run_sha256 != record.immutable_run_sha256:
-                raise JournalIntegrityError("RUN_IDENTITY_DRIFT")
-            if latest is not None and latest == record:
-                return events[-1]
-            if latest is not None and latest.status in {RunStatus.SUCCEEDED, RunStatus.FAILED, RunStatus.BLOCKED, RunStatus.CANCELLED}:
-                raise JournalIntegrityError(f"TERMINAL_RUN_IMMUTABLE:{latest.status.value}")
+            if latest is None:
+                if record.status != RunStatus.CREATED:
+                    raise JournalIntegrityError("JOURNAL_MUST_START_CREATED")
+            else:
+                if latest.immutable_run_sha256 != record.immutable_run_sha256:
+                    raise JournalIntegrityError("RUN_IDENTITY_DRIFT")
+                if latest == record:
+                    if events[-1].get("event_type") != event_type:
+                        raise JournalIntegrityError("IDEMPOTENT_REAPPEND_EVENT_TYPE_MISMATCH")
+                    return events[-1]
+                try:
+                    assert_status_transition(latest.status, record.status)
+                except RuntimeError as exc:
+                    raise JournalIntegrityError(f"INVALID_JOURNAL_TRANSITION:{exc}") from exc
+
             previous = events[-1]["event_sha256"] if events else None
             event_without_hash = {
                 "event_type": event_type,
