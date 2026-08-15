@@ -1,0 +1,77 @@
+policy_id: M3TOP3-COVERAGE-RELEASE-POLICY
+version: v1.0_WORKING
+status: DUAL_CORE_RECONCILED_RELEASE_WIRING_PENDING
+project: semiconductor-research
+as_of: '2026-08-16T01:13:00+09:00'
+applies_to:
+  model_version: M3TOP3-v1.0
+  feature_schema: M3TOP3-FEATURE-SCHEMA_v1.0_WORKING
+  scorer: M3TOP3-GATED-LINEAR_v1.0_WORKING
+  vdi: VDI-v1.0
+core_distinction:
+  company_rankability: whether an eligible company may participate in the official rank ordering
+  feature_completeness: how much of the nine-feature evidence set is actually scored/available
+  same_concept: false
+official_rankability_rule_for_provisional_missing_features:
+  all_required:
+  - eligibility_state == ELIGIBLE
+  - Business_Momentum axis calculable
+  - Expectation_Surprise axis calculable
+  - Market_Positioning axis calculable
+  - Forward_Runway axis calculable
+  - Reliability_Risk axis calculable
+  - each axis has at least one AVAILABLE scored feature after governed missingness/overlap handling
+  - no v1 feature is REVIEW_REQUIRED
+  - PIT consumed-input provenance policy passes
+  - F08 freshness governance passes when applicable
+  - a final score exists under frozen scorer semantics
+  - Snapshot-wide rankable eligible companies / eligible companies == 1.00
+  - score_status and feature_coverage_ratio remain disclosed
+  allowed_missing_states_subject_to_axis_survival:
+  - MISSING
+  - UNKNOWN
+  - NOT_FOUND
+  - NA_FOR_OVERLAP
+  review_required_allowed: false
+  critical_miss_outcome_allowed_as_condition: false
+mandatory_axes:
+- Business_Momentum
+- Expectation_Surprise
+- Market_Positioning
+- Forward_Runway
+- Reliability_Risk
+mandatory_feature_ids: []
+structural_consequence: Because Market_Positioning currently contains only F05, the all-five-axis rule mechanically requires
+  an AVAILABLE F05 for official v1 ranking. This is a consequence of the existing architecture, not a newly tuned feature threshold.
+minimum_numeric_feature_coverage_ratio: null
+reason_no_numeric_minimum: No outcome-blind basis has been established for selecting a new numeric coverage threshold; adding
+  one would create a new hyperparameter and potential tuning vector.
+snapshot_release_gate:
+  company_rankability_coverage_required: '1.00'
+  meaning: 100% of eligible companies are rankable under the governed policy
+  does_not_mean: 100% of nine features are complete for every company
+vdi_release_fields_required:
+- coverage_policy_version
+- eligible_company_denominator
+- rankable_eligible_company_numerator
+- company_rankability_coverage
+- company_rankability_policy_id
+- mandatory_axes
+- per_company.eligibility_state
+- per_company.score_status
+- per_company.feature_coverage_ratio
+- per_company.axis_coverage
+- per_company.missing_unknown_review_summary
+- per_company.provisional_ranking_allowed
+- per_company.provisional_ranking_policy_ref
+- denominator_policy_version
+- validation_dataset_release_id
+- model_version
+- feature_schema_version
+- scorer_version
+- weight_version
+- pit_provenance_policy_version
+- freshness_provenance_policy_or_registry_version
+enforcement_location: release/VDI validation; scorer arithmetic remains unchanged
+scorer_math_change_required: false
+actual_outcome_use_prohibited: true
