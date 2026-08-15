@@ -1,0 +1,81 @@
+checkpoint_id: CP-CTRL-20260815-GENESIS-001
+created_at: '2026-08-15T20:34:00+09:00'
+checkpoint_status: WORKING_GENESIS_COMMITTED_CHECKPOINT
+
+persona_id: SEMI-CONTROL-ARCHITECT
+persona_version: v1.0
+channel_instance_id: CTRL-ARCH-LEGACY-BOOTSTRAP-20260815
+
+control_state_version: v1.0
+event_ledger_head: EVT-U127-0003
+asset_registry_version: v1.0
+channel_registry_version: v1.0
+
+active_lanes:
+  - U127-ARTIFACT-RECOVERY
+  - CONTROL-HUB-CONTINUITY-v1
+
+pending_returns:
+  - lane: U127-ARTIFACT-RECOVERY
+    status: ACTIVE_EXTERNAL_CHANNEL_RECOVERY
+    expected_result: any actual v0.8-or-later workbook bytes, with priority v1.8 then v1.7 then v1.6
+
+open_blockers:
+  - AUTHORITATIVE_U127_FINAL_MACHINE_BYTES_NOT_RECOVERED
+  - U127_V0_7_NOT_YET_PERSISTED_TO_PRIMARY_AND_SECONDARY_DATA_PLANE
+  - INDEPENDENT_CA_CLOSURE_PENDING
+  - OFFICIAL_PRICE_D4_D5_BLOCKED
+
+current_authority_summary:
+  U127:
+    logical_state: 1013_READY_PLUS_3_FORMALLY_UNRESOLVED_1016_ADJUDICATED
+    freeze_policy: POLICY_B_APPROVED
+    U127_frozen: false
+    physical_freeze: BLOCKED
+  PRICE:
+    engineering_dryrun: COMPLETE_WITH_DECLARED_BLOCKERS
+    official_D4: BLOCKED
+    official_D5: NOT_EXECUTED
+  CA:
+    research_local_pass: true
+    project_CA_gate: BLOCKED
+  M3TOP3:
+    engineering: COMPLETE_PARKED
+    actual_U127_two_year_backtest: NOT_EXECUTED
+
+current_artifact_summary:
+  recovered_U127_v0_7:
+    authority_level: LEVEL_3
+    sha256: 1fc47fd131479e6ebb4375206853f39a730610d8b9f29160c33aa292881ad50a
+    byte_size: 550774
+    persistence: LOCAL_RECOVERED_NOT_YET_DATA_PLANE_PERSISTED
+  U127_v1_7: REFERENCE_ONLY_CLEAN_PARENT_TARGET
+  U127_v1_8: REFERENCE_ONLY_MATERIALIZATION_CONFLICT
+  U127_v1_9: REFERENCE_ONLY_CONTROL_REJECTED_PROVISIONAL
+
+next_actions:
+  U127_RECOVERY:
+    - continue byte search in previous Document Architect and user-local histories
+    - if candidate found, hash and inspect read-only before authority assignment
+    - update registry/state/ledger after Control adjudication
+  CONTINUITY:
+    - create Artifact Persistence Protocol
+    - create Continuity and Channel Rotation Protocols
+    - persist recovered v0.7 to primary and secondary data planes when write path is available
+    - run successor-channel recovery drill
+
+project_invariants:
+  - NO_ACCEPTED_DECISION_WITHOUT_LEDGER_EVENT
+  - NO_IMPORTANT_ARTIFACT_WITHOUT_SHA256
+  - NO_CANONICAL_ARTIFACT_WITHOUT_PERSISTENT_LOCATOR
+  - NO_CHANNEL_ROTATION_WITHOUT_CHECKPOINT
+  - NO_SUCCESSOR_CHANNEL_WITHOUT_CHECKPOINT_LOAD
+  - NO_SELF_VALIDATION_BY_CONTROL_PERSONA
+  - NO_FROZEN_ARTIFACT_MUTATION
+  - EPHEMERAL_RUNTIME_IS_NOT_STORAGE
+
+git_branch: control-hub-continuity-v1
+git_commit_sha: 827c3b45d31d70db403cf155fb795abe8b943baf
+note: >-
+  git_commit_sha records the Control Plane head immediately before this immutable checkpoint
+  file was committed. The checkpoint file's own creation commit is recorded by GitHub history.
