@@ -1,0 +1,71 @@
+state_id: SEMI-SHARED-CONTRACT-STATE
+version: v0.1_WORKING
+status: RECONCILED_WORKING_NOT_FROZEN
+project: semiconductor-research
+as_of: '2026-08-15T22:52:00+09:00'
+parties:
+  CORE_A: SEMI-CONTROL-ARCHITECT
+  CORE_B: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+source_core_b_packet_sha256: 73c3968d46c1f833bfe229bc50589507e28912e641026ce6d2474b755a863500
+contracts:
+  - contract: MODEL_INPUT_SCHEMA
+    core_A: canonical_field_storage_schema_PIT_provenance_data_types_source_lineage_release_identity_persistence
+    core_B: required_inputs_feature_consumption_missing_semantics_anti_leakage_scorer_requirements
+    change_requires_both: true
+    independent_validation_required: true
+    status: OPEN
+  - contract: PIT_SNAPSHOT_INTERFACE
+    core_A: model_independent_factual_state_PIT_cutoff_evidence_availability_immutable_snapshot_release
+    core_B: snapshot_valid_field_consumption_no_outcome_leakage_model_interpretation_separation
+    change_requires_both: true
+    independent_validation_required: true
+    status: AGREED
+  - contract: UNIVERSE_ELIGIBILITY
+    core_A: U127_outer_membership_operational_history_listing_tradability_eligibility_evidence
+    core_B: ranking_denominator_semantics_and_UNKNOWN_REVIEW_REQUIRED_handling
+    change_requires_both: true
+    independent_validation_required: true
+    status: AGREED_EXECUTION_BLOCKED_BY_U127_CANONICAL_READINESS
+  - contract: WINDOW_MAPPING
+    core_A: trading_calendar_date_mapping_data_availability
+    core_B: approximate_3M_horizon_and_validation_consistency
+    change_requires_both: true
+    independent_validation_required: true
+    status: OPEN
+  - contract: ENTRY_EXIT
+    core_A: valid_price_trading_day_resolution_tradability_CA_handling
+    core_B: economic_entry_exit_semantics_and_evaluation_interpretation
+    change_requires_both: true
+    independent_validation_required: true
+    status: AGREED
+  - contract: OUTCOME_BUILDER
+    core_A: calculation_integrity_price_CA_correctness_artifact_identity_immutable_release
+    core_B: MFE_MAE_Close_Terminal_path_semantics_ranking_ties_metric_usage
+    change_requires_both: true
+    independent_validation_required: true
+    status: AGREED_OFFICIAL_EXECUTION_BLOCKED_BY_PRICE_CA
+  - contract: VALIDATION_DATASET_IDENTITY
+    core_A: byte_identity_release_manifest_U127_Price_CA_lineage_persistence
+    core_B: target_metric_content_eligible_denominator_model_comparability
+    change_requires_both: true
+    independent_validation_required: true
+    status: OPEN
+  - contract: SCORER_IO
+    core_A: persistent_interface_schema_compatibility_run_provenance
+    core_B: scorer_semantics_feature_vector_weighting_output_score_rank
+    change_requires_both_for_interface_schema: true
+    core_B_internal_algorithm_versioning_without_interface_change: allowed_with_control_registration
+    independent_validation_required_before_model_freeze: true
+    status: OPEN
+  - contract: MODEL_ARTIFACT_RELEASE_MANIFEST
+    core_A: artifact_identity_SHA256_locator_lineage_release_persistence
+    core_B: model_version_scorer_weight_feature_versions_semantic_compatibility_validation_status
+    change_requires_both: true
+    independent_validation_required: true
+    status: OPEN
+summary:
+  agreed_count: 4
+  open_count: 5
+  unresolved_conflict_count: 0
+  control_sync_required_now: true
+  reason: SHARED_CONTRACTS_REMAIN_WORKING_AND_OPEN_DESPITE_SEMANTIC_ALIGNMENT
