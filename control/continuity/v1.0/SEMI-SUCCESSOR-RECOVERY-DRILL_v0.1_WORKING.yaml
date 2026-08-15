@@ -1,0 +1,99 @@
+drill_id: SEMI-SUCCESSOR-RECOVERY-DRILL
+version: v0.1_WORKING
+status: TEST_PLAN_NOT_EXECUTED
+project: semiconductor-research
+as_of: '2026-08-15T22:31:00+09:00'
+owner: SEMI-CONTROL-ARCHITECT
+
+purpose: >-
+  Prove that a fresh successor core persona instance can reconstruct authoritative project state,
+  artifact custody status, open work, organization, and blockers without relying on predecessor chat history.
+
+scope:
+  CORE_A: REQUIRED
+  CORE_B: REQUIRED_AFTER_SUCCESSOR_RECONCILIATION
+
+preconditions:
+  - persona_manifest_persisted
+  - current_state_persisted
+  - event_ledger_persisted
+  - asset_registry_persisted
+  - channel_registry_persisted
+  - organization_and_authority_assets_persisted
+  - active_workplan_persisted
+  - checkpoint_available
+  - critical_artifact_locators_or_explicit_custody_blockers_recorded
+
+fresh_instance_constraints:
+  - MUST_NOT_USE_PREDECESSOR_CHAT_HISTORY_AS_PRIMARY_SOURCE
+  - MUST_START_FROM_CHECKPOINT_AND_GITHUB_CONTROL_PLANE
+  - MAY_USE_PERSISTENT_DATA_PLANE_LOCATORS
+  - MAY_USE_RETURN_PACKETS_ONLY_AS_REFERENCED_EVIDENCE
+  - MUST_NOT_ASSUME_SANDBOX_OR_MNT_DATA_PERSISTS
+
+CORE_A_test_cases:
+  T1_identity:
+    expected:
+      - recover persona_id SEMI-CONTROL-ARCHITECT
+      - recover predecessor_successor lineage
+      - identify active or test instance status
+  T2_project_state:
+    expected:
+      - recover U127 logical state 1013 READY plus 3 unresolved
+      - recover Price official blockers
+      - recover CA official blockers
+      - recover M3Top3 engineering vs validation distinction
+  T3_artifact_custody:
+    expected:
+      - identify v0.7 exact SHA256 and byte size
+      - identify persistent locator state accurately
+      - not claim missing later bytes exist
+      - distinguish v1.9 forensic-only from clean parent
+  T4_open_work:
+    expected:
+      - identify U127 GAP CLOSURE A as active P0 historical recovery
+      - identify CORE_B reconciliation as active P0 continuity work
+  T5_organization:
+    expected:
+      - recover Project Owner / CORE_A / CORE_B / execution-layer structure
+      - recover shared-contract conflict rule CONTROL_SYNC_REQUIRED
+  T6_safety:
+    expected:
+      - prohibit rematerialization during recovery
+      - prohibit silent Research-to-Control promotion
+      - prohibit self-validation
+  T7_checkpoint_tail:
+    expected:
+      - reconcile checkpoint against Event Ledger tail and branch HEAD
+      - report post-checkpoint deltas rather than treating checkpoint as current by default
+
+CORE_B_test_cases_pending:
+  - identity_and_authority_recovery
+  - model_definition_state_recovery
+  - validation_doctrine_recovery
+  - shared_contract_recovery
+  - experiment_and_no_tune_governance_recovery
+
+pass_criteria:
+  - NO_CRITICAL_STATE_REQUIRES_PREDECESSOR_CHAT_MEMORY
+  - NO_FALSE_ARTIFACT_CUSTODY_CLAIM
+  - NO_AUTHORITY_BOUNDARY_CONFLATION
+  - NO_GROUND_TRUTH_OR_MODEL_STATE_DRIFT
+  - OPEN_WORK_AND_BLOCKERS_RECONCILE
+  - PEER_CORE_CONTRACTS_RECONCILE_OR_CONTROL_SYNC_REQUIRED_IS_RAISED
+
+failure_classes:
+  - PERSONA_IDENTITY_LOSS
+  - CURRENT_STATE_DRIFT
+  - EVENT_LEDGER_GAP
+  - ARTIFACT_CUSTODY_FALSE_POSITIVE
+  - ARTIFACT_CUSTODY_FALSE_NEGATIVE
+  - AUTHORITY_MATRIX_DRIFT
+  - OPEN_WORK_LOSS
+  - PEER_CORE_CONFLICT_SILENTLY_RECONCILED
+  - CHAT_DEPENDENCY_REINTRODUCED
+
+execution_rule:
+  current_state: NOT_EXECUTED
+  next_gate: CORE_B_SUCCESSOR_RECONCILIATION_THEN_MAJOR_CHECKPOINT
+  freeze_requirement: BOTH_CORE_DRILLS_PASS_BEFORE_CONTINUITY_V1_FREEZE
