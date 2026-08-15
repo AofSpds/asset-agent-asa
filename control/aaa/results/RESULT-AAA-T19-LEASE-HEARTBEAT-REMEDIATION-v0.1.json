@@ -1,0 +1,83 @@
+{
+  "result_id": "RESULT-AAA-T19-LEASE-HEARTBEAT-REMEDIATION-v0.1",
+  "project": "Asset Agent ASA",
+  "short_name": "AAA",
+  "track": "T19",
+  "result_type": "ENGINEERING_REMEDIATION",
+  "work_order_id": "WO-AAA-T19-LEASE-HEARTBEAT-REMEDIATION-v0.1-20260816",
+  "run_id": "RUN-AAA-T19-LEASE-HEARTBEAT-REMEDIATION-20260816-001",
+  "repository": "AofSpds/asset-agent-asa",
+  "engineering_branch": "aaa-t19-lease-heartbeat-remediation-v0.1",
+  "failed_exact_target": "c867e3704b2744c3a826635b828ad6696e6281eb",
+  "exact_base_commit": "5fdf84a9433f91dead1449bdb7b330c646987cad",
+  "source_validation_result": "control/aaa/results/RESULT-VALIDATION-AAA-T19-INDEPENDENT-20260816-001.json",
+  "source_blocking_finding": "AAA-T19-IV-FND-01-EXPIRED-LEASE-HEARTBEAT-RESURRECTION",
+  "implementation": {
+    "frozen_migrations_0001_0004_rewritten": false,
+    "successor_migration": "aaa/db/migrations/0005_t19_lease_heartbeat_fail_closed.sql",
+    "migration_0005_sha256": "6ea318dba31f94392d6828cf64d2a9701c11e88142a13f53c9dcbb88fc29807a",
+    "expired_same_epoch_heartbeat": "REJECTED",
+    "expired_lease_self_resurrection": "PREVENTED_BY_CURRENT_LEASE_VALIDITY_GUARD",
+    "heartbeat_execution_task_current_lease_binding": "IMPLEMENTED",
+    "long_command_strategy": "GOVERNED_EXECUTION_LEASE_TTL_GREATER_THAN_PROFILE_TIMEOUT_PLUS_MARGIN",
+    "validation_profile_timeout_seconds": 1800,
+    "lease_timeout_margin_seconds": 60,
+    "governed_validation_execution_ttl_seconds": 1860,
+    "old_epoch_after_takeover_heartbeat": "REJECTED",
+    "old_epoch_after_takeover_terminalization": "REJECTED",
+    "stale_unknown_self_revive_without_reacquisition": "REJECTED",
+    "claim_ack_start_semantics": "PRESERVED",
+    "two_worker_single_claim_winner": "PRESERVED",
+    "exact_target_preexecution_check": "PRESERVED",
+    "shell_false_execution_boundary": "PRESERVED",
+    "atomic_terminal_result_run": "PRESERVED"
+  },
+  "ci": {
+    "workflow_run_id": 31914224210,
+    "deterministic_tests": {
+      "test_count": 145,
+      "pass_count": 145,
+      "fail_count": 0,
+      "error_count": 0
+    },
+    "postgresql_16_migrations_0001_0005_sha_apply": "PASS",
+    "expired_same_epoch_heartbeat_adversarial_smoke": "PASS",
+    "expired_lease_terminalization_rejection": "PASS",
+    "takeover_epoch_increment_and_old_epoch_rejection": "PASS",
+    "t18_concurrent_lease_single_winner": "PASS",
+    "t19_two_worker_claim_single_winner": "PASS",
+    "json_registry_shadow_reconciliation": "PASS_9_OF_9",
+    "local_backup_restore_drill": "PASS",
+    "owner_console_locked_install_build": "PASS"
+  },
+  "engineering_adjudication": {
+    "finding_engineering_status": "ENGINEERING_REMEDIATED_AWAITING_INDEPENDENT_REVALIDATION",
+    "finding_closed": false,
+    "independent_validation_required": true,
+    "independent_validation_pass": false
+  },
+  "authority_boundary": {
+    "engineering_only": true,
+    "t19_live_execution_authorized": false,
+    "postgresql_operational_sot_authorized": false,
+    "controlled_cutover_authorized": false,
+    "production_release_authorized": false
+  },
+  "non_interference": {
+    "p09_original_failed_target": "80378610f9ac9e688c52417f0416e01c057400a7",
+    "p09_rerun_target": "30fdb278c218b24e44d66eb5f47935a196dc4f8c",
+    "t18_independent_target": "59c9baf3a24b1cf7542a3643c296711c37d72c3c",
+    "t19_failed_target_preserved": "c867e3704b2744c3a826635b828ad6696e6281eb",
+    "model_methodology_changed": false,
+    "shared_contract_changed": false,
+    "ground_truth_pit_u127_changed": false
+  },
+  "findings_remaining": [
+    "Independent revalidation has not yet passed for the remediation successor.",
+    "T18 Independent Validation remains pending and PostgreSQL remains non-authoritative.",
+    "Live managed PostgreSQL, credential policy, PITR, RPO and RTO remain unqualified.",
+    "T19 live authoritative worker execution remains disabled pending separate Project Owner authorization."
+  ],
+  "verdict": "PASS_WITH_FINDINGS",
+  "completed_at": "2026-08-16T08:16:00+09:00"
+}
