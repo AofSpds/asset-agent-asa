@@ -1,0 +1,37 @@
+measure_id: AAA-PROGRESS-MEASURE
+version: v0.2_WORKING
+project: Asset Agent ASA
+short_name: AAA
+status: WAVE2_PARALLEL_HARDENING_PARTIAL_PASS_WITH_CONTINUITY_BLOCKER
+measurement_rule:
+  percent_is_planning_estimate_not_validation_verdict: true
+  engineering_pending_pr_can_count_only_when_ci_pass_and_exact_artifact_identity_exists: true
+engineering_usable_mvp:
+  current_percent: 66
+  previous_percent: 64
+  delta_reason:
+    - AAA_T09_FRONTEND_DEPENDENCY_IDENTITY_LOCK_ENGINEERING_PASS
+  newly_closed:
+    - exact_frontend_direct_dependencies_pinned
+    - package_lock_materialized_and_hash_identified
+    - npm_ci_read_only_ci_pass
+  newly_detected_not_closed:
+    - full_event_ledger_lineage_replay_blocked_by_conflicting_EVT_SHARED_0002
+  active_candidates:
+    dependency_lock_pr: 14
+    lineage_replay_pr: 15
+full_controlled_cutover_program:
+  current_percent: 43
+  previous_percent: 43
+  unchanged_reason:
+    - NO_ACTUAL_FULL_SHADOW_CYCLE_COMPLETED
+    - NO_RECOVERY_DRILL_COMPLETED
+    - NO_INDEPENDENT_VALIDATION_PASS
+    - NO_OWNER_CUTOVER_AUTHORIZATION
+blocking_findings:
+  - AAA-FINDING-CONTINUITY-EVENT-ID-COLLISION_v0.1_WORKING
+  - M3TOP3_FND_02_F06_EXTERNAL_P0
+next:
+  - INTEGRATE_T09_AFTER_DIFF_REVIEW
+  - KEEP_T10_FAIL_CLOSED_AND_ROUTE_CONTINUITY_COLLISION_TO_SEMI_CONTROL_ARCHITECT
+  - CONTINUE_AGENT_RUNTIME_AND_RECOVERY_HARDENING_IN_PARALLEL
