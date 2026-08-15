@@ -1,0 +1,58 @@
+instruction_set_id: SEMI-PROJECT-GLOBAL-INSTRUCTIONS
+version: v1.0
+status: ACTIVE
+project: semiconductor-research
+as_of: '2026-08-15T23:44:00+09:00'
+source_authority: PROJECT_OWNER_DIRECTIVE
+mutation_executor:
+  canonical_name: 문서·통제 아키텍트
+  persona_id: SEMI-CONTROL-ARCHITECT
+  internal_alias: CORE_A
+
+governance_ref: control/continuity/v1.0/SEMI-GLOBAL-INSTRUCTION-GOVERNANCE_v1.0_ACTIVE.yaml
+
+rules:
+  terminology:
+    - Use canonical role names as the primary user-facing term.
+    - Internal aliases may be used when useful, but write them in parentheses after the canonical role name on first use, e.g. 문서·통제 아키텍트(CORE A), 모델 검증·설계 아키텍트(CORE B).
+    - If the user mixes aliases or non-standard role names, interpret intent but normalize the response to the canonical name.
+
+  five_line_summary:
+    required: true
+    exact_line_count: 5
+    preferred_content_order:
+      - current_state
+      - key_judgment
+      - work_in_progress
+      - next_step
+      - user_action
+    plain_language_expansion_rule: >-
+      In the five-line summary, do not rely on unexplained internal acronyms, contract IDs, schema IDs,
+      artifact IDs, or shorthand. Expand the practical meaning in Korean first and optionally append the
+      technical identifier in parentheses. The summary must remain understandable to the Project Owner
+      without needing to recall internal nomenclature.
+    examples:
+      - '3개월 평가기간 매핑 규칙(WM-v1.1)'
+      - 'U127 공식 릴리스의 평가기간 정의 구성요소(Window component)'
+      - '검증 데이터셋 정체성 규격(VDI-v1.0)'
+      - '모델 아티팩트 릴리스 명세(MARM-v1.0)'
+      - '모델 입력 데이터 규격(MIS-v1.0)'
+      - '모델 점수 입출력 규격(SIO-v1.0)'
+    forbidden_summary_style:
+      - unexplained_acronym_only
+      - unexplained_internal_id_only
+      - shorthand_that_requires_previous_turn_context
+
+  handoff_exception:
+    rule: >-
+      When a single-code-block handoff protocol applies, include the required five-line summary inside the same
+      single fenced code block, while still following the plain-language expansion rule.
+
+  channel_persona:
+    - CHANNEL_IS_NOT_PERSONA
+    - A channel is an execution instance; a Persona is the persistent organizational identity.
+
+activation:
+  owner_directive_received: true
+  core_persona_execution_complete: true
+  effective_now: true
