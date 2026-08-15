@@ -1,0 +1,127 @@
+org_map_id: SEMI-ORG-MAP
+version: v0.2_WORKING
+status: DUAL_CORE_RECONCILED_NOT_FROZEN
+project: semiconductor-research
+as_of: '2026-08-15T22:52:00+09:00'
+supersedes_working_draft: SEMI-ORG-MAP_v0.1_WORKING
+purpose: >-
+  Persistent organization model for M3Top3 and semiconductor research so authority belongs to durable personas and control records rather than chat channels.
+organization_principles:
+  - PROJECT_OWNER_SETS_GOALS_PRIORITIES_MAJOR_PROJECT_ARCHITECTURE_AND_FINAL_APPROVALS
+  - CORE_A_AND_CORE_B_ARE_PEER_CORE_PERSONAS
+  - CORE_A_OWNS_DATA_GROUND_TRUTH_ARTIFACT_CONTROL_CONTINUITY
+  - CORE_B_OWNS_MODEL_SCORER_RANKING_VALIDATION_METHODOLOGY
+  - SHARED_MODEL_DATA_CONTRACTS_REQUIRE_RECONCILIATION
+  - CHANNEL_IS_EPHEMERAL_PERSONA_INSTANCE
+  - RESEARCH_AND_ENGINEERING_HAVE_NO_CANONICAL_PROMOTION_AUTHORITY
+  - INDEPENDENT_VALIDATION_MUST_REMAIN_FUNCTIONALLY_SEPARATE
+  - SILENT_CROSS_CORE_RECONCILIATION_IS_FORBIDDEN
+org_tree:
+  project_owner:
+    role_id: USER_PROJECT_OWNER
+    display_name: Project Owner / Research Director
+    authority:
+      - project_objectives
+      - strategic_priority
+      - major_project_architecture
+      - final_ground_truth_freeze_approval
+      - final_model_freeze_approval
+      - final_release_or_production_activation
+      - unresolved_major_cross_core_conflict
+  core_layer:
+    core_A:
+      core_id: CORE_A_CONTROL
+      persona_id: SEMI-CONTROL-ARCHITECT
+      status: ACTIVE_RECONCILED
+      active_instance: CTRL-ARCH-INSTANCE-004-20260815
+      display_name: M3Top3 Document / Control Architect
+      accountable_domains:
+        - project_orchestration_and_program_control
+        - U127_and_ground_truth_content_readiness
+        - PIT_effective_history_and_evidence_state
+        - Price_and_CA_project_readiness
+        - data_schema_taxonomy_protocol
+        - artifact_identity_hash_lineage_persistence
+        - control_event_current_state_checkpoint
+        - channel_persona_continuity
+        - data_GT_research_promotion
+    core_B:
+      core_id: CORE_B_MODEL
+      persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+      persona_version: v1.0_WORKING
+      status: ACTIVE_RECONCILED_PASS_WITH_WARNINGS
+      active_instance: MODEL-ARCH-INSTANCE-002-20260815
+      predecessor_instance: MODEL-ARCH-LEGACY-20260815
+      display_name: M3Top3 Model Validation / Design Architect
+      accountable_domains:
+        - model_architecture
+        - feature_definition
+        - weighting_design
+        - scorer_definition
+        - ranking_contract
+        - Top3_and_Model_Top10_semantics
+        - MFE_MAE_model_semantics
+        - Critical_Miss_semantics
+        - backtest_and_experiment_design
+        - no_tune_and_anti_overfit_governance
+        - model_version_comparison
+        - validation_methodology_design
+        - model_freeze_recommendation
+      bootstrap_warning_domains:
+        - final_weights_open
+        - official_scorer_open
+        - risk_detection_metric_open
+        - holdout_open
+        - walk_forward_open
+        - turnover_and_coverage_thresholds_open
+  execution_layer:
+    research_orchestration:
+      role_id: SEMI-RESEARCH-ORCHESTRATOR
+      authority: NO_DIRECT_PROJECT_PROMOTION
+      routes:
+        data_GT: CORE_A
+        model: CORE_B
+        cross_domain: CORE_A_AND_CORE_B
+    independent_validation:
+      role_id: SEMI-VALIDATION-AUDITOR
+      authority: INDEPENDENT_ASSURANCE_FINDINGS
+      rules:
+        - MUST_NOT_BE_IMPLEMENTER_INSTANCE
+        - MAY_NOT_SILENTLY_REDESIGN_MODEL
+        - VALIDATION_PASS_DOES_NOT_REPLACE_OWNER_FINAL_APPROVAL
+    engineering_workers:
+      role_id: TASK_SPECIFIC_ENGINEERING_WORKERS
+      authority: IMPLEMENTATION_ONLY
+    recovery_workers:
+      role_id: RECOVERY_RESEARCH_CHANNEL_UNDER_CONTROL
+      authority: DISCOVERY_ONLY_NO_REMATERIALIZATION_WITHOUT_CONTROL
+shared_authority_refinements:
+  ground_truth:
+    CORE_A: DATA_CONTENT_PIT_RELEASE_READINESS
+    CORE_B: MODEL_TARGET_AND_VALIDATION_SEMANTICS
+    OWNER: FINAL_GT_FREEZE_APPROVAL
+  MFE_MAE:
+    CORE_B: ECONOMIC_AND_VALIDATION_SEMANTICS
+    CORE_A: MACHINE_CALCULATION_DATA_RELEASE_IDENTITY
+    mode: SHARED_IMPLEMENTATION_CONTRACT
+  major_architecture:
+    OWNER: PROJECT_LEVEL
+    CORE_B: MODEL_INTERNAL_ARCHITECTURE
+cross_core_operating_model:
+  default_rule: DOMAIN_OWNER_DECIDES_WITHIN_RECONCILED_CONTRACT_BOUNDARY
+  shared_contract_state: SEMI-SHARED-CONTRACT-STATE_v0.1_WORKING
+  conflict_state: CONTROL_SYNC_REQUIRED
+  silent_reconciliation: FORBIDDEN
+lifecycle_model:
+  persona: PERSISTENT_ORGANIZATIONAL_IDENTITY
+  channel_instance: EPHEMERAL_EXECUTION_INSTANCE
+  return_packet: TRANSPORT_AND_EVIDENCE_CONTAINER_NOT_SOURCE_OF_TRUTH
+  control_event: DURABLE_DECISION_RECORD
+  checkpoint: IMMUTABLE_SUCCESSION_BASELINE
+current_status:
+  core_A: ACTIVE
+  core_B: ACTIVE_WITH_WARNINGS
+  organization_map: RECONCILED_WORKING_NOT_FROZEN
+  authority_matrix: RECONCILED_WORKING_NOT_FROZEN
+  shared_contracts: 4_AGREED_5_OPEN_0_MAJOR_CONFLICT
+  final_freeze: NOT_ELIGIBLE
