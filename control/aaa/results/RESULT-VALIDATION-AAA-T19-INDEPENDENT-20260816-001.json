@@ -1,0 +1,77 @@
+{
+  "result_id": "RESULT-VALIDATION-AAA-T19-INDEPENDENT-20260816-001",
+  "project": "Asset Agent ASA",
+  "short_name": "AAA",
+  "process_id": "T19-INDEPENDENT-VALIDATION",
+  "validation_run_id": "RUN-VALIDATION-AAA-T19-INDEPENDENT-20260816-001",
+  "work_order_id": "WO-VALIDATION-AAA-T19-v0.1-INDEPENDENT-20260816",
+  "executor_persona": "SEMI-VALIDATION-AUDITOR",
+  "exact_validation_target": "c867e3704b2744c3a826635b828ad6696e6281eb",
+  "target_binding": "control/aaa/validation/AAA-T19-EXECUTION-RUNTIME-INDEPENDENT-TARGET-BINDING_v0.1_WORKING.yaml",
+  "source_return_packet": {
+    "transport": "user_return_packet",
+    "sha256": "54adac7d30781f85acacca9cf0cdb6ca694aa33c53b56f487834cc4bcacde54d",
+    "byte_size": 35921
+  },
+  "execution_evidence": {
+    "certifying_execution_started_at": "2026-08-16T07:51:08.4353445+09:00",
+    "github_actions_workflow_run_id": 31912823517,
+    "deterministic_test_job_id": 95081391782,
+    "postgresql_job_id": 95081391342,
+    "owner_console_job_id": 95081405962,
+    "governed_validation_run_heartbeat_maintained": false,
+    "retroactive_start_or_heartbeat_fabricated": false
+  },
+  "independent_reproduction": {
+    "python_tests": {
+      "test_count": 142,
+      "pass_count": 142,
+      "fail_count": 0,
+      "error_count": 0
+    },
+    "owner_console_npm_ci": "PASS",
+    "owner_console_build": "PASS",
+    "postgresql_migration_sha": "PASS_4_OF_4",
+    "postgresql_migration_apply": "PASS",
+    "two_worker_single_claim_winner": "PASS",
+    "json_postgresql_shadow_reconciliation": "PASS_8_OF_8",
+    "backup_restore": "PASS"
+  },
+  "independent_findings": [
+    {
+      "finding_id": "AAA-T19-IV-FND-01-EXPIRED-LEASE-HEARTBEAT-RESURRECTION",
+      "severity": "P0",
+      "blocking": true,
+      "status": "OPEN",
+      "class": "LEASE_VALIDITY_FENCING_FALSE_LIVENESS_EXECUTION_OWNERSHIP"
+    }
+  ],
+  "finding_basis": {
+    "expired_same_epoch_heartbeat_rejected": false,
+    "valid_current_lease_required_for_heartbeat": false,
+    "long_command_heartbeat_continuity": false,
+    "default_lease_ttl_seconds": 300,
+    "profile_timeout_seconds": 1800,
+    "periodic_heartbeat_during_command": false,
+    "reachable_in_normal_runtime": true
+  },
+  "verdict": "FAIL",
+  "independent_validation_pass": false,
+  "recommended_run_state": "COMPLETED_FAIL",
+  "recommended_t19_gate": "OPEN_BLOCKED",
+  "live_execution_authorized": false,
+  "postgresql_operational_sot_authorized": false,
+  "controlled_cutover_authorized": false,
+  "production_release_authorized": false,
+  "canonical_side_effect_check": "PASS",
+  "non_interference": {
+    "p09_original_failed_target": "80378610f9ac9e688c52417f0416e01c057400a7",
+    "p09_rerun_target": "30fdb278c218b24e44d66eb5f47935a196dc4f8c",
+    "t18_independent_target": "59c9baf3a24b1cf7542a3643c296711c37d72c3c",
+    "model_methodology_changed": false,
+    "shared_contract_changed": false,
+    "ground_truth_pit_u127_changed": false
+  },
+  "persisted_by": "AAA_BUILD_CONTROL",
+  "completed_at": "2026-08-16T08:05:00+09:00"
+}
