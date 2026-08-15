@@ -71,10 +71,25 @@ class T18OperationalDatabaseContractTests(unittest.TestCase):
         ):
             self.assertIn(token, sql)
 
+    def test_0003_encodes_exact_retry_and_atomic_completion(self):
+        sql = (REPO_ROOT / "aaa" / "db" / "migrations" / "0003_idempotent_events_atomic_completion.sql").read_text(
+            encoding="utf-8"
+        )
+        for token in (
+            "aaa_ops.append_run_event_idempotent",
+            "pg_advisory_xact_lock",
+            "IDEMPOTENCY_KEY_REUSE_MISMATCH",
+            "aaa_ops.complete_run_atomic",
+            "STALE_OR_INVALID_LEASE",
+            "INVALID_RUN_TIME_EVIDENCE",
+            "COMPLETED_WITH_FINDINGS",
+        ):
+            self.assertIn(token, sql)
+
     def test_migration_manifest_binds_all_exact_sql_bytes_and_preserves_p09_targets(self):
         manifest_path = REPO_ROOT / "aaa" / "db" / "MIGRATIONS.json"
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-        self.assertEqual([item["version"] for item in manifest["migrations"]], ["0001", "0002"])
+        self.assertEqual([item["version"] for item in manifest["migrations"]], ["0001", "0002", "0003"])
         for migration in manifest["migrations"]:
             sql_bytes = (REPO_ROOT / migration["path"]).read_bytes()
             self.assertEqual(hashlib.sha256(sql_bytes).hexdigest(), migration["sha256"])

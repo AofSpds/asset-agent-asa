@@ -11,6 +11,11 @@
       "version": "0002",
       "path": "aaa/db/migrations/0002_json_registry_source_identity.sql",
       "sha256": "dfd47bb167e4bbcef2de9cb45bec811c0acfbcc5f03bde1a49fc24990b7d16dc"
+    },
+    {
+      "version": "0003",
+      "path": "aaa/db/migrations/0003_idempotent_events_atomic_completion.sql",
+      "sha256": "58b372d95060ad6b86d90c883eefef40455ffe6b9f5ef3bc575603c3098ada52"
     }
   ],
   "postgresql_required_for_certification": true,
