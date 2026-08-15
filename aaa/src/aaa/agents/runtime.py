@@ -115,6 +115,14 @@ class InvalidRunTransition(RuntimeError):
     pass
 
 
+def assert_status_transition(source: RunStatus, target: RunStatus) -> None:
+    if source in TERMINAL_STATUSES:
+        raise InvalidRunTransition(f"TERMINAL_RUN_IMMUTABLE: {source.value}")
+    allowed = _ALLOWED_TRANSITIONS.get(source, set())
+    if target not in allowed:
+        raise InvalidRunTransition(f"INVALID_RUN_TRANSITION: {source.value}->{target.value}")
+
+
 def authorize_action(context: AgentRunContext, action: str, required_level: PermissionLevel) -> None:
     if action in FORBIDDEN_ALWAYS:
         raise PermissionDenied(f"FORBIDDEN_AUTHORITY_ACTION: {action}")
@@ -155,11 +163,7 @@ def transition_run(
     result: Mapping[str, Any] | None = None,
     terminal_reason: str | None = None,
 ) -> AgentRunRecord:
-    if record.status in TERMINAL_STATUSES:
-        raise InvalidRunTransition(f"TERMINAL_RUN_IMMUTABLE: {record.status.value}")
-    allowed = _ALLOWED_TRANSITIONS.get(record.status, set())
-    if target not in allowed:
-        raise InvalidRunTransition(f"INVALID_RUN_TRANSITION: {record.status.value}->{target.value}")
+    assert_status_transition(record.status, target)
 
     result_sha256 = None
     if target == RunStatus.SUCCEEDED:
