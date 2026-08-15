@@ -1,0 +1,7 @@
+M3TOP3-v1.0 narrow implementation patch
+work_order=WO-COREB-M3TOP3-v1-NARROW-FIXES-20260816
+feature_implementation=M3TOP3-FEATURE-ENGINE-v1.0.1-NARROW-FIX_WORKING
+shared_guard_proposal=M3TOP3-SHARED-INTERFACE-GUARDS-v0.1-PROPOSAL
+weights_changed=NO
+scorer_architecture_changed=NO
+actual_outcome_data_inspected=NO
