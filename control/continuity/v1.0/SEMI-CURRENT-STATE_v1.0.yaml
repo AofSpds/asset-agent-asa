@@ -1,10 +1,19 @@
 state_id: SEMI-CURRENT-STATE
 version: v1.0
-status: WORKING_GENESIS_STATE
-as_of: '2026-08-15T20:34:00+09:00'
+status: WORKING_SUCCESSOR_ACTIVE
+as_of: '2026-08-15T21:09:00+09:00'
 project: semiconductor-research
 active_persona: SEMI-CONTROL-ARCHITECT
-active_persona_instance: CTRL-ARCH-LEGACY-BOOTSTRAP-20260815
+active_persona_instance: CTRL-ARCH-INSTANCE-004-20260815
+predecessor_persona_instance: CTRL-ARCH-LEGACY-BOOTSTRAP-20260815
+successor_bootstrap:
+  checkpoint_loaded: CP-CTRL-20260815-GENESIS-001
+  status: PASS_WITH_WARNINGS
+  control_plane_access: VERIFIED
+  project_state_reconciled: true
+  predecessor_retired_from_normal_active_work: true
+  predecessor_preservation: HISTORICAL_FORENSIC_REFERENCE
+  project_state_changed_by_rotation: false
 
 active_lanes:
   - lane_id: U127-ARTIFACT-RECOVERY
@@ -28,7 +37,7 @@ active_lanes:
     status: ACTIVE_PARALLEL
     purpose: persist persona, assets, decisions, state, checkpoints, and channel succession outside chat runtime
     branch: control-hub-continuity-v1
-    phase: ROUND_1_CONTINUITY_SKELETON
+    phase: SUCCESSOR_BOOTSTRAP_RECONCILED_AWAITING_DUAL_CORE_SYNC
 
 parked_lanes:
   - lane_id: PRICE-ENGINEERING
@@ -85,21 +94,25 @@ critical_blockers:
   - U127_ARTIFACT_PERSISTENCE_NOT_COMPLETE
   - INDEPENDENT_CA_CLOSURE_PENDING
   - OFFICIAL_PRICE_D4_D5_NOT_PROMOTED
+  - CORE_B_SUCCESSOR_NOT_YET_RECONCILED_BY_CORE_A
 
 continuity_risks:
   - CHANNEL_HISTORY_WAS_PREVIOUSLY_CARRYING_TOO_MUCH_PROJECT_AUTHORITY
   - LATER_U127_WORKBOOK_OUTPUT_REFERENCES_EXIST_WITHOUT_PERSISTENT_BYTE_REGISTRY
   - HANDOFF_PROMPT_ALONE_IS_INSUFFICIENT_AS_PROJECT_MEMORY
+  - DUAL_CORE_AUTHORITY_BOUNDARIES_NOT_YET_FROZEN
 
 next_actions_parallel:
   U127_RECOVERY:
     - preserve v0.7 as read-only forensic anchor
+    - persist v0.7 through governed primary and secondary artifact custody when write path is available
     - continue targeted byte recovery for v1.8 then v1.7 then v1.6
     - on recovery compute SHA256 and reconcile internal state before any promotion
     - do not rematerialize final U127 until recovery space is reasonably exhausted or Control explicitly authorizes governed rematerialization
   CONTROL_HUB_CONTINUITY:
-    - complete initial Event Ledger
-    - create Channel Registry and Checkpoint schema
-    - define Artifact Persistence Gate
-    - create first immutable Control Hub checkpoint
-    - run successor-channel recovery drill before v1.0 freeze
+    - receive and reconcile CORE B Model Validation / Design Architect successor handoff
+    - define final dual-core organization and authority boundary
+    - define shared asset ownership and cross-core synchronization events
+    - formalize Persona persistence, Artifact Persistence Gate, and Channel Rotation Protocol
+    - harvest P0 knowledge assets from both Core personas
+    - run successor recovery drill before Continuity v1 freeze
