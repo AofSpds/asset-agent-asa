@@ -1,0 +1,180 @@
+state_id: SEMI-CURRENT-STATE
+version: v1.3
+status: WORKING_DUAL_CORE_ACTIVE_SHARED_CONTRACTS_RECONCILED
+project: semiconductor-research
+as_of: '2026-08-15T23:21:00+09:00'
+
+active_cores:
+  CORE_A:
+    canonical_name: 문서·통제 아키텍트
+    persona_id: SEMI-CONTROL-ARCHITECT
+    instance_id: CTRL-ARCH-INSTANCE-004-20260815
+    status: ACTIVE_RECONCILED
+  CORE_B:
+    canonical_name: 모델 검증·설계 아키텍트
+    persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+    instance_id: MODEL-ARCH-INSTANCE-002-20260815
+    status: ACTIVE_PASS_WITH_WARNINGS
+    historical_continuity: PARTIAL
+    ready_for_normal_operation: true
+    actual_replay_authorized: false
+    model_freeze_authorized: false
+
+project_instruction_governance:
+  terminology_standard: control/continuity/v1.0/SEMI-TERMINOLOGY-STANDARD_v1.0_WORKING.yaml
+  global_instruction_governance: control/continuity/v1.0/SEMI-GLOBAL-INSTRUCTION-GOVERNANCE_v1.0_ACTIVE.yaml
+  mutation_authority: CORE_PERSONAS_ONLY
+  authorized_personas:
+    - SEMI-CONTROL-ARCHITECT
+    - SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+  non_core_roles_may_propose_only: true
+  channel_instance_has_no_independent_mutation_authority: true
+
+organization:
+  org_map: SEMI-ORG-MAP_v0.2_WORKING
+  authority_matrix: SEMI-DUAL-CORE-AUTHORITY-MATRIX_v0.2_WORKING
+  shared_contract_state: SEMI-SHARED-CONTRACT-STATE_v0.2_WORKING
+  cross_core_sync: SEMI-CROSS-CORE-SYNC-CONTRACT_v0.2_WORKING
+  unresolved_major_authority_conflicts: 0
+  shared_contract_agreed_count: 9
+  shared_contract_open_definition_count: 0
+  shared_contract_implementation_gates_remaining: true
+  control_sync_required_for_definition_conflict: false
+
+model_validation_design_architect_assets:
+  persona_manifest: control/core_b/SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT_v1.0_WORKING.yaml
+  model_contract: control/core_b/M3TOP3-MODEL-CONTRACT_v1.0_WORKING.yaml
+  validation_contract: control/core_b/M3TOP3-VALIDATION-CONTRACT_v1.0_WORKING.yaml
+  feature_schema: control/core_b/M3TOP3-FEATURE-SCHEMA_v1.0_WORKING.yaml
+  scorer_contract: control/core_b/M3TOP3-SCORER-CONTRACT_v1.0_WORKING.yaml
+  weight_version: control/core_b/M3TOP3-WEIGHT-VERSION_v1.0_WORKING.yaml
+  baseline_lock: control/core_b/M3TOP3-NO-TUNE-BASELINE-LOCK_v1.0_WORKING.yaml
+  open_design_items: control/core_b/M3TOP3-OPEN-DESIGN-ITEMS_v1.1_WORKING.yaml
+  return_packet_sha256: 3aaf153c3db332b92c3a9a8eb3e8e5480333e5aabdfb26f164034398bb46580b
+  return_packet_byte_size: 39415
+  model_objective: TOP_K_APPROX_3M_OPPORTUNITY_RANKING
+  primary_output: TOP3
+  diagnostic_output: MODEL_TOP10
+  primary_GT_semantics: 3M_MFE_RETURN_EXACT_RANK
+  critical_miss: ANY_SELECTED_TOP3_ACTUAL_3M_MFE_RANK_GT_20
+  feature_count: 9
+  feature_axes: [Business_Momentum, Expectation_Surprise, Market_Positioning, Forward_Runway, Reliability_Risk]
+  feature_schema_status: OUTCOME_BLIND_WORKING_BASELINE_CANDIDATE
+  scorer_id: M3TOP3-GATED-LINEAR
+  scorer_status: OUTCOME_BLIND_WORKING_BASELINE_CANDIDATE
+  axis_weights:
+    Business_Momentum: 25
+    Expectation_Surprise: 25
+    Market_Positioning: 20
+    Forward_Runway: 20
+    Reliability_Risk: 10
+  weights_outcome_tuned: false
+  no_tune_baseline_lock: READY_CANDIDATE
+  holdout_policy: HOLDOUT-v1.0_FIXED_PRE_OUTCOME
+  coverage_policy: COV-v1.0_100_PERCENT_OFFICIAL_RANKABILITY
+  walk_forward: OPEN_FOR_LATER_STATIC_BASELINE_NOT_BLOCKING
+
+shared_contracts:
+  WM_v1_0: AGREED_WORKING_IMPLEMENTATION_PENDING
+  MIS_v1_0: AGREED_WORKING_IMPLEMENTATION_PENDING
+  SIO_v1_0: AGREED_WORKING_IMPLEMENTATION_PENDING
+  VDI_v1_0: AGREED_WORKING_RELEASE_NOT_MATERIALIZED
+  MARM_v1_0: AGREED_WORKING_RELEASE_NOT_MATERIALIZED
+
+u127:
+  membership: 127
+  total_BP_cells: 1016
+  certified_READY: 1013
+  unresolved: 3
+  adjudicated: 1016
+  complete_histories: 125
+  freeze_policy: POLICY_B_APPROVED
+  logical_readiness: READY_WITH_WARNINGS
+  physical_artifact_freeze: BLOCKED
+  U127_frozen: false
+  highest_byte_verified_artifact: U127_Data_Expansion_Working_v0.7_2026-08-15.xlsx
+  v0_7_sha256: 1fc47fd131479e6ebb4375206853f39a730610d8b9f29160c33aa292881ad50a
+  v0_7_successor_custody: VERIFIED
+  v0_7_primary_persistence: NOT_YET
+  v0_7_secondary_persistence: NOT_YET
+  delta_lineage: PARTIAL_BOUNDED
+  canonical_release_spec: control/u127/SEMI-U127-CANONICAL-RELEASE-SPEC_v0.1_WORKING.yaml
+  canonical_machine_release: NOT_MATERIALIZED
+
+price:
+  dataset_id: SEMI-PRICE-MARCAP-KRX-2024-2026_v1
+  identity_sha256: 419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7
+  raw_rows: 1819147
+  engineering_D4_dryrun: PASS_WITH_DECLARED_BLOCKERS
+  official_D4: BLOCKED
+  official_D5: NOT_EXECUTED
+  primary_storage: AWS_S3_MATERIALIZED_VERIFIED
+  secondary_storage: CLOUDFLARE_R2_MATERIALIZED_VERIFIED
+
+ca:
+  research_local_signal_adjudication: PASS_24_OF_24
+  research_local_regression: PASS_2_OF_2
+  independent_confirmation: BLOCKED_PENDING_CLOSURE
+  project_completeness_gate: BLOCKED
+  raw_OHLC_completeness_axis: BLOCKED
+
+m3top3_engineering:
+  historical_engineering_stack_status: COMPLETE_PARKED
+  synthetic_backtest_days: 420
+  new_v1_feature_scorer_implementation: NOT_EXECUTED
+  actual_U127_two_year_replay: NOT_EXECUTED
+  engineering_semantics_review_by_model_validation_design_architect: ACCEPTED_FIVE_OF_FIVE
+
+actual_replay_readiness:
+  ready: false
+  blockers:
+    문서·통제_아키텍트_CORE_A:
+      - AUTHORITATIVE_MACHINE_READABLE_U127_RELEASE
+      - U127_V0_7_PRIMARY_SECONDARY_PERSISTENCE
+      - PRICE_OFFICIAL_READINESS
+      - CA_RAW_OHLC_CLOSURE
+      - VALIDATION_DATASET_RELEASE_MATERIALIZATION
+    모델_검증·설계_아키텍트_CORE_B:
+      - MACHINE_IMPLEMENT_F01_TO_F09
+      - MACHINE_IMPLEMENT_M3TOP3_GATED_LINEAR
+      - BIND_EXACT_CODE_COMMIT
+      - BIND_EXACT_CONFIG_HASH
+      - FORMALIZE_MAE_RETURN_STORAGE_FORMULA_IF_NOT_ALREADY_AUTHORITATIVE
+    SHARED_IMPLEMENTATION:
+      - IMPLEMENT_WM_v1_0
+      - IMPLEMENT_MIS_v1_0
+      - IMPLEMENT_SIO_v1_0
+      - MATERIALIZE_VDI_v1_0
+      - MATERIALIZE_MARM_v1_0
+    VALIDATION:
+      - INDEPENDENT_DESIGN_IMPLEMENTATION_PREFLIGHT
+      - INDEPENDENT_REPLAY_VALIDATION_PROCEDURE
+
+continuity:
+  core_A_checkpoint_loaded: CP-CTRL-20260815-GENESIS-001
+  dual_core_checkpoint: CP-DUALCORE-20260815-001
+  static_recovery_preflight: PASS_WITH_WARNINGS
+  fresh_CORE_A_recovery_drill: NOT_EXECUTED
+  fresh_CORE_B_recovery_drill: NOT_EXECUTED
+  organization_freeze: NOT_ELIGIBLE
+  continuity_v1_freeze: NOT_ELIGIBLE
+  next_checkpoint_required: AFTER_FRESH_SUCCESSOR_RECOVERY_DRILL_OR_MAJOR_IMPLEMENTATION_GATE_CLOSURE
+
+next_actions_parallel:
+  문서·통제_아키텍트_CORE_A:
+    - CONTINUE_U127_CANONICAL_RELEASE_SOURCE_BINDING
+    - PERSIST_U127_V0_7_PRIMARY_SECONDARY_WHEN_STORAGE_WRITE_PATH_AVAILABLE
+    - CLOSE_CA_AND_PRICE_READINESS
+    - MATERIALIZE_VALIDATION_DATASET_IDENTITY_AFTER_DATA_GATE
+  모델_검증·설계_아키텍트_CORE_B:
+    - IMPLEMENT_F01_TO_F09_WITHOUT_ACTUAL_OUTCOME_INSPECTION
+    - IMPLEMENT_M3TOP3_GATED_LINEAR
+    - RUN_SYNTHETIC_AND_PIT_FIREWALL_TESTS_ONLY
+    - BIND_CODE_COMMIT_AND_CONFIG_HASH
+  SHARED:
+    - IMPLEMENT_RECONCILED_SHARED_CONTRACTS
+    - EXECUTE_FRESH_CORE_A_AND_CORE_B_SUCCESSOR_RECOVERY_DRILLS
+    - PREPARE_INDEPENDENT_VALIDATION_PREFLIGHT
+    - PREPARE_ACTUAL_REPLAY_READINESS_GATE
+
+user_action_required_now: NONE
