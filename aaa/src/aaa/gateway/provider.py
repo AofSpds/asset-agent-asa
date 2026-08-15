@@ -4,6 +4,14 @@ from dataclasses import dataclass
 from typing import Any, Callable, Iterable, Mapping, Protocol
 
 
+class ProviderUnavailable(RuntimeError):
+    """Transient/provider-side failure for which ordered failover is allowed."""
+
+
+class ProviderRequestRejected(RuntimeError):
+    """Request/semantic failure that must not silently fail over to another model."""
+
+
 @dataclass(frozen=True)
 class ProviderCapabilities:
     invoke: bool
@@ -52,16 +60,16 @@ class OfflineProvider:
         return ProviderHealth(self.provider_id, "OFFLINE", "No model provider configured")
 
     def invoke(self, request: Mapping[str, Any]) -> Mapping[str, Any]:
-        raise RuntimeError("LLM_PROVIDER_OFFLINE")
+        raise ProviderUnavailable("LLM_PROVIDER_OFFLINE")
 
     def stream(self, request: Mapping[str, Any]) -> Iterable[Mapping[str, Any]]:
-        raise RuntimeError("LLM_PROVIDER_OFFLINE")
+        raise ProviderUnavailable("LLM_PROVIDER_OFFLINE")
 
     def structured_output(self, request: Mapping[str, Any]) -> Mapping[str, Any]:
-        raise RuntimeError("LLM_PROVIDER_OFFLINE")
+        raise ProviderUnavailable("LLM_PROVIDER_OFFLINE")
 
     def tool_calling(self, request: Mapping[str, Any]) -> Mapping[str, Any]:
-        raise RuntimeError("LLM_PROVIDER_OFFLINE")
+        raise ProviderUnavailable("LLM_PROVIDER_OFFLINE")
 
     def cost_metadata(self) -> ProviderCostMetadata:
         return ProviderCostMetadata(self.provider_id, detail="offline")
@@ -97,8 +105,10 @@ class FakeProvider:
 class CallableProviderAdapter:
     """Provider-neutral adapter around injected transports.
 
-    Network/auth/provider SDK details stay outside the deterministic gateway. This
-    adapter binds one configured provider identity to explicit transport callables.
+    Network/auth/provider SDK details stay outside the deterministic gateway. The
+    injected transport must classify provider-side retryable failures as
+    ProviderUnavailable and request/semantic failures as ProviderRequestRejected.
+    This prevents unsafe silent model switching on malformed or rejected requests.
     """
 
     def __init__(
@@ -137,23 +147,23 @@ class CallableProviderAdapter:
 
     def invoke(self, request: Mapping[str, Any]) -> Mapping[str, Any]:
         if not self._capabilities.invoke:
-            raise RuntimeError("PROVIDER_CAPABILITY_UNAVAILABLE:invoke")
+            raise ProviderRequestRejected("PROVIDER_CAPABILITY_UNAVAILABLE:invoke")
         return dict(self._invoke_transport(dict(request)))
 
     def stream(self, request: Mapping[str, Any]) -> Iterable[Mapping[str, Any]]:
         if not self._capabilities.stream or self._stream_transport is None:
-            raise RuntimeError("PROVIDER_CAPABILITY_UNAVAILABLE:stream")
+            raise ProviderRequestRejected("PROVIDER_CAPABILITY_UNAVAILABLE:stream")
         for item in self._stream_transport(dict(request)):
             yield dict(item)
 
     def structured_output(self, request: Mapping[str, Any]) -> Mapping[str, Any]:
         if not self._capabilities.structured_output or self._structured_transport is None:
-            raise RuntimeError("PROVIDER_CAPABILITY_UNAVAILABLE:structured_output")
+            raise ProviderRequestRejected("PROVIDER_CAPABILITY_UNAVAILABLE:structured_output")
         return dict(self._structured_transport(dict(request)))
 
     def tool_calling(self, request: Mapping[str, Any]) -> Mapping[str, Any]:
         if not self._capabilities.tool_calling or self._tool_transport is None:
-            raise RuntimeError("PROVIDER_CAPABILITY_UNAVAILABLE:tool_calling")
+            raise ProviderRequestRejected("PROVIDER_CAPABILITY_UNAVAILABLE:tool_calling")
         return dict(self._tool_transport(dict(request)))
 
     def cost_metadata(self) -> ProviderCostMetadata:
