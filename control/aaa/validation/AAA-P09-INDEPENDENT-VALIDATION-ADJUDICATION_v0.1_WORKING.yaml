@@ -1,0 +1,60 @@
+control_id: AAA-P09-INDEPENDENT-VALIDATION-ADJUDICATION
+version: v0.1_WORKING
+project: Asset Agent ASA
+short_name: AAA
+recorded_at: '2026-08-16T06:14:00+09:00'
+adjudicated_by: AAA_BUILD_CONTROL
+source_return_packet:
+  sha256: 9fedd43235079de169cbe117e563b82398b2dd4af75ea9a2ecd3b066a4873e0a
+  byte_size: 21272
+  transport_only: true
+run_id: RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-001
+work_order: control/workorders/WO-VALIDATION-AAA-v0.2-INDEPENDENT-PREFLIGHT-20260816.yaml
+target_binding: control/aaa/validation/AAA-v0.1-INDEPENDENT-PREFLIGHT-TARGET-BINDING_v0.2_WORKING.yaml
+exact_validated_engineering_commit: 80378610f9ac9e688c52417f0416e01c057400a7
+independent_execution:
+  executor_persona: SEMI-VALIDATION-AUDITOR
+  observed_started_at: '2026-08-16T06:10:53.067426+09:00'
+  github_actions_workflow_run_id: 31907885316
+  python_job_id: 95070436019
+  owner_console_job_id: 95070517847
+  branch_latest_head_used_as_validation_target: false
+independent_reproduction:
+  python_tests: PASS_101_OF_101
+  npm_ci: PASS
+  owner_console_build: PASS
+  canonical_side_effect_check: PASS
+blocking_findings:
+  - finding_id: AAA-IV-T17-FND-01-FUTURE-HEARTBEAT-FALSE-RUNNING
+    severity: P0
+  - finding_id: AAA-IV-T17-FND-02-TERMINAL-STATE-VERDICT-MISMATCH
+    severity: P0
+  - finding_id: AAA-IV-T17-FND-03-TERMINAL-RESULT-PERSISTENCE-NOT-VERIFIED
+    severity: P0
+  - finding_id: AAA-IV-T17-FND-04-WORK-ORDER-RUN-RESULT-REFERENTIAL-INTEGRITY
+    severity: P1
+  - finding_id: AAA-IV-T17-FND-05-TIMEZONE-STRING-ACTIVITY-ORDER
+    severity: P1
+independent_verdict: FAIL
+independent_validation_pass: false
+p09_acceptance: FAILED
+terminal_persistence:
+  result_id: RESULT-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-001
+  locator: control/aaa/results/RESULT-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-001.json
+  sha256: e3e1c97e994f7459406940f4f290b9a45852bdbfa58b83720e46f9f08959d38e
+  run_state: COMPLETED_FAIL
+  p09_gate: OPEN_BLOCKED
+external_blockers_preserved:
+  - AAA-FINDING-CONTINUITY-EVENT-ID-COLLISION_v0.1_WORKING
+  - M3TOP3_FND_02_F06_EXTERNAL_P0
+authority:
+  controlled_cutover_authorized: false
+  production_release_authorized: false
+  replay_authorized: false
+  model_methodology_changed: false
+  shared_contract_changed: false
+next_required_action:
+  - issue bounded T17 Run Registry / Persona Operations remediation work order
+  - produce new exact successor engineering commit without overwriting validated target
+  - rerun independent preflight against new exact successor
+status: ADJUDICATED_FAIL_OPEN_BLOCKED
