@@ -1,0 +1,64 @@
+registry_id: SEMI-CHANNEL-REGISTRY
+version: v1.3
+status: WORKING_CONTROL_REGISTRY_VALIDATION_EXECUTION_EVIDENCE_RECEIVED
+project: semiconductor-research
+as_of: '2026-08-16T00:36:00+09:00'
+supersedes: control/continuity/v1.0/SEMI-CHANNEL-REGISTRY_v1.2.yaml
+channel_model:
+  principle: CHANNEL_IS_PERSONA_INSTANCE_NOT_PERSONA
+  lifecycle_states: [ACTIVE, ROTATING, CLOSED, ARCHIVED, RECOVERY_ONLY, PLANNED]
+instances:
+  - channel_instance_id: CTRL-ARCH-INSTANCE-004-20260815
+    persona_id: SEMI-CONTROL-ARCHITECT
+    display_name: M3Top3 문서·통제 아키텍트 predecessor
+    predecessor: CTRL-ARCH-LEGACY-BOOTSTRAP-20260815
+    successor: CTRL-ARCH-INSTANCE-005-20260816
+    start_checkpoint: CP-CTRL-20260815-GENESIS-001
+    end_checkpoint: CP-CTRL-20260816-ROTATION-001
+    status: CLOSED
+    last_control_state: SEMI-CURRENT-STATE_v1.7
+    closure_event: EVT-CONT-0009
+  - channel_instance_id: CTRL-ARCH-INSTANCE-005-20260816
+    persona_id: SEMI-CONTROL-ARCHITECT
+    display_name: M3Top3 문서·통제 아키텍트5
+    predecessor: CTRL-ARCH-INSTANCE-004-20260815
+    successor: UNASSIGNED
+    start_checkpoint: CP-CTRL-20260816-ROTATION-001
+    end_checkpoint: null
+    status: ACTIVE
+    active_lanes:
+      - U127_RELEASE_CLOSURE
+      - PRICE_CA_TARGETED_CLOSURE
+      - VALIDATION_DATASET_RELEASE_PREPARATION
+      - PREFLIGHT_NARROW_FIX_CONTROL_AND_REVALIDATION
+  - channel_instance_id: MODEL-ARCH-INSTANCE-002-20260815
+    persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+    display_name: M3Top3 모델 검증 설계 아키텍트2
+    predecessor: MODEL-ARCH-LEGACY-20260815
+    successor: UNASSIGNED
+    start_checkpoint: CORE_B_SUCCESSOR_BOOTSTRAP_PACKET_20260815
+    end_checkpoint: null
+    status: ACTIVE
+    current_state: INDEPENDENT_PREFLIGHT_PASS_WITH_NARROW_FIXES_CORE_B_PATCH_REQUIRED
+  - channel_instance_id: VALID-AUDIT-INSTANCE-001-20260816
+    persona_id: SEMI-VALIDATION-AUDITOR
+    display_name: M3Top3 독립 검증·감사팀
+    predecessor: null
+    successor: UNASSIGNED
+    start_checkpoint: VALIDATION_BOOTSTRAP_CONTROL_RECORD_NOT_RECEIVED
+    end_checkpoint: null
+    status: ACTIVE
+    execution_evidence:
+      work_order: WO-VALIDATION-M3TOP3-v1-INDEPENDENT-PREFLIGHT-20260816
+      result_received: PASS_WITH_NARROW_FIXES
+      control_adjudication: control/validation/M3TOP3-v1-INDEPENDENT-PREFLIGHT-CONTROL-ADJUDICATION_v0.1_WORKING.yaml
+      actual_outcome_data_inspected: false
+      actual_replay_executed: false
+    continuity_warning:
+      bootstrap_return_packet_persisted_in_control_plane: false
+      status: BACKFILL_REQUIRED_BEFORE_FINAL_RELEASE_GOVERNANCE
+rules:
+  - VALIDATION_CHANNEL_MUST_NOT_BE_IMPLEMENTER_INSTANCE
+  - EXECUTION_EVIDENCE_DOES_NOT_ERASE_BOOTSTRAP_CONTINUITY_REQUIREMENT
+  - CHANNEL_ROTATION_DOES_NOT_CHANGE_PROJECT_SEMANTICS
+  - RETURN_PACKET_IS_TRANSPORT_NOT_SOURCE_OF_TRUTH
