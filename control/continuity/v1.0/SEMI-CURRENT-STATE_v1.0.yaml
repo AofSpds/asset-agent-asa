@@ -1,7 +1,7 @@
 state_id: SEMI-CURRENT-STATE
 version: v1.0
 status: WORKING_SUCCESSOR_ACTIVE
-as_of: '2026-08-15T21:28:00+09:00'
+as_of: '2026-08-15T21:39:00+09:00'
 project: semiconductor-research
 active_persona: SEMI-CONTROL-ARCHITECT
 active_persona_instance: CTRL-ARCH-INSTANCE-004-20260815
@@ -18,7 +18,7 @@ successor_bootstrap:
 active_lanes:
   - lane_id: U127-ARTIFACT-RECOVERY
     status: ACTIVE_PARALLEL
-    purpose: recover latest genuine U127 workbook bytes and establish clean parent lineage
+    purpose: recover genuine historical bytes and reconstruct the post-v0.7 application mechanism without rematerializing
     current_best_physical_artifact: U127_Data_Expansion_Working_v0.7_2026-08-15.xlsx
     current_best_physical_authority: LEVEL_3
     successor_byte_custody: VERIFIED
@@ -26,6 +26,7 @@ active_lanes:
     successor_sha256: 1fc47fd131479e6ebb4375206853f39a730610d8b9f29160c33aa292881ad50a
     successor_read_only_import: PASS
     successor_sheet_count: 17
+    post_v0_7_application_mechanism_audit: REQUEST_READY_FOR_PREDECESSOR_CONTROL_CHANNEL
     historical_materialization_audit:
       result: MATERIALIZATION_HISTORY_MIXED
       most_likely_hypothesis: H4
@@ -51,12 +52,17 @@ active_lanes:
       - DO_NOT_EDIT_RECOVERED_BYTES
       - HASH_AND_INSPECT_BEFORE_AUTHORITY_ASSIGNMENT
       - DO_NOT_USE_V1_9_AS_CLEAN_PARENT
+      - OWNER_TESTIMONY_IS_PROCESS_EVIDENCE_NOT_BYTE_PROOF
 
   - lane_id: CONTROL-HUB-CONTINUITY-v1
     status: ACTIVE_PARALLEL
     purpose: persist persona, assets, decisions, state, checkpoints, and channel succession outside chat runtime
     branch: control-hub-continuity-v1
-    phase: SUCCESSOR_BOOTSTRAP_RECONCILED_AWAITING_DUAL_CORE_SYNC
+    phase: CORE_A_SUCCESSOR_ACTIVE_AWAITING_CORE_B_RECONCILIATION
+
+  - lane_id: KNOWLEDGE-INCIDENT-HARVEST
+    status: ACTIVE_PARALLEL
+    purpose: preserve high-value model/control know-how and reconstruct continuity failure modes before further rotation
 
 parked_lanes:
   - lane_id: PRICE-ENGINEERING
@@ -87,6 +93,7 @@ u127:
   v0_7_persistent_primary: NOT_YET
   v0_7_persistent_secondary: NOT_YET
   permanent_loss: NOT_ESTABLISHED
+  post_v0_7_delta_carrier: UNKNOWN_PENDING_FORENSIC_AUDIT
 
 price:
   dataset_id: SEMI-PRICE-MARCAP-KRX-2024-2026_v1
@@ -113,27 +120,40 @@ m3top3:
 
 critical_blockers:
   - AUTHORITATIVE_U127_FINAL_MACHINE_BYTES_NOT_RECOVERED
+  - POST_V0_7_AUTHORITATIVE_DELTA_CARRIER_NOT_YET_RECONSTRUCTED
   - U127_ARTIFACT_PERSISTENCE_NOT_COMPLETE
   - INDEPENDENT_CA_CLOSURE_PENDING
   - OFFICIAL_PRICE_D4_D5_NOT_PROMOTED
   - CORE_B_SUCCESSOR_NOT_YET_RECONCILED_BY_CORE_A
 
+continuity_incident_assessment:
+  likely_contributing_factor: PERSONA_CHANNEL_CONTINUITY_BREAK
+  confidence: MEDIUM_HIGH
+  certification: NOT_YET_FINAL_ROOT_CAUSE
+  basis:
+    - logical U127 version progression outran byte-verified artifact progression
+    - important later FILE_OUTPUT references lack persistent byte registry
+    - predecessor/successor runtimes did not share durable artifact custody
+    - version namespaces mixed Research state, workbook target, and Control state
+    - Project Owner reports that normally delivered XLSX artifacts would have been retained, supporting a non-file or mixed application mechanism after v0.7
+  caution: user testimony is operational process evidence and does not negate direct historical FILE_OUTPUT or v1.9 reimport evidence
+
 continuity_risks:
   - CHANNEL_HISTORY_WAS_PREVIOUSLY_CARRYING_TOO_MUCH_PROJECT_AUTHORITY
   - LATER_U127_WORKBOOK_OUTPUT_REFERENCES_EXIST_WITHOUT_PERSISTENT_BYTE_REGISTRY
   - U127_VERSION_NAMESPACE_COLLISION_CONFIRMED
+  - PERSONA_CONTINUITY_BREAK_LIKELY_CONTRIBUTED_TO_ARTIFACT_LINEAGE_GAP
   - HANDOFF_PROMPT_ALONE_IS_INSUFFICIENT_AS_PROJECT_MEMORY
   - DUAL_CORE_AUTHORITY_BOUNDARIES_NOT_YET_FROZEN
 
 next_actions_parallel:
   U127_RECOVERY:
+    - send post-v0.7 application-mechanism and version-namespace forensic audit to predecessor Document Control Architect
     - persist exact v0.7 bytes through governed primary and secondary artifact custody
-    - search specific v1.9 final-reimport-producing runtime for possible coexisting v1.8 parent bytes
-    - search RC4/RC4.5 workbook-writing runtime for genuine v1.8 bytes
-    - continue clean-parent recovery v1.8 then v1.7 then v1.6
+    - continue targeted genuine-byte recovery v1.8 then v1.7 then v1.6
     - treat v1.9 as forensic-only if recovered
-    - do not spend equivalent effort on v0.8 v0.9 v1.1 absent new physical evidence
-    - do not rematerialize final U127 until recovery space is formally exhausted or Control explicitly authorizes governed rematerialization
+    - identify the authoritative accepted-delta lineage from v0.7 to 1013 READY plus 3 unresolved
+    - do not rematerialize until recovery/application-mechanism audit space is formally exhausted and Control authorizes a new-identity reconstruction
   CONTROL_HUB_CONTINUITY:
     - receive and reconcile CORE B Model Validation / Design Architect successor handoff
     - define final dual-core organization and authority boundary
