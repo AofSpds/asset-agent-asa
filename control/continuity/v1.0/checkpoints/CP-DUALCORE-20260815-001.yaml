@@ -1,0 +1,54 @@
+checkpoint_id: CP-DUALCORE-20260815-001
+status: WORKING_MILESTONE_CHECKPOINT
+project: semiconductor-research
+created_at: '2026-08-15T22:52:00+09:00'
+created_by: SEMI-CONTROL-ARCHITECT
+branch: control-hub-continuity-v1
+pre_checkpoint_git_commit: e160c8940f0ef5bce931014395e76543a666ee32
+parent_checkpoint: CP-CTRL-20260815-GENESIS-001
+core_A:
+  persona_id: SEMI-CONTROL-ARCHITECT
+  instance_id: CTRL-ARCH-INSTANCE-004-20260815
+  status: ACTIVE
+core_B:
+  persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+  instance_id: MODEL-ARCH-INSTANCE-002-20260815
+  predecessor_instance: MODEL-ARCH-LEGACY-20260815
+  bootstrap_status: PASS_WITH_WARNINGS
+  historical_continuity: PARTIAL
+  normal_operation_allowed: true
+  official_replay_allowed: false
+  model_freeze_allowed: false
+refs:
+  current_state: control/continuity/v1.0/SEMI-CURRENT-STATE_v1.1.yaml
+  org_map: control/continuity/v1.0/SEMI-ORG-MAP_v0.2_WORKING.yaml
+  authority_matrix: control/continuity/v1.0/SEMI-DUAL-CORE-AUTHORITY-MATRIX_v0.2_WORKING.yaml
+  shared_contract_state: control/continuity/v1.0/SEMI-SHARED-CONTRACT-STATE_v0.1_WORKING.yaml
+  cross_core_sync: control/continuity/v1.0/SEMI-CROSS-CORE-SYNC-CONTRACT_v0.2_WORKING.yaml
+  channel_registry: control/continuity/v1.0/SEMI-CHANNEL-REGISTRY_v1.0.yaml
+  event_ledger: control/continuity/v1.0/SEMI-CONTROL-EVENT-LEDGER_v1.1.jsonl
+  core_B_persona: control/core_b/SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT_v1.0_WORKING.yaml
+  model_contract: control/core_b/M3TOP3-MODEL-CONTRACT_v1.0_WORKING.yaml
+  validation_contract: control/core_b/M3TOP3-VALIDATION-CONTRACT_v1.0_WORKING.yaml
+  open_design_items: control/core_b/M3TOP3-OPEN-DESIGN-ITEMS_v1.0_WORKING.yaml
+organization:
+  unresolved_major_authority_conflicts: 0
+  shared_contracts_agreed: 4
+  shared_contracts_open: 5
+  control_sync_required: true
+u127:
+  READY: 1013
+  UNRESOLVED: 3
+  physical_freeze: BLOCKED
+  highest_byte_verified_version: v0.7
+m3top3:
+  primary_output: TOP3
+  diagnostic_output: MODEL_TOP10
+  primary_GT_semantics: 3M_MFE_EXACT_RANK
+  weights_frozen: false
+  scorer_frozen: false
+  actual_replay: NOT_EXECUTED
+next_actions:
+  CORE_A: [persist_U127_v0_7, close_CA_and_Price_readiness]
+  CORE_B: [formalize_v1_feature_schema, formalize_v1_scorer, formalize_v1_weight_version, lock_no_tune_baseline]
+  SHARED: [reconcile_open_shared_contracts, run_CORE_B_recovery_drill]
