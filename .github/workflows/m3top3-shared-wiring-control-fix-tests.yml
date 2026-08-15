@@ -1,0 +1,50 @@
+name: M3Top3 shared-wiring control-fix tests
+
+on:
+  push:
+    branches:
+      - control-hub-continuity-v1
+    paths:
+      - 'tools/m3top3/**'
+      - 'control/shared/M3TOP3-EVIDENCE-RESOLVER-AUTHORITY_v1.0_WORKING.json'
+      - 'control/shared/M3TOP3-F08-NUMERIC-RULE-AUTHORITY_v1.0_WORKING.json'
+      - 'control/shared/M3TOP3-RECORD-LEVEL-BINDING-POLICY_v1.0_WORKING.json'
+      - '.github/workflows/m3top3-shared-wiring-control-fix-tests.yml'
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Component and baseline SHA256
+        run: |
+          sha256sum \
+            tools/m3top3/shared_interface_guards_v1_2.py \
+            tools/m3top3/official_runtime_v1_1.py \
+            tools/m3top3/tests/test_shared_wiring_control_fixes_v1.py \
+            control/shared/M3TOP3-EVIDENCE-RESOLVER-AUTHORITY_v1.0_WORKING.json \
+            control/shared/M3TOP3-F08-NUMERIC-RULE-AUTHORITY_v1.0_WORKING.json \
+            control/shared/M3TOP3-RECORD-LEVEL-BINDING-POLICY_v1.0_WORKING.json \
+            tools/m3top3/configs/m3top3_v1.0.json | tee sha256-output.log
+      - name: Run full M3Top3 suite
+        id: full_tests
+        continue-on-error: true
+        run: python -m unittest discover -s tools/m3top3/tests -p 'test_*.py' -v 2>&1 | tee test-output.log
+      - name: Upload exact test log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: m3top3-control-fix-test-log
+          path: |
+            test-output.log
+            sha256-output.log
+          retention-days: 7
+      - name: Enforce test result
+        if: steps.full_tests.outcome != 'success'
+        run: exit 1
