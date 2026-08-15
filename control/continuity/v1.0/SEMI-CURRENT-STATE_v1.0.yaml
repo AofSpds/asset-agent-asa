@@ -1,0 +1,105 @@
+state_id: SEMI-CURRENT-STATE
+version: v1.0
+status: WORKING_GENESIS_STATE
+as_of: '2026-08-15T20:34:00+09:00'
+project: semiconductor-research
+active_persona: SEMI-CONTROL-ARCHITECT
+active_persona_instance: CTRL-ARCH-LEGACY-BOOTSTRAP-20260815
+
+active_lanes:
+  - lane_id: U127-ARTIFACT-RECOVERY
+    status: ACTIVE_PARALLEL
+    purpose: recover latest genuine U127 workbook bytes and establish clean parent lineage
+    current_best_physical_artifact: U127_Data_Expansion_Working_v0.7_2026-08-15.xlsx
+    current_best_physical_authority: LEVEL_3
+    recovery_priority:
+      - v1.8
+      - v1.7
+      - v1.6
+      - v1.5
+      - v1.4
+      - v1.3
+    constraints:
+      - RECOVERY_NOT_RECONSTRUCTION
+      - DO_NOT_EDIT_RECOVERED_BYTES
+      - HASH_AND_INSPECT_BEFORE_AUTHORITY_ASSIGNMENT
+
+  - lane_id: CONTROL-HUB-CONTINUITY-v1
+    status: ACTIVE_PARALLEL
+    purpose: persist persona, assets, decisions, state, checkpoints, and channel succession outside chat runtime
+    branch: control-hub-continuity-v1
+    phase: ROUND_1_CONTINUITY_SKELETON
+
+parked_lanes:
+  - lane_id: PRICE-ENGINEERING
+    status: PARKED
+    reason: official D4/D5 blocked pending CA closure and authoritative U127 machine-readable readiness
+  - lane_id: M3TOP3-ENGINEERING
+    status: PARKED
+    reason: waits for authoritative U127, official scorer/model definition, window mapping, CA closure, and Price readiness
+
+u127:
+  membership: 127
+  total_BP_cells: 1016
+  certified_READY: 1013
+  partial: 0
+  unresolved: 3
+  adjudicated: 1016
+  complete_histories: 125
+  R4: 0
+  R7: 3
+  freeze_policy: POLICY_B_APPROVED
+  logical_control_freeze_readiness: READY_WITH_WARNINGS
+  physical_artifact_freeze_readiness: BLOCKED
+  operational_activation_readiness: BLOCKED
+  U127_frozen: false
+  recovered_highest_physical_version: v0.7
+  v0_7_sha256: 1fc47fd131479e6ebb4375206853f39a730610d8b9f29160c33aa292881ad50a
+  permanent_loss: NOT_ESTABLISHED
+
+price:
+  dataset_id: SEMI-PRICE-MARCAP-KRX-2024-2026_v1
+  identity_sha256: 419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7
+  raw_rows: 1819147
+  engineering_D4_dryrun: ENGINEERING_DRYRUN_PASS_WITH_DECLARED_BLOCKERS
+  official_D4: BLOCKED
+  official_D5: NOT_EXECUTED
+  primary_storage: AWS_S3_MATERIALIZED_VERIFIED
+  secondary_storage: CLOUDFLARE_R2_MATERIALIZED_VERIFIED
+
+ca:
+  research_local_CA_signal_adjudication: PASS_24_OF_24
+  research_local_CA_regression: PASS_2_OF_2
+  independent_CA_confirmation: BLOCKED_PENDING_CLOSURE
+  project_CA_completeness_gate: BLOCKED
+  raw_OHLC_completeness_axis: BLOCKED
+  known_KRX_comparable_price_axis: PASS
+
+m3top3:
+  engineering: COMPLETE_PARKED
+  synthetic_backtest_days: 420
+  actual_U127_two_year_backtest: NOT_EXECUTED
+
+critical_blockers:
+  - AUTHORITATIVE_U127_FINAL_MACHINE_BYTES_NOT_RECOVERED
+  - U127_ARTIFACT_PERSISTENCE_NOT_COMPLETE
+  - INDEPENDENT_CA_CLOSURE_PENDING
+  - OFFICIAL_PRICE_D4_D5_NOT_PROMOTED
+
+continuity_risks:
+  - CHANNEL_HISTORY_WAS_PREVIOUSLY_CARRYING_TOO_MUCH_PROJECT_AUTHORITY
+  - LATER_U127_WORKBOOK_OUTPUT_REFERENCES_EXIST_WITHOUT_PERSISTENT_BYTE_REGISTRY
+  - HANDOFF_PROMPT_ALONE_IS_INSUFFICIENT_AS_PROJECT_MEMORY
+
+next_actions_parallel:
+  U127_RECOVERY:
+    - preserve v0.7 as read-only forensic anchor
+    - continue targeted byte recovery for v1.8 then v1.7 then v1.6
+    - on recovery compute SHA256 and reconcile internal state before any promotion
+    - do not rematerialize final U127 until recovery space is reasonably exhausted or Control explicitly authorizes governed rematerialization
+  CONTROL_HUB_CONTINUITY:
+    - complete initial Event Ledger
+    - create Channel Registry and Checkpoint schema
+    - define Artifact Persistence Gate
+    - create first immutable Control Hub checkpoint
+    - run successor-channel recovery drill before v1.0 freeze
