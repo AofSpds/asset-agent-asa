@@ -4,18 +4,24 @@
   "work_order_id": "WO-AAA-RUN-REGISTRY-OPERATIONS-DASHBOARD-20260816",
   "responsible_persona": "SEMI-CONTROL-ARCHITECT",
   "executor_role": "ENGINEERING",
-  "state": "RUNNING_CONFIRMED",
+  "state": "COMPLETED_PASS",
   "repository": "AofSpds/asset-agent-asa",
   "exact_base_commit": "75f42d81f0f8ca809342e4dd194712265ac59c7d",
   "branch": "aaa-t17-run-registry-ops-dashboard-v0",
   "started_at": "2026-08-16T05:31:00+09:00",
-  "last_heartbeat_at": "2026-08-16T05:31:00+09:00",
+  "last_heartbeat_at": "2026-08-16T05:36:00+09:00",
   "stale_after_seconds": 7200,
   "canonical_output": false,
-  "terminal_result": null,
+  "terminal_result": {
+    "result_id": "RESULT-AAA-T17-OPS-DASHBOARD-v0.1",
+    "result_sha256": "32419b43e6f88936b3b846455531569cf0f091866bc7b7cca3603c320325b59a",
+    "completed_at": "2026-08-16T05:36:00+09:00",
+    "persistent_locator": "control/aaa/results/RESULT-AAA-T17-OPS-DASHBOARD-v0.1.json",
+    "verdict": "PASS"
+  },
   "notes": [
     "Owner approved this engineering track to run in parallel with independent validation.",
-    "Bootstrap run record is stored on the isolated engineering branch until Run Registry integration is accepted.",
+    "Engineering target c59f162bbd2e5ee955acd8bfeecf2d0afc41e148 passed Python 100/100 and Owner Console build in GitHub Actions run 31907091698.",
     "No canonical Control write, validation self-certification, replay, freeze, release, or cutover authority is granted."
   ]
 }
