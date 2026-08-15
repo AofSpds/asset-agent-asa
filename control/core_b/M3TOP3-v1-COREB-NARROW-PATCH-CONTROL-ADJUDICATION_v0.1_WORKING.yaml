@@ -1,0 +1,155 @@
+adjudication_id: M3TOP3-v1-COREB-NARROW-PATCH-CONTROL-ADJUDICATION
+version: v0.1_WORKING
+status: CONTROL_ACCEPTED_CORE_B_PATCH_CANDIDATE_WITH_SHARED_RECONCILIATION_REFINEMENTS
+project: semiconductor-research
+as_of: '2026-08-16T00:59:00+09:00'
+control_owner:
+  canonical_name: 문서·통제 아키텍트
+  persona_id: SEMI-CONTROL-ARCHITECT
+  instance_id: CTRL-ARCH-INSTANCE-005-20260816
+source_return_packet: USER_DELIVERED_M3TOP3_v1_CORE_B_NARROW_FIXES_20260816
+source_work_order: control/workorders/WO-COREB-M3TOP3-v1-NARROW-FIXES-20260816.yaml
+prevalidation_policy: control/continuity/v1.0/SEMI-PROJECT-GLOBAL-INSTRUCTIONS_v1.5_ACTIVE.yaml
+
+intake:
+  received_state: RECEIVED_UNVERIFIED
+  prevalidation_result: PASS_WITH_CONTROL_WARNINGS
+  accepted_for_control: true
+  duplicate_or_replay: false
+  prior_control_acceptance_of_same_patch: false
+
+identity_checks:
+  repository: AofSpds/semiconductor-research
+  baseline_commit: 32c8a0f31428273d76b4e7b3f2cea76f955770aa
+  patch_commit: 5f9491b6861a11097a929156eaa8bb7cc3c8c749
+  patch_commit_exists: true
+  patch_commit_message: 'M3Top3 v1: bind narrow-fix patch identity'
+  baseline_is_merge_base_and_patch_is_descendant: true
+  compare_status: ahead
+  patch_ahead_of_baseline_by_commits: 39
+  note: >-
+    The 39-commit ancestry includes intervening Control/continuity commits because the patch was produced on the shared
+    control branch. Acceptance is therefore based on exact source bytes at the bound patch commit, exact CI checkout,
+    and specific implementation identities rather than treating the entire baseline-to-patch branch delta as model code.
+
+ci_checks:
+  github_actions_run_id: 31893921010
+  github_actions_job_id: 95034181141
+  head_sha_matches_patch_commit: true
+  run_status: completed
+  run_conclusion: success
+  checkout_exact_patch_commit: true
+  runtime: Ubuntu_24.04.4_CPyth3.12.13
+  tests_total: 53
+  tests_passed: 53
+  tests_failed: 0
+  infrastructure_regression: PASS_25_OF_25
+  original_model_regression: PASS_18_OF_18
+  new_adversarial: PASS_10_OF_10
+  sha256_values_match_return_packet:
+    tools/m3top3/features_v1_narrow_patch.py: d97fd31cb6ecb212022584393216436b6145a09c29dc7112a5e3e224a4cde623
+    tools/m3top3/shared_interface_guards_v1.py: 974cf64c794fdf390b81637b0cb648b3324313dd2091f066f72528f0c13afe4d
+    tools/m3top3/scorer_v1.py: 5f940c83acceba1fdc9aaf897a7fe3bbea0469fd80bdc4f9f6d43c32134247fe
+    tools/m3top3/tests/test_model_v1.py: 1d385ca7138b02d520893d1c173185fccc26fecd8f46603fe682cb3100ed0a7c
+    tools/m3top3/tests/test_narrow_fixes_v1.py: 5088965606b5d6f6d924475ab910ea408c4bd67cb575a6753bb53e1137026641
+
+implementation_readback:
+  scorer_uses_narrow_feature_engine: true
+  scorer_import: tools/m3top3/features_v1_narrow_patch.py::FeatureEngineV1NarrowPatch
+  FND_02_F06:
+    control_state: CORE_B_CLOSED_CANDIDATE_AWAITING_INDEPENDENT_DELTA_VALIDATION
+    verified_behavior:
+      - stable identity precedence milestone_id then event_group_id then evidence_group_id
+      - duplicate stable identity counted once
+      - 90 requires at least two independently identified verified milestones
+      - 100 additionally requires sequential flag, two distinct conversion-step identities, and two distinct milestone dates
+      - supplier-only cap remains 70
+  FND_03_F02:
+    control_state: CORE_B_CLOSED_CANDIDATE_AWAITING_INDEPENDENT_DELTA_VALIDATION
+    verified_behavior:
+      - metric_pairs require explicit change_mode
+      - RELATIVE and ABSOLUTE are supported
+      - RELATIVE prior zero fails closed
+      - precomputed metric_changes require governed object with value and operator_id
+      - ungoverned scalar metric_changes fail closed
+
+shared_guard_readback:
+  FND_01_MIS_PIT:
+    state: MODEL_SIDE_PROPOSAL_HOOK_ONLY_NOT_RELEASE_ACTIVATED
+    hook: tools/m3top3/shared_interface_guards_v1.py::validate_consumed_value_provenance
+  FND_04_F08:
+    state: MODEL_SIDE_PROPOSAL_HOOK_ONLY_NOT_RELEASE_ACTIVATED
+    hook: tools/m3top3/shared_interface_guards_v1.py::validate_f08_freshness_provenance
+  shared_contract_changed_by_core_b: false
+  official_release_wiring_complete: false
+
+persistent_artifact_identity_warning:
+  severity: NON_FATAL_CONTROL_IDENTITY_CLARIFICATION
+  finding: >-
+    The Core B RETURN PACKET lists the persistent manifest, test report and shared-interface proposal among CHANGED_FILES,
+    but those control artifacts are not bytes inside patch commit 5f9491b6...; they were materialized later on the control
+    branch and refer back to that exact source patch commit. They are valid persistent evidence when read from the later
+    control branch, but must not be represented as members of the source patch commit itself.
+  affected_artifacts:
+    - control/core_b/M3TOP3-v1-NARROW-FIX-MANIFEST_v0.1_WORKING.yaml
+    - control/core_b/M3TOP3-v1-NARROW-FIX-TEST-REPORT_v0.1_WORKING.json
+    - control/core_b/M3TOP3-v1-SHARED-PREFLIGHT-INTERFACE-PROPOSAL_v0.1_WORKING.yaml
+  disposition: ACCEPT_AS_LATER_CONTROL_EVIDENCE_NOT_PATCH_COMMIT_BYTES
+
+shared_reconciliation_required_refinements:
+  FND_01_CONSUMED_PATH_DISCOVERY:
+    severity: BLOCKING_FOR_SHARED_PROMOTION_NOT_FOR_CORE_B_PATCH_ACCEPTANCE
+    issue: >-
+      The proposal hook can validate a supplied consumed_fields list, but official fail-closed protection must not trust
+      the input itself to declare the complete set of fields actually consumed by scoring. Otherwise a malformed input
+      could omit a consumed path from consumed_fields while the feature engine still reads it.
+    required_reconciliation: >-
+      Official MIS/PIT enforcement must derive or verify consumed paths from a governed feature-input schema/registry or
+      use a block-level immutable cutoff certification whose scope explicitly covers every value in the scored block.
+      Self-declared consumed_fields alone is insufficient for release activation.
+  FND_04_REFRESH_REFERENCE_RESOLUTION:
+    severity: BLOCKING_FOR_SHARED_PROMOTION_NOT_FOR_CORE_B_PATCH_ACCEPTANCE
+    issue: >-
+      The proposal hook accepts the presence of refresh_rule_id or other governance tokens, but release enforcement must
+      prove that such identifiers resolve to an approved immutable refresh-governance registry/version rather than merely
+      accepting an arbitrary non-empty string.
+    required_reconciliation: >-
+      Bind accepted freshness-governance identifiers to a governed registry or immutable evidence reference with version/hash
+      identity and ensure any applicable evaluation/support time does not exceed the Snapshot cutoff.
+  FND_06_COVERAGE:
+    severity: SHARED_RELEASE_BINDING_PENDING
+    required_reconciliation: >-
+      Preserve company-rankability versus feature-completeness distinction but explicitly bind official denominator,
+      provisional rankability conditions and diagnostics into the release/VDI identity.
+
+control_decision:
+  decision: ACCEPT_CORE_B_NARROW_PATCH_AS_IMPLEMENTATION_CANDIDATE
+  FND_02_final_closed: false
+  FND_03_final_closed: false
+  reason_not_final: INDEPENDENT_DELTA_PREFLIGHT_REQUIRED
+  FND_01_shared_closed: false
+  FND_04_shared_closed: false
+  FND_05_closed: false
+  FND_06_shared_closed: false
+  actual_replay_authorized: false
+  model_freeze_authorized: false
+  production_release_authorized: false
+
+scientific_firewall:
+  actual_outcome_data_inspected: false
+  actual_u127_mfe_inspected: false
+  actual_u127_mae_inspected: false
+  actual_future_return_inspected: false
+  actual_future_rank_inspected: false
+  actual_replay_executed: false
+  outcome_tuning_executed: false
+  ground_truth_changed: false
+  price_changed: false
+  ca_changed: false
+  model_frozen: false
+
+next_route:
+  - Record Core B patch candidate identity in Current State.
+  - Execute dual-Core reconciliation under WO-SHARED-M3TOP3-v1-PREFLIGHT-INTERFACE-RECONCILIATION-20260816 with the two Control refinements above.
+  - CORE A separately bind production KRX trading-calendar source/release/hash/version without changing WM-v1.1 semantics.
+  - After reconciled interface artifacts and release wiring are available, route exact patched implementation to SEMI-VALIDATION-AUDITOR for independent delta preflight.
