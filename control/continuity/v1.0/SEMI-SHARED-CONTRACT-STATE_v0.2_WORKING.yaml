@@ -1,0 +1,245 @@
+state_id: SEMI-SHARED-CONTRACT-STATE
+version: v0.2_WORKING
+status: DUAL_CORE_RECONCILED_WORKING_NOT_FROZEN
+project: semiconductor-research
+as_of: '2026-08-15T23:21:00+09:00'
+parties:
+  CORE_A:
+    canonical_name: 문서·통제 아키텍트
+    persona_id: SEMI-CONTROL-ARCHITECT
+  CORE_B:
+    canonical_name: 모델 검증·설계 아키텍트
+    persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+source_core_b_return_packet:
+  sha256: 3aaf153c3db332b92c3a9a8eb3e8e5480333e5aabdfb26f164034398bb46580b
+  byte_size: 39415
+  work_order_id: WO-COREB-V1-PREOUTCOME-LOCK-20260815
+  outcome_data_inspected_for_tuning: false
+  actual_u127_replay_executed: false
+core_a_reconciliation_decision: ACCEPT_CORE_B_COMPATIBLE_REFINEMENTS
+major_authority_conflicts: 0
+owner_escalation_required: false
+
+contracts:
+  - contract: MODEL_INPUT_SCHEMA
+    version: MIS-v1.0
+    status: AGREED_WORKING_IMPLEMENTATION_PENDING
+    change_requires_both: true
+    core_A: canonical_storage_schema_PIT_provenance_identity_release_binding_persistence
+    core_B: feature_requirements_feature_consumption_missingness_anti_leakage
+    reconciled_requirements:
+      identity_fields:
+        - snapshot_id
+        - snapshot_date
+        - snapshot_cutoff_at
+        - snapshot_content_hash_or_snapshot_revision
+        - company_id
+        - krx_code
+        - universe_release_id
+        - eligibility_state
+        - model_input_schema_version
+        - feature_schema_version
+      feature_record_fields:
+        - feature_id
+        - axis_id
+        - numeric_or_enum_value
+        - feature_value_status
+        - availability_state
+        - missing_reason
+        - evidence_group_id
+        - source_lineage_ref
+        - evidence_publication_at_or_supported_cutoff_ref
+        - feature_derivation_version_or_feature_schema_hash
+      run_bindings:
+        - model_version
+        - scorer_version
+        - weight_version
+        - code_commit_or_executable_identity
+        - input_record_hash_or_bound_input_release_hash
+      prohibited_future_fields:
+        - future_MFE
+        - future_MAE
+        - future_return
+        - future_rank
+        - future_high
+        - future_close
+        - future_winner
+        - post_cutoff_outcome_derived_feature
+      missingness_rule: MISSING_NE_UNKNOWN_NE_REVIEW_REQUIRED_NE_ZERO_NE_FALSE
+      no_silent_zero_fill: true
+      architecture_rule: RAW_FACTS_REMAIN_PIT_STATE_MODEL_DERIVED_CONCEPTS_BELONG_TO_MODEL_RECORDS
+    independent_validation_required: true
+
+  - contract: PIT_SNAPSHOT_INTERFACE
+    status: AGREED_WORKING
+    change_requires_both: true
+    independent_validation_required: true
+
+  - contract: UNIVERSE_ELIGIBILITY
+    status: AGREED_WORKING_EXECUTION_BLOCKED_BY_U127_RELEASE
+    change_requires_both: true
+    independent_validation_required: true
+
+  - contract: WINDOW_MAPPING
+    version: WM-v1.0
+    status: AGREED_WORKING_IMPLEMENTATION_PENDING
+    change_requires_both: true
+    semantics:
+      snapshot_cutoff_calendar_date: D
+      window_start: D
+      nominal_window_end: D_PLUS_EXACTLY_3_CALENDAR_MONTHS
+      month_add_rule: PRESERVE_DAY_OF_MONTH_ELSE_CLIP_TO_FINAL_CALENDAR_DAY
+      entry_trade_date: FIRST_KRX_TRADING_DAY_STRICTLY_AFTER_WINDOW_START
+      evaluation_last_trade_date: LAST_KRX_TRADING_DAY_ON_OR_BEFORE_NOMINAL_WINDOW_END
+      exit_trade_date: FIRST_KRX_TRADING_DAY_STRICTLY_AFTER_NOMINAL_WINDOW_END
+      MFE_interval: ENTRY_THROUGH_EVALUATION_LAST_TRADE_DATE_INCLUSIVE
+      MAE_interval: SAME_AS_MFE_INTERVAL
+      horizon_close_date: EVALUATION_LAST_TRADE_DATE
+      historical_W1_W8_compatibility: ACCEPTED
+    independent_validation_required: true
+
+  - contract: ENTRY_EXIT
+    status: AGREED_WORKING
+    change_requires_both: true
+    independent_validation_required: true
+
+  - contract: OUTCOME_BUILDER
+    status: AGREED_WORKING_OFFICIAL_EXECUTION_BLOCKED_BY_PRICE_CA
+    change_requires_both: true
+    independent_validation_required: true
+
+  - contract: VALIDATION_DATASET_IDENTITY
+    version: VDI-v1.0
+    status: AGREED_WORKING_RELEASE_NOT_MATERIALIZED
+    change_requires_both: true
+    required_bindings:
+      - U127_ground_truth_release_id_and_hashes
+      - ground_truth_semantics_version
+      - Price_release_id_and_hashes
+      - CA_policy_and_readiness_version
+      - price_adjustment_policy_version
+      - window_mapping_version
+      - entry_exit_outcome_contract_version
+      - outcome_builder_version
+      - universe_eligibility_rule_version
+      - denominator_policy_version
+      - outcome_schema_version
+      - trading_calendar_identity
+      - snapshot_timezone_and_cutoff_policy
+      - dataset_build_code_commit
+      - dataset_row_count
+      - duplicate_and_null_control_totals
+      - component_level_hash_manifest
+      - primary_locator
+      - secondary_locator
+      - holdout_or_outcome_disclosure_policy_version
+    denominator_rule: EXPLICIT_ELIGIBLE_DENOMINATOR_PER_SNAPSHOT_REQUIRED
+    silent_eligible_omission: FORBIDDEN
+    immutable_after_model_result_binding: true
+    independent_validation_required: true
+
+  - contract: SCORER_IO
+    version: SIO-v1.0
+    status: AGREED_WORKING_IMPLEMENTATION_PENDING
+    change_requires_both_for_interface_schema: true
+    core_B_internal_algorithm_versioning_without_interface_change: ALLOWED_WITH_CONTROL_REGISTRATION
+    required_input_bindings:
+      - snapshot_id
+      - snapshot_content_hash_or_revision
+      - company_id
+      - model_version
+      - feature_schema_version
+      - scorer_version
+      - weight_version
+      - model_input_schema_version
+      - bound_input_release_or_hash
+    required_output_fields:
+      - snapshot_id
+      - company_id
+      - model_version
+      - scorer_version
+      - weight_version
+      - pre_gate_score
+      - risk_gate_state
+      - risk_gate_multiplier
+      - final_score
+      - exact_rank
+      - eligibility_state
+      - exclusion_reason
+      - score_status
+      - feature_coverage_ratio
+      - top3_flag
+      - top10_flag
+      - warning_flags
+      - run_id
+    ranking_rule:
+      primary_sort: FINAL_SCORE_DESCENDING_FULL_PRECISION
+      exact_tie_break: COMPANY_ID_ASCENDING
+      rounded_score_must_not_determine_tie: true
+    deterministic_rerun_required: true
+    independent_validation_required_before_model_freeze: true
+
+  - contract: MODEL_ARTIFACT_RELEASE_MANIFEST
+    version: MARM-v1.0
+    status: AGREED_WORKING_RELEASE_NOT_MATERIALIZED
+    change_requires_both: true
+    required_fields:
+      - model_release_id
+      - model_version
+      - feature_schema_version
+      - feature_schema_hash
+      - scorer_version
+      - scorer_contract_hash
+      - weight_version
+      - weight_version_hash
+      - model_input_schema_version
+      - scorer_io_version
+      - validation_contract_version
+      - shared_contract_versions
+      - baseline_lock_id
+      - holdout_policy_version
+      - run_manifest_schema_version
+      - code_commit
+      - config_hash
+      - model_artifact_hashes
+      - primary_locators
+      - secondary_locators
+      - compatible_validation_dataset_versions
+      - no_tune_lock_state
+      - reproducibility_state
+      - independent_validation_state
+      - known_blockers
+      - CORE_B_freeze_recommendation_state
+      - CORE_A_control_gate_state
+      - Owner_final_approval_state
+    lifecycle:
+      - WORKING
+      - BASELINE_LOCKED
+      - VALIDATION_CANDIDATE
+      - FREEZE_RECOMMENDED
+      - FROZEN
+      - RETIRED
+    frozen_immutable: true
+    retrospective_material_change_requires_new_version: true
+    independent_validation_required: true
+
+summary:
+  total_contracts: 9
+  agreed_count: 9
+  open_contract_definition_count: 0
+  unresolved_conflict_count: 0
+  control_sync_required_for_definition_conflict: false
+  implementation_or_release_gates_remaining: true
+  official_replay_authorized: false
+  model_freeze_authorized: false
+
+remaining_shared_execution_gates:
+  - IMPLEMENT_MIS_v1_0
+  - IMPLEMENT_WM_v1_0
+  - IMPLEMENT_SIO_v1_0
+  - MATERIALIZE_VDI_v1_0_AFTER_DATA_READINESS
+  - MATERIALIZE_MARM_v1_0_WITH_HASHED_MODEL_COMPONENTS
+  - INDEPENDENT_IMPLEMENTATION_AND_RELEASE_IDENTITY_VALIDATION
+
+supersedes:
+  - control/continuity/v1.0/SEMI-SHARED-CONTRACT-STATE_v0.1_WORKING.yaml
