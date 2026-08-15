@@ -1,0 +1,83 @@
+manifest_id: M3TOP3-v1-SHARED-INTERFACE-ASSET-MANIFEST
+version: v1.1_WORKING
+status: CONTROL_BYTE_IDENTITY_ADJUDICATED_COREB_REHASH_REQUIRED
+project: semiconductor-research
+as_of: '2026-08-16T01:49:00+09:00'
+supersedes: control/shared/M3TOP3-v1-SHARED-INTERFACE-ASSET-MANIFEST_v1.0_WORKING.yaml
+supersession_reason: >-
+  The prior manifest contained incorrect SHA256 declarations for three assets and an incorrect byte size for Coverage Release Policy.
+  Core B independently re-read GitHub bytes and stopped before code modification. Control then confirmed that creation-time Git blob
+  SHAs equal current-branch Git blob SHAs for all three failed assets, proving the materialized files themselves were not mutated.
+identity_adjudication: control/shared/M3TOP3-v1-SHARED-ASSET-BYTE-IDENTITY-ADJUDICATION_v1.0_WORKING.yaml
+source_reconciliation_commit: e8483b2949129665f5d2dcf1bd23b693b128fcbb
+source_patch_commit: 5f9491b6861a11097a929156eaa8bb7cc3c8c749
+hash_method: SHA256 over exact GitHub UTF-8 file bytes independently re-read by Core B
+identity_rule: >-
+  SHA256 + byte size + Git blob SHA + persistent locator + lineage are jointly recorded. Git blob SHA binds the exact repository
+  byte object; SHA256 is retained for project-wide cross-storage identity. Prior erroneous declarations remain preserved in v1.0 history.
+assets:
+- path: control/shared/M3TOP3-v1-SHARED-PREFLIGHT-INTERFACE-RECONCILED-DECISION_v1.0_WORKING.yaml
+  version: v1.0_WORKING
+  sha256: 7d8d000c467b8b3cd4e3f16c1eef060a8d70fceabab2f66161fde08d54e9f1a4
+  byte_size: 6420
+  git_blob_sha: eb50f06d49c3c52b86d8c16290f350635de2537b
+  create_commit: 587c7ce52a142a6312545a590a7b669d06b5fe70
+  current_equals_create_blob: true
+  persistent_locator: github://AofSpds/semiconductor-research/control-hub-continuity-v1/control/shared/M3TOP3-v1-SHARED-PREFLIGHT-INTERFACE-RECONCILED-DECISION_v1.0_WORKING.yaml
+  lineage:
+  - WO-SHARED-M3TOP3-v1-PREFLIGHT-INTERFACE-RECONCILIATION-20260816
+  - CORE_B reconciliation commit e8483b2949129665f5d2dcf1bd23b693b128fcbb
+- path: control/shared/M3TOP3-FEATURE-INPUT-REGISTRY_v1.0_WORKING.yaml
+  version: v1.0_WORKING
+  sha256: 63edde7d91aafa4691b7a31ee7304b9972e064347a55b9d891b19634b199df37
+  byte_size: 4843
+  git_blob_sha: 5faa4d5739bf9ecb0c11d16f6d7d697ff3983977
+  create_commit: af71741b88838197cfe87c169b27b7abfc354eab
+  current_equals_create_blob: true
+  persistent_locator: github://AofSpds/semiconductor-research/control-hub-continuity-v1/control/shared/M3TOP3-FEATURE-INPUT-REGISTRY_v1.0_WORKING.yaml
+  lineage:
+  - WO-SHARED-M3TOP3-v1-PREFLIGHT-INTERFACE-RECONCILIATION-20260816
+  - CORE_B reconciliation commit e8483b2949129665f5d2dcf1bd23b693b128fcbb
+- path: control/shared/M3TOP3-PIT-CONSUMED-PROVENANCE-CONTRACT_v1.0_WORKING.yaml
+  version: v1.0_WORKING
+  sha256: 22e80dbf80e1bfb9ae25ab8f56a7fd56463fc8c8bd92a67489a6a9601455354f
+  byte_size: 3302
+  git_blob_sha: b7a00087f9b9985d6d5523bf6524361e5ae620fe
+  create_commit: c226f32231b8a61d6f01f0c242df7f410ffdcfb6
+  persistent_locator: github://AofSpds/semiconductor-research/control-hub-continuity-v1/control/shared/M3TOP3-PIT-CONSUMED-PROVENANCE-CONTRACT_v1.0_WORKING.yaml
+- path: control/shared/M3TOP3-REFRESH-RULE-REGISTRY_v1.0_WORKING.yaml
+  version: v1.0_WORKING
+  sha256: e44b67e4f3854cfcd2c9f5fd7924192bc0c5491bfcdd496acbae8b4dd318cd64
+  byte_size: 3715
+  git_blob_sha: bced062f75b44915f61d8d54dafe8bab9713029d
+  create_commit: ba3fd3d22266256a143e3aeedaaac7d20c83de36
+  persistent_locator: github://AofSpds/semiconductor-research/control-hub-continuity-v1/control/shared/M3TOP3-REFRESH-RULE-REGISTRY_v1.0_WORKING.yaml
+- path: control/shared/M3TOP3-COVERAGE-RELEASE-POLICY_v1.0_WORKING.yaml
+  version: v1.0_WORKING
+  sha256: 076bd1b7acee061f9c0d57e4dda802b6beb533fcd4b323eafa39760ad98b1f97
+  byte_size: 3178
+  git_blob_sha: 0532eb3b921438538fa4cca908832cf5a770ca84
+  create_commit: ef290d38c9553e4127a0e178eeb32dbc14989e21
+  current_equals_create_blob: true
+  persistent_locator: github://AofSpds/semiconductor-research/control-hub-continuity-v1/control/shared/M3TOP3-COVERAGE-RELEASE-POLICY_v1.0_WORKING.yaml
+  lineage:
+  - WO-SHARED-M3TOP3-v1-PREFLIGHT-INTERFACE-RECONCILIATION-20260816
+  - CORE_B reconciliation commit e8483b2949129665f5d2dcf1bd23b693b128fcbb
+- path: control/core_b/M3TOP3-v1-IMPLEMENTATION-COMPATIBILITY-NOTE_v1.0.1_WORKING.yaml
+  version: v1.0.1_WORKING
+  sha256: dfd98712a4982eef5a4b07fec5d376f0eefed0c1861e14d3a20ddb22c87fb656
+  byte_size: 1141
+  git_blob_sha: 685d5aa1ea2ac5c63a3c70898a9576955b1d22fc
+  create_commit: 8d261137fe474da59e9fff7cd79b2c67c743494c
+  persistent_locator: github://AofSpds/semiconductor-research/control-hub-continuity-v1/control/core_b/M3TOP3-v1-IMPLEMENTATION-COMPATIBILITY-NOTE_v1.0.1_WORKING.yaml
+release_state:
+  shared_definition_reconciled: true
+  asset_byte_identity_control_adjudicated: true
+  core_b_successor_rehash_required: true
+  implementation_wiring_complete: false
+  independent_delta_preflight_complete: false
+  actual_replay_authorized: false
+scientific_firewall:
+  model_semantics_changed_by_identity_correction: false
+  actual_outcome_inspected: false
+  actual_replay_executed: false
