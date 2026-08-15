@@ -106,8 +106,10 @@ def load_ledger_lineage(repo_root: Path) -> dict[str, Any]:
 
     chain = list(reversed(chain_newest_first))
     events: list[dict[str, Any]] = []
-    seen_event_ids: dict[str, bytes] = {}
+    seen: dict[str, dict[str, Any]] = {}
     identical_event_reuse_count = 0
+    conflicts: list[dict[str, Any]] = []
+
     for identity, records in chain:
         for record in records:
             event_id = record.get("event_id")
@@ -115,30 +117,50 @@ def load_ledger_lineage(repo_root: Path) -> dict[str, Any]:
                 continue
             event_id = str(event_id)
             canonical = _canonical_record(record)
-            prior = seen_event_ids.get(event_id)
+            canonical_sha = hashlib.sha256(canonical).hexdigest()
+            prior = seen.get(event_id)
             if prior is not None:
-                if prior != canonical:
-                    raise RuntimeError(
-                        f"CONFLICTING_DUPLICATE_EVENT_ACROSS_LEDGER_LINEAGE: {event_id} at {identity.path}"
-                    )
-                identical_event_reuse_count += 1
+                if prior["canonical_sha256"] == canonical_sha:
+                    identical_event_reuse_count += 1
+                    continue
+                conflicts.append(
+                    {
+                        "event_id": event_id,
+                        "first_ledger_path": prior["ledger_path"],
+                        "first_record_sha256": prior["canonical_sha256"],
+                        "first_timestamp": prior["record"].get("timestamp"),
+                        "first_event_type": prior["record"].get("event_type"),
+                        "conflicting_ledger_path": identity.path,
+                        "conflicting_record_sha256": canonical_sha,
+                        "conflicting_timestamp": record.get("timestamp"),
+                        "conflicting_event_type": record.get("event_type"),
+                    }
+                )
                 continue
-            seen_event_ids[event_id] = canonical
+            seen[event_id] = {
+                "ledger_path": identity.path,
+                "canonical_sha256": canonical_sha,
+                "record": record,
+            }
             events.append(record)
 
     identities = [asdict(identity) for identity, _ in chain]
+    status = "BLOCKED_CONFLICTING_EVENT_ID" if conflicts else "PASS"
     report = {
-        "status": "PASS",
+        "status": status,
+        "fail_closed": bool(conflicts),
         "latest_ledger": str(newest.relative_to(root)),
         "ledger_count": len(chain),
-        "event_count": len(events),
+        "event_count_before_conflict_resolution": len(events),
         "identical_event_reuse_count": identical_event_reuse_count,
-        "duplicate_policy": "IDENTICAL_REUSE_IDEMPOTENT_CONFLICTING_REUSE_HARD_FAIL",
+        "conflicting_event_id_count": len(conflicts),
+        "duplicate_policy": "IDENTICAL_REUSE_IDEMPOTENT_CONFLICTING_REUSE_BLOCKS_FULL_REPLAY",
         "first_event_id": events[0].get("event_id") if events else None,
-        "last_event_id": events[-1].get("event_id") if events else None,
+        "last_unambiguous_event_id": events[-1].get("event_id") if events else None,
         "ledgers": identities,
-        "events": events,
+        "conflicts": conflicts,
+        "events": events if not conflicts else [],
     }
-    canonical = json.dumps(report, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
-    report["lineage_sha256"] = hashlib.sha256(canonical).hexdigest()
+    canonical_report = json.dumps(report, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    report["lineage_sha256"] = hashlib.sha256(canonical_report).hexdigest()
     return report
