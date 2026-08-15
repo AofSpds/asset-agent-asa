@@ -1,0 +1,12 @@
+{
+  "authority_id": "M3TOP3-EVIDENCE-RESOLVER-AUTHORITY",
+  "authority_release_id": "M3TOP3-EVIDENCE-RESOLVER-AUTHORITY_v1.0_WORKING",
+  "version": "v1.0_WORKING",
+  "status": "CONTROL_FIX_CANDIDATE_NO_OFFICIAL_EVIDENCE_RELEASE_BOUND",
+  "project": "semiconductor-research",
+  "model_version": "M3TOP3-v1.0",
+  "purpose": "Bind official evidence resolver releases to persistent immutable identities; caller mappings are never authority.",
+  "approved_evidence_resolver_releases": [],
+  "official_runtime_rule": "FAIL_CLOSED_UNLESS_RESOLVER_RELEASE_IS_LISTED_AND_EACH_OBJECT_HAS_HASH_LOCATOR_LINEAGE_AND_SUPPORT_TIME",
+  "test_only_resolver_policy": "ALLOWED_ONLY_IN_EXPLICIT_TEST_MODE_NEVER_OFFICIAL_RUNTIME"
+}
