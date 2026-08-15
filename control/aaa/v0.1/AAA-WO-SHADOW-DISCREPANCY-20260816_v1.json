@@ -1,0 +1,63 @@
+{
+  "work_order_id": "AAA-WO-SHADOW-DISCREPANCY-20260816",
+  "work_order_version": "v1",
+  "work_order_sha256": "9ac5275f21f57e5baf51ec456f31eea74cc064a78e861893025f2213d6455cab",
+  "title": "AAA deterministic shadow discrepancy engine v0.1",
+  "objective": "Compare authoritative SEMI Current State anchors against the latest immutable Control Event Ledger projection without mutating canonical state.",
+  "executor_role": "ENGINEERING",
+  "permission_level": 2,
+  "exact_base_identity": {
+    "repository": "AofSpds/asset-agent-asa",
+    "commit_sha": "0833dfc1d42814732b3de428428027a3ad990802"
+  },
+  "input_bindings": [
+    {
+      "path": "control/continuity/v1.0/SEMI-CURRENT-STATE_v2.11.yaml",
+      "blob_sha": "ba65b898bfaab2615f19e79bcdd6d92000dd1ffa",
+      "role": "AUTHORITATIVE_CURRENT_STATE"
+    },
+    {
+      "path": "control/continuity/v1.0/SEMI-CONTROL-EVENT-LEDGER_v3.3.jsonl",
+      "blob_sha": "df9c5ad7d274167eaccde42119a8634f933e12e8",
+      "role": "LATEST_EVENT_LEDGER"
+    }
+  ],
+  "material_scope": [
+    "aaa/src/aaa/state/**",
+    "aaa/src/aaa/api/**",
+    "aaa/src/aaa/cli/**",
+    "aaa/web/**",
+    "aaa/tests/**",
+    "control/aaa/v0.1/**"
+  ],
+  "output_contract": "AAA_RESULT_MANIFEST",
+  "forbidden_actions": [
+    "CANONICAL_WRITE",
+    "CONTROL_STATE_MUTATION",
+    "M3TOP3_SOURCE_CHANGE",
+    "U127_MUTATION",
+    "MODEL_METHODOLOGY_CHANGE",
+    "INDEPENDENT_VALIDATION_SELF_CERTIFICATION"
+  ],
+  "acceptance": [
+    "MATCH_MISMATCH_STALE_UNKNOWN_CLASSIFICATION",
+    "DETERMINISTIC_REBUILD",
+    "AAA_STATE_COMPARE_CLI",
+    "READ_ONLY_STATE_COMPARE_API",
+    "OWNER_CONSOLE_DISCREPANCY_VIEW",
+    "LLM_OFF_OPERATION"
+  ],
+  "required_validation": [
+    "UNIT_TESTS",
+    "HTTP_READ_ONLY_TESTS",
+    "OWNER_CONSOLE_BUILD_SMOKE",
+    "STALE_AND_MISMATCH_ADVERSARIAL_TESTS"
+  ],
+  "scientific_firewall": [
+    "NO_OUTCOME_DATA_USE",
+    "NO_REPLAY",
+    "NO_MODEL_TUNING",
+    "NO_FUTURE_INFORMATION"
+  ],
+  "created_at": "2026-08-16T04:19:00+09:00"
+}
