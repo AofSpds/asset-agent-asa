@@ -1,0 +1,76 @@
+work_order_id: WO-COREB-M3TOP3-v1-MACHINE-IMPLEMENTATION-20260815
+status: ISSUED
+project: semiconductor-research
+priority: P0
+issued_at: '2026-08-15T23:48:00+09:00'
+requesting_persona: {canonical_name: 문서·통제 아키텍트, persona_id: SEMI-CONTROL-ARCHITECT}
+target_persona: {canonical_name: 모델 검증·설계 아키텍트, persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT}
+purpose: >-
+  Implement the pre-outcome M3Top3 v1 Feature Schema F01-F09 and M3TOP3-GATED-LINEAR scorer as executable,
+  deterministic machine code after all nine shared contract definitions, including corrected WM-v1.1, are agreed.
+inputs:
+  current_state: control/continuity/v1.0/SEMI-CURRENT-STATE_v1.5.yaml
+  feature_schema: control/core_b/M3TOP3-FEATURE-SCHEMA_v1.0_WORKING.yaml
+  scorer_contract: control/core_b/M3TOP3-SCORER-CONTRACT_v1.0_WORKING.yaml
+  weights: control/core_b/M3TOP3-WEIGHT-VERSION_v1.0_WORKING.yaml
+  baseline_lock: control/core_b/M3TOP3-NO-TUNE-BASELINE-LOCK_v1.1_WORKING.yaml
+  window_mapping: control/continuity/v1.0/SEMI-WINDOW-MAPPING-CONTRACT_v1.1_WORKING.yaml
+  shared_contract_state: control/continuity/v1.0/SEMI-SHARED-CONTRACT-STATE_v0.4_WORKING.yaml
+implementation_scope:
+  - implement F01 through F09 transforms exactly as contracted
+  - implement anti-double-count event_group/evidence_group handling
+  - implement M3TOP3-GATED-LINEAR pre-gate score, rare risk gate, final score, ranking, coverage metadata
+  - implement MIS-v1.0 input bindings needed by the scorer
+  - implement SIO-v1.0 output fields
+  - persist window_anchor_date separately from snapshot_cutoff_at
+  - derive nominal 3M endpoint only from window_anchor_date using WM-v1.1
+  - bind model/scorer/feature/weight/window versions in run manifest
+required_tests:
+  - synthetic feature transformation tests
+  - missingness tests: MISSING != UNKNOWN != REVIEW_REQUIRED != ZERO != FALSE
+  - anti-double-count overlap tests
+  - risk-gate no-double-penalty tests
+  - deterministic rerun/idempotence tests
+  - PIT firewall tests proving no future outcome fields are consumed
+  - W1-W8 calendar mapping tests reproducing documented anchors/end dates 8 of 8
+  - daily trading-date mapping tests
+forbidden:
+  - inspect Actual U127 MFE, MAE, return, rank, future High/Close or Critical Miss outcomes
+  - run Actual U127 two-year replay
+  - tune features, weights, thresholds or scorer from outcomes
+  - change U127 Ground Truth, Price, CA or shared contract definitions
+  - self-certify independent validation
+  - activate or freeze model
+required_persistence:
+  - implementation source code in repository
+  - deterministic config file
+  - test code and machine-readable test report
+  - exact code commit
+  - config SHA256
+  - implementation artifact/source hashes where applicable
+  - update successor baseline lock only by new version if implementation exposes a semantic mismatch; never silently rewrite contracted semantics
+completion_gate:
+  actual_replay_authorized_by_completion: false
+  independent_preflight_required_after_completion: true
+  core_a_reconciliation_required: true
+return_packet_required: true
+return_packet_fields:
+  - TASK_COMPLETED
+  - IMPLEMENTATION_PATHS
+  - FEATURE_IMPLEMENTATION_STATUS_F01_TO_F09
+  - SCORER_IMPLEMENTATION_STATUS
+  - MIS_IMPLEMENTATION_STATUS
+  - SIO_IMPLEMENTATION_STATUS
+  - WM_v1_1_IMPLEMENTATION_STATUS
+  - W1_W8_CALENDAR_TEST_RESULT
+  - SYNTHETIC_TEST_RESULT
+  - PIT_FIREWALL_TEST_RESULT
+  - DETERMINISTIC_RERUN_RESULT
+  - CODE_COMMIT
+  - CONFIG_PATH
+  - CONFIG_SHA256
+  - MATERIAL_SEMANTIC_MISMATCH_FOUND
+  - ACTUAL_OUTCOME_DATA_INSPECTED_NO
+  - ACTUAL_REPLAY_EXECUTED_NO
+  - READY_FOR_INDEPENDENT_PREFLIGHT
+  - REMAINING_BLOCKERS
