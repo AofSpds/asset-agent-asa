@@ -1,0 +1,83 @@
+artifact_id: SEMI-U127-RELEASE-SOURCE-BINDING-AUDIT
+version: v0.1_WORKING
+status: PARTIAL_PASS_WINDOW_CONTRACT_REOPENED
+project: semiconductor-research
+as_of: '2026-08-15T23:28:00+09:00'
+owner_persona: SEMI-CONTROL-ARCHITECT
+purpose: Close as many pre-materialization source-binding gates as possible for SEMI-U127-GT-RELEASE-v1.0 without creating release bytes.
+byte_verified_anchor:
+  file: U127_Data_Expansion_Working_v0.7_2026-08-15.xlsx
+  runtime_path: /mnt/data/U127_Data_Expansion_Working_v0.7_2026-08-15.xlsx
+  byte_size: 550774
+  sha256: 1fc47fd131479e6ebb4375206853f39a730610d8b9f29160c33aa292881ad50a
+  hash_reverified_this_run: true
+  mutation_performed: false
+membership_identity_binding:
+  source_sheet: Identity_Ledger
+  rows: 127
+  membership_order_unique: 127
+  krx_code_unique: 127
+  company_id_unique: 127
+  company_id_binding: 127_OF_127
+  exact_duplicate_krx_code: 0
+  exact_duplicate_company_id: 0
+  deterministic_projection_schema: [company_id, krx_code, canonical_name, membership_order, membership_state]
+  projection_preview_byte_size_utf8_lf: 5550
+  projection_preview_sha256: 13fcbc18b9c02ccfe694ebed8f381664606e5af5e52a62cc42eb3e83660e49b5
+  projection_materialized_as_release_component: false
+  gate_G2_membership_and_identity_binding: PASS
+final_state_binding:
+  authority_sources:
+    - control/continuity/v1.0/SEMI-CURRENT-STATE_v1.3.yaml
+    - control/u127/SEMI-U127-DELTA-LEDGER_v0.1_WORKING.jsonl
+    - control/u127/SEMI-U127-CANONICAL-RELEASE-SPEC_v0.1_WORKING.yaml
+    - byte-verified v0.7 Historical_BP anchor
+  total_cell_keys: 1016
+  control_accepted_READY: 1013
+  control_accepted_UNRESOLVED: 3
+  control_accepted_PARTIAL: 0
+  exact_unresolved:
+    - {company_id: 'KRX:381620', canonical_name: 제닉스로보틱스, window_id: W1, residual_class: R7}
+    - {company_id: 'KRX:0017J0', canonical_name: 세미티에스, window_id: W1, residual_class: R7}
+    - {company_id: 'KRX:0017J0', canonical_name: 세미티에스, window_id: W2, residual_class: R7}
+  projection_rule: 'Final control state projection is the already accepted exhaustive 1016-cell state: READY for every key except the three explicitly retained UNRESOLVED/R7 keys. This is a machine projection of accepted final state, not reconstruction of missing historical workbook versions.'
+  historical_lineage_must_remain_separate: true
+  gate_G1_control_source_binding: PARTIAL_PASS_REQUIRES_INDEPENDENT_RELEASE_SCHEMA_AND_CONTENT_RECONCILIATION_BEFORE_BYTES
+anchor_state_controls:
+  v0_7_Historical_BP_counts: {READY: 353, PARTIAL: 17, NEEDS_RESEARCH: 646}
+  candidate_historical_lineage_status_counts_without_release_materialization:
+    historical_prestate_status: {KNOWN: 370, PARTIAL: 527, UNKNOWN: 119}
+    historical_provenance_status: {KNOWN: 353, PARTIAL: 544, UNKNOWN: 119}
+  bounded_unknown_policy: 46-60 post-v0.7 exact historical payload/provenance remains UNKNOWN; 61-75 remains PARTIAL; other post-v0.7 non-anchor lineage is conservatively PARTIAL unless separately evidenced. These are audit fields and do not overwrite final_control_state.
+window_binding:
+  prior_shared_contract: WM-v1.0
+  audit_result: FAIL_HISTORICAL_COMPATIBILITY
+  conflicting_windows: [W2, W5, W8]
+  gate_G3_window_mapping_contract: REOPENED_CONTROL_SYNC_REQUIRED
+  audit_asset: control/continuity/v1.0/SEMI-WINDOW-MAPPING-COMPATIBILITY-AUDIT_v0.1_WORKING.yaml
+persistence:
+  v0_7_primary: NOT_YET
+  v0_7_secondary: NOT_YET
+  current_runtime_custody: VERIFIED
+  storage_write_path_available_to_this_control_instance: false
+  gate_G5: BLOCKED_STORAGE_WRITE_PATH_UNAVAILABLE
+  gate_G6: BLOCKED_STORAGE_WRITE_PATH_UNAVAILABLE
+materialization_gate_summary:
+  G1_control_source_binding_complete: PARTIAL_PASS
+  G2_membership_and_identity_binding_complete: PASS
+  G3_window_mapping_contract_ready: REOPENED_BLOCKED
+  G4_bounded_unknown_policy_accepted: YES_WORKING
+  G5_v0_7_primary_persistence: BLOCKED
+  G6_v0_7_secondary_persistence: BLOCKED
+  G7_release_schema_independent_validation: NOT_EXECUTED
+  G8_control_authorization_to_materialize: NO
+  G9_owner_freeze_approval: NO
+control_decision:
+  release_bytes_created: false
+  historical_workbook_modified: false
+  safe_to_materialize_now: false
+  next_u127_actions:
+    - Reconcile WM-v1.1 with model validation/design architect
+    - Prepare independent validation work order for release schema/state arithmetic
+    - Persist v0.7 to primary/secondary data plane when write path becomes available
+    - After G1-G8 closure, materialize new release identity only
