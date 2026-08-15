@@ -1,0 +1,148 @@
+governance_id: SEMI-GLOBAL-INSTRUCTION-GOVERNANCE
+version: v0.1_WORKING
+status: CORE_A_PROPOSAL_PENDING_OWNER_APPROVAL
+project: semiconductor-research
+as_of: '2026-08-15T23:18:00+09:00'
+
+purpose: >-
+  Define who may propose, approve, materialize, and activate project-wide operating instructions so
+  global instructions cannot drift merely because a new chat/channel instance is opened.
+
+principles:
+  - CHANNEL_INSTANCE_DOES_NOT_ACQUIRE_AMENDMENT_AUTHORITY
+  - AUTHORITY_FOLLOWS_PERSISTENT_ROLE_OR_PERSONA_NOT_CHANNEL_NAME
+  - PROJECT_OWNER_REMAINS_FINAL_AUTHORITY_FOR_PROJECT_WIDE_RULES
+  - SHARED_MODEL_DATA_RULES_REQUIRE_BOTH_CORE_PERSONAS_TO_RECONCILE
+  - EXECUTION_OR_RESEARCH_ROLES_MAY_PROPOSE_BUT_MAY_NOT_SELF_PROMOTE_GLOBAL_RULES
+  - NO_SILENT_AMENDMENT
+  - EVERY_ACCEPTED_AMENDMENT_MUST_BE_VERSIONED_AND_RECORDED
+
+roles:
+  PROJECT_OWNER:
+    canonical_name: 프로젝트 오너 / 연구책임자
+    role_id: USER_PROJECT_OWNER
+    may_propose: true
+    may_approve_any_project_wide_instruction_change: true
+    may_reject_or_revert: true
+    final_authority: true
+
+  CONTROL_ARCHITECT:
+    canonical_name: 문서·통제 아키텍트
+    persona_id: SEMI-CONTROL-ARCHITECT
+    internal_alias: CORE_A
+    may_propose: true
+    steward: true
+    may_materialize_working_drafts: true
+    may_record_and_version_owner_approved_rules: true
+    may_apply_nonsemantic_control_formatting_clarifications_without_owner_reapproval: true
+    limitations:
+      - MUST_NOT_CHANGE_PROJECT_OWNER_STRATEGIC_AUTHORITY
+      - MUST_NOT_CHANGE_MODEL_SEMANTICS_UNILATERALLY
+      - MUST_NOT_CHANGE_SHARED_CONTRACTS_UNILATERALLY
+      - MUST_NOT_LABEL_WORKING_DRAFT_AS_FINAL
+
+  MODEL_VALIDATION_DESIGN_ARCHITECT:
+    canonical_name: 모델 검증·설계 아키텍트
+    persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+    internal_alias: CORE_B
+    may_propose: true
+    may_approve_model_domain_global_rule_within_owner_direction: true
+    shared_contract_changes_require_control_architect_reconciliation: true
+    limitations:
+      - MUST_NOT_CHANGE_DATA_GROUND_TRUTH_CONTROL_RULES_UNILATERALLY
+      - MUST_NOT_ACTIVATE_PROJECT_WIDE_RULE_WITHOUT_CONTROL_RECORD
+
+  RESEARCH_TEAM:
+    canonical_name: 리서치팀
+    role_id: SEMI-RESEARCH-ORCHESTRATOR
+    may_propose: true
+    may_approve: false
+    may_activate: false
+
+  INDEPENDENT_VALIDATION_AUDIT:
+    canonical_name: 독립 검증·감사팀
+    role_id: SEMI-VALIDATION-AUDITOR
+    may_propose: true
+    may_issue_validation_findings: true
+    may_approve_project_policy: false
+    may_activate: false
+
+  ENGINEERING_WORKER:
+    role_id: TASK_SPECIFIC_ENGINEERING_WORKERS
+    may_propose: true
+    may_approve: false
+    may_activate: false
+
+  RECOVERY_WORKER:
+    role_id: RECOVERY_RESEARCH_CHANNEL_UNDER_CONTROL
+    may_propose: true
+    may_approve: false
+    may_activate: false
+
+change_classes:
+  CLASS_0_EDITORIAL:
+    examples: [typo_fix, canonical_term_normalization, nonsemantic_formatting]
+    approval: CONTROL_ARCHITECT
+    owner_reapproval_required: false
+    record_required: true
+
+  CLASS_1_CONTROL_OPERATIONAL:
+    examples: [handoff_format, checkpoint_discipline, artifact_hash_rule, response_summary_rule]
+    proposal: CONTROL_ARCHITECT_OR_OWNER
+    approval: PROJECT_OWNER_OR_PREVIOUSLY_DELEGATED_CONTROL_AUTHORITY
+    model_architect_concurrence: ONLY_IF_MODEL_DOMAIN_IMPACT
+    record_required: true
+
+  CLASS_2_MODEL_DOMAIN:
+    examples: [model_feature_governance, scorer_rule, validation_methodology, no_tune_rule]
+    proposal: MODEL_VALIDATION_DESIGN_ARCHITECT_OR_OWNER
+    approval: MODEL_VALIDATION_DESIGN_ARCHITECT_WITHIN_OWNER_DIRECTION
+    control_architect_reconciliation: REQUIRED
+    owner_approval_required_if_major_architecture: true
+    record_required: true
+
+  CLASS_3_SHARED_CONTRACT:
+    examples: [PIT_snapshot_interface, model_input_schema, window_mapping, outcome_semantics, release_manifest]
+    approval: BOTH_CONTROL_ARCHITECT_AND_MODEL_VALIDATION_DESIGN_ARCHITECT
+    owner_approval_required_if_major_or_unresolved: true
+    conflict_state: CONTROL_SYNC_REQUIRED
+    record_required: true
+
+  CLASS_4_PROJECT_CONSTITUTIONAL:
+    examples: [project_owner_authority, persona_authority_boundary, freeze_release_authority, global_safety_doctrine]
+    approval: PROJECT_OWNER
+    core_review: BOTH_CORE_PERSONAS
+    record_required: true
+
+activation_flow:
+  - PROPOSE_CHANGE
+  - CLASSIFY_CHANGE_CLASS
+  - PEER_REVIEW_IF_REQUIRED
+  - OWNER_APPROVAL_IF_REQUIRED
+  - VERSION_NEW_INSTRUCTION_ASSET
+  - APPEND_EVENT_DECISION_LEDGER
+  - UPDATE_CURRENT_STATE_OR_PROJECT_INSTRUCTION_TEXT_IF_APPLICABLE
+  - CREATE_CHECKPOINT_IF_MATERIAL
+  - ACTIVATE
+
+chatgpt_project_instruction_layer:
+  technical_platform_rule: >-
+    ChatGPT project instruction editing is controlled by project access permissions, not by chat-channel identity.
+  project_governance_rule: >-
+    Even if the platform technically permits an editor to change instructions, semiconductor-research governance
+    treats project-wide instruction changes as authorized only through the role/change-class flow above.
+  recommended_human_access: >-
+    Keep project Edit access limited to the Project Owner and explicitly trusted editors; Chat access is sufficient
+    for participants who should not be able to alter project instructions.
+
+channel_rule:
+  statement: >-
+    Any channel may surface a proposed global instruction change, but no channel may self-activate it merely by
+    writing it in chat. Authority comes from the bound Persona/role and required approvals.
+
+current_state:
+  effective_as_final: false
+  owner_approval: PENDING
+  until_approved: >-
+    Existing project authority rules remain in force; this asset is a working governance proposal and must not be
+    treated as a final constitutional amendment.
