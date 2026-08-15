@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://asset-agent-asa.local/contracts/storage_boundary.schema.json",
+  "title": "AAA Storage Boundary Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["run_id", "namespace", "write_scope", "canonical_write_allowed", "content_sha256", "byte_size"],
+  "properties": {
+    "run_id": {"type": "string", "minLength": 1},
+    "namespace": {"type": "string", "minLength": 1},
+    "write_scope": {"enum": ["NONE", "RUN_SCOPED_STAGING"]},
+    "canonical_write_allowed": {"const": false},
+    "content_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "byte_size": {"type": "integer", "minimum": 0},
+    "primary_status": {"enum": ["NOT_ATTEMPTED", "SUCCEEDED", "FAILED"]},
+    "secondary_status": {"enum": ["NOT_ATTEMPTED", "SUCCEEDED", "FAILED"]}
+  }
+}
