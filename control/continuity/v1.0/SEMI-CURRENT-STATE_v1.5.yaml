@@ -1,0 +1,136 @@
+state_id: SEMI-CURRENT-STATE
+version: v1.5
+status: WORKING_DUAL_CORE_ACTIVE_ALL_SHARED_DEFINITIONS_AGREED_IMPLEMENTATION_PHASE
+project: semiconductor-research
+as_of: '2026-08-15T23:48:00+09:00'
+active_cores:
+  CORE_A:
+    canonical_name: 문서·통제 아키텍트
+    persona_id: SEMI-CONTROL-ARCHITECT
+    instance_id: CTRL-ARCH-INSTANCE-004-20260815
+    status: ACTIVE_RECONCILED
+  CORE_B:
+    canonical_name: 모델 검증·설계 아키텍트
+    persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+    instance_id: MODEL-ARCH-INSTANCE-002-20260815
+    status: ACTIVE_PASS_WITH_WARNINGS
+    ready_for_normal_operation: true
+    actual_replay_authorized: false
+    model_freeze_authorized: false
+project_instruction_governance:
+  global_instruction_governance: control/continuity/v1.0/SEMI-GLOBAL-INSTRUCTION-GOVERNANCE_v1.0_ACTIVE.yaml
+  global_instruction_set: control/continuity/v1.0/SEMI-PROJECT-GLOBAL-INSTRUCTIONS_v1.0_ACTIVE.yaml
+  mutation_authority: CORE_PERSONAS_ONLY
+organization:
+  org_map: SEMI-ORG-MAP_v0.2_WORKING
+  authority_matrix: SEMI-DUAL-CORE-AUTHORITY-MATRIX_v0.2_WORKING
+  shared_contract_state: SEMI-SHARED-CONTRACT-STATE_v0.4_WORKING
+  cross_core_sync: SEMI-CROSS-CORE-SYNC-CONTRACT_v0.2_WORKING
+  unresolved_major_authority_conflicts: 0
+  shared_contract_total: 9
+  shared_contract_agreed_count: 9
+  shared_contract_open_definition_count: 0
+  control_sync_required_for_definition_conflict: false
+window_mapping:
+  current_version: WM-v1.1
+  contract: control/continuity/v1.0/SEMI-WINDOW-MAPPING-CONTRACT_v1.1_WORKING.yaml
+  status: DUAL_CORE_AGREED_WORKING
+  anchor_cutoff_separated: true
+  historical_W1_W8_compatibility: PASS_8_OF_8
+  daily_replay_compatibility: PASS
+  machine_implementation: NOT_EXECUTED
+model_validation_design_architect:
+  feature_schema: M3TOP3-FEATURE-SCHEMA_v1.0_WORKING
+  feature_count: 9
+  scorer: M3TOP3-GATED-LINEAR_v1.0_WORKING
+  weights: {Business_Momentum: 25, Expectation_Surprise: 25, Market_Positioning: 20, Forward_Runway: 20, Reliability_Risk: 10}
+  baseline_lock: control/core_b/M3TOP3-NO-TUNE-BASELINE-LOCK_v1.1_WORKING.yaml
+  baseline_lock_status: READY_CANDIDATE_WM_v1_1_BOUND_IMPLEMENTATION_HASHES_PENDING
+  model_version: M3TOP3-v1.0
+  outcome_tuned: false
+  machine_implementation: NOT_EXECUTED
+  code_commit_bound: false
+  config_hash_bound: false
+u127:
+  membership: 127
+  total_BP_cells: 1016
+  certified_READY: 1013
+  unresolved: 3
+  partial: 0
+  complete_histories: 125
+  logical_readiness: READY_WITH_WARNINGS
+  physical_artifact_freeze: BLOCKED
+  U127_frozen: false
+  highest_byte_verified_artifact: U127_Data_Expansion_Working_v0.7_2026-08-15.xlsx
+  v0_7_sha256: 1fc47fd131479e6ebb4375206853f39a730610d8b9f29160c33aa292881ad50a
+  v0_7_byte_size: 550774
+  v0_7_primary_persistence: NOT_YET
+  v0_7_secondary_persistence: NOT_YET
+  canonical_release_spec: control/u127/SEMI-U127-CANONICAL-RELEASE-SPEC_v0.2_WORKING.yaml
+  membership_identity_binding: PASS_127_OF_127
+  final_state_source_binding: PARTIAL_PASS
+  window_mapping_binding: PASS_WM_v1_1
+  canonical_machine_release: NOT_MATERIALIZED
+  safe_to_materialize_now: false
+price:
+  dataset_id: SEMI-PRICE-MARCAP-KRX-2024-2026_v1
+  identity_sha256: 419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7
+  raw_rows: 1819147
+  engineering_D4_dryrun: PASS_WITH_DECLARED_BLOCKERS
+  official_D4: BLOCKED
+  official_D5: NOT_EXECUTED
+  primary_storage: AWS_S3_MATERIALIZED_VERIFIED
+  secondary_storage: CLOUDFLARE_R2_MATERIALIZED_VERIFIED
+ca:
+  research_local_signal_adjudication: PASS_24_OF_24
+  research_local_regression: PASS_2_OF_2
+  independent_confirmation: BLOCKED_PENDING_CLOSURE
+  project_completeness_gate: BLOCKED
+  raw_OHLC_completeness_axis: BLOCKED
+  targeted_open_cases: ['KRX:001527@2024-03-28', 'KRX:403360@2026-05-08']
+actual_replay_readiness:
+  ready: false
+  blockers:
+    문서·통제_아키텍트_CORE_A:
+      - U127_FINAL_SOURCE_BINDING_INDEPENDENT_VALIDATION
+      - U127_V0_7_PRIMARY_SECONDARY_PERSISTENCE
+      - U127_CANONICAL_MACHINE_RELEASE_MATERIALIZATION
+      - PRICE_OFFICIAL_READINESS
+      - CA_RAW_OHLC_CLOSURE
+      - VALIDATION_DATASET_RELEASE_MATERIALIZATION
+    모델_검증·설계_아키텍트_CORE_B:
+      - MACHINE_IMPLEMENT_F01_TO_F09
+      - MACHINE_IMPLEMENT_M3TOP3_GATED_LINEAR
+      - IMPLEMENT_WM_v1_1_METADATA_BINDING
+      - RUN_SYNTHETIC_PIT_CALENDAR_TESTS
+      - BIND_EXACT_CODE_COMMIT
+      - BIND_EXACT_CONFIG_HASH
+    SHARED_IMPLEMENTATION:
+      - IMPLEMENT_MIS_v1_0
+      - IMPLEMENT_SIO_v1_0
+      - MATERIALIZE_VDI_v1_0
+      - MATERIALIZE_MARM_v1_0
+    VALIDATION:
+      - INDEPENDENT_U127_RELEASE_SCHEMA_STATE_ARITHMETIC_VALIDATION
+      - INDEPENDENT_MODEL_IMPLEMENTATION_PREFLIGHT
+      - INDEPENDENT_REPLAY_VALIDATION_PROCEDURE
+next_actions_parallel:
+  문서·통제_아키텍트_CORE_A:
+    - PREPARE_AND_SEND_U127_RELEASE_SCHEMA_VALIDATION_WORK_ORDER
+    - CONTINUE_PRICE_CA_TARGETED_CLOSURE
+    - PERSIST_V0_7_PRIMARY_SECONDARY_WHEN_STORAGE_WRITE_PATH_AVAILABLE
+    - MATERIALIZE_U127_RELEASE_ONLY_AFTER_GATES_CLOSE
+  모델_검증·설계_아키텍트_CORE_B:
+    - IMPLEMENT_F01_TO_F09_AND_GATED_LINEAR_OUTCOME_BLIND
+    - IMPLEMENT_WM_v1_1_ANCHOR_CUTOFF_METADATA_BINDING
+    - RUN_SYNTHETIC_PIT_AND_W1_W8_CALENDAR_TESTS_ONLY
+    - BIND_CODE_COMMIT_AND_CONFIG_HASH
+  SHARED:
+    - IMPLEMENT_MIS_v1_0_AND_SIO_v1_0
+    - PREPARE_VDI_v1_0_AND_MARM_v1_0_RELEASE_IDENTITIES
+    - PREPARE_ACTUAL_REPLAY_READINESS_GATE
+continuity:
+  dual_core_checkpoint: CP-DUALCORE-20260815-001
+  static_recovery_preflight: PASS_WITH_WARNINGS
+  fresh_successor_drills: DEFERRED_NOT_ON_CURRENT_REPLAY_CRITICAL_PATH
+user_action_required_now: RELAY_MODEL_IMPLEMENTATION_WORK_ORDER_TO_MODEL_VALIDATION_DESIGN_ARCHITECT_WHEN_ISSUED
