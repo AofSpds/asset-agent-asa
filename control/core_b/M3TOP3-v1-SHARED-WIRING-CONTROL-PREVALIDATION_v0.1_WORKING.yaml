@@ -1,0 +1,114 @@
+adjudication_id: M3TOP3-v1-SHARED-WIRING-CONTROL-PREVALIDATION
+version: v0.1_WORKING
+status: CORE_B_IMPLEMENTATION_EVIDENCE_VERIFIED_NARROW_CONTROL_INTERFACE_FIXES_REQUIRED
+project: semiconductor-research
+as_of: '2026-08-16T02:12:00+09:00'
+persona:
+  canonical_name: 문서·통제 아키텍트
+  persona_id: SEMI-CONTROL-ARCHITECT
+source_work_order: control/workorders/WO-COREB-M3TOP3-v1-SHARED-WIRING-PATCH-CONTINUATION-20260816.yaml
+source_return_packet: RETURN PACKET — M3TOP3 v1 SHARED INTERFACE WIRING PATCH CONTINUATION
+prevalidation_principle: NO_MATERIAL_STATE_MUTATION_FROM_UNVERIFIED_INPUT
+identity_verification:
+  base_patch_commit: 5f9491b6861a11097a929156eaa8bb7cc3c8c749
+  successor_source_commit: 7fa068b7d69ea232b2dd0fa61c312af2c68771a2
+  successor_exists: true
+  successor_descends_from_base: true
+  compare_ahead_by_commits: 36
+  baseline_existing_model_sources_modified_in_compare: false
+  branch_head_at_prevalidation_start: d2981d015187d37b9503bb18195410ce8e6468fe
+persistent_core_b_evidence:
+  test_report:
+    path: control/core_b/M3TOP3-v1-SHARED-WIRING-TEST-REPORT_v0.1_WORKING.json
+    git_blob_sha: 88d3405512f92d2db065b2c2b81f66bcc0da928e
+  implementation_manifest:
+    path: control/core_b/M3TOP3-v1-SHARED-WIRING-IMPLEMENTATION-MANIFEST_v0.1_WORKING.yaml
+    git_blob_sha: 736fc2cc1c722c3f0dad0e7d9e176dc6cab2bf94
+ci_prevalidation:
+  run_id: 31897196660
+  job_id: 95042201201
+  exact_head_sha: 7fa068b7d69ea232b2dd0fa61c312af2c68771a2
+  status: completed
+  conclusion: success
+  runtime: Ubuntu_24.04.4_CPyth3.12.13
+  command: python -m unittest discover -s tools/m3top3/tests -p 'test_*.py' -v
+  tests_total: 76
+  tests_passed: 76
+  tests_failed: 0
+  shared_asset_rehash: PASS_6_OF_6
+  component_sha256_log_matches_return_packet: true
+verified_component_identities:
+  tools/m3top3/shared_interface_guards_v1_1.py: 8b658056129b79945a9b3b99949412efcb79ea4ab4ba176124151e861fc3c781
+  tools/m3top3/release_vdi_v1.py: 93054247ebb4a0d426e84a202f9645a1ca1369a31e1ca969097505c2b1ec0eb5
+  tools/m3top3/official_runtime_v1.py: c2aa024a2582b05981078c4164a8f77dd50f8419cf549a778aa5e3b2b769f3a2
+  tools/m3top3/tests/test_shared_interface_wiring_v1.py: affe287eb5994f79244df67376c2a21bd852555896f4451334c1717a89b2726f
+  tools/m3top3/tests/test_shared_wiring_identity_v1.py: 7a534d524a2b66d5162217135a0a2702f1803c945677b158ed0ce5d17ca36fad
+accepted_candidate_results:
+  six_shared_assets_physical_identity: PASS_6_OF_6
+  FND_02_F06_duplicate_milestone_regression: CORE_B_PASS_CANDIDATE
+  FND_03_F02_operator_regression: CORE_B_PASS_CANDIDATE
+  coverage_vdi_five_axis_logic: CORE_B_PASS_CANDIDATE
+  original_weights_changed: false
+  scorer_math_changed: false
+  wm_v1_1_semantics_changed: false
+  actual_replay_executed: false
+control_review_findings:
+  CW_01_EVIDENCE_RESOLVER_NOT_IMMUTABLY_BOUND:
+    severity: P0_RELEASE_BLOCKING
+    practical_meaning: >-
+      과거 입력값의 근거라고 제시된 evidence reference가 실제 고정된 증거 객체인지 확인하지 않고,
+      호출자가 넘긴 dictionary에 같은 문자열 key가 존재하는지만 확인한다. 호출자가 임의 reference를 만들어
+      resolver에 넣어도 현재 검사 구조를 통과시킬 수 있으므로 immutable evidence identity와 lineage 증명이 완성되지 않았다.
+    observed_implementation: >-
+      _resolve_immutable_ref requires a reference string and checks only `ref in resolver`; the test fixture uses resolver entries
+      such as {ref: {status: RESOLVED}} without binding content SHA256, byte size, persistent locator, source lineage or approved release identity.
+    contract_conflict: >-
+      M3TOP3-PIT-CONSUMED-PROVENANCE-CONTRACT_v1.0_WORKING requires immutable evidence/support reference plus source/evidence lineage.
+    required_fix: >-
+      Bind an approved evidence-resolver release identity and require each resolved evidence object to carry/verify immutable content identity,
+      persistent locator and lineage. Caller-populated key membership alone must not constitute immutable resolution.
+  CW_02_TYPED_F08_RULE_SELF_ASSERTION:
+    severity: P0_RELEASE_BLOCKING
+    practical_meaning: >-
+      F08의 양수 freshness penalty 규칙이 실제 승인된 영구 규칙인지 확인하지 않고 호출자가 만든 rule dictionary가
+      자기 자신의 hash를 계산해 넣으면 통과할 수 있다. 이는 아직 공식 숫자형 감점 규칙이 없다는 Control 상태와 충돌한다.
+    observed_implementation: >-
+      validate_f08_freshness_provenance_v1_1 accepts caller-supplied typed_refresh_rules; a rule passes when its embedded registry fields match
+      constants and governance_object_sha256 equals a hash recomputed from the same caller-supplied object. No persistent approved numeric-rule
+      artifact/release locator is resolved. The adversarial test helper itself fabricates SYN-NUMERIC-FRESHNESS-RULE-v1 and passes it.
+    contract_conflict: >-
+      M3TOP3-REFRESH-RULE-REGISTRY_v1.0_WORKING states numeric F08 penalty rules are NOT_YET_DEFINED_DO_NOT_INFER and any positive official penalty
+      must reference an additional typed governed rule that is separately approved and immutable, or equivalent governance object.
+    required_fix: >-
+      Official runtime must resolve numeric penalty rules from a release-bound approved governance resolver/artifact. Until such an approved
+      persistent numeric rule exists, positive official freshness_penalty must fail closed. A self-hashed runtime dictionary is insufficient.
+  CW_03_RECORD_LEVEL_CONSUMED_SCOPE_NOT_ENFORCED:
+    severity: P0_RELEASE_BLOCKING_UNTIL_EXPLICIT_BINDING
+    practical_meaning: >-
+      Feature Input Registry에는 company_id, eligibility_state, snapshot_cutoff_at, window_anchor_date 등 record-level consumed path가
+      공식 입력범위로 등록되어 있지만 새 PIT guard는 feature_raw_inputs와 Hard Risk Gate만 검사하고 record-level path를 처리하지 않는다.
+      특히 eligibility_state처럼 실제 순위 참여 여부를 바꾸는 값의 공식 source/release 결속이 검사 경로에서 빠져 있다.
+    observed_implementation: >-
+      FeatureInputRegistry loads record_level_paths, but validate_consumed_value_provenance_v1_1 does not iterate or validate them.
+    required_fix: >-
+      Do not silently omit record-level consumed paths. Either validate historical record-level fields through governed PIT provenance, or explicitly
+      classify control-identity fields under a versioned MIS/Universe/eligibility release binding with machine-verifiable identity and effective-time rules.
+      Any exemption from per-value evidence must be explicit, versioned and test-covered.
+nonblocking_observation:
+  component_identity_test: >-
+    The component identity test emits SHA256 values and asserts digest length rather than comparing them to a frozen expected manifest.
+    This is acceptable as hash-emission evidence for this candidate because Control separately matched the emitted values, but independent validation
+    must regenerate and bind exact component identities rather than treating this test name as proof by itself.
+scientific_firewall:
+  outcome_data_inspection_evidence_found: false
+  actual_u127_replay_executed: false
+  outcome_tuning_detected: false
+  ground_truth_changed: false
+  price_changed: false
+  ca_changed: false
+  model_frozen: false
+control_decision: ACCEPT_IDENTITY_CI_AND_REGRESSION_EVIDENCE_REJECT_READY_FOR_INDEPENDENT_DELTA_UNTIL_CW_01_TO_CW_03_FIXED
+independent_delta_preflight_ready: false
+actual_replay_authorized: false
+model_freeze_authorized: false
+production_release_authorized: false
