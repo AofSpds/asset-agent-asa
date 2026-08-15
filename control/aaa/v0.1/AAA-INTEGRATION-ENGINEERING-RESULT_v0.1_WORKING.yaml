@@ -1,0 +1,48 @@
+record_id: AAA-INTEGRATION-ENGINEERING-RESULT
+version: v0.1_WORKING
+project: Asset Agent ASA
+short_name: AAA
+status: ENGINEERING_PASS_NOT_INDEPENDENT_VALIDATION
+recorded_at: '2026-08-16T04:09:00+09:00'
+candidate:
+  branch: aaa-integration-v0.1
+  tested_head: 86827d290937fc00632aaa74c829642b2ce750e9
+  base_commit: 8c79fc1ac9aa2b692486235ae107176ecc960dac
+  current_state_binding: v2.11
+  current_state_blob_sha: ba65b898bfaab2615f19e79bcdd6d92000dd1ffa
+engineering_ci:
+  workflow: AAA build tests
+  run_id: 31903088688
+  job_id: 95056735061
+  result: PASS
+  test_count: 12
+  pass_count: 12
+  fail_count: 0
+  python: '3.12'
+verified_behaviors:
+  - AAA_CURRENT_NAMING_BOUNDARY
+  - FAIL_CLOSED_BUILD_CONTRACT
+  - EIGHT_TRACK_FILE_OWNERSHIP_NONINTERFERENCE
+  - NO_CUTOVER_CLAIM_IN_STEP1
+  - AGENT_PERMISSION_BOUNDARY
+  - DETERMINISTIC_IDENTITY_AND_STALE_BASE_REJECTION
+  - LLM_OFF_AND_PROVIDER_SWAP_CONTRACT
+  - READ_ONLY_STATUS_AND_CLI_WITHOUT_LLM
+  - SHADOW_REDUCER_IDEMPOTENCY_AND_DUPLICATE_REJECTION
+  - STORAGE_IDENTITY_AND_PROMOTION_FAIL_CLOSED
+m3top3_external_blocker:
+  finding: FND_02_F06_ECONOMIC_EVENT_ID_ROTATION_BYPASS
+  independent_delta: FAIL
+  repaired_by_aaa: false
+  aaa_behavior: SURFACE_BLOCKER_ONLY
+  replay_authorized: false
+authority_boundary:
+  independent_validation_pass: NOT_CLAIMED
+  canonical_cutover: NOT_AUTHORIZED
+  model_freeze: NOT_AUTHORIZED
+  production_release: NOT_AUTHORIZED
+next:
+  - KEEP_CURRENT_CANDIDATE_DRAFT
+  - EXTEND_READ_ONLY_API_AND_UI_WIRING
+  - ADD_SHADOW_DISCREPANCY_PROJECTION
+  - REVALIDATE_ON_ANY_MATERIAL_BOUND_IDENTITY_CHANGE
