@@ -1,0 +1,57 @@
+work_order_id: WO-VALIDATION-AAA-T19-v0.1-INDEPENDENT-20260816
+project: Asset Agent ASA
+track: T19
+requesting_authority: PROJECT_OWNER
+requesting_control: AAA_BUILD_CONTROL
+executor_persona: SEMI-VALIDATION-AUDITOR
+executor_role: INDEPENDENT_VALIDATION
+state: DISPATCHED_AWAITING_ACK
+created_at: '2026-08-16T07:44:00+09:00'
+repository: AofSpds/asset-agent-asa
+branch_context: aaa-integration-v0.2
+exact_base_commit: c867e3704b2744c3a826635b828ad6696e6281eb
+target_binding: control/aaa/validation/AAA-T19-EXECUTION-RUNTIME-INDEPENDENT-TARGET-BINDING_v0.1_WORKING.yaml
+validation_run_id: RUN-VALIDATION-AAA-T19-INDEPENDENT-20260816-001
+
+repository_permissions:
+  repository: READ_ONLY
+  local_temporary_workspace: ALLOWED
+  branch_write: PROHIBITED
+  pull_request_write: PROHIBITED
+  canonical_write: PROHIBITED
+
+objective: >-
+  Independently and adversarially validate the exact integrated T19 Execution Dispatcher / Worker Runtime successor without relying on Engineering PASS assertions and without enabling live authoritative execution.
+
+required_execution:
+  - checkout exact commit c867e3704b2744c3a826635b828ad6696e6281eb
+  - independently rerun all target-binding tests and adversarial cases
+  - record commands, test counts, failures, findings and exact environment evidence
+  - verify no canonical side effect
+  - return explicit PASS, PASS_WITH_FINDINGS or FAIL
+
+prohibited:
+  - modify T19 implementation during validation
+  - alter P09 failed or rerun validation targets
+  - alter T18 Independent Validation target or result
+  - enable PostgreSQL Operational SoT
+  - enable live T19 worker dispatch
+  - authorize Production Release or P10 Controlled Cutover
+  - change Model/Feature/Scorer/Weight/Ranking methodology
+  - change Shared Contract, Ground Truth, PIT or U127
+  - infer running or success without persistent evidence
+
+return_requirements:
+  validation_run_id: REQUIRED
+  exact_checkout_commit: REQUIRED
+  test_commands_and_counts: REQUIRED
+  postgres_adversarial_results: REQUIRED
+  worker_claim_ack_start_heartbeat_findings: REQUIRED
+  security_and_authority_findings: REQUIRED
+  failure_recovery_findings: REQUIRED
+  canonical_side_effect_check: REQUIRED
+  exclusions_preserved: REQUIRED
+  explicit_verdict: REQUIRED
+  independent_validation_pass_boolean: REQUIRED
+  live_execution_authorized_boolean: REQUIRED_FALSE
+  controlled_cutover_authorized_boolean: REQUIRED_FALSE
