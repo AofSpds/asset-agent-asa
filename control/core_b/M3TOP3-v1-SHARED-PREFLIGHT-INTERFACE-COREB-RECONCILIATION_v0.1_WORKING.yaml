@@ -1,0 +1,136 @@
+reconciliation_id: M3TOP3-v1-SHARED-PREFLIGHT-INTERFACE-COREB-RECONCILIATION
+version: v0.1_WORKING
+status: CORE_B_REVIEW_COMPLETE_READY_FOR_CONTROL_MATERIALIZATION
+project: semiconductor-research
+as_of: '2026-08-16T01:07:00+09:00'
+executing_persona:
+  canonical_name: 모델 검증·설계 아키텍트
+  persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+work_order: control/workorders/WO-SHARED-M3TOP3-v1-PREFLIGHT-INTERFACE-RECONCILIATION-20260816.yaml
+core_a_position: control/core_b/M3TOP3-v1-SHARED-PREFLIGHT-INTERFACE-COREA-POSITION_v0.1_WORKING.yaml
+patch_commit: 5f9491b6861a11097a929156eaa8bb7cc3c8c749
+shared_contract_unilaterally_promoted: false
+scientific_firewall:
+  actual_outcome_data_inspected: false
+  actual_u127_mfe_inspected: false
+  actual_u127_mae_inspected: false
+  actual_future_return_inspected: false
+  actual_future_rank_inspected: false
+  actual_replay_executed: false
+  outcome_tuning_executed: false
+  weights_changed: false
+  scorer_architecture_changed: false
+
+decisions:
+  FND_01_MIS_PIT_PROVENANCE:
+    decision: ACCEPT_WITH_NARROW_MODIFICATION
+    authoritative_scope: >-
+      Use a hybrid governed mechanism: a versioned/hash-bound Feature Input Registry or executable consumed-path
+      contract determines the authoritative scorer-consumed scope. Input-self-declared consumed_fields is never
+      authoritative. Whole-block certification is allowed only when it binds the exact feature-block/input-release hash,
+      feature identity, scope-contract identity/hash, supported_cutoff_at and immutable evidence/source lineage, and its
+      certified scope covers every path returned by the authoritative consumed-path contract.
+    per_value_rule: >-
+      Every authoritative consumed path must resolve to immutable evidence/support provenance with publication_at or
+      supported_cutoff_at <= snapshot_cutoff_at. Derived/aggregate values must additionally bind derivation/operator
+      identity and PIT-certified upstream lineage sufficient to reproduce or certify the value.
+    fail_closed:
+      - missing authoritative consumed-scope contract
+      - self-declared-only scope
+      - missing or unresolved provenance identity
+      - missing publication/support cutoff time
+      - provenance support later than snapshot cutoff
+      - block certification scope/hash mismatch
+      - governed aggregate without operator/derivation identity or PIT-certified upstream lineage
+    current_guard_requires_patch: true
+
+  FND_04_F08_FRESHNESS_PROVENANCE:
+    decision: ACCEPT_WITH_NARROW_MODIFICATION
+    rule: >-
+      Positive freshness penalty must resolve through a release-bound versioned/hashed Refresh Rule Registry or an
+      equivalent typed immutable governance object. Arbitrary nonempty identifiers do not qualify. The registry rule is
+      a model-governance rule and need not have existed on the historical Snapshot date; it must instead be frozen and
+      bound before outcome inspection/replay and then applied uniformly. Historical evidence/support timestamps used to
+      determine freshness must be <= snapshot_cutoff_at. Distinguish model evaluation runtime from the historical
+      as-of cutoff: evaluation_run_at may be later, while evaluated_for_snapshot_cutoff_at/as_of_at must equal or not
+      exceed the governed Snapshot cutoff.
+    minimum_registry_identity:
+      - registry_release_id
+      - registry_version
+      - registry_sha256
+      - persistent_locator
+    minimum_rule_fields:
+      - refresh_rule_id
+      - applicable_scope
+      - rule_definition_or_parameters
+      - stale_state_method
+      - effective_model_version_or_policy_binding
+      - rule_status
+    penalty_cap: 20
+    scorer_invented_thresholds: prohibited
+    current_guard_requires_patch: true
+
+  FND_06_COVERAGE_RELEASE_BINDING:
+    decision: ACCEPT_WITH_NARROW_MODIFICATION
+    rule: >-
+      Preserve company rankability != feature completeness. PROVISIONAL_MISSING_FEATURES may enter an official ranking
+      only when the company is ELIGIBLE, every one of the five model axes has at least one AVAILABLE scored feature,
+      no v1 feature is in REVIEW_REQUIRED state, all missingness/renormalization is governed and disclosed, PIT/shared
+      interface validation passes, and Snapshot-wide eligible-company rankability coverage is 1.00. No numerical minimum
+      feature_coverage_ratio is added in v1 because that would be an unvalidated new threshold; feature coverage remains
+      a mandatory diagnostic. A future-outcome Critical-Miss result is never an eligibility or ranking condition.
+    mandatory_axes:
+      - Business_Momentum
+      - Expectation_Surprise
+      - Market_Positioning
+      - Forward_Runway
+      - Reliability_Risk
+    mandatory_features: []
+    minimum_feature_coverage_required: false
+    scorer_math_change_required: false
+
+  FND_05_PRODUCTION_KRX_CALENDAR:
+    decision: CONFIRMED_UNCHANGED
+    rule: >-
+      A bound real KRX trading calendar can be injected through the existing TradingCalendar interface without changing
+      WM-v1.1 Anchor, PIT Cutoff, Nominal End, Entry, Evaluation Last Trade or Exit semantics. CORE A owns source/release/hash binding.
+
+  F02_HISTORICAL_CONFIG_NOTE:
+    decision: NON_DESTRUCTIVE_SUCCESSOR_METADATA
+    rule: >-
+      Preserve baseline config bytes/hash. Create a successor implementation-compatibility/release metadata artifact
+      bound to patch commit 5f9491b6 that explicitly marks the historical 'default RELATIVE' note as superseded by the
+      executable no-silent-default behavior. Bind that note into the implementation/MARM release identity.
+
+versioning:
+  existing_shared_contract_versions_changed: []
+  existing_shared_contract_versions_unchanged:
+    - WM-v1.1
+    - M3TOP3-FEATURE-SCHEMA_v1.0_WORKING
+    - M3TOP3-GATED-LINEAR_v1.0_WORKING
+    - M3TOP3-WEIGHT-VERSION_v1.0_WORKING
+    - MIS-v1.0 semantic architecture
+    - SIO-v1.0
+    - VDI-v1.0 semantic architecture
+    - MARM-v1.0 semantic architecture
+  new_subcontracts_or_registries_recommended:
+    - M3TOP3-FEATURE-INPUT-REGISTRY_v1.0_WORKING
+    - M3TOP3-PIT-CONSUMED-PROVENANCE-CONTRACT_v1.0_WORKING
+    - M3TOP3-REFRESH-RULE-REGISTRY_v1.0_WORKING
+    - M3TOP3-COVERAGE-RELEASE-POLICY_v1.0_WORKING
+    - M3TOP3-v1-IMPLEMENTATION-COMPATIBILITY-NOTE_v1.0.1_WORKING
+
+implementation_after_control_materialization:
+  - patch shared_interface_guards_v1.py so authoritative consumed scope comes from a bound registry/executable contract, not input consumed_fields
+  - add block-cert exact scope/hash verification and resolver-backed evidence identity checks
+  - patch F08 guard to resolve registry release/hash/rule and separate evaluation runtime from historical as-of cutoff
+  - wire coverage release policy outside scorer arithmetic into release/VDI validation
+  - add adversarial tests for omitted consumed scope, scope mismatch, unresolved evidence refs, arbitrary refresh IDs, registry hash/scope mismatch, and five-axis official rankability
+  - preserve weights/scorer math and rerun full regression before independent delta preflight
+
+ready_for_control_materialization: true
+ready_for_independent_delta_preflight_now: false
+recommended_next_action: >-
+  CORE A materializes the exact reconciled sub-contracts/registries without changing the existing scorer/weight architecture;
+  CORE B then applies the narrow shared-guard/release-policy wiring patch and test delta; CORE A binds production KRX calendar;
+  SEMI-VALIDATION-AUDITOR then executes the independent delta preflight on the newly bound implementation identity.
