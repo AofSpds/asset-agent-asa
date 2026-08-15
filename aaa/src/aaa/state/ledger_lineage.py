@@ -60,6 +60,10 @@ def _records(path: Path) -> list[dict[str, Any]]:
     return records
 
 
+def _canonical_record(record: dict[str, Any]) -> bytes:
+    return json.dumps(record, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+
+
 def load_ledger_lineage(repo_root: Path) -> dict[str, Any]:
     root = repo_root.resolve()
     continuity = root / "control" / "continuity" / "v1.0"
@@ -102,16 +106,24 @@ def load_ledger_lineage(repo_root: Path) -> dict[str, Any]:
 
     chain = list(reversed(chain_newest_first))
     events: list[dict[str, Any]] = []
-    seen_event_ids: set[str] = set()
-    for _, records in chain:
+    seen_event_ids: dict[str, bytes] = {}
+    identical_event_reuse_count = 0
+    for identity, records in chain:
         for record in records:
             event_id = record.get("event_id")
             if event_id is None:
                 continue
             event_id = str(event_id)
-            if event_id in seen_event_ids:
-                raise RuntimeError(f"DUPLICATE_EVENT_ACROSS_LEDGER_LINEAGE: {event_id}")
-            seen_event_ids.add(event_id)
+            canonical = _canonical_record(record)
+            prior = seen_event_ids.get(event_id)
+            if prior is not None:
+                if prior != canonical:
+                    raise RuntimeError(
+                        f"CONFLICTING_DUPLICATE_EVENT_ACROSS_LEDGER_LINEAGE: {event_id} at {identity.path}"
+                    )
+                identical_event_reuse_count += 1
+                continue
+            seen_event_ids[event_id] = canonical
             events.append(record)
 
     identities = [asdict(identity) for identity, _ in chain]
@@ -120,6 +132,8 @@ def load_ledger_lineage(repo_root: Path) -> dict[str, Any]:
         "latest_ledger": str(newest.relative_to(root)),
         "ledger_count": len(chain),
         "event_count": len(events),
+        "identical_event_reuse_count": identical_event_reuse_count,
+        "duplicate_policy": "IDENTICAL_REUSE_IDEMPOTENT_CONFLICTING_REUSE_HARD_FAIL",
         "first_event_id": events[0].get("event_id") if events else None,
         "last_event_id": events[-1].get("event_id") if events else None,
         "ledgers": identities,
