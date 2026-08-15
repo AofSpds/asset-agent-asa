@@ -1,0 +1,127 @@
+gap_map_id: AAA-GAP-MAP
+version: v0.1_WORKING
+status: STEP_1_SCOUT_COMPLETE_INITIAL
+project: Asset Agent ASA
+short_name: AAA
+observed_at: '2026-08-16T03:45:00+09:00'
+source_state:
+  branch: control-hub-continuity-v1
+  pre_aaa_observed_head: 47752daefe446eac8e637c1b0684f0e72e7a7a9a
+  current_state: control/continuity/v1.0/SEMI-CURRENT-STATE_v2.10.yaml
+  governance_consensus: control/governance/SEMI-OPS-AGENTIC-DUAL-CORE-CONSENSUS_v1.1_WORKING.yaml
+  frozen_architecture: control/architecture/v1.0/SEMI-ARCHITECTURE-SPEC_v1.0.md
+  active_manifest: manifests/active/active-manifest.yaml
+scout_lanes:
+  REPOSITORY_GAP_SCOUT:
+    findings:
+      - repository_has_control_plane: true
+      - repository_has_deterministic_m3top3_tools: true
+      - repository_has_price_tools: true
+      - repository_has_general_aaa_application: false
+      - repository_has_general_web_ui: false
+      - repository_has_general_model_gateway: false
+      - repository_has_general_agent_runtime: false
+      - repository_has_general_aaa_cli: false
+  CONTROL_DATA_SCOUT:
+    reusable:
+      - SEMI_CURRENT_STATE_VERSIONED_RECORDS
+      - EVENT_LEDGER
+      - ASSET_REGISTRY
+      - CHECKPOINTS
+      - FROZEN_SCHEMA_REGISTRY
+      - DATA_PLANE_STORAGE_CONTRACT
+      - PRICE_DATASET_IDENTITY
+      - M3TOP3_WORK_ORDERS
+    blockers_to_preserve:
+      - INDEPENDENT_DELTA_PREFLIGHT
+      - APPROVED_REAL_EVIDENCE_RESOLVER_RELEASE_BINDING
+      - PRODUCTION_KRX_TRADING_CALENDAR_IDENTITY
+      - U127_PERSISTENCE_AND_CANONICAL_MACHINE_RELEASE
+      - PRICE_OFFICIAL_READINESS
+      - CA_RAW_OHLC_CLOSURE
+    aaa_rule: AAA_MUST_SURFACE_BLOCKERS_NOT_BYPASS_THEM
+  ARCHITECTURE_CONTRACT_SCOUT:
+    keep:
+      - FROZEN_SEMI_ARCHITECTURE_v1_0
+      - FROZEN_SCHEMA_REGISTRY_v0_1
+      - DETERMINISTIC_FIRST
+      - WORKFLOW_FIRST_AGENTIC
+      - PERSONA_AUTHORITY_SEPARATION
+      - GENERAL_AGENT_NO_CANONICAL_WRITE
+    wrap:
+      - RUN_MANIFEST_AS_EXISTING_EXECUTION_PROVENANCE_PRIMITIVE
+      - CURRENT_STATE_AS_LEGACY_CANONICAL_CONTROL_INPUT
+      - EXISTING_M3TOP3_AND_PRICE_TOOLS_AS_DOMAIN_ADAPTERS
+    add:
+      - AAA_WORK_ORDER_SCHEMA
+      - AAA_AGENT_RUN_SCHEMA
+      - AAA_RESULT_MANIFEST_SCHEMA
+      - AAA_STATE_REDUCER_AND_PROJECTION
+      - AAA_CLI
+      - AAA_BACKEND_API
+      - AAA_WEB_UI
+      - AAA_MODEL_GATEWAY
+      - AAA_AGENT_RUNTIME
+      - AAA_SHADOW_DISCREPANCY_ENGINE
+      - AAA_RECOVERY_AND_LLM_OFF_TESTS
+  UX_WORKFLOW_SCOUT:
+    target_navigation:
+      - Home
+      - Assets
+      - Work
+      - Agents
+      - Research
+      - Validation
+      - Decisions
+      - History
+    owner_questions_to_support:
+      - current_highest_priority_blocker
+      - why_work_is_blocked
+      - core_a_core_b_disagreement
+      - next_recommended_action
+    deterministic_ui_without_llm: REQUIRED
+classification:
+  KEEP:
+    - control/architecture/v1.0
+    - control/schemas/v0.1
+    - control/continuity/v1.0
+    - control/data-plane
+    - control/m3top3
+    - tools/m3top3
+    - tools/price
+    - manifests
+    - data-manifests
+  WRAP:
+    - existing_current_state_and_event_history
+    - existing_run_manifest
+    - existing_domain_tools
+    - existing_storage_and_release_records
+  ADD:
+    - control/aaa
+    - aaa_runtime_package
+    - aaa_cli
+    - aaa_api
+    - aaa_web
+    - aaa_model_gateway
+    - aaa_agent_runtime
+    - aaa_projection_store
+    - aaa_validation_harness
+  RETIRE_LATER:
+    - mandatory_cloud_chat_dependency
+    - manual_status_reconstruction
+  NEVER_REWRITE:
+    - frozen_architecture
+    - frozen_schema_history
+    - event_history
+    - u127_historical_verified_bytes
+    - historical_SEMI_OPS_records
+first_build_risk:
+  highest: ACCIDENTAL_AUTHORITY_OR_CANONICAL_STATE_BYPASS
+  mitigation:
+    - ADDITIVE_PATHS_ONLY
+    - EXACT_BASE_IDENTITY
+    - FILE_OWNERSHIP
+    - FAIL_CLOSED
+    - SHADOW_FIRST
+    - NO_GENERAL_AGENT_CANONICAL_WRITE
+step_1_verdict: READY_TO_DEFINE_BUILD_CONTRACT_AND_MATRIX
