@@ -1,113 +1,171 @@
 workplan_id: SEMI-PARALLEL-WORKPLAN
 version: v1.0
 status: ACTIVE_WORKING_PLAN
-as_of: '2026-08-15T20:34:00+09:00'
+as_of: '2026-08-15T21:39:00+09:00'
 owner_persona: SEMI-CONTROL-ARCHITECT
 
 objective: >-
-  Run U127 historical byte recovery and Control Hub persona/asset continuity implementation
-  in parallel without allowing either lane to contaminate or block the other unnecessarily.
+  Run U127 historical recovery/application-mechanism forensics, durable artifact custody,
+  and dual-core persona continuity work in parallel without allowing any lane to contaminate
+  Ground Truth, model state, or historical artifact identity.
 
-lane_A_U127_recovery:
+lane_A_U127_recovery_and_mechanism_forensics:
   owner: RECOVERY_RESEARCH_CHANNEL_UNDER_CONTROL
   status: ACTIVE
-  purpose: recover the latest genuine U127 workbook bytes and establish machine-readable lineage
+  purpose: >-
+    Recover the latest genuine U127 workbook bytes where they truly existed, and reconstruct
+    how post-v0.7 Control-accepted Research deltas were actually carried when physical workbook
+    versioning became ambiguous.
   current_anchor:
     file: U127_Data_Expansion_Working_v0.7_2026-08-15.xlsx
     authority_level: LEVEL_3
     sha256: 1fc47fd131479e6ebb4375206853f39a730610d8b9f29160c33aa292881ad50a
-  search_priority:
-    - v1.8
-    - v1.7
-    - v1.6
-    - v1.5
-    - v1.4
-    - v1.3
+    successor_byte_custody: VERIFIED
+    durable_primary_persistence: NOT_YET
+    durable_secondary_persistence: NOT_YET
+  forensic_state:
+    materialization_history: MIXED
+    version_namespace_collision: CONFIRMED
+    first_suspected_boundary: v0.8
+    v1_8: MATERIALIZATION_CONFLICT
+    v1_9: PHYSICAL_CREATION_STRONGLY_SUPPORTED_LEVEL_B_FORENSIC_ONLY
+    recovery_exhausted: false
+  active_sublanes:
+    A1_post_v0_7_application_mechanism_audit:
+      priority: P0
+      goal: >-
+        Determine how v0.7 state progressed to the final Control-accepted logical state of
+        1013 READY plus 3 formally unresolved cells: physical XLSX deltas, in-memory workbook,
+        RETURN PACKET/ledger accumulation, Control-local master state, or a mixed mechanism.
+      target: PREVIOUS_DOCUMENT_CONTROL_ARCHITECT_HISTORY
+      required_output:
+        - exact_delta_carrier_by_round
+        - version_namespace_map
+        - parent_state_source_by_round
+        - materialized_vs_logical_boundary
+        - authoritative_delta_lineage
+        - recoverable_machine_readable_sources
+    A2_targeted_byte_recovery:
+      priority: P0
+      search_priority:
+        - v1.8
+        - v1.7
+        - v1.6
+        - v1.5
+        - v1.4
+        - v1.3
+      forensic_only_target:
+        - v1.9
+      note: >-
+        Do not spend equal effort on v0.8, v0.9, or v1.1 absent new evidence of physical materialization.
+    A3_v0_7_durable_custody:
+      priority: P0
+      goal: persist exact verified v0.7 bytes to primary and secondary Data Plane under Artifact Persistence Gate
   rules:
     - RECOVERY_ONLY_UNTIL_CONTROL_AUTHORIZES_REMATERIALIZATION
     - DO_NOT_EDIT_RECOVERED_BYTES
     - DO_NOT_ACCEPT_FILENAME_AS_AUTHORITY
     - COMPUTE_SHA256_ON_RECOVERY
     - READ_ONLY_STRUCTURAL_AND_STATE_RECONCILIATION
-    - V1_9_IS_FORENSIC_ONLY_UNLESS_ACCEPTED_CORRECTION_LINEAGE_IS_PROVEN
-  return_gate:
-    required_for_each_recovered_candidate:
-      - exact_filename
-      - byte_size
-      - sha256
-      - source_or_locator
-      - internal_state_summary
-      - parent_lineage_status
-      - authority_level_recommendation
-      - contamination_status
+    - V1_9_IS_FORENSIC_ONLY
+    - OWNER_TESTIMONY_IS_OPERATIONAL_EVIDENCE_NOT_BYTE_PROOF
   promotion_gate: CONTROL_ADJUDICATION_REQUIRED
 
-lane_B_control_hub_continuity:
+lane_B_dual_core_continuity:
   owner: SEMI-CONTROL-ARCHITECT
   status: ACTIVE
   branch: control-hub-continuity-v1
-  purpose: make persona, project memory, assets, decisions, and channel succession persistent outside chat runtime
-  round_1_outputs:
-    - SEMI-CONTROL-ARCHITECT_v1.0.yaml
-    - SEMI-ASSET-REGISTRY_v1.0.yaml
-    - SEMI-CURRENT-STATE_v1.0.yaml
-    - SEMI-CONTROL-EVENT-LEDGER_v1.0.jsonl
+  purpose: >-
+    Preserve persona identity, project memory, assets, decisions, and channel succession outside chat runtime,
+    then synchronize CORE A with the Model Validation / Design Architect successor.
+  current_phase: CORE_A_SUCCESSOR_ACTIVE_AWAITING_CORE_B_RECONCILIATION
+  immediate_actions:
+    - receive CORE_B_successor_bootstrap_or_return
+    - reconcile model_state_validation_doctrine_assets_and_blockers
+    - raise any conflict as CONTROL_SYNC_REQUIRED
+    - define dual_core_authority_matrix
+    - define shared_asset_ownership
+    - define cross_core_sync_events
   next_outputs:
-    - SEMI-CHANNEL-REGISTRY_v1.0.yaml
-    - SEMI-CHECKPOINT-SCHEMA_v1.0.yaml
     - SEMI-CONTINUITY-PROTOCOL_v1.0.md
     - SEMI-ARTIFACT-PERSISTENCE-PROTOCOL_v1.0.md
-    - first immutable Control Hub checkpoint
+    - dual_core_authority_matrix
+    - updated immutable checkpoint after dual-core reconciliation
   acceptance_gate:
-    - persona_identity_and_authority_recoverable_without_chat_history
-    - active_lanes_and_blockers_recoverable_without_chat_history
-    - U127_recovery_state_recoverable_without_chat_history
-    - artifact_identity_and_authority_separated
+    - both_core_personas_recoverable_without_chat_history
+    - authority_boundaries_explicit
+    - shared_assets_have_single_authoritative_registry
     - successor_channel_can_load_checkpoint_and_reconcile_state
 
+lane_C_knowledge_and_incident_harvest:
+  owner: SEMI-CONTROL-ARCHITECT
+  status: ACTIVE_PARALLEL
+  purpose: >-
+    Capture high-reconstruction-cost methodology and continuity incident lessons before any further channel rotation.
+  priority_assets:
+    - Five_Core_Axis_semantic_rationale
+    - MFE_Top3_Top10_Critical_Miss_validation_doctrine
+    - Experiment_NoTune_Overfit_governance
+    - Market_Positioning_theory
+    - PIT_and_CA_adjudication_knowhow
+    - post_v0_7_U127_delta_lineage
+  incident_hypothesis:
+    classification: LIKELY_CONTRIBUTING_FACTOR_NOT_YET_ROOT_CAUSE_CERTIFIED
+    statement: >-
+      Persona/channel continuity failure allowed artifact identity, logical version state, and executable bytes
+      to diverge without a persistent single source of truth. This is consistent with the U127 incident but
+      remains subject to final causal reconstruction.
+
 cross_lane_contract:
-  - Lane A may discover bytes but may not promote or mutate Control state directly.
-  - Lane B records Lane A discoveries only after Control adjudication.
-  - Every accepted U127 recovery result must append a Control Event and update Asset Registry and Current State.
+  - Lane A may discover bytes or historical mechanisms but may not promote Control state directly.
+  - Lane B records accepted Lane A findings and prevents future channel-local authority accumulation.
+  - Lane C may preserve rationale and incident lessons but must label ACCEPTED, WORKING, HYPOTHESIS, and FUTURE_EXTENSION distinctly.
   - Any recovered important artifact must be persisted before being called canonical or frozen.
-  - Continuity implementation must not reconstruct missing U127 cells or workbook bytes.
-  - U127 recovery must not wait for full continuity v1 completion before continuing forensic search.
+  - Continuity implementation must not reconstruct missing U127 cells or historical workbook bytes.
+  - U127 forensics must continue while CORE_B synchronization proceeds.
 
 synchronization_points:
   SP1:
+    trigger: post_v0_7_application_mechanism_audit_returned
+    actions:
+      - Control adjudicate delta-carrier history
+      - determine whether a clean deterministic rematerialization lineage can eventually be established
+      - update Current State and Event Ledger
+  SP2:
     trigger: any v1.3_or_later_U127_bytes_recovered
     actions:
       - pause authority assignment
       - hash and inspect read-only
       - Control adjudicate
-      - update asset registry
-      - append event ledger
-  SP2:
-    trigger: v1.7_or_v1.8_bytes_recovered
-    actions:
-      - perform clean-parent conflict analysis
-      - inspect Zenics, SemiTES, CMTX, Justek state
-      - determine whether Level_4_or_Level_5 review is justified
+      - update Asset Registry and Event Ledger
   SP3:
-    trigger: Control Hub checkpoint schema complete
+    trigger: CORE_B_successor_reconciled
     actions:
-      - create first checkpoint including live U127 recovery lane
-      - run successor-channel recovery drill
+      - define final dual-core organization and authority matrix
+      - create synchronization contract
   SP4:
+    trigger: v0_7_primary_and_secondary_persistence_verified
+    actions:
+      - update Asset Registry locators
+      - append persistence event
+  SP5:
     trigger: recovery_space_reasonably_exhausted_without_clean_parent
     actions:
       - Control decides whether governed deterministic rematerialization may be designed
-      - no automatic reconstruction
+      - reconstructed artifact must receive a new identity and must never masquerade as historical original bytes
 
 stop_conditions:
   lane_A:
     success: CLEAN_AUTHORITATIVE_PARENT_OR_COMPLETE_MACHINE_ROOT_RECOVERED_AND_VERIFIED
-    alternate_stop: CONTROL_FORMALLY_DECLARES_RECOVERY_SPACE_EXHAUSTED
+    alternate_stop: CONTROL_FORMALLY_DECLARES_RECOVERY_SPACE_EXHAUSTED_AND_APPROVES_NEXT_RECOVERY_MODE
   lane_B:
-    success: SUCCESSOR_CHANNEL_RECOVERY_DRILL_PASS
+    success: DUAL_CORE_RECOVERY_AND_SUCCESSOR_DRILL_PASS
+  lane_C:
+    success: P0_KNOWLEDGE_ASSETS_PERSISTED_WITH_AUTHORITY_LABELS
 
 project_invariants:
   - CHANNEL_IS_DISPOSABLE_PERSONA_INSTANCE
+  - PERSONA_IS_PERSISTENT_ORGANIZATIONAL_IDENTITY
   - GITHUB_IS_CONTROL_MEMORY
   - S3_R2_ARE_BYTE_PERSISTENCE
   - CHAT_RUNTIME_IS_EPHEMERAL
@@ -115,3 +173,4 @@ project_invariants:
   - NO_IMPORTANT_ARTIFACT_WITHOUT_SHA256
   - NO_CANONICAL_ARTIFACT_WITHOUT_PERSISTENT_LOCATOR
   - NO_SELF_VALIDATION_BY_CONTROL_PERSONA
+  - LOGICAL_VERSION_IS_NOT_PHYSICAL_ARTIFACT_IDENTITY
