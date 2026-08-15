@@ -1,0 +1,25 @@
+name: AAA build tests
+
+on:
+  push:
+    branches:
+      - 'aaa-*'
+  pull_request:
+    paths:
+      - 'aaa/**'
+      - 'control/aaa/**'
+      - '.github/workflows/aaa-build-tests.yml'
+
+jobs:
+  deterministic-contract-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run AAA standard-library tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m unittest discover -s aaa/tests -p 'test_*.py' -v
