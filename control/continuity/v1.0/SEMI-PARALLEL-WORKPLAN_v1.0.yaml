@@ -1,11 +1,11 @@
 workplan_id: SEMI-PARALLEL-WORKPLAN
 version: v1.0
 status: ACTIVE_WORKING_PLAN
-as_of: '2026-08-15T21:39:00+09:00'
+as_of: '2026-08-15T22:05:00+09:00'
 owner_persona: SEMI-CONTROL-ARCHITECT
 
 objective: >-
-  Run U127 historical recovery/application-mechanism forensics, durable artifact custody,
+  Run U127 genuine-byte recovery, accepted-delta lineage recovery, durable artifact custody,
   and dual-core persona continuity work in parallel without allowing any lane to contaminate
   Ground Truth, model state, or historical artifact identity.
 
@@ -13,9 +13,8 @@ lane_A_U127_recovery_and_mechanism_forensics:
   owner: RECOVERY_RESEARCH_CHANNEL_UNDER_CONTROL
   status: ACTIVE
   purpose: >-
-    Recover the latest genuine U127 workbook bytes where they truly existed, and reconstruct
-    how post-v0.7 Control-accepted Research deltas were actually carried when physical workbook
-    versioning became ambiguous.
+    Recover genuine later U127 workbook bytes where they truly existed and preserve the
+    distinction between historical artifacts, logical Control state, and Research working state.
   current_anchor:
     file: U127_Data_Expansion_Working_v0.7_2026-08-15.xlsx
     authority_level: LEVEL_3
@@ -25,27 +24,16 @@ lane_A_U127_recovery_and_mechanism_forensics:
     durable_secondary_persistence: NOT_YET
   forensic_state:
     materialization_history: MIXED
+    post_v0_7_effective_system_of_record: MIXED_CONTROL_LOGICAL_STATE_DOMINANT
     version_namespace_collision: CONFIRMED
     first_suspected_boundary: v0.8
+    logical_state_advanced_without_physical_xlsx: CONFIRMED
+    next_rounds_consumed_logical_state_without_parent_bytes: SOME_CONFIRMED
     v1_8: MATERIALIZATION_CONFLICT
     v1_9: PHYSICAL_CREATION_STRONGLY_SUPPORTED_LEVEL_B_FORENSIC_ONLY
     recovery_exhausted: false
   active_sublanes:
-    A1_post_v0_7_application_mechanism_audit:
-      priority: P0
-      goal: >-
-        Determine how v0.7 state progressed to the final Control-accepted logical state of
-        1013 READY plus 3 formally unresolved cells: physical XLSX deltas, in-memory workbook,
-        RETURN PACKET/ledger accumulation, Control-local master state, or a mixed mechanism.
-      target: PREVIOUS_DOCUMENT_CONTROL_ARCHITECT_HISTORY
-      required_output:
-        - exact_delta_carrier_by_round
-        - version_namespace_map
-        - parent_state_source_by_round
-        - materialized_vs_logical_boundary
-        - authoritative_delta_lineage
-        - recoverable_machine_readable_sources
-    A2_targeted_byte_recovery:
+    A1_targeted_byte_recovery:
       priority: P0
       search_priority:
         - v1.8
@@ -58,7 +46,7 @@ lane_A_U127_recovery_and_mechanism_forensics:
         - v1.9
       note: >-
         Do not spend equal effort on v0.8, v0.9, or v1.1 absent new evidence of physical materialization.
-    A3_v0_7_durable_custody:
+    A2_v0_7_durable_custody:
       priority: P0
       goal: persist exact verified v0.7 bytes to primary and secondary Data Plane under Artifact Persistence Gate
   rules:
@@ -71,6 +59,82 @@ lane_A_U127_recovery_and_mechanism_forensics:
     - OWNER_TESTIMONY_IS_OPERATIONAL_EVIDENCE_NOT_BYTE_PROOF
   promotion_gate: CONTROL_ADJUDICATION_REQUIRED
 
+lane_A2_U127_typed_delta_ledger_recovery:
+  owner: SEMI-CONTROL-ARCHITECT_WITH_RESEARCH_RETURNS_AS_INPUT
+  status: ACTIVE_PARALLEL
+  priority: P0
+  purpose: >-
+    Convert the de facto post-v0.7 Research RETURN / Control adjudication history into an immutable,
+    typed accepted/rejected delta lineage without applying any delta to a workbook.
+  control_adjudication_of_mechanism_audit:
+    decision: PARTIAL_ACCEPT
+    aggregate_control_arithmetic: COMPLETE_RECONCILED
+    full_cell_event_lineage: PARTIAL
+    deterministic_rematerialization_feasibility: MEDIUM_NOT_AUTHORIZED
+  recovery_order:
+    - membership_expansion_v0.7_to_v1.3_exact_cell_payloads
+    - RC1
+    - RC2
+    - RC3
+    - RC4
+    - RC4.5
+    - RC5-A_and_A.1_rejection_preservation
+    - RC5-B
+    - RC5-C
+    - RC5-D
+    - RC5-E
+    - FA1_to_FA4_certification_links
+  known_transition_arithmetic:
+    v0_7_certified: 353
+    v0_8_certified: 473
+    v0_9_certified: 593
+    v1_0_certified: 713
+    v1_1_certified: 802
+    v1_2_certified: 918
+    v1_3_certified: 974
+    RC1_certified: 979
+    RC2_certified: 982
+    RC3_certified: 990
+    RC4_certified: 995
+    RC4_5_certified: 996
+    RC5_B_certified: 1001
+    RC5_C_certified: 1008
+    RC5_D_final_certified: 1013
+    arithmetic_gain_from_v0_7: 660
+  event_schema_required_fields:
+    - event_id
+    - parent_control_state_id
+    - parent_artifact_id
+    - target_cell_keys
+    - state_before
+    - research_recommendation
+    - control_decision
+    - state_after
+    - evidence_ids
+    - pit_cutoff
+    - provenance_state
+    - publication_state
+    - entity_state
+    - delta_arithmetic
+    - source_packet_hash
+    - control_accepted_at
+    - based_on_commit_sha
+  rules:
+    - LEDGER_RECOVERY_IS_NOT_REMATERIALIZATION
+    - CONTROL_ACCEPTED_AND_CONTROL_REJECTED_EVENTS_BOTH_PRESERVED
+    - RESEARCH_PROVISIONAL_STATE_NEVER_SILENTLY_PROMOTED
+    - EARLY_AGGREGATE_TRANSITIONS_MUST_NOT_BE_INVENTED_AT_CELL_LEVEL
+    - UNKNOWN_REMAINS_UNKNOWN_UNTIL_SOURCE_PACKET_RECOVERED
+    - NO_CELL_REPLAY_UNTIL_TYPED_LEDGER_CERTIFICATION
+  acceptance_gate:
+    - aggregate_arithmetic_reconciles_353_to_1013
+    - every_RC1_to_RC5E_state_change_has_control_decision_link
+    - rejected_Zenics_W1_promotion_preserved_as_rejected_event
+    - final_three_unresolved_cells_preserved
+    - membership_expansion_cell_payload_gap_explicitly_bounded
+  output_target:
+    - SEMI-U127-DELTA-LEDGER_v0.1_WORKING
+
 lane_B_dual_core_continuity:
   owner: SEMI-CONTROL-ARCHITECT
   status: ACTIVE
@@ -80,17 +144,17 @@ lane_B_dual_core_continuity:
     then synchronize CORE A with the Model Validation / Design Architect successor.
   current_phase: CORE_A_SUCCESSOR_ACTIVE_AWAITING_CORE_B_RECONCILIATION
   immediate_actions:
-    - receive CORE_B_successor_bootstrap_or_return
-    - reconcile model_state_validation_doctrine_assets_and_blockers
-    - raise any conflict as CONTROL_SYNC_REQUIRED
-    - define dual_core_authority_matrix
-    - define shared_asset_ownership
-    - define cross_core_sync_events
+    - receive_CORE_B_successor_bootstrap_or_return
+    - reconcile_model_state_validation_doctrine_assets_and_blockers
+    - raise_any_conflict_as_CONTROL_SYNC_REQUIRED
+    - define_dual_core_authority_matrix
+    - define_shared_asset_ownership
+    - define_cross_core_sync_events
   next_outputs:
     - SEMI-CONTINUITY-PROTOCOL_v1.0.md
     - SEMI-ARTIFACT-PERSISTENCE-PROTOCOL_v1.0.md
     - dual_core_authority_matrix
-    - updated immutable checkpoint after dual-core reconciliation
+    - updated_immutable_checkpoint_after_dual_core_reconciliation
   acceptance_gate:
     - both_core_personas_recoverable_without_chat_history
     - authority_boundaries_explicit
@@ -109,55 +173,62 @@ lane_C_knowledge_and_incident_harvest:
     - Market_Positioning_theory
     - PIT_and_CA_adjudication_knowhow
     - post_v0_7_U127_delta_lineage
-  incident_hypothesis:
-    classification: LIKELY_CONTRIBUTING_FACTOR_NOT_YET_ROOT_CAUSE_CERTIFIED
-    statement: >-
-      Persona/channel continuity failure allowed artifact identity, logical version state, and executable bytes
-      to diverge without a persistent single source of truth. This is consistent with the U127 incident but
-      remains subject to final causal reconstruction.
+  incident_assessment:
+    classification: MULTI_FACTOR_CONTINUITY_AND_ARTIFACT_GOVERNANCE_FAILURE
+    persona_channel_continuity_break_role: MAJOR_CONTRIBUTING_FACTOR
+    sole_root_cause_certified: false
+    components:
+      - TRANSIENT_SANDBOX_ARTIFACT_LOSS
+      - SOME_NON_MATERIALIZED_LOGICAL_VERSIONS
+      - VERSION_NAMESPACE_COLLISION
+      - PERSONA_CHANNEL_CONTINUITY_BREAK
+      - PERSISTENT_ARTIFACT_REGISTRY_FAILURE
 
 cross_lane_contract:
   - Lane A may discover bytes or historical mechanisms but may not promote Control state directly.
-  - Lane B records accepted Lane A findings and prevents future channel-local authority accumulation.
+  - Lane A2 may reconstruct typed deltas but may not replay them into a workbook before separate Control authorization.
+  - Lane B records accepted findings and prevents future channel-local authority accumulation.
   - Lane C may preserve rationale and incident lessons but must label ACCEPTED, WORKING, HYPOTHESIS, and FUTURE_EXTENSION distinctly.
   - Any recovered important artifact must be persisted before being called canonical or frozen.
   - Continuity implementation must not reconstruct missing U127 cells or historical workbook bytes.
-  - U127 forensics must continue while CORE_B synchronization proceeds.
+  - U127 forensics and delta-ledger recovery must continue while CORE_B synchronization proceeds.
 
 synchronization_points:
   SP1:
-    trigger: post_v0_7_application_mechanism_audit_returned
+    trigger: typed_delta_ledger_membership_expansion_segment_recovered
     actions:
-      - Control adjudicate delta-carrier history
-      - determine whether a clean deterministic rematerialization lineage can eventually be established
-      - update Current State and Event Ledger
+      - reconcile_cell_level_arithmetic_against_authorized_baselines
+      - identify_remaining_early_delta_gap
+      - no_workbook_replay
   SP2:
-    trigger: any v1.3_or_later_U127_bytes_recovered
+    trigger: any_v1.3_or_later_U127_bytes_recovered
     actions:
-      - pause authority assignment
-      - hash and inspect read-only
-      - Control adjudicate
-      - update Asset Registry and Event Ledger
+      - pause_authority_assignment
+      - hash_and_inspect_read_only
+      - Control_adjudicate
+      - update_Asset_Registry_and_Event_Ledger
   SP3:
     trigger: CORE_B_successor_reconciled
     actions:
-      - define final dual-core organization and authority matrix
-      - create synchronization contract
+      - define_final_dual_core_organization_and_authority_matrix
+      - create_synchronization_contract
   SP4:
     trigger: v0_7_primary_and_secondary_persistence_verified
     actions:
-      - update Asset Registry locators
-      - append persistence event
+      - update_Asset_Registry_locators
+      - append_persistence_event
   SP5:
-    trigger: recovery_space_reasonably_exhausted_without_clean_parent
+    trigger: full_typed_delta_ledger_certified_and_recovery_space_reasonably_exhausted
     actions:
-      - Control decides whether governed deterministic rematerialization may be designed
-      - reconstructed artifact must receive a new identity and must never masquerade as historical original bytes
+      - Control_decides_whether_governed_deterministic_rematerialization_may_be_designed
+      - reconstructed_artifact_must_receive_new_identity_and_never_masquerade_as_historical_original
 
 stop_conditions:
   lane_A:
     success: CLEAN_AUTHORITATIVE_PARENT_OR_COMPLETE_MACHINE_ROOT_RECOVERED_AND_VERIFIED
-    alternate_stop: CONTROL_FORMALLY_DECLARES_RECOVERY_SPACE_EXHAUSTED_AND_APPROVES_NEXT_RECOVERY_MODE
+    alternate_stop: CONTROL_FORMALLY_DECLARES_ORIGINAL_BYTE_RECOVERY_SPACE_EXHAUSTED
+  lane_A2:
+    success: FULL_ACCEPTED_REJECTED_TYPED_DELTA_LINEAGE_CERTIFIED_OR_EXPLICITLY_BOUNDED
   lane_B:
     success: DUAL_CORE_RECOVERY_AND_SUCCESSOR_DRILL_PASS
   lane_C:
@@ -174,3 +245,5 @@ project_invariants:
   - NO_CANONICAL_ARTIFACT_WITHOUT_PERSISTENT_LOCATOR
   - NO_SELF_VALIDATION_BY_CONTROL_PERSONA
   - LOGICAL_VERSION_IS_NOT_PHYSICAL_ARTIFACT_IDENTITY
+  - CONTROL_STATE_VERSION_IS_NOT_ARTIFACT_VERSION
+  - RETURN_PACKET_IS_TRANSPORT_NOT_SOURCE_OF_TRUTH
