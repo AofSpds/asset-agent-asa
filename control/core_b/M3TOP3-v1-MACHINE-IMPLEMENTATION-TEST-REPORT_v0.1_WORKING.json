@@ -1,0 +1,45 @@
+{
+  "report_id": "M3TOP3-v1-MACHINE-IMPLEMENTATION-TEST-REPORT",
+  "version": "v0.1_WORKING",
+  "status": "CORE_B_SYNTHETIC_CONTRACT_TEST_PASS_NOT_INDEPENDENT_VALIDATION",
+  "work_order_id": "WO-COREB-M3TOP3-v1-MACHINE-IMPLEMENTATION-20260815",
+  "model_version": "M3TOP3-v1.0",
+  "source_code_commit": "32c8a0f31428273d76b4e7b3f2cea76f955770aa",
+  "config_path": "tools/m3top3/configs/m3top3_v1.0.json",
+  "config_sha256": "eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98",
+  "executed_at": "2026-08-15T23:52:00+09:00",
+  "test_command": "python -m unittest discover -s tools/m3top3/tests -p test_model_v1.py -v",
+  "test_scope": "SYNTHETIC_CONTRACT_PIT_WINDOW_ONLY",
+  "tests_run": 18,
+  "tests_passed": 18,
+  "tests_failed": 0,
+  "exit_code": 0,
+  "groups": {
+    "A_F01_F09_TRANSFORMATIONS": "PASS",
+    "B_MISSINGNESS_DISTINCTIONS": "PASS",
+    "C_ANTI_DOUBLE_COUNT": "PASS",
+    "D_HARD_RISK_GATE_NO_DOUBLE_PENALTY": "PASS",
+    "E_DETERMINISTIC_RERUN": "PASS",
+    "F_IDEMPOTENCE": "PASS",
+    "G_PIT_FIREWALL": "PASS",
+    "H_MIS_v1_0": "PASS",
+    "I_SIO_v1_0": "PASS",
+    "J_WM_v1_1": "PASS"
+  },
+  "window_tests": {
+    "W1_W8": "PASS_8_OF_8",
+    "ordinary_daily_window": "PASS",
+    "month_end_clipping": "PASS"
+  },
+  "scientific_firewall": {
+    "actual_u127_outcome_opened": false,
+    "actual_replay_executed": false,
+    "outcome_tuning_executed": false,
+    "future_mfe_used": false,
+    "future_mae_used": false,
+    "future_rank_used": false
+  },
+  "execution_note": "The local test process emitted an unrelated artifact_tool spreadsheet-runtime warmup timeout warning during Python startup; the M3Top3 implementation has no artifact_tool dependency and unittest completed with exit code 0. Exact repository checkout execution remains part of independent preflight.",
+  "independent_validation_state": "NOT_EXECUTED",
+  "self_certified_independent_validation": false
+}
