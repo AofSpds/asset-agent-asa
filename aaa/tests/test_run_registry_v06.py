@@ -109,12 +109,13 @@ class RunRegistryV06Tests(unittest.TestCase):
             self.assertEqual(by_persona["SEMI-CONTROL-ARCHITECT"]["state"], "IDLE_OR_UNREGISTERED")
             self.assertIsNone(by_persona["SEMI-CONTROL-ARCHITECT"]["run_id"])
 
-    def test_repository_bootstrap_record_is_visible_and_noncanonical(self) -> None:
+    def test_repository_bootstrap_record_is_visible_terminal_and_noncanonical(self) -> None:
         rows = list_runs(ROOT, datetime(2026, 8, 15, 20, 40, tzinfo=timezone.utc))
         match = [row for row in rows if row["run_id"] == "RUN-AAA-T17-OPS-DASHBOARD-20260816-001"]
         self.assertEqual(len(match), 1)
         self.assertFalse(match[0]["canonical_output"])
-        self.assertEqual(match[0]["effective_state"], "RUNNING_CONFIRMED")
+        self.assertEqual(match[0]["effective_state"], "COMPLETED_PASS")
+        self.assertEqual(match[0]["terminal_result"]["result_id"], "RESULT-AAA-T17-OPS-DASHBOARD-v0.1")
 
 
 if __name__ == "__main__":
