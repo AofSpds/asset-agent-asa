@@ -1,0 +1,107 @@
+lock_id: M3TOP3-v1.0-BASELINE-PREOUTCOME-20260815
+version: v1.1_WORKING
+status: READY_CANDIDATE_WM_v1_1_BOUND_IMPLEMENTATION_HASHES_PENDING
+project: semiconductor-research
+owner_persona: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+materialized_by: SEMI-CONTROL-ARCHITECT
+materialization_basis: DUAL_CORE_RECONCILED_WM_v1_1_AND_EXPLICIT_CORE_B_SUCCESSOR_LOCK_RECOMMENDATION
+as_of: '2026-08-15T23:48:00+09:00'
+supersedes:
+  path: control/core_b/M3TOP3-NO-TUNE-BASELINE-LOCK_v1.0_WORKING.yaml
+  reason: PRE_OUTCOME_HISTORICAL_COMPATIBILITY_CORRECTION_TO_WINDOW_MAPPING_BINDING
+preservation_rule: PRIOR_v1_0_WORKING_RETAINED_UNMODIFIED
+outcome_data_inspected_for_tuning: false
+actual_u127_replay_executed: false
+model_frozen: false
+production_activation: false
+model_version_change_required: false
+baseline_model_identity:
+  model_version: M3TOP3-v1.0
+  objective: TOP_K_APPROX_3M_OPPORTUNITY_RANKING
+  primary_output: TOP3
+  diagnostic_output: MODEL_TOP10
+  ground_truth_semantics: 3M_MFE_RETURN_EXACT_RANK
+  critical_miss: ANY_SELECTED_TOP3_ACTUAL_3M_MFE_RANK_GT_20
+bound_model_components:
+  feature_schema:
+    path: control/core_b/M3TOP3-FEATURE-SCHEMA_v1.0_WORKING.yaml
+    version: M3TOP3-FEATURE-SCHEMA_v1.0_WORKING
+    changed_from_prior_lock: false
+  scorer:
+    path: control/core_b/M3TOP3-SCORER-CONTRACT_v1.0_WORKING.yaml
+    version: M3TOP3-GATED-LINEAR_v1.0_WORKING
+    changed_from_prior_lock: false
+  weights:
+    path: control/core_b/M3TOP3-WEIGHT-VERSION_v1.0_WORKING.yaml
+    version: M3TOP3-WEIGHT-VERSION_v1.0_WORKING
+    changed_from_prior_lock: false
+  validation_contract:
+    path: control/core_b/M3TOP3-VALIDATION-CONTRACT_v1.0_WORKING.yaml
+    version: v1.0_WORKING
+    changed_from_prior_lock: false
+shared_contract_bindings:
+  WINDOW_MAPPING:
+    version: WM-v1.1
+    path: control/continuity/v1.0/SEMI-WINDOW-MAPPING-CONTRACT_v1.1_WORKING.yaml
+    git_blob_sha: 01cad79f9cd49680f6bdc4eac80f01ccd52b7e86
+    status: DUAL_CORE_AGREED_WORKING
+    material_change_from_prior_candidate: true
+    reason: SEPARATE_CALENDAR_ANCHOR_FROM_PIT_SNAPSHOT_CUTOFF
+  MODEL_INPUT_SCHEMA:
+    version: MIS-v1.0
+    status: AGREED_WORKING_IMPLEMENTATION_PENDING
+  SCORER_IO:
+    version: SIO-v1.0
+    status: AGREED_WORKING_IMPLEMENTATION_PENDING
+  VALIDATION_DATASET_IDENTITY:
+    version: VDI-v1.0
+    status: AGREED_WORKING_RELEASE_NOT_MATERIALIZED
+  MODEL_ARTIFACT_RELEASE_MANIFEST:
+    version: MARM-v1.0
+    status: AGREED_WORKING_RELEASE_NOT_MATERIALIZED
+window_mapping_semantics:
+  window_anchor_date: A
+  snapshot_cutoff_at: C(A) = last valid KRX trading cutoff on or before A under PIT policy
+  nominal_window_end: A plus exactly 3 calendar months
+  entry: first valid KRX trading-day Open strictly after A
+  evaluation_last_trade: last valid KRX trading day on or before nominal_window_end
+  MFE_interval: entry through evaluation_last_trade inclusive
+  MAE_interval: same interval
+  exit: first valid KRX trading-day Open strictly after nominal_window_end
+  horizon_close: evaluation_last_trade diagnostic only
+  historical_W1_W8_compatibility: PASS_8_OF_8
+  daily_replay_compatibility: PASS
+scientific_change_classification:
+  economic_target_semantics_changed: false
+  calendar_mapping_component_materially_corrected: true
+  actual_dates_or_outcomes_may_change_vs_WM_v1_0: true
+  outcome_tuned: false
+unchanged_components:
+  - FEATURE_SCHEMA
+  - SCORER
+  - WEIGHTS
+  - CRITICAL_MISS
+  - HOLDOUT_POLICY
+  - COVERAGE_POLICY
+coverage_policy:
+  version: COV-v1.0
+  official_top_k_threshold: 1.00
+holdout_policy:
+  version: HOLDOUT-v1.0
+  retrospective_holdout_carveout_after_disclosure: FORBIDDEN
+activation_bindings_pending:
+  machine_implementation_code_commit: TO_BIND_BEFORE_BASELINE_EXECUTION
+  config_hash: TO_BIND_BEFORE_BASELINE_EXECUTION
+  model_component_sha256_manifest: TO_BIND_BEFORE_BASELINE_EXECUTION
+  validation_dataset_release_id: TO_BIND_AFTER_DATA_READINESS_CLOSURE
+  independent_implementation_preflight: REQUIRED
+mutation_rule:
+  before_activation: material semantic changes require a new candidate component version and explicit reconciliation
+  after_baseline_lock_activation: feature schema, scorer, weights, shared semantic bindings, GT semantics, critical miss, MFE/MAE semantics and code/config identities are immutable for v1
+  overwrite_after_outcome_review: FORBIDDEN
+readiness:
+  no_tune_baseline_lock_status: READY_CANDIDATE
+  semantic_precommit_ready: true
+  machine_implementation_ready_to_begin: true
+  actual_replay_authorized: false
+  independent_validation_self_certified: false
