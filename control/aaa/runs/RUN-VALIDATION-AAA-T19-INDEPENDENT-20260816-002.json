@@ -1,0 +1,24 @@
+{
+  "run_id": "RUN-VALIDATION-AAA-T19-INDEPENDENT-20260816-002",
+  "process_id": "T19-INDEPENDENT-REVALIDATION",
+  "work_order_id": "WO-VALIDATION-AAA-T19-LEASE-HEARTBEAT-REVALIDATION-v0.1-20260816",
+  "responsible_persona": "SEMI-VALIDATION-AUDITOR",
+  "executor_role": "INDEPENDENT_VALIDATION",
+  "state": "DISPATCHED_AWAITING_ACK",
+  "repository": "AofSpds/asset-agent-asa",
+  "exact_base_commit": "45a1541c4720387873a78e3a95fc697959d19248",
+  "branch": "aaa-integration-v0.2",
+  "started_at": null,
+  "last_heartbeat_at": null,
+  "stale_after_seconds": 7200,
+  "canonical_output": false,
+  "terminal_result": null,
+  "notes": [
+    "This is the second T19 Independent Validation Run and the first revalidation after remediation of AAA-T19-IV-FND-01-EXPIRED-LEASE-HEARTBEAT-RESURRECTION.",
+    "Exact target is fixed at 45a1541c4720387873a78e3a95fc697959d19248; later control-only commits must not move it.",
+    "No ACK/start/heartbeat evidence exists at dispatch time; do not infer RUNNING_CONFIRMED.",
+    "The prior failed target c867e3704b2744c3a826635b828ad6696e6281eb and its FAIL Result remain preserved.",
+    "This Run still uses the manual validation bridge because live authoritative T19 worker execution is not enabled.",
+    "Independent Revalidation PASS, if achieved, cannot itself authorize PostgreSQL Operational SoT, live execution, Production Release, or P10 Controlled Cutover."
+  ]
+}
