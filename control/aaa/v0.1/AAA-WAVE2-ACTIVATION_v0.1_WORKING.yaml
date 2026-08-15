@@ -1,0 +1,16 @@
+activation_id: AAA-WAVE2-ACTIVATION
+version: v0.1_WORKING
+project: Asset Agent ASA
+status: ACTIVATED
+activation_base_commit: 98ce04305890208087fb13d187de5be0f0f2acb5
+tracks:
+  AAA-T09-REPRO:
+    branch: aaa-t09-dependency-lock-v0
+    permission: LEVEL_2_ISOLATED_BRANCH_WRITE
+    parallel: true
+  AAA-T10-SHADOW-LINEAGE:
+    branch: aaa-t10-shadow-lineage-v0
+    permission: LEVEL_2_ISOLATED_BRANCH_WRITE
+    parallel: true
+canonical_write: PROHIBITED
+independent_validation_claim: PROHIBITED
