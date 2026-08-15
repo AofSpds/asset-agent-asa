@@ -1,0 +1,70 @@
+work_order_id: WO-SHARED-M3TOP3-v1-PREFLIGHT-INTERFACE-RECONCILIATION-20260816
+version: v1.0
+status: READY_FOR_DUAL_CORE_RECONCILIATION
+project: semiconductor-research
+priority: P0
+issued_at: '2026-08-16T00:36:00+09:00'
+requesting_persona:
+  canonical_name: 문서·통제 아키텍트
+  persona_id: SEMI-CONTROL-ARCHITECT
+parties:
+  CORE_A:
+    canonical_name: 문서·통제 아키텍트
+    persona_id: SEMI-CONTROL-ARCHITECT
+  CORE_B:
+    canonical_name: 모델 검증·설계 아키텍트
+    persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+source_adjudication: control/validation/M3TOP3-v1-INDEPENDENT-PREFLIGHT-CONTROL-ADJUDICATION_v0.1_WORKING.yaml
+purpose: >-
+  Reconcile only the shared model-data interface clarifications exposed by independent preflight. Keep model semantics,
+  feature weights and scorer architecture unchanged unless a narrow interface correction strictly requires versioning.
+items:
+  MIS_PIT_PROVENANCE:
+    finding: Every scored/consumed signal must carry machine-verifiable PIT provenance; current implementation is not fail-closed for all consumed values.
+    required_contract_decision:
+      - Define the minimum immutable provenance required for every consumed value.
+      - Require publication_at or supported_cutoff/evidence reference and fail closed when absent or post-cutoff.
+      - Define treatment for governed upstream aggregates such as F02.metric_changes.
+    owner_boundary: SHARED
+  F08_FRESHNESS_PROVENANCE:
+    finding: freshness_penalty arithmetic is correct but penalty applicability provenance is not bound.
+    required_contract_decision:
+      - Bind freshness_penalty to refresh rule ID, refresh_code plus evaluated state, supported cutoff reference, or equivalent immutable provenance.
+      - Preserve prohibition on scorer-invented refresh-duration thresholds.
+    owner_boundary: SHARED
+  COVERAGE_RELEASE_BINDING:
+    finding: Company rankability and feature completeness are distinct; current implementation can rank provisional missing-feature scores.
+    required_contract_decision:
+      - Explicitly define governed rankable conditions for PROVISIONAL_MISSING_FEATURES.
+      - Keep company-level rankability coverage distinct from per-company feature completeness.
+      - Bind the result to the release/validation dataset identity used for official replay.
+    owner_boundary: SHARED
+  PRODUCTION_KRX_CALENDAR_BINDING:
+    finding: WM-v1.1 semantics pass synthetic tests but the production KRX calendar identity is unbound.
+    required_contract_decision:
+      - CORE_A binds real KRX calendar source/release identity plus hash/version.
+      - Both cores confirm WM-v1.1 uses the bound calendar without changing Anchor/Cutoff semantics.
+    owner_boundary: CORE_A_DATA_IDENTITY_PLUS_SHARED_WM_INTERFACE
+constraints:
+  - Do not inspect Actual U127 MFE/MAE/future return/future rank.
+  - Do not change model weights.
+  - Do not tune using outcomes.
+  - Do not reopen already agreed definitions unrelated to these findings.
+  - Definition agreement remains 9/9 unless an explicit reconciled version change is required.
+required_output:
+  exactly_one_return_packet: true
+  header: '[RETURN PACKET — M3TOP3 v1 SHARED PREFLIGHT INTERFACE RECONCILIATION]'
+  fields:
+    - WORK_ORDER_ID
+    - MIS_PIT_PROVENANCE_DECISION
+    - F08_FRESHNESS_PROVENANCE_DECISION
+    - COVERAGE_RELEASE_BINDING_DECISION
+    - PRODUCTION_KRX_CALENDAR_INTERFACE_DECISION
+    - CONTRACT_VERSIONS_TO_CHANGE
+    - CONTRACT_VERSIONS_UNCHANGED
+    - IMPLEMENTATION_REQUIREMENTS
+    - SCIENTIFIC_FIREWALL_ATTESTATION
+    - RECOMMENDED_NEXT_ACTION
+output_discipline:
+  - Output exactly one Markdown fenced code block.
+  - Write nothing after the block.
