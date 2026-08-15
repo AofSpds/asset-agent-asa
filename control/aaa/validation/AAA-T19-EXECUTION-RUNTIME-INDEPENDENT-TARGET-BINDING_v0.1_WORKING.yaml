@@ -1,0 +1,73 @@
+binding_id: AAA-T19-EXECUTION-RUNTIME-INDEPENDENT-TARGET-BINDING
+version: v0.1_WORKING
+project: Asset Agent ASA
+track: T19
+recorded_at: '2026-08-16T07:43:00+09:00'
+status: DISPATCH_READY_OWNER_APPROVED
+validator: SEMI-VALIDATION-AUDITOR
+repository: AofSpds/asset-agent-asa
+branch_context: aaa-integration-v0.2
+exact_engineering_target_commit: c867e3704b2744c3a826635b828ad6696e6281eb
+engineering_source_target: acbd983682b9ded0a040008923812e3f88746e23
+integration_pr: 31
+post_merge_ci_run: 31912823517
+engineering_result: control/aaa/results/RESULT-AAA-T19-EXECUTION-RUNTIME-v0.1.json
+engineering_run: control/aaa/runs/RUN-AAA-T19-EXECUTION-RUNTIME-20260816-001.json
+architecture_contract: control/aaa/architecture/AAA-T19-EXECUTION-DISPATCHER-WORKER-ARCHITECTURE-REVIEW_v0.2_OWNER-APPROVED.yaml
+work_order_engineering: control/workorders/WO-AAA-T19-EXECUTION-RUNTIME-v0.1-20260816.yaml
+
+exact_target_rules:
+  later_control_only_commits_must_not_move_target: true
+  validator_must_checkout_exact_commit: true
+  validator_must_rehash_migrations_and_profile_contracts: true
+  target_is_not_latest_branch_head: true
+
+required_validation_scope:
+  - exact checkout and target identity verification
+  - full deterministic Python suite reproduction
+  - Owner Console locked npm ci and build
+  - PostgreSQL 16 migrations 0001 through 0004 with manifest SHA verification
+  - unapproved Work Order cannot materialize executable task
+  - Work Order cannot inject arbitrary shell/command/entrypoint/script
+  - code-owned execution profile identity and SHA binding
+  - worker persona/capability/permission claim enforcement
+  - two workers racing one task produce exactly one claim winner
+  - claim alone does not create ACK/start/heartbeat or RUNNING_CONFIRMED
+  - ACK alone does not create RUNNING_CONFIRMED
+  - start requires current lease and records started_at plus first heartbeat
+  - stale lease_epoch cannot heartbeat, append execution evidence, or terminalize
+  - exact Git target mismatch blocks before ACK or command execution
+  - worker runtime invokes allowlisted argv with shell false
+  - worker crash/interruption never implies success
+  - partial Result persistence cannot create terminal Run
+  - terminal Result and Run transition are atomic
+  - duplicate/idempotent task materialization does not create duplicate execution
+  - retry semantics require new Run identity with lineage
+  - PostgreSQL execution projection does not override JSON operational authority during shadow
+  - CLI/API/Owner Console show consistent worker/task/run truth
+  - no worker projection means no liveness inference
+  - LLM-off does not block deterministic execution Control Plane
+  - Persona != Worker != Channel != Model boundary is preserved
+  - existing P09 and T18 exact validation targets remain unchanged
+  - no canonical side effect from independent validation
+
+explicit_exclusions:
+  - actual live managed PostgreSQL provisioning
+  - managed PITR/RPO/RTO qualification
+  - PostgreSQL Operational SoT cutover
+  - actual production/live T19 worker daemon enablement
+  - retroactive ACK/start/heartbeat on existing P09 or T18 validation Runs
+  - P09 or T18 Independent Validation verdict adjudication
+  - Production Release or P10 Controlled Cutover
+  - model methodology, Shared Contract, Ground Truth, PIT or U127 change
+
+verdict_enum:
+  - PASS
+  - PASS_WITH_FINDINGS
+  - FAIL
+
+independence_rules:
+  engineering_pass_is_not_independent_validation_pass: true
+  independent_validation_pass_does_not_authorize_live_execution: true
+  independent_validation_pass_does_not_authorize_postgresql_sot_cutover: true
+  controlled_cutover_authorized: false
