@@ -7,6 +7,7 @@ from typing import Any
 
 from aaa.api.read_only import build_status, list_validation_gates, list_work_orders, verify_asset
 from aaa.api.server import serve
+from aaa.state.discrepancy import build_discrepancy_report
 
 
 def _emit(value: Any, as_json: bool) -> None:
@@ -51,6 +52,11 @@ def build_parser() -> argparse.ArgumentParser:
     gate_list = gate_sub.add_parser("list", help="list configured AAA validation gates")
     gate_list.add_argument("--json", action="store_true", dest="as_json")
 
+    state = sub.add_parser("state", help="build or compare AAA shadow state")
+    state_sub = state.add_subparsers(dest="state_command", required=True)
+    state_compare = state_sub.add_parser("compare", help="compare deterministic shadow anchors with authoritative Control State")
+    state_compare.add_argument("--json", action="store_true", dest="as_json")
+
     serve_parser = sub.add_parser("serve", help="serve deterministic read-only AAA HTTP API")
     serve_parser.add_argument("--host", default="127.0.0.1")
     serve_parser.add_argument("--port", type=int, default=8765)
@@ -74,6 +80,9 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.command == "gate" and args.gate_command == "list":
         _emit(list_validation_gates(repo_root), args.as_json)
+        return 0
+    if args.command == "state" and args.state_command == "compare":
+        _emit(build_discrepancy_report(repo_root), args.as_json)
         return 0
     if args.command == "serve":
         serve(repo_root, host=args.host, port=args.port)
