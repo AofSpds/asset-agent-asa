@@ -33,6 +33,19 @@ BASE = {
 }
 
 
+def terminal_payload() -> dict[str, object]:
+    payload = dict(BASE)
+    payload["state"] = "COMPLETED_PASS"
+    payload["terminal_result"] = {
+        "result_id": "RESULT-001",
+        "result_sha256": "b" * 64,
+        "completed_at": "2026-08-16T05:30:00+09:00",
+        "persistent_locator": "control/results/RESULT-001.json",
+        "verdict": "PASS",
+    }
+    return payload
+
+
 class RunRegistryV06Tests(unittest.TestCase):
     def test_running_requires_start_and_heartbeat_evidence(self) -> None:
         payload = dict(BASE)
@@ -64,27 +77,12 @@ class RunRegistryV06Tests(unittest.TestCase):
 
     def test_nonterminal_state_cannot_bind_terminal_result(self) -> None:
         payload = dict(BASE)
-        payload["terminal_result"] = {
-            "result_id": "RESULT-001",
-            "result_sha256": "b" * 64,
-            "completed_at": "2026-08-16T05:30:00+09:00",
-            "persistent_locator": "control/results/RESULT-001.json",
-            "verdict": "PASS",
-        }
+        payload["terminal_result"] = terminal_payload()["terminal_result"]
         with self.assertRaisesRegex(InvalidRunRecord, "NONTERMINAL_STATE_CANNOT_BIND_TERMINAL_RESULT"):
             RunRecord.from_dict(payload, "test.json")
 
     def test_completed_pass_with_result_is_valid(self) -> None:
-        payload = dict(BASE)
-        payload["state"] = "COMPLETED_PASS"
-        payload["terminal_result"] = {
-            "result_id": "RESULT-001",
-            "result_sha256": "b" * 64,
-            "completed_at": "2026-08-16T05:30:00+09:00",
-            "persistent_locator": "control/results/RESULT-001.json",
-            "verdict": "PASS",
-        }
-        record = RunRecord.from_dict(payload, "test.json")
+        record = RunRecord.from_dict(terminal_payload(), "test.json")
         self.assertEqual(record.effective_state(), "COMPLETED_PASS")
 
     def test_registry_loader_rejects_duplicate_run_ids(self) -> None:
@@ -108,6 +106,22 @@ class RunRegistryV06Tests(unittest.TestCase):
             self.assertEqual(by_persona["SEMI-VALIDATION-AUDITOR"]["state"], "RUNNING_CONFIRMED")
             self.assertEqual(by_persona["SEMI-CONTROL-ARCHITECT"]["state"], "IDLE_OR_UNREGISTERED")
             self.assertIsNone(by_persona["SEMI-CONTROL-ARCHITECT"]["run_id"])
+
+    def test_terminal_run_is_latest_history_not_current_persona_activity(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            registry = root / "control" / "aaa" / "runs"
+            registry.mkdir(parents=True)
+            payload = terminal_payload()
+            payload["responsible_persona"] = "SEMI-CONTROL-ARCHITECT"
+            (registry / "run.json").write_text(json.dumps(payload), encoding="utf-8")
+            rows = persona_overview(root, datetime(2026, 8, 15, 20, 40, tzinfo=timezone.utc))
+            by_persona = {row["persona"]: row for row in rows}
+            row = by_persona["SEMI-CONTROL-ARCHITECT"]
+            self.assertEqual(row["state"], "IDLE_OR_UNREGISTERED")
+            self.assertIsNone(row["run_id"])
+            self.assertEqual(row["latest_run_id"], "RUN-TEST-001")
+            self.assertEqual(row["latest_run_state"], "COMPLETED_PASS")
 
     def test_repository_bootstrap_record_is_visible_terminal_and_noncanonical(self) -> None:
         rows = list_runs(ROOT, datetime(2026, 8, 15, 20, 40, tzinfo=timezone.utc))
