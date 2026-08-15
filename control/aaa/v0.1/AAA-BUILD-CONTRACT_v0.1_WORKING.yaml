@@ -1,0 +1,167 @@
+contract_id: AAA-BUILD-CONTRACT
+version: v0.1_WORKING
+status: STEP_1_BUILD_CONTRACT_DEFINED
+project: Asset Agent ASA
+short_name: AAA
+owner_activation:
+  source: USER_DIRECT_INSTRUCTION_2026_08_16
+  build_program_start: AUTHORIZED
+  canonical_cutover: NOT_AUTHORIZED
+  model_freeze: NOT_AUTHORIZED
+  production_release: NOT_AUTHORIZED
+principles:
+  - DETERMINISTIC_FIRST
+  - WORKFLOW_FIRST_AGENTIC
+  - LLM_OPTIONAL_REPLACEABLE
+  - CHATGPT_OPTIONAL_NOT_REQUIRED
+  - ADDITIVE_SHADOW_FIRST
+  - EXACT_IDENTITY_AND_FAIL_CLOSED
+  - AGENT_IS_EXECUTOR_NOT_AUTHORITY
+  - PROJECT_STATE_NOT_CHAT_MEMORY
+normative_boundaries:
+  frozen_architecture: PRESERVE
+  frozen_schema_registry: PRESERVE
+  shared_contract_semantics: DUAL_CORE_RECONCILIATION_REQUIRED
+  data_ground_truth_pit_control: SEMI_CONTROL_ARCHITECT_AUTHORITY
+  model_feature_scorer_weight_validation_methodology: SEMI_MODEL_VALIDATION_DESIGN_ARCHITECT_AUTHORITY
+  independent_validation: SEMI_VALIDATION_AUDITOR_FUNCTION
+  owner_final_freeze_release: REQUIRED
+  general_agent_canonical_write: PROHIBITED
+naming:
+  product: Asset Agent ASA
+  short: AAA
+  system_id: ASSET-AGENT-ASA
+  cli: aaa
+  env_prefix: AAA_
+  current_project_namespace: AAA
+  legacy_SEMI_OPS: HISTORICAL_ONLY
+architecture:
+  layers:
+    - AAA_UI
+    - AAA_API
+    - AAA_DETERMINISTIC_CORE
+    - AAA_MODEL_GATEWAY
+    - AAA_AGENT_RUNTIME
+    - DOMAIN_ADAPTERS
+    - PERSISTENT_PROJECT_STATE
+  deterministic_core_must_work_without_llm: true
+  all_llm_providers_offline_survival: REQUIRED
+  current_canonical_control_during_shadow: EXISTING_SEMI_CONTROL_PLANE
+implementation_strategy:
+  reuse_before_rewrite: true
+  multi_agent_framework_mvp: NOT_REQUIRED
+  agent_harness: ONE_GENERIC_EXECUTION_HARNESS_WITH_ROLE_PROFILES
+  runtime_state_projection: DERIVED_NONCANONICAL
+  source_of_truth: VERSIONED_CONTROL_ASSETS_PLUS_DURABLE_ARTIFACT_IDENTITIES
+technology_contract:
+  deterministic_core:
+    language: Python
+    dependency_policy: STANDARD_LIBRARY_FIRST
+  cli:
+    implementation: Python
+    initial_dependency_policy: STANDARD_LIBRARY_ARGPARSE_OR_EQUIVALENT_LIGHTWEIGHT
+  backend_api:
+    candidate: FastAPI
+    rule: API_FRAMEWORK_IS_ADAPTER_NOT_SOURCE_OF_TRUTH
+  projection_store:
+    candidate: SQLite
+    role: REBUILDABLE_DERIVED_INDEX_ONLY
+    canonical_authority: false
+  web_ui:
+    candidate: React_TypeScript_Vite
+    role: OWNER_CONSOLE_AND_CONVERSATIONAL_INTERFACE
+    deterministic_tabs_without_llm: REQUIRED
+  model_gateway:
+    implementation: Python_INTERFACE_PLUS_PROVIDER_ADAPTERS
+    required_interface: [invoke, stream, structured_output, tool_calling, capabilities, health, cost_metadata]
+  agent_runtime:
+    implementation: GENERIC_PROCESS_OR_TOOL_EXECUTION_HARNESS
+    initial_permission_ceiling: LEVEL_2_ISOLATED_BRANCH_WRITE
+    later_permission_ceiling: LEVEL_3_PR_CREATE
+  storage:
+    read_only_shadow_agent_write: PROHIBITED
+    post_gate_agent_write: S3_RUN_SCOPED_STAGING_ONLY
+    direct_r2_agent_write: PROHIBITED_FOR_MVP
+    canonical_promotion: DETERMINISTIC_JOB_PLUS_REQUIRED_AUTHORITY_AND_VALIDATION
+repository_layout_candidate:
+  control_assets: control/aaa/v0.1/
+  runtime_root: aaa/
+  python_source: aaa/src/aaa/
+  backend: aaa/src/aaa/api/
+  deterministic_core: aaa/src/aaa/core/
+  state: aaa/src/aaa/state/
+  gateway: aaa/src/aaa/gateway/
+  agents: aaa/src/aaa/agents/
+  domain_adapters: aaa/src/aaa/adapters/
+  cli: aaa/src/aaa/cli/
+  tests: aaa/tests/
+  web: aaa/web/
+identity_contracts_to_add:
+  AAA_WORK_ORDER:
+    immutable_identity: [work_order_id, work_order_version, work_order_sha256]
+    silent_edit_after_run_start: PROHIBITED
+  AAA_AGENT_RUN:
+    required: [run_id, work_order_identity, exact_base_identity, executor_role, permission_level, created_at, status]
+  AAA_RESULT_MANIFEST:
+    required: [result_id, run_id, base_commit, branch, changed_files, tests, output_artifacts, hashes, blockers, ready_for_integration]
+  AAA_SHADOW_STATE:
+    role: NONAUTHORITATIVE_COMPARISON_PROJECTION
+    canonical_promotion: PROHIBITED
+concurrency:
+  model:
+    - IMMUTABLE_APPEND
+    - EXACT_BASE_IDENTITY
+    - OPTIMISTIC_VERSION_CHECK
+    - SINGLE_CANONICAL_PROMOTION_WRITER
+  global_mutex: NOT_REQUIRED_FOR_MVP
+  same_file_parallel_write: PROHIBITED
+  stale_result: REJECT
+  duplicate_result: REJECT_OR_IDEMPOTENT_REUSE_BY_IDENTITY
+ui_information_architecture:
+  primary_navigation: [Home, Assets, Work, Agents, Research, Validation, Decisions, History]
+  owner_observability_required:
+    - current_state
+    - problem
+    - change
+    - changed_files
+    - diff
+    - tests
+    - post_change_state
+    - unchanged_scope
+cli_minimum:
+  - aaa_status
+  - aaa_work_list
+  - aaa_work_show
+  - aaa_run_show
+  - aaa_asset_show
+  - aaa_asset_verify
+  - aaa_gate_list
+  - aaa_state_build
+  - aaa_checkpoint
+  - aaa_validate
+  - aaa_release_check
+validation_gates:
+  - DETERMINISTIC_REBUILD_PASS
+  - WORK_ORDER_IMMUTABILITY_PASS
+  - RESULT_IDENTITY_PASS
+  - STALE_RESULT_REJECTION_PASS
+  - IDEMPOTENCY_PASS
+  - PERMISSION_BOUNDARY_PASS
+  - LLM_OFF_PASS
+  - PROVIDER_SWAP_PASS
+  - RECOVERY_PASS
+  - SHADOW_STATE_MATCH
+  - NO_DATA_LOSS_REGRESSION
+  - INDEPENDENT_VALIDATION_PASS_BEFORE_CUTOVER
+non_interference:
+  m3top3_active_p0_paths: DO_NOT_MODIFY_FROM_AAA_BUILD_TRACKS_WITHOUT_EXPLICIT_TRACK_CONTRACT
+  u127_bytes: DO_NOT_MUTATE
+  tools_m3top3: WRAP_READ_ONLY_FOR_INITIAL_AAA_BUILD
+  tools_price: WRAP_READ_ONLY_FOR_INITIAL_AAA_BUILD
+  control_continuity_history: READ_ONLY_FOR_INITIAL_AAA_BUILD
+step_1_exit_criteria:
+  gap_map: REQUIRED
+  build_contract: REQUIRED
+  build_matrix: REQUIRED
+  exact_track_file_ownership: REQUIRED
+  additive_branch_strategy: REQUIRED
