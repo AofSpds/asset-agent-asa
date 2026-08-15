@@ -1,0 +1,23 @@
+{
+  "policy_id": "M3TOP3-RECORD-LEVEL-BINDING-POLICY",
+  "policy_release_id": "M3TOP3-RECORD-LEVEL-BINDING-POLICY_v1.0_WORKING",
+  "version": "v1.0_WORKING",
+  "status": "CONTROL_FIX_CANDIDATE_EXPLICIT_RECORD_SCOPE_CLASSIFICATION",
+  "project": "semiconductor-research",
+  "model_version": "M3TOP3-v1.0",
+  "feature_input_registry_release_id": "M3TOP3-FEATURE-INPUT-REGISTRY_v1.0_WORKING",
+  "rule": "Every record_level_consumed_path must be explicitly classified and validated; no silent exemption.",
+  "classifications": {
+    "company_id": "CONTROL_IDENTITY_EXEMPT_WITH_EXPLICIT_POLICY_BINDING",
+    "eligibility_state": "HISTORICAL_GOVERNED_BINDING_REQUIRED",
+    "snapshot_cutoff_at": "CONTROL_IDENTITY_EXEMPT_WITH_EXPLICIT_POLICY_BINDING",
+    "window_anchor_date": "CONTROL_IDENTITY_EXEMPT_WITH_EXPLICIT_POLICY_BINDING",
+    "hard_risk_gate.state": "CONDITIONAL_HISTORICAL_BINDING_REQUIRED_WHEN_NON_NONE",
+    "hard_risk_gate.event_group_id": "CONDITIONAL_HISTORICAL_BINDING_REQUIRED_WHEN_NON_NONE",
+    "hard_risk_gate.evidence_status": "CONDITIONAL_HISTORICAL_BINDING_REQUIRED_WHEN_NON_NONE",
+    "hard_risk_gate.reason": "CONDITIONAL_HISTORICAL_BINDING_REQUIRED_WHEN_NON_NONE"
+  },
+  "control_identity_exemption_rule": "Exemption must carry this exact policy release ID and SHA256; absence of an explicit binding fails closed.",
+  "historical_binding_rule": "Bind to governed PIT evidence through an approved evidence resolver or to an approved governed release represented by such immutable evidence.",
+  "hard_risk_gate_rule": "NONE may use explicit conditional exemption; non-NONE must use governed PIT evidence consistent with existing hard-risk-gate provenance semantics."
+}
