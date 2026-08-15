@@ -3,7 +3,8 @@ version: v0.1_WORKING
 project: Asset Agent ASA
 short_name: AAA
 status: ACTIVATED_PARALLEL
-exact_base_commit: da5a2b6572a5a087ebfb2059a450609af60f5405
+pre_activation_exact_base: da5a2b6572a5a087ebfb2059a450609af60f5405
+branch_creation_exact_base: 6ba8d5637041605b9e15dcc00ca696825e92cd67
 tracks:
   AAA-T15-NATURAL-LANGUAGE-NONCANONICAL:
     objective: Convert natural-language requests through the provider gateway into immutable candidate Work Intent envelopes, then require deterministic confirmation before producing a noncanonical Work Order draft. Language/model output must never mutate Current State, Ground Truth, Shared Contracts, model freeze, release or canonical artifacts.
