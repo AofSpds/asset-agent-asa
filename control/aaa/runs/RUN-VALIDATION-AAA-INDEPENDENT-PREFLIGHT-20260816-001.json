@@ -1,0 +1,22 @@
+{
+  "run_id": "RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-001",
+  "process_id": "P09-INDEPENDENT-VALIDATION",
+  "work_order_id": "WO-VALIDATION-AAA-v0.2-INDEPENDENT-PREFLIGHT-20260816",
+  "responsible_persona": "SEMI-VALIDATION-AUDITOR",
+  "executor_role": "PREVALIDATION_CHECK",
+  "state": "DISPATCHED_AWAITING_ACK",
+  "repository": "AofSpds/asset-agent-asa",
+  "exact_base_commit": "80378610f9ac9e688c52417f0416e01c057400a7",
+  "branch": "aaa-integration-v0.2",
+  "started_at": null,
+  "last_heartbeat_at": null,
+  "stale_after_seconds": 7200,
+  "canonical_output": false,
+  "terminal_result": null,
+  "notes": [
+    "Project Owner approved proceeding at 2026-08-16T05:55:00+09:00 after T17 integration.",
+    "This record means dispatched to SEMI-VALIDATION-AUDITOR but not yet acknowledged or started.",
+    "RUNNING_CONFIRMED must not be claimed until the validation executor records start evidence and heartbeat.",
+    "Engineering PASS and Owner local smoke are evidence inputs only and are not Independent Validation PASS."
+  ]
+}
