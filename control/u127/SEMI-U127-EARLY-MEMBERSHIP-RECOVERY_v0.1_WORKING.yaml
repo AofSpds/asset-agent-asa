@@ -1,14 +1,18 @@
 recovery_id: SEMI-U127-EARLY-MEMBERSHIP-RECOVERY
 version: v0.1_WORKING
-status: PARTIAL_ACCEPT_GAP_CLOSURE_REQUIRED
-as_of: '2026-08-15T22:18:00+09:00'
+status: PARTIAL_ACCEPT_GAP_A1_ARCHIVE_EXHAUSTED
+as_of: '2026-08-15T22:36:00+09:00'
 owner_persona: SEMI-CONTROL-ARCHITECT
 source_channel_role: U127 Research predecessor
-source_packet:
-  title: RETURN PACKET — U127 EARLY MEMBERSHIP DELTA HARVEST
-  sha256: 861d4d5ef7670f28c33cd790ab0e8cccdce746beb83d56c909dcb7fe868919f8
-  byte_size: 76571
-  control_copy: control/u127/source_packets/RET-U127-EARLY-MEMBERSHIP-DELTA-HARVEST_2026-08-15.txt
+source_packets:
+  - title: RETURN PACKET — U127 EARLY MEMBERSHIP DELTA HARVEST
+    sha256: 861d4d5ef7670f28c33cd790ab0e8cccdce746beb83d56c909dcb7fe868919f8
+    byte_size: 76571
+    control_copy: control/u127/source_packets/RET-U127-EARLY-MEMBERSHIP-DELTA-HARVEST_2026-08-15.txt
+  - title: RETURN PACKET — U127 EARLY DELTA GAP CLOSURE A
+    sha256: 5b221055a50c8b3b16d84dfba597702fd5997a1c681d9dab95a7688c6c280217
+    byte_size: 19012
+    control_copy: control/u127/source_packets/RET-U127-EARLY-DELTA-GAP-CLOSURE-A_2026-08-15.txt
 scope: v0.7_to_v1.3_early_membership_expansion
 adjudication: PARTIAL_ACCEPT
 rules:
@@ -17,6 +21,7 @@ rules:
   - RESEARCH_RECOMMENDATION_IS_NOT_CONTROL_PROMOTION
   - NO_WORKBOOK_REPLAY
   - NO_REMATERIALIZATION
+  - NO_NEW_RESEARCH_TO_RECREATE_HISTORICAL_PAYLOAD
 aggregate_progression:
   v0.7: {certified: 353, populated: 370, complete_histories: 44, listing: 58}
   v0.8: {certified: 473, populated: 489, complete_histories: 59, listing: 68}
@@ -33,20 +38,28 @@ aggregate_checks:
 batches:
   - range: 46-60
     transition: v0.7_to_v0.8
-    recovery: PARTIAL
+    recovery: HISTORICAL_PAYLOAD_NOT_RECOVERABLE_IN_CURRENT_ARCHIVE
     aggregate_delta: {certified: 120, populated: 119, complete_histories: 15, listing: 10}
-    executed_result_packet: NOT_RECOVERED
+    authorization_boundary: RECOVERED
+    downstream_authorized_baseline: RECOVERED
+    executed_result_packet: NOT_FOUND_AFTER_TARGETED_HISTORICAL_SEARCH
     exact_cell_payload: UNKNOWN
     exact_listing_additions: UNKNOWN
+    cell_level_control_promotion_evidence: UNKNOWN
+    current_archive_search_state: EXHAUSTED_FOR_RESEARCH_CHANNEL
+    raw_predecessor_chat_tool_transcript_access_by_current_control: NOT_AVAILABLE
+    recovery_stop_rule: STOP_DO_NOT_RECREATE_UNLESS_UNTOUCHED_ORIGINAL_SOURCE_IS_LATER_DISCOVERED
   - range: 61-75
     transition: v0.8_to_v0.9
-    recovery: PARTIAL
+    recovery: PARTIAL_ARCHIVE_CONTENT_EXHAUSTED
     aggregate_delta: {certified: 120, populated: 120, complete_histories: 15, listing: 14}
-    return_packet: RECOVERED
+    return_packet: RECOVERED_FULL_SURVIVING_PACKET_INSPECTED
     batch_result: ALL_15_COMPLETE_NO_NEW_PARTIAL_OR_UNRESOLVED
+    exact_company_window_matrix: NOT_PRESENT_IN_SURVIVING_RETURN
     exact_cell_prestate_and_provenance: PARTIAL
-    exact_listing_additions: UNKNOWN
+    exact_listing_additions: NOT_PRESENT_IN_SURVIVING_RETURN
     known_prior_listing: '쎄크|081180|2025-04-28'
+    recovery_stop_rule: KEEP_UNKNOWN_UNLESS_UNTOUCHED_ORIGINAL_SOURCE_IS_LATER_DISCOVERED
   - range: 76-90
     transition: v0.9_to_v1.0
     recovery: PARTIAL_HIGH_VALUE
@@ -58,6 +71,7 @@ batches:
       - '예스티|122640|W1|PARTIAL_TO_READY'
     poststate: ALL_76_90_W1_W8_READY
     exact_listing_additions: RECOVERED_15
+    gap_closure_A_reinspection: NO_NEW_FIELDS
   - range: 91-105
     transition: v1.0_to_v1.1
     recovery: PARTIAL_VERY_HIGH_VALUE
@@ -75,6 +89,7 @@ batches:
       미코: ['W1-W8:PARTIAL']
     preexisting_CMTX: ['W1-W5:UNRESOLVED','W6-W7:PARTIAL','W8:READY']
     exact_listing_additions: RECOVERED_11
+    gap_closure_A_reinspection: NO_NEW_FIELDS
   - range: 106-120
     transition: v1.1_to_v1.2
     recovery: PARTIAL_VERY_HIGH_VALUE
@@ -90,6 +105,7 @@ batches:
       덕산테코피아: ['W8:PARTIAL']
     new_unresolved: NONE
     exact_listing_additions: RECOVERED_14
+    gap_closure_A_reinspection: NO_NEW_FIELDS
   - range: 121-127
     transition: v1.2_to_v1.3
     recovery: PARTIAL_VERY_HIGH_VALUE
@@ -103,23 +119,35 @@ listing_recovery:
   exact_ranges: ['76-90','91-105','106-120','121-127']
   aggregate_only_ranges: ['46-60','61-75']
 full_early_cell_ledger_feasible: PARTIAL
+archive_exhaustion:
+  research_channel_searchable_corpus: EXHAUSTED
+  current_control_has_raw_predecessor_chat_tool_transcript_outside_corpus: false
+  global_nonexistence_proven: false
+  classification_rule: HISTORICAL_PAYLOAD_NOT_RECOVERABLE_IN_CURRENT_ARCHIVE
 remaining_gaps:
   - id: GAP-A1
     priority: P0
     scope: membership_46_60_original_executed_RETURN_or_cell_table
+    state: HISTORICAL_PAYLOAD_NOT_RECOVERABLE_IN_CURRENT_ARCHIVE
+    reopen_only_if: UNTOUCHED_ORIGINAL_SOURCE_LATER_DISCOVERED
   - id: GAP-A2
     priority: P1
     scope: membership_61_75_full_company_window_prestate_provenance_and_exact_14_listing_additions
+    state: PARTIAL_ARCHIVE_EXHAUSTED
+    reopen_only_if: UNTOUCHED_ORIGINAL_SOURCE_LATER_DISCOVERED
   - id: GAP-A3
     priority: P2
     scope: exact_prestate_enums_for_nonlegacy_new_READY_cells_76_127
+    state: PARTIAL_NO_NEW_FIELDS_FROM_NARROW_REINSPECTION
   - id: GAP-A4
     priority: P2
     scope: per_cell_publication_PIT_source_locator_early_rounds
+    state: PARTIAL_NO_NEW_FIELDS_FROM_NARROW_REINSPECTION
   - id: GAP-A5
     priority: P2
     scope: independent_project_control_acceptance_evidence_at_early_cell_level
-next_action: U127_EARLY_DELTA_GAP_CLOSURE_A
+    state: PARTIAL
+next_action: STOP_EARLY_ARCHIVE_RECOVERY_AND_PRESERVE_UNKNOWN_PENDING_ANY_FUTURE_ORIGINAL_DISCOVERY
 safe_to_rematerialize: false
 ground_truth_changed: false
 workbook_created: false
