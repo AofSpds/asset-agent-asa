@@ -31,12 +31,17 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - name: Install Owner Console dependencies for engineering smoke build
+      - name: Resolve Owner Console dependencies and capture exact direct identities
         working-directory: aaa/web
         shell: bash
         run: |
           set -euo pipefail
-          npm install --no-audit --no-fund --package-lock=false
+          npm install --no-audit --no-fund
+          echo 'AAA_RESOLVED_DIRECT_DEPENDENCIES_BEGIN'
+          npm ls --depth=0 --json
+          echo 'AAA_RESOLVED_DIRECT_DEPENDENCIES_END'
+          test -f package-lock.json
+          sha256sum package-lock.json
       - name: Build Owner Console
         working-directory: aaa/web
         shell: bash
