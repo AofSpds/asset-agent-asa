@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://asset-agent-asa.local/contracts/work_order.schema.json",
+  "title": "AAA Work Order",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["work_order_id", "work_order_version", "work_order_sha256", "title", "executor_role", "permission_level", "exact_base_identity", "input_bindings", "output_contract", "created_at"],
+  "properties": {
+    "work_order_id": {"type": "string", "minLength": 1},
+    "work_order_version": {"type": "string", "minLength": 1},
+    "work_order_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "title": {"type": "string", "minLength": 1},
+    "executor_role": {"type": "string", "minLength": 1},
+    "permission_level": {"type": "integer", "minimum": 0, "maximum": 2},
+    "exact_base_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "commit_sha"],
+      "properties": {
+        "repository": {"type": "string", "minLength": 1},
+        "commit_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+      }
+    },
+    "input_bindings": {"type": "array", "items": {"type": "object"}},
+    "output_contract": {"const": "AAA_RESULT_MANIFEST"},
+    "forbidden_actions": {"type": "array", "items": {"type": "string"}, "default": []},
+    "created_at": {"type": "string", "format": "date-time"}
+  }
+}
