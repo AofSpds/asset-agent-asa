@@ -64,10 +64,11 @@ jobs:
         run: |
           set -euo pipefail
           cid="$(docker ps --format '{{.ID}} {{.Image}}' | awk '$2 ~ /^postgres:16-alpine/ {print $1; exit}')"; test -n "$cid"
-          claim_sql="DO \$\$ DECLARE c integer; BEGIN SELECT count(*) INTO c FROM aaa_ops.claim_next_execution_task(:'worker',300); IF c <> 1 THEN RAISE EXCEPTION 'NO_CLAIM'; END IF; END \$\$;"
+          claim_sql_a="DO \$\$ DECLARE c integer; BEGIN SELECT count(*) INTO c FROM aaa_ops.claim_next_execution_task('worker-a',300); IF c <> 1 THEN RAISE EXCEPTION 'NO_CLAIM'; END IF; END \$\$;"
+          claim_sql_b="DO \$\$ DECLARE c integer; BEGIN SELECT count(*) INTO c FROM aaa_ops.claim_next_execution_task('worker-b',300); IF c <> 1 THEN RAISE EXCEPTION 'NO_CLAIM'; END IF; END \$\$;"
           set +e
-          docker exec "$cid" psql -v ON_ERROR_STOP=1 -v worker=worker-a -U postgres -d aaa_t18 -c "$claim_sql" >/tmp/t19-a.log 2>&1 & pa=$!
-          docker exec "$cid" psql -v ON_ERROR_STOP=1 -v worker=worker-b -U postgres -d aaa_t18 -c "$claim_sql" >/tmp/t19-b.log 2>&1 & pb=$!
+          docker exec "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18 -c "$claim_sql_a" >/tmp/t19-a.log 2>&1 & pa=$!
+          docker exec "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18 -c "$claim_sql_b" >/tmp/t19-b.log 2>&1 & pb=$!
           wait "$pa"; ra=$?; wait "$pb"; rb=$?; set -e; cat /tmp/t19-a.log; cat /tmp/t19-b.log
           if { [ "$ra" -eq 0 ] && [ "$rb" -eq 0 ]; } || { [ "$ra" -ne 0 ] && [ "$rb" -ne 0 ]; }; then exit 48; fi
           docker exec "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18 -c "DO \$\$ BEGIN IF (SELECT state FROM aaa_ops.runs WHERE run_id='RUN-T19-CONCURRENCY') <> 'DISPATCHED_AWAITING_ACK' THEN RAISE EXCEPTION 'CLAIM_FALSELY_MARKED_RUNNING'; END IF; IF (SELECT started_at FROM aaa_ops.runs WHERE run_id='RUN-T19-CONCURRENCY') IS NOT NULL THEN RAISE EXCEPTION 'CLAIM_FABRICATED_START'; END IF; END \$\$;"
