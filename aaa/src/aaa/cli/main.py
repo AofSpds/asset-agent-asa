@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from aaa.api.read_only import build_status, list_validation_gates, list_work_orders, verify_asset
+from aaa.api.server import serve
 
 
 def _emit(value: Any, as_json: bool) -> None:
@@ -50,6 +51,10 @@ def build_parser() -> argparse.ArgumentParser:
     gate_list = gate_sub.add_parser("list", help="list configured AAA validation gates")
     gate_list.add_argument("--json", action="store_true", dest="as_json")
 
+    serve_parser = sub.add_parser("serve", help="serve deterministic read-only AAA HTTP API")
+    serve_parser.add_argument("--host", default="127.0.0.1")
+    serve_parser.add_argument("--port", type=int, default=8765)
+
     return parser
 
 
@@ -69,6 +74,9 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.command == "gate" and args.gate_command == "list":
         _emit(list_validation_gates(repo_root), args.as_json)
+        return 0
+    if args.command == "serve":
+        serve(repo_root, host=args.host, port=args.port)
         return 0
 
     parser.error("unsupported command")
