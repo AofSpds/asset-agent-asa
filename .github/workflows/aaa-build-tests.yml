@@ -2,156 +2,108 @@ name: AAA build tests
 
 on:
   push:
-    branches:
-      - 'aaa-*'
+    branches: ['aaa-*']
   pull_request:
-    paths:
-      - 'aaa/**'
-      - 'control/aaa/**'
-      - '.github/workflows/aaa-build-tests.yml'
+    paths: ['aaa/**', 'control/aaa/**', '.github/workflows/aaa-build-tests.yml']
 
 jobs:
   deterministic-contract-tests:
-    permissions:
-      contents: read
+    permissions: {contents: read}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
+        with: {python-version: '3.12'}
       - name: Run AAA standard-library tests
-        shell: bash
-        run: |
-          set -euo pipefail
-          python -m unittest discover -s aaa/tests -p 'test_*.py' -v
+        run: python -m unittest discover -s aaa/tests -p 'test_*.py' -v
 
   postgres-contract-smoke:
-    permissions:
-      contents: read
+    permissions: {contents: read}
     runs-on: ubuntu-latest
     services:
       postgres:
         image: postgres:16-alpine
-        env:
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: aaa_t18
+        env: {POSTGRES_PASSWORD: postgres, POSTGRES_DB: aaa_t18}
         options: >-
           --health-cmd "pg_isready -U postgres -d aaa_t18"
-          --health-interval 5s
-          --health-timeout 5s
-          --health-retries 12
+          --health-interval 5s --health-timeout 5s --health-retries 12
     steps:
       - uses: actions/checkout@v4
-
       - name: Verify migration manifest SHA256 identities
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
           import hashlib, json, pathlib
-          root = pathlib.Path('.')
-          manifest = json.loads((root/'aaa/db/MIGRATIONS.json').read_text())
+          root=pathlib.Path('.'); manifest=json.loads((root/'aaa/db/MIGRATIONS.json').read_text())
           for item in manifest['migrations']:
-              payload = (root/item['path']).read_bytes()
-              observed = hashlib.sha256(payload).hexdigest()
-              if observed != item['sha256']:
-                  raise SystemExit(f"migration hash mismatch {item['version']}: {observed} != {item['sha256']}")
+              observed=hashlib.sha256((root/item['path']).read_bytes()).hexdigest()
+              if observed != item['sha256']: raise SystemExit(f"migration hash mismatch {item['version']}: {observed} != {item['sha256']}")
               print(item['version'], observed)
           PY
-
-      - name: Apply T18 PostgreSQL migrations and contract smoke
+      - name: Apply T18 and T19 PostgreSQL migrations and contract smoke
         shell: bash
         run: |
           set -euo pipefail
-          cid="$(docker ps --format '{{.ID}} {{.Image}}' | awk '$2 ~ /^postgres:16-alpine/ {print $1; exit}')"
-          test -n "$cid"
-          for migration in aaa/db/migrations/*.sql; do
-            echo "applying $migration"
-            docker exec -i "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18 < "$migration"
-          done
+          cid="$(docker ps --format '{{.ID}} {{.Image}}' | awk '$2 ~ /^postgres:16-alpine/ {print $1; exit}')"; test -n "$cid"
+          for migration in aaa/db/migrations/*.sql; do docker exec -i "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18 < "$migration"; done
           docker exec -i "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18 < aaa/db/tests/t18_contract_smoke.sql
           docker exec -i "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18 < aaa/db/tests/t18_idempotency_atomic_smoke.sql
-
-      - name: Verify concurrent lease fencing has one winner
+          docker exec -i "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18 < aaa/db/tests/t19_execution_runtime_smoke.sql
+      - name: Verify T18 concurrent lease fencing has one winner
         shell: bash
         run: |
           set -euo pipefail
-          cid="$(docker ps --format '{{.ID}} {{.Image}}' | awk '$2 ~ /^postgres:16-alpine/ {print $1; exit}')"
-          test -n "$cid"
+          cid="$(docker ps --format '{{.ID}} {{.Image}}' | awk '$2 ~ /^postgres:16-alpine/ {print $1; exit}')"; test -n "$cid"; set +e
+          docker exec "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18 -c "SELECT aaa_ops.acquire_run_lease('RUN-T18-CONCURRENCY','worker-a',600);" >/tmp/t18-a.log 2>&1 & pa=$!
+          docker exec "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18 -c "SELECT aaa_ops.acquire_run_lease('RUN-T18-CONCURRENCY','worker-b',600);" >/tmp/t18-b.log 2>&1 & pb=$!
+          wait "$pa"; ra=$?; wait "$pb"; rb=$?; set -e; cat /tmp/t18-a.log; cat /tmp/t18-b.log
+          if { [ "$ra" -eq 0 ] && [ "$rb" -eq 0 ]; } || { [ "$ra" -ne 0 ] && [ "$rb" -ne 0 ]; }; then exit 47; fi
+      - name: Verify T19 two-worker task claim has one winner and does not imply running
+        shell: bash
+        run: |
+          set -euo pipefail
+          cid="$(docker ps --format '{{.ID}} {{.Image}}' | awk '$2 ~ /^postgres:16-alpine/ {print $1; exit}')"; test -n "$cid"
+          claim_sql="DO \$\$ DECLARE c integer; BEGIN SELECT count(*) INTO c FROM aaa_ops.claim_next_execution_task(:'worker',300); IF c <> 1 THEN RAISE EXCEPTION 'NO_CLAIM'; END IF; END \$\$;"
           set +e
-          docker exec "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18 -c "SELECT aaa_ops.acquire_run_lease('RUN-T18-CONCURRENCY','worker-a',600);" >/tmp/t18-lease-a.log 2>&1 &
-          pa=$!
-          docker exec "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18 -c "SELECT aaa_ops.acquire_run_lease('RUN-T18-CONCURRENCY','worker-b',600);" >/tmp/t18-lease-b.log 2>&1 &
-          pb=$!
-          wait "$pa"; ra=$?
-          wait "$pb"; rb=$?
-          set -e
-          cat /tmp/t18-lease-a.log
-          cat /tmp/t18-lease-b.log
-          if { [ "$ra" -eq 0 ] && [ "$rb" -eq 0 ]; } || { [ "$ra" -ne 0 ] && [ "$rb" -ne 0 ]; }; then
-            echo "expected exactly one successful lease acquisition; got ra=$ra rb=$rb"
-            exit 47
-          fi
-
+          docker exec "$cid" psql -v ON_ERROR_STOP=1 -v worker=worker-a -U postgres -d aaa_t18 -c "$claim_sql" >/tmp/t19-a.log 2>&1 & pa=$!
+          docker exec "$cid" psql -v ON_ERROR_STOP=1 -v worker=worker-b -U postgres -d aaa_t18 -c "$claim_sql" >/tmp/t19-b.log 2>&1 & pb=$!
+          wait "$pa"; ra=$?; wait "$pb"; rb=$?; set -e; cat /tmp/t19-a.log; cat /tmp/t19-b.log
+          if { [ "$ra" -eq 0 ] && [ "$rb" -eq 0 ]; } || { [ "$ra" -ne 0 ] && [ "$rb" -ne 0 ]; }; then exit 48; fi
+          docker exec "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18 -c "DO \$\$ BEGIN IF (SELECT state FROM aaa_ops.runs WHERE run_id='RUN-T19-CONCURRENCY') <> 'DISPATCHED_AWAITING_ACK' THEN RAISE EXCEPTION 'CLAIM_FALSELY_MARKED_RUNNING'; END IF; IF (SELECT started_at FROM aaa_ops.runs WHERE run_id='RUN-T19-CONCURRENCY') IS NOT NULL THEN RAISE EXCEPTION 'CLAIM_FABRICATED_START'; END IF; END \$\$;"
       - name: Verify deterministic current JSON Registry import and 100 percent reconciliation
         shell: bash
         run: |
           set -euo pipefail
-          cid="$(docker ps --format '{{.ID}} {{.Image}}' | awk '$2 ~ /^postgres:16-alpine/ {print $1; exit}')"
-          test -n "$cid"
+          cid="$(docker ps --format '{{.ID}} {{.Image}}' | awk '$2 ~ /^postgres:16-alpine/ {print $1; exit}')"; test -n "$cid"
           docker exec "$cid" createdb -U postgres aaa_t18_registry_shadow
-          for migration in aaa/db/migrations/*.sql; do
-            docker exec -i "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18_registry_shadow < "$migration"
-          done
-          python aaa/db/tools/json_registry_to_sql.py --repo-root . --git-commit "$GITHUB_SHA" > /tmp/t18-registry-import.sql
-          docker exec -i "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18_registry_shadow < /tmp/t18-registry-import.sql
-          docker exec "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18_registry_shadow -c "DO \$\$ BEGIN IF (SELECT count(*) FROM aaa_ops.results) <> (SELECT count(*) FROM aaa_ops.runs WHERE terminal_result_id IS NOT NULL) THEN RAISE EXCEPTION 'TERMINAL_RESULT_COUNT_MISMATCH'; END IF; END \$\$;"
-          docker exec "$cid" psql -At -U postgres -d aaa_t18_registry_shadow -c "SELECT row_to_json(x) FROM (SELECT run_id,process_id,work_order_id,responsible_persona,executor_role,state,repository,exact_target_commit,branch_context,started_at,last_heartbeat_at,stale_after_seconds,canonical_output,source_json_path,source_json_sha256,source_json_byte_size FROM aaa_ops.runs ORDER BY run_id) x;" > /tmp/t18-db-runs.jsonl
-          python aaa/db/tools/reconcile_shadow_export.py --repo-root . --db-jsonl /tmp/t18-db-runs.jsonl > /tmp/t18-reconciliation.json
-          cat /tmp/t18-reconciliation.json
-
+          for migration in aaa/db/migrations/*.sql; do docker exec -i "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18_registry_shadow < "$migration"; done
+          python aaa/db/tools/json_registry_to_sql.py --repo-root . --git-commit "$GITHUB_SHA" > /tmp/import.sql
+          docker exec -i "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18_registry_shadow < /tmp/import.sql
+          docker exec "$cid" psql -At -U postgres -d aaa_t18_registry_shadow -c "SELECT row_to_json(x) FROM (SELECT run_id,process_id,work_order_id,responsible_persona,executor_role,state,repository,exact_target_commit,branch_context,started_at,last_heartbeat_at,stale_after_seconds,canonical_output,source_json_path,source_json_sha256,source_json_byte_size FROM aaa_ops.runs ORDER BY run_id) x;" > /tmp/db-runs.jsonl
+          python aaa/db/tools/reconcile_shadow_export.py --repo-root . --db-jsonl /tmp/db-runs.jsonl
       - name: Verify local PostgreSQL backup and restore drill
         shell: bash
         run: |
           set -euo pipefail
-          cid="$(docker ps --format '{{.ID}} {{.Image}}' | awk '$2 ~ /^postgres:16-alpine/ {print $1; exit}')"
-          test -n "$cid"
-          docker exec "$cid" pg_dump -U postgres -d aaa_t18 -Fc -f /tmp/aaa_t18.dump
-          docker exec "$cid" createdb -U postgres aaa_t18_restore
-          docker exec "$cid" pg_restore -U postgres -d aaa_t18_restore /tmp/aaa_t18.dump
-          source_counts="$(docker exec "$cid" psql -At -U postgres -d aaa_t18 -c "SELECT count(*)||':'||(SELECT count(*) FROM aaa_ops.results)||':'||(SELECT count(*) FROM aaa_ops.experiments)||':'||(SELECT count(*) FROM aaa_ops.snapshot_refs) FROM aaa_ops.runs;")"
-          restore_counts="$(docker exec "$cid" psql -At -U postgres -d aaa_t18_restore -c "SELECT count(*)||':'||(SELECT count(*) FROM aaa_ops.results)||':'||(SELECT count(*) FROM aaa_ops.experiments)||':'||(SELECT count(*) FROM aaa_ops.snapshot_refs) FROM aaa_ops.runs;")"
-          echo "source=$source_counts restore=$restore_counts"
-          test "$source_counts" = "$restore_counts"
+          cid="$(docker ps --format '{{.ID}} {{.Image}}' | awk '$2 ~ /^postgres:16-alpine/ {print $1; exit}')"; test -n "$cid"
+          docker exec "$cid" pg_dump -U postgres -d aaa_t18 -Fc -f /tmp/aaa.dump; docker exec "$cid" createdb -U postgres aaa_restore; docker exec "$cid" pg_restore -U postgres -d aaa_restore /tmp/aaa.dump
+          source_counts="$(docker exec "$cid" psql -At -U postgres -d aaa_t18 -c "SELECT count(*)||':'||(SELECT count(*) FROM aaa_ops.results)||':'||(SELECT count(*) FROM aaa_ops.workers)||':'||(SELECT count(*) FROM aaa_ops.execution_tasks) FROM aaa_ops.runs;")"
+          restore_counts="$(docker exec "$cid" psql -At -U postgres -d aaa_restore -c "SELECT count(*)||':'||(SELECT count(*) FROM aaa_ops.results)||':'||(SELECT count(*) FROM aaa_ops.workers)||':'||(SELECT count(*) FROM aaa_ops.execution_tasks) FROM aaa_ops.runs;")"; test "$source_counts" = "$restore_counts"
 
   owner-console-build-smoke:
-    permissions:
-      contents: read
+    permissions: {contents: read}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with:
-          node-version: '24'
-          cache: 'npm'
-          cache-dependency-path: aaa/web/package-lock.json
+        with: {node-version: '24', cache: 'npm', cache-dependency-path: aaa/web/package-lock.json}
       - name: Verify Owner Console dependency lock identity
         working-directory: aaa/web
-        shell: bash
-        run: |
-          set -euo pipefail
-          test -f package-lock.json
-          sha256sum package-lock.json
+        run: test -f package-lock.json && sha256sum package-lock.json
       - name: Install Owner Console dependencies from committed lock only
         working-directory: aaa/web
-        shell: bash
-        run: |
-          set -euo pipefail
-          npm ci --no-audit --no-fund
+        run: npm ci --no-audit --no-fund
       - name: Build Owner Console
         working-directory: aaa/web
-        shell: bash
-        run: |
-          set -euo pipefail
-          npm run build
+        run: npm run build
