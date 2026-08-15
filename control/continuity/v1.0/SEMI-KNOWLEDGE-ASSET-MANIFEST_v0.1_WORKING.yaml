@@ -1,0 +1,142 @@
+manifest_id: SEMI-KNOWLEDGE-ASSET-MANIFEST
+version: v0.1_WORKING
+status: HARVEST_IN_PROGRESS
+project: semiconductor-research
+as_of: '2026-08-15T22:31:00+09:00'
+owner_control_persona: SEMI-CONTROL-ARCHITECT
+
+purpose: >-
+  Prevent high reconstruction-cost methodology, adjudication precedent, model rationale,
+  and incident lessons from remaining only in chat history.
+
+authority_labels:
+  - ACCEPTED
+  - WORKING
+  - HYPOTHESIS
+  - FUTURE_EXTENSION
+  - FORENSIC_ONLY
+
+assets:
+  - knowledge_id: KA-PIT-FIRST-SUPPORTED-STATE
+    title: PIT and first-supported-state doctrine
+    primary_owner: CORE_A
+    authority: ACCEPTED
+    priority: P0
+    required_content:
+      - FACT_EXISTED_AT_TIME_NE_PUBLIC_EVIDENCE_AVAILABLE_AT_TIME
+      - no_backward_projection
+      - forward_reuse_only_with_support
+      - change_point_closes_reuse
+      - open_interval_means_no_supported_change_through_last_audited_cutoff_only
+      - content_verification_ne_provenance_resolution
+
+  - knowledge_id: KA-U127-CONTINUITY-INCIDENT
+    title: U127 artifact lineage and persona continuity incident
+    primary_owner: CORE_A
+    authority: WORKING_HIGH_CONFIDENCE_MULTI_FACTOR
+    priority: P0
+    required_content:
+      - logical_state_outran_physical_artifact
+      - mixed_materialization_history
+      - version_namespace_collision
+      - transient_artifact_loss
+      - persistent_registry_failure
+      - persona_channel_continuity_break_major_contributor
+      - return_packet_as_de_facto_delta_carrier
+      - recovery_ne_rematerialization
+
+  - knowledge_id: KA-CA-ADJUDICATION
+    title: Corporate action and OHLC anomaly adjudication doctrine
+    primary_owner: CORE_A
+    authority: WORKING_ACCEPTED_COMPONENTS
+    priority: P0
+    required_content:
+      - CA_signal_ne_project_CA_pass
+      - zero_OHLC_rows_not_auto_suspension
+      - no_silent_drop_or_imputation
+      - known_non_CA_special_rows
+      - independent_CA_confirmation_gate
+
+  - knowledge_id: KA-FIVE-CORE-AXIS
+    title: Five core model-axis rationale
+    primary_owner: CORE_B_PENDING_RECONCILIATION
+    authority: WORKING
+    priority: P0
+    required_content:
+      - Business_Momentum
+      - Expectation_Surprise
+      - Market_Positioning
+      - Forward_Runway
+      - Reliability_Risk
+      - anti_double_count_one_economic_fact_one_primary_role
+
+  - knowledge_id: KA-VALIDATION-DOCTRINE
+    title: MFE Top3 Top10 Critical Miss validation doctrine
+    primary_owner: CORE_B_PENDING_RECONCILIATION
+    authority: WORKING
+    priority: P0
+    required_content:
+      - TopK_ranking_primary_objective
+      - Top3_primary_output
+      - Top10_concentration_health_diagnostic
+      - three_month_MFE_primary_ground_truth
+      - critical_miss_semantics
+      - MAE_risk_diagnostic
+
+  - knowledge_id: KA-EXPERIMENT-GOVERNANCE
+    title: Experiment no-tune and overfit governance
+    primary_owner: CORE_B_PENDING_RECONCILIATION
+    authority: WORKING
+    priority: P0
+    required_content:
+      - immutable_model_versions
+      - frozen_snapshot_reuse_across_models
+      - no_outcome_leakage
+      - tuning_boundary
+      - replay_separation
+      - regression_and_reproducibility
+
+  - knowledge_id: KA-MARKET-POSITIONING
+    title: Market Positioning theory
+    primary_owner: CORE_B_PENDING_RECONCILIATION
+    authority: WORKING
+    priority: P0
+    required_content:
+      - Recognition
+      - Velocity
+      - Saturation
+      - Gap
+      - winner_archetypes
+      - false_positive_negative_taxonomy
+
+  - knowledge_id: KA-DAILY-SNAPSHOT-REPLAY
+    title: Daily snapshot and historical replay philosophy
+    primary_owner: SHARED_CORE_CONTRACT_PENDING_RECONCILIATION
+    authority: WORKING
+    priority: P0
+    required_content:
+      - snapshot_ne_model_output_ne_selection_ne_outcome
+      - daily_PIT_snapshot
+      - same_snapshot_multiple_model_versions
+      - two_year_all_trading_day_replay
+      - model_risk_detection_review
+
+harvest_rules:
+  - PRESERVE_ORIGINAL_RATIONALE_NOT_ONLY_FINAL_RULE
+  - LABEL_AUTHORITY_EXPLICITLY
+  - DO_NOT_TURN_FUTURE_IDEAS_INTO_V1_REQUIREMENTS
+  - DO_NOT_MERGE_CORE_A_AND_CORE_B_AUTHORITY_SILENTLY
+  - STORE_SOURCE_REFERENCES_WHEN_MATERIALIZED
+  - HIGH_COST_KNOWLEDGE_MUST_SURVIVE_CHANNEL_ROTATION
+
+next_actions:
+  - materialize_CORE_A_PIT_doctrine_asset
+  - materialize_U127_incident_postmortem_asset
+  - reconcile_CORE_B_knowledge_assets_after_successor_return
+  - bind_each_materialized_asset_into_global_asset_registry
+
+freeze_gate:
+  status: NOT_READY
+  blockers:
+    - CORE_B_SUCCESSOR_NOT_RECONCILED
+    - P0_KNOWLEDGE_ASSETS_NOT_ALL_MATERIALIZED
