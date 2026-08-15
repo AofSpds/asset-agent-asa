@@ -46,6 +46,20 @@ class RecoveryV03Tests(unittest.TestCase):
         self.assertEqual(report.status, "PASS")
         self.assertIn("LLM_OFF_CONTROL_PLANE_SURVIVES", {f.code for f in report.findings})
 
+    def test_deterministic_core_unavailable_blocks_recovery(self) -> None:
+        base = clean_snapshot(llm=False)
+        snapshot = RecoverySnapshot(
+            base.artifacts,
+            base.runs,
+            base.state,
+            base.llm_provider_available,
+            deterministic_core_available=False,
+        )
+        report = audit_recovery(snapshot)
+        self.assertEqual(report.status, "BLOCKED")
+        self.assertIn("DETERMINISTIC_CORE_UNAVAILABLE", {f.code for f in report.findings})
+        self.assertNotIn("LLM_OFF_CONTROL_PLANE_SURVIVES", {f.code for f in report.findings})
+
     def test_primary_success_secondary_missing_is_release_incomplete(self) -> None:
         snapshot = clean_snapshot()
         snapshot = RecoverySnapshot(
@@ -71,6 +85,20 @@ class RecoveryV03Tests(unittest.TestCase):
         report = audit_recovery(snapshot)
         self.assertEqual(report.status, "BLOCKED")
         self.assertIn("PRIMARY_ARTIFACT_IDENTITY_MISMATCH", {f.code for f in report.findings})
+
+    def test_run_journal_integrity_failure_blocks_before_status_recovery(self) -> None:
+        snapshot = RecoverySnapshot(
+            artifacts=(),
+            runs=(RunRecoveryObservation("R1", "RUNNING", False, False),),
+            state=STATE,
+            llm_provider_available=True,
+            deterministic_core_available=True,
+        )
+        report = audit_recovery(snapshot)
+        codes = {f.code for f in report.findings}
+        self.assertEqual(report.status, "BLOCKED")
+        self.assertIn("RUN_JOURNAL_INTEGRITY_FAILURE", codes)
+        self.assertNotIn("INTERRUPTED_RUN_REQUIRES_RECONCILIATION", codes)
 
     def test_interrupted_running_run_never_becomes_implicit_success(self) -> None:
         snapshot = RecoverySnapshot(
