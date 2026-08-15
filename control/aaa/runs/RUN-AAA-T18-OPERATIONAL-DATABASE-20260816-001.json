@@ -1,0 +1,29 @@
+{
+  "run_id": "RUN-AAA-T18-OPERATIONAL-DATABASE-20260816-001",
+  "process_id": "AAA-T18-OPERATIONAL-DATABASE",
+  "work_order_id": "WO-AAA-T18-OPERATIONAL-DATABASE-v0.1-20260816",
+  "responsible_persona": "SEMI-CONTROL-ARCHITECT",
+  "executor_role": "ENGINEERING_IMPLEMENTATION",
+  "state": "COMPLETED_WITH_FINDINGS",
+  "repository": "AofSpds/asset-agent-asa",
+  "exact_base_commit": "02739703a0ced83c80183c29dbfb302d2ce56b23",
+  "branch": "aaa-t18-operational-db-v0.1",
+  "started_at": null,
+  "last_heartbeat_at": null,
+  "stale_after_seconds": 7200,
+  "canonical_output": false,
+  "terminal_result": {
+    "result_id": "RESULT-AAA-T18-OPERATIONAL-DATABASE-v0.1",
+    "result_sha256": "107a8fec0198f88ae9b4f3c3c6eb1a06b37ed7784272c130dccccf5d4dc61391",
+    "completed_at": "2026-08-16T06:58:36+09:00",
+    "persistent_locator": "control/aaa/results/RESULT-AAA-T18-OPERATIONAL-DATABASE-v0.1.json",
+    "verdict": "PASS_WITH_FINDINGS"
+  },
+  "notes": [
+    "Engineering target 02739703a0ced83c80183c29dbfb302d2ce56b23 passed 131/131 deterministic tests, PostgreSQL contract/idempotency/atomicity/concurrency/recovery smoke, 5/5 actual JSON Registry reconciliation, and Owner Console build.",
+    "PostgreSQL remains non-authoritative; JSON Registry remains operational authority during T18 shadow.",
+    "Live managed PostgreSQL provisioning/runtime adapter, managed PITR/RPO/RTO qualification, and T18 Independent Validation remain future cutover-preparation requirements.",
+    "P09 exact targets 80378610f9ac9e688c52417f0416e01c057400a7 and 30fdb278c218b24e44d66eb5f47935a196dc4f8c are unchanged.",
+    "Engineering PASS_WITH_FINDINGS does not authorize Operational SoT cutover, Production Release, or P10 Controlled Cutover."
+  ]
+}
