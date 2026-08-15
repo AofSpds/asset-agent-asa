@@ -68,11 +68,33 @@ class NaturalLanguageIntentV05Tests(unittest.TestCase):
         with self.assertRaisesRegex(InvalidWorkIntent, "FORBIDDEN_AUTHORITY_FIELDS"):
             interpret_work_intent(ProviderGateway([IntentProvider(bad)]), "릴리즈 해줘")
 
+    def test_authority_or_persona_executor_role_is_rejected(self) -> None:
+        bad = dict(GOOD_INTENT)
+        bad["executor_role"] = "SEMI-CONTROL-ARCHITECT"
+        with self.assertRaisesRegex(InvalidWorkIntent, "EXECUTOR_ROLE_NOT_ALLOWED"):
+            interpret_work_intent(ProviderGateway([IntentProvider(bad)]), "Control이 실행해줘")
+
     def test_permission_above_l2_is_rejected(self) -> None:
         bad = dict(GOOD_INTENT)
         bad["permission_level"] = 5
         with self.assertRaisesRegex(InvalidWorkIntent, "PERMISSION_LEVEL_OUT_OF_RANGE"):
             interpret_work_intent(ProviderGateway([IntentProvider(bad)]), "작업")
+
+    def test_unsafe_material_scope_is_rejected(self) -> None:
+        bad = dict(GOOD_INTENT)
+        bad["material_scope"] = ["../outside"]
+        with self.assertRaisesRegex(InvalidWorkIntent, "UNSAFE_MATERIAL_SCOPE"):
+            interpret_work_intent(ProviderGateway([IntentProvider(bad)]), "외부 수정")
+
+    def test_candidate_binding_is_immutable_against_source_object_mutation(self) -> None:
+        source = dict(GOOD_INTENT)
+        source["input_bindings"] = [{"asset_id": "A1", "value": 1}]
+        candidate = interpret_work_intent(ProviderGateway([IntentProvider(source)]), "작업")
+        assert isinstance(candidate, CandidateWorkIntent)
+        before = candidate.candidate_sha256
+        source["input_bindings"][0]["value"] = 999
+        self.assertEqual(candidate.candidate_sha256, before)
+        self.assertEqual(candidate.input_bindings[0]["value"], 1)
 
     def test_candidate_change_is_detected_before_work_order_draft(self) -> None:
         candidate = interpret_work_intent(ProviderGateway([IntentProvider()]), "작업")
@@ -108,6 +130,23 @@ class NaturalLanguageIntentV05Tests(unittest.TestCase):
         self.assertIn("CANONICAL_WRITE", first.payload["forbidden_actions"])
         self.assertEqual(first.payload["input_bindings"][-1]["candidate_sha256"], candidate.candidate_sha256)
         self.assertRegex(first.draft_sha256, r"^[0-9a-f]{64}$")
+
+    def test_draft_payload_property_returns_copy_not_mutable_internal_state(self) -> None:
+        candidate = interpret_work_intent(ProviderGateway([IntentProvider()]), "작업")
+        assert isinstance(candidate, CandidateWorkIntent)
+        draft = confirm_to_work_order_draft(
+            candidate,
+            expected_candidate_sha256=candidate.candidate_sha256,
+            exact_base_identity=ExactBaseIdentity("AofSpds/asset-agent-asa", "1" * 40),
+            work_order_id="WO-1",
+            work_order_version="v0.1",
+            created_at="2026-08-16T04:00:00+09:00",
+        )
+        before = draft.draft_sha256
+        payload = draft.payload
+        payload["title"] = "MUTATED"
+        self.assertNotEqual(payload["title"], draft.payload["title"])
+        self.assertEqual(before, draft.draft_sha256)
 
     def test_empty_input_fails_before_provider_call(self) -> None:
         with self.assertRaisesRegex(InvalidWorkIntent, "EMPTY_USER_TEXT"):
