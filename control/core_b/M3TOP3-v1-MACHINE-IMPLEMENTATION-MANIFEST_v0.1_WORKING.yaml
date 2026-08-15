@@ -1,0 +1,99 @@
+manifest_id: M3TOP3-v1-MACHINE-IMPLEMENTATION-MANIFEST
+version: v0.1_WORKING
+status: COMPLETE_CANDIDATE_AWAITING_INDEPENDENT_PREFLIGHT
+project: semiconductor-research
+owner_persona: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+work_order_id: WO-COREB-M3TOP3-v1-MACHINE-IMPLEMENTATION-20260815
+as_of: '2026-08-15T23:52:00+09:00'
+scientific_firewall:
+  outcome_data_inspected: false
+  actual_u127_replay_executed: false
+  outcome_tuning_executed: false
+  ground_truth_changed: false
+  price_changed: false
+  ca_changed: false
+  model_frozen: false
+model_identity:
+  model_version: M3TOP3-v1.0
+  feature_schema_version: M3TOP3-FEATURE-SCHEMA_v1.0_WORKING
+  feature_implementation_version: M3TOP3-FEATURE-ENGINE-v1.0_WORKING
+  scorer_version: M3TOP3-GATED-LINEAR_v1.0_WORKING
+  scorer_implementation_version: M3TOP3-SCORER-ENGINE-v1.0_WORKING
+  weight_version: M3TOP3-WEIGHT-VERSION_v1.0_WORKING
+  model_input_schema_version: MIS-v1.0
+  scorer_io_version: SIO-v1.0
+  window_mapping_version: WM-v1.1
+  window_mapping_implementation_version: M3TOP3-WM-v1.1-PY-v1.0_WORKING
+implementation_identity:
+  repository: AofSpds/semiconductor-research
+  branch: control-hub-continuity-v1
+  source_code_commit: 32c8a0f31428273d76b4e7b3f2cea76f955770aa
+  config_path: tools/m3top3/configs/m3top3_v1.0.json
+  config_sha256: eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98
+source_paths:
+  contracts:
+    path: tools/m3top3/contracts_v1.py
+    git_blob_sha1: 161c3817cf0e0f0827a294b7fde150ab6b6cbcda
+  window_mapping:
+    path: tools/m3top3/window_mapping_v11.py
+    git_blob_sha1: 4fa61dc8d0e7e3b6e2414a8eb41d5960e27a92a1
+  features:
+    path: tools/m3top3/features_v1.py
+    git_blob_sha1: 35104a7384c3ee6175136e95dded7f3237d69435
+  scorer:
+    path: tools/m3top3/scorer_v1.py
+    git_blob_sha1: d9ce2047c49ed9ccc8af270419ee7c536cb8e502
+  runtime:
+    path: tools/m3top3/runtime_v1.py
+    git_blob_sha1: 3988ddee8a6437790873398cf59ee82ed6534931
+  config:
+    path: tools/m3top3/configs/m3top3_v1.0.json
+    git_blob_sha1: 043bf24bc8c838a8060360e86614cf5bfefc9145
+  tests:
+    path: tools/m3top3/tests/test_model_v1.py
+    git_blob_sha1: a21f7641bf0de0ed6260ef9cc4fdbffee087100c
+contracts_implemented:
+  MIS-v1.0: PASS_CANDIDATE
+  SIO-v1.0: PASS_CANDIDATE
+  WM-v1.1: PASS_CANDIDATE
+feature_implementation:
+  F01: IMPLEMENTED
+  F02: IMPLEMENTED
+  F03: IMPLEMENTED
+  F04: IMPLEMENTED
+  F05: IMPLEMENTED
+  F06: IMPLEMENTED
+  F07: IMPLEMENTED
+  F08: IMPLEMENTED
+  F09: IMPLEMENTED
+anti_double_count:
+  status: IMPLEMENTED
+  invariant: ONE_ECONOMIC_FACT_ONE_PRIMARY_SCORING_ROLE
+  secondary_overlap_state: NA_FOR_OVERLAP
+  hard_gate_f09_same_event_double_penalty: BLOCKED_BY_IMPLEMENTATION
+scorer:
+  type: GATED_LINEAR
+  risk_gate_multipliers: {NONE: 1.00, SEVERE: 0.85, THESIS_BREAK: 0.70}
+  rank_rule: FINAL_SCORE_DESC_FULL_PRECISION_THEN_COMPANY_ID_ASC
+  missing_zero_fill: false
+  missing_neutral_fill: false
+window_mapping:
+  anchor_and_cutoff_separate: true
+  nominal_end_derived_from: window_anchor_date
+  snapshot_cutoff_used_as_horizon_anchor: false
+  W1_W8_test: PASS_8_OF_8
+  daily_window_test: PASS
+validation_evidence:
+  test_report_path: control/core_b/M3TOP3-v1-MACHINE-IMPLEMENTATION-TEST-REPORT_v0.1_WORKING.json
+  test_report_creation_commit: dd7e1f3f4d18248303943f8aa5219c69b3e2c3ec
+  synthetic_tests: PASS_18_OF_18
+  independent_validation: NOT_EXECUTED
+implementation_notes:
+  F02_signed_change: RELATIVE default for governed metric_pairs; explicit ABSOLUTE mode supported; governed upstream metric_changes supported.
+  F08_freshness_penalty: governed upstream value capped at 20; no new refresh-duration thresholds introduced.
+  production_KRX_calendar: external bound trading-calendar identity required; WeekdayCalendar is synthetic-test-only.
+  exact_repository_checkout_execution: PENDING_INDEPENDENT_PREFLIGHT
+material_semantic_mismatch_found: false
+ready_for_independent_preflight: true
+actual_replay_authorized_by_this_manifest: false
+model_freeze_authorized_by_this_manifest: false
