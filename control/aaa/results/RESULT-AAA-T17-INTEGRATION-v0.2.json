@@ -1,0 +1,49 @@
+{
+  "result_id": "RESULT-AAA-T17-INTEGRATION-v0.2",
+  "project": "Asset Agent ASA",
+  "short_name": "AAA",
+  "scope": "T17_RUN_REGISTRY_PERSONA_OPERATIONS_DASHBOARD_INTEGRATION",
+  "verdict": "PASS",
+  "engineering_only": true,
+  "independent_validation_pass": false,
+  "feature_branch": "aaa-t17-run-registry-ops-dashboard-v0",
+  "feature_head": "b2bfab65447e16c16efbbc53d5c5f62d1a1a461a",
+  "integration_branch": "aaa-integration-v0.2",
+  "integration_merge_commit": "80378610f9ac9e688c52417f0416e01c057400a7",
+  "pr_number": 27,
+  "ci": {
+    "feature_pr_run": 31907704574,
+    "integration_push_run": 31907885316,
+    "deterministic_tests": "PASS",
+    "owner_console_build": "PASS"
+  },
+  "owner_local_smoke": {
+    "status": "PASS",
+    "observed": [
+      "Owner Console rendered locally",
+      "Operations menu visible",
+      "Run Registry data visible",
+      "completed-run/current-activity semantic issue observed and hardened"
+    ]
+  },
+  "integrated_capabilities": [
+    "persistent Run Registry contract",
+    "run start/heartbeat evidence rules",
+    "STALE_UNKNOWN derivation",
+    "persistent terminal result requirement",
+    "Persona current-activity projection",
+    "CLI aaa runs and aaa personas",
+    "read-only API /api/aaa/runs and /api/aaa/personas",
+    "Owner Console Operations page",
+    "VS Code local run guide"
+  ],
+  "authority_boundary": {
+    "canonical_control_write": "NOT_AUTHORIZED",
+    "independent_validation": "NOT_CLAIMED",
+    "replay": "NOT_AUTHORIZED",
+    "freeze": "NOT_AUTHORIZED",
+    "production_release": "NOT_AUTHORIZED",
+    "cutover": "NOT_AUTHORIZED"
+  },
+  "completed_at": "2026-08-16T05:52:59+09:00"
+}
