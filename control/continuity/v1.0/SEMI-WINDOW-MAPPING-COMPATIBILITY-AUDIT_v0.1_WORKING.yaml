@@ -1,0 +1,48 @@
+artifact_id: SEMI-WINDOW-MAPPING-COMPATIBILITY-AUDIT
+version: v0.1_WORKING
+status: CONTROL_AUDIT_FAIL_RECONCILIATION_REQUIRED
+project: semiconductor-research
+as_of: '2026-08-15T23:28:00+09:00'
+owner_persona: SEMI-CONTROL-ARCHITECT
+purpose: Verify WM-v1.0 against the byte-verified U127 v0.7 historical W1-W8 baseline before implementation/materialization.
+source_artifact:
+  file: U127_Data_Expansion_Working_v0.7_2026-08-15.xlsx
+  sha256: 1fc47fd131479e6ebb4375206853f39a730610d8b9f29160c33aa292881ad50a
+  byte_size: 550774
+  sheets: [Historical_BP, Baseline_Windows, Price_Full_Rank_Reval]
+tested_contract:
+  version: WM-v1.0
+  current_definition: Snapshot cutoff D; Window Start=D; nominal end=D+3 calendar months; Entry first KRX trading day strictly after D; evaluation last trade on/before nominal end.
+  prior_status: AGREED_WORKING_IMPLEMENTATION_PENDING
+historical_records:
+  - {window: W1, snapshot_cutoff: '2024-08-09', historical_period_start: '2024-08-10', historical_period_end: '2024-11-10', historical_last_trade: '2024-11-08', wm_v1_nominal_end: '2024-11-09', compatibility: NO_OBSERVED_LAST_TRADE_CONFLICT_BUT_CALENDAR_SEMANTICS_DIFFER}
+  - {window: W2, snapshot_cutoff: '2024-11-08', historical_period_start: '2024-11-10', historical_period_end: '2025-02-10', historical_last_trade: '2025-02-10', wm_v1_nominal_end: '2025-02-08', compatibility: FAIL_HISTORICAL_LAST_TRADE_AFTER_WM_v1_NOMINAL_END}
+  - {window: W3, snapshot_cutoff: '2025-02-10', historical_period_start: '2025-02-10', historical_period_end: '2025-05-10', historical_last_trade: '2025-05-09', wm_v1_nominal_end: '2025-05-10', compatibility: PASS}
+  - {window: W4, snapshot_cutoff: '2025-05-09', historical_period_start: '2025-05-10', historical_period_end: '2025-08-10', historical_last_trade: '2025-08-08', wm_v1_nominal_end: '2025-08-09', compatibility: NO_OBSERVED_LAST_TRADE_CONFLICT_BUT_CALENDAR_SEMANTICS_DIFFER}
+  - {window: W5, snapshot_cutoff: '2025-08-08', historical_period_start: '2025-08-10', historical_period_end: '2025-11-10', historical_last_trade: '2025-11-10', wm_v1_nominal_end: '2025-11-08', compatibility: FAIL_HISTORICAL_LAST_TRADE_AFTER_WM_v1_NOMINAL_END}
+  - {window: W6, snapshot_cutoff: '2025-11-10', historical_period_start: '2025-11-10', historical_period_end: '2026-02-10', historical_last_trade: '2026-02-10', wm_v1_nominal_end: '2026-02-10', compatibility: PASS}
+  - {window: W7, snapshot_cutoff: '2026-02-10', historical_period_start: '2026-02-10', historical_period_end: '2026-05-10', historical_last_trade: '2026-05-08', wm_v1_nominal_end: '2026-05-10', compatibility: PASS}
+  - {window: W8, snapshot_cutoff: '2026-05-08', historical_period_start: '2026-05-10', historical_period_end: '2026-08-10', historical_last_trade: '2026-08-10', wm_v1_nominal_end: '2026-08-08', compatibility: FAIL_HISTORICAL_LAST_TRADE_AFTER_WM_v1_NOMINAL_END}
+finding:
+  result: FAIL
+  conflicting_windows: [W2, W5, W8]
+  root_issue: WM-v1.0 conflates historical nominal anchor date with actual PIT snapshot cutoff date. Historical quarterly windows use a nominal calendar anchor (typically the 10th) and snapshot cutoff as the last trading day on/before that anchor when the anchor is non-trading.
+  impact: WM-v1.0 would shorten some historical holding windows and can change MFE/MAE/Exit outcomes; therefore historical W1-W8 compatibility is not supported by byte-verified evidence.
+core_a_candidate_fix:
+  proposed_version: WM-v1.1
+  anchor_date: A = nominal evaluation anchor date. For historical W1-W8, A is the documented period-start anchor.
+  snapshot_cutoff: last KRX trading timestamp/date on or before A, under PIT cutoff policy
+  window_start: A
+  entry_trade_date: first KRX trading day strictly after A
+  nominal_window_end: A + exactly 3 calendar months
+  evaluation_last_trade_date: last KRX trading day on or before nominal_window_end
+  exit_trade_date: first KRX trading day strictly after nominal_window_end
+  daily_replay_rule: For a normal trading-day daily Snapshot, set A to that trading-day date, so snapshot_cutoff=A and the same deterministic rule applies.
+  reason: Separates calendar anchor from evidence cutoff and reproduces W1-W8 documented periods while generalizing cleanly to daily replay.
+control_decision:
+  window_mapping_status: REOPENED
+  control_sync_required: true
+  major_authority_conflict: false
+  owner_escalation_required: false
+  actual_replay_authorized: false
+  u127_release_window_component_materialization: BLOCKED_PENDING_WM_v1.1_RECONCILIATION
