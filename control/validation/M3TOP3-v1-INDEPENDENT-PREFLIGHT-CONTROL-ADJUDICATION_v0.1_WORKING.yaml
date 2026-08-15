@@ -1,0 +1,127 @@
+adjudication_id: M3TOP3-v1-INDEPENDENT-PREFLIGHT-CONTROL-ADJUDICATION
+version: v0.1_WORKING
+status: CONTROL_ACCEPTED_PASS_WITH_NARROW_FIXES_REPLAY_BLOCKED
+project: semiconductor-research
+as_of: '2026-08-16T00:36:00+09:00'
+control_owner:
+  canonical_name: 문서·통제 아키텍트
+  persona_id: SEMI-CONTROL-ARCHITECT
+  instance_id: CTRL-ARCH-INSTANCE-005-20260816
+validation_role:
+  canonical_name: 독립 검증·감사팀
+  role_id: SEMI-VALIDATION-AUDITOR
+source_work_order: control/workorders/WO-VALIDATION-M3TOP3-v1-INDEPENDENT-PREFLIGHT-20260816.yaml
+received_return_packet: USER_DELIVERED_RETURN_PACKET_20260816_0036_KST
+bound_implementation:
+  model_version: M3TOP3-v1.0
+  source_commit: 32c8a0f31428273d76b4e7b3f2cea76f955770aa
+  config_path: tools/m3top3/configs/m3top3_v1.0.json
+  config_sha256: eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98
+validator_reported_result:
+  exact_checkout: PASS
+  independent_test_rerun: PASS_18_OF_18
+  scorer_arithmetic: PASS
+  missingness: PASS
+  anti_double_count: PASS
+  hard_risk_gate: PASS
+  scorer_io: PASS
+  window_mapping_WM_v1_1: PASS
+  W1_W8: PASS_8_OF_8_SYNTHETIC_CALENDAR
+  determinism: PASS
+  idempotence: PASS
+  actual_outcome_data_inspected: false
+  actual_replay_executed: false
+  model_frozen: false
+  verdict: PASS_WITH_NARROW_FIXES
+control_adjudication:
+  decision: ACCEPT_INDEPENDENT_PREFLIGHT_PASS_WITH_NARROW_FIXES
+  material_semantic_mismatch_found: true
+  mismatch_scope: BOUNDED_FIXABLE_BEFORE_REPLAY
+  model_architecture_reject_required: false
+  weight_retune_required: false
+  scorer_redesign_required: false
+  actual_replay_authorized: false
+  model_freeze_authorized: false
+  production_release_authorized: false
+mandatory_findings:
+  FND-01:
+    title: MIS_PIT_CONSUMED_INPUT_PROVENANCE_NOT_FAIL_CLOSED
+    domain: SHARED_CORE_A_CORE_B
+    severity: BLOCKING_BEFORE_REPLAY
+    finding: >-
+      Explicit forbidden future fields and timestamped post-cutoff evidence are rejected, but every scored/consumed
+      value is not required to carry immutable publication/support-cutoff provenance. A permitted consumed value could
+      therefore be supplied without machine-verifiable proof that it was knowable by the PIT cutoff.
+    required_fix: >-
+      Require publication_at or immutable supported_cutoff/evidence reference for every consumed scoring signal and
+      fail closed when provenance is absent or later than snapshot_cutoff_at. Add adversarial regression tests.
+  FND-02:
+    title: F06_INDEPENDENT_MILESTONE_REQUIREMENT_NOT_ENFORCED
+    domain: CORE_B
+    severity: BLOCKING_BEFORE_REPLAY
+    finding: >-
+      Duplicate verified milestones can satisfy count-based logic and overstate F06 because milestone independence and
+      distinct sequential economic-step identity are not enforced.
+    required_fix: >-
+      Deduplicate by milestone/event identity and require independent milestones or distinct sequential conversion steps
+      before 90/100 scoring.
+  FND-03:
+    title: F02_DEFAULT_RELATIVE_OPERATOR_NOT_GOVERNED_BY_METRIC
+    domain: CORE_B_WITH_SHARED_MIS_INTERFACE
+    severity: BLOCKING_BEFORE_REPLAY
+    finding: >-
+      RELATIVE change is the silent default when change_mode is omitted although revenue growth, margin percentage-point
+      change and utilization changes can require different economic operators.
+    required_fix: >-
+      Bind metric-specific change operator in a governed registry/schema or require explicit change_mode/governed
+      metric_changes for all production metrics. No unregistered silent RELATIVE default in official replay.
+  FND-04:
+    title: F08_FRESHNESS_PENALTY_PROVENANCE_INCOMPLETE
+    domain: SHARED_CORE_A_CORE_B
+    severity: BLOCKING_BEFORE_REPLAY
+    finding: >-
+      The mathematical cap-at-20 behavior is correct but the reason a freshness penalty became applicable is not bound
+      to a machine-verifiable refresh-governance reference.
+    required_fix: >-
+      Bind freshness_penalty to governed refresh rule ID, refresh_code/evaluated state, supported cutoff reference or
+      equivalent immutable provenance. Do not invent new scorer-side time thresholds.
+  FND-05:
+    title: PRODUCTION_KRX_TRADING_CALENDAR_IDENTITY_NOT_BOUND
+    domain: CORE_A_WITH_SHARED_WM_BINDING
+    severity: BLOCKING_BEFORE_REPLAY
+    finding: WeekdayCalendar is synthetic-test-only; official KRX replay calendar identity remains unbound.
+    required_fix: Bind real KRX trading calendar source/release identity, hash/version, WM-v1.1 binding and calendar regression tests.
+  FND-06:
+    title: COVERAGE_POLICY_RELEASE_BINDING_INCOMPLETE
+    domain: SHARED_CORE_A_CORE_B
+    severity: RELEASE_BINDING_REQUIRED_BEFORE_REPLAY
+    finding: >-
+      Current scorer contract permits provisional missing-feature scores to remain rankable when company-level governed
+      rankability is complete. This is not a code-contract contradiction, but official replay needs explicit coverage
+      release semantics so company-rankability is not confused with feature-completeness.
+    required_fix: Bind explicit governed rankability and provisional-feature coverage semantics in release/contract artifacts.
+scientific_firewall:
+  actual_U127_MFE_inspected: false
+  actual_U127_MAE_inspected: false
+  actual_future_return_inspected: false
+  actual_future_rank_inspected: false
+  outcome_tuning: false
+  ground_truth_changed: false
+  price_changed: false
+  ca_changed: false
+  feature_schema_changed: false
+  weights_changed: false
+  scorer_changed: false
+control_route:
+  - Persist findings and keep M3TOP3-v1.0 baseline candidate unchanged.
+  - Dispatch CORE_B narrow-fix work for FND-02/FND-03 and model-side tests.
+  - Reconcile shared MIS/F08/Coverage interfaces between CORE_A and CORE_B before promotion.
+  - Bind production KRX trading-calendar identity under CORE_A/shared WM gate.
+  - Require independent delta preflight on the patched commit.
+  - Only after mandatory findings close may replay-readiness be reconsidered.
+validation_continuity_warning:
+  status: BOOTSTRAP_CONTROL_BACKFILL_REQUIRED
+  note: >-
+    The preflight RETURN PACKET demonstrates an operating SEMI-VALIDATION-AUDITOR instance, but the separate validator
+    bootstrap RETURN/Persistent activation record was not previously received by this Control channel. This does not
+    erase the preflight evidence, but validation-channel continuity must be backfilled before final release governance.
