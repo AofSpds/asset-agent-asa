@@ -1,0 +1,67 @@
+measure_id: AAA-PROGRESS-MEASURE
+version: v0.5_WORKING
+project: Asset Agent ASA
+short_name: AAA
+status: WAVE5_ENGINEERING_INTEGRATION_PASS_VALIDATION_PREP_NEXT
+measurement_rule:
+  percent_is_planning_estimate_not_validation_verdict: true
+  engineering_pass_does_not_equal_independent_validation: true
+  cutover_percent_does_not_imply_cutover_authorization: true
+engineering_usable_mvp:
+  current_percent: 85
+  previous_percent: 78
+  delta_reason:
+    - AAA_T15_NONCANONICAL_NATURAL_LANGUAGE_WORK_INTENT_INTEGRATED
+    - AAA_T16_EXACT_BASE_SHADOW_CYCLE_HARNESS_INTEGRATED
+    - AAA_T09_REPRODUCIBLE_OWNER_CONSOLE_DEPENDENCY_LOCK_INTEGRATED_ON_FULL_STACK
+  newly_closed:
+    - natural_language_to_candidate_work_intent_noncanonical_boundary
+    - executor_role_and_l2_permission_fail_closed_boundary
+    - deterministic_candidate_confirmation_and_work_order_draft_identity
+    - llm_off_waiting_for_reasoning_without_control_plane_failure
+    - shadow_observation_identity_bound_to_state_ledger_implementation_and_contract
+    - shadow_match_count_resets_on_implementation_or_contract_drift
+    - active_vs_historical_external_blocker_separation
+    - reproducible_frontend_direct_dependencies_and_committed_lockfile
+    - read_only_npm_ci_owner_console_build
+  integration_head: 41d273d3177d6130ad9292c965b4c757d82d09ae
+  evidence:
+    t15_merge_commit: 37197cc2c5f4ae384715da0e6709716f4c5e44de
+    t15_source_head: 0a43885a52b087b391a404a07bd0696c88daa1c4
+    t15_ci_run: 31905905447
+    t15_tests: PASS_80_OF_80
+    t16_merge_commit: 561392197be681e34301053d6d3f4af3aca4e845
+    t16_exact_base: 37197cc2c5f4ae384715da0e6709716f4c5e44de
+    t16_source_head: 98bd41fc99d18f44800defa3d8aadabadce83cf1
+    t16_ci_run: 31906093170
+    t16_combined_tests: PASS_90_OF_90
+    t09_merge_commit: 41d273d3177d6130ad9292c965b4c757d82d09ae
+    t09_exact_base: 561392197be681e34301053d6d3f4af3aca4e845
+    t09_source_head: 7e19aeb9abd05e2e100fb9b842f5c545b62cbaf7
+    t09_ci_run: 31906209098
+    full_stack_tests: PASS_90_OF_90
+    owner_console_npm_ci_build: PASS
+    package_lock_sha256: 78132cb94412e302d4c3688d6f14e798ffea2bda6b8141f9c63ed2bc655e8f06
+    package_lock_byte_size: 38990
+full_controlled_cutover_program:
+  current_percent: 52
+  previous_percent: 48
+  delta_reason:
+    - NATURAL_LANGUAGE_BOUNDARY_AND_SHADOW_CYCLE_ENGINEERING_FOUNDATION_NOW_INTEGRATED
+    - FRONTEND_REPRODUCIBILITY_NOW_INTEGRATED
+  remaining_major_gates:
+    - LIVE_EXTERNAL_MODEL_PROVIDER_NETWORK_ADAPTER_NOT_EXECUTED
+    - REAL_S3_R2_PARTIAL_FAILURE_DRILL_NOT_COMPLETED
+    - ACTUAL_GOVERNED_FULL_SHADOW_OPERATION_CYCLE_NOT_COMPLETED
+    - CONTINUITY_EVENT_ID_COLLISION_NOT_ADJUDICATED_BY_SEMI_CONTROL_ARCHITECT
+    - INDEPENDENT_VALIDATION_NOT_PASSED
+    - OWNER_CUTOVER_NOT_AUTHORIZED
+blocking_findings:
+  - AAA-FINDING-CONTINUITY-EVENT-ID-COLLISION_v0.1_WORKING
+  - M3TOP3_FND_02_F06_EXTERNAL_P0
+next:
+  - PREPARE_INDEPENDENT_VALIDATION_TARGET_BINDING_AND_TEST_MATRIX
+  - BUILD_GOVERNED_SHADOW_EVIDENCE_EXPORT_WITHOUT_HISTORY_REPAIR
+  - LIVE_PROVIDER_EXECUTION_ONLY_AFTER_PROVIDER_CREDENTIAL_BOUNDARY_IS_GOVERNED
+  - REAL_S3_R2_FAILURE_DRILL_ONLY_WHEN_ACTUAL_INFRA_PATH_IS_AVAILABLE
+  - KEEP_CANONICAL_CUTOVER_FAIL_CLOSED
