@@ -1,0 +1,108 @@
+contract_id: M3TOP3-MODEL-CONTRACT
+version: v1.0_WORKING
+status: RECOVERED_AND_FORMALIZED_NOT_FROZEN
+project: semiconductor-research
+owner_persona: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+as_of: '2026-08-15T22:52:00+09:00'
+source_bootstrap_packet_sha256: 73c3968d46c1f833bfe229bc50589507e28912e641026ce6d2474b755a863500
+objective: >-
+  At each trading-date PIT Snapshot, using only information knowable by the cutoff,
+  rank the eligible semiconductor universe by expected approximately three-month opportunity
+  and select the three highest-ranked names.
+problem_formulation: TOP_K_RANKING
+not_problem_formulation: EXACT_FUTURE_RETURN_REGRESSION
+outputs:
+  primary: M3Top3_RANK_1_TO_3
+  diagnostic: MODEL_TOP10_RANK_1_TO_10
+ranking_unit: ONE_ELIGIBLE_COMPANY_WITHIN_ONE_FROZEN_PIT_SNAPSHOT
+eligible_universe:
+  formula: U127_OUTER_MEMBERSHIP INTERSECT OPERATIONAL_UNIVERSE_T INTERSECT TRADABLE_ELIGIBLE_T
+  official_release_rule: UNKNOWN_OR_REVIEW_REQUIRED_DENOMINATOR_STATES_MUST_BE_RESOLVED
+feature_axes:
+  status: ACCEPTED_WORKING_SCAFFOLD_NOT_FROZEN
+  axes:
+    - Business_Momentum
+    - Expectation_Surprise
+    - Market_Positioning
+    - Forward_Runway
+    - Reliability_Risk
+feature_design_rules:
+  - TARGET_APPROX_5_TO_10_GENUINELY_INDEPENDENT_HIGH_INFORMATION_SIGNALS_PLUS_NECESSARY_RISK_GATES
+  - ONE_ECONOMIC_FACT_ONE_PRIMARY_SCORING_ROLE
+  - EVENT_LINEAGE_EVIDENCE_GROUP_AND_NOVELTY_MUST_BE_PRESERVED
+  - FEATURE_ADMISSION_REQUIRES_ECONOMIC_MEANING_PIT_SOURCE_MISSING_POLICY_OVERLAP_AND_LEAKAGE_REVIEW
+  - ABLATION_IS_DEFAULT_AFTER_EXECUTABLE_CANDIDATE_ADMISSION
+weights:
+  current_M3Top3_weight_vector: UNKNOWN_NOT_FROZEN
+  legacy_baseline_only:
+    id: Rolling_3M_Opportunity_v0.1
+    weights: {Trigger: 30, Forward_Earnings_Order: 25, Expectations_Gap_Valuation: 20, Conversion_Visibility: 15, Market_Recognition: 5, Evidence_Integrity_Freshness: 5}
+    rule: MUST_NOT_BE_SILENTLY_REUSED_AS_M3TOP3_FIVE_AXIS_WEIGHTS
+scorer:
+  architecture: UNIFIED_M3_CORE_TO_UNIFIED_RANK_TO_MODEL_TOP10_TO_M3TOP3
+  separate_winner_safety_risk_models_default: false
+  exact_formula: UNKNOWN_NOT_FROZEN
+  scorer_version: UNKNOWN_NOT_FROZEN
+top3:
+  role: PRIMARY_DECISION_OUTPUT
+  success_focus: FUTURE_MFE_RANK_CONCENTRATION_AND_CRITICAL_MISS_AVOIDANCE
+top10:
+  role: MODEL_HEALTH_DIAGNOSTIC_NOT_SECOND_DEFAULT_PORTFOLIO
+outcome_semantics:
+  entry: FIRST_TRADING_DAY_OPEN_AFTER_WINDOW_START
+  MFE_peak: MAX_VALID_HIGH_FROM_ENTRY_THROUGH_WINDOW_END
+  MFE_return: PEAK_VALID_HIGH_DIV_ENTRY_OPEN_MINUS_1
+  MFE_rank: FULL_PRECISION_DESCENDING_EXACT_TIE_COMPANY_ID_ASCENDING
+  MAE_path: MIN_VALID_LOW_FROM_ENTRY_THROUGH_WINDOW_END
+  MAE_return_formula: OPEN_DESIGN_ITEM_UNLESS_ENGINEERING_SCHEMA_ALREADY_DEFINES
+  exit: FIRST_TRADING_DAY_OPEN_AFTER_CONFIGURED_WINDOW_END
+  horizon_close: LAST_VALID_CLOSE_ON_OR_BEFORE_WINDOW_END_DIAGNOSTIC_ONLY
+critical_miss:
+  authoritative_rule: ANY_M3TOP3_MEMBER_ACTUAL_3M_MFE_RANK_GT_20_IMPLIES_WINDOW_CRITICAL_MISS_TRUE
+  severity_diagnostics:
+    - TOP3_WORST_ACTUAL_RANK
+    - RANK_GT_30_COUNT_DIAGNOSTIC
+    - RANK_GT_50_COUNT_DIAGNOSTIC
+    - DEEP_TAIL_FALSE_POSITIVE
+  note: RANK_30_AND_50_THRESHOLDS_NOT_FROZEN_PENALTY_RULES
+historical_windows:
+  W1: '2024-08-10_to_2024-11-10'
+  W2: '2024-11-10_to_2025-02-10'
+  W3: '2025-02-10_to_2025-05-10'
+  W4: '2025-05-10_to_2025-08-10'
+  W5: '2025-08-10_to_2025-11-10'
+  W6: '2025-11-10_to_2026-02-10'
+  W7: '2026-02-10_to_2026-05-10'
+  W8: '2026-05-10_to_2026-08-10'
+  generalized_daily_mapping: OPEN_SHARED_CONTRACT
+snapshot_model_separation:
+  snapshot_immutability: ACCEPT
+  multi_model_same_snapshot: ACCEPT
+  same_version_rerun: MUST_DETERMINISTICALLY_REPRODUCE_OR_RAISE_REPRODUCIBILITY_FAILURE
+  identified_model_version_mutation: FORBIDDEN
+  original_run_and_replay_results: MUST_REMAIN_DISTINCT
+firewall:
+  outcome_blind_model_input: true
+  future_return_not_used_for_snapshot: true
+  future_rank_not_used_for_feature: true
+  MFE_not_used_to_backfill_evidence: true
+  MAE_not_used_to_backfill_same_snapshot_risk_feature: true
+  later_source_not_automatically_backdated: true
+engineering_semantics_review:
+  entry: ACCEPT
+  MFE: ACCEPT
+  MAE: ACCEPT
+  exit: ACCEPT
+  horizon_close_diagnostic_only: ACCEPT
+pre_official_replay_formalization_required:
+  - CANONICAL_GENERALIZED_WINDOW_MAPPING
+  - EXACT_OUTCOME_SCHEMA_FIELD_FORMULAS_AND_UNITS
+  - VALID_PRICE_AND_TIE_RULES
+  - CA_ADJUSTMENT_READINESS_DEPENDENCY
+  - VALIDATION_DATASET_RELEASE_IDENTITY
+  - MODEL_AND_SCORER_VERSION_IDENTITY
+freeze_state:
+  model_frozen: false
+  weights_frozen: false
+  scorer_frozen: false
+  actual_U127_two_year_replay_executed: false
