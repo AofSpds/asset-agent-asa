@@ -1,0 +1,75 @@
+adjudication_id: M3TOP3-v1-SHARED-ASSET-BYTE-IDENTITY-ADJUDICATION
+version: v1.0_WORKING
+status: CONTROL_ADJUDICATED_CURRENT_GITHUB_BYTES_AUTHORITATIVE_PRIOR_MANIFEST_HASHES_INVALID
+project: semiconductor-research
+as_of: '2026-08-16T01:49:00+09:00'
+owner_persona:
+  canonical_name: 문서·통제 아키텍트
+  persona_id: SEMI-CONTROL-ARCHITECT
+trigger:
+  work_order: WO-COREB-M3TOP3-v1-SHARED-WIRING-PATCH-20260816
+  return_packet: RETURN PACKET — M3TOP3 v1 SHARED INTERFACE WIRING PATCH
+  packet_result: BLOCKED_AT_MANDATORY_SHARED_ASSET_REHASH_GATE
+  packet_asset_result: 3_PASS_3_FAIL
+prior_manifest:
+  path: control/shared/M3TOP3-v1-SHARED-INTERFACE-ASSET-MANIFEST_v1.0_WORKING.yaml
+  git_blob_sha: 5cb6c6556efd8852ea5868343fc9b7ccdc95f02c
+  disposition: SUPERSEDED_FOR_BYTE_IDENTITY_BY_v1.1_DO_NOT_DELETE_OR_OVERWRITE
+control_prevalidation:
+  identity_check: PASS
+  duplicate_replay_check: PASS_NEW_BLOCKED_EXECUTION_RESULT
+  current_state_consistency_check: PASS
+  authority_scope_check: PASS_CORE_B_CORRECTLY_STOPPED_AT_MODEL_PREPATCH_GATE
+  scientific_firewall_check: PASS_NO_OUTCOME_OR_REPLAY
+  impact_check: MANIFEST_IDENTITY_CORRECTION_ONLY_NO_SHARED_SEMANTIC_CHANGE
+  completeness_check: PASS_FOR_CONTROL_BYTE_IDENTITY_ADJUDICATION
+adjudication_basis:
+  principle: Creation-time Git blob identity and current-branch Git blob identity are compared independently of the prior SHA256 manifest declaration.
+  failed_assets:
+    - path: control/shared/M3TOP3-v1-SHARED-PREFLIGHT-INTERFACE-RECONCILED-DECISION_v1.0_WORKING.yaml
+      create_commit: 587c7ce52a142a6312545a590a7b669d06b5fe70
+      create_commit_git_blob_sha: eb50f06d49c3c52b86d8c16290f350635de2537b
+      current_branch_git_blob_sha: eb50f06d49c3c52b86d8c16290f350635de2537b
+      post_creation_byte_mutation_detected: false
+      prior_manifest_sha256: 4ef3ba4925f99184103bf4e1c0b2c9e378c6018a34bb2672069ce4c825344f05
+      core_b_recomputed_sha256: 7d8d000c467b8b3cd4e3f16c1eef060a8d70fceabab2f66161fde08d54e9f1a4
+      byte_size: 6420
+      decision: CURRENT_CREATE_MATERIALIZATION_BYTES_AUTHORITATIVE_PRIOR_MANIFEST_SHA256_INVALID
+    - path: control/shared/M3TOP3-FEATURE-INPUT-REGISTRY_v1.0_WORKING.yaml
+      create_commit: af71741b88838197cfe87c169b27b7abfc354eab
+      create_commit_git_blob_sha: 5faa4d5739bf9ecb0c11d16f6d7d697ff3983977
+      current_branch_git_blob_sha: 5faa4d5739bf9ecb0c11d16f6d7d697ff3983977
+      post_creation_byte_mutation_detected: false
+      prior_manifest_sha256: f90fd3f890e6324d68b3a44b7c46fe767ba5a31a8ecbb046362813e2d7648ded
+      core_b_recomputed_sha256: 63edde7d91aafa4691b7a31ee7304b9972e064347a55b9d891b19634b199df37
+      byte_size: 4843
+      decision: CURRENT_CREATE_MATERIALIZATION_BYTES_AUTHORITATIVE_PRIOR_MANIFEST_SHA256_INVALID
+    - path: control/shared/M3TOP3-COVERAGE-RELEASE-POLICY_v1.0_WORKING.yaml
+      create_commit: ef290d38c9553e4127a0e178eeb32dbc14989e21
+      create_commit_git_blob_sha: 0532eb3b921438538fa4cca908832cf5a770ca84
+      current_branch_git_blob_sha: 0532eb3b921438538fa4cca908832cf5a770ca84
+      post_creation_byte_mutation_detected: false
+      prior_manifest_sha256: b8c7bd86d33dcc454ddff7cc2d3589b3bd0e59a65c22831d77773545ad10c795
+      prior_manifest_byte_size: 3180
+      core_b_recomputed_sha256: 076bd1b7acee061f9c0d57e4dda802b6beb533fcd4b323eafa39760ad98b1f97
+      actual_byte_size: 3178
+      decision: CURRENT_CREATE_MATERIALIZATION_BYTES_AUTHORITATIVE_PRIOR_MANIFEST_SHA256_AND_SIZE_INVALID
+control_conclusion: >-
+  The three failed assets were not altered after their original GitHub materialization: for each, the Git blob SHA at the
+  original create commit is identical to the current branch Git blob SHA. Their current/create bytes also embody the intended
+  dual-Core reconciled content. Therefore the physical asset bytes are authoritative and the v1.0 Control manifest declarations
+  for those assets were computed incorrectly. No semantic rematerialization of the three assets is required.
+correction_policy:
+  overwrite_original_assets: false
+  overwrite_prior_manifest: false
+  create_append_only_successor_manifest: true
+  successor_manifest: control/shared/M3TOP3-v1-SHARED-INTERFACE-ASSET-MANIFEST_v1.1_WORKING.yaml
+  include_git_blob_sha: true
+  require_core_b_full_rehash_again: true
+shared_semantics_changed: false
+weights_changed: false
+scorer_architecture_changed: false
+actual_outcome_inspected: false
+actual_replay_executed: false
+model_freeze_authorized: false
+production_release_authorized: false
