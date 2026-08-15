@@ -1,0 +1,42 @@
+plan_id: AAA-WAVE2-PLAN
+version: v0.1_WORKING
+project: Asset Agent ASA
+short_name: AAA
+status: ACTIVE_PARALLEL_HARDENING
+base_candidate:
+  branch: aaa-integration-v0.2
+  tested_code_head: 75886590e452c3e5d0fb4952b1d09135bc7ec39f
+  engineering_result_commit: 2a64bddab20cb33013ad388665a795b51a2576e7
+  control_base: 8c79fc1ac9aa2b692486235ae107176ecc960dac
+parallel_tracks:
+  - track_id: AAA-T09-REPRO
+    objective: Pin frontend dependency identity and replace floating dependency install with a reproducible lock-based install path.
+    ownership:
+      - aaa/web/package.json
+      - aaa/web/package-lock.json
+      - .github/workflows/aaa-build-tests.yml
+    forbidden:
+      - control/continuity/**
+      - tools/m3top3/**
+      - control/u127/**
+      - canonical promotion
+  - track_id: AAA-T10-SHADOW-LINEAGE
+    objective: Traverse immutable Control Event Ledger predecessor bindings with exact blob identity checks and build a deterministic lineage-aware shadow event stream without changing canonical state.
+    ownership:
+      - aaa/src/aaa/state/**
+      - aaa/src/aaa/cli/**
+      - aaa/src/aaa/api/**
+      - aaa/tests/**
+    forbidden:
+      - control/continuity/**
+      - tools/m3top3/**
+      - control/u127/**
+      - canonical promotion
+integration_gate:
+  - EXACT_BASE_IDENTITY_PASS
+  - FRONTEND_DEPENDENCY_LOCK_PASS
+  - LEDGER_PREDECESSOR_HASH_CHAIN_PASS
+  - FULL_AAA_TEST_SUITE_PASS
+  - OWNER_CONSOLE_BUILD_PASS
+  - LLM_OFF_PASS
+  - INDEPENDENT_VALIDATION_NOT_SELF_CLAIMED
