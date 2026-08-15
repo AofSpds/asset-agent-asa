@@ -10,11 +10,10 @@ on:
       - 'control/aaa/**'
       - '.github/workflows/aaa-build-tests.yml'
 
-permissions:
-  contents: write
-
 jobs:
   deterministic-contract-tests:
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -28,6 +27,8 @@ jobs:
           python -m unittest discover -s aaa/tests -p 'test_*.py' -v
 
   owner-console-build-smoke:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
