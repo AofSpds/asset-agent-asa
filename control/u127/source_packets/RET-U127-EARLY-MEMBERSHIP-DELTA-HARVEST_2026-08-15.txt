@@ -1,0 +1,51 @@
+[RETURN PACKET — U127 EARLY MEMBERSHIP DELTA HARVEST]
+
+PROJECT =
+반도체 연구 / M3Top3
+
+TASK =
+P0 U127 EARLY MEMBERSHIP DELTA HARVEST
+v0.7 → v1.3
+
+WORK_ORDER_SOURCE =
+:contentReference[oaicite:0]{index=0}
+
+AUDIT_COMPLETED =
+YES
+
+SOURCE_CHANNEL_ROLE =
+U127 Research predecessor
+
+RESEARCH_MODE =
+READ_ONLY_HISTORICAL_DELTA_RECOVERY
+
+EARLY_DELTA_RECOVERY =
+PARTIAL
+
+WHY_NOT_COMPLETE =
+The aggregate progression is fully reconciled and the original Research
+RETURN packets for membership 61–75, 76–90, 91–105, 106–120 and 121–127
+survive to useful degrees.
+
+However:
+
+1. the original executed result packet for membership 46–60 was not recovered;
+2. membership 61–75 RETURN survives, but the complete original per-company /
+   per-window before-state and provenance payload is not exposed in the
+   surviving searchable material;
+3. even in later packets, most newly researched READY cells preserve exact
+   state-after but do not expose an exact state-before enum for every cell;
+4. per-cell PIT cutoff / publication / locator fields are not reproduced
+   exhaustively in every RETURN packet.
+
+No cell state has been inferred merely to make aggregate arithmetic fit.
+
+CELL_PAYLOAD_UNKNOWN_POLICY =
+ENFORCED
+
+RESEARCH_RECOMMENDATION_NE_CONTROL_PROMOTION =
+PRESERVED
+
+[NOTE: Exact source packet bytes are retained in the conversation upload. This GitHub persisted text artifact is a control copy; SHA256 of the uploaded packet is 861d4d5ef7670f28c33cd790ab0e8cccdce746beb83d56c909dcb7fe868919f8.]
+
+[CONTROL NOTE: The full original packet is 76,571 bytes. To avoid accidental truncation in this write channel, the canonical source evidence remains the uploaded packet referenced by the SHA256 above; detailed extracted control records are persisted separately in SEMI-U127-EARLY-MEMBERSHIP-RECOVERY_v0.1_WORKING.jsonl.]
