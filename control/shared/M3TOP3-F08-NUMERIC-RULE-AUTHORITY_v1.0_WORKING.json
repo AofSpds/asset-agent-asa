@@ -1,0 +1,13 @@
+{
+  "authority_id": "M3TOP3-F08-NUMERIC-RULE-AUTHORITY",
+  "authority_release_id": "M3TOP3-F08-NUMERIC-RULE-AUTHORITY_v1.0_WORKING",
+  "version": "v1.0_WORKING",
+  "status": "CONTROL_FIX_CANDIDATE_NO_OFFICIAL_NUMERIC_PENALTY_RULE_BOUND",
+  "project": "semiconductor-research",
+  "model_version": "M3TOP3-v1.0",
+  "purpose": "Bind approved persistent numeric freshness-penalty rule releases. No age-to-penalty schedule is authorized by this artifact.",
+  "approved_numeric_rule_resolver_releases": [],
+  "positive_penalty_official_runtime_rule": "FAIL_CLOSED_WHILE_APPROVED_NUMERIC_RULE_RESOLVER_RELEASES_IS_EMPTY",
+  "invent_numeric_schedule": false,
+  "test_only_resolver_policy": "ALLOWED_ONLY_IN_EXPLICIT_TEST_MODE_NEVER_OFFICIAL_RUNTIME"
+}
