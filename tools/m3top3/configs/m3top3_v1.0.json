@@ -1,0 +1,76 @@
+{
+  "anti_double_count": {
+    "invariant": "ONE_ECONOMIC_FACT_ONE_PRIMARY_SCORING_ROLE",
+    "secondary_overlap_state": "NA_FOR_OVERLAP"
+  },
+  "axis_weights": {
+    "Business_Momentum": 25,
+    "Expectation_Surprise": 25,
+    "Forward_Runway": 20,
+    "Market_Positioning": 20,
+    "Reliability_Risk": 10
+  },
+  "config_id": "M3TOP3-v1.0-IMPLEMENTATION-CONFIG",
+  "config_version": "v1.0_WORKING",
+  "continuous_percentile": {
+    "tie_policy": "AVERAGE_RANK",
+    "winsor_high": "0.95",
+    "winsor_low": "0.05"
+  },
+  "coverage": {
+    "official_top_k_rankable_eligible_threshold": "1.00"
+  },
+  "feature_schema_version": "M3TOP3-FEATURE-SCHEMA_v1.0_WORKING",
+  "feature_weights": {
+    "F01_COMMERCIAL_CONVERSION_MOMENTUM": 15,
+    "F02_NUMERIC_BUSINESS_INFLECTION": 10,
+    "F03_FORWARD_REVISION_MOMENTUM": 15,
+    "F04_EVENT_SURPRISE_VS_PRIOR_EXPECTATION": 10,
+    "F05_MARKET_POSITIONING_BALANCE": 20,
+    "F06_CONVERSION_RUNWAY": 12,
+    "F07_BETA_TRANSMISSION_ALIGNMENT": 8,
+    "F08_EVIDENCE_RELIABILITY": 5,
+    "F09_EXECUTION_THESIS_SAFETY": 5
+  },
+  "implementation_notes": {
+    "F02_signed_change": "metric_pairs default to RELATIVE=(current-prior)/abs(prior); per-metric ABSOLUTE mode is explicit. metric_changes may be supplied by governed upstream preprocessing.",
+    "F08_freshness_penalty": "input freshness_penalty must be governed upstream and is capped at 20; no new refresh-duration thresholds are invented here.",
+    "KRX_calendar": "production calendar is an external bound calendar identity; WeekdayCalendar is synthetic-test-only."
+  },
+  "missingness": {
+    "distinct_states": [
+      "MISSING",
+      "UNKNOWN",
+      "REVIEW_REQUIRED",
+      "NOT_FOUND",
+      "ZERO",
+      "FALSE"
+    ],
+    "silent_neutral_fill": false,
+    "silent_zero_fill": false
+  },
+  "model_input_schema_version": "MIS-v1.0",
+  "model_version": "M3TOP3-v1.0",
+  "outcome_tuned": false,
+  "risk_gate_multipliers": {
+    "NONE": "1.00",
+    "SEVERE": "0.85",
+    "THESIS_BREAK": "0.70"
+  },
+  "scientific_firewall": {
+    "forbidden": [
+      "future_MFE",
+      "future_MAE",
+      "future_return",
+      "future_rank",
+      "future_high",
+      "future_close",
+      "Official_Winner",
+      "Preliminary_Winner"
+    ]
+  },
+  "scorer_io_version": "SIO-v1.0",
+  "scorer_version": "M3TOP3-GATED-LINEAR_v1.0_WORKING",
+  "weight_version": "M3TOP3-WEIGHT-VERSION_v1.0_WORKING",
+  "window_mapping_version": "WM-v1.1"
+}
