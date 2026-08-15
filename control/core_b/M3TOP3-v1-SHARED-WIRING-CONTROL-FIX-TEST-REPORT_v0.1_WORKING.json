@@ -1,0 +1,76 @@
+{
+  "report_id": "M3TOP3-v1-SHARED-WIRING-CONTROL-FIX-TEST-REPORT",
+  "version": "v0.1_WORKING",
+  "status": "CORE_B_CONTROL_FIX_TEST_PASS_NOT_INDEPENDENT_VALIDATION",
+  "project": "semiconductor-research",
+  "work_order_id": "WO-COREB-M3TOP3-v1-SHARED-WIRING-CONTROL-FIXES-20260816",
+  "base_candidate_commit": "7fa068b7d69ea232b2dd0fa61c312af2c68771a2",
+  "successor_source_commit": "5ee82d15a27237ed2ad142ae877c6595f0489f80",
+  "successor_descends_from_base": true,
+  "github_actions": {
+    "exact_successor_run": 31900218083,
+    "job": 95049685932,
+    "workflow": ".github/workflows/m3top3-shared-wiring-control-fix-tests.yml",
+    "conclusion": "success",
+    "full_test_command": "python -m unittest discover -s tools/m3top3/tests -p 'test_*.py' -v",
+    "pipefail_enforced": true,
+    "full_tests": {
+      "ran": 94,
+      "passed": 94,
+      "failed": 0,
+      "errors": 0
+    },
+    "new_control_fix_tests": {
+      "ran": 18,
+      "passed": 18
+    },
+    "preexisting_regression_behaviors": {
+      "ran": 76,
+      "passed": 76
+    },
+    "prior_narrow_workflow_after_fixture_fix": {
+      "run": 31900211183,
+      "head_sha": "cd17a5ad991b03dfb85b47f821b3e7c1515de53f",
+      "conclusion": "success"
+    }
+  },
+  "identity_checks": {
+    "shared_interface_assets": "PASS_6_OF_6",
+    "control_fix_assets": "PASS_3_OF_3",
+    "baseline_config_sha256": "eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98",
+    "baseline_config_unchanged": true
+  },
+  "changed_component_sha256": {
+    "tools/m3top3/shared_interface_guards_v1_2.py": "04f0381e203992e5721e36397cd30217cb7585c51c7fc25d5b539afae17692a1",
+    "tools/m3top3/official_runtime_v1_1.py": "f7245163490055f213aa8b52ee0eec96ae41aacdf86912c3bcba58c565c52cd7",
+    "tools/m3top3/tests/test_shared_wiring_control_fixes_v1.py": "5b4224288a2f01b4720b76f6f242c864d0b16acf74089dde2a00f0c928a4772c",
+    ".github/workflows/m3top3-shared-wiring-control-fix-tests.yml": "405abab3c0eeccff6a8e885305b89b13c5a54ed66c4be4ce35cd5d3874fde658",
+    "control/shared/M3TOP3-EVIDENCE-RESOLVER-AUTHORITY_v1.0_WORKING.json": "b2e00077f1239b43c6328c0d009df1bae4110e9ffc6d6840d02f67380399ea8f",
+    "control/shared/M3TOP3-F08-NUMERIC-RULE-AUTHORITY_v1.0_WORKING.json": "3b7200eb92f5e9b162035b1cd92f775f3b80039eb679af09e59343209586b2d7",
+    "control/shared/M3TOP3-RECORD-LEVEL-BINDING-POLICY_v1.0_WORKING.json": "8f05200e1937761e172995d23f1a344de4d8102cb22fc46782f99f8f1f7fa749"
+  },
+  "findings": {
+    "CW_01": "PASS_IMPLEMENTATION_FAIL_CLOSED_REAL_EVIDENCE_RESOLVER_RELEASE_STILL_CONTROL_DATA_BINDING",
+    "CW_02": "PASS_IMPLEMENTATION_OFFICIAL_POSITIVE_PENALTY_FAILS_CLOSED_WHILE_NO_APPROVED_NUMERIC_RULE_EXISTS",
+    "CW_03": "PASS_IMPLEMENTATION_EXPLICIT_RECORD_LEVEL_CLASSIFICATION_AND_BINDING"
+  },
+  "semantic_conflict": "NONE",
+  "model_invariants": {
+    "weights_changed": false,
+    "scorer_math_changed": false,
+    "wm_v1_1_semantics_changed": false,
+    "model_version_changed": false
+  },
+  "scientific_firewall": {
+    "actual_outcome_data_inspected": false,
+    "actual_replay_executed": false,
+    "outcome_tuning_executed": false,
+    "ground_truth_changed": false,
+    "price_changed": false,
+    "ca_changed": false,
+    "u127_rematerialized": false,
+    "semi_ops_implemented": false
+  },
+  "independent_validation": "NOT_EXECUTED",
+  "ready_for_control_prevalidation": true
+}
