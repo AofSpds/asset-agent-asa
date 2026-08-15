@@ -1,0 +1,29 @@
+{
+  "run_id": "RUN-AAA-T19-LEASE-HEARTBEAT-REMEDIATION-20260816-001",
+  "process_id": "AAA-T19-LEASE-HEARTBEAT-REMEDIATION",
+  "work_order_id": "WO-AAA-T19-LEASE-HEARTBEAT-REMEDIATION-v0.1-20260816",
+  "responsible_persona": "SEMI-CONTROL-ARCHITECT",
+  "executor_role": "ENGINEERING_REMEDIATION",
+  "state": "COMPLETED_WITH_FINDINGS",
+  "repository": "AofSpds/asset-agent-asa",
+  "exact_base_commit": "5fdf84a9433f91dead1449bdb7b330c646987cad",
+  "branch": "aaa-t19-lease-heartbeat-remediation-v0.1",
+  "started_at": null,
+  "last_heartbeat_at": null,
+  "stale_after_seconds": 7200,
+  "canonical_output": false,
+  "terminal_result": {
+    "result_id": "RESULT-AAA-T19-LEASE-HEARTBEAT-REMEDIATION-v0.1",
+    "result_sha256": "0bd037bd78f7891d49e67281e31c08055ca5a4d0b5d4d0f31f2a6b4f4a5d6272",
+    "completed_at": "2026-08-16T08:16:00+09:00",
+    "persistent_locator": "control/aaa/results/RESULT-AAA-T19-LEASE-HEARTBEAT-REMEDIATION-v0.1.json",
+    "verdict": "PASS_WITH_FINDINGS"
+  },
+  "notes": [
+    "Engineering remediation exact code target 5fdf84a9433f91dead1449bdb7b330c646987cad passed 145/145 deterministic tests and the PostgreSQL 16 expired-lease adversarial smoke.",
+    "Frozen migrations 0001 through 0004 were preserved; successor migration 0005 enforces non-expired current lease validity before heartbeat renewal.",
+    "WorkerRuntime uses a governed execution lease TTL strictly greater than the code-owned profile timeout plus safety margin; the current validation profile uses 1860 seconds for an 1800-second timeout.",
+    "The P0 finding is engineering-remediated but remains open pending Independent Validation of the integrated successor.",
+    "No retroactive engineering start or heartbeat evidence was invented. Live T19 execution, PostgreSQL Operational SoT, Production Release and P10 Controlled Cutover remain unauthorized."
+  ]
+}
