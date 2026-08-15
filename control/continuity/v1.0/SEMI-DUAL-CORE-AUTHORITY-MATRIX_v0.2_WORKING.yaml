@@ -1,0 +1,85 @@
+matrix_id: SEMI-DUAL-CORE-AUTHORITY-MATRIX
+version: v0.2_WORKING
+status: DUAL_CORE_RECONCILED_NOT_FROZEN
+project: semiconductor-research
+as_of: '2026-08-15T22:52:00+09:00'
+supersedes_working_draft: SEMI-DUAL-CORE-AUTHORITY-MATRIX_v0.1_WORKING
+actors:
+  OWNER: USER_PROJECT_OWNER
+  CORE_A: SEMI-CONTROL-ARCHITECT
+  CORE_B: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+  RESEARCH: SEMI-RESEARCH-ORCHESTRATOR
+  VALIDATION: SEMI-VALIDATION-AUDITOR
+  ENGINEERING: TASK_SPECIFIC_ENGINEERING_WORKERS
+reconciliation_result:
+  core_A_draft_overall: ACCEPT_WITH_MODIFICATIONS
+  unresolved_major_authority_conflicts: 0
+  owner_escalation_required: false
+  refinements:
+    - GROUND_TRUTH_CONTENT_READINESS_CORE_A_MODEL_TARGET_SEMANTICS_CORE_B_FINAL_FREEZE_OWNER
+    - MFE_MAE_SEMANTICS_CORE_B_MACHINE_IMPLEMENTATION_AND_RELEASE_IDENTITY_SHARED
+    - PROJECT_MAJOR_ARCHITECTURE_OWNER_MODEL_INTERNAL_ARCHITECTURE_CORE_B
+authority:
+  project_goals: OWNER
+  major_project_architecture: OWNER
+  model_internal_architecture: CORE_B
+  U127_membership: CORE_A
+  ground_truth_data_content_PIT_release_readiness: CORE_A
+  ground_truth_model_target_and_validation_semantics: CORE_B
+  ground_truth_final_freeze_approval: OWNER
+  PIT_evidence_state: CORE_A
+  effective_history: CORE_A
+  Price_dataset_identity_and_readiness: CORE_A
+  Corporate_Action_project_readiness: CORE_A
+  artifact_identity_and_persistence: CORE_A
+  control_state_event_ledger_checkpoint_channel_rotation: CORE_A
+  model_architecture: CORE_B
+  feature_definition: CORE_B
+  weighting: CORE_B
+  scorer_definition: CORE_B
+  ranking_contract: CORE_B
+  MFE_semantics: CORE_B_WITH_SHARED_IMPLEMENTATION
+  MAE_semantics: CORE_B_WITH_SHARED_IMPLEMENTATION
+  Top3: CORE_B
+  Top10: CORE_B
+  Critical_Miss: CORE_B
+  window_mapping: SHARED
+  entry_semantics: SHARED
+  exit_semantics: SHARED
+  outcome_builder: SHARED
+  model_input_schema: SHARED
+  PIT_snapshot_interface: SHARED
+  backtest_design: CORE_B
+  experiment_design: CORE_B
+  no_tune_governance: CORE_B
+  overfit_governance: CORE_B
+  model_version_comparison: CORE_B
+  actual_U127_two_year_replay: SHARED_WITH_ENGINEERING_EXECUTION_AND_INDEPENDENT_VALIDATION
+  ground_truth_freeze_recommendation: SHARED_CORE_A_DATA_READINESS_CORE_B_SEMANTIC_FITNESS
+  model_freeze_recommendation: CORE_B_WITH_CORE_A_CONTROL_ARTIFACT_GATE
+  final_ground_truth_freeze: OWNER
+  final_model_freeze: OWNER
+  release_or_production_activation: OWNER
+research_routes:
+  data_GT_research: RESEARCH_TO_CORE_A
+  model_research: RESEARCH_TO_CORE_B
+  cross_domain_research: RESEARCH_TO_BOTH_CORES
+shared_contracts:
+  reference: SEMI-SHARED-CONTRACT-STATE_v0.1_WORKING
+  change_rule: BOTH_CORES_RECONCILE_BEFORE_PROMOTION
+  unresolved_state: CONTROL_SYNC_REQUIRED
+implementation_validation_separation:
+  implementation_owner_may_not_self_certify: true
+  CORE_B_may_design_validation: true
+  CORE_B_may_run_internal_design_checks: true
+  CORE_B_may_self_certify_independent_freeze_validation: false
+  independent_validator: SEMI-VALIDATION-AUDITOR
+promotion_sequences:
+  data_GT: RESEARCH_TO_CORE_A_ADJUDICATION_TO_VALIDATION_IF_REQUIRED_TO_CONTROL_PROMOTION
+  model: RESEARCH_OR_DESIGN_TO_CORE_B_DECISION_TO_ENGINEERING_TO_INDEPENDENT_VALIDATION_TO_MODEL_FREEZE_RECOMMENDATION
+  shared_contract: DUAL_CORE_RECONCILIATION_TO_VERSIONED_CONTROL_EVENT_TO_IMPLEMENTATION_TO_VALIDATION
+pending_before_organization_v1_freeze:
+  - SHARED_CONTRACT_OPEN_ITEMS_RECONCILED_OR_EXPLICITLY_BOUNDED
+  - CORE_B_RECOVERY_DRILL_PASS
+  - OWNER_ESCALATION_THRESHOLD_FORMALIZED
+  - CORE_B_CHECKPOINT_CREATED_AND_SUCCESSOR_LOAD_PROCEDURE_TESTED
