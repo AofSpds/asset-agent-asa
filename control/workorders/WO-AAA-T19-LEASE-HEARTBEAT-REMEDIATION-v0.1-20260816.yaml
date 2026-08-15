@@ -3,8 +3,10 @@ project: Asset Agent ASA
 track: T19
 requesting_control: AAA_BUILD_CONTROL
 responsible_persona: AAA_BUILD_CONTROL
-state: READY_NOT_DISPATCHED
+state: OWNER_APPROVED_READY_FOR_EXECUTION
 created_at: '2026-08-16T08:05:00+09:00'
+owner_approved_at: '2026-08-16T08:10:00+09:00'
+owner_approval_source: PROJECT_OWNER_EXPLICIT_CHAT_APPROVAL
 repository: AofSpds/asset-agent-asa
 base_branch: aaa-integration-v0.2
 failed_exact_target: c867e3704b2744c3a826635b828ad6696e6281eb
@@ -54,7 +56,8 @@ prohibited:
   - weaken heartbeat or lease invariants to make tests pass
 
 execution_authorization:
-  owner_approval_for_successor_engineering: REQUIRED_BEFORE_DISPATCH
+  owner_approval_for_successor_engineering: GRANTED
+  owner_approval_timestamp: '2026-08-16T08:10:00+09:00'
   live_execution_authorized: false
   postgresql_operational_sot_authorized: false
   controlled_cutover_authorized: false
