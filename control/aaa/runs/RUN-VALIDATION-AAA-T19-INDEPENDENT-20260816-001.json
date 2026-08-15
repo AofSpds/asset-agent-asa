@@ -1,0 +1,23 @@
+{
+  "run_id": "RUN-VALIDATION-AAA-T19-INDEPENDENT-20260816-001",
+  "process_id": "T19-INDEPENDENT-VALIDATION",
+  "work_order_id": "WO-VALIDATION-AAA-T19-v0.1-INDEPENDENT-20260816",
+  "responsible_persona": "SEMI-VALIDATION-AUDITOR",
+  "executor_role": "INDEPENDENT_VALIDATION",
+  "state": "DISPATCHED_AWAITING_ACK",
+  "repository": "AofSpds/asset-agent-asa",
+  "exact_base_commit": "c867e3704b2744c3a826635b828ad6696e6281eb",
+  "branch": "aaa-integration-v0.2",
+  "started_at": null,
+  "last_heartbeat_at": null,
+  "stale_after_seconds": 7200,
+  "canonical_output": false,
+  "terminal_result": null,
+  "notes": [
+    "T19 Independent Validation is separate from Engineering PASS_WITH_FINDINGS and separate from P09/T18 Independent Validation tracks.",
+    "Exact target is fixed at c867e3704b2744c3a826635b828ad6696e6281eb; later control-only commits must not move it.",
+    "No ACK/start/heartbeat evidence exists at dispatch time; do not infer RUNNING_CONFIRMED.",
+    "This Run must use the current manual validation bridge because T19 live authoritative worker dispatch is not enabled.",
+    "T19 Independent Validation cannot authorize PostgreSQL Operational SoT cutover, live execution enablement, Production Release, or P10 Controlled Cutover."
+  ]
+}
