@@ -1,7 +1,7 @@
 state_id: SEMI-CURRENT-STATE
 version: v1.0
 status: WORKING_SUCCESSOR_ACTIVE
-as_of: '2026-08-15T22:18:00+09:00'
+as_of: '2026-08-15T22:36:00+09:00'
 project: semiconductor-research
 active_persona: SEMI-CONTROL-ARCHITECT
 active_persona_instance: CTRL-ARCH-INSTANCE-004-20260815
@@ -48,7 +48,7 @@ active_lanes:
       aggregate_control_lineage: COMPLETE_RECONCILED
       full_cell_event_lineage: PARTIAL
       deterministic_rematerialization_feasibility: MEDIUM_NOT_AUTHORIZED
-      original_byte_recovery_space: NOT_EXHAUSTED
+      original_byte_recovery_space: NOT_EXHAUSTED_FOR_LATER_GENUINE_BYTES
     recovery_priority:
       - v1.8
       - v1.7
@@ -66,11 +66,12 @@ active_lanes:
       - OWNER_TESTIMONY_IS_PROCESS_EVIDENCE_NOT_BYTE_PROOF
 
   - lane_id: U127-DELTA-LEDGER-RECOVERY
-    status: ACTIVE_PARALLEL
-    purpose: recover accepted and rejected post-v0.7 Research/Control transitions into an immutable typed delta lineage before any rematerialization decision
+    status: ACTIVE_PARALLEL_BOUNDED
+    purpose: preserve accepted and rejected post-v0.7 Research/Control transitions into an immutable typed lineage while explicitly bounding unrecoverable historical payloads
     current_scope:
-      - early_membership_gap_closure_A_46_60_then_61_75
-      - RC1_to_RC4_5_exact_delta_harvest
+      - preserve_archive_exhaustion_boundary_for_membership_46_60
+      - preserve_partial_archive_boundary_for_membership_61_75
+      - RC1_to_RC4_5_exact_delta_lineage
       - RC5_A_rejection_lineage
       - RC5_B_to_RC5_E_control_promotion_lineage
       - FA1_to_FA4_certification_links
@@ -79,10 +80,11 @@ active_lanes:
       no_op_or_rejection_preservation_boundaries: 2
       aggregate_arithmetic_reconciled: true
       RC1_to_final_cell_lineage: VERY_STRONG
-      early_membership_full_cell_delta_ledger: PARTIAL
+      early_membership_full_cell_delta_ledger: PARTIAL_BOUNDED
       early_membership_harvest_control_decision: PARTIAL_ACCEPT
-      early_membership_source_packet_sha256: 861d4d5ef7670f28c33cd790ab0e8cccdce746beb83d56c909dcb7fe868919f8
-      early_membership_source_packet_byte_size: 76571
+      gap_closure_A_control_decision: PARTIAL_ACCEPT_CLOSE_CURRENT_ARCHIVE_SEARCH
+      gap_closure_A_source_packet_sha256: 5b221055a50c8b3b16d84dfba597702fd5997a1c681d9dab95a7688c6c280217
+      gap_closure_A_source_packet_byte_size: 19012
       early_certified_progression: 353_TO_974_PLUS621_PASS
       early_populated_progression: 370_TO_997_PLUS627_PASS
       early_complete_progression: 44_TO_119_PLUS75_PASS
@@ -91,18 +93,23 @@ active_lanes:
       non_ready_matrix_91_to_120: RECOVERED_HIGH_VALUE
       exact_listing_additions_76_to_127: RECOVERED
       decisive_KRX_KIND_bookends_121_to_127: RECOVERED
-      highest_value_gap: MEMBERSHIP_46_60_EXECUTED_RESULT_PACKET
-      secondary_gap: MEMBERSHIP_61_75_FULL_CELL_PRESTATE_PROVENANCE_LISTING
+      GAP_A1_membership_46_60: HISTORICAL_PAYLOAD_NOT_RECOVERABLE_IN_CURRENT_ARCHIVE
+      GAP_A2_membership_61_75: PARTIAL_ARCHIVE_EXHAUSTED
+      raw_predecessor_chat_tool_transcript_available_to_current_control: false
+      archive_reopen_condition: UNTOUCHED_ORIGINAL_SOURCE_LATER_DISCOVERED
     recovery_assets:
       - control/u127/SEMI-U127-DELTA-LEDGER_v0.1_WORKING.jsonl
       - control/u127/SEMI-U127-EARLY-MEMBERSHIP-RECOVERY_v0.1_WORKING.yaml
       - control/u127/source_packets/RET-U127-EARLY-MEMBERSHIP-DELTA-HARVEST_2026-08-15.txt
+      - control/u127/source_packets/RET-U127-EARLY-DELTA-GAP-CLOSURE-A_2026-08-15.txt
     rules:
       - LEDGER_RECOVERY_IS_NOT_WORKBOOK_REMATERIALIZATION
       - RESEARCH_PROPOSED_AND_CONTROL_ACCEPTED_MUST_REMAIN_SEPARATE
       - SOURCE_PACKET_HASH_REQUIRED_WHEN_SOURCE_BYTES_OR_TEXT_ARE_MATERIALIZED
       - NO_ACCEPTED_DELTA_WITHOUT_CONTROL_DECISION_REFERENCE
       - UNKNOWN_CELL_PRESTATE_OR_PROVENANCE_MUST_REMAIN_UNKNOWN
+      - STOP_ARCHIVE_RECOVERY_WHEN_CURRENT_SEARCH_SPACE_IS_EXHAUSTED
+      - REOPEN_ONLY_ON_UNTOUCHED_ORIGINAL_DISCOVERY
 
   - lane_id: CONTROL-HUB-CONTINUITY-v1
     status: ACTIVE_PARALLEL
@@ -145,8 +152,11 @@ u127:
   permanent_loss: NOT_ESTABLISHED
   post_v0_7_delta_carrier: MIXED_CONTROL_LOGICAL_STATE_DOMINANT
   final_logical_state_dependency_on_v1_8_or_v1_9_bytes: NOT_REQUIRED_FOR_LOGICAL_VALIDITY
-  accepted_delta_lineage_recovery: PARTIAL_IMPROVED
-  early_membership_gap_closure_status: GAP_CLOSURE_A_REQUIRED
+  accepted_delta_lineage_recovery: PARTIAL_BOUNDED
+  early_membership_gap_closure_status: CURRENT_ARCHIVE_SEARCH_CLOSED_WITH_EXPLICIT_UNKNOWNS
+  GAP_A1_46_60: HISTORICAL_PAYLOAD_NOT_RECOVERABLE_IN_CURRENT_ARCHIVE
+  GAP_A2_61_75: PARTIAL_ARCHIVE_EXHAUSTED
+  early_archive_recovery_reopen_condition: UNTOUCHED_ORIGINAL_SOURCE_LATER_DISCOVERED
   deterministic_rematerialization_feasibility: MEDIUM_NOT_AUTHORIZED
 
 price:
@@ -174,12 +184,16 @@ m3top3:
 
 critical_blockers:
   - AUTHORITATIVE_U127_FINAL_MACHINE_BYTES_NOT_RECOVERED
-  - FULL_v0_7_TO_FINAL_TYPED_CELL_DELTA_LEDGER_NOT_YET_CERTIFIED
-  - EARLY_MEMBERSHIP_46_60_EXECUTED_CELL_PAYLOAD_NOT_RECOVERED
+  - FULL_v0_7_TO_FINAL_TYPED_CELL_DELTA_LEDGER_NOT_COMPLETE_FOR_EARLY_ARCHIVE_GAPS
   - U127_ARTIFACT_PERSISTENCE_NOT_COMPLETE
   - INDEPENDENT_CA_CLOSURE_PENDING
   - OFFICIAL_PRICE_D4_D5_NOT_PROMOTED
   - CORE_B_SUCCESSOR_NOT_YET_RECONCILED_BY_CORE_A
+
+bounded_historical_unknowns:
+  - MEMBERSHIP_46_60_CELL_PAYLOAD_AND_EXACT_10_LISTING_ADDITIONS
+  - MEMBERSHIP_61_75_EXACT_COMPANY_WINDOW_PRESTATE_PROVENANCE_AND_EXACT_14_LISTING_ADDITIONS
+  - SELECTED_EARLY_NONLEGACY_READY_CELL_PRESTATE_AND_PER_CELL_PROVENANCE
 
 continuity_incident_assessment:
   incident_classification: MULTIPLE
@@ -217,27 +231,22 @@ continuity_risks:
 
 next_actions_parallel:
   U127_RECOVERY:
-    - continue targeted genuine-byte recovery v1.8 then v1.7 then v1.6 while treating v1.9 as forensic-only
+    - continue targeted genuine-byte recovery v1.8 then v1.7 then v1.6 only if a concrete original-byte lead emerges
     - persist exact v0.7 bytes through governed primary and secondary artifact custody
     - do not rematerialize until recovery and typed-delta certification gates are explicitly closed by Control
+    - do not continue generic early archive searching for 46-75
   U127_DELTA_LEDGER_RECOVERY:
-    - run one narrow historical GAP CLOSURE A for membership 46-60 original executed RETURN or cell table
-    - secondarily recover membership 61-75 full company-window prestate provenance and exact listing additions
-    - use already recovered 76-127 packets only for narrow missing prestate/provenance extraction, not new research
-    - merge only source-supported records into the typed working ledger
-    - keep all unsupported cell fields UNKNOWN
-    - link RC1 through RC5E transitions to Control acceptance or rejection decisions
-    - link FA1 through FA4 as certification events rather than cell-changing events
+    - preserve GAP_A1 and GAP_A2 as explicit bounded historical unknowns
+    - maintain recovered RC1 through RC5E transitions and FA1 through FA4 certification lineage
+    - reopen early archive gaps only on untouched original source discovery
   CONTROL_HUB_CONTINUITY:
-    - receive and reconcile CORE B Model Validation / Design Architect successor handoff
-    - define final dual-core organization and authority boundary
-    - define shared asset ownership and cross-core synchronization events
-    - formalize Persona persistence, Artifact Persistence Gate, and Channel Rotation Protocol
-    - harvest P0 knowledge assets from both Core personas
+    - receive and reconcile CORE_B Model Validation / Design Architect successor handoff
+    - finalize dual-core organization and authority boundary
+    - finalize shared asset ownership and cross-core synchronization events
+    - reconcile Persona persistence, Artifact Persistence Gate, and Channel Rotation Protocol with CORE_B
     - run successor recovery drill before Continuity v1 freeze
 
 user_action:
-  required_now: ROUTE_ONE_NARROW_GAP_CLOSURE_A_PROMPT_TO_U127_RESEARCH_PREDECESSOR
-  otherwise: NONE
+  required_now: NONE
   optional_only_if_found_locally:
-    - upload exact unmodified v1.8, v1.9, or v1.7 candidate without opening and resaving
+    - upload untouched original v1.8, v1.9, v1.7, v0.8, or copied 46-60 source packet if independently discovered
