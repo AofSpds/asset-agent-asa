@@ -1,0 +1,59 @@
+state_id: SEMI-SHARED-CONTRACT-STATE
+version: v0.4_WORKING
+status: DUAL_CORE_RECONCILED_ALL_DEFINITIONS_AGREED_IMPLEMENTATION_GATES_REMAIN
+project: semiconductor-research
+as_of: '2026-08-15T23:48:00+09:00'
+parties:
+  CORE_A: {canonical_name: 문서·통제 아키텍트, persona_id: SEMI-CONTROL-ARCHITECT}
+  CORE_B: {canonical_name: 모델 검증·설계 아키텍트, persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT}
+supersedes: control/continuity/v1.0/SEMI-SHARED-CONTRACT-STATE_v0.3_WORKING.yaml
+reconciliation_source:
+  core_b_packet: RETURN PACKET — WINDOW MAPPING v1.1 RECONCILIATION
+  core_b_record: control/core_b/M3TOP3-WINDOW-MAPPING-v1.1-RECONCILIATION_v0.1_WORKING.yaml
+  promoted_contract: control/continuity/v1.0/SEMI-WINDOW-MAPPING-CONTRACT_v1.1_WORKING.yaml
+  core_a_decision: ACCEPT_WM_v1_1_AND_CLOSE_DEFINITION_CONFLICT
+contracts:
+  MODEL_INPUT_SCHEMA:
+    version: MIS-v1.0
+    status: AGREED_WORKING_IMPLEMENTATION_PENDING
+  PIT_SNAPSHOT_INTERFACE:
+    status: AGREED_WORKING
+  UNIVERSE_ELIGIBILITY:
+    status: AGREED_WORKING_EXECUTION_BLOCKED_BY_U127_RELEASE
+  WINDOW_MAPPING:
+    version: WM-v1.1
+    status: AGREED_WORKING_IMPLEMENTATION_PENDING
+    contract_path: control/continuity/v1.0/SEMI-WINDOW-MAPPING-CONTRACT_v1.1_WORKING.yaml
+    historical_W1_W8_compatibility: PASS_8_OF_8
+    daily_replay_compatibility: PASS
+    anchor_and_cutoff_separated: true
+  ENTRY_EXIT:
+    status: AGREED_WORKING
+  OUTCOME_BUILDER:
+    status: AGREED_WORKING_OFFICIAL_EXECUTION_BLOCKED_BY_PRICE_CA_AND_IMPLEMENTATION_VALIDATION
+  VALIDATION_DATASET_IDENTITY:
+    version: VDI-v1.0
+    status: AGREED_WORKING_RELEASE_NOT_MATERIALIZED
+  SCORER_IO:
+    version: SIO-v1.0
+    status: AGREED_WORKING_IMPLEMENTATION_PENDING
+  MODEL_ARTIFACT_RELEASE_MANIFEST:
+    version: MARM-v1.0
+    status: AGREED_WORKING_RELEASE_NOT_MATERIALIZED
+summary:
+  total_contracts: 9
+  agreed_count: 9
+  open_definition_count: 0
+  unresolved_major_authority_conflict_count: 0
+  control_sync_required_for_definition_conflict: false
+  owner_escalation_required: false
+  implementation_or_release_gates_remaining: true
+  official_replay_authorized: false
+  model_freeze_authorized: false
+remaining_shared_execution_gates:
+  - IMPLEMENT_WM_v1_1
+  - IMPLEMENT_MIS_v1_0
+  - IMPLEMENT_SIO_v1_0
+  - MATERIALIZE_VDI_v1_0_AFTER_DATA_READINESS
+  - MATERIALIZE_MARM_v1_0_WITH_HASHED_MODEL_COMPONENTS
+  - INDEPENDENT_IMPLEMENTATION_AND_RELEASE_IDENTITY_VALIDATION
