@@ -1,0 +1,98 @@
+work_order_id: WO-AAA-T17-P09-REMEDIATION-20260816
+work_order_version: v0.1
+project: Asset Agent ASA
+short_name: AAA
+status: CONTROL_PREPARED_AWAITING_OWNER_APPROVAL
+requesting_control: AAA_BUILD_CONTROL
+issued_from_p09_run: RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-001
+failed_validation_result: control/aaa/results/RESULT-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-001.json
+failed_validation_result_sha256: e3e1c97e994f7459406940f4f290b9a45852bdbfa58b83720e46f9f08959d38e
+objective: Produce a bounded T17 Run Registry / Persona Operations successor that closes exactly the five P09 independent validation findings without changing AAA authority, model methodology, shared contracts, Ground Truth, PIT, U127, replay, release, or cutover authority.
+engineering_base:
+  repository: AofSpds/asset-agent-asa
+  exact_failed_validated_commit: 80378610f9ac9e688c52417f0416e01c057400a7
+  overwrite_failed_target: false
+  new_successor_commit_required: true
+  isolated_engineering_branch_required: true
+scope:
+  include:
+    - aaa/src/aaa/ops/run_registry.py
+    - aaa/contracts/run_registry_entry.schema.json_if_required_for_invariant_expression
+    - aaa/tests/test_run_registry_v06.py_or_successor
+    - directly affected read_only projection tests only if behavior requires them
+  exclude:
+    - MODEL_METHODOLOGY
+    - FEATURE_SCORER_WEIGHT_RANKING
+    - SHARED_CONTRACT
+    - GROUND_TRUTH
+    - PIT
+    - U127
+    - M3TOP3
+    - CONTINUITY_HISTORY_ADJUDICATION
+    - REPLAY
+    - MODEL_FREEZE
+    - PRODUCTION_RELEASE
+    - CONTROLLED_CUTOVER
+required_fixes:
+  AAA-IV-T17-FND-01-FUTURE-HEARTBEAT-FALSE-RUNNING:
+    severity: P0
+    requirement: Enforce fail-closed temporal ordering so started_at <= last_heartbeat_at <= reference observation time; future start or heartbeat evidence must never produce RUNNING_CONFIRMED.
+  AAA-IV-T17-FND-02-TERMINAL-STATE-VERDICT-MISMATCH:
+    severity: P0
+    requirement: Enforce exact mapping COMPLETED_PASS<=>PASS, COMPLETED_FAIL<=>FAIL, COMPLETED_WITH_FINDINGS<=>PASS_WITH_FINDINGS and reject all mismatches.
+  AAA-IV-T17-FND-03-TERMINAL-RESULT-PERSISTENCE-NOT-VERIFIED:
+    severity: P0
+    requirement: Resolve governed persistent Result locator and verify physical SHA256, result_id, run_id, work_order_id, applicable repository/exact-target identity, and verdict-to-terminal-state consistency.
+  AAA-IV-T17-FND-04-WORK-ORDER-RUN-RESULT-REFERENTIAL-INTEGRITY:
+    severity: P1
+    requirement: Validate persistent Work Order existence and identity and machine-prove Work Order/Run/Result referential linkage before projecting terminal/current state.
+  AAA-IV-T17-FND-05-TIMEZONE-STRING-ACTIVITY-ORDER:
+    severity: P1
+    requirement: Parse timezone-aware timestamps and normalize to UTC datetime before latest/current Persona activity ordering.
+required_regression_tests:
+  - future heartbeat rejected or classified fail-closed, never RUNNING_CONFIRMED
+  - future started_at rejected or classified fail-closed
+  - heartbeat before started_at rejected
+  - every terminal-state/verdict mismatch rejected
+  - missing persistent Result locator rejected
+  - Result physical SHA256 mismatch rejected
+  - Result run_id/work_order_id mismatch rejected
+  - nonexistent Work Order reference rejected
+  - Work Order identity mismatch rejected
+  - cross-offset timezone ordering chooses chronologically latest UTC Run
+  - existing 101-test bounded suite remains green or successor count is fully reported
+  - Owner Console npm ci and build remain green
+acceptance:
+  - all five P09 findings have direct regression tests
+  - no silent widening of scope
+  - exact successor commit identity returned
+  - changed-file identities returned
+  - Python suite counts returned
+  - Owner Console locked install/build result returned
+  - no canonical/control side effect from engineering execution
+  - Independent Validation PASS must not be self-certified
+permissions:
+  isolated_engineering_branch_write: ALLOWED_AFTER_OWNER_APPROVAL
+  canonical_control_write: PROHIBITED
+  integration_branch_write: PROHIBITED_UNTIL_BUILD_CONTROL_ADJUDICATION
+  pull_request_create: ALLOWED_IF_OWNER_APPROVED_EXECUTION_PATH_USES_PR
+non_interference:
+  - preserve failed target 80378610f9ac9e688c52417f0416e01c057400a7
+  - preserve AAA-FINDING-CONTINUITY-EVENT-ID-COLLISION_v0.1_WORKING
+  - preserve M3TOP3_FND_02_F06_EXTERNAL_P0
+  - do not infer or use future Outcome data
+terminal_return_required:
+  - exact_base_commit
+  - exact_successor_commit
+  - changed_files
+  - changed_file_sha256_or_git_blob_identity
+  - test_commands
+  - test_count
+  - pass_count
+  - fail_count
+  - five_finding_regression_matrix
+  - owner_console_build_result
+  - authority_boundary_check
+  - canonical_side_effect_check
+  - engineering_verdict
+  - independent_validation_pass_must_remain_false
