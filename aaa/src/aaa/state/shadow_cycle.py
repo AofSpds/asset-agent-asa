@@ -16,6 +16,10 @@ class InvalidShadowCycle(RuntimeError):
     pass
 
 
+def _valid_sha(value: str, length: int) -> bool:
+    return len(value) == length and all(c in "0123456789abcdef" for c in value)
+
+
 @dataclass(frozen=True)
 class ShadowObservation:
     sequence: int
@@ -25,6 +29,8 @@ class ShadowObservation:
     event_ledger_path: str
     event_ledger_sha256: str
     discrepancy_report_sha256: str
+    shadow_implementation_commit: str
+    shadow_contract_sha256: str
     comparison_status: str
     external_blockers: tuple[str, ...] = ()
     canonical_output: bool = False
@@ -34,11 +40,15 @@ class ShadowObservation:
             raise InvalidShadowCycle("SEQUENCE_MUST_START_AT_ONE")
         if not self.observed_at or not self.current_state_path or not self.event_ledger_path:
             raise InvalidShadowCycle("OBSERVATION_IDENTITY_FIELDS_REQUIRED")
-        for value in (self.current_state_sha256, self.event_ledger_sha256, self.discrepancy_report_sha256):
-            if len(value) != 64 or any(c not in "0123456789abcdef" for c in value):
+        for value in (self.current_state_sha256, self.event_ledger_sha256, self.discrepancy_report_sha256, self.shadow_contract_sha256):
+            if not _valid_sha(value, 64):
                 raise InvalidShadowCycle("INVALID_SHA256")
+        if not _valid_sha(self.shadow_implementation_commit, 40):
+            raise InvalidShadowCycle("INVALID_IMPLEMENTATION_COMMIT")
         if self.comparison_status not in VALID_COMPARISON_STATUS:
             raise InvalidShadowCycle(f"INVALID_COMPARISON_STATUS:{self.comparison_status}")
+        if any(not blocker for blocker in self.external_blockers):
+            raise InvalidShadowCycle("EMPTY_EXTERNAL_BLOCKER")
         if self.canonical_output:
             raise InvalidShadowCycle("SHADOW_OUTPUT_MUST_BE_NONCANONICAL")
 
@@ -54,9 +64,13 @@ class ShadowCycleReport:
     consecutive_match_count: int
     latest_comparison_status: str
     status: str
-    external_blockers: tuple[str, ...]
+    active_external_blockers: tuple[str, ...]
+    historical_blockers_seen: tuple[str, ...]
     current_state_sha256: str
+    shadow_implementation_commit: str
+    shadow_contract_sha256: str
     latest_observation_sha256: str
+    binding_drift_seen: bool
     canonical_output: bool = False
     cutover_authorized: bool = False
     historical_repair_performed: bool = False
@@ -72,6 +86,8 @@ def observe_repo(
     *,
     sequence: int,
     observed_at: str,
+    shadow_implementation_commit: str,
+    shadow_contract_sha256: str,
     external_blockers: Iterable[str] = (KNOWN_CONTINUITY_COLLISION,),
 ) -> ShadowObservation:
     report = build_discrepancy_report(repo_root)
@@ -83,6 +99,8 @@ def observe_repo(
         event_ledger_path=str(report["event_ledger"]["path"]),
         event_ledger_sha256=str(report["event_ledger"]["sha256"]),
         discrepancy_report_sha256=str(report["report_sha256"]),
+        shadow_implementation_commit=shadow_implementation_commit,
+        shadow_contract_sha256=shadow_contract_sha256,
         comparison_status=str(report["status"]),
         external_blockers=tuple(sorted(set(external_blockers))),
     )
@@ -123,14 +141,25 @@ def summarize_shadow_cycle(
     for observation in reversed(history):
         if observation.comparison_status != "MATCH":
             break
+        if observation.shadow_implementation_commit != latest.shadow_implementation_commit:
+            break
+        if observation.shadow_contract_sha256 != latest.shadow_contract_sha256:
+            break
         consecutive += 1
 
-    blockers = tuple(sorted({blocker for observation in history for blocker in observation.external_blockers}))
+    active_blockers = tuple(sorted(set(latest.external_blockers)))
+    historical_blockers = tuple(sorted({blocker for observation in history for blocker in observation.external_blockers}))
+    binding_drift_seen = any(
+        observation.shadow_implementation_commit != latest.shadow_implementation_commit
+        or observation.shadow_contract_sha256 != latest.shadow_contract_sha256
+        for observation in history[:-1]
+    )
+
     if latest.comparison_status in {"MISMATCH", "STALE"}:
         status = "NOT_READY_DIVERGENCE"
     elif latest.comparison_status == "UNKNOWN":
         status = "NOT_READY_UNKNOWN"
-    elif blockers:
+    elif active_blockers:
         status = "BLOCKED_EXTERNAL_CONTINUITY_OR_CONTROL_GATE"
     elif consecutive < required_consecutive_matches:
         status = "OBSERVING_MORE_MATCH_CYCLES"
@@ -148,8 +177,12 @@ def summarize_shadow_cycle(
         consecutive_match_count=consecutive,
         latest_comparison_status=latest.comparison_status,
         status=status,
-        external_blockers=blockers,
+        active_external_blockers=active_blockers,
+        historical_blockers_seen=historical_blockers,
         current_state_sha256=latest.current_state_sha256,
+        shadow_implementation_commit=latest.shadow_implementation_commit,
+        shadow_contract_sha256=latest.shadow_contract_sha256,
         latest_observation_sha256=latest.observation_sha256,
+        binding_drift_seen=binding_drift_seen,
         ready_for_independent_validation_candidate=status == "READY_FOR_INDEPENDENT_VALIDATION_CANDIDATE",
     )
