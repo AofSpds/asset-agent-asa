@@ -13,16 +13,17 @@
   "stale_after_seconds": 7200,
   "canonical_output": false,
   "terminal_result": {
-    "result_id": "RESULT-AAA-T17-INTEGRATION-v0.2",
-    "result_sha256": "074d8f26960a53c644a907faa8f53256a5a9a607b4b9e4edc3f838d03ebaa55d",
+    "result_id": "RESULT-AAA-T17-INTEGRATION-v0.3",
+    "result_sha256": "b41d494581426df6a39649e3dfad97ad29792fccf3eecec51ac5ed7a5d26a901",
     "completed_at": "2026-08-16T05:52:59+09:00",
-    "persistent_locator": "control/aaa/results/RESULT-AAA-T17-INTEGRATION-v0.2.json",
+    "persistent_locator": "control/aaa/results/RESULT-AAA-T17-INTEGRATION-v0.3.json",
     "verdict": "PASS"
   },
   "notes": [
     "PR #27 merged into aaa-integration-v0.2 at 80378610f9ac9e688c52417f0416e01c057400a7.",
     "Integration push CI run 31907885316 passed deterministic tests and Owner Console build.",
     "Owner local smoke verification was completed before integration.",
-    "Engineering integration PASS only; no Independent Validation PASS or cutover authorization."
+    "Engineering integration PASS only; no Independent Validation PASS or cutover authorization.",
+    "Historical RESULT-AAA-T17-INTEGRATION-v0.2 is preserved. Run terminal binding now points to v0.3, a referentially complete successor created for strengthened T17 identity validation."
   ]
 }
