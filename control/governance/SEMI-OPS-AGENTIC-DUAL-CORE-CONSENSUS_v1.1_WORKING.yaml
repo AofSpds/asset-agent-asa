@@ -1,0 +1,141 @@
+consensus_id: SEMI-OPS-AGENTIC-DUAL-CORE-CONSENSUS
+version: v1.1_WORKING
+status: DUAL_CORE_CONSENSUS_ACHIEVED_OWNER_IMPLEMENTATION_ACTIVATION_PENDING
+project: semiconductor-research
+recorded_at: '2026-08-16T02:45:00+09:00'
+recording_persona:
+  canonical_name: 문서·통제 아키텍트
+  persona_id: SEMI-CONTROL-ARCHITECT
+  instance_id: CTRL-ARCH-INSTANCE-005-20260816
+peer_persona:
+  canonical_name: 모델 검증·설계 아키텍트
+  persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+  instance_id: MODEL-ARCH-INSTANCE-002-20260815
+source_reviews:
+  core_a_round_2:
+    packet_type: SEMI_OPS_AGENTIC_COREA_DELTA_RECONCILIATION_v1_1
+    reviewed_at: '2026-08-16T02:30:00+09:00'
+  core_b_round_3:
+    packet_type: SEMI_OPS_AGENTIC_COREB_FINAL_RECONCILIATION_v1_1
+    reviewed_at: '2026-08-16T02:38:00+09:00'
+    transport_sha256: 09a7f4d72698996b5104da8747758351d682030f9f9b0657858f7014c939c31c
+    transport_byte_size: 24094
+    transport_note: USER_RETURN_TRANSPORT_NOT_SOURCE_OF_TRUTH_NORMALIZED_IN_THIS_RECORD
+consensus:
+  achieved: true
+  material_definition_level_disagreement: NONE
+  owner_escalation_required_for_architecture_reconciliation: false
+  architecture_role: OPERATIONS_EXECUTION_OBSERVABILITY_LAYER
+  persona_authority: UNCHANGED
+  agent_persona_separation: AGENT_IS_EXECUTOR_NOT_AUTHORITY
+  orchestrator_authority: OPERATIONAL_TRANSITIONS_ONLY_NO_AUTHORITATIVE_ADJUDICATION
+  general_agent_initial_permission: LEVEL_2_ISOLATED_BRANCH_WRITE
+  general_agent_later_max_permission: LEVEL_3_PR_CREATE
+  general_agent_canonical_write: PROHIBITED
+  level_4_separate_permission_for_mvp: NOT_REQUIRED
+  promotion_request_representation: RESULT_MANIFEST_RECOMMENDED_CONTROL_ACTION
+  work_order_identity: IMMUTABLE_VERSIONED_HASH_BOUND_SPEC_PLUS_SEPARATE_RUN_STATE
+  concurrency_model:
+    - IMMUTABLE_APPEND
+    - EXACT_BASE_IDENTITY
+    - OPTIMISTIC_VERSION_CHECK
+    - SINGLE_CANONICAL_PROMOTION_WRITER
+  storage_boundary:
+    read_only_shadow_agent_storage_write: PROHIBITED
+    general_agent_max_storage_write_after_permission_gate: S3_RUN_SCOPED_STAGING_ONLY
+    general_agent_r2_direct_write: PROHIBITED_FOR_MVP
+    canonical_promotion: CORE_A_ADJUDICATION_PLUS_REQUIRED_VALIDATION_PLUS_DETERMINISTIC_PROMOTION_JOB
+    same_key_different_hash: HARD_FAIL
+    primary_success_secondary_failure: RELEASE_NOT_COMPLETE
+  u127_boundary:
+    read_only_shadow_observation_while_noncanonical: ALLOWED_WITH_EXPLICIT_HISTORICAL_NONCANONICAL_LABEL
+    full_canonical_cutover_requires:
+      - U127_PRIMARY_DURABLE_PERSISTENCE
+      - U127_SECONDARY_DURABLE_PERSISTENCE
+      - U127_CANONICAL_MACHINE_RELEASE
+    historical_v0_7_mutation: PROHIBITED
+  independent_validation_boundary: IMPLEMENTATION_OR_PREVALIDATION_AGENT_NOT_INDEPENDENT_VALIDATION_AUTHORITY
+  multi_agent_framework_requirement: NOT_REQUIRED_FOR_MVP
+migration:
+  principle: BUILD_SHADOW_COMPARE_VALIDATE_CUTOVER
+  read_only_observation: SAFE_NOW_NON_WRITING
+  semi_status_repository_implementation: AFTER_CURRENT_M3TOP3_P0_MILESTONE
+  shadow_start: AFTER_CW_01_CW_02_CW_03_SUCCESSOR_IDENTITY_FIXED_AND_CONTROL_PREVALIDATED
+  isolated_write_start: AFTER_SAME_SUCCESSOR_IDENTITY_FIX_ON_SEPARATE_ADDITIVE_BRANCH
+  pr_start: AFTER_LEVEL_3_GATES_PASS
+  pre_replay_mode:
+    semi_ops: ACTIVE_NON_AUTHORITATIVE_OPERATIONS_LAYER
+    existing_control: CANONICAL_AUTHORITY
+  replay_mode:
+    existing_control: AUTHORITATIVE
+    semi_ops: FULL_SHADOW_CAPTURE_AND_COMPARISON
+  full_cutover_timing: AFTER_FIRST_V1_REPLAY_VALIDATION_FREEZE_RELEASE_FULL_CYCLE_SHADOW_AND_ALL_OPERATIONAL_DATA_VALIDATION_RECOVERY_GATES_PASS
+  hybrid_cutover: ACCEPTED_BY_BOTH_CORES
+required_authoritative_transitions:
+  - CONTROL_ACCEPTANCE
+  - CORE_ADJUDICATION
+  - GROUND_TRUTH_PROMOTION
+  - PIT_CANONICAL_ADJUDICATION
+  - ARTIFACT_CANONICAL_PROMOTION
+  - SHARED_CONTRACT_SEMANTIC_CHANGE
+  - BASELINE_LOCK_ACTIVATION
+  - VALIDATION_TARGET_IDENTITY_ACCEPTANCE
+  - VALIDATION_DATASET_RELEASE_BINDING
+  - MODEL_ARTIFACT_RELEASE_BINDING
+  - ACTUAL_REPLAY_AUTHORIZATION
+  - HOLDOUT_DISCLOSURE_STATE_CHANGE
+  - INDEPENDENT_VALIDATION_PASS
+  - MODEL_FREEZE
+  - PRODUCTION_RELEASE
+model_validation_run_identity_additions:
+  required_where_applicable:
+    - model_version
+    - baseline_lock_id
+    - feature_schema_version
+    - scorer_version
+    - weight_version
+    - model_input_schema_version
+    - window_mapping_version
+    - coverage_policy_version
+    - PIT_provenance_policy_version
+    - holdout_policy_version
+    - universe_release_id
+    - validation_dataset_release_id
+    - price_release_id
+    - production_trading_calendar_release_id
+    - outcome_builder_version
+    - source_commit
+    - config_sha256
+    - shared_contract_bundle_identity
+    - immutable_input_manifest_hash
+  stale_validation_rule: ANY_BOUND_IDENTITY_CHANGE_INVALIDATES_REUSE_WITHOUT_NEW_VALIDATION_RUN
+minimum_agentic_mvp:
+  - READ_ONLY_PARSERS
+  - SEMI_STATUS
+  - IMMUTABLE_WORK_ORDER_SCHEMA
+  - AGENT_RUN_CONTRACT
+  - RESULT_MANIFEST
+  - SHADOW_CURRENT_STATE_AND_DISCREPANCY
+  - ONE_GENERIC_EXECUTION_HARNESS
+  - ROLE_PROFILES_RESEARCH_ENGINEERING_PREVALIDATION_CHECK
+  - ISOLATED_BRANCH_THEN_PR_FLOW
+  - INDEPENDENT_OPS_VALIDATION
+  - RECOVERY_DRILL
+  - CONTROLLED_CANONICAL_CUTOVER_AFTER_FULL_CYCLE_SHADOW
+current_priority_non_interference:
+  current_m3top3_p0_work_preempts_semi_ops_implementation: true
+  implementation_authorized_by_this_consensus_record: false
+  repository_or_control_cutover_authorized: false
+  actual_replay_authorized: false
+  model_freeze_authorized: false
+  production_release_authorized: false
+owner_authority:
+  major_architecture_implementation_start: OWNER_APPROVAL_REQUIRED
+  major_cutover: OWNER_APPROVAL_REQUIRED
+  model_freeze: OWNER_APPROVAL_REQUIRED
+  production_release: OWNER_APPROVAL_REQUIRED
+scientific_firewall:
+  future_outcome_inspection_authorized: false
+  outcome_tuning_authorized: false
+  ground_truth_mutation_authorized: false
+  u127_rematerialization_authorized: false
