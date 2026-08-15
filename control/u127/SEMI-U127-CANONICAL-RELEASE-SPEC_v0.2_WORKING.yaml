@@ -1,0 +1,99 @@
+spec_id: SEMI-U127-CANONICAL-RELEASE-SPEC
+version: v0.2_WORKING
+status: SOURCE_BINDING_ADVANCED_WINDOW_CONTRACT_CLOSED_MATERIALIZATION_STILL_BLOCKED
+project: semiconductor-research
+as_of: '2026-08-15T23:48:00+09:00'
+owner_persona: SEMI-CONTROL-ARCHITECT
+supersedes: control/u127/SEMI-U127-CANONICAL-RELEASE-SPEC_v0.1_WORKING.yaml
+purpose: >-
+  Define a new governed machine-readable U127 Ground Truth release without recreating missing historical workbook
+  versions and with the corrected dual-Core 3-month calendar/PIT window mapping contract.
+core_principles:
+  - RECOVERY_IS_NOT_REMATERIALIZATION
+  - NEW_CANONICAL_RELEASE_HAS_NEW_ARTIFACT_IDENTITY
+  - HISTORICAL_v0_7_REMAINS_IMMUTABLE_FORENSIC_ANCHOR
+  - BOUNDED_HISTORICAL_UNKNOWNS_REMAIN_EXPLICIT
+  - FINAL_CONTROL_STATE_AND_HISTORICAL_PROVENANCE_ARE_SEPARATE
+historical_anchor:
+  file: U127_Data_Expansion_Working_v0.7_2026-08-15.xlsx
+  byte_size: 550774
+  sha256: 1fc47fd131479e6ebb4375206853f39a730610d8b9f29160c33aa292881ad50a
+  mutation_allowed: false
+  primary_persistence: NOT_YET
+  secondary_persistence: NOT_YET
+current_control_accepted_state:
+  membership: 127
+  total_BP_cells: 1016
+  READY: 1013
+  UNRESOLVED: 3
+  PARTIAL: 0
+  complete_histories: 125
+  exact_unresolved:
+    - {company_id: 'KRX:381620', canonical_name: 제닉스로보틱스, window_id: W1, residual_class: R7}
+    - {company_id: 'KRX:0017J0', canonical_name: 세미티에스, window_id: W1, residual_class: R7}
+    - {company_id: 'KRX:0017J0', canonical_name: 세미티에스, window_id: W2, residual_class: R7}
+proposed_release_identity:
+  release_family: U127_GROUND_TRUTH_MACHINE_RELEASE
+  proposed_release_id: SEMI-U127-GT-RELEASE-v1.0
+  artifact_version: v1.0
+  status_if_created: RECONCILED_NEW_RELEASE_NOT_HISTORICAL_WORKBOOK
+  historical_workbook_version_namespace_reuse: FORBIDDEN
+source_bindings:
+  membership_identity:
+    source: byte-verified v0.7 Identity_Ledger plus Control reconciliation
+    status: PASS_127_OF_127
+    duplicate_krx_code: 0
+    duplicate_company_id: 0
+  final_state:
+    sources:
+      - control/u127/SEMI-U127-DELTA-LEDGER_v0.1_WORKING.jsonl
+      - control/u127/SEMI-U127-RELEASE-SOURCE-BINDING-AUDIT_v0.1_WORKING.yaml
+      - current Control state
+    status: PARTIAL_PASS_REQUIRES_INDEPENDENT_RELEASE_SCHEMA_AND_CONTENT_RECONCILIATION
+  window_mapping:
+    version: WM-v1.1
+    path: control/continuity/v1.0/SEMI-WINDOW-MAPPING-CONTRACT_v1.1_WORKING.yaml
+    git_blob_sha: 01cad79f9cd49680f6bdc4eac80f01ccd52b7e86
+    status: DUAL_CORE_AGREED_WORKING
+    historical_W1_W8_compatibility: PASS_8_OF_8
+required_machine_components:
+  - component_id: U127_MEMBERSHIP
+    format: csv_or_parquet
+    required_fields: [company_id, krx_code, canonical_name, membership_order, membership_state]
+  - component_id: U127_BP_CELL_STATE
+    format: parquet_or_csv
+    required_fields: [company_id, krx_code, window_id, final_control_state, residual_class, control_decision_ref, historical_prestate_status, historical_provenance_status, source_lineage_refs]
+  - component_id: U127_WINDOW_REGISTRY
+    format: yaml_or_csv
+    required_fields: [window_id, window_anchor_date, snapshot_cutoff_at, nominal_window_end, evaluation_last_trade_date, mapping_contract_version]
+    mapping_contract_version: WM-v1.1
+    rule: window_anchor_date and snapshot_cutoff_at are distinct first-class fields
+  - component_id: U127_RELEASE_MANIFEST
+    format: yaml_or_json
+    required_fields: [release_id, created_at, parent_historical_anchor_sha256, control_state_version, delta_ledger_version, bounded_unknowns, component_hashes, primary_locators, secondary_locators, validation_status, control_decision, owner_approval_state]
+bounded_historical_unknowns:
+  GAP_A1_46_60: HISTORICAL_PAYLOAD_NOT_RECOVERABLE_IN_CURRENT_ARCHIVE
+  GAP_A2_61_75: PARTIAL_ARCHIVE_EXHAUSTED
+  policy: UNKNOWN_OR_PARTIAL_LINEAGE_DOES_NOT_GET_INFERRED_FROM_FINAL_READY
+materialization_gate:
+  G1_control_source_binding_complete: PARTIAL_PASS
+  G2_membership_and_identity_binding_complete: PASS
+  G3_window_mapping_contract_ready: PASS_WM_v1_1_DUAL_CORE_AGREED_WORKING
+  G4_bounded_unknown_policy_accepted: YES_WORKING
+  G5_v0_7_primary_persistence: BLOCKED_STORAGE_WRITE_PATH_UNAVAILABLE
+  G6_v0_7_secondary_persistence: BLOCKED_STORAGE_WRITE_PATH_UNAVAILABLE
+  G7_release_schema_independent_validation: NOT_EXECUTED
+  G8_control_authorization_to_materialize: NO
+  G9_owner_freeze_approval: NO
+safe_to_materialize_now: false
+safe_to_freeze_now: false
+forbidden_actions:
+  - reconstruct_missing_U127_v0_8_to_v1_9_workbooks
+  - overwrite_v0_7
+  - infer_missing_historical_prestate_or_provenance
+  - use_future_outcomes_to_fill_PIT_evidence
+next_critical_actions:
+  - independently_validate_release_schema_state_arithmetic_and_lineage_manifest
+  - persist_v0_7_primary_secondary_when_write_path_available
+  - materialize_release_only_after_G1_to_G8_close
+  - bind_created_release_into_validation_dataset_identity_after_price_CA_readiness
