@@ -1,0 +1,63 @@
+record_id: AAA-REPOSITORY-REBIND-VERIFICATION
+version: v0.1_WORKING
+status: PASS
+project: Asset Agent ASA
+short_name: AAA
+verified_at: '2026-08-16T04:00:00+09:00'
+repository_identity:
+  repository_id: '1334403184'
+  previous_full_name: AofSpds/semiconductor-research
+  current_full_name: AofSpds/asset-agent-asa
+  default_branch: main
+  visibility: private
+  admin_permission_verified: true
+identity_continuity:
+  repository_id_unchanged: true
+  git_history_rewrite_detected: false
+  rename_interpreted_as_same_repository_identity: true
+branch_verification:
+  required_active_aaa_branches:
+    - aaa-t01-contracts-v0
+    - aaa-t02-core-state-v0
+    - aaa-t04-ui-v0
+    - aaa-t05-gateway-v0
+    - aaa-t06-agent-v0
+    - aaa-t07-storage-v0
+    - aaa-t08-validation-v0
+  all_required_branches_reachable: true
+pull_request_verification:
+  pr_1:
+    title: 'AAA T01: execution contracts v0'
+    state: open
+    draft: true
+    head: aaa-t01-contracts-v0
+    base: control-hub-continuity-v1
+  pr_2:
+    title: 'AAA T04: owner console scaffold v0'
+    state: open
+    draft: true
+    head: aaa-t04-ui-v0
+    base: control-hub-continuity-v1
+  pr_3:
+    title: 'AAA T08: engineering validation harness v0'
+    state: open
+    draft: true
+    head: aaa-t08-validation-v0
+    base: control-hub-continuity-v1
+workflow_verification:
+  workflow_name: AAA build tests
+  run_id: 31902471495
+  head_sha: 13775ab8f7862df69d22610dcfe7bd71e7b46e72
+  result: PASS
+  repository_after_rename: AofSpds/asset-agent-asa
+active_binding_rule:
+  new_active_repository_full_name: AofSpds/asset-agent-asa
+  old_full_name_usage: HISTORICAL_LINEAGE_ONLY
+  rewrite_frozen_or_historical_records: false
+  all_new_aaa_control_records_must_use_new_full_name: true
+safety:
+  m3top3_source_content_change_from_rename: NONE_OBSERVED
+  frozen_artifact_content_change_from_rename: NONE_OBSERVED
+  u127_content_change_from_rename: NONE_OBSERVED
+  canonical_cutover_triggered: false
+result: REPOSITORY_RENAME_AND_ACTIVE_REBIND_VERIFIED
