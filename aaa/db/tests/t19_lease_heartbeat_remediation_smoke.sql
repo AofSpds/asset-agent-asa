@@ -1,5 +1,18 @@
 -- T19 P0 remediation adversarial smoke.
 -- Synthetic/noncanonical only. Requires migrations 0001-0005 and t19_execution_runtime_smoke fixtures.
+-- Dedicated remediation workers prevent this adversarial fixture from contaminating
+-- the independent worker-a/worker-b concurrency smoke executed later in CI.
+
+INSERT INTO aaa_ops.workers (
+    worker_id, worker_type, runtime_version, host_identity,
+    capabilities, authorized_personas, permission_level,
+    max_concurrency, enabled
+) VALUES
+('worker-remed-a', 'CI_REMEDIATION_WORKER', 'v0.1', 'ci-remed-a',
+ ARRAY['INDEPENDENT_VALIDATION'], ARRAY['SEMI-VALIDATION-AUDITOR'], 1, 1, true),
+('worker-remed-b', 'CI_REMEDIATION_WORKER', 'v0.1', 'ci-remed-b',
+ ARRAY['INDEPENDENT_VALIDATION'], ARRAY['SEMI-VALIDATION-AUDITOR'], 1, 1, true)
+ON CONFLICT (worker_id) DO NOTHING;
 
 INSERT INTO aaa_ops.runs (
     run_id, process_id, work_order_id, responsible_persona, executor_role,
@@ -14,7 +27,7 @@ INSERT INTO aaa_ops.runs (
     transaction_timestamp() - interval '10 minutes',
     transaction_timestamp() - interval '6 minutes',
     300,
-    'worker-a', 7, transaction_timestamp() - interval '1 second'
+    'worker-remed-a', 7, transaction_timestamp() - interval '1 second'
 )
 ON CONFLICT (run_id) DO NOTHING;
 
@@ -29,7 +42,7 @@ INSERT INTO aaa_ops.execution_tasks (
     'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
     '4444444444444444444444444444444444444444',
     'SEMI-VALIDATION-AUDITOR', 'INDEPENDENT_VALIDATION', 1,
-    'RUNNING', 'worker-a', 7,
+    'RUNNING', 'worker-remed-a', 7,
     transaction_timestamp() - interval '10 minutes',
     transaction_timestamp() - interval '10 minutes',
     transaction_timestamp() - interval '10 minutes'
@@ -43,7 +56,7 @@ BEGIN
     END IF;
 
     BEGIN
-        PERFORM aaa_ops.heartbeat_execution_task('TASK-T19-EXPIRED-LEASE', 'worker-a', 7, 300);
+        PERFORM aaa_ops.heartbeat_execution_task('TASK-T19-EXPIRED-LEASE', 'worker-remed-a', 7, 300);
         RAISE EXCEPTION 'EXPECTED_EXPIRED_SAME_EPOCH_HEARTBEAT_REJECTION';
     EXCEPTION WHEN OTHERS THEN
         IF SQLERRM = 'EXPECTED_EXPIRED_SAME_EPOCH_HEARTBEAT_REJECTION' THEN
@@ -70,7 +83,7 @@ DO $$
 BEGIN
     BEGIN
         PERFORM aaa_ops.complete_execution_task_atomic(
-            'TASK-T19-EXPIRED-LEASE', 'worker-a', 7,
+            'TASK-T19-EXPIRED-LEASE', 'worker-remed-a', 7,
             'RESULT-T19-EXPIRED-ILLEGAL', 'PASS',
             'synthetic://t19/expired-illegal.json',
             'cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc',
@@ -92,11 +105,11 @@ DO $$
 DECLARE
     next_epoch bigint;
 BEGIN
-    next_epoch := aaa_ops.acquire_run_lease('RUN-T19-EXPIRED-LEASE', 'worker-b', 300);
+    next_epoch := aaa_ops.acquire_run_lease('RUN-T19-EXPIRED-LEASE', 'worker-remed-b', 300);
     IF next_epoch <> 8 THEN
         RAISE EXCEPTION 'TAKEOVER_DID_NOT_INCREMENT_EPOCH';
     END IF;
-    IF (SELECT lease_owner FROM aaa_ops.runs WHERE run_id='RUN-T19-EXPIRED-LEASE') <> 'worker-b' THEN
+    IF (SELECT lease_owner FROM aaa_ops.runs WHERE run_id='RUN-T19-EXPIRED-LEASE') <> 'worker-remed-b' THEN
         RAISE EXCEPTION 'TAKEOVER_OWNER_NOT_REBOUND';
     END IF;
 END
@@ -105,7 +118,7 @@ $$;
 DO $$
 BEGIN
     BEGIN
-        PERFORM aaa_ops.heartbeat_execution_task('TASK-T19-EXPIRED-LEASE', 'worker-a', 7, 300);
+        PERFORM aaa_ops.heartbeat_execution_task('TASK-T19-EXPIRED-LEASE', 'worker-remed-a', 7, 300);
         RAISE EXCEPTION 'EXPECTED_OLD_EPOCH_HEARTBEAT_REJECTION';
     EXCEPTION WHEN OTHERS THEN
         IF SQLERRM = 'EXPECTED_OLD_EPOCH_HEARTBEAT_REJECTION' THEN
@@ -118,7 +131,7 @@ BEGIN
 
     BEGIN
         PERFORM aaa_ops.complete_execution_task_atomic(
-            'TASK-T19-EXPIRED-LEASE', 'worker-a', 7,
+            'TASK-T19-EXPIRED-LEASE', 'worker-remed-a', 7,
             'RESULT-T19-OLD-EPOCH-ILLEGAL', 'PASS',
             'synthetic://t19/old-epoch-illegal.json',
             'dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
