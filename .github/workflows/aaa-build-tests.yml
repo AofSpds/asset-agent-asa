@@ -10,6 +10,9 @@ on:
       - 'control/aaa/**'
       - '.github/workflows/aaa-build-tests.yml'
 
+permissions:
+  contents: write
+
 jobs:
   deterministic-contract-tests:
     runs-on: ubuntu-latest
@@ -42,13 +45,20 @@ jobs:
           echo 'AAA_RESOLVED_DIRECT_DEPENDENCIES_END'
           test -f package-lock.json
           sha256sum package-lock.json
-      - name: Export generated package lock for controlled commit
-        uses: actions/upload-artifact@v4
-        with:
-          name: aaa-web-package-lock
-          path: aaa/web/package-lock.json
-          if-no-files-found: error
-          retention-days: 1
+      - name: Persist generated lock on isolated T09 branch
+        if: github.event_name == 'push' && github.ref == 'refs/heads/aaa-t09-dependency-lock-v0'
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- aaa/web/package-lock.json && git ls-files --error-unmatch aaa/web/package-lock.json >/dev/null 2>&1; then
+            echo 'package-lock.json already tracked and unchanged'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add aaa/web/package-lock.json
+          git commit -m 'AAA T09: lock Owner Console dependency graph'
+          git push origin HEAD:aaa-t09-dependency-lock-v0
       - name: Build Owner Console
         working-directory: aaa/web
         shell: bash
