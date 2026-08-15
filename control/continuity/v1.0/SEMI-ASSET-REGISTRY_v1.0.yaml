@@ -33,15 +33,22 @@ assets:
     version: v0.7
     owner_persona: SEMI-CONTROL-ARCHITECT
     authority_state: HISTORICAL_LEVEL_3
-    artifact_state: RECOVERED_LOCAL_BYTES_NOT_YET_PERSISTED
+    artifact_state: RECOVERED_SUCCESSOR_BYTES_VERIFIED_NOT_YET_PERSISTED
     parent_asset: UNKNOWN
     sha256: 1fc47fd131479e6ebb4375206853f39a730610d8b9f29160c33aa292881ad50a
     byte_size: 550774
     format: XLSX
     primary_locator: UNASSIGNED_PENDING_PERSISTENCE
     secondary_locator: UNASSIGNED_PENDING_PERSISTENCE
+    current_runtime_custody:
+      persona_instance: CTRL-ARCH-INSTANCE-004-20260815
+      runtime_locator: /mnt/data/U127_Data_Expansion_Working_v0.7_2026-08-15.xlsx
+      custody_verified: true
+      exact_identity_match: true
+      read_only_import: PASS
+      sheet_count: 17
     created_at: HISTORICAL_2026-08-15
-    last_verified: '2026-08-15T20:34:00+09:00'
+    last_verified: '2026-08-15T21:28:00+09:00'
     verified_internal_state:
       U127_total: 127
       company_id_binding: 127
@@ -62,16 +69,20 @@ assets:
     version: v1.7
     owner_persona: SEMI-CONTROL-ARCHITECT
     authority_state: REFERENCE_ONLY
-    artifact_state: BYTES_NOT_RECOVERED
+    artifact_state: FILE_OUTPUT_REFERENCE_ONLY_BYTES_NOT_RECOVERED
     parent_asset: UNKNOWN
     sha256: null
     byte_size: null
     primary_locator: HISTORICAL_SANDBOX_REFERENCE_ONLY
     secondary_locator: null
-    last_verified: '2026-08-15T20:34:00+09:00'
-    recommended_use: HIGHEST_PRIORITY_CLEAN_PARENT_RECOVERY_TARGET
+    forensic_materialization_state: FILE_OUTPUT_REFERENCE_ONLY
+    forensic_evidence_level: C
+    parent_byte_usage: UNKNOWN
+    last_verified: '2026-08-15T21:28:00+09:00'
+    recommended_use: HIGH_PRIORITY_CLEAN_PARENT_RECOVERY_TARGET
     blockers:
       - BYTE_IDENTITY_UNAVAILABLE
+      - PARENT_BYTE_USAGE_UNRESOLVED
 
   - asset_id: U127-HIST-WORKBOOK-v1.8-REFERENCE
     asset_class: OPERATIONAL_ASSET
@@ -79,17 +90,21 @@ assets:
     version: v1.8
     owner_persona: SEMI-CONTROL-ARCHITECT
     authority_state: REFERENCE_ONLY_CONFLICTING
-    artifact_state: BYTES_NOT_RECOVERED
+    artifact_state: MATERIALIZATION_CONFLICT_BYTES_NOT_RECOVERED
     parent_asset: U127-HIST-WORKBOOK-v1.7-REFERENCE
     sha256: null
     byte_size: null
     primary_locator: HISTORICAL_SANDBOX_REFERENCE_ONLY
     secondary_locator: null
-    last_verified: '2026-08-15T20:34:00+09:00'
-    recommended_use: HIGHEST_PRIORITY_FORENSIC_RECOVERY_TARGET
+    forensic_materialization_state: MATERIALIZATION_CONFLICT
+    forensic_evidence_level: C
+    parent_byte_usage: UNKNOWN
+    last_verified: '2026-08-15T21:28:00+09:00'
+    recommended_use: HIGHEST_PRIORITY_FORENSIC_AND_CLEAN_PARENT_RECOVERY_TARGET
     blockers:
       - BYTE_IDENTITY_UNAVAILABLE
       - PHYSICAL_CREATION_HISTORY_CONFLICT
+      - PARENT_BYTE_USAGE_UNRESOLVED
 
   - asset_id: U127-HIST-WORKBOOK-v1.9-REFERENCE
     asset_class: OPERATIONAL_ASSET
@@ -97,17 +112,21 @@ assets:
     version: v1.9
     owner_persona: SEMI-CONTROL-ARCHITECT
     authority_state: CONTROL_REJECTED_PROVISIONAL
-    artifact_state: BYTES_NOT_RECOVERED
+    artifact_state: PHYSICAL_CREATION_STRONGLY_SUPPORTED_BYTES_NOT_RECOVERED
     parent_asset: U127-HIST-WORKBOOK-v1.8-REFERENCE
     sha256: null
     byte_size: null
     primary_locator: HISTORICAL_SANDBOX_REFERENCE_ONLY
     secondary_locator: null
-    last_verified: '2026-08-15T20:34:00+09:00'
+    forensic_materialization_state: PHYSICAL_CREATION_STRONGLY_SUPPORTED
+    forensic_evidence_level: B
+    historical_reimport_verification: PASS_REPORTED
     contamination:
       Zenics_W1: RESEARCH_PROVISIONAL_READY_REJECTED_BY_CONTROL
-    recommended_use: FORENSIC_REGRESSION_ONLY
+    last_verified: '2026-08-15T21:28:00+09:00'
+    recommended_use: FORENSIC_EXISTENCE_AND_REGRESSION_ONLY
     final_ground_truth_authority: false
+    clean_parent_eligible: false
     blockers:
       - BYTE_IDENTITY_UNAVAILABLE
       - PROVISIONAL_CONTAMINATION
