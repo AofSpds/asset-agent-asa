@@ -1,0 +1,86 @@
+adjudication_id: M3TOP3-v1-MACHINE-IMPLEMENTATION-CONTROL-ADJUDICATION
+version: v0.1_WORKING
+status: ACCEPT_IMPLEMENTATION_CANDIDATE_WITH_WARNINGS
+project: semiconductor-research
+as_of: '2026-08-16T00:10:00+09:00'
+adjudicating_persona:
+  canonical_name: 문서·통제 아키텍트
+  persona_id: SEMI-CONTROL-ARCHITECT
+  internal_alias: CORE_A
+subject_persona:
+  canonical_name: 모델 검증·설계 아키텍트
+  persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+  internal_alias: CORE_B
+work_order_id: WO-COREB-M3TOP3-v1-MACHINE-IMPLEMENTATION-20260815
+source_return_packet:
+  attachment_ref: turn239file0
+  task_completed: true
+  actual_outcome_data_inspected: false
+  actual_replay_executed: false
+  outcome_tuning_executed: false
+persistent_readback_verified:
+  implementation_manifest:
+    path: control/core_b/M3TOP3-v1-MACHINE-IMPLEMENTATION-MANIFEST_v0.1_WORKING.yaml
+    git_blob_sha1: 7cf6d68256a4db16a2e34a2d56bd0f59a2dde263
+    status: COMPLETE_CANDIDATE_AWAITING_INDEPENDENT_PREFLIGHT
+  test_report:
+    path: control/core_b/M3TOP3-v1-MACHINE-IMPLEMENTATION-TEST-REPORT_v0.1_WORKING.json
+    git_blob_sha1: b918dadd4d25c0cbafd993b90eeba6530cce597f
+    tests_run: 18
+    tests_passed: 18
+    tests_failed: 0
+    independent_validation_state: NOT_EXECUTED
+  baseline_lock_successor:
+    path: control/core_b/M3TOP3-NO-TUNE-BASELINE-LOCK_v1.2_WORKING.yaml
+    git_blob_sha1: 9cdbda6180661d8bc9214ae32cde5246ef6a23aa
+    status: READY_CANDIDATE_IMPLEMENTATION_BOUND_AWAITING_INDEPENDENT_PREFLIGHT_AND_VALIDATION_DATASET
+  source_code_commit:
+    commit: 32c8a0f31428273d76b4e7b3f2cea76f955770aa
+    verified_exists: true
+    commit_message: 'M3Top3 v1: add outcome-blind implementation tests'
+  sampled_source_readback:
+    features_v1_py:
+      path: tools/m3top3/features_v1.py
+      git_blob_sha1: 35104a7384c3ee6175136e95dded7f3237d69435
+    scorer_v1_py:
+      path: tools/m3top3/scorer_v1.py
+      git_blob_sha1: d9ce2047c49ed9ccc8af270419ee7c536cb8e502
+control_findings:
+  - F01_TO_F09_IMPLEMENTATION_EXISTS_PERSISTENTLY
+  - GATED_LINEAR_SCORER_IMPLEMENTATION_EXISTS_PERSISTENTLY
+  - MIS_v1_0_SIO_v1_0_WM_v1_1_IMPLEMENTATION_BINDINGS_REPORTED_AND_PERSISTED
+  - WM_v1_1_ANCHOR_AND_PIT_CUTOFF_SEPARATION_PRESENT_IN_IMPLEMENTATION
+  - CONFIG_SHA256_BOUND_IN_MANIFEST_AND_BASELINE_LOCK
+  - SYNTHETIC_TEST_REPORT_RECORDS_18_OF_18_PASS
+  - W1_W8_SYNTHETIC_CALENDAR_CONTRACT_TEST_RECORDS_8_OF_8_PASS
+  - ACTUAL_U127_OUTCOME_ACCESS_NOT_REPORTED
+  - NO_MODEL_WEIGHT_FEATURE_SCHEMA_OR_SCORER_SEMANTIC_CHANGE_REPORTED
+  - IMPLEMENTATION_IS_NOT_INDEPENDENTLY_VALIDATED
+warnings:
+  - Core B synthetic PASS is developer-side evidence, not Independent Validation PASS.
+  - Git blob SHA1 values are repository object identities and do not satisfy the project invariant requiring SHA256 for important release artifacts; independent preflight must compute/bind SHA256 for source/config/test/manifest components before any frozen model release.
+  - Production KRX trading-calendar identity is still unbound; WeekdayCalendar is synthetic-test-only and cannot be used for official replay.
+  - F02 numeric-change operationalization and F08 upstream freshness-penalty interface require independent contract-to-code review before replay because they operationalize areas intentionally left upstream-governed.
+  - Validation Dataset Identity and model artifact release manifest are not materialized.
+control_decision:
+  result: ACCEPT_IMPLEMENTATION_CANDIDATE_WITH_WARNINGS
+  machine_candidate_accepted: true
+  ready_for_independent_preflight: true
+  independent_validation_pass: false
+  actual_replay_authorized: false
+  model_freeze_authorized: false
+  production_activation_authorized: false
+scientific_firewall:
+  actual_outcome_data_inspected: false
+  actual_replay_executed: false
+  outcome_tuning_executed: false
+  ground_truth_changed: false
+  price_changed: false
+  ca_changed: false
+next_required_gate:
+  owner_role: SEMI-VALIDATION-AUDITOR
+  description: independent clean-checkout implementation preflight before any Actual U127 replay
+parallel_control_track:
+  - U127_RELEASE_CLOSURE
+  - PRICE_CA_CLOSURE
+  - VALIDATION_DATASET_RELEASE_PREPARATION
