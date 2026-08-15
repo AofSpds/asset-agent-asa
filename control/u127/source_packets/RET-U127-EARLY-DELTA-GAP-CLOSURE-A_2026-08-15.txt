@@ -1,0 +1,952 @@
+[RETURN PACKET — U127 EARLY DELTA GAP CLOSURE A]
+
+PROJECT =
+반도체 연구 / M3Top3
+
+REQUEST_TYPE =
+NARROW HISTORICAL DELTA RECOVERY
+
+WORK_ORDER_SOURCE =
+:contentReference[oaicite:0]{index=0}
+
+AUDIT_COMPLETED =
+YES
+
+SEARCH_MODE =
+HISTORICAL_ONLY / NO_NEW_RESEARCH
+
+SEARCH_SCOPE =
+- available historical uploaded-file corpus
+- surviving Research RETURN packets
+- predecessor Control feedback / continuation material
+- historical forensic reconstruction packets
+- exact/near-exact searches for v0.8 / membership 46–60 execution signatures
+- narrow reinspection of surviving 61–120 original RETURN packets
+
+NEW_EXTERNAL_WEB_RESEARCH =
+NONE
+
+
+==================================================
+1. EXECUTIVE RESULT
+==================================================
+
+PRIMARY_46_60_RESULT =
+NOT_FOUND
+
+SECONDARY_61_75_RESULT =
+UNCHANGED
+
+TERTIARY_76_127_NEW_FIELDS_FOUND =
+NO
+
+GAP_A1_46_60 =
+OPEN
+
+GAP_A2_61_75 =
+PARTIAL
+
+EARLY_FULL_CELL_LEDGER_STATUS =
+PARTIAL
+
+
+KEY_CONCLUSION =
+
+The missing membership 46–60 original execution payload was NOT recovered
+from the historical search space available to this channel.
+
+What survives is sufficient to prove:
+
+- the batch boundary 46–60;
+- authorization to execute that batch;
+- the resulting aggregate v0.8 control state;
+- subsequent use of v0.8 as an authorized working baseline.
+
+What does NOT survive in the searchable corpus is:
+
+- original 46–60 executed Research RETURN packet;
+- original 46–60 company/window table;
+- exact cell STATE_BEFORE;
+- exact cell STATE_AFTER_RESEARCH;
+- per-cell Historical_BP provenance/PIT fields;
+- exact 10 company-level listing additions.
+
+No cell payload was reconstructed from aggregate arithmetic.
+
+
+==================================================
+2. PRIMARY SEARCH — MEMBERSHIP 46–60
+==================================================
+
+PRIMARY_46_60_SOURCE =
+ORIGINAL EXECUTED SOURCE NOT RECOVERED
+
+PRIMARY_46_60_SOURCE_TYPE =
+NONE
+
+PRIMARY_46_60_CELL_MATRIX =
+NONE
+
+PRIMARY_46_60_CONTROL_PROMOTION_EVIDENCE =
+PARTIAL
+
+PRIMARY_46_60_LISTING_ADDITIONS =
+NONE
+
+
+CONTROL_PROMOTION_EVIDENCE_NOTE =
+
+PARTIAL refers only to transition-level lineage.
+
+The surviving history shows that:
+
+1.
+the v0.7 Control review authorized membership 46–60 as the next batch;
+
+2.
+the later project state carried v0.8 as:
+
+Certified = 473
+Populated = 489
+Complete histories = 59
+Listing coverage = 68;
+
+3.
+later forensic reconstruction describes v0.8 as subsequently treated as
+the authorized working baseline.
+
+However:
+
+NO independent per-cell Control promotion record for the 46–60 cells
+was recovered.
+
+Therefore for any hypothetical cell record:
+
+CONTROL_PROMOTION_EVIDENCE =
+UNKNOWN
+
+must remain mandatory.
+
+Pre-batch authorization source:
+:contentReference[oaicite:1]{index=1}
+
+Downstream v0.8 aggregate-state evidence:
+:contentReference[oaicite:2]{index=2}
+
+Historical forensic transition evidence:
+:contentReference[oaicite:3]{index=3}
+
+
+==================================================
+3. SEARCH SIGNATURES EXECUTED — 46–60
+==================================================
+
+SEARCHED_EXACT_OR_NEAR_EXACT_SIGNATURES INCLUDED =
+
+"WORKING_VERSION = v0.8"
+
+"TRACK_B_RANGE_COMPLETED = membership order 46–60"
+
+"membership 46–60"
+
+"473 / 1,016"
+
+"489 / 1,016"
+
+"59 / 127"
+
+"68 / 127"
+
+"TRACK_B_COMPANY_STATUS"
+
+"TRACK_C_GENUINELY_NEW_LISTING_DATES"
+
+"TRACK_C_LISTING_DATES"
+
+"U127_Data_Expansion_Working_v0.8_2026-08-15.xlsx"
+
+"FILE_OUTPUT"
+
+"Historical_BP"
+
+"publication_at"
+
+"snapshot_cutoff_at"
+
+"evidence_ref"
+
+"RETURN PACKET"
+
+Company-name combinations spanning:
+
+와이씨켐
+테스
+티이엠씨
+삼양엔씨켐
+아스플로
+심텍
+RF머트리얼즈
+라온로보틱스
+코세스
+타이거일렉
+해성디에스
+네패스아크
+메가터치
+엘케이켐
+러셀
+
+
+SEARCH_RESULT_CLASSIFICATION =
+
+FOUND =
+A. pre-execution authorization / instructions;
+
+B. downstream documents carrying the resulting v0.8 aggregate state;
+
+C. later forensic reports stating the original v0.8 cell-level packet
+   was not recovered.
+
+NOT_FOUND =
+A. executed v0.8 Research RETURN;
+
+B. 46–60 company/window result table;
+
+C. script output containing the original cell updates;
+
+D. workbook inspection containing the exact v0.8 cell payload;
+
+E. exact 10 listing additions.
+
+
+The previous Early Membership Delta Harvest independently reached the same
+forensic boundary:
+original 46–60 executed result packet not recovered and exact cell payload
+UNKNOWN. :contentReference[oaicite:4]{index=4}
+
+
+==================================================
+4. 46–60 AGGREGATE RECONCILIATION
+==================================================
+
+INPUT_STATE =
+v0.7
+
+Certified =
+353
+
+Populated =
+370
+
+Complete histories =
+44
+
+Listing coverage =
+58
+
+
+OUTPUT_STATE =
+v0.8
+
+Certified =
+473
+
+Populated =
+489
+
+Complete histories =
+59
+
+Listing coverage =
+68
+
+
+EXPECTED_CERTIFIED_DELTA =
+120
+
+RECOVERED_CERTIFIED_DELTA =
+120
+AGGREGATE LINEAGE ONLY
+
+
+EXPECTED_POPULATED_DELTA =
+119
+
+RECOVERED_POPULATED_DELTA =
+119
+AGGREGATE LINEAGE ONLY
+
+
+EXPECTED_COMPLETE_DELTA =
+15
+
+RECOVERED_COMPLETE_DELTA =
+15
+AGGREGATE LINEAGE ONLY
+
+
+EXPECTED_LISTING_DELTA =
+10
+
+RECOVERED_LISTING_DELTA =
+10
+AGGREGATE LINEAGE ONLY
+
+
+RESULT =
+PARTIAL
+
+
+WHY_NOT_PASS_AT_CELL_LEVEL =
+
+Aggregate arithmetic is reconciled.
+
+But:
+
+AGGREGATE RECONCILIATION
+!=
+CELL PAYLOAD RECOVERY
+
+The +120 Certified result was NOT used to manufacture:
+
+15 companies × 8 READY cells.
+
+The +10 Listing result was NOT used to guess ten companies.
+
+CELL_PAYLOAD_UNKNOWN_POLICY =
+PASS
+
+
+==================================================
+5. 46–60 CELL RECORDS
+==================================================
+
+RECOVERED_CELL_RECORD_COUNT =
+0
+
+46_60_CELL_RECORDS =
+NONE
+
+
+REASON =
+
+No qualifying original execution source preserved the requested cell-level
+fields.
+
+Therefore NONE of the following were fabricated:
+
+COMPANY
+WINDOW
+STATE_BEFORE
+RESEARCH_RESULT
+STATE_AFTER_RESEARCH
+BP_CLASSIFICATION
+RESIDUAL_CLASS
+PIT_CUTOFF
+PUBLICATION_AT
+PROVENANCE_STATE
+SOURCE_ROLE
+CONTROL_PROMOTION_EVIDENCE
+
+
+CELL_PAYLOAD =
+UNKNOWN
+
+
+==================================================
+6. 46–60 LISTING RECORDS
+==================================================
+
+RECOVERED_EXACT_LISTING_ADDITION_COUNT =
+0
+
+46_60_LISTING_RECORDS =
+NONE
+
+
+KNOWN_ONLY_AT_AGGREGATE_LEVEL =
+Listing coverage 58 → 68
+Net increase = 10
+
+
+EXACT_TEN_COMPANIES =
+UNKNOWN
+
+LISTING_DATES =
+UNKNOWN
+
+LISTING_SOURCE_LOCATORS =
+UNKNOWN
+
+
+DO_NOT_INFER_FROM_MEMBERSHIP_OR_COUNT =
+PASS
+
+
+==================================================
+7. SECONDARY SEARCH — MEMBERSHIP 61–75
+==================================================
+
+SECONDARY_61_75_RESULT =
+UNCHANGED
+
+SECONDARY_61_75_FULL_CELL_MATRIX =
+PARTIAL
+
+SECONDARY_61_75_EXACT_14_LISTING_ADDITIONS =
+NONE
+
+
+FULL_SURVIVING_RETURN_PACKET_INSPECTED =
+YES
+
+SOURCE =
+:contentReference[oaicite:5]{index=5}
+
+
+CONFIRMED ORIGINAL RETURN CONTENT =
+
+WORKING_VERSION =
+v0.9
+
+TRACK_B_RANGE_COMPLETED =
+membership order 61–75
+
+TRACK_B_COMPANIES_PROCESSED =
+15
+
+Complete histories =
+59 → 74
+
+Certified =
+473 → 593
+
+Populated =
+489 → 609
+
+Listing =
+68 → 82
+
+TRACK_C_GENUINELY_NEW_LISTING_DATES =
+14
+
+BP_PARTIAL_LIST =
+NONE within membership 61–75
+
+BP_UNRESOLVED_LIST =
+NONE within membership 61–75
+
+Pre-existing CMTX residual preserved.
+
+publication_at <= snapshot_cutoff_at =
+PASS at batch-control level
+
+W8 bookend =
+COMPLETED for membership 61–75
+
+
+KNOWN_PREVIOUSLY_RESOLVED_LISTING =
+쎄크 | KRX:081180 | 2025-04-28
+
+STATUS =
+PREVIOUSLY_RESOLVED / NOT COUNTED AGAIN
+
+
+SECONDARY_61_75_NEWLY_RECOVERED_FIELDS =
+
+No new company/window state record was recovered.
+
+No new exact listing-addition row was recovered.
+
+The important new forensic confirmation from full-packet inspection is:
+
+- the surviving original RETURN itself does NOT expose a
+  TRACK_B_COMPANY_STATUS table;
+
+- it does NOT expose an exact company × W1–W8 matrix;
+
+- it does NOT expose the 14-row TRACK_C_LISTING_DATES addition table;
+
+- it does NOT expose exact per-cell STATE_BEFORE;
+
+- it does NOT expose exact per-cell publication_at /
+  snapshot_cutoff_at / evidence locator;
+
+- it does preserve batch-level controls, aggregate results,
+  entity-boundary commentary, and the already-resolved 쎄크 record.
+
+
+WHY_FULL_CELL_MATRIX_IS_PARTIAL_NOT_NONE =
+
+The packet directly establishes:
+
+15 companies processed
++
+15 additional complete histories
++
+no new PARTIAL
++
+no new UNRESOLVED within that membership batch.
+
+Thus batch poststate is materially known.
+
+But the work order requires exact per-company/per-window before-state and
+provenance payload for a COMPLETE matrix.
+
+Those fields are absent.
+
+Therefore:
+
+FULL_CELL_MATRIX =
+PARTIAL
+
+
+WHY_14_LISTING_ADDITIONS_ARE_NONE =
+
+The count 14 is explicit.
+
+The fourteen exact NEW company/date rows are not present in the surviving
+RETURN.
+
+The only individually named Track-C listing record in that part of the packet
+is 쎄크, and it is explicitly PREVIOUSLY_RESOLVED, not one of the fourteen
+new additions.
+
+No company identities were inferred from the +14 arithmetic.
+
+
+==================================================
+8. 61–75 NEWLY RECOVERED RECORDS
+==================================================
+
+NEW_CELL_RECORDS =
+NONE
+
+NEW_EXACT_LISTING_ADDITION_RECORDS =
+NONE
+
+NEW_PIT_RECORDS =
+NONE
+
+NEW_PROVENANCE_RECORDS =
+NONE
+
+NEW_CONTROL_PROMOTION_RECORDS =
+NONE
+
+
+FORENSIC_METADATA_IMPROVEMENT =
+
+FULL_SURVIVING_PACKET_ABSENCE_CONFIRMED =
+YES
+
+This closes the question of whether the missing matrix/list might merely
+have been hidden by a truncated search snippet.
+
+They are not present in the full surviving RETURN packet inspected here.
+
+
+==================================================
+9. TERTIARY EXTRACTION — 76–127
+==================================================
+
+TERTIARY_76_127_NEW_FIELDS_FOUND =
+NO
+
+TERTIARY_NEW_RECORDS =
+NONE
+
+
+PACKETS NARROWLY REINSPECTED =
+
+76–90 original RETURN:
+:contentReference[oaicite:6]{index=6}
+
+91–105 original RETURN:
+:contentReference[oaicite:7]{index=7}
+
+106–120 original RETURN:
+:contentReference[oaicite:8]{index=8}
+
+
+RESULT =
+
+The surviving packets confirm the previously harvested:
+
+- company poststates;
+- legacy PARTIAL→READY transitions;
+- residual/non-ready matrices;
+- listing-date rows;
+- entity-boundary decisions;
+- batch-level publication-cutoff controls.
+
+But they do NOT reveal additional previously missing exact fields sufficient
+to improve the ledger for:
+
+- STATE_BEFORE of newly READY non-legacy cells;
+- exact per-cell publication_at;
+- exact per-cell snapshot_cutoff_at;
+- exact per-cell source locator;
+- independent per-cell Control-promotion evidence.
+
+No broad rediscovery of already harvested records was performed.
+
+
+121–127 =
+No additional extraction was required because the prior harvest already
+captured the high-value exact pre-W1/W8 KRX/KIND bookends.
+The surviving final-batch packet continues to preserve the final company
+statuses and Track-C listing results. :contentReference[oaicite:9]{index=9}
+
+
+==================================================
+10. GAP STATUS
+==================================================
+
+GAP_A1_46_60 =
+OPEN
+
+EXACT_MISSING_SCOPE =
+
+- executed 46–60 Research RETURN/table/script output
+- exact 120-cell historical result payload
+- exact STATE_BEFORE fields
+- exact STATE_AFTER_RESEARCH fields
+- exact per-cell PIT/provenance
+- exact ten new listing additions
+- per-cell independent Control promotion evidence
+
+
+GAP_A2_61_75 =
+PARTIAL
+
+EXACT_MISSING_SCOPE =
+
+- explicit company × W1–W8 original matrix
+- exact per-cell STATE_BEFORE
+- exact per-cell publication/PIT/provenance payload
+- exact fourteen genuinely new Track-C listing additions
+- per-cell independent Control promotion evidence
+
+
+EARLY_FULL_CELL_LEDGER_STATUS =
+PARTIAL
+
+
+WHAT_REMAINS DETERMINISTIC =
+
+- all six aggregate early transitions;
+- batch boundaries;
+- aggregate arithmetic;
+- substantial poststate data from 76–127;
+- explicit recovered legacy PARTIAL→READY changes;
+- known non-ready matrices;
+- listing deltas 76–127 already harvested;
+- 121–127 exact bookend metadata already harvested.
+
+
+WHAT_REMAINS UNKNOWN =
+
+The historical fields explicitly listed above for 46–75 and selected
+prestate/provenance fields for later batches.
+
+
+==================================================
+11. HISTORICAL SEARCH-SPACE STATUS
+==================================================
+
+ORIGINAL_HISTORICAL_SEARCH_SPACE =
+EXHAUSTED_FOR_THIS_CHANNEL
+
+
+SCOPE_OF_EXHAUSTION =
+
+The searchable historical file/message artifacts exposed to this execution
+were searched using:
+
+- exact v0.8 signatures;
+- aggregate values;
+- membership labels;
+- endpoint company names;
+- Track-B/Track-C field labels;
+- workbook filename;
+- RETURN PACKET markers;
+- source/PIT vocabulary.
+
+No additional original 46–60 execution source emerged.
+
+
+IMPORTANT =
+
+EXHAUSTED_FOR_THIS_CHANNEL
+
+does NOT mean:
+
+GLOBAL_PROJECT_HISTORY_PROVEN_NONEXISTENT.
+
+It means:
+
+the source is not present in the historical corpus currently searchable by
+this Research execution.
+
+
+==================================================
+12. NEXT TARGET
+==================================================
+
+NEXT_TARGET =
+
+U127 Research predecessor raw conversation/tool transcript segment
+
+TIME/SEQUENCE BOUNDARY =
+
+immediately AFTER:
+
+"U127 Data Expansion Working v0.7 검토 결과 및 v0.8 진행 지시"
+
+and immediately BEFORE:
+
+the surviving v0.9 membership 61–75 RETURN packet.
+
+
+NEXT_TARGET_REASON =
+
+The evidence chain shows:
+
+v0.7 Control authorized 46–60
+→
+v0.8 aggregate state subsequently existed and was carried forward
+→
+v0.9 61–75 execution begins from that v0.8 state.
+
+Therefore, if the original 46–60 execution payload survives anywhere,
+the highest-probability holder is the raw predecessor U127 Research
+message/tool-output interval between those two surviving anchors.
+
+The current searchable uploaded-file corpus does not contain that interval's
+executed result packet.
+
+
+TARGET_TYPE =
+RAW HISTORICAL CHAT / TOOL TRANSCRIPT
+
+NOT =
+NEW WEB RESEARCH
+
+NOT =
+NEW COMPANY RESEARCH
+
+NOT =
+WORKBOOK RECONSTRUCTION
+
+
+==================================================
+13. MINIMUM USER ACTION
+==================================================
+
+MINIMUM_USER_ACTION_REQUIRED =
+NONE
+
+
+The Project Owner does not need to reconstruct any rows manually.
+
+If an untouched copy of either of the following is independently discovered:
+
+- original v0.8 Research RETURN;
+- original v0.8 workbook bytes;
+- copied 46–60 result table/tool transcript;
+
+it should be preserved verbatim and supplied as corroborating evidence.
+
+But this is NOT required before Control can process the present result.
+
+
+==================================================
+14. SAFETY / AUTHORITY
+==================================================
+
+GROUND_TRUTH_CHANGED =
+NO
+
+CELL_STATE_CHANGED =
+NO
+
+CONTROL_PROMOTION_EXECUTED =
+NO
+
+WORKBOOK_CREATED =
+NO
+
+WORKBOOK_EDITED =
+NO
+
+WORKBOOK_SAVED =
+NO
+
+WORKBOOK_RECONSTRUCTED =
+NO
+
+REMATERIALIZATION_EXECUTED =
+NO
+
+NEW_EXTERNAL_RESEARCH_EXECUTED =
+NO
+
+NEW_SEMICONDUCTOR_RESEARCH_EXECUTED =
+NO
+
+UNKNOWN_INFERRED =
+NO
+
+UNKNOWN_CONVERTED_TO_READY =
+NO
+
+UNKNOWN_CONVERTED_TO_NEEDS_RESEARCH =
+NO
+
+UNKNOWN_CONVERTED_TO_FALSE =
+NO
+
+AGGREGATE_COUNT_USED_TO_FABRICATE_CELL =
+NO
+
+LISTING_COUNT_USED_TO_FABRICATE_COMPANY =
+NO
+
+MFE_USED =
+NO
+
+FUTURE_RETURN_USED =
+NO
+
+RANK_USED =
+NO
+
+ZENICS_FINAL_STATE_CHANGED =
+NO
+
+SEMITES_FINAL_STATE_CHANGED =
+NO
+
+
+==================================================
+15. RECOMMENDED CONTROL DECISION
+==================================================
+
+RECOMMENDED_CONTROL_DECISION =
+PARTIAL_ACCEPT
+
+
+ACCEPT =
+
+1.
+Accept that the available historical search space for this Research execution
+has been reasonably exhausted.
+
+2.
+Accept that the original executed membership 46–60 packet remains NOT_FOUND.
+
+3.
+Accept transition-level v0.7→v0.8 arithmetic:
+
+Certified +120
+Populated +119
+Complete +15
+Listing +10
+
+as already reconciled lineage.
+
+4.
+Accept that v0.8 was subsequently carried as an authorized working baseline.
+
+5.
+Do NOT translate that aggregate acceptance into 120 fabricated cell records.
+
+6.
+Keep all unrecovered 46–60 cell payload fields UNKNOWN.
+
+7.
+Accept the full-surviving-packet inspection result for 61–75:
+the exact company/window matrix and exact fourteen new listing additions are
+not contained in that RETURN.
+
+8.
+Keep 61–75 missing per-cell fields UNKNOWN.
+
+9.
+Record that narrow 76–127 reinspection produced no additional missing
+prestate/provenance fields.
+
+
+DO_NOT_ACCEPT AS CANONICAL =
+
+- inferred 46–60 READY cells;
+- inferred 46–60 listing additions;
+- inferred 61–75 listing additions;
+- assumed cell-level Control promotion;
+- reconstructed publication dates;
+- reconstructed evidence locators;
+- reconstructed source roles.
+
+
+==================================================
+16. RECOMMENDED NEXT ACTION
+==================================================
+
+RECOMMENDED_NEXT_ACTION =
+
+A.
+Merge this forensic result into:
+
+SEMI-U127-DELTA-LEDGER_v0.1_WORKING
+
+using only source-supported metadata.
+
+B.
+For 46–60:
+
+CELL_PAYLOAD =
+UNKNOWN
+
+LISTING_PAYLOAD =
+UNKNOWN
+
+CONTROL_PROMOTION_EVIDENCE =
+UNKNOWN at cell level
+
+must remain preserved.
+
+C.
+For 61–75:
+
+retain the existing PARTIAL batch representation and explicitly record that
+full inspection of the surviving RETURN found no hidden company/window matrix
+or fourteen-row listing table.
+
+D.
+If SEMI-CONTROL-ARCHITECT has access to raw predecessor chat/tool transcripts
+outside the current searchable file corpus, permit exactly ONE final
+archive-retrieval attempt at the NEXT_TARGET identified above.
+
+E.
+If that raw transcript is unavailable or the targeted interval also yields
+nothing:
+
+classify GAP-A1 as:
+
+HISTORICAL_PAYLOAD_NOT_RECOVERABLE_IN_CURRENT_ARCHIVE
+
+and stop recovery rather than recreating it.
+
+F.
+Do not initiate:
+
+- new semiconductor research;
+- v0.8/v0.9 workbook reconstruction;
+- final U127 rematerialization;
+- any change to final Zenics/SemiTES unresolved adjudication
+
+from this packet.
+
+
+FINAL_ADJUDICATION_AUTHORITY =
+SEMI-CONTROL-ARCHITECT
