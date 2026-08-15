@@ -4,7 +4,6 @@ from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 import json
 from pathlib import Path
-from typing import Iterable
 
 
 PERSONAS = (
@@ -25,6 +24,7 @@ RUN_STATES = {
     "COMPLETED_WITH_FINDINGS",
 }
 TERMINAL_STATES = {"COMPLETED_PASS", "COMPLETED_FAIL", "COMPLETED_WITH_FINDINGS"}
+ACTIVE_STATES = RUN_STATES - TERMINAL_STATES
 
 
 class InvalidRunRecord(ValueError):
@@ -92,9 +92,7 @@ class RunRecord:
     @classmethod
     def from_dict(cls, value: dict[str, object], source_path: str) -> "RunRecord":
         terminal_raw = value.get("terminal_result")
-        terminal_result = None
-        if isinstance(terminal_raw, dict):
-            terminal_result = TerminalResult.from_dict(terminal_raw)
+        terminal_result = TerminalResult.from_dict(terminal_raw) if isinstance(terminal_raw, dict) else None
         record = cls(
             run_id=str(value.get("run_id") or ""),
             process_id=str(value.get("process_id") or ""),
@@ -180,7 +178,18 @@ def list_runs(repo_root: Path, now: datetime | None = None) -> list[dict[str, ob
     return [record.to_public_dict(now) for record in load_run_registry(repo_root)]
 
 
+def _activity_timestamp(record: RunRecord) -> str:
+    if record.terminal_result is not None:
+        return record.terminal_result.completed_at
+    return record.last_heartbeat_at or record.started_at or ""
+
+
 def persona_overview(repo_root: Path, now: datetime | None = None) -> list[dict[str, object]]:
+    """Return current nonterminal work separately from the latest registered Run.
+
+    A completed Run is historical evidence, not current Persona activity. This prevents
+    a Persona with only a terminal Run from appearing to be actively working.
+    """
     records = load_run_registry(repo_root)
     rows: list[dict[str, object]] = []
     precedence = {
@@ -189,34 +198,53 @@ def persona_overview(repo_root: Path, now: datetime | None = None) -> list[dict[
         "STALE_UNKNOWN": 50,
         "DISPATCHED_AWAITING_ACK": 40,
         "READY_NOT_DISPATCHED": 30,
-        "COMPLETED_WITH_FINDINGS": 20,
-        "COMPLETED_FAIL": 20,
-        "COMPLETED_PASS": 10,
     }
     for persona in PERSONAS:
         candidates = [record for record in records if record.responsible_persona == persona]
         if not candidates:
-            rows.append({"persona": persona, "state": "IDLE_OR_UNREGISTERED", "run_id": None, "process_id": None})
+            rows.append({
+                "persona": persona,
+                "state": "IDLE_OR_UNREGISTERED",
+                "run_id": None,
+                "process_id": None,
+                "latest_run_id": None,
+                "latest_run_state": None,
+            })
             continue
-        ranked = sorted(
-            candidates,
+
+        latest = sorted(candidates, key=lambda record: (_activity_timestamp(record), record.run_id), reverse=True)[0]
+        active = [record for record in candidates if record.effective_state(now) in ACTIVE_STATES]
+        if not active:
+            rows.append({
+                "persona": persona,
+                "state": "IDLE_OR_UNREGISTERED",
+                "run_id": None,
+                "process_id": None,
+                "latest_run_id": latest.run_id,
+                "latest_run_state": latest.effective_state(now),
+                "latest_process_id": latest.process_id,
+            })
+            continue
+
+        selected = sorted(
+            active,
             key=lambda record: (
                 precedence[record.effective_state(now)],
-                record.last_heartbeat_at or record.started_at or "",
+                _activity_timestamp(record),
                 record.run_id,
             ),
             reverse=True,
-        )
-        selected = ranked[0]
-        rows.append(
-            {
-                "persona": persona,
-                "state": selected.effective_state(now),
-                "run_id": selected.run_id,
-                "process_id": selected.process_id,
-                "work_order_id": selected.work_order_id,
-                "last_heartbeat_at": selected.last_heartbeat_at,
-                "branch": selected.branch,
-            }
-        )
+        )[0]
+        rows.append({
+            "persona": persona,
+            "state": selected.effective_state(now),
+            "run_id": selected.run_id,
+            "process_id": selected.process_id,
+            "work_order_id": selected.work_order_id,
+            "last_heartbeat_at": selected.last_heartbeat_at,
+            "branch": selected.branch,
+            "latest_run_id": latest.run_id,
+            "latest_run_state": latest.effective_state(now),
+            "latest_process_id": latest.process_id,
+        })
     return rows
