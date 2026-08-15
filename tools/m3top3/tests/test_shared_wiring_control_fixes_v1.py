@@ -53,6 +53,11 @@ def bindings(r, objs):
     return out
 
 def certify(r, objs):
+    f02=r["feature_raw_inputs"].get("F02_NUMERIC_BUSINESS_INFLECTION") or {}
+    for metric,spec in (f02.get("metric_changes") or {}).items():
+        if isinstance(spec,dict):
+            spec.setdefault("derivation_id",f"SYN-{metric}-DERIVATION")
+            spec.setdefault("derivation_version","v1")
     reg=FeatureInputRegistry.load(ROOT); certs={}
     for fid, block in r["feature_raw_inputs"].items():
         ref=f"F:{r['company_id']}:{fid}"; objs[ref]=ev(ref); cid=f"C:{r['company_id']}:{fid}"
