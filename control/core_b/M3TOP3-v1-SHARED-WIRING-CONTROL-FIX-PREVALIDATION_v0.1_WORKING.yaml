@@ -1,0 +1,153 @@
+prevalidation_id: M3TOP3-v1-SHARED-WIRING-CONTROL-FIX-PREVALIDATION
+version: v0.1_WORKING
+status: CONTROL_PREVALIDATION_PASS_READY_FOR_INDEPENDENT_DELTA_WITH_DATA_BINDING_BLOCKERS
+project: semiconductor-research
+recorded_at: '2026-08-16T03:19:00+09:00'
+control_persona:
+  canonical_name: 문서·통제 아키텍트
+  persona_id: SEMI-CONTROL-ARCHITECT
+  instance_id: CTRL-ARCH-INSTANCE-005-20260816
+source_work_order: control/workorders/WO-COREB-M3TOP3-v1-SHARED-WIRING-CONTROL-FIXES-20260816.yaml
+source_return_packet:
+  packet_type: RETURN_PACKET_M3TOP3_v1_SHARED_WIRING_CONTROL_FIXES
+  received_state: RECEIVED_UNVERIFIED_THEN_CONTROL_PREVALIDATED
+  transport_note: USER_RETURN_TRANSPORT_NOT_SOURCE_OF_TRUTH
+base_candidate_commit: 7fa068b7d69ea232b2dd0fa61c312af2c68771a2
+successor_source_commit: 5ee82d15a27237ed2ad142ae877c6595f0489f80
+successor_identity_rule: >-
+  5ee82d15a27237ed2ad142ae877c6595f0489f80 is the exact source/test/workflow implementation identity.
+  Later CORE B evidence-only commits cd2928a2cba4bb09298338c9833e442fbf1171f0 and
+  45de02d5d7e6473295d11e662f6106a5bdaebf27 do not redefine source identity.
+ancestry:
+  merge_base: 7fa068b7d69ea232b2dd0fa61c312af2c68771a2
+  successor_descends_from_base: true
+  behind_by: 0
+  ahead_by: 18
+persistent_core_b_evidence:
+  test_report: control/core_b/M3TOP3-v1-SHARED-WIRING-CONTROL-FIX-TEST-REPORT_v0.1_WORKING.json
+  test_report_commit: cd2928a2cba4bb09298338c9833e442fbf1171f0
+  implementation_manifest: control/core_b/M3TOP3-v1-SHARED-WIRING-CONTROL-FIX-MANIFEST_v0.1_WORKING.yaml
+  implementation_manifest_commit: 45de02d5d7e6473295d11e662f6106a5bdaebf27
+exact_ci:
+  workflow: .github/workflows/m3top3-shared-wiring-control-fix-tests.yml
+  run_id: 31900218083
+  job_id: 95049685932
+  exact_head_sha: 5ee82d15a27237ed2ad142ae877c6595f0489f80
+  python: CPython_3.12.13
+  runner: Ubuntu_24.04.4
+  conclusion: SUCCESS
+  pipefail_enforced: true
+  tests: PASS_94_OF_94
+  preexisting_regression_behaviors: PASS_76_OF_76
+  new_control_fix_tests: PASS_18_OF_18
+  original_shared_assets: PASS_6_OF_6
+  control_fix_assets: PASS_3_OF_3
+baseline_config:
+  path: tools/m3top3/configs/m3top3_v1.0.json
+  sha256: eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98
+  unchanged: true
+changed_components:
+  - path: tools/m3top3/shared_interface_guards_v1_2.py
+    sha256: 04f0381e203992e5721e36397cd30217cb7585c51c7fc25d5b539afae17692a1
+    byte_size: 29570
+    git_blob_sha: 2f697ca5812f08211abfced2acb06c78c46fd0bd
+  - path: tools/m3top3/official_runtime_v1_1.py
+    sha256: f7245163490055f213aa8b52ee0eec96ae41aacdf86912c3bcba58c565c52cd7
+    byte_size: 5601
+    git_blob_sha: 6bc8b820fb477a983241b9b3b34548142c358710
+  - path: tools/m3top3/tests/test_shared_wiring_control_fixes_v1.py
+    sha256: 5b4224288a2f01b4720b76f6f242c864d0b16acf74089dde2a00f0c928a4772c
+    byte_size: 12588
+    git_blob_sha: 54e331e91d4070b0213c6dbb46d6c21e864852f5
+  - path: .github/workflows/m3top3-shared-wiring-control-fix-tests.yml
+    sha256: 405abab3c0eeccff6a8e885305b89b13c5a54ed66c4be4ce35cd5d3874fde658
+    byte_size: 1875
+    git_blob_sha: 0257d5856548457d266711cc2fd3020d382c4696
+  - path: control/shared/M3TOP3-EVIDENCE-RESOLVER-AUTHORITY_v1.0_WORKING.json
+    sha256: b2e00077f1239b43c6328c0d009df1bae4110e9ffc6d6840d02f67380399ea8f
+    byte_size: 711
+    git_blob_sha: 3c8442373354f74ce1a351bc0872551f76ab6e5e
+  - path: control/shared/M3TOP3-F08-NUMERIC-RULE-AUTHORITY_v1.0_WORKING.json
+    sha256: 3b7200eb92f5e9b162035b1cd92f775f3b80039eb679af09e59343209586b2d7
+    byte_size: 744
+    git_blob_sha: 5b56f7944a1c0935a9bd296771bd542682c31c09
+  - path: control/shared/M3TOP3-RECORD-LEVEL-BINDING-POLICY_v1.0_WORKING.json
+    sha256: 8f05200e1937761e172995d23f1a344de4d8102cb22fc46782f99f8f1f7fa749
+    byte_size: 1690
+    git_blob_sha: fa793a9518eb9cf4eea169aa130702781a0ac9bc
+control_code_review:
+  CW_01_EVIDENCE_RESOLVER_IMMUTABLE_BINDING:
+    verdict: PASS_IMPLEMENTATION_CANDIDATE
+    verified_behavior:
+      - caller Mapping is rejected as official evidence authority
+      - EvidenceResolverRelease is hash-bound as a release object and must resolve through the physically bound authority asset
+      - official non-test resolver must be listed by release_id/version with content_sha256, persistent_locator and authority_identity
+      - each resolved evidence record requires a valid SHA256-shaped content identity, persistent locator, non-empty source/evidence lineage, support/publication time and cutoff compliance
+      - EvidenceResolverView forces v1.1 per-value, whole-block certification, F02 upstream and hard-risk reference membership checks through governed resolver resolution
+      - TEST_ONLY resolver is rejected by official runtime
+    production_dependency: >-
+      The authority asset intentionally has approved_evidence_resolver_releases=[]; no real approved resolver release is bound yet.
+      Official scoring therefore remains fail-closed. When CORE A binds the real resolver release, Control must verify underlying
+      evidence bytes/content identities and persistent locators before adding the release to the approved authority list.
+  CW_02_F08_TYPED_NUMERIC_RULE_APPROVAL_BINDING:
+    verdict: PASS_IMPLEMENTATION_CANDIDATE
+    verified_behavior:
+      - caller numeric Mapping is rejected as official authority
+      - official numeric resolver must be persistently approved by release/version/hash/locator/authority identity
+      - resolved rule must match Refresh Registry identity/hash, ACTIVE state, M3TOP3-v1.0, scope/class and exact penalty value
+      - TEST_ONLY resolver is rejected by official runtime
+      - positive freshness_penalty without an approved resolver fails closed
+      - no age-to-penalty schedule was invented
+    production_dependency: >-
+      approved_numeric_rule_resolver_releases remains empty. Positive F08 freshness penalties are unavailable in the official path
+      until a separately approved numeric rule release exists. This condition must not be cleared by inventing a schedule.
+  CW_03_RECORD_LEVEL_CONSUMED_SCOPE:
+    verdict: PASS_IMPLEMENTATION_CANDIDATE
+    verified_behavior:
+      - all Feature Input Registry record_level_consumed_paths are explicitly iterated
+      - eligibility_state requires governed historical binding with bound value/effective_at/evidence-release reference
+      - company_id, snapshot_cutoff_at and window_anchor_date require explicit policy-bound control-identity exemption
+      - non-NONE hard-risk record fields require governed historical binding; NONE may only use explicit conditional exemption when the path is present
+      - silent exemption is rejected
+    control_policy_adjudication: >-
+      CORE A accepts M3TOP3-RECORD-LEVEL-BINDING-POLICY_v1.0_WORKING as a working control-fix classification consistent with the
+      already reconciled Feature Input Registry and hard-risk PIT semantics. This does not modify Shared Contract semantics.
+semantic_conflict: NONE
+model_invariants:
+  model_version: M3TOP3-v1.0
+  scorer_blob_base: 2a797ea705eeb1aef330754fb08ff2182297c139
+  scorer_blob_successor: 2a797ea705eeb1aef330754fb08ff2182297c139
+  scorer_unchanged: true
+  weights_changed: false
+  scorer_math_changed: false
+  feature_scoring_semantics_changed: false
+  wm_v1_1_semantics_changed: false
+scientific_firewall:
+  actual_outcome_data_inspected_by_control: false
+  actual_replay_executed: false
+  outcome_tuning_executed: false
+  ground_truth_changed: false
+  price_changed: false
+  ca_changed: false
+  u127_rematerialized: false
+  model_frozen: false
+  production_release_authorized: false
+control_decision:
+  successor_registered_as_control_prevalidated_candidate: true
+  independent_validation_pass: false
+  independent_delta_preflight_activation_recommended: true
+  actual_replay_authorized: false
+remaining_release_blockers:
+  - APPROVED_REAL_EVIDENCE_RESOLVER_RELEASE_BINDING
+  - POSITIVE_F08_NUMERIC_RULE_RELEASE_IF_POSITIVE_PENALTIES_ARE_REQUIRED
+  - PRODUCTION_KRX_TRADING_CALENDAR_IDENTITY
+  - U127_FINAL_SOURCE_BINDING_INDEPENDENT_VALIDATION
+  - U127_PRIMARY_SECONDARY_PERSISTENCE
+  - U127_CANONICAL_MACHINE_RELEASE_MATERIALIZATION
+  - PRICE_OFFICIAL_READINESS
+  - CA_RAW_OHLC_CLOSURE
+  - VALIDATION_DATASET_RELEASE_MATERIALIZATION
+  - MATERIALIZE_VDI_v1_0
+  - MATERIALIZE_MARM_v1_0
+  - INDEPENDENT_REPLAY_VALIDATION_PROCEDURE
+next_control_action: ACTIVATE_EXISTING_INDEPENDENT_DELTA_PREFLIGHT_ON_EXACT_SUCCESSOR_WITH_KRX_CALENDAR_EXPLICIT_REMAINING_BLOCKER
