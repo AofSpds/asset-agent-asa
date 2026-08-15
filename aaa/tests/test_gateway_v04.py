@@ -16,22 +16,34 @@ from aaa.gateway.provider import (
     ProviderCapabilities,
     ProviderCostMetadata,
     ProviderHealth,
+    ProviderRequestRejected,
+    ProviderUnavailable,
 )
-from aaa.gateway.router import AllProvidersUnavailable, ProviderGateway, result_manifest
+from aaa.gateway.router import AllProvidersUnavailable, ProviderGateway, ProviderInvocationFailure, result_manifest
 
 
 class NamedFake(FakeProvider):
-    def __init__(self, provider_id: str, *, healthy: bool = True, fail: bool = False) -> None:
+    def __init__(
+        self,
+        provider_id: str,
+        *,
+        healthy: bool = True,
+        unavailable: bool = False,
+        rejected: bool = False,
+    ) -> None:
         self.provider_id = provider_id
         self._healthy = healthy
-        self._fail = fail
+        self._unavailable = unavailable
+        self._rejected = rejected
 
     def health(self) -> ProviderHealth:
         return ProviderHealth(self.provider_id, "HEALTHY" if self._healthy else "OFFLINE")
 
     def invoke(self, request):
-        if self._fail:
-            raise RuntimeError("SIMULATED_PROVIDER_FAILURE")
+        if self._unavailable:
+            raise ProviderUnavailable("SIMULATED_PROVIDER_UNAVAILABLE")
+        if self._rejected:
+            raise ProviderRequestRejected("SIMULATED_REQUEST_REJECTED")
         return {"provider_id": self.provider_id, "echo": dict(request)}
 
 
@@ -50,11 +62,25 @@ class GatewayV04Tests(unittest.TestCase):
         self.assertEqual(result.provider_id, "B")
         self.assertEqual([a.outcome for a in result.attempts], ["SKIPPED_UNHEALTHY", "SUCCESS"])
 
-    def test_provider_a_runtime_failure_falls_back_to_b(self) -> None:
-        gateway = ProviderGateway([NamedFake("A", fail=True), NamedFake("B")])
+    def test_provider_a_classified_unavailable_falls_back_to_b(self) -> None:
+        gateway = ProviderGateway([NamedFake("A", unavailable=True), NamedFake("B")])
         result = gateway.invoke({"prompt": "x"})
         self.assertEqual(result.provider_id, "B")
-        self.assertEqual([a.outcome for a in result.attempts], ["INVOKE_ERROR", "SUCCESS"])
+        self.assertEqual([a.outcome for a in result.attempts], ["PROVIDER_UNAVAILABLE", "SUCCESS"])
+
+    def test_request_rejection_does_not_silently_switch_models(self) -> None:
+        gateway = ProviderGateway([NamedFake("A", rejected=True), NamedFake("B")])
+        with self.assertRaisesRegex(ProviderInvocationFailure, "PROVIDER_INVOCATION_FAILURE:A:invoke"):
+            gateway.invoke({"prompt": "bad"})
+
+    def test_unclassified_runtime_failure_does_not_silently_switch_models(self) -> None:
+        class Broken(NamedFake):
+            def invoke(self, request):
+                raise RuntimeError("UNKNOWN_FAILURE")
+
+        gateway = ProviderGateway([Broken("A"), NamedFake("B")])
+        with self.assertRaisesRegex(ProviderInvocationFailure, "PROVIDER_INVOCATION_FAILURE:A:invoke"):
+            gateway.invoke({"prompt": "x"})
 
     def test_all_providers_offline_fails_closed(self) -> None:
         gateway = ProviderGateway([OfflineProvider(), NamedFake("B", healthy=False)])
