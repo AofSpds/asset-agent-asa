@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 import os
 from pathlib import Path
 import sys
@@ -14,7 +13,7 @@ if str(SRC) not in sys.path:
 
 from aaa.agents.journal import AgentRunJournal
 from aaa.agents.runtime import PermissionLevel, RunStatus, WorkOrderIdentity, create_run, transition_run
-from aaa.core.identity import ExactBaseIdentity, file_identity
+from aaa.core.identity import ExactBaseIdentity
 from aaa.recovery.audit import audit_recovery, RecoverySnapshot, StateRecoveryObservation
 from aaa.recovery.drill import (
     DrillEvidence,
@@ -22,12 +21,12 @@ from aaa.recovery.drill import (
     inspect_journal,
     inspect_lock,
     interrupt_worker,
+    local_content_identity,
     observe_local_replicas,
     process_alive,
     quarantine_stale_lock,
     start_interruptible_worker,
 )
-from aaa.storage.identity import ContentIdentity
 
 
 BASE = ExactBaseIdentity("AofSpds/asset-agent-asa", "1" * 40)
@@ -96,8 +95,7 @@ class RecoveryDrillV04Tests(unittest.TestCase):
             primary = root / "primary.bin"
             secondary = root / "secondary.bin"
             primary.write_bytes(b"same-bytes")
-            ident = file_identity(primary)
-            expected = ContentIdentity(ident["sha256"], ident["byte_size"])
+            expected = local_content_identity(primary)
             observation = observe_local_replicas(
                 artifact_id="A1",
                 expected=expected,
@@ -123,8 +121,7 @@ class RecoveryDrillV04Tests(unittest.TestCase):
             secondary = root / "secondary.bin"
             primary.write_bytes(b"correct")
             secondary.write_bytes(b"wrong")
-            ident = file_identity(primary)
-            expected = ContentIdentity(ident["sha256"], ident["byte_size"])
+            expected = local_content_identity(primary)
             observation = observe_local_replicas(
                 artifact_id="A1",
                 expected=expected,
