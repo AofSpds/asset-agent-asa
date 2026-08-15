@@ -1,0 +1,147 @@
+scorer_id: M3TOP3-GATED-LINEAR
+version: v1.0_WORKING
+status: CORE_B_OUTCOME_BLIND_BASELINE_CANDIDATE
+project: semiconductor-research
+owner_persona: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+work_order_id: WO-COREB-V1-PREOUTCOME-LOCK-20260815
+created_at: '2026-08-15T23:10:00+09:00'
+outcome_data_inspected_for_tuning: false
+actual_u127_replay_executed: false
+model_frozen: false
+scorer_type: GATED_LINEAR
+feature_schema_version: M3TOP3-FEATURE-SCHEMA_v1.0_WORKING
+weight_version: M3TOP3-WEIGHT-VERSION_v1.0_WORKING
+score_range: [0, 100]
+
+algorithm:
+  feature_input_domain: 0_TO_100_OR_NA
+  axis_aggregation: >-
+    For each axis, compute weighted mean of available feature scores using the frozen feature-level
+    weights belonging to that axis. Missing features are NA and are not zero-filled. Emit axis_available_weight
+    and axis_coverage_ratio. If no feature in an axis is available, axis_score is NA.
+  feature_aggregation: >-
+    Pre-gate score is the weighted mean of available axis scores using frozen axis weights, renormalized
+    only across available axes. Emit total_available_feature_weight and feature_coverage_ratio based on the
+    original 100-point feature weights. Renormalization is mathematical handling of missingness, not an
+    assertion that missing evidence is neutral or positive.
+  official_rankability_rule: >-
+    A company may receive a provisional score whenever at least one opportunity axis A1-A4 is available,
+    but official Top-K ranking for a Snapshot requires governed complete rankability of the eligible universe.
+    Any eligible company with no rankable score makes the Snapshot validation status INCOMPLETE_COVERAGE;
+    it must not be silently omitted from the denominator.
+  pre_gate_formula: >-
+    PRE_GATE_SCORE = sum(axis_weight * axis_score for available axes) / sum(axis_weight for available axes).
+  hard_risk_gate:
+    purpose: RARE_VERIFIED_TAIL_DEFENSE_NOT_ROUTINE_RISK_DOUBLE_PENALTY
+    allowed_gate_sources:
+      - verified_material_order_or_customer_cancellation_not_already_scored_as_feature_penalty
+      - verified_qualification_failure_or_withdrawal_not_already_scored_as_feature_penalty
+      - verified_material_financing_or_dilution_state_that_threatens_near_term_thesis
+      - verified_material_guidance_withdrawal_or_business_continuity_break
+      - other_pre_registered_thesis_break_event_class
+    gate_levels:
+      NONE:
+        multiplier: 1.00
+      SEVERE:
+        multiplier: 0.85
+        requirement: VERIFIED_OR_EQUIVALENT_HIGH_CONFIDENCE_PRIMARY_EVIDENCE
+      THESIS_BREAK:
+        multiplier: 0.70
+        requirement: VERIFIED_PRIMARY_OR_CUSTOMER_SIDE_EVIDENCE_AND_EXPLICIT_GATE_REASON
+    rule: >-
+      Gate events require a stable event_group_id and may not receive an additional full negative score in
+      F09 or another feature. If overlap exists, the adverse fact is assigned either to ordinary F09 severity
+      or to the hard gate, not both.
+  final_formula: FINAL_SCORE = PRE_GATE_SCORE * RISK_GATE_MULTIPLIER
+  ranking_rule:
+    population: ELIGIBLE_AND_RANKABLE_COMPANIES_ONLY_WITH_EXPLICIT_COVERAGE_ACCOUNTING
+    primary_sort: FINAL_SCORE_DESCENDING_FULL_PRECISION
+    exact_tie_break: COMPANY_ID_ASCENDING
+    rounded_score_determines_tie: false
+    top3: exact_rank_le_3
+    top10: exact_rank_le_10
+
+missingness_behavior:
+  missing_not_equal_zero: true
+  missing_not_equal_false: true
+  not_found_not_negative_business_fact: true
+  no_silent_imputation: true
+  output_fields:
+    - feature_availability_state
+    - missing_reason
+    - axis_coverage_ratio
+    - feature_coverage_ratio
+    - score_status
+    - warning_flags
+  score_status_values:
+    - RANKABLE
+    - PROVISIONAL_MISSING_FEATURES
+    - INSUFFICIENT_INPUT
+    - INELIGIBLE
+    - REVIEW_REQUIRED
+  rule: >-
+    Evidence retrieval failure may reduce F08 Evidence Reliability when appropriate, but it does not create
+    a zero business feature. Missingness remains auditable.
+
+saturation:
+  common_feature_clip: [0, 100]
+  market_positioning_saturation: DEFINED_IN_F05_AND_CAPPED_BEFORE_AGGREGATION
+  final_score_clip: [0, 100]
+
+outlier_policy:
+  continuous_source_metrics: WINSORIZE_AT_SAME_SNAPSHOT_5TH_95TH_PERCENTILES_BEFORE_PERCENTILE_NORMALIZATION
+  model_feature_scores: CLIP_0_100
+  ordinal_features: NO_DATA_DRIVEN_THRESHOLD_CHANGES_IN_BASELINE_V1
+
+scorer_io_core_b_final_proposal:
+  proposed_shared_version: SIO-v1.0
+  decision: ACCEPT_WITH_MODIFICATION
+  required_input_bindings:
+    - snapshot_id
+    - snapshot_content_hash_or_revision
+    - company_id
+    - model_version
+    - feature_schema_version
+    - scorer_version
+    - weight_version
+    - model_input_schema_version
+    - input_release_or_hash
+  required_output_fields:
+    - snapshot_id
+    - company_id
+    - model_version
+    - scorer_version
+    - weight_version
+    - pre_gate_score
+    - risk_gate_state
+    - risk_gate_multiplier
+    - final_score
+    - exact_rank
+    - eligibility_state
+    - exclusion_reason
+    - score_status
+    - feature_coverage_ratio
+    - top3_flag
+    - top10_flag
+    - warning_flags
+    - run_id
+  rank_rule_change: >-
+    Rank FINAL_SCORE rather than an ambiguous raw_score because v1 includes an explicit governed hard-risk gate.
+    Full-precision final_score descending, company_id ascending exact tie-break.
+  determinism_rule: >-
+    Same frozen Snapshot + model version + feature schema + scorer + weights + code/input release must
+    reproduce identical outputs or raise a reproducibility failure; never silently overwrite.
+
+coverage_validation_policy:
+  metric: SCORABLE_ELIGIBLE_COVERAGE
+  formula: RANKABLE_ELIGIBLE_COMPANIES / ELIGIBLE_COMPANIES
+  official_top_k_release_threshold: 1.00
+  rationale: >-
+    Top-K ranking is denominator-sensitive; silently omitting one eligible unscored company can change the
+    winner set. Therefore official baseline ranking requires 100% governed rankability of the eligible
+    denominator. Lower coverage may be produced only as PARTIAL/diagnostic output, never official Top3 validation.
+
+readiness:
+  scorer_ready_for_baseline_lock: true
+  shared_scorer_io_reconciliation_required: true
+  independent_validation_self_certified: false
