@@ -58,12 +58,26 @@ class T18OperationalDatabaseContractTests(unittest.TestCase):
         for token in forbidden:
             self.assertNotIn(token, lowered)
 
-    def test_migration_manifest_binds_exact_sql_bytes_and_preserves_p09_targets(self):
+    def test_source_identity_is_successor_migration_not_0001_rewrite(self):
+        sql = (REPO_ROOT / "aaa" / "db" / "migrations" / "0002_json_registry_source_identity.sql").read_text(
+            encoding="utf-8"
+        )
+        for token in (
+            "source_json_path",
+            "source_json_sha256",
+            "source_json_byte_size",
+            "canonical_output",
+            "runs_source_json_path_unique",
+        ):
+            self.assertIn(token, sql)
+
+    def test_migration_manifest_binds_all_exact_sql_bytes_and_preserves_p09_targets(self):
         manifest_path = REPO_ROOT / "aaa" / "db" / "MIGRATIONS.json"
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-        migration = manifest["migrations"][0]
-        sql_bytes = (REPO_ROOT / migration["path"]).read_bytes()
-        self.assertEqual(hashlib.sha256(sql_bytes).hexdigest(), migration["sha256"])
+        self.assertEqual([item["version"] for item in manifest["migrations"]], ["0001", "0002"])
+        for migration in manifest["migrations"]:
+            sql_bytes = (REPO_ROOT / migration["path"]).read_bytes()
+            self.assertEqual(hashlib.sha256(sql_bytes).hexdigest(), migration["sha256"])
         self.assertEqual(
             manifest["authority"],
             "NON_AUTHORITATIVE_SHADOW_UNTIL_EXPLICIT_OWNER_CUTOVER",
@@ -121,8 +135,8 @@ class T18OperationalDatabaseContractTests(unittest.TestCase):
             "repository": "AofSpds/asset-agent-asa",
             "exact_base_commit": "a" * 40,
             "branch": "aaa-t18-operational-db-v0.1",
-            "started_at": None,
-            "last_heartbeat_at": None,
+            "started_at": "2026-08-16T06:00:00+09:00",
+            "last_heartbeat_at": "2026-08-16T06:10:00+09:00",
             "stale_after_seconds": 7200,
             "canonical_output": False,
         }]
@@ -130,6 +144,8 @@ class T18OperationalDatabaseContractTests(unittest.TestCase):
             **authority[0],
             "exact_target_commit": authority[0]["exact_base_commit"],
             "branch_context": authority[0]["branch"],
+            "started_at": "2026-08-15T21:00:00+00:00",
+            "last_heartbeat_at": "2026-08-15T21:10:00Z",
         }]
         reader = ShadowOperationalStateReader(StaticReader(authority), StaticReader(shadow))
         rows = reader.list_runs()
@@ -154,6 +170,15 @@ class T18OperationalDatabaseContractTests(unittest.TestCase):
         with self.assertRaisesRegex(ShadowReconciliationError, "SHADOW_RUN_REGISTRY_MISMATCH"):
             ShadowOperationalStateReader(StaticReader(authority), StaticReader(shadow)).list_runs()
 
+    def test_duplicate_shadow_rows_fail_closed_instead_of_last_write_wins(self):
+        authority = [{"run_id": "RUN-1", "state": "BLOCKED"}]
+        shadow = [
+            {"run_id": "RUN-1", "state": "BLOCKED"},
+            {"run_id": "RUN-1", "state": "BLOCKED"},
+        ]
+        with self.assertRaisesRegex(ShadowReconciliationError, "DUPLICATE_RUN_ID_FOR_RECONCILIATION"):
+            reconcile_run_rows(authority, shadow)
+
     def test_repository_json_registry_can_be_inventoried_without_mutation(self):
         reader = JsonRunRegistryReader(REPO_ROOT)
         rows = reader.list_runs()
@@ -167,6 +192,17 @@ class T18OperationalDatabaseContractTests(unittest.TestCase):
         for row in rows:
             self.assertRegex(str(row["_source_sha256"]), r"^[0-9a-f]{64}$")
             self.assertGreater(int(row["_source_byte_size"]), 0)
+
+    def test_import_and_reconcile_tools_are_standard_library_and_fail_closed(self):
+        importer = (REPO_ROOT / "aaa" / "db" / "tools" / "json_registry_to_sql.py").read_text(encoding="utf-8")
+        reconciler = (REPO_ROOT / "aaa" / "db" / "tools" / "reconcile_shadow_export.py").read_text(encoding="utf-8")
+        self.assertIn("load_run_registry", importer)
+        self.assertIn("RESULT_SHA256_MISMATCH", importer)
+        self.assertIn("source_json_sha256", reconciler)
+        self.assertIn("T18_JSON_POSTGRES_RECONCILIATION_MISMATCH", reconciler)
+        for forbidden in ("psycopg", "sqlalchemy", "redis", "kafka"):
+            self.assertNotIn(forbidden, importer.lower())
+            self.assertNotIn(forbidden, reconciler.lower())
 
 
 if __name__ == "__main__":

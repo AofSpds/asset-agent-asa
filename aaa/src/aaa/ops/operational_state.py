@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import datetime, timezone
 import hashlib
 import json
 from pathlib import Path
@@ -97,29 +98,47 @@ def load_json_run_rows(repo_root: Path) -> tuple[dict[str, object], ...]:
     return tuple(rows)
 
 
+def _normalize_timestamp(value: object) -> object:
+    if value is None or not isinstance(value, str):
+        return value
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        return value
+    if parsed.tzinfo is None:
+        raise ShadowReconciliationError("TIMESTAMP_MUST_BE_TIMEZONE_AWARE_FOR_RECONCILIATION")
+    return parsed.astimezone(timezone.utc).isoformat()
+
+
 def _normalize_run(row: Mapping[str, object]) -> dict[str, object]:
     normalized = {field: row.get(field) for field in RUN_COMPARISON_FIELDS}
     if normalized["exact_base_commit"] is None:
         normalized["exact_base_commit"] = row.get("exact_target_commit")
     if normalized["branch"] is None:
         normalized["branch"] = row.get("branch_context")
+    normalized["started_at"] = _normalize_timestamp(normalized["started_at"])
+    normalized["last_heartbeat_at"] = _normalize_timestamp(normalized["last_heartbeat_at"])
     return normalized
+
+
+def _index_rows(rows: Iterable[Mapping[str, object]], label: str) -> dict[str, dict[str, object]]:
+    indexed: dict[str, dict[str, object]] = {}
+    for row in rows:
+        run_id = str(row.get("run_id") or "")
+        if not run_id:
+            raise ShadowReconciliationError(f"RUN_ID_REQUIRED_FOR_RECONCILIATION:{label}")
+        if run_id in indexed:
+            raise ShadowReconciliationError(f"DUPLICATE_RUN_ID_FOR_RECONCILIATION:{label}:{run_id}")
+        indexed[run_id] = _normalize_run(row)
+    return indexed
 
 
 def reconcile_run_rows(
     authoritative_json_rows: Iterable[Mapping[str, object]],
     shadow_db_rows: Iterable[Mapping[str, object]],
 ) -> ReconciliationReport:
-    authority = {
-        str(row.get("run_id") or ""): _normalize_run(row)
-        for row in authoritative_json_rows
-    }
-    shadow = {
-        str(row.get("run_id") or ""): _normalize_run(row)
-        for row in shadow_db_rows
-    }
-    if "" in authority or "" in shadow:
-        raise ShadowReconciliationError("RUN_ID_REQUIRED_FOR_RECONCILIATION")
+    authority = _index_rows(authoritative_json_rows, "AUTHORITY")
+    shadow = _index_rows(shadow_db_rows, "SHADOW")
 
     authority_ids = set(authority)
     shadow_ids = set(shadow)

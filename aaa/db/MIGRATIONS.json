@@ -6,6 +6,11 @@
       "version": "0001",
       "path": "aaa/db/migrations/0001_operational_execution_plane.sql",
       "sha256": "66e5609fea1104f4aba4d0566989bf3a6c8d2b6e0b75cb274a79f7bdb48d68c2"
+    },
+    {
+      "version": "0002",
+      "path": "aaa/db/migrations/0002_json_registry_source_identity.sql",
+      "sha256": "f481bb1e68200b133cdaae01b17f0d32f40a22ff3b2f720cef2fa0032eaa194e"
     }
   ],
   "postgresql_required_for_certification": true,

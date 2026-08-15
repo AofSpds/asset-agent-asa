@@ -43,13 +43,33 @@ jobs:
           --health-retries 12
     steps:
       - uses: actions/checkout@v4
-      - name: Apply T18 PostgreSQL migration and contract smoke
+
+      - name: Verify migration manifest SHA256 identities
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib, json, pathlib
+          root = pathlib.Path('.')
+          manifest = json.loads((root/'aaa/db/MIGRATIONS.json').read_text())
+          for item in manifest['migrations']:
+              payload = (root/item['path']).read_bytes()
+              observed = hashlib.sha256(payload).hexdigest()
+              if observed != item['sha256']:
+                  raise SystemExit(f"migration hash mismatch {item['version']}: {observed} != {item['sha256']}")
+              print(item['version'], observed)
+          PY
+
+      - name: Apply T18 PostgreSQL migrations and contract smoke
         shell: bash
         run: |
           set -euo pipefail
           cid="$(docker ps --format '{{.ID}} {{.Image}}' | awk '$2 ~ /^postgres:16-alpine/ {print $1; exit}')"
           test -n "$cid"
-          docker exec -i "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18 < aaa/db/migrations/0001_operational_execution_plane.sql
+          for migration in aaa/db/migrations/*.sql; do
+            echo "applying $migration"
+            docker exec -i "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18 < "$migration"
+          done
           docker exec -i "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18 < aaa/db/tests/t18_contract_smoke.sql
 
       - name: Verify concurrent lease fencing has one winner
@@ -72,6 +92,23 @@ jobs:
             echo "expected exactly one successful lease acquisition; got ra=$ra rb=$rb"
             exit 47
           fi
+
+      - name: Verify deterministic current JSON Registry import and 100 percent reconciliation
+        shell: bash
+        run: |
+          set -euo pipefail
+          cid="$(docker ps --format '{{.ID}} {{.Image}}' | awk '$2 ~ /^postgres:16-alpine/ {print $1; exit}')"
+          test -n "$cid"
+          docker exec "$cid" createdb -U postgres aaa_t18_registry_shadow
+          for migration in aaa/db/migrations/*.sql; do
+            docker exec -i "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18_registry_shadow < "$migration"
+          done
+          python aaa/db/tools/json_registry_to_sql.py --repo-root . --git-commit "$GITHUB_SHA" > /tmp/t18-registry-import.sql
+          docker exec -i "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18_registry_shadow < /tmp/t18-registry-import.sql
+          docker exec "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18_registry_shadow -c "DO \$\$ BEGIN IF (SELECT count(*) FROM aaa_ops.results) <> (SELECT count(*) FROM aaa_ops.runs WHERE terminal_result_id IS NOT NULL) THEN RAISE EXCEPTION 'TERMINAL_RESULT_COUNT_MISMATCH'; END IF; END \$\$;"
+          docker exec "$cid" psql -At -U postgres -d aaa_t18_registry_shadow -c "SELECT row_to_json(x) FROM (SELECT run_id,process_id,work_order_id,responsible_persona,executor_role,state,repository,exact_target_commit,branch_context,started_at,last_heartbeat_at,stale_after_seconds,canonical_output,source_json_path,source_json_sha256,source_json_byte_size FROM aaa_ops.runs ORDER BY run_id) x;" > /tmp/t18-db-runs.jsonl
+          python aaa/db/tools/reconcile_shadow_export.py --repo-root . --db-jsonl /tmp/t18-db-runs.jsonl > /tmp/t18-reconciliation.json
+          cat /tmp/t18-reconciliation.json
 
       - name: Verify local PostgreSQL backup and restore drill
         shell: bash
