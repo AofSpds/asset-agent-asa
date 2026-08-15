@@ -1,0 +1,236 @@
+matrix_id: SEMI-DUAL-CORE-AUTHORITY-MATRIX
+version: v0.1_WORKING
+status: CORE_A_DRAFT_PENDING_CORE_B_RECONCILIATION
+as_of: '2026-08-15T22:24:00+09:00'
+project: semiconductor-research
+
+role_legend:
+  O: OWNER_FINAL_APPROVAL
+  A: DOMAIN_ACCOUNTABLE_AUTHORITY
+  R: RESPONSIBLE_EXECUTION_OR_CONTROL
+  V: INDEPENDENT_VALIDATION_REQUIRED_OR_APPLICABLE
+  C: CONSULTED_OR_CONTRACT_RECONCILIATION
+  I: INFORMED
+  N: NO_AUTHORITY
+
+actors:
+  OWNER: USER_PROJECT_OWNER
+  CORE_A: SEMI-CONTROL-ARCHITECT
+  CORE_B: PENDING_CORE_B_SUCCESSOR_RECONCILIATION
+  RESEARCH: SEMI-RESEARCH-ORCHESTRATOR
+  VALIDATION: SEMI-VALIDATION-AUDITOR
+  ENGINEERING: TASK_SPECIFIC_ENGINEERING_WORKERS
+
+matrix:
+  project_goal_and_priority:
+    OWNER: O
+    CORE_A: R
+    CORE_B: C
+    RESEARCH: N
+    VALIDATION: N
+    ENGINEERING: N
+    rule: OWNER_SETS_GOAL_CORE_A_ORCHESTRATES_EXECUTION
+
+  major_project_architecture:
+    OWNER: O
+    CORE_A: A
+    CORE_B: A
+    RESEARCH: C
+    VALIDATION: C
+    ENGINEERING: C
+    rule: MAJOR_ARCHITECTURE_REQUIRES_OWNER_APPROVAL_AND_CROSS_CORE_RECONCILIATION
+
+  U127_membership_and_ground_truth_state:
+    OWNER: I
+    CORE_A: A
+    CORE_B: C
+    RESEARCH: R
+    VALIDATION: V
+    ENGINEERING: N
+    rule: CORE_A_IS_CONTROL_AUTHORITY_RESEARCH_ONLY_PROPOSES
+
+  PIT_effective_history_and_evidence_taxonomy:
+    OWNER: I
+    CORE_A: A
+    CORE_B: C
+    RESEARCH: R
+    VALIDATION: V
+    ENGINEERING: N
+    rule: CORE_A_OWNS_DATA_TRUTH_PROTOCOL_AND_PROMOTION
+
+  Price_dataset_identity_and_readiness:
+    OWNER: I
+    CORE_A: A
+    CORE_B: C
+    RESEARCH: C
+    VALIDATION: V
+    ENGINEERING: R
+    rule: CORE_A_PROMOTES_PROJECT_READINESS_AFTER_REQUIRED_VALIDATION
+
+  Corporate_action_and_OHLC_semantics_project_readiness:
+    OWNER: I
+    CORE_A: A
+    CORE_B: C
+    RESEARCH: R
+    VALIDATION: V
+    ENGINEERING: R
+    rule: RESEARCH_LOCAL_CA_PASS_IS_NOT_PROJECT_CA_PASS
+
+  artifact_identity_hash_persistence_registry:
+    OWNER: I
+    CORE_A: A
+    CORE_B: C
+    RESEARCH: N
+    VALIDATION: V
+    ENGINEERING: R
+    rule: CORE_A_OWNS_ARTIFACT_GOVERNANCE_AND_CUSTODY_STATE
+
+  control_state_event_ledger_checkpoint_channel_rotation:
+    OWNER: I
+    CORE_A: A
+    CORE_B: C
+    RESEARCH: N
+    VALIDATION: C
+    ENGINEERING: N
+    rule: CORE_A_OWNS_CONTROL_PLANE_CONTINUITY
+
+  model_architecture:
+    OWNER: O
+    CORE_A: C
+    CORE_B: A
+    RESEARCH: R
+    VALIDATION: V
+    ENGINEERING: R
+    rule: CORE_B_OWNS_MODEL_DESIGN_WITH_OWNER_APPROVAL_FOR_MAJOR_ARCHITECTURE
+
+  feature_definition_and_weighting:
+    OWNER: I
+    CORE_A: C
+    CORE_B: A
+    RESEARCH: R
+    VALIDATION: V
+    ENGINEERING: R
+    rule: CORE_B_OWNS_MODEL_SEMANTICS_CORE_A_ENFORCES_VERSION_AND_LINEAGE_DISCIPLINE
+
+  scorer_and_ranking_contract:
+    OWNER: I
+    CORE_A: C
+    CORE_B: A
+    RESEARCH: C
+    VALIDATION: V
+    ENGINEERING: R
+    rule: SCORER_CHANGE_MUST_BE_VERSIONED_AND_RECORDED_BY_CORE_A_AFTER_CORE_B_DECISION
+
+  validation_metric_semantics_MFE_MAE_Top3_Top10_Critical_Miss:
+    OWNER: I
+    CORE_A: C
+    CORE_B: A
+    RESEARCH: C
+    VALIDATION: V
+    ENGINEERING: R
+    rule: CORE_B_DEFINES_SEMANTICS_CORE_A_OWNS_DATA_CONTRACT_AND_CHANGE_CONTROL
+
+  window_mapping_entry_exit_and_outcome_builder_contract:
+    OWNER: I
+    CORE_A: A
+    CORE_B: A
+    RESEARCH: C
+    VALIDATION: V
+    ENGINEERING: R
+    rule: SHARED_CONTRACT_NO_UNILATERAL_PROMOTION_BY_EITHER_CORE
+
+  model_input_schema_and_PIT_snapshot_interface:
+    OWNER: I
+    CORE_A: A
+    CORE_B: A
+    RESEARCH: C
+    VALIDATION: V
+    ENGINEERING: R
+    rule: CORE_A_OWNS_DATA_INTEGRITY_CORE_B_OWNS_MODEL_REQUIREMENTS_SHARED_CONTRACT_REQUIRED
+
+  backtest_and_experiment_design:
+    OWNER: I
+    CORE_A: C
+    CORE_B: A
+    RESEARCH: C
+    VALIDATION: V
+    ENGINEERING: R
+    rule: CORE_B_DESIGNS_EXPERIMENT_VALIDATION_NODE_CHECKS_EXECUTION_AND_LEAKAGE
+
+  no_tune_overfit_and_experiment_governance:
+    OWNER: I
+    CORE_A: C
+    CORE_B: A
+    RESEARCH: C
+    VALIDATION: V
+    ENGINEERING: N
+    rule: CORE_B_OWNS_MODEL_GOVERNANCE_CORE_A_RECORDS_IMMUTABLE_EXPERIMENT_STATE
+
+  actual_U127_two_year_replay_execution:
+    OWNER: I
+    CORE_A: A
+    CORE_B: A
+    RESEARCH: N
+    VALIDATION: V
+    ENGINEERING: R
+    rule: DATA_READINESS_FROM_CORE_A_MODEL_AND_EXPERIMENT_CONTRACT_FROM_CORE_B
+
+  ground_truth_freeze:
+    OWNER: O
+    CORE_A: A
+    CORE_B: C
+    RESEARCH: N
+    VALIDATION: V
+    ENGINEERING: N
+    rule: CORE_A_RECOMMENDS_ONLY_AFTER_LOGICAL_PHYSICAL_AND_VALIDATION_GATES_OWNER_APPROVES_FINAL_FREEZE
+
+  model_freeze:
+    OWNER: O
+    CORE_A: C
+    CORE_B: A
+    RESEARCH: N
+    VALIDATION: V
+    ENGINEERING: N
+    rule: CORE_B_RECOMMENDS_MODEL_FREEZE_CORE_A_CHECKS_ARTIFACT_AND_CONTROL_GATES_OWNER_APPROVES
+
+  release_or_production_activation:
+    OWNER: O
+    CORE_A: A
+    CORE_B: A
+    RESEARCH: N
+    VALIDATION: V
+    ENGINEERING: R
+    rule: BOTH_CORE_READINESS_GATES_AND_REQUIRED_VALIDATION_MUST_PASS_BEFORE_OWNER_ACTIVATION
+
+research_adjudication_routes:
+  data_ground_truth_evidence_research:
+    proposal_owner: RESEARCH
+    adjudication_authority: CORE_A
+    model_impact_review: CORE_B_WHEN_MATERIAL
+  model_theory_feature_validation_research:
+    proposal_owner: RESEARCH
+    adjudication_authority: CORE_B
+    data_contract_review: CORE_A_WHEN_MATERIAL
+  cross_domain_result:
+    adjudication_authority: CORE_A_AND_CORE_B
+    unresolved_state: CONTROL_SYNC_REQUIRED
+
+implementation_and_validation_separation:
+  implementation_owner_may_not_self_validate: true
+  validation_node_must_be_independent_for_freeze_claims: true
+  research_local_PASS_is_not_project_PASS: true
+  engineering_PASS_is_not_model_validation_PASS: true
+  control_recording_is_not_independent_validation: true
+
+promotion_sequence:
+  data_or_ground_truth: RESEARCH_PROPOSAL_TO_CORE_A_ADJUDICATION_TO_VALIDATION_IF_REQUIRED_TO_CONTROL_PROMOTION
+  model: RESEARCH_OR_DESIGN_TO_CORE_B_DECISION_TO_ENGINEERING_TO_INDEPENDENT_VALIDATION_TO_MODEL_FREEZE_RECOMMENDATION
+  shared_contract: CORE_A_CORE_B_RECONCILIATION_TO_VERSIONED_CONTROL_EVENT_TO_IMPLEMENTATION_TO_VALIDATION
+
+pending_items_before_v1_freeze:
+  - CORE_B_PERSONA_ID_AND_SUCCESSOR_INSTANCE
+  - CORE_B_EXACT_MAY_AND_MAY_NOT_AUTHORITY
+  - MODEL_VALIDATION_DESIGN_ASSETS_OWNERSHIP
+  - WINDOW_AND_OUTCOME_SHARED_CONTRACT_FINALIZATION
+  - CROSS_CORE_SYNC_EVENT_SCHEMA
+  - OWNER_ESCALATION_THRESHOLD
