@@ -1,0 +1,60 @@
+artifact_id: M3TOP3-WINDOW-MAPPING-v1.1-RECONCILIATION
+version: v0.1_WORKING
+status: CORE_B_ACCEPTED_AWAITING_DUAL_CORE_PROMOTION
+project: semiconductor-research
+owner_persona: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+work_order_id: WO-COREB-WM-v1.1-RECONCILIATION-20260815
+as_of: '2026-08-15T23:39:00+09:00'
+outcome_data_inspected: false
+actual_replay_executed: false
+source_audit: control/continuity/v1.0/SEMI-WINDOW-MAPPING-COMPATIBILITY-AUDIT_v0.1_WORKING.yaml
+source_u127_sha256: 1fc47fd131479e6ebb4375206853f39a730610d8b9f29160c33aa292881ad50a
+wm_v1_0_compatibility_verdict: FAIL_HISTORICAL_COMPATIBILITY
+conflicting_windows: [W2, W5, W8]
+root_cause: WM-v1.0 conflated nominal calendar anchor with PIT snapshot cutoff; on non-trading anchors this shortened nominal 3M horizons.
+wm_v1_1_decision: ACCEPT
+final_semantics:
+  anchor_date: A = nominal calendar evaluation anchor; historical W1-W8 use documented period-start anchor.
+  snapshot_cutoff: last valid KRX trading timestamp/date on or before A under PIT cutoff policy; if A is a trading day use that day's governed EOD cutoff.
+  window_start: A
+  entry_trade_date: first valid KRX trading day strictly after A
+  nominal_window_end: A plus exactly 3 calendar months; preserve day-of-month where possible, else clip to final calendar day of target month.
+  evaluation_last_trade_date: last valid KRX trading day on or before nominal_window_end
+  exit_trade_date: first valid KRX trading day strictly after nominal_window_end
+  mfe_interval: entry_trade_date through evaluation_last_trade_date inclusive
+  mae_interval: same as MFE interval
+  horizon_close_date: evaluation_last_trade_date
+historical_compatibility:
+  W1: PASS
+  W2: PASS
+  W3: PASS
+  W4: PASS
+  W5: PASS
+  W6: PASS
+  W7: PASS
+  W8: PASS
+  overall: PASS
+daily_replay_compatibility: PASS
+semantic_change_assessment:
+  mfe_mae_exit_economic_semantics_changed: false
+  calendar_anchor_binding_corrected: true
+  outcome_values_may_change_vs_WM_v1_0_for_affected_windows: true
+baseline_lock_impact:
+  classification: MATERIAL_COMPONENT_VERSION_UPDATE
+  model_version_change_required_pre_activation: false
+  required_action: create successor baseline-lock candidate version binding WM-v1.1; preserve prior v1.0_WORKING candidate; do not activate until dual-core promotion and implementation/hash gates pass.
+other_model_components:
+  feature_schema: NO_CHANGE
+  scorer: NO_CHANGE
+  weights: NO_CHANGE
+  critical_miss: NO_CHANGE
+  holdout_policy: NO_CHANGE
+  coverage_policy: NO_CHANGE
+implementation_requirements:
+  - persist anchor_date separately from snapshot_cutoff
+  - derive nominal_end from anchor_date, never from cutoff date
+  - bind WM-v1.1 in validation/run manifests
+  - rerun calendar-unit tests for W1-W8 before actual replay
+shared_contract_self_promoted: false
+owner_escalation_required: false
+independent_validation_self_certified: false
