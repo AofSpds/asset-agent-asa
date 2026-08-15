@@ -1,0 +1,40 @@
+work_order_id: WO-COREB-V1-PREOUTCOME-LOCK-20260815
+status: READY_TO_ROUTE
+project: semiconductor-research
+created_at: '2026-08-15T23:03:00+09:00'
+requesting_core: CORE_A
+requesting_persona: SEMI-CONTROL-ARCHITECT
+target_core: CORE_B
+target_persona: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+target_instance: MODEL-ARCH-INSTANCE-002-20260815
+priority: P0
+purpose:
+  - review_and_reconcile_five_open_shared_contracts
+  - formalize_M3Top3_v1_feature_schema
+  - formalize_M3Top3_v1_scorer
+  - formalize_M3Top3_v1_weight_version
+  - lock_no_tune_baseline_before_any_actual_outcome_inspection
+inputs:
+  current_state: control/continuity/v1.0/SEMI-CURRENT-STATE_v1.2.yaml
+  checkpoint: control/continuity/v1.0/checkpoints/CP-DUALCORE-20260815-001.yaml
+  shared_contract_state: control/continuity/v1.0/SEMI-SHARED-CONTRACT-STATE_v0.1_WORKING.yaml
+  closure_proposal: control/continuity/v1.0/SEMI-SHARED-CONTRACT-CLOSURE-PROPOSAL_v0.1_WORKING.yaml
+  model_contract: control/core_b/M3TOP3-MODEL-CONTRACT_v1.0_WORKING.yaml
+  validation_contract: control/core_b/M3TOP3-VALIDATION-CONTRACT_v1.0_WORKING.yaml
+  open_design_items: control/core_b/M3TOP3-OPEN-DESIGN-ITEMS_v1.0_WORKING.yaml
+constraints:
+  - DO_NOT_RUN_ACTUAL_U127_REPLAY
+  - DO_NOT_INSPECT_FUTURE_OUTCOMES_FOR_TUNING
+  - DO_NOT_CHANGE_U127_GT
+  - DO_NOT_CHANGE_PRICE_OR_CA_STATE
+  - DO_NOT_SELF_CERTIFY_INDEPENDENT_VALIDATION
+  - SHARED_CONTRACT_CHANGE_REQUIRES_CORE_A_RECONCILIATION
+required_outputs:
+  - per_contract_accept_modify_reject_decision
+  - feature_schema_v1_candidate
+  - scorer_v1_candidate
+  - weight_version_v1_candidate
+  - no_tune_baseline_lock_candidate
+  - remaining_open_design_items
+  - replay_readiness_delta
+control_promotion: PENDING_RETURN_AND_CORE_A_ADJUDICATION
