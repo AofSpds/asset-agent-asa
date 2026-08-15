@@ -1,0 +1,168 @@
+matrix_id: AAA-BUILD-MATRIX
+version: v0.1_WORKING
+status: STEP_1_MATRIX_DEFINED
+project: Asset Agent ASA
+short_name: AAA
+launch_rule:
+  base_ref: control-hub-continuity-v1
+  exact_base_commit: RESOLVE_AND_PIN_AT_EACH_TRACK_LAUNCH
+  stale_base_behavior: REJECT_AND_REBASE_BY_NEW_RUN
+  active_m3top3_source_paths_initially_read_only: true
+parallelism:
+  wave_0_scout_lanes: 4
+  wave_1_build_lanes: 8
+  target_simultaneous_independent_lanes: 6_to_8
+  hard_rule: NO_TWO_TRACKS_OWN_SAME_FILE
+tracks:
+  - track_id: AAA-T01-CONTRACTS
+    owner_executor: BUILD_CONTROL_CONTRACT_TRACK
+    objective: Materialize AAA Work Order, Agent Run, Result Manifest and provider/storage interfaces.
+    dependencies: []
+    input_paths:
+      - control/schemas/v0.1/run_manifest.schema.yaml
+      - control/governance/SEMI-OPS-AGENTIC-DUAL-CORE-CONSENSUS_v1.1_WORKING.yaml
+      - control/aaa/v0.1/AAA-BUILD-CONTRACT_v0.1_WORKING.yaml
+    output_paths:
+      - aaa/contracts/
+    file_ownership: [aaa/contracts/**]
+    allowed_permissions: LEVEL_2_ISOLATED_BRANCH_WRITE
+    forbidden_actions: [MODIFY_FROZEN_SCHEMA_REGISTRY, MODIFY_SHARED_CONTRACT, CANONICAL_WRITE]
+    tests: [schema_roundtrip, required_field_rejection, immutable_identity_hash]
+    integration_gate: CONTRACT_TESTS_PASS
+    expected_duration: 1_to_2_hours
+    parallelizable_with: [AAA-T04-UI, AAA-T05-GATEWAY, AAA-T07-STORAGE, AAA-T08-VALIDATION]
+    blocking_dependencies: []
+    result_contract: AAA_RESULT_MANIFEST
+  - track_id: AAA-T02-CORE-STATE
+    owner_executor: DETERMINISTIC_CORE_TRACK
+    objective: Implement deterministic identity, hashing, state reducer, event projection, stale and idempotency controls.
+    dependencies: [AAA-T01-CONTRACTS]
+    input_paths:
+      - control/continuity/v1.0/SEMI-CURRENT-STATE_v2.10.yaml
+      - control/continuity/v1.0/SEMI-CONTROL-EVENT-LEDGER_v3.2.jsonl
+      - control/continuity/v1.0/SEMI-ASSET-REGISTRY_v1.0.yaml
+    output_paths:
+      - aaa/src/aaa/core/
+      - aaa/src/aaa/state/
+    file_ownership: [aaa/src/aaa/core/**, aaa/src/aaa/state/**]
+    allowed_permissions: LEVEL_2_ISOLATED_BRANCH_WRITE
+    forbidden_actions: [MUTATE_CONTROL_HISTORY, AUTHORITATIVE_ADJUDICATION, CANONICAL_PROMOTION]
+    tests: [deterministic_rebuild, hash_stability, stale_rejection, idempotent_retry, event_ordering]
+    integration_gate: DETERMINISTIC_CORE_PASS
+    expected_duration: 2_to_4_hours
+    parallelizable_with: [AAA-T04-UI, AAA-T05-GATEWAY, AAA-T06-AGENT, AAA-T07-STORAGE, AAA-T08-VALIDATION]
+    blocking_dependencies: [AAA-T01-CONTRACTS]
+    result_contract: AAA_RESULT_MANIFEST
+  - track_id: AAA-T03-CLI-API
+    owner_executor: INTERFACE_TRACK
+    objective: Implement aaa CLI and read-only backend API over deterministic state/services.
+    dependencies: [AAA-T01-CONTRACTS, AAA-T02-CORE-STATE]
+    input_paths: [aaa/contracts/**, aaa/src/aaa/core/**, aaa/src/aaa/state/**]
+    output_paths:
+      - aaa/src/aaa/cli/
+      - aaa/src/aaa/api/
+    file_ownership: [aaa/src/aaa/cli/**, aaa/src/aaa/api/**]
+    allowed_permissions: LEVEL_2_ISOLATED_BRANCH_WRITE
+    forbidden_actions: [CANONICAL_WRITE_ENDPOINTS, MODEL_METHOD_CHANGE, GROUND_TRUTH_PROMOTION]
+    tests: [aaa_status_json, work_list_readonly, asset_verify, gate_list, api_health, api_state]
+    integration_gate: READ_ONLY_CLI_API_PASS
+    expected_duration: 2_to_4_hours
+    parallelizable_with: [AAA-T04-UI, AAA-T05-GATEWAY, AAA-T06-AGENT, AAA-T07-STORAGE, AAA-T08-VALIDATION]
+    blocking_dependencies: [AAA-T02-CORE-STATE]
+    result_contract: AAA_RESULT_MANIFEST
+  - track_id: AAA-T04-UI
+    owner_executor: WEB_UI_TRACK
+    objective: Build Owner Console scaffold and deterministic read-only views first.
+    dependencies: [AAA-T01-CONTRACTS]
+    input_paths: [control/aaa/v0.1/AAA-BUILD-CONTRACT_v0.1_WORKING.yaml]
+    output_paths: [aaa/web/]
+    file_ownership: [aaa/web/**]
+    allowed_permissions: LEVEL_2_ISOLATED_BRANCH_WRITE
+    forbidden_actions: [DIRECT_CANONICAL_STATE_MUTATION, HIDDEN_LLM_DEPENDENCY_FOR_STATUS]
+    tests: [ui_build, navigation_smoke, llm_off_static_views, api_mock_contract]
+    integration_gate: UI_SCAFFOLD_PASS
+    expected_duration: 2_to_4_hours
+    parallelizable_with: [AAA-T01-CONTRACTS, AAA-T02-CORE-STATE, AAA-T05-GATEWAY, AAA-T06-AGENT, AAA-T07-STORAGE, AAA-T08-VALIDATION]
+    blocking_dependencies: []
+    result_contract: AAA_RESULT_MANIFEST
+  - track_id: AAA-T05-GATEWAY
+    owner_executor: MODEL_GATEWAY_TRACK
+    objective: Implement provider-neutral LLM gateway and capability/health abstraction.
+    dependencies: [AAA-T01-CONTRACTS]
+    input_paths: [aaa/contracts/**]
+    output_paths: [aaa/src/aaa/gateway/]
+    file_ownership: [aaa/src/aaa/gateway/**]
+    allowed_permissions: LEVEL_2_ISOLATED_BRANCH_WRITE
+    forbidden_actions: [MAKE_LLM_CONTROL_PLANE_DEPENDENCY, PROVIDER_SPECIFIC_PERSONA_IDENTITY]
+    tests: [provider_offline, fake_provider_swap, capability_negotiation, structured_output_contract]
+    integration_gate: PROVIDER_SWAP_AND_LLM_OFF_PASS
+    expected_duration: 2_to_4_hours
+    parallelizable_with: [AAA-T02-CORE-STATE, AAA-T04-UI, AAA-T06-AGENT, AAA-T07-STORAGE, AAA-T08-VALIDATION]
+    blocking_dependencies: [AAA-T01-CONTRACTS]
+    result_contract: AAA_RESULT_MANIFEST
+  - track_id: AAA-T06-AGENT
+    owner_executor: AGENT_RUNTIME_TRACK
+    objective: Implement one generic execution harness with role profiles and Level-0/1/2 permission enforcement.
+    dependencies: [AAA-T01-CONTRACTS]
+    input_paths: [aaa/contracts/**]
+    output_paths: [aaa/src/aaa/agents/]
+    file_ownership: [aaa/src/aaa/agents/**]
+    allowed_permissions: LEVEL_2_ISOLATED_BRANCH_WRITE
+    forbidden_actions: [LEVEL_5_CANONICAL_WRITE, SELF_CERTIFY_INDEPENDENT_VALIDATION, AUTHORITY_IMPERSONATION]
+    tests: [permission_denial, immutable_work_order, run_identity, crash_recovery, duplicate_result]
+    integration_gate: AGENT_PERMISSION_PASS
+    expected_duration: 2_to_4_hours
+    parallelizable_with: [AAA-T02-CORE-STATE, AAA-T04-UI, AAA-T05-GATEWAY, AAA-T07-STORAGE, AAA-T08-VALIDATION]
+    blocking_dependencies: [AAA-T01-CONTRACTS]
+    result_contract: AAA_RESULT_MANIFEST
+  - track_id: AAA-T07-STORAGE
+    owner_executor: STORAGE_SECURITY_TRACK
+    objective: Implement content identity, staging interfaces, projection store and promotion guard without canonical promotion capability enabled.
+    dependencies: [AAA-T01-CONTRACTS]
+    input_paths:
+      - control/data-plane/DATA-PLANE-STORAGE-CONTRACT_v1.0.yaml
+      - manifests/active/active-manifest.yaml
+    output_paths:
+      - aaa/src/aaa/storage/
+      - aaa/src/aaa/security/
+    file_ownership: [aaa/src/aaa/storage/**, aaa/src/aaa/security/**]
+    allowed_permissions: LEVEL_2_ISOLATED_BRANCH_WRITE
+    forbidden_actions: [DIRECT_R2_AGENT_WRITE, CANONICAL_KEY_OVERWRITE, ENABLE_PROMOTION_WITHOUT_GATE]
+    tests: [sha_byte_identity, same_key_different_hash_fail, staging_namespace, projection_rebuild, partial_replication_fail_closed]
+    integration_gate: STORAGE_BOUNDARY_PASS
+    expected_duration: 2_to_4_hours
+    parallelizable_with: [AAA-T02-CORE-STATE, AAA-T04-UI, AAA-T05-GATEWAY, AAA-T06-AGENT, AAA-T08-VALIDATION]
+    blocking_dependencies: [AAA-T01-CONTRACTS]
+    result_contract: AAA_RESULT_MANIFEST
+  - track_id: AAA-T08-VALIDATION
+    owner_executor: BUILD_VALIDATION_HARNESS_TRACK
+    objective: Build deterministic contract/adversarial test harness; does not issue independent validation verdict.
+    dependencies: []
+    input_paths:
+      - control/aaa/v0.1/AAA-BUILD-CONTRACT_v0.1_WORKING.yaml
+      - control/schemas/v0.1/
+    output_paths:
+      - aaa/tests/
+      - .github/workflows/aaa-build-tests.yml
+    file_ownership: [aaa/tests/**, .github/workflows/aaa-build-tests.yml]
+    allowed_permissions: LEVEL_2_ISOLATED_BRANCH_WRITE
+    forbidden_actions: [INDEPENDENT_VALIDATION_SELF_CERTIFICATION, PRODUCTION_RELEASE]
+    tests: [determinism_suite, contract_suite, recovery_suite, permission_suite, llm_off_suite, provider_swap_suite]
+    integration_gate: ENGINEERING_VALIDATION_PASS_NOT_INDEPENDENT
+    expected_duration: 2_to_4_hours
+    parallelizable_with: [AAA-T01-CONTRACTS, AAA-T02-CORE-STATE, AAA-T04-UI, AAA-T05-GATEWAY, AAA-T06-AGENT, AAA-T07-STORAGE]
+    blocking_dependencies: []
+    result_contract: AAA_RESULT_MANIFEST
+integration_order:
+  - AAA-T01-CONTRACTS
+  - AAA-T02-CORE-STATE
+  - AAA-T03-CLI-API
+  - AAA-T04-UI
+  - AAA-T05-GATEWAY
+  - AAA-T06-AGENT
+  - AAA-T07-STORAGE
+  - AAA-T08-VALIDATION
+wave_1_launch_group_A: [AAA-T01-CONTRACTS, AAA-T04-UI, AAA-T08-VALIDATION]
+wave_1_launch_group_B_after_contract: [AAA-T02-CORE-STATE, AAA-T05-GATEWAY, AAA-T06-AGENT, AAA-T07-STORAGE]
+wave_1_launch_group_C_after_core: [AAA-T03-CLI-API]
+step_1_exit_status: COMPLETE_WHEN_THIS_MATRIX_AND_CONTRACT_ARE_VERIFIED
