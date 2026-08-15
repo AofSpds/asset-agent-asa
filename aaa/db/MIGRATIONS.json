@@ -15,7 +15,7 @@
     {
       "version": "0003",
       "path": "aaa/db/migrations/0003_idempotent_events_atomic_completion.sql",
-      "sha256": "58b372d95060ad6b86d90c883eefef40455ffe6b9f5ef3bc575603c3098ada52"
+      "sha256": "5d14f97a9b2d469885984c92fe3d725e213ec892616eee19a7708338b226374b"
     }
   ],
   "postgresql_required_for_certification": true,
