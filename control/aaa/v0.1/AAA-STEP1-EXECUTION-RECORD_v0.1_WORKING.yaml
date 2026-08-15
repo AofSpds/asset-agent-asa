@@ -1,0 +1,29 @@
+record_id: AAA-STEP1-EXECUTION-RECORD
+version: v0.1_WORKING
+project: Asset Agent ASA
+short_name: AAA
+status: STEP_1_COMPLETE_WAVE_1_READY
+completed_at: '2026-08-16T03:49:00+09:00'
+artifacts:
+  naming_transition_contract: control/aaa/v0.1/AAA-NAMING-TRANSITION-CONTRACT_v0.1_WORKING.yaml
+  build_program: control/aaa/v0.1/AAA-BUILD-PROGRAM_v0.1_WORKING.yaml
+  gap_map: control/aaa/v0.1/AAA-GAP-MAP_v0.1_WORKING.yaml
+  build_contract: control/aaa/v0.1/AAA-BUILD-CONTRACT_v0.1_WORKING.yaml
+  build_matrix: control/aaa/v0.1/AAA-BUILD-MATRIX_v0.1_WORKING.yaml
+step_1_result:
+  latest_state_recovery: PASS
+  naming_transition: PASS
+  gap_map: PASS
+  build_contract: PASS
+  build_matrix: PASS
+  p0_source_code_modified: false
+  frozen_architecture_modified: false
+  u127_modified: false
+  canonical_state_cutover: false
+wave_1_launch_group_A:
+  - AAA-T01-CONTRACTS
+  - AAA-T04-UI
+  - AAA-T08-VALIDATION
+launch_base_ref: control-hub-continuity-v1
+launch_base_commit_at_record_time: 04ee59188419a3fb7c2d6b48c457cdf9752ac518
+launch_rule: REVALIDATE_EXACT_HEAD_AND_CREATE_ISOLATED_TRACK_BRANCH_BEFORE_SOURCE_WRITE
