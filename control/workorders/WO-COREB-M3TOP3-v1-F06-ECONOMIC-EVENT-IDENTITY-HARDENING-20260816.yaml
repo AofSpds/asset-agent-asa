@@ -1,0 +1,138 @@
+work_order_id: WO-COREB-M3TOP3-v1-F06-ECONOMIC-EVENT-IDENTITY-HARDENING-20260816
+version: v1.0
+status: READY_FOR_CORE_B
+project: semiconductor-research
+priority: P0
+issued_at: '2026-08-16T04:01:00+09:00'
+requesting_persona:
+  canonical_name: 문서·통제 아키텍트
+  persona_id: SEMI-CONTROL-ARCHITECT
+target_persona:
+  canonical_name: 모델 검증·설계 아키텍트
+  persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+source_independent_validation:
+  packet_header: '[RETURN PACKET — M3TOP3 v1 DELTA INDEPENDENT PREFLIGHT]'
+  adjudication: control/validation/M3TOP3-v1-INDEPENDENT-DELTA-ADJUDICATION_v0.1_WORKING.yaml
+  verdict: FAIL
+  failure: FND_02_F06_ECONOMIC_EVENT_ID_ROTATION_BYPASS
+base_successor_to_preserve: 5ee82d15a27237ed2ad142ae877c6595f0489f80
+required_new_successor: true
+purpose: >-
+  Close one material F06 identity/dedup bypass found by independent validation without changing weights, scorer arithmetic,
+  model architecture, CW_01/CW_02/CW_03 behavior, FND_03 behavior, WM-v1.1 or outcome-blind scientific constraints.
+problem_statement: >-
+  In the exact source, _milestone_identity() chooses milestone_id before event_group_id/evidence_group_id. Two rows that represent
+  the same governed economic event can therefore use different milestone_id values and the same event_group_id yet be counted as
+  two independent verified milestones, producing F06=90 when sequential_verified=false. This violates the invariant that identifier
+  rotation cannot inflate independent economic evidence.
+required_fix:
+  invariant: ONE_ECONOMIC_EVENT_ONE_INDEPENDENT_F06_COUNT
+  requirements:
+    - A shared explicit event_group_id must prevent rows from being counted as independent even when milestone_id differs.
+    - A shared explicit evidence_group_id must prevent rows from being counted as independent even when milestone_id differs.
+    - Reconcile multiple identity fields conservatively. Do not solve only the exact event_group case by swapping simple precedence if another collision route remains.
+    - A lower-level row/milestone identifier must not override a shared governed economic/evidence identity.
+    - Anonymous milestones without a governed identity may contribute only under already-governed non-independent behavior; they must not create independent-count evidence.
+    - Preserve legitimate distinct-event behavior: genuinely distinct governed economic identities may still produce 90/100 under existing F06 rules.
+  preferred_design: >-
+    Conservative multi-key grouping, such as connected components over matching milestone_id, event_group_id and evidence_group_id values
+    within field namespaces, or an equivalent fail-closed implementation. The implementation should be order-deterministic and should
+    expose sufficient trace fields to audit grouped identities and collisions.
+  conflict_handling: >-
+    If implementing this requires changing Shared Contract semantics rather than enforcing the existing anti-double-count/economic-event
+    identity intent, stop and return a bounded semantic conflict for CORE A/CORE B reconciliation instead of changing definitions unilaterally.
+required_adversarial_tests:
+  - name: same_event_group_rotated_milestone_id
+    expectation: two rows sharing event_group_id but distinct milestone_id cannot alone reach F06 90 or 100; they dedupe/group or fail closed.
+  - name: same_evidence_group_rotated_milestone_id
+    expectation: two rows sharing evidence_group_id but distinct milestone_id cannot alone reach F06 90 or 100.
+  - name: transitive_identity_collision
+    expectation: A linked to B by event_group and B linked to C by evidence_group cannot become multiple independent groups through identifier rotation.
+  - name: same_milestone_id_duplicate
+    expectation: existing dedupe behavior remains.
+  - name: genuinely_distinct_governed_nonsequential_events
+    expectation: existing F06 90 semantics remain available.
+  - name: genuinely_distinct_governed_sequential_events
+    expectation: existing F06 100 semantics remain available when sequential criteria are truly satisfied.
+  - name: anonymous_rows_not_independent
+    expectation: anonymous milestones cannot create the >=2 independent_verified threshold.
+regression_requirements:
+  - Rerun full M3Top3 test suite.
+  - Preserve all previously passing CW_01/CW_02/CW_03 tests and behavior.
+  - Preserve FND_03 F02 explicit operator governance.
+  - Preserve original six shared asset identities unless a separately authorized semantic reconciliation occurs.
+  - Preserve seven control-fix asset identities unless a changed implementation dependency requires a new versioned identity; never overwrite frozen/history identities.
+  - Preserve baseline config SHA256 eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98.
+  - Preserve all axis and feature weights.
+  - Preserve GATED_LINEAR scorer arithmetic, missingness, anti-double-count outside this F06 enforcement, Hard Risk Gate arithmetic, SIO, WM-v1.1, determinism and idempotence.
+identity_requirements:
+  - New exact successor commit descending from 5ee82d15a27237ed2ad142ae877c6595f0489f80.
+  - Do not overwrite or redefine 5ee82d15a27237ed2ad142ae877c6595f0489f80.
+  - Return changed file SHA256, byte size and Git blob SHA.
+  - Return exact test command and exact CI run/job if available.
+  - Return source/test/workflow successor identity separately from later report/manifest evidence commits.
+scientific_firewall:
+  forbidden:
+    - Actual U127 MFE/MAE/future return/future rank inspection
+    - Historical Top3 outcome inspection
+    - Actual U127 replay
+    - Outcome-based tuning
+    - Weight changes
+    - Scorer architecture redesign
+    - Ground Truth mutation
+    - Price mutation
+    - CA mutation
+    - U127 rematerialization
+    - Invented F08 numeric penalty schedule
+    - Model Freeze
+    - Production Release
+preserve_independent_results:
+  CW_01: PASS
+  CW_02: PASS
+  CW_03: PASS
+  FND_03: PASS
+  independent_delta_overall: FAIL_DUE_FND_02_ONLY
+independent_validation_after_fix:
+  required: true
+  previous_work_order: WO-VALIDATION-M3TOP3-v1-DELTA-PREFLIGHT-AFTER-NARROW-FIXES-20260816
+  rule: A new exact successor must be independently revalidated; CORE B cannot self-declare Independent Validation PASS.
+required_output:
+  exactly_one_return_packet: true
+  header: '[RETURN PACKET — M3TOP3 v1 F06 ECONOMIC EVENT IDENTITY HARDENING]'
+  required_fields:
+    - WORK_ORDER_ID
+    - TASK_COMPLETED
+    - BASE_SUCCESSOR_COMMIT
+    - NEW_SUCCESSOR_COMMIT
+    - SUCCESSOR_DESCENDS_FROM_BASE
+    - CHANGED_FILES
+    - CHANGED_COMPONENT_IDENTITIES
+    - F06_IDENTITY_STRATEGY
+    - SAME_EVENT_GROUP_ROTATED_ID_RESULT
+    - SAME_EVIDENCE_GROUP_ROTATED_ID_RESULT
+    - TRANSITIVE_COLLISION_RESULT
+    - DISTINCT_EVENT_90_RESULT
+    - DISTINCT_SEQUENTIAL_EVENT_100_RESULT
+    - ANONYMOUS_INDEPENDENCE_RESULT
+    - FULL_REGRESSION_RESULT
+    - CW_01_REGRESSION_RESULT
+    - CW_02_REGRESSION_RESULT
+    - CW_03_REGRESSION_RESULT
+    - FND_03_REGRESSION_RESULT
+    - BASELINE_CONFIG_SHA256
+    - WEIGHTS_CHANGED
+    - SCORER_MATH_CHANGED
+    - WM_SEMANTICS_CHANGED
+    - ACTUAL_OUTCOME_DATA_INSPECTED
+    - ACTUAL_REPLAY_EXECUTED
+    - OUTCOME_TUNING_EXECUTED
+    - ANY_DUAL_CORE_SEMANTIC_CONFLICT
+    - READY_FOR_INDEPENDENT_DELTA_RERUN
+    - REMAINING_BLOCKERS
+    - RECOMMENDED_NEXT_ACTION
+output_discipline:
+  - Output exactly one Markdown fenced code block.
+  - Write nothing before or after the block.
+  - Do not self-declare Independent Validation PASS.
+request_chronology:
+  requested_at: '2026-08-16 04:01 KST'
