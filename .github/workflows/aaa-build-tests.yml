@@ -42,6 +42,13 @@ jobs:
           echo 'AAA_RESOLVED_DIRECT_DEPENDENCIES_END'
           test -f package-lock.json
           sha256sum package-lock.json
+      - name: Export generated package lock for controlled commit
+        uses: actions/upload-artifact@v4
+        with:
+          name: aaa-web-package-lock
+          path: aaa/web/package-lock.json
+          if-no-files-found: error
+          retention-days: 1
       - name: Build Owner Console
         working-directory: aaa/web
         shell: bash
