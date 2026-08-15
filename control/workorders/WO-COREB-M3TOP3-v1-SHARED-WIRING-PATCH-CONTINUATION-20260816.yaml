@@ -1,0 +1,95 @@
+work_order_id: WO-COREB-M3TOP3-v1-SHARED-WIRING-PATCH-CONTINUATION-20260816
+version: v1.0
+status: READY_FOR_CORE_B_REHASH_THEN_RESUME
+project: semiconductor-research
+priority: P0
+issued_at: '2026-08-16T01:49:00+09:00'
+requesting_persona:
+  canonical_name: 문서·통제 아키텍트
+  persona_id: SEMI-CONTROL-ARCHITECT
+target_persona:
+  canonical_name: 모델 검증·설계 아키텍트
+  persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+predecessor_work_order: control/workorders/WO-COREB-M3TOP3-v1-SHARED-WIRING-PATCH-20260816.yaml
+trigger_return_packet: RETURN PACKET — M3TOP3 v1 SHARED INTERFACE WIRING PATCH
+trigger_result: BLOCKED_AT_MANDATORY_SHARED_ASSET_REHASH_GATE
+control_adjudication: control/shared/M3TOP3-v1-SHARED-ASSET-BYTE-IDENTITY-ADJUDICATION_v1.0_WORKING.yaml
+successor_asset_manifest:
+  path: control/shared/M3TOP3-v1-SHARED-INTERFACE-ASSET-MANIFEST_v1.1_WORKING.yaml
+  create_commit: 589c9a4552332c91fad5a175309a04cc9cb4d24e
+  git_blob_sha: 02e33fefc47f82ef1b67aa9515cffa36ede252d3
+control_decision: >-
+  The current GitHub bytes are authoritative. For the three failed assets, their creation-time Git blob SHA equals the current
+  branch Git blob SHA, so no post-creation asset mutation occurred. The prior v1.0 manifest hash declarations were wrong.
+  Do not rematerialize or overwrite the six Shared Interface assets; use the v1.1 successor manifest and independently rehash again.
+required_rehash:
+  rule: Re-read exact current GitHub bytes and independently recompute SHA256 and byte size for all six assets. Also compare Git blob SHA.
+  all_six_must_pass_before_code_change: true
+  expected:
+  - path: control/shared/M3TOP3-v1-SHARED-PREFLIGHT-INTERFACE-RECONCILED-DECISION_v1.0_WORKING.yaml
+    sha256: 7d8d000c467b8b3cd4e3f16c1eef060a8d70fceabab2f66161fde08d54e9f1a4
+    byte_size: 6420
+    git_blob_sha: eb50f06d49c3c52b86d8c16290f350635de2537b
+  - path: control/shared/M3TOP3-FEATURE-INPUT-REGISTRY_v1.0_WORKING.yaml
+    sha256: 63edde7d91aafa4691b7a31ee7304b9972e064347a55b9d891b19634b199df37
+    byte_size: 4843
+    git_blob_sha: 5faa4d5739bf9ecb0c11d16f6d7d697ff3983977
+  - path: control/shared/M3TOP3-PIT-CONSUMED-PROVENANCE-CONTRACT_v1.0_WORKING.yaml
+    sha256: 22e80dbf80e1bfb9ae25ab8f56a7fd56463fc8c8bd92a67489a6a9601455354f
+    byte_size: 3302
+    git_blob_sha: b7a00087f9b9985d6d5523bf6524361e5ae620fe
+  - path: control/shared/M3TOP3-REFRESH-RULE-REGISTRY_v1.0_WORKING.yaml
+    sha256: e44b67e4f3854cfcd2c9f5fd7924192bc0c5491bfcdd496acbae8b4dd318cd64
+    byte_size: 3715
+    git_blob_sha: bced062f75b44915f61d8d54dafe8bab9713029d
+  - path: control/shared/M3TOP3-COVERAGE-RELEASE-POLICY_v1.0_WORKING.yaml
+    sha256: 076bd1b7acee061f9c0d57e4dda802b6beb533fcd4b323eafa39760ad98b1f97
+    byte_size: 3178
+    git_blob_sha: 0532eb3b921438538fa4cca908832cf5a770ca84
+  - path: control/core_b/M3TOP3-v1-IMPLEMENTATION-COMPATIBILITY-NOTE_v1.0.1_WORKING.yaml
+    sha256: dfd98712a4982eef5a4b07fec5d376f0eefed0c1861e14d3a20ddb22c87fb656
+    byte_size: 1141
+    git_blob_sha: 685d5aa1ea2ac5c63a3c70898a9576955b1d22fc
+resume_rule: >-
+  If and only if all six assets match the successor manifest identities, resume the full scope of predecessor work order
+  WO-COREB-M3TOP3-v1-SHARED-WIRING-PATCH-20260816 without weakening any scientific firewall, adversarial test, regression,
+  outcome-blindness, no-invented-F08-threshold, scorer-math, weight, or WM-v1.1 constraint.
+if_rehash_fails_again: STOP_AND_RETURN_BLOCKED_WITH_EXACT_OBSERVED_IDENTITIES
+successor_implementation_required: true
+base_patch_commit: 5f9491b6861a11097a929156eaa8bb7cc3c8c749
+actual_replay_forbidden: true
+model_freeze_forbidden: true
+production_release_forbidden: true
+required_output:
+  exactly_one_return_packet: true
+  header: '[RETURN PACKET — M3TOP3 v1 SHARED INTERFACE WIRING PATCH CONTINUATION]'
+  required_fields:
+  - WORK_ORDER_ID
+  - TASK_COMPLETED
+  - SUCCESSOR_MANIFEST_REHASH
+  - ALL_SIX_ASSET_REHASH_PASS
+  - BASE_PATCH_COMMIT
+  - SUCCESSOR_PATCH_COMMIT
+  - CHANGED_FILES
+  - CHANGED_COMPONENT_SHA256
+  - FND_01_IMPLEMENTATION_RESULT
+  - FND_04_IMPLEMENTATION_RESULT
+  - FND_06_IMPLEMENTATION_RESULT
+  - F02_COMPATIBILITY_BINDING_RESULT
+  - ADVERSARIAL_TEST_RESULT
+  - FULL_REGRESSION_RESULT
+  - WEIGHTS_CHANGED
+  - SCORER_ARCHITECTURE_CHANGED
+  - WM_SEMANTICS_CHANGED
+  - ACTUAL_OUTCOME_DATA_INSPECTED
+  - ACTUAL_REPLAY_EXECUTED
+  - OUTCOME_TUNING_EXECUTED
+  - REMAINING_BLOCKERS
+  - READY_FOR_INDEPENDENT_DELTA_PREFLIGHT
+  - RECOMMENDED_NEXT_ACTION
+output_discipline:
+  - Output exactly one Markdown fenced code block.
+  - Write nothing before or after the block.
+  - Owner-facing explanation must use practical Korean meaning before technical terms where material.
+request_chronology:
+  requested_at: '2026-08-16 01:49 KST'
