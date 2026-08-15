@@ -12,6 +12,8 @@ on:
 
 jobs:
   deterministic-contract-tests:
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -25,18 +27,29 @@ jobs:
           python -m unittest discover -s aaa/tests -p 'test_*.py' -v
 
   owner-console-build-smoke:
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - name: Install Owner Console dependencies for engineering smoke build
+          cache: 'npm'
+          cache-dependency-path: aaa/web/package-lock.json
+      - name: Verify Owner Console dependency lock identity
         working-directory: aaa/web
         shell: bash
         run: |
           set -euo pipefail
-          npm install --no-audit --no-fund --package-lock=false
+          test -f package-lock.json
+          sha256sum package-lock.json
+      - name: Install Owner Console dependencies from committed lock only
+        working-directory: aaa/web
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm ci --no-audit --no-fund
       - name: Build Owner Console
         working-directory: aaa/web
         shell: bash
