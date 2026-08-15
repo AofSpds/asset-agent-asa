@@ -1,0 +1,48 @@
+state_id: SEMI-SHARED-CONTRACT-STATE
+version: v0.3_WORKING
+status: DUAL_CORE_RECONCILIATION_REOPENED_WINDOW_MAPPING_ONLY
+project: semiconductor-research
+as_of: '2026-08-15T23:28:00+09:00'
+parties:
+  CORE_A: {canonical_name: 문서·통제 아키텍트, persona_id: SEMI-CONTROL-ARCHITECT}
+  CORE_B: {canonical_name: 모델 검증·설계 아키텍트, persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT}
+supersedes: control/continuity/v1.0/SEMI-SHARED-CONTRACT-STATE_v0.2_WORKING.yaml
+reopen_trigger:
+  audit: control/continuity/v1.0/SEMI-WINDOW-MAPPING-COMPATIBILITY-AUDIT_v0.1_WORKING.yaml
+  source_anchor_sha256: 1fc47fd131479e6ebb4375206853f39a730610d8b9f29160c33aa292881ad50a
+  finding: WM-v1.0 fails byte-verified historical compatibility for W2, W5, W8 because it uses snapshot cutoff D as calendar horizon anchor.
+  control_action: REOPEN_WINDOW_MAPPING_ONLY
+contracts:
+  MODEL_INPUT_SCHEMA: {version: MIS-v1.0, status: AGREED_WORKING_IMPLEMENTATION_PENDING}
+  PIT_SNAPSHOT_INTERFACE: {status: AGREED_WORKING}
+  UNIVERSE_ELIGIBILITY: {status: AGREED_WORKING_EXECUTION_BLOCKED_BY_U127_RELEASE}
+  WINDOW_MAPPING:
+    prior_version: WM-v1.0
+    status: OPEN_RECONCILIATION_REQUIRED
+    core_a_candidate_version: WM-v1.1
+    core_a_candidate_semantics:
+      anchor_date: A
+      snapshot_cutoff: last KRX trading timestamp/date on or before A
+      window_start: A
+      entry_trade_date: first KRX trading day strictly after A
+      nominal_window_end: A + exactly 3 calendar months
+      evaluation_last_trade_date: last KRX trading day on or before nominal_window_end
+      exit_trade_date: first KRX trading day strictly after nominal_window_end
+      daily_replay: if A is a normal trading-day snapshot date, cutoff=A
+    change_requires_both: true
+    independent_validation_required: true
+  ENTRY_EXIT: {status: AGREED_WORKING}
+  OUTCOME_BUILDER: {status: AGREED_WORKING_OFFICIAL_EXECUTION_BLOCKED_BY_PRICE_CA_AND_WINDOW_RECONCILIATION}
+  VALIDATION_DATASET_IDENTITY: {version: VDI-v1.0, status: AGREED_WORKING_RELEASE_NOT_MATERIALIZED}
+  SCORER_IO: {version: SIO-v1.0, status: AGREED_WORKING_IMPLEMENTATION_PENDING}
+  MODEL_ARTIFACT_RELEASE_MANIFEST: {version: MARM-v1.0, status: AGREED_WORKING_RELEASE_NOT_MATERIALIZED}
+summary:
+  total_contracts: 9
+  agreed_count: 8
+  open_definition_count: 1
+  open_contracts: [WINDOW_MAPPING]
+  unresolved_major_authority_conflict_count: 0
+  control_sync_required: true
+  owner_escalation_required: false
+  official_replay_authorized: false
+  model_freeze_authorized: false
