@@ -7,6 +7,7 @@ from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
 from aaa.api.read_only import build_status, list_validation_gates, list_work_orders, verify_asset
+from aaa.state.discrepancy import build_discrepancy_report
 
 
 _ALLOWED_ORIGINS = {
@@ -53,6 +54,9 @@ class AAAReadOnlyHandler(BaseHTTPRequestHandler):
                 return
             if parsed.path == "/api/aaa/status":
                 self._json(build_status(self.repo_root))
+                return
+            if parsed.path == "/api/aaa/state/compare":
+                self._json(build_discrepancy_report(self.repo_root))
                 return
             if parsed.path == "/api/aaa/work":
                 self._json({"items": list_work_orders(self.repo_root)})
