@@ -1,0 +1,83 @@
+state_id: SEMI-SHARED-CONTRACT-STATE
+version: v0.5_WORKING
+status: DUAL_CORE_RECONCILED_ALL_DEFINITIONS_AGREED_SHARED_INTERFACE_BINDINGS_MATERIALIZED_WIRING_PENDING
+project: semiconductor-research
+as_of: '2026-08-16T01:16:00+09:00'
+supersedes: control/continuity/v1.0/SEMI-SHARED-CONTRACT-STATE_v0.4_WORKING.yaml
+parties:
+  CORE_A:
+    canonical_name: 문서·통제 아키텍트
+    persona_id: SEMI-CONTROL-ARCHITECT
+  CORE_B:
+    canonical_name: 모델 검증·설계 아키텍트
+    persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+reconciliation_source:
+  work_order: control/workorders/WO-SHARED-M3TOP3-v1-PREFLIGHT-INTERFACE-RECONCILIATION-20260816.yaml
+  core_a_position: control/core_b/M3TOP3-v1-SHARED-PREFLIGHT-INTERFACE-COREA-POSITION_v0.1_WORKING.yaml
+  core_b_reconciliation: control/core_b/M3TOP3-v1-SHARED-PREFLIGHT-INTERFACE-COREB-RECONCILIATION_v0.1_WORKING.yaml
+  core_b_reconciliation_commit: e8483b2949129665f5d2dcf1bd23b693b128fcbb
+  reconciled_decision: control/shared/M3TOP3-v1-SHARED-PREFLIGHT-INTERFACE-RECONCILED-DECISION_v1.0_WORKING.yaml
+  asset_manifest: control/shared/M3TOP3-v1-SHARED-INTERFACE-ASSET-MANIFEST_v1.0_WORKING.yaml
+contracts:
+  MODEL_INPUT_SCHEMA:
+    version: MIS-v1.0
+    status: AGREED_WORKING_SHARED_PROVENANCE_SUBCONTRACT_BOUND_IMPLEMENTATION_PATCH_PENDING
+    subcontracts:
+    - M3TOP3-FEATURE-INPUT-REGISTRY_v1.0_WORKING
+    - M3TOP3-PIT-CONSUMED-PROVENANCE-CONTRACT_v1.0_WORKING
+  PIT_SNAPSHOT_INTERFACE:
+    status: AGREED_WORKING_FAIL_CLOSED_CONSUMED_VALUE_RULE_RECONCILED_IMPLEMENTATION_PENDING
+  UNIVERSE_ELIGIBILITY:
+    status: AGREED_WORKING_EXECUTION_BLOCKED_BY_U127_RELEASE
+  WINDOW_MAPPING:
+    version: WM-v1.1
+    status: AGREED_WORKING_PRODUCTION_KRX_CALENDAR_IDENTITY_BINDING_PENDING
+    contract_path: control/continuity/v1.0/SEMI-WINDOW-MAPPING-CONTRACT_v1.1_WORKING.yaml
+    historical_W1_W8_compatibility: PASS_8_OF_8
+    daily_replay_compatibility: PASS
+    anchor_and_cutoff_separated: true
+    production_calendar_interface: CONFIRMED_UNCHANGED_BY_BOTH_CORES
+  ENTRY_EXIT:
+    status: AGREED_WORKING
+  OUTCOME_BUILDER:
+    status: AGREED_WORKING_OFFICIAL_EXECUTION_BLOCKED_BY_PRICE_CA_AND_IMPLEMENTATION_VALIDATION
+  VALIDATION_DATASET_IDENTITY:
+    version: VDI-v1.0
+    status: AGREED_WORKING_RELEASE_NOT_MATERIALIZED_COVERAGE_POLICY_BOUND
+    release_policy: M3TOP3-COVERAGE-RELEASE-POLICY_v1.0_WORKING
+  SCORER_IO:
+    version: SIO-v1.0
+    status: AGREED_WORKING_IMPLEMENTATION_PENDING
+  MODEL_ARTIFACT_RELEASE_MANIFEST:
+    version: MARM-v1.0
+    status: AGREED_WORKING_RELEASE_NOT_MATERIALIZED_SHARED_INTERFACE_ASSET_BINDING_REQUIRED
+shared_interface_bindings:
+  feature_input_registry: control/shared/M3TOP3-FEATURE-INPUT-REGISTRY_v1.0_WORKING.yaml
+  pit_consumed_provenance: control/shared/M3TOP3-PIT-CONSUMED-PROVENANCE-CONTRACT_v1.0_WORKING.yaml
+  refresh_rule_registry: control/shared/M3TOP3-REFRESH-RULE-REGISTRY_v1.0_WORKING.yaml
+  coverage_release_policy: control/shared/M3TOP3-COVERAGE-RELEASE-POLICY_v1.0_WORKING.yaml
+  implementation_compatibility_note: control/core_b/M3TOP3-v1-IMPLEMENTATION-COMPATIBILITY-NOTE_v1.0.1_WORKING.yaml
+  asset_manifest: control/shared/M3TOP3-v1-SHARED-INTERFACE-ASSET-MANIFEST_v1.0_WORKING.yaml
+summary:
+  total_contracts: 9
+  agreed_count: 9
+  open_definition_count: 0
+  unresolved_major_authority_conflict_count: 0
+  definition_level_dual_core_disagreement: NONE
+  existing_contract_semantic_versions_changed: false
+  implementation_or_release_gates_remaining: true
+  official_replay_authorized: false
+  model_freeze_authorized: false
+remaining_shared_execution_gates:
+- CORE_B_PATCH_SHARED_INTERFACE_GUARDS_TO_BOUND_RESOLVERS
+- CORE_B_ADD_REQUIRED_ADVERSARIAL_REGRESSION
+- WIRE_COVERAGE_POLICY_INTO_VDI_RELEASE_VALIDATION
+- CORE_A_BIND_PRODUCTION_KRX_CALENDAR_IDENTITY
+- INDEPENDENT_REHASH_SHARED_INTERFACE_ASSETS
+- INDEPENDENT_DELTA_PREFLIGHT_ON_SUCCESSOR_IMPLEMENTATION
+- MATERIALIZE_VDI_v1_0_AFTER_DATA_READINESS
+- MATERIALIZE_MARM_v1_0_WITH_HASHED_MODEL_AND_SHARED_INTERFACE_COMPONENTS
+scientific_firewall:
+  actual_outcome_data_inspected: false
+  actual_replay_executed: false
+  outcome_tuning_executed: false
