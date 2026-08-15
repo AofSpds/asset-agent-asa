@@ -1,0 +1,71 @@
+contract_id: M3TOP3-PIT-CONSUMED-PROVENANCE-CONTRACT
+version: v1.0_WORKING
+status: DUAL_CORE_RECONCILED_IMPLEMENTATION_PENDING
+project: semiconductor-research
+as_of: '2026-08-16T01:13:00+09:00'
+applies_to:
+  model_version: M3TOP3-v1.0
+  mis: MIS-v1.0
+  feature_input_registry: M3TOP3-FEATURE-INPUT-REGISTRY_v1.0_WORKING
+principle: Every scorer-consumed historical input must be machine-provably knowable at the Snapshot cutoff.
+authoritative_scope:
+  source: bound Feature Input Registry or hash-equivalent executable consumed-path resolver
+  self_declared_consumed_fields_authoritative: false
+  self_declared_consumed_fields_use: diagnostic_or_producer_assertion_only
+accepted_provenance_modes:
+  PER_VALUE:
+    required:
+    - feature_or_record_path_identity
+    - immutable_evidence_or_support_reference
+    - publication_at OR supported_cutoff_at
+    - source_or_evidence_lineage
+    time_rule: publication_at or supported_cutoff_at <= snapshot_cutoff_at
+  WHOLE_BLOCK_CERTIFICATION:
+    allowed: true
+    required:
+    - immutable_certification_identity
+    - certification_version
+    - certification_content_hash_or_equivalent
+    - feature_id
+    - model_and_feature_schema_applicability
+    - exact_feature_block_hash OR exact_bound_input_release_hash
+    - authoritative_scope_contract_id
+    - authoritative_scope_contract_version_or_hash
+    - explicit_certified_scope
+    - supported_cutoff_at
+    - immutable_evidence_or_source_lineage
+    - persistent_locator_or_resolver_identity
+    coverage_rule: certified_scope must cover every authoritative consumed path
+    time_rule: supported_cutoff_at <= snapshot_cutoff_at
+derived_and_aggregate_values:
+  required:
+  - value
+  - governed_operator_id
+  - derivation_id
+  - derivation_version
+  - immutable_aggregate_or_upstream_evidence_identity
+  - pit_supported_cutoff
+  - upstream_lineage_sufficient_to_reproduce_or_certify
+  example: F02.metric_changes
+hard_risk_gate:
+  state_none: no gate provenance burden beyond ordinary record identity
+  state_non_none: same fail-closed PIT provenance discipline applies to the gate evidence and reason
+fail_closed_conditions:
+- authoritative consumed-scope contract missing
+- scope defined only by self-declared consumed_fields
+- authoritative consumed path missing provenance
+- provenance identity unresolved
+- publication/support cutoff time missing
+- publication/support cutoff later than snapshot_cutoff_at
+- whole-block certification exact block/input-release identity mismatch
+- whole-block certification scope does not cover all authoritative consumed paths
+- bound scope-contract version/hash mismatch
+- derived/aggregate value lacks governed derivation/operator identity
+- derived/aggregate PIT upstream lineage cannot be reproduced or certified
+- non-NONE Hard Risk Gate lacks governed PIT provenance
+time_semantics:
+  historical_information_time: publication/support time must be <= snapshot_cutoff_at
+  later_model_execution_time: may occur later and is not itself historical evidence availability
+implementation_requirement: Patch shared_interface_guards_v1.py to resolve authoritative paths from the bound registry/contract,
+  resolve immutable provenance identities, validate block certification hash/scope, and reject all unresolved/mismatched cases.
+actual_replay_authorized: false
