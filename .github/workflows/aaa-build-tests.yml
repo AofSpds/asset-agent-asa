@@ -23,3 +23,23 @@ jobs:
         run: |
           set -euo pipefail
           python -m unittest discover -s aaa/tests -p 'test_*.py' -v
+
+  owner-console-build-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install Owner Console dependencies for engineering smoke build
+        working-directory: aaa/web
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --no-audit --no-fund --package-lock=false
+      - name: Build Owner Console
+        working-directory: aaa/web
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm run build
