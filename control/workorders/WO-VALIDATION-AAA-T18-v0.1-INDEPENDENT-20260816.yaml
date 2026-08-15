@@ -1,0 +1,107 @@
+work_order_id: WO-VALIDATION-AAA-T18-v0.1-INDEPENDENT-20260816
+work_order_version: v0.1
+project: Asset Agent ASA
+short_name: AAA
+track: T18_OPERATIONAL_DATABASE_PERSISTENT_EXECUTION_PLANE
+status: DISPATCHED_AWAITING_ACK
+authority_owner: PROJECT_OWNER
+owner_architecture_approval: control/aaa/architecture/AAA-T18-OPERATIONAL-DATABASE-ARCHITECTURE-REVIEW_v0.2_OWNER-APPROVED.yaml
+requesting_control: AAA_BUILD_CONTROL
+executor_persona: SEMI-VALIDATION-AUDITOR
+objective: Independently validate the exact integrated T18 PostgreSQL Operational / Persistent Execution Plane engineering successor without trusting Engineering PASS_WITH_FINDINGS and without authorizing PostgreSQL Operational SoT cutover.
+exact_target_binding:
+  path: control/aaa/validation/AAA-T18-OPERATIONAL-DATABASE-INDEPENDENT-TARGET-BINDING_v0.1_WORKING.yaml
+  repository: AofSpds/asset-agent-asa
+  branch_context: aaa-integration-v0.2
+  engineering_target_commit: 59c9baf3a24b1cf7542a3643c296711c37d72c3c
+  target_is_branch_latest_head: false
+permissions:
+  repository: READ_ONLY
+  local_temp_execution: ALLOWED
+  local_postgresql_container: ALLOWED
+  network: NOT_REQUIRED_FOR_BOUNDED_VALIDATION
+  canonical_write: PROHIBITED
+  branch_write: PROHIBITED
+  pull_request_write: PROHIBITED
+  operational_sot_cutover: PROHIBITED
+forbidden_actions:
+  - MODIFY_P09_TARGETS
+  - CHANGE_MODEL_METHODOLOGY
+  - CHANGE_SHARED_CONTRACT
+  - CHANGE_GROUND_TRUTH_OR_PIT
+  - MODIFY_U127
+  - AUTHORIZE_PRODUCTION_RELEASE
+  - AUTHORIZE_CONTROLLED_CUTOVER
+  - AUTHORIZE_POSTGRESQL_OPERATIONAL_SOT_CUTOVER
+  - REPAIR_OR_INFER_UNKNOWN_HISTORICAL_EVIDENCE
+validation_scope:
+  include:
+    - EXACT_TARGET_IDENTITY_AND_MIGRATION_HASHES
+    - POSTGRESQL_EMPTY_REBUILD_FROM_MIGRATIONS
+    - JSON_RUN_REGISTRY_BYTE_IDENTITY_IMPORT_AND_RECONCILIATION
+    - WORKORDER_RUN_EVENT_RESULT_REFERENTIAL_INTEGRITY
+    - APPEND_ONLY_EVENT_AND_EXACT_RETRY_IDEMPOTENCY
+    - LEASE_SINGLE_WINNER_AND_FENCING
+    - FUTURE_TIME_STALE_AND_HEARTBEAT_FAIL_CLOSED_SEMANTICS
+    - TERMINAL_RESULT_ATOMIC_COMPLETION_AND_ROLLBACK
+    - POSTGRES_AUTHORITATIVE_MODE_DB_FAILURE_NO_JSON_FALLBACK
+    - EXPERIMENT_SNAPSHOT_BACKTEST_METADATA_LINEAGE
+    - COMMON_CLI_API_READ_SERVICE_AND_OWNER_CONSOLE_API_ONLY_ACCESS
+    - LOCAL_BACKUP_RESTORE_REPRODUCIBILITY
+    - GIT_GOVERNANCE_SOT_AND_S3_R2_ARTIFACT_SOT_BOUNDARY
+    - NO_REDIS_KAFKA_KUBERNETES_BASELINE_DEPENDENCY
+    - SQLITE_NONCERTIFYING_BOUNDARY
+    - SCIENTIFIC_FIREWALL_AND_P09_NON_INTERFERENCE
+  explicit_exclusions:
+    - LIVE_MANAGED_POSTGRESQL_SERVICE_AND_CREDENTIAL_VALIDATION
+    - MANAGED_PITR_RPO_RTO_QUALIFICATION
+    - PRODUCTION_TRAFFIC_OR_OPERATIONAL_SOT_CUTOVER
+    - REAL_S3_R2_PARTIAL_FAILURE_DRILL
+acceptance:
+  - exact checkout equals 59c9baf3a24b1cf7542a3643c296711c37d72c3c
+  - all migration SHA256 identities independently recomputed and matched
+  - full local deterministic test suite independently rerun
+  - PostgreSQL migration and transaction smoke independently rerun
+  - actual JSON Registry import/reconciliation is 100 percent with no missing extra mismatch or source identity mismatch
+  - exactly one concurrent lease winner and stale epoch mutation rejection demonstrated
+  - exact duplicate event retry is idempotent while payload drift is rejected
+  - terminal Result and Run terminal state are atomic under injected failure
+  - DB-unavailable PostgreSQL-authority mode does not silently fallback to JSON
+  - backup/restore engineering drill reproduces governed metadata state
+  - Owner Console remains API-only
+  - P09 exact targets remain unchanged
+  - no canonical side effect
+result_contract:
+  required_fields:
+    - result_id
+    - validation_run_id
+    - work_order_id
+    - repository
+    - exact_target_commit
+    - independently_computed_migration_hashes
+    - test_commands
+    - test_count
+    - pass_count
+    - fail_count
+    - postgres_findings
+    - reconciliation_status
+    - backup_restore_status
+    - authority_boundary_status
+    - p09_non_interference_status
+    - exclusions_confirmed
+    - canonical_side_effect_check
+    - independent_verdict
+    - blockers_remaining
+  verdict_enum: [PASS, PASS_WITH_FINDINGS, FAIL]
+  production_release_authorized: false
+  controlled_cutover_authorized: false
+  postgresql_operational_sot_cutover_authorized: false
+p09_non_interference:
+  failed_target: 80378610f9ac9e688c52417f0416e01c057400a7
+  current_rerun_target: 30fdb278c218b24e44d66eb5f47935a196dc4f8c
+  current_rerun_id: RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-002
+scientific_firewall:
+  future_outcome_access_required: false
+  future_outcome_use_for_historical_snapshot_or_feature_repair: PROHIBITED
+  unknown_historical_evidence_inference: PROHIBITED
+  recovery_is_not_rematerialization: true
