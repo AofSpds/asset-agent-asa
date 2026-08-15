@@ -1,0 +1,53 @@
+binding_id: M3TOP3-v1-DELTA-PREFLIGHT-TARGET-BINDING
+version: v0.1_WORKING
+status: ACTIVATED_EXACT_SUCCESSOR_TARGET_AWAITING_INDEPENDENT_VALIDATION
+project: semiconductor-research
+activated_at: '2026-08-16T03:19:00+09:00'
+activating_persona:
+  canonical_name: 문서·통제 아키텍트
+  persona_id: SEMI-CONTROL-ARCHITECT
+  instance_id: CTRL-ARCH-INSTANCE-005-20260816
+work_order: control/workorders/WO-VALIDATION-M3TOP3-v1-DELTA-PREFLIGHT-AFTER-NARROW-FIXES-20260816.yaml
+work_order_id: WO-VALIDATION-M3TOP3-v1-DELTA-PREFLIGHT-AFTER-NARROW-FIXES-20260816
+work_order_spec_mutated: false
+activation_reason: >-
+  CORE B completed the routed CW_01/CW_02/CW_03 control-fix successor. CORE A independently prevalidated exact source identity,
+  physical component identities, exact CI checkout and code-level fail-closed behavior, so the existing delta-preflight Work Order
+  may now execute against one immutable successor target. Production KRX calendar remains an explicit separately tracked blocker,
+  which is permitted by the existing activation gate.
+exact_validation_target:
+  base_candidate_commit: 7fa068b7d69ea232b2dd0fa61c312af2c68771a2
+  successor_source_commit: 5ee82d15a27237ed2ad142ae877c6595f0489f80
+  source_identity_rule: EXACT_COMMIT_ONLY_NO_LATEST_OR_BRANCH_ALIAS
+  control_prevalidation: control/core_b/M3TOP3-v1-SHARED-WIRING-CONTROL-FIX-PREVALIDATION_v0.1_WORKING.yaml
+  core_b_test_report: control/core_b/M3TOP3-v1-SHARED-WIRING-CONTROL-FIX-TEST-REPORT_v0.1_WORKING.json
+  core_b_implementation_manifest: control/core_b/M3TOP3-v1-SHARED-WIRING-CONTROL-FIX-MANIFEST_v0.1_WORKING.yaml
+  exact_ci_run: 31900218083
+  exact_ci_job: 95049685932
+required_independent_delta_focus:
+  - Independently verify successor ancestry and exact checkout of 5ee82d15a27237ed2ad142ae877c6595f0489f80.
+  - Independently regenerate SHA256/byte-size/Git-blob identities for the seven control-fix source/test/workflow/control assets.
+  - Independently verify the original six shared-interface assets remain exact and unchanged.
+  - Rerun the full M3Top3 suite and independently account for all tests; CORE B reported 94/94 but this is not trusted as validation evidence.
+  - CW_01: prove caller mapping membership cannot satisfy official evidence resolution; verify approved resolver release identity/hash/locator/authority binding and evidence object hash-identity/locator/lineage/time requirements; verify whole-block, F02 upstream and hard-risk paths use governed resolution.
+  - CW_02: prove caller/self-hashed numeric rules cannot authorize official positive F08 penalty; verify empty approved numeric authority fails closed; verify TEST_ONLY isolation; confirm no numeric age-to-penalty schedule was invented.
+  - CW_03: verify every Feature Input Registry record-level path is explicitly classified/processed; eligibility_state requires governed historical binding; control-identity exemptions are explicit; non-NONE hard-risk paths require governed historical binding; no silent exemption.
+  - Revalidate prior FND_02 F06 duplicate milestone protection and FND_03 F02 explicit operator governance.
+  - Verify scorer arithmetic, weights, missingness, anti-double-count, hard-risk arithmetic, SIO, WM-v1.1, determinism and idempotence are unchanged.
+  - Verify scientific firewall: no Actual U127 outcome inspection, replay, outcome tuning, Ground Truth mutation, model freeze or production release.
+activation_gates:
+  core_b_patch_commit_available: PASS
+  shared_mis_f08_coverage_reconciliation_complete_as_required: PASS_FOR_DELTA_TARGET_WITH_FAIL_CLOSED_DATA_BINDING_DEPENDENCIES
+  production_krx_calendar: EXPLICIT_REMAINING_BLOCKER_ALLOWED_BY_WORK_ORDER
+current_nonvalidation_dependencies:
+  approved_real_evidence_resolver_release: NOT_BOUND_OFFICIAL_SCORING_FAIL_CLOSED
+  approved_positive_f08_numeric_rule_release: NOT_BOUND_POSITIVE_PENALTY_FAIL_CLOSED
+  production_krx_trading_calendar_identity: NOT_YET_BOUND
+independent_validation_authority:
+  canonical_name: 독립 검증·감사팀
+  role_id: SEMI-VALIDATION-AUDITOR
+  self_certification_by_core_b: PROHIBITED
+actual_replay_authorized: false
+model_freeze_authorized: false
+production_release_authorized: false
+required_return_packet_header: '[RETURN PACKET — M3TOP3 v1 DELTA INDEPENDENT PREFLIGHT]'
