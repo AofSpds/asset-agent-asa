@@ -7,6 +7,7 @@ from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
 from aaa.api.read_only import build_status, list_validation_gates, list_work_orders, verify_asset
+from aaa.ops.run_registry import list_runs, persona_overview
 from aaa.state.discrepancy import build_discrepancy_report
 
 
@@ -60,6 +61,12 @@ class AAAReadOnlyHandler(BaseHTTPRequestHandler):
                 return
             if parsed.path == "/api/aaa/work":
                 self._json({"items": list_work_orders(self.repo_root)})
+                return
+            if parsed.path == "/api/aaa/runs":
+                self._json({"items": list_runs(self.repo_root)})
+                return
+            if parsed.path == "/api/aaa/personas":
+                self._json({"items": persona_overview(self.repo_root)})
                 return
             if parsed.path == "/api/aaa/gates":
                 self._json({"items": list_validation_gates(self.repo_root)})

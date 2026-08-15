@@ -7,6 +7,7 @@ from typing import Any
 
 from aaa.api.read_only import build_status, list_validation_gates, list_work_orders, verify_asset
 from aaa.api.server import serve
+from aaa.ops.run_registry import list_runs, persona_overview
 from aaa.state.discrepancy import build_discrepancy_report
 
 
@@ -41,6 +42,12 @@ def build_parser() -> argparse.ArgumentParser:
     work_list = work_sub.add_parser("list", help="list versioned Work Order files")
     work_list.add_argument("--json", action="store_true", dest="as_json")
 
+    runs = sub.add_parser("runs", help="inspect persistent execution Run registry")
+    runs.add_argument("--json", action="store_true", dest="as_json")
+
+    personas = sub.add_parser("personas", help="show Persona to current Run projection")
+    personas.add_argument("--json", action="store_true", dest="as_json")
+
     asset = sub.add_parser("asset", help="inspect artifact identity")
     asset_sub = asset.add_subparsers(dest="asset_command", required=True)
     asset_verify = asset_sub.add_parser("verify", help="verify SHA256 and byte size for a repository file")
@@ -74,6 +81,12 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.command == "work" and args.work_command == "list":
         _emit(list_work_orders(repo_root), args.as_json)
+        return 0
+    if args.command == "runs":
+        _emit(list_runs(repo_root), args.as_json)
+        return 0
+    if args.command == "personas":
+        _emit(persona_overview(repo_root), args.as_json)
         return 0
     if args.command == "asset" and args.asset_command == "verify":
         _emit(verify_asset(repo_root, args.path), args.as_json)

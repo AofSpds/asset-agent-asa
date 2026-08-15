@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 
-type Nav = 'Home' | 'Assets' | 'Work' | 'Agents' | 'Research' | 'Validation' | 'Decisions' | 'History'
+type Nav = 'Home' | 'Operations' | 'Assets' | 'Work' | 'Agents' | 'Research' | 'Validation' | 'Decisions' | 'History'
 
 type StatusPayload = {
   project: string
@@ -31,7 +31,42 @@ type DiscrepancyPayload = {
   comparisons: DiscrepancyComparison[]
 }
 
-const navItems: Nav[] = ['Home', 'Assets', 'Work', 'Agents', 'Research', 'Validation', 'Decisions', 'History']
+type RunState =
+  | 'READY_NOT_DISPATCHED'
+  | 'DISPATCHED_AWAITING_ACK'
+  | 'RUNNING_CONFIRMED'
+  | 'BLOCKED'
+  | 'STALE_UNKNOWN'
+  | 'COMPLETED_PASS'
+  | 'COMPLETED_FAIL'
+  | 'COMPLETED_WITH_FINDINGS'
+
+type RunPayload = {
+  run_id: string
+  process_id: string
+  work_order_id: string
+  responsible_persona: string
+  executor_role: string
+  state: RunState
+  effective_state: RunState
+  exact_base_commit: string
+  branch: string
+  started_at: string | null
+  last_heartbeat_at: string | null
+  source_path: string
+}
+
+type PersonaPayload = {
+  persona: string
+  state: RunState | 'IDLE_OR_UNREGISTERED'
+  run_id: string | null
+  process_id: string | null
+  work_order_id?: string
+  last_heartbeat_at?: string | null
+  branch?: string
+}
+
+const navItems: Nav[] = ['Home', 'Operations', 'Assets', 'Work', 'Agents', 'Research', 'Validation', 'Decisions', 'History']
 const API = 'http://127.0.0.1:8765/api/aaa'
 
 function Card({ title, children }: { title: string; children: React.ReactNode }) {
@@ -48,9 +83,18 @@ function Pill({ children }: { children: React.ReactNode }) {
 }
 
 function statusColor(value: string) {
-  if (value === 'MATCH') return '#86efac'
-  if (value === 'UNKNOWN') return '#fcd34d'
+  if (value === 'MATCH' || value === 'COMPLETED_PASS' || value === 'RUNNING_CONFIRMED') return '#86efac'
+  if (value === 'UNKNOWN' || value === 'READY_NOT_DISPATCHED' || value === 'DISPATCHED_AWAITING_ACK' || value === 'IDLE_OR_UNREGISTERED') return '#fcd34d'
+  if (value === 'COMPLETED_WITH_FINDINGS') return '#fdba74'
   return '#fca5a5'
+}
+
+function shortPersona(value: string) {
+  if (value === 'SEMI-CONTROL-ARCHITECT') return 'Control Architect'
+  if (value === 'SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT') return 'Model Validation / Design'
+  if (value === 'SEMI-RESEARCH-ORCHESTRATOR') return 'Research Orchestrator'
+  if (value === 'SEMI-VALIDATION-AUDITOR') return 'Validation Auditor'
+  return value
 }
 
 export default function App() {
@@ -59,26 +103,34 @@ export default function App() {
   const [discrepancy, setDiscrepancy] = useState<DiscrepancyPayload | null>(null)
   const [workCount, setWorkCount] = useState<number | null>(null)
   const [gates, setGates] = useState<string[]>([])
+  const [runs, setRuns] = useState<RunPayload[]>([])
+  const [personas, setPersonas] = useState<PersonaPayload[]>([])
   const [apiState, setApiState] = useState<'LOADING' | 'ONLINE' | 'OFFLINE'>('LOADING')
 
   useEffect(() => {
     const load = async () => {
       try {
-        const [statusResponse, workResponse, gateResponse, discrepancyResponse] = await Promise.all([
+        const [statusResponse, workResponse, gateResponse, discrepancyResponse, runResponse, personaResponse] = await Promise.all([
           fetch(`${API}/status`, { cache: 'no-store' }),
           fetch(`${API}/work`, { cache: 'no-store' }),
           fetch(`${API}/gates`, { cache: 'no-store' }),
           fetch(`${API}/state/compare`, { cache: 'no-store' }),
+          fetch(`${API}/runs`, { cache: 'no-store' }),
+          fetch(`${API}/personas`, { cache: 'no-store' }),
         ])
-        if (!statusResponse.ok || !workResponse.ok || !gateResponse.ok || !discrepancyResponse.ok) throw new Error('AAA_API_READ_FAILED')
+        if (!statusResponse.ok || !workResponse.ok || !gateResponse.ok || !discrepancyResponse.ok || !runResponse.ok || !personaResponse.ok) throw new Error('AAA_API_READ_FAILED')
         const statusPayload = await statusResponse.json() as StatusPayload
         const workPayload = await workResponse.json() as { items: unknown[] }
         const gatePayload = await gateResponse.json() as { items: string[] }
         const discrepancyPayload = await discrepancyResponse.json() as DiscrepancyPayload
+        const runPayload = await runResponse.json() as { items: RunPayload[] }
+        const personaPayload = await personaResponse.json() as { items: PersonaPayload[] }
         setStatus(statusPayload)
         setWorkCount(workPayload.items.length)
         setGates(gatePayload.items)
         setDiscrepancy(discrepancyPayload)
+        setRuns(runPayload.items)
+        setPersonas(personaPayload.items)
         setApiState('ONLINE')
       } catch {
         setApiState('OFFLINE')
@@ -88,6 +140,48 @@ export default function App() {
   }, [])
 
   const content = useMemo(() => {
+    if (active === 'Operations') {
+      return (
+        <div style={{ display: 'grid', gap: 16 }}>
+          <Card title="Persona operations">
+            <div style={{ display: 'grid', gap: 8 }}>
+              {personas.map((row) => (
+                <div key={row.persona} style={{ display: 'grid', gridTemplateColumns: 'minmax(220px, 1.2fr) minmax(180px, 1fr) minmax(180px, 1fr)', gap: 12, padding: '10px 0', borderBottom: '1px solid #1f2937', alignItems: 'center' }}>
+                  <div>
+                    <strong>{shortPersona(row.persona)}</strong>
+                    <div style={{ marginTop: 4, color: '#64748b', fontSize: 11 }}>{row.persona}</div>
+                  </div>
+                  <strong style={{ color: statusColor(row.state) }}>{row.state}</strong>
+                  <div style={{ color: '#cbd5e1', fontSize: 12 }}>
+                    {row.run_id ?? 'No active Run'}
+                    {row.process_id && <div style={{ color: '#64748b', marginTop: 3 }}>{row.process_id}</div>}
+                  </div>
+                </div>
+              ))}
+              {personas.length === 0 && <span style={{ color: '#9ca3af' }}>No Persona registry data loaded.</span>}
+            </div>
+          </Card>
+          <Card title="Registered execution Runs">
+            <div style={{ display: 'grid', gap: 10 }}>
+              {runs.map((run) => (
+                <div key={run.run_id} style={{ border: '1px solid #1f2937', borderRadius: 10, padding: 12 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', gap: 16, alignItems: 'center', flexWrap: 'wrap' }}>
+                    <strong>{run.run_id}</strong>
+                    <strong style={{ color: statusColor(run.effective_state) }}>{run.effective_state}</strong>
+                  </div>
+                  <div style={{ marginTop: 7, color: '#94a3b8', fontSize: 12 }}>{shortPersona(run.responsible_persona)} · {run.process_id}</div>
+                  <div style={{ marginTop: 5, color: '#64748b', fontSize: 11, wordBreak: 'break-word' }}>
+                    base {run.exact_base_commit.slice(0, 12)}… · {run.branch} · heartbeat {run.last_heartbeat_at ?? 'none'}
+                  </div>
+                </div>
+              ))}
+              {runs.length === 0 && <span style={{ color: '#9ca3af' }}>No registered execution Runs.</span>}
+            </div>
+          </Card>
+        </div>
+      )
+    }
+
     if (active === 'Validation') {
       return (
         <div style={{ display: 'grid', gap: 16 }}>
@@ -122,6 +216,8 @@ export default function App() {
     const currentState = status?.current_state.version ?? 'UNAVAILABLE'
     const controlStatus = status?.current_state.status ?? 'READ_ONLY_API_NOT_CONNECTED'
     const mode = status?.aaa_role ?? 'SHADOW_NONAUTHORITATIVE'
+    const runningCount = runs.filter((run) => run.effective_state === 'RUNNING_CONFIRMED').length
+    const blockedCount = runs.filter((run) => run.effective_state === 'BLOCKED' || run.effective_state === 'STALE_UNKNOWN').length
 
     return (
       <div style={{ display: 'grid', gap: 16 }}>
@@ -129,6 +225,10 @@ export default function App() {
           <Card title="Current State">
             <strong>{currentState}</strong>
             <div style={{ marginTop: 8, color: '#93c5fd' }}>{mode}</div>
+          </Card>
+          <Card title="Operations">
+            <strong style={{ color: '#86efac' }}>{runningCount} RUNNING</strong>
+            <div style={{ marginTop: 8, color: blockedCount > 0 ? '#fca5a5' : '#9ca3af' }}>{blockedCount} blocked / stale</div>
           </Card>
           <Card title="Shadow State Match">
             <strong style={{ color: statusColor(discrepancy?.status ?? 'UNKNOWN') }}>{discrepancy?.status ?? 'UNAVAILABLE'}</strong>
@@ -162,7 +262,7 @@ export default function App() {
         </Card>
       </div>
     )
-  }, [active, discrepancy, gates, status, workCount])
+  }, [active, discrepancy, gates, personas, runs, status, workCount])
 
   return (
     <div style={{ minHeight: '100vh', background: '#0b1020', color: '#f9fafb', fontFamily: 'Inter, ui-sans-serif, system-ui, sans-serif' }}>
