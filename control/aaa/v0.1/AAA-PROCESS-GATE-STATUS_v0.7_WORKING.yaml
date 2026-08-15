@@ -1,0 +1,123 @@
+control_id: AAA-PROCESS-GATE-STATUS
+version: v0.7_WORKING
+project: Asset Agent ASA
+short_name: AAA
+recorded_at: '2026-08-16T07:05:00+09:00'
+supersedes: control/aaa/v0.1/AAA-PROCESS-GATE-STATUS_v0.6_WORKING.yaml
+purpose: Authoritative working snapshot after Owner-approved T18 PostgreSQL Operational / Persistent Execution Plane engineering integration and dispatch of separate T18 Independent Validation, while preserving the existing P09 exact-target validation track.
+status_semantics:
+  CLOSED: Exit criteria satisfied and evidence bound.
+  READY_NOT_DISPATCHED: Work definition exists but no execution Run has been dispatched.
+  DISPATCHED_AWAITING_ACK: Work handed to an executor but start evidence not yet recorded.
+  OPEN_ACTIVE: At least one RUNNING_CONFIRMED Run exists with start and heartbeat evidence.
+  OPEN_BLOCKED: Named blocker prevents completion.
+  STALE_UNKNOWN: Previously active Run lacks sufficient current evidence; never infer RUNNING.
+  NOT_STARTED: Process has not materially started.
+completion_rules:
+  running_claim_requires_run_id_ack_start_and_heartbeat_evidence: true
+  terminal_claim_requires_persistent_terminal_result_artifact: true
+  exact_validation_target_must_not_follow_later_control_only_branch_head: true
+  engineering_pass_is_not_independent_validation_pass: true
+  database_operational_sot_cutover_requires_separate_project_owner_approval: true
+  unknown_must_not_be_inferred_as_running: true
+  percent_is_secondary: true
+  channel_is_not_persona: true
+current_position:
+  last_closed_core_process: P07_ENGINEERING_INTEGRATION
+  current_primary_core_process: P08_GOVERNED_SHADOW_OPERATION
+  independent_validation_process: P09_INDEPENDENT_VALIDATION
+  next_terminal_core_process: P10_CONTROLLED_CUTOVER
+  engineering_usable_mvp_percent: 85
+  full_controlled_cutover_program_percent: 52
+core_processes:
+  P00_NAMING_AND_AUTHORITY: CLOSED
+  P01_RECOVERY_GAP_AND_BUILD_CONTRACT: CLOSED
+  P02_DETERMINISTIC_FOUNDATION: CLOSED
+  P03_CLI_API_OWNER_CONSOLE: CLOSED
+  P04_AGENT_RUNTIME_BOUNDARIES: CLOSED
+  P05_NATURAL_LANGUAGE_WORK_INTENT: CLOSED
+  P06_RECOVERY_AND_LOCAL_ADVERSARIAL_HARDENING: CLOSED
+  P07_ENGINEERING_INTEGRATION: CLOSED
+  P08_GOVERNED_SHADOW_OPERATION:
+    gate: OPEN_BLOCKED
+    blockers:
+      - AAA-FINDING-CONTINUITY-EVENT-ID-COLLISION_v0.1_WORKING
+    remaining:
+      - actual governed multi-cycle shadow evidence
+      - no unexplained state divergence
+      - continuity collision adjudication or formal disposition by SEMI-CONTROL-ARCHITECT
+  P09_INDEPENDENT_VALIDATION:
+    gate: DISPATCHED_AWAITING_ACK
+    independent_validation_pass: false
+    prior_terminal_run:
+      run_id: RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-001
+      state: COMPLETED_FAIL
+      exact_failed_target: 80378610f9ac9e688c52417f0416e01c057400a7
+      terminal_result: control/aaa/results/RESULT-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-001.json
+    current_validation_run:
+      run_id: RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-002
+      state: DISPATCHED_AWAITING_ACK
+      running_confirmed: false
+      validator: SEMI-VALIDATION-AUDITOR
+      exact_engineering_code_target: 30fdb278c218b24e44d66eb5f47935a196dc4f8c
+      target_binding: control/aaa/validation/AAA-v0.1-INDEPENDENT-PREFLIGHT-TARGET-BINDING_v0.3_WORKING.yaml
+      work_order: control/workorders/WO-VALIDATION-AAA-v0.3-INDEPENDENT-PREFLIGHT-RERUN-20260816.yaml
+      note: No validator ACK/start/heartbeat/terminal evidence recorded. Do not infer RUNNING or PASS.
+  P10_CONTROLLED_CUTOVER: NOT_STARTED
+  P11_POST_CUTOVER_STABILIZATION: NOT_STARTED
+integrated_parallel_tracks:
+  AAA_T17_RUN_REGISTRY_OPERATIONS_DASHBOARD:
+    gate: ENGINEERING_REMEDIATED_AWAITING_INDEPENDENT_RERUN
+    original_integration_target: 80378610f9ac9e688c52417f0416e01c057400a7
+    remediation_integration_merge_commit: 30fdb278c218b24e44d66eb5f47935a196dc4f8c
+    independent_validation: PENDING_SECOND_RERUN
+  AAA_T18_OPERATIONAL_DATABASE_PERSISTENT_EXECUTION_PLANE:
+    gate: ENGINEERING_INTEGRATED_INDEPENDENT_VALIDATION_DISPATCHED
+    architecture_approval: control/aaa/architecture/AAA-T18-OPERATIONAL-DATABASE-ARCHITECTURE-REVIEW_v0.2_OWNER-APPROVED.yaml
+    work_order: control/workorders/WO-AAA-T18-OPERATIONAL-DATABASE-v0.1-20260816.yaml
+    engineering_exact_target: 02739703a0ced83c80183c29dbfb302d2ce56b23
+    engineering_result: control/aaa/results/RESULT-AAA-T18-OPERATIONAL-DATABASE-v0.1.json
+    engineering_verdict: PASS_WITH_FINDINGS
+    integration_pr: 30
+    integration_merge_commit: 59c9baf3a24b1cf7542a3643c296711c37d72c3c
+    post_merge_ci: 31911121891
+    postgresql_authoritative: false
+    json_registry_authoritative_during_shadow: true
+    governance_sot: GIT_GITHUB
+    large_artifact_sot: S3_R2
+    validation:
+      run_id: RUN-VALIDATION-AAA-T18-INDEPENDENT-20260816-001
+      state: DISPATCHED_AWAITING_ACK
+      running_confirmed: false
+      validator: SEMI-VALIDATION-AUDITOR
+      exact_target: 59c9baf3a24b1cf7542a3643c296711c37d72c3c
+      target_binding: control/aaa/validation/AAA-T18-OPERATIONAL-DATABASE-INDEPENDENT-TARGET-BINDING_v0.1_WORKING.yaml
+      work_order: control/workorders/WO-VALIDATION-AAA-T18-v0.1-INDEPENDENT-20260816.yaml
+      independent_validation_pass: false
+    findings_remaining:
+      - live managed PostgreSQL service and production connection/credential policy not provisioned
+      - concrete runtime PostgreSQL adapter not activated in CLI/API
+      - managed PITR provider and RPO/RTO not yet approved or qualified
+      - explicit Project Owner PostgreSQL Operational SoT cutover authorization not issued
+    infrastructure_not_required_at_baseline:
+      - Redis
+      - Kafka
+      - Kubernetes
+    sqlite_certifying_backend: false
+operational_gates_not_yet_closed:
+  - LIVE_EXTERNAL_MODEL_PROVIDER_NETWORK_ADAPTER_EXECUTION
+  - REAL_S3_R2_PARTIAL_FAILURE_DRILL
+  - ACTUAL_GOVERNED_FULL_SHADOW_OPERATION_CYCLE
+  - CONTINUITY_EVENT_ID_COLLISION_ADJUDICATION
+  - P09_SECOND_INDEPENDENT_RERUN_PASS
+  - T18_INDEPENDENT_VALIDATION_PASS
+  - T18_LIVE_MANAGED_POSTGRESQL_AND_PITR_RPO_RTO_QUALIFICATION
+  - T18_OWNER_OPERATIONAL_SOT_CUTOVER_AUTHORIZATION
+  - OWNER_CUTOVER_AUTHORIZATION
+external_project_blockers_kept_visible:
+  - M3TOP3_FND_02_F06_EXTERNAL_P0
+reporting_rule:
+  always_report_active_runs_by_run_id: true
+  always_report_ready_or_dispatched_separately_from_running: true
+  always_report_terminal_runs_separately_from_current_persona_activity: true
+  never_use_percent_alone_to_imply_finished: true
