@@ -1,0 +1,94 @@
+audit_id: SEMI-CONTINUITY-CONSISTENCY-AUDIT
+version: v0.1_WORKING
+status: CORE_A_STATIC_AUDIT_COMPLETE_FRESH_INSTANCE_DRILL_PENDING
+project: semiconductor-research
+as_of: '2026-08-15T23:03:00+09:00'
+owner_persona: SEMI-CONTROL-ARCHITECT
+branch: control-hub-continuity-v1
+
+scope:
+  - current_state_checkpoint_consistency
+  - channel_registry_persona_consistency
+  - dual_core_identity_consistency
+  - checkpoint_reference_consistency
+  - shared_contract_summary_consistency
+  - recovery_drill_preconditions
+
+verified_assets:
+  current_state: control/continuity/v1.0/SEMI-CURRENT-STATE_v1.1.yaml
+  channel_registry: control/continuity/v1.0/SEMI-CHANNEL-REGISTRY_v1.0.yaml
+  checkpoint: control/continuity/v1.0/checkpoints/CP-DUALCORE-20260815-001.yaml
+  org_map: control/continuity/v1.0/SEMI-ORG-MAP_v0.2_WORKING.yaml
+  authority_matrix: control/continuity/v1.0/SEMI-DUAL-CORE-AUTHORITY-MATRIX_v0.2_WORKING.yaml
+  shared_contract_state: control/continuity/v1.0/SEMI-SHARED-CONTRACT-STATE_v0.1_WORKING.yaml
+  cross_core_sync: control/continuity/v1.0/SEMI-CROSS-CORE-SYNC-CONTRACT_v0.2_WORKING.yaml
+
+findings:
+  - finding_id: CONT-CHK-001
+    severity: MEDIUM
+    result: DRIFT_FOUND
+    field: current_state.continuity.next_checkpoint_required
+    observed: DUAL_CORE_RECONCILIATION_CHECKPOINT
+    actual: CP-DUALCORE-20260815-001_ALREADY_CREATED
+    correction_required: true
+    impact: metadata_only_no_project_state_change
+
+  - finding_id: CONT-ID-001
+    severity: INFO
+    result: PASS
+    statement: CORE_A_persona_and_instance_match_channel_registry
+
+  - finding_id: CONT-ID-002
+    severity: INFO
+    result: PASS
+    statement: CORE_B_persona_and_instance_match_channel_registry_and_checkpoint
+
+  - finding_id: CONT-ORG-001
+    severity: INFO
+    result: PASS
+    statement: unresolved_major_authority_conflicts_equal_zero
+
+  - finding_id: CONT-SHARED-001
+    severity: INFO
+    result: PASS
+    statement: shared_contract_summary_reconciles_to_4_agreed_5_open
+
+  - finding_id: CONT-U127-001
+    severity: INFO
+    result: PASS_WITH_BLOCKER
+    statement: U127_v0_7_identity_is_persisted_in_control_metadata_but_primary_secondary_byte_persistence_remains_NOT_YET
+
+  - finding_id: CONT-DRILL-001
+    severity: MEDIUM
+    result: PRECONDITIONS_PARTIAL
+    statement: static_persistent_assets_are_sufficient_for_recovery_preflight_but_true_fresh_instance_drill_has_not_been_executed
+
+static_recovery_preflight:
+  CORE_A:
+    persona_identity_recoverable: true
+    current_U127_state_recoverable: true
+    price_CA_blockers_recoverable: true
+    artifact_custody_status_recoverable: true
+    open_work_recoverable: true
+    authority_boundaries_recoverable: true
+    checkpoint_tail_rule_recoverable: true
+  CORE_B:
+    persona_identity_recoverable: true
+    model_contract_recoverable: true
+    validation_contract_recoverable: true
+    open_design_items_recoverable: true
+    shared_contract_state_recoverable: true
+    replay_blockers_recoverable: true
+
+static_preflight_result: PASS_WITH_WARNINGS
+fresh_instance_drill_result: NOT_EXECUTED
+
+required_actions:
+  - correct_current_state_checkpoint_metadata
+  - revise_successor_recovery_drill_plan_for_post_CORE_B_reconciliation_state
+  - execute_fresh_CORE_A_and_CORE_B_recovery_drills_before_continuity_v1_freeze
+  - do_not_claim_continuity_freeze_until_fresh_instance_drill_passes
+
+project_state_changed: false
+ground_truth_changed: false
+model_changed: false
