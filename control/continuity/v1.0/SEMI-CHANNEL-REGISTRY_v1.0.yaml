@@ -1,0 +1,49 @@
+registry_id: SEMI-CHANNEL-REGISTRY
+version: v1.0
+status: WORKING_CONTROL_REGISTRY
+project: semiconductor-research
+
+channel_model:
+  principle: CHANNEL_IS_PERSONA_INSTANCE_NOT_PERSONA
+  lifecycle_states:
+    - ACTIVE
+    - ROTATING
+    - CLOSED
+    - ARCHIVED
+    - RECOVERY_ONLY
+
+required_fields:
+  - channel_instance_id
+  - persona_id
+  - predecessor
+  - successor
+  - start_checkpoint
+  - end_checkpoint
+  - work_scope
+  - active_lanes
+  - last_control_commit
+  - status
+
+instances:
+  - channel_instance_id: CTRL-ARCH-LEGACY-BOOTSTRAP-20260815
+    persona_id: SEMI-CONTROL-ARCHITECT
+    predecessor: LEGACY_UNREGISTERED_CONTROL_ARCHITECT_CHANNELS
+    successor: UNASSIGNED
+    start_checkpoint: LEGACY_CONTEXT_MIGRATION
+    end_checkpoint: null
+    work_scope:
+      - U127_CONTROL_AND_ARTIFACT_RECOVERY
+      - PRICE_CA_M3TOP3_CONTROL_STATE
+      - CONTROL_HUB_CONTINUITY_BOOTSTRAP
+    active_lanes:
+      - U127-ARTIFACT-RECOVERY
+      - CONTROL-HUB-CONTINUITY-v1
+    last_control_commit: fa935b0d56b789c8cd7e50b6685fc43926473197
+    status: ACTIVE
+    rotation_gate:
+      current_state_committed: true
+      asset_registry_updated: true
+      event_ledger_bootstrapped: true
+      open_work_registered: true
+      checkpoint_created: false
+      successor_load_verified: false
