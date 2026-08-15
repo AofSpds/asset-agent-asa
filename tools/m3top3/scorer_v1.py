@@ -9,7 +9,8 @@ from .contracts_v1 import (
     input_batch_hash, validate_snapshot_batch,
 )
 from .core import deterministic_id, sha256_hex
-from .features_v1 import AXIS_BY_FEATURE, FEATURE_IDS, FeatureEngineV1, D
+from .features_v1 import AXIS_BY_FEATURE, FEATURE_IDS, D
+from .features_v1_narrow_patch import FeatureEngineV1NarrowPatch
 
 GATE_MULTIPLIER = {"NONE": Decimal("1.00"), "SEVERE": Decimal("0.85"), "THESIS_BREAK": Decimal("0.70")}
 OPPORTUNITY_AXES = {"Business_Momentum", "Expectation_Surprise", "Market_Positioning", "Forward_Runway"}
@@ -38,7 +39,7 @@ class M3Top3V1Engine:
             raise ScorerError("axis weights must sum to 100")
         if sum(self.feature_weights.values(), Decimal("0")) != Decimal("100"):
             raise ScorerError("feature weights must sum to 100")
-        self.features = FeatureEngineV1(self.feature_weights)
+        self.features = FeatureEngineV1NarrowPatch(self.feature_weights)
 
     def _gate(self, record: dict[str, Any]) -> tuple[str, Decimal, set[str], list[str], str | None]:
         gate = record.get("hard_risk_gate") or {"state": "NONE"}
