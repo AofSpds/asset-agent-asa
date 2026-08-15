@@ -1,0 +1,75 @@
+artifact_id: M3TOP3-v1-SHARED-PREFLIGHT-INTERFACE-PROPOSAL
+version: v0.1_WORKING
+status: CORE_B_PROPOSAL_AWAITING_DUAL_CORE_RECONCILIATION
+project: semiconductor-research
+owner_persona: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+work_order_id: WO-COREB-M3TOP3-v1-NARROW-FIXES-20260816
+shared_work_order: control/workorders/WO-SHARED-M3TOP3-v1-PREFLIGHT-INTERFACE-RECONCILIATION-20260816.yaml
+patch_commit: 5f9491b6861a11097a929156eaa8bb7cc3c8c749
+scientific_firewall:
+  actual_outcome_data_inspected: false
+  actual_replay_executed: false
+  outcome_tuning_executed: false
+shared_contract_changed_by_core_b: false
+
+proposals:
+  MIS_PIT_PROVENANCE:
+    finding: FND-01
+    decision_proposal: >-
+      Every scorer-consumed signal must be fail-closed on machine-verifiable PIT provenance.
+      A consumed feature block must bind either an immutable supported-cutoff reference with
+      supported_cutoff_at and immutable evidence/source reference, or an explicit consumed_fields
+      list with a provenance record for each consumed path. Each record must bind publication_at
+      or supported_cutoff_at not later than snapshot_cutoff_at plus an immutable evidence/support reference.
+      Missing provenance or post-cutoff provenance is invalid for official scoring input.
+    governed_upstream_aggregate_rule: >-
+      Precomputed aggregates such as F02 metric_changes may be consumed only when the aggregate
+      carries an approved operator identity and immutable upstream PIT provenance sufficient to
+      reproduce or certify its supported cutoff.
+    model_side_hook: tools/m3top3/shared_interface_guards_v1.py::validate_consumed_value_provenance
+    activation: PENDING_DUAL_CORE_RECONCILIATION
+
+  F08_FRESHNESS_PROVENANCE:
+    finding: FND-04
+    decision_proposal: >-
+      A positive freshness_penalty must bind to a governed refresh provenance identity. Accepted
+      proposal forms are refresh_rule_id, refresh_code plus evaluated_freshness_state, supported_cutoff_ref,
+      or an equivalent immutable upstream reference. Any evaluated timestamp must not exceed snapshot_cutoff_at.
+      Scorer-side freshness arithmetic remains unchanged and penalty remains capped at 20.
+    prohibited: SCORER_INVENTED_REFRESH_DURATION_THRESHOLDS
+    model_side_hook: tools/m3top3/shared_interface_guards_v1.py::validate_f08_freshness_provenance
+    activation: PENDING_DUAL_CORE_RECONCILIATION
+
+  COVERAGE_RELEASE_BINDING:
+    finding: FND-06
+    decision_proposal: >-
+      Preserve the current distinction between company-level rankability and feature completeness.
+      PROVISIONAL_MISSING_FEATURES may remain mathematically rankable only under the reconciled release policy;
+      feature_coverage_ratio must remain explicit. Official Snapshot eligibility must bind the governed
+      company-rankability rule, feature-completeness diagnostics, and denominator policy into VDI/release identity.
+    model_scoring_semantics_changed: false
+    activation: PENDING_DUAL_CORE_RECONCILIATION
+
+  PRODUCTION_KRX_CALENDAR_BINDING:
+    finding: FND-05
+    core_b_position: >-
+      WM-v1.1 Anchor/Cutoff semantics are unchanged. WeekdayCalendar remains synthetic-test-only.
+      CORE A must bind the production KRX trading-calendar source/release identity plus hash/version;
+      shared WM execution must consume that bound calendar without changing WM-v1.1 semantics.
+    core_b_generated_calendar_identity: false
+    activation: PENDING_CORE_A_DATA_IDENTITY_BINDING
+
+implementation_requirements_after_reconciliation:
+  - Wire reconciled MIS provenance validation fail-closed before official scoring.
+  - Wire reconciled F08 freshness provenance validation before official scoring.
+  - Bind reconciled coverage/denominator policy into validation/release identity.
+  - Bind production KRX trading-calendar identity into WM-v1.1 execution manifest.
+  - Rerun independent delta preflight on the exact patched commit and reconciled interfaces.
+
+weights_changed: false
+scorer_architecture_changed: false
+feature_schema_changed: false
+ground_truth_changed: false
+price_changed: false
+ca_changed: false
+model_frozen: false
