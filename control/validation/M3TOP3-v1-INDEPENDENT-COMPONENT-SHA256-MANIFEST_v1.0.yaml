@@ -1,0 +1,32 @@
+manifest_id: M3TOP3-v1-INDEPENDENT-COMPONENT-SHA256-MANIFEST
+version: v1.0
+status: VALIDATOR_REPORTED_BOUND_COMMIT_PREPATCH
+project: semiconductor-research
+as_of: '2026-08-16T00:36:00+09:00'
+validator_role: SEMI-VALIDATION-AUDITOR
+bound_source_commit: 32c8a0f31428273d76b4e7b3f2cea76f955770aa
+hash_method: RAW_FILE_BYTES_SHA256
+identity_note: Git blob SHA1 is distinct from project artifact SHA256.
+components:
+  tools/m3top3/contracts_v1.py: 0ac4fb5f5e07db0cc8e4fbe13ae15845b20e6b040c6fc9340f50f75035c4dda1
+  tools/m3top3/window_mapping_v11.py: 1fc97b988bdc5b45d1f69cc8bc5eb625407a99b809c25c95efe0e2978df67a20
+  tools/m3top3/features_v1.py: d7c48767a05f5fd883e8619a06a25c019be23e9b5dc464ca75014056253a2882
+  tools/m3top3/scorer_v1.py: 3920b311166c35f8acd0490ab3bfde15da9a6aba5bb327337548752a5f3efe17
+  tools/m3top3/runtime_v1.py: ad3d482c2d99944709e662ce590bb40ca182c9e6127c3fd5cf2c668dbe377385
+  tools/m3top3/configs/m3top3_v1.0.json: eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98
+  tools/m3top3/tests/test_model_v1.py: 6eda1009abc82cf72cc6d1ea835c2c6d48a1aa224ff30523e85510fd174e8a17
+  control/core_b/M3TOP3-v1-MACHINE-IMPLEMENTATION-MANIFEST_v0.1_WORKING.yaml: 683235b652a56a3d15e1823408e200d5a4f62be191dfee0e3661977c2249d407
+  control/core_b/M3TOP3-v1-MACHINE-IMPLEMENTATION-TEST-REPORT_v0.1_WORKING.json: bbe412e09a4e7a2e1e34248f5bbdc7efaa07eb1759adf6a5ce0b92e3f0518515
+supplemental_dependencies:
+  tools/m3top3/core.py: 4a91dd5733e3e90837f9bd2c6c606c3914af93cbfe15e601027ca4e76e7efcb2
+  tools/m3top3/pit_guard.py: ac1ad6354e2f0c23f6489bf4144816032a62789b6ab313b7f9f5b7e2bc922a4c
+config_verification:
+  declared_sha256: eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98
+  independent_sha256: eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98
+  result: PASS
+release_use:
+  current_bound_commit: FORENSIC_AND_PREFLIGHT_IDENTITY
+  patched_commit: MUST_REGENERATE_AFTER_NARROW_FIXES
+  closes_replay_source_manifest_gate: false
+  reason: Official replay must bind hashes for the post-fix independently revalidated source commit, not this pre-patch commit.
+source_evidence: USER_DELIVERED_INDEPENDENT_PREFLIGHT_RETURN_PACKET_20260816
