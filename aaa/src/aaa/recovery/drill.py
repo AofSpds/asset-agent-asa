@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass
-import json
+import hashlib
 import os
 from pathlib import Path
 import subprocess
@@ -10,7 +10,7 @@ import time
 from typing import Any
 
 from aaa.agents.journal import AgentRunJournal, JournalIntegrityError
-from aaa.core.identity import content_sha256, file_identity
+from aaa.core.identity import content_sha256
 from aaa.recovery.audit import ArtifactRecoveryObservation
 from aaa.storage.identity import ContentIdentity
 
@@ -49,6 +49,11 @@ class DrillEvidence:
     @property
     def sha256(self) -> str:
         return content_sha256(asdict(self))
+
+
+def local_content_identity(path: Path) -> ContentIdentity:
+    data = path.read_bytes()
+    return ContentIdentity(hashlib.sha256(data).hexdigest(), len(data))
 
 
 def process_alive(pid: int) -> bool:
@@ -156,8 +161,7 @@ def observe_local_replicas(
     def observed(path: Path) -> ContentIdentity | None:
         if not path.is_file():
             return None
-        identity = file_identity(path)
-        return ContentIdentity(identity["sha256"], identity["byte_size"])
+        return local_content_identity(path)
 
     primary = observed(primary_path)
     secondary = observed(secondary_path)
