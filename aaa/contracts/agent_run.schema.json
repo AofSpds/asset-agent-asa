@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://asset-agent-asa.local/contracts/agent_run.schema.json",
+  "title": "AAA Agent Run",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["run_id", "work_order_identity", "exact_base_identity", "executor_role", "permission_level", "created_at", "status"],
+  "properties": {
+    "run_id": {"type": "string", "minLength": 1},
+    "work_order_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["work_order_id", "work_order_version", "work_order_sha256"],
+      "properties": {
+        "work_order_id": {"type": "string", "minLength": 1},
+        "work_order_version": {"type": "string", "minLength": 1},
+        "work_order_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "exact_base_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "commit_sha"],
+      "properties": {
+        "repository": {"type": "string", "minLength": 1},
+        "commit_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+      }
+    },
+    "executor_role": {"type": "string", "minLength": 1},
+    "permission_level": {"type": "integer", "minimum": 0, "maximum": 2},
+    "created_at": {"type": "string", "format": "date-time"},
+    "status": {"enum": ["CREATED", "RUNNING", "SUCCEEDED", "FAILED", "BLOCKED", "CANCELLED"]},
+    "parent_run_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "branch": {"type": ["string", "null"]}
+  }
+}
