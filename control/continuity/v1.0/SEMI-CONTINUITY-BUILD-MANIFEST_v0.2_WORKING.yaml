@@ -1,10 +1,15 @@
 manifest_id: SEMI-CONTINUITY-BUILD-MANIFEST
 version: v0.2_WORKING
-status: DUAL_CORE_RECONCILED_BUILD_ACTIVE
+status: ACTIVE_BUILD_POST_CORE_B_RECONCILIATION
 project: semiconductor-research
-as_of: '2026-08-15T22:52:00+09:00'
+as_of: '2026-08-15T23:03:00+09:00'
 owner_persona: SEMI-CONTROL-ARCHITECT
 supersedes: SEMI-CONTINUITY-BUILD-MANIFEST_v0.1_WORKING
+
+current_state: control/continuity/v1.0/SEMI-CURRENT-STATE_v1.2.yaml
+current_checkpoint: control/continuity/v1.0/checkpoints/CP-DUALCORE-20260815-001.yaml
+current_event_ledger: control/continuity/v1.0/SEMI-CONTROL-EVENT-LEDGER_v1.1.jsonl
+
 materialized_working_assets:
   organization:
     - control/continuity/v1.0/SEMI-ORG-MAP_v0.2_WORKING.yaml
@@ -17,36 +22,47 @@ materialized_working_assets:
   shared_contracts:
     - control/continuity/v1.0/SEMI-SHARED-CONTRACT-STATE_v0.1_WORKING.yaml
     - control/continuity/v1.0/SEMI-CROSS-CORE-SYNC-CONTRACT_v0.2_WORKING.yaml
+    - control/continuity/v1.0/SEMI-SHARED-CONTRACT-CLOSURE-PROPOSAL_v0.1_WORKING.yaml
   continuity:
     - control/continuity/v1.0/SEMI-CONTINUITY-PROTOCOL_v0.1_WORKING.md
-    - control/continuity/v1.0/SEMI-SUCCESSOR-RECOVERY-DRILL_v0.1_WORKING.yaml
+    - control/continuity/v1.0/SEMI-CONTINUITY-CONSISTENCY-AUDIT_v0.1_WORKING.yaml
+    - control/continuity/v1.0/SEMI-SUCCESSOR-RECOVERY-DRILL_v0.2_WORKING.yaml
     - control/continuity/v1.0/SEMI-CHANNEL-REGISTRY_v1.0.yaml
-    - control/continuity/v1.0/SEMI-CURRENT-STATE_v1.1.yaml
+    - control/continuity/v1.0/SEMI-CURRENT-STATE_v1.2.yaml
     - control/continuity/v1.0/SEMI-CONTROL-EVENT-LEDGER_v1.1.jsonl
   artifact_governance:
     - control/continuity/v1.0/SEMI-ARTIFACT-PERSISTENCE-PROTOCOL_v0.1_WORKING.md
+  u127:
+    - control/u127/SEMI-U127-DELTA-LEDGER_v0.1_WORKING.jsonl
+    - control/u127/SEMI-U127-EARLY-MEMBERSHIP-RECOVERY_v0.1_WORKING.yaml
+    - control/u127/SEMI-U127-CANONICAL-RELEASE-SPEC_v0.1_WORKING.yaml
   knowledge_harvest:
     - control/continuity/v1.0/SEMI-KNOWLEDGE-ASSET-MANIFEST_v0.1_WORKING.yaml
     - control/knowledge/v1.0/KA-PIT-FIRST-SUPPORTED-STATE_v0.1_WORKING.md
     - control/knowledge/v1.0/KA-U127-CONTINUITY-INCIDENT_v0.1_WORKING.md
+
 status_rules:
   - ALL_ASSETS_REMAIN_WORKING_UNLESS_EXPLICITLY_FROZEN
   - CORE_B_SUCCESSOR_IS_ACCEPTED_WITH_WARNINGS
+  - CORE_A_SHARED_CONTRACT_PROPOSAL_IS_NOT_CORE_B_ACCEPTANCE
   - SHARED_CONTRACTS_HAVE_ZERO_MAJOR_CONFLICTS_BUT_FIVE_OPEN_ITEMS
   - CONTROL_SYNC_REQUIRED_REMAINS_ACTIVE_FOR_OPEN_SHARED_CONTRACTS
   - NO_ACTUAL_U127_REPLAY_AUTHORIZED
   - NO_MODEL_FREEZE_AUTHORIZED
   - NO_U127_REMATERIALIZATION_AUTHORIZED
-current_external_waits:
-  U127_GAP_CLOSURE_A:
-    state: CLOSED_CURRENT_ARCHIVE_SEARCH_WITH_BOUNDED_UNKNOWNS
-  CORE_B_SUCCESSOR:
-    state: RECEIVED_AND_RECONCILED_PASS_WITH_WARNINGS
+  - NO_STORAGE_PERSISTENCE_CLAIM_WITHOUT_VERIFIED_LOCATOR
+
+completed_milestones:
+  U127_current_archive_recovery: CLOSED_WITH_BOUNDED_UNKNOWNS
+  CORE_B_successor_reconciliation: ACCEPT_WITH_WARNINGS
+  dual_core_checkpoint: CP-DUALCORE-20260815-001_CREATED
+  continuity_static_preflight: PASS_WITH_WARNINGS
+
 work_that_can_continue_now:
   CORE_A:
-    - U127_v0_7_persistence
+    - bind_U127_canonical_release_sources
+    - U127_v0_7_persistence_when_storage_write_path_available
     - CA_and_Price_readiness_closure
-    - artifact_persistence_gate_refinement
   CORE_B:
     - v1_feature_schema_formalization
     - v1_scorer_formalization
@@ -54,14 +70,20 @@ work_that_can_continue_now:
     - no_tune_baseline_lock
     - validation_open_item_design
   SHARED:
-    - generalized_window_mapping
-    - model_input_schema
-    - validation_dataset_identity
-    - scorer_IO
-    - model_artifact_release_manifest
-    - CORE_B_successor_recovery_drill
-blocked_until_further_gates:
-  - official_actual_U127_two_year_replay
-  - model_freeze_candidate
-  - continuity_v1_freeze_candidate
-owner_action_required_now: NONE
+    - CORE_B_review_of_five_contract_closure_proposal
+    - fresh_CORE_A_and_CORE_B_successor_recovery_drills
+    - official_replay_readiness_gate
+
+open_shared_contracts:
+  count: 5
+  items: [WINDOW_MAPPING, MODEL_INPUT_SCHEMA, SCORER_IO, VALIDATION_DATASET_IDENTITY, MODEL_ARTIFACT_RELEASE_MANIFEST]
+  CORE_A_proposal: READY
+  CORE_B_decision: PENDING
+
+continuity_freeze:
+  eligible: false
+  blockers:
+    - fresh_CORE_A_recovery_drill_not_executed
+    - fresh_CORE_B_recovery_drill_not_executed
+
+owner_action_required_now: ROUTE_CORE_B_WORK_ORDER_FOR_SHARED_CONTRACT_REVIEW_AND_V1_PRE_OUTCOME_LOCK
