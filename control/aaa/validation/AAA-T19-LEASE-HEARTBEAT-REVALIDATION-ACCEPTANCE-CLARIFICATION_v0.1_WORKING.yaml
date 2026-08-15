@@ -1,0 +1,36 @@
+clarification_id: AAA-T19-LEASE-HEARTBEAT-REVALIDATION-ACCEPTANCE-CLARIFICATION
+version: v0.1_WORKING
+project: Asset Agent ASA
+track: T19
+recorded_at: '2026-08-16T08:25:00+09:00'
+status: CONTROL_ONLY_SEMANTIC_CLARIFICATION
+exact_revalidation_target_commit: 45a1541c4720387873a78e3a95fc697959d19248
+target_moved: false
+source_target_binding: control/aaa/validation/AAA-T19-LEASE-HEARTBEAT-REVALIDATION-TARGET-BINDING_v0.1_WORKING.yaml
+source_work_order: control/workorders/WO-VALIDATION-AAA-T19-LEASE-HEARTBEAT-REVALIDATION-v0.1-20260816.yaml
+source_run: RUN-VALIDATION-AAA-T19-INDEPENDENT-20260816-002
+
+clarification:
+  governed_execution_lease_formula: execution_ttl_seconds >= profile_timeout_seconds + configured_safety_margin_seconds
+  therefore_execution_ttl_strictly_exceeds_profile_timeout: true
+  validation_profile_timeout_seconds: 1800
+  configured_safety_margin_seconds: 60
+  minimum_acceptable_validation_execution_ttl_seconds: 1860
+  current_engineering_value_seconds: 1860
+  interpretation_prohibited: execution_ttl_seconds > profile_timeout_seconds + configured_safety_margin_seconds
+  rationale: >-
+    The intended bounded invariant is that the allowlisted command timeout cannot reach or exceed lease expiry; the configured safety margin is already additive. The concrete 1800 + 60 = 1860 requirement in the target binding controls. This clarification changes no implementation, target, authority, or scientific contract.
+
+independent_validator_must_still_verify:
+  - observed WorkerRuntime computes at least timeout plus positive margin
+  - database rejects heartbeat after an already expired lease
+  - command timeout cannot outlive the governed execution lease under the bounded profile contract
+
+non_interference:
+  implementation_changed: false
+  failed_target_changed: false
+  p09_targets_changed: false
+  t18_target_changed: false
+  live_execution_authorized: false
+  postgresql_operational_sot_authorized: false
+  controlled_cutover_authorized: false
