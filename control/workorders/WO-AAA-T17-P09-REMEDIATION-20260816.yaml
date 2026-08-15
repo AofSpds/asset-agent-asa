@@ -1,9 +1,11 @@
 work_order_id: WO-AAA-T17-P09-REMEDIATION-20260816
-work_order_version: v0.1
+work_order_version: v0.2
 project: Asset Agent ASA
 short_name: AAA
-status: CONTROL_PREPARED_AWAITING_OWNER_APPROVAL
+status: OWNER_APPROVED_READY_FOR_ENGINEERING
 requesting_control: AAA_BUILD_CONTROL
+approved_by: PROJECT_OWNER
+approved_at: '2026-08-16T06:18:00+09:00'
 issued_from_p09_run: RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-001
 failed_validation_result: control/aaa/results/RESULT-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-001.json
 failed_validation_result_sha256: e3e1c97e994f7459406940f4f290b9a45852bdbfa58b83720e46f9f08959d38e
