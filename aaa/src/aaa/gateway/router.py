@@ -4,7 +4,13 @@ from dataclasses import asdict, dataclass
 from typing import Any, Iterable, Mapping, Sequence
 
 from aaa.core.identity import content_sha256
-from aaa.gateway.provider import ModelProvider, ProviderCapabilities, ProviderHealth
+from aaa.gateway.provider import (
+    ModelProvider,
+    ProviderCapabilities,
+    ProviderHealth,
+    ProviderRequestRejected,
+    ProviderUnavailable,
+)
 
 
 HEALTHY_STATUSES = {"HEALTHY"}
@@ -36,12 +42,24 @@ class AllProvidersUnavailable(RuntimeError):
         super().__init__(f"ALL_MODEL_PROVIDERS_UNAVAILABLE:{detail}")
 
 
+class ProviderInvocationFailure(RuntimeError):
+    """Unclassified/request-side failure where silent provider switching is unsafe."""
+
+    def __init__(self, provider_id: str, operation: str, cause: Exception) -> None:
+        self.provider_id = provider_id
+        self.operation = operation
+        self.cause_type = type(cause).__name__
+        super().__init__(f"PROVIDER_INVOCATION_FAILURE:{provider_id}:{operation}:{self.cause_type}")
+
+
 class ProviderGateway:
     """Deterministic ordered provider router.
 
-    Provider order is explicit configuration. Health/capability failures are
-    recorded and the next provider is attempted. Model output is always marked
-    noncanonical; this router has no Control authority.
+    Provider order is explicit configuration. Failover occurs only for explicit
+    provider unavailability or pre-invocation health/capability exclusion. A
+    request/semantic or otherwise unclassified invocation error fails closed on
+    the selected provider instead of silently changing model semantics. Model
+    output is always noncanonical; this router has no Control authority.
     """
 
     def __init__(self, providers: Sequence[ModelProvider]) -> None:
@@ -67,7 +85,7 @@ class ProviderGateway:
                     rows.append(ProviderHealth(provider.provider_id, "INVALID", "health identity mismatch"))
                 else:
                     rows.append(health)
-            except Exception as exc:  # provider boundary: convert failure to health row
+            except Exception as exc:
                 rows.append(ProviderHealth(provider.provider_id, "ERROR", type(exc).__name__))
         return tuple(rows)
 
@@ -111,9 +129,13 @@ class ProviderGateway:
             try:
                 fn = getattr(provider, operation)
                 response = dict(fn(request_material))
-            except Exception as exc:
-                attempts.append(ProviderAttempt(provider.provider_id, health.status, "INVOKE_ERROR", type(exc).__name__))
+            except ProviderUnavailable as exc:
+                attempts.append(ProviderAttempt(provider.provider_id, health.status, "PROVIDER_UNAVAILABLE", str(exc)))
                 continue
+            except ProviderRequestRejected as exc:
+                raise ProviderInvocationFailure(provider.provider_id, operation, exc) from exc
+            except Exception as exc:
+                raise ProviderInvocationFailure(provider.provider_id, operation, exc) from exc
             attempts.append(ProviderAttempt(provider.provider_id, health.status, "SUCCESS"))
             return GatewayResult(
                 provider_id=provider.provider_id,
@@ -128,11 +150,11 @@ class ProviderGateway:
         raise AllProvidersUnavailable(attempts)
 
     def stream(self, request: Mapping[str, Any]) -> Iterable[Mapping[str, Any]]:
-        """Streaming deliberately does not fail over after bytes have been yielded.
+        """Streaming never stitches multiple providers into one response.
 
-        A provider may be skipped before streaming starts. Once selected, any
-        stream failure is surfaced to the caller to avoid stitching outputs from
-        different providers into one ambiguous result.
+        Providers may be skipped before streaming starts. After selection, any
+        stream exception is surfaced directly; the gateway never continues with a
+        second model after a stream may have emitted bytes.
         """
         attempts: list[ProviderAttempt] = []
         for provider in self._providers:
