@@ -1,0 +1,92 @@
+work_order_id: WO-COREB-M3TOP3-v1-NARROW-FIXES-20260816
+version: v1.0
+status: READY_FOR_CORE_B
+project: semiconductor-research
+priority: P0
+issued_at: '2026-08-16T00:36:00+09:00'
+requesting_persona:
+  canonical_name: 문서·통제 아키텍트
+  persona_id: SEMI-CONTROL-ARCHITECT
+target_persona:
+  canonical_name: 모델 검증·설계 아키텍트
+  persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+source_adjudication: control/validation/M3TOP3-v1-INDEPENDENT-PREFLIGHT-CONTROL-ADJUDICATION_v0.1_WORKING.yaml
+baseline_to_preserve:
+  model_version: M3TOP3-v1.0
+  source_commit: 32c8a0f31428273d76b4e7b3f2cea76f955770aa
+  weights_unchanged: true
+  scorer_architecture_unchanged: true
+  actual_outcome_inspection_forbidden: true
+scope:
+  FIX_F06:
+    finding: F06 count-based milestone logic does not prove milestone independence/distinct sequential economic steps.
+    mandatory_patch:
+      - Deduplicate milestones by stable milestone/event identity.
+      - Require independent verified milestones or distinct sequential conversion steps before 90/100 scoring.
+      - Reject duplicate copies of one milestone as multiple runway evidence.
+      - Add adversarial regression proving duplicated milestone cannot produce 90/100 solely by duplication.
+  FIX_F02:
+    finding: RELATIVE is a silent default when metric change_mode is omitted.
+    mandatory_patch_design:
+      - Remove ungoverned production dependence on silent default RELATIVE.
+      - Require explicit change_mode or a governed metric/operator registry for official scoring inputs.
+      - Preserve RELATIVE and ABSOLUTE capability only under governed semantics.
+      - Add tests for margin/utilization percentage-point cases and missing change_mode.
+    shared_boundary_hold: >-
+      If the final implementation requires a change to MIS-v1.0 fields or semantics, do not unilaterally promote it.
+      Wait for or reconcile with WO-SHARED-M3TOP3-v1-PREFLIGHT-INTERFACE-RECONCILIATION-20260816.
+  MODEL_SIDE_PIT_GUARD_TESTS:
+    finding: Independent preflight found consumed-value provenance gaps at MIS/PIT boundary.
+    required_action:
+      - Prepare model-side fail-closed validation hooks and adversarial tests consistent with the reconciled shared contract.
+      - Do not invent a one-sided shared contract.
+  MODEL_SIDE_F08_TESTS:
+    required_action:
+      - Preserve cap-at-20 arithmetic.
+      - Add validation of required upstream provenance once shared interface is reconciled.
+  REGRESSION_SET:
+    required_tests:
+      - consumed scoring value without PIT provenance must fail after shared contract patch
+      - post-cutoff-derived value in permitted field must fail
+      - duplicated F06 milestone must not inflate score
+      - governed F02 metric without required operator binding must fail
+      - F08 freshness penalty without required provenance must fail
+      - existing 18 tests must remain passing or be versioned only for explicit contract changes
+forbidden:
+  - inspect Actual U127 MFE/MAE/future return/future rank
+  - run Actual U127 replay
+  - tune features, weights, thresholds or risk gates using outcomes
+  - change Ground Truth, Price or CA
+  - promote model to FROZEN
+success_criteria:
+  - F06 duplicate-milestone defect closed
+  - F02 operator semantics explicitly governed
+  - no weight/scorer redesign
+  - scientific firewall preserved
+  - clean test suite passes
+  - new patch commit and changed-component SHA256 list produced
+required_output:
+  exactly_one_return_packet: true
+  header: '[RETURN PACKET — M3TOP3 v1 CORE B NARROW FIXES]'
+  fields:
+    - WORK_ORDER_ID
+    - TASK_COMPLETED
+    - PATCH_COMMIT
+    - CHANGED_FILES
+    - CHANGED_COMPONENT_SHA256
+    - F06_FIX_RESULT
+    - F02_FIX_RESULT
+    - SHARED_INTERFACE_DEPENDENCIES
+    - PIT_GUARD_TEST_RESULT
+    - F08_TEST_RESULT
+    - FULL_TEST_RESULT
+    - WEIGHTS_CHANGED
+    - SCORER_ARCHITECTURE_CHANGED
+    - ACTUAL_OUTCOME_DATA_INSPECTED
+    - ACTUAL_REPLAY_EXECUTED
+    - MODEL_FROZEN
+    - REMAINING_BLOCKERS
+    - RECOMMENDED_NEXT_ACTION
+output_discipline:
+  - Output exactly one Markdown fenced code block.
+  - Write nothing after the block.
