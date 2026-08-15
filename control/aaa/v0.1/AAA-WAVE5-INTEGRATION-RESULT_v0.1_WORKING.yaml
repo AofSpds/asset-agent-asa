@@ -1,0 +1,59 @@
+result_id: AAA-WAVE5-INTEGRATION-RESULT
+version: v0.1_WORKING
+project: Asset Agent ASA
+short_name: AAA
+status: ENGINEERING_INTEGRATION_PASS_VALIDATION_PREP_READY_WITH_EXTERNAL_BLOCKERS
+integration_branch: aaa-integration-v0.2
+code_target_commit: 41d273d3177d6130ad9292c965b4c757d82d09ae
+tracks:
+  AAA-T15-NATURAL-LANGUAGE-NONCANONICAL:
+    status: INTEGRATED_ENGINEERING_PASS
+    exact_base: 6ba8d5637041605b9e15dcc00ca696825e92cd67
+    source_pr: 23
+    source_head: 0a43885a52b087b391a404a07bd0696c88daa1c4
+    merge_commit: 37197cc2c5f4ae384715da0e6709716f4c5e44de
+    ci_run: 31905905447
+    tests: PASS_80_OF_80
+    owner_console_build: PASS
+    independent_validation: false
+  AAA-T16-SHADOW-CYCLE:
+    status: INTEGRATED_ENGINEERING_PASS
+    exact_base: 37197cc2c5f4ae384715da0e6709716f4c5e44de
+    source_pr: 25
+    source_head: 98bd41fc99d18f44800defa3d8aadabadce83cf1
+    merge_commit: 561392197be681e34301053d6d3f4af3aca4e845
+    ci_run: 31906093170
+    combined_tests: PASS_90_OF_90
+    owner_console_build: PASS
+    actual_governed_full_shadow_cycle: false
+    independent_validation: false
+  AAA-T09-DEPENDENCY-LOCK:
+    status: INTEGRATED_ENGINEERING_PASS
+    exact_base: 561392197be681e34301053d6d3f4af3aca4e845
+    source_pr: 26
+    source_head: 7e19aeb9abd05e2e100fb9b842f5c545b62cbaf7
+    merge_commit: 41d273d3177d6130ad9292c965b4c757d82d09ae
+    ci_run: 31906209098
+    full_stack_tests: PASS_90_OF_90
+    owner_console_install: NPM_CI_FROM_COMMITTED_LOCK
+    owner_console_build: PASS
+    package_lock_sha256: 78132cb94412e302d4c3688d6f14e798ffea2bda6b8141f9c63ed2bc655e8f06
+    package_lock_byte_size: 38990
+noninterference:
+  canonical_control_write: false
+  m3top3_methodology_changed: false
+  u127_changed: false
+  continuity_history_repaired: false
+  replay_authorized: false
+  model_frozen: false
+  production_release_authorized: false
+  controlled_cutover_authorized: false
+open_external_blockers:
+  - AAA-FINDING-CONTINUITY-EVENT-ID-COLLISION_v0.1_WORKING
+  - M3TOP3_FND_02_F06_EXTERNAL_P0
+open_infra_validation_gates:
+  - LIVE_EXTERNAL_PROVIDER_EXECUTION_NOT_YET
+  - REAL_S3_R2_PARTIAL_FAILURE_DRILL_NOT_YET
+  - ACTUAL_GOVERNED_FULL_SHADOW_OPERATION_CYCLE_NOT_YET
+  - INDEPENDENT_VALIDATION_NOT_YET
+validation_preparation_status: READY_TO_BIND_ENGINEERING_TARGET_WITH_EXPLICIT_EXCLUSIONS
