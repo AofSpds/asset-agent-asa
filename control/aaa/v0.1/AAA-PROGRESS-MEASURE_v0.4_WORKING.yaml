@@ -1,0 +1,59 @@
+measure_id: AAA-PROGRESS-MEASURE
+version: v0.4_WORKING
+project: Asset Agent ASA
+short_name: AAA
+status: WAVE4_ENGINEERING_INTEGRATION_PASS_NEXT_SHADOW_AND_NL_WORK_ACTIVE
+measurement_rule:
+  percent_is_planning_estimate_not_validation_verdict: true
+  engineering_pass_does_not_equal_independent_validation: true
+  cutover_percent_does_not_imply_cutover_authorization: true
+engineering_usable_mvp:
+  current_percent: 78
+  previous_percent: 72
+  delta_reason:
+    - AAA_T13_PROVIDER_NEUTRAL_ROUTING_AND_SAFE_FAILOVER_INTEGRATED
+    - AAA_T14_LOCAL_PHYSICAL_RECOVERY_DRILL_INTEGRATED_ON_POST_T13_EXACT_BASE
+    - COMBINED_T13_T14_ENGINEERING_COMPATIBILITY_69_OF_69_PASS
+  newly_closed:
+    - deterministic_provider_order_and_health_capability_routing
+    - failover_only_on_classified_provider_unavailability
+    - request_or_unclassified_provider_failure_fails_closed_without_silent_model_switch
+    - model_output_noncanonical_envelope_with_request_response_sha256
+    - local_process_interruption_drill_no_implicit_success
+    - stale_lock_detection_and_quarantine
+    - partial_run_journal_fail_closed_detection
+    - local_replica_loss_and_identity_mismatch_recovery_simulation
+  integration_head: ac5db1ffbf8977a9fc7284bd4bb9d530171c2d28
+  evidence:
+    t13_merge_commit: 48c0433924657836de1d9a680fd7050a5fa11ac7
+    t13_source_head: 27cd4933084534214ff5136b7a40cdd527990852
+    t13_ci_run: 31905461865
+    t13_python_tests: PASS_61_OF_61
+    t14_merge_commit: ac5db1ffbf8977a9fc7284bd4bb9d530171c2d28
+    t14_exact_base: 48c0433924657836de1d9a680fd7050a5fa11ac7
+    t14_source_head: 218b73838defa52bd5554ef0fc5cc895c02f8b18
+    t14_ci_run: 31905554438
+    combined_python_tests: PASS_69_OF_69
+    owner_console_build: PASS
+full_controlled_cutover_program:
+  current_percent: 48
+  previous_percent: 45
+  delta_reason:
+    - PROVIDER_SWAP_ENGINEERING_GUARD_NOW_INTEGRATED
+    - LOCAL_PROCESS_INTERRUPTION_AND_RECOVERY_DRILL_FOUNDATION_NOW_INTEGRATED
+  remaining_major_gates:
+    - LIVE_EXTERNAL_MODEL_PROVIDER_NETWORK_ADAPTER_NOT_EXECUTED
+    - REAL_S3_R2_PARTIAL_FAILURE_DRILL_NOT_COMPLETED
+    - ACTUAL_FULL_SHADOW_CYCLE_NOT_COMPLETED
+    - CONTINUITY_EVENT_ID_COLLISION_NOT_ADJUDICATED_BY_SEMI_CONTROL_ARCHITECT
+    - INDEPENDENT_VALIDATION_NOT_PASSED
+    - OWNER_CUTOVER_NOT_AUTHORIZED
+blocking_findings:
+  - AAA-FINDING-CONTINUITY-EVENT-ID-COLLISION_v0.1_WORKING
+  - M3TOP3_FND_02_F06_EXTERNAL_P0
+next:
+  - AAA_T15_NATURAL_LANGUAGE_NONCANONICAL_WORK_INTENT_LAYER
+  - AAA_T16_SHADOW_CYCLE_HARNESS_WITHOUT_REPAIRING_CONTINUITY_COLLISION
+  - LIVE_PROVIDER_ADAPTER_EXECUTION_ONLY_WHEN_CREDENTIAL_AND_PROVIDER_BOUNDARY_IS_GOVERNED
+  - REAL_S3_R2_FAILURE_DRILL_ONLY_WHEN_ACTUAL_INFRA_PATH_IS_AVAILABLE
+  - INDEPENDENT_VALIDATION_PREPARATION
