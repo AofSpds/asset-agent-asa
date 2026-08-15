@@ -6,7 +6,7 @@ import unittest
 from pathlib import Path
 
 from tools.m3top3.contracts_v1 import ContractError, validate_mis_record
-from tools.m3top3.features_v1 import FeatureEngineV1
+from tools.m3top3.features_v1_narrow_patch import FeatureEngineV1NarrowPatch
 from tools.m3top3.scorer_v1 import M3Top3V1Engine
 from tools.m3top3.runtime_v1 import build_engine
 from tools.m3top3.window_mapping_v11 import WeekdayCalendar, resolve_window, add_calendar_months
@@ -17,13 +17,23 @@ FW = CONFIG["feature_weights"]
 
 
 def feature_raw(i: int):
+    runway_milestones = (
+        [
+            {"milestone_id": f"RUN-{i}-M1", "conversion_step": "QUALIFICATION", "date": "2026-09-15", "verified": True, "source_tier": "S1", "supplier_only": False},
+            {"milestone_id": f"RUN-{i}-M2", "conversion_step": "SHIPMENT", "date": "2026-10-15", "verified": True, "source_tier": "S3", "supplier_only": False},
+        ]
+        if i >= 3
+        else [
+            {"milestone_id": f"RUN-{i}-M1", "conversion_step": "QUALIFICATION", "date": "2026-09-15", "verified": True, "source_tier": "S2", "supplier_only": False}
+        ]
+    )
     return {
         "F01_COMMERCIAL_CONVERSION_MOMENTUM": {"commercial_state":"SHIPMENT_OR_BACKLOG_CONVERSION" if i>=2 else "QUALIFICATION_ACCEPTANCE_OR_FIRST_VOLUME_ORDER","latest_positive_transition_at":f"2026-08-0{min(i+1,9)}T09:00:00+09:00","event_group_ids":[f"COMM-{i}"],"source_lineage_refs":[f"SYN-COMM-{i}"]},
-        "F02_NUMERIC_BUSINESS_INFLECTION": {"metric_changes":{"revenue":i*0.10,"operating_profit":i*0.15},"event_group_ids":[f"NUM-{i}"],"source_lineage_refs":[f"SYN-NUM-{i}"]},
+        "F02_NUMERIC_BUSINESS_INFLECTION": {"metric_changes":{"revenue":{"value":i*0.10,"operator_id":"SYN_UPSTREAM_REVENUE_CHANGE_v1"},"operating_profit":{"value":i*0.15,"operator_id":"SYN_UPSTREAM_OP_CHANGE_v1"}},"event_group_ids":[f"NUM-{i}"],"source_lineage_refs":[f"SYN-NUM-{i}"]},
         "F03_FORWARD_REVISION_MOMENTUM": {"revision_pcts":{"eps":i*0.05,"op":i*0.04},"event_group_ids":[f"REV-{i}"],"source_lineage_refs":[f"SYN-REV-{i}"]},
         "F04_EVENT_SURPRISE_VS_PRIOR_EXPECTATION": {"independent_pre_event_baseline":True,"observed":100+10*i,"prior_expectation":100,"event_group_ids":[f"SURP-{i}"],"source_lineage_refs":[f"SYN-SURP-{i}"]},
         "F05_MARKET_POSITIONING_BALANCE": {"trailing_20d_total_return":i*0.03,"universe_20d_equal_weight_return":0.02,"trailing_60d_total_return":i*0.06,"universe_60d_equal_weight_return":0.04,"turnover_acceleration":i*0.20,"valuation_percentile":60+i*5,"diffusion_percentile":55+i*5,"event_group_ids":[f"MKT-{i}"],"source_lineage_refs":[f"SYN-MKT-{i}"]},
-        "F06_CONVERSION_RUNWAY": {"retrieval_complete":True,"milestones":[{"date":"2026-09-15","verified":True,"source_tier":"S1","supplier_only":False},{"date":"2026-10-15","verified":True,"source_tier":"S3","supplier_only":False}] if i>=3 else [{"date":"2026-09-15","verified":True,"source_tier":"S2","supplier_only":False}],"sequential_conversion_steps":i>=3,"event_group_ids":[f"RUN-{i}"],"source_lineage_refs":[f"SYN-RUN-{i}"]},
+        "F06_CONVERSION_RUNWAY": {"retrieval_complete":True,"milestones":runway_milestones,"sequential_conversion_steps":i>=3,"event_group_ids":[f"RUN-{i}"],"source_lineage_refs":[f"SYN-RUN-{i}"]},
         "F07_BETA_TRANSMISSION_ALIGNMENT": {"activation_alignment":["PRE_ACTIVATION","APPROACHING_RELEVANT_PHASE","ACTIVE_RELEVANT_PHASE","ACTIVE_WITH_DIRECT_CUSTOMER_CONFIRMATION"][i-1],"event_group_ids":[f"BETA-{i}"],"source_lineage_refs":[f"SYN-BETA-{i}"]},
         "F08_EVIDENCE_RELIABILITY": {"feature_evidence":{f:{"evidence_status":"VERIFIED_HIGH","freshness_penalty":0} for f in FW if f!="F08_EVIDENCE_RELIABILITY"},"source_lineage_refs":[f"SYN-EVI-{i}"]},
         "F09_EXECUTION_THESIS_SAFETY": {"assessment_complete":True,"risk_events":[] if i<4 else [{"severity":"HIGH","event_group_id":"RISK-HARD"},{"severity":"LOW","event_group_id":"RISK-LOW"}],"event_group_ids":[f"RISK-{i}"],"source_lineage_refs":[f"SYN-RISK-{i}"]},
@@ -49,7 +59,7 @@ class TestWindowMapping(unittest.TestCase):
 
 
 class TestContractsAndFeatures(unittest.TestCase):
-    def setUp(self):self.rows=[record(i) for i in range(1,5)];self.engine=FeatureEngineV1(FW)
+    def setUp(self):self.rows=[record(i) for i in range(1,5)];self.engine=FeatureEngineV1NarrowPatch(FW)
     def test_mis_contract(self):
         validate_mis_record(self.rows[0]);bad=copy.deepcopy(self.rows[0]);bad.pop("window_anchor_date")
         with self.assertRaises(ContractError):validate_mis_record(bad)
