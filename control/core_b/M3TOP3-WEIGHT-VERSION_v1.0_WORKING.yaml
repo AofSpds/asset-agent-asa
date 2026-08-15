@@ -1,0 +1,98 @@
+weight_id: M3TOP3-WEIGHT-VERSION
+version: v1.0_WORKING
+status: CORE_B_OUTCOME_BLIND_BASELINE_CANDIDATE
+project: semiconductor-research
+owner_persona: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+work_order_id: WO-COREB-V1-PREOUTCOME-LOCK-20260815
+created_at: '2026-08-15T23:10:00+09:00'
+outcome_tuned: false
+actual_u127_replay_executed: false
+legacy_rolling_3m_weights_reused: false
+feature_schema_version: M3TOP3-FEATURE-SCHEMA_v1.0_WORKING
+
+axis_weights:
+  Business_Momentum: 25
+  Expectation_Surprise: 25
+  Market_Positioning: 20
+  Forward_Runway: 20
+  Reliability_Risk: 10
+  total: 100
+
+feature_level_weights:
+  F01_COMMERCIAL_CONVERSION_MOMENTUM: 15
+  F02_NUMERIC_BUSINESS_INFLECTION: 10
+  F03_FORWARD_REVISION_MOMENTUM: 15
+  F04_EVENT_SURPRISE_VS_PRIOR_EXPECTATION: 10
+  F05_MARKET_POSITIONING_BALANCE: 20
+  F06_CONVERSION_RUNWAY: 12
+  F07_BETA_TRANSMISSION_ALIGNMENT: 8
+  F08_EVIDENCE_RELIABILITY: 5
+  F09_EXECUTION_THESIS_SAFETY: 5
+  total: 100
+
+weight_rationale:
+  Business_Momentum: >-
+    Near-term 3M opportunity requires actual business progress; this axis receives 25 but is split
+    between commercial conversion and realized numerical inflection to avoid narrative-only scoring.
+  Expectation_Surprise: >-
+    Relative opportunity depends on change versus prior expectation, not only absolute business quality;
+    forward revision plus independently measured event surprise receive 25.
+  Market_Positioning: >-
+    M3Top3 is a market-ranking model and therefore recognition velocity/saturation is economically central,
+    but correlated market signals are intentionally collapsed into one 20-point feature.
+  Forward_Runway: >-
+    Remaining conversion path and customer-beta timing determine whether upside is still ahead during the
+    intended horizon; 20 points are split between company runway and external customer/fab transmission.
+  Reliability_Risk: >-
+    Reliability/Risk receives 10 additive points because it is a modifier rather than the alpha generator;
+    a separate rare verified hard-risk gate provides tail defense without turning the model into a risk-only ranker.
+
+feature_weight_rationale:
+  F01_COMMERCIAL_CONVERSION_MOMENTUM: 15
+  F02_NUMERIC_BUSINESS_INFLECTION: 10
+  F03_FORWARD_REVISION_MOMENTUM: 15
+  F04_EVENT_SURPRISE_VS_PRIOR_EXPECTATION: 10
+  F05_MARKET_POSITIONING_BALANCE: 20
+  F06_CONVERSION_RUNWAY: 12
+  F07_BETA_TRANSMISSION_ALIGNMENT: 8
+  F08_EVIDENCE_RELIABILITY: 5
+  F09_EXECUTION_THESIS_SAFETY: 5
+
+sensitivity_expectation:
+  principle: >-
+    No feature should dominate the total rank alone. The two largest single features are 20 and 15 points;
+    a one-feature perturbation should normally move rank less than a broad multi-axis change unless the
+    verified hard-risk gate activates.
+  expected_high_sensitivity:
+    - F05_MARKET_POSITIONING_BALANCE
+    - F01_COMMERCIAL_CONVERSION_MOMENTUM
+    - F03_FORWARD_REVISION_MOMENTUM
+  expected_moderate_sensitivity:
+    - F06_CONVERSION_RUNWAY
+    - F02_NUMERIC_BUSINESS_INFLECTION
+    - F04_EVENT_SURPRISE_VS_PRIOR_EXPECTATION
+  expected_low_additive_but_tail_relevant:
+    - F07_BETA_TRANSMISSION_ALIGNMENT
+    - F08_EVIDENCE_RELIABILITY
+    - F09_EXECUTION_THESIS_SAFETY
+
+do_not_tune_band:
+  status: PRECOMMITTED_PRIOR_BAND_FOR_FUTURE_EXPERIMENT_GOVERNANCE
+  rule: >-
+    During baseline v1 there is no tuning band: the exact weights above are fixed once baseline lock
+    activates. After outcome review, any weight change creates a new model version. For future v1.1
+    sensitivity experiments, candidate axis changes should initially remain within +/-5 percentage points
+    per axis and preserve total=100 unless a separately registered architecture experiment explicitly tests
+    a larger change. This band is not permission to optimize against the original baseline outcomes.
+
+reliability_risk_gate_relation:
+  additive_axis_weight: 10
+  hard_gate_defined_in_scorer: true
+  no_double_penalty_rule: >-
+    A discrete adverse fact assigned to the hard gate is not also given a second full negative economic
+    contribution in F09. F09 scores ordinary structural/execution safety; hard gate is reserved for verified
+    thesis-breaking states defined by the scorer contract.
+
+readiness:
+  weight_version_ready_for_baseline_lock: true
+  model_frozen: false
