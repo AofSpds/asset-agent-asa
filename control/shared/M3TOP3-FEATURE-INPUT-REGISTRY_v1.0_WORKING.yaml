@@ -1,0 +1,131 @@
+registry_id: M3TOP3-FEATURE-INPUT-REGISTRY
+registry_release_id: M3TOP3-FEATURE-INPUT-REGISTRY_v1.0_WORKING
+version: v1.0_WORKING
+status: DUAL_CORE_RECONCILED_CODE_DERIVED_SCOPE_REGISTRY_IMPLEMENTATION_BINDING_PENDING
+project: semiconductor-research
+as_of: '2026-08-16T01:13:00+09:00'
+bound_model_version: M3TOP3-v1.0
+bound_feature_schema_version: M3TOP3-FEATURE-SCHEMA_v1.0_WORKING
+reference_implementation_commit: 5f9491b6861a11097a929156eaa8bb7cc3c8c749
+reference_sources:
+- tools/m3top3/features_v1.py
+- tools/m3top3/features_v1_narrow_patch.py
+- tools/m3top3/scorer_v1.py
+authority_rule: This registry or a hash-equivalent executable consumed-path resolver defines authoritative scorer-consumed scope.
+  Input-self-declared consumed_fields does not define authoritative scope.
+path_notation:
+  '*': one dynamic mapping key or one list element
+  '?': conditionally consumed when present or when the named input mode applies
+cross_cutting_feature_paths:
+- availability_state?
+- missing_reason?
+- event_group_ids[]?
+- event_group_id?
+- source_lineage_refs[]?
+- source_lineage_ref?
+- independent_overlap?
+record_level_consumed_paths:
+- company_id
+- eligibility_state
+- snapshot_cutoff_at
+- window_anchor_date
+- hard_risk_gate.state?
+- hard_risk_gate.event_group_id?
+- hard_risk_gate.evidence_status?
+- hard_risk_gate.reason?
+features:
+  F01_COMMERCIAL_CONVERSION_MOMENTUM:
+    axis: Business_Momentum
+    consumed_paths:
+    - commercial_state
+    - latest_positive_transition_at?
+  F02_NUMERIC_BUSINESS_INFLECTION:
+    axis: Business_Momentum
+    valid_input_modes:
+    - metric_changes
+    - metric_pairs
+    - mixed_governed
+    consumed_paths:
+    - metric_changes.*.value?
+    - metric_changes.*.operator_id?
+    - metric_changes.*.derivation_id?
+    - metric_changes.*.derivation_version?
+    - metric_pairs.*.current?
+    - metric_pairs.*.prior?
+    - metric_pairs.*.change_mode?
+    - metric_pairs.*.operator_id?
+    governance:
+    - metric_pairs change_mode is mandatory in the patched executable path
+    - metric_changes scalar values are not official inputs; governed object with value+operator_id is required
+    - official release additionally requires PIT provenance and derivation/upstream lineage under the PIT contract
+  F03_FORWARD_REVISION_MOMENTUM:
+    axis: Expectation_Surprise
+    consumed_paths:
+    - revision_pcts.*?
+    - official_guidance_change?
+  F04_EVENT_SURPRISE_VS_PRIOR_EXPECTATION:
+    axis: Expectation_Surprise
+    consumed_paths:
+    - independent_pre_event_baseline
+    - observed?
+    - prior_expectation?
+    - epsilon?
+    - qualitative_surprise?
+  F05_MARKET_POSITIONING_BALANCE:
+    axis: Market_Positioning
+    consumed_paths:
+    - trailing_20d_total_return
+    - universe_20d_equal_weight_return
+    - trailing_60d_total_return
+    - universe_60d_equal_weight_return
+    - turnover_acceleration
+    - valuation_percentile?
+    - diffusion_percentile?
+  F06_CONVERSION_RUNWAY:
+    axis: Forward_Runway
+    consumed_paths:
+    - retrieval_complete
+    - sequential_conversion_steps?
+    - milestones[].date
+    - milestones[].verified?
+    - milestones[].source_tier?
+    - milestones[].supplier_only?
+    - milestones[].milestone_id?
+    - milestones[].event_group_id?
+    - milestones[].evidence_group_id?
+    - milestones[].conversion_step?
+    identity_rule: milestone_id -> event_group_id -> evidence_group_id
+  F07_BETA_TRANSMISSION_ALIGNMENT:
+    axis: Forward_Runway
+    consumed_paths:
+    - activation_alignment
+  F08_EVIDENCE_RELIABILITY:
+    axis: Reliability_Risk
+    consumed_paths:
+    - feature_evidence.*.evidence_status
+    - feature_evidence.*.freshness_penalty?
+    - feature_evidence.*.refresh_rule_id?
+    - feature_evidence.*.refresh_code?
+    - feature_evidence.*.evaluated_freshness_state?
+    - feature_evidence.*.supported_cutoff_ref?
+    - feature_evidence.*.supported_cutoff_at?
+    - feature_evidence.*.evaluated_for_snapshot_cutoff_at?
+    - feature_evidence.*.as_of_at?
+    - feature_evidence.*.evaluation_run_at?
+    note: Only evidence_status and freshness_penalty currently affect arithmetic; the additional governance paths are required
+      by the reconciled release interface and must be validated before official scoring.
+  F09_EXECUTION_THESIS_SAFETY:
+    axis: Reliability_Risk
+    consumed_paths:
+    - assessment_complete
+    - risk_events[].event_group_id?
+    - risk_events[].severity?
+hard_risk_gate_governance:
+  paths_requiring_release_provenance_when_state_non_none:
+  - hard_risk_gate.state
+  - hard_risk_gate.event_group_id
+  - hard_risk_gate.evidence_status
+  - hard_risk_gate.reason
+  pit_provenance_required: true
+validation_note: Before release, CORE B shall implement an executable resolver from this registry and independent validation shall
+  compare resolved paths with actual code accesses. Any code/registry mismatch is fail-closed.
