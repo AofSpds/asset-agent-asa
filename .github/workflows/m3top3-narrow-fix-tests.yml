@@ -1,0 +1,23 @@
+name: M3Top3 narrow-fix tests
+
+on:
+  push:
+    branches:
+      - control-hub-continuity-v1
+    paths:
+      - 'tools/m3top3/**'
+      - '.github/workflows/m3top3-narrow-fix-tests.yml'
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run M3Top3 baseline and narrow-fix tests
+        run: python -m unittest discover -s tools/m3top3/tests -p 'test_*.py' -v
