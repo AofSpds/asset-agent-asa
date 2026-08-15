@@ -1,0 +1,97 @@
+record_id: AAA-WAVE1-PROGRESS
+version: v0.1_WORKING
+project: Asset Agent ASA
+short_name: AAA
+status: WAVE_1A_IMPLEMENTED_WAVE_1B_STARTED
+recorded_at: '2026-08-16T03:58:00+09:00'
+repository_transition:
+  current_repository: AofSpds/semiconductor-research
+  target_repository: AofSpds/asset-agent-asa
+  rename_plan: control/aaa/v0.1/AAA-REPOSITORY-RENAME-PLAN_v0.1_WORKING.yaml
+  rename_completed: false
+wave_1a:
+  AAA-T01-CONTRACTS:
+    branch: aaa-t01-contracts-v0
+    head: 602ac510f895fd3812b66976308371501538bc0c
+    outputs:
+      - aaa/contracts/work_order.schema.json
+      - aaa/contracts/agent_run.schema.json
+      - aaa/contracts/result_manifest.schema.json
+      - aaa/contracts/provider.schema.json
+      - aaa/contracts/storage_boundary.schema.json
+      - aaa/contracts/README.md
+    draft_pr: 1
+    status: IMPLEMENTED_DRAFT_REVIEW
+  AAA-T04-UI:
+    branch: aaa-t04-ui-v0
+    head: c5b9abf526cdcd185f284c3fc9c477d7acca330d
+    outputs:
+      - aaa/web/package.json
+      - aaa/web/tsconfig.json
+      - aaa/web/vite.config.ts
+      - aaa/web/index.html
+      - aaa/web/src/main.tsx
+      - aaa/web/src/App.tsx
+      - aaa/web/README.md
+    draft_pr: 2
+    status: OWNER_CONSOLE_SCAFFOLD_IMPLEMENTED_DRAFT_REVIEW
+  AAA-T08-VALIDATION:
+    branch: aaa-t08-validation-v0
+    head: 13775ab8f7862df69d22610dcfe7bd71e7b46e72
+    outputs:
+      - aaa/tests/test_step1_controls.py
+      - aaa/tests/test_naming_historical_boundary.py
+      - aaa/tests/README.md
+      - .github/workflows/aaa-build-tests.yml
+    draft_pr: 3
+    engineering_ci:
+      run_id: 31902471495
+      result: PASS
+    independent_validation: NOT_CLAIMED
+wave_1b_started:
+  AAA-T02-CORE-STATE:
+    branch: aaa-t02-core-state-v0
+    head: 7048379184cbfb7eb7fb66185a5677b42fac4274
+    dependency_base: AAA-T01-CONTRACTS
+    implemented:
+      - deterministic JSON/hash/exact-base primitives
+      - non-authoritative event reducer/idempotent rebuild
+  AAA-T05-GATEWAY:
+    branch: aaa-t05-gateway-v0
+    head: b02efd4215bc650b98cf8c10fca45dd5671336a9
+    dependency_base: AAA-T01-CONTRACTS
+    implemented:
+      - provider-neutral protocol
+      - explicit offline provider
+      - deterministic fake provider
+  AAA-T06-AGENT:
+    branch: aaa-t06-agent-v0
+    head: 3375b218e97575169e006eff603d29c0b29018d5
+    dependency_base: AAA-T01-CONTRACTS
+    implemented:
+      - Level 0-2 permission model
+      - forbidden authoritative actions
+      - isolated-branch write requirement
+  AAA-T07-STORAGE:
+    branch: aaa-t07-storage-v0
+    head: b812bc4c32cc719bd395ba9bc004e6fcd22ddf07
+    dependency_base: AAA-T01-CONTRACTS
+    implemented:
+      - SHA256 plus byte-size identity
+      - run-scoped staging key guard
+      - same-key/different-hash hard fail
+      - dual-storage release completeness rule
+      - canonical promotion fail-closed guard
+next_integration_sequence:
+  - REVIEW_AND_STABILIZE_T01_CONTRACTS
+  - REPOSITORY_RENAME_GATE_IF_OWNER_EXECUTES_RENAME
+  - STACKED_TESTS_FOR_T02_T05_T06_T07
+  - MERGE_OR_REBASE_T08_VALIDATION_HARNESS
+  - LAUNCH_T03_CLI_API_AFTER_T02_INTERFACE_STABILIZES
+safety:
+  m3top3_source_modified: false
+  frozen_architecture_modified: false
+  u127_modified: false
+  canonical_cutover: false
+  model_freeze: false
+  production_release: false
