@@ -1,0 +1,252 @@
+control_id: AAA-PROCESS-GATE-STATUS
+version: v0.13_WORKING
+project: Asset Agent ASA
+short_name: AAA
+recorded_at: '2026-08-16T08:51:00+09:00'
+supersedes: control/aaa/v0.1/AAA-PROCESS-GATE-STATUS_v0.12_WORKING.yaml
+purpose: >-
+  Authoritative working snapshot after R2 Architecture Delta Analysis closed against the immutable R1 observed baseline, with R3 Exact Contract Design ready, no semantic implementation authorization, and no authority escalation.
+
+status_semantics:
+  CLOSED: Exit criteria satisfied and evidence bound.
+  READY_NOT_DISPATCHED: Work definition exists but no execution Run has been dispatched.
+  DISPATCHED_AWAITING_ACK: Work handed to an executor but start evidence not yet recorded.
+  OPEN_ACTIVE: At least one RUNNING_CONFIRMED Run exists with start and heartbeat evidence.
+  OPEN_BLOCKED: Named blocker prevents completion.
+  STALE_UNKNOWN: Previously active Run lacks sufficient current evidence; never infer RUNNING.
+  NOT_STARTED: Process has not materially started.
+
+completion_rules:
+  running_claim_requires_run_id_ack_start_and_heartbeat_evidence: true
+  terminal_claim_requires_persistent_terminal_result_artifact: true
+  exact_validation_target_must_not_follow_later_control_only_branch_head: true
+  engineering_pass_is_not_independent_validation_pass: true
+  dispatch_record_is_not_executor_ack: true
+  persona_is_not_worker: true
+  worker_is_not_channel: true
+  expired_lease_must_not_authorize_heartbeat: true
+  stale_execution_authority_must_not_self_revive: true
+  database_operational_sot_cutover_requires_separate_project_owner_approval: true
+  t19_live_execution_enablement_requires_separate_project_owner_approval: true
+  owner_architecture_scope_approval_is_not_exact_contract_freeze: true
+  architecture_revision_implementation_requires_later_exact_freeze_and_work_order: true
+  r1_baseline_is_observation_not_implementation_authority: true
+  r2_classification_is_design_input_not_implementation_authority: true
+  control_only_successor_must_not_move_r1_observed_baseline: true
+  legacy_run_semantics_must_not_be_retroactively_rematerialized: true
+  unknown_historical_evidence_must_not_be_inferred: true
+  unknown_must_not_be_inferred_as_running: true
+  channel_is_not_persona: true
+
+current_position:
+  last_closed_core_process: P07_ENGINEERING_INTEGRATION
+  original_current_primary_core_process: P08_GOVERNED_SHADOW_OPERATION
+  independent_validation_process: P09_INDEPENDENT_VALIDATION
+  next_terminal_core_process: P10_CONTROLLED_CUTOVER
+  current_controlled_activity: AAA_V1_ARCHITECTURE_REVISION_RECONCILIATION
+  architecture_revision_phase: R3_EXACT_CONTRACT_DESIGN
+  new_semantic_engineering_paused: true
+  t20_assumed: false
+
+core_processes:
+  P00_NAMING_AND_AUTHORITY: CLOSED
+  P01_RECOVERY_GAP_AND_BUILD_CONTRACT: CLOSED
+  P02_DETERMINISTIC_FOUNDATION: CLOSED
+  P03_CLI_API_OWNER_CONSOLE: CLOSED
+  P04_AGENT_RUNTIME_BOUNDARIES: CLOSED
+  P05_NATURAL_LANGUAGE_WORK_INTENT: CLOSED
+  P06_RECOVERY_AND_LOCAL_ADVERSARIAL_HARDENING: CLOSED
+  P07_ENGINEERING_INTEGRATION: CLOSED
+  P08_GOVERNED_SHADOW_OPERATION:
+    gate: OPEN_BLOCKED
+    blockers:
+      - AAA-FINDING-CONTINUITY-EVENT-ID-COLLISION_v0.1_WORKING
+    remaining:
+      - actual governed multi-cycle shadow evidence
+      - no unexplained state divergence
+      - continuity collision adjudication or formal disposition by SEMI-CONTROL-ARCHITECT
+    transition_note: Further semantic implementation remains paused pending Balanced v1 Architecture Revision Exact Freeze.
+  P09_INDEPENDENT_VALIDATION:
+    gate: DISPATCHED_AWAITING_ACK
+    independent_validation_pass: false
+    prior_terminal_run:
+      run_id: RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-001
+      state: COMPLETED_FAIL
+      exact_failed_target: 80378610f9ac9e688c52417f0416e01c057400a7
+      terminal_result: control/aaa/results/RESULT-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-001.json
+    current_validation_run:
+      run_id: RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-002
+      state: DISPATCHED_AWAITING_ACK
+      running_confirmed: false
+      validator: SEMI-VALIDATION-AUDITOR
+      exact_engineering_code_target: 30fdb278c218b24e44d66eb5f47935a196dc4f8c
+  P10_CONTROLLED_CUTOVER: NOT_STARTED
+  P11_POST_CUTOVER_STABILIZATION: NOT_STARTED
+
+integrated_parallel_tracks:
+  AAA_T17_RUN_REGISTRY_OPERATIONS_DASHBOARD:
+    gate: ENGINEERING_REMEDIATED_AWAITING_INDEPENDENT_RERUN
+    remediation_integration_merge_commit: 30fdb278c218b24e44d66eb5f47935a196dc4f8c
+    independent_validation: PENDING_SECOND_RERUN
+
+  AAA_T18_OPERATIONAL_DATABASE_PERSISTENT_EXECUTION_PLANE:
+    gate: ENGINEERING_INTEGRATED_INDEPENDENT_VALIDATION_DISPATCHED
+    integration_merge_commit: 59c9baf3a24b1cf7542a3643c296711c37d72c3c
+    postgresql_authoritative: false
+    json_registry_authoritative_during_shadow: true
+    validation:
+      run_id: RUN-VALIDATION-AAA-T18-INDEPENDENT-20260816-001
+      state: DISPATCHED_AWAITING_ACK
+      running_confirmed: false
+      exact_target: 59c9baf3a24b1cf7542a3643c296711c37d72c3c
+      independent_validation_pass: false
+
+  AAA_T19_EXECUTION_DISPATCHER_WORKER_RUNTIME:
+    gate: INDEPENDENT_VALIDATION_PASS
+    bounded_t19_cycle_closed: true
+    prior_failed_independent_target: c867e3704b2744c3a826635b828ad6696e6281eb
+    final_integrated_successor: 45a1541c4720387873a78e3a95fc697959d19248
+    independent_revalidation:
+      run_id: RUN-VALIDATION-AAA-T19-INDEPENDENT-20260816-002
+      state: COMPLETED_PASS
+      exact_target: 45a1541c4720387873a78e3a95fc697959d19248
+      result: control/aaa/results/RESULT-VALIDATION-AAA-T19-INDEPENDENT-20260816-002.json
+      verdict: PASS
+      independent_validation_pass: true
+      deterministic_tests: PASS_145_OF_145
+      migration_integrity: PASS_5_OF_5
+      json_postgresql_reconciliation: PASS_10_OF_10
+    p0_finding:
+      finding_id: AAA-T19-IV-FND-01-EXPIRED-LEASE-HEARTBEAT-RESURRECTION
+      status: CLOSED
+      blocking: false
+    live_execution_authorized: false
+    postgresql_authoritative: false
+
+architecture_revision_transition:
+  transition_control: control/aaa/architecture/AAA-v1-ARCHITECTURE-REVISION-TRANSITION-CONTROL_v0.1_OWNER-APPROVED.yaml
+  profile: BALANCED_V1
+  owner_scope_status: APPROVED
+  exact_contract_freeze: NOT_YET
+  implementation_authorization: NOT_YET
+  R0_CURRENT_BOUNDED_T19_CLOSEOUT: CLOSED
+  R1_EXACT_BASELINE_CAPTURE: CLOSED
+  R1_baseline_artifact: control/aaa/architecture/AAA-v1-R1-EXACT-BASELINE-MANIFEST_v0.1_WORKING.yaml
+  R1_observed_exact_commit: a590717a2127b8ef4620d7933904868dd50c7396
+  R1_observed_git_tree: 64d0cac8a91c9d0d9d3ca12f64123bc3c374ec97
+  R2_ARCHITECTURE_DELTA_ANALYSIS: CLOSED
+  R2_delta_artifact: control/aaa/architecture/AAA-v1-R2-ARCHITECTURE-DELTA-ANALYSIS_v0.1_WORKING.yaml
+  R2_control_commit: 7d00449872585204dbdc84a91421e543086e48cf
+  R3_EXACT_CONTRACT_DESIGN: READY_NOT_DISPATCHED
+  R4_SHARED_CONTRACT_RECONCILIATION: NOT_STARTED
+  R5_OWNER_EXACT_FREEZE_DECISION: NOT_STARTED
+  t20_assumed: false
+
+r2_primary_classification_summary:
+  KEEP:
+    - A11_COMMAND_WORKFLOW_BOUNDARY
+  EXTEND:
+    - A01_MINIMUM_PIT_TIME_SEMANTICS
+    - A02_NARROW_GLOBAL_INVARIANT_CONTRACT
+    - A05_SCHEMA_FAMILY_VERSIONING_PRINCIPLE
+    - A06_MINIMUM_ACTUAL_SOURCE_PROVENANCE
+    - A07_MINIMUM_PROJECT_NAMESPACE_CANONICAL_IDENTITY
+    - A08_FAIL_CLOSED_CROSS_STORE_PROMOTION_CONTRACT
+    - A09_PROVIDER_NEUTRAL_RESTORE_CONTRACT
+  REFACTOR:
+    - A03_LOGICAL_RUN_RUNATTEMPT_IDENTITY
+    - A04_FAILURE_RETRY_CLASSIFICATION
+    - A10_ACTOR_NOT_AUTHORITY_SEMANTIC_BOUNDARY
+    - A12_EVENT_READY_OPERATIONAL_HISTORY
+  DEFER_IMPLEMENTATION_DETAIL:
+    - generic policy engine
+    - generic workflow engine or DSL
+    - event sourcing or CQRS framework
+    - Kafka/Pulsar baseline
+    - Kubernetes baseline
+    - generic distributed scheduler
+    - Saga/2PC platform
+    - enterprise IAM platform
+    - SaaS multitenancy platform
+    - automated DR platform
+    - generic checkpoint framework
+
+r3_p0_contract_freeze_candidates:
+  - A01_MINIMUM_PIT_TIME_SEMANTICS
+  - A03_LOGICAL_RUN_RUNATTEMPT_IDENTITY
+  - A05_SCHEMA_FAMILY_VERSIONING_PRINCIPLE
+  - A06_MINIMUM_ACTUAL_SOURCE_PROVENANCE
+  - A07_MINIMUM_PROJECT_NAMESPACE_CANONICAL_IDENTITY
+  - A08_FAIL_CLOSED_CROSS_STORE_PROMOTION_CONTRACT
+  - A10_ACTOR_NOT_AUTHORITY_SEMANTIC_BOUNDARY
+  - EXACT_TARGET_DECISION_RECEIPT
+
+r3_p1_concept_boundary_candidates:
+  - A02_NARROW_GLOBAL_INVARIANT_CONTRACT
+  - A04_FAILURE_RETRY_CLASSIFICATION
+  - CANCELLATION_TIMEOUT_RESULT_REASON
+  - PARTIAL_CHECKPOINT_BOUNDARY
+  - COMPATIBLE_VERSION_SET_RELEASE_MANIFEST
+  - A09_PROVIDER_NEUTRAL_RESTORE_CONTRACT
+  - A11_COMMAND_WORKFLOW_BOUNDARY
+  - A12_EVENT_READY_OPERATIONAL_HISTORY
+
+pending_validation_disposition:
+  p09_second_rerun:
+    run_id: RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-002
+    state: DISPATCHED_AWAITING_ACK
+    preserve_without_fabrication: true
+    automatic_r3_prerequisite: false
+  t18_independent_validation:
+    run_id: RUN-VALIDATION-AAA-T18-INDEPENDENT-20260816-001
+    state: DISPATCHED_AWAITING_ACK
+    preserve_without_fabrication: true
+    automatic_r3_prerequisite: false
+
+known_adversarial_inputs:
+  t19_expired_lease_resurrection:
+    status: CLOSED_INDEPENDENTLY_VERIFIED
+    preserve_regression_invariant: true
+  p08_continuity_event_id_collision:
+    control_gate_label: AAA-FINDING-CONTINUITY-EVENT-ID-COLLISION_v0.1_WORKING
+    independently_resolved_artifact_in_r1_tree: false
+    aaa_build_control_must_not_infer_adjudication: true
+    authority: SEMI-CONTROL-ARCHITECT
+  m3top3_f06_economic_event_identity:
+    status: EXTERNAL_PROJECT_BLOCKER
+    aaa_may_surface_only: true
+    model_semantic_authority: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+
+shared_contract_boundary:
+  core_a: SEMI-CONTROL-ARCHITECT
+  core_b: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+  unilateral_shared_contract_freeze_prohibited: true
+  R4_required_before_owner_exact_freeze_for_shared_interfaces: true
+
+operational_gates_not_yet_closed:
+  - LIVE_EXTERNAL_MODEL_PROVIDER_NETWORK_ADAPTER_EXECUTION
+  - REAL_S3_R2_PARTIAL_FAILURE_DRILL
+  - ACTUAL_GOVERNED_FULL_SHADOW_OPERATION_CYCLE
+  - CONTINUITY_EVENT_ID_COLLISION_ADJUDICATION
+  - P09_SECOND_INDEPENDENT_RERUN_PASS_OR_EXPLICIT_REVISION_DISPOSITION
+  - T18_INDEPENDENT_VALIDATION_PASS_OR_EXPLICIT_REVISION_DISPOSITION
+  - T18_LIVE_MANAGED_POSTGRESQL_AND_PITR_RPO_RTO_QUALIFICATION
+  - AAA_V1_ARCHITECTURE_REVISION_EXACT_FREEZE
+  - AAA_V1_REVISION_SUCCESSOR_INDEPENDENT_VALIDATION
+  - T18_OWNER_OPERATIONAL_SOT_CUTOVER_AUTHORIZATION
+  - T19_OWNER_LIVE_EXECUTION_ENABLEMENT_AUTHORIZATION
+  - OWNER_CUTOVER_AUTHORIZATION
+
+external_project_blockers_kept_visible:
+  - M3TOP3_FND_02_F06_EXTERNAL_P0
+
+reporting_rule:
+  always_report_active_runs_by_run_id: true
+  always_report_ready_or_dispatched_separately_from_running: true
+  always_report_terminal_runs_separately_from_current_persona_activity: true
+  never_use_percent_alone_to_imply_finished: true
+  never_describe_dispatch_as_execution_started_without_ack_start_heartbeat: true
+  never_treat_external_execution_timestamp_as_fabricated_run_registry_heartbeat: true
+  t19_pass_must_not_be_reported_as_live_execution_or_cutover_authority: true
+  r1_close_must_not_be_reported_as_exact_contract_freeze_or_implementation_authority: true
+  r2_close_must_not_be_reported_as_exact_contract_freeze_or_implementation_authority: true
