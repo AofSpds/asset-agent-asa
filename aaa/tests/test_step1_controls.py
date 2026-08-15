@@ -15,7 +15,9 @@ class Step1ControlTests(unittest.TestCase):
         text = self.read("AAA-NAMING-TRANSITION-CONTRACT_v0.1_WORKING.yaml")
         self.assertIn("project: Asset Agent ASA", text)
         self.assertIn("short_name: AAA", text)
-        self.assertIn("legacy_SEMI_OPS: HISTORICAL_ONLY", text)
+        self.assertIn("name: SEMI-OPS", text)
+        self.assertIn("new_usage: PROHIBITED_AS_CURRENT_PRODUCT_PROJECT_NAME", text)
+        self.assertIn("history_policy: PRESERVE_NO_REWRITE", text)
 
     def test_build_contract_is_fail_closed(self):
         text = self.read("AAA-BUILD-CONTRACT_v0.1_WORKING.yaml")
