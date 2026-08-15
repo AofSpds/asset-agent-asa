@@ -1,0 +1,81 @@
+binding_id: AAA-T19-LEASE-HEARTBEAT-REVALIDATION-TARGET-BINDING
+version: v0.1_WORKING
+project: Asset Agent ASA
+track: T19
+recorded_at: '2026-08-16T08:22:00+09:00'
+status: DISPATCH_READY_OWNER_APPROVED
+validator: SEMI-VALIDATION-AUDITOR
+repository: AofSpds/asset-agent-asa
+branch_context: aaa-integration-v0.2
+failed_independent_target: c867e3704b2744c3a826635b828ad6696e6281eb
+engineering_remediation_code_target: 5fdf84a9433f91dead1449bdb7b330c646987cad
+fixture_isolation_successor: 749d933ef3dde283f60f080332b9d3083dbdcdbd
+exact_revalidation_target_commit: 45a1541c4720387873a78e3a95fc697959d19248
+remediation_integration_pr: 32
+fixture_isolation_followup_pr: 33
+post_merge_ci_run: 31914522096
+engineering_result: control/aaa/results/RESULT-AAA-T19-LEASE-HEARTBEAT-REMEDIATION-v0.1.json
+engineering_run: control/aaa/runs/RUN-AAA-T19-LEASE-HEARTBEAT-REMEDIATION-20260816-001.json
+source_failed_validation_result: control/aaa/results/RESULT-VALIDATION-AAA-T19-INDEPENDENT-20260816-001.json
+source_blocking_finding: AAA-T19-IV-FND-01-EXPIRED-LEASE-HEARTBEAT-RESURRECTION
+
+exact_target_rules:
+  later_control_only_commits_must_not_move_target: true
+  validator_must_checkout_exact_commit: true
+  target_is_not_latest_branch_head: true
+  failed_target_must_remain_preserved: true
+
+required_revalidation_scope:
+  - exact checkout and target identity verification
+  - independently rerun full deterministic Python suite; engineering expectation 145 tests is untrusted input only
+  - independently rerun Owner Console locked npm ci and build
+  - PostgreSQL 16 migrations 0001 through 0005 with physical SHA verification
+  - confirm frozen migrations 0001 through 0004 bytes are unchanged from prior validated identities
+  - expired same-worker same-epoch heartbeat after lease expiry must fail closed
+  - expired lease must remain STALE_UNKNOWN and must not self-resurrect
+  - expired lease terminalization must fail closed and must not persist Result
+  - takeover after expiry must increment lease_epoch and rebind owner
+  - old epoch heartbeat after takeover must fail closed
+  - old epoch terminalization after takeover must fail closed
+  - governed execution lease TTL must be strictly greater than each bounded command timeout plus configured safety margin
+  - validation profile timeout 1800 seconds with margin 60 seconds must produce governed execution TTL 1860 seconds or stronger bounded invariant
+  - no normal bounded allowlisted command may outlive its execution authority under the governed timeout contract
+  - claim does not imply ACK/start/RUNNING_CONFIRMED
+  - two-worker claim race still has exactly one winner in isolated fixture
+  - remediation adversarial fixture must not contaminate legacy concurrency fixture
+  - exact-target mismatch still blocks before ACK and command execution
+  - shell false and code-owned execution profile boundaries preserved
+  - atomic terminal Result/Run semantics preserved
+  - JSON operational authority remains authoritative during PostgreSQL shadow
+  - current JSON Registry and PostgreSQL shadow reconcile exactly
+  - local backup/restore drill passes
+  - LLM-off deterministic Control Plane remains functional
+  - Persona != Worker != Channel != Model preserved
+  - P09 and T18 exact targets remain unchanged
+  - no canonical side effect from validation
+
+finding_closure_rule:
+  finding_id: AAA-T19-IV-FND-01-EXPIRED-LEASE-HEARTBEAT-RESURRECTION
+  engineering_evidence_alone_closes_finding: false
+  independent_revalidation_pass_required: true
+
+explicit_exclusions:
+  - live managed PostgreSQL provisioning
+  - managed PITR/RPO/RTO qualification
+  - PostgreSQL Operational SoT cutover
+  - production/live T19 worker enablement
+  - retroactive ACK/start/heartbeat on any existing validation Run
+  - P09 or T18 Independent Validation adjudication
+  - Production Release or P10 Controlled Cutover
+  - model methodology, Shared Contract, Ground Truth, PIT or U127 change
+
+verdict_enum:
+  - PASS
+  - PASS_WITH_FINDINGS
+  - FAIL
+
+independence_rules:
+  engineering_pass_is_not_independent_validation_pass: true
+  revalidation_pass_does_not_authorize_live_execution: true
+  revalidation_pass_does_not_authorize_postgresql_sot_cutover: true
+  controlled_cutover_authorized: false
