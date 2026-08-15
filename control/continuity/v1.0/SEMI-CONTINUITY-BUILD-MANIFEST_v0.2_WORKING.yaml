@@ -1,0 +1,67 @@
+manifest_id: SEMI-CONTINUITY-BUILD-MANIFEST
+version: v0.2_WORKING
+status: DUAL_CORE_RECONCILED_BUILD_ACTIVE
+project: semiconductor-research
+as_of: '2026-08-15T22:52:00+09:00'
+owner_persona: SEMI-CONTROL-ARCHITECT
+supersedes: SEMI-CONTINUITY-BUILD-MANIFEST_v0.1_WORKING
+materialized_working_assets:
+  organization:
+    - control/continuity/v1.0/SEMI-ORG-MAP_v0.2_WORKING.yaml
+    - control/continuity/v1.0/SEMI-DUAL-CORE-AUTHORITY-MATRIX_v0.2_WORKING.yaml
+  core_B:
+    - control/core_b/SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT_v1.0_WORKING.yaml
+    - control/core_b/M3TOP3-MODEL-CONTRACT_v1.0_WORKING.yaml
+    - control/core_b/M3TOP3-VALIDATION-CONTRACT_v1.0_WORKING.yaml
+    - control/core_b/M3TOP3-OPEN-DESIGN-ITEMS_v1.0_WORKING.yaml
+  shared_contracts:
+    - control/continuity/v1.0/SEMI-SHARED-CONTRACT-STATE_v0.1_WORKING.yaml
+    - control/continuity/v1.0/SEMI-CROSS-CORE-SYNC-CONTRACT_v0.2_WORKING.yaml
+  continuity:
+    - control/continuity/v1.0/SEMI-CONTINUITY-PROTOCOL_v0.1_WORKING.md
+    - control/continuity/v1.0/SEMI-SUCCESSOR-RECOVERY-DRILL_v0.1_WORKING.yaml
+    - control/continuity/v1.0/SEMI-CHANNEL-REGISTRY_v1.0.yaml
+    - control/continuity/v1.0/SEMI-CURRENT-STATE_v1.1.yaml
+    - control/continuity/v1.0/SEMI-CONTROL-EVENT-LEDGER_v1.1.jsonl
+  artifact_governance:
+    - control/continuity/v1.0/SEMI-ARTIFACT-PERSISTENCE-PROTOCOL_v0.1_WORKING.md
+  knowledge_harvest:
+    - control/continuity/v1.0/SEMI-KNOWLEDGE-ASSET-MANIFEST_v0.1_WORKING.yaml
+    - control/knowledge/v1.0/KA-PIT-FIRST-SUPPORTED-STATE_v0.1_WORKING.md
+    - control/knowledge/v1.0/KA-U127-CONTINUITY-INCIDENT_v0.1_WORKING.md
+status_rules:
+  - ALL_ASSETS_REMAIN_WORKING_UNLESS_EXPLICITLY_FROZEN
+  - CORE_B_SUCCESSOR_IS_ACCEPTED_WITH_WARNINGS
+  - SHARED_CONTRACTS_HAVE_ZERO_MAJOR_CONFLICTS_BUT_FIVE_OPEN_ITEMS
+  - CONTROL_SYNC_REQUIRED_REMAINS_ACTIVE_FOR_OPEN_SHARED_CONTRACTS
+  - NO_ACTUAL_U127_REPLAY_AUTHORIZED
+  - NO_MODEL_FREEZE_AUTHORIZED
+  - NO_U127_REMATERIALIZATION_AUTHORIZED
+current_external_waits:
+  U127_GAP_CLOSURE_A:
+    state: CLOSED_CURRENT_ARCHIVE_SEARCH_WITH_BOUNDED_UNKNOWNS
+  CORE_B_SUCCESSOR:
+    state: RECEIVED_AND_RECONCILED_PASS_WITH_WARNINGS
+work_that_can_continue_now:
+  CORE_A:
+    - U127_v0_7_persistence
+    - CA_and_Price_readiness_closure
+    - artifact_persistence_gate_refinement
+  CORE_B:
+    - v1_feature_schema_formalization
+    - v1_scorer_formalization
+    - v1_weight_version_formalization
+    - no_tune_baseline_lock
+    - validation_open_item_design
+  SHARED:
+    - generalized_window_mapping
+    - model_input_schema
+    - validation_dataset_identity
+    - scorer_IO
+    - model_artifact_release_manifest
+    - CORE_B_successor_recovery_drill
+blocked_until_further_gates:
+  - official_actual_U127_two_year_replay
+  - model_freeze_candidate
+  - continuity_v1_freeze_candidate
+owner_action_required_now: NONE
