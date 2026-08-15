@@ -1,0 +1,126 @@
+manifest_id: M3TOP3-v1-SHARED-WIRING-IMPLEMENTATION-MANIFEST
+version: v0.1_WORKING
+status: CORE_B_SHARED_WIRING_COMPLETE_CANDIDATE_AWAITING_INDEPENDENT_DELTA_PREFLIGHT
+project: semiconductor-research
+work_order_id: WO-COREB-M3TOP3-v1-SHARED-WIRING-PATCH-CONTINUATION-20260816
+owner_persona: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+model_version: M3TOP3-v1.0
+base_patch_commit: 5f9491b6861a11097a929156eaa8bb7cc3c8c749
+successor_source_commit: 7fa068b7d69ea232b2dd0fa61c312af2c68771a2
+baseline_config:
+  path: tools/m3top3/configs/m3top3_v1.0.json
+  sha256: eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98
+  overwritten: false
+shared_asset_identity:
+  adjudication: control/shared/M3TOP3-v1-SHARED-ASSET-BYTE-IDENTITY-ADJUDICATION_v1.0_WORKING.yaml
+  successor_manifest: control/shared/M3TOP3-v1-SHARED-INTERFACE-ASSET-MANIFEST_v1.1_WORKING.yaml
+  successor_manifest_create_commit: 589c9a4552332c91fad5a175309a04cc9cb4d24e
+  successor_manifest_git_blob_sha: 02e33fefc47f82ef1b67aa9515cffa36ede252d3
+  core_b_rehash: PASS_6_OF_6
+  byte_identity_dimensions: [SHA256, BYTE_SIZE, GIT_BLOB_SHA]
+implementation:
+  shared_guard:
+    path: tools/m3top3/shared_interface_guards_v1_1.py
+    sha256: 8b658056129b79945a9b3b99949412efcb79ea4ab4ba176124151e861fc3c781
+    byte_size: 23668
+    git_blob_sha: b4c6e62a0996c3e0b362f75d3ed1314f5e5fe113
+    FND_01: RESOLVER_BACKED_PIT_PROVENANCE_FAIL_CLOSED
+    FND_04: RESOLVER_BACKED_F08_REFRESH_GOVERNANCE_FAIL_CLOSED
+  release_vdi:
+    path: tools/m3top3/release_vdi_v1.py
+    sha256: 93054247ebb4a0d426e84a202f9645a1ca1369a31e1ca969097505c2b1ec0eb5
+    byte_size: 4827
+    git_blob_sha: 87dd18d8b9764d392c6e9c227f2fe936957ae67d
+    FND_06: ALL_FIVE_AXES_NO_REVIEW_REQUIRED_PIT_FRESHNESS_FINAL_SCORE_AND_SNAPSHOT_1_00
+    numeric_feature_coverage_threshold_added: false
+  official_runtime:
+    path: tools/m3top3/official_runtime_v1.py
+    sha256: c2aa024a2582b05981078c4164a8f77dd50f8419cf549a778aa5e3b2b769f3a2
+    byte_size: 3043
+    git_blob_sha: b8db9a3bc945c67b7a8587c4ddfbbd2b94133afe
+    wiring:
+      - SIX_SHARED_ASSET_IDENTITY_PRECHECK
+      - FND_01_PIT_GUARD_BEFORE_SCORING
+      - FND_04_FRESHNESS_GUARD_BEFORE_SCORING
+      - UNCHANGED_M3TOP3_GATED_LINEAR_SCORER
+      - FND_06_RELEASE_VDI_VALIDATION_AFTER_SCORING
+      - F02_COMPATIBILITY_NOTE_BINDING
+    actual_replay_authorized: false
+    model_freeze_authorized: false
+  adversarial_tests:
+    path: tools/m3top3/tests/test_shared_interface_wiring_v1.py
+    sha256: affe287eb5994f79244df67376c2a21bd852555896f4451334c1717a89b2726f
+    byte_size: 18092
+    git_blob_sha: 87408a27b3c1bf4c91d47e57903324900329e38c
+  identity_test:
+    path: tools/m3top3/tests/test_shared_wiring_identity_v1.py
+    sha256: 7a534d524a2b66d5162217135a0a2702f1803c945677b158ed0ce5d17ca36fad
+    byte_size: 826
+    git_blob_sha: e065f59698ea7967eac024b685c841686b41bc9b
+shared_contract_bindings:
+  exact_decision:
+    path: control/shared/M3TOP3-v1-SHARED-PREFLIGHT-INTERFACE-RECONCILED-DECISION_v1.0_WORKING.yaml
+    sha256: 7d8d000c467b8b3cd4e3f16c1eef060a8d70fceabab2f66161fde08d54e9f1a4
+  feature_input_registry:
+    path: control/shared/M3TOP3-FEATURE-INPUT-REGISTRY_v1.0_WORKING.yaml
+    sha256: 63edde7d91aafa4691b7a31ee7304b9972e064347a55b9d891b19634b199df37
+  pit_contract:
+    path: control/shared/M3TOP3-PIT-CONSUMED-PROVENANCE-CONTRACT_v1.0_WORKING.yaml
+    sha256: 22e80dbf80e1bfb9ae25ab8f56a7fd56463fc8c8bd92a67489a6a9601455354f
+  refresh_registry:
+    path: control/shared/M3TOP3-REFRESH-RULE-REGISTRY_v1.0_WORKING.yaml
+    sha256: e44b67e4f3854cfcd2c9f5fd7924192bc0c5491bfcdd496acbae8b4dd318cd64
+    numeric_f08_penalty_rules: NOT_DEFINED_DO_NOT_INFER
+    positive_penalty_without_typed_governed_numeric_rule: FAIL_CLOSED
+  coverage_policy:
+    path: control/shared/M3TOP3-COVERAGE-RELEASE-POLICY_v1.0_WORKING.yaml
+    sha256: 076bd1b7acee061f9c0d57e4dda802b6beb533fcd4b323eafa39760ad98b1f97
+  f02_compatibility_note:
+    path: control/core_b/M3TOP3-v1-IMPLEMENTATION-COMPATIBILITY-NOTE_v1.0.1_WORKING.yaml
+    sha256: dfd98712a4982eef5a4b07fec5d376f0eefed0c1861e14d3a20ddb22c87fb656
+    baseline_config_overwritten: false
+test_evidence:
+  report: control/core_b/M3TOP3-v1-SHARED-WIRING-TEST-REPORT_v0.1_WORKING.json
+  github_actions_run_id: 31897196660
+  github_actions_job_id: 95042201201
+  exact_checkout_commit: 7fa068b7d69ea232b2dd0fa61c312af2c68771a2
+  runtime: Ubuntu_24.04.4_CPyth3.12.13
+  command: python -m unittest discover -s tools/m3top3/tests -p 'test_*.py' -v
+  total_tests: 76
+  passed: 76
+  failed: 0
+  predecessor_regression: PASS_53_OF_53
+  shared_interface_adversarial_and_integration: PASS_22_OF_22
+  component_identity: PASS_1_OF_1
+architecture_preservation:
+  weights_changed: false
+  scorer_architecture_changed: false
+  scorer_math_changed: false
+  feature_schema_changed: false
+  window_mapping: WM-v1.1
+  window_semantics_changed: false
+  model_version_changed: false
+release_state:
+  shared_interface_wiring_code: COMPLETE_CANDIDATE
+  vdi_validation_logic: WIRED_CANDIDATE
+  actual_validation_dataset_release: NOT_MATERIALIZED
+  marm_release: NOT_MATERIALIZED
+  production_krx_calendar_identity: NOT_YET_BOUND
+  independent_delta_preflight: NOT_EXECUTED
+  actual_replay_authorized: false
+  model_freeze_authorized: false
+scientific_firewall:
+  actual_outcome_data_inspected: false
+  actual_u127_mfe_inspected: false
+  actual_u127_mae_inspected: false
+  actual_future_return_inspected: false
+  actual_future_rank_inspected: false
+  actual_replay_executed: false
+  outcome_tuning_executed: false
+  ground_truth_changed: false
+  price_changed: false
+  ca_changed: false
+recommended_next_action: >-
+  CORE A binds production KRX calendar identity and registers this successor implementation identity; then SEMI-VALIDATION-AUDITOR
+  independently regenerates shared/code hashes and executes the delta preflight. Actual U127 replay remains prohibited until all
+  model/shared, data-control and release gates are closed.
