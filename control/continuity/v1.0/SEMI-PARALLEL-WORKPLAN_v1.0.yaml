@@ -1,0 +1,117 @@
+workplan_id: SEMI-PARALLEL-WORKPLAN
+version: v1.0
+status: ACTIVE_WORKING_PLAN
+as_of: '2026-08-15T20:34:00+09:00'
+owner_persona: SEMI-CONTROL-ARCHITECT
+
+objective: >-
+  Run U127 historical byte recovery and Control Hub persona/asset continuity implementation
+  in parallel without allowing either lane to contaminate or block the other unnecessarily.
+
+lane_A_U127_recovery:
+  owner: RECOVERY_RESEARCH_CHANNEL_UNDER_CONTROL
+  status: ACTIVE
+  purpose: recover the latest genuine U127 workbook bytes and establish machine-readable lineage
+  current_anchor:
+    file: U127_Data_Expansion_Working_v0.7_2026-08-15.xlsx
+    authority_level: LEVEL_3
+    sha256: 1fc47fd131479e6ebb4375206853f39a730610d8b9f29160c33aa292881ad50a
+  search_priority:
+    - v1.8
+    - v1.7
+    - v1.6
+    - v1.5
+    - v1.4
+    - v1.3
+  rules:
+    - RECOVERY_ONLY_UNTIL_CONTROL_AUTHORIZES_REMATERIALIZATION
+    - DO_NOT_EDIT_RECOVERED_BYTES
+    - DO_NOT_ACCEPT_FILENAME_AS_AUTHORITY
+    - COMPUTE_SHA256_ON_RECOVERY
+    - READ_ONLY_STRUCTURAL_AND_STATE_RECONCILIATION
+    - V1_9_IS_FORENSIC_ONLY_UNLESS_ACCEPTED_CORRECTION_LINEAGE_IS_PROVEN
+  return_gate:
+    required_for_each_recovered_candidate:
+      - exact_filename
+      - byte_size
+      - sha256
+      - source_or_locator
+      - internal_state_summary
+      - parent_lineage_status
+      - authority_level_recommendation
+      - contamination_status
+  promotion_gate: CONTROL_ADJUDICATION_REQUIRED
+
+lane_B_control_hub_continuity:
+  owner: SEMI-CONTROL-ARCHITECT
+  status: ACTIVE
+  branch: control-hub-continuity-v1
+  purpose: make persona, project memory, assets, decisions, and channel succession persistent outside chat runtime
+  round_1_outputs:
+    - SEMI-CONTROL-ARCHITECT_v1.0.yaml
+    - SEMI-ASSET-REGISTRY_v1.0.yaml
+    - SEMI-CURRENT-STATE_v1.0.yaml
+    - SEMI-CONTROL-EVENT-LEDGER_v1.0.jsonl
+  next_outputs:
+    - SEMI-CHANNEL-REGISTRY_v1.0.yaml
+    - SEMI-CHECKPOINT-SCHEMA_v1.0.yaml
+    - SEMI-CONTINUITY-PROTOCOL_v1.0.md
+    - SEMI-ARTIFACT-PERSISTENCE-PROTOCOL_v1.0.md
+    - first immutable Control Hub checkpoint
+  acceptance_gate:
+    - persona_identity_and_authority_recoverable_without_chat_history
+    - active_lanes_and_blockers_recoverable_without_chat_history
+    - U127_recovery_state_recoverable_without_chat_history
+    - artifact_identity_and_authority_separated
+    - successor_channel_can_load_checkpoint_and_reconcile_state
+
+cross_lane_contract:
+  - Lane A may discover bytes but may not promote or mutate Control state directly.
+  - Lane B records Lane A discoveries only after Control adjudication.
+  - Every accepted U127 recovery result must append a Control Event and update Asset Registry and Current State.
+  - Any recovered important artifact must be persisted before being called canonical or frozen.
+  - Continuity implementation must not reconstruct missing U127 cells or workbook bytes.
+  - U127 recovery must not wait for full continuity v1 completion before continuing forensic search.
+
+synchronization_points:
+  SP1:
+    trigger: any v1.3_or_later_U127_bytes_recovered
+    actions:
+      - pause authority assignment
+      - hash and inspect read-only
+      - Control adjudicate
+      - update asset registry
+      - append event ledger
+  SP2:
+    trigger: v1.7_or_v1.8_bytes_recovered
+    actions:
+      - perform clean-parent conflict analysis
+      - inspect Zenics, SemiTES, CMTX, Justek state
+      - determine whether Level_4_or_Level_5 review is justified
+  SP3:
+    trigger: Control Hub checkpoint schema complete
+    actions:
+      - create first checkpoint including live U127 recovery lane
+      - run successor-channel recovery drill
+  SP4:
+    trigger: recovery_space_reasonably_exhausted_without_clean_parent
+    actions:
+      - Control decides whether governed deterministic rematerialization may be designed
+      - no automatic reconstruction
+
+stop_conditions:
+  lane_A:
+    success: CLEAN_AUTHORITATIVE_PARENT_OR_COMPLETE_MACHINE_ROOT_RECOVERED_AND_VERIFIED
+    alternate_stop: CONTROL_FORMALLY_DECLARES_RECOVERY_SPACE_EXHAUSTED
+  lane_B:
+    success: SUCCESSOR_CHANNEL_RECOVERY_DRILL_PASS
+
+project_invariants:
+  - CHANNEL_IS_DISPOSABLE_PERSONA_INSTANCE
+  - GITHUB_IS_CONTROL_MEMORY
+  - S3_R2_ARE_BYTE_PERSISTENCE
+  - CHAT_RUNTIME_IS_EPHEMERAL
+  - NO_CHANNEL_ROTATION_WITHOUT_CHECKPOINT
+  - NO_IMPORTANT_ARTIFACT_WITHOUT_SHA256
+  - NO_CANONICAL_ARTIFACT_WITHOUT_PERSISTENT_LOCATOR
+  - NO_SELF_VALIDATION_BY_CONTROL_PERSONA
