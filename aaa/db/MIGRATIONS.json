@@ -1,0 +1,20 @@
+{
+  "schema": "aaa_ops",
+  "authority": "NON_AUTHORITATIVE_SHADOW_UNTIL_EXPLICIT_OWNER_CUTOVER",
+  "migrations": [
+    {
+      "version": "0001",
+      "path": "aaa/db/migrations/0001_operational_execution_plane.sql",
+      "sha256": "66e5609fea1104f4aba4d0566989bf3a6c8d2b6e0b75cb274a79f7bdb48d68c2"
+    }
+  ],
+  "postgresql_required_for_certification": true,
+  "sqlite_certifying": false,
+  "redis_required": false,
+  "kafka_required": false,
+  "kubernetes_required": false,
+  "p09_non_interference": {
+    "failed_target": "80378610f9ac9e688c52417f0416e01c057400a7",
+    "rerun_target": "30fdb278c218b24e44d66eb5f47935a196dc4f8c"
+  }
+}

@@ -26,6 +26,32 @@ jobs:
           set -euo pipefail
           python -m unittest discover -s aaa/tests -p 'test_*.py' -v
 
+  postgres-contract-smoke:
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: aaa_t18
+        options: >-
+          --health-cmd "pg_isready -U postgres -d aaa_t18"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply T18 PostgreSQL migration and contract smoke
+        shell: bash
+        run: |
+          set -euo pipefail
+          cid="$(docker ps --format '{{.ID}} {{.Image}}' | awk '$2 ~ /^postgres:16-alpine/ {print $1; exit}')"
+          test -n "$cid"
+          docker exec -i "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18 < aaa/db/migrations/0001_operational_execution_plane.sql
+          docker exec -i "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18 < aaa/db/tests/t18_contract_smoke.sql
+
   owner-console-build-smoke:
     permissions:
       contents: read
