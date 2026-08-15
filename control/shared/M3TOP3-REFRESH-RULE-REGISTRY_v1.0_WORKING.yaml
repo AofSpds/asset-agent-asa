@@ -1,0 +1,114 @@
+registry_id: M3TOP3-REFRESH-RULE-REGISTRY
+registry_release_id: M3TOP3-REFRESH-RULE-REGISTRY_v1.0_WORKING
+version: v1.0_WORKING
+status: LEGACY_REFRESH_CODES_BOUND_PENALTY_APPLICABILITY_RULES_NOT_INVENTED_RELEASE_WIRING_PENDING
+project: semiconductor-research
+as_of: '2026-08-16T01:13:00+09:00'
+authority_sources:
+- doc_id: SEMI-DATA-ROUTE
+  version: v1.1
+  base_date: '2026-08-14'
+  role: legacy project source-routing and refresh-rule authority
+governance_time_rule: Registry/rules are model-governance assets and need not predate each historical Snapshot, but the release-bound
+  registry must be fixed before outcome inspection/replay and applied uniformly.
+historical_evidence_time_rule: Evidence/support timestamps used for a historical freshness determination must be <= snapshot_cutoff_at.
+  evaluation_run_at/computed_at may be later and must not be treated as evidence availability.
+legacy_refresh_codes:
+  R0:
+    meaning: no routine re-search
+    execution_rule: change only when model formula/definition/trigger/maturity code version changes
+  R1:
+    meaning: refresh on structural change
+    execution_rule: M&A/business reorganization/core-product change
+  R2:
+    meaning: event-based slow variable
+    execution_rule: refresh when relevant qualification/installed-base/vendor-share/moat event is confirmed
+  R3Q:
+    meaning: quarterly refresh
+    execution_rule: refresh after earnings/reporting event
+  R3M:
+    meaning: monthly or 3M Snapshot refresh
+    execution_rule: refresh at model Snapshot
+  RE:
+    meaning: event-immediate refresh
+    execution_rule: reflect as of event occurrence/public availability
+  RD:
+    meaning: daily market refresh
+    execution_rule: trading-day based for price/market-cap/OHLC
+  EVIDENCE_FRESHNESS_EVERY_RUN:
+    meaning: evaluate evidence freshness every model execution
+    execution_rule: measure/assess evidence age relative to the target Snapshot under a governed rule
+field_mapping_from_data_route_v1_1:
+  Core Process:
+  - R1
+  Primary beta:
+  - R1
+  - R2
+  Future Tech Tags:
+  - R1
+  - R2
+  Installed Base:
+  - R2
+  - R3Q
+  Vendor Share:
+  - R2
+  - R3Q
+  Capacity Ceiling:
+  - R2
+  - RE
+  Moat Baseline:
+  - R2
+  Qualification:
+  - R2
+  - RE
+  Design Win:
+  - R2
+  - RE
+  Backlog:
+  - R3Q
+  - RE
+  Earnings:
+  - R3Q
+  - RE
+  Customer CAPEX:
+  - R3Q
+  - RE
+  Price/OHLC:
+  - RD
+  Market Cap:
+  - RD
+  Forward EPS:
+  - R3M
+  - RE
+  Trigger:
+  - R3M
+  - RE
+  Recognition:
+  - R3M
+  Evidence Freshness:
+  - EVIDENCE_FRESHNESS_EVERY_RUN
+f08_positive_penalty_resolution:
+  required_registry_identity:
+  - registry_release_id
+  - registry_version
+  - registry_content_sha256_from_release_manifest
+  - persistent_locator
+  required_rule_fields:
+  - refresh_rule_id
+  - applicable_scope
+  - applicable_source_or_evidence_class
+  - freshness_determination_method
+  - stale_state_method
+  - effective_model_version_or_policy_binding
+  - rule_status
+  arbitrary_nonempty_identifier_sufficient: false
+  scorer_invented_duration_thresholds: false
+  penalty_cap: 20
+critical_non_invention_note: SEMI-DATA-ROUTE v1.1 defines refresh cadence classes and states that Evidence Freshness is evaluated
+  every run, but it does not define a numeric mapping from age/cadence breach to F08 penalty points. This registry therefore
+  does not invent a numeric penalty schedule. Any positive official freshness_penalty must reference an additional typed governed
+  rule that explicitly defines its applicability and penalty, or an equivalent immutable governance object.
+rule_population_state:
+  base_refresh_codes: BOUND_FROM_SEMI_DATA_ROUTE_v1_1
+  numeric_f08_penalty_rules: NOT_YET_DEFINED_DO_NOT_INFER
+  official_positive_penalty_without_resolved_numeric_rule: FAIL_CLOSED
