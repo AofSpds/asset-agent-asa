@@ -1,7 +1,7 @@
 state_id: SEMI-CURRENT-STATE
 version: v1.0
 status: WORKING_SUCCESSOR_ACTIVE
-as_of: '2026-08-15T21:39:00+09:00'
+as_of: '2026-08-15T22:05:00+09:00'
 project: semiconductor-research
 active_persona: SEMI-CONTROL-ARCHITECT
 active_persona_instance: CTRL-ARCH-INSTANCE-004-20260815
@@ -18,7 +18,7 @@ successor_bootstrap:
 active_lanes:
   - lane_id: U127-ARTIFACT-RECOVERY
     status: ACTIVE_PARALLEL
-    purpose: recover genuine historical bytes and reconstruct the post-v0.7 application mechanism without rematerializing
+    purpose: recover genuine historical bytes and establish historical artifact lineage without rematerializing
     current_best_physical_artifact: U127_Data_Expansion_Working_v0.7_2026-08-15.xlsx
     current_best_physical_authority: LEVEL_3
     successor_byte_custody: VERIFIED
@@ -26,7 +26,6 @@ active_lanes:
     successor_sha256: 1fc47fd131479e6ebb4375206853f39a730610d8b9f29160c33aa292881ad50a
     successor_read_only_import: PASS
     successor_sheet_count: 17
-    post_v0_7_application_mechanism_audit: REQUEST_READY_FOR_PREDECESSOR_CONTROL_CHANNEL
     historical_materialization_audit:
       result: MATERIALIZATION_HISTORY_MIXED
       most_likely_hypothesis: H4
@@ -38,6 +37,18 @@ active_lanes:
       v1_9: PHYSICAL_CREATION_STRONGLY_SUPPORTED_LEVEL_B_FORENSIC_ONLY
       permanent_loss: NOT_ESTABLISHED
       safe_to_rematerialize: false
+    application_mechanism_audit:
+      status: CONTROL_PARTIAL_ACCEPT
+      post_v0_7_effective_system_of_record: MIXED_CONTROL_LOGICAL_STATE_DOMINANT
+      application_pattern: D_MIXED_ACROSS_CHANNELS_AND_RUNTIMES
+      predecessor_version_namespace_conflation: CONFIRMED
+      logical_state_advanced_without_physical_xlsx: true
+      next_rounds_consumed_logical_state_without_parent_bytes: SOME_CONFIRMED
+      return_packets_as_de_facto_delta_ledger: YES_PARTIAL_FORMALITY
+      aggregate_control_lineage: COMPLETE_RECONCILED
+      full_cell_event_lineage: PARTIAL
+      deterministic_rematerialization_feasibility: MEDIUM_NOT_AUTHORIZED
+      original_byte_recovery_space: NOT_EXHAUSTED
     recovery_priority:
       - v1.8
       - v1.7
@@ -54,6 +65,27 @@ active_lanes:
       - DO_NOT_USE_V1_9_AS_CLEAN_PARENT
       - OWNER_TESTIMONY_IS_PROCESS_EVIDENCE_NOT_BYTE_PROOF
 
+  - lane_id: U127-DELTA-LEDGER-RECOVERY
+    status: ACTIVE_PARALLEL
+    purpose: recover accepted and rejected post-v0.7 Research/Control transitions into an immutable typed delta lineage before any rematerialization decision
+    current_scope:
+      - membership_expansion_v0_7_to_v1_3_packet_harvest
+      - RC1_to_RC4_5_exact_delta_harvest
+      - RC5_A_rejection_lineage
+      - RC5_B_to_RC5_E_control_promotion_lineage
+      - FA1_to_FA4_certification_links
+    known_state:
+      aggregate_state_transition_count: 14
+      no_op_or_rejection_preservation_boundaries: 2
+      aggregate_arithmetic_reconciled: true
+      RC1_to_final_cell_lineage: VERY_STRONG
+      early_membership_full_cell_delta_ledger: PARTIAL
+    rules:
+      - LEDGER_RECOVERY_IS_NOT_WORKBOOK_REMATERIALIZATION
+      - RESEARCH_PROPOSED_AND_CONTROL_ACCEPTED_MUST_REMAIN_SEPARATE
+      - SOURCE_PACKET_HASH_REQUIRED_WHEN_SOURCE_BYTES_OR_TEXT_ARE_MATERIALIZED
+      - NO_ACCEPTED_DELTA_WITHOUT_CONTROL_DECISION_REFERENCE
+
   - lane_id: CONTROL-HUB-CONTINUITY-v1
     status: ACTIVE_PARALLEL
     purpose: persist persona, assets, decisions, state, checkpoints, and channel succession outside chat runtime
@@ -62,7 +94,7 @@ active_lanes:
 
   - lane_id: KNOWLEDGE-INCIDENT-HARVEST
     status: ACTIVE_PARALLEL
-    purpose: preserve high-value model/control know-how and reconstruct continuity failure modes before further rotation
+    purpose: preserve high-value model/control know-how and convert the U127 continuity incident into durable prevention rules
 
 parked_lanes:
   - lane_id: PRICE-ENGINEERING
@@ -93,7 +125,10 @@ u127:
   v0_7_persistent_primary: NOT_YET
   v0_7_persistent_secondary: NOT_YET
   permanent_loss: NOT_ESTABLISHED
-  post_v0_7_delta_carrier: UNKNOWN_PENDING_FORENSIC_AUDIT
+  post_v0_7_delta_carrier: MIXED_CONTROL_LOGICAL_STATE_DOMINANT
+  final_logical_state_dependency_on_v1_8_or_v1_9_bytes: NOT_REQUIRED_FOR_LOGICAL_VALIDITY
+  accepted_delta_lineage_recovery: PARTIAL
+  deterministic_rematerialization_feasibility: MEDIUM_NOT_AUTHORIZED
 
 price:
   dataset_id: SEMI-PRICE-MARCAP-KRX-2024-2026_v1
@@ -120,40 +155,58 @@ m3top3:
 
 critical_blockers:
   - AUTHORITATIVE_U127_FINAL_MACHINE_BYTES_NOT_RECOVERED
-  - POST_V0_7_AUTHORITATIVE_DELTA_CARRIER_NOT_YET_RECONSTRUCTED
+  - FULL_v0_7_TO_FINAL_TYPED_CELL_DELTA_LEDGER_NOT_YET_CERTIFIED
   - U127_ARTIFACT_PERSISTENCE_NOT_COMPLETE
   - INDEPENDENT_CA_CLOSURE_PENDING
   - OFFICIAL_PRICE_D4_D5_NOT_PROMOTED
   - CORE_B_SUCCESSOR_NOT_YET_RECONCILED_BY_CORE_A
 
 continuity_incident_assessment:
-  likely_contributing_factor: PERSONA_CHANNEL_CONTINUITY_BREAK
-  confidence: MEDIUM_HIGH
-  certification: NOT_YET_FINAL_ROOT_CAUSE
+  incident_classification: MULTIPLE
+  persona_channel_continuity_break_role: MAJOR_CONTRIBUTING_FACTOR
+  root_cause_components:
+    - TRANSIENT_SANDBOX_ARTIFACT_LOSS
+    - SOME_LOGICAL_STATES_NOT_MATERIALIZED
+    - VERSION_NAMESPACE_COLLISION
+    - PERSONA_CHANNEL_CONTINUITY_BREAK
+    - PERSISTENT_ARTIFACT_REGISTRY_FAILURE
+  confidence: HIGH_FOR_MULTI_FACTOR_INCIDENT_MEDIUM_FOR_EXACT_CAUSAL_ORDER
+  sole_root_cause_certified: false
   basis:
     - logical U127 version progression outran byte-verified artifact progression
+    - RC4_5 includes a confirmed logical advancement with parent bytes unavailable and no physical write
+    - RC5_B_C_D progression could proceed from Control handoff and structured returns without authoritative workbook bytes
     - important later FILE_OUTPUT references lack persistent byte registry
     - predecessor/successor runtimes did not share durable artifact custody
-    - version namespaces mixed Research state, workbook target, and Control state
-    - Project Owner reports that normally delivered XLSX artifacts would have been retained, supporting a non-file or mixed application mechanism after v0.7
-  caution: user testimony is operational process evidence and does not negate direct historical FILE_OUTPUT or v1.9 reimport evidence
+    - Research, Control, and artifact versions shared one ambiguous namespace
+    - Project Owner reports that normally delivered XLSX artifacts would have been retained, supporting a mixed or non-file application mechanism after v0.7
+  prevention_requirement:
+    - CONTROL_STATE_VERSION_SEPARATE_FROM_ARTIFACT_VERSION
+    - RESEARCH_EVENT_ID_SEPARATE_FROM_CONTROL_PROMOTION_STATE
+    - SHA256_AND_PERSISTENT_LOCATOR_FOR_IMPORTANT_ARTIFACTS
+    - CHECKPOINT_BEFORE_CHANNEL_ROTATION
+    - RETURN_PACKET_IS_TRANSPORT_NOT_SOURCE_OF_TRUTH
 
 continuity_risks:
   - CHANNEL_HISTORY_WAS_PREVIOUSLY_CARRYING_TOO_MUCH_PROJECT_AUTHORITY
   - LATER_U127_WORKBOOK_OUTPUT_REFERENCES_EXIST_WITHOUT_PERSISTENT_BYTE_REGISTRY
   - U127_VERSION_NAMESPACE_COLLISION_CONFIRMED
-  - PERSONA_CONTINUITY_BREAK_LIKELY_CONTRIBUTED_TO_ARTIFACT_LINEAGE_GAP
+  - PERSONA_CONTINUITY_BREAK_MAJORITY_CONTRIBUTOR_TO_ARTIFACT_LINEAGE_GAP
   - HANDOFF_PROMPT_ALONE_IS_INSUFFICIENT_AS_PROJECT_MEMORY
   - DUAL_CORE_AUTHORITY_BOUNDARIES_NOT_YET_FROZEN
 
 next_actions_parallel:
   U127_RECOVERY:
-    - send post-v0.7 application-mechanism and version-namespace forensic audit to predecessor Document Control Architect
+    - continue targeted genuine-byte recovery v1.8 then v1.7 then v1.6 while treating v1.9 as forensic-only
     - persist exact v0.7 bytes through governed primary and secondary artifact custody
-    - continue targeted genuine-byte recovery v1.8 then v1.7 then v1.6
-    - treat v1.9 as forensic-only if recovered
-    - identify the authoritative accepted-delta lineage from v0.7 to 1013 READY plus 3 unresolved
-    - do not rematerialize until recovery/application-mechanism audit space is formally exhausted and Control authorizes a new-identity reconstruction
+    - do not rematerialize until recovery and typed-delta certification gates are explicitly closed by Control
+  U127_DELTA_LEDGER_RECOVERY:
+    - harvest all surviving post-v0.7 Research and Control RETURN PACKETS into a typed immutable working ledger
+    - prioritize exact cell-level membership expansion deltas v0.7 through v1.3 because this is the largest deterministic-lineage gap
+    - link RC1 through RC5E transitions to Control acceptance or rejection decisions
+    - link FA1 through FA4 as certification events rather than cell-changing events
+    - require parent control state and source evidence references for each accepted delta
+    - certify aggregate arithmetic before any future cell-level replay
   CONTROL_HUB_CONTINUITY:
     - receive and reconcile CORE B Model Validation / Design Architect successor handoff
     - define final dual-core organization and authority boundary
@@ -161,3 +214,8 @@ next_actions_parallel:
     - formalize Persona persistence, Artifact Persistence Gate, and Channel Rotation Protocol
     - harvest P0 knowledge assets from both Core personas
     - run successor recovery drill before Continuity v1 freeze
+
+user_action:
+  required_now: NONE
+  optional_only_if_found_locally:
+    - upload exact unmodified v1.8, v1.9, or v1.7 candidate without opening and resaving
