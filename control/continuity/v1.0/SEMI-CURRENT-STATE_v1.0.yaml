@@ -1,7 +1,7 @@
 state_id: SEMI-CURRENT-STATE
 version: v1.0
 status: WORKING_SUCCESSOR_ACTIVE
-as_of: '2026-08-15T21:09:00+09:00'
+as_of: '2026-08-15T21:28:00+09:00'
 project: semiconductor-research
 active_persona: SEMI-CONTROL-ARCHITECT
 active_persona_instance: CTRL-ARCH-INSTANCE-004-20260815
@@ -21,6 +21,22 @@ active_lanes:
     purpose: recover latest genuine U127 workbook bytes and establish clean parent lineage
     current_best_physical_artifact: U127_Data_Expansion_Working_v0.7_2026-08-15.xlsx
     current_best_physical_authority: LEVEL_3
+    successor_byte_custody: VERIFIED
+    successor_byte_size: 550774
+    successor_sha256: 1fc47fd131479e6ebb4375206853f39a730610d8b9f29160c33aa292881ad50a
+    successor_read_only_import: PASS
+    successor_sheet_count: 17
+    historical_materialization_audit:
+      result: MATERIALIZATION_HISTORY_MIXED
+      most_likely_hypothesis: H4
+      confidence: MEDIUM
+      version_namespace_collision: true
+      first_suspected_version_where_logical_progression_outran_provable_physical_artifact: v0.8
+      v1_7: FILE_OUTPUT_REFERENCE_ONLY_LEVEL_C
+      v1_8: MATERIALIZATION_CONFLICT_LEVEL_C
+      v1_9: PHYSICAL_CREATION_STRONGLY_SUPPORTED_LEVEL_B_FORENSIC_ONLY
+      permanent_loss: NOT_ESTABLISHED
+      safe_to_rematerialize: false
     recovery_priority:
       - v1.8
       - v1.7
@@ -28,10 +44,13 @@ active_lanes:
       - v1.5
       - v1.4
       - v1.3
+    forensic_only_target:
+      - v1.9
     constraints:
       - RECOVERY_NOT_RECONSTRUCTION
       - DO_NOT_EDIT_RECOVERED_BYTES
       - HASH_AND_INSPECT_BEFORE_AUTHORITY_ASSIGNMENT
+      - DO_NOT_USE_V1_9_AS_CLEAN_PARENT
 
   - lane_id: CONTROL-HUB-CONTINUITY-v1
     status: ACTIVE_PARALLEL
@@ -63,7 +82,10 @@ u127:
   operational_activation_readiness: BLOCKED
   U127_frozen: false
   recovered_highest_physical_version: v0.7
+  v0_7_successor_custody: VERIFIED
   v0_7_sha256: 1fc47fd131479e6ebb4375206853f39a730610d8b9f29160c33aa292881ad50a
+  v0_7_persistent_primary: NOT_YET
+  v0_7_persistent_secondary: NOT_YET
   permanent_loss: NOT_ESTABLISHED
 
 price:
@@ -99,16 +121,19 @@ critical_blockers:
 continuity_risks:
   - CHANNEL_HISTORY_WAS_PREVIOUSLY_CARRYING_TOO_MUCH_PROJECT_AUTHORITY
   - LATER_U127_WORKBOOK_OUTPUT_REFERENCES_EXIST_WITHOUT_PERSISTENT_BYTE_REGISTRY
+  - U127_VERSION_NAMESPACE_COLLISION_CONFIRMED
   - HANDOFF_PROMPT_ALONE_IS_INSUFFICIENT_AS_PROJECT_MEMORY
   - DUAL_CORE_AUTHORITY_BOUNDARIES_NOT_YET_FROZEN
 
 next_actions_parallel:
   U127_RECOVERY:
-    - preserve v0.7 as read-only forensic anchor
-    - persist v0.7 through governed primary and secondary artifact custody when write path is available
-    - continue targeted byte recovery for v1.8 then v1.7 then v1.6
-    - on recovery compute SHA256 and reconcile internal state before any promotion
-    - do not rematerialize final U127 until recovery space is reasonably exhausted or Control explicitly authorizes governed rematerialization
+    - persist exact v0.7 bytes through governed primary and secondary artifact custody
+    - search specific v1.9 final-reimport-producing runtime for possible coexisting v1.8 parent bytes
+    - search RC4/RC4.5 workbook-writing runtime for genuine v1.8 bytes
+    - continue clean-parent recovery v1.8 then v1.7 then v1.6
+    - treat v1.9 as forensic-only if recovered
+    - do not spend equivalent effort on v0.8 v0.9 v1.1 absent new physical evidence
+    - do not rematerialize final U127 until recovery space is formally exhausted or Control explicitly authorizes governed rematerialization
   CONTROL_HUB_CONTINUITY:
     - receive and reconcile CORE B Model Validation / Design Architect successor handoff
     - define final dual-core organization and authority boundary
