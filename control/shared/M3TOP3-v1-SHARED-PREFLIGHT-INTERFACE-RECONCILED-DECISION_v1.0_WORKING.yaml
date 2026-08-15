@@ -1,0 +1,108 @@
+decision_id: M3TOP3-v1-SHARED-PREFLIGHT-INTERFACE-RECONCILED-DECISION
+version: v1.0_WORKING
+status: DUAL_CORE_DEFINITION_RECONCILED_CONTROL_MATERIALIZED_IMPLEMENTATION_WIRING_PENDING
+project: semiconductor-research
+as_of: '2026-08-16T01:13:00+09:00'
+parties:
+  CORE_A:
+    canonical_name: 문서·통제 아키텍트
+    persona_id: SEMI-CONTROL-ARCHITECT
+  CORE_B:
+    canonical_name: 모델 검증·설계 아키텍트
+    persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+sources:
+  work_order: control/workorders/WO-SHARED-M3TOP3-v1-PREFLIGHT-INTERFACE-RECONCILIATION-20260816.yaml
+  core_a_position: control/core_b/M3TOP3-v1-SHARED-PREFLIGHT-INTERFACE-COREA-POSITION_v0.1_WORKING.yaml
+  core_b_reconciliation: control/core_b/M3TOP3-v1-SHARED-PREFLIGHT-INTERFACE-COREB-RECONCILIATION_v0.1_WORKING.yaml
+  core_b_reconciliation_commit: e8483b2949129665f5d2dcf1bd23b693b128fcbb
+  source_patch_commit: 5f9491b6861a11097a929156eaa8bb7cc3c8c749
+unchanged_architecture:
+  model_version: M3TOP3-v1.0
+  feature_schema: M3TOP3-FEATURE-SCHEMA_v1.0_WORKING
+  scorer: M3TOP3-GATED-LINEAR_v1.0_WORKING
+  weights: M3TOP3-WEIGHT-VERSION_v1.0_WORKING
+  window_mapping: WM-v1.1
+  mis_semantic_architecture: MIS-v1.0
+  sio: SIO-v1.0
+  vdi_semantic_architecture: VDI-v1.0
+  marm_semantic_architecture: MARM-v1.0
+  weights_changed: false
+  scorer_math_changed: false
+  window_semantics_changed: false
+decisions:
+  FND_01_PIT_CONSUMED_VALUE_PROVENANCE:
+    state: DUAL_CORE_RECONCILED_IMPLEMENTATION_PENDING
+    rule: The authoritative set of scorer-consumed input paths SHALL be determined by a bound, versioned/hash-identified
+      Feature Input Registry or equivalent executable consumed-path contract. Input-self-declared consumed_fields is diagnostic
+      only and SHALL NOT define authoritative scope. Each authoritative consumed value must resolve to immutable evidence/support
+      provenance with publication_at or supported_cutoff_at not later than snapshot_cutoff_at. Derived or aggregate values must
+      additionally bind governed derivation/operator identity and PIT-certified upstream lineage. Whole-block certification is
+      allowed only when it binds the exact feature-block or input-release hash, the authoritative scope-contract identity/hash,
+      supported_cutoff_at, immutable evidence/source lineage, and proves coverage of every authoritative consumed path.
+    fail_closed:
+    - authoritative consumed-scope contract missing
+    - scope defined only by self-declared consumed_fields
+    - authoritative consumed path missing provenance
+    - provenance identity unresolved
+    - publication/support cutoff time missing
+    - publication/support cutoff later than snapshot_cutoff_at
+    - whole-block certification exact block/input-release identity mismatch
+    - whole-block certification scope does not cover all authoritative consumed paths
+    - bound scope-contract version/hash mismatch
+    - derived/aggregate value lacks governed derivation/operator identity
+    - derived/aggregate PIT upstream lineage cannot be reproduced or certified
+    - non-NONE Hard Risk Gate lacks governed PIT provenance
+  FND_04_F08_FRESHNESS_PROVENANCE:
+    state: DUAL_CORE_RECONCILED_IMPLEMENTATION_PENDING
+    rule: A positive F08 freshness_penalty SHALL resolve through a release-bound versioned/hashed Refresh Rule Registry or
+      equivalent typed immutable governance object. A nonempty string is not governance proof. The model-governance rule itself
+      need not predate each historical Snapshot; it must be frozen/bound before outcome inspection or replay and applied uniformly.
+      Historical evidence/support timestamps used to determine freshness must be at or before snapshot_cutoff_at. evaluation_run_at/computed_at
+      may occur later and SHALL NOT be confused with historical as-of timestamps.
+    penalty_cap: 20
+    scorer_invented_refresh_thresholds: PROHIBITED
+  FND_06_COVERAGE_RELEASE_BINDING:
+    state: DUAL_CORE_RECONCILED_IMPLEMENTATION_PENDING
+    rule: Company rankability and feature completeness remain distinct. PROVISIONAL_MISSING_FEATURES may enter official ranking
+      only when eligibility_state=ELIGIBLE, all five model axes are calculable with at least one AVAILABLE scored feature per
+      axis, no v1 feature is REVIEW_REQUIRED, governed missingness and renormalization are disclosed, required PIT/freshness
+      checks pass, and Snapshot-wide eligible-company rankability coverage equals 1.00. No new numeric minimum feature_coverage_ratio
+      is introduced in v1. Critical-Miss or any future outcome is never a historical rankability condition.
+    mandatory_axes:
+    - Business_Momentum
+    - Expectation_Surprise
+    - Market_Positioning
+    - Forward_Runway
+    - Reliability_Risk
+    minimum_feature_coverage_ratio: null
+    critical_miss_as_rankability_condition: false
+    scorer_math_change_required: false
+  FND_05_PRODUCTION_KRX_CALENDAR:
+    state: INTERFACE_CONFIRMED_CORE_A_DATA_IDENTITY_BINDING_PENDING
+    rule: A real bound KRX trading calendar may be supplied through the existing TradingCalendar interface without changing
+      WM-v1.1 Anchor, PIT Snapshot Cutoff, Nominal End, Entry, Evaluation Last Trade, or Exit semantics.
+  F02_HISTORICAL_CONFIG_NOTE:
+    state: NON_DESTRUCTIVE_SUCCESSOR_METADATA_REQUIRED
+    rule: Preserve baseline config bytes and SHA256. The historical documentation note implying a silent RELATIVE default is
+      superseded for executable behavior by successor compatibility metadata bound to the patched implementation. Do not overwrite
+      the historical baseline config.
+new_shared_interface_assets:
+- control/shared/M3TOP3-FEATURE-INPUT-REGISTRY_v1.0_WORKING.yaml
+- control/shared/M3TOP3-PIT-CONSUMED-PROVENANCE-CONTRACT_v1.0_WORKING.yaml
+- control/shared/M3TOP3-REFRESH-RULE-REGISTRY_v1.0_WORKING.yaml
+- control/shared/M3TOP3-COVERAGE-RELEASE-POLICY_v1.0_WORKING.yaml
+- control/core_b/M3TOP3-v1-IMPLEMENTATION-COMPATIBILITY-NOTE_v1.0.1_WORKING.yaml
+implementation_gate:
+  shared_guard_code_patch_required: true
+  release_vdi_wiring_required: true
+  additional_adversarial_tests_required: true
+  independent_delta_preflight_ready_now: false
+  actual_replay_authorized: false
+  model_freeze_authorized: false
+scientific_firewall:
+  actual_outcome_data_inspected: false
+  actual_replay_executed: false
+  outcome_tuning_executed: false
+  ground_truth_changed: false
+  price_changed: false
+  ca_changed: false
