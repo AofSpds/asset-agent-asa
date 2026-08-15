@@ -1,0 +1,43 @@
+plan_id: AAA-REPOSITORY-RENAME-PLAN
+version: v0.1_WORKING
+status: READY_FOR_OWNER_RENAME_ACTION_AND_POST_RENAME_REBIND
+project: Asset Agent ASA
+short_name: AAA
+current_repository: AofSpds/semiconductor-research
+target_repository: AofSpds/asset-agent-asa
+rename_scope:
+  github_repository_name: CHANGE
+  historical_git_commits: PRESERVE
+  open_issues_and_pull_requests: PRESERVE
+  branches_and_tags: PRESERVE
+  frozen_artifact_content: PRESERVE
+  historical_control_records: PRESERVE_NO_REWRITE
+  semi_control_plane_object_names: PRESERVE
+migration_strategy:
+  - RENAME_REPOSITORY_IN_GITHUB_SETTINGS
+  - REBIND_ALL_ACTIVE_AAA_AND_CONTROL_REFERENCES_TO_NEW_REPOSITORY_FULL_NAME
+  - VERIFY_DEFAULT_AND_CONTROL_BRANCHES
+  - VERIFY_OPEN_AAA_PULL_REQUESTS
+  - VERIFY_GITHUB_ACTIONS_WORKFLOWS
+  - UPDATE_NEW_SUCCESSOR_CONTROL_RECORDS_AND_BUILD_CONFIGS
+  - UPDATE_LOCAL_REMOTES_WHERE_APPLICABLE
+  - DO_NOT_REWRITE_FROZEN_OR_HISTORICAL_RECORDS_SOLELY_FOR_URL_RENAME
+compatibility:
+  github_web_and_git_redirects: EXPECTED_BUT_NOT_TREATED_AS_LONG_TERM_CANONICAL_BINDING
+  old_name_reuse: PROHIBITED_AFTER_RENAME_TO_PRESERVE_REDIRECTS
+  github_pages: CHECK_IF_INTRODUCED_LATER
+  repository_hosted_action_references: MUST_BE_EXPLICITLY_UPDATED_IF_INTRODUCED
+safe_transition_gate:
+  preferred_timing: BEFORE_WAVE_1B_EXPANDS_TO_ADDITIONAL_AAA_BRANCHES
+  current_wave_1a_draft_prs_may_remain_open: true
+  canonical_cutover_dependency: false
+post_rename_verification:
+  - REPOSITORY_FULL_NAME_EQUALS_AofSpds_asset-agent-asa
+  - CONTROL_BRANCH_REACHABLE
+  - AAA_T01_T04_T08_BRANCHES_REACHABLE
+  - DRAFT_PRS_REACHABLE
+  - AAA_BUILD_TEST_WORKFLOW_REACHABLE
+  - NO_M3TOP3_SOURCE_CONTENT_CHANGE
+  - NO_U127_CONTENT_CHANGE
+owner_action_required: true
+owner_action_reason: CURRENT_CONNECTED_GITHUB_TOOLSET_EXPOSES_REPOSITORY_CONTENT_BRANCH_PR_ACTIONS_BUT_NO_REPOSITORY_RENAME_MUTATION
