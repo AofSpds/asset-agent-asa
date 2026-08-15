@@ -1,0 +1,64 @@
+contract_id: AAA-NAMING-TRANSITION-CONTRACT
+version: v0.1_WORKING
+status: OWNER_DIRECTED_ACTIVE_BUILD_NAMING
+project: Asset Agent ASA
+short_name: AAA
+system_id: ASSET-AGENT-ASA
+created_at: '2026-08-16T03:45:00+09:00'
+owner_direction:
+  source: USER_DIRECT_INSTRUCTION
+  decision: REPLACE_SEMI_OPS_AS_CURRENT_PROJECT_NAME
+  current_name: Asset Agent ASA
+  current_short_name: AAA
+legacy_name:
+  name: SEMI-OPS
+  disposition: HISTORICAL_ONLY
+  new_usage: PROHIBITED_AS_CURRENT_PRODUCT_PROJECT_NAME
+  history_policy: PRESERVE_NO_REWRITE
+transition_semantics:
+  naming_change_only_by_default: true
+  governance_semantic_change: false
+  frozen_architecture_overwrite: false
+  shared_contract_unilateral_change: false
+  historical_control_records_rename: false
+  lineage_required: true
+namespace:
+  cli: aaa
+  python_package_candidate: aaa
+  env_prefix: AAA_
+  api_prefix_candidate: /api/aaa
+  ui_product_name: Asset Agent ASA
+  build_control_role: AAA BUILD CONTROL
+preserved_semi_control_plane:
+  rule: SEMI_CONTROL_PLANE_IDENTITIES_ARE_NOT_RENAMED_BY_THIS_CONTRACT
+  examples:
+    - SEMI-CURRENT-STATE
+    - SEMI-ARCHITECTURE-SPEC
+    - SEMI-CONTROL-ARCHITECT
+    - SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+migration_policy:
+  strategy: ADDITIVE_SUCCESSOR_NAMESPACE
+  do_not:
+    - rewrite_historical_SEMI_OPS_records
+    - rename_frozen_artifacts_in_place
+    - mutate_existing_event_history
+    - break_existing_locator_or_hash_identity
+  create_new:
+    - AAA_GAP_MAP
+    - AAA_BUILD_CONTRACT
+    - AAA_BUILD_MATRIX
+    - AAA_UI
+    - AAA_API
+    - AAA_MODEL_GATEWAY
+    - AAA_AGENT_RUNTIME
+    - AAA_CLI
+compatibility:
+  legacy_SEMI_OPS_reference: ALLOWED_ONLY_FOR_LINEAGE_OR_HISTORICAL_DISPLAY
+  current_product_display: Asset Agent ASA
+  current_short_display: AAA
+scientific_and_data_firewall:
+  u127_mutation: PROHIBITED
+  model_methodology_change: PROHIBITED_WITHOUT_CORE_B_AUTHORITY
+  ground_truth_change: PROHIBITED_WITHOUT_CORE_A_AUTHORITY
+  actual_replay: NOT_AUTHORIZED_BY_NAMING_CHANGE
+  freeze_release: NOT_AUTHORIZED_BY_NAMING_CHANGE
