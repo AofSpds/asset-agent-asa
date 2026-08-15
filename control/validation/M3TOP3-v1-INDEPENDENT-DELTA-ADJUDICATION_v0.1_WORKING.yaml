@@ -1,0 +1,127 @@
+adjudication_id: M3TOP3-v1-INDEPENDENT-DELTA-ADJUDICATION
+version: v0.1_WORKING
+status: INDEPENDENT_DELTA_FAIL_ACCEPTED_FND_02_BOUNDED_FIX_REQUIRED
+project: semiconductor-research
+recorded_at: '2026-08-16T04:01:00+09:00'
+control_persona:
+  canonical_name: 문서·통제 아키텍트
+  persona_id: SEMI-CONTROL-ARCHITECT
+  instance_id: CTRL-ARCH-INSTANCE-005-20260816
+repository_locator:
+  repository_id: '1334403184'
+  current_full_name: AofSpds/asset-agent-asa
+  historical_full_name: AofSpds/semiconductor-research
+  rename_record: control/aaa/v0.1/AAA-REPOSITORY-RENAME-PLAN_v0.1_WORKING.yaml
+  historical_commit_lineage_preserved: true
+  rename_changed_m3top3_source_content: false
+source_work_order: control/workorders/WO-VALIDATION-M3TOP3-v1-DELTA-PREFLIGHT-AFTER-NARROW-FIXES-20260816.yaml
+source_target_binding: control/validation/M3TOP3-v1-DELTA-PREFLIGHT-TARGET-BINDING_v0.1_WORKING.yaml
+source_return_packet:
+  packet_header: '[RETURN PACKET — M3TOP3 v1 DELTA INDEPENDENT PREFLIGHT]'
+  transport_sha256: a49efc968f78e9af98445eb0f3d18fc8c60668c2b0282f69636dfe0071ea72e2
+  transport_byte_size: 27712
+  received_state: RECEIVED_UNVERIFIED_THEN_CONTROL_ADJUDICATED
+  transport_is_source_of_truth: false
+validating_role:
+  canonical_name: 독립 검증·감사팀
+  role_id: SEMI-VALIDATION-AUDITOR
+  independence_claim: CONFIRMED_BY_PACKET_AND_CONTROL_SCOPE_CHECK
+exact_target:
+  base_candidate_commit: 7fa068b7d69ea232b2dd0fa61c312af2c68771a2
+  successor_commit: 5ee82d15a27237ed2ad142ae877c6595f0489f80
+  target_identity_unchanged: true
+independent_packet_results:
+  exact_target_identity: PASS
+  seven_control_fix_assets: PASS_7_OF_7
+  original_shared_assets: PASS_6_OF_6
+  baseline_model_identity: PASS
+  full_repository_suite: PASS_94_OF_94
+  CW_01: PASS
+  CW_02: PASS
+  CW_03: PASS
+  FND_02: FAIL
+  FND_03: PASS
+  scientific_firewall: PASS
+  delta_preflight_verdict: FAIL
+control_reproduction_by_source_review:
+  source_path: tools/m3top3/features_v1_narrow_patch.py
+  source_ref: 5ee82d15a27237ed2ad142ae877c6595f0489f80
+  source_git_blob_sha: 9ead14baed320dd922e64df278401212ea4aab45
+  observed_identity_function: >-
+    _milestone_identity() returns the first non-empty field in milestone_id -> event_group_id -> evidence_group_id order.
+  observed_dedup_behavior: >-
+    f06() stores one milestone per returned identity in unique_by_id. Therefore two rows with the same explicit event_group_id but
+    distinct milestone_id values receive two distinct identities and are counted as two independent_verified milestones.
+  score_implication: >-
+    With two verified accepted-tier rows, one shared conversion_step and sequential_conversion_steps=false, independent_verified>=2
+    and sequential_verified=false, so the implementation returns F06 score 90.
+  bypass_reproduced_logically_from_exact_source: true
+existing_test_gap:
+  source_path: tools/m3top3/tests/test_narrow_fixes_v1.py
+  source_git_blob_sha: baf6faa6b1b4b94c8f3029b952e9dbad279a558d
+  covered_cases:
+    - duplicate rows with same milestone_id
+    - duplicate rows with same event_group_id when milestone_id absent
+  missing_material_case:
+    - same event_group_id with rotated/distinct milestone_id
+control_finding:
+  finding_id: FND_02_F06_INDEPENDENT_MILESTONE
+  state: INDEPENDENT_VALIDATION_FAIL_CONFIRMED_BY_CONTROL_SOURCE_REVIEW
+  severity: P0_RELEASE_BLOCKING
+  issue: >-
+    A row-level milestone_id can override a shared economic-event identity. The same explicit event_group_id can therefore be counted
+    more than once by rotating milestone_id, inflating F06 to the two-independent-milestone score.
+  materiality: SCORE_CHANGING_PERMISSIVE_BYPASS
+  whole_model_redesign_required: false
+  bounded_fix_required: true
+preserved_passes:
+  CW_01: INDEPENDENT_PASS
+  CW_02: INDEPENDENT_PASS
+  CW_03: INDEPENDENT_PASS
+  FND_03: INDEPENDENT_PASS
+  scorer_identity: PASS_UNCHANGED
+  weights: UNCHANGED
+  WM_v1_1: UNCHANGED
+  scientific_firewall: PASS
+required_fix_direction:
+  principle: ONE_ECONOMIC_EVENT_MUST_NOT_COUNT_AS_MULTIPLE_INDEPENDENT_F06_MILESTONES_BY_IDENTIFIER_ROTATION
+  minimum_behavior:
+    - If milestones share an explicit event_group_id, distinct milestone_id values must not make them independent.
+    - If milestones share an explicit evidence_group_id, distinct milestone_id values must not make them independent.
+    - Multiple identity fields must be reconciled conservatively; a lower-level row identifier must not override a shared governed economic/evidence identity.
+    - Anonymous milestones without governed identity must not become independent-count evidence.
+  recommended_implementation_shape: >-
+    Use conservative multi-key identity grouping (for example connected components over matching milestone_id, event_group_id and evidence_group_id
+    within their own namespaces) or an equivalently fail-closed rule. Do not merely swap precedence in a way that fixes one collision class
+    while leaving another identifier-rotation bypass.
+  required_adversarial_tests:
+    - same event_group_id + different milestone_id -> cannot reach F06 90/100 solely from those rows
+    - same evidence_group_id + different milestone_id -> cannot reach F06 90/100 solely from those rows
+    - transitive identity collision across event/evidence identifiers -> one independent economic group or fail closed
+    - genuinely distinct governed economic identities -> existing 90/100 semantics preserved
+    - same milestone_id duplicate -> existing dedupe preserved
+  scoring_semantics_to_preserve:
+    - two genuinely independent verified non-sequential groups may score 90
+    - two genuinely independent verified sequential groups may score 100
+    - one verified independent group remains 70
+    - supplier_only cap remains unchanged
+forbidden:
+  - Weight changes
+  - Scorer arithmetic changes
+  - Outcome-based tuning
+  - Actual U127 outcome inspection
+  - Actual U127 replay
+  - Ground Truth mutation
+  - Price mutation
+  - CA mutation
+  - Invented F08 numeric schedule
+  - Model Freeze
+  - Production Release
+control_decision:
+  independent_delta_pass_for_5ee82d15a27237ed2ad142ae877c6595f0489f80: REJECTED
+  keep_successor_for_audit: true
+  route_bounded_core_b_fix: true
+  new_successor_required: true
+  independent_delta_rerun_required_after_fix: true
+  actual_replay_authorized: false
+next_work_order: control/workorders/WO-COREB-M3TOP3-v1-F06-ECONOMIC-EVENT-IDENTITY-HARDENING-20260816.yaml
