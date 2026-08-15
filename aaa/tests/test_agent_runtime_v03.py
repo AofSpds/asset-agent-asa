@@ -96,6 +96,47 @@ class AgentRuntimeV03Tests(unittest.TestCase):
             self.assertEqual(len(journal.read_events()), 2)
             self.assertEqual(journal.latest(), running)
 
+    def test_exact_reappend_with_different_event_type_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            journal = AgentRunJournal(Path(tmp) / "run.jsonl")
+            created = self._run()
+            journal.append(created, event_type="RUN_CREATED")
+            with self.assertRaisesRegex(JournalIntegrityError, "IDEMPOTENT_REAPPEND_EVENT_TYPE_MISMATCH"):
+                journal.append(created, event_type="RUN_RELABELED")
+
+    def test_journal_must_start_at_created(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            journal = AgentRunJournal(Path(tmp) / "run.jsonl")
+            direct_running = AgentRunRecord(
+                run_id="RUN-T11-001",
+                work_order_identity=WO,
+                exact_base_identity=BASE,
+                executor_role="ENGINEERING",
+                permission_level=PermissionLevel.ISOLATED_BRANCH_WRITE,
+                status=RunStatus.RUNNING,
+                branch="aaa-t11-agent-runtime-v1",
+            )
+            with self.assertRaisesRegex(JournalIntegrityError, "JOURNAL_MUST_START_CREATED"):
+                journal.append(direct_running, event_type="RUN_STARTED")
+
+    def test_journal_rejects_direct_lifecycle_bypass(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            journal = AgentRunJournal(Path(tmp) / "run.jsonl")
+            created = self._run()
+            journal.append(created, event_type="RUN_CREATED")
+            direct_success = AgentRunRecord(
+                run_id=created.run_id,
+                work_order_identity=created.work_order_identity,
+                exact_base_identity=created.exact_base_identity,
+                executor_role=created.executor_role,
+                permission_level=created.permission_level,
+                status=RunStatus.SUCCEEDED,
+                branch=created.branch,
+                result_sha256="5" * 64,
+            )
+            with self.assertRaisesRegex(JournalIntegrityError, "INVALID_JOURNAL_TRANSITION"):
+                journal.append(direct_success, event_type="RUN_SUCCEEDED")
+
     def test_journal_rejects_identity_drift(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             journal = AgentRunJournal(Path(tmp) / "run.jsonl")
