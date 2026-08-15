@@ -14,10 +14,10 @@
   "canonical_output": false,
   "terminal_result": {
     "result_id": "RESULT-VALIDATION-AAA-T19-INDEPENDENT-20260816-001",
-    "verdict": "FAIL",
-    "locator": "control/aaa/results/RESULT-VALIDATION-AAA-T19-INDEPENDENT-20260816-001.json",
-    "sha256": "434e0b7034425a0fe07fdec9048d4afcde90d3815935c9d12be1ac907a5474e9",
-    "byte_size": 3020
+    "result_sha256": "434e0b7034425a0fe07fdec9048d4afcde90d3815935c9d12be1ac907a5474e9",
+    "completed_at": "2026-08-16T08:05:00+09:00",
+    "persistent_locator": "control/aaa/results/RESULT-VALIDATION-AAA-T19-INDEPENDENT-20260816-001.json",
+    "verdict": "FAIL"
   },
   "notes": [
     "Independent validation executed externally through the manual bridge at exact target c867e3704b2744c3a826635b828ad6696e6281eb.",
