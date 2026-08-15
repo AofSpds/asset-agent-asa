@@ -1,5 +1,7 @@
 BEGIN;
 
+DROP VIEW IF EXISTS aaa_ops.run_projection;
+
 ALTER TABLE aaa_ops.runs
     ADD COLUMN IF NOT EXISTS canonical_output boolean NOT NULL DEFAULT false,
     ADD COLUMN IF NOT EXISTS source_json_path text,

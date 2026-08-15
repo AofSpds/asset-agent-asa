@@ -10,7 +10,7 @@
     {
       "version": "0002",
       "path": "aaa/db/migrations/0002_json_registry_source_identity.sql",
-      "sha256": "f481bb1e68200b133cdaae01b17f0d32f40a22ff3b2f720cef2fa0032eaa194e"
+      "sha256": "dfd47bb167e4bbcef2de9cb45bec811c0acfbcc5f03bde1a49fc24990b7d16dc"
     }
   ],
   "postgresql_required_for_certification": true,
