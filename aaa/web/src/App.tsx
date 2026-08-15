@@ -16,6 +16,21 @@ type StatusPayload = {
   }
 }
 
+type DiscrepancyComparison = {
+  key: string
+  authoritative: unknown
+  shadow: unknown
+  status: 'MATCH' | 'MISMATCH' | 'UNKNOWN'
+}
+
+type DiscrepancyPayload = {
+  status: 'MATCH' | 'MISMATCH' | 'STALE' | 'UNKNOWN'
+  projection_scope: string
+  report_sha256: string
+  event_ledger: { path: string; latest_event_id: string | null; latest_event_timestamp: string | null }
+  comparisons: DiscrepancyComparison[]
+}
+
 const navItems: Nav[] = ['Home', 'Assets', 'Work', 'Agents', 'Research', 'Validation', 'Decisions', 'History']
 const API = 'http://127.0.0.1:8765/api/aaa'
 
@@ -32,9 +47,16 @@ function Pill({ children }: { children: React.ReactNode }) {
   return <span style={{ background: '#1f2937', borderRadius: 999, padding: '7px 11px', color: '#bfdbfe' }}>{children}</span>
 }
 
+function statusColor(value: string) {
+  if (value === 'MATCH') return '#86efac'
+  if (value === 'UNKNOWN') return '#fcd34d'
+  return '#fca5a5'
+}
+
 export default function App() {
   const [active, setActive] = useState<Nav>('Home')
   const [status, setStatus] = useState<StatusPayload | null>(null)
+  const [discrepancy, setDiscrepancy] = useState<DiscrepancyPayload | null>(null)
   const [workCount, setWorkCount] = useState<number | null>(null)
   const [gates, setGates] = useState<string[]>([])
   const [apiState, setApiState] = useState<'LOADING' | 'ONLINE' | 'OFFLINE'>('LOADING')
@@ -42,18 +64,21 @@ export default function App() {
   useEffect(() => {
     const load = async () => {
       try {
-        const [statusResponse, workResponse, gateResponse] = await Promise.all([
+        const [statusResponse, workResponse, gateResponse, discrepancyResponse] = await Promise.all([
           fetch(`${API}/status`, { cache: 'no-store' }),
           fetch(`${API}/work`, { cache: 'no-store' }),
           fetch(`${API}/gates`, { cache: 'no-store' }),
+          fetch(`${API}/state/compare`, { cache: 'no-store' }),
         ])
-        if (!statusResponse.ok || !workResponse.ok || !gateResponse.ok) throw new Error('AAA_API_READ_FAILED')
+        if (!statusResponse.ok || !workResponse.ok || !gateResponse.ok || !discrepancyResponse.ok) throw new Error('AAA_API_READ_FAILED')
         const statusPayload = await statusResponse.json() as StatusPayload
         const workPayload = await workResponse.json() as { items: unknown[] }
         const gatePayload = await gateResponse.json() as { items: string[] }
+        const discrepancyPayload = await discrepancyResponse.json() as DiscrepancyPayload
         setStatus(statusPayload)
         setWorkCount(workPayload.items.length)
         setGates(gatePayload.items)
+        setDiscrepancy(discrepancyPayload)
         setApiState('ONLINE')
       } catch {
         setApiState('OFFLINE')
@@ -63,6 +88,27 @@ export default function App() {
   }, [])
 
   const content = useMemo(() => {
+    if (active === 'Validation') {
+      return (
+        <div style={{ display: 'grid', gap: 16 }}>
+          <Card title="Shadow discrepancy">
+            <strong style={{ color: statusColor(discrepancy?.status ?? 'UNKNOWN') }}>{discrepancy?.status ?? 'UNAVAILABLE'}</strong>
+            <div style={{ marginTop: 8, color: '#64748b', fontSize: 12 }}>{discrepancy?.projection_scope ?? 'API not connected'}</div>
+          </Card>
+          <Card title="Anchor comparisons">
+            <div style={{ display: 'grid', gap: 8 }}>
+              {discrepancy?.comparisons.map((row) => (
+                <div key={row.key} style={{ display: 'grid', gridTemplateColumns: 'minmax(180px, 1fr) auto', gap: 12, padding: '8px 0', borderBottom: '1px solid #1f2937' }}>
+                  <span style={{ color: '#d1d5db' }}>{row.key}</span>
+                  <strong style={{ color: statusColor(row.status) }}>{row.status}</strong>
+                </div>
+              )) ?? <span style={{ color: '#9ca3af' }}>No discrepancy data loaded.</span>}
+            </div>
+          </Card>
+        </div>
+      )
+    }
+
     if (active !== 'Home') {
       return (
         <Card title={active}>
@@ -83,6 +129,10 @@ export default function App() {
           <Card title="Current State">
             <strong>{currentState}</strong>
             <div style={{ marginTop: 8, color: '#93c5fd' }}>{mode}</div>
+          </Card>
+          <Card title="Shadow State Match">
+            <strong style={{ color: statusColor(discrepancy?.status ?? 'UNKNOWN') }}>{discrepancy?.status ?? 'UNAVAILABLE'}</strong>
+            <div style={{ marginTop: 8, color: '#9ca3af' }}>{discrepancy?.event_ledger.latest_event_id ?? 'No ledger anchor loaded'}</div>
           </Card>
           <Card title="Work Orders">
             <strong>{workCount ?? '—'}</strong>
@@ -112,7 +162,7 @@ export default function App() {
         </Card>
       </div>
     )
-  }, [active, gates, status, workCount])
+  }, [active, discrepancy, gates, status, workCount])
 
   return (
     <div style={{ minHeight: '100vh', background: '#0b1020', color: '#f9fafb', fontFamily: 'Inter, ui-sans-serif, system-ui, sans-serif' }}>
