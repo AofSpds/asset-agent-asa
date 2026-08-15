@@ -1,0 +1,115 @@
+work_order_id: WO-AAA-T18-OPERATIONAL-DATABASE-v0.1-20260816
+work_order_version: v0.1
+project: Asset Agent ASA
+short_name: AAA
+track: T18_OPERATIONAL_DATABASE_PERSISTENT_EXECUTION_PLANE
+status: DISPATCHED_AWAITING_ACK
+authority_owner: PROJECT_OWNER
+owner_approval_recorded_at: '2026-08-16T06:35:00+09:00'
+approval_record: control/aaa/architecture/AAA-T18-OPERATIONAL-DATABASE-ARCHITECTURE-REVIEW_v0.2_OWNER-APPROVED.yaml
+requesting_control: AAA_BUILD_CONTROL
+responsible_persona: SEMI-CONTROL-ARCHITECT
+executor_role: ENGINEERING_IMPLEMENTATION
+objective: Build a bounded PostgreSQL-backed Operational / Execution State Plane for AAA while preserving Git/GitHub Governance SoT, S3/R2 Artifact SoT, P09 independence, scientific firewall, and explicit later Owner cutover authority.
+exact_control_base_at_issue: b72621a23146535993af5398c2c88f56ee48903c
+repository: AofSpds/asset-agent-asa
+planned_branch: aaa-t18-operational-db-v0.1
+scope:
+  T18_0_ARCHITECTURE_CONTRACT:
+    - encode authority boundary and non-interference as tests/contracts
+  T18_1_DATABASE_SCHEMA_AND_MIGRATIONS:
+    - add deterministic PostgreSQL schema migrations versioned in Git
+    - minimum entities: work_order_refs, runs, run_events, results, experiments, experiment_runs, snapshot_refs
+    - enforce terminal/result/work-order referential integrity and lease fencing fields
+  T18_2_DETERMINISTIC_JSON_IMPORT:
+    - inventory existing control/aaa/runs JSON bytes with path, byte_size, SHA256
+    - import without inference, semantic correction, or invented historical values
+    - provide reconciliation report contract
+  T18_3_READ_ONLY_DUAL_READ_SHADOW:
+    - JSON remains authoritative
+    - DB is non-authoritative shadow
+    - discrepancies fail closed and do not auto-select a winner
+  T18_4_TRANSACTIONAL_OPERATIONAL_DRILLS:
+    - transaction/state transition tests
+    - concurrency and fencing-token tests
+    - stale lease mutation rejection
+    - terminal result atomicity and crash-boundary tests
+    - database unavailable fail-closed behavior
+  T18_5_MODEL_DEVELOPMENT_PLANE_METADATA:
+    - exact Git model/feature/config identities
+    - exact dataset/snapshot artifact identities
+    - Experiment/Run/Result linkage
+  T18_6_COMMON_READ_PATH:
+    - repository/service abstraction shared by CLI and HTTP API
+    - Owner Console must continue to read HTTP API, never DB directly
+  T18_7_RECOVERY_VALIDATION_AND_CUTOVER_PREPARATION:
+    - backup/restore drill contract
+    - final deterministic reconciliation
+    - independent validation candidate preparation
+    - no operational SoT cutover without separate Owner authorization
+permissions:
+  branch_write: ALLOWED_ON_T18_BRANCH
+  pull_request_write: ALLOWED
+  integration_merge: ALLOWED_AFTER_ENGINEERING_ACCEPTANCE_AND_CI
+  canonical_release_write: PROHIBITED
+  production_cutover: PROHIBITED
+  p09_target_mutation: PROHIBITED
+  shared_contract_unilateral_change: PROHIBITED
+  model_methodology_change: PROHIBITED
+non_interference:
+  p09_failed_exact_target: 80378610f9ac9e688c52417f0416e01c057400a7
+  p09_rerun_exact_target: 30fdb278c218b24e44d66eb5f47935a196dc4f8c
+  p09_rerun_id: RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-002
+  historical_targets_must_remain_immutable: true
+  t18_result_is_not_p09_result: true
+scientific_firewall:
+  future_outcome_use_for_historical_feature_or_snapshot_materialization: PROHIBITED
+  unknown_historical_evidence_inference: PROHIBITED
+  recovery_is_not_rematerialization: true
+  outcome_access_should_be_separable_from_snapshot_feature_write_path: true
+baseline_infrastructure:
+  PostgreSQL: REQUIRED
+  SQLite: OPTIONAL_NONCERTIFYING_TEST_DOUBLE_ONLY
+  Redis: NOT_REQUIRED
+  Kafka: NOT_REQUIRED
+  Kubernetes: NOT_REQUIRED
+engineering_acceptance:
+  - empty PostgreSQL rebuilds deterministically from migrations
+  - existing JSON Run registry remains authoritative during shadow
+  - all JSON Run records inventory with deterministic path/size/SHA256 identity
+  - deterministic import/reconciliation does not invent unknown fields
+  - future timestamp cannot create RUNNING_CONFIRMED
+  - heartbeat before start is rejected
+  - terminal state/verdict mismatch rejected
+  - terminal state and Result binding atomic
+  - work-order/run/result referential integrity enforced
+  - cross-timezone activity chronology correct
+  - one valid lease winner with monotonic fencing token
+  - stale lease epoch cannot heartbeat or complete Run
+  - duplicate event retry idempotent
+  - DB outage fails closed after DB-authority mode is explicitly enabled in tests
+  - CLI/API common projection contract passes
+  - no Owner Console direct DB access introduced
+  - no Redis/Kafka/Kubernetes dependency introduced
+  - existing non-T18 AAA tests remain green
+result_contract:
+  required_fields:
+    - result_id
+    - run_id
+    - work_order_id
+    - repository
+    - exact_base_commit
+    - engineering_branch_head
+    - migrations
+    - test_commands
+    - test_count
+    - pass_count
+    - fail_count
+    - json_registry_inventory
+    - reconciliation_status
+    - authority_boundary_status
+    - p09_non_interference_status
+    - verdict
+  verdict_enum: [PASS, PASS_WITH_FINDINGS, FAIL]
+  engineering_pass_is_independent_validation_pass: false
+  operational_sot_cutover_authorized: false
