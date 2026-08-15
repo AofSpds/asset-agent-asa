@@ -1,0 +1,187 @@
+state_id: SEMI-CURRENT-STATE
+version: v2.4
+status: WORKING_CORE_B_NARROW_PATCH_ACCEPTED_SHARED_RECONCILIATION_ACTIVE
+project: semiconductor-research
+as_of: '2026-08-16T00:59:00+09:00'
+supersedes: control/continuity/v1.0/SEMI-CURRENT-STATE_v2.3.yaml
+
+active_cores:
+  CORE_A:
+    canonical_name: 문서·통제 아키텍트
+    persona_id: SEMI-CONTROL-ARCHITECT
+    current_instance_id: CTRL-ARCH-INSTANCE-005-20260816
+    status: ACTIVE_SHARED_INTERFACE_RECONCILIATION_CORE_A_POSITION_ISSUED
+  CORE_B:
+    canonical_name: 모델 검증·설계 아키텍트
+    persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+    instance_id: MODEL-ARCH-INSTANCE-002-20260815
+    status: NARROW_PATCH_COMPLETE_CANDIDATE_AWAITING_SHARED_RECONCILIATION_AND_INDEPENDENT_DELTA_PREFLIGHT
+
+project_instruction_governance:
+  global_instruction_set: control/continuity/v1.0/SEMI-PROJECT-GLOBAL-INSTRUCTIONS_v1.5_ACTIVE.yaml
+  mutation_authority: CORE_PERSONAS_ONLY
+  comprehension_rule: UNDERSTANDING_BEFORE_COMPRESSION
+  compound_jargon_rule: NO_UNEXPLAINED_JARGON_STACKS
+  response_preflight_language_check: REQUIRED
+  summary_policy: FLEXIBLE_USE_WHEN_HELPFUL
+  material_input_prevalidation:
+    required: true
+    principle: NO_MATERIAL_STATE_MUTATION_FROM_UNVERIFIED_INPUT
+    intake_states: [RECEIVED_UNVERIFIED, PREVALIDATED, ACCEPTED_FOR_CONTROL, QUARANTINED_OR_INVALID]
+    checks: [IDENTITY, DUPLICATE_AND_REPLAY, CURRENT_STATE_CONSISTENCY, AUTHORITY_SCOPE, SCIENTIFIC_FIREWALL, IMPACT, COMPLETENESS]
+    high_impact_two_step_control: true
+
+organization:
+  owner_acceptance: ACCEPTED_2026_08_16
+  core_relationship: PEER_CORE_PERSONAS
+  independent_validation_function: FUNCTIONALLY_SEPARATE
+  shared_contract_state: control/continuity/v1.0/SEMI-SHARED-CONTRACT-STATE_v0.4_WORKING.yaml
+  shared_contracts: 9_OF_9_AGREED
+  open_definitions: 0
+  shared_contract_changed_by_current_patch: false
+
+model_v1:
+  model_version: M3TOP3-v1.0
+  baseline_source_commit: 32c8a0f31428273d76b4e7b3f2cea76f955770aa
+  baseline_config_sha256: eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98
+  baseline_config_changed: false
+  independent_preflight: PASS_WITH_NARROW_FIXES_CONTROL_ACCEPTED
+  narrow_patch:
+    source_commit: 5f9491b6861a11097a929156eaa8bb7cc3c8c749
+    control_adjudication: control/core_b/M3TOP3-v1-COREB-NARROW-PATCH-CONTROL-ADJUDICATION_v0.1_WORKING.yaml
+    core_b_manifest: control/core_b/M3TOP3-v1-NARROW-FIX-MANIFEST_v0.1_WORKING.yaml
+    core_b_test_report: control/core_b/M3TOP3-v1-NARROW-FIX-TEST-REPORT_v0.1_WORKING.json
+    github_actions_run: 31893921010
+    github_actions_job: 95034181141
+    exact_checkout_ci: PASS
+    tests: PASS_53_OF_53
+    original_model_regression: PASS_18_OF_18
+    infrastructure_regression: PASS_25_OF_25
+    new_adversarial: PASS_10_OF_10
+    weights_changed: false
+    scorer_architecture_changed: false
+    feature_schema_changed: false
+    model_version_changed: false
+    identity_warning: >-
+      The persistent manifest/test-report/shared-proposal were materialized after the source patch commit on the control branch;
+      they are later control evidence referring to patch commit 5f9491b6, not members of that commit's byte tree.
+  findings:
+    FND_01_MIS_PIT_CONSUMED_INPUT_PROVENANCE:
+      status: SHARED_RECONCILIATION_PENDING
+      core_b_hook: MODEL_SIDE_PROPOSAL_TESTED_NOT_RELEASE_ACTIVATED
+      core_a_refinement: GOVERNED_CONSUMED_SCOPE_OR_WHOLE_BLOCK_CERTIFICATION_REQUIRED
+    FND_02_F06_INDEPENDENT_MILESTONE:
+      status: CORE_B_CLOSED_CANDIDATE_AWAITING_INDEPENDENT_DELTA_VALIDATION
+      patch_behavior: DUPLICATE_STABLE_IDENTITIES_DEDUPLICATED_90_100_REQUIRE_MULTIPLE_IDENTIFIED_VERIFIED_MILESTONES
+    FND_03_F02_OPERATOR_GOVERNANCE:
+      status: CORE_B_CLOSED_CANDIDATE_AWAITING_INDEPENDENT_DELTA_VALIDATION
+      patch_behavior: NO_SILENT_RELATIVE_DEFAULT_EXPLICIT_OR_GOVERNED_OPERATOR_REQUIRED
+    FND_04_F08_FRESHNESS_PROVENANCE:
+      status: SHARED_RECONCILIATION_PENDING
+      core_b_hook: MODEL_SIDE_PROPOSAL_TESTED_NOT_RELEASE_ACTIVATED
+      core_a_refinement: GOVERNANCE_IDENTIFIER_MUST_RESOLVE_TO_VERSIONED_HASHED_REGISTRY_OR_IMMUTABLE_REFERENCE
+    FND_05_PRODUCTION_KRX_TRADING_CALENDAR:
+      status: CORE_A_BINDING_PENDING
+    FND_06_COVERAGE_RELEASE_BINDING:
+      status: SHARED_RECONCILIATION_PENDING
+      invariant: COMPANY_RANKABILITY_NE_FEATURE_COMPLETENESS
+  shared_reconciliation:
+    work_order: control/workorders/WO-SHARED-M3TOP3-v1-PREFLIGHT-INTERFACE-RECONCILIATION-20260816.yaml
+    core_b_proposal: control/core_b/M3TOP3-v1-SHARED-PREFLIGHT-INTERFACE-PROPOSAL_v0.1_WORKING.yaml
+    core_a_position: control/core_b/M3TOP3-v1-SHARED-PREFLIGHT-INTERFACE-COREA-POSITION_v0.1_WORKING.yaml
+    core_a_review: ACCEPT_DIRECTION_WITH_REQUIRED_REFINEMENTS
+    shared_contract_promoted: false
+    next_actor: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+  independent_delta_preflight:
+    work_order: control/workorders/WO-VALIDATION-M3TOP3-v1-DELTA-PREFLIGHT-AFTER-NARROW-FIXES-20260816.yaml
+    activation_status: BLOCKED_PENDING_SHARED_RECONCILIATION_AND_RELEASE_WIRING
+    patched_component_sha256_must_be_regenerated_by_validator: true
+  model_frozen: false
+  actual_replay_authorized: false
+
+window_mapping:
+  version: WM-v1.1
+  W1_W8: PASS_8_OF_8_SYNTHETIC
+  production_KRX_calendar_identity: NOT_YET_BOUND
+  semantics_changed: false
+
+u127:
+  membership: 127
+  total_BP_cells: 1016
+  certified_READY: 1013
+  unresolved: 3
+  partial: 0
+  highest_byte_verified_artifact: U127_Data_Expansion_Working_v0.7_2026-08-15.xlsx
+  v0_7_sha256: 1fc47fd131479e6ebb4375206853f39a730610d8b9f29160c33aa292881ad50a
+  v0_7_byte_size: 550774
+  final_state_source_binding: PARTIAL_PASS
+  v0_7_primary_persistence: NOT_YET
+  v0_7_secondary_persistence: NOT_YET
+  canonical_machine_release: NOT_MATERIALIZED
+
+price:
+  dataset_id: SEMI-PRICE-MARCAP-KRX-2024-2026_v1
+  identity_sha256: 419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7
+  raw_rows: 1819147
+  primary_storage: AWS_S3_MATERIALIZED_VERIFIED
+  secondary_storage: CLOUDFLARE_R2_MATERIALIZED_VERIFIED
+  official_D4: BLOCKED
+  official_D5: NOT_EXECUTED
+
+ca:
+  project_completeness_gate: BLOCKED
+  targeted_open_cases:
+    - KRX:001527@2024-03-28
+    - KRX:403360@2026-05-08
+
+actual_replay_readiness:
+  ready: false
+  authorization: PROHIBITED
+  blockers:
+    model_and_shared:
+      - FND_01_DUAL_CORE_PIT_PROVENANCE_RECONCILIATION_AND_RELEASE_WIRING
+      - FND_04_DUAL_CORE_F08_FRESHNESS_RECONCILIATION_AND_RELEASE_WIRING
+      - FND_06_COVERAGE_RELEASE_BINDING
+      - FND_02_FND_03_INDEPENDENT_DELTA_CONFIRMATION
+      - PRODUCTION_KRX_TRADING_CALENDAR_IDENTITY
+      - PATCHED_COMPONENT_SHA256_MANIFEST_REGENERATED_BY_INDEPENDENT_VALIDATOR
+      - INDEPENDENT_DELTA_PREFLIGHT_AFTER_RECONCILIATION
+    data_control:
+      - U127_FINAL_SOURCE_BINDING_INDEPENDENT_VALIDATION
+      - U127_V0_7_PRIMARY_SECONDARY_PERSISTENCE
+      - U127_CANONICAL_MACHINE_RELEASE_MATERIALIZATION
+      - PRICE_OFFICIAL_READINESS
+      - CA_RAW_OHLC_CLOSURE
+      - VALIDATION_DATASET_RELEASE_MATERIALIZATION
+    release:
+      - MATERIALIZE_VDI_v1_0
+      - MATERIALIZE_MARM_v1_0
+      - INDEPENDENT_REPLAY_VALIDATION_PROCEDURE
+      - VALIDATION_CHANNEL_BOOTSTRAP_CONTINUITY_BACKFILL
+
+continuity:
+  checkpoint_id: CP-CTRL-20260816-ROTATION-001
+  channel_registry: control/continuity/v1.0/SEMI-CHANNEL-REGISTRY_v1.3.yaml
+  event_ledger_head: control/continuity/v1.0/SEMI-CONTROL-EVENT-LEDGER_v2.6.jsonl
+  material_persistent_state_conflict: false
+
+scientific_firewall:
+  actual_outcome_data_inspected_by_control: false
+  actual_replay_executed: false
+  model_tuned_from_outcomes: false
+  model_frozen: false
+  production_release_authorized: false
+
+next_actions_parallel:
+  DUAL_CORE:
+    - RECONCILE_FND_01_FND_04_FND_06_WITH_CORE_A_REFINEMENTS
+  CORE_A:
+    - BIND_PRODUCTION_KRX_TRADING_CALENDAR_IDENTITY
+    - CONTINUE_U127_RELEASE_CLOSURE
+    - CONTINUE_PRICE_CA_TARGETED_CLOSURE
+    - PREPARE_VDI_VALIDATION_DATASET_RELEASE
+  CORE_B:
+    - RESPOND_TO_CORE_A_SHARED_INTERFACE_REFINEMENTS_WITHOUT_WEIGHT_OR_SCORER_RETUNE
+  VALIDATION:
+    - WAIT_UNTIL_SHARED_RECONCILIATION_AND_RELEASE_WIRING_COMPLETE
+    - THEN_EXECUTE_INDEPENDENT_DELTA_PREFLIGHT_ON_BOUND_PATCH_AND_RECONCILED_INTERFACES
