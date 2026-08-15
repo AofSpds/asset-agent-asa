@@ -1,0 +1,77 @@
+manifest_id: M3TOP3-v1-SHARED-INTERFACE-ASSET-MANIFEST
+version: v1.0_WORKING
+status: CONTROL_MATERIALIZED_EXPECTED_SHA256_BOUND_COREB_AND_INDEPENDENT_REHASH_REQUIRED
+project: semiconductor-research
+as_of: '2026-08-16T01:13:00+09:00'
+source_reconciliation_commit: e8483b2949129665f5d2dcf1bd23b693b128fcbb
+source_patch_commit: 5f9491b6861a11097a929156eaa8bb7cc3c8c749
+hash_method: SHA256 over exact UTF-8 file bytes as submitted through GitHub contents API
+identity_caveat: These hashes are Control-computed from the exact create payloads. CORE B wiring and independent delta validation
+  must re-read the GitHub bytes at the bound commit/ref and independently recompute SHA256 before release promotion.
+assets:
+- path: control/shared/M3TOP3-v1-SHARED-PREFLIGHT-INTERFACE-RECONCILED-DECISION_v1.0_WORKING.yaml
+  version: v1.0_WORKING
+  sha256: 4ef3ba4925f99184103bf4e1c0b2c9e378c6018a34bb2672069ce4c825344f05
+  byte_size: 6420
+  create_commit: 587c7ce52a142a6312545a590a7b669d06b5fe70
+  persistent_locator: github://AofSpds/semiconductor-research/control-hub-continuity-v1/control/shared/M3TOP3-v1-SHARED-PREFLIGHT-INTERFACE-RECONCILED-DECISION_v1.0_WORKING.yaml
+  lineage:
+  - WO-SHARED-M3TOP3-v1-PREFLIGHT-INTERFACE-RECONCILIATION-20260816
+  - CORE_A position v0.1_WORKING
+  - CORE_B reconciliation commit e8483b2949129665f5d2dcf1bd23b693b128fcbb
+- path: control/shared/M3TOP3-FEATURE-INPUT-REGISTRY_v1.0_WORKING.yaml
+  version: v1.0_WORKING
+  sha256: f90fd3f890e6324d68b3a44b7c46fe767ba5a31a8ecbb046362813e2d7648ded
+  byte_size: 4843
+  create_commit: af71741b88838197cfe87c169b27b7abfc354eab
+  persistent_locator: github://AofSpds/semiconductor-research/control-hub-continuity-v1/control/shared/M3TOP3-FEATURE-INPUT-REGISTRY_v1.0_WORKING.yaml
+  lineage:
+  - WO-SHARED-M3TOP3-v1-PREFLIGHT-INTERFACE-RECONCILIATION-20260816
+  - CORE_A position v0.1_WORKING
+  - CORE_B reconciliation commit e8483b2949129665f5d2dcf1bd23b693b128fcbb
+- path: control/shared/M3TOP3-PIT-CONSUMED-PROVENANCE-CONTRACT_v1.0_WORKING.yaml
+  version: v1.0_WORKING
+  sha256: 22e80dbf80e1bfb9ae25ab8f56a7fd56463fc8c8bd92a67489a6a9601455354f
+  byte_size: 3302
+  create_commit: c226f32231b8a61d6f01f0c242df7f410ffdcfb6
+  persistent_locator: github://AofSpds/semiconductor-research/control-hub-continuity-v1/control/shared/M3TOP3-PIT-CONSUMED-PROVENANCE-CONTRACT_v1.0_WORKING.yaml
+  lineage:
+  - WO-SHARED-M3TOP3-v1-PREFLIGHT-INTERFACE-RECONCILIATION-20260816
+  - CORE_A position v0.1_WORKING
+  - CORE_B reconciliation commit e8483b2949129665f5d2dcf1bd23b693b128fcbb
+- path: control/shared/M3TOP3-REFRESH-RULE-REGISTRY_v1.0_WORKING.yaml
+  version: v1.0_WORKING
+  sha256: e44b67e4f3854cfcd2c9f5fd7924192bc0c5491bfcdd496acbae8b4dd318cd64
+  byte_size: 3715
+  create_commit: ba3fd3d22266256a143e3aeedaaac7d20c83de36
+  persistent_locator: github://AofSpds/semiconductor-research/control-hub-continuity-v1/control/shared/M3TOP3-REFRESH-RULE-REGISTRY_v1.0_WORKING.yaml
+  lineage:
+  - WO-SHARED-M3TOP3-v1-PREFLIGHT-INTERFACE-RECONCILIATION-20260816
+  - CORE_A position v0.1_WORKING
+  - CORE_B reconciliation commit e8483b2949129665f5d2dcf1bd23b693b128fcbb
+- path: control/shared/M3TOP3-COVERAGE-RELEASE-POLICY_v1.0_WORKING.yaml
+  version: v1.0_WORKING
+  sha256: b8c7bd86d33dcc454ddff7cc2d3589b3bd0e59a65c22831d77773545ad10c795
+  byte_size: 3180
+  create_commit: ef290d38c9553e4127a0e178eeb32dbc14989e21
+  persistent_locator: github://AofSpds/semiconductor-research/control-hub-continuity-v1/control/shared/M3TOP3-COVERAGE-RELEASE-POLICY_v1.0_WORKING.yaml
+  lineage:
+  - WO-SHARED-M3TOP3-v1-PREFLIGHT-INTERFACE-RECONCILIATION-20260816
+  - CORE_A position v0.1_WORKING
+  - CORE_B reconciliation commit e8483b2949129665f5d2dcf1bd23b693b128fcbb
+- path: control/core_b/M3TOP3-v1-IMPLEMENTATION-COMPATIBILITY-NOTE_v1.0.1_WORKING.yaml
+  version: v1.0.1_WORKING
+  sha256: dfd98712a4982eef5a4b07fec5d376f0eefed0c1861e14d3a20ddb22c87fb656
+  byte_size: 1141
+  create_commit: 8d261137fe474da59e9fff7cd79b2c67c743494c
+  persistent_locator: github://AofSpds/semiconductor-research/control-hub-continuity-v1/control/core_b/M3TOP3-v1-IMPLEMENTATION-COMPATIBILITY-NOTE_v1.0.1_WORKING.yaml
+  lineage:
+  - WO-SHARED-M3TOP3-v1-PREFLIGHT-INTERFACE-RECONCILIATION-20260816
+  - CORE_A position v0.1_WORKING
+  - CORE_B reconciliation commit e8483b2949129665f5d2dcf1bd23b693b128fcbb
+release_state:
+  shared_definition_reconciled: true
+  implementation_wiring_complete: false
+  independent_rehash_complete: false
+  independent_delta_preflight_complete: false
+  actual_replay_authorized: false
