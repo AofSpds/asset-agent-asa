@@ -1,0 +1,31 @@
+schema_id: SEMI-CHECKPOINT-SCHEMA
+version: v1.0
+status: WORKING_CONTROL_SCHEMA
+
+required_fields:
+  - checkpoint_id
+  - created_at
+  - persona_id
+  - persona_version
+  - channel_instance_id
+  - control_state_version
+  - event_ledger_head
+  - asset_registry_version
+  - channel_registry_version
+  - active_lanes
+  - pending_returns
+  - open_blockers
+  - current_authority_summary
+  - current_artifact_summary
+  - next_actions
+  - git_branch
+  - git_commit_sha
+  - checkpoint_status
+
+rules:
+  - CHECKPOINT_IS_IMMUTABLE_AFTER_COMMIT
+  - NEW_INFORMATION_CREATES_NEW_CHECKPOINT
+  - CHANNEL_ROTATION_REQUIRES_COMMITTED_CHECKPOINT
+  - SUCCESSOR_MUST_RECONCILE_CHECKPOINT_BEFORE_NEW_WORK
+  - CHECKPOINT_REFERENCES_PERSISTENT_CONTROL_ASSETS_NOT_CHAT_MEMORY
+  - EPHEMERAL_LOCATORS_MAY_BE_RECORDED_ONLY_AS_NON_AUTHORITATIVE_FORENSIC_REFERENCES
