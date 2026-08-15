@@ -1,0 +1,66 @@
+{
+  "report_id": "M3TOP3-v1-NARROW-FIX-TEST-REPORT",
+  "version": "v0.1_WORKING",
+  "status": "CORE_B_PATCH_TEST_PASS_NOT_INDEPENDENT_DELTA_PREFLIGHT",
+  "work_order_id": "WO-COREB-M3TOP3-v1-NARROW-FIXES-20260816",
+  "baseline_commit": "32c8a0f31428273d76b4e7b3f2cea76f955770aa",
+  "patch_commit": "5f9491b6861a11097a929156eaa8bb7cc3c8c749",
+  "repository": "AofSpds/semiconductor-research",
+  "branch": "control-hub-continuity-v1",
+  "github_actions": {
+    "workflow": ".github/workflows/m3top3-narrow-fix-tests.yml",
+    "run_id": 31893921010,
+    "job_id": 95034181141,
+    "conclusion": "success",
+    "exact_checkout_commit": "5f9491b6861a11097a929156eaa8bb7cc3c8c749",
+    "runtime": {
+      "os": "Ubuntu 24.04.4 LTS",
+      "python": "CPython 3.12.13",
+      "runner_image": "ubuntu-24.04"
+    }
+  },
+  "test_command": "python -m unittest discover -s tools/m3top3/tests -p 'test_*.py' -v",
+  "tests": {
+    "total": 53,
+    "passed": 53,
+    "failed": 0,
+    "infrastructure_regression": "PASS_25_OF_25",
+    "original_model_regression": "PASS_18_OF_18",
+    "new_adversarial": "PASS_10_OF_10"
+  },
+  "adversarial_results": {
+    "TEST_01_consumed_value_without_pit_provenance": "PASS_FAIL_CLOSED_HOOK",
+    "TEST_02_post_cutoff_derived_permitted_value": "PASS_FAIL_CLOSED_HOOK",
+    "TEST_03_duplicate_F06_milestone": "PASS_NO_90_100_INFLATION",
+    "TEST_04_same_event_identity_duplicate_rows": "PASS_DEDUPLICATED",
+    "TEST_05_F02_missing_operator": "PASS_REJECTED",
+    "TEST_06_F02_explicit_relative": "PASS_ARITHMETIC_0_2",
+    "TEST_07_F02_explicit_absolute": "PASS_ARITHMETIC_3",
+    "TEST_08_F08_unbound_freshness_penalty": "PASS_REJECTED_BY_PROPOSAL_HOOK",
+    "TEST_09_F08_governed_penalty_over_20": "PASS_CAPPED_AT_20",
+    "TEST_10_F02_governed_upstream_metric_change": "PASS"
+  },
+  "component_sha256": {
+    "tools/m3top3/features_v1_narrow_patch.py": "d97fd31cb6ecb212022584393216436b6145a09c29dc7112a5e3e224a4cde623",
+    "tools/m3top3/shared_interface_guards_v1.py": "974cf64c794fdf390b81637b0cb648b3324313dd2091f066f72528f0c13afe4d",
+    "tools/m3top3/scorer_v1.py": "5f940c83acceba1fdc9aaf897a7fe3bbea0469fd80bdc4f9f6d43c32134247fe",
+    "tools/m3top3/tests/test_model_v1.py": "1d385ca7138b02d520893d1c173185fccc26fecd8f46603fe682cb3100ed0a7c",
+    "tools/m3top3/tests/test_narrow_fixes_v1.py": "5088965606b5d6f6d924475ab910ea408c4bd67cb575a6753bb53e1137026641"
+  },
+  "baseline_config": {
+    "path": "tools/m3top3/configs/m3top3_v1.0.json",
+    "sha256": "eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98",
+    "changed": false
+  },
+  "scientific_firewall": {
+    "actual_outcome_data_inspected": false,
+    "actual_u127_mfe_inspected": false,
+    "actual_u127_mae_inspected": false,
+    "actual_future_return_inspected": false,
+    "actual_future_rank_inspected": false,
+    "actual_replay_executed": false,
+    "outcome_tuning_executed": false
+  },
+  "independent_delta_preflight": "NOT_EXECUTED",
+  "shared_interface_enforcement": "PROPOSAL_HOOKS_TESTED_NOT_RELEASE_ACTIVATED_PENDING_DUAL_CORE_RECONCILIATION"
+}
