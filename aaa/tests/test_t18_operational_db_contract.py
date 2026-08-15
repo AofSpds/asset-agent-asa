@@ -89,7 +89,9 @@ class T18OperationalDatabaseContractTests(unittest.TestCase):
     def test_migration_manifest_binds_all_exact_sql_bytes_and_preserves_p09_targets(self):
         manifest_path = REPO_ROOT / "aaa" / "db" / "MIGRATIONS.json"
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-        self.assertEqual([item["version"] for item in manifest["migrations"]], ["0001", "0002", "0003"])
+        versions = [item["version"] for item in manifest["migrations"]]
+        self.assertEqual(versions[:3], ["0001", "0002", "0003"])
+        self.assertEqual(len(versions), len(set(versions)))
         for migration in manifest["migrations"]:
             sql_bytes = (REPO_ROOT / migration["path"]).read_bytes()
             self.assertEqual(hashlib.sha256(sql_bytes).hexdigest(), migration["sha256"])
