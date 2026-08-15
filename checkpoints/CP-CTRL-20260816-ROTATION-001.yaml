@@ -1,0 +1,139 @@
+checkpoint_id: CP-CTRL-20260816-ROTATION-001
+created_at: '2026-08-16T00:27:00+09:00'
+persona_id: SEMI-CONTROL-ARCHITECT
+persona_version: v1.0
+channel_instance_id: CTRL-ARCH-INSTANCE-004-20260815
+control_state_version: SEMI-CURRENT-STATE_v1.7
+event_ledger_head:
+  path: control/continuity/v1.0/SEMI-CONTROL-EVENT-LEDGER_v1.9.jsonl
+  git_blob_sha: 3d69d4a5902dfaae1dcf283c92dae145adf70901
+asset_registry_version: SEMI-ASSET-REGISTRY_v1.0
+channel_registry_version: SEMI-CHANNEL-REGISTRY_v1.1
+
+active_lanes:
+  - U127_RELEASE_CLOSURE
+  - PRICE_CA_TARGETED_CLOSURE
+  - VALIDATION_DATASET_RELEASE_PREPARATION
+  - INDEPENDENT_VALIDATION_CHANNEL_BOOTSTRAP_AND_PREFLIGHT_DISPATCH
+
+pending_returns:
+  - item: SEMI_VALIDATION_AUDITOR_BOOTSTRAP
+    status: CHANNEL_NOT_YET_CREATED
+    expected_role: SEMI-VALIDATION-AUDITOR
+    planned_instance: VALID-AUDIT-INSTANCE-001-20260816
+  - item: M3TOP3_v1_INDEPENDENT_IMPLEMENTATION_PREFLIGHT
+    status: NOT_DISPATCHED_UNTIL_VALIDATION_BOOTSTRAP_PASS
+    work_order: control/workorders/WO-VALIDATION-M3TOP3-v1-INDEPENDENT-PREFLIGHT-20260816.yaml
+
+open_blockers:
+  model_assurance:
+    - INDEPENDENT_IMPLEMENTATION_PREFLIGHT
+    - PRODUCTION_KRX_TRADING_CALENDAR_IDENTITY
+    - SOURCE_COMPONENT_SHA256_MANIFEST
+  data_control:
+    - U127_FINAL_SOURCE_BINDING_INDEPENDENT_VALIDATION
+    - U127_V0_7_PRIMARY_SECONDARY_PERSISTENCE
+    - U127_CANONICAL_MACHINE_RELEASE_MATERIALIZATION
+    - PRICE_OFFICIAL_READINESS
+    - CA_RAW_OHLC_CLOSURE
+    - VALIDATION_DATASET_RELEASE_MATERIALIZATION
+  release:
+    - MATERIALIZE_VDI_v1_0
+    - MATERIALIZE_MARM_v1_0
+    - INDEPENDENT_REPLAY_VALIDATION_PROCEDURE
+
+current_authority_summary:
+  project_owner: PROJECT_OBJECTIVES_PRIORITIES_MAJOR_ARCHITECTURE_FINAL_FREEZE_RELEASE
+  core_a: DATA_GROUND_TRUTH_PIT_PRICE_CA_ARTIFACT_CONTROL_CONTINUITY
+  core_b: MODEL_FEATURE_WEIGHT_SCORER_RANKING_BACKTEST_VALIDATION_METHODOLOGY
+  core_relationship: PEER_CORE_PERSONAS
+  shared_contracts: DUAL_CORE_RECONCILIATION_REQUIRED
+  independent_validation: FUNCTIONALLY_SEPARATE_NO_IMPLEMENTER_SELF_CERTIFICATION
+  global_instruction_mutation: CORE_PERSONAS_ONLY
+  organization_owner_status: ACCEPTED_NO_CHANGE_2026_08_16
+
+current_artifact_summary:
+  project_global_instructions:
+    path: control/continuity/v1.0/SEMI-PROJECT-GLOBAL-INSTRUCTIONS_v1.2_ACTIVE.yaml
+    status: ACTIVE
+    key_rule: UNDERSTANDING_BEFORE_COMPRESSION_RETAIN_TECHNICAL_TERMS_WITH_KOREAN_EXPLANATION
+  organization:
+    org_map: control/continuity/v1.0/SEMI-ORG-MAP_v0.2_WORKING.yaml
+    authority_matrix: control/continuity/v1.0/SEMI-DUAL-CORE-AUTHORITY-MATRIX_v0.2_WORKING.yaml
+    owner_accepted: true
+  shared_contracts:
+    state: control/continuity/v1.0/SEMI-SHARED-CONTRACT-STATE_v0.4_WORKING.yaml
+    total: 9
+    agreed: 9
+    open_definitions: 0
+    window_mapping: WM-v1.1
+  model_v1:
+    model_version: M3TOP3-v1.0
+    implementation_manifest: control/core_b/M3TOP3-v1-MACHINE-IMPLEMENTATION-MANIFEST_v0.1_WORKING.yaml
+    implementation_control_status: CONTROL_ACCEPTED_CANDIDATE_WITH_WARNINGS
+    source_code_commit: 32c8a0f31428273d76b4e7b3f2cea76f955770aa
+    config_sha256: eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98
+    baseline_lock: control/core_b/M3TOP3-NO-TUNE-BASELINE-LOCK_v1.2_WORKING.yaml
+    synthetic_test_state: CORE_B_PASS_18_OF_18_NOT_INDEPENDENT
+    actual_outcome_data_inspected: false
+    actual_replay_executed: false
+    model_frozen: false
+  u127:
+    membership: 127
+    total_cells: 1016
+    ready: 1013
+    unresolved: 3
+    partial: 0
+    v0_7_artifact: U127_Data_Expansion_Working_v0.7_2026-08-15.xlsx
+    v0_7_sha256: 1fc47fd131479e6ebb4375206853f39a730610d8b9f29160c33aa292881ad50a
+    v0_7_byte_size: 550774
+    canonical_release_spec: control/u127/SEMI-U127-CANONICAL-RELEASE-SPEC_v0.2_WORKING.yaml
+    canonical_machine_release: NOT_MATERIALIZED
+    primary_secondary_persistence: NOT_YET
+    missing_v0_8_to_v1_9_rule: DO_NOT_REMATERIALIZE
+  price:
+    dataset_id: SEMI-PRICE-MARCAP-KRX-2024-2026_v1
+    identity_sha256: 419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7
+    raw_rows: 1819147
+    primary_secondary_storage: VERIFIED
+    official_D4: BLOCKED
+    official_D5: NOT_EXECUTED
+  ca:
+    project_completeness_gate: BLOCKED
+    open_cases:
+      - KRX:001527@2024-03-28
+      - KRX:403360@2026-05-08
+
+next_actions:
+  first_successor_action:
+    - LOAD_THIS_CHECKPOINT
+    - LOAD_SEMI_CURRENT_STATE_v1_7
+    - LOAD_PROJECT_GLOBAL_INSTRUCTIONS_v1_2_ACTIVE
+    - LOAD_ORG_MAP_AND_AUTHORITY_MATRIX
+    - RECONCILE_PERSISTENT_STATE_BEFORE_NEW_WORK
+  then:
+    - CREATE_AND_BOOTSTRAP_SEMI_VALIDATION_AUDITOR_CHANNEL_IF_OWNER_HAS_NOT_ALREADY_DONE_SO
+    - AFTER_VALIDATION_BOOTSTRAP_PASS_DISPATCH_M3TOP3_v1_INDEPENDENT_IMPLEMENTATION_PREFLIGHT
+    - CONTINUE_U127_RELEASE_CLOSURE_IN_PARALLEL
+    - CONTINUE_PRICE_CA_TARGETED_CLOSURE_IN_PARALLEL
+    - PREPARE_VALIDATION_DATASET_RELEASE
+  prohibited_until_gates_close:
+    - ACTUAL_U127_TWO_YEAR_REPLAY
+    - MODEL_FREEZE
+    - PRODUCTION_RELEASE
+    - OUTCOME_BASED_MODEL_TUNING
+
+git_branch: control-hub-continuity-v1
+git_commit_sha: 1dd7b7532f1e8969ac9e9a84bc7a97a4e9dad31e
+checkpoint_status: COMMITTED_ROTATION_BASELINE
+
+successor:
+  planned_instance_id: CTRL-ARCH-INSTANCE-005-20260816
+  activation_rule: SUCCESSOR_MUST_RECONCILE_CHECKPOINT_BEFORE_NEW_WORK
+  predecessor_instance_id: CTRL-ARCH-INSTANCE-004-20260815
+
+notes:
+  - RETURN_PACKET_IS_TRANSPORT_NOT_SOURCE_OF_TRUTH
+  - PERSISTENT_GITHUB_CONTROL_ASSETS_TAKE_PRECEDENCE_OVER_CHAT_MEMORY
+  - RESEARCH_PASS_ENGINEERING_PASS_CONTROL_ACCEPT_DO_NOT_EQUAL_INDEPENDENT_VALIDATION_PASS
+  - CHANNEL_ROTATION_CHANGES_NO_MODEL_DATA_OR_GOVERNANCE_SEMANTICS
