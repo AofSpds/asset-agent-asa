@@ -1,0 +1,157 @@
+state_id: SEMI-CURRENT-STATE
+version: v2.7
+status: WORKING_SHARED_ASSET_IDENTITY_ADJUDICATED_COREB_REHASH_CONTINUATION_ROUTED
+project: semiconductor-research
+as_of: '2026-08-16T01:49:00+09:00'
+supersedes: control/continuity/v1.0/SEMI-CURRENT-STATE_v2.6.yaml
+active_cores:
+  CORE_A:
+    canonical_name: 문서·통제 아키텍트
+    persona_id: SEMI-CONTROL-ARCHITECT
+    current_instance_id: CTRL-ARCH-INSTANCE-005-20260816
+    status: ACTIVE_ASSET_IDENTITY_ADJUDICATED_CALENDAR_BINDING_PENDING
+  CORE_B:
+    canonical_name: 모델 검증·설계 아키텍트
+    persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+    instance_id: MODEL-ARCH-INSTANCE-002-20260815
+    status: READY_FOR_6_OF_6_SHARED_ASSET_REHASH_CONTINUATION_THEN_WIRING
+project_instruction_governance:
+  global_instruction_set: control/continuity/v1.0/SEMI-PROJECT-GLOBAL-INSTRUCTIONS_v1.6_ACTIVE.yaml
+  material_input_prevalidation: REQUIRED
+  understanding_before_compression: REQUIRED
+  request_chronology_footer: REQUIRED_FOR_TRANSFER_PROMPTS
+organization:
+  core_relationship: PEER_CORE_PERSONAS
+  independent_validation_function: FUNCTIONALLY_SEPARATE
+  shared_contract_state: control/continuity/v1.0/SEMI-SHARED-CONTRACT-STATE_v0.5_WORKING.yaml
+  shared_contracts: 9_OF_9_AGREED
+  open_definitions: 0
+  definition_level_dual_core_disagreement: NONE
+model_v1:
+  model_version: M3TOP3-v1.0
+  baseline_source_commit: 32c8a0f31428273d76b4e7b3f2cea76f955770aa
+  baseline_config_sha256: eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98
+  narrow_patch_commit: 5f9491b6861a11097a929156eaa8bb7cc3c8c749
+  narrow_patch_tests: PASS_53_OF_53_CORE_B_NOT_INDEPENDENT_DELTA
+  shared_interface_wiring:
+    predecessor_work_order: control/workorders/WO-COREB-M3TOP3-v1-SHARED-WIRING-PATCH-20260816.yaml
+    predecessor_execution_result: BLOCKED_AT_MANDATORY_SHARED_ASSET_REHASH_GATE
+    code_modification_executed_in_blocked_run: false
+    successor_patch_commit: NOT_CREATED
+    continuation_work_order: control/workorders/WO-COREB-M3TOP3-v1-SHARED-WIRING-PATCH-CONTINUATION-20260816.yaml
+    continuation_status: READY_FOR_CORE_B_REHASH_THEN_RESUME
+  findings:
+    FND_01_PIT_PROVENANCE:
+      definition_state: DUAL_CORE_RECONCILED
+      implementation_state: CORE_B_WIRING_PATCH_PENDING_AFTER_REHASH
+    FND_02_F06_INDEPENDENT_MILESTONE:
+      state: CORE_B_CLOSED_CANDIDATE_AWAITING_INDEPENDENT_DELTA_VALIDATION
+    FND_03_F02_OPERATOR_GOVERNANCE:
+      state: CORE_B_CLOSED_CANDIDATE_AWAITING_INDEPENDENT_DELTA_VALIDATION
+    FND_04_F08_FRESHNESS:
+      definition_state: DUAL_CORE_RECONCILED
+      implementation_state: CORE_B_WIRING_PATCH_PENDING_AFTER_REHASH
+      numeric_penalty_schedule: NOT_DEFINED_DO_NOT_INFER
+    FND_05_PRODUCTION_KRX_CALENDAR:
+      interface_state: DUAL_CORE_CONFIRMED_WM_v1_1_UNCHANGED
+      data_identity_state: CORE_A_BINDING_PENDING
+    FND_06_COVERAGE_RELEASE:
+      definition_state: DUAL_CORE_RECONCILED
+      implementation_state: VDI_RELEASE_WIRING_PENDING_AFTER_REHASH
+shared_interface_asset_identity:
+  prior_manifest:
+    path: control/shared/M3TOP3-v1-SHARED-INTERFACE-ASSET-MANIFEST_v1.0_WORKING.yaml
+    status: SUPERSEDED_BYTE_IDENTITY_DECLARATIONS_INVALID_FOR_3_ASSETS
+    preserved_for_audit: true
+  adjudication:
+    path: control/shared/M3TOP3-v1-SHARED-ASSET-BYTE-IDENTITY-ADJUDICATION_v1.0_WORKING.yaml
+    decision: CURRENT_GITHUB_CREATE_MATERIALIZATION_BYTES_AUTHORITATIVE
+    reason: CREATION_TIME_GIT_BLOB_EQUALS_CURRENT_BRANCH_GIT_BLOB_FOR_ALL_3_FAILED_ASSETS
+    shared_semantics_changed: false
+  successor_manifest:
+    path: control/shared/M3TOP3-v1-SHARED-INTERFACE-ASSET-MANIFEST_v1.1_WORKING.yaml
+    create_commit: 589c9a4552332c91fad5a175309a04cc9cb4d24e
+    git_blob_sha: 02e33fefc47f82ef1b67aa9515cffa36ede252d3
+    core_b_full_rehash_status: PENDING
+    required_pass: 6_OF_6
+  corrected_asset_identities:
+    exact_shared_decision:
+      sha256: 7d8d000c467b8b3cd4e3f16c1eef060a8d70fceabab2f66161fde08d54e9f1a4
+      byte_size: 6420
+      git_blob_sha: eb50f06d49c3c52b86d8c16290f350635de2537b
+    feature_input_registry:
+      sha256: 63edde7d91aafa4691b7a31ee7304b9972e064347a55b9d891b19634b199df37
+      byte_size: 4843
+      git_blob_sha: 5faa4d5739bf9ecb0c11d16f6d7d697ff3983977
+    coverage_release_policy:
+      sha256: 076bd1b7acee061f9c0d57e4dda802b6beb533fcd4b323eafa39760ad98b1f97
+      byte_size: 3178
+      git_blob_sha: 0532eb3b921438538fa4cca908832cf5a770ca84
+window_mapping:
+  version: WM-v1.1
+  production_KRX_calendar_interface: CONFIRMED_UNCHANGED
+  production_KRX_calendar_identity: NOT_YET_BOUND
+u127:
+  membership: 127
+  total_BP_cells: 1016
+  certified_READY: 1013
+  unresolved: 3
+  highest_byte_verified_artifact: U127_Data_Expansion_Working_v0.7_2026-08-15.xlsx
+  v0_7_sha256: 1fc47fd131479e6ebb4375206853f39a730610d8b9f29160c33aa292881ad50a
+  v0_7_byte_size: 550774
+  canonical_machine_release: NOT_MATERIALIZED
+price:
+  dataset_id: SEMI-PRICE-MARCAP-KRX-2024-2026_v1
+  identity_sha256: 419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7
+  official_D4: BLOCKED
+  official_D5: NOT_EXECUTED
+ca:
+  project_completeness_gate: BLOCKED
+  targeted_open_cases:
+  - KRX:001527@2024-03-28
+  - KRX:403360@2026-05-08
+actual_replay_readiness:
+  ready: false
+  authorization: PROHIBITED
+  blockers:
+    model_and_shared:
+    - CORE_B_SHARED_ASSET_REHASH_6_OF_6
+    - CORE_B_SHARED_INTERFACE_WIRING_PATCH
+    - FND_02_FND_03_INDEPENDENT_DELTA_CONFIRMATION
+    - PRODUCTION_KRX_TRADING_CALENDAR_IDENTITY
+    - INDEPENDENT_DELTA_PREFLIGHT_ON_SUCCESSOR_IMPLEMENTATION
+    data_control:
+    - U127_FINAL_SOURCE_BINDING_INDEPENDENT_VALIDATION
+    - U127_PRIMARY_SECONDARY_PERSISTENCE
+    - U127_CANONICAL_MACHINE_RELEASE_MATERIALIZATION
+    - PRICE_OFFICIAL_READINESS
+    - CA_RAW_OHLC_CLOSURE
+    - VALIDATION_DATASET_RELEASE_MATERIALIZATION
+    release:
+    - MATERIALIZE_VDI_v1_0
+    - MATERIALIZE_MARM_v1_0
+    - INDEPENDENT_REPLAY_VALIDATION_PROCEDURE
+continuity:
+  checkpoint_id: CP-CTRL-20260816-ROTATION-001
+  channel_registry: control/continuity/v1.0/SEMI-CHANNEL-REGISTRY_v1.3.yaml
+  event_ledger_head: control/continuity/v1.0/SEMI-CONTROL-EVENT-LEDGER_v2.9.jsonl
+  material_persistent_state_conflict: false
+scientific_firewall:
+  actual_outcome_data_inspected_by_control: false
+  actual_replay_executed: false
+  model_tuned_from_outcomes: false
+  model_frozen: false
+  production_release_authorized: false
+next_actions_parallel:
+  CORE_B:
+  - EXECUTE_6_OF_6_REHASH_AGAINST_MANIFEST_v1_1
+  - IF_PASS_RESUME_SHARED_INTERFACE_WIRING_PATCH
+  - RETURN_SUCCESSOR_PATCH_IDENTITY_AND_TESTS
+  CORE_A:
+  - BIND_PRODUCTION_KRX_TRADING_CALENDAR_IDENTITY
+  - CONTINUE_U127_RELEASE_CLOSURE
+  - CONTINUE_PRICE_CA_TARGETED_CLOSURE
+  - PREPARE_VDI_RELEASE_BINDINGS
+  VALIDATION:
+  - WAIT_FOR_SUCCESSOR_PATCH_AND_CORE_A_CALENDAR_BINDING
+  - THEN_EXECUTE_INDEPENDENT_DELTA_PREFLIGHT
