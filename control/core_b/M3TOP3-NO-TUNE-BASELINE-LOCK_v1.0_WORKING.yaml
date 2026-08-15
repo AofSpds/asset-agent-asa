@@ -1,0 +1,227 @@
+lock_id: M3TOP3-v1.0-BASELINE-PREOUTCOME-20260815
+version: v1.0_WORKING
+status: READY_CANDIDATE_AWAITING_CORE_A_SHARED_CONTRACT_RECONCILIATION_AND_IMPLEMENTATION_HASH_BINDING
+project: semiconductor-research
+owner_persona: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+work_order_id: WO-COREB-V1-PREOUTCOME-LOCK-20260815
+created_at: '2026-08-15T23:10:00+09:00'
+outcome_data_inspected_for_tuning: false
+actual_u127_replay_executed: false
+model_frozen: false
+production_activation: false
+
+baseline_model_identity:
+  model_version: M3TOP3-v1.0
+  objective: TOP_K_APPROX_3M_OPPORTUNITY_RANKING
+  primary_output: TOP3
+  diagnostic_output: MODEL_TOP10
+  ground_truth_semantics: 3M_MFE_RETURN_EXACT_RANK
+  critical_miss: ANY_SELECTED_TOP3_ACTUAL_3M_MFE_RANK_GT_20
+
+bound_core_b_components:
+  feature_schema:
+    path: control/core_b/M3TOP3-FEATURE-SCHEMA_v1.0_WORKING.yaml
+    version: M3TOP3-FEATURE-SCHEMA_v1.0_WORKING
+  scorer:
+    path: control/core_b/M3TOP3-SCORER-CONTRACT_v1.0_WORKING.yaml
+    version: M3TOP3-GATED-LINEAR_v1.0_WORKING
+  weights:
+    path: control/core_b/M3TOP3-WEIGHT-VERSION_v1.0_WORKING.yaml
+    version: M3TOP3-WEIGHT-VERSION_v1.0_WORKING
+  validation_contract:
+    path: control/core_b/M3TOP3-VALIDATION-CONTRACT_v1.0_WORKING.yaml
+    version: v1.0_WORKING
+
+shared_contract_core_b_decisions:
+  WINDOW_MAPPING:
+    proposed_version: WM-v1.0
+    decision: ACCEPT
+    final_proposal:
+      snapshot_cutoff_calendar_date: D
+      window_start: D
+      nominal_window_end: D_PLUS_3_CALENDAR_MONTHS
+      month_add_rule: PRESERVE_DAY_OF_MONTH_ELSE_CLIP_TO_LAST_CALENDAR_DAY
+      entry_trade_date: FIRST_KRX_TRADING_DAY_STRICTLY_AFTER_WINDOW_START
+      evaluation_last_trade_date: LAST_KRX_TRADING_DAY_ON_OR_BEFORE_NOMINAL_WINDOW_END
+      exit_trade_date: FIRST_KRX_TRADING_DAY_STRICTLY_AFTER_NOMINAL_WINDOW_END
+      MFE_interval: ENTRY_THROUGH_EVALUATION_LAST_TRADE_DATE_INCLUSIVE
+      MAE_interval: SAME_AS_MFE_INTERVAL
+      horizon_close_date: EVALUATION_LAST_TRADE_DATE
+      historical_W1_W8_compatibility: ACCEPTED
+  MODEL_INPUT_SCHEMA:
+    proposed_version: MIS-v1.0
+    decision: ACCEPT_WITH_MODIFICATION
+    required_additions:
+      - snapshot_content_hash_or_snapshot_revision
+      - feature_value_status
+      - feature_derivation_version_or_feature_schema_hash
+      - input_record_hash_or_bound_input_release_hash
+    clarification: >-
+      Raw observations/evidence remain canonical PIT facts; Trigger, Expectations Gap, Market Recognition,
+      Conversion/Runway and other model-specific derived features must remain in model feature/score records.
+      No silent zero fill. MISSING, UNKNOWN, REVIEW_REQUIRED, ZERO and FALSE are distinct.
+  SCORER_IO:
+    proposed_version: SIO-v1.0
+    decision: ACCEPT_WITH_MODIFICATION
+    required_changes:
+      - replace_ambiguous_raw_score_with_pre_gate_score_and_final_score
+      - add_risk_gate_state_and_multiplier
+      - add_score_status_and_feature_coverage_ratio
+      - rank_by_final_score_full_precision
+      - add_snapshot_content_hash_or_revision_and_input_release_hash_binding
+    tie_rule: COMPANY_ID_ASCENDING_ON_EXACT_FINAL_SCORE_TIE
+  VALIDATION_DATASET_IDENTITY:
+    proposed_version: VDI-v1.0
+    decision: ACCEPT_WITH_MODIFICATION
+    required_additions:
+      - ground_truth_semantics_version
+      - outcome_builder_version
+      - price_adjustment_policy_version
+      - explicit_denominator_policy_version
+      - snapshot_timezone_and_cutoff_policy
+      - component_level_hash_manifest
+      - holdout_or_outcome_disclosure_policy_version
+    immutability: TRUE_AFTER_ANY_MODEL_RESULT_BOUND
+  MODEL_ARTIFACT_RELEASE_MANIFEST:
+    proposed_version: MARM-v1.0
+    decision: ACCEPT_WITH_MODIFICATION
+    required_additions:
+      - baseline_lock_id
+      - feature_schema_hash
+      - scorer_contract_hash
+      - weight_version_hash
+      - shared_contract_versions
+      - holdout_policy_version
+      - run_manifest_schema_version
+      - reproducibility_state
+    lifecycle:
+      - WORKING
+      - BASELINE_LOCKED
+      - VALIDATION_CANDIDATE
+      - FREEZE_RECOMMENDED
+      - FROZEN
+      - RETIRED
+    frozen_immutable: true
+
+activation_bindings_pending:
+  model_input_schema_version: MIS-v1.0_PENDING_CORE_A_RECONCILIATION
+  window_mapping_version: WM-v1.0_PENDING_SHARED_PROMOTION
+  scorer_io_version: SIO-v1.0_PENDING_SHARED_PROMOTION
+  validation_dataset_identity_version: VDI-v1.0_PENDING_SHARED_PROMOTION
+  model_artifact_release_manifest_version: MARM-v1.0_PENDING_SHARED_PROMOTION
+  code_commit: TO_BIND_AFTER_SCORER_IMPLEMENTATION_BEFORE_BASELINE_EXECUTION
+  config_hash: TO_BIND_AFTER_MACHINE_CONFIG_MATERIALIZATION_BEFORE_BASELINE_EXECUTION
+  validation_dataset_release_id: TO_BIND_AFTER_CORE_A_DATA_READINESS_CLOSURE
+  note: >-
+    READY_CANDIDATE means the semantic model definition is precommitted. Baseline execution remains
+    unauthorized until all pending shared/data/code identities are resolved and hashed.
+
+mutation_rule:
+  before_activation: >-
+    CORE B may correct clerical/implementation mismatches only while status remains READY_CANDIDATE and
+    before any Actual U127 outcome is inspected. Any material semantic change must create a new candidate
+    component version and be explicitly reconciled.
+  after_baseline_lock_activation: >-
+    Feature schema, scorer algorithm, weights, model input interpretation, window mapping, scorer I/O,
+    Ground Truth semantics, Critical Miss rule, MFE/MAE semantics and bound code/config identities are immutable.
+  overwrite_after_outcome_review: FORBIDDEN
+
+post_result_change_rule: >-
+  After any baseline future outcome is inspected by CORE B for model evaluation, any material feature,
+  transformation, weight, scorer, gate, threshold or shared semantic change creates a new model version
+  (v1.1, v1.2, etc.) and a new baseline/experiment registration. v1 is never rewritten.
+
+replay_comparison_rule: >-
+  New model versions must be evaluated on the same frozen Snapshots and bound validation release when
+  comparability is claimed. Original v1 outputs remain immutable and separate from replay outputs.
+  Retrospective improvement alone is insufficient for deployment; independent validation and prospective
+  confirmation remain required.
+
+coverage_policy:
+  version: COV-v1.0
+  metric: SCORABLE_ELIGIBLE_COVERAGE
+  formula: RANKABLE_ELIGIBLE_COMPANIES_DIV_ELIGIBLE_COMPANIES
+  official_top_k_threshold: 1.00
+  rule: >-
+    Eligible but unrankable companies may not be silently removed. A Snapshot below 100% governed rankability
+    is PARTIAL/INCOMPLETE for official Top3 validation, though diagnostic output may be retained.
+
+holdout_policy:
+  version: HOLDOUT-v1.0
+  status: FIXED_PRE_OUTCOME
+  rule: >-
+    No subset of the two-year history may be called an independent holdout after CORE B has seen its outcomes.
+    If the full v1 baseline replay is disclosed to CORE B, that entire historical period becomes KNOWN_HISTORY
+    for later model development. Any v1.1 tuning that uses those results must be validated on a prospectively
+    designated future holdout or on a genuinely sealed pre-designated dataset whose outcomes were not disclosed
+    to model designers before v1.1 pre-registration.
+  retrospective_holdout_carveout_after_disclosure: FORBIDDEN
+  prospective_confirmation_required: true
+  freeze_deadline: BEFORE_FIRST_BASELINE_OUTCOME_DISCLOSURE
+
+walk_forward_policy:
+  status: MAY_REMAIN_OPEN_FOR_STATIC_V1_BASELINE
+  rule: >-
+    v1 baseline is a static fixed model replay and does not require adaptive retraining. Any later walk-forward
+    tuning/retraining protocol must be frozen before retrospective results are used for an adaptive v1.1 process.
+  freeze_deadline: BEFORE_ANY_ADAPTIVE_OR_RETROSPECTIVE_V1_1_TUNING
+
+validation_item_classification:
+  MUST_FIX_BEFORE_BASELINE_REPLAY:
+    - item: Coverage_threshold
+      state: FIXED_IN_THIS_LOCK_AS_COV_v1.0_100_PERCENT_OFFICIAL_RANKABILITY
+    - item: Holdout_design
+      state: FIXED_IN_THIS_LOCK_AS_HOLDOUT_v1.0_NO_EX_POST_HOLDOUT_CLAIM
+  MAY_REMAIN_OPEN_UNTIL_AFTER_FIRST_BASELINE_REPLAY:
+    - Risk_Detection_metric
+    - Calibration_metric
+    - Turnover_metric
+    - Walk_forward_design
+    - Candidate_K
+    - Deep_tail_Rank30_Rank50_penalties
+    - Path_quality_penalties
+    - Hold_Replace_operating_rule
+    - Market_Positioning_future_nonlinear_function
+    - Feature_interactions
+    - Separate_risk_warning_thresholds
+  conditions:
+    Risk_Detection_metric: MUST_BE_FIXED_BEFORE_CLAIMING_VALIDATED_RISK_WARNING_PERFORMANCE
+    Calibration_metric: MUST_BE_FIXED_BEFORE_CALIBRATION_CLAIM_OR_MODEL_FREEZE_IF_USED_AS_GATE
+    Turnover_metric: MUST_BE_FIXED_BEFORE_DAILY_OPERATIONAL_PORTFOLIO_CLAIM
+    Walk_forward_design: MUST_BE_FIXED_BEFORE_ANY_ADAPTIVE_OR_RETROSPECTIVE_V1_1_TUNING
+    Candidate_K: NOT_REQUIRED_FOR_V1_FULL_UNIVERSE_RANKING
+    Deep_tail_Rank30_Rank50_penalties: CURRENTLY_DIAGNOSTIC_ONLY_NOT_V1_SCORER_PENALTIES
+    Path_quality_penalties: OUTCOME_DIAGNOSTIC_ONLY_FOR_V1
+    Hold_Replace_operating_rule: OUTSIDE_STATIC_RANKING_BASELINE
+    Market_Positioning_future_nonlinear_function: ANY_CHANGE_AFTER_BASELINE_REQUIRES_NEW_MODEL_VERSION
+    Feature_interactions: V1_BASELINE_HAS_NO_CROSS_FEATURE_INTERACTION_TERMS_BEYOND_EXPLICIT_F05_AND_RISK_GATE_LOGIC
+    Separate_risk_warning_thresholds: NOT_REQUIRED_FOR_PRIMARY_TOP3_BASELINE
+
+scientific_firewall:
+  outcome_blind_model_input: true
+  future_return_not_used_for_snapshot: true
+  future_rank_not_used_for_feature: true
+  MFE_not_used_to_backfill_evidence: true
+  MAE_not_used_to_backfill_risk_feature: true
+  later_source_not_automatically_backdated: true
+
+activation_gate:
+  core_b_semantic_precommit_ready: true
+  core_a_shared_contract_reconciliation_required: true
+  authoritative_u127_release_required: true
+  price_readiness_required: true
+  ca_raw_ohlc_closure_required: true
+  validation_dataset_identity_required: true
+  scorer_machine_implementation_and_code_hash_required: true
+  independent_validation_plan_required: true
+  actual_replay_authorized_now: false
+
+readiness:
+  no_tune_baseline_lock_status: READY_CANDIDATE
+  core_b_pre_outcome_model_lock_ready: true
+  shared_remaining_blockers:
+    - CORE_A_PROMOTION_OF_RECONCILED_SHARED_CONTRACTS
+    - VALIDATION_DATASET_RELEASE_IDENTITY
+    - U127_PRICE_CA_DATA_READINESS
+    - MACHINE_CODE_AND_CONFIG_HASH_BINDING
+  independent_validation_self_certified: false
