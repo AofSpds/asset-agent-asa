@@ -1,0 +1,348 @@
+architecture_review_id: AAA-T18-OPERATIONAL-DATABASE-ARCHITECTURE-REVIEW
+version: v0.1_WORKING
+project: Asset Agent ASA
+short_name: AAA
+track: T18_OPERATIONAL_DATABASE_PERSISTENT_EXECUTION_PLANE
+recorded_at: '2026-08-16T06:33:00+09:00'
+requesting_owner: PROJECT_OWNER
+prepared_by: AAA_BUILD_CONTROL
+status: ARCHITECTURE_VERDICT_PROPOSED_OWNER_DECISION_REQUIRED
+implementation_started: false
+architecture_verdict: ADOPT_POSTGRESQL_AS_SEPARATE_OPERATIONAL_EXECUTION_STATE_PLANE
+verdict_summary: PostgreSQL is structurally appropriate now for high-frequency mutable Run, Event, Heartbeat, Lease, Result, Persona activity, Experiment, Snapshot execution metadata, and Backtest execution metadata. It must not replace Git/GitHub governance authority or S3/R2 large immutable artifact authority. T18 must remain a separate engineering track and must not mutate or reinterpret any P09 historical exact target.
+current_state_basis:
+  repository: AofSpds/asset-agent-asa
+  branch_context: aaa-integration-v0.2
+  original_p09_failed_exact_target: 80378610f9ac9e688c52417f0416e01c057400a7
+  t17_remediation_exact_integrated_successor: 30fdb278c218b24e44d66eb5f47935a196dc4f8c
+  current_p09_rerun: RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-002
+  current_p09_state: DISPATCHED_AWAITING_ACK
+  current_json_run_registry: control/aaa/runs
+  t17_evidence: JSON registry already requires lifecycle, temporal, terminal-result, and Work-Order referential integrity that will become increasingly expensive and concurrency-fragile if represented as repository files for many simultaneous research Runs.
+authority_boundary:
+  POSTGRESQL_AFTER_EXPLICIT_OPERATIONAL_CUTOVER:
+    owns:
+      - current_operational_run_state
+      - append_only_run_event_rows
+      - heartbeat_and_lease_state
+      - stale_detection_projection
+      - operational_result_metadata_and_binding
+      - persona_current_activity_projection
+      - experiment_execution_metadata
+      - snapshot_execution_metadata
+      - backtest_execution_metadata
+    does_not_own:
+      - governance_work_order_content
+      - model_feature_scorer_weight_ranking_specs
+      - shared_contracts
+      - decision_ledger_authority
+      - ground_truth_or_PIT_authority
+      - large_dataset_or_artifact_bytes
+      - release_freeze_cutover_authority
+  GIT_GITHUB:
+    remains_authoritative_for:
+      - governance_contracts
+      - work_orders_and_owner_approvals
+      - model_and_feature_specs
+      - scorer_weight_ranking_specs
+      - schema_migrations_as_code
+      - decision_and_event_governance_ledgers
+      - architecture_specs
+      - release_manifests
+  S3_R2:
+    remains_authoritative_for_large_immutable_bytes:
+      - datasets
+      - snapshots
+      - backtest_result_bytes
+      - large_logs_and_evidence_bundles
+      - model_or_validation_artifact_bytes_when_applicable
+    database_stores_only:
+      - persistent_locator
+      - sha256
+      - byte_size
+      - lineage_identity
+pre_cutover_authority:
+  json_registry_remains_current_operational_authority_during_migration_shadow: true
+  database_is_non_authoritative_shadow_until_explicit_owner_cutover: true
+  silent_dual_authority: PROHIBITED
+json_registry_limitations:
+  - file_per_record mutation is poor for frequent heartbeat updates
+  - no native atomic multi-record transaction across WorkOrder_Run_Result_Event
+  - concurrency and lease ownership require custom locking and conflict logic
+  - referential integrity and physical Result verification require repeated filesystem resolution
+  - current Persona activity requires full-registry scan and derived ordering
+  - many Experiment_Backtest_Snapshot Runs would create high repository churn and noisy Git history
+  - Git commit cadence is inappropriate for sub-minute operational state while remaining excellent for governance history
+  - recovery from concurrent writers is more complex than transactional database recovery
+minimal_schema:
+  work_order_refs:
+    authority: MIRROR_REFERENCE_ONLY_GIT_REMAINS_SOT
+    key: work_order_id
+    fields:
+      - git_repository
+      - git_path
+      - git_commit_or_blob_identity
+      - content_sha256_if_materialized
+      - observed_at
+  runs:
+    key: run_id
+    fields:
+      - process_id
+      - work_order_id_fk
+      - responsible_persona
+      - executor_role
+      - repository
+      - exact_target_commit
+      - branch_context
+      - state
+      - started_at
+      - last_heartbeat_at
+      - stale_after_seconds
+      - lease_owner
+      - lease_epoch_fencing_token
+      - lease_expires_at
+      - terminal_result_id_nullable
+      - row_version
+      - created_at_db
+      - updated_at_db
+  run_events:
+    authority: APPEND_ONLY_OPERATIONAL_AUDIT_STREAM
+    key: event_id
+    fields:
+      - run_id_fk
+      - sequence_number
+      - event_type
+      - observed_at_db
+      - actor_identity
+      - idempotency_key_unique
+      - payload_jsonb
+      - payload_sha256
+      - prev_event_hash_optional
+      - event_hash_optional
+    constraints:
+      - unique_run_sequence
+      - unique_idempotency_key
+      - no_update_or_delete_for_application_role
+  results:
+    key: result_id
+    fields:
+      - run_id_unique_fk
+      - work_order_id_fk
+      - verdict
+      - artifact_locator
+      - artifact_sha256
+      - artifact_byte_size
+      - repository
+      - exact_target_commit
+      - completed_at_db
+      - metadata_jsonb
+    note: Large Result bytes remain in S3/R2 or another governed immutable artifact store; PostgreSQL owns operational metadata/binding only.
+  experiments:
+    key: experiment_id
+    fields:
+      - experiment_type
+      - model_spec_git_commit_or_hash
+      - feature_spec_git_commit_or_hash
+      - dataset_identity
+      - snapshot_identity
+      - configuration_sha256
+      - seed_policy
+      - status
+      - created_at_db
+  experiment_runs:
+    key: [experiment_id, run_id]
+    purpose: Many Runs may belong to one Experiment and a Run may carry an explicit experiment role.
+  snapshot_refs:
+    key: snapshot_id
+    fields:
+      - pit_cutoff
+      - artifact_locator
+      - artifact_sha256
+      - artifact_byte_size
+      - lineage_identity
+      - source_release_identity
+    note: Snapshot bytes remain in S3/R2; this table is metadata only.
+  backtest_modeling:
+    baseline: Represent Backtest execution as an Experiment plus one or more Runs and Result artifact references rather than introducing an early microservice-specific table hierarchy.
+  persona_current_activity:
+    type: DATABASE_VIEW_OR_SERVER_SIDE_PROJECTION
+    writable: false
+    rule: Derive only from valid nonterminal Run evidence; terminal history must not become current activity.
+transaction_concurrency_and_lease:
+  authoritative_clock: PostgreSQL server transaction time after operational cutover
+  run_transition_transaction:
+    - lock_or_compare_run_row_version
+    - validate_state_transition
+    - append_idempotent_event
+    - update_current_run_projection
+    - bind_result_atomically_if_terminal
+  concurrency_control:
+    preferred: row_level_locking_plus_optimistic_row_version_where_useful
+    lease_fencing: monotonic_lease_epoch_required
+    heartbeat: compare_and_set_on_run_id_and_lease_epoch
+    stale_detection: server_time_minus_last_heartbeat_against_stale_window
+  fail_closed_rules:
+    - future_client_timestamp_cannot_create_RUNNING_CONFIRMED
+    - heartbeat_before_start_rejected
+    - terminal_state_verdict_mismatch_rejected
+    - terminal_state_without_valid_result_binding_rejected
+    - Result_binding_and_terminal_state_commit_atomically
+    - nonexistent_or_mismatched_Work_Order_reference_rejected
+    - stale_or_old_lease_epoch_cannot_heartbeat_or_complete_Run
+    - database_unavailable_after_cutover_does_not_silently_fallback_to_stale_JSON_state
+migration_and_reconciliation:
+  T18_0_ARCHITECTURE_CONTRACT:
+    - freeze authority boundary and state ownership in Git
+    - approve minimum schema and migration contract
+  T18_1_DATABASE_SCHEMA_AND_MIGRATIONS:
+    - PostgreSQL schema migrations versioned in Git
+    - repository_service abstraction added without changing current JSON authority
+    - PostgreSQL integration test environment established
+  T18_2_DETERMINISTIC_JSON_IMPORT:
+    - snapshot exact JSON registry file bytes
+    - record path_byte_size_SHA256_manifest
+    - import without semantic correction inference or invented values
+    - export normalized DB representation
+    - reconcile every imported identity and state 100_percent
+  T18_3_READ_ONLY_DUAL_READ_SHADOW:
+    - existing JSON remains authoritative
+    - DB mirror read projection compared against JSON projection
+    - discrepancy blocks progression
+    - no automatic winner selection
+  T18_4_TRANSACTIONAL_OPERATIONAL_DRILLS:
+    - synthetic_and_engineering_only_Run transitions
+    - concurrency lease fencing and retry tests
+    - crash injection around terminal Result binding
+    - database outage fail_closed test
+    - still no production operational cutover
+  T18_5_MODEL_DEVELOPMENT_PLANE_METADATA:
+    - Experiment Run Snapshot Backtest metadata linkage
+    - exact Git model_feature_spec identities
+    - exact S3_R2 dataset_snapshot_result identities
+    - scientific firewall separation retained
+  T18_6_COMMON_READ_PATH:
+    - CLI and HTTP API read same server_side repository_service
+    - Owner Console reads API not database directly
+    - compare JSON_shadow and DB projections until migration gate closes
+  T18_7_RECOVERY_VALIDATION_AND_CUTOVER:
+    - backup_restore_drill
+    - independent_validation
+    - final deterministic reconciliation
+    - explicit Project Owner operational_SoT cutover authorization
+    - only then PostgreSQL becomes operational state authority
+cutover_strategy:
+  preferred: SHORT_CONTROLLED_RECONCILIATION_AND_SINGLE_WRITER_SWITCH
+  avoid: long_lived_application_level_dual_write
+  rationale: Long-lived dual write creates two mutable operational authorities and difficult split-brain reconciliation.
+  post_cutover_json_status: frozen_migration_audit_snapshot_not_live_mutable_operational_registry
+local_development:
+  preferred_behavioral_backend: PostgreSQL
+  recommended_local_form: ephemeral_local_or_containerized_PostgreSQL_or_equivalent_isolated_dev_instance
+  sqlite:
+    decision: OPTIONAL_NONCERTIFYING_TEST_DOUBLE_ONLY
+    allowed_for:
+      - lightweight_CRUD_unit_tests
+      - UI_or_repository_contract_smoke_when_no_concurrency_semantics_are_asserted
+    prohibited_for_certification_of:
+      - row_locking
+      - lease_fencing
+      - concurrent_writer_behavior
+      - transaction_isolation
+      - production_stale_detection_semantics
+      - release_or_cutover_readiness
+additional_infrastructure:
+  Redis:
+    t18_baseline: NOT_REQUIRED
+    future_trigger: measured_cache_latency_rate_limit_or_ephemeral_coordination_need
+  Kafka:
+    t18_baseline: NOT_REQUIRED
+    future_trigger: measured_high_event_throughput_multi_consumer_fanout_or_durable_streaming_need
+  Kubernetes:
+    t18_baseline: NOT_REQUIRED
+    future_trigger: deployment_scale_high_availability_or_orchestration_requirement_that_cannot_be_met_simpler
+  principle: PostgreSQL alone is sufficient for the first operational execution plane; do not front-load distributed infrastructure.
+model_development_plane_coupling:
+  rule: Operational DB records execution and lineage references; Git defines model logic/specification; S3/R2 holds large immutable data/results.
+  experiment_identity:
+    - exact_model_spec_git_identity
+    - exact_feature_spec_git_identity
+    - exact_config_sha256
+    - exact_dataset_or_snapshot_identity
+    - deterministic_seed_policy_if_used
+  snapshot_identity:
+    - PIT_cutoff
+    - S3_R2_locator
+    - SHA256
+    - byte_size
+    - lineage
+  backtest_result:
+    - Run_and_Experiment_metadata_in_PostgreSQL
+    - large_result_bytes_in_S3_R2
+    - hash_and_locator_in_PostgreSQL
+  scientific_firewall:
+    - future_Outcome_fields_must_not_share_an_uncontrolled_write_path_with_historical_Snapshot_or_Feature_materialization
+    - evaluation_Outcome_access_should_use_separate_service_role_or_schema_boundary_if_needed
+    - FACT_EXISTED_AT_TIME_remains_distinct_from_PUBLIC_EVIDENCE_AVAILABLE_AT_TIME
+recovery_backup_audit_lineage:
+  database_backup:
+    preference: managed_PostgreSQL_backup_plus_point_in_time_recovery_capability
+    exact_provider: NOT_DECIDED_IN_THIS_REVIEW
+    RPO_RTO: MUST_BE_DEFINED_BEFORE_OPERATIONAL_CUTOVER
+  restore_drill: REQUIRED_BEFORE_CUTOVER
+  audit:
+    - append_only_run_events
+    - application_role_no_update_delete_on_event_rows
+    - idempotency_keys
+    - optional_event_hash_chain_for_cross_storage_audit
+    - migration_manifests_and_schema_migrations_versioned_in_Git
+  artifact_identity:
+    - SHA256
+    - byte_size
+    - persistent_locator
+    - lineage_identity
+  recovery_semantics: Recovery_is_not_Rematerialization
+owner_console_cli_api:
+  direct_owner_console_database_access: PROHIBITED
+  common_access_path:
+    - server_side_repository_service
+    - HTTP_API
+    - CLI_reuses_same_repository_or_service_contract
+    - Owner_Console_reads_HTTP_API
+  read_projection_consistency: CLI_API_and_Owner_Console_must_show_the_same_Run_and_Persona_projection_for_the_same_observation_point
+minimum_acceptance_criteria:
+  - schema_migrations_rebuild_empty_PostgreSQL_deterministically
+  - governance_Work_Order_content_remains_Git_authoritative
+  - dataset_snapshot_backtest_large_bytes_remain_S3_R2_authoritative
+  - all_existing_JSON_Run_records_import_with_100_percent_identity_and_state_reconciliation
+  - no_missing_unknown_historical_field_is_invented_during_migration
+  - future_or_invalid_heartbeat_cannot_produce_RUNNING_CONFIRMED
+  - terminal_state_and_Result_verdict_mismatch_is_impossible
+  - terminal_transition_and_Result_binding_are_atomic
+  - WorkOrder_Run_Result_referential_integrity_is_enforced
+  - cross_timezone_activity_order_is_chronological
+  - concurrent_lease_acquisition_has_one_valid_winner_and_fencing_token
+  - stale_lease_epoch_cannot_mutate_Run
+  - duplicate_event_retry_is_idempotent
+  - crash_injection_cannot_leave_false_terminal_success
+  - DB_unavailable_after_cutover_fails_closed
+  - CLI_API_OwnerConsole_projection_consistency_passes
+  - backup_restore_drill_passes
+  - no_Redis_Kafka_Kubernetes_dependency_in_baseline
+  - independent_validation_passes_on_exact_T18_successor
+  - explicit_Project_Owner_operational_SoT_cutover_authorization_is_separate_and_required
+non_interference:
+  p09_failed_target_80378610_preserved: true
+  p09_rerun_target_30fdb278_preserved: true
+  t18_must_be_separate_engineering_track: true
+  t18_must_not_change_model_methodology: true
+  t18_must_not_change_shared_contract_without_dual_core_reconciliation: true
+  t18_architecture_review_does_not_authorize_implementation: true
+owner_decision_requested:
+  approve_architecture_direction:
+    - PostgreSQL_operational_execution_state_plane
+    - Git_GitHub_governance_plane_remains_authoritative
+    - S3_R2_large_artifact_plane_remains_authoritative
+    - PostgreSQL_first_no_early_Redis_Kafka_Kubernetes
+    - PostgreSQL_semantics_required_for_certification_SQLite_optional_noncertifying_only
+    - deterministic_JSON_to_DB_migration_then_shadow_then_explicit_cutover
+  on_approval_next_action: Issue bounded T18 engineering Work Order; do not begin implementation before approval.
