@@ -28,38 +28,28 @@ jobs:
 
   owner-console-build-smoke:
     permissions:
-      contents: write
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - name: Resolve Owner Console dependencies and capture exact direct identities
+          cache: 'npm'
+          cache-dependency-path: aaa/web/package-lock.json
+      - name: Verify Owner Console dependency lock identity
         working-directory: aaa/web
         shell: bash
         run: |
           set -euo pipefail
-          npm install --no-audit --no-fund
-          echo 'AAA_RESOLVED_DIRECT_DEPENDENCIES_BEGIN'
-          npm ls --depth=0 --json
-          echo 'AAA_RESOLVED_DIRECT_DEPENDENCIES_END'
           test -f package-lock.json
           sha256sum package-lock.json
-      - name: Persist generated lock on isolated T09 branch
-        if: github.event_name == 'push' && github.ref == 'refs/heads/aaa-t09-dependency-lock-v0'
+      - name: Install Owner Console dependencies from committed lock only
+        working-directory: aaa/web
         shell: bash
         run: |
           set -euo pipefail
-          if git diff --quiet -- aaa/web/package-lock.json && git ls-files --error-unmatch aaa/web/package-lock.json >/dev/null 2>&1; then
-            echo 'package-lock.json already tracked and unchanged'
-            exit 0
-          fi
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add aaa/web/package-lock.json
-          git commit -m 'AAA T09: lock Owner Console dependency graph'
-          git push origin HEAD:aaa-t09-dependency-lock-v0
+          npm ci --no-audit --no-fund
       - name: Build Owner Console
         working-directory: aaa/web
         shell: bash
