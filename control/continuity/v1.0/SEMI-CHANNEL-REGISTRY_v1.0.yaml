@@ -27,23 +27,51 @@ required_fields:
 instances:
   - channel_instance_id: CTRL-ARCH-LEGACY-BOOTSTRAP-20260815
     persona_id: SEMI-CONTROL-ARCHITECT
+    display_name: M3Top3 Document / Control Architect predecessor
     predecessor: LEGACY_UNREGISTERED_CONTROL_ARCHITECT_CHANNELS
-    successor: UNASSIGNED
+    successor: CTRL-ARCH-INSTANCE-004-20260815
     start_checkpoint: LEGACY_CONTEXT_MIGRATION
-    end_checkpoint: null
+    end_checkpoint: CP-CTRL-20260815-GENESIS-001
     work_scope:
       - U127_CONTROL_AND_ARTIFACT_RECOVERY
       - PRICE_CA_M3TOP3_CONTROL_STATE
       - CONTROL_HUB_CONTINUITY_BOOTSTRAP
-    active_lanes:
-      - U127-ARTIFACT-RECOVERY
-      - CONTROL-HUB-CONTINUITY-v1
-    last_control_commit: fa935b0d56b789c8cd7e50b6685fc43926473197
-    status: ACTIVE
+    active_lanes: []
+    last_control_commit: 03cc22c7d66e4474a275930fc78183810a7f409d
+    status: ARCHIVED
+    preservation_state: PRESERVED_READ_ONLY_HISTORICAL_PREDECESSOR
     rotation_gate:
       current_state_committed: true
       asset_registry_updated: true
       event_ledger_bootstrapped: true
       open_work_registered: true
-      checkpoint_created: false
-      successor_load_verified: false
+      checkpoint_created: true
+      successor_load_verified: true
+
+  - channel_instance_id: CTRL-ARCH-INSTANCE-004-20260815
+    persona_id: SEMI-CONTROL-ARCHITECT
+    display_name: M3Top3 Document Architect 4
+    predecessor: CTRL-ARCH-LEGACY-BOOTSTRAP-20260815
+    successor: UNASSIGNED
+    start_checkpoint: CP-CTRL-20260815-GENESIS-001
+    end_checkpoint: null
+    work_scope:
+      - U127_CONTROL_AND_ARTIFACT_RECOVERY
+      - PRICE_CA_M3TOP3_CONTROL_STATE
+      - CONTROL_HUB_CONTINUITY
+      - DUAL_CORE_ORGANIZATION_AND_PERSONA_PERSISTENCE
+    active_lanes:
+      - U127-ARTIFACT-RECOVERY
+      - CONTROL-HUB-CONTINUITY-v1
+    last_control_commit: ff82f22d399d9d158d6374a59b3af1c6b6efaf9a
+    status: ACTIVE
+    bootstrap_gate:
+      checkpoint_loaded: true
+      current_state_reconciled: true
+      u127_reconciled: true
+      price_reconciled: true
+      ca_reconciled: true
+      m3top3_reconciled: true
+      continuity_reconciled: true
+      bootstrap_status: PASS_WITH_WARNINGS
+      activated_at: '2026-08-15T21:09:00+09:00'
