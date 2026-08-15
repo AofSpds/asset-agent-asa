@@ -1,0 +1,23 @@
+note_id: M3TOP3-v1-IMPLEMENTATION-COMPATIBILITY-NOTE
+version: v1.0.1_WORKING
+status: NON_DESTRUCTIVE_SUCCESSOR_METADATA_CONTROL_MATERIALIZED
+project: semiconductor-research
+as_of: '2026-08-16T01:13:00+09:00'
+model_version: M3TOP3-v1.0
+baseline_config:
+  path: tools/m3top3/configs/m3top3_v1.0.json
+  sha256: eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98
+  bytes_overwritten: false
+source_patch_commit: 5f9491b6861a11097a929156eaa8bb7cc3c8c749
+historical_note:
+  issue: baseline config implementation_notes describes F02 metric_pairs as defaulting to RELATIVE
+  status: PRESERVED_HISTORICAL_DOCUMENTATION_NOT_CURRENT_EXECUTABLE_SEMANTICS
+current_executable_rule:
+  metric_pairs: explicit change_mode required; RELATIVE or ABSOLUTE
+  metric_changes: governed object with value + operator_id required
+  silent_relative_default: false
+release_rule: Future implementation/MARM release identity shall bind this compatibility note so preserved historical config
+  documentation cannot be mistaken for the patched executable behavior.
+weights_changed: false
+scorer_architecture_changed: false
+actual_outcome_data_inspected: false
