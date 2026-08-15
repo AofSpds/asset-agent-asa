@@ -1,0 +1,100 @@
+work_order_id: WO-VALIDATION-AAA-v0.2-INDEPENDENT-PREFLIGHT-20260816
+work_order_version: v0.2
+project: Asset Agent ASA
+short_name: AAA
+status: DISPATCHED_AWAITING_ACK
+authority_owner: PROJECT_OWNER
+owner_approval_recorded_at: '2026-08-16T05:55:00+09:00'
+executor_persona: SEMI-VALIDATION-AUDITOR
+requesting_control: AAA_BUILD_CONTROL
+supersedes: control/workorders/WO-VALIDATION-AAA-v0.1-INDEPENDENT-PREFLIGHT-20260816.yaml
+objective: Independently validate the T17-integrated bounded AAA engineering target without trusting Engineering PASS or Owner local smoke claims and without mutating canonical project state.
+exact_target_binding:
+  target_binding_path: control/aaa/validation/AAA-v0.1-INDEPENDENT-PREFLIGHT-TARGET-BINDING_v0.2_WORKING.yaml
+  engineering_code_target_commit: 80378610f9ac9e688c52417f0416e01c057400a7
+  target_repository: AofSpds/asset-agent-asa
+  target_branch: aaa-integration-v0.2
+  control_context_commit_at_dispatch_preparation: 064282f9856e73628d26bbcf7326709dd2b556b7
+execution_run:
+  run_id: RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-001
+  required_initial_state: DISPATCHED_AWAITING_ACK
+  running_claim_requires_ack_and_start_evidence: true
+permissions:
+  repository: READ_ONLY
+  local_temp_execution: ALLOWED
+  network: NOT_REQUIRED_FOR_BOUNDED_LOCAL_PREFLIGHT
+  canonical_write: PROHIBITED
+  branch_write: PROHIBITED
+  pull_request_write: PROHIBITED
+forbidden_actions:
+  - CHANGE_MODEL_METHODOLOGY
+  - CHANGE_SHARED_CONTRACT
+  - CHANGE_GROUND_TRUTH
+  - CHANGE_PIT_STATE
+  - MODIFY_U127
+  - AUTHORIZE_REPLAY
+  - SELF_CERTIFY_MODEL_FREEZE
+  - SELF_AUTHORIZE_PRODUCTION_RELEASE
+  - SELF_AUTHORIZE_CONTROLLED_CUTOVER
+  - REPAIR_OR_RENUMBER_CONTINUITY_HISTORY
+validation_scope:
+  include:
+    - DETERMINISTIC_CORE_IDENTITIES_AND_STALE_BASE
+    - WORK_ORDER_AGENT_RUN_RESULT_BOUNDARIES
+    - AGENT_PERMISSION_CEILING_AND_AUTHORITY_PROHIBITIONS
+    - APPEND_ONLY_RUN_JOURNAL_AND_TAMPER_HANDLING
+    - READ_ONLY_HTTP_AND_CLI_LLM_INDEPENDENCE
+    - OWNER_CONSOLE_REPRODUCIBLE_NPM_CI_BUILD
+    - PROVIDER_ROUTING_SAFE_FAILOVER_AND_LLM_OFF
+    - NATURAL_LANGUAGE_CANDIDATE_ONLY_BOUNDARY
+    - RECOVERY_FAIL_CLOSED_LOGIC_AND_LOCAL_INTERRUPTION_DRILL
+    - SHADOW_CYCLE_BINDING_DRIFT_AND_EXTERNAL_BLOCKER_GATING
+    - T17_RUN_REGISTRY_LIFECYCLE_AND_TERMINAL_RESULT_BOUNDARY
+    - T17_PERSONA_CURRENT_ACTIVITY_VS_TERMINAL_HISTORY_SEPARATION
+    - T17_DISPATCH_RUNNING_STALE_SEMANTICS
+    - T17_RUNS_PERSONAS_CLI_API_OWNER_CONSOLE_READ_ONLY_PROJECTION
+  exclude_as_not_yet_available:
+    - LIVE_EXTERNAL_PROVIDER_CREDENTIAL_NETWORK_VALIDATION
+    - REAL_S3_R2_PARTIAL_FAILURE_DRILL
+    - ACTUAL_GOVERNED_FULL_SHADOW_OPERATION_CYCLE
+    - CONTINUITY_EVENT_ID_COLLISION_ADJUDICATION
+    - M3TOP3_EXTERNAL_P0_CLOSURE
+acceptance:
+  - EXACT_CODE_TARGET_IDENTITY_VERIFIED
+  - FULL_LOCAL_TEST_SUITE_INDEPENDENTLY_RERUN
+  - OWNER_CONSOLE_LOCKED_INSTALL_AND_BUILD_INDEPENDENTLY_RERUN
+  - NO_SILENT_PROVIDER_MODEL_SWITCH_ON_REQUEST_OR_UNCLASSIFIED_FAILURE
+  - LLM_OFF_DOES_NOT_CORRUPT_OR_BLOCK_DETERMINISTIC_CONTROL_PLANE
+  - NO_AUTHORITY_ESCALATION_FROM_NATURAL_LANGUAGE_OR_AGENT_RUNTIME
+  - NO_IMPLICIT_SUCCESS_AFTER_INTERRUPTED_RUN
+  - NO_SHADOW_VALIDATION_CANDIDATE_WHILE_ACTIVE_EXTERNAL_BLOCKER_EXISTS
+  - RUNNING_NEVER_INFERRED_WITHOUT_RUN_START_EVIDENCE
+  - TERMINAL_COMPLETION_REQUIRES_PERSISTENT_RESULT_IDENTITY
+  - COMPLETED_HISTORY_DOES_NOT_IMPLY_CURRENT_PERSONA_ACTIVITY
+  - NO_CANONICAL_SIDE_EFFECT
+result_contract:
+  required_fields:
+    - validation_run_id
+    - exact_checkout_commit
+    - independently_computed_component_identities
+    - test_commands
+    - test_count
+    - pass_count
+    - fail_count
+    - adversarial_findings
+    - t17_run_registry_findings
+    - exclusions_confirmed
+    - canonical_side_effect_check
+    - independent_verdict
+    - blockers_remaining
+  verdict_enum: [PASS, PASS_WITH_FINDINGS, FAIL]
+  independent_validation_pass_must_not_be_inferred: true
+  production_release_authorized_by_this_work_order: false
+  controlled_cutover_authorized_by_this_work_order: false
+known_blockers_that_must_remain_visible:
+  - AAA-FINDING-CONTINUITY-EVENT-ID-COLLISION_v0.1_WORKING
+  - M3TOP3_FND_02_F06_EXTERNAL_P0
+scientific_firewall:
+  actual_future_outcome_access_required: false
+  future_outcome_use_for_repair_or_tuning: PROHIBITED
+  unknown_historical_evidence_inference: PROHIBITED
