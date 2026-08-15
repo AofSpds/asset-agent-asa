@@ -47,6 +47,14 @@ class T19ExecutionContractTests(unittest.TestCase):
         for token in ("aaa_ops.execution_profiles", "aaa_ops.workers", "aaa_ops.execution_tasks", "aaa_ops.materialize_execution_task", "WORK_ORDER_NOT_APPROVED_FOR_EXECUTION", "FOR UPDATE OF t SKIP LOCKED", "aaa_ops.ack_execution_task", "aaa_ops.start_execution_task", "aaa_ops.heartbeat_execution_task", "aaa_ops.complete_execution_task_atomic", "TASK_NOT_RUNNING_UNDER_CURRENT_LEASE", "execution_task_projection"):
             self.assertIn(token, sql)
 
+    def test_0005_requires_current_unexpired_lease_before_heartbeat_renewal(self):
+        sql = (REPO_ROOT / "aaa" / "db" / "migrations" / "0005_t19_lease_heartbeat_fail_closed.sql").read_text(encoding="utf-8")
+        self.assertIn("lease_expires_at IS NOT NULL", sql)
+        self.assertIn("lease_expires_at >= transaction_timestamp()", sql)
+        self.assertIn("STALE_OR_INVALID_LEASE", sql)
+        self.assertIn("FOR UPDATE", sql)
+        self.assertNotIn("CREATE TABLE", sql)
+
     def test_profile_is_code_owned_hash_bound_and_shell_free(self):
         profile = get_execution_profile("AAA_VALIDATION_EXACT_GIT_V0_1")
         self.assertEqual(profile, VALIDATION_EXACT_GIT_V0_1)
@@ -90,6 +98,38 @@ class T19ExecutionContractTests(unittest.TestCase):
         names = [event[0] for event in backend.events]
         self.assertEqual(names[0:3], ["claim", "ack", "start"]); self.assertIn("heartbeat", names); self.assertEqual(names[-1], "complete")
         self.assertFalse(backend.completed["metadata"]["canonical_output"])
+
+    def test_long_command_timeout_is_strictly_inside_governed_execution_lease(self):
+        task = build_execution_task(approved_work_order(), dispatched_run(), "AAA_VALIDATION_EXACT_GIT_V0_1")
+        claim = ClaimedTask(task=task, worker_id="worker-test", lease_epoch=11)
+        backend = FakeBackend(claim)
+        def runner(command, **kwargs):
+            return subprocess.CompletedProcess(command, 0, stdout="ok", stderr="")
+        with tempfile.TemporaryDirectory() as tmp:
+            runtime = WorkerRuntime(
+                worker=worker_identity(), backend=backend, repo_root=REPO_ROOT,
+                output_dir=Path(tmp), lease_ttl_seconds=300,
+                lease_timeout_margin_seconds=60,
+                git_head_resolver=lambda _: "1" * 40, command_runner=runner,
+            )
+            result = runtime.run_once()
+        expected_ttl = VALIDATION_EXACT_GIT_V0_1.timeout_seconds + 60
+        self.assertEqual(expected_ttl, 1860)
+        self.assertEqual(result["governed_execution_lease_ttl_seconds"], expected_ttl)
+        start_events = [event for event in backend.events if event[0] == "start"]
+        heartbeat_events = [event for event in backend.events if event[0] == "heartbeat"]
+        self.assertEqual(start_events, [("start", 11, expected_ttl)])
+        self.assertGreaterEqual(len(heartbeat_events), 2)
+        self.assertTrue(all(event[2] == expected_ttl for event in heartbeat_events))
+        self.assertGreater(expected_ttl, VALIDATION_EXACT_GIT_V0_1.timeout_seconds)
+
+    def test_lease_timeout_margin_must_be_positive(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            with self.assertRaisesRegex(ExecutionContractError, "LEASE_TIMEOUT_MARGIN_TOO_SMALL"):
+                WorkerRuntime(
+                    worker=worker_identity(), backend=FakeBackend(None), repo_root=REPO_ROOT,
+                    output_dir=Path(tmp), lease_timeout_margin_seconds=0,
+                )
 
     def test_exact_target_mismatch_blocks_before_ack_or_command(self):
         task = build_execution_task(approved_work_order(), dispatched_run(), "AAA_VALIDATION_EXACT_GIT_V0_1")

@@ -50,6 +50,7 @@ jobs:
           docker exec -i "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18 < aaa/db/tests/t18_contract_smoke.sql
           docker exec -i "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18 < aaa/db/tests/t18_idempotency_atomic_smoke.sql
           docker exec -i "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18 < aaa/db/tests/t19_execution_runtime_smoke.sql
+          docker exec -i "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18 < aaa/db/tests/t19_lease_heartbeat_remediation_smoke.sql
       - name: Verify T18 concurrent lease fencing has one winner
         shell: bash
         run: |
