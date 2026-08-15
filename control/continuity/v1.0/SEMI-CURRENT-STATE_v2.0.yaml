@@ -1,0 +1,121 @@
+state_id: SEMI-CURRENT-STATE
+version: v2.0
+status: WORKING_PREFLIGHT_REMEDIATION_ROUTED_COMPREHENSION_RULE_STRENGTHENED
+project: semiconductor-research
+as_of: '2026-08-16T00:43:00+09:00'
+supersedes: control/continuity/v1.0/SEMI-CURRENT-STATE_v1.9.yaml
+
+active_cores:
+  CORE_A:
+    canonical_name: 문서·통제 아키텍트
+    persona_id: SEMI-CONTROL-ARCHITECT
+    current_instance_id: CTRL-ARCH-INSTANCE-005-20260816
+    status: ACTIVE
+  CORE_B:
+    canonical_name: 모델 검증·설계 아키텍트
+    persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+    instance_id: MODEL-ARCH-INSTANCE-002-20260815
+    status: ACTIVE_NARROW_FIX_REQUIRED_AFTER_INDEPENDENT_PREFLIGHT
+
+project_instruction_governance:
+  global_instruction_set: control/continuity/v1.0/SEMI-PROJECT-GLOBAL-INSTRUCTIONS_v1.3_ACTIVE.yaml
+  mutation_authority: CORE_PERSONAS_ONLY
+  comprehension_rule: UNDERSTANDING_BEFORE_COMPRESSION
+  compound_jargon_rule: NO_UNEXPLAINED_JARGON_STACKS
+  response_preflight_language_check: REQUIRED
+  owner_visible_term_rule: PRACTICAL_KOREAN_FIRST_THEN_TECHNICAL_TERM_IN_PARENTHESES
+  last_correction_event: EVT-INSTR-0004
+  semantic_change_from_v1_2: false
+
+organization:
+  owner_acceptance: ACCEPTED_2026_08_16
+  core_relationship: PEER_CORE_PERSONAS
+  independent_validation_function: FUNCTIONALLY_SEPARATE
+  shared_contract_state: control/continuity/v1.0/SEMI-SHARED-CONTRACT-STATE_v0.4_WORKING.yaml
+  shared_contracts: 9_OF_9_AGREED
+  open_definitions: 0
+
+model_v1:
+  model_version: M3TOP3-v1.0
+  baseline_source_commit: 32c8a0f31428273d76b4e7b3f2cea76f955770aa
+  baseline_config_sha256: eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98
+  independent_preflight: PASS_WITH_NARROW_FIXES_CONTROL_ACCEPTED
+  mandatory_findings:
+    - FND-01_MIS_PIT_CONSUMED_INPUT_PROVENANCE_NOT_FAIL_CLOSED
+    - FND-02_F06_INDEPENDENT_MILESTONE_REQUIREMENT_NOT_ENFORCED
+    - FND-03_F02_DEFAULT_RELATIVE_OPERATOR_NOT_GOVERNED_BY_METRIC
+    - FND-04_F08_FRESHNESS_PENALTY_PROVENANCE_INCOMPLETE
+  release_binding_findings:
+    - FND-05_PRODUCTION_KRX_TRADING_CALENDAR_IDENTITY_NOT_BOUND
+    - FND-06_COVERAGE_POLICY_RELEASE_BINDING_INCOMPLETE
+  core_b_fix_work_order: control/workorders/WO-COREB-M3TOP3-v1-NARROW-FIXES-20260816.yaml
+  shared_reconciliation_work_order: control/workorders/WO-SHARED-M3TOP3-v1-PREFLIGHT-INTERFACE-RECONCILIATION-20260816.yaml
+  delta_validation_work_order: control/workorders/WO-VALIDATION-M3TOP3-v1-DELTA-PREFLIGHT-AFTER-NARROW-FIXES-20260816.yaml
+  model_frozen: false
+  actual_replay_authorized: false
+
+window_mapping:
+  version: WM-v1.1
+  W1_W8: PASS_8_OF_8_SYNTHETIC
+  production_KRX_calendar_identity: NOT_YET_BOUND
+
+u127:
+  membership: 127
+  total_BP_cells: 1016
+  certified_READY: 1013
+  unresolved: 3
+  partial: 0
+  highest_byte_verified_artifact: U127_Data_Expansion_Working_v0.7_2026-08-15.xlsx
+  v0_7_sha256: 1fc47fd131479e6ebb4375206853f39a730610d8b9f29160c33aa292881ad50a
+  v0_7_byte_size: 550774
+  final_state_source_binding: PARTIAL_PASS
+  v0_7_primary_persistence: NOT_YET
+  v0_7_secondary_persistence: NOT_YET
+  canonical_machine_release: NOT_MATERIALIZED
+
+price:
+  dataset_id: SEMI-PRICE-MARCAP-KRX-2024-2026_v1
+  identity_sha256: 419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7
+  primary_storage: AWS_S3_MATERIALIZED_VERIFIED
+  secondary_storage: CLOUDFLARE_R2_MATERIALIZED_VERIFIED
+  official_D4: BLOCKED
+  official_D5: NOT_EXECUTED
+
+ca:
+  project_completeness_gate: BLOCKED
+  targeted_open_cases:
+    - KRX:001527@2024-03-28
+    - KRX:403360@2026-05-08
+
+actual_replay_readiness:
+  ready: false
+  authorization: PROHIBITED
+  blockers:
+    - PREFLIGHT_NARROW_FIXES_FND_01_TO_FND_04
+    - INDEPENDENT_DELTA_PREFLIGHT_AFTER_PATCH
+    - PRODUCTION_KRX_TRADING_CALENDAR_IDENTITY
+    - PATCHED_SOURCE_COMPONENT_SHA256_MANIFEST
+    - COVERAGE_POLICY_RELEASE_BINDING
+    - U127_FINAL_SOURCE_BINDING_INDEPENDENT_VALIDATION
+    - U127_V0_7_PRIMARY_SECONDARY_PERSISTENCE
+    - U127_CANONICAL_MACHINE_RELEASE_MATERIALIZATION
+    - PRICE_OFFICIAL_READINESS
+    - CA_RAW_OHLC_CLOSURE
+    - VALIDATION_DATASET_RELEASE_MATERIALIZATION
+    - MATERIALIZE_VDI_v1_0
+    - MATERIALIZE_MARM_v1_0
+    - INDEPENDENT_REPLAY_VALIDATION_PROCEDURE
+    - VALIDATION_CHANNEL_BOOTSTRAP_CONTINUITY_BACKFILL
+
+continuity:
+  checkpoint_id: CP-CTRL-20260816-ROTATION-001
+  channel_registry: control/continuity/v1.0/SEMI-CHANNEL-REGISTRY_v1.3.yaml
+  event_ledger_head: control/continuity/v1.0/SEMI-CONTROL-EVENT-LEDGER_v2.2.jsonl
+  material_persistent_state_conflict: false
+
+scientific_firewall:
+  actual_outcome_data_inspected_by_control: false
+  actual_replay_executed: false
+  model_tuned_from_outcomes: false
+  model_frozen: false
+  production_release_authorized: false
