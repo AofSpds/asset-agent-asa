@@ -1,0 +1,81 @@
+{
+  "report_id": "M3TOP3-v1-SHARED-WIRING-TEST-REPORT",
+  "version": "v0.1_WORKING",
+  "status": "CORE_B_SHARED_WIRING_TEST_PASS_NOT_INDEPENDENT_DELTA_PREFLIGHT",
+  "work_order_id": "WO-COREB-M3TOP3-v1-SHARED-WIRING-PATCH-CONTINUATION-20260816",
+  "repository": "AofSpds/semiconductor-research",
+  "branch": "control-hub-continuity-v1",
+  "base_patch_commit": "5f9491b6861a11097a929156eaa8bb7cc3c8c749",
+  "successor_source_commit": "7fa068b7d69ea232b2dd0fa61c312af2c68771a2",
+  "shared_asset_manifest": {
+    "path": "control/shared/M3TOP3-v1-SHARED-INTERFACE-ASSET-MANIFEST_v1.1_WORKING.yaml",
+    "create_commit": "589c9a4552332c91fad5a175309a04cc9cb4d24e",
+    "git_blob_sha": "02e33fefc47f82ef1b67aa9515cffa36ede252d3",
+    "rehash_result": "PASS_6_OF_6"
+  },
+  "shared_asset_rehash": [
+    {"path":"control/shared/M3TOP3-v1-SHARED-PREFLIGHT-INTERFACE-RECONCILED-DECISION_v1.0_WORKING.yaml","sha256":"7d8d000c467b8b3cd4e3f16c1eef060a8d70fceabab2f66161fde08d54e9f1a4","byte_size":6420,"git_blob_sha":"eb50f06d49c3c52b86d8c16290f350635de2537b","status":"PASS"},
+    {"path":"control/shared/M3TOP3-FEATURE-INPUT-REGISTRY_v1.0_WORKING.yaml","sha256":"63edde7d91aafa4691b7a31ee7304b9972e064347a55b9d891b19634b199df37","byte_size":4843,"git_blob_sha":"5faa4d5739bf9ecb0c11d16f6d7d697ff3983977","status":"PASS"},
+    {"path":"control/shared/M3TOP3-PIT-CONSUMED-PROVENANCE-CONTRACT_v1.0_WORKING.yaml","sha256":"22e80dbf80e1bfb9ae25ab8f56a7fd56463fc8c8bd92a67489a6a9601455354f","byte_size":3302,"git_blob_sha":"b7a00087f9b9985d6d5523bf6524361e5ae620fe","status":"PASS"},
+    {"path":"control/shared/M3TOP3-REFRESH-RULE-REGISTRY_v1.0_WORKING.yaml","sha256":"e44b67e4f3854cfcd2c9f5fd7924192bc0c5491bfcdd496acbae8b4dd318cd64","byte_size":3715,"git_blob_sha":"bced062f75b44915f61d8d54dafe8bab9713029d","status":"PASS"},
+    {"path":"control/shared/M3TOP3-COVERAGE-RELEASE-POLICY_v1.0_WORKING.yaml","sha256":"076bd1b7acee061f9c0d57e4dda802b6beb533fcd4b323eafa39760ad98b1f97","byte_size":3178,"git_blob_sha":"0532eb3b921438538fa4cca908832cf5a770ca84","status":"PASS"},
+    {"path":"control/core_b/M3TOP3-v1-IMPLEMENTATION-COMPATIBILITY-NOTE_v1.0.1_WORKING.yaml","sha256":"dfd98712a4982eef5a4b07fec5d376f0eefed0c1861e14d3a20ddb22c87fb656","byte_size":1141,"git_blob_sha":"685d5aa1ea2ac5c63a3c70898a9576955b1d22fc","status":"PASS"}
+  ],
+  "changed_components": {
+    "tools/m3top3/shared_interface_guards_v1_1.py": {"sha256":"8b658056129b79945a9b3b99949412efcb79ea4ab4ba176124151e861fc3c781","byte_size":23668,"git_blob_sha":"b4c6e62a0996c3e0b362f75d3ed1314f5e5fe113"},
+    "tools/m3top3/release_vdi_v1.py": {"sha256":"93054247ebb4a0d426e84a202f9645a1ca1369a31e1ca969097505c2b1ec0eb5","byte_size":4827,"git_blob_sha":"87dd18d8b9764d392c6e9c227f2fe936957ae67d"},
+    "tools/m3top3/official_runtime_v1.py": {"sha256":"c2aa024a2582b05981078c4164a8f77dd50f8419cf549a778aa5e3b2b769f3a2","byte_size":3043,"git_blob_sha":"b8db9a3bc945c67b7a8587c4ddfbbd2b94133afe"},
+    "tools/m3top3/tests/test_shared_interface_wiring_v1.py": {"sha256":"affe287eb5994f79244df67376c2a21bd852555896f4451334c1717a89b2726f","byte_size":18092,"git_blob_sha":"87408a27b3c1bf4c91d47e57903324900329e38c"},
+    "tools/m3top3/tests/test_shared_wiring_identity_v1.py": {"sha256":"7a534d524a2b66d5162217135a0a2702f1803c945677b158ed0ce5d17ca36fad","byte_size":826,"git_blob_sha":"e065f59698ea7967eac024b685c841686b41bc9b"}
+  },
+  "github_actions": {
+    "workflow": ".github/workflows/m3top3-narrow-fix-tests.yml",
+    "run_id": 31897196660,
+    "job_id": 95042201201,
+    "exact_checkout_commit": "7fa068b7d69ea232b2dd0fa61c312af2c68771a2",
+    "conclusion": "success",
+    "runtime": {"os":"Ubuntu 24.04.4 LTS","runner_image":"ubuntu-24.04","python":"CPython 3.12.13"},
+    "command": "python -m unittest discover -s tools/m3top3/tests -p 'test_*.py' -v"
+  },
+  "tests": {
+    "total": 76,
+    "passed": 76,
+    "failed": 0,
+    "prior_regression_behaviors": "PASS_53_OF_53",
+    "shared_interface_adversarial_and_integration": "PASS_22_OF_22",
+    "component_identity_test": "PASS_1_OF_1"
+  },
+  "findings": {
+    "FND_01": "PASS_RESOLVER_BACKED_PIT_GUARD_WIRED",
+    "FND_04": "PASS_RESOLVER_BACKED_FRESHNESS_GOVERNANCE_WIRED",
+    "FND_06": "PASS_RELEASE_VDI_COVERAGE_POLICY_WIRED",
+    "F02_COMPATIBILITY": "PASS_SUCCESSOR_NOTE_BOUND_IN_OFFICIAL_RUNTIME"
+  },
+  "release_wiring": {
+    "official_runtime_wrapper": "tools/m3top3/official_runtime_v1.py",
+    "pit_guard": "tools/m3top3/shared_interface_guards_v1_1.py",
+    "coverage_vdi_validator": "tools/m3top3/release_vdi_v1.py",
+    "validation_dataset_release_materialized": false,
+    "production_krx_calendar_bound": false,
+    "marm_materialized": false,
+    "independent_delta_preflight": "NOT_EXECUTED"
+  },
+  "freshness_note": "The base Refresh Rule Registry intentionally defines no official numeric F08 age-to-penalty schedule. Positive penalties fail closed unless a separately typed, immutable governed numeric rule is supplied; no thresholds were invented.",
+  "scientific_firewall": {
+    "actual_outcome_data_inspected": false,
+    "actual_u127_mfe_inspected": false,
+    "actual_u127_mae_inspected": false,
+    "actual_future_return_inspected": false,
+    "actual_future_rank_inspected": false,
+    "actual_replay_executed": false,
+    "outcome_tuning_executed": false,
+    "weights_changed": false,
+    "scorer_architecture_changed": false,
+    "window_semantics_changed": false,
+    "ground_truth_changed": false,
+    "price_changed": false,
+    "ca_changed": false,
+    "model_frozen": false,
+    "production_release": false
+  }
+}
