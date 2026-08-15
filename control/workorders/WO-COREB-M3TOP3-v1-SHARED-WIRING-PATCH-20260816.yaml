@@ -1,0 +1,156 @@
+work_order_id: WO-COREB-M3TOP3-v1-SHARED-WIRING-PATCH-20260816
+version: v1.0
+status: READY_FOR_CORE_B
+project: semiconductor-research
+priority: P0
+issued_at: '2026-08-16T01:17:00+09:00'
+requesting_persona:
+  canonical_name: 문서·통제 아키텍트
+  persona_id: SEMI-CONTROL-ARCHITECT
+target_persona:
+  canonical_name: 모델 검증·설계 아키텍트
+  persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+source_reconciliation:
+  core_b_return_packet: RETURN PACKET — M3TOP3 v1 SHARED PREFLIGHT INTERFACE RECONCILIATION
+  core_b_record: control/core_b/M3TOP3-v1-SHARED-PREFLIGHT-INTERFACE-COREB-RECONCILIATION_v0.1_WORKING.yaml
+  core_b_record_commit: e8483b2949129665f5d2dcf1bd23b693b128fcbb
+  control_decision: control/shared/M3TOP3-v1-SHARED-PREFLIGHT-INTERFACE-RECONCILED-DECISION_v1.0_WORKING.yaml
+  shared_contract_state: control/continuity/v1.0/SEMI-SHARED-CONTRACT-STATE_v0.5_WORKING.yaml
+  shared_asset_manifest: control/shared/M3TOP3-v1-SHARED-INTERFACE-ASSET-MANIFEST_v1.0_WORKING.yaml
+baseline_to_preserve:
+  model_version: M3TOP3-v1.0
+  base_patch_commit: 5f9491b6861a11097a929156eaa8bb7cc3c8c749
+  config_sha256: eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98
+  weights_unchanged: true
+  scorer_architecture_unchanged: true
+  wm_v1_1_semantics_unchanged: true
+  actual_outcome_inspection_forbidden: true
+bound_shared_assets:
+  control/shared/M3TOP3-v1-SHARED-PREFLIGHT-INTERFACE-RECONCILED-DECISION_v1.0_WORKING.yaml:
+    expected_sha256: 4ef3ba4925f99184103bf4e1c0b2c9e378c6018a34bb2672069ce4c825344f05
+    expected_byte_size: 6420
+  control/shared/M3TOP3-FEATURE-INPUT-REGISTRY_v1.0_WORKING.yaml:
+    expected_sha256: f90fd3f890e6324d68b3a44b7c46fe767ba5a31a8ecbb046362813e2d7648ded
+    expected_byte_size: 4843
+  control/shared/M3TOP3-PIT-CONSUMED-PROVENANCE-CONTRACT_v1.0_WORKING.yaml:
+    expected_sha256: 22e80dbf80e1bfb9ae25ab8f56a7fd56463fc8c8bd92a67489a6a9601455354f
+    expected_byte_size: 3302
+  control/shared/M3TOP3-REFRESH-RULE-REGISTRY_v1.0_WORKING.yaml:
+    expected_sha256: e44b67e4f3854cfcd2c9f5fd7924192bc0c5491bfcdd496acbae8b4dd318cd64
+    expected_byte_size: 3715
+  control/shared/M3TOP3-COVERAGE-RELEASE-POLICY_v1.0_WORKING.yaml:
+    expected_sha256: b8c7bd86d33dcc454ddff7cc2d3589b3bd0e59a65c22831d77773545ad10c795
+    expected_byte_size: 3180
+  control/core_b/M3TOP3-v1-IMPLEMENTATION-COMPATIBILITY-NOTE_v1.0.1_WORKING.yaml:
+    expected_sha256: dfd98712a4982eef5a4b07fec5d376f0eefed0c1861e14d3a20ddb22c87fb656
+    expected_byte_size: 1141
+required_pre_patch_readback:
+  rule: Before coding, fetch each bound shared asset from GitHub and independently recompute SHA256. Stop if any expected hash mismatches.
+  manifest_hash_self: asset manifest itself must be fetched and treated as a control reference, not proof of its own correctness
+scope:
+  FND_01_PIT_GUARD:
+    required:
+    - Replace input-self-declared consumed_fields as authoritative scope with resolver backed by M3TOP3-FEATURE-INPUT-REGISTRY_v1.0_WORKING or hash-equivalent executable contract.
+    - Validate whole-block certification exact block/input-release identity, scope-contract identity/hash, scope coverage, immutable evidence identity, and supported_cutoff_at.
+    - Validate per-value immutable provenance for every authoritative consumed path when block certification is absent.
+    - Validate derived/aggregate operator+derivation identity and PIT-certified upstream lineage.
+    - Apply equivalent PIT provenance discipline to non-NONE Hard Risk Gate.
+  FND_04_F08_FRESHNESS:
+    required:
+    - Resolve refresh governance against the bound registry/version/hash or typed immutable governance object; arbitrary nonempty strings must fail.
+    - Separate historical as-of/evidence support timestamps from evaluation_run_at/computed_at.
+    - Preserve F08 arithmetic and cap-at-20.
+    - Do not invent a numeric freshness penalty schedule or refresh-duration threshold not present in an approved governance asset.
+    - If no resolved numeric penalty rule exists for a positive official penalty, fail closed rather than infer one.
+  FND_06_COVERAGE_RELEASE:
+    required:
+    - Implement official release/VDI rankability validation outside GATED_LINEAR arithmetic.
+    - Require all five axes calculable, no v1 REVIEW_REQUIRED feature, governed PIT/freshness validation, and Snapshot company-rankability coverage=1.00.
+    - Do not add a numeric minimum feature_coverage_ratio.
+    - Do not use Critical Miss or any future outcome as historical rankability input.
+    - Keep score_status and feature_coverage_ratio explicit.
+  F02_COMPATIBILITY:
+    required:
+    - Bind successor implementation compatibility note into successor implementation/release metadata.
+    - Do not overwrite baseline config bytes.
+required_adversarial_tests:
+- consumed_fields omits an actually-read path -> fail
+- self-declared scope without bound authoritative registry -> fail
+- block certification exact-block hash mismatch -> fail
+- block certification scope-contract mismatch -> fail
+- block certification covers only subset of authoritative paths -> fail
+- unresolved immutable evidence reference -> fail
+- derived aggregate has operator but lacks PIT-certified upstream lineage -> fail
+- arbitrary refresh_rule_id without registry resolution -> fail
+- valid rule ID under wrong registry hash -> fail
+- refresh rule source/evidence scope mismatch -> fail
+- historical evidence support timestamp after snapshot cutoff -> fail
+- evaluation_run_at later than snapshot while historical as-of is valid -> pass
+- valid governed penalty >20 -> pass with arithmetic capped at 20
+- only one axis available -> not official rankable
+- Reliability_Risk absent -> not official rankable
+- all five axes available with governed missing features -> provisional official rankability allowed if all other gates pass
+- any v1 feature REVIEW_REQUIRED -> not official rankable
+- NA_FOR_OVERLAP while all five axes survive -> allowed
+- company rankability coverage 1.00 with feature completeness <1.00 -> pass company coverage but never label feature completeness 100%
+regression_requirements:
+- existing 53 tests remain passing unless versioned only for explicit reconciled interface change
+- F06 narrow fix remains passing
+- F02 explicit/governed operator behavior remains passing
+- weights unchanged
+- scorer arithmetic unchanged
+- ranking tie semantics unchanged
+- missingness semantics unchanged
+- anti-double-count unchanged
+- Hard Risk Gate math unchanged
+- WM-v1.1 unchanged
+- determinism unchanged
+- idempotence unchanged
+forbidden:
+- inspect Actual U127 MFE/MAE/future return/future rank/Top3 performance/Critical Miss outcomes
+- run Actual U127 replay
+- tune weights/features/thresholds using outcomes
+- invent F08 numeric penalty schedule
+- change Ground Truth, Price, or CA
+- promote Model Freeze or Production Release
+- unilaterally change Shared Contract semantics
+success_criteria:
+- all bound shared assets independently rehashed and matched
+- resolver-backed PIT guard implemented fail-closed
+- resolver-backed F08 governance implemented fail-closed without invented thresholds
+- coverage release validation implemented outside scorer math
+- required adversarial tests pass
+- full regression passes
+- new successor implementation commit produced
+- changed-component SHA256 manifest produced
+- scientific firewall preserved
+required_output:
+  exactly_one_return_packet: true
+  header: '[RETURN PACKET — M3TOP3 v1 SHARED INTERFACE WIRING PATCH]'
+  required_fields:
+  - WORK_ORDER_ID
+  - TASK_COMPLETED
+  - BASE_PATCH_COMMIT
+  - SUCCESSOR_PATCH_COMMIT
+  - SHARED_ASSET_REHASH_RESULTS
+  - CHANGED_FILES
+  - CHANGED_COMPONENT_SHA256
+  - FND_01_IMPLEMENTATION_RESULT
+  - FND_04_IMPLEMENTATION_RESULT
+  - FND_06_IMPLEMENTATION_RESULT
+  - F02_COMPATIBILITY_BINDING_RESULT
+  - ADVERSARIAL_TEST_RESULT
+  - FULL_REGRESSION_RESULT
+  - WEIGHTS_CHANGED
+  - SCORER_ARCHITECTURE_CHANGED
+  - WM_SEMANTICS_CHANGED
+  - ACTUAL_OUTCOME_DATA_INSPECTED
+  - ACTUAL_REPLAY_EXECUTED
+  - OUTCOME_TUNING_EXECUTED
+  - REMAINING_BLOCKERS
+  - READY_FOR_INDEPENDENT_DELTA_PREFLIGHT
+  - RECOMMENDED_NEXT_ACTION
+output_discipline:
+- Output exactly one Markdown fenced code block.
+- Write nothing before or after the block.
+- Owner-facing summary may be any useful length; explain material technical terms in practical Korean with technical term in parentheses.
