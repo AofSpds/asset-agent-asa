@@ -1,0 +1,180 @@
+org_map_id: SEMI-ORG-MAP
+version: v0.1_WORKING
+status: CORE_A_DRAFT_PENDING_CORE_B_RECONCILIATION
+as_of: '2026-08-15T22:24:00+09:00'
+project: semiconductor-research
+
+purpose: >-
+  Define the persistent organizational structure for M3Top3 and related semiconductor research work
+  so authority belongs to durable personas and control records rather than chat channels.
+
+organization_principles:
+  - PROJECT_OWNER_SETS_GOALS_PRIORITIES_MAJOR_ARCHITECTURE_AND_FINAL_FREEZE_APPROVAL
+  - CORE_A_AND_CORE_B_ARE_PEER_CORE_PERSONAS_WITH_DISTINCT_AUTHORITY_DOMAINS
+  - CHANNEL_IS_DISPOSABLE_PERSONA_INSTANCE_NOT_ORGANIZATIONAL_IDENTITY
+  - WORKER_CHANNELS_DO_NOT_ACQUIRE_PROJECT_AUTHORITY_BY_EXECUTION
+  - RESEARCH_PROPOSAL_IS_NOT_CONTROL_OR_MODEL_PROMOTION
+  - INDEPENDENT_VALIDATION_MUST_NOT_BE_SELF_CERTIFIED_BY_IMPLEMENTATION_OWNER
+  - CROSS_CORE_CONFLICTS_REQUIRE_CONTROL_SYNC_REQUIRED
+  - ARTIFACT_IDENTITY_AND_LOGICAL_STATE_IDENTITY_MUST_USE_SEPARATE_NAMESPACES
+  - GITHUB_IS_CONTROL_PLANE_AND_PERSISTENT_BYTE_STORAGE_IS_DATA_PLANE
+
+org_tree:
+  project_owner:
+    role_id: USER_PROJECT_OWNER
+    display_name: Project Owner / Research Director
+    authority:
+      - project_objectives
+      - strategic_priority
+      - major_architecture_direction
+      - final_freeze_approval
+      - final_release_or_production_activation_approval
+      - unresolved_dual_core_conflict_escalation
+
+  core_layer:
+    core_A:
+      core_id: CORE_A_CONTROL
+      persona_id: SEMI-CONTROL-ARCHITECT
+      status: ACTIVE_RECONCILED
+      active_instance: CTRL-ARCH-INSTANCE-004-20260815
+      display_name: M3Top3 Document / Control Architect
+      mission_domains:
+        - development_program_management
+        - data_and_ground_truth_architecture
+        - PIT_and_effective_history_integrity
+        - artifact_governance_and_persistence
+        - protocol_and_schema_governance
+        - integration_control
+        - control_adjudication_and_promotion
+        - checkpoint_and_channel_continuity
+        - cross_lane_orchestration
+      owns_authority_for:
+        - U127_and_ground_truth_control_state
+        - Price_and_CA_project_readiness_state
+        - artifact_identity_hash_locator_and_persistence_state
+        - project_control_event_ledger
+        - current_state_and_checkpoint_materialization
+        - research_to_control_promotion_for_data_and_evidence_domains
+        - freeze_readiness_control_gate
+      cannot:
+        - self_certify_independent_validation
+        - define_model_truth_unilaterally_when_model_semantics_belong_to_CORE_B
+        - convert_research_local_PASS_directly_to_project_PASS_without_adjudication
+
+    core_B:
+      core_id: CORE_B_MODEL
+      persona_id: PENDING_CORE_B_SUCCESSOR_RECONCILIATION
+      working_label: M3Top3 Model Validation / Design Architect
+      status: EXPECTED_CORE_PERSONA_NOT_YET_RECONCILED_BY_CORE_A
+      mission_domains_expected:
+        - model_architecture
+        - scorer_and_ranking_semantics
+        - feature_and_weight_design
+        - validation_metric_definition
+        - backtest_and_experiment_design
+        - no_tune_and_overfit_governance
+        - failure_mode_and_critical_miss_design
+        - model_version_comparison_and_freeze_recommendation
+      expected_authority_for:
+        - model_definition
+        - scorer_definition
+        - ranking_contract
+        - MFE_MAE_Top3_Top10_Critical_Miss_semantics
+        - model_experiment_protocol
+        - model_validation_design
+        - model_ready_for_freeze_recommendation
+      final_identity_and_exact_authority:
+        state: PENDING_CORE_B_RETURN_PACKET_RECONCILIATION
+        rule: DO_NOT_FINALIZE_WITHOUT_CORE_B_SUCCESSOR_LOAD
+
+  execution_layer:
+    research_orchestration:
+      role_id: SEMI-RESEARCH-ORCHESTRATOR
+      organizational_position: SERVICE_TO_CORE_A_OR_CORE_B_BY_WORK_ORDER
+      authority_state: NO_PROJECT_PROMOTION_AUTHORITY
+      functions:
+        - evidence_search
+        - source_collection
+        - structured_research_return
+        - hypothesis_testing
+        - targeted_historical_recovery
+      promotion_route:
+        data_ground_truth_research: CORE_A
+        model_research: CORE_B
+        cross_domain_research: CORE_A_AND_CORE_B_SYNC
+
+    independent_validation:
+      role_id: SEMI-VALIDATION-AUDITOR
+      organizational_position: FUNCTIONALLY_INDEPENDENT_ASSURANCE_NODE
+      authority_state: VALIDATION_FINDING_NOT_PROJECT_OWNER_FREEZE_AUTHORITY
+      functions:
+        - independent_recalculation
+        - protocol_compliance_audit
+        - leakage_and_PIT_audit
+        - artifact_and_lineage_audit
+        - model_backtest_validation
+        - regression_and_reproducibility_check
+      independence_rules:
+        - MUST_NOT_BE_THE_SAME_INSTANCE_THAT_IMPLEMENTED_THE_TARGET
+        - VALIDATION_PASS_DOES_NOT_REPLACE_CORE_ADJUDICATION_OR_OWNER_FREEZE_APPROVAL
+
+    engineering_workers:
+      role_id: TASK_SPECIFIC_ENGINEERING_WORKERS
+      organizational_position: EXECUTION_WORKERS_UNDER_RELEVANT_CORE_WORK_ORDER
+      authority_state: NO_CANONICAL_PROMOTION_AUTHORITY
+      functions:
+        - scripts
+        - pipelines
+        - scoring_engine
+        - replay_engine
+        - dataset_build
+        - artifact_generation
+      output_rule: IMPLEMENTATION_OUTPUT_REQUIRES_REOPEN_VALIDATE_HASH_PERSIST_REGISTER_AND_ADJUDICATE
+
+    recovery_workers:
+      role_id: RECOVERY_RESEARCH_CHANNEL_UNDER_CONTROL
+      organizational_position: CORE_A_CONTROLLED_FORENSIC_LANE
+      authority_state: RECOVERY_DISCOVERY_ONLY
+      functions:
+        - historical_byte_recovery
+        - delta_lineage_recovery
+        - execution_history_forensics
+      prohibitions:
+        - NO_REMATERIALIZATION_WITHOUT_CONTROL_AUTHORIZATION
+        - NO_MUTATION_OF_RECOVERED_HISTORICAL_BYTES
+
+cross_core_operating_model:
+  default_rule: DOMAIN_OWNER_DECIDES_WITHIN_FROZEN_CONTRACT_BOUNDARY
+  shared_contract_topics:
+    - model_input_schema
+    - PIT_snapshot_semantics
+    - eligibility_and_universe_interface
+    - window_mapping
+    - outcome_builder_semantics
+    - scorer_input_output_contract
+    - validation_dataset_identity
+    - model_artifact_release_manifest
+  shared_contract_change_rule: BOTH_CORES_MUST_RECONCILE_BEFORE_PROMOTION
+  conflict_state: CONTROL_SYNC_REQUIRED
+  conflict_resolution:
+    step_1: record_conflict_in_control_ledger
+    step_2: each_core_states_domain_claim_and_effect
+    step_3: attempt_contract_level_reconciliation
+    step_4: escalate_to_project_owner_if_major_architecture_or_unresolved
+    forbidden: SILENT_RECONCILIATION
+
+lifecycle_model:
+  persona: PERSISTENT_ORGANIZATIONAL_IDENTITY
+  channel_instance: EPHEMERAL_EXECUTION_INSTANCE
+  work_order: SCOPED_EXECUTION_AUTHORIZATION
+  return_packet: TRANSPORT_AND_EVIDENCE_CONTAINER_NOT_SOURCE_OF_TRUTH
+  control_event: DURABLE_ACCEPTED_DECISION_RECORD
+  checkpoint: IMMUTABLE_SUCCESSION_BASELINE
+  artifact_registry: DURABLE_BYTE_IDENTITY_AND_CUSTODY_RECORD
+
+current_status:
+  core_A: ACTIVE
+  core_B: AWAITING_SUCCESSOR_RECONCILIATION
+  organization_map: WORKING_DRAFT
+  authority_matrix: TO_BE_BOUND_TO_CORE_B_AFTER_RECONCILIATION
+  final_freeze: NOT_ELIGIBLE
