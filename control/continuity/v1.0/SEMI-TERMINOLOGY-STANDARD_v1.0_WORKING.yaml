@@ -1,0 +1,91 @@
+standard_id: SEMI-TERMINOLOGY-STANDARD
+version: v1.0_WORKING
+status: ACTIVE_WORKING_STANDARD
+project: semiconductor-research
+as_of: '2026-08-15T23:11:00+09:00'
+owner_persona: SEMI-CONTROL-ARCHITECT
+purpose: >-
+  Eliminate ambiguity between organizational roles, persistent personas, internal topology aliases,
+  and ephemeral channel instance names. User-facing communication must use canonical role names first.
+
+rules:
+  - USER_FACING_PRIMARY_TERM_MUST_BE_CANONICAL_ROLE_NAME
+  - PERSONA_ID_MAY_APPEAR_IN_PARENTHESES_WHEN_IDENTITY_PRECISION_IS_NEEDED
+  - CHANNEL_INSTANCE_NAME_MUST_BE_USED_ONLY_WHEN_ROUTING_OR_HANDOFF_REQUIRES_A_SPECIFIC_CHANNEL
+  - INTERNAL_CORE_A_CORE_B_LABELS_ARE_TOPOLOGY_ALIASES_NOT_PRIMARY_USER_FACING_NAMES
+  - IF_USER_USES_A_NONCANONICAL_OR_MIXED_TERM_ASSISTANT_MUST_NORMALIZE_AND_CORRECT_IT
+  - DO_NOT_USE_MULTIPLE_NAMES_FOR_THE_SAME_ROLE_WITHOUT_EXPLICIT_ALIAS_DECLARATION
+  - CHANNEL_IS_NOT_PERSONA
+
+canonical_terms:
+  project_owner:
+    canonical_korean: 프로젝트 오너 / 연구책임자
+    canonical_english: Project Owner / Research Director
+    role_id: USER_PROJECT_OWNER
+    aliases_allowed_internal: [OWNER]
+
+  control_architect:
+    canonical_korean: 문서·통제 아키텍트
+    canonical_english: Document / Control Architect
+    persona_id: SEMI-CONTROL-ARCHITECT
+    current_channel_instance: M3Top3 문서 아키텍트4
+    internal_topology_alias: CORE_A
+    user_facing_rule: >-
+      Use '문서·통제 아키텍트' as the primary name. Use CORE_A only inside architecture/control records
+      or when explicitly explaining topology.
+
+  model_validation_design_architect:
+    canonical_korean: 모델 검증·설계 아키텍트
+    canonical_english: Model Validation / Design Architect
+    persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+    current_channel_instance: M3Top3 모델 검증 설계 아키텍트2
+    internal_topology_alias: CORE_B
+    user_facing_rule: >-
+      Use '모델 검증·설계 아키텍트' as the primary name. 'CORE B' is only an internal topology alias and
+      must not be used as the normal user-facing role name.
+
+  research:
+    canonical_korean: 리서치팀
+    canonical_english: Research Team / Research Orchestrator
+    role_id: SEMI-RESEARCH-ORCHESTRATOR
+    current_known_channel_instance: M3Top3 Research2
+
+  independent_validation:
+    canonical_korean: 독립 검증·감사팀
+    canonical_english: Independent Validation / Audit
+    role_id: SEMI-VALIDATION-AUDITOR
+    current_known_channel_instance: M3Top3 검증
+
+  engineering:
+    canonical_korean: 엔지니어링 작업자
+    canonical_english: Engineering Worker
+    role_id: TASK_SPECIFIC_ENGINEERING_WORKERS
+
+  recovery:
+    canonical_korean: 복구 작업자
+    canonical_english: Recovery Worker
+    role_id: RECOVERY_RESEARCH_CHANNEL_UNDER_CONTROL
+
+naming_layers:
+  organizational_role: persistent human-readable function name
+  persona_id: persistent machine identity
+  topology_alias: internal graph label such as CORE_A or CORE_B
+  channel_instance: disposable execution channel name
+
+examples:
+  correct_user_facing:
+    - '모델 검증·설계 아키텍트가 v1 Feature/Scorer/Weight를 확정합니다.'
+    - '문서·통제 아키텍트가 U127 및 artifact governance를 담당합니다.'
+  routing_specific:
+    - 'M3Top3 모델 검증 설계 아키텍트2 채널에 전달해주세요.'
+  avoid:
+    - 'CORE B가 합니다'  # without defining that it means 모델 검증·설계 아키텍트
+    - '모델 아키텍트 / 검증 아키텍트 / CORE B'  # mixed labels for same persona
+
+correction_policy: >-
+  If the Project Owner uses CORE A/CORE B, 모델 아키텍트, 문서 아키텍트, 검증팀, or other mixed shorthand,
+  interpret intent but reply using the canonical role name and, where useful, briefly note the normalized term.
+
+retroactive_note: >-
+  Existing historical control artifacts may retain CORE_A/CORE_B fields for topology compatibility.
+  Those aliases do not change Persona identity and should not be propagated into normal user-facing prose.
