@@ -52,6 +52,41 @@ jobs:
           docker exec -i "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18 < aaa/db/migrations/0001_operational_execution_plane.sql
           docker exec -i "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18 < aaa/db/tests/t18_contract_smoke.sql
 
+      - name: Verify concurrent lease fencing has one winner
+        shell: bash
+        run: |
+          set -euo pipefail
+          cid="$(docker ps --format '{{.ID}} {{.Image}}' | awk '$2 ~ /^postgres:16-alpine/ {print $1; exit}')"
+          test -n "$cid"
+          set +e
+          docker exec "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18 -c "SELECT aaa_ops.acquire_run_lease('RUN-T18-CONCURRENCY','worker-a',600);" >/tmp/t18-lease-a.log 2>&1 &
+          pa=$!
+          docker exec "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18 -c "SELECT aaa_ops.acquire_run_lease('RUN-T18-CONCURRENCY','worker-b',600);" >/tmp/t18-lease-b.log 2>&1 &
+          pb=$!
+          wait "$pa"; ra=$?
+          wait "$pb"; rb=$?
+          set -e
+          cat /tmp/t18-lease-a.log
+          cat /tmp/t18-lease-b.log
+          if { [ "$ra" -eq 0 ] && [ "$rb" -eq 0 ]; } || { [ "$ra" -ne 0 ] && [ "$rb" -ne 0 ]; }; then
+            echo "expected exactly one successful lease acquisition; got ra=$ra rb=$rb"
+            exit 47
+          fi
+
+      - name: Verify local PostgreSQL backup and restore drill
+        shell: bash
+        run: |
+          set -euo pipefail
+          cid="$(docker ps --format '{{.ID}} {{.Image}}' | awk '$2 ~ /^postgres:16-alpine/ {print $1; exit}')"
+          test -n "$cid"
+          docker exec "$cid" pg_dump -U postgres -d aaa_t18 -Fc -f /tmp/aaa_t18.dump
+          docker exec "$cid" createdb -U postgres aaa_t18_restore
+          docker exec "$cid" pg_restore -U postgres -d aaa_t18_restore /tmp/aaa_t18.dump
+          source_counts="$(docker exec "$cid" psql -At -U postgres -d aaa_t18 -c "SELECT count(*)||':'||(SELECT count(*) FROM aaa_ops.results)||':'||(SELECT count(*) FROM aaa_ops.experiments)||':'||(SELECT count(*) FROM aaa_ops.snapshot_refs) FROM aaa_ops.runs;")"
+          restore_counts="$(docker exec "$cid" psql -At -U postgres -d aaa_t18_restore -c "SELECT count(*)||':'||(SELECT count(*) FROM aaa_ops.results)||':'||(SELECT count(*) FROM aaa_ops.experiments)||':'||(SELECT count(*) FROM aaa_ops.snapshot_refs) FROM aaa_ops.runs;")"
+          echo "source=$source_counts restore=$restore_counts"
+          test "$source_counts" = "$restore_counts"
+
   owner-console-build-smoke:
     permissions:
       contents: read

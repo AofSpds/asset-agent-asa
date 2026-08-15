@@ -140,4 +140,74 @@ BEGIN
 END;
 $$;
 
+INSERT INTO aaa_ops.snapshot_refs (
+    snapshot_id, pit_cutoff, artifact_locator, artifact_sha256,
+    artifact_byte_size, lineage_identity, source_release_identity
+) VALUES (
+    'SNAPSHOT-T18-SMOKE',
+    '2026-08-16T06:00:00+09:00'::timestamptz,
+    's3://example/noncanonical/snapshot-t18-smoke.parquet',
+    repeat('f', 64),
+    456,
+    'LINEAGE-T18-SMOKE',
+    'RELEASE-NONCANONICAL'
+);
+
+INSERT INTO aaa_ops.experiments (
+    experiment_id, experiment_type, model_spec_git_identity,
+    feature_spec_git_identity, dataset_identity, snapshot_identity,
+    configuration_sha256, seed_policy, status
+) VALUES (
+    'EXP-T18-SMOKE',
+    'BACKTEST',
+    repeat('1', 40),
+    repeat('2', 40),
+    'DATASET-T18-SMOKE',
+    'SNAPSHOT-T18-SMOKE',
+    repeat('3', 64),
+    '{"kind":"fixed","seed":7}'::jsonb,
+    'ENGINEERING_ONLY'
+);
+
+INSERT INTO aaa_ops.experiment_runs (
+    experiment_id, run_id, experiment_role
+) VALUES (
+    'EXP-T18-SMOKE',
+    'RUN-T18-SMOKE',
+    'PRIMARY'
+);
+
+INSERT INTO aaa_ops.runs (
+    run_id, process_id, work_order_id, responsible_persona, executor_role,
+    repository, exact_target_commit, branch_context, state, stale_after_seconds
+) VALUES (
+    'RUN-T18-CONCURRENCY',
+    'T18',
+    'WO-T18-SMOKE',
+    'SEMI-CONTROL-ARCHITECT',
+    'ENGINEERING_IMPLEMENTATION',
+    'AofSpds/asset-agent-asa',
+    repeat('4', 40),
+    'aaa-t18-operational-db-v0.1',
+    'DISPATCHED_AWAITING_ACK',
+    7200
+);
+
+SELECT count(*) AS experiment_links
+FROM aaa_ops.experiment_runs
+WHERE experiment_id='EXP-T18-SMOKE'
+  AND run_id='RUN-T18-SMOKE' \gset
+\if :experiment_links != 1
+  \echo 'experiment/run linkage failed'
+  \quit 45
+\endif
+
+SELECT count(*) AS snapshot_count
+FROM aaa_ops.snapshot_refs
+WHERE snapshot_id='SNAPSHOT-T18-SMOKE' \gset
+\if :snapshot_count != 1
+  \echo 'snapshot metadata linkage failed'
+  \quit 46
+\endif
+
 SELECT 'T18_POSTGRES_SMOKE_PASS' AS result;

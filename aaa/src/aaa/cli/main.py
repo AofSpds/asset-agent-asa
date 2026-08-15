@@ -7,7 +7,7 @@ from typing import Any
 
 from aaa.api.read_only import build_status, list_validation_gates, list_work_orders, verify_asset
 from aaa.api.server import serve
-from aaa.ops.run_registry import list_runs, persona_overview
+from aaa.ops.operational_service import OperationalReadService
 from aaa.state.discrepancy import build_discrepancy_report
 
 
@@ -75,6 +75,7 @@ def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
     repo_root = Path(args.repo_root)
+    operational = OperationalReadService(repo_root)
 
     if args.command == "status":
         _emit(build_status(repo_root), args.as_json)
@@ -83,10 +84,10 @@ def main(argv: list[str] | None = None) -> int:
         _emit(list_work_orders(repo_root), args.as_json)
         return 0
     if args.command == "runs":
-        _emit(list_runs(repo_root), args.as_json)
+        _emit(operational.runs(), args.as_json)
         return 0
     if args.command == "personas":
-        _emit(persona_overview(repo_root), args.as_json)
+        _emit(operational.personas(), args.as_json)
         return 0
     if args.command == "asset" and args.asset_command == "verify":
         _emit(verify_asset(repo_root, args.path), args.as_json)
