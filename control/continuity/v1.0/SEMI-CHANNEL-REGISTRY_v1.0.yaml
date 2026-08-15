@@ -2,16 +2,10 @@ registry_id: SEMI-CHANNEL-REGISTRY
 version: v1.0
 status: WORKING_CONTROL_REGISTRY
 project: semiconductor-research
-
+as_of: '2026-08-15T22:52:00+09:00'
 channel_model:
   principle: CHANNEL_IS_PERSONA_INSTANCE_NOT_PERSONA
-  lifecycle_states:
-    - ACTIVE
-    - ROTATING
-    - CLOSED
-    - ARCHIVED
-    - RECOVERY_ONLY
-
+  lifecycle_states: [ACTIVE, ROTATING, CLOSED, ARCHIVED, RECOVERY_ONLY]
 required_fields:
   - channel_instance_id
   - persona_id
@@ -23,7 +17,6 @@ required_fields:
   - active_lanes
   - last_control_commit
   - status
-
 instances:
   - channel_instance_id: CTRL-ARCH-LEGACY-BOOTSTRAP-20260815
     persona_id: SEMI-CONTROL-ARCHITECT
@@ -32,10 +25,7 @@ instances:
     successor: CTRL-ARCH-INSTANCE-004-20260815
     start_checkpoint: LEGACY_CONTEXT_MIGRATION
     end_checkpoint: CP-CTRL-20260815-GENESIS-001
-    work_scope:
-      - U127_CONTROL_AND_ARTIFACT_RECOVERY
-      - PRICE_CA_M3TOP3_CONTROL_STATE
-      - CONTROL_HUB_CONTINUITY_BOOTSTRAP
+    work_scope: [U127_CONTROL_AND_ARTIFACT_RECOVERY, PRICE_CA_M3TOP3_CONTROL_STATE, CONTROL_HUB_CONTINUITY_BOOTSTRAP]
     active_lanes: []
     last_control_commit: 03cc22c7d66e4474a275930fc78183810a7f409d
     status: ARCHIVED
@@ -47,7 +37,6 @@ instances:
       open_work_registered: true
       checkpoint_created: true
       successor_load_verified: true
-
   - channel_instance_id: CTRL-ARCH-INSTANCE-004-20260815
     persona_id: SEMI-CONTROL-ARCHITECT
     display_name: M3Top3 Document Architect 4
@@ -55,15 +44,9 @@ instances:
     successor: UNASSIGNED
     start_checkpoint: CP-CTRL-20260815-GENESIS-001
     end_checkpoint: null
-    work_scope:
-      - U127_CONTROL_AND_ARTIFACT_RECOVERY
-      - PRICE_CA_M3TOP3_CONTROL_STATE
-      - CONTROL_HUB_CONTINUITY
-      - DUAL_CORE_ORGANIZATION_AND_PERSONA_PERSISTENCE
-    active_lanes:
-      - U127-ARTIFACT-RECOVERY
-      - CONTROL-HUB-CONTINUITY-v1
-    last_control_commit: ff82f22d399d9d158d6374a59b3af1c6b6efaf9a
+    work_scope: [U127_CONTROL_AND_ARTIFACT_RECOVERY, PRICE_CA_M3TOP3_CONTROL_STATE, CONTROL_HUB_CONTINUITY, DUAL_CORE_ORGANIZATION_AND_PERSONA_PERSISTENCE]
+    active_lanes: [U127-ARTIFACT-RECOVERY, U127-DELTA-LEDGER-RECOVERY, CONTROL-HUB-CONTINUITY-v1, DUAL-CORE-RECONCILIATION]
+    last_control_commit: 463eb2ad274e8dab708ecb5c21a228ae87be0935
     status: ACTIVE
     bootstrap_gate:
       checkpoint_loaded: true
@@ -75,3 +58,37 @@ instances:
       continuity_reconciled: true
       bootstrap_status: PASS_WITH_WARNINGS
       activated_at: '2026-08-15T21:09:00+09:00'
+  - channel_instance_id: MODEL-ARCH-LEGACY-20260815
+    persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+    display_name: M3Top3 모델 검증/설계 아키텍트 predecessor
+    predecessor: LEGACY_UNREGISTERED_MODEL_ARCHITECT_CHANNELS
+    successor: MODEL-ARCH-INSTANCE-002-20260815
+    start_checkpoint: LEGACY_CONTEXT_HISTORY
+    end_checkpoint: CORE_B_SUCCESSOR_BOOTSTRAP_PACKET_20260815
+    work_scope: [M3TOP3_MODEL_ARCHITECTURE, VALIDATION_DESIGN, SCORER_RANKING_SEMANTICS]
+    active_lanes: []
+    last_control_commit: UNKNOWN
+    status: ARCHIVED
+    preservation_state: HISTORICAL_PREDECESSOR_REFERENCE
+    note: Formal predecessor registry ID was not historically persisted; this ID is Control-assigned during successor reconciliation.
+  - channel_instance_id: MODEL-ARCH-INSTANCE-002-20260815
+    persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+    display_name: M3Top3 모델 검증 설계 아키텍트2
+    predecessor: MODEL-ARCH-LEGACY-20260815
+    successor: UNASSIGNED
+    start_checkpoint: CORE_B_SUCCESSOR_BOOTSTRAP_PACKET_20260815
+    end_checkpoint: null
+    work_scope: [MODEL_CONTRACT_FORMALIZATION, VALIDATION_CONTRACT_FORMALIZATION, FEATURE_SCORER_WEIGHT_V1_DESIGN, SHARED_CONTRACT_RECONCILIATION, EXPERIMENT_GOVERNANCE]
+    active_lanes: [CORE_B_MODEL_FORMALIZATION, DUAL_CORE_SHARED_CONTRACTS]
+    last_control_commit: 463eb2ad274e8dab708ecb5c21a228ae87be0935
+    status: ACTIVE
+    bootstrap_gate:
+      historical_continuity: PARTIAL
+      bootstrap_status: PASS_WITH_WARNINGS
+      persona_identity_established: true
+      model_doctrine_recovered: true
+      validation_doctrine_recovered: true
+      unknown_open_fields_preserved: true
+      actual_replay_authorized: false
+      model_freeze_authorized: false
+      activated_at: '2026-08-15T22:52:00+09:00'
