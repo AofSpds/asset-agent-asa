@@ -1,7 +1,7 @@
 state_id: SEMI-CURRENT-STATE
 version: v1.0
 status: WORKING_SUCCESSOR_ACTIVE
-as_of: '2026-08-15T22:05:00+09:00'
+as_of: '2026-08-15T22:18:00+09:00'
 project: semiconductor-research
 active_persona: SEMI-CONTROL-ARCHITECT
 active_persona_instance: CTRL-ARCH-INSTANCE-004-20260815
@@ -69,7 +69,7 @@ active_lanes:
     status: ACTIVE_PARALLEL
     purpose: recover accepted and rejected post-v0.7 Research/Control transitions into an immutable typed delta lineage before any rematerialization decision
     current_scope:
-      - membership_expansion_v0_7_to_v1_3_packet_harvest
+      - early_membership_gap_closure_A_46_60_then_61_75
       - RC1_to_RC4_5_exact_delta_harvest
       - RC5_A_rejection_lineage
       - RC5_B_to_RC5_E_control_promotion_lineage
@@ -80,11 +80,29 @@ active_lanes:
       aggregate_arithmetic_reconciled: true
       RC1_to_final_cell_lineage: VERY_STRONG
       early_membership_full_cell_delta_ledger: PARTIAL
+      early_membership_harvest_control_decision: PARTIAL_ACCEPT
+      early_membership_source_packet_sha256: 861d4d5ef7670f28c33cd790ab0e8cccdce746beb83d56c909dcb7fe868919f8
+      early_membership_source_packet_byte_size: 76571
+      early_certified_progression: 353_TO_974_PLUS621_PASS
+      early_populated_progression: 370_TO_997_PLUS627_PASS
+      early_complete_progression: 44_TO_119_PLUS75_PASS
+      early_listing_progression: 58_TO_127_PLUS69_PASS
+      exact_legacy_promotions_76_to_127: RECOVERED_PARTIAL_HIGH_CONFIDENCE
+      non_ready_matrix_91_to_120: RECOVERED_HIGH_VALUE
+      exact_listing_additions_76_to_127: RECOVERED
+      decisive_KRX_KIND_bookends_121_to_127: RECOVERED
+      highest_value_gap: MEMBERSHIP_46_60_EXECUTED_RESULT_PACKET
+      secondary_gap: MEMBERSHIP_61_75_FULL_CELL_PRESTATE_PROVENANCE_LISTING
+    recovery_assets:
+      - control/u127/SEMI-U127-DELTA-LEDGER_v0.1_WORKING.jsonl
+      - control/u127/SEMI-U127-EARLY-MEMBERSHIP-RECOVERY_v0.1_WORKING.yaml
+      - control/u127/source_packets/RET-U127-EARLY-MEMBERSHIP-DELTA-HARVEST_2026-08-15.txt
     rules:
       - LEDGER_RECOVERY_IS_NOT_WORKBOOK_REMATERIALIZATION
       - RESEARCH_PROPOSED_AND_CONTROL_ACCEPTED_MUST_REMAIN_SEPARATE
       - SOURCE_PACKET_HASH_REQUIRED_WHEN_SOURCE_BYTES_OR_TEXT_ARE_MATERIALIZED
       - NO_ACCEPTED_DELTA_WITHOUT_CONTROL_DECISION_REFERENCE
+      - UNKNOWN_CELL_PRESTATE_OR_PROVENANCE_MUST_REMAIN_UNKNOWN
 
   - lane_id: CONTROL-HUB-CONTINUITY-v1
     status: ACTIVE_PARALLEL
@@ -127,7 +145,8 @@ u127:
   permanent_loss: NOT_ESTABLISHED
   post_v0_7_delta_carrier: MIXED_CONTROL_LOGICAL_STATE_DOMINANT
   final_logical_state_dependency_on_v1_8_or_v1_9_bytes: NOT_REQUIRED_FOR_LOGICAL_VALIDITY
-  accepted_delta_lineage_recovery: PARTIAL
+  accepted_delta_lineage_recovery: PARTIAL_IMPROVED
+  early_membership_gap_closure_status: GAP_CLOSURE_A_REQUIRED
   deterministic_rematerialization_feasibility: MEDIUM_NOT_AUTHORIZED
 
 price:
@@ -156,6 +175,7 @@ m3top3:
 critical_blockers:
   - AUTHORITATIVE_U127_FINAL_MACHINE_BYTES_NOT_RECOVERED
   - FULL_v0_7_TO_FINAL_TYPED_CELL_DELTA_LEDGER_NOT_YET_CERTIFIED
+  - EARLY_MEMBERSHIP_46_60_EXECUTED_CELL_PAYLOAD_NOT_RECOVERED
   - U127_ARTIFACT_PERSISTENCE_NOT_COMPLETE
   - INDEPENDENT_CA_CLOSURE_PENDING
   - OFFICIAL_PRICE_D4_D5_NOT_PROMOTED
@@ -201,12 +221,13 @@ next_actions_parallel:
     - persist exact v0.7 bytes through governed primary and secondary artifact custody
     - do not rematerialize until recovery and typed-delta certification gates are explicitly closed by Control
   U127_DELTA_LEDGER_RECOVERY:
-    - harvest all surviving post-v0.7 Research and Control RETURN PACKETS into a typed immutable working ledger
-    - prioritize exact cell-level membership expansion deltas v0.7 through v1.3 because this is the largest deterministic-lineage gap
+    - run one narrow historical GAP CLOSURE A for membership 46-60 original executed RETURN or cell table
+    - secondarily recover membership 61-75 full company-window prestate provenance and exact listing additions
+    - use already recovered 76-127 packets only for narrow missing prestate/provenance extraction, not new research
+    - merge only source-supported records into the typed working ledger
+    - keep all unsupported cell fields UNKNOWN
     - link RC1 through RC5E transitions to Control acceptance or rejection decisions
     - link FA1 through FA4 as certification events rather than cell-changing events
-    - require parent control state and source evidence references for each accepted delta
-    - certify aggregate arithmetic before any future cell-level replay
   CONTROL_HUB_CONTINUITY:
     - receive and reconcile CORE B Model Validation / Design Architect successor handoff
     - define final dual-core organization and authority boundary
@@ -216,6 +237,7 @@ next_actions_parallel:
     - run successor recovery drill before Continuity v1 freeze
 
 user_action:
-  required_now: NONE
+  required_now: ROUTE_ONE_NARROW_GAP_CLOSURE_A_PROMPT_TO_U127_RESEARCH_PREDECESSOR
+  otherwise: NONE
   optional_only_if_found_locally:
     - upload exact unmodified v1.8, v1.9, or v1.7 candidate without opening and resaving
