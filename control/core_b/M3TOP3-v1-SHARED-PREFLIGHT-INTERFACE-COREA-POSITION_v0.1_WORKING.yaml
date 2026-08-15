@@ -1,0 +1,83 @@
+position_id: M3TOP3-v1-SHARED-PREFLIGHT-INTERFACE-COREA-POSITION
+version: v0.1_WORKING
+status: CORE_A_REVIEW_COMPLETE_AWAITING_CORE_B_RECONCILIATION
+project: semiconductor-research
+as_of: '2026-08-16T00:59:00+09:00'
+reviewing_persona:
+  canonical_name: 문서·통제 아키텍트
+  persona_id: SEMI-CONTROL-ARCHITECT
+source_shared_work_order: control/workorders/WO-SHARED-M3TOP3-v1-PREFLIGHT-INTERFACE-RECONCILIATION-20260816.yaml
+core_b_proposal: control/core_b/M3TOP3-v1-SHARED-PREFLIGHT-INTERFACE-PROPOSAL_v0.1_WORKING.yaml
+core_b_patch_commit: 5f9491b6861a11097a929156eaa8bb7cc3c8c749
+shared_contract_current_authority: control/continuity/v1.0/SEMI-SHARED-CONTRACT-STATE_v0.4_WORKING.yaml
+
+principles:
+  - NO_SHARED_CONTRACT_UNILATERAL_PROMOTION
+  - PIT_INFORMATION_MUST_BE_KNOWABLE_BY_SNAPSHOT_CUTOFF
+  - ACTUAL_CONSUMED_INPUT_PROVENANCE_MUST_BE_MACHINE_VERIFIABLE
+  - SELF_DECLARED_PROVENANCE_SCOPE_IS_NOT_SUFFICIENT_FOR_OFFICIAL_FAIL_CLOSED_GUARD
+  - GOVERNANCE_IDENTIFIER_MUST_RESOLVE_TO_BOUND_VERSIONED_AUTHORITY
+  - COMPANY_RANKABILITY_IS_NOT_FEATURE_COMPLETENESS
+  - WM_v1_1_SEMANTICS_REMAIN_UNCHANGED
+
+positions:
+  FND_01_MIS_PIT_PROVENANCE:
+    core_a_position: ACCEPT_DIRECTION_WITH_REQUIRED_REFINEMENT
+    accepted:
+      - Every scorer-consumed signal requires PIT provenance for official scoring.
+      - Missing provenance or provenance later than snapshot_cutoff_at must fail closed.
+      - Immutable supported-cutoff certification is acceptable when its certified scope is explicit and complete.
+      - Governed upstream aggregates must retain operator identity plus reproducible/certifiable PIT support.
+    required_refinement:
+      - The complete set of consumed paths must be derived from or checked against a governed feature-input schema/registry or equivalent executable contract.
+      - A user/input supplied consumed_fields list cannot by itself define the scope of what must be proven.
+      - If block-level immutable_supported_cutoff_ref is used, the certification must explicitly cover the whole scored block and bind immutable source/evidence identity plus supported_cutoff_at.
+    proposed_release_rule: >-
+      For each scored feature block, official MIS validation SHALL determine the authoritative consumed-field scope from
+      the bound feature-input contract, or SHALL validate a block-level immutable cutoff certification whose declared scope
+      covers all scorer-consumed values. Every authoritative consumed value SHALL resolve to immutable evidence/support
+      provenance with publication_at or supported_cutoff_at <= snapshot_cutoff_at. Any missing scope, missing provenance,
+      unresolved provenance identity, or post-cutoff support SHALL fail closed.
+
+  FND_04_F08_FRESHNESS_PROVENANCE:
+    core_a_position: ACCEPT_DIRECTION_WITH_REQUIRED_REFINEMENT
+    accepted:
+      - F08 arithmetic and maximum freshness penalty of 20 remain unchanged.
+      - Positive freshness penalty requires governed provenance.
+      - Scorer must not invent ad-hoc duration thresholds.
+    required_refinement:
+      - refresh_rule_id, refresh_code/state or equivalent token must resolve to an approved versioned/hashed refresh-governance registry or immutable evidence reference.
+      - A non-empty arbitrary string is not sufficient proof of governance.
+      - Any evaluated_at or supported_cutoff_at must be <= snapshot_cutoff_at.
+    proposed_release_rule: >-
+      A positive F08 freshness penalty SHALL be accepted only when its governance identity resolves to a release-bound
+      refresh-rule registry/version/hash or equivalent immutable support reference. The resolved rule/evidence and any
+      evaluation/support timestamp SHALL be auditable at the Snapshot cutoff. Unresolved identifiers fail closed.
+
+  FND_06_COVERAGE_RELEASE_BINDING:
+    core_a_position: ACCEPT_CORE_B_DIRECTION_WITH_EXPLICIT_RELEASE_BINDING
+    preserved:
+      - company-level rankability and feature completeness are distinct concepts
+      - feature_coverage_ratio remains explicit
+      - scorer mathematical behavior is not unilaterally changed
+    proposed_release_binding: >-
+      VDI/release identity SHALL separately record: eligible company denominator, rankable eligible company numerator,
+      company-rankability policy, per-company score_status, feature_coverage_ratio, and the exact conditions under which
+      PROVISIONAL_MISSING_FEATURES is allowed to participate in official ranking. Official company coverage of 1.00 SHALL
+      not be represented as 100% feature completeness.
+
+  FND_05_PRODUCTION_KRX_CALENDAR:
+    core_a_position: CORE_A_DATA_IDENTITY_TASK_SEPARATE_FROM_SHARED_SEMANTIC_CHANGE
+    rule: >-
+      Bind an actual KRX trading-calendar source/release identity with version/hash and use it under WM-v1.1. Do not alter
+      Anchor/Cutoff/Nominal-End/Entry/Evaluation-Last-Trade/Exit semantics merely to fit the calendar source.
+
+activation:
+  shared_contract_promoted: false
+  shared_contract_version_changed: false
+  model_semantics_changed: false
+  weights_changed: false
+  actual_replay_authorized: false
+  model_freeze_authorized: false
+  next_required_actor: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+  next_action: RECONCILE_CORE_A_REFINEMENTS_AND_RETURN_EXACT_SHARED_DECISION_PACKET
