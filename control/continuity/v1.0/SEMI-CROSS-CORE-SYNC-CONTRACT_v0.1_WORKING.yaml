@@ -1,0 +1,146 @@
+contract_id: SEMI-CROSS-CORE-SYNC-CONTRACT
+version: v0.1_WORKING
+status: CORE_A_DRAFT_PENDING_CORE_B_RECONCILIATION
+project: semiconductor-research
+as_of: '2026-08-15T22:31:00+09:00'
+
+parties:
+  CORE_A:
+    persona_id: SEMI-CONTROL-ARCHITECT
+    domain: DATA_GROUND_TRUTH_ARTIFACT_CONTROL_CONTINUITY
+  CORE_B:
+    persona_id: PENDING_CORE_B_SUCCESSOR_RECONCILIATION
+    domain: MODEL_SCORER_VALIDATION_DESIGN_EXPERIMENT_GOVERNANCE
+
+principles:
+  - CORE_A_AND_CORE_B_ARE_PEER_CORE_PERSONAS
+  - DOMAIN_OWNER_DECIDES_WITHIN_FROZEN_CONTRACT_BOUNDARY
+  - SHARED_CONTRACTS_REQUIRE_BOTH_CORE_RECONCILIATION
+  - SILENT_RECONCILIATION_IS_FORBIDDEN
+  - CONFLICT_REQUIRES_CONTROL_SYNC_REQUIRED
+  - RESEARCH_LOCAL_PASS_IS_NOT_PROJECT_PROMOTION
+  - IMPLEMENTATION_OUTPUT_IS_NOT_VALIDATION_PASS
+  - CONTROL_RECORDING_IS_NOT_INDEPENDENT_VALIDATION
+
+shared_contracts:
+  - contract_topic: MODEL_INPUT_SCHEMA
+    CORE_A_claim: data identity schema PIT integrity eligibility fields
+    CORE_B_claim: model-required feature interface and null/availability semantics
+  - contract_topic: PIT_SNAPSHOT_SEMANTICS
+    CORE_A_claim: knowable-at-time evidence and effective-history rules
+    CORE_B_claim: model consumption semantics and feature timing constraints
+  - contract_topic: UNIVERSE_AND_ELIGIBILITY_INTERFACE
+    CORE_A_claim: authoritative membership and eligibility truth
+    CORE_B_claim: model selection eligibility requirements
+  - contract_topic: WINDOW_MAPPING
+    CORE_A_claim: dates trading-calendar mapping and data availability
+    CORE_B_claim: prediction horizon meaning and model validation semantics
+  - contract_topic: OUTCOME_BUILDER
+    CORE_A_claim: price identity CA handling and reproducible calculation inputs
+    CORE_B_claim: Entry Exit MFE MAE and diagnostic outcome semantics
+  - contract_topic: SCORER_IO_CONTRACT
+    CORE_A_claim: version lineage input identity and artifact registration
+    CORE_B_claim: score formula ranking output and feature semantics
+  - contract_topic: VALIDATION_DATASET_IDENTITY
+    CORE_A_claim: dataset artifact identity and readiness
+    CORE_B_claim: validation sampling protocol and metric usage
+  - contract_topic: MODEL_RELEASE_MANIFEST
+    CORE_A_claim: artifact persistence lineage and release gate
+    CORE_B_claim: model version scorer definition and validation recommendation
+
+sync_event_types:
+  - SHARED_CONTRACT_PROPOSAL
+  - SHARED_CONTRACT_CHANGE_REQUEST
+  - CORE_A_ACCEPT
+  - CORE_B_ACCEPT
+  - CONTROL_SYNC_REQUIRED
+  - SHARED_CONTRACT_RECONCILED
+  - IMPLEMENTATION_READY_FOR_VALIDATION
+  - INDEPENDENT_VALIDATION_RETURNED
+  - FREEZE_RECOMMENDATION
+
+required_sync_record_fields:
+  - sync_event_id
+  - timestamp
+  - initiating_core
+  - affected_contract
+  - current_version
+  - proposed_version
+  - reason
+  - data_or_artifact_impact
+  - model_or_validation_impact
+  - backward_compatibility
+  - required_replay_or_regression
+  - CORE_A_decision
+  - CORE_B_decision
+  - unresolved_points
+  - control_event_ref
+
+change_flow:
+  normal:
+    - DOMAIN_OWNER_PROPOSES
+    - PEER_CORE_IMPACT_REVIEW
+    - BOTH_CORE_DECISIONS_RECORDED
+    - VERSIONED_CONTROL_EVENT
+    - IMPLEMENTATION
+    - INDEPENDENT_VALIDATION_IF_REQUIRED
+    - PROMOTION
+  conflict:
+    - SET_CONTROL_SYNC_REQUIRED
+    - FREEZE_AFFECTED_CONTRACT_PROMOTION
+    - EACH_CORE_STATES_DOMAIN_CLAIM_AND_IMPACT
+    - ATTEMPT_CONTRACT_LEVEL_RECONCILIATION
+    - ESCALATE_TO_PROJECT_OWNER_IF_MAJOR_ARCHITECTURE_OR_UNRESOLVED
+
+conflict_rules:
+  silent_resolution: FORBIDDEN
+  unilateral_shared_contract_promotion: FORBIDDEN
+  owner_escalation_required_when:
+    - MAJOR_PROJECT_ARCHITECTURE_CHANGES
+    - BOTH_CORES_MAINTAIN_INCOMPATIBLE_REQUIRED_SEMANTICS
+    - FREEZE_OR_RELEASE_DECISION_CANNOT_PROCEED
+
+readiness_dependencies:
+  actual_U127_two_year_replay:
+    CORE_A_required:
+      - authoritative_U127_machine_readiness
+      - official_Price_readiness
+      - CA_gate_closure
+      - PIT_snapshot_contract_ready
+    CORE_B_required:
+      - model_version_selected
+      - scorer_contract_selected
+      - validation_metric_contract_selected
+      - experiment_protocol_frozen_for_run
+    independent_validation: REQUIRED
+
+freeze_model:
+  ground_truth_freeze:
+    recommendation_owner: CORE_A
+    peer_review: CORE_B_WHEN_MODEL_IMPACT_MATERIAL
+    independent_validation: REQUIRED
+    final_approval: USER_PROJECT_OWNER
+  model_freeze:
+    recommendation_owner: CORE_B
+    control_gate: CORE_A
+    independent_validation: REQUIRED
+    final_approval: USER_PROJECT_OWNER
+  release_activation:
+    CORE_A_readiness: REQUIRED
+    CORE_B_readiness: REQUIRED
+    independent_validation: REQUIRED
+    final_approval: USER_PROJECT_OWNER
+
+bootstrap_reconciliation_gate:
+  status: PENDING
+  required_before_v1_candidate:
+    - CORE_B_persona_id_confirmed
+    - CORE_B_successor_instance_confirmed
+    - CORE_B_authority_manifest_loaded
+    - CORE_B_model_and_validation_assets_reconciled
+    - shared_contract_disagreements_recorded
+    - authority_matrix_revised_if_required
+
+current_authority:
+  state: WORKING_ONLY
+  note: CORE_A draft may structure work but may not be treated as CORE_B acceptance.
