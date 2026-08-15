@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+import hashlib
 import json
 from pathlib import Path
 import sys
@@ -40,10 +41,55 @@ def terminal_payload() -> dict[str, object]:
         "result_id": "RESULT-001",
         "result_sha256": "b" * 64,
         "completed_at": "2026-08-16T05:30:00+09:00",
-        "persistent_locator": "control/results/RESULT-001.json",
+        "persistent_locator": "control/aaa/results/RESULT-001.json",
         "verdict": "PASS",
     }
     return payload
+
+
+def write_work_order(root: Path, work_order_id: str = "WO-TEST-001", observed_id: str | None = None) -> None:
+    directory = root / "control" / "workorders"
+    directory.mkdir(parents=True, exist_ok=True)
+    value = observed_id if observed_id is not None else work_order_id
+    (directory / f"{work_order_id}.yaml").write_text(
+        f"work_order_id: {value}\nstatus: TEST\n",
+        encoding="utf-8",
+    )
+
+
+def write_run(root: Path, payload: dict[str, object], name: str = "run.json") -> None:
+    directory = root / "control" / "aaa" / "runs"
+    directory.mkdir(parents=True, exist_ok=True)
+    (directory / name).write_text(json.dumps(payload), encoding="utf-8")
+
+
+def bind_physical_result(
+    root: Path,
+    payload: dict[str, object],
+    *,
+    result_run_id: str | None = None,
+    result_work_order_id: str | None = None,
+    result_target: str | None = None,
+    result_verdict: str | None = None,
+) -> dict[str, object]:
+    bound = dict(payload)
+    terminal = dict(bound["terminal_result"])
+    locator = str(terminal["persistent_locator"])
+    path = root / locator
+    path.parent.mkdir(parents=True, exist_ok=True)
+    result_payload = {
+        "result_id": terminal["result_id"],
+        "run_id": result_run_id or bound["run_id"],
+        "work_order_id": result_work_order_id or bound["work_order_id"],
+        "verdict": result_verdict or terminal["verdict"],
+        "repository": bound["repository"],
+        "exact_base_commit": result_target or bound["exact_base_commit"],
+    }
+    encoded = (json.dumps(result_payload, indent=2) + "\n").encode("utf-8")
+    path.write_bytes(encoded)
+    terminal["result_sha256"] = hashlib.sha256(encoded).hexdigest()
+    bound["terminal_result"] = terminal
+    return bound
 
 
 class RunRegistryV06Tests(unittest.TestCase):
@@ -88,19 +134,17 @@ class RunRegistryV06Tests(unittest.TestCase):
     def test_registry_loader_rejects_duplicate_run_ids(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
-            registry = root / "control" / "aaa" / "runs"
-            registry.mkdir(parents=True)
-            (registry / "a.json").write_text(json.dumps(BASE), encoding="utf-8")
-            (registry / "b.json").write_text(json.dumps(BASE), encoding="utf-8")
+            write_work_order(root)
+            write_run(root, dict(BASE), "a.json")
+            write_run(root, dict(BASE), "b.json")
             with self.assertRaisesRegex(InvalidRunRecord, "DUPLICATE_RUN_ID"):
                 list_runs(root, datetime(2026, 8, 15, 20, 30, tzinfo=timezone.utc))
 
     def test_persona_overview_never_infers_unregistered_persona_as_running(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
-            registry = root / "control" / "aaa" / "runs"
-            registry.mkdir(parents=True)
-            (registry / "run.json").write_text(json.dumps(BASE), encoding="utf-8")
+            write_work_order(root)
+            write_run(root, dict(BASE))
             rows = persona_overview(root, datetime(2026, 8, 15, 20, 30, tzinfo=timezone.utc))
             by_persona = {row["persona"]: row for row in rows}
             self.assertEqual(by_persona["SEMI-VALIDATION-AUDITOR"]["state"], "RUNNING_CONFIRMED")
@@ -110,11 +154,11 @@ class RunRegistryV06Tests(unittest.TestCase):
     def test_terminal_run_is_latest_history_not_current_persona_activity(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
-            registry = root / "control" / "aaa" / "runs"
-            registry.mkdir(parents=True)
+            write_work_order(root)
             payload = terminal_payload()
             payload["responsible_persona"] = "SEMI-CONTROL-ARCHITECT"
-            (registry / "run.json").write_text(json.dumps(payload), encoding="utf-8")
+            payload = bind_physical_result(root, payload)
+            write_run(root, payload)
             rows = persona_overview(root, datetime(2026, 8, 15, 20, 40, tzinfo=timezone.utc))
             by_persona = {row["persona"]: row for row in rows}
             row = by_persona["SEMI-CONTROL-ARCHITECT"]
@@ -130,6 +174,138 @@ class RunRegistryV06Tests(unittest.TestCase):
         self.assertFalse(match[0]["canonical_output"])
         self.assertEqual(match[0]["effective_state"], "COMPLETED_PASS")
         self.assertEqual(match[0]["terminal_result"]["result_id"], "RESULT-AAA-T17-OPS-DASHBOARD-v0.1")
+
+    # P09 remediation: temporal evidence must fail closed.
+    def test_future_heartbeat_never_produces_running_confirmed(self) -> None:
+        record = RunRecord.from_dict(dict(BASE), "test.json")
+        before_heartbeat = datetime(2026, 8, 15, 20, 5, tzinfo=timezone.utc)
+        self.assertEqual(record.effective_state(before_heartbeat), "STALE_UNKNOWN")
+
+    def test_future_started_at_never_produces_running_confirmed(self) -> None:
+        payload = dict(BASE)
+        payload["started_at"] = "2026-08-16T06:00:00+09:00"
+        payload["last_heartbeat_at"] = "2026-08-16T06:10:00+09:00"
+        record = RunRecord.from_dict(payload, "test.json")
+        reference = datetime(2026, 8, 15, 20, 30, tzinfo=timezone.utc)
+        self.assertEqual(record.effective_state(reference), "STALE_UNKNOWN")
+
+    def test_heartbeat_before_start_is_rejected(self) -> None:
+        payload = dict(BASE)
+        payload["last_heartbeat_at"] = "2026-08-16T04:59:59+09:00"
+        with self.assertRaisesRegex(InvalidRunRecord, "HEARTBEAT_PRECEDES_START"):
+            RunRecord.from_dict(payload, "test.json")
+
+    # P09 remediation: terminal state and Result verdict are one invariant.
+    def test_terminal_state_verdict_mismatch_is_rejected(self) -> None:
+        payload = terminal_payload()
+        terminal = dict(payload["terminal_result"])
+        terminal["verdict"] = "FAIL"
+        payload["terminal_result"] = terminal
+        with self.assertRaisesRegex(InvalidRunRecord, "TERMINAL_STATE_VERDICT_MISMATCH"):
+            RunRecord.from_dict(payload, "test.json")
+
+    def test_all_terminal_state_verdict_mismatches_are_rejected(self) -> None:
+        cases = [
+            ("COMPLETED_PASS", "PASS_WITH_FINDINGS"),
+            ("COMPLETED_FAIL", "PASS"),
+            ("COMPLETED_WITH_FINDINGS", "FAIL"),
+        ]
+        for state, verdict in cases:
+            with self.subTest(state=state, verdict=verdict):
+                payload = terminal_payload()
+                payload["state"] = state
+                terminal = dict(payload["terminal_result"])
+                terminal["verdict"] = verdict
+                payload["terminal_result"] = terminal
+                with self.assertRaisesRegex(InvalidRunRecord, "TERMINAL_STATE_VERDICT_MISMATCH"):
+                    RunRecord.from_dict(payload, "test.json")
+
+    # P09 remediation: terminal Result bytes and referential identity are proven.
+    def test_missing_persistent_result_locator_is_rejected_by_loader(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write_work_order(root)
+            payload = terminal_payload()
+            write_run(root, payload)
+            with self.assertRaisesRegex(InvalidRunRecord, "TERMINAL_RESULT_LOCATOR_INVALID"):
+                list_runs(root)
+
+    def test_result_physical_sha256_mismatch_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write_work_order(root)
+            payload = bind_physical_result(root, terminal_payload())
+            terminal = dict(payload["terminal_result"])
+            terminal["result_sha256"] = "c" * 64
+            payload["terminal_result"] = terminal
+            write_run(root, payload)
+            with self.assertRaisesRegex(InvalidRunRecord, "TERMINAL_RESULT_SHA256_MISMATCH"):
+                list_runs(root)
+
+    def test_result_run_id_mismatch_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write_work_order(root)
+            payload = bind_physical_result(root, terminal_payload(), result_run_id="RUN-WRONG")
+            write_run(root, payload)
+            with self.assertRaisesRegex(InvalidRunRecord, "TERMINAL_RESULT_RUN_ID_MISMATCH"):
+                list_runs(root)
+
+    def test_result_work_order_id_mismatch_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write_work_order(root)
+            payload = bind_physical_result(root, terminal_payload(), result_work_order_id="WO-WRONG")
+            write_run(root, payload)
+            with self.assertRaisesRegex(InvalidRunRecord, "TERMINAL_RESULT_WORK_ORDER_ID_MISMATCH"):
+                list_runs(root)
+
+    def test_result_exact_target_mismatch_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write_work_order(root)
+            payload = bind_physical_result(root, terminal_payload(), result_target="d" * 40)
+            write_run(root, payload)
+            with self.assertRaisesRegex(InvalidRunRecord, "TERMINAL_RESULT_TARGET_MISMATCH"):
+                list_runs(root)
+
+    # P09 remediation: Work Order linkage is resolved by persisted identity, not filename assumption.
+    def test_nonexistent_work_order_reference_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write_run(root, dict(BASE))
+            with self.assertRaisesRegex(InvalidRunRecord, "WORK_ORDER_REGISTRY_MISSING|WORK_ORDER_NOT_FOUND"):
+                list_runs(root, datetime(2026, 8, 15, 20, 30, tzinfo=timezone.utc))
+
+    def test_work_order_identity_mismatch_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write_work_order(root, observed_id="WO-DIFFERENT")
+            write_run(root, dict(BASE))
+            with self.assertRaisesRegex(InvalidRunRecord, "WORK_ORDER_NOT_FOUND"):
+                list_runs(root, datetime(2026, 8, 15, 20, 30, tzinfo=timezone.utc))
+
+    # P09 remediation: current activity ordering is chronological UTC, not raw ISO text.
+    def test_cross_offset_activity_order_uses_chronological_utc(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write_work_order(root)
+            older = dict(BASE)
+            older["run_id"] = "RUN-OLDER"
+            older["state"] = "READY_NOT_DISPATCHED"
+            older["started_at"] = "2026-08-16T10:00:00+09:00"  # 01:00Z
+            older["last_heartbeat_at"] = None
+            newer = dict(BASE)
+            newer["run_id"] = "RUN-NEWER"
+            newer["state"] = "READY_NOT_DISPATCHED"
+            newer["started_at"] = "2026-08-16T02:30:00+00:00"  # 02:30Z
+            newer["last_heartbeat_at"] = None
+            write_run(root, older, "older.json")
+            write_run(root, newer, "newer.json")
+            rows = persona_overview(root, datetime(2026, 8, 16, 3, 0, tzinfo=timezone.utc))
+            row = {item["persona"]: item for item in rows}["SEMI-VALIDATION-AUDITOR"]
+            self.assertEqual(row["run_id"], "RUN-NEWER")
+            self.assertEqual(row["latest_run_id"], "RUN-NEWER")
 
 
 if __name__ == "__main__":

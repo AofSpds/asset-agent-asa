@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
+import hashlib
 import json
 from pathlib import Path
 
@@ -25,6 +26,11 @@ RUN_STATES = {
 }
 TERMINAL_STATES = {"COMPLETED_PASS", "COMPLETED_FAIL", "COMPLETED_WITH_FINDINGS"}
 ACTIVE_STATES = RUN_STATES - TERMINAL_STATES
+TERMINAL_VERDICT_BY_STATE = {
+    "COMPLETED_PASS": "PASS",
+    "COMPLETED_FAIL": "FAIL",
+    "COMPLETED_WITH_FINDINGS": "PASS_WITH_FINDINGS",
+}
 
 
 class InvalidRunRecord(ValueError):
@@ -40,8 +46,74 @@ def _parse_dt(value: str | None) -> datetime | None:
     return parsed
 
 
+def _utc(value: str | None) -> datetime | None:
+    parsed = _parse_dt(value)
+    return parsed.astimezone(timezone.utc) if parsed is not None else None
+
+
 def _valid_sha(value: str, length: int) -> bool:
     return len(value) == length and all(ch in "0123456789abcdef" for ch in value)
+
+
+def _sha256_bytes(payload: bytes) -> str:
+    return hashlib.sha256(payload).hexdigest()
+
+
+def _resolve_governed_path(repo_root: Path, locator: str, allowed_root: Path, error: str) -> Path:
+    if not locator or Path(locator).is_absolute():
+        raise InvalidRunRecord(error)
+    root = repo_root.resolve()
+    candidate = (root / locator).resolve()
+    allowed = allowed_root.resolve()
+    try:
+        candidate.relative_to(allowed)
+    except ValueError as exc:
+        raise InvalidRunRecord(error) from exc
+    if not candidate.is_file():
+        raise InvalidRunRecord(error)
+    return candidate
+
+
+def _yaml_scalar_identity(path: Path, key: str) -> str | None:
+    prefix = f"{key}:"
+    for raw_line in path.read_text(encoding="utf-8").splitlines():
+        if raw_line.startswith((" ", "\t")):
+            continue
+        line = raw_line.strip()
+        if not line.startswith(prefix):
+            continue
+        value = line[len(prefix):].strip()
+        if not value:
+            return None
+        if len(value) >= 2 and value[0] == value[-1] and value[0] in {"'", '"'}:
+            value = value[1:-1]
+        return value
+    return None
+
+
+def _load_work_order_identity(repo_root: Path, work_order_id: str) -> Path:
+    workorders = repo_root.resolve() / "control" / "workorders"
+    if not workorders.is_dir():
+        raise InvalidRunRecord(f"WORK_ORDER_REGISTRY_MISSING:{work_order_id}")
+    matches: list[Path] = []
+    for path in sorted(workorders.iterdir()):
+        if not path.is_file() or path.suffix.lower() not in {".yaml", ".yml", ".json"}:
+            continue
+        try:
+            if path.suffix.lower() == ".json":
+                raw = json.loads(path.read_text(encoding="utf-8"))
+                observed = str(raw.get("work_order_id") or "") if isinstance(raw, dict) else ""
+            else:
+                observed = _yaml_scalar_identity(path, "work_order_id") or ""
+        except (OSError, json.JSONDecodeError) as exc:
+            raise InvalidRunRecord(f"INVALID_WORK_ORDER_ARTIFACT:{path.name}") from exc
+        if observed == work_order_id:
+            matches.append(path)
+    if not matches:
+        raise InvalidRunRecord(f"WORK_ORDER_NOT_FOUND:{work_order_id}")
+    if len(matches) != 1:
+        raise InvalidRunRecord(f"WORK_ORDER_ID_NOT_UNIQUE:{work_order_id}")
+    return matches[0]
 
 
 @dataclass(frozen=True)
@@ -128,31 +200,97 @@ class RunRecord:
             raise InvalidRunRecord("STALE_WINDOW_TOO_SMALL")
         if self.canonical_output:
             raise InvalidRunRecord("RUN_REGISTRY_MUST_BE_NONCANONICAL")
+
         started = _parse_dt(self.started_at)
         heartbeat = _parse_dt(self.last_heartbeat_at)
+        if started is not None and heartbeat is not None:
+            if heartbeat.astimezone(timezone.utc) < started.astimezone(timezone.utc):
+                raise InvalidRunRecord("HEARTBEAT_PRECEDES_START")
         if self.state == "RUNNING_CONFIRMED" and (started is None or heartbeat is None):
             raise InvalidRunRecord("RUNNING_REQUIRES_START_AND_HEARTBEAT_EVIDENCE")
         if self.state in TERMINAL_STATES and self.terminal_result is None:
             raise InvalidRunRecord("TERMINAL_STATE_REQUIRES_RESULT_ARTIFACT")
         if self.state not in TERMINAL_STATES and self.terminal_result is not None:
             raise InvalidRunRecord("NONTERMINAL_STATE_CANNOT_BIND_TERMINAL_RESULT")
+        if self.state in TERMINAL_STATES and self.terminal_result is not None:
+            expected = TERMINAL_VERDICT_BY_STATE[self.state]
+            if self.terminal_result.verdict != expected:
+                raise InvalidRunRecord("TERMINAL_STATE_VERDICT_MISMATCH")
 
     def effective_state(self, now: datetime | None = None) -> str:
         if self.state != "RUNNING_CONFIRMED":
             return self.state
+        started = _parse_dt(self.started_at)
         heartbeat = _parse_dt(self.last_heartbeat_at)
-        if heartbeat is None:
+        if started is None or heartbeat is None:
             return "STALE_UNKNOWN"
         reference = now or datetime.now(timezone.utc)
         if reference.tzinfo is None:
             raise InvalidRunRecord("REFERENCE_TIME_MUST_BE_TIMEZONE_AWARE")
-        elapsed = (reference.astimezone(timezone.utc) - heartbeat.astimezone(timezone.utc)).total_seconds()
+        reference_utc = reference.astimezone(timezone.utc)
+        started_utc = started.astimezone(timezone.utc)
+        heartbeat_utc = heartbeat.astimezone(timezone.utc)
+        if started_utc > reference_utc or heartbeat_utc > reference_utc:
+            return "STALE_UNKNOWN"
+        elapsed = (reference_utc - heartbeat_utc).total_seconds()
         return "STALE_UNKNOWN" if elapsed > self.stale_after_seconds else "RUNNING_CONFIRMED"
 
     def to_public_dict(self, now: datetime | None = None) -> dict[str, object]:
         payload = asdict(self)
         payload["effective_state"] = self.effective_state(now)
         return payload
+
+
+def _verify_terminal_result_artifact(repo_root: Path, record: RunRecord) -> None:
+    terminal = record.terminal_result
+    if terminal is None:
+        return
+    result_root = repo_root.resolve() / "control" / "aaa" / "results"
+    path = _resolve_governed_path(
+        repo_root,
+        terminal.persistent_locator,
+        result_root,
+        f"TERMINAL_RESULT_LOCATOR_INVALID:{record.run_id}",
+    )
+    payload_bytes = path.read_bytes()
+    if _sha256_bytes(payload_bytes) != terminal.result_sha256:
+        raise InvalidRunRecord(f"TERMINAL_RESULT_SHA256_MISMATCH:{record.run_id}")
+    try:
+        raw = json.loads(payload_bytes.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise InvalidRunRecord(f"TERMINAL_RESULT_INVALID_JSON:{record.run_id}") from exc
+    if not isinstance(raw, dict):
+        raise InvalidRunRecord(f"TERMINAL_RESULT_MUST_BE_OBJECT:{record.run_id}")
+
+    observed_result_id = str(raw.get("result_id") or "")
+    observed_run_id = str(raw.get("run_id") or raw.get("validation_run_id") or "")
+    observed_work_order_id = str(raw.get("work_order_id") or "")
+    observed_verdict = str(raw.get("verdict") or raw.get("independent_verdict") or "")
+    observed_repository = str(raw.get("repository") or "")
+    observed_target = str(
+        raw.get("exact_base_commit")
+        or raw.get("exact_validation_target")
+        or raw.get("exact_target_commit")
+        or ""
+    )
+
+    if observed_result_id != terminal.result_id:
+        raise InvalidRunRecord(f"TERMINAL_RESULT_ID_MISMATCH:{record.run_id}")
+    if observed_run_id != record.run_id:
+        raise InvalidRunRecord(f"TERMINAL_RESULT_RUN_ID_MISMATCH:{record.run_id}")
+    if observed_work_order_id != record.work_order_id:
+        raise InvalidRunRecord(f"TERMINAL_RESULT_WORK_ORDER_ID_MISMATCH:{record.run_id}")
+    if observed_verdict != terminal.verdict:
+        raise InvalidRunRecord(f"TERMINAL_RESULT_VERDICT_MISMATCH:{record.run_id}")
+    if observed_repository and observed_repository != record.repository:
+        raise InvalidRunRecord(f"TERMINAL_RESULT_REPOSITORY_MISMATCH:{record.run_id}")
+    if observed_target != record.exact_base_commit:
+        raise InvalidRunRecord(f"TERMINAL_RESULT_TARGET_MISMATCH:{record.run_id}")
+
+
+def _verify_referential_integrity(repo_root: Path, record: RunRecord) -> None:
+    _load_work_order_identity(repo_root, record.work_order_id)
+    _verify_terminal_result_artifact(repo_root, record)
 
 
 def load_run_registry(repo_root: Path) -> tuple[RunRecord, ...]:
@@ -169,6 +307,7 @@ def load_run_registry(repo_root: Path) -> tuple[RunRecord, ...]:
         record = RunRecord.from_dict(raw, str(path.relative_to(root)))
         if record.run_id in seen:
             raise InvalidRunRecord(f"DUPLICATE_RUN_ID:{record.run_id}")
+        _verify_referential_integrity(root, record)
         seen.add(record.run_id)
         records.append(record)
     return tuple(records)
@@ -178,10 +317,12 @@ def list_runs(repo_root: Path, now: datetime | None = None) -> list[dict[str, ob
     return [record.to_public_dict(now) for record in load_run_registry(repo_root)]
 
 
-def _activity_timestamp(record: RunRecord) -> str:
-    if record.terminal_result is not None:
-        return record.terminal_result.completed_at
-    return record.last_heartbeat_at or record.started_at or ""
+def _activity_timestamp(record: RunRecord) -> datetime:
+    value = record.terminal_result.completed_at if record.terminal_result is not None else (
+        record.last_heartbeat_at or record.started_at
+    )
+    parsed = _utc(value)
+    return parsed if parsed is not None else datetime.min.replace(tzinfo=timezone.utc)
 
 
 def persona_overview(repo_root: Path, now: datetime | None = None) -> list[dict[str, object]]:
