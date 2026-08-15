@@ -1,0 +1,21 @@
+{
+  "run_id": "RUN-AAA-T17-OPS-DASHBOARD-20260816-001",
+  "process_id": "AAA-T17-RUN-REGISTRY-OPERATIONS-DASHBOARD",
+  "work_order_id": "WO-AAA-RUN-REGISTRY-OPERATIONS-DASHBOARD-20260816",
+  "responsible_persona": "SEMI-CONTROL-ARCHITECT",
+  "executor_role": "ENGINEERING",
+  "state": "RUNNING_CONFIRMED",
+  "repository": "AofSpds/asset-agent-asa",
+  "exact_base_commit": "75f42d81f0f8ca809342e4dd194712265ac59c7d",
+  "branch": "aaa-t17-run-registry-ops-dashboard-v0",
+  "started_at": "2026-08-16T05:31:00+09:00",
+  "last_heartbeat_at": "2026-08-16T05:31:00+09:00",
+  "stale_after_seconds": 7200,
+  "canonical_output": false,
+  "terminal_result": null,
+  "notes": [
+    "Owner approved this engineering track to run in parallel with independent validation.",
+    "Bootstrap run record is stored on the isolated engineering branch until Run Registry integration is accepted.",
+    "No canonical Control write, validation self-certification, replay, freeze, release, or cutover authority is granted."
+  ]
+}
