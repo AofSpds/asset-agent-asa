@@ -1,0 +1,65 @@
+work_order_id: WO-VALIDATION-M3TOP3-v1-DELTA-PREFLIGHT-AFTER-NARROW-FIXES-20260816
+version: v1.0
+status: BLOCKED_WAITING_PATCH_AND_SHARED_RECONCILIATION
+project: semiconductor-research
+priority: P0
+issued_at: '2026-08-16T00:36:00+09:00'
+requesting_persona:
+  canonical_name: 문서·통제 아키텍트
+  persona_id: SEMI-CONTROL-ARCHITECT
+target_role:
+  canonical_name: 독립 검증·감사팀
+  role_id: SEMI-VALIDATION-AUDITOR
+predecessor_preflight: WO-VALIDATION-M3TOP3-v1-INDEPENDENT-PREFLIGHT-20260816
+source_adjudication: control/validation/M3TOP3-v1-INDEPENDENT-PREFLIGHT-CONTROL-ADJUDICATION_v0.1_WORKING.yaml
+activation_gates:
+  - CORE_B_PATCH_COMMIT_AVAILABLE
+  - SHARED_MIS_F08_COVERAGE_RECONCILIATION_COMPLETE_AS_REQUIRED
+  - PRODUCTION_KRX_CALENDAR_BINDING_SEPARATELY_TRACKED_OR_EXPLICITLY_REMAINING_BLOCKER
+purpose: >-
+  Independently revalidate only the narrow fixes and all regression-sensitive invariants before replay readiness is
+  reconsidered. This work order does not authorize Actual U127 replay or model freeze.
+required_delta_axes:
+  - verify patched commit exact identity and regenerate component SHA256 manifest
+  - rerun full model test suite plus new adversarial regression tests
+  - verify MIS/PIT consumed-input provenance now fails closed
+  - verify duplicate F06 milestones cannot inflate independent/sequential evidence count
+  - verify F02 operator semantics are explicitly governed
+  - verify F08 freshness penalty provenance is bound as reconciled
+  - verify no regression in scorer arithmetic, missingness, anti-double-count, hard risk gate, SIO, WM-v1.1, determinism and idempotence
+  - verify weights and scorer architecture were not tuned from outcomes
+forbidden:
+  - inspect Actual U127 MFE/MAE/future return/future rank
+  - run Actual U127 two-year replay
+  - tune model using outcomes
+  - self-approve freeze or release
+success_criteria:
+  mandatory_findings_FND_01_to_FND_04: PASS
+  regression_invariants: PASS
+  scientific_firewall: PASS
+  result: PASS_or_PASS_WITH_NONBLOCKING_WARNINGS
+required_output:
+  exactly_one_return_packet: true
+  header: '[RETURN PACKET — M3TOP3 v1 DELTA INDEPENDENT PREFLIGHT]'
+  fields:
+    - WORK_ORDER_ID
+    - PATCH_COMMIT_VERIFIED
+    - COMPONENT_SHA256_MANIFEST
+    - FULL_TEST_RERUN_RESULT
+    - FND_01_RESULT
+    - FND_02_RESULT
+    - FND_03_RESULT
+    - FND_04_RESULT
+    - REGRESSION_INVARIANTS_RESULT
+    - PRODUCTION_KRX_CALENDAR_STATUS
+    - COVERAGE_BINDING_STATUS
+    - SCIENTIFIC_FIREWALL_RESULT
+    - ACTUAL_OUTCOME_DATA_INSPECTED
+    - ACTUAL_REPLAY_EXECUTED
+    - MODEL_FROZEN
+    - DELTA_PREFLIGHT_VERDICT
+    - REMAINING_REPLAY_BLOCKERS
+    - RECOMMENDED_CONTROL_DECISION
+output_discipline:
+  - Output exactly one Markdown fenced code block.
+  - Write nothing after the block.
