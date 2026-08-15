@@ -1,9 +1,10 @@
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass
+import json
 from typing import Any, Mapping
 
-from aaa.core.identity import ExactBaseIdentity, content_sha256
+from aaa.core.identity import ExactBaseIdentity, canonical_json_bytes, content_sha256
 from aaa.gateway.router import AllProvidersUnavailable, GatewayResult, ProviderGateway
 
 
@@ -15,6 +16,12 @@ FORBIDDEN_INTENT_KEYS = {
     "production_release",
     "independent_validation_pass",
     "replay_authorized",
+}
+
+ALLOWED_EXECUTOR_ROLES = {
+    "RESEARCH",
+    "ENGINEERING",
+    "PREVALIDATION_CHECK",
 }
 
 MANDATORY_FORBIDDEN_ACTIONS = (
@@ -31,6 +38,10 @@ class InvalidWorkIntent(RuntimeError):
     pass
 
 
+def _canonical_json_text(value: Any) -> str:
+    return canonical_json_bytes(value).decode("utf-8")
+
+
 @dataclass(frozen=True)
 class CandidateWorkIntent:
     source_provider_id: str
@@ -42,7 +53,7 @@ class CandidateWorkIntent:
     executor_role: str
     permission_level: int
     material_scope: tuple[str, ...]
-    input_bindings: tuple[Mapping[str, Any], ...]
+    input_bindings_json: tuple[str, ...]
     acceptance: tuple[str, ...]
     required_validation: tuple[str, ...]
     scientific_firewall: tuple[str, ...]
@@ -52,16 +63,28 @@ class CandidateWorkIntent:
     def __post_init__(self) -> None:
         if not self.title or not self.objective or not self.executor_role:
             raise InvalidWorkIntent("TITLE_OBJECTIVE_EXECUTOR_REQUIRED")
+        if self.executor_role not in ALLOWED_EXECUTOR_ROLES:
+            raise InvalidWorkIntent(f"EXECUTOR_ROLE_NOT_ALLOWED:{self.executor_role}")
         if self.permission_level < 0 or self.permission_level > 2:
             raise InvalidWorkIntent("PERMISSION_LEVEL_OUT_OF_RANGE")
         if not self.material_scope:
             raise InvalidWorkIntent("MATERIAL_SCOPE_REQUIRED")
+        if any(not scope or scope.startswith("/") or ".." in scope.split("/") for scope in self.material_scope):
+            raise InvalidWorkIntent("UNSAFE_MATERIAL_SCOPE")
         if not self.acceptance or not self.required_validation or not self.scientific_firewall:
             raise InvalidWorkIntent("CONTROL_FIELDS_REQUIRED")
+        for encoded in self.input_bindings_json:
+            decoded = json.loads(encoded)
+            if not isinstance(decoded, dict):
+                raise InvalidWorkIntent("INVALID_INPUT_BINDING_ENCODING")
         if self.canonical_output:
             raise InvalidWorkIntent("LANGUAGE_OUTPUT_MUST_BE_NONCANONICAL")
         if not self.requires_deterministic_confirmation:
             raise InvalidWorkIntent("DETERMINISTIC_CONFIRMATION_REQUIRED")
+
+    @property
+    def input_bindings(self) -> tuple[Mapping[str, Any], ...]:
+        return tuple(json.loads(encoded) for encoded in self.input_bindings_json)
 
     @property
     def candidate_sha256(self) -> str:
@@ -70,15 +93,28 @@ class CandidateWorkIntent:
 
 @dataclass(frozen=True)
 class WorkOrderDraft:
-    payload: Mapping[str, Any]
+    payload_json: str
     candidate_sha256: str
     canonical_output: bool = False
     requires_authority_acceptance: bool = True
 
+    def __post_init__(self) -> None:
+        payload = json.loads(self.payload_json)
+        if not isinstance(payload, dict):
+            raise InvalidWorkIntent("INVALID_WORK_ORDER_DRAFT_PAYLOAD")
+        if self.canonical_output:
+            raise InvalidWorkIntent("WORK_ORDER_DRAFT_MUST_BE_NONCANONICAL")
+        if not self.requires_authority_acceptance:
+            raise InvalidWorkIntent("WORK_ORDER_DRAFT_REQUIRES_AUTHORITY_ACCEPTANCE")
+
+    @property
+    def payload(self) -> Mapping[str, Any]:
+        return json.loads(self.payload_json)
+
     @property
     def draft_sha256(self) -> str:
         return content_sha256({
-            "payload": dict(self.payload),
+            "payload_json": self.payload_json,
             "candidate_sha256": self.candidate_sha256,
             "canonical_output": self.canonical_output,
             "requires_authority_acceptance": self.requires_authority_acceptance,
@@ -99,12 +135,12 @@ def _strings(value: Any, field: str) -> tuple[str, ...]:
     return tuple(value)
 
 
-def _bindings(value: Any) -> tuple[Mapping[str, Any], ...]:
+def _bindings(value: Any) -> tuple[str, ...]:
     if value is None:
         return ()
     if not isinstance(value, list) or any(not isinstance(item, dict) for item in value):
         raise InvalidWorkIntent("INVALID_INPUT_BINDINGS")
-    return tuple(dict(item) for item in value)
+    return tuple(_canonical_json_text(item) for item in value)
 
 
 def _candidate_from_gateway(result: GatewayResult, user_text: str) -> CandidateWorkIntent:
@@ -115,6 +151,10 @@ def _candidate_from_gateway(result: GatewayResult, user_text: str) -> CandidateW
     prohibited = FORBIDDEN_INTENT_KEYS.intersection(intent)
     if prohibited:
         raise InvalidWorkIntent(f"FORBIDDEN_AUTHORITY_FIELDS:{','.join(sorted(prohibited))}")
+    try:
+        permission_level = int(intent.get("permission_level", -1))
+    except (TypeError, ValueError) as exc:
+        raise InvalidWorkIntent("INVALID_PERMISSION_LEVEL") from exc
     return CandidateWorkIntent(
         source_provider_id=result.provider_id,
         source_request_sha256=result.request_sha256,
@@ -123,9 +163,9 @@ def _candidate_from_gateway(result: GatewayResult, user_text: str) -> CandidateW
         title=str(intent.get("title") or ""),
         objective=str(intent.get("objective") or ""),
         executor_role=str(intent.get("executor_role") or ""),
-        permission_level=int(intent.get("permission_level", -1)),
+        permission_level=permission_level,
         material_scope=_strings(intent.get("material_scope"), "material_scope"),
-        input_bindings=_bindings(intent.get("input_bindings")),
+        input_bindings_json=_bindings(intent.get("input_bindings")),
         acceptance=_strings(intent.get("acceptance"), "acceptance"),
         required_validation=_strings(intent.get("required_validation"), "required_validation"),
         scientific_firewall=_strings(intent.get("scientific_firewall"), "scientific_firewall"),
@@ -141,6 +181,7 @@ def interpret_work_intent(gateway: ProviderGateway, user_text: str) -> Candidate
         "constraints": {
             "canonical_output": False,
             "permission_level_max": 2,
+            "allowed_executor_roles": sorted(ALLOWED_EXECUTOR_ROLES),
             "authority_fields_forbidden": sorted(FORBIDDEN_INTENT_KEYS),
             "required_fields": [
                 "title",
@@ -202,4 +243,4 @@ def confirm_to_work_order_draft(
     }
     work_order_sha256 = content_sha256(material_without_hash)
     payload = {"work_order_sha256": work_order_sha256, **material_without_hash}
-    return WorkOrderDraft(payload=payload, candidate_sha256=candidate.candidate_sha256)
+    return WorkOrderDraft(payload_json=_canonical_json_text(payload), candidate_sha256=candidate.candidate_sha256)
