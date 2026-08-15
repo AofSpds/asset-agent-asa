@@ -1,0 +1,138 @@
+work_order_id: WO-COREB-M3TOP3-v1-SHARED-WIRING-CONTROL-FIXES-20260816
+version: v1.0
+status: READY_FOR_CORE_B
+project: semiconductor-research
+priority: P0
+issued_at: '2026-08-16T02:12:00+09:00'
+requesting_persona:
+  canonical_name: 문서·통제 아키텍트
+  persona_id: SEMI-CONTROL-ARCHITECT
+target_persona:
+  canonical_name: 모델 검증·설계 아키텍트
+  persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+source_return_packet: RETURN PACKET — M3TOP3 v1 SHARED INTERFACE WIRING PATCH CONTINUATION
+source_successor_commit: 7fa068b7d69ea232b2dd0fa61c312af2c68771a2
+source_control_prevalidation: control/core_b/M3TOP3-v1-SHARED-WIRING-CONTROL-PREVALIDATION_v0.1_WORKING.yaml
+source_test_report: control/core_b/M3TOP3-v1-SHARED-WIRING-TEST-REPORT_v0.1_WORKING.json
+source_implementation_manifest: control/core_b/M3TOP3-v1-SHARED-WIRING-IMPLEMENTATION-MANIFEST_v0.1_WORKING.yaml
+verified_before_routing:
+  successor_commit_exists: true
+  descends_from_base_patch: true
+  github_actions_run: 31897196660
+  exact_checkout: 7fa068b7d69ea232b2dd0fa61c312af2c68771a2
+  tests: PASS_76_OF_76
+  shared_assets: PASS_6_OF_6
+  component_sha256_matches_packet: true
+purpose: >-
+  Preserve the verified shared-wiring candidate while closing three release-blocking implementation gaps identified by Control prevalidation.
+  These are interface/identity enforcement fixes, not model tuning, weight changes or scorer redesign.
+baseline_to_preserve:
+  model_version: M3TOP3-v1.0
+  base_candidate_commit: 7fa068b7d69ea232b2dd0fa61c312af2c68771a2
+  original_baseline_config_sha256: eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98
+  weights_unchanged: true
+  scorer_math_unchanged: true
+  wm_v1_1_semantics_unchanged: true
+required_fixes:
+  CW_01_EVIDENCE_RESOLVER_IMMUTABLE_BINDING:
+    practical_requirement: >-
+      과거 입력 근거(reference)가 단순히 호출자가 만든 dictionary key로 존재하는지만 보지 말고,
+      승인된 evidence-resolver release를 통해 실제 immutable evidence 객체의 content identity, locator, lineage를 검증한다.
+    requirements:
+      - Introduce/bind a versioned and hash-identified evidence resolver/release contract or equivalent immutable resolver identity.
+      - Each resolved evidence object must verify immutable content identity (SHA256 or equivalent), persistent locator and source/evidence lineage.
+      - Provenance reference resolution must fail closed if the resolver release is unbound, object identity is unresolved, hash/locator/lineage is absent or mismatched.
+      - Caller-supplied mapping membership alone must not satisfy immutable evidence resolution.
+      - Whole-block certification evidence references and F02 upstream evidence references must use the same governed resolution discipline.
+  CW_02_F08_TYPED_NUMERIC_RULE_APPROVAL_BINDING:
+    practical_requirement: >-
+      F08 양수 freshness penalty는 호출자가 즉석에서 만든 self-hashed rule이 아니라 실제 승인·영속화된 숫자형 규칙 객체를 통해서만 허용한다.
+    requirements:
+      - Do not accept a caller-created typed_refresh_rules dictionary merely because its self-computed hash is internally consistent.
+      - Bind the numeric-rule resolver itself to an approved persistent release/version/hash/locator/authority identity.
+      - Resolve rule_id to an approved immutable rule object and verify its persistent identity independently of caller content.
+      - The current base Refresh Rule Registry has no official numeric age-to-penalty schedule; do not invent one.
+      - Until an approved numeric penalty rule artifact exists, official positive freshness_penalty must fail closed.
+      - Unit tests may use synthetic fixtures only through an explicitly synthetic test resolver that cannot be mistaken for official release authority.
+  CW_03_RECORD_LEVEL_CONSUMED_SCOPE:
+    practical_requirement: >-
+      Feature Input Registry의 record-level consumed path를 새 PIT guard가 조용히 무시하지 않도록 한다.
+    requirements:
+      - Explicitly process record_level_consumed_paths from the bound Feature Input Registry.
+      - For historically meaningful fields such as eligibility_state, bind to governed PIT evidence or a versioned Universe/eligibility release with effective-time and immutable identity.
+      - For control-identity fields such as company_id, snapshot_cutoff_at or window_anchor_date, if per-value evidence is intentionally not required, encode the exemption explicitly in a versioned contract/registry classification and verify the governing release identity.
+      - No silent exemption is allowed.
+      - If CORE B finds a definition-level conflict requiring Shared Contract semantics to change, do not decide unilaterally; return the exact bounded conflict for CORE A/CORE B reconciliation.
+required_adversarial_tests:
+  - caller creates fake evidence reference and inserts same key into an unbound resolver -> FAIL
+  - evidence object lacks immutable content hash -> FAIL
+  - evidence object lacks persistent locator or lineage -> FAIL
+  - resolver release/hash mismatch -> FAIL
+  - whole-block certification uses evidence ref resolved only by caller key membership -> FAIL
+  - F02 upstream evidence uses unbound caller resolver -> FAIL
+  - caller creates arbitrary positive F08 penalty rule and self-computes governance_object_sha256 -> FAIL in official path
+  - approved resolver identity absent for positive F08 rule -> FAIL
+  - no approved numeric F08 rule exists and positive penalty supplied -> FAIL CLOSED
+  - synthetic test resolver is explicitly test-only and cannot be used by official runtime -> PASS test isolation
+  - eligibility_state without governed record-level binding -> FAIL official path
+  - record-level control identity exemption without explicit bound classification -> FAIL
+  - valid governed record-level release binding -> PASS
+regression_requirements:
+  - Preserve previous 76 test behaviors unless a test is explicitly versioned because it incorrectly accepted a now-prohibited self-asserted resolver/rule.
+  - Preserve FND-02 F06 duplicate protection.
+  - Preserve FND-03 F02 explicit operator semantics.
+  - Preserve all five axis weights.
+  - Preserve GATED_LINEAR scorer arithmetic.
+  - Preserve missingness, anti-double-count, Hard Risk Gate arithmetic, SIO, WM-v1.1, determinism and idempotence.
+  - Preserve six shared-asset rehash 6/6.
+required_successor_identity:
+  overwrite_prior_candidate: false
+  new_successor_commit_required: true
+  changed_component_sha256_required: true
+  full_test_rerun_required: true
+forbidden:
+  - Actual U127 MFE/MAE/future return/future rank inspection
+  - Actual U127 replay
+  - outcome-based tuning
+  - weight changes
+  - scorer architecture redesign
+  - invented F08 numeric penalty schedule
+  - Ground Truth, Price or CA mutation
+  - Model Freeze
+  - Production Release
+independent_delta_preflight:
+  status_before_fix: BLOCKED_BY_CONTROL_PREVALIDATION_CW_01_TO_CW_03
+  activation_after_fix: requires new successor commit, exact component hashes, full regression pass and Control prevalidation
+required_output:
+  exactly_one_return_packet: true
+  header: '[RETURN PACKET — M3TOP3 v1 SHARED WIRING CONTROL FIXES]'
+  required_fields:
+    - WORK_ORDER_ID
+    - TASK_COMPLETED
+    - BASE_CANDIDATE_COMMIT
+    - SUCCESSOR_PATCH_COMMIT
+    - CHANGED_FILES
+    - CHANGED_COMPONENT_SHA256
+    - CW_01_RESULT
+    - CW_02_RESULT
+    - CW_03_RESULT
+    - RECORD_LEVEL_BINDING_DECISION
+    - ANY_DUAL_CORE_SEMANTIC_CONFLICT
+    - ADVERSARIAL_TEST_RESULT
+    - FULL_REGRESSION_RESULT
+    - SHARED_ASSET_REHASH_RESULT
+    - WEIGHTS_CHANGED
+    - SCORER_MATH_CHANGED
+    - WM_SEMANTICS_CHANGED
+    - ACTUAL_OUTCOME_DATA_INSPECTED
+    - ACTUAL_REPLAY_EXECUTED
+    - OUTCOME_TUNING_EXECUTED
+    - READY_FOR_INDEPENDENT_DELTA_PREFLIGHT
+    - REMAINING_BLOCKERS
+    - RECOMMENDED_NEXT_ACTION
+output_discipline:
+  - Output exactly one Markdown fenced code block.
+  - Write nothing before or after the block.
+  - Explain material technical terms in practical Korean before retaining technical identifiers.
+request_chronology:
+  requested_at: '2026-08-16 02:12 KST'
