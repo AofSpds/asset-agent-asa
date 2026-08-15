@@ -1,0 +1,53 @@
+manifest_id: SEMI-CONTINUITY-BUILD-MANIFEST
+version: v0.1_WORKING
+status: ACTIVE_BUILD_PENDING_CORE_B_AND_U127_RETURNS
+project: semiconductor-research
+as_of: '2026-08-15T22:31:00+09:00'
+owner_persona: SEMI-CONTROL-ARCHITECT
+
+materialized_working_assets:
+  organization:
+    - control/continuity/v1.0/SEMI-ORG-MAP_v0.1_WORKING.yaml
+    - control/continuity/v1.0/SEMI-DUAL-CORE-AUTHORITY-MATRIX_v0.1_WORKING.yaml
+  continuity:
+    - control/continuity/v1.0/SEMI-CONTINUITY-PROTOCOL_v0.1_WORKING.md
+    - control/continuity/v1.0/SEMI-SUCCESSOR-RECOVERY-DRILL_v0.1_WORKING.yaml
+  artifact_governance:
+    - control/continuity/v1.0/SEMI-ARTIFACT-PERSISTENCE-PROTOCOL_v0.1_WORKING.md
+  cross_core:
+    - control/continuity/v1.0/SEMI-CROSS-CORE-SYNC-CONTRACT_v0.1_WORKING.yaml
+    - control/continuity/v1.0/SEMI-SHARED-ASSET-OWNERSHIP_v0.1_WORKING.yaml
+  knowledge_harvest:
+    - control/continuity/v1.0/SEMI-KNOWLEDGE-ASSET-MANIFEST_v0.1_WORKING.yaml
+    - control/knowledge/v1.0/KA-PIT-FIRST-SUPPORTED-STATE_v0.1_WORKING.md
+    - control/knowledge/v1.0/KA-U127-CONTINUITY-INCIDENT_v0.1_WORKING.md
+
+status_rules:
+  - ALL_LISTED_ASSETS_ARE_WORKING_NOT_FROZEN
+  - CORE_B_OWNED_OR_SHARED_FIELDS_REMAIN_PROVISIONAL_UNTIL_CORE_B_RECONCILIATION
+  - NO_STORAGE_PERSISTENCE_CLAIM_WITHOUT_VERIFIED_LOCATOR
+  - NO_U127_REMATERIALIZATION_AUTHORIZED
+
+waiting_external_returns:
+  U127_GAP_CLOSURE_A:
+    state: IN_FLIGHT
+    target: membership_46_60_primary_61_75_secondary
+  CORE_B_SUCCESSOR:
+    state: AWAITING_RETURN_OR_BOOTSTRAP_PACKET
+    target: persona_identity_authority_model_validation_assets_shared_contracts
+
+work_that_can_continue_without_returns:
+  - CORE_A_knowledge_asset_harvest
+  - protocol_consistency_review
+  - continuity_test_plan_refinement
+  - artifact_persistence_gate_design
+  - prepare_cross_core_reconciliation_template
+
+blocked_until_returns:
+  - final_CORE_B_persona_identity
+  - final_dual_core_authority_matrix
+  - final_shared_contract_ownership
+  - continuity_v1_freeze_candidate
+  - U127_early_delta_gap_closure_adjudication
+
+owner_action_required_now: NONE
