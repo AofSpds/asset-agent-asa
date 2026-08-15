@@ -1,0 +1,137 @@
+drill_id: SEMI-SUCCESSOR-RECOVERY-DRILL
+version: v0.2_WORKING
+status: PREPARED_NOT_EXECUTED
+project: semiconductor-research
+as_of: '2026-08-15T23:03:00+09:00'
+owner: SEMI-CONTROL-ARCHITECT
+baseline_checkpoint: CP-DUALCORE-20260815-001
+current_state: control/continuity/v1.0/SEMI-CURRENT-STATE_v1.2.yaml
+
+purpose: >-
+  Prove that fresh CORE_A and CORE_B successor instances can reconstruct authoritative project state,
+  persona identity, authority boundaries, artifact custody status, open work, model/validation contracts,
+  and replay blockers from persistent control/data-plane records without relying on predecessor chat memory.
+
+fresh_instance_constraints:
+  - MUST_NOT_USE_PREDECESSOR_CHAT_HISTORY_AS_PRIMARY_SOURCE
+  - MUST_START_FROM_CP_DUALCORE_20260815_001_AND_GITHUB_CONTROL_PLANE
+  - MAY_USE_PERSISTENT_DATA_PLANE_LOCATORS_REFERENCED_BY_CONTROL_ASSETS
+  - MAY_USE_RETURN_PACKETS_ONLY_AS_REFERENCED_EVIDENCE
+  - MUST_NOT_ASSUME_SANDBOX_OR_MNT_DATA_PERSISTS
+  - MUST_REPORT_CHECKPOINT_TAIL_DELTAS_BEFORE_STATE_CHANGING_WORK
+
+CORE_A_test_cases:
+  T1_identity:
+    expected:
+      - persona_id_SEMI_CONTROL_ARCHITECT
+      - active_instance_or_test_instance_lineage
+      - Project_Owner_and_CORE_B_peer_structure
+  T2_project_state:
+    expected:
+      - U127_1013_READY_3_UNRESOLVED
+      - U127_not_frozen
+      - Price_official_D4_blocked_D5_not_executed
+      - CA_independent_closure_blocked
+      - actual_U127_two_year_replay_not_executed
+  T3_artifact_custody:
+    expected:
+      - v0_7_sha256_1fc47fd131479e6ebb4375206853f39a730610d8b9f29160c33aa292881ad50a
+      - v0_7_primary_secondary_persistence_NOT_YET
+      - later_workbook_bytes_not_claimed
+      - v1_9_forensic_only_not_clean_parent
+  T4_U127_bounded_unknowns:
+    expected:
+      - GAP_A1_46_60_historical_payload_not_recoverable_in_current_archive
+      - GAP_A2_61_75_partial_archive_exhausted
+      - no_inference_or_rematerialization
+  T5_open_work:
+    expected:
+      - U127_canonical_machine_release_design
+      - U127_v0_7_durable_persistence
+      - CA_and_Price_readiness_closure
+      - five_open_shared_contracts
+      - CORE_B_v1_pre_outcome_lock
+  T6_organization:
+    expected:
+      - no_unresolved_major_authority_conflict
+      - shared_contract_change_requires_cross_core_reconciliation
+      - independent_validation_separate
+  T7_checkpoint_tail:
+    expected:
+      - load_CP_DUALCORE_20260815_001
+      - detect_SEMI_CURRENT_STATE_v1_2_as_post_checkpoint_delta
+      - not_treat_checkpoint_as_latest_state_automatically
+
+CORE_B_test_cases:
+  B1_identity:
+    expected:
+      - persona_id_SEMI_MODEL_VALIDATION_DESIGN_ARCHITECT
+      - predecessor_MODEL_ARCH_LEGACY_20260815
+      - active_instance_MODEL_ARCH_INSTANCE_002_20260815_or_test_successor_lineage
+  B2_model_contract:
+    expected:
+      - Top_K_primary_problem
+      - Top3_primary_output
+      - Model_Top10_diagnostic
+      - 3M_MFE_exact_rank_primary_GT_semantics
+      - Critical_Miss_any_Top3_actual_MFE_rank_gt_20
+      - five_axis_working_scaffold
+      - weights_not_frozen
+      - scorer_not_frozen
+  B3_validation_contract:
+    expected:
+      - no_tune_baseline_principle
+      - independent_validation_required
+      - risk_detection_metric_open
+      - holdout_open
+      - walk_forward_open
+  B4_shared_contracts:
+    expected:
+      - 4_agreed_5_open
+      - CONTROL_SYNC_REQUIRED_due_open_contracts_not_due_major_conflict
+  B5_replay_readiness:
+    expected:
+      - actual_replay_not_authorized
+      - CORE_B_blockers_feature_schema_scorer_weights_no_tune_validation_open_items
+      - CORE_A_and_shared_blockers_recognized
+  B6_scientific_firewall:
+    expected:
+      - outcome_blind_model_input
+      - future_MFE_MAE_not_backfilled_into_same_snapshot
+      - later_evidence_not_automatically_backdated
+
+pass_criteria:
+  - NO_CRITICAL_STATE_REQUIRES_PREDECESSOR_CHAT_MEMORY
+  - NO_FALSE_ARTIFACT_CUSTODY_CLAIM
+  - NO_AUTHORITY_BOUNDARY_CONFLATION
+  - NO_GROUND_TRUTH_OR_MODEL_STATE_DRIFT
+  - OPEN_WORK_AND_BLOCKERS_RECONCILE
+  - CORE_B_UNKNOWN_FIELDS_REMAIN_UNKNOWN_OR_OPEN
+  - CHECKPOINT_TAIL_DELTAS_DETECTED
+  - PEER_CORE_CONTRACTS_RECONCILE_OR_CONTROL_SYNC_REQUIRED_IS_RAISED
+
+failure_classes:
+  - PERSONA_IDENTITY_LOSS
+  - CURRENT_STATE_DRIFT
+  - EVENT_LEDGER_GAP
+  - ARTIFACT_CUSTODY_FALSE_POSITIVE
+  - ARTIFACT_CUSTODY_FALSE_NEGATIVE
+  - AUTHORITY_MATRIX_DRIFT
+  - OPEN_WORK_LOSS
+  - MODEL_CONTRACT_DRIFT
+  - VALIDATION_CONTRACT_DRIFT
+  - PEER_CORE_CONFLICT_SILENTLY_RECONCILED
+  - CHAT_DEPENDENCY_REINTRODUCED
+  - CHECKPOINT_TAIL_IGNORED
+
+execution:
+  static_preflight: PASS_WITH_WARNINGS
+  fresh_CORE_A_instance: NOT_EXECUTED
+  fresh_CORE_B_instance: NOT_EXECUTED
+  owner_manual_context_assembly_required: false
+
+freeze_requirement:
+  - BOTH_FRESH_CORE_DRILLS_PASS
+  - NO_CRITICAL_CONTROL_ASSET_MISSING
+  - CHECKPOINT_AND_CURRENT_STATE_RECONCILE
+  - OPEN_SHARED_CONTRACTS_MAY_REMAIN_ONLY_IF_EXPLICITLY_DECLARED_AND_NOT_REQUIRED_FOR_CONTINUITY_FREEZE
