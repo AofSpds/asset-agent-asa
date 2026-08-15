@@ -19,7 +19,18 @@ from aaa.state.shadow_cycle import (
 )
 
 
-def observation(sequence: int, status: str = "MATCH", blockers=()) -> ShadowObservation:
+DEFAULT_IMPL = "c" * 40
+DEFAULT_CONTRACT = "d" * 64
+
+
+def observation(
+    sequence: int,
+    status: str = "MATCH",
+    blockers=(),
+    *,
+    implementation_commit: str = DEFAULT_IMPL,
+    contract_sha256: str = DEFAULT_CONTRACT,
+) -> ShadowObservation:
     return ShadowObservation(
         sequence=sequence,
         observed_at=f"2026-08-16T04:{sequence:02d}:00+09:00",
@@ -28,6 +39,8 @@ def observation(sequence: int, status: str = "MATCH", blockers=()) -> ShadowObse
         event_ledger_path="control/continuity/v1.0/SEMI-CONTROL-EVENT-LEDGER_v3.3.jsonl",
         event_ledger_sha256="a" * 64,
         discrepancy_report_sha256="b" * 64,
+        shadow_implementation_commit=implementation_commit,
+        shadow_contract_sha256=contract_sha256,
         comparison_status=status,
         external_blockers=tuple(blockers),
     )
@@ -44,6 +57,7 @@ class ShadowCycleV05Tests(unittest.TestCase):
         self.assertFalse(report.cutover_authorized)
         self.assertFalse(report.canonical_output)
         self.assertFalse(report.historical_repair_performed)
+        self.assertFalse(report.binding_drift_seen)
 
     def test_known_continuity_collision_blocks_even_with_matches(self) -> None:
         history = ()
@@ -51,7 +65,31 @@ class ShadowCycleV05Tests(unittest.TestCase):
             history = append_observation(history, observation(i, blockers=(KNOWN_CONTINUITY_COLLISION,)))
         report = summarize_shadow_cycle(history)
         self.assertEqual(report.status, "BLOCKED_EXTERNAL_CONTINUITY_OR_CONTROL_GATE")
-        self.assertIn(KNOWN_CONTINUITY_COLLISION, report.external_blockers)
+        self.assertIn(KNOWN_CONTINUITY_COLLISION, report.active_external_blockers)
+        self.assertIn(KNOWN_CONTINUITY_COLLISION, report.historical_blockers_seen)
+        self.assertFalse(report.ready_for_independent_validation_candidate)
+
+    def test_resolved_historical_blocker_does_not_block_forever(self) -> None:
+        history = append_observation((), observation(1, blockers=(KNOWN_CONTINUITY_COLLISION,)))
+        history = append_observation(history, observation(2))
+        history = append_observation(history, observation(3))
+        history = append_observation(history, observation(4))
+        report = summarize_shadow_cycle(history, required_consecutive_matches=3)
+        self.assertEqual(report.status, "READY_FOR_INDEPENDENT_VALIDATION_CANDIDATE")
+        self.assertEqual(report.active_external_blockers, ())
+        self.assertIn(KNOWN_CONTINUITY_COLLISION, report.historical_blockers_seen)
+
+    def test_binding_change_resets_consecutive_match_count(self) -> None:
+        history = append_observation((), observation(1))
+        history = append_observation(history, observation(2))
+        history = append_observation(
+            history,
+            observation(3, implementation_commit="e" * 40, contract_sha256="f" * 64),
+        )
+        report = summarize_shadow_cycle(history, required_consecutive_matches=3)
+        self.assertEqual(report.status, "OBSERVING_MORE_MATCH_CYCLES")
+        self.assertEqual(report.consecutive_match_count, 1)
+        self.assertTrue(report.binding_drift_seen)
         self.assertFalse(report.ready_for_independent_validation_candidate)
 
     def test_mismatch_has_priority_over_external_blocker(self) -> None:
