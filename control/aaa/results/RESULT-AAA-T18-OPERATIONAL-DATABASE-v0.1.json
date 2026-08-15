@@ -1,0 +1,143 @@
+{
+  "result_id": "RESULT-AAA-T18-OPERATIONAL-DATABASE-v0.1",
+  "run_id": "RUN-AAA-T18-OPERATIONAL-DATABASE-20260816-001",
+  "work_order_id": "WO-AAA-T18-OPERATIONAL-DATABASE-v0.1-20260816",
+  "result_type": "ENGINEERING_IMPLEMENTATION",
+  "verdict": "PASS_WITH_FINDINGS",
+  "repository": "AofSpds/asset-agent-asa",
+  "exact_base_commit": "02739703a0ced83c80183c29dbfb302d2ce56b23",
+  "engineering_branch": "aaa-t18-operational-db-v0.1",
+  "engineering_branch_head": "02739703a0ced83c80183c29dbfb302d2ce56b23",
+  "architecture_approval": "control/aaa/architecture/AAA-T18-OPERATIONAL-DATABASE-ARCHITECTURE-REVIEW_v0.2_OWNER-APPROVED.yaml",
+  "migrations": [
+    {
+      "version": "0001",
+      "path": "aaa/db/migrations/0001_operational_execution_plane.sql",
+      "sha256": "66e5609fea1104f4aba4d0566989bf3a6c8d2b6e0b75cb274a79f7bdb48d68c2"
+    },
+    {
+      "version": "0002",
+      "path": "aaa/db/migrations/0002_json_registry_source_identity.sql",
+      "sha256": "dfd47bb167e4bbcef2de9cb45bec811c0acfbcc5f03bde1a49fc24990b7d16dc"
+    },
+    {
+      "version": "0003",
+      "path": "aaa/db/migrations/0003_idempotent_events_atomic_completion.sql",
+      "sha256": "5d14f97a9b2d469885984c92fe3d725e213ec892616eee19a7708338b226374b"
+    }
+  ],
+  "test_commands": [
+    "python -m unittest discover -s aaa/tests -p 'test_*.py' -v",
+    "apply aaa/db/migrations/*.sql to postgres:16-alpine with psql -v ON_ERROR_STOP=1",
+    "psql aaa/db/tests/t18_contract_smoke.sql",
+    "psql aaa/db/tests/t18_idempotency_atomic_smoke.sql",
+    "concurrent aaa_ops.acquire_run_lease calls with two workers",
+    "python aaa/db/tools/json_registry_to_sql.py --repo-root . --git-commit <EXACT_HEAD>",
+    "python aaa/db/tools/reconcile_shadow_export.py --repo-root . --db-jsonl <POSTGRES_EXPORT>",
+    "pg_dump aaa_t18 -> pg_restore aaa_t18_restore -> count reconciliation",
+    "npm ci --no-audit --no-fund && npm run build in aaa/web"
+  ],
+  "ci": {
+    "final_run_id": 31910879301,
+    "deterministic_tests": {
+      "test_count": 131,
+      "pass_count": 131,
+      "fail_count": 0,
+      "error_count": 0
+    },
+    "postgres_contract_smoke": "PASS",
+    "idempotent_event_retry_smoke": "PASS",
+    "atomic_terminal_completion_and_rollback_smoke": "PASS",
+    "concurrent_lease_single_winner": "PASS",
+    "json_registry_shadow_import_reconciliation": "PASS_5_OF_5",
+    "backup_restore_local_drill": "PASS",
+    "owner_console_locked_install_build": "PASS"
+  },
+  "json_registry_inventory": [
+    {
+      "run_id": "RUN-AAA-T17-INTEGRATION-20260816-002",
+      "path": "control/aaa/runs/RUN-AAA-T17-INTEGRATION-20260816-002.json",
+      "byte_size": 1474,
+      "sha256": "67219f53f36d6b1d5d14e138d972e9197211afdcebe7bb44cd6b5263ce52a9b0"
+    },
+    {
+      "run_id": "RUN-AAA-T17-OPS-DASHBOARD-20260816-001",
+      "path": "control/aaa/runs/RUN-AAA-T17-OPS-DASHBOARD-20260816-001.json",
+      "byte_size": 1336,
+      "sha256": "dbd2b85cc29fb18daefaf710590a8def82e0ebc4c927e0e029891bad46087899"
+    },
+    {
+      "run_id": "RUN-AAA-T17-P09-REMEDIATION-20260816-001",
+      "path": "control/aaa/runs/RUN-AAA-T17-P09-REMEDIATION-20260816-001.json",
+      "byte_size": 1458,
+      "sha256": "4ced63327c68f0eea70ce1b14bfe20b393fd48a10964360c90102fdc5024f983"
+    },
+    {
+      "run_id": "RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-001",
+      "path": "control/aaa/runs/RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-001.json",
+      "byte_size": 1731,
+      "sha256": "6296b4b133f60be80ac1ee8ea4e8096ac59ae93c3376432c2ec21ddf3d2cd24e"
+    },
+    {
+      "run_id": "RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-002",
+      "path": "control/aaa/runs/RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-002.json",
+      "byte_size": 1315,
+      "sha256": "2c0c62520e3547c0213d1310012aa516a3c9ec76ede4ed4b0b984cbf1ff0d94e"
+    }
+  ],
+  "reconciliation_status": {
+    "authoritative_json_run_count": 5,
+    "shadow_postgresql_run_count": 5,
+    "projection": "MATCH",
+    "missing_in_shadow": [],
+    "extra_in_shadow": [],
+    "mismatched_run_ids": [],
+    "source_identity_mismatches": []
+  },
+  "transaction_and_recovery_status": {
+    "future_time_false_running_rejected": true,
+    "heartbeat_before_start_rejected": true,
+    "stale_lease_epoch_rejected": true,
+    "concurrent_lease_has_single_winner": true,
+    "exact_event_retry_is_idempotent": true,
+    "idempotency_key_payload_drift_rejected": true,
+    "terminal_result_and_state_atomic": true,
+    "forced_result_conflict_rolls_back_partial_terminal_state": true,
+    "local_backup_restore_counts": {
+      "source": "5:2:1:1",
+      "restore": "5:2:1:1"
+    }
+  },
+  "authority_boundary_status": {
+    "postgresql_operational_sot_cutover": false,
+    "json_registry_remains_authoritative_during_shadow": true,
+    "git_github_governance_sot_preserved": true,
+    "s3_r2_large_artifact_sot_preserved": true,
+    "owner_console_direct_db_access": false,
+    "redis_required": false,
+    "kafka_required": false,
+    "kubernetes_required": false,
+    "sqlite_certifying_backend": false
+  },
+  "p09_non_interference_status": {
+    "original_failed_target_preserved": "80378610f9ac9e688c52417f0416e01c057400a7",
+    "current_rerun_target_preserved": "30fdb278c218b24e44d66eb5f47935a196dc4f8c",
+    "current_rerun_id": "RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-002",
+    "t18_changes_p09_target": false
+  },
+  "findings_remaining": [
+    "No live managed PostgreSQL service or production connection/credential policy is provisioned; PostgreSQL remains a tested non-authoritative engineering/shadow backend.",
+    "No concrete runtime PostgreSQL driver/adapter is activated in CLI/API; the common operational service abstraction is implemented and JSON remains authoritative until a later cutover track configures the live adapter.",
+    "Managed backup/PITR provider, RPO, and RTO are not yet approved or qualified; only the required local backup/restore engineering drill has passed.",
+    "T18 exact engineering target has not yet received Independent Validation PASS.",
+    "Operational SoT cutover remains separately prohibited until explicit Project Owner authorization."
+  ],
+  "scientific_firewall": {
+    "model_methodology_changed": false,
+    "shared_contract_changed": false,
+    "ground_truth_or_pit_changed": false,
+    "future_outcome_used_for_historical_snapshot_or_feature_repair": false,
+    "recovery_is_rematerialization": false
+  },
+  "completed_at": "2026-08-16T06:58:36+09:00"
+}
