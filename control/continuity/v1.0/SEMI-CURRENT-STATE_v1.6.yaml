@@ -1,0 +1,111 @@
+state_id: SEMI-CURRENT-STATE
+version: v1.6
+status: WORKING_IMPLEMENTATION_CANDIDATE_ACCEPTED_INDEPENDENT_PREFLIGHT_PENDING
+project: semiconductor-research
+as_of: '2026-08-16T00:10:00+09:00'
+active_cores:
+  CORE_A:
+    canonical_name: 문서·통제 아키텍트
+    persona_id: SEMI-CONTROL-ARCHITECT
+    instance_id: CTRL-ARCH-INSTANCE-004-20260815
+    status: ACTIVE_RECONCILED
+  CORE_B:
+    canonical_name: 모델 검증·설계 아키텍트
+    persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+    instance_id: MODEL-ARCH-INSTANCE-002-20260815
+    status: ACTIVE_IMPLEMENTATION_CANDIDATE_COMPLETE
+    actual_replay_authorized: false
+    model_freeze_authorized: false
+project_instruction_governance:
+  global_instruction_set: control/continuity/v1.0/SEMI-PROJECT-GLOBAL-INSTRUCTIONS_v1.2_ACTIVE.yaml
+  mutation_authority: CORE_PERSONAS_ONLY
+organization:
+  shared_contract_state: control/continuity/v1.0/SEMI-SHARED-CONTRACT-STATE_v0.4_WORKING.yaml
+  shared_contract_total: 9
+  shared_contract_agreed_count: 9
+  shared_contract_open_definition_count: 0
+  unresolved_major_authority_conflicts: 0
+window_mapping:
+  version: WM-v1.1
+  status: DUAL_CORE_AGREED_WORKING_IMPLEMENTED_CANDIDATE
+  historical_W1_W8_compatibility: PASS_8_OF_8_CORE_B_SYNTHETIC
+  production_KRX_calendar_identity: NOT_YET_BOUND
+model_v1:
+  model_version: M3TOP3-v1.0
+  feature_count: 9
+  feature_schema: M3TOP3-FEATURE-SCHEMA_v1.0_WORKING
+  scorer: M3TOP3-GATED-LINEAR_v1.0_WORKING
+  axis_weights: {Business_Momentum: 25, Expectation_Surprise: 25, Market_Positioning: 20, Forward_Runway: 20, Reliability_Risk: 10}
+  machine_implementation_manifest: control/core_b/M3TOP3-v1-MACHINE-IMPLEMENTATION-MANIFEST_v0.1_WORKING.yaml
+  machine_implementation_status: CONTROL_ACCEPTED_CANDIDATE_WITH_WARNINGS
+  control_adjudication: control/core_b/M3TOP3-v1-MACHINE-IMPLEMENTATION-CONTROL-ADJUDICATION_v0.1_WORKING.yaml
+  source_code_commit: 32c8a0f31428273d76b4e7b3f2cea76f955770aa
+  config_path: tools/m3top3/configs/m3top3_v1.0.json
+  config_sha256_declared: eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98
+  baseline_lock: control/core_b/M3TOP3-NO-TUNE-BASELINE-LOCK_v1.2_WORKING.yaml
+  baseline_lock_status: READY_CANDIDATE_IMPLEMENTATION_BOUND
+  synthetic_tests: CORE_B_PASS_18_OF_18_NOT_INDEPENDENT
+  independent_implementation_preflight: DISPATCH_READY_NOT_EXECUTED
+  independent_preflight_work_order: control/workorders/WO-VALIDATION-M3TOP3-v1-INDEPENDENT-PREFLIGHT-20260816.yaml
+  actual_outcome_data_inspected: false
+  actual_U127_two_year_replay: NOT_EXECUTED
+  model_frozen: false
+u127:
+  membership: 127
+  total_BP_cells: 1016
+  certified_READY: 1013
+  unresolved: 3
+  partial: 0
+  complete_histories: 125
+  canonical_release_spec: control/u127/SEMI-U127-CANONICAL-RELEASE-SPEC_v0.2_WORKING.yaml
+  membership_identity_binding: PASS_127_OF_127
+  final_state_source_binding: PARTIAL_PASS
+  window_mapping_binding: PASS_WM_v1_1
+  v0_7_primary_persistence: NOT_YET
+  v0_7_secondary_persistence: NOT_YET
+  canonical_machine_release: NOT_MATERIALIZED
+price:
+  dataset_id: SEMI-PRICE-MARCAP-KRX-2024-2026_v1
+  identity_sha256: 419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7
+  official_D4: BLOCKED
+  official_D5: NOT_EXECUTED
+ca:
+  ca_signal_adjudication: PASS_24_OF_24_RESEARCH_LOCAL
+  ca_regression: PASS_2_OF_2_RESEARCH_LOCAL
+  project_completeness_gate: BLOCKED
+  targeted_open_cases:
+    - KRX:001527@2024-03-28
+    - KRX:403360@2026-05-08
+validation:
+  model_implementation_independent_preflight: READY_TO_DISPATCH
+  u127_release_independent_validation: NOT_EXECUTED
+  replay_validation_procedure: NOT_EXECUTED
+actual_replay_readiness:
+  ready: false
+  blockers:
+    model_assurance:
+      - INDEPENDENT_IMPLEMENTATION_PREFLIGHT
+      - PRODUCTION_KRX_TRADING_CALENDAR_IDENTITY
+      - SOURCE_COMPONENT_SHA256_MANIFEST
+    data_control:
+      - U127_FINAL_SOURCE_BINDING_INDEPENDENT_VALIDATION
+      - U127_V0_7_PRIMARY_SECONDARY_PERSISTENCE
+      - U127_CANONICAL_MACHINE_RELEASE_MATERIALIZATION
+      - PRICE_OFFICIAL_READINESS
+      - CA_RAW_OHLC_CLOSURE
+      - VALIDATION_DATASET_RELEASE_MATERIALIZATION
+    release:
+      - MATERIALIZE_VDI_v1_0
+      - MATERIALIZE_MARM_v1_0
+      - INDEPENDENT_REPLAY_VALIDATION_PROCEDURE
+next_actions_parallel:
+  validation:
+    - DISPATCH_M3TOP3_v1_INDEPENDENT_IMPLEMENTATION_PREFLIGHT
+  문서·통제_아키텍트_CORE_A:
+    - CONTINUE_U127_RELEASE_CLOSURE
+    - CONTINUE_PRICE_CA_TARGETED_CLOSURE
+    - PREPARE_VALIDATION_DATASET_RELEASE
+  model_validation_design_architect_CORE_B:
+    - HOLD_MODEL_SEMANTICS_AND_WEIGHTS_UNCHANGED
+    - RESPOND_ONLY_TO_NARROW_INDEPENDENT_PREFLIGHT_FINDINGS
+user_action_required_now: RELAY_INDEPENDENT_PREFLIGHT_WORK_ORDER_TO_VALIDATION_AUDITOR
