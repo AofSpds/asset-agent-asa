@@ -1,0 +1,126 @@
+recovery_id: SEMI-U127-EARLY-MEMBERSHIP-RECOVERY
+version: v0.1_WORKING
+status: PARTIAL_ACCEPT_GAP_CLOSURE_REQUIRED
+as_of: '2026-08-15T22:18:00+09:00'
+owner_persona: SEMI-CONTROL-ARCHITECT
+source_channel_role: U127 Research predecessor
+source_packet:
+  title: RETURN PACKET — U127 EARLY MEMBERSHIP DELTA HARVEST
+  sha256: 861d4d5ef7670f28c33cd790ab0e8cccdce746beb83d56c909dcb7fe868919f8
+  byte_size: 76571
+  control_copy: control/u127/source_packets/RET-U127-EARLY-MEMBERSHIP-DELTA-HARVEST_2026-08-15.txt
+scope: v0.7_to_v1.3_early_membership_expansion
+adjudication: PARTIAL_ACCEPT
+rules:
+  - UNKNOWN_REMAINS_UNKNOWN
+  - DO_NOT_INFER_CELL_STATE_FROM_AGGREGATE_COUNTS
+  - RESEARCH_RECOMMENDATION_IS_NOT_CONTROL_PROMOTION
+  - NO_WORKBOOK_REPLAY
+  - NO_REMATERIALIZATION
+aggregate_progression:
+  v0.7: {certified: 353, populated: 370, complete_histories: 44, listing: 58}
+  v0.8: {certified: 473, populated: 489, complete_histories: 59, listing: 68}
+  v0.9: {certified: 593, populated: 609, complete_histories: 74, listing: 82}
+  v1.0: {certified: 713, populated: 725, complete_histories: 89, listing: 97}
+  v1.1: {certified: 802, populated: 827, complete_histories: 99, listing: 108}
+  v1.2: {certified: 918, populated: 942, complete_histories: 112, listing: 122}
+  v1.3: {certified: 974, populated: 997, complete_histories: 119, listing: 127, residual_cells: 42, residual_companies: 8}
+aggregate_checks:
+  certified: {start: 353, end: 974, delta: 621, component_sum: 621, result: PASS}
+  populated: {start: 370, end: 997, delta: 627, component_sum: 627, result: PASS}
+  complete_histories: {start: 44, end: 119, delta: 75, component_sum: 75, result: PASS}
+  listing: {start: 58, end: 127, delta: 69, component_sum: 69, result: PASS}
+batches:
+  - range: 46-60
+    transition: v0.7_to_v0.8
+    recovery: PARTIAL
+    aggregate_delta: {certified: 120, populated: 119, complete_histories: 15, listing: 10}
+    executed_result_packet: NOT_RECOVERED
+    exact_cell_payload: UNKNOWN
+    exact_listing_additions: UNKNOWN
+  - range: 61-75
+    transition: v0.8_to_v0.9
+    recovery: PARTIAL
+    aggregate_delta: {certified: 120, populated: 120, complete_histories: 15, listing: 14}
+    return_packet: RECOVERED
+    batch_result: ALL_15_COMPLETE_NO_NEW_PARTIAL_OR_UNRESOLVED
+    exact_cell_prestate_and_provenance: PARTIAL
+    exact_listing_additions: UNKNOWN
+    known_prior_listing: '쎄크|081180|2025-04-28'
+  - range: 76-90
+    transition: v0.9_to_v1.0
+    recovery: PARTIAL_HIGH_VALUE
+    aggregate_delta: {certified: 120, populated: 116, complete_histories: 15, listing: 15}
+    explicit_legacy_promotions:
+      - '피엠티|147760|W1|PARTIAL_TO_READY'
+      - '마이크로투나노|424980|W1|PARTIAL_TO_READY'
+      - '프로텍|053610|W1|PARTIAL_TO_READY'
+      - '예스티|122640|W1|PARTIAL_TO_READY'
+    poststate: ALL_76_90_W1_W8_READY
+    exact_listing_additions: RECOVERED_15
+  - range: 91-105
+    transition: v1.0_to_v1.1
+    recovery: PARTIAL_VERY_HIGH_VALUE
+    aggregate_delta: {certified: 89, populated: 102, complete_histories: 10, listing: 11}
+    explicit_legacy_promotions:
+      - '그린리소스|402490|W1|PARTIAL_TO_READY'
+      - '램테크놀러지|171010|W2|PARTIAL_TO_READY'
+      - '레이크머티리얼즈|281740|W1|PARTIAL_TO_READY'
+      - '세미티에스|0017J0|W8|PARTIAL_TO_READY'
+    non_ready_matrix:
+      싸이맥스: ['W8:PARTIAL']
+      제닉스로보틱스: ['W1:UNRESOLVED','W2-W7:PARTIAL']
+      세미티에스: ['W1-W6:UNRESOLVED','W7:PARTIAL']
+      져스텍: ['W1-W7:UNRESOLVED','W8:PARTIAL']
+      미코: ['W1-W8:PARTIAL']
+    preexisting_CMTX: ['W1-W5:UNRESOLVED','W6-W7:PARTIAL','W8:READY']
+    exact_listing_additions: RECOVERED_11
+  - range: 106-120
+    transition: v1.1_to_v1.2
+    recovery: PARTIAL_VERY_HIGH_VALUE
+    aggregate_delta: {certified: 116, populated: 115, complete_histories: 13, listing: 14}
+    explicit_legacy_promotions:
+      - '원익홀딩스|030530|W1|PARTIAL_TO_READY'
+      - 'HLB이노베이션|024850|W1|PARTIAL_TO_READY'
+      - '메카로|241770|W1|PARTIAL_TO_READY'
+      - '덕산테코피아|317330|W1|PARTIAL_TO_READY'
+      - '로체시스템즈|071280|W1|PARTIAL_TO_READY'
+    new_partial_matrix:
+      제이아이테크: ['W1-W3:PARTIAL']
+      덕산테코피아: ['W8:PARTIAL']
+    new_unresolved: NONE
+    exact_listing_additions: RECOVERED_14
+  - range: 121-127
+    transition: v1.2_to_v1.3
+    recovery: PARTIAL_VERY_HIGH_VALUE
+    aggregate_delta: {certified: 56, populated: 55, complete_histories: 7, listing: 5}
+    explicit_legacy_promotions:
+      - '위드텍|348350|W1|PARTIAL_TO_READY'
+    poststate: ALL_121_127_W1_W8_READY_COMPLETE
+    exact_listing_additions: RECOVERED_5
+    decisive_KRX_KIND_bookends: RECOVERED_FOR_ALL_7
+listing_recovery:
+  exact_ranges: ['76-90','91-105','106-120','121-127']
+  aggregate_only_ranges: ['46-60','61-75']
+full_early_cell_ledger_feasible: PARTIAL
+remaining_gaps:
+  - id: GAP-A1
+    priority: P0
+    scope: membership_46_60_original_executed_RETURN_or_cell_table
+  - id: GAP-A2
+    priority: P1
+    scope: membership_61_75_full_company_window_prestate_provenance_and_exact_14_listing_additions
+  - id: GAP-A3
+    priority: P2
+    scope: exact_prestate_enums_for_nonlegacy_new_READY_cells_76_127
+  - id: GAP-A4
+    priority: P2
+    scope: per_cell_publication_PIT_source_locator_early_rounds
+  - id: GAP-A5
+    priority: P2
+    scope: independent_project_control_acceptance_evidence_at_early_cell_level
+next_action: U127_EARLY_DELTA_GAP_CLOSURE_A
+safe_to_rematerialize: false
+ground_truth_changed: false
+workbook_created: false
+workbook_saved: false
