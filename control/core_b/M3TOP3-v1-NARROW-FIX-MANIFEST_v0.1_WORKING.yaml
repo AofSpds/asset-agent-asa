@@ -1,0 +1,99 @@
+manifest_id: M3TOP3-v1-NARROW-FIX-MANIFEST
+version: v0.1_WORKING
+status: CORE_B_NARROW_FIX_COMPLETE_AWAITING_SHARED_RECONCILIATION_AND_INDEPENDENT_DELTA_PREFLIGHT
+project: semiconductor-research
+owner_persona: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+work_order_id: WO-COREB-M3TOP3-v1-NARROW-FIXES-20260816
+source_work_order: control/workorders/WO-COREB-M3TOP3-v1-NARROW-FIXES-20260816.yaml
+baseline:
+  model_version: M3TOP3-v1.0
+  source_commit: 32c8a0f31428273d76b4e7b3f2cea76f955770aa
+  config_path: tools/m3top3/configs/m3top3_v1.0.json
+  config_sha256: eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98
+  config_changed: false
+patch:
+  patch_commit: 5f9491b6861a11097a929156eaa8bb7cc3c8c749
+  patch_identity_path: tools/m3top3/PATCH_IDENTITY_v1.0.1.txt
+  model_version_changed: false
+  feature_schema_changed: false
+  weights_changed: false
+  scorer_architecture_changed: false
+changed_files:
+  model_components:
+    - tools/m3top3/features_v1_narrow_patch.py
+    - tools/m3top3/shared_interface_guards_v1.py
+    - tools/m3top3/scorer_v1.py
+  tests:
+    - tools/m3top3/tests/test_model_v1.py
+    - tools/m3top3/tests/test_narrow_fixes_v1.py
+  process:
+    - .github/workflows/m3top3-narrow-fix-tests.yml
+    - tools/m3top3/PATCH_IDENTITY_v1.0.1.txt
+component_sha256:
+  tools/m3top3/features_v1_narrow_patch.py: d97fd31cb6ecb212022584393216436b6145a09c29dc7112a5e3e224a4cde623
+  tools/m3top3/shared_interface_guards_v1.py: 974cf64c794fdf390b81637b0cb648b3324313dd2091f066f72528f0c13afe4d
+  tools/m3top3/scorer_v1.py: 5f940c83acceba1fdc9aaf897a7fe3bbea0469fd80bdc4f9f6d43c32134247fe
+  tools/m3top3/tests/test_model_v1.py: 1d385ca7138b02d520893d1c173185fccc26fecd8f46603fe682cb3100ed0a7c
+  tools/m3top3/tests/test_narrow_fixes_v1.py: 5088965606b5d6f6d924475ab910ea408c4bd67cb575a6753bb53e1137026641
+findings:
+  FND_02_F06:
+    state: CORE_B_PATCH_CLOSED_CANDIDATE
+    dedup_identity: milestone_id_then_event_group_id_then_evidence_group_id
+    rule: >-
+      Duplicate stable identities are one economic milestone. Scores 90/100 require at least two
+      independently identified verified milestones. Score 100 additionally requires explicit sequential_conversion_steps,
+      at least two distinct conversion_step identities, and at least two distinct milestone dates.
+  FND_03_F02:
+    state: CORE_B_PATCH_CLOSED_CANDIDATE
+    rule: >-
+      Production metric_pairs have no silent RELATIVE default. change_mode is mandatory and must be RELATIVE or ABSOLUTE.
+      Precomputed metric_changes must be governed objects containing value plus operator_id. Ungoverned scalar metric_changes fail closed.
+  FND_01_MIS_PIT_PROVENANCE:
+    state: MODEL_SIDE_PROPOSAL_HOOK_IMPLEMENTED_AND_TESTED_SHARED_PROMOTION_PENDING
+    hook: tools/m3top3/shared_interface_guards_v1.py::validate_consumed_value_provenance
+  FND_04_F08_FRESHNESS:
+    state: MODEL_SIDE_PROPOSAL_HOOK_IMPLEMENTED_AND_TESTED_SHARED_PROMOTION_PENDING
+    hook: tools/m3top3/shared_interface_guards_v1.py::validate_f08_freshness_provenance
+    arithmetic_changed: false
+    penalty_cap: 20
+shared_interface_proposal: control/core_b/M3TOP3-v1-SHARED-PREFLIGHT-INTERFACE-PROPOSAL_v0.1_WORKING.yaml
+test_evidence:
+  report: control/core_b/M3TOP3-v1-NARROW-FIX-TEST-REPORT_v0.1_WORKING.json
+  github_actions_run_id: 31893921010
+  github_actions_job_id: 95034181141
+  exact_checkout_commit: 5f9491b6861a11097a929156eaa8bb7cc3c8c749
+  runtime: Ubuntu_24.04.4_CPyth3.12.13
+  command: python -m unittest discover -s tools/m3top3/tests -p 'test_*.py' -v
+  total_tests: 53
+  passed: 53
+  failed: 0
+  original_model_regression: PASS_18_OF_18
+  infrastructure_regression: PASS_25_OF_25
+  new_adversarial: PASS_10_OF_10
+scientific_firewall:
+  actual_outcome_data_inspected: false
+  actual_u127_mfe_inspected: false
+  actual_u127_mae_inspected: false
+  actual_future_return_inspected: false
+  actual_future_rank_inspected: false
+  actual_replay_executed: false
+  outcome_tuning_executed: false
+  ground_truth_changed: false
+  price_changed: false
+  ca_changed: false
+  model_frozen: false
+remaining_blockers:
+  - DUAL_CORE_SHARED_INTERFACE_RECONCILIATION_FND_01_FND_04_FND_06
+  - WIRE_RECONCILED_SHARED_PROVENANCE_GUARDS_INTO_OFFICIAL_RELEASE_PATH
+  - CORE_A_PRODUCTION_KRX_TRADING_CALENDAR_BINDING_FND_05
+  - INDEPENDENT_DELTA_PREFLIGHT_ON_PATCHED_COMMIT_AND_RECONCILED_INTERFACES
+  - PATCHED_COMPONENT_SHA256_MANIFEST_REGENERATED_BY_INDEPENDENT_VALIDATOR
+  - DATA_CONTROL_AND_VALIDATION_RELEASE_BLOCKERS_REMAIN_OUTSIDE_THIS_PATCH
+ready_for_independent_delta_preflight: false
+reason: >-
+  The code patch is test-clean and ready as an implementation candidate, but the independent delta preflight work order
+  explicitly requires the shared MIS/F08/coverage reconciliation to be completed as required before activation.
+recommended_next_action: >-
+  CORE A + CORE B reconcile the shared interface proposal, CORE A separately binds production KRX calendar identity,
+  then route patch commit 5f9491b6861a11097a929156eaa8bb7cc3c8c749 and reconciled interfaces to SEMI-VALIDATION-AUDITOR
+  under WO-VALIDATION-M3TOP3-v1-DELTA-PREFLIGHT-AFTER-NARROW-FIXES-20260816.
