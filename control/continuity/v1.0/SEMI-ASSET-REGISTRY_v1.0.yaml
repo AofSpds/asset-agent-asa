@@ -1,0 +1,152 @@
+registry_id: SEMI-ASSET-REGISTRY
+version: v1.0
+status: WORKING_CONTROL_REGISTRY
+project: semiconductor-research
+
+asset_classes:
+  AUTHORITY_ASSET: canonical or control-authoritative state, protocol, schema, freeze, or promotion asset
+  DATA_ARTIFACT_ASSET: machine-readable bytes, datasets, workbooks, scripts, manifests, ledgers
+  KNOWLEDGE_ASSET: reusable adjudication, PIT, entity, CA, source-role, exhaustion, and edge-case know-how
+  OPERATIONAL_ASSET: active work, pending returns, blockers, recovery tasks, checkpoints
+
+required_fields:
+  - asset_id
+  - asset_class
+  - title
+  - version
+  - owner_persona
+  - authority_state
+  - artifact_state
+  - parent_asset
+  - sha256
+  - byte_size
+  - primary_locator
+  - secondary_locator
+  - created_at
+  - last_verified
+  - blockers
+
+assets:
+  - asset_id: U127-HIST-WORKBOOK-v0.7
+    asset_class: DATA_ARTIFACT_ASSET
+    title: U127 Data Expansion Working v0.7
+    version: v0.7
+    owner_persona: SEMI-CONTROL-ARCHITECT
+    authority_state: HISTORICAL_LEVEL_3
+    artifact_state: RECOVERED_LOCAL_BYTES_NOT_YET_PERSISTED
+    parent_asset: UNKNOWN
+    sha256: 1fc47fd131479e6ebb4375206853f39a730610d8b9f29160c33aa292881ad50a
+    byte_size: 550774
+    format: XLSX
+    primary_locator: UNASSIGNED_PENDING_PERSISTENCE
+    secondary_locator: UNASSIGNED_PENDING_PERSISTENCE
+    created_at: HISTORICAL_2026-08-15
+    last_verified: '2026-08-15T20:34:00+09:00'
+    verified_internal_state:
+      U127_total: 127
+      company_id_binding: 127
+      listing_date_coverage: 58
+      BP_protocol_certified_cells: 353
+      BP_populated_cells: 370
+      complete_effective_history_companies: 44
+    recommended_use: FORENSIC_LINEAGE_ANCHOR
+    final_ground_truth_authority: false
+    blockers:
+      - NOT_PERSISTED_TO_PRIMARY_DATA_PLANE
+      - NOT_PERSISTED_TO_SECONDARY_DATA_PLANE
+      - FINAL_PARENT_LINEAGE_NOT_VERIFIED
+
+  - asset_id: U127-HIST-WORKBOOK-v1.7-REFERENCE
+    asset_class: OPERATIONAL_ASSET
+    title: U127 v1.7 historical output reference
+    version: v1.7
+    owner_persona: SEMI-CONTROL-ARCHITECT
+    authority_state: REFERENCE_ONLY
+    artifact_state: BYTES_NOT_RECOVERED
+    parent_asset: UNKNOWN
+    sha256: null
+    byte_size: null
+    primary_locator: HISTORICAL_SANDBOX_REFERENCE_ONLY
+    secondary_locator: null
+    last_verified: '2026-08-15T20:34:00+09:00'
+    recommended_use: HIGHEST_PRIORITY_CLEAN_PARENT_RECOVERY_TARGET
+    blockers:
+      - BYTE_IDENTITY_UNAVAILABLE
+
+  - asset_id: U127-HIST-WORKBOOK-v1.8-REFERENCE
+    asset_class: OPERATIONAL_ASSET
+    title: U127 v1.8 historical output reference with materialization conflict
+    version: v1.8
+    owner_persona: SEMI-CONTROL-ARCHITECT
+    authority_state: REFERENCE_ONLY_CONFLICTING
+    artifact_state: BYTES_NOT_RECOVERED
+    parent_asset: U127-HIST-WORKBOOK-v1.7-REFERENCE
+    sha256: null
+    byte_size: null
+    primary_locator: HISTORICAL_SANDBOX_REFERENCE_ONLY
+    secondary_locator: null
+    last_verified: '2026-08-15T20:34:00+09:00'
+    recommended_use: HIGHEST_PRIORITY_FORENSIC_RECOVERY_TARGET
+    blockers:
+      - BYTE_IDENTITY_UNAVAILABLE
+      - PHYSICAL_CREATION_HISTORY_CONFLICT
+
+  - asset_id: U127-HIST-WORKBOOK-v1.9-REFERENCE
+    asset_class: OPERATIONAL_ASSET
+    title: U127 v1.9 research-provisional historical output reference
+    version: v1.9
+    owner_persona: SEMI-CONTROL-ARCHITECT
+    authority_state: CONTROL_REJECTED_PROVISIONAL
+    artifact_state: BYTES_NOT_RECOVERED
+    parent_asset: U127-HIST-WORKBOOK-v1.8-REFERENCE
+    sha256: null
+    byte_size: null
+    primary_locator: HISTORICAL_SANDBOX_REFERENCE_ONLY
+    secondary_locator: null
+    last_verified: '2026-08-15T20:34:00+09:00'
+    contamination:
+      Zenics_W1: RESEARCH_PROVISIONAL_READY_REJECTED_BY_CONTROL
+    recommended_use: FORENSIC_REGRESSION_ONLY
+    final_ground_truth_authority: false
+    blockers:
+      - BYTE_IDENTITY_UNAVAILABLE
+      - PROVISIONAL_CONTAMINATION
+
+  - asset_id: U127-GROUND-TRUTH-LOGICAL-STATE
+    asset_class: AUTHORITY_ASSET
+    title: U127 logical Ground Truth adjudication state
+    version: current_2026-08-15
+    owner_persona: SEMI-CONTROL-ARCHITECT
+    authority_state: CONTROL_ACCEPTED_LOGICAL_STATE
+    artifact_state: PHYSICAL_FINAL_ARTIFACT_NOT_RECOVERED
+    parent_asset: null
+    sha256: null
+    byte_size: null
+    primary_locator: CONTROL_HISTORY_PENDING_MATERIALIZATION
+    secondary_locator: null
+    last_verified: '2026-08-15T20:34:00+09:00'
+    logical_state:
+      membership: 127
+      total_BP_cells: 1016
+      certified_READY: 1013
+      partial: 0
+      unresolved: 3
+      adjudicated_total: 1016
+      complete_histories: 125
+      freeze_policy: POLICY_B_APPROVED
+      logical_freeze_readiness: READY_WITH_WARNINGS
+      physical_freeze: BLOCKED
+      U127_frozen: false
+    unresolved_cells:
+      - company: 제닉스로보틱스
+        code: '381620'
+        window: W1
+      - company: 세미티에스
+        code: '0017J0'
+        window: W1
+      - company: 세미티에스
+        code: '0017J0'
+        window: W2
+    blockers:
+      - AUTHORITATIVE_FINAL_PARENT_BYTES_NOT_RECOVERED
+      - FINAL_MACHINE_ARTIFACT_NOT_PERSISTED
