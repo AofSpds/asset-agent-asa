@@ -1,6 +1,6 @@
 # Semiconductor Research Control Plane
 
-Private repository for the **반도체 연구** project control plane.
+Private repository for the **Asset Agent ASA** project control plane.
 
 ## Repository role
 
