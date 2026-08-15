@@ -1,0 +1,229 @@
+proposal_id: SEMI-SHARED-CONTRACT-CLOSURE-PROPOSAL
+version: v0.1_WORKING
+status: CORE_A_PROPOSAL_AWAITING_CORE_B_RECONCILIATION
+project: semiconductor-research
+as_of: '2026-08-15T23:03:00+09:00'
+initiating_core: CORE_A
+initiating_persona: SEMI-CONTROL-ARCHITECT
+peer_core: CORE_B
+peer_persona: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+purpose: close the five open shared contracts required before official M3Top3 no-tune replay
+
+principles:
+  - SHARED_CONTRACT_REQUIRES_BOTH_CORES
+  - CORE_A_PROPOSAL_IS_NOT_CORE_B_ACCEPTANCE
+  - OUTCOME_BLIND_INPUTS
+  - IMMUTABLE_VERSIONED_RELEASES
+  - DETERMINISTIC_RERUN
+  - PIT_CUTOFF_AND_TRADING_CALENDAR_SEMANTICS_MUST_BE_EXPLICIT
+  - CA_AND_PRICE_READINESS_REMAIN_SEPARATE_EXECUTION_GATES
+
+contracts:
+  - contract: WINDOW_MAPPING
+    proposed_version: WM-v1.0
+    status: PROPOSED
+    semantics:
+      snapshot_cutoff_date: calendar_date_D_at_project_PIT_cutoff
+      window_start: D
+      nominal_window_end: D_plus_3_calendar_months
+      month_add_rule: preserve_day_of_month_when_possible_otherwise_clip_to_last_valid_calendar_day
+      entry_trade_date: first_KRX_trading_day_strictly_after_window_start
+      evaluation_last_trade_date: last_KRX_trading_day_on_or_before_nominal_window_end
+      exit_trade_date: first_KRX_trading_day_strictly_after_nominal_window_end
+      MFE_interval: entry_trade_date_through_evaluation_last_trade_date_inclusive
+      MAE_interval: entry_trade_date_through_evaluation_last_trade_date_inclusive
+      horizon_close_date: evaluation_last_trade_date
+      historical_W1_W8_compatibility: designed_to_match_calendar_3M_semantics
+    CORE_A_owns:
+      - KRX_trading_calendar_resolution
+      - date_mapping_implementation
+      - price_availability_and_validity
+    CORE_B_owns:
+      - approximate_3M_economic_horizon_semantics
+      - validation_interpretation
+    open_peer_questions:
+      - confirm_calendar_3M_is_authoritative_for_daily_replay
+      - confirm_strictly_after_snapshot_entry_and_window_end_exit
+
+  - contract: MODEL_INPUT_SCHEMA
+    proposed_version: MIS-v1.0
+    status: PROPOSED
+    required_identity_fields:
+      - snapshot_id
+      - snapshot_date
+      - snapshot_cutoff_at
+      - company_id
+      - krx_code
+      - universe_release_id
+      - eligibility_state
+      - model_input_schema_version
+      - feature_schema_version
+    required_feature_fields:
+      - feature_id
+      - axis_id
+      - numeric_or_enum_value
+      - availability_state
+      - missing_reason
+      - evidence_group_id
+      - source_lineage_ref
+      - evidence_publication_at_or_supported_cutoff_ref
+    required_run_binding_fields:
+      - model_version
+      - scorer_version
+      - weight_version
+      - code_commit_or_executable_identity
+    prohibited_input_fields:
+      - future_MFE
+      - future_MAE
+      - future_return
+      - future_rank
+      - future_high
+      - future_close
+      - any_post_cutoff_outcome_derived_feature
+    missingness_semantics:
+      rule: MISSING_UNKNOWN_REVIEW_REQUIRED_ZERO_FALSE_are_distinct_states
+      no_silent_zero_fill: true
+    CORE_A_owns:
+      - canonical_storage_schema
+      - PIT_provenance
+      - identity_and_release_binding
+      - data_types_and_persistence
+    CORE_B_owns:
+      - feature_consumption
+      - model_missingness_behavior
+      - feature_requirements
+      - anti_leakage_semantics
+
+  - contract: SCORER_IO
+    proposed_version: SIO-v1.0
+    status: PROPOSED
+    input_contract:
+      unit: one_company_one_snapshot
+      required_bindings:
+        - snapshot_id
+        - company_id
+        - model_version
+        - feature_schema_version
+        - scorer_version
+        - weight_version
+      eligibility_rule: score_only_if_eligible_or_emit_explicit_exclusion_record
+    output_contract:
+      required_fields:
+        - snapshot_id
+        - company_id
+        - model_version
+        - scorer_version
+        - weight_version
+        - raw_score
+        - exact_rank
+        - eligibility_state
+        - exclusion_reason
+        - top3_flag
+        - top10_flag
+        - warning_flags
+        - run_id
+      rank_rule:
+        primary_sort: raw_score_descending_full_precision
+        exact_tie_break: company_id_ascending
+        rounded_score_must_not_determine_tie: true
+      mutability:
+        same_model_version_and_same_bound_inputs_must_reproduce_identical_output: true
+        material_algorithm_or_weight_change_requires_new_model_or_component_version: true
+    CORE_A_owns:
+      - persistent_schema
+      - run_provenance
+      - artifact_registration
+      - compatibility_control
+    CORE_B_owns:
+      - scorer_algorithm
+      - feature_vector_interpretation
+      - weighting
+      - score_and_rank_semantics
+
+  - contract: VALIDATION_DATASET_IDENTITY
+    proposed_version: VDI-v1.0
+    status: PROPOSED
+    release_manifest_must_bind:
+      - U127_ground_truth_release_id_and_hashes
+      - Price_release_id_and_hashes
+      - CA_policy_and_readiness_version
+      - Window_Mapping_version
+      - Entry_Exit_Outcome_contract_version
+      - eligible_universe_rule_version
+      - outcome_schema_version
+      - calendar_version_or_source_identity
+      - dataset_build_code_commit
+      - dataset_row_count
+      - duplicate_and_null_control_totals
+      - primary_locator
+      - secondary_locator
+    denominator_rule:
+      official_metrics_require_explicit_eligible_denominator_per_snapshot: true
+      UNKNOWN_or_REVIEW_REQUIRED_handling_must_be_versioned: true
+    immutability:
+      validation_release_cannot_mutate_after_model_result_is_bound: true
+    CORE_A_owns:
+      - bytes_hashes_locators
+      - data_lineage
+      - build_identity
+      - readiness
+    CORE_B_owns:
+      - required_targets_and_metrics
+      - denominator_semantics
+      - model_version_comparability_requirements
+
+  - contract: MODEL_ARTIFACT_RELEASE_MANIFEST
+    proposed_version: MARM-v1.0
+    status: PROPOSED
+    required_fields:
+      - model_release_id
+      - model_version
+      - feature_schema_version
+      - scorer_version
+      - weight_version
+      - model_input_schema_version
+      - scorer_io_version
+      - validation_contract_version
+      - code_commit
+      - config_hash
+      - model_artifact_hashes
+      - primary_locators
+      - secondary_locators
+      - compatible_validation_dataset_versions
+      - no_tune_lock_state
+      - independent_validation_state
+      - known_blockers
+      - CORE_B_freeze_recommendation_state
+      - CORE_A_control_gate_state
+      - Owner_final_approval_state
+    release_states:
+      - WORKING
+      - BASELINE_LOCKED
+      - VALIDATION_CANDIDATE
+      - FREEZE_RECOMMENDED
+      - FROZEN
+      - RETIRED
+    rules:
+      - FROZEN_artifact_is_immutable
+      - baseline_result_must_not_overwrite_model_definition
+      - retrospective_change_requires_new_version
+    CORE_A_owns:
+      - artifact_identity
+      - SHA256
+      - locators
+      - persistence
+      - release_state_control
+    CORE_B_owns:
+      - semantic_model_identity
+      - feature_scorer_weight_versions
+      - compatibility
+      - model_validation_recommendation
+
+closure_gate:
+  CORE_A_decision: PROPOSE_ACCEPT
+  CORE_B_decision: PENDING
+  independent_validation_required_before_official_replay: YES_FOR_IMPLEMENTATION_AND_RELEASE_IDENTITY
+  control_sync_required: true
+  major_owner_escalation_required: false
+
+next_action: CORE_B_REVIEW_ACCEPT_MODIFY_OR_REJECT_EACH_CONTRACT
