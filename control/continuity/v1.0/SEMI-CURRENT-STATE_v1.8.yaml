@@ -1,0 +1,173 @@
+state_id: SEMI-CURRENT-STATE
+version: v1.8
+status: WORKING_CONTROL_ARCHITECT_SUCCESSOR_ACTIVE
+project: semiconductor-research
+as_of: '2026-08-16T00:32:00+09:00'
+supersedes: control/continuity/v1.0/SEMI-CURRENT-STATE_v1.7.yaml
+
+owner:
+  role: PROJECT_OWNER_RESEARCH_DIRECTOR
+  organization_map_review: ACCEPTED
+  organization_structure_change_requested: false
+
+active_cores:
+  CORE_A:
+    canonical_name: 문서·통제 아키텍트
+    persona_id: SEMI-CONTROL-ARCHITECT
+    current_instance_id: CTRL-ARCH-INSTANCE-005-20260816
+    predecessor_instance_id: CTRL-ARCH-INSTANCE-004-20260815
+    status: ACTIVE_SUCCESSOR_BOOTSTRAP_RECONCILED
+    start_checkpoint: CP-CTRL-20260816-ROTATION-001
+  CORE_B:
+    canonical_name: 모델 검증·설계 아키텍트
+    persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+    instance_id: MODEL-ARCH-INSTANCE-002-20260815
+    status: ACTIVE_IMPLEMENTATION_CANDIDATE_COMPLETE
+    actual_replay_authorized: false
+    model_freeze_authorized: false
+
+project_instruction_governance:
+  global_instruction_set: control/continuity/v1.0/SEMI-PROJECT-GLOBAL-INSTRUCTIONS_v1.2_ACTIVE.yaml
+  mutation_authority: CORE_PERSONAS_ONLY
+  comprehension_rule: UNDERSTANDING_BEFORE_COMPRESSION_TECHNICAL_TERM_RETAINED_WITH_KOREAN_EXPLANATION
+
+organization:
+  org_map: control/continuity/v1.0/SEMI-ORG-MAP_v0.2_WORKING.yaml
+  authority_matrix: control/continuity/v1.0/SEMI-DUAL-CORE-AUTHORITY-MATRIX_v0.2_WORKING.yaml
+  owner_acceptance: ACCEPTED_2026_08_16
+  core_relationship: PEER_CORE_PERSONAS
+  independent_validation_function: FUNCTIONALLY_SEPARATE
+  shared_contract_state: control/continuity/v1.0/SEMI-SHARED-CONTRACT-STATE_v0.4_WORKING.yaml
+  shared_contract_total: 9
+  shared_contract_agreed_count: 9
+  shared_contract_open_definition_count: 0
+  non_material_stale_reference_warning: >-
+    SEMI-ORG-MAP_v0.2_WORKING contains an embedded current_status/shared-contract snapshot from an earlier state
+    (4 agreed / 5 open and v0.1 reference). For current contract state, SEMI-SHARED-CONTRACT-STATE_v0.4_WORKING
+    is authoritative: 9/9 agreed, 0 open definitions. This warning does not change organization authority.
+
+window_mapping:
+  version: WM-v1.1
+  status: DUAL_CORE_AGREED_WORKING_IMPLEMENTED_CANDIDATE
+  plain_meaning: 3개월 평가기간의 달력 기준일과 당시 사용가능정보 마감시각을 분리하는 규칙
+  historical_W1_W8_compatibility: PASS_8_OF_8_CORE_B_SYNTHETIC
+  production_KRX_calendar_identity: NOT_YET_BOUND
+
+model_v1:
+  model_version: M3TOP3-v1.0
+  feature_count: 9
+  feature_schema: M3TOP3-FEATURE-SCHEMA_v1.0_WORKING
+  scorer: M3TOP3-GATED-LINEAR_v1.0_WORKING
+  axis_weights: {Business_Momentum: 25, Expectation_Surprise: 25, Market_Positioning: 20, Forward_Runway: 20, Reliability_Risk: 10}
+  machine_implementation_manifest: control/core_b/M3TOP3-v1-MACHINE-IMPLEMENTATION-MANIFEST_v0.1_WORKING.yaml
+  machine_implementation_status: CONTROL_ACCEPTED_CANDIDATE_WITH_WARNINGS
+  source_code_commit: 32c8a0f31428273d76b4e7b3f2cea76f955770aa
+  config_path: tools/m3top3/configs/m3top3_v1.0.json
+  config_sha256_declared: eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98
+  baseline_lock: control/core_b/M3TOP3-NO-TUNE-BASELINE-LOCK_v1.2_WORKING.yaml
+  synthetic_tests: CORE_B_PASS_18_OF_18_NOT_INDEPENDENT
+  independent_implementation_preflight: READY_TO_DISPATCH_NOT_EXECUTED
+  independent_preflight_work_order: control/workorders/WO-VALIDATION-M3TOP3-v1-INDEPENDENT-PREFLIGHT-20260816.yaml
+  actual_outcome_data_inspected: false
+  actual_U127_two_year_replay: NOT_EXECUTED
+  model_frozen: false
+
+validation_channel:
+  required_role: 독립 검증·감사팀
+  role_id: SEMI-VALIDATION-AUDITOR
+  channel_exists: false
+  planned_instance: VALID-AUDIT-INSTANCE-001-20260816
+  bootstrap_prompt_prepared: true
+  bootstrap_executed: false
+  next_after_bootstrap: DISPATCH_INDEPENDENT_IMPLEMENTATION_PREFLIGHT
+
+u127:
+  membership: 127
+  total_BP_cells: 1016
+  certified_READY: 1013
+  unresolved: 3
+  partial: 0
+  complete_histories: 125
+  unresolved_exact:
+    - 'KRX:381620 제닉스로보틱스 W1 R7'
+    - 'KRX:0017J0 세미티에스 W1 R7'
+    - 'KRX:0017J0 세미티에스 W2 R7'
+  highest_byte_verified_artifact: U127_Data_Expansion_Working_v0.7_2026-08-15.xlsx
+  v0_7_sha256: 1fc47fd131479e6ebb4375206853f39a730610d8b9f29160c33aa292881ad50a
+  v0_7_byte_size: 550774
+  canonical_release_spec: control/u127/SEMI-U127-CANONICAL-RELEASE-SPEC_v0.2_WORKING.yaml
+  membership_identity_binding: PASS_127_OF_127
+  final_state_source_binding: PARTIAL_PASS
+  window_mapping_binding: PASS_WM_v1_1
+  v0_7_primary_persistence: NOT_YET
+  v0_7_secondary_persistence: NOT_YET
+  canonical_machine_release: NOT_MATERIALIZED
+  recovery_rule: DO_NOT_REMATERIALIZE_MISSING_v0_8_TO_v1_9
+
+price:
+  dataset_id: SEMI-PRICE-MARCAP-KRX-2024-2026_v1
+  identity_sha256: 419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7
+  raw_rows: 1819147
+  primary_storage: AWS_S3_MATERIALIZED_VERIFIED
+  secondary_storage: CLOUDFLARE_R2_MATERIALIZED_VERIFIED
+  official_D4: BLOCKED
+  official_D5: NOT_EXECUTED
+
+ca:
+  research_local_signal_adjudication: PASS_24_OF_24_NOT_INDEPENDENT
+  research_local_regression: PASS_2_OF_2_NOT_INDEPENDENT
+  project_completeness_gate: BLOCKED
+  targeted_open_cases:
+    - KRX:001527@2024-03-28
+    - KRX:403360@2026-05-08
+
+actual_replay_readiness:
+  ready: false
+  blockers:
+    model_assurance:
+      - INDEPENDENT_IMPLEMENTATION_PREFLIGHT
+      - PRODUCTION_KRX_TRADING_CALENDAR_IDENTITY
+      - SOURCE_COMPONENT_SHA256_MANIFEST
+    data_control:
+      - U127_FINAL_SOURCE_BINDING_INDEPENDENT_VALIDATION
+      - U127_V0_7_PRIMARY_SECONDARY_PERSISTENCE
+      - U127_CANONICAL_MACHINE_RELEASE_MATERIALIZATION
+      - PRICE_OFFICIAL_READINESS
+      - CA_RAW_OHLC_CLOSURE
+      - VALIDATION_DATASET_RELEASE_MATERIALIZATION
+    release:
+      - MATERIALIZE_VDI_v1_0
+      - MATERIALIZE_MARM_v1_0
+      - INDEPENDENT_REPLAY_VALIDATION_PROCEDURE
+
+continuity:
+  checkpoint_loaded: true
+  checkpoint_id: CP-CTRL-20260816-ROTATION-001
+  checkpoint_creation_commit_verified: 25723ff582004a34c5499313a4edcfabae204313
+  predecessor_checkpoint_embedded_parent_commit: 1dd7b7532f1e8969ac9e9a84bc7a97a4e9dad31e
+  successor_instance: CTRL-ARCH-INSTANCE-005-20260816
+  predecessor_instance: CTRL-ARCH-INSTANCE-004-20260815
+  channel_registry: control/continuity/v1.0/SEMI-CHANNEL-REGISTRY_v1.2.yaml
+  event_ledger_head: control/continuity/v1.0/SEMI-CONTROL-EVENT-LEDGER_v2.0.jsonl
+  bootstrap_result: PASS_WITH_WARNINGS
+  material_persistent_state_conflict: false
+  ready_for_normal_control_operation: true
+
+next_actions_parallel:
+  validation:
+    - CREATE_SEMI_VALIDATION_AUDITOR_CHANNEL
+    - BOOTSTRAP_VALIDATION_PERSONA
+    - DISPATCH_M3TOP3_v1_INDEPENDENT_IMPLEMENTATION_PREFLIGHT_AFTER_BOOTSTRAP
+  문서·통제_아키텍트_CORE_A:
+    - CONTINUE_U127_RELEASE_CLOSURE
+    - CONTINUE_PRICE_CA_TARGETED_CLOSURE
+    - PREPARE_VALIDATION_DATASET_RELEASE
+  모델_검증·설계_아키텍트_CORE_B:
+    - HOLD_MODEL_SEMANTICS_AND_WEIGHTS_UNCHANGED
+    - RESPOND_ONLY_TO_NARROW_INDEPENDENT_PREFLIGHT_FINDINGS
+
+prohibited_until_gates_close:
+  - ACTUAL_U127_TWO_YEAR_REPLAY
+  - MODEL_FREEZE
+  - PRODUCTION_RELEASE
+  - OUTCOME_BASED_MODEL_TUNING
