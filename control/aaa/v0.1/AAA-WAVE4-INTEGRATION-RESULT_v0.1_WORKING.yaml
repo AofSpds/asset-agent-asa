@@ -1,0 +1,54 @@
+result_id: AAA-WAVE4-INTEGRATION-RESULT
+version: v0.1_WORKING
+project: Asset Agent ASA
+short_name: AAA
+status: ENGINEERING_INTEGRATION_PASS_WITH_OPEN_VALIDATION_AND_INFRA_GATES
+integration_branch: aaa-integration-v0.2
+tracks:
+  AAA-T13-MODEL-PROVIDER-ADAPTERS:
+    status: INTEGRATED_ENGINEERING_PASS
+    exact_base: e2edcfbf79086c8945449ce50f3e96e91e7fe664
+    source_pr: 21
+    source_head: 27cd4933084534214ff5136b7a40cdd527990852
+    merge_commit: 48c0433924657836de1d9a680fd7050a5fa11ac7
+    changed_files:
+      - aaa/src/aaa/gateway/provider.py
+      - aaa/src/aaa/gateway/router.py
+      - aaa/tests/test_gateway_v04.py
+    ci_run: 31905461865
+    tests: PASS_61_OF_61
+    owner_console_build: PASS
+    independent_validation: false
+    live_external_provider_execution: false
+  AAA-T14-RECOVERY-DRILL-HARNESS:
+    status: INTEGRATED_ENGINEERING_PASS
+    exact_base: 48c0433924657836de1d9a680fd7050a5fa11ac7
+    source_pr: 22
+    source_head: 218b73838defa52bd5554ef0fc5cc895c02f8b18
+    merge_commit: ac5db1ffbf8977a9fc7284bd4bb9d530171c2d28
+    changed_files:
+      - aaa/src/aaa/recovery/drill.py
+      - aaa/tests/test_recovery_drill_v04.py
+    ci_run: 31905554438
+    combined_tests: PASS_69_OF_69
+    owner_console_build: PASS
+    actual_local_process_interruption_executed: true
+    real_s3_r2_failure_drill_executed: false
+    independent_validation: false
+noninterference:
+  canonical_control_write: false
+  m3top3_methodology_changed: false
+  u127_changed: false
+  replay_authorized: false
+  model_frozen: false
+  production_release_authorized: false
+  controlled_cutover_authorized: false
+open_limitations:
+  - REAL_S3_R2_PARTIAL_FAILURE_NOT_DRILLED
+  - LIVE_EXTERNAL_PROVIDER_NETWORK_NOT_EXECUTED
+  - FULL_SHADOW_CYCLE_NOT_COMPLETED
+  - CONTINUITY_EVENT_ID_COLLISION_REQUIRES_SEMI_CONTROL_ARCHITECT_ADJUDICATION
+  - INDEPENDENT_VALIDATION_NOT_PASSED
+next_wave_candidates:
+  - AAA-T15-NATURAL-LANGUAGE-NONCANONICAL
+  - AAA-T16-SHADOW-CYCLE-HARNESS
