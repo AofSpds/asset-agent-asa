@@ -1,0 +1,394 @@
+schema_id: M3TOP3-FEATURE-SCHEMA
+version: v1.0_WORKING
+status: CORE_B_OUTCOME_BLIND_BASELINE_CANDIDATE
+project: semiconductor-research
+owner_persona: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+work_order_id: WO-COREB-V1-PREOUTCOME-LOCK-20260815
+created_at: '2026-08-15T23:10:00+09:00'
+outcome_data_inspected_for_tuning: false
+actual_u127_replay_executed: false
+model_frozen: false
+
+model_objective: TOP_K_APPROX_3M_OPPORTUNITY_RANKING
+score_domain: [0, 100]
+feature_count: 9
+axes:
+  A1: Business_Momentum
+  A2: Expectation_Surprise
+  A3: Market_Positioning
+  A4: Forward_Runway
+  A5: Reliability_Risk
+
+normalization_common:
+  continuous_cross_sectional_rule: >-
+    When a feature uses cross-sectional continuous observations, compute only from the same
+    frozen Snapshot eligible universe, winsorize source metric values at the 5th/95th
+    percentiles, then convert to full-precision percentile rank in [0,100]. No future values.
+  ordinal_rule: FIXED_PRIOR_MAPPING_ONLY
+  missing_rule: >-
+    MISSING, UNKNOWN, REVIEW_REQUIRED, ZERO and FALSE are distinct. Missing values remain NA;
+    no silent zero or false fill. Scorer renormalizes only over available features and emits
+    weighted coverage metadata. Official Top-K validation requires complete governed coverage.
+  leakage_rule: >-
+    No MFE, MAE, future return, future high, future close, future rank, future winner label,
+    or post-cutoff source may enter any feature.
+  source_rule: >-
+    Raw observations/evidence must be available by snapshot_cutoff_at. Model-derived feature
+    interpretation is stored in model-specific feature/score records, not canonical PIT facts.
+
+features:
+  - feature_id: F01_COMMERCIAL_CONVERSION_MOMENTUM
+    axis: A1
+    name: Commercial Conversion Momentum
+    economic_meaning: >-
+      Measures whether a company has progressed from a merely expected catalyst into verified
+      commercial conversion such as qualification, acceptance, first/volume order, shipment,
+      backlog conversion or repeat order, with emphasis on recency.
+    predictive_hypothesis: >-
+      Recent verified commercial-state advancement is a direct near-term bridge from industry
+      demand to supplier revenue and should carry more 3M information than static structural quality.
+    raw_pit_inputs:
+      - qualification_fact
+      - acceptance_fact
+      - PO_or_order_fact
+      - volume_order_fact
+      - backlog_fact
+      - shipment_fact
+      - repeat_order_fact
+      - customer_adoption_fact
+      - event_publication_at
+      - source_lineage_ref
+    publication_availability_requirement: >-
+      Every commercial fact must be publicly supported at or before snapshot_cutoff_at; supplier
+      claims of possibility are not equivalent to completed qualification/order.
+    transformation: >-
+      Derive model-specific commercial_state from source facts using fixed prior mapping:
+      NONE=0; CONCRETE_CATALYST_PRE_COMMERCIAL=25; QUALIFICATION_ACCEPTANCE_OR_FIRST_VOLUME_ORDER=60;
+      SHIPMENT_OR_BACKLOG_CONVERSION=80; REPEAT_ORDER_OR_MULTIPLE_INDEPENDENT_COMMERCIAL_CONFIRMATIONS=100.
+      Derive latest_positive_transition_recency: <=30d=100; 31-60d=75; 61-90d=50;
+      >90d=25; no supported positive transition=0. Feature score = 0.75*state + 0.25*recency.
+    normalization: FIXED_ORDINAL_PLUS_RECENCY_TO_0_100
+    missing_policy: >-
+      If no relevant evidence is retrievable, return NA/NOT_FOUND rather than 0. NOT_FOUND is
+      evidence failure, not proof of no commercial activity.
+    clipping_saturation_rule: CLIP_0_100
+    double_count_group: COMMERCIAL_EVENT_GROUP
+    leakage_risk: >-
+      High if later-known order/shipment/revenue is backdated. Enforce publication_at cutoff and
+      first-supported-state doctrine.
+    false_positive_risk: One-off PO or non-repeatable customer event may not sustain 3M opportunity.
+    false_negative_risk: Confidential customer qualification/order may be economically real before public evidence.
+    why_included_in_v1: Directly captures realized commercial momentum with compact, auditable state logic.
+
+  - feature_id: F02_NUMERIC_BUSINESS_INFLECTION
+    axis: A1
+    name: Numeric Business Inflection
+    economic_meaning: >-
+      Measures realized numerical improvement in revenue, operating profit/margin, backlog or
+      utilization/wafer-start variables appropriate to the company's transmission beta.
+    predictive_hypothesis: >-
+      A verified numerical inflection confirms that commercial activity is converting into
+      measurable business performance and reduces reliance on narrative-only catalysts.
+    raw_pit_inputs:
+      - latest_revenue
+      - latest_operating_profit
+      - latest_operating_margin
+      - backlog
+      - utilization_or_wafer_start_when_beta_relevant
+      - prior_comparable_period_values
+      - publication_at
+    publication_availability_requirement: >-
+      Financial/operating values must be published before cutoff; no restated future knowledge
+      may be projected backward.
+    transformation: >-
+      For available realized metrics compute signed change versus the appropriate prior comparable
+      period. Convert each change to same-Snapshot eligible-universe robust percentile; take the
+      median of available metric percentiles. Use utilization only for companies whose beta makes it economically relevant.
+    normalization: ROBUST_CROSS_SECTIONAL_PERCENTILE_MEDIAN_0_100
+    missing_policy: NA_IF_NO_VALID_REALIZED_METRIC; no silent neutral or zero fill.
+    clipping_saturation_rule: SOURCE_CHANGES_WINSORIZED_5_95_PERCENTILE_BEFORE_PERCENTILE_RANK
+    double_count_group: REALIZED_NUMERIC_GROUP
+    leakage_risk: Revised historical statements or later earnings knowledge being backfilled.
+    false_positive_risk: Base effects, one-quarter mix shifts, or temporary utilization spikes.
+    false_negative_risk: Lumpy equipment revenue can understate underlying order momentum before recognition.
+    why_included_in_v1: Separates narrative/commercial-stage progress from actual numerical conversion.
+
+  - feature_id: F03_FORWARD_REVISION_MOMENTUM
+    axis: A2
+    name: Forward Revision Momentum
+    economic_meaning: >-
+      Measures change in PIT-available forward EPS/OP expectations and explicit forward guidance.
+    predictive_hypothesis: >-
+      Upward forward revisions are a compact measure of information entering expectations before
+      full earnings realization and are directly relevant to a 3M ranking horizon.
+    raw_pit_inputs:
+      - forward_eps_same_provider
+      - forward_op_same_provider
+      - prior_snapshot_forward_eps
+      - prior_snapshot_forward_op
+      - official_guidance_change
+      - consensus_timestamp
+    publication_availability_requirement: >-
+      Same provider/definition across time; estimate versions must be timestamped and available by cutoff.
+    transformation: >-
+      Compute 1-3 month revision percentage for available forward EPS/OP; convert to same-Snapshot
+      robust percentile and average available percentiles. If no numeric consensus exists but explicit
+      official guidance direction exists, fixed fallback mapping is UP=80, UNCHANGED=50, DOWN=20.
+    normalization: ROBUST_CROSS_SECTIONAL_PERCENTILE_OR_FIXED_GUIDANCE_MAPPING
+    missing_policy: NA_IF_NEITHER_VALID_REVISION_NOR_EXPLICIT_GUIDANCE
+    clipping_saturation_rule: NUMERIC_REVISION_WINSORIZED_5_95_PERCENTILE
+    double_count_group: FORWARD_EXPECTATION_GROUP
+    leakage_risk: Using consensus revisions published after cutoff or revised provider history.
+    false_positive_risk: Analyst revisions may chase price/news or reflect short-lived estimate noise.
+    false_negative_risk: Sparse analyst coverage can hide real forward improvement.
+    why_included_in_v1: High-information expectation-change signal with clear PIT timestamp discipline.
+
+  - feature_id: F04_EVENT_SURPRISE_VS_PRIOR_EXPECTATION
+    axis: A2
+    name: Event Surprise vs Prior Expectation
+    economic_meaning: >-
+      Measures the delta between a newly observed earnings/order/guidance event and an independently
+      documented expectation that existed before the event.
+    predictive_hypothesis: >-
+      The same business event has more ranking value when it exceeds prior public expectations than
+      when it merely confirms what was already priced/forecast.
+    raw_pit_inputs:
+      - observed_event_value_or_direction
+      - pre_event_consensus_or_guidance_baseline
+      - baseline_timestamp
+      - event_publication_at
+      - evidence_group_id
+    publication_availability_requirement: >-
+      An independent pre-event expectation baseline must be timestamped before the event and before
+      snapshot cutoff. Without that baseline the feature is NA, not assumed neutral.
+    transformation: >-
+      Numeric surprises use (observed-prior_expectation)/max(abs(prior_expectation),epsilon), then
+      same-Snapshot robust percentile. Qualitative surprises use fixed mapping: materially_above=90,
+      above=75, inline=50, below=25, materially_below=10, only when the prior baseline is explicit.
+    normalization: ROBUST_PERCENTILE_OR_FIXED_SURPRISE_ORDINAL_0_100
+    missing_policy: NA_IF_NO_INDEPENDENT_PRE_EVENT_EXPECTATION_BASELINE
+    clipping_saturation_rule: NUMERIC_SURPRISE_WINSORIZED_5_95_PERCENTILE
+    double_count_group: EVENT_SURPRISE_GROUP
+    leakage_risk: Constructing the expectation baseline after seeing the event.
+    false_positive_risk: A positive surprise may be non-recurring or low quality.
+    false_negative_risk: Companies without formal consensus/guidance lose measurable surprise despite real information.
+    why_included_in_v1: Distinguishes new information from already-expected business momentum.
+
+  - feature_id: F05_MARKET_POSITIONING_BALANCE
+    axis: A3
+    name: Market Positioning Balance
+    economic_meaning: >-
+      Measures whether the market has begun to recognize the thesis while reducing credit when the
+      same price/attention evidence indicates extreme saturation.
+    predictive_hypothesis: >-
+      Early-to-intermediate recognition can confirm information diffusion, while extremely crowded
+      or fully recognized states leave less 3M rerating headroom.
+    raw_pit_inputs:
+      - trailing_20d_total_return
+      - trailing_60d_total_return
+      - eligible_universe_equal_weight_returns
+      - turnover_or_volume_acceleration
+      - valuation_percentile_if_available
+      - report_or_news_diffusion_percentile_if_available
+    publication_availability_requirement: >-
+      All market observations must end on or before snapshot date and come from the bound historical
+      price/market data release; no post-snapshot prices.
+    transformation: >-
+      Recognition velocity V = 0.50*Pctl(20d universe-relative return) +
+      0.30*Pctl(60d universe-relative return) + 0.20*Pctl(turnover acceleration).
+      Saturation penalty P = max(0,V-85)*1.0 + 0.5*max(0,valuation_percentile-90) when available +
+      0.5*max(0,diffusion_percentile-90) when available; cap P at 30.
+      Score = clip(V-P,0,100).
+    normalization: SAME_SNAPSHOT_CROSS_SECTIONAL_PERCENTILES_0_100
+    missing_policy: >-
+      Price-relative-return components are required for this feature; optional valuation/diffusion
+      components may be absent without imputation and simply do not add saturation penalty.
+    clipping_saturation_rule: SATURATION_PENALTY_CAPPED_30; FINAL_CLIP_0_100
+    double_count_group: MARKET_RECOGNITION_GROUP
+    leakage_risk: Any forward price/volume observation creates direct outcome leakage.
+    false_positive_risk: Momentum/crowding can continue despite apparent saturation; event-driven spikes may reverse.
+    false_negative_risk: Fundamental winners can rerate before volume/news diffusion becomes measurable.
+    why_included_in_v1: Captures recognition velocity and saturation in one feature to avoid double-counting correlated market signals.
+
+  - feature_id: F06_CONVERSION_RUNWAY
+    axis: A4
+    name: Conversion Runway
+    economic_meaning: >-
+      Measures how much verified, time-bounded commercial or earnings conversion remains ahead over
+      roughly the next 3 months rather than how much has already occurred.
+    predictive_hypothesis: >-
+      A company with supported near-term milestones still ahead has more remaining opportunity than
+      one whose catalyst has already fully converted and been recognized.
+    raw_pit_inputs:
+      - announced_or_supported_qualification_timing
+      - backlog_delivery_timing
+      - shipment_schedule
+      - equipment_move_in_or_acceptance_timing
+      - customer_ramp_timing
+      - guidance_milestones
+      - capacity_headroom_when_required_for_conversion
+    publication_availability_requirement: >-
+      Only time-bounded milestones supported before cutoff. General long-term roadmap language does
+      not count as a 3M milestone.
+    transformation: >-
+      Fixed prior mapping based on independently supported milestones inside nominal 3M horizon:
+      none=20; one low-confidence/industry-estimate milestone=40; one verified S1-S3 milestone=70;
+      two or more independent verified milestones=90; multiple verified sequential conversion steps
+      with timing support=100. Cap at 70 when only supplier self-claim supports timing.
+    normalization: FIXED_ORDINAL_0_100
+    missing_policy: NA_WHEN_RETRIEVAL_CANNOT_ESTABLISH_OR_REJECT_NEAR_TERM_MILESTONES
+    clipping_saturation_rule: CLIP_0_100; SUPPLIER_ONLY_TIMING_CAP_70
+    double_count_group: FORWARD_CATALYST_GROUP
+    leakage_risk: Using milestones learned only after they occurred or backdating later schedule revisions.
+    false_positive_risk: Announced schedules slip; capacity/customer dependencies can delay conversion.
+    false_negative_risk: Unannounced customer milestones may drive actual results before public confirmation.
+    why_included_in_v1: Directly represents remaining 3M runway rather than realized business state.
+
+  - feature_id: F07_BETA_TRANSMISSION_ALIGNMENT
+    axis: A4
+    name: Customer/Fab Beta Transmission Alignment
+    economic_meaning: >-
+      Measures whether customer CAPEX, fab stage, utilization, package/test cycle or foundry cycle is
+      currently in the economically relevant phase for the company's primary transmission beta.
+    predictive_hypothesis: >-
+      Industry demand creates supplier opportunity only when it reaches the part of the customer/fab
+      cycle that transmits into that supplier's products and timing.
+    raw_pit_inputs:
+      - primary_beta
+      - secondary_beta_if_material
+      - customer_capex
+      - fab_stage
+      - equipment_order_move_in_install_state
+      - utilization_or_wafer_start
+      - package_or_test_cycle
+      - foundry_ramp_or_tapeout_state
+      - customer_official_timing
+    publication_availability_requirement: >-
+      Customer/fab state must be PIT-supported. Construction alone may not be treated as equipment
+      move-in, qualification or revenue.
+    transformation: >-
+      Apply the fixed SEMI-EVAL-CORE beta transmission map to derive activation alignment:
+      NOT_ACTIVE=0; PRE_ACTIVATION=25; APPROACHING_RELEVANT_PHASE=50;
+      ACTIVE_RELEVANT_PHASE=75; ACTIVE_WITH_DIRECT_CUSTOMER_CONFIRMATION=100.
+    normalization: FIXED_BETA_STAGE_ORDINAL_0_100
+    missing_policy: NA_IF_CUSTOMER_OR_FAB_STATE_CANNOT_BE_PIT_SUPPORTED
+    clipping_saturation_rule: CLIP_0_100
+    double_count_group: CUSTOMER_TRANSMISSION_GROUP
+    leakage_risk: Reclassifying historical fab stage using later knowledge.
+    false_positive_risk: Customer capex may not map to the supplier's tool share/process allocation.
+    false_negative_risk: Supplier-specific orders can precede public customer-stage detail.
+    why_included_in_v1: Converts broad CAPEX narratives into supplier-specific timing logic.
+
+  - feature_id: F08_EVIDENCE_RELIABILITY
+    axis: A5
+    name: Evidence Reliability and Freshness
+    economic_meaning: >-
+      Measures confidence that the economic signals used by the scorer are actually supported by
+      timely, non-conflicting evidence available at the Snapshot cutoff.
+    predictive_hypothesis: >-
+      A ranking built on fresh primary evidence should be more reliable than one depending on stale,
+      conflicting or retrieval-incomplete support even when the apparent narrative is similar.
+    raw_pit_inputs:
+      - source_tier
+      - evidence_class
+      - evidence_status
+      - confidence
+      - publication_at
+      - refresh_code
+      - freshness_days
+      - conflict_flag
+      - missing_reason
+    publication_availability_requirement: Evidence metadata must correspond to the same PIT-bound evidence used by model features.
+    transformation: >-
+      For each scored feature assign evidence status base: VERIFIED_HIGH=100; VERIFIED_MEDIUM=85;
+      PARTIAL=65; NOT_FOUND=50; STALE=40; CONFLICT=25. Apply up to 20-point freshness penalty only
+      when the evidence exceeds its governed refresh expectation. Feature score is the original
+      model-feature-weighted mean of evidence support scores.
+    normalization: FIXED_EVIDENCE_STATUS_MAPPING_0_100
+    missing_policy: >-
+      NOT_FOUND maps to evidence reliability 50, explicitly meaning retrieval uncertainty rather than
+      negative business fact. It may not be converted to feature value zero.
+    clipping_saturation_rule: CLIP_0_100
+    double_count_group: EVIDENCE_META_GROUP
+    leakage_risk: Later higher-quality evidence being attached to earlier snapshots.
+    false_positive_risk: High-quality evidence can still describe a low-economic-impact event.
+    false_negative_risk: Real but poorly disclosed opportunities may receive lower reliability.
+    why_included_in_v1: Provides a controlled confidence channel without converting missing evidence into negative fundamentals.
+
+  - feature_id: F09_EXECUTION_THESIS_SAFETY
+    axis: A5
+    name: Execution and Thesis Safety
+    economic_meaning: >-
+      Measures PIT-visible risk that an otherwise attractive 3M opportunity fails to convert because
+      of execution, timing, concentration, substitution, capacity, funding/dilution or verified thesis deterioration.
+    predictive_hypothesis: >-
+      Tail failures are often driven by identifiable contemporaneous risk rather than absence of upside
+      signals; an explicit safety feature should reduce deep-tail false positives.
+    raw_pit_inputs:
+      - customer_concentration
+      - substitution_risk
+      - capacity_constraint
+      - execution_delay_evidence
+      - funding_or_dilution_event
+      - qualification_failure_or_delay
+      - order_cancellation_or_reduction
+      - adverse_guidance
+      - competition_or_share_loss_evidence
+      - thesis_deterioration_event
+    publication_availability_requirement: >-
+      Only risk evidence available before cutoff. Future MAE, future drawdown or later realized failure
+      is strictly prohibited.
+    transformation: >-
+      Assign evidence-backed risk severity after overlap adjudication: NONE=100; LOW=80; MODERATE=60;
+      HIGH=35; CRITICAL=10. Risk facts assigned to this feature may not also create a separate full
+      negative contribution in Business Momentum or Forward Runway.
+    normalization: FIXED_RISK_SEVERITY_TO_SAFETY_SCORE_0_100
+    missing_policy: NA_WHEN_RISK_STATE_CANNOT_BE_SUPPORTED; NOT_FOUND_IS_NOT_ASSUMED_SAFE_OR_UNSAFE
+    clipping_saturation_rule: CLIP_0_100
+    double_count_group: EXECUTION_RISK_GROUP
+    leakage_risk: Using future MAE/drawdown or later-known project failure to label earlier risk.
+    false_positive_risk: Conservative risk evidence may delay recognition of successful recovery.
+    false_negative_risk: Sudden exogenous failures may have no PIT-visible warning.
+    why_included_in_v1: Explicitly targets critical-miss/tail-defense failure modes while remaining outcome-blind.
+
+anti_double_count_contract:
+  invariant: ONE_ECONOMIC_FACT_ONE_PRIMARY_SCORING_ROLE
+  event_group_id_policy: >-
+    Every discrete economic event receives a stable evidence_group_id/event_group_id shared across all
+    derived features that consume it. Event identity must not change merely because it appears in
+    another axis.
+  primary_role_precedence:
+    - >-
+      Realized commercial-state facts are primarily F01; realized numerical results are primarily F02.
+    - >-
+      F04 may consume the same observed event only for incremental surprise relative to an independent
+      pre-event expectation baseline. Without that independent baseline F04 is NA.
+    - >-
+      F06 uses only not-yet-realized, time-bounded forward milestones; realized events migrate to F01/F02.
+    - >-
+      F07 uses customer/fab transmission context rather than supplier event magnitude.
+    - >-
+      F05 uses market behavior only; it may not reuse fundamental event magnitude as a second score.
+    - >-
+      F08 may reuse evidence metadata because it scores reliability, not economic magnitude.
+    - >-
+      F09 owns negative execution/thesis facts selected as risk events; the same risk fact cannot also
+      receive an additional full negative score elsewhere.
+  overlap_rule: >-
+    If two features would receive economic magnitude credit from the same event_group_id without an
+    independent expectation, market, customer-context or evidence-meta component, only the designated
+    primary feature retains the contribution; secondary contribution is set NA_FOR_OVERLAP and logged.
+  correlated_feature_rule: >-
+    Correlated raw series may be combined inside one feature (for example 20d/60d relative return and
+    turnover inside F05) but are not exposed as separate weighted features in v1.
+  audit_fields_required:
+    - event_group_id
+    - primary_feature_id
+    - secondary_consumers
+    - overlap_resolution
+    - independent_increment_ref
+
+readiness:
+  feature_schema_ready_for_baseline_lock: true
+  shared_contract_promotion_required: true
+  independent_validation_self_certified: false
