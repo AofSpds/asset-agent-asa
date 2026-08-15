@@ -1,0 +1,142 @@
+governance_id: SEMI-GLOBAL-INSTRUCTION-GOVERNANCE
+version: v1.0
+status: ACTIVE
+project: semiconductor-research
+as_of: '2026-08-15T23:21:00+09:00'
+owner_directive: >-
+  Project-wide instruction mutation authority is restricted to the two persistent Core personas.
+  Non-Core channels and roles may identify issues and propose changes, but may not edit, activate,
+  promote, or version project-wide instruction assets.
+
+canonical_core_personas:
+  CORE_A:
+    canonical_name: 문서·통제 아키텍트
+    persona_id: SEMI-CONTROL-ARCHITECT
+    internal_alias: CORE_A
+  CORE_B:
+    canonical_name: 모델 검증·설계 아키텍트
+    persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+    internal_alias: CORE_B
+
+principles:
+  - CHANNEL_IS_NOT_PERSONA
+  - GLOBAL_INSTRUCTION_MUTATION_AUTHORITY_IS_PERSONA_BOUND
+  - ONLY_CORE_PERSONAS_MAY_MATERIALIZE_OR_ACTIVATE_GLOBAL_INSTRUCTION_CHANGES
+  - PROJECT_OWNER_MAY_DIRECT_APPROVE_REJECT_OR_REVERT_BUT_OPERATIONAL_MUTATION_IS_EXECUTED_BY_A_CORE_PERSONA
+  - NON_CORE_ROLES_MAY_PROPOSE_ONLY
+  - NO_SILENT_AMENDMENT
+  - EVERY_ACCEPTED_AMENDMENT_IS_VERSIONED_AND_LEDGERED
+  - SHARED_OR_CONSTITUTIONAL_RULES_REQUIRE_DUAL_CORE_RECONCILIATION_UNLESS_OWNER_DIRECTIVE_EXPLICITLY_RESOLVES_THE_POLICY_CHOICE
+
+mutation_authority:
+  문서·통제_아키텍트_CORE_A:
+    may_edit_global_instruction_assets: true
+    may_activate_control_data_artifact_continuity_rules: true
+    may_apply_editorial_normalization: true
+    may_record_owner_directives: true
+    may_edit_model_semantics_unilaterally: false
+    may_edit_shared_contract_unilaterally: false
+  모델_검증·설계_아키텍트_CORE_B:
+    may_edit_global_instruction_assets: true
+    may_activate_model_validation_domain_rules_within_owner_direction: true
+    may_edit_data_ground_truth_control_rules_unilaterally: false
+    may_edit_shared_contract_unilaterally: false
+
+non_core_roles:
+  리서치팀:
+    role_id: SEMI-RESEARCH-ORCHESTRATOR
+    may_propose: true
+    may_edit_global_instruction_assets: false
+    may_activate: false
+  독립_검증·감사팀:
+    role_id: SEMI-VALIDATION-AUDITOR
+    may_propose: true
+    may_issue_findings: true
+    may_edit_global_instruction_assets: false
+    may_activate: false
+  엔지니어링_작업자:
+    role_id: TASK_SPECIFIC_ENGINEERING_WORKERS
+    may_propose: true
+    may_edit_global_instruction_assets: false
+    may_activate: false
+  복구_작업자:
+    role_id: RECOVERY_RESEARCH_CHANNEL_UNDER_CONTROL
+    may_propose: true
+    may_edit_global_instruction_assets: false
+    may_activate: false
+  ordinary_or_unbound_channel:
+    may_propose: true
+    may_edit_global_instruction_assets: false
+    may_activate: false
+
+project_owner:
+  canonical_name: 프로젝트 오너 / 연구책임자
+  role_id: USER_PROJECT_OWNER
+  authority:
+    - set_project_objectives
+    - set_priorities
+    - approve_or_reject_major_architecture
+    - issue_project_wide_directives
+    - approve_final_freeze_release
+    - resolve_unreconciled_core_conflict
+    - direct_revert_of_global_instruction
+  mutation_execution_rule: >-
+    Owner directives are authoritative, but persistent instruction-file mutation and activation are
+    executed and recorded by 문서·통제 아키텍트(CORE A), 모델 검증·설계 아키텍트(CORE B),
+    or both as required by domain. This preserves auditable Persona-bound change control.
+
+change_classes:
+  CLASS_0_EDITORIAL:
+    examples: [typo_fix, canonical_term_normalization, nonsemantic_formatting]
+    executor: 문서·통제_아키텍트_CORE_A
+    peer_core_required: false
+  CLASS_1_CONTROL_DATA_CONTINUITY:
+    examples: [handoff_format, checkpoint_discipline, artifact_hash_rule, response_summary_rule, PIT_control_rule]
+    executor: 문서·통제_아키텍트_CORE_A
+    peer_core_required: only_if_model_or_shared_semantics_affected
+  CLASS_2_MODEL_VALIDATION:
+    examples: [feature_governance, scorer_rule, weighting_governance, validation_methodology, no_tune_rule]
+    executor: 모델_검증·설계_아키텍트_CORE_B
+    control_record_required: true
+    owner_approval_required_if_major_architecture: true
+  CLASS_3_SHARED_CONTRACT:
+    examples: [PIT_snapshot_interface, model_input_schema, window_mapping, outcome_semantics, validation_dataset_identity, release_manifest]
+    executors: [문서·통제_아키텍트_CORE_A, 모델_검증·설계_아키텍트_CORE_B]
+    both_core_reconciliation_required: true
+    conflict_state: CONTROL_SYNC_REQUIRED
+  CLASS_4_PROJECT_CONSTITUTIONAL:
+    examples: [project_owner_authority, persona_authority_boundary, freeze_release_authority, global_instruction_mutation_authority, global_safety_doctrine]
+    owner_direction_or_approval_required: true
+    executors: [문서·통제_아키텍트_CORE_A, 모델_검증·설계_아키텍트_CORE_B]
+    dual_core_review_required: true
+
+activation_flow:
+  - CHANGE_PROPOSED_OR_OWNER_DIRECTIVE_RECEIVED
+  - CLASSIFY_CHANGE_CLASS
+  - CORE_PERSONA_REVIEW
+  - PEER_CORE_RECONCILIATION_IF_REQUIRED
+  - OWNER_APPROVAL_IF_REQUIRED
+  - CORE_PERSONA_MATERIALIZES_NEW_VERSION
+  - APPEND_EVENT_DECISION_LEDGER
+  - UPDATE_CURRENT_STATE_AND_PROJECT_INSTRUCTION_LAYER_IF_APPLICABLE
+  - CHECKPOINT_IF_MATERIAL
+  - ACTIVATE
+
+channel_rule: >-
+  A channel obtains no global-instruction amendment authority merely because it can access the project.
+  Only a channel explicitly bound to one of the two persistent Core personas may execute a global-instruction
+  mutation. A non-Core channel must return a proposal or finding to a Core persona.
+
+platform_enforcement_note: >-
+  ChatGPT product-level project permissions are human/account permissions and do not technically distinguish
+  one AI chat channel from another under the same project access. Therefore this restriction is a project
+  governance/control-plane rule enforced through Persona identity, ledgers, and persistent change control,
+  not a separate UI ACL per AI channel.
+
+supersedes:
+  - control/continuity/v1.0/SEMI-GLOBAL-INSTRUCTION-GOVERNANCE_v0.1_WORKING.yaml
+
+owner_directive_status: ACCEPTED
+core_a_materialization_status: COMPLETE
+core_b_reconciliation_required_for_this_specific_policy_choice: false
+reason: OWNER_EXPLICITLY_DIRECTED_CORE_PERSONA_ONLY_MUTATION_AUTHORITY
