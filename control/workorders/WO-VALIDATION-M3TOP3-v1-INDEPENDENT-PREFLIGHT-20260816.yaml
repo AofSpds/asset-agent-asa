@@ -1,0 +1,129 @@
+work_order_id: WO-VALIDATION-M3TOP3-v1-INDEPENDENT-PREFLIGHT-20260816
+version: v1.0
+status: READY_TO_DISPATCH
+project: semiconductor-research
+priority: P0
+issued_at: '2026-08-16T00:10:00+09:00'
+requesting_persona:
+  canonical_name: 문서·통제 아키텍트
+  persona_id: SEMI-CONTROL-ARCHITECT
+  internal_alias: CORE_A
+target_role:
+  canonical_name: 독립 검증·감사팀
+  role_id: SEMI-VALIDATION-AUDITOR
+purpose: >-
+  Independently verify that the persisted M3Top3 v1 machine implementation faithfully implements the agreed model/contracts,
+  is reproducible from a clean repository checkout, preserves the PIT firewall, and is technically safe to advance toward replay readiness.
+  This is a pre-replay implementation audit, not an Actual U127 performance evaluation.
+repository:
+  full_name: AofSpds/semiconductor-research
+  branch: control-hub-continuity-v1
+bound_source_identity:
+  source_code_commit: 32c8a0f31428273d76b4e7b3f2cea76f955770aa
+  config_path: tools/m3top3/configs/m3top3_v1.0.json
+  declared_config_sha256: eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98
+persistent_inputs:
+  - control/core_b/M3TOP3-v1-MACHINE-IMPLEMENTATION-MANIFEST_v0.1_WORKING.yaml
+  - control/core_b/M3TOP3-v1-MACHINE-IMPLEMENTATION-TEST-REPORT_v0.1_WORKING.json
+  - control/core_b/M3TOP3-NO-TUNE-BASELINE-LOCK_v1.2_WORKING.yaml
+  - control/core_b/M3TOP3-FEATURE-SCHEMA_v1.0_WORKING.yaml
+  - control/core_b/M3TOP3-SCORER-CONTRACT_v1.0_WORKING.yaml
+  - control/core_b/M3TOP3-WEIGHT-VERSION_v1.0_WORKING.yaml
+  - control/core_b/M3TOP3-VALIDATION-CONTRACT_v1.0_WORKING.yaml
+  - control/continuity/v1.0/SEMI-WINDOW-MAPPING-CONTRACT_v1.1_WORKING.yaml
+  - control/continuity/v1.0/SEMI-SHARED-CONTRACT-STATE_v0.4_WORKING.yaml
+  - control/core_b/M3TOP3-v1-MACHINE-IMPLEMENTATION-CONTROL-ADJUDICATION_v0.1_WORKING.yaml
+implementation_paths:
+  - tools/m3top3/contracts_v1.py
+  - tools/m3top3/window_mapping_v11.py
+  - tools/m3top3/features_v1.py
+  - tools/m3top3/scorer_v1.py
+  - tools/m3top3/runtime_v1.py
+  - tools/m3top3/configs/m3top3_v1.0.json
+  - tools/m3top3/tests/test_model_v1.py
+required_audit_axes:
+  exact_checkout_and_identity:
+    - verify bound source commit exists and contains the declared source/config/test files
+    - independently compute SHA256 for important source/config/test/manifest components
+    - verify declared config SHA256 exactly
+    - distinguish Git blob SHA1 from project-required SHA256
+  independent_test_rerun:
+    - run the declared 18-test suite from a clean checkout/environment
+    - record command, interpreter/runtime identity, exit code, pass/fail counts
+    - do not treat Core B's prior test report as independent evidence
+  contract_to_code:
+    - verify F01-F09 transformation semantics against Feature Schema v1.0
+    - verify axis/feature weights and scorer arithmetic
+    - verify exact ranking tie rule uses full precision then company_id ascending
+    - verify missingness states remain distinct and no silent zero/neutral fill occurs
+    - verify anti-double-count suppression and event-group lineage
+    - verify Hard Risk Gate and F09 do not double-penalize the same adverse fact
+    - verify MIS-v1.0 input requirements and SIO-v1.0 output requirements
+  pit_firewall:
+    - verify recursive future/outcome-field rejection
+    - verify post-cutoff evidence is rejected
+    - verify no Actual U127 outcome data is accessed by test fixtures or runtime initialization
+  window_mapping:
+    - verify WM-v1.1 keeps Calendar Anchor separate from PIT Snapshot Cutoff
+    - verify nominal end is derived from Anchor, never from Snapshot Cutoff
+    - independently reproduce W1-W8 expected mapping 8/8
+    - verify ordinary daily mapping semantics
+    - explicitly confirm WeekdayCalendar is synthetic-test-only
+    - identify the required production KRX trading-calendar binding for official replay
+  implementation_sensitive_items:
+    - independently review F02 default relative change formula (current-prior)/abs(prior) and ABSOLUTE/upstream metric_changes modes for consistency with the feature contract
+    - independently review F08 upstream freshness_penalty interface and cap-at-20 behavior; do not invent new refresh thresholds
+    - review scorer treatment of partially missing features and confirm official coverage semantics are consistent with COV-v1.0
+  reproducibility:
+    - same frozen input + same code + same config + same versions must produce byte/value-equivalent scoring output
+    - verify deterministic run/input identifiers and idempotence
+forbidden:
+  - inspect Actual U127 MFE/MAE/future return/future rank for model evaluation
+  - run Actual U127 two-year replay
+  - tune features, weights, thresholds, scorer, risk gate, or calendar rules using outcomes
+  - alter U127 Ground Truth, Price, or CA state
+  - promote model to FROZEN
+  - self-approve any Control or Owner freeze gate
+success_criteria:
+  independent_preflight_result: PASS_or_PASS_WITH_NARROW_FIXES
+  actual_replay_authorized_by_this_work_order: false
+  model_freeze_authorized_by_this_work_order: false
+required_output:
+  exactly_one_return_packet: true
+  header: '[RETURN PACKET — M3TOP3 v1 INDEPENDENT IMPLEMENTATION PREFLIGHT]'
+  fields:
+    - WORK_ORDER_ID
+    - TASK_COMPLETED
+    - EXACT_CHECKOUT_RESULT
+    - SOURCE_COMMIT_VERIFIED
+    - COMPONENT_SHA256_MANIFEST
+    - CONFIG_SHA256_VERIFIED
+    - TEST_RERUN_RESULT
+    - F01_F09_CONTRACT_TO_CODE_RESULT
+    - F02_OPERATIONALIZATION_RESULT
+    - F08_FRESHNESS_INTERFACE_RESULT
+    - SCORER_ARITHMETIC_RESULT
+    - MISSINGNESS_RESULT
+    - ANTI_DOUBLE_COUNT_RESULT
+    - HARD_RISK_GATE_RESULT
+    - MIS_RESULT
+    - SIO_RESULT
+    - PIT_FIREWALL_RESULT
+    - WM_v1_1_RESULT
+    - W1_W8_RESULT
+    - PRODUCTION_KRX_CALENDAR_BINDING_STATUS
+    - COVERAGE_SEMANTICS_RESULT
+    - DETERMINISM_RESULT
+    - IDEMPOTENCE_RESULT
+    - MATERIAL_SEMANTIC_MISMATCH_FOUND
+    - NARROW_FIXES_REQUIRED
+    - INDEPENDENT_PREFLIGHT_VERDICT
+    - ACTUAL_OUTCOME_DATA_INSPECTED
+    - ACTUAL_REPLAY_EXECUTED
+    - MODEL_FROZEN
+    - RECOMMENDED_CONTROL_DECISION
+    - NEXT_ACTION
+output_discipline:
+  - Output exactly one Markdown fenced code block containing the RETURN PACKET.
+  - Write nothing after the fenced block.
+  - Technical terms may be precise, but explain any material unfamiliar concept briefly inside the packet where needed.
