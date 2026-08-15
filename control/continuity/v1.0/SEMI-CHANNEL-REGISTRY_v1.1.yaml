@@ -1,0 +1,80 @@
+registry_id: SEMI-CHANNEL-REGISTRY
+version: v1.1
+status: WORKING_CONTROL_REGISTRY_ROTATION_PENDING
+project: semiconductor-research
+as_of: '2026-08-16T00:27:00+09:00'
+supersedes: control/continuity/v1.0/SEMI-CHANNEL-REGISTRY_v1.0.yaml
+channel_model:
+  principle: CHANNEL_IS_PERSONA_INSTANCE_NOT_PERSONA
+  lifecycle_states: [ACTIVE, ROTATING, CLOSED, ARCHIVED, RECOVERY_ONLY, PLANNED]
+
+instances:
+  - channel_instance_id: CTRL-ARCH-INSTANCE-004-20260815
+    persona_id: SEMI-CONTROL-ARCHITECT
+    display_name: M3Top3 문서·통제 아키텍트 current predecessor
+    predecessor: CTRL-ARCH-LEGACY-BOOTSTRAP-20260815
+    successor: CTRL-ARCH-INSTANCE-005-20260816
+    start_checkpoint: CP-CTRL-20260815-GENESIS-001
+    end_checkpoint: CP-CTRL-20260816-ROTATION-001
+    work_scope:
+      - U127_CONTROL_AND_ARTIFACT_RECOVERY
+      - PRICE_CA_M3TOP3_CONTROL_STATE
+      - CONTROL_HUB_CONTINUITY
+      - DUAL_CORE_ORGANIZATION_AND_PERSONA_PERSISTENCE
+      - SHARED_CONTRACT_RECONCILIATION
+      - M3TOP3_IMPLEMENTATION_CANDIDATE_CONTROL_ADJUDICATION
+    active_lanes:
+      - U127_RELEASE_CLOSURE
+      - PRICE_CA_CLOSURE
+      - VALIDATION_DATASET_RELEASE_PREPARATION
+      - INDEPENDENT_VALIDATION_DISPATCH_PREPARATION
+    status: ROTATING
+    rotation_reason: CHANNEL_LENGTH_LIMIT
+    last_control_state: SEMI-CURRENT-STATE_v1.7
+    bootstrap_successor_required: true
+
+  - channel_instance_id: CTRL-ARCH-INSTANCE-005-20260816
+    persona_id: SEMI-CONTROL-ARCHITECT
+    display_name: M3Top3 문서·통제 아키텍트 successor planned
+    predecessor: CTRL-ARCH-INSTANCE-004-20260815
+    successor: UNASSIGNED
+    start_checkpoint: CP-CTRL-20260816-ROTATION-001
+    end_checkpoint: null
+    work_scope:
+      - CONTROL_STATE_RECOVERY
+      - U127_RELEASE_CLOSURE
+      - PRICE_CA_CLOSURE
+      - VALIDATION_DATASET_RELEASE_PREPARATION
+      - INDEPENDENT_VALIDATION_COORDINATION
+    active_lanes:
+      - LOAD_AND_RECONCILE_CHECKPOINT_FIRST
+    status: PLANNED
+    activation_gate:
+      checkpoint_loaded: false
+      current_state_reconciled: false
+      persona_identity_reconciled: false
+      no_new_work_before_reconciliation: true
+
+  - channel_instance_id: MODEL-ARCH-INSTANCE-002-20260815
+    persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+    display_name: M3Top3 모델 검증 설계 아키텍트2
+    predecessor: MODEL-ARCH-LEGACY-20260815
+    successor: UNASSIGNED
+    start_checkpoint: CORE_B_SUCCESSOR_BOOTSTRAP_PACKET_20260815
+    end_checkpoint: null
+    status: ACTIVE
+    current_state: IMPLEMENTATION_CANDIDATE_COMPLETE_HOLD_SEMANTICS_PENDING_INDEPENDENT_PREFLIGHT
+
+planned_channels:
+  - channel_instance_id: VALID-AUDIT-INSTANCE-001-20260816
+    persona_id: SEMI-VALIDATION-AUDITOR
+    display_name: M3Top3 독립 검증·감사팀 planned
+    status: PLANNED
+    bootstrap_executed: false
+    work_after_bootstrap: M3TOP3_v1_INDEPENDENT_IMPLEMENTATION_PREFLIGHT
+
+rules:
+  - NO_SUCCESSOR_ACTIVATION_WITHOUT_CHECKPOINT_LOAD
+  - PLANNED_INSTANCE_IS_NOT_ACTIVE_PERSONA_EXECUTION
+  - VALIDATION_CHANNEL_MUST_NOT_BE_IMPLEMENTER_INSTANCE
+  - CHANNEL_ROTATION_DOES_NOT_CHANGE_PROJECT_SEMANTICS
