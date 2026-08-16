@@ -1,0 +1,54 @@
+{
+  "control_id": "AAA-v1-SUCCESSOR-ENGINEERING-AUTHORIZATION-REQUEST",
+  "version": "v0.1_WORKING",
+  "project": "Asset Agent ASA",
+  "phase": "AAA_V1_SUCCESSOR_ENGINEERING_SCOPE_AND_AUTHORIZATION",
+  "recorded_at": "2026-08-16T18:05:00+09:00",
+  "status": "READY_FOR_PROJECT_OWNER_DECISION",
+  "requesting_control": "AAA_BUILD_CONTROL",
+  "required_authority": "PROJECT_OWNER",
+  "requested_decision_type": "AAA_V1_SUCCESSOR_ENGINEERING_IMPLEMENTATION_AUTHORIZATION",
+  "exact_scope_target": {
+    "path": "control/aaa/architecture/AAA-v1-SUCCESSOR-ENGINEERING-SCOPE_v0.1_WORKING.json",
+    "sha256": "fe1ff488e62bb500f520f395ce64f5428cbc384eb5cadc611f949ee46f8a66ac",
+    "byte_size": 10849,
+    "git_blob_sha": "686eb406a93eeeb078e7b8fe35b0d2341c585105",
+    "materialization_commit": "3cfa0fdcda06fc50fcc46122067521851dab4ca5"
+  },
+  "frozen_semantic_authority": {
+    "r5_decision_id": "DECISION-AAA-v1-R5-OWNER-EXACT-FREEZE-20260816-001",
+    "freeze_manifest": "control/aaa/architecture/AAA-v1-R5-EXACT-FREEZE-MANIFEST_v1.0_FROZEN.json",
+    "frozen_r4_candidate_sha256": "27f093555d5934f79a8501ef3426a0ade4d02d64370cc98a0cb0ea801e4ea01f"
+  },
+  "authorization_if_approved": {
+    "implementation": true,
+    "successor_migrations_0006_plus_within_scope": true,
+    "engineering_work_order_issue": true,
+    "engineering_branch_and_pr_work": true,
+    "deterministic_and_postgresql_regression": true,
+    "owner_console_api_cli_successor_updates_within_scope": true
+  },
+  "explicitly_not_authorized_even_if_approved": {
+    "model_feature_scorer_weight_ranking_backtest_methodology_change": true,
+    "historical_migration_0001_0005_rewrite": true,
+    "historical_t17_t18_t19_rematerialization": true,
+    "postgresql_operational_sot_cutover": true,
+    "live_worker_execution_enablement": true,
+    "controlled_cutover": true,
+    "production_release": true,
+    "canonical_promotion_to_production": true,
+    "managed_pitr_rpo_rto_qualification_waiver": true
+  },
+  "execution_order_if_approved": [
+    "E1_IDENTITY_TIME_SCHEMA_FOUNDATION",
+    "E2_LOGICAL_RUN_RUNATTEMPT_EXECUTION_SEMANTICS",
+    "E3_AUTHORITY_DECISION_PROVENANCE_EVENT",
+    "E4_VERSION_SET_PROMOTION_RESTORE_HARDENING",
+    "INTEGRATED_REGRESSION",
+    "INDEPENDENT_VALIDATION"
+  ],
+  "hard_rule": "Approval must bind this exact scope SHA256. Approval of any other or later-mutated scope requires a new Owner decision.",
+  "current_authorization": false,
+  "work_order_issued": false,
+  "t20_assumed": false
+}
