@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://asset-agent-asa.local/contracts/logical_run_v1.schema.json",
+  "title": "AAA Balanced v1 Logical Run",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_id", "project_namespace", "process_id", "work_order_ref",
+    "responsible_persona", "executor_role", "repository_identity",
+    "exact_target_commit", "exact_execution_spec_hash", "execution_profile_ref",
+    "execution_profile_sha256", "configuration_sha256", "material_input_refs",
+    "schema_family_version_refs", "logical_status", "semantic_generation"
+  ],
+  "properties": {
+    "run_id": {"type": "string", "minLength": 1},
+    "project_namespace": {"type": "string", "minLength": 1},
+    "process_id": {"type": "string", "minLength": 1},
+    "work_order_ref": {"type": "string", "minLength": 1},
+    "responsible_persona": {"type": "string", "minLength": 1},
+    "executor_role": {"type": "string", "minLength": 1},
+    "repository_identity": {"type": "string", "minLength": 1},
+    "exact_target_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "exact_execution_spec_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "execution_profile_ref": {"type": "string", "minLength": 1},
+    "execution_profile_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "configuration_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "material_input_refs": {"type": "array", "items": {"type": "object"}},
+    "schema_family_version_refs": {"type": "array", "items": {"type": "object"}},
+    "logical_status": {
+      "enum": ["READY_NOT_DISPATCHED", "DISPATCHED", "ACTIVE", "BLOCKED", "COMPLETED_PASS", "COMPLETED_FAIL", "COMPLETED_WITH_FINDINGS", "CANCELLED", "SUPERSEDED"]
+    },
+    "semantic_generation": {"const": "BALANCED_V1"},
+    "final_disposition_ref": {"type": "string", "minLength": 1}
+  },
+  "x-aaa-invariants": [
+    "Logical Run is immutable execution intent + exact specification",
+    "material exact specification change requires a new Logical Run",
+    "Logical Run may own multiple RunAttempts only when exact_execution_spec_hash is unchanged",
+    "terminal Logical Run requires immutable Final Disposition Receipt"
+  ]
+}
