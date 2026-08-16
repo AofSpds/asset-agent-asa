@@ -1,0 +1,72 @@
+control_id: AAA-PROCESS-GATE-STATUS
+version: v0.21_WORKING
+project: Asset Agent ASA
+recorded_at: '2026-08-16T18:36:00+09:00'
+supersedes: control/aaa/v0.1/AAA-PROCESS-GATE-STATUS_v0.20_WORKING.yaml
+purpose: >-
+  Authoritative working snapshot after E2 Logical Run / RunAttempt successor semantics were
+  integrated and terminalized as Engineering PASS with exact Result evidence and green post-merge
+  and terminal-linkage regression. The already Owner-authorized engineering scope now advances to
+  bounded E3 Actor/Authority, Decision Receipt, Provenance and Operational Event implementation.
+current_position:
+  current_controlled_activity: AAA_V1_SUCCESSOR_ENGINEERING_E3
+  successor_engineering_authorization_state: CLOSED_APPROVED
+  implementation_authorized: true
+  active_tranche: E3_AUTHORITY_DECISION_PROVENANCE_EVENT
+  t20_assumed: false
+owner_engineering_authorization:
+  decision_id: DECISION-AAA-v1-SUCCESSOR-ENGINEERING-AUTHORIZATION-20260816-001
+  exact_scope_sha256: fe1ff488e62bb500f520f395ce64f5428cbc384eb5cadc611f949ee46f8a66ac
+  authority: PROJECT_OWNER
+frozen_semantic_basis:
+  frozen_r4_sha256: 27f093555d5934f79a8501ef3426a0ade4d02d64370cc98a0cb0ea801e4ea01f
+  freeze_manifest: control/aaa/architecture/AAA-v1-R5-EXACT-FREEZE-MANIFEST_v1.0_FROZEN.json
+engineering:
+  E1_IDENTITY_TIME_SCHEMA_FOUNDATION:
+    state: COMPLETED_PASS
+    integrated_successor: ba45890d8777eb90622318467a50a1bbb888c9ca
+    result: control/aaa/results/RESULT-AAA-v1-E1-IDENTITY-TIME-SCHEMA-20260816-001.json
+    independent_validation_pass: false
+  E2_LOGICAL_RUN_RUNATTEMPT_EXECUTION_SEMANTICS:
+    state: COMPLETED_PASS
+    integrated_successor: 0c56fe7855e6083ae0d96b570bb5f3f020079911
+    pull_request: 35
+    result: control/aaa/results/RESULT-AAA-v1-E2-LOGICAL-RUN-RUNATTEMPT-20260816-001.json
+    result_sha256: f70116f886282ee66088be702c5ef345eb6754b9557dfb4674bc005772962ab3
+    deterministic_tests: 180_OF_180_PASS
+    independent_validation_pass: false
+  E3_AUTHORITY_DECISION_PROVENANCE_EVENT:
+    state: DISPATCHED_AWAITING_ACK
+    work_order: control/workorders/WO-AAA-v1-E3-AUTHORITY-DECISION-PROVENANCE-EVENT-20260816.yaml
+    run_id: RUN-AAA-v1-E3-AUTHORITY-DECISION-PROVENANCE-EVENT-20260816-001
+    engineering_branch: aaa-v1-e3-authority-decision-provenance-event
+  E4_VERSION_SET_PROMOTION_RESTORE_HARDENING: NOT_STARTED
+migration_policy:
+  historical_0001_0005: IMMUTABLE
+  e1_0006: INTEGRATED_IMMUTABLE_SUCCESSOR
+  e2_0007: INTEGRATED_IMMUTABLE_SUCCESSOR
+  next_successor_migration_allowed: 8
+  postgresql_authoritative: false
+  json_registry_operational_authority_during_shadow: true
+hard_boundaries:
+  actor_identity_is_not_authority_evidence: true
+  approval_target_x_does_not_authorize_target_y: true
+  dirty_governed_execution_prohibited: true
+  operational_event_is_not_economic_event: true
+  no_historical_t17_t18_t19_rematerialization: true
+  no_model_feature_scorer_weight_ranking_backtest_change: true
+  engineering_pass_is_not_independent_validation_pass: true
+not_authorized:
+  postgresql_operational_sot_cutover: true
+  live_worker_execution_enablement: true
+  shared_contract_promotion: true
+  controlled_cutover: true
+  production_release: true
+  production_canonical_promotion: true
+pending_existing_governed_work:
+  p09_second_rerun:
+    run_id: RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-002
+    state: DISPATCHED_AWAITING_ACK
+  t18_independent_validation:
+    run_id: RUN-VALIDATION-AAA-T18-INDEPENDENT-20260816-001
+    state: DISPATCHED_AWAITING_ACK
