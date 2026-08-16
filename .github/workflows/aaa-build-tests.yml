@@ -41,7 +41,7 @@ jobs:
               if observed != item['sha256']: raise SystemExit(f"migration hash mismatch {item['version']}: {observed} != {item['sha256']}")
               print(item['version'], observed)
           PY
-      - name: Apply T18/T19 and Balanced-v1 E1/E2/E3 PostgreSQL migrations and contract smoke
+      - name: Apply T18/T19 and Balanced-v1 E1/E2/E3/E4 PostgreSQL migrations and contract smoke
         shell: bash
         run: |
           set -euo pipefail
@@ -54,6 +54,7 @@ jobs:
           docker exec -i "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18 < aaa/db/tests/e1_identity_time_schema_smoke.sql
           docker exec -i "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18 < aaa/db/tests/e2_logical_run_runattempt_smoke.sql
           docker exec -i "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18 < aaa/db/tests/e3_authority_provenance_event_smoke.sql
+          docker exec -i "$cid" psql -v ON_ERROR_STOP=1 -U postgres -d aaa_t18 < aaa/db/tests/e4_version_set_promotion_restore_smoke.sql
       - name: Verify T18 concurrent lease fencing has one winner
         shell: bash
         run: |
