@@ -1,0 +1,23 @@
+{
+  "run_id": "RUN-VALIDATION-AAA-v1-E4-RELEASE-SET-HASH-REVALIDATION-20260816-001",
+  "process_id": "AAA_V1_E4_RELEASE_SET_HASH_INDEPENDENT_REVALIDATION",
+  "work_order_id": "WO-VALIDATION-AAA-v1-E4-RELEASE-SET-HASH-REVALIDATION-20260816",
+  "responsible_persona": "SEMI-VALIDATION-AUDITOR",
+  "executor_role": "INDEPENDENT_VALIDATION",
+  "state": "DISPATCHED_AWAITING_ACK",
+  "repository": "AofSpds/asset-agent-asa",
+  "exact_base_commit": "8a4aea0256bc630385bd463fc8969e5c88a74102",
+  "branch": "aaa-integration-v0.2",
+  "started_at": null,
+  "last_heartbeat_at": null,
+  "stale_after_seconds": 7200,
+  "canonical_output": false,
+  "terminal_result": null,
+  "notes": [
+    "Dispatch registration is not validator ACK/start/running evidence.",
+    "Validation target is exact remediation successor 8a4aea0256bc630385bd463fc8969e5c88a74102 with tree ffd65463413c9fee073db404c36f2461aa7a6c83; later control-only commits do not move it.",
+    "Engineering remediation PASS_WITH_FINDINGS is evidence input, not Independent Revalidation PASS.",
+    "P0/P1 findings remain pending validator closure.",
+    "No live execution, PostgreSQL Operational SoT, production canonical promotion, Controlled Cutover, or Production Release is authorized."
+  ]
+}
