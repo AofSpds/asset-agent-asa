@@ -1,0 +1,72 @@
+work_order_id: WO-VALIDATION-AAA-v1-SUCCESSOR-INDEPENDENT-20260816
+project: Asset Agent ASA
+phase: AAA_V1_SUCCESSOR_INDEPENDENT_VALIDATION
+issued_at: '2026-08-16T19:23:00+09:00'
+status: APPROVED_FOR_VALIDATION
+requesting_control: AAA_BUILD_CONTROL
+responsible_persona: SEMI-VALIDATION-AUDITOR
+executor_role: INDEPENDENT_VALIDATION
+permission_level: L1_READ_ONLY_VALIDATION
+
+exact_target_binding: control/aaa/validation/AAA-v1-SUCCESSOR-INDEPENDENT-VALIDATION-TARGET-BINDING_v0.1_WORKING.yaml
+repository: AofSpds/asset-agent-asa
+exact_validation_target: 96234463cedaff2b7ec5d0ff49bec44684804b00
+exact_validation_tree: 42794657c15248ca8bac51b4883612277a692146
+
+objective: >-
+  Independently validate the complete Owner-authorized Balanced-v1 successor engineering E1-E4
+  against the frozen semantic contract and exact integration target. Validation must be outcome-
+  independent, fail-closed, read-only against canonical governance state, and must not infer any
+  production/cutover/live authority.
+
+required_validation:
+  - verify exact Git target and tree
+  - verify migrations 0001-0009 exact SHA256 identities and forward-only lineage
+  - validate E1 typed identity, PIT time semantics, schema compatibility and legacy reader behavior
+  - validate E2 Logical Run versus RunAttempt cardinality, retry identity, lease/start/heartbeat/fencing and terminal receipts
+  - validate E3 Actor versus Authority, exact-target Decision Receipt, clean-tree provenance and operational event collision/idempotency
+  - validate E4 immutable compatible version set, fail-closed promotion and provider-neutral restore authority boundary
+  - validate legacy T17/T18/T19 non-rematerialization and absence of synthetic historical RunAttempt
+  - validate Future Outcome cannot repair historical PIT evidence
+  - validate partial/checkpoint cannot become terminal PASS
+  - validate PostgreSQL remains non-authoritative and JSON Registry remains shadow operational authority
+  - inspect E2 dependency-lock forward-remediation closure as part of integrated target validation
+
+minimum_adversarial_cases:
+  - same Logical Run with two Attempts only when exact_execution_spec_hash identical
+  - target/config/input/dependency-lock change requires new Logical Run
+  - ACK without start/current heartbeat is not RUNNING_CONFIRMED
+  - expired lease heartbeat and old epoch terminalization reject
+  - evidence available after snapshot cutoff is inadmissible
+  - later execution timestamp cannot establish earlier public evidence availability
+  - dirty governed source execution rejects
+  - approval target X cannot authorize Y
+  - Worker capability does not create governance authority
+  - 350_of_400 partial output cannot terminal PASS
+  - floating latest cannot identify release set
+  - partial multi-store promotion cannot change canonical authority
+  - restore created/unverified/verified states do not authorize PostgreSQL SoT cutover
+  - historical T19 without run_attempt_id remains without synthetic attempt
+
+outputs:
+  required_return_packet: true
+  terminal_verdict_enum:
+    - PASS
+    - FAIL
+    - PASS_WITH_FINDINGS
+  findings_must_be_explicit: true
+  exact_target_must_be_repeated: true
+  independent_validation_pass_must_be_explicit: true
+  live_execution_authorized_must_be_false: true
+  postgresql_operational_sot_authorized_must_be_false: true
+  controlled_cutover_authorized_must_be_false: true
+  production_release_authorized_must_be_false: true
+
+prohibited:
+  - canonical write
+  - implementation modification
+  - migration modification
+  - model methodology modification
+  - synthetic historical evidence
+  - synthetic RunAttempt for legacy Runs
+  - production/cutover/live authorization
