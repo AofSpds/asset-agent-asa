@@ -1,0 +1,22 @@
+{
+  "run_id": "RUN-AAA-v1-R4-COREA-POSITION-20260816-001",
+  "process_id": "R4-SHARED-CONTRACT-RECONCILIATION-COREA-POSITION",
+  "work_order_id": "WO-AAA-v1-R4-SHARED-CONTRACT-RECONCILIATION-20260816",
+  "responsible_persona": "SEMI-CONTROL-ARCHITECT",
+  "executor_role": "SHARED_CONTRACT_RECONCILIATION_CORE_A_POSITION",
+  "state": "DISPATCHED_AWAITING_ACK",
+  "repository": "AofSpds/asset-agent-asa",
+  "exact_base_commit": "4458fa055b937295cebab1b841ad808955ef17c9",
+  "branch": "aaa-integration-v0.2",
+  "started_at": null,
+  "last_heartbeat_at": null,
+  "stale_after_seconds": 7200,
+  "canonical_output": false,
+  "terminal_result": null,
+  "notes": [
+    "R4 requires materially distinct CORE A and CORE B positions; this Run is CORE A only.",
+    "Dispatch registration is not ACK, start, or active reconciliation evidence.",
+    "Exact R3 design identity is bound by the R4 target-binding artifact.",
+    "No Shared Contract promotion, implementation, migration, cutover, or release authority is granted."
+  ]
+}
