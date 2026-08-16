@@ -1,0 +1,67 @@
+control_id: AAA-PROCESS-GATE-STATUS
+version: v0.26_WORKING
+project: Asset Agent ASA
+recorded_at: '2026-08-16T19:22:00+09:00'
+supersedes: control/aaa/v0.1/AAA-PROCESS-GATE-STATUS_v0.25_WORKING.yaml
+purpose: >-
+  Authoritative working snapshot after both E4 control-terminalization defects were remediated
+  forward and regression CI on remediation successor 608da034bc812a51c4f41b6e206487365509676b
+  completed with deterministic, PostgreSQL and Owner Console jobs all SUCCESS. E1-E4 successor
+  engineering is engineering-complete. The exact engineering target for Independent Validation
+  remains 96234463cedaff2b7ec5d0ff49bec44684804b00; later control-only commits do not move it.
+
+current_position:
+  current_controlled_activity: AAA_V1_SUCCESSOR_INDEPENDENT_VALIDATION_DISPATCH_PREPARATION
+  successor_engineering_state: COMPLETED_ENGINEERING_PASS
+  engineering_exact_target: 96234463cedaff2b7ec5d0ff49bec44684804b00
+  independent_validation_state: READY_NOT_DISPATCHED
+  implementation_authorized: true
+  t20_assumed: false
+
+control_remediation_closeout:
+  AAA-v1-E4-CONTROL-FND-01-INVALID-TERMINAL-RESULT-IDENTITY-SHAPE: CLOSED
+  AAA-v1-E4-CONTROL-FND-02-TERMINAL-RESULT-REFERENTIAL-IDENTITY-MISSING: CLOSED
+  regression_successor: 608da034bc812a51c4f41b6e206487365509676b
+  regression_workflow_run: 31941421328
+  deterministic_contract_tests: SUCCESS
+  postgres_contract_smoke: SUCCESS
+  owner_console_build_smoke: SUCCESS
+  engineering_target_changed: false
+  migration_0009_changed: false
+
+engineering_tranches:
+  E1_IDENTITY_TIME_SCHEMA_FOUNDATION: COMPLETED_PASS
+  E2_LOGICAL_RUN_RUNATTEMPT_EXECUTION_SEMANTICS: COMPLETED_PASS_WITH_FORWARD_REMEDIATION
+  E3_AUTHORITY_DECISION_PROVENANCE_EVENT: COMPLETED_PASS
+  E4_VERSION_SET_PROMOTION_RESTORE_HARDENING: COMPLETED_PASS
+
+corrected_e4_result:
+  path: control/aaa/results/RESULT-AAA-v1-E4-VERSION-SET-PROMOTION-RESTORE-20260816-001.json
+  sha256: d39d074a23a702bc69ae5ed610a8dd04522a78959621ef2946954b7e38a8844e
+  byte_size: 3222
+
+migration_registry:
+  0001: 66e5609fea1104f4aba4d0566989bf3a6c8d2b6e0b75cb274a79f7bdb48d68c2
+  0002: dfd47bb167e4bbcef2de9cb45bec811c0acfbcc5f03bde1a49fc24990b7d16dc
+  0003: 5d14f97a9b2d469885984c92fe3d725e213ec892616eee19a7708338b226374b
+  0004: 23edc2c1dd3475498b5e39f5c1323affb6168ca1f7e220ccc26aa642240906ea
+  0005: 6ea318dba31f94392d6828cf64d2a9701c11e88142a13f53c9dcbb88fc29807a
+  0006: e298e32510afed3cfee0173afebe5c170405f8f6aa7f99ee89ccd4de4e199bfa
+  0007: d8dc393501622cfb570c6bd6759a2d2ce79e8d28ce909037856f7e5a4f52bd55
+  0008: 58455f35e83852330b8933444dd5d4deb8fc730e7d8e48f965e998688b096de6
+  0009: 86c4827a834e62d4319ba2a1c3c238320f095f3e2bbb199ff42f5c90e1e22ec2
+
+operational_authority:
+  json_registry_operational_authority_during_shadow: true
+  postgresql_authoritative: false
+  live_execution_authorized: false
+  production_canonical_promotion_authorized: false
+  controlled_cutover_authorized: false
+  production_release_authorized: false
+
+next_gate:
+  phase: AAA_V1_SUCCESSOR_INDEPENDENT_VALIDATION
+  state: READY_NOT_DISPATCHED
+  validator: SEMI-VALIDATION-AUDITOR
+  exact_engineering_target: 96234463cedaff2b7ec5d0ff49bec44684804b00
+  engineering_pass_is_not_independent_validation_pass: true
