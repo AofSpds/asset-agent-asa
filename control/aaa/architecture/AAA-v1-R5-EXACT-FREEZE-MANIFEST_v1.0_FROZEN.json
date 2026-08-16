@@ -1,0 +1,82 @@
+{
+  "control_id": "AAA-v1-R5-EXACT-FREEZE-MANIFEST",
+  "version": "v1.0_FROZEN",
+  "project": "Asset Agent ASA",
+  "phase": "R5_OWNER_EXACT_FREEZE_DECISION",
+  "frozen_at": "2026-08-16T17:19:00+09:00",
+  "status": "OWNER_EXACT_FREEZE_APPROVED",
+  "profile": "BALANCED_V1",
+  "freeze_target": {
+    "kind": "AAA_V1_R4_RECONCILED_EXACT_CONTRACT_CANDIDATE",
+    "path": "control/aaa/architecture/AAA-v1-R4-SHARED-CONTRACT-RECONCILIATION_v0.1_WORKING.json",
+    "sha256": "27f093555d5934f79a8501ef3426a0ade4d02d64370cc98a0cb0ea801e4ea01f",
+    "byte_size": 16092,
+    "git_blob_sha": "fb89a4d92a77054ad8def32a001f6c55f56dd4f0",
+    "materialization_commit": "17b808d6d3fea6714d84788b88f19741071a07c8"
+  },
+  "owner_decision_receipt": {
+    "path": "control/aaa/decisions/DECISION-AAA-v1-R5-OWNER-EXACT-FREEZE-20260816-001.json",
+    "sha256": "c7cb71ca562d5a71c2809b0c7e1196775b7255d319cdc02a1a5db67931750e2e",
+    "byte_size": 2896,
+    "git_blob_sha": "bf8aa0637b2a17abc121a16417d0eee65ba489fa",
+    "materialization_commit": "1288f2f8d524e0a2232abc899df94908833c6c63"
+  },
+  "lineage": {
+    "r1_baseline": "control/aaa/architecture/AAA-v1-R1-EXACT-BASELINE-MANIFEST_v0.1_WORKING.yaml",
+    "r1_observed_commit": "a590717a2127b8ef4620d7933904868dd50c7396",
+    "r1_observed_tree": "64d0cac8a91c9d0d9d3ca12f64123bc3c374ec97",
+    "r2_delta": "control/aaa/architecture/AAA-v1-R2-ARCHITECTURE-DELTA-ANALYSIS_v0.1_WORKING.yaml",
+    "r3_exact_contract_design": "control/aaa/architecture/AAA-v1-R3-EXACT-CONTRACT-DESIGN_v0.1_WORKING.yaml",
+    "r3_design_commit": "ecd1284e5d4c9ff8cb554f5bd0ef0521061ffcc0",
+    "r4_reconciliation": "control/aaa/architecture/AAA-v1-R4-SHARED-CONTRACT-RECONCILIATION_v0.1_WORKING.json",
+    "r4_shared_contract_state": "control/continuity/v1.0/SEMI-SHARED-CONTRACT-STATE_v0.6_WORKING.yaml"
+  },
+  "frozen_semantic_scope": {
+    "compatible_extensions": [
+      "A01_TIME_SEMANTICS",
+      "A03_LOGICAL_RUN_RUNATTEMPT_SHARED_REFERENCE_IMPACT",
+      "A05_SCHEMA_FAMILY_VERSIONING",
+      "A06_EXECUTION_SOURCE_PROVENANCE",
+      "A07_PROJECT_NAMESPACE_CANONICAL_IDENTITY",
+      "A10_ACTOR_AUTHORITY"
+    ],
+    "successor_contracts_required": [
+      "EXACT_TARGET_DECISION_RECEIPT_v1.0_WORKING",
+      "COMPATIBLE_VERSION_SET_RELEASE_MANIFEST_v1.0_WORKING"
+    ],
+    "existing_9_of_9_shared_contract_semantics_preserved": true,
+    "feature_definition_changed": false,
+    "scorer_math_changed": false,
+    "weights_changed": false,
+    "ranking_contract_changed": false,
+    "backtest_methodology_changed": false
+  },
+  "freeze_invariants": [
+    "FROZEN_TARGET_IS_IDENTIFIED_BY_SHA256_BYTE_SIZE_GIT_BLOB_AND_MATERIALIZATION_COMMIT",
+    "FROZEN_TARGET_BYTES_MUST_NOT_BE_OVERWRITTEN_OR_REINTERPRETED",
+    "LATER_SUCCESSOR_ENGINEERING_MUST_IMPLEMENT_FORWARD_ONLY_FROM_THIS_FROZEN_SEMANTIC_BASELINE",
+    "MIGRATIONS_0001_TO_0005_REMAIN_IMMUTABLE",
+    "HISTORICAL_T17_T18_T19_RUN_SEMANTICS_REMAIN_IMMUTABLE",
+    "NO_SYNTHETIC_HISTORICAL_RUNATTEMPT",
+    "FACT_EXISTED_AT_TIME_NE_PUBLIC_EVIDENCE_AVAILABLE_AT_TIME",
+    "FUTURE_OUTCOME_MUST_NOT_REPAIR_HISTORICAL_PIT",
+    "RECOVERY_NE_REMATERIALIZATION",
+    "ACTOR_IDENTITY_NE_AUTHORITY_IDENTITY_AS_SEMANTIC_DIMENSIONS",
+    "APPROVAL_OF_TARGET_X_NE_APPROVAL_OF_TARGET_Y"
+  ],
+  "not_authorized_by_this_freeze": {
+    "implementation": true,
+    "successor_migration": true,
+    "live_execution": true,
+    "postgresql_operational_sot": true,
+    "controlled_cutover": true,
+    "production_release": true
+  },
+  "next_gate": {
+    "phase": "AAA_V1_SUCCESSOR_ENGINEERING_SCOPE_AND_AUTHORIZATION",
+    "state": "READY_NOT_DISPATCHED",
+    "implementation_requires_separate_project_owner_authorization": true,
+    "first_possible_successor_migration_number_if_later_authorized": 6,
+    "t20_assumed": false
+  }
+}
