@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://asset-agent-asa.local/contracts/promotion_receipt_v1.schema.json",
+  "title": "AAA Balanced v1 Promotion Receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["promotion_id", "promotion_kind", "release_set_id", "source_version_set_hash", "decision_receipt_ref", "actor_ref", "authority_ref", "status", "destination_receipts", "recorded_at"],
+  "properties": {
+    "promotion_id": {"type": "string", "minLength": 1},
+    "promotion_kind": {"type": "string", "minLength": 1},
+    "release_set_id": {"type": "string", "minLength": 1},
+    "source_version_set_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "decision_receipt_ref": {"type": "string", "minLength": 1},
+    "actor_ref": {"type": "string", "minLength": 1},
+    "authority_ref": {"type": "string", "minLength": 1},
+    "status": {"enum": ["PREPARED", "IN_PROGRESS", "COMPLETED_VERIFIED", "FAILED_NO_PROMOTION", "FAILED_PARTIAL_FAIL_CLOSED"]},
+    "destination_receipts": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["destination_store", "destination_namespace", "status"],
+        "properties": {
+          "destination_store": {"type": "string", "minLength": 1},
+          "destination_namespace": {"type": "string", "minLength": 1},
+          "status": {"enum": ["PENDING", "VERIFIED", "FAILED"]},
+          "object_identity": {"type": "string", "minLength": 1},
+          "content_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "byte_size": {"type": "integer", "minimum": 0}
+        }
+      }
+    },
+    "recorded_at": {"type": "string", "format": "date-time"},
+    "failure_reason": {"type": "string"}
+  },
+  "x-aaa-invariants": [
+    "exact release-set Decision Receipt required before verified completion",
+    "partial multi-store success is not completed promotion",
+    "FAILED_PARTIAL_FAIL_CLOSED leaves canonical authority unchanged",
+    "canonical pointer update is a separate final step after all required destinations verify",
+    "promotion actor does not become promotion authority"
+  ]
+}
