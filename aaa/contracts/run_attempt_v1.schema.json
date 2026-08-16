@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://asset-agent-asa.local/contracts/run_attempt_v1.schema.json",
+  "title": "AAA Balanced v1 RunAttempt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["run_attempt_id", "run_id", "attempt_ordinal", "exact_execution_spec_hash", "attempt_state", "lease_epoch", "semantic_generation"],
+  "properties": {
+    "run_attempt_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "attempt_ordinal": {"type": "integer", "minimum": 1},
+    "exact_execution_spec_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "attempt_state": {
+      "enum": ["CREATED", "CLAIMED", "ACKNOWLEDGED", "RUNNING_CONFIRMED", "STALE_UNKNOWN", "COMPLETED_PASS", "COMPLETED_FAIL", "COMPLETED_WITH_FINDINGS", "CANCELLED", "TIMED_OUT", "INFRASTRUCTURE_FAILED", "CONTRACT_FAILED"]
+    },
+    "lease_epoch": {"type": "integer", "minimum": 0},
+    "retry_of_attempt_id": {"type": "string", "minLength": 1},
+    "retry_reason_code": {"type": "string", "minLength": 1},
+    "retry_authorization_ref": {"type": "string", "minLength": 1},
+    "worker_id": {"type": "string", "minLength": 1},
+    "claimed_at": {"type": "string", "format": "date-time"},
+    "acknowledged_at": {"type": "string", "format": "date-time"},
+    "started_at": {"type": "string", "format": "date-time"},
+    "last_heartbeat_at": {"type": "string", "format": "date-time"},
+    "lease_expires_at": {"type": "string", "format": "date-time"},
+    "timeout_at": {"type": "string", "format": "date-time"},
+    "execution_task_ref": {"type": "string", "minLength": 1},
+    "terminal_receipt_ref": {"type": "string", "minLength": 1},
+    "terminal_result_ref": {"type": "string", "minLength": 1},
+    "semantic_generation": {"const": "BALANCED_V1"}
+  },
+  "x-aaa-invariants": [
+    "attempt ordinal is unique within run_id and starts at 1",
+    "worker/lease/start/heartbeat/timeout/cancellation belong to RunAttempt",
+    "ACK alone is not RUNNING_CONFIRMED",
+    "RUNNING_CONFIRMED requires started_at + current heartbeat + unexpired lease",
+    "terminal RunAttempt requires one immutable Attempt Termination Receipt"
+  ]
+}
