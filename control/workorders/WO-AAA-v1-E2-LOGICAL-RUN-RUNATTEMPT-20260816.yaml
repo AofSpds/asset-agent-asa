@@ -1,0 +1,58 @@
+work_order_id: WO-AAA-v1-E2-LOGICAL-RUN-RUNATTEMPT-20260816
+project: Asset Agent ASA
+phase: AAA_V1_SUCCESSOR_ENGINEERING
+tranche: E2_LOGICAL_RUN_RUNATTEMPT_EXECUTION_SEMANTICS
+issued_at: '2026-08-16T18:24:00+09:00'
+status: APPROVED_FOR_BOUNDED_ENGINEERING
+requesting_control: AAA_BUILD_CONTROL
+responsible_persona: SEMI-CONTROL-ARCHITECT
+owner_authorization:
+  decision_id: DECISION-AAA-v1-SUCCESSOR-ENGINEERING-AUTHORIZATION-20260816-001
+  exact_scope_sha256: fe1ff488e62bb500f520f395ce64f5428cbc384eb5cadc611f949ee46f8a66ac
+frozen_semantic_basis:
+  freeze_manifest: control/aaa/architecture/AAA-v1-R5-EXACT-FREEZE-MANIFEST_v1.0_FROZEN.json
+  frozen_r4_sha256: 27f093555d5934f79a8501ef3426a0ade4d02d64370cc98a0cb0ea801e4ea01f
+prerequisite:
+  e1_result: control/aaa/results/RESULT-AAA-v1-E1-IDENTITY-TIME-SCHEMA-20260816-001.json
+  e1_integrated_successor: ba45890d8777eb90622318467a50a1bbb888c9ca
+repository: AofSpds/asset-agent-asa
+integration_branch: aaa-integration-v0.2
+engineering_branch: aaa-v1-e2-logical-run-runattempt
+scope:
+  required:
+    - first-class Balanced-v1 Logical Run successor entity with immutable exact execution specification hash
+    - first-class RunAttempt entity with one-to-many Logical Run cardinality
+    - exactly one execution task per RunAttempt after materialization
+    - attempt ordinal unique within Logical Run and starts at 1
+    - worker/claim/ACK/start/heartbeat/lease/timeout/cancellation fields belong to RunAttempt
+    - Attempt Termination Receipt
+    - Logical Run Final Disposition Receipt
+    - same-Logical-Run retry only when exact_execution_spec_hash remains unchanged
+    - material target/config/input/profile/dependency/model-schema identity change requires new Logical Run
+    - legacy compatibility reader explicitly labels LEGACY_AAA_RUN_V0_X and never synthesizes RunAttempt
+    - forward-only PostgreSQL successor migration 0007+ after E1 migration 0006
+    - deterministic and PostgreSQL adversarial tests
+  prohibited:
+    - rewrite migrations 0001-0006
+    - mutate existing T17/T18/T19 Run or execution_task rows into Balanced-v1 semantics
+    - synthetic RunAttempt for historical records
+    - replace existing T19 live worker path or enable live successor execution in E2
+    - model Feature/Scorer/Weight/Ranking/Backtest methodology change
+    - PostgreSQL Operational SoT cutover
+    - controlled cutover or production release
+acceptance:
+  - one Logical Run can own multiple RunAttempts with identical immutable execution spec
+  - attempt ordinal duplicate within same Logical Run fails closed
+  - retry_of_attempt_id must resolve to an earlier Attempt of the same Logical Run
+  - changed material exact execution specification cannot be represented as a retry Attempt of the same Logical Run
+  - claim does not imply ACK; ACK does not imply start; start without current heartbeat does not imply RUNNING_CONFIRMED
+  - expired or stale lease cannot heartbeat or terminalize
+  - retryable timeout can terminate an Attempt without terminalizing Logical Run
+  - partial output cannot satisfy terminal PASS
+  - terminal Attempt requires immutable Attempt Termination Receipt
+  - terminal Logical Run requires immutable Final Disposition Receipt
+  - historical T19 Run remains legacy and has no synthetic run_attempt_id
+  - deterministic suite, PostgreSQL smoke/reconciliation/backup, and Owner Console build pass
+result_requirement:
+  terminal_result_required: true
+  engineering_pass_is_not_independent_validation_pass: true
