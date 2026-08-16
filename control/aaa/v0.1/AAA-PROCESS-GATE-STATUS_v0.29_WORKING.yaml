@@ -1,0 +1,96 @@
+control_id: AAA-PROCESS-GATE-STATUS
+version: v0.29_WORKING
+project: Asset Agent ASA
+recorded_at: '2026-08-16T21:27:00+09:00'
+supersedes: control/aaa/v0.1/AAA-PROCESS-GATE-STATUS_v0.28_WORKING.yaml
+purpose: >-
+  Authoritative working snapshot after bounded E4 release-set component/hash remediation was
+  integrated through PR #38 and passed branch plus post-merge deterministic, PostgreSQL E1-E4,
+  reconciliation/backup and Owner Console regression. Engineering remediation is complete with
+  findings pending fresh Independent Revalidation; the prior failed target and migration 0009 remain
+  immutable historical evidence.
+
+current_position:
+  current_controlled_activity: AAA_V1_E4_RELEASE_SET_HASH_INDEPENDENT_REVALIDATION_PREPARATION
+  prior_failed_engineering_target: 96234463cedaff2b7ec5d0ff49bec44684804b00
+  remediation_engineering_state: COMPLETED_WITH_FINDINGS
+  remediation_integrated_successor: 8a4aea0256bc630385bd463fc8969e5c88a74102
+  remediation_integrated_tree: ffd65463413c9fee073db404c36f2461aa7a6c83
+  independent_revalidation_state: READY_NOT_DISPATCHED
+  independent_validation_pass: false
+  implementation_authorized: true
+  t20_assumed: false
+
+engineering_remediation:
+  work_order: control/workorders/WO-AAA-v1-E4-RELEASE-SET-HASH-REMEDIATION-20260816.yaml
+  run_id: RUN-AAA-v1-E4-RELEASE-SET-HASH-REMEDIATION-20260816-001
+  run_state: COMPLETED_WITH_FINDINGS
+  result: control/aaa/results/RESULT-AAA-v1-E4-RELEASE-SET-HASH-REMEDIATION-20260816-001.json
+  result_sha256: 65e77f53bed11d6413d27ff57111c2f930805c5e5a0dfff7f1ede1364d6c1009
+  result_verdict: PASS_WITH_FINDINGS
+  branch_candidate: b513cc59f59fd44273ea070868406fcacc35217d
+  branch_candidate_tree: 4585bbde6973d6e57c76b7223fd617b2676feaea
+  pull_request: 38
+  integrated_successor: 8a4aea0256bc630385bd463fc8969e5c88a74102
+  integrated_tree: ffd65463413c9fee073db404c36f2461aa7a6c83
+  branch_ci_run: 31947462986
+  postmerge_ci_run: 31947529769
+  deterministic_tests: 214_of_214_pass
+  postgres_e1_e4_migration_smoke_reconciliation_backup: PASS
+  owner_console_build: PASS
+
+migration_registry:
+  migrations_0001_0009: IMMUTABLE_HISTORICAL_BASELINE
+  migration_0010: aaa/db/migrations/0010_balanced_v1_release_set_hash_binding_remediation.sql
+  migration_0010_sha256: 07b4244fc007ca5a0d5488ed4675b25a4e81d6e787a75d19258cb43c8ead7b7a
+  migration_0009_rewritten: false
+
+findings:
+  AAA-v1-IV-FND-01-E4-RELEASE-SET-COMPONENT-HASH-BINDING-GAP:
+    severity: P0
+    blocking: true
+    status: REMEDIATED_ENGINEERING_PENDING_INDEPENDENT_REVALIDATION
+    successor_record: control/aaa/findings/AAA-v1-IV-FND-01-E4-RELEASE-SET-COMPONENT-HASH-BINDING-GAP_v0.2_WORKING.yaml
+  AAA-v1-IV-FND-02-E4-POSTGRES-SMOKE-NOT-IN-CERTIFYING-WORKFLOW:
+    severity: P1
+    blocking: false
+    status: REMEDIATED_ENGINEERING_PENDING_INDEPENDENT_REVALIDATION
+    successor_record: control/aaa/findings/AAA-v1-IV-FND-02-E4-POSTGRES-SMOKE-NOT-IN-CERTIFYING-WORKFLOW_v0.2_WORKING.yaml
+
+revalidation_required_checks:
+  - exact successor commit and tree
+  - migrations 0001-0010 SHA256 identities with 0009 unchanged
+  - Python and PostgreSQL canonical component-set hash parity
+  - arbitrary stored hash versus actual membership mismatch rejection
+  - exact Decision finalization after component assembly
+  - post-finalization membership freeze
+  - stale Decision reuse rejection after material membership change
+  - promotion requires finalized exact set and revalidates hash before pointer mutation
+  - mismatch leaves shadow pointer unchanged
+  - certifying workflow actually invokes E4 PostgreSQL smoke
+  - partial and unverified promotion remain fail-closed
+  - restore verification remains separate from PostgreSQL SoT authority
+  - no legacy rematerialization or model methodology change
+
+operational_authority:
+  json_registry_operational_authority_during_shadow: true
+  postgresql_authoritative: false
+  live_execution_authorized: false
+  production_canonical_promotion_authorized: false
+  controlled_cutover_authorized: false
+  production_release_authorized: false
+
+pending_existing_runs_preserved:
+  p09_second_rerun:
+    run_id: RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-002
+    state: DISPATCHED_AWAITING_ACK
+  t18_independent_validation:
+    run_id: RUN-VALIDATION-AAA-T18-INDEPENDENT-20260816-001
+    state: DISPATCHED_AWAITING_ACK
+
+next_gate:
+  phase: AAA_V1_E4_RELEASE_SET_HASH_INDEPENDENT_REVALIDATION
+  state: READY_NOT_DISPATCHED
+  exact_target: 8a4aea0256bc630385bd463fc8969e5c88a74102
+  exact_tree: ffd65463413c9fee073db404c36f2461aa7a6c83
+  validator: SEMI-VALIDATION-AUDITOR
