@@ -1,0 +1,61 @@
+{
+  "decision_id": "DECISION-AAA-v1-R5-OWNER-EXACT-FREEZE-20260816-001",
+  "project": "Asset Agent ASA",
+  "phase": "R5_OWNER_EXACT_FREEZE_DECISION",
+  "decision_type": "ARCHITECTURE_EXACT_FREEZE",
+  "decision": "APPROVE",
+  "decided_at": "2026-08-16T17:19:00+09:00",
+  "authority_ref": {
+    "authority_role": "PROJECT_OWNER",
+    "authority_identity": "PROJECT_OWNER",
+    "authority_scope": "AAA_V1_ARCHITECTURE_EXACT_FREEZE"
+  },
+  "actor_ref": {
+    "actor_type": "HUMAN_PROJECT_OWNER",
+    "actor_identity": "PROJECT_OWNER"
+  },
+  "target": {
+    "kind": "AAA_V1_R4_RECONCILED_EXACT_CONTRACT_CANDIDATE",
+    "path": "control/aaa/architecture/AAA-v1-R4-SHARED-CONTRACT-RECONCILIATION_v0.1_WORKING.json",
+    "sha256": "27f093555d5934f79a8501ef3426a0ade4d02d64370cc98a0cb0ea801e4ea01f",
+    "byte_size": 16092,
+    "git_blob_sha": "fb89a4d92a77054ad8def32a001f6c55f56dd4f0",
+    "materialization_commit": "17b808d6d3fea6714d84788b88f19741071a07c8"
+  },
+  "prerequisite_evidence": {
+    "r4_reconciliation_verdict": "DUAL_CORE_RECONCILED_READY_FOR_OWNER_EXACT_FREEZE",
+    "r4_mandatory_items": 8,
+    "r4_agreed_items": 8,
+    "r4_unresolved_semantic_conflicts": 0,
+    "core_a_run": "RUN-AAA-v1-R4-COREA-POSITION-20260816-001",
+    "core_b_run": "RUN-AAA-v1-R4-COREB-POSITION-20260816-001",
+    "shared_contract_state": "control/continuity/v1.0/SEMI-SHARED-CONTRACT-STATE_v0.6_WORKING.yaml"
+  },
+  "scope": {
+    "exact_contract_freeze": true,
+    "implementation_authorization": false,
+    "successor_migration_authorization": false,
+    "live_execution_authorization": false,
+    "postgresql_operational_sot_authorization": false,
+    "controlled_cutover_authorization": false,
+    "production_release_authorization": false
+  },
+  "hard_invariants": [
+    "APPROVAL_OF_TARGET_X_IS_NOT_APPROVAL_OF_TARGET_Y",
+    "FROZEN_TARGET_IDENTITY_IS_SHA256_BOUND_AND_DOES_NOT_FOLLOW_BRANCH_OR_PATH_MUTATION",
+    "OWNER_EXACT_FREEZE_IS_NOT_IMPLEMENTATION_AUTHORIZATION",
+    "HISTORICAL_T17_T18_T19_SEMANTICS_REMAIN_IMMUTABLE",
+    "MIGRATIONS_0001_TO_0005_REMAIN_IMMUTABLE",
+    "RECOVERY_IS_NOT_REMATERIALIZATION",
+    "FUTURE_OUTCOME_MUST_NOT_REPAIR_HISTORICAL_PIT"
+  ],
+  "successor_contracts_authorized_for_design_materialization_only_after_separate_engineering_authorization": [
+    "EXACT_TARGET_DECISION_RECEIPT_v1.0_WORKING",
+    "COMPATIBLE_VERSION_SET_RELEASE_MANIFEST_v1.0_WORKING"
+  ],
+  "notes": [
+    "This receipt records the Project Owner's explicit approval of the exact R4 reconciled candidate identified by SHA256 and Git blob identity.",
+    "This control receipt is the R5 freeze evidence under the current governance schema; it is not a claim that the future generic Exact-Target Decision Receipt successor contract has already been implemented.",
+    "No code, schema migration, live worker, PostgreSQL Operational SoT, cutover, or production authorization is granted."
+  ]
+}
