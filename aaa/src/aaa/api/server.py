@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
+from aaa.api.operating_structure import build_operating_structure
 from aaa.api.read_only import build_status, list_validation_gates, list_work_orders, verify_asset
 from aaa.execution.psql_backend import PsqlExecutionBackend
 from aaa.ops.operational_service import OperationalReadService
@@ -38,6 +39,7 @@ class AAAReadOnlyHandler(BaseHTTPRequestHandler):
             operational = _operational_service(self.repo_root)
             if parsed.path == "/api/aaa/health": self._json({"status": "OK", "mode": "READ_ONLY", "llm_required": False}); return
             if parsed.path == "/api/aaa/status": self._json(build_status(self.repo_root)); return
+            if parsed.path == "/api/aaa/operating-structure": self._json(build_operating_structure(self.repo_root)); return
             if parsed.path == "/api/aaa/state/compare": self._json(build_discrepancy_report(self.repo_root)); return
             if parsed.path == "/api/aaa/work": self._json({"items": list_work_orders(self.repo_root)}); return
             if parsed.path == "/api/aaa/runs": self._json({"items": operational.runs()}); return
