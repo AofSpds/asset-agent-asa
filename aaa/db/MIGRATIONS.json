@@ -2,37 +2,86 @@
   "schema": "aaa_ops",
   "authority": "NON_AUTHORITATIVE_SHADOW_UNTIL_EXPLICIT_OWNER_CUTOVER",
   "migrations": [
-    {"version":"0001","path":"aaa/db/migrations/0001_operational_execution_plane.sql","sha256":"66e5609fea1104f4aba4d0566989bf3a6c8d2b6e0b75cb274a79f7bdb48d68c2"},
-    {"version":"0002","path":"aaa/db/migrations/0002_json_registry_source_identity.sql","sha256":"dfd47bb167e4bbcef2de9cb45bec811c0acfbcc5f03bde1a49fc24990b7d16dc"},
-    {"version":"0003","path":"aaa/db/migrations/0003_idempotent_events_atomic_completion.sql","sha256":"5d14f97a9b2d469885984c92fe3d725e213ec892616eee19a7708338b226374b"},
-    {"version":"0004","path":"aaa/db/migrations/0004_execution_dispatcher_worker_runtime.sql","sha256":"23edc2c1dd3475498b5e39f5c1323affb6168ca1f7e220ccc26aa642240906ea"},
-    {"version":"0005","path":"aaa/db/migrations/0005_t19_lease_heartbeat_fail_closed.sql","sha256":"6ea318dba31f94392d6828cf64d2a9701c11e88142a13f53c9dcbb88fc29807a"},
-    {"version":"0006","path":"aaa/db/migrations/0006_balanced_v1_identity_time_schema_foundation.sql","sha256":"e298e32510afed3cfee0173afebe5c170405f8f6aa7f99ee89ccd4de4e199bfa"},
-    {"version":"0007","path":"aaa/db/migrations/0007_balanced_v1_logical_run_runattempt.sql","sha256":"d8dc393501622cfb570c6bd6759a2d2ce79e8d28ce909037856f7e5a4f52bd55"},
-    {"version":"0008","path":"aaa/db/migrations/0008_balanced_v1_authority_provenance_event.sql","sha256":"58455f35e83852330b8933444dd5d4deb8fc730e7d8e48f965e998688b096de6"},
-    {"version":"0009","path":"aaa/db/migrations/0009_balanced_v1_version_set_promotion_restore.sql","sha256":"86c4827a834e62d4319ba2a1c3c238320f095f3e2bbb199ff42f5c90e1e22ec2"}
+    {
+      "version": "0001",
+      "path": "aaa/db/migrations/0001_operational_execution_plane.sql",
+      "sha256": "66e5609fea1104f4aba4d0566989bf3a6c8d2b6e0b75cb274a79f7bdb48d68c2"
+    },
+    {
+      "version": "0002",
+      "path": "aaa/db/migrations/0002_json_registry_source_identity.sql",
+      "sha256": "dfd47bb167e4bbcef2de9cb45bec811c0acfbcc5f03bde1a49fc24990b7d16dc"
+    },
+    {
+      "version": "0003",
+      "path": "aaa/db/migrations/0003_idempotent_events_atomic_completion.sql",
+      "sha256": "5d14f97a9b2d469885984c92fe3d725e213ec892616eee19a7708338b226374b"
+    },
+    {
+      "version": "0004",
+      "path": "aaa/db/migrations/0004_execution_dispatcher_worker_runtime.sql",
+      "sha256": "23edc2c1dd3475498b5e39f5c1323affb6168ca1f7e220ccc26aa642240906ea"
+    },
+    {
+      "version": "0005",
+      "path": "aaa/db/migrations/0005_t19_lease_heartbeat_fail_closed.sql",
+      "sha256": "6ea318dba31f94392d6828cf64d2a9701c11e88142a13f53c9dcbb88fc29807a"
+    },
+    {
+      "version": "0006",
+      "path": "aaa/db/migrations/0006_balanced_v1_identity_time_schema_foundation.sql",
+      "sha256": "e298e32510afed3cfee0173afebe5c170405f8f6aa7f99ee89ccd4de4e199bfa"
+    },
+    {
+      "version": "0007",
+      "path": "aaa/db/migrations/0007_balanced_v1_logical_run_runattempt.sql",
+      "sha256": "d8dc393501622cfb570c6bd6759a2d2ce79e8d28ce909037856f7e5a4f52bd55"
+    },
+    {
+      "version": "0008",
+      "path": "aaa/db/migrations/0008_balanced_v1_authority_provenance_event.sql",
+      "sha256": "58455f35e83852330b8933444dd5d4deb8fc730e7d8e48f965e998688b096de6"
+    },
+    {
+      "version": "0009",
+      "path": "aaa/db/migrations/0009_balanced_v1_version_set_promotion_restore.sql",
+      "sha256": "86c4827a834e62d4319ba2a1c3c238320f095f3e2bbb199ff42f5c90e1e22ec2"
+    },
+    {
+      "version": "0010",
+      "path": "aaa/db/migrations/0010_balanced_v1_release_set_hash_binding_remediation.sql",
+      "sha256": "07b4244fc007ca5a0d5488ed4675b25a4e81d6e787a75d19258cb43c8ead7b7a"
+    }
   ],
   "postgresql_required_for_certification": true,
   "sqlite_certifying": false,
   "redis_required": false,
   "kafka_required": false,
   "kubernetes_required": false,
-  "p09_non_interference": {"failed_target":"80378610f9ac9e688c52417f0416e01c057400a7","rerun_target":"30fdb278c218b24e44d66eb5f47935a196dc4f8c"},
-  "t18_non_interference": {"independent_target":"59c9baf3a24b1cf7542a3643c296711c37d72c3c"},
+  "p09_non_interference": {
+    "failed_target": "80378610f9ac9e688c52417f0416e01c057400a7",
+    "rerun_target": "30fdb278c218b24e44d66eb5f47935a196dc4f8c"
+  },
+  "t18_non_interference": {
+    "independent_target": "59c9baf3a24b1cf7542a3643c296711c37d72c3c"
+  },
   "t19_failed_target": "c867e3704b2744c3a826635b828ad6696e6281eb",
   "t19_live_execution_authority": false,
   "balanced_v1": {
-    "owner_exact_freeze_sha256":"27f093555d5934f79a8501ef3426a0ade4d02d64370cc98a0cb0ea801e4ea01f",
-    "successor_engineering_scope_sha256":"fe1ff488e62bb500f520f395ce64f5428cbc384eb5cadc611f949ee46f8a66ac",
-    "implementation_authorized":true,
-    "postgresql_authoritative":false,
-    "json_registry_operational_authority_during_shadow":true,
-    "legacy_migrations_0001_0005_immutable":true,
-    "e1_migration_0006_integrated_immutable":true,
-    "e2_migration_0007_integrated_immutable":true,
-    "e3_migration_0008_integrated_immutable":true,
-    "live_successor_execution_authorized":false,
-    "production_canonical_promotion_authorized":false,
-    "e2_dependency_lock_finding":"AAA-v1-E2-FND-01-DEPENDENCY-LOCK-OMISSION"
+    "owner_exact_freeze_sha256": "27f093555d5934f79a8501ef3426a0ade4d02d64370cc98a0cb0ea801e4ea01f",
+    "successor_engineering_scope_sha256": "fe1ff488e62bb500f520f395ce64f5428cbc384eb5cadc611f949ee46f8a66ac",
+    "implementation_authorized": true,
+    "postgresql_authoritative": false,
+    "json_registry_operational_authority_during_shadow": true,
+    "legacy_migrations_0001_0005_immutable": true,
+    "e1_migration_0006_integrated_immutable": true,
+    "e2_migration_0007_integrated_immutable": true,
+    "e3_migration_0008_integrated_immutable": true,
+    "e4_migration_0009_integrated_immutable": true,
+    "e4_forward_remediation_migration_0010": true,
+    "e4_iv_blocking_finding": "AAA-v1-IV-FND-01-E4-RELEASE-SET-COMPONENT-HASH-BINDING-GAP",
+    "live_successor_execution_authorized": false,
+    "production_canonical_promotion_authorized": false,
+    "e2_dependency_lock_finding": "AAA-v1-E2-FND-01-DEPENDENCY-LOCK-OMISSION"
   }
 }
