@@ -1,0 +1,83 @@
+work_order_id: WO-VALIDATION-AAA-v1-E4-RELEASE-SET-HASH-REVALIDATION-20260816
+project: Asset Agent ASA
+phase: AAA_V1_E4_RELEASE_SET_HASH_INDEPENDENT_REVALIDATION
+issued_at: '2026-08-16T21:27:00+09:00'
+status: APPROVED_FOR_VALIDATION
+requesting_control: AAA_BUILD_CONTROL
+responsible_persona: SEMI-VALIDATION-AUDITOR
+executor_role: INDEPENDENT_VALIDATION
+permission_level: L1_READ_ONLY_VALIDATION
+
+exact_target_binding: control/aaa/validation/AAA-v1-E4-RELEASE-SET-HASH-REVALIDATION-TARGET-BINDING_v0.1_WORKING.yaml
+repository: AofSpds/asset-agent-asa
+exact_validation_target: 8a4aea0256bc630385bd463fc8969e5c88a74102
+exact_validation_tree: ffd65463413c9fee073db404c36f2461aa7a6c83
+
+objective: >-
+  Independently revalidate the bounded E4 release-set component/hash remediation that follows the
+  prior blocking Independent Validation FAIL. Determine whether P0 AAA-v1-IV-FND-01 and P1
+  AAA-v1-IV-FND-02 are actually closed by exact successor 8a4aea0256bc630385bd463fc8969e5c88a74102.
+  Validation is read-only, exact-target, fail-closed and does not grant operational authority.
+
+required_revalidation:
+  - verify exact Git commit 8a4aea0256bc630385bd463fc8969e5c88a74102 and tree ffd65463413c9fee073db404c36f2461aa7a6c83
+  - verify migrations 0001-0010 physical SHA256 identities and confirm 0009 bytes remain unchanged
+  - verify migration 0010 is forward-only and closes actual component-membership versus component_set_sha256 binding gap
+  - independently verify Python and PostgreSQL canonical component-set hashes agree on shared fixtures
+  - verify arbitrary stored hash plus different actual components fails finalization
+  - verify exact Decision binding occurs only for the recomputed immutable set
+  - verify component INSERT after finalization/Decision is rejected
+  - verify material membership change cannot reuse stale Decision Receipt
+  - verify promotion receipt requires finalized exact set and revalidates actual membership hash
+  - verify promotion mismatch cannot mutate the non-authoritative shadow pointer
+  - verify partial multi-store and unverified-component promotions remain fail-closed
+  - verify certifying PostgreSQL workflow actually executes e4_version_set_promotion_restore_smoke.sql
+  - rerun deterministic suite and confirm remediation-specific tests execute
+  - rerun PostgreSQL E1-E4 migration/smoke, JSON reconciliation and backup/restore
+  - rerun Owner Console build
+  - verify restore verification does not authorize PostgreSQL Operational SoT
+  - verify no historical T17/T18/T19 rematerialization and no model methodology change
+
+prior_failed_validation:
+  run_id: RUN-VALIDATION-AAA-v1-SUCCESSOR-INDEPENDENT-20260816-001
+  exact_target: 96234463cedaff2b7ec5d0ff49bec44684804b00
+  verdict: FAIL
+  blocking_finding: AAA-v1-IV-FND-01-E4-RELEASE-SET-COMPONENT-HASH-BINDING-GAP
+  coverage_finding: AAA-v1-IV-FND-02-E4-POSTGRES-SMOKE-NOT-IN-CERTIFYING-WORKFLOW
+
+minimum_adversarial_cases:
+  - arbitrary stored hash does not authorize mismatched actual component membership
+  - post-finalization component insertion rejects
+  - material component membership change requires a different hash/set identity
+  - stale Decision Receipt reuse after membership change rejects
+  - unfinalized release set cannot create a valid promotion receipt
+  - promotion actual-set/hash mismatch leaves pointer unchanged
+  - cross-language Python/SQL canonical hashes match exact fixture values
+  - partial destination failure leaves pointer unchanged
+  - unverified component cannot complete promotion
+  - restore verified still does not authorize PostgreSQL SoT
+
+outputs:
+  required_return_packet: true
+  exact_target_must_be_repeated: true
+  finding_01_closure_must_be_explicit: true
+  finding_02_closure_must_be_explicit: true
+  overall_verdict_enum:
+    - PASS
+    - FAIL
+    - PASS_WITH_FINDINGS
+  independent_validation_pass_must_be_explicit: true
+  live_execution_authorized_must_be_false: true
+  postgresql_operational_sot_authorized_must_be_false: true
+  production_canonical_promotion_authorized_must_be_false: true
+  controlled_cutover_authorized_must_be_false: true
+  production_release_authorized_must_be_false: true
+
+prohibited:
+  - canonical write
+  - implementation or migration modification
+  - rewrite of migration 0009 or prior failed target
+  - model methodology modification
+  - synthetic historical evidence or RunAttempt
+  - retroactive ACK/start/heartbeat fabrication
+  - production/cutover/live authorization
