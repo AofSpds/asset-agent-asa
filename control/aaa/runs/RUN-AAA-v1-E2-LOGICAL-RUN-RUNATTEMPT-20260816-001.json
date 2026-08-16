@@ -1,0 +1,26 @@
+{
+  "run_id": "RUN-AAA-v1-E2-LOGICAL-RUN-RUNATTEMPT-20260816-001",
+  "process_id": "AAA_V1_SUCCESSOR_ENGINEERING_E2",
+  "work_order_id": "WO-AAA-v1-E2-LOGICAL-RUN-RUNATTEMPT-20260816",
+  "responsible_persona": "SEMI-CONTROL-ARCHITECT",
+  "executor_role": "BOUNDED_ENGINEERING_IMPLEMENTATION",
+  "state": "DISPATCHED_AWAITING_ACK",
+  "repository": "AofSpds/asset-agent-asa",
+  "exact_base_commit": "a681491bc8b08eb042b3a70e81a798b62b2cb68b",
+  "branch": "aaa-v1-e2-logical-run-runattempt",
+  "authorization_decision": "DECISION-AAA-v1-SUCCESSOR-ENGINEERING-AUTHORIZATION-20260816-001",
+  "exact_scope_sha256": "fe1ff488e62bb500f520f395ce64f5428cbc384eb5cadc611f949ee46f8a66ac",
+  "frozen_semantic_target_sha256": "27f093555d5934f79a8501ef3426a0ade4d02d64370cc98a0cb0ea801e4ea01f",
+  "started_at": null,
+  "last_heartbeat_at": null,
+  "stale_after_seconds": 7200,
+  "canonical_output": false,
+  "terminal_result": null,
+  "notes": [
+    "Dispatch registration is not ACK/start/running evidence.",
+    "E2 is bounded to Balanced-v1 Logical Run / RunAttempt successor semantics.",
+    "Legacy T17/T18/T19 Run records and execution tasks are not rematerialized.",
+    "Live successor execution remains disabled; PostgreSQL remains nonauthoritative.",
+    "Engineering PASS cannot satisfy Independent Validation PASS."
+  ]
+}
