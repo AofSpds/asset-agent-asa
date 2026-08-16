@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://asset-agent-asa.local/contracts/restore_manifest_v1.schema.json",
+  "title": "AAA Balanced v1 Provider-Neutral Restore Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["restore_manifest_id", "backup_or_snapshot_identity", "source_store_kind", "target_store_kind", "schema_migration_version_set", "immutable_artifact_refs", "restore_target_identity", "verification_plan_ref", "status"],
+  "properties": {
+    "restore_manifest_id": {"type": "string", "minLength": 1},
+    "backup_or_snapshot_identity": {"type": "string", "minLength": 1},
+    "source_store_kind": {"type": "string", "minLength": 1},
+    "target_store_kind": {"type": "string", "minLength": 1},
+    "schema_migration_version_set": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1, "not": {"enum": ["latest", "HEAD", "current"]}}},
+    "immutable_artifact_refs": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["immutable_identity", "sha256", "byte_size", "persistent_locator"],
+        "properties": {
+          "immutable_identity": {"type": "string", "minLength": 1},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "byte_size": {"type": "integer", "minimum": 0},
+          "persistent_locator": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "restore_target_identity": {"type": "string", "minLength": 1},
+    "verification_plan_ref": {"type": "string", "minLength": 1},
+    "status": {"enum": ["PREPARED", "RESTORED_UNVERIFIED", "RESTORED_VERIFIED", "FAILED_FAIL_CLOSED"]},
+    "provider_metadata": {"type": "object", "additionalProperties": {"type": "string", "minLength": 1}},
+    "verification_result_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "managed_pitr_rpo_rto_qualification_ref": {"type": "string", "minLength": 1}
+  },
+  "x-aaa-invariants": [
+    "provider metadata is implementation metadata and not restore semantic identity",
+    "restore creation is not restore verification",
+    "RESTORED_VERIFIED does not itself authorize PostgreSQL Operational SoT",
+    "local backup/restore does not satisfy managed PITR/RPO/RTO qualification",
+    "Recovery != Rematerialization"
+  ]
+}
