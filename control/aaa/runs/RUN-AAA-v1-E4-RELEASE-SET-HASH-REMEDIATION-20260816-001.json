@@ -4,7 +4,7 @@
   "work_order_id": "WO-AAA-v1-E4-RELEASE-SET-HASH-REMEDIATION-20260816",
   "responsible_persona": "SEMI-CONTROL-ARCHITECT",
   "executor_role": "BOUNDED_ENGINEERING_IMPLEMENTATION",
-  "state": "DISPATCHED_AWAITING_ACK",
+  "state": "COMPLETED_WITH_FINDINGS",
   "repository": "AofSpds/asset-agent-asa",
   "exact_base_commit": "c9952214c0e2808ff734553152adf25881b289d8",
   "branch": "aaa-v1-e4-release-set-hash-remediation-v0.1",
@@ -17,11 +17,18 @@
   "last_heartbeat_at": null,
   "stale_after_seconds": 7200,
   "canonical_output": false,
-  "terminal_result": null,
+  "terminal_result": {
+    "result_id": "RESULT-AAA-v1-E4-RELEASE-SET-HASH-REMEDIATION-20260816-001",
+    "result_sha256": "65e77f53bed11d6413d27ff57111c2f930805c5e5a0dfff7f1ede1364d6c1009",
+    "completed_at": "2026-08-16T21:27:00+09:00",
+    "persistent_locator": "control/aaa/results/RESULT-AAA-v1-E4-RELEASE-SET-HASH-REMEDIATION-20260816-001.json",
+    "verdict": "PASS_WITH_FINDINGS"
+  },
   "notes": [
-    "Dispatch registration is not executor ACK/start/running evidence.",
+    "Manual/external engineering bridge completed without retroactive ACK/start/heartbeat fabrication.",
     "Migration 0009 and failed exact target 96234463cedaff2b7ec5d0ff49bec44684804b00 remain immutable historical evidence.",
-    "First allowed forward remediation migration is 0010.",
+    "Migration 0010 is integrated at successor 8a4aea0256bc630385bd463fc8969e5c88a74102 and postmerge CI is green.",
+    "P0/P1 findings remain pending Independent Revalidation and are not CLOSED by Engineering PASS.",
     "No PostgreSQL Operational SoT, live execution, production canonical promotion, Controlled Cutover, or Production Release is authorized."
   ]
 }
