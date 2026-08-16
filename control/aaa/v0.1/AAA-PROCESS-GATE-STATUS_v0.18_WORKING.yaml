@@ -1,0 +1,120 @@
+control_id: AAA-PROCESS-GATE-STATUS
+version: v0.18_WORKING
+project: Asset Agent ASA
+recorded_at: '2026-08-16T18:05:00+09:00'
+supersedes: control/aaa/v0.1/AAA-PROCESS-GATE-STATUS_v0.17_WORKING.yaml
+purpose: >-
+  Authoritative working snapshot after R5 Owner Exact Freeze and after the Balanced-v1 successor
+  engineering scope was defined against that exact frozen target. Engineering implementation is
+  NOT yet authorized. The exact scope is ready for a separate Project Owner authorization decision.
+
+completion_rules:
+  approval_of_target_x_is_not_approval_of_target_y: true
+  owner_exact_freeze_is_not_implementation_authorization: true
+  implementation_requires_separate_project_owner_authorization_and_work_order: true
+  engineering_authorization_must_bind_exact_scope_sha256: true
+  frozen_target_must_not_follow_later_branch_or_path_mutation: true
+  migrations_0001_0005_must_not_be_rewritten: true
+  legacy_t17_t18_t19_semantics_must_not_be_rematerialized: true
+  no_synthetic_historical_runattempt: true
+  json_registry_remains_operational_authority_during_shadow: true
+  postgresql_remains_nonauthoritative_until_separate_owner_cutover: true
+  engineering_pass_is_not_independent_validation_pass: true
+  independent_validation_pass_is_not_owner_cutover_authorization: true
+  future_outcome_must_not_repair_historical_pit: true
+
+current_position:
+  current_controlled_activity: AAA_V1_SUCCESSOR_ENGINEERING_SCOPE_AND_AUTHORIZATION
+  architecture_revision_phase: R5_OWNER_EXACT_FREEZE_DECISION
+  architecture_revision_phase_state: CLOSED_APPROVED
+  successor_engineering_scope_state: DEFINED
+  successor_engineering_authorization_state: READY_NOT_DISPATCHED
+  new_semantic_engineering_paused: true
+  implementation_authorized: false
+  work_order_issued: false
+  t20_assumed: false
+
+core_processes:
+  P00_NAMING_AND_AUTHORITY: CLOSED
+  P01_RECOVERY_GAP_AND_BUILD_CONTRACT: CLOSED
+  P02_DETERMINISTIC_FOUNDATION: CLOSED
+  P03_CLI_API_OWNER_CONSOLE: CLOSED
+  P04_AGENT_RUNTIME_BOUNDARIES: CLOSED
+  P05_NATURAL_LANGUAGE_WORK_INTENT: CLOSED
+  P06_RECOVERY_AND_LOCAL_ADVERSARIAL_HARDENING: CLOSED
+  P07_ENGINEERING_INTEGRATION: CLOSED
+  P08_GOVERNED_SHADOW_OPERATION: OPEN_BLOCKED
+  P09_INDEPENDENT_VALIDATION: DISPATCHED_AWAITING_ACK
+  P10_CONTROLLED_CUTOVER: NOT_STARTED
+  P11_POST_CUTOVER_STABILIZATION: NOT_STARTED
+
+parallel_tracks:
+  T17:
+    gate: ENGINEERING_REMEDIATED_AWAITING_INDEPENDENT_RERUN
+    validation_run: RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-002
+    state: DISPATCHED_AWAITING_ACK
+  T18:
+    gate: ENGINEERING_INTEGRATED_INDEPENDENT_VALIDATION_DISPATCHED
+    validation_run: RUN-VALIDATION-AAA-T18-INDEPENDENT-20260816-001
+    state: DISPATCHED_AWAITING_ACK
+    postgresql_authoritative: false
+  T19:
+    gate: INDEPENDENT_VALIDATION_PASS
+    bounded_cycle_closed: true
+    final_integrated_successor: 45a1541c4720387873a78e3a95fc697959d19248
+    live_execution_authorized: false
+
+architecture_revision:
+  profile: BALANCED_V1
+  R0_CURRENT_BOUNDED_T19_CLOSEOUT: CLOSED
+  R1_EXACT_BASELINE_CAPTURE: CLOSED
+  R2_ARCHITECTURE_DELTA_ANALYSIS: CLOSED
+  R3_EXACT_CONTRACT_DESIGN: CLOSED
+  R4_SHARED_CONTRACT_RECONCILIATION: CLOSED
+  R5_OWNER_EXACT_FREEZE_DECISION: CLOSED_APPROVED
+  frozen_target:
+    path: control/aaa/architecture/AAA-v1-R4-SHARED-CONTRACT-RECONCILIATION_v0.1_WORKING.json
+    sha256: 27f093555d5934f79a8501ef3426a0ade4d02d64370cc98a0cb0ea801e4ea01f
+    byte_size: 16092
+    git_blob_sha: fb89a4d92a77054ad8def32a001f6c55f56dd4f0
+  freeze_manifest: control/aaa/architecture/AAA-v1-R5-EXACT-FREEZE-MANIFEST_v1.0_FROZEN.json
+  owner_freeze_decision: control/aaa/decisions/DECISION-AAA-v1-R5-OWNER-EXACT-FREEZE-20260816-001.json
+
+successor_engineering_scope:
+  path: control/aaa/architecture/AAA-v1-SUCCESSOR-ENGINEERING-SCOPE_v0.1_WORKING.json
+  sha256: fe1ff488e62bb500f520f395ce64f5428cbc384eb5cadc611f949ee46f8a66ac
+  byte_size: 10849
+  git_blob_sha: 686eb406a93eeeb078e7b8fe35b0d2341c585105
+  materialization_commit: 3cfa0fdcda06fc50fcc46122067521851dab4ca5
+  status: SCOPE_DEFINED_AWAITING_OWNER_IMPLEMENTATION_AUTHORIZATION
+  tranches:
+    - E1_IDENTITY_TIME_SCHEMA_FOUNDATION
+    - E2_LOGICAL_RUN_RUNATTEMPT_EXECUTION_SEMANTICS
+    - E3_AUTHORITY_DECISION_PROVENANCE_EVENT
+    - E4_VERSION_SET_PROMOTION_RESTORE_HARDENING
+  first_possible_successor_migration_number: 6
+
+engineering_authorization_request:
+  path: control/aaa/architecture/AAA-v1-SUCCESSOR-ENGINEERING-AUTHORIZATION-REQUEST_v0.1_WORKING.json
+  materialization_commit: eee374ea590a01c14b0eb95672cfc70c75dd23e2
+  state: READY_FOR_PROJECT_OWNER_DECISION
+  implementation_authorized: false
+  migration_authorized: false
+  work_order_issued: false
+
+explicit_not_authorized:
+  - MODEL_FEATURE_SCORER_WEIGHT_RANKING_BACKTEST_METHODOLOGY_CHANGE
+  - MIGRATION_0001_TO_0005_REWRITE
+  - HISTORICAL_T17_T18_T19_REMATERIALIZATION
+  - POSTGRESQL_OPERATIONAL_SOT_CUTOVER
+  - LIVE_EXECUTION_ENABLEMENT
+  - CONTROLLED_CUTOVER
+  - PRODUCTION_RELEASE
+  - PRODUCTION_CANONICAL_PROMOTION
+
+next_gate:
+  decision: PROJECT_OWNER_SUCCESSOR_ENGINEERING_IMPLEMENTATION_AUTHORIZATION
+  exact_target_sha256: fe1ff488e62bb500f520f395ce64f5428cbc384eb5cadc611f949ee46f8a66ac
+  state: READY_NOT_DISPATCHED
+  if_approved: ISSUE_BOUNDED_SUCCESSOR_ENGINEERING_WORK_ORDER
+  if_not_approved: REMAIN_PAUSED
