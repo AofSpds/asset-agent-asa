@@ -4,7 +4,7 @@
   "work_order_id": "WO-VALIDATION-AAA-v1-SUCCESSOR-INDEPENDENT-20260816",
   "responsible_persona": "SEMI-VALIDATION-AUDITOR",
   "executor_role": "INDEPENDENT_VALIDATION",
-  "state": "DISPATCHED_AWAITING_ACK",
+  "state": "COMPLETED_FAIL",
   "repository": "AofSpds/asset-agent-asa",
   "exact_base_commit": "96234463cedaff2b7ec5d0ff49bec44684804b00",
   "branch": "aaa-integration-v0.2",
@@ -12,11 +12,17 @@
   "last_heartbeat_at": null,
   "stale_after_seconds": 7200,
   "canonical_output": false,
-  "terminal_result": null,
+  "terminal_result": {
+    "result_id": "RESULT-VALIDATION-AAA-v1-SUCCESSOR-INDEPENDENT-20260816-001",
+    "result_sha256": "622a742810efb088482cd1d0fe89c3443027a15a98c07477a9b50aedff70dd23",
+    "completed_at": "2026-08-16T20:03:00+09:00",
+    "persistent_locator": "control/aaa/results/RESULT-VALIDATION-AAA-v1-SUCCESSOR-INDEPENDENT-20260816-001.json",
+    "verdict": "FAIL"
+  },
   "notes": [
-    "Dispatch registration is not validator ACK/start/running evidence.",
-    "Validation target is exact commit 96234463cedaff2b7ec5d0ff49bec44684804b00; later control-only commits do not move it.",
-    "Engineering PASS is evidence input, not Independent Validation PASS.",
+    "Independent manual validation evidence was returned by SEMI-VALIDATION-AUDITOR; no governed worker ACK/start/heartbeat was fabricated retroactively.",
+    "The exact validation target remains 96234463cedaff2b7ec5d0ff49bec44684804b00 and is preserved as failed historical evidence.",
+    "P0 finding AAA-v1-IV-FND-01-E4-RELEASE-SET-COMPONENT-HASH-BINDING-GAP blocks Independent Validation PASS.",
     "No live execution, PostgreSQL Operational SoT, canonical production promotion, Controlled Cutover, or Production Release is authorized."
   ]
 }
