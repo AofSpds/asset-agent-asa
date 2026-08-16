@@ -17,15 +17,14 @@
   "canonical_output": false,
   "terminal_result": {
     "result_id": "RESULT-AAA-v1-E4-VERSION-SET-PROMOTION-RESTORE-20260816-001",
-    "path": "control/aaa/results/RESULT-AAA-v1-E4-VERSION-SET-PROMOTION-RESTORE-20260816-001.json",
-    "sha256": "facb569bcdf9d05962072fb461081cffa1cebf9e2b29527f9ef85da0eb84281d",
-    "byte_size": 2803,
-    "git_blob_sha": "6f311bf339087fd5f26238970565fd43fbd18b3c",
-    "verdict": "PASS",
-    "completed_at": "2026-08-16T19:16:00+09:00"
+    "result_sha256": "facb569bcdf9d05962072fb461081cffa1cebf9e2b29527f9ef85da0eb84281d",
+    "completed_at": "2026-08-16T19:16:00+09:00",
+    "persistent_locator": "control/aaa/results/RESULT-AAA-v1-E4-VERSION-SET-PROMOTION-RESTORE-20260816-001.json",
+    "verdict": "PASS"
   },
   "notes": [
     "Engineering execution evidence was supplied by exact branch/PR/post-merge CI and repository integration; no governed worker ACK/start/heartbeat was fabricated retroactively.",
+    "The terminal Result binding was corrected forward in control history to the strict Run Registry v0.6 identity shape after fail-closed CI detected INVALID_TERMINAL_RESULT_IDENTITY.",
     "E4 is bounded to Compatible Version Set, Promotion and Restore hardening semantics.",
     "No production canonical promotion, PostgreSQL Operational SoT cutover, live execution, Controlled Cutover, or Production Release is authorized.",
     "Engineering PASS cannot satisfy Independent Validation PASS."
