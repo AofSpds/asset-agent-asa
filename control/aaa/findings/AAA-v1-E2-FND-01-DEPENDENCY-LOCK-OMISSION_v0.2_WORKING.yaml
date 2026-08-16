@@ -1,0 +1,43 @@
+finding_id: AAA-v1-E2-FND-01-DEPENDENCY-LOCK-OMISSION
+version: v0.2_WORKING
+project: Asset Agent ASA
+recorded_at: '2026-08-16T18:48:00+09:00'
+supersedes: control/aaa/findings/AAA-v1-E2-FND-01-DEPENDENCY-LOCK-OMISSION_v0.1_WORKING.yaml
+source: AAA_BUILD_CONTROL_SUCCESSOR_ENGINEERING_SELF_AUDIT
+affected_tranche: E2_LOGICAL_RUN_RUNATTEMPT_EXECUTION_SEMANTICS
+remediation_tranche: E3_AUTHORITY_DECISION_PROVENANCE_EVENT
+severity: P0_CONTRACT_FIDELITY
+blocking: false
+status: CLOSED_ENGINEERING_REMEDIATED_AWAITING_INDEPENDENT_VALIDATION
+historical_gap_preserved:
+  e2_integrated_successor: 0c56fe7855e6083ae0d96b570bb5f3f020079911
+  original_issue: dependency_lock_refs were absent from E2 exact_execution_spec_hash
+remediation:
+  integrated_successor: afd9b789f907399ee50b1d94f3e131b73566e06f
+  pull_request: 36
+  result: control/aaa/results/RESULT-AAA-v1-E3-AUTHORITY-DECISION-PROVENANCE-EVENT-20260816-001.json
+  result_sha256: 491e0e14f9a27629c146729bc3fc30bf241b135eeaf0c46b8b8ea3e8033d06b1
+  migration_0008_sha256: 58455f35e83852330b8933444dd5d4deb8fc730e7d8e48f965e998688b096de6
+  dependency_lock_refs_in_exact_execution_spec_hash: true
+  dependency_lock_refs_in_logical_run_successor_contract: true
+  provenance_mechanical_dependency_verification: true
+  migration_0007_rewritten: false
+  historical_t17_t18_t19_rematerialized: false
+verification:
+  deterministic_tests: 198_OF_198_PASS
+  branch_ci: 31939814883
+  pull_request_ci: 31939862152
+  post_merge_ci: 31939895426
+  post_merge_deterministic: PASS
+  post_merge_postgresql: PASS
+  post_merge_owner_console: PASS
+independent_validation:
+  required: true
+  pass: false
+  disposition: AWAIT_SUCCESSOR_INDEPENDENT_VALIDATION_AFTER_E4_INTEGRATED_REGRESSION
+authority:
+  engineering_remediation_only: true
+  live_execution_authorized: false
+  postgresql_operational_sot_authorized: false
+  controlled_cutover_authorized: false
+  production_release_authorized: false
