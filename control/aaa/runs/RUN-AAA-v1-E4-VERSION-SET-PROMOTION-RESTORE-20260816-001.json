@@ -4,7 +4,7 @@
   "work_order_id": "WO-AAA-v1-E4-VERSION-SET-PROMOTION-RESTORE-20260816",
   "responsible_persona": "SEMI-CONTROL-ARCHITECT",
   "executor_role": "BOUNDED_ENGINEERING_IMPLEMENTATION",
-  "state": "DISPATCHED_AWAITING_ACK",
+  "state": "COMPLETED_PASS",
   "repository": "AofSpds/asset-agent-asa",
   "exact_base_commit": "b97297b15888c68fde01b8dfff3bf2b46fd037b7",
   "branch": "aaa-v1-e4-version-set-promotion-restore",
@@ -15,9 +15,17 @@
   "last_heartbeat_at": null,
   "stale_after_seconds": 7200,
   "canonical_output": false,
-  "terminal_result": null,
+  "terminal_result": {
+    "result_id": "RESULT-AAA-v1-E4-VERSION-SET-PROMOTION-RESTORE-20260816-001",
+    "path": "control/aaa/results/RESULT-AAA-v1-E4-VERSION-SET-PROMOTION-RESTORE-20260816-001.json",
+    "sha256": "facb569bcdf9d05962072fb461081cffa1cebf9e2b29527f9ef85da0eb84281d",
+    "byte_size": 2803,
+    "git_blob_sha": "6f311bf339087fd5f26238970565fd43fbd18b3c",
+    "verdict": "PASS",
+    "completed_at": "2026-08-16T19:16:00+09:00"
+  },
   "notes": [
-    "Dispatch registration is not ACK/start/running evidence.",
+    "Engineering execution evidence was supplied by exact branch/PR/post-merge CI and repository integration; no governed worker ACK/start/heartbeat was fabricated retroactively.",
     "E4 is bounded to Compatible Version Set, Promotion and Restore hardening semantics.",
     "No production canonical promotion, PostgreSQL Operational SoT cutover, live execution, Controlled Cutover, or Production Release is authorized.",
     "Engineering PASS cannot satisfy Independent Validation PASS."
