@@ -1,0 +1,61 @@
+{
+  "decision_id": "DECISION-AAA-v1-POST-IV-ROADMAP-OWNER-CONSOLE-20260817-001",
+  "project": "Asset Agent ASA",
+  "decision_type": "POST_IV_ROADMAP_AND_OWNER_CONSOLE_IMPLEMENTATION_APPROVAL",
+  "decision": "APPROVE",
+  "decided_at": "2026-08-17T01:25:00+09:00",
+  "authority_ref": {
+    "authority_role": "PROJECT_OWNER",
+    "authority_identity": "PROJECT_OWNER",
+    "authority_scope": "POST_IV_PLANNING_INTEGRATION_AND_OWNER_CONSOLE_READ_ONLY_UI_IMPLEMENTATION"
+  },
+  "actor_ref": {
+    "actor_type": "HUMAN_PROJECT_OWNER",
+    "actor_identity": "PROJECT_OWNER"
+  },
+  "target": {
+    "kind": "CONTENT_SHA256",
+    "path": "control/aaa/architecture/AAA-v1-POST-IV-OPERATING-ROADMAP_v1.0_OWNER-APPROVED.json",
+    "sha256": "b147da5461140fd13c88ef5da5e222bd94f52e02d723baa8095c48008d9db91c",
+    "byte_size": 6839
+  },
+  "repository_scope": {
+    "repository": "AofSpds/asset-agent-asa",
+    "base_commit": "53b20e68fa7356cd18c83493051877bfe4d25001",
+    "implementation_branch": "aaa-operating-structure-ui-v0.1"
+  },
+  "authorized": {
+    "final_roadmap_control_integration": true,
+    "current_operating_structure_read_model": true,
+    "owner_console_read_only_ui": true,
+    "minimal_read_only_api": true,
+    "deterministic_projection_tests": true,
+    "owner_console_build": true,
+    "documentation_and_control_evidence": true,
+    "channel_registry_current_state_normalization": true
+  },
+  "approved_in_principle_only": {
+    "bounded_non_authoritative_shadow_execution_authority_model": true
+  },
+  "explicitly_not_authorized": {
+    "bounded_shadow_execution": true,
+    "live_execution": true,
+    "postgresql_operational_sot": true,
+    "production_canonical_promotion": true,
+    "controlled_cutover": true,
+    "production_release": true,
+    "r5_reopen": true,
+    "t20_creation": true,
+    "shared_contract_unilateral_change": true,
+    "multi_agent_framework": true
+  },
+  "hard_rules": [
+    "CHANNEL_NE_PERSONA",
+    "UI_IMPLEMENTATION_AUTHORITY_NE_OPERATIONAL_EXECUTION_AUTHORITY",
+    "NO_MANUAL_ORG_CHART_SOURCE_OF_TRUTH",
+    "PERSISTENT_CONTROL_PLANE_TO_DETERMINISTIC_READ_MODEL_TO_UI",
+    "UNKNOWN_STALE_CONFLICT_MUST_NOT_BE_GUESSED_AWAY",
+    "P09_T18_HISTORICAL_STATE_NE_CURRENT_DISPOSITION",
+    "NO_FROZEN_OVERWRITE"
+  ]
+}
