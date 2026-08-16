@@ -1,0 +1,22 @@
+{
+  "run_id": "RUN-VALIDATION-AAA-v1-SUCCESSOR-INDEPENDENT-20260816-001",
+  "process_id": "AAA_V1_SUCCESSOR_INDEPENDENT_VALIDATION",
+  "work_order_id": "WO-VALIDATION-AAA-v1-SUCCESSOR-INDEPENDENT-20260816",
+  "responsible_persona": "SEMI-VALIDATION-AUDITOR",
+  "executor_role": "INDEPENDENT_VALIDATION",
+  "state": "DISPATCHED_AWAITING_ACK",
+  "repository": "AofSpds/asset-agent-asa",
+  "exact_base_commit": "96234463cedaff2b7ec5d0ff49bec44684804b00",
+  "branch": "aaa-integration-v0.2",
+  "started_at": null,
+  "last_heartbeat_at": null,
+  "stale_after_seconds": 7200,
+  "canonical_output": false,
+  "terminal_result": null,
+  "notes": [
+    "Dispatch registration is not validator ACK/start/running evidence.",
+    "Validation target is exact commit 96234463cedaff2b7ec5d0ff49bec44684804b00; later control-only commits do not move it.",
+    "Engineering PASS is evidence input, not Independent Validation PASS.",
+    "No live execution, PostgreSQL Operational SoT, canonical production promotion, Controlled Cutover, or Production Release is authorized."
+  ]
+}
