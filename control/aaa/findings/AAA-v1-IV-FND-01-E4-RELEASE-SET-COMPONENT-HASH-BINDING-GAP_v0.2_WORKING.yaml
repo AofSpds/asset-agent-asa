@@ -1,0 +1,54 @@
+finding_id: AAA-v1-IV-FND-01-E4-RELEASE-SET-COMPONENT-HASH-BINDING-GAP
+version: v0.2_WORKING
+project: Asset Agent ASA
+phase: AAA_V1_E4_RELEASE_SET_HASH_REMEDIATION
+recorded_at: '2026-08-16T21:27:00+09:00'
+supersedes: control/aaa/findings/AAA-v1-IV-FND-01-E4-RELEASE-SET-COMPONENT-HASH-BINDING-GAP_v0.1_OPEN.yaml
+severity: P0
+blocking: true
+status: REMEDIATED_ENGINEERING_PENDING_INDEPENDENT_REVALIDATION
+validator_authority_to_close: SEMI-VALIDATION-AUDITOR
+exact_failed_target: 96234463cedaff2b7ec5d0ff49bec44684804b00
+engineering_successor_target: 8a4aea0256bc630385bd463fc8969e5c88a74102
+engineering_successor_tree: ffd65463413c9fee073db404c36f2461aa7a6c83
+pull_request: 38
+
+engineering_remediation:
+  migration_0009_rewritten: false
+  migration_0010_path: aaa/db/migrations/0010_balanced_v1_release_set_hash_binding_remediation.sql
+  migration_0010_sha256: 07b4244fc007ca5a0d5488ed4675b25a4e81d6e787a75d19258cb43c8ead7b7a
+  canonical_component_set_hashing_equal_to_python_contract: implemented_and_cross_language_tested
+  actual_membership_hash_recompute: implemented
+  exact_decision_finalization: implemented
+  post_finalization_membership_insert: reject
+  stale_decision_reuse_after_material_membership_change: reject
+  promotion_actual_set_hash_mismatch: fail_closed_before_pointer_mutation
+  shadow_pointer_last_semantics: preserved
+
+adversarial_evidence:
+  branch_candidate: b513cc59f59fd44273ea070868406fcacc35217d
+  branch_ci_run: 31947462986
+  postmerge_ci_run: 31947529769
+  deterministic_tests: 214_of_214_pass
+  postgres_e1_e4_smoke: pass
+  postgres_reconciliation_backup_restore: pass
+  owner_console: pass
+
+closure_rule: >-
+  Engineering remediation evidence is sufficient to dispatch Independent Revalidation but is not
+  sufficient to close this finding. Only a fresh SEMI-VALIDATION-AUDITOR verdict against exact
+  successor 8a4aea0256bc630385bd463fc8969e5c88a74102 may transition this finding to CLOSED.
+
+preservation:
+  failed_exact_target_immutable: true
+  migration_0009_immutable: true
+  migrations_0001_0009_immutable: true
+  historical_t17_t18_t19_rematerialization: false
+  model_feature_scorer_weight_ranking_backtest_change: false
+
+authority_state:
+  live_execution_authorized: false
+  postgresql_operational_sot_authorized: false
+  production_canonical_promotion_authorized: false
+  controlled_cutover_authorized: false
+  production_release_authorized: false
