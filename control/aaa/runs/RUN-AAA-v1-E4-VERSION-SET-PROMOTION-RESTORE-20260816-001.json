@@ -17,15 +17,15 @@
   "canonical_output": false,
   "terminal_result": {
     "result_id": "RESULT-AAA-v1-E4-VERSION-SET-PROMOTION-RESTORE-20260816-001",
-    "result_sha256": "facb569bcdf9d05962072fb461081cffa1cebf9e2b29527f9ef85da0eb84281d",
+    "result_sha256": "d39d074a23a702bc69ae5ed610a8dd04522a78959621ef2946954b7e38a8844e",
     "completed_at": "2026-08-16T19:16:00+09:00",
     "persistent_locator": "control/aaa/results/RESULT-AAA-v1-E4-VERSION-SET-PROMOTION-RESTORE-20260816-001.json",
     "verdict": "PASS"
   },
   "notes": [
     "Engineering execution evidence was supplied by exact branch/PR/post-merge CI and repository integration; no governed worker ACK/start/heartbeat was fabricated retroactively.",
-    "The terminal Result binding was corrected forward in control history to the strict Run Registry v0.6 identity shape after fail-closed CI detected INVALID_TERMINAL_RESULT_IDENTITY.",
-    "E4 is bounded to Compatible Version Set, Promotion and Restore hardening semantics.",
+    "The terminal Result binding and referenced Result were corrected forward in Git history to the strict Run Registry v0.6 identity and referential integrity shape after fail-closed CI findings.",
+    "E4 engineering exact target 96234463cedaff2b7ec5d0ff49bec44684804b00 did not change during control remediation.",
     "No production canonical promotion, PostgreSQL Operational SoT cutover, live execution, Controlled Cutover, or Production Release is authorized.",
     "Engineering PASS cannot satisfy Independent Validation PASS."
   ]
