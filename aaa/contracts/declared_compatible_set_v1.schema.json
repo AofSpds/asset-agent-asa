@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://asset-agent-asa.local/contracts/declared_compatible_set_v1.schema.json",
+  "title": "AAA Balanced v1 Declared Compatible Schema Set",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["compatible_set_id", "reader", "members", "component_set_sha256"],
+  "properties": {
+    "compatible_set_id": {"type": "string", "minLength": 1},
+    "reader": {"$ref": "#/$defs/schemaRef"},
+    "members": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/schemaRef"}
+    },
+    "component_set_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  },
+  "$defs": {
+    "schemaRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_family_id", "schema_version"],
+      "properties": {
+        "schema_family_id": {"type": "string", "minLength": 1},
+        "schema_version": {"type": "string", "minLength": 1, "not": {"const": "latest"}}
+      }
+    }
+  },
+  "x-aaa-invariants": [
+    "compatibility is machine-resolvable against exact schema identities",
+    "floating latest is prohibited",
+    "compatibility is directional reader-to-member and is not presumed symmetric"
+  ]
+}
