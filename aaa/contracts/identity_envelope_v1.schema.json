@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://asset-agent-asa.local/contracts/identity_envelope_v1.schema.json",
+  "title": "AAA Balanced v1 Typed Identity Envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["project_namespace", "entity_family", "local_id"],
+  "properties": {
+    "project_namespace": {"type": "string", "minLength": 1},
+    "entity_family": {"type": "string", "minLength": 1},
+    "local_id": {"type": "string", "minLength": 1},
+    "schema_version": {"type": "string", "minLength": 1},
+    "record_revision": {"type": ["string", "integer"]},
+    "supersedes_ref": {"type": "string", "minLength": 1}
+  },
+  "x-aaa-invariants": [
+    "canonical key is project_namespace + entity_family + local_id",
+    "historical local IDs are never rewritten",
+    "same raw local_id in different entity_family values is not automatically merged",
+    "ambiguous cross-domain resolution fails closed"
+  ]
+}
