@@ -1,0 +1,114 @@
+{
+  "control_id": "AAA-v1-R4-COREB-POSITION",
+  "version": "v0.1_WORKING",
+  "project": "Asset Agent ASA",
+  "phase": "R4_SHARED_CONTRACT_RECONCILIATION",
+  "persona_id": "SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT",
+  "formal_name": "모델 검증·설계 아키텍트(CORE B)",
+  "run_id": "RUN-AAA-v1-R4-COREB-POSITION-20260816-001",
+  "recorded_at": "2026-08-16T17:11:00+09:00",
+  "source_manual_bridge_packet": {
+    "sha256": "29c040f18aaa54749b5dccae7708ae91c6e56b55779c7ede7c42cbab2d608f69",
+    "byte_size": 35998
+  },
+  "target_binding": {
+    "r1_commit": "a590717a2127b8ef4620d7933904868dd50c7396",
+    "r1_tree": "64d0cac8a91c9d0d9d3ca12f64123bc3c374ec97",
+    "r3_design_commit": "ecd1284e5d4c9ff8cb554f5bd0ef0521061ffcc0",
+    "r3_git_blob_sha": "0bd250584eb3c479369b3518311daaadc154cc7a"
+  },
+  "positions": {
+    "A01_TIME_SEMANTICS": {
+      "position": "ACCEPT_WITH_MODIFICATION",
+      "impact": "COMPATIBLE_EXTENSION",
+      "version_impact": "NEW_WORKING_VERSION_REQUIRED",
+      "implementation": "LATER_SUCCESSOR_ENGINEERING_REQUIRED",
+      "modification": "PIT admissibility may be established by publication_at OR immutable supported_cutoff_at; PUBLIC_EVIDENCE_AVAILABLE_TIME must not collapse these provenance modes."
+    },
+    "A03_RUN_RUNATTEMPT_SHARED_REFERENCE_IMPACT": {
+      "position": "ACCEPT_WITH_MODIFICATION",
+      "impact": "COMPATIBLE_EXTENSION",
+      "version_impact": "NEW_WORKING_VERSION_REQUIRED",
+      "implementation": "LATER_SUCCESSOR_ENGINEERING_REQUIRED",
+      "modification": "Scientific/business reproducibility references Logical Run; physical execution evidence may additionally reference RunAttempt; legacy run_id semantics remain explicit and no synthetic historical RunAttempt is allowed."
+    },
+    "A05_SCHEMA_FAMILY_VERSIONING": {
+      "position": "ACCEPT_WITH_MODIFICATION",
+      "impact": "COMPATIBLE_EXTENSION",
+      "version_impact": "NEW_WORKING_VERSION_REQUIRED",
+      "implementation": "LATER_SUCCESSOR_ENGINEERING_REQUIRED",
+      "modification": "DECLARED_COMPATIBLE_SET must be exact and machine-resolvable; compatibility may be directional and is never inferred from latest, names, or shape similarity."
+    },
+    "A06_SOURCE_PROVENANCE": {
+      "position": "ACCEPT_WITH_MODIFICATION",
+      "impact": "COMPATIBLE_EXTENSION",
+      "version_impact": "NEW_WORKING_VERSION_REQUIRED",
+      "implementation": "LATER_SUCCESSOR_ENGINEERING_REQUIRED",
+      "modification": "Execution-source provenance is separate from historical-evidence provenance; governed dirty-tree execution is fail-closed; exact commit alone is insufficient."
+    },
+    "A07_NAMESPACE_IDENTITY": {
+      "position": "ACCEPT_WITH_MODIFICATION",
+      "impact": "COMPATIBLE_EXTENSION",
+      "version_impact": "NEW_WORKING_VERSION_REQUIRED",
+      "implementation": "LATER_SUCCESSOR_ENGINEERING_REQUIRED",
+      "modification": "Use typed identity envelopes without rewriting historical IDs; same raw string across namespace/entity family is not automatically the same entity; ambiguity fails closed."
+    },
+    "A10_ACTOR_AUTHORITY": {
+      "position": "ACCEPT",
+      "impact": "COMPATIBLE_EXTENSION",
+      "version_impact": "NEW_WORKING_VERSION_REQUIRED",
+      "implementation": "LATER_SUCCESSOR_ENGINEERING_REQUIRED",
+      "modification": "Actor identity and authority identity remain separate semantic dimensions; execution capability never confers governance authority."
+    },
+    "EXACT_TARGET_DECISION_RECEIPT": {
+      "position": "ACCEPT_WITH_MODIFICATION",
+      "impact": "NEW_SUCCESSOR_CONTRACT_REQUIRED",
+      "version_impact": "NEW_WORKING_VERSION_REQUIRED",
+      "implementation": "LATER_SUCCESSOR_ENGINEERING_REQUIRED",
+      "modification": "Shared Contract promotion must bind exact reconciled dual-core authority evidence; approval of X never floats to Y; revocation/supersession is append-only."
+    },
+    "COMPATIBLE_VERSION_SET_RELEASE_MANIFEST": {
+      "position": "ACCEPT_WITH_MODIFICATION",
+      "impact": "NEW_SUCCESSOR_CONTRACT_REQUIRED",
+      "version_impact": "NEW_WORKING_VERSION_REQUIRED",
+      "implementation": "LATER_SUCCESSOR_ENGINEERING_REQUIRED",
+      "modification": "Bind exact validated component tuple; floating latest prohibited; existing MIS/VDI/SIO/MARM/PIT/WM semantics remain preserved."
+    }
+  },
+  "adversarial_cases": {
+    "1": "PASS_EXPECTED_NO",
+    "2": "PASS_EXPECTED_NO",
+    "3": "PASS_EXPECTED_NO_NEW_LOGICAL_RUN",
+    "4": "PASS_EXPECTED_NO_SAME_LOGICAL_RUN",
+    "5": "PASS_EXPECTED_NO",
+    "6": "PASS_EXPECTED_NO",
+    "7": "PASS_EXPECTED_NO",
+    "8": "PASS_EXPECTED_NO",
+    "9": "PASS_EXPECTED_NO",
+    "10": "PASS_EXPECTED_NO"
+  },
+  "safety": {
+    "scientific_firewall_preserved": true,
+    "legacy_run_semantics_preserved": true,
+    "migrations_0001_0005_preserved": true,
+    "feature_scorer_weight_ranking_changed": false,
+    "backtest_methodology_changed": false,
+    "canonical_write_performed": false,
+    "implementation_write_performed": false
+  },
+  "owner_decision_items": [],
+  "new_successor_contracts_required": [
+    "EXACT_TARGET_DECISION_RECEIPT_v1.0_WORKING",
+    "COMPATIBLE_VERSION_SET_RELEASE_MANIFEST_v1.0_WORKING"
+  ],
+  "position_completeness": "COMPLETE",
+  "recommendation": "READY_FOR_DUAL_CORE_COMPARISON",
+  "authorization": {
+    "exact_contract_freeze": false,
+    "implementation": false,
+    "live_execution": false,
+    "postgresql_operational_sot": false,
+    "controlled_cutover": false,
+    "production_release": false
+  }
+}
