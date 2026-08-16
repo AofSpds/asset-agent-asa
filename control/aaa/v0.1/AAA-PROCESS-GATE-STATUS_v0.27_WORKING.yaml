@@ -1,0 +1,74 @@
+control_id: AAA-PROCESS-GATE-STATUS
+version: v0.27_WORKING
+project: Asset Agent ASA
+recorded_at: '2026-08-16T19:24:00+09:00'
+supersedes: control/aaa/v0.1/AAA-PROCESS-GATE-STATUS_v0.26_WORKING.yaml
+purpose: >-
+  Authoritative working snapshot after Balanced-v1 successor engineering E1-E4 completed Engineering
+  PASS, E4 control terminalization defects were remediated forward with all regression jobs green,
+  and Independent Validation was dispatched against the immutable exact engineering target
+  96234463cedaff2b7ec5d0ff49bec44684804b00. Dispatch does not imply ACK, RUNNING or PASS.
+
+current_position:
+  current_controlled_activity: AAA_V1_SUCCESSOR_INDEPENDENT_VALIDATION
+  successor_engineering_state: COMPLETED_ENGINEERING_PASS
+  engineering_exact_target: 96234463cedaff2b7ec5d0ff49bec44684804b00
+  independent_validation_state: DISPATCHED_AWAITING_ACK
+  independent_validation_pass: false
+  t20_assumed: false
+
+engineering:
+  E1_IDENTITY_TIME_SCHEMA_FOUNDATION: COMPLETED_PASS
+  E2_LOGICAL_RUN_RUNATTEMPT_EXECUTION_SEMANTICS: COMPLETED_PASS_WITH_FORWARD_REMEDIATION
+  E3_AUTHORITY_DECISION_PROVENANCE_EVENT: COMPLETED_PASS
+  E4_VERSION_SET_PROMOTION_RESTORE_HARDENING: COMPLETED_PASS
+  migrations_0001_0009_integrity_regression: PASS
+
+control_remediation:
+  findings_closed:
+    - AAA-v1-E4-CONTROL-FND-01-INVALID-TERMINAL-RESULT-IDENTITY-SHAPE
+    - AAA-v1-E4-CONTROL-FND-02-TERMINAL-RESULT-REFERENTIAL-IDENTITY-MISSING
+  regression_successor: 608da034bc812a51c4f41b6e206487365509676b
+  regression_ci_run: 31941421328
+  deterministic_contract_tests: SUCCESS
+  postgres_contract_smoke: SUCCESS
+  owner_console_build_smoke: SUCCESS
+
+independent_validation:
+  target_binding: control/aaa/validation/AAA-v1-SUCCESSOR-INDEPENDENT-VALIDATION-TARGET-BINDING_v0.1_WORKING.yaml
+  work_order: control/workorders/WO-VALIDATION-AAA-v1-SUCCESSOR-INDEPENDENT-20260816.yaml
+  run_id: RUN-VALIDATION-AAA-v1-SUCCESSOR-INDEPENDENT-20260816-001
+  run_state: DISPATCHED_AWAITING_ACK
+  validator: SEMI-VALIDATION-AUDITOR
+  exact_target: 96234463cedaff2b7ec5d0ff49bec44684804b00
+  running_confirmed: false
+  terminal_result: null
+
+operational_authority:
+  json_registry_operational_authority_during_shadow: true
+  postgresql_authoritative: false
+  live_execution_authorized: false
+  production_canonical_promotion_authorized: false
+  controlled_cutover_authorized: false
+  production_release_authorized: false
+
+pending_existing_runs_preserved:
+  p09_second_rerun:
+    run_id: RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-002
+    state: DISPATCHED_AWAITING_ACK
+  t18_independent_validation:
+    run_id: RUN-VALIDATION-AAA-T18-INDEPENDENT-20260816-001
+    state: DISPATCHED_AWAITING_ACK
+
+reporting_rules:
+  dispatch_is_not_ack: true
+  ack_is_not_running: true
+  running_requires_started_at_and_current_heartbeat: true
+  no_terminal_result_means_not_completed: true
+  engineering_pass_is_not_independent_validation_pass: true
+  independent_validation_pass_is_not_owner_cutover_authorization: true
+
+next_gate:
+  phase: AAA_V1_SUCCESSOR_INDEPENDENT_VALIDATION
+  state: DISPATCHED_AWAITING_ACK
+  wait_for: SEMI_VALIDATION_AUDITOR_POSITION_OR_TERMINAL_RETURN_PACKET
