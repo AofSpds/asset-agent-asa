@@ -4,7 +4,7 @@
   "work_order_id": "WO-AAA-v1-R4-SHARED-CONTRACT-RECONCILIATION-20260816",
   "responsible_persona": "SEMI-CONTROL-ARCHITECT",
   "executor_role": "SHARED_CONTRACT_RECONCILIATION_CORE_A_POSITION",
-  "state": "DISPATCHED_AWAITING_ACK",
+  "state": "COMPLETED_PASS",
   "repository": "AofSpds/asset-agent-asa",
   "exact_base_commit": "4458fa055b937295cebab1b841ad808955ef17c9",
   "branch": "aaa-integration-v0.2",
@@ -12,11 +12,17 @@
   "last_heartbeat_at": null,
   "stale_after_seconds": 7200,
   "canonical_output": false,
-  "terminal_result": null,
+  "terminal_result": {
+    "result_id": "RESULT-AAA-v1-R4-COREA-POSITION-20260816-001",
+    "result_sha256": "3ceb1751283cca2575c396896eae27880b70710f226dee32cf9dc2a54a9700b1",
+    "completed_at": "2026-08-16T17:12:00+09:00",
+    "persistent_locator": "control/aaa/results/RESULT-AAA-v1-R4-COREA-POSITION-20260816-001.json",
+    "verdict": "PASS"
+  },
   "notes": [
-    "R4 requires materially distinct CORE A and CORE B positions; this Run is CORE A only.",
-    "Dispatch registration is not ACK, start, or active reconciliation evidence.",
-    "Exact R3 design identity is bound by the R4 target-binding artifact.",
-    "No Shared Contract promotion, implementation, migration, cutover, or release authority is granted."
+    "CORE A independent R4 position returned through the manual bridge and materially verified against the exact R4 target binding.",
+    "Position output is persisted at control/aaa/architecture/AAA-v1-R4-COREA-POSITION_v0.1_WORKING.json.",
+    "No retroactive started_at or heartbeat was fabricated because the external ChatGPT channel is not a governed T19 Worker.",
+    "This terminal PASS means the CORE A position task completed; it is not by itself dual-core reconciliation, Owner Exact Freeze, implementation authorization, live execution, PostgreSQL Operational SoT, cutover, or release authority."
   ]
 }
