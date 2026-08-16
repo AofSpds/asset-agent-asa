@@ -1,0 +1,25 @@
+{
+  "run_id": "RUN-AAA-v1-E4-VERSION-SET-PROMOTION-RESTORE-20260816-001",
+  "process_id": "AAA_V1_SUCCESSOR_ENGINEERING_E4",
+  "work_order_id": "WO-AAA-v1-E4-VERSION-SET-PROMOTION-RESTORE-20260816",
+  "responsible_persona": "SEMI-CONTROL-ARCHITECT",
+  "executor_role": "BOUNDED_ENGINEERING_IMPLEMENTATION",
+  "state": "DISPATCHED_AWAITING_ACK",
+  "repository": "AofSpds/asset-agent-asa",
+  "exact_base_commit": "b97297b15888c68fde01b8dfff3bf2b46fd037b7",
+  "branch": "aaa-v1-e4-version-set-promotion-restore",
+  "authorization_decision": "DECISION-AAA-v1-SUCCESSOR-ENGINEERING-AUTHORIZATION-20260816-001",
+  "exact_scope_sha256": "fe1ff488e62bb500f520f395ce64f5428cbc384eb5cadc611f949ee46f8a66ac",
+  "frozen_semantic_target_sha256": "27f093555d5934f79a8501ef3426a0ade4d02d64370cc98a0cb0ea801e4ea01f",
+  "started_at": null,
+  "last_heartbeat_at": null,
+  "stale_after_seconds": 7200,
+  "canonical_output": false,
+  "terminal_result": null,
+  "notes": [
+    "Dispatch registration is not ACK/start/running evidence.",
+    "E4 is bounded to Compatible Version Set, Promotion and Restore hardening semantics.",
+    "No production canonical promotion, PostgreSQL Operational SoT cutover, live execution, Controlled Cutover, or Production Release is authorized.",
+    "Engineering PASS cannot satisfy Independent Validation PASS."
+  ]
+}
