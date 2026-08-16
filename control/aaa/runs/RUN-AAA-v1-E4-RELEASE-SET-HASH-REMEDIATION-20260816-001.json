@@ -1,0 +1,27 @@
+{
+  "run_id": "RUN-AAA-v1-E4-RELEASE-SET-HASH-REMEDIATION-20260816-001",
+  "process_id": "AAA_V1_E4_RELEASE_SET_HASH_REMEDIATION",
+  "work_order_id": "WO-AAA-v1-E4-RELEASE-SET-HASH-REMEDIATION-20260816",
+  "responsible_persona": "SEMI-CONTROL-ARCHITECT",
+  "executor_role": "BOUNDED_ENGINEERING_IMPLEMENTATION",
+  "state": "DISPATCHED_AWAITING_ACK",
+  "repository": "AofSpds/asset-agent-asa",
+  "exact_base_commit": "c9952214c0e2808ff734553152adf25881b289d8",
+  "branch": "aaa-v1-e4-release-set-hash-remediation-v0.1",
+  "authorization_decision": "DECISION-AAA-v1-SUCCESSOR-ENGINEERING-AUTHORIZATION-20260816-001",
+  "exact_scope_sha256": "fe1ff488e62bb500f520f395ce64f5428cbc384eb5cadc611f949ee46f8a66ac",
+  "frozen_semantic_target_sha256": "27f093555d5934f79a8501ef3426a0ade4d02d64370cc98a0cb0ea801e4ea01f",
+  "remediates_failed_validation_target": "96234463cedaff2b7ec5d0ff49bec44684804b00",
+  "blocking_finding": "AAA-v1-IV-FND-01-E4-RELEASE-SET-COMPONENT-HASH-BINDING-GAP",
+  "started_at": null,
+  "last_heartbeat_at": null,
+  "stale_after_seconds": 7200,
+  "canonical_output": false,
+  "terminal_result": null,
+  "notes": [
+    "Dispatch registration is not executor ACK/start/running evidence.",
+    "Migration 0009 and failed exact target 96234463cedaff2b7ec5d0ff49bec44684804b00 remain immutable historical evidence.",
+    "First allowed forward remediation migration is 0010.",
+    "No PostgreSQL Operational SoT, live execution, production canonical promotion, Controlled Cutover, or Production Release is authorized."
+  ]
+}
