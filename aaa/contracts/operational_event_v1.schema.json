@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://asset-agent-asa.local/contracts/operational_event_v1.schema.json",
+  "title": "AAA Balanced v1 Operational Event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "operational_event_id", "project_namespace", "event_family", "event_type",
+    "event_schema_version", "aggregate_ref", "sequence_number", "observed_at",
+    "actor_ref", "authority_ref", "producer_or_actor_scope", "idempotency_scope_key",
+    "payload_sha256"
+  ],
+  "properties": {
+    "operational_event_id": {"type": "string", "minLength": 1},
+    "project_namespace": {"type": "string", "minLength": 1},
+    "event_family": {"enum": ["RUN_LIFECYCLE", "ATTEMPT_LIFECYCLE", "DISPATCH", "LEASE", "RESULT", "DECISION", "PROMOTION", "RESTORE"]},
+    "event_type": {"type": "string", "minLength": 1},
+    "event_schema_version": {"type": "string", "minLength": 1},
+    "aggregate_ref": {
+      "type": "object", "additionalProperties": false,
+      "required": ["project_namespace", "entity_family", "local_id"],
+      "properties": {
+        "project_namespace": {"type": "string", "minLength": 1},
+        "entity_family": {"type": "string", "minLength": 1},
+        "local_id": {"type": "string", "minLength": 1}
+      }
+    },
+    "sequence_number": {"type": "integer", "minimum": 1},
+    "observed_at": {"type": "string", "format": "date-time"},
+    "actor_ref": {"type": "object"},
+    "authority_ref": {"type": "object"},
+    "producer_or_actor_scope": {"type": "string", "minLength": 1},
+    "idempotency_scope_key": {"type": "string", "minLength": 1},
+    "payload_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "decision_receipt_ref": {"type": "string", "minLength": 1},
+    "causation_event_ref": {"type": "string", "minLength": 1},
+    "correlation_id": {"type": "string", "minLength": 1}
+  },
+  "x-aaa-invariants": [
+    "operational event identity is typed and separate from economic event identity",
+    "idempotency uniqueness is scoped by project namespace + producer/actor scope + event family + key",
+    "sequence number uniqueness is scoped to aggregate",
+    "same canonical operational event identity with different payload/meaning fails closed",
+    "operational event history is audit/provenance history, not sole reconstructive Event Sourcing state"
+  ]
+}
