@@ -1,0 +1,52 @@
+note_id: M3TOP3-v1-GOLDEN-REPLAY-SCIENTIFIC-PREPARATION-SOURCE-NOTE
+version: v0.1_WORKING
+status: NON_NORMATIVE_SOURCE_BINDING_NOTE
+project: AAA
+owner_persona: AAA-MODEL-VALIDATION-DESIGN-ARCHITECT
+created_at: '2026-08-17T08:54:00+09:00'
+source_artifacts:
+  model_contract:
+    path: control/core_b/M3TOP3-MODEL-CONTRACT_v1.0_WORKING.yaml
+    git_blob_sha: a5bc212aa07166db46b38070f54737cb47a7f090
+  feature_schema:
+    path: control/core_b/M3TOP3-FEATURE-SCHEMA_v1.0_WORKING.yaml
+    git_blob_sha: 2550f781c2a901c0faada95dfc4a788503ec669b
+  scorer_contract:
+    path: control/core_b/M3TOP3-SCORER-CONTRACT_v1.0_WORKING.yaml
+    git_blob_sha: 18ecdefbb7f8fddaa3d7189494fab9c00547d59e
+  weights:
+    path: control/core_b/M3TOP3-WEIGHT-VERSION_v1.0_WORKING.yaml
+    git_blob_sha: 76974860c75f5e164b49639208f8950595c71981
+  validation_contract:
+    path: control/core_b/M3TOP3-VALIDATION-CONTRACT_v1.0_WORKING.yaml
+    git_blob_sha: 41ef43f1c534f15ebbfc22713a971ff3c8b94b29
+  baseline_lock:
+    path: control/core_b/M3TOP3-NO-TUNE-BASELINE-LOCK_v1.2_WORKING.yaml
+    git_blob_sha: 9cdbda6180661d8bc9214ae32cde5246ef6a23aa
+  wm_v1_1:
+    path: control/continuity/v1.0/SEMI-WINDOW-MAPPING-CONTRACT_v1.1_WORKING.yaml
+    git_blob_sha: 01cad79f9cd49680f6bdc4eac80f01ccd52b7e86
+  pit_provenance:
+    path: control/shared/M3TOP3-PIT-CONSUMED-PROVENANCE-CONTRACT_v1.0_WORKING.yaml
+    project_sha256: 22e80dbf80e1bfb9ae25ab8f56a7fd56463fc8c8bd92a67489a6a9601455354f
+    git_blob_sha: b7a00087f9b9985d6d5523bf6524361e5ae620fe
+  feature_input_registry:
+    path: control/shared/M3TOP3-FEATURE-INPUT-REGISTRY_v1.0_WORKING.yaml
+    project_sha256: 63edde7d91aafa4691b7a31ee7304b9972e064347a55b9d891b19634b199df37
+    git_blob_sha: 5faa4d5739bf9ecb0c11d16f6d7d697ff3983977
+  coverage_policy:
+    path: control/shared/M3TOP3-COVERAGE-RELEASE-POLICY_v1.0_WORKING.yaml
+    project_sha256: 076bd1b7acee061f9c0d57e4dda802b6beb533fcd4b323eafa39760ad98b1f97
+    git_blob_sha: 0532eb3b921438538fa4cca908832cf5a770ca84
+  reconciled_decision:
+    path: control/shared/M3TOP3-v1-SHARED-PREFLIGHT-INTERFACE-RECONCILED-DECISION_v1.0_WORKING.yaml
+    project_sha256: 7d8d000c467b8b3cd4e3f16c1eef060a8d70fceabab2f66161fde08d54e9f1a4
+    git_blob_sha: eb50f06d49c3c52b86d8c16290f350635de2537b
+  shared_asset_manifest:
+    path: control/shared/M3TOP3-v1-SHARED-INTERFACE-ASSET-MANIFEST_v1.1_WORKING.yaml
+    git_blob_sha: 02e33fefc47f82ef1b67aa9515cffa36ede252d3
+rules:
+  - This note does not create a second scientific source of truth.
+  - Source semantics remain authoritative in the exact referenced artifacts.
+  - Git blob SHA is exact repository byte identity, not a semantic-content digest.
+  - Missing future VDI/MARM/U127/calendar release identities remain PENDING_EXACT_BINDING.
