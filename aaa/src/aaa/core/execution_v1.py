@@ -106,6 +106,16 @@ def _aware(name: str, value: datetime) -> datetime:
     return value
 
 
+@dataclass(frozen=True, order=True)
+class DependencyLockRef:
+    identity: str
+    sha256: str
+
+    def __post_init__(self) -> None:
+        _nonempty("identity", self.identity)
+        _sha256("sha256", self.sha256)
+
+
 def _sorted_identity_refs(values: Iterable[IdentityEnvelope]) -> list[dict[str, str]]:
     return [
         {
@@ -124,6 +134,13 @@ def _sorted_schema_refs(values: Iterable[SchemaRef]) -> list[dict[str, str]]:
     ]
 
 
+def _sorted_dependency_locks(values: Iterable[DependencyLockRef]) -> list[dict[str, str]]:
+    return [
+        {"identity": item.identity, "sha256": item.sha256}
+        for item in sorted(values, key=lambda item: (item.identity, item.sha256))
+    ]
+
+
 @dataclass(frozen=True)
 class LogicalRunSpec:
     run_id: str
@@ -137,6 +154,7 @@ class LogicalRunSpec:
     execution_profile_ref: str
     execution_profile_sha256: str
     configuration_sha256: str
+    dependency_lock_refs: tuple[DependencyLockRef, ...] = field(default_factory=tuple)
     material_input_refs: tuple[IdentityEnvelope, ...] = field(default_factory=tuple)
     schema_family_version_refs: tuple[SchemaRef, ...] = field(default_factory=tuple)
     created_at: datetime | None = None
@@ -161,13 +179,15 @@ class LogicalRunSpec:
             _aware("created_at", self.created_at)
         if self.semantic_generation != BALANCED_V1:
             raise ValueError("LogicalRunSpec requires BALANCED_V1 semantic generation")
+        if len(set(self.dependency_lock_refs)) != len(self.dependency_lock_refs):
+            raise ValueError("dependency_lock_refs contains duplicates")
         if len(set(self.material_input_refs)) != len(self.material_input_refs):
             raise ValueError("material_input_refs contains duplicate typed identities")
         if len(set(self.schema_family_version_refs)) != len(self.schema_family_version_refs):
             raise ValueError("schema_family_version_refs contains duplicates")
 
     def execution_spec_payload(self) -> dict[str, object]:
-        """Return only fields whose change creates a materially different Logical Run."""
+        """Return fields whose material change creates a different Logical Run."""
         return {
             "project_namespace": self.project_namespace,
             "process_id": self.process_id,
@@ -179,6 +199,7 @@ class LogicalRunSpec:
             "execution_profile_ref": self.execution_profile_ref,
             "execution_profile_sha256": self.execution_profile_sha256,
             "configuration_sha256": self.configuration_sha256,
+            "dependency_lock_refs": _sorted_dependency_locks(self.dependency_lock_refs),
             "material_input_refs": _sorted_identity_refs(self.material_input_refs),
             "schema_family_version_refs": _sorted_schema_refs(self.schema_family_version_refs),
         }
