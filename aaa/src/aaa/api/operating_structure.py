@@ -14,16 +14,53 @@ _PROCESS_GATE_RE = re.compile(r"AAA-PROCESS-GATE-STATUS_v(\d+)\.(\d+)_WORKING\.y
 _ROADMAP_RE = re.compile(r"AAA-v1-POST-IV-OPERATING-ROADMAP_v(\d+)\.(\d+)_OWNER-APPROVED\.json$")
 
 _REQUIRED_SOURCES = ("organization", "channel_registry", "current_state", "process_gate", "roadmap")
-_DISQUALIFYING_STATUS_TOKENS = (
-    "UNPROVEN",
-    "UNAPPROVED",
-    "DRAFT",
-    "PROPOSED",
-    "REJECTED",
-    "OBSOLETE",
-    "SUPERSEDED",
-    "INVALID",
-)
+_GOVERNED_STATUS_ALLOWLIST: dict[str, frozenset[str]] = {
+    "organization": frozenset(
+        {
+            "STALE",
+            "OWNER_ACCEPTED",
+            "RECONCILED",
+            "ACTIVE",
+            "DUAL_CORE_RECONCILED_NOT_FROZEN",
+        }
+    ),
+    "channel_registry": frozenset(
+        {
+            "STALE",
+            "WORKING",
+            "RECONCILED",
+            "ACTIVE",
+            "WORKING_CONTROL_REGISTRY",
+            "WORKING_CONTROL_REGISTRY_ROTATION_PENDING",
+            "WORKING_CONTROL_REGISTRY_SUCCESSOR_ACTIVE",
+            "WORKING_CONTROL_REGISTRY_VALIDATION_EXECUTION_EVIDENCE_RECEIVED",
+            "WORKING_OWNER_APPROVED_CURRENT_OPERATING_STRUCTURE",
+        }
+    ),
+    "current_state": frozenset(
+        {
+            "STALE",
+            "WORKING",
+            "RECONCILED",
+            "ACTIVE",
+            "WORKING_INDEPENDENT_DELTA_FAILED_F06_BOUNDED_FIX_ROUTED",
+        }
+    ),
+    "process_gate": frozenset(
+        {
+            "STALE",
+            "WORKING",
+            "READY_NOT_DISPATCHED",
+            "DISPATCHED_AWAITING_ACK",
+            "RUNNING_CONFIRMED",
+            "BLOCKED",
+            "COMPLETED_PASS",
+            "COMPLETED_FAIL",
+            "COMPLETED_WITH_FINDINGS",
+        }
+    ),
+    "roadmap": frozenset({"STALE", "OWNER_APPROVED"}),
+}
 
 _FORMAL_PERSONA_META: dict[str, dict[str, str | None]] = {
     "SEMI-CONTROL-ARCHITECT": {
@@ -157,35 +194,10 @@ def _declared_status(kind: str, parsed: dict[str, Any]) -> Any:
 def _status_is_governed(kind: str, status: Any) -> bool:
     if status is None:
         return False
-    normalized = str(status).upper()
-    if "STALE" in normalized:
-        return True
-    if any(token in normalized for token in _DISQUALIFYING_STATUS_TOKENS):
+    allowed = _GOVERNED_STATUS_ALLOWLIST.get(kind)
+    if allowed is None:
         return False
-    if kind == "roadmap":
-        return normalized.startswith("OWNER_APPROVED")
-    if kind == "organization":
-        return (
-            "OWNER_ACCEPTED" in normalized
-            or "RECONCILED" in normalized
-            or normalized.startswith("ACTIVE")
-        )
-    if kind in {"channel_registry", "current_state"}:
-        return normalized.startswith("WORKING") or "RECONCILED" in normalized or normalized.startswith("ACTIVE")
-    if kind == "process_gate":
-        return (
-            normalized.startswith("WORKING")
-            or normalized in {
-                "READY_NOT_DISPATCHED",
-                "DISPATCHED_AWAITING_ACK",
-                "RUNNING_CONFIRMED",
-                "BLOCKED",
-                "COMPLETED_PASS",
-                "COMPLETED_FAIL",
-                "COMPLETED_WITH_FINDINGS",
-            }
-        )
-    return False
+    return str(status).upper() in allowed
 
 
 def _supersedes_value(kind: str, parsed: dict[str, Any]) -> Any:
