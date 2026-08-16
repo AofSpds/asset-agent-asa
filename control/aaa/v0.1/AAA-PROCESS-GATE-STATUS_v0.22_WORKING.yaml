@@ -1,0 +1,81 @@
+control_id: AAA-PROCESS-GATE-STATUS
+version: v0.22_WORKING
+project: Asset Agent ASA
+recorded_at: '2026-08-16T18:49:00+09:00'
+supersedes: control/aaa/v0.1/AAA-PROCESS-GATE-STATUS_v0.21_WORKING.yaml
+purpose: >-
+  Authoritative working snapshot after E3 Actor/Authority, Exact-Target Decision, Execution
+  Provenance and Operational Event successor semantics were integrated and terminalized as
+  Engineering PASS. The bounded E2 dependency-lock contract-fidelity finding is engineering-
+  remediated forward-only and awaits integrated successor Independent Validation. The already
+  Owner-authorized engineering scope advances to the final bounded E4 tranche.
+current_position:
+  current_controlled_activity: AAA_V1_SUCCESSOR_ENGINEERING_E4
+  successor_engineering_authorization_state: CLOSED_APPROVED
+  implementation_authorized: true
+  active_tranche: E4_VERSION_SET_PROMOTION_RESTORE_HARDENING
+  t20_assumed: false
+owner_engineering_authorization:
+  decision_id: DECISION-AAA-v1-SUCCESSOR-ENGINEERING-AUTHORIZATION-20260816-001
+  exact_scope_sha256: fe1ff488e62bb500f520f395ce64f5428cbc384eb5cadc611f949ee46f8a66ac
+  authority: PROJECT_OWNER
+frozen_semantic_basis:
+  frozen_r4_sha256: 27f093555d5934f79a8501ef3426a0ade4d02d64370cc98a0cb0ea801e4ea01f
+  freeze_manifest: control/aaa/architecture/AAA-v1-R5-EXACT-FREEZE-MANIFEST_v1.0_FROZEN.json
+engineering:
+  E1_IDENTITY_TIME_SCHEMA_FOUNDATION:
+    state: COMPLETED_PASS
+    integrated_successor: ba45890d8777eb90622318467a50a1bbb888c9ca
+    result: control/aaa/results/RESULT-AAA-v1-E1-IDENTITY-TIME-SCHEMA-20260816-001.json
+    independent_validation_pass: false
+  E2_LOGICAL_RUN_RUNATTEMPT_EXECUTION_SEMANTICS:
+    state: COMPLETED_PASS_WITH_FORWARD_REMEDIATION
+    integrated_successor: 0c56fe7855e6083ae0d96b570bb5f3f020079911
+    result: control/aaa/results/RESULT-AAA-v1-E2-LOGICAL-RUN-RUNATTEMPT-20260816-001.json
+    dependency_lock_finding: AAA-v1-E2-FND-01-DEPENDENCY-LOCK-OMISSION
+    finding_status: CLOSED_ENGINEERING_REMEDIATED_AWAITING_INDEPENDENT_VALIDATION
+    independent_validation_pass: false
+  E3_AUTHORITY_DECISION_PROVENANCE_EVENT:
+    state: COMPLETED_PASS
+    integrated_successor: afd9b789f907399ee50b1d94f3e131b73566e06f
+    pull_request: 36
+    result: control/aaa/results/RESULT-AAA-v1-E3-AUTHORITY-DECISION-PROVENANCE-EVENT-20260816-001.json
+    result_sha256: 491e0e14f9a27629c146729bc3fc30bf241b135eeaf0c46b8b8ea3e8033d06b1
+    deterministic_tests: 198_OF_198_PASS
+    independent_validation_pass: false
+  E4_VERSION_SET_PROMOTION_RESTORE_HARDENING:
+    state: DISPATCHED_AWAITING_ACK
+    work_order: control/workorders/WO-AAA-v1-E4-VERSION-SET-PROMOTION-RESTORE-20260816.yaml
+    run_id: RUN-AAA-v1-E4-VERSION-SET-PROMOTION-RESTORE-20260816-001
+    engineering_branch: aaa-v1-e4-version-set-promotion-restore
+migration_policy:
+  historical_0001_0005: IMMUTABLE
+  e1_0006: INTEGRATED_IMMUTABLE_SUCCESSOR
+  e2_0007: INTEGRATED_IMMUTABLE_SUCCESSOR
+  e3_0008: INTEGRATED_IMMUTABLE_SUCCESSOR
+  next_successor_migration_allowed: 9
+  postgresql_authoritative: false
+  json_registry_operational_authority_during_shadow: true
+hard_boundaries:
+  compatible_version_set_must_be_exact_not_latest: true
+  canonical_pointer_update_must_be_last_after_verified_promotion: true
+  partial_multi_store_promotion_must_fail_closed: true
+  restore_created_is_not_restore_verified: true
+  restore_verified_is_not_postgresql_sot_cutover: true
+  no_silent_dual_authority: true
+  no_historical_t17_t18_t19_rematerialization: true
+  no_model_feature_scorer_weight_ranking_backtest_change: true
+  engineering_pass_is_not_independent_validation_pass: true
+not_authorized:
+  postgresql_operational_sot_cutover: true
+  live_worker_execution_enablement: true
+  production_canonical_promotion: true
+  controlled_cutover: true
+  production_release: true
+pending_existing_governed_work:
+  p09_second_rerun:
+    run_id: RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-002
+    state: DISPATCHED_AWAITING_ACK
+  t18_independent_validation:
+    run_id: RUN-VALIDATION-AAA-T18-INDEPENDENT-20260816-001
+    state: DISPATCHED_AWAITING_ACK
