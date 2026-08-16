@@ -1,0 +1,246 @@
+{
+  "roadmap_id": "AAA-v1-POST-IV-OPERATING-ROADMAP",
+  "version": "v1.1",
+  "status": "OWNER_APPROVED",
+  "approved_at": "2026-08-17T01:59:00+09:00",
+  "project": "Asset Agent ASA",
+  "scope": "POST_IV_GATE_STAGE_ROADMAP_AND_OWNER_CONSOLE_CURRENT_OPERATING_STRUCTURE",
+  "supersedes": "control/aaa/architecture/AAA-v1-POST-IV-OPERATING-ROADMAP_v1.0_OWNER-APPROVED.json",
+  "lineage": {
+    "predecessor_version": "v1.0",
+    "predecessor_failed_iv_target": "356314e96b04cceec904f5a8c016b7f66e7160ea",
+    "predecessor_failed_iv_tree": "f2628d6e02121ff0aad5c65c67d52e65cd26f0ca",
+    "historical_independent_validation": "FAIL",
+    "remediation_scope": [
+      "AAA-IV-POSTIV-FND-01-ROADMAP-P0-ACCEPTANCE-DETAIL-UNDERBOUND",
+      "AAA-IV-POSTIV-FND-02-REQUIRED-SOURCE-HEALTH-FAILOPEN",
+      "AAA-IV-POSTIV-FND-03-POSTGRES-SOT-AUTHORITY-FLAG-OMITTED",
+      "AAA-IV-POSTIV-FND-04-M3TOP3-WORKSTREAM-CURRENT-STATE-SCHEMA-DRIFT"
+    ]
+  },
+  "validated_basis": {
+    "validated_successor": "8a4aea0256bc630385bd463fc8969e5c88a74102",
+    "validated_tree": "ffd65463413c9fee073db404c36f2461aa7a6c83",
+    "fresh_independent_revalidation": "PASS",
+    "prior_failed_target": "96234463cedaff2b7ec5d0ff49bec44684804b00",
+    "prior_failed_target_preserved": true
+  },
+  "owner_approvals": {
+    "final_post_iv_roadmap_gate_model": "APPROVED",
+    "bounded_non_authoritative_shadow_authority_model": "APPROVED_IN_PRINCIPLE",
+    "actual_bounded_shadow_execution_authorized": false,
+    "p09_t18_historical_lifecycle_plus_current_disposition_governance": "APPROVED",
+    "owner_console_current_operating_structure_ui": "IMPLEMENTATION_APPROVED",
+    "ui_read_model_navigation_improvements": "IMPLEMENTATION_APPROVED",
+    "iv_remediation_acceptance_detail_binding": "APPROVED_BY_OWNER_WORK_PACKET_2026-08-17"
+  },
+  "authority_state": {
+    "json_registry_operational_authority_during_shadow": true,
+    "postgresql_authoritative": false,
+    "bounded_shadow_execution_authorized": false,
+    "live_execution_authorized": false,
+    "postgresql_operational_sot_authorized": false,
+    "production_canonical_promotion_authorized": false,
+    "controlled_cutover_authorized": false,
+    "production_release_authorized": false,
+    "r5_reopen_authorized": false,
+    "t20_creation_authorized": false
+  },
+  "gates": [
+    {
+      "id": "GATE_A_SHADOW_ENTRY",
+      "name": "SHADOW-ENTRY",
+      "p0_focus": [
+        "authoritative time / lease clock",
+        "managed PostgreSQL identity/migrations/security",
+        "credential negative tests",
+        "claim/fencing/idempotency",
+        "basic restore",
+        "minimum adjudication traceability"
+      ]
+    },
+    {
+      "id": "GATE_B_M3TOP3_ENTRY",
+      "name": "M3TOP3-ENTRY",
+      "p0_focus": [
+        "PIT admission",
+        "Frozen M3Top3 Golden Replay",
+        "immutable Batch / Expected-Work Manifest",
+        "PIT AI adjudication policy/taxonomy/model version binding",
+        "partition/resume/checkpoint/idempotency/persistent completeness"
+      ]
+    },
+    {
+      "id": "GATE_C_POSTGRESQL_SOT_ENTRY",
+      "name": "POSTGRESQL-SOT-ENTRY",
+      "p0_focus": [
+        "PITR/RPO/AAA-RTO",
+        "divergence/recovery reconciliation",
+        "NO_DUAL_AUTHORITY negative tests",
+        "stale authority rejection",
+        "rollback readiness",
+        "authority resumption control"
+      ]
+    },
+    {
+      "id": "GATE_D_CONTROLLED_CUTOVER_ENTRY",
+      "name": "CONTROLLED-CUTOVER-ENTRY",
+      "p0_focus": [
+        "pre-cutover operational fitness",
+        "daily governed workload completion window / cadence fitness",
+        "U127 x ~400 interrupted replay",
+        "persistent completeness",
+        "rollback/cutover boundary"
+      ]
+    }
+  ],
+  "stages": [
+    {"id": "STAGE_0", "name": "POST-IV FINAL PLAN INTEGRATION", "gate": null},
+    {"id": "STAGE_1", "name": "MANAGED POSTGRESQL SHADOW-ENTRY QUALIFICATION", "gate": "GATE_A_SHADOW_ENTRY"},
+    {"id": "STAGE_2", "name": "SINGLE GOVERNED NON-AUTHORITATIVE WORKER FAILURE CAMPAIGN", "gate": "GATE_A_SHADOW_ENTRY"},
+    {"id": "STAGE_3A", "name": "PIT ADMISSION", "gate": "GATE_B_M3TOP3_ENTRY"},
+    {"id": "STAGE_3B", "name": "FROZEN M3TOP3 GOLDEN REPLAY", "gate": "GATE_B_M3TOP3_ENTRY"},
+    {"id": "STAGE_4", "name": "GOVERNED M3TOP3 REPLAY / BATCH FITNESS", "gate": "GATE_B_M3TOP3_ENTRY"},
+    {"id": "STAGE_5", "name": "POSTGRESQL SOT-ENTRY FULL QUALIFICATION", "gate": "GATE_C_POSTGRESQL_SOT_ENTRY"},
+    {"id": "STAGE_6A", "name": "CUTOVER CANDIDATE FREEZE + OWNER DECISION PACKAGE PREPARATION", "gate": "GATE_C_POSTGRESQL_SOT_ENTRY", "notes": "planning/freeze only; no actual cutover"},
+    {"id": "STAGE_7", "name": "PRE-CUTOVER OPERATIONAL FITNESS", "gate": "GATE_D_CONTROLLED_CUTOVER_ENTRY"},
+    {"id": "STAGE_6B", "name": "FINAL QUIESCE + OWNER-CONTROLLED ACTUAL SOT / CUTOVER", "gate": "GATE_D_CONTROLLED_CUTOVER_ENTRY", "notes": "requires Gate D PASS and separate exact Owner authorization"},
+    {"id": "POST_CUTOVER_STABILIZATION", "name": "POST-CUTOVER STABILIZATION", "gate": null},
+    {"id": "STAGE_8", "name": "PROJECT OWNER PRODUCTION RELEASE", "gate": null, "notes": "separate exact Owner Production Release decision required"}
+  ],
+  "validator_modifications": [
+    {"id": "P0-01", "requirement": "AUTHORITATIVE TIME / LEASE CLOCK semantics", "gate": "GATE_A_SHADOW_ENTRY"},
+    {"id": "P0-02", "requirement": "Result persistence ↔ terminal-state ordering failure cases", "stage": "STAGE_2"},
+    {"id": "P0-03", "requirement": "Immutable Batch / Expected-Work Manifest", "gate": "GATE_B_M3TOP3_ENTRY"},
+    {"id": "P0-04", "requirement": "PIT AI adjudication policy/taxonomy/model version binding", "gate": "GATE_B_M3TOP3_ENTRY"},
+    {"id": "P0-05", "requirement": "NO_DUAL_AUTHORITY negative testing", "gate": "GATE_C_POSTGRESQL_SOT_ENTRY"},
+    {"id": "P0-06", "requirement": "daily governed workload completion window / operational cadence fitness", "gate": "GATE_D_CONTROLLED_CUTOVER_ENTRY"},
+    {"id": "P1", "requirement": "future ~1M synthetic structural-scale test", "blocking": false}
+  ],
+  "acceptance_contracts": {
+    "P0-01": {
+      "gate": "GATE_A_SHADOW_ENTRY",
+      "authoritative_time_source": "GOVERNED_SERVER_OR_DATABASE_TIME_ONLY",
+      "lease_acquisition": "lease acquisition is valid only when recorded against authoritative time and current governed lease state",
+      "lease_expiry": "expiry is evaluated against authoritative time; expired leases cannot be revived by worker-local timestamps",
+      "heartbeat_validity": "heartbeat is valid only inside the current lease epoch and authoritative-time validity window",
+      "stale_worker_determination": "worker is stale when authoritative time exceeds governed heartbeat/lease validity; local clock cannot override",
+      "worker_local_clock_authority": false,
+      "future_timestamp_behavior": "FAIL_CLOSED",
+      "stale_timestamp_behavior": "FAIL_CLOSED",
+      "clock_skew_behavior": "FAIL_CLOSED_WHEN_AUTHORITY_OR_LEASE_VALIDITY_CANNOT_BE_PROVEN",
+      "authority_transition_time_basis": "AUTHORITATIVE_TIME_ONLY"
+    },
+    "P0-02": {
+      "stage": "STAGE_2",
+      "failure_cases": {
+        "A": "Result persisted then crash before terminal commit",
+        "B": "terminal attempted before required immutable Result persistence",
+        "C": "Result persistence succeeds then ACK is lost"
+      },
+      "required_behavior": [
+        "recovery is idempotent",
+        "duplicate Result authority is prohibited",
+        "contradictory authoritative completion is prohibited",
+        "terminal success without required immutable Result is prohibited",
+        "retry/recovery preserves one deterministic authoritative outcome"
+      ]
+    },
+    "P0-03": {
+      "gate": "GATE_B_M3TOP3_ENTRY",
+      "manifest_model": "PARENT_WORK_ORDER_PLUS_IMMUTABLE_EXPECTED_WORK_MANIFEST",
+      "required_bindings": [
+        "parent Work Order",
+        "exact eligible universe",
+        "exact snapshot-date set",
+        "shard generation rule",
+        "exact shard IDs or deterministic shard identity",
+        "frozen input binding",
+        "required versus optional classification",
+        "completeness semantics"
+      ],
+      "scientific_completeness_rule": "MISSING_REQUIRED_SHARD_CAUSES_SCIENTIFIC_COMPLETENESS_FAIL",
+      "explicit_acceptance_example": "999 / 1000 required shards != COMPLETE",
+      "generic_batch_entity_required": false
+    },
+    "P0-04": {
+      "gate": "GATE_B_M3TOP3_ENTRY",
+      "required_bindings": [
+        "evidence identity",
+        "evidence provenance",
+        "question or adjudication subject",
+        "PIT public-availability issue",
+        "adjudication policy",
+        "taxonomy version",
+        "adjudicator identity/model/version where applicable",
+        "adjudication timestamp",
+        "status",
+        "confidence",
+        "support/reject disposition",
+        "reuse scope",
+        "UNKNOWN / NOT_PROVEN semantics"
+      ],
+      "hard_rules": [
+        "AI adjudication != Ground Truth",
+        "FACT_EXISTED_AT_TIME != PUBLIC_EVIDENCE_AVAILABLE_AT_TIME",
+        "future Return/MFE/MAE/Rank/Outcome must never repair historical PIT evidence"
+      ]
+    },
+    "P0-05": {
+      "gate": "GATE_C_POSTGRESQL_SOT_ENTRY",
+      "negative_test": "JSON authoritative = TRUE AND PostgreSQL authoritative = TRUE for same governed domain => FAIL_CLOSED",
+      "required_rules": [
+        "restore cannot self-authorize authority",
+        "absent required Owner Decision => transition prohibited",
+        "exact target drift => transition prohibited",
+        "reconciliation result alone cannot grant authority",
+        "no implicit authority promotion"
+      ]
+    },
+    "P0-06": {
+      "gate": "GATE_D_CONTROLLED_CUTOVER_ENTRY",
+      "required_bindings": [
+        "intended governed daily cadence",
+        "intended completion window",
+        "pre-Production measured operational evidence",
+        "daily workload completion fitness",
+        "interruption/resume evidence"
+      ],
+      "p0_operational_fitness": "real U127 x approximately 400 trading-day interruption/resume operational fitness",
+      "p1_deferred_nonblocking": "approximately 1M deterministic synthetic structural scale test",
+      "priority_rule": "P0_REAL_U127_X_400_PRECEDES_P1_SYNTHETIC_1M"
+    }
+  },
+  "parallel_workstream": {
+    "id": "M3TOP3_SCIENTIFIC_VALIDATION",
+    "authority_persona": "SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT",
+    "operational_pass_is_scientific_pass": false
+  },
+  "legacy_run_governance": {
+    "historical_lifecycle_immutable": true,
+    "historical_and_current_disposition_separate": true,
+    "current_dispositions": {
+      "RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-002": "NOT_REGISTERED",
+      "RUN-VALIDATION-AAA-T18-INDEPENDENT-20260816-001": "NOT_REGISTERED"
+    }
+  },
+  "ui_projection": {
+    "source_of_truth": "PERSISTENT_CONTROL_PLANE",
+    "manual_org_chart_source_of_truth": false,
+    "read_only": true,
+    "persona_is_not_channel": true,
+    "unknown_stale_conflict_visible": true,
+    "auto_refresh_required": true,
+    "required_sources": ["organization", "channel_registry", "current_state", "process_gate", "roadmap"],
+    "required_source_health_is_fail_closed": true
+  },
+  "tranche_a": {
+    "name": "MANAGED POSTGRESQL SHADOW-ENTRY QUALIFICATION",
+    "preparation_allowed": true,
+    "execution_authorized": false,
+    "dispatch_authorized": false
+  },
+  "shared_contract_change_required": false,
+  "r5_reopened": false,
+  "t20_assumed": false
+}
