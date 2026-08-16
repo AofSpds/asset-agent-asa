@@ -1,0 +1,36 @@
+finding_id: AAA-v1-IV-FND-02-E4-POSTGRES-SMOKE-NOT-IN-CERTIFYING-WORKFLOW
+version: v0.1_OPEN
+project: Asset Agent ASA
+phase: AAA_V1_SUCCESSOR_INDEPENDENT_VALIDATION
+recorded_at: '2026-08-16T20:03:00+09:00'
+severity: P1
+blocking: false
+status: OPEN
+validator: SEMI-VALIDATION-AUDITOR
+exact_failed_target: 96234463cedaff2b7ec5d0ff49bec44684804b00
+affected_contract: E4_POSTGRESQL_CERTIFYING_REGRESSION_COVERAGE
+
+observed_gap: >-
+  The certifying PostgreSQL workflow applies migration 0009 but does not execute
+  aaa/db/tests/e4_version_set_promotion_restore_smoke.sql. E4 Python tests are covered by the
+  deterministic suite, but the E4 SQL behavior is absent from the certifying PostgreSQL job.
+
+impact: >-
+  A green PostgreSQL job does not independently certify E4 database semantics. This coverage gap
+  allowed the P0 release-set/hash binding defect to remain outside the executable PostgreSQL CI surface.
+
+required_forward_remediation:
+  add_e4_postgresql_smoke_to_certifying_workflow: true
+  extend_e4_smoke_with_p0_adversarial_cases: true
+  rerun_full_postgresql_certifying_job_on_successor_exact_target: true
+
+preservation:
+  migration_0009_immutable: true
+  failed_exact_target_immutable: true
+
+authority_state:
+  live_execution_authorized: false
+  postgresql_operational_sot_authorized: false
+  production_canonical_promotion_authorized: false
+  controlled_cutover_authorized: false
+  production_release_authorized: false
