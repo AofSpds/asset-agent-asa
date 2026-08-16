@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://asset-agent-asa.local/contracts/actor_authority_refs_v1.schema.json",
+  "title": "AAA Balanced v1 Actor and Authority References",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["actor_ref", "authority_ref"],
+  "properties": {
+    "actor_ref": {"$ref": "#/$defs/actorRef"},
+    "authority_ref": {"$ref": "#/$defs/authorityRef"}
+  },
+  "$defs": {
+    "actorRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["actor_type", "actor_identity"],
+      "properties": {
+        "actor_type": {"enum": ["HUMAN_OWNER", "PERSONA_INSTANCE", "WORKER", "SERVICE", "CI_JOB", "VALIDATOR_RUNTIME"]},
+        "actor_identity": {"type": "string", "minLength": 1},
+        "runtime_instance_id": {"type": "string", "minLength": 1},
+        "session_context_ref": {"type": "string", "minLength": 1}
+      }
+    },
+    "authorityRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["authority_role", "authority_identity", "authority_scope", "authority_source_ref"],
+      "properties": {
+        "authority_role": {"type": "string", "minLength": 1},
+        "authority_identity": {"type": "string", "minLength": 1},
+        "authority_scope": {"type": "string", "minLength": 1},
+        "authority_source_ref": {"type": "string", "minLength": 1}
+      }
+    }
+  },
+  "x-aaa-invariants": [
+    "actor and authority are separate semantic dimensions",
+    "same underlying identity may legitimately appear in both dimensions but actor does not substitute for authority evidence",
+    "worker/service/CI capability does not confer governance authority",
+    "channel/session context is not authority identity"
+  ]
+}
