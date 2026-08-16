@@ -1,0 +1,49 @@
+work_order_id: WO-AAA-v1-E1-IDENTITY-TIME-SCHEMA-FOUNDATION-20260816
+project: Asset Agent ASA
+phase: AAA_V1_SUCCESSOR_ENGINEERING
+tranche: E1_IDENTITY_TIME_SCHEMA_FOUNDATION
+issued_at: '2026-08-16T18:10:00+09:00'
+status: APPROVED_FOR_BOUNDED_ENGINEERING
+requesting_control: AAA_BUILD_CONTROL
+owner_authorization:
+  decision_id: DECISION-AAA-v1-SUCCESSOR-ENGINEERING-AUTHORIZATION-20260816-001
+  exact_scope_sha256: fe1ff488e62bb500f520f395ce64f5428cbc384eb5cadc611f949ee46f8a66ac
+frozen_semantic_basis:
+  freeze_manifest: control/aaa/architecture/AAA-v1-R5-EXACT-FREEZE-MANIFEST_v1.0_FROZEN.json
+  frozen_r4_sha256: 27f093555d5934f79a8501ef3426a0ade4d02d64370cc98a0cb0ea801e4ea01f
+repository: AofSpds/asset-agent-asa
+integration_branch: aaa-integration-v0.2
+engineering_branch: aaa-v1-e1-identity-time-schema-foundation
+scope:
+  required:
+    - typed project namespace identity envelope and deterministic validators
+    - time semantic and time/evidence authority vocabulary and deterministic validators
+    - schema-family metadata and exact declared compatible-set validators
+    - explicit LEGACY_AAA_RUN_V0_X versus BALANCED_V1 successor semantic marker/projection support
+    - PIT fail-closed validation for publication_at or supported_cutoff_at <= snapshot_cutoff_at
+    - date-only evidence must not gain fabricated intraday precision
+    - cross-domain identity ambiguity must fail closed
+    - successor PostgreSQL migration 0006+ only where persistence is required by E1
+    - deterministic regression tests and migration manifest integrity updates
+  prohibited:
+    - migrations 0001-0005 rewrite
+    - historical T17/T18/T19 run/result rewrite or synthetic RunAttempt
+    - model Feature/Scorer/Weight/Ranking/Backtest methodology change
+    - PostgreSQL Operational SoT cutover
+    - live worker enablement
+    - controlled cutover
+    - production release or canonical promotion
+acceptance:
+  - legacy fixtures retain historical semantics
+  - same raw local_id under distinct entity_family does not auto-merge
+  - duplicate canonical identity with conflicting material meaning fails closed
+  - DATE precision cannot be converted to fabricated intraday evidence time
+  - PIT admissibility respects publication_at or supported_cutoff_at cutoff rule
+  - declared compatible sets resolve immutable exact version identities and may be directional
+  - deterministic suite passes
+  - PostgreSQL migration SHA integrity passes
+  - PostgreSQL smoke/reconciliation/backup tests pass with PostgreSQL still nonauthoritative
+  - Owner Console build remains green
+result_requirement:
+  terminal_result_required: true
+  engineering_pass_is_not_independent_validation_pass: true
