@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://asset-agent-asa.local/contracts/execution_provenance_receipt_v1.schema.json",
+  "title": "AAA Balanced v1 Execution Provenance Receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "provenance_receipt_id", "run_id", "run_attempt_id", "repository_identity",
+    "exact_commit_sha", "git_tree_sha", "working_tree_clean", "execution_profile_id",
+    "execution_profile_version", "execution_profile_sha256", "dependency_lock_refs",
+    "configuration_sha256", "material_input_refs", "runtime_identity",
+    "verified_by_actor_ref", "verified_at"
+  ],
+  "properties": {
+    "provenance_receipt_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "run_attempt_id": {"type": "string", "minLength": 1},
+    "repository_identity": {"type": "string", "minLength": 1},
+    "exact_commit_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "git_tree_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "working_tree_clean": {"const": true},
+    "execution_profile_id": {"type": "string", "minLength": 1},
+    "execution_profile_version": {"type": "string", "minLength": 1},
+    "execution_profile_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "dependency_lock_refs": {
+      "type": "array", "uniqueItems": true,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["identity", "sha256"],
+        "properties": {
+          "identity": {"type": "string", "minLength": 1},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        }
+      }
+    },
+    "configuration_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "material_input_refs": {"type": "array", "uniqueItems": true, "items": {"type": "object"}},
+    "runtime_identity": {"type": "string", "minLength": 1},
+    "verified_by_actor_ref": {"type": "object"},
+    "verified_at": {"type": "string", "format": "date-time"}
+  },
+  "x-aaa-invariants": [
+    "governed Balanced-v1 execution requires a clean working tree",
+    "exact commit alone is insufficient provenance",
+    "commit/tree/profile/config/dependency/input identities must match the bound Logical Run",
+    "Execution Source Provenance != Historical Evidence Provenance",
+    "execution/retrieval timestamp cannot establish earlier PIT evidence availability"
+  ]
+}
