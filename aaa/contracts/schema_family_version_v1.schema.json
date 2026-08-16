@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://asset-agent-asa.local/contracts/schema_family_version_v1.schema.json",
+  "title": "AAA Balanced v1 Schema Family Version",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_family_id",
+    "schema_version",
+    "schema_status",
+    "compatibility_with_predecessor",
+    "reader_policy",
+    "spec_sha256"
+  ],
+  "properties": {
+    "schema_family_id": {"type": "string", "minLength": 1},
+    "schema_version": {"type": "string", "minLength": 1, "not": {"const": "latest"}},
+    "schema_status": {"enum": ["WORKING", "CANDIDATE", "FROZEN", "DEPRECATED"]},
+    "compatibility_with_predecessor": {
+      "enum": [
+        "NON_BREAKING_ADDITIVE",
+        "BREAKING_SUCCESSOR",
+        "REVISION_ONLY_NO_SCHEMA_CHANGE",
+        "NOT_APPLICABLE_INITIAL"
+      ]
+    },
+    "reader_policy": {"enum": ["EXACT_VERSION_ONLY", "DECLARED_COMPATIBLE_SET"]},
+    "spec_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "predecessor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_family_id", "schema_version"],
+      "properties": {
+        "schema_family_id": {"type": "string", "minLength": 1},
+        "schema_version": {"type": "string", "minLength": 1, "not": {"const": "latest"}}
+      }
+    }
+  },
+  "x-aaa-invariants": [
+    "frozen schema bytes are immutable",
+    "breaking semantics require a successor schema version",
+    "data correction/revision is not a schema version",
+    "model version and schema version are independent",
+    "compatibility is declared and never inferred"
+  ]
+}
