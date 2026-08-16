@@ -1,0 +1,77 @@
+work_order_id: WO-AAA-v1-E4-RELEASE-SET-HASH-REMEDIATION-20260816
+project: Asset Agent ASA
+phase: AAA_V1_E4_RELEASE_SET_HASH_REMEDIATION
+issued_at: '2026-08-16T20:03:00+09:00'
+status: APPROVED_FOR_BOUNDED_ENGINEERING
+requesting_control: AAA_BUILD_CONTROL
+responsible_persona: SEMI-CONTROL-ARCHITECT
+executor_role: BOUNDED_ENGINEERING_IMPLEMENTATION
+permission_level: ENGINEERING_BRANCH_AND_PR_WITHIN_OWNER_AUTHORIZED_SCOPE
+
+owner_authority:
+  decision_id: DECISION-AAA-v1-SUCCESSOR-ENGINEERING-AUTHORIZATION-20260816-001
+  exact_scope_sha256: fe1ff488e62bb500f520f395ce64f5428cbc384eb5cadc611f949ee46f8a66ac
+  frozen_semantic_target_sha256: 27f093555d5934f79a8501ef3426a0ade4d02d64370cc98a0cb0ea801e4ea01f
+  rationale: >-
+    This remediation is a bounded forward implementation of already-frozen E4 Compatible Version
+    Set / Promotion semantics. It does not reopen or modify the frozen architecture contract.
+
+failed_validation:
+  run_id: RUN-VALIDATION-AAA-v1-SUCCESSOR-INDEPENDENT-20260816-001
+  result_id: RESULT-VALIDATION-AAA-v1-SUCCESSOR-INDEPENDENT-20260816-001
+  exact_failed_target: 96234463cedaff2b7ec5d0ff49bec44684804b00
+  exact_failed_tree: 42794657c15248ca8bac51b4883612277a692146
+  independent_validation_pass: false
+  blocking_finding: AAA-v1-IV-FND-01-E4-RELEASE-SET-COMPONENT-HASH-BINDING-GAP
+  coverage_finding: AAA-v1-IV-FND-02-E4-POSTGRES-SMOKE-NOT-IN-CERTIFYING-WORKFLOW
+
+engineering_branch: aaa-v1-e4-release-set-hash-remediation-v0.1
+integration_branch: aaa-integration-v0.2
+
+objective: >-
+  Close the E4 Independent Validation P0 by mechanically binding PostgreSQL release-set component
+  membership to the canonical decision-bound component_set_sha256, while preserving migration 0009
+  and the failed exact target as immutable history. Add certifying E4 PostgreSQL adversarial coverage.
+
+required_changes:
+  - add forward-only successor migration 0010; never rewrite 0009
+  - define canonical component-set hashing semantics identical to the frozen/Python contract
+  - mechanically recompute or verify component_set_sha256 from exact component membership
+  - freeze membership after release-set finalization or exact Decision binding
+  - reject component INSERT after finalization/decision unless represented by a new release-set identity/hash
+  - fail closed before promotion completion if recomputed membership hash differs from stored/decision-bound hash
+  - preserve canonical/shadow pointer on any component-set/hash mismatch
+  - execute aaa/db/tests/e4_version_set_promotion_restore_smoke.sql in the certifying PostgreSQL workflow
+  - add adversarial SQL/Python tests for arbitrary stored hash mismatch, post-decision insert, material membership change, stale Decision reuse, and promotion mismatch pointer preservation
+  - rerun deterministic, PostgreSQL, migration-hash, reconciliation/backup and Owner Console regression
+
+acceptance_criteria:
+  migration_0009_unchanged: true
+  migrations_0001_0009_sha256_preserved: true
+  migration_0010_forward_only: true
+  actual_components_canonical_hash_equals_stored_release_set_hash: enforced
+  post_decision_membership_mutation: reject
+  stale_decision_after_membership_change: reject
+  promotion_actual_set_hash_mismatch: reject_pointer_unchanged
+  e4_postgresql_smoke_in_certifying_workflow: true
+  exact_successor_commit_and_tree_required: true
+  fresh_independent_revalidation_required: true
+
+prohibited:
+  - rewrite migration 0009 or any earlier migration
+  - alter frozen R4/R5 semantic contract
+  - modify model feature scorer weight ranking or backtest methodology
+  - rematerialize historical T17/T18/T19 Runs
+  - fabricate historical ACK/start/heartbeat evidence
+  - authorize PostgreSQL Operational SoT
+  - enable live execution
+  - perform production canonical promotion
+  - authorize Controlled Cutover
+  - authorize Production Release
+
+outputs:
+  - successor migration 0010 and exact SHA256
+  - updated certifying PostgreSQL workflow
+  - adversarial regression evidence
+  - engineering Result bound to exact successor commit/tree
+  - fresh Independent Validation target binding and Work Order after engineering PASS
