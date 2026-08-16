@@ -3,6 +3,9 @@
   "project": "Asset Agent ASA",
   "phase": "AAA_V1_SUCCESSOR_ENGINEERING_E4",
   "run_id": "RUN-AAA-v1-E4-VERSION-SET-PROMOTION-RESTORE-20260816-001",
+  "work_order_id": "WO-AAA-v1-E4-VERSION-SET-PROMOTION-RESTORE-20260816",
+  "repository": "AofSpds/asset-agent-asa",
+  "exact_base_commit": "b97297b15888c68fde01b8dfff3bf2b46fd037b7",
   "verdict": "PASS",
   "status": "ENGINEERING_PASS_AWAITING_INDEPENDENT_VALIDATION",
   "exact_authority": {
@@ -56,6 +59,7 @@
     "Engineering PASS does not satisfy Independent Validation PASS.",
     "PostgreSQL remains non-authoritative until separate Project Owner cutover authorization.",
     "JSON Registry remains operational authority during shadow.",
+    "This Result was corrected forward in Git history to include the Run Registry v0.6 referential identity fields work_order_id, repository and exact_base_commit; engineering implementation evidence and exact target did not change.",
     "E4 completes the four Owner-authorized Balanced-v1 successor engineering tranches; integrated regression and Independent Validation remain required."
   ]
 }
