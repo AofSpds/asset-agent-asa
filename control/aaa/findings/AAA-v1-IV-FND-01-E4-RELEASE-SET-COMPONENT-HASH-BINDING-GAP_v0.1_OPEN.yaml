@@ -1,0 +1,57 @@
+finding_id: AAA-v1-IV-FND-01-E4-RELEASE-SET-COMPONENT-HASH-BINDING-GAP
+version: v0.1_OPEN
+project: Asset Agent ASA
+phase: AAA_V1_SUCCESSOR_INDEPENDENT_VALIDATION
+recorded_at: '2026-08-16T20:03:00+09:00'
+severity: P0
+blocking: true
+status: OPEN
+validator: SEMI-VALIDATION-AUDITOR
+exact_failed_target: 96234463cedaff2b7ec5d0ff49bec44684804b00
+exact_failed_tree: 42794657c15248ca8bac51b4883612277a692146
+affected_contract: COMPATIBLE_VERSION_SET_RELEASE_MANIFEST / E4_POSTGRESQL_PROMOTION_IDENTITY
+
+observed_gap: >-
+  PostgreSQL migration 0009 stores caller-supplied component_set_sha256 separately from actual
+  release-set component rows. The database does not mechanically recompute or verify the canonical
+  component-set hash from exact membership before Decision binding and promotion completion.
+
+frozen_invariant_violated:
+  - RELEASE_SET_ID_PLUS_EXACT_COMPONENT_REFS_PLUS_COMPONENT_SET_SHA256_DESCRIBE_ONE_IMMUTABLE_SET
+  - MATERIAL_COMPONENT_CHANGE_REQUIRES_DIFFERENT_COMPONENT_SET_HASH
+  - DECISION_RECEIPT_AUTHORIZES_EXACT_IMMUTABLE_SET
+  - PROMOTION_REVALIDATES_EXACT_SET_BEFORE_POINTER_MUTATION
+
+impact: >-
+  A materially different PostgreSQL component membership can remain represented under an unchanged
+  decision-bound component_set_sha256 and can reach the non-authoritative shadow promotion path.
+  PostgreSQL remains non-authoritative, but this defect blocks Independent Validation PASS and any
+  later cutover consideration.
+
+required_forward_remediation:
+  rewrite_migration_0009: false
+  first_successor_migration: '0010'
+  canonical_component_set_hashing_equal_to_frozen_python_contract: required
+  recompute_or_verify_hash_from_exact_component_membership: required
+  freeze_membership_after_finalization_or_decision: required
+  reject_post_decision_component_insert_without_new_set_identity: required
+  promotion_mismatch_must_fail_closed_and_preserve_pointer: required
+  adversarial_tests_required:
+    - arbitrary_stored_hash_plus_different_actual_components_reject
+    - component_added_after_decision_reject
+    - component_material_change_requires_new_set_and_hash
+    - stale_decision_receipt_reuse_after_membership_change_reject
+    - promotion_actual_set_hash_mismatch_pointer_unchanged
+
+preservation:
+  failed_exact_target_immutable: true
+  migration_0009_immutable: true
+  historical_t17_t18_t19_rematerialization: false
+  model_feature_scorer_weight_ranking_backtest_change: false
+
+authority_state:
+  live_execution_authorized: false
+  postgresql_operational_sot_authorized: false
+  production_canonical_promotion_authorized: false
+  controlled_cutover_authorized: false
+  production_release_authorized: false
