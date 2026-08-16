@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://asset-agent-asa.local/contracts/exact_target_decision_receipt_v1.schema.json",
+  "title": "AAA Balanced v1 Exact-Target Decision Receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["decision_id", "decision_type", "target", "authority_ref", "actor_ref", "decision", "decided_at"],
+  "properties": {
+    "decision_id": {"type": "string", "minLength": 1},
+    "decision_type": {"type": "string", "minLength": 1},
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["target_kind", "immutable_identity"],
+      "properties": {
+        "target_kind": {"enum": ["GIT_COMMIT", "CONTENT_SHA256", "RELEASE_SET", "ARTIFACT_IDENTITY", "SHARED_CONTRACT_RECONCILIATION"]},
+        "immutable_identity": {"type": "string", "minLength": 1},
+        "content_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "authority_ref": {"type": "object"},
+    "actor_ref": {"type": "object"},
+    "decision": {"enum": ["APPROVE", "DENY", "REVOKE", "SUPERSEDE"]},
+    "decided_at": {"type": "string", "format": "date-time"},
+    "rationale_ref": {"type": "string", "minLength": 1},
+    "prerequisite_receipt_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "supersedes_decision_ref": {"type": "string", "minLength": 1},
+    "revokes_decision_ref": {"type": "string", "minLength": 1}
+  },
+  "x-aaa-invariants": [
+    "APPROVAL(TARGET_X) != APPROVAL(TARGET_Y)",
+    "floating latest, branch name alone and mutable HEAD aliases are not exact targets",
+    "revocation and supersession create new immutable receipts",
+    "Independent Validation PASS is not Owner Cutover or Production Release authorization"
+  ]
+}
