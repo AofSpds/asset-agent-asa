@@ -110,8 +110,8 @@ function shortPersona(value: string) {
   return value
 }
 function truthLabel(value: boolean | null) {
-  if (value === true) return 'OPEN / TRUE'
-  if (value === false) return 'CLOSED / FALSE'
+  if (value === true) return 'TRUE'
+  if (value === false) return 'FALSE'
   return 'UNKNOWN'
 }
 function nodeButtonStyle(accent = '#334155'): React.CSSProperties {
