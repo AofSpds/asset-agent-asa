@@ -1,0 +1,28 @@
+{
+  "result_id": "RESULT-AAA-v1-R4-COREB-POSITION-20260816-001",
+  "run_id": "RUN-AAA-v1-R4-COREB-POSITION-20260816-001",
+  "work_order_id": "WO-AAA-v1-R4-SHARED-CONTRACT-RECONCILIATION-20260816",
+  "verdict": "PASS",
+  "artifact_locator": "control/aaa/architecture/AAA-v1-R4-COREB-POSITION_v0.1_WORKING.json",
+  "artifact_sha256": "cf648b7e925fd1c5609a46325469e32764783f190be2c7b12d3d7ad2b3ab791e",
+  "artifact_byte_size": 5494,
+  "repository": "AofSpds/asset-agent-asa",
+  "exact_target_commit": "4458fa055b937295cebab1b841ad808955ef17c9",
+  "completed_at": "2026-08-16T17:12:00+09:00",
+  "canonical_output": false,
+  "metadata": {
+    "phase": "R4_SHARED_CONTRACT_RECONCILIATION",
+    "position_type": "INDEPENDENT_CORE_POSITION",
+    "source_manual_bridge_packet_sha256": "29c040f18aaa54749b5dccae7708ae91c6e56b55779c7ede7c42cbab2d608f69",
+    "source_manual_bridge_packet_byte_size": 35998,
+    "position_completeness": "COMPLETE",
+    "recommendation": "READY_FOR_DUAL_CORE_COMPARISON",
+    "no_retroactive_started_at_or_heartbeat": true,
+    "exact_contract_freeze_authorized": false,
+    "implementation_authorized": false,
+    "live_execution_authorized": false,
+    "postgresql_operational_sot_authorized": false,
+    "controlled_cutover_authorized": false,
+    "production_release_authorized": false
+  }
+}
