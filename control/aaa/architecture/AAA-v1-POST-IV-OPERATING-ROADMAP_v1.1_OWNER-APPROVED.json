@@ -95,27 +95,106 @@
     }
   ],
   "stages": [
-    {"id": "STAGE_0", "name": "POST-IV FINAL PLAN INTEGRATION", "gate": null},
-    {"id": "STAGE_1", "name": "MANAGED POSTGRESQL SHADOW-ENTRY QUALIFICATION", "gate": "GATE_A_SHADOW_ENTRY"},
-    {"id": "STAGE_2", "name": "SINGLE GOVERNED NON-AUTHORITATIVE WORKER FAILURE CAMPAIGN", "gate": "GATE_A_SHADOW_ENTRY"},
-    {"id": "STAGE_3A", "name": "PIT ADMISSION", "gate": "GATE_B_M3TOP3_ENTRY"},
-    {"id": "STAGE_3B", "name": "FROZEN M3TOP3 GOLDEN REPLAY", "gate": "GATE_B_M3TOP3_ENTRY"},
-    {"id": "STAGE_4", "name": "GOVERNED M3TOP3 REPLAY / BATCH FITNESS", "gate": "GATE_B_M3TOP3_ENTRY"},
-    {"id": "STAGE_5", "name": "POSTGRESQL SOT-ENTRY FULL QUALIFICATION", "gate": "GATE_C_POSTGRESQL_SOT_ENTRY"},
-    {"id": "STAGE_6A", "name": "CUTOVER CANDIDATE FREEZE + OWNER DECISION PACKAGE PREPARATION", "gate": "GATE_C_POSTGRESQL_SOT_ENTRY", "notes": "planning/freeze only; no actual cutover"},
-    {"id": "STAGE_7", "name": "PRE-CUTOVER OPERATIONAL FITNESS", "gate": "GATE_D_CONTROLLED_CUTOVER_ENTRY"},
-    {"id": "STAGE_6B", "name": "FINAL QUIESCE + OWNER-CONTROLLED ACTUAL SOT / CUTOVER", "gate": "GATE_D_CONTROLLED_CUTOVER_ENTRY", "notes": "requires Gate D PASS and separate exact Owner authorization"},
-    {"id": "POST_CUTOVER_STABILIZATION", "name": "POST-CUTOVER STABILIZATION", "gate": null},
-    {"id": "STAGE_8", "name": "PROJECT OWNER PRODUCTION RELEASE", "gate": null, "notes": "separate exact Owner Production Release decision required"}
+    {
+      "id": "STAGE_0",
+      "name": "POST-IV FINAL PLAN INTEGRATION",
+      "gate": null
+    },
+    {
+      "id": "STAGE_1",
+      "name": "MANAGED POSTGRESQL SHADOW-ENTRY QUALIFICATION",
+      "gate": "GATE_A_SHADOW_ENTRY"
+    },
+    {
+      "id": "STAGE_2",
+      "name": "SINGLE GOVERNED NON-AUTHORITATIVE WORKER FAILURE CAMPAIGN",
+      "gate": "GATE_A_SHADOW_ENTRY"
+    },
+    {
+      "id": "STAGE_3A",
+      "name": "PIT ADMISSION",
+      "gate": "GATE_B_M3TOP3_ENTRY"
+    },
+    {
+      "id": "STAGE_3B",
+      "name": "FROZEN M3TOP3 GOLDEN REPLAY",
+      "gate": "GATE_B_M3TOP3_ENTRY"
+    },
+    {
+      "id": "STAGE_4",
+      "name": "GOVERNED M3TOP3 REPLAY / BATCH FITNESS",
+      "gate": "GATE_B_M3TOP3_ENTRY"
+    },
+    {
+      "id": "STAGE_5",
+      "name": "POSTGRESQL SOT-ENTRY FULL QUALIFICATION",
+      "gate": "GATE_C_POSTGRESQL_SOT_ENTRY"
+    },
+    {
+      "id": "STAGE_6A",
+      "name": "CUTOVER CANDIDATE FREEZE + OWNER DECISION PACKAGE PREPARATION",
+      "gate": "GATE_C_POSTGRESQL_SOT_ENTRY",
+      "notes": "planning/freeze only; no actual cutover"
+    },
+    {
+      "id": "STAGE_7",
+      "name": "PRE-CUTOVER OPERATIONAL FITNESS",
+      "gate": "GATE_D_CONTROLLED_CUTOVER_ENTRY"
+    },
+    {
+      "id": "STAGE_6B",
+      "name": "FINAL QUIESCE + OWNER-CONTROLLED ACTUAL SOT / CUTOVER",
+      "gate": "GATE_D_CONTROLLED_CUTOVER_ENTRY",
+      "notes": "requires Gate D PASS and separate exact Owner authorization"
+    },
+    {
+      "id": "POST_CUTOVER_STABILIZATION",
+      "name": "POST-CUTOVER STABILIZATION",
+      "gate": null
+    },
+    {
+      "id": "STAGE_8",
+      "name": "PROJECT OWNER PRODUCTION RELEASE",
+      "gate": null,
+      "notes": "separate exact Owner Production Release decision required"
+    }
   ],
   "validator_modifications": [
-    {"id": "P0-01", "requirement": "AUTHORITATIVE TIME / LEASE CLOCK semantics", "gate": "GATE_A_SHADOW_ENTRY"},
-    {"id": "P0-02", "requirement": "Result persistence ↔ terminal-state ordering failure cases", "stage": "STAGE_2"},
-    {"id": "P0-03", "requirement": "Immutable Batch / Expected-Work Manifest", "gate": "GATE_B_M3TOP3_ENTRY"},
-    {"id": "P0-04", "requirement": "PIT AI adjudication policy/taxonomy/model version binding", "gate": "GATE_B_M3TOP3_ENTRY"},
-    {"id": "P0-05", "requirement": "NO_DUAL_AUTHORITY negative testing", "gate": "GATE_C_POSTGRESQL_SOT_ENTRY"},
-    {"id": "P0-06", "requirement": "daily governed workload completion window / operational cadence fitness", "gate": "GATE_D_CONTROLLED_CUTOVER_ENTRY"},
-    {"id": "P1", "requirement": "future ~1M synthetic structural-scale test", "blocking": false}
+    {
+      "id": "P0-01",
+      "requirement": "AUTHORITATIVE TIME / LEASE CLOCK semantics",
+      "gate": "GATE_A_SHADOW_ENTRY"
+    },
+    {
+      "id": "P0-02",
+      "requirement": "Result persistence ↔ terminal-state ordering failure cases",
+      "stage": "STAGE_2"
+    },
+    {
+      "id": "P0-03",
+      "requirement": "Immutable Batch / Expected-Work Manifest",
+      "gate": "GATE_B_M3TOP3_ENTRY"
+    },
+    {
+      "id": "P0-04",
+      "requirement": "PIT AI adjudication policy/taxonomy/model version binding",
+      "gate": "GATE_B_M3TOP3_ENTRY"
+    },
+    {
+      "id": "P0-05",
+      "requirement": "NO_DUAL_AUTHORITY negative testing",
+      "gate": "GATE_C_POSTGRESQL_SOT_ENTRY"
+    },
+    {
+      "id": "P0-06",
+      "requirement": "daily governed workload completion window / operational cadence fitness",
+      "gate": "GATE_D_CONTROLLED_CUTOVER_ENTRY"
+    },
+    {
+      "id": "P1",
+      "requirement": "future ~1M synthetic structural-scale test",
+      "blocking": false
+    }
   ],
   "acceptance_contracts": {
     "P0-01": {
@@ -231,7 +310,13 @@
     "persona_is_not_channel": true,
     "unknown_stale_conflict_visible": true,
     "auto_refresh_required": true,
-    "required_sources": ["organization", "channel_registry", "current_state", "process_gate", "roadmap"],
+    "required_sources": [
+      "organization",
+      "channel_registry",
+      "current_state",
+      "process_gate",
+      "roadmap"
+    ],
     "required_source_health_is_fail_closed": true
   },
   "tranche_a": {
