@@ -1,0 +1,80 @@
+{
+  "result_id": "RESULT-AAA-v1-E1-IDENTITY-TIME-SCHEMA-20260816-001",
+  "project": "Asset Agent ASA",
+  "result_type": "SUCCESSOR_ENGINEERING_TRANCHE",
+  "tranche": "E1_IDENTITY_TIME_SCHEMA_FOUNDATION",
+  "work_order_id": "WO-AAA-v1-E1-IDENTITY-TIME-SCHEMA-FOUNDATION-20260816",
+  "run_id": "RUN-AAA-v1-E1-IDENTITY-TIME-SCHEMA-20260816-001",
+  "repository": "AofSpds/asset-agent-asa",
+  "engineering_branch": "aaa-v1-e1-identity-time-schema-foundation",
+  "exact_base_commit": "a9a61129d2e6a9a616802fa739a345cd430fccd5",
+  "integrated_successor_commit": "ba45890d8777eb90622318467a50a1bbb888c9ca",
+  "pull_request": 34,
+  "owner_authorization_decision": "DECISION-AAA-v1-SUCCESSOR-ENGINEERING-AUTHORIZATION-20260816-001",
+  "exact_engineering_scope_sha256": "fe1ff488e62bb500f520f395ce64f5428cbc384eb5cadc611f949ee46f8a66ac",
+  "frozen_semantic_target_sha256": "27f093555d5934f79a8501ef3426a0ade4d02d64370cc98a0cb0ea801e4ea01f",
+  "implementation": {
+    "balanced_v1_foundation_module": "aaa/src/aaa/core/balanced_v1.py",
+    "typed_identity_contract": "aaa/contracts/identity_envelope_v1.schema.json",
+    "governed_time_contract": "aaa/contracts/time_evidence_v1.schema.json",
+    "schema_family_contract": "aaa/contracts/schema_family_version_v1.schema.json",
+    "declared_compatible_set_contract": "aaa/contracts/declared_compatible_set_v1.schema.json",
+    "successor_migration": "aaa/db/migrations/0006_balanced_v1_identity_time_schema_foundation.sql",
+    "migration_0006_sha256": "e298e32510afed3cfee0173afebe5c170405f8f6aa7f99ee89ccd4de4e199bfa",
+    "historical_migrations_0001_0005_rewritten": false,
+    "historical_t17_t18_t19_rematerialized": false,
+    "synthetic_historical_runattempt_created": false,
+    "postgresql_authoritative": false,
+    "json_registry_operational_authority_during_shadow": true
+  },
+  "acceptance": {
+    "typed_namespace_identity_fail_closed": "PASS",
+    "date_only_no_intraday_fabrication": "PASS",
+    "pit_publication_or_supported_cutoff_rule": "PASS",
+    "schema_compatibility_exact_machine_resolvable": "PASS",
+    "schema_compatibility_directional": "PASS",
+    "floating_latest_rejected": "PASS",
+    "legacy_semantics_explicit_no_runattempt_synthesis": "PASS",
+    "migration_0001_0005_hashes_preserved": "PASS"
+  },
+  "ci": {
+    "branch_corrected_run_id_ci": 31938679587,
+    "pr_ci": 31938789036,
+    "post_merge_ci": 31938820142,
+    "deterministic_tests": {
+      "test_count": 162,
+      "pass_count": 162,
+      "fail_count": 0,
+      "error_count": 0
+    },
+    "postgresql_migrations_0001_0006_and_smokes": "PASS",
+    "t18_concurrent_lease_single_winner": "PASS",
+    "t19_two_worker_claim_single_winner": "PASS",
+    "json_postgresql_shadow_reconciliation": "PASS",
+    "local_backup_restore_drill": "PASS",
+    "owner_console_locked_install_build": "PASS"
+  },
+  "engineering_adjudication": {
+    "engineering_pass": true,
+    "independent_validation_required": true,
+    "independent_validation_pass": false,
+    "manual_github_bridge": true,
+    "running_confirmed_fabricated": false
+  },
+  "authority_boundary": {
+    "engineering_only": true,
+    "postgresql_operational_sot_authorized": false,
+    "live_execution_authorized": false,
+    "controlled_cutover_authorized": false,
+    "production_release_authorized": false,
+    "production_canonical_promotion_authorized": false
+  },
+  "non_interference": {
+    "model_feature_scorer_weight_ranking_backtest_changed": false,
+    "future_outcome_used_to_repair_historical_pit": false,
+    "p09_second_rerun_status_inferred": false,
+    "t18_independent_validation_status_inferred": false
+  },
+  "verdict": "PASS",
+  "completed_at": "2026-08-16T18:22:00+09:00"
+}
