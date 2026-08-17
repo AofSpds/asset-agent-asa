@@ -1,0 +1,65 @@
+{
+  "result_id": "RESULT-VALIDATION-AAA-v1-SUCCESSOR-INDEPENDENT-20260816-001",
+  "project": "Asset Agent ASA",
+  "phase": "AAA_V1_SUCCESSOR_INDEPENDENT_VALIDATION",
+  "run_id": "RUN-VALIDATION-AAA-v1-SUCCESSOR-INDEPENDENT-20260816-001",
+  "work_order_id": "WO-VALIDATION-AAA-v1-SUCCESSOR-INDEPENDENT-20260816",
+  "repository": "AofSpds/asset-agent-asa",
+  "exact_base_commit": "96234463cedaff2b7ec5d0ff49bec44684804b00",
+  "exact_validation_tree": "42794657c15248ca8bac51b4883612277a692146",
+  "verdict": "FAIL",
+  "independent_validation_pass": false,
+  "validator": "SEMI-VALIDATION-AUDITOR",
+  "recorded_at": "2026-08-16T20:03:00+09:00",
+  "domain_verdicts": {
+    "E1_IDENTITY_TIME_SCHEMA_FOUNDATION": "PASS",
+    "E2_LOGICAL_RUN_RUNATTEMPT_EXECUTION_SEMANTICS": "PASS",
+    "E3_AUTHORITY_DECISION_PROVENANCE_EVENT": "PASS",
+    "E4_VERSION_SET_PROMOTION_RESTORE_HARDENING": "FAIL",
+    "PIT_FIREWALL": "PASS",
+    "LEGACY_NON_REMATERIALIZATION": "PASS"
+  },
+  "findings": [
+    {
+      "finding_id": "AAA-v1-IV-FND-01-E4-RELEASE-SET-COMPONENT-HASH-BINDING-GAP",
+      "severity": "P0",
+      "blocking": true
+    },
+    {
+      "finding_id": "AAA-v1-IV-FND-02-E4-POSTGRES-SMOKE-NOT-IN-CERTIFYING-WORKFLOW",
+      "severity": "P1",
+      "blocking": false
+    }
+  ],
+  "evidence_summary": {
+    "exact_target_verified": true,
+    "migration_0001_0009_sha256_verified": true,
+    "deterministic_tests": "211/211 PASS",
+    "postgresql_e1_e3_replay_reconciliation_backup": "PASS",
+    "owner_console_build": "PASS",
+    "e2_dependency_lock_finding": "CLOSED",
+    "control_remediation_target_separation_confirmed": true
+  },
+  "blocking_reason": "PostgreSQL release-set component rows are not mechanically bound to the decision-bound component_set_sha256, allowing actual component membership and stored exact-set identity to diverge before shadow promotion.",
+  "required_remediation": {
+    "migration_0009_rewrite": false,
+    "forward_only_successor_migration": "0010",
+    "canonical_component_set_hash_recompute_or_verify": true,
+    "membership_freeze_after_decision_or_finalization": true,
+    "promotion_hash_mismatch_fail_closed": true,
+    "certifying_e4_postgresql_smoke_required": true
+  },
+  "authority_state": {
+    "live_execution_authorized": false,
+    "postgresql_operational_sot_authorized": false,
+    "production_canonical_promotion_authorized": false,
+    "controlled_cutover_authorized": false,
+    "production_release_authorized": false
+  },
+  "notes": [
+    "Independent Validation FAIL is bound to exact target 96234463cedaff2b7ec5d0ff49bec44684804b00.",
+    "Engineering PASS does not override this Independent Validation FAIL.",
+    "No retroactive ACK/start/heartbeat evidence is created.",
+    "Migration 0009 and failed exact target remain immutable historical evidence."
+  ]
+}

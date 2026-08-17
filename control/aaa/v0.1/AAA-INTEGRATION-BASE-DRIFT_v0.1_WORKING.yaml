@@ -1,0 +1,48 @@
+record_id: AAA-INTEGRATION-BASE-DRIFT
+version: v0.1_WORKING
+project: Asset Agent ASA
+short_name: AAA
+status: DETECTED_AND_RECOMPOSED
+recorded_at: '2026-08-16T04:06:00+09:00'
+prior_integration_candidate:
+  branch: aaa-integration-v0
+  head: 508a7b79b1a0a3fe2a0f4137a3b8ff18edcc20fb
+  engineering_ci_run: 31902959510
+  engineering_ci_result: PASS
+  disposition: PRESERVE_IMMUTABLE_AS_PRIOR_CANDIDATE
+base_drift:
+  latest_control_commit_observed: 8c79fc1ac9aa2b692486235ae107176ecc960dac
+  latest_current_state: control/continuity/v1.0/SEMI-CURRENT-STATE_v2.11.yaml
+  latest_current_state_blob_sha: ba65b898bfaab2615f19e79bcdd6d92000dd1ffa
+  latest_event_ledger: control/continuity/v1.0/SEMI-CONTROL-EVENT-LEDGER_v3.3.jsonl
+  change_class: M3TOP3_INDEPENDENT_DELTA_F06_FAILURE_AND_BOUNDED_FIX_ROUTING
+  aaa_contract_break_detected: false
+  source_candidate_invalidated_as_code: false
+  prior_candidate_stale_for_integration_promotion: true
+recomposition:
+  branch: aaa-integration-v0.1
+  base_commit: 8c79fc1ac9aa2b692486235ae107176ecc960dac
+  base_current_state: v2.11
+  initial_recomposed_commit: 113f2b70621641dd36574cc98bb23a39c0ff2f5a
+  strategy: LATEST_CONTROL_TREE_PLUS_EXACT_AAA_TREE_AND_AAA_TEST_WORKFLOW
+  preserves_prior_candidate_parent: true
+  canonical_authority: EXISTING_SEMI_CONTROL_PLANE
+  aaa_mode: SHADOW_NONAUTHORITATIVE
+m3top3_f06_disposition:
+  independent_delta: FAIL
+  primary_failure: FND_02_F06_ECONOMIC_EVENT_ID_ROTATION_BYPASS
+  aaa_action: SURFACE_AS_BLOCKER_DO_NOT_REPAIR_MODEL_FROM_AAA_TRACK
+  core_b_fix_authority_preserved: true
+  actual_replay: PROHIBITED
+safety:
+  m3top3_source_modified_by_recomposition: false
+  u127_modified: false
+  frozen_architecture_modified: false
+  model_methodology_changed: false
+  canonical_cutover: false
+  independent_validation_pass_claimed: false
+next_gate:
+  - RUN_AAA_ENGINEERING_CI_ON_RECOMPOSED_CANDIDATE
+  - VERIFY_LATEST_CONTROL_STATE_READ_BY_AAA_STATUS
+  - KEEP_F06_AS_VISIBLE_P0_BLOCKER
+  - DO_NOT_MERGE_OR_CUTOVER_WITHOUT_REQUIRED_GATES

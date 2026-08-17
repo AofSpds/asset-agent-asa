@@ -1,0 +1,31 @@
+activation_id: AAA-WAVE4-ACTIVATION
+version: v0.1_WORKING
+project: Asset Agent ASA
+short_name: AAA
+status: ACTIVATED_PARALLEL
+pre_activation_integration_head: 39808234493132e577baad9dab816349bdb87e89
+integrated_engineering_head_before_activation: 138e49e6d5e19fb0357cc06cdfe902509144d578
+tracks:
+  AAA-T13-MODEL-PROVIDER-ADAPTERS:
+    objective: Harden provider-neutral invocation, explicit health/capability routing, deterministic provider fallback selection, request/result envelopes, and provider-swap behavior without making LLM availability a Control Plane dependency.
+    ownership:
+      - aaa/src/aaa/gateway/**
+      - aaa/tests/test_gateway_*.py
+    permission: LEVEL_2_ISOLATED_BRANCH_WRITE
+    canonical_write: PROHIBITED
+  AAA-T14-RECOVERY-DRILL-HARNESS:
+    objective: Build a deterministic local physical recovery-drill harness covering process interruption, stale lock detection, partial run journal bytes, primary/secondary replica loss simulation, and recovery evidence manifests without claiming a real S3/R2 drill.
+    ownership:
+      - aaa/src/aaa/recovery/drill.py
+      - aaa/tests/test_recovery_drill_*.py
+    permission: LEVEL_2_ISOLATED_BRANCH_WRITE
+    canonical_write: PROHIBITED
+file_ownership_overlap: NONE_BY_CONTRACT
+llm_required_for_control_plane: false
+provider_fixed: false
+real_cloud_failure_drill_claim: PROHIBITED_UNTIL_ACTUAL_INFRA_EXECUTION
+independent_validation_claim: PROHIBITED
+next_after_engineering:
+  - EXACT_BASE_COMBINED_INTEGRATION_TEST
+  - NATURAL_LANGUAGE_NONCANONICAL_LAYER
+  - INDEPENDENT_VALIDATION_PREP

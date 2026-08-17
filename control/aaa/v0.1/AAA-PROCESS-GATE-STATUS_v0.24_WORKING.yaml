@@ -1,0 +1,71 @@
+control_id: AAA-PROCESS-GATE-STATUS
+version: v0.24_WORKING
+project: Asset Agent ASA
+recorded_at: '2026-08-16T19:18:00+09:00'
+supersedes: control/aaa/v0.1/AAA-PROCESS-GATE-STATUS_v0.23_WORKING.yaml
+purpose: >-
+  Forward-only control successor after CI correctly failed closed on the initial E4 terminal Result
+  binding shape. The E4 engineering exact target 96234463cedaff2b7ec5d0ff49bec44684804b00 and
+  E4 Result bytes are unchanged. Only the E4 Run terminal_result projection was corrected to the
+  existing Run Registry v0.6 contract fields result_id, result_sha256, completed_at,
+  persistent_locator and verdict. Independent Validation remains not dispatched until remediation
+  regression CI is green.
+
+current_position:
+  current_controlled_activity: AAA_V1_E4_CONTROL_BINDING_REMEDIATION_VERIFY
+  successor_engineering_state: COMPLETED_ENGINEERING_PASS
+  engineering_exact_target: 96234463cedaff2b7ec5d0ff49bec44684804b00
+  independent_validation_state: BLOCKED_PENDING_CONTROL_REGRESSION_GREEN
+  implementation_authorized: true
+  t20_assumed: false
+
+remediation:
+  finding: AAA-v1-E4-CONTROL-FND-01-INVALID-TERMINAL-RESULT-IDENTITY-SHAPE
+  detected_by:
+    workflow_run: 31941267728
+    deterministic_job: 95150708498
+    error: INVALID_TERMINAL_RESULT_IDENTITY
+  root_cause: >-
+    E4 Run terminal_result used path/sha256/byte_size/git_blob_sha fields instead of the strict
+    Run Registry v0.6 TerminalResult identity shape. This was a control terminalization defect,
+    not an E4 engineering implementation failure.
+  correction_commit: f4f32ad166187199fe3c9928b2d5da278ed39036
+  corrected_run: control/aaa/runs/RUN-AAA-v1-E4-VERSION-SET-PROMOTION-RESTORE-20260816-001.json
+  engineering_target_changed: false
+  e4_result_bytes_changed: false
+  migration_0009_changed: false
+  historical_migrations_changed: false
+
+engineering:
+  E1_IDENTITY_TIME_SCHEMA_FOUNDATION: COMPLETED_PASS
+  E2_LOGICAL_RUN_RUNATTEMPT_EXECUTION_SEMANTICS: COMPLETED_PASS_WITH_FORWARD_REMEDIATION
+  E3_AUTHORITY_DECISION_PROVENANCE_EVENT: COMPLETED_PASS
+  E4_VERSION_SET_PROMOTION_RESTORE_HARDENING:
+    state: COMPLETED_PASS
+    integrated_successor: 96234463cedaff2b7ec5d0ff49bec44684804b00
+    result: control/aaa/results/RESULT-AAA-v1-E4-VERSION-SET-PROMOTION-RESTORE-20260816-001.json
+    result_sha256: facb569bcdf9d05962072fb461081cffa1cebf9e2b29527f9ef85da0eb84281d
+    migration_0009_sha256: 86c4827a834e62d4319ba2a1c3c238320f095f3e2bbb199ff42f5c90e1e22ec2
+    independent_validation_pass: false
+
+migration_policy:
+  migrations_0001_0009: IMMUTABLE_AFTER_INTEGRATION
+  next_successor_migration_allowed_if_later_authorized: 10
+  postgresql_authoritative: false
+  json_registry_operational_authority_during_shadow: true
+
+not_authorized:
+  postgresql_operational_sot_cutover: true
+  live_worker_execution_enablement: true
+  production_canonical_promotion: true
+  controlled_cutover: true
+  production_release: true
+
+next_gate:
+  phase: AAA_V1_SUCCESSOR_INDEPENDENT_VALIDATION
+  exact_engineering_target: 96234463cedaff2b7ec5d0ff49bec44684804b00
+  state: BLOCKED_PENDING_CONTROL_REGRESSION_GREEN
+  unblock_condition:
+    - deterministic_contract_tests SUCCESS
+    - postgres_contract_smoke SUCCESS
+    - owner_console_build_smoke SUCCESS

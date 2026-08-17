@@ -1,0 +1,65 @@
+{
+  "result_id": "RESULT-AAA-v1-E4-VERSION-SET-PROMOTION-RESTORE-20260816-001",
+  "project": "Asset Agent ASA",
+  "phase": "AAA_V1_SUCCESSOR_ENGINEERING_E4",
+  "run_id": "RUN-AAA-v1-E4-VERSION-SET-PROMOTION-RESTORE-20260816-001",
+  "work_order_id": "WO-AAA-v1-E4-VERSION-SET-PROMOTION-RESTORE-20260816",
+  "repository": "AofSpds/asset-agent-asa",
+  "exact_base_commit": "b97297b15888c68fde01b8dfff3bf2b46fd037b7",
+  "verdict": "PASS",
+  "status": "ENGINEERING_PASS_AWAITING_INDEPENDENT_VALIDATION",
+  "exact_authority": {
+    "decision_id": "DECISION-AAA-v1-SUCCESSOR-ENGINEERING-AUTHORIZATION-20260816-001",
+    "scope_sha256": "fe1ff488e62bb500f520f395ce64f5428cbc384eb5cadc611f949ee46f8a66ac",
+    "frozen_semantic_target_sha256": "27f093555d5934f79a8501ef3426a0ade4d02d64370cc98a0cb0ea801e4ea01f"
+  },
+  "engineering_evidence": {
+    "candidate_head": "7eb47e3d6d15dc82258811019e34189675fb5875",
+    "pull_request": 37,
+    "integration_merge_commit": "96234463cedaff2b7ec5d0ff49bec44684804b00",
+    "migration_0009": {
+      "path": "aaa/db/migrations/0009_balanced_v1_version_set_promotion_restore.sql",
+      "sha256": "86c4827a834e62d4319ba2a1c3c238320f095f3e2bbb199ff42f5c90e1e22ec2"
+    },
+    "contracts": [
+      "aaa/contracts/compatible_version_set_release_manifest_v1.schema.json",
+      "aaa/contracts/promotion_receipt_v1.schema.json",
+      "aaa/contracts/restore_manifest_v1.schema.json"
+    ],
+    "ci": {
+      "branch_push_run": 31940272507,
+      "pull_request_run": 31941152083,
+      "postmerge_push_run": 31941186718,
+      "deterministic_contract_tests": "SUCCESS",
+      "postgres_contract_smoke": "SUCCESS",
+      "owner_console_build_smoke": "SUCCESS"
+    }
+  },
+  "acceptance": {
+    "floating_latest_prohibited": true,
+    "exact_release_set_identity_required": true,
+    "partial_multi_store_promotion_fail_closed": true,
+    "canonical_shadow_pointer_updated_only_after_verified_promotion": true,
+    "unverified_component_cannot_promote": true,
+    "restore_created_ne_restore_verified": true,
+    "restore_verified_ne_postgresql_operational_sot_cutover": true,
+    "historical_migrations_0001_0008_rewritten": false,
+    "historical_t17_t18_t19_rematerialized": false,
+    "model_feature_scorer_weight_ranking_backtest_changed": false
+  },
+  "authority_state": {
+    "postgresql_operational_sot_authorized": false,
+    "live_execution_authorized": false,
+    "production_canonical_promotion_authorized": false,
+    "controlled_cutover_authorized": false,
+    "production_release_authorized": false,
+    "independent_validation_pass": false
+  },
+  "notes": [
+    "Engineering PASS does not satisfy Independent Validation PASS.",
+    "PostgreSQL remains non-authoritative until separate Project Owner cutover authorization.",
+    "JSON Registry remains operational authority during shadow.",
+    "This Result was corrected forward in Git history to include the Run Registry v0.6 referential identity fields work_order_id, repository and exact_base_commit; engineering implementation evidence and exact target did not change.",
+    "E4 completes the four Owner-authorized Balanced-v1 successor engineering tranches; integrated regression and Independent Validation remain required."
+  ]
+}

@@ -1,0 +1,66 @@
+control_id: AAA-v1-R4-SHARED-CONTRACT-RECONCILIATION-TARGET-BINDING
+version: v0.1_WORKING
+project: Asset Agent ASA
+phase: R4_SHARED_CONTRACT_RECONCILIATION
+recorded_at: '2026-08-16T09:08:00+09:00'
+status: BOUND_READY_FOR_DUAL_CORE_RECONCILIATION
+requesting_authority: PROJECT_OWNER
+requesting_control: AAA_BUILD_CONTROL
+
+repository: AofSpds/asset-agent-asa
+branch_context: aaa-integration-v0.2
+
+immutable_design_inputs:
+  r1_baseline:
+    path: control/aaa/architecture/AAA-v1-R1-EXACT-BASELINE-MANIFEST_v0.1_WORKING.yaml
+    observed_exact_commit: a590717a2127b8ef4620d7933904868dd50c7396
+    observed_git_tree: 64d0cac8a91c9d0d9d3ca12f64123bc3c374ec97
+  r2_delta:
+    path: control/aaa/architecture/AAA-v1-R2-ARCHITECTURE-DELTA-ANALYSIS_v0.1_WORKING.yaml
+    control_commit: 7d00449872585204dbdc84a91421e543086e48cf
+  r3_exact_contract_design:
+    path: control/aaa/architecture/AAA-v1-R3-EXACT-CONTRACT-DESIGN_v0.1_WORKING.yaml
+    design_commit: ecd1284e5d4c9ff8cb554f5bd0ef0521061ffcc0
+    git_blob_sha: 0bd250584eb3c479369b3518311daaadc154cc7a
+  process_gate_at_dispatch:
+    path: control/aaa/v0.1/AAA-PROCESS-GATE-STATUS_v0.14_WORKING.yaml
+    control_head: 4458fa055b937295cebab1b841ad808955ef17c9
+  existing_shared_contract_state:
+    path: control/continuity/v1.0/SEMI-SHARED-CONTRACT-STATE_v0.5_WORKING.yaml
+    version: v0.5_WORKING
+    status: DUAL_CORE_RECONCILED_ALL_DEFINITIONS_AGREED_SHARED_INTERFACE_BINDINGS_MATERIALIZED_WIRING_PENDING
+
+required_participants:
+  - SEMI-CONTROL-ARCHITECT
+  - SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+
+mandatory_reconciliation_scope:
+  - A01_TIME_SEMANTICS
+  - A03_LOGICAL_RUN_RUNATTEMPT_SHARED_REFERENCE_IMPACT
+  - A05_SCHEMA_FAMILY_VERSIONING
+  - A06_EXECUTION_SOURCE_PROVENANCE_WHERE_MODEL_REPLAY_INPUTS_APPLY
+  - A07_PROJECT_NAMESPACE_CANONICAL_IDENTITY_WHERE_CROSS_DOMAIN_REFS_APPLY
+  - A10_ACTOR_AUTHORITY_INTERSECTION_FOR_SHARED_CONTRACT_PROMOTION
+  - EXACT_TARGET_DECISION_RECEIPT
+  - COMPATIBLE_VERSION_SET_RELEASE_MANIFEST
+
+hard_boundaries:
+  unilateral_shared_contract_change_prohibited: true
+  feature_definition_change_prohibited: true
+  scorer_math_change_prohibited: true
+  weight_change_prohibited: true
+  ranking_contract_change_prohibited: true
+  backtest_methodology_change_prohibited: true
+  historical_t17_t18_t19_rewrite_prohibited: true
+  migrations_0001_0005_rewrite_prohibited: true
+  canonical_write_prohibited: true
+  implementation_write_prohibited: true
+  exact_contract_freeze_authorized: false
+  implementation_authorized: false
+  live_execution_authorized: false
+  postgresql_operational_sot_authorized: false
+  controlled_cutover_authorized: false
+  production_release_authorized: false
+
+completion_rule: >-
+  R4 may be declared reconciled only after materially distinct CORE A and CORE B position evidence is returned and adjudicated against these exact bound inputs. Missing position evidence must remain BLOCKED_MISSING_CORE_POSITION and must not be inferred from prior general agreement.

@@ -1,0 +1,59 @@
+work_order_id: WO-AAA-RUN-REGISTRY-OPERATIONS-DASHBOARD-20260816
+work_order_version: v0.1
+project: Asset Agent ASA
+short_name: AAA
+status: OWNER_APPROVED_READY_FOR_ENGINEERING
+approved_by: PROJECT_OWNER
+approved_at_local: 2026-08-16T05:29+09:00
+requesting_control: AAA_BUILD_CONTROL
+objective: Build a persistent Run Registry and Persona/Operations Dashboard so the owner can determine which Persona-associated execution Runs are ready, dispatched, running, blocked, stale, or terminal without inspecting individual chat channels.
+exact_base_commit_at_issue: 98a5973cd332e9d77d0d54e403dca7efb3a4b2ca
+execution_dependency:
+  independent_validation_completion_required_before_start: false
+  may_run_in_parallel_with_independent_validation: true
+  may_consume_independent_validation_verdict_before_terminal_result_exists: false
+  controlled_cutover_dependency_changed: false
+scope:
+  - persistent_run_registry_contract
+  - persona_process_work_order_run_result_linkage
+  - dispatch_receipt
+  - run_started_event
+  - heartbeat_or_checkpoint_event
+  - blocked_event
+  - terminal_result_binding
+  - stale_unknown_detection
+  - read_only_cli_views
+  - read_only_http_api_views
+  - owner_console_persona_operations_dashboard
+required_lifecycle_states:
+  - READY_NOT_DISPATCHED
+  - DISPATCHED_AWAITING_ACK
+  - RUNNING_CONFIRMED
+  - BLOCKED
+  - STALE_UNKNOWN
+  - COMPLETED_PASS
+  - COMPLETED_FAIL
+  - COMPLETED_WITH_FINDINGS
+completion_rules:
+  running_claim_requires_run_id_and_start_evidence: true
+  terminal_claim_requires_persistent_terminal_result_artifact: true
+  unknown_must_not_be_inferred_as_running: true
+  channel_is_not_persona: true
+  return_packet_is_not_source_of_truth: true
+permissions:
+  canonical_control_write: PROHIBITED
+  general_agent_canonical_write: PROHIBITED
+  isolated_additive_engineering_only: true
+non_interference:
+  - DO_NOT_MUTATE_U127
+  - DO_NOT_CHANGE_M3TOP3_MODEL_METHODOLOGY
+  - DO_NOT_REPAIR_CONTINUITY_HISTORY
+  - DO_NOT_SELF_CERTIFY_INDEPENDENT_VALIDATION
+  - DO_NOT_AUTHORIZE_REPLAY_FREEZE_RELEASE_OR_CUTOVER
+acceptance:
+  - owner can list every registered Persona and current execution Run state
+  - READY is distinguishable from actual RUNNING
+  - RUNNING without recent heartbeat becomes STALE_UNKNOWN by explicit rule
+  - terminal result includes run_id exact target result identity completed_at and persistent locator
+  - CLI API and UI read the same registry source
+  - no UI status is fabricated when registry evidence is missing

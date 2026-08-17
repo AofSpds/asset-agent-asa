@@ -1,0 +1,43 @@
+finding_id: AAA-v1-IV-FND-02-E4-POSTGRES-SMOKE-NOT-IN-CERTIFYING-WORKFLOW
+version: v0.3_CLOSED
+project: Asset Agent ASA
+phase: AAA_V1_E4_RELEASE_SET_HASH_INDEPENDENT_REVALIDATION
+recorded_at: '2026-08-16T22:59:00+09:00'
+supersedes: control/aaa/findings/AAA-v1-IV-FND-02-E4-POSTGRES-SMOKE-NOT-IN-CERTIFYING-WORKFLOW_v0.2_WORKING.yaml
+severity: P1
+blocking: false
+status: CLOSED
+closed_by: SEMI-VALIDATION-AUDITOR
+closure_validation_run: RUN-VALIDATION-AAA-v1-E4-RELEASE-SET-HASH-REVALIDATION-20260816-001
+closure_validation_result: control/aaa/results/RESULT-VALIDATION-AAA-v1-E4-RELEASE-SET-HASH-REVALIDATION-20260816-001.json
+exact_failed_target: 96234463cedaff2b7ec5d0ff49bec44684804b00
+exact_successor_target: 8a4aea0256bc630385bd463fc8969e5c88a74102
+exact_successor_tree: ffd65463413c9fee073db404c36f2461aa7a6c83
+
+closure_evidence:
+  independent_validation_verdict: PASS
+  independent_validation_pass: true
+  certifying_workflow: .github/workflows/aaa-build-tests.yml
+  e4_postgresql_smoke: aaa/db/tests/e4_version_set_promotion_restore_smoke.sql
+  e4_postgresql_smoke_in_certifying_workflow: true
+  remediation_specific_adversarial_cases_present: true
+  exact_target_github_actions_run: 31947529769
+  postgres_contract_smoke: SUCCESS
+  migration_0010_sha256: 07b4244fc007ca5a0d5488ed4675b25a4e81d6e787a75d19258cb43c8ead7b7a
+
+closure_rationale: >-
+  Fresh Independent Revalidation confirmed that the certifying PostgreSQL job directly executes the
+  E4 release-set/promotion/restore smoke after applying migrations 0001 through 0010, including the
+  remediation-specific canonical-hash and P0 adversarial cases. Exact-target run 31947529769 passed.
+
+preservation:
+  prior_failed_target_verdict: FAIL
+  prior_failed_target_immutable: true
+  migration_0009_immutable: true
+
+authority_state:
+  live_execution_authorized: false
+  postgresql_operational_sot_authorized: false
+  production_canonical_promotion_authorized: false
+  controlled_cutover_authorized: false
+  production_release_authorized: false

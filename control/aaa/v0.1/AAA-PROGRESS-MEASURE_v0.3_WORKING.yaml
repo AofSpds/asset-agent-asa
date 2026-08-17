@@ -1,0 +1,54 @@
+measure_id: AAA-PROGRESS-MEASURE
+version: v0.3_WORKING
+project: Asset Agent ASA
+short_name: AAA
+status: WAVE3_ENGINEERING_INTEGRATION_PASS_NEXT_HARDENING_ACTIVE
+measurement_rule:
+  percent_is_planning_estimate_not_validation_verdict: true
+  engineering_pending_pr_can_count_only_when_ci_pass_and_exact_artifact_identity_exists: true
+  independent_validation_and_cutover_gates_are_not_inferred_from_engineering_pass: true
+engineering_usable_mvp:
+  current_percent: 72
+  previous_percent: 66
+  delta_reason:
+    - AAA_T11_AGENT_RUN_LIFECYCLE_AND_HASH_CHAINED_JOURNAL_INTEGRATED
+    - AAA_T12_DETERMINISTIC_RECOVERY_AUDIT_INTEGRATED_ON_POST_T11_EXACT_BASE
+    - COMBINED_T11_T12_ENGINEERING_COMPATIBILITY_50_OF_50_PASS
+  newly_closed:
+    - immutable_agent_run_identity_bound_to_work_order_and_exact_base
+    - fail_closed_agent_run_lifecycle_transition_guard
+    - interrupted_running_run_blocks_instead_of_implicit_success
+    - append_only_hash_chained_run_journal_with_tamper_detection
+    - deterministic_read_only_recovery_audit
+    - llm_off_recovery_survival_when_deterministic_core_alive
+    - artifact_replica_and_state_base_recovery_blockers
+  integration_head: 138e49e6d5e19fb0357cc06cdfe902509144d578
+  evidence:
+    t11_merge_commit: d2821dac43a8f529d4071918c4955496c9517baa
+    t11_ci_run: 31904945439
+    t11_python_tests: PASS_39_OF_39
+    t12_merge_commit: 138e49e6d5e19fb0357cc06cdfe902509144d578
+    t12_exact_base: d2821dac43a8f529d4071918c4955496c9517baa
+    t12_ci_run: 31905097978
+    combined_python_tests: PASS_50_OF_50
+    owner_console_build: PASS
+full_controlled_cutover_program:
+  current_percent: 45
+  previous_percent: 43
+  delta_reason:
+    - RECOVERY_AND_AGENT_RUNTIME_ENGINEERING_FOUNDATION_NOW_INTEGRATED
+  remaining_major_gates:
+    - ACTUAL_FULL_SHADOW_CYCLE_NOT_COMPLETED
+    - PHYSICAL_PROCESS_KILL_RECOVERY_DRILL_NOT_COMPLETED
+    - REAL_S3_R2_PARTIAL_FAILURE_DRILL_NOT_COMPLETED
+    - INDEPENDENT_VALIDATION_NOT_PASSED
+    - CONTINUITY_EVENT_ID_COLLISION_NOT_ADJUDICATED_BY_SEMI_CONTROL_ARCHITECT
+    - OWNER_CUTOVER_NOT_AUTHORIZED
+blocking_findings:
+  - AAA-FINDING-CONTINUITY-EVENT-ID-COLLISION_v0.1_WORKING
+  - M3TOP3_FND_02_F06_EXTERNAL_P0
+next:
+  - MODEL_PROVIDER_ADAPTER_AND_PROVIDER_SWAP_HARDENING
+  - NATURAL_LANGUAGE_LAYER_OPTIONAL_NONCANONICAL
+  - PHYSICAL_RECOVERY_DRILL_HARNESS_AND_PARTIAL_ARTIFACT_FAILURE_TESTS
+  - CONTINUE_FAIL_CLOSED_UNTIL_INDEPENDENT_VALIDATION_AND_OWNER_CUTOVER_GATES

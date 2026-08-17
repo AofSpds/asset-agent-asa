@@ -1,0 +1,66 @@
+control_id: AAA-P09-CLOSURE-READINESS
+version: v0.1_WORKING
+project: Asset Agent ASA
+short_name: AAA
+recorded_at: '2026-08-16T06:08:00+09:00'
+prepared_by: AAA_BUILD_CONTROL
+purpose: Prepare P09 Independent Validation for immediate terminal adjudication once independent validator evidence is returned, without inferring execution or verdict.
+current_process:
+  process_id: P09_INDEPENDENT_VALIDATION
+  gate: DISPATCHED_AWAITING_ACK
+  run_id: RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-001
+  executor_persona: SEMI-VALIDATION-AUDITOR
+  running_confirmed: false
+  independent_verdict: NOT_AVAILABLE
+  terminal_result: NOT_AVAILABLE
+execution_evidence_observed:
+  started_at: null
+  last_heartbeat_at: null
+  terminal_result_identity: null
+  source_run_record: control/aaa/runs/RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-001.json
+exact_validation_target:
+  repository: AofSpds/asset-agent-asa
+  branch_context: aaa-integration-v0.2
+  engineering_code_target_commit: 80378610f9ac9e688c52417f0416e01c057400a7
+  target_binding: control/aaa/validation/AAA-v0.1-INDEPENDENT-PREFLIGHT-TARGET-BINDING_v0.2_WORKING.yaml
+  work_order: control/workorders/WO-VALIDATION-AAA-v0.2-INDEPENDENT-PREFLIGHT-20260816.yaml
+closure_requirements:
+  - RETURN_PACKET_RUN_ID_MATCH
+  - EXACT_CHECKOUT_COMMIT_MATCH
+  - INDEPENDENT_TEST_COMMANDS_RECORDED
+  - TEST_COUNTS_RECORDED
+  - OWNER_CONSOLE_NPM_CI_AND_BUILD_RESULT_RECORDED
+  - T17_RUN_REGISTRY_ADVERSARIAL_CHECKS_RECORDED
+  - LLM_OFF_CONTROL_PLANE_VERDICT_RECORDED
+  - PROVIDER_AUTHORITY_RECOVERY_SHADOW_CHECKS_RECORDED
+  - CANONICAL_SIDE_EFFECT_NONE_CONFIRMED
+  - EXCLUSIONS_AND_EXTERNAL_BLOCKERS_PRESERVED
+  - INDEPENDENT_VERDICT_EXPLICIT
+  - CONTROLLED_CUTOVER_AUTHORIZATION_MUST_REMAIN_FALSE
+adjudication_rules:
+  PASS:
+    run_terminal_state: COMPLETED_PASS
+    p09_gate: CLOSED
+    independent_validation_pass: true
+  PASS_WITH_FINDINGS:
+    run_terminal_state: COMPLETED_WITH_FINDINGS
+    p09_gate: CLOSED_ONLY_IF_FINDINGS_ARE_NON_BLOCKING_AND_EXPLICITLY_BOUNDED
+    independent_validation_pass: CONDITIONAL_ON_RETURN_PACKET_EXPLICITNESS
+  FAIL:
+    run_terminal_state: COMPLETED_FAIL
+    p09_gate: OPEN_BLOCKED
+    independent_validation_pass: false
+non_inference_rules:
+  no_ack_means_running: false
+  engineering_pass_equals_independent_validation: false
+  owner_local_smoke_equals_independent_validation: false
+  validation_pass_equals_owner_cutover_authorization: false
+  no_return_packet_means_terminal: false
+persistent_side_effects_of_this_record:
+  changes_engineering_target: false
+  changes_model_methodology: false
+  changes_shared_contract: false
+  authorizes_cutover: false
+  advances_p09_state: false
+next_trigger: RECEIVE_SEMI_VALIDATION_AUDITOR_RETURN_PACKET
+status: READY_FOR_RETURN_PACKET_ADJUDICATION

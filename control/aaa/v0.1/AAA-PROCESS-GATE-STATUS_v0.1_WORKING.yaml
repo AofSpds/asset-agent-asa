@@ -1,0 +1,139 @@
+control_id: AAA-PROCESS-GATE-STATUS
+version: v0.2_WORKING
+project: Asset Agent ASA
+short_name: AAA
+purpose: Make process completion and actual execution state explicit. A process is finished only when completion_gate is CLOSED.
+status_semantics:
+  CLOSED: Exit criteria satisfied and evidence bound. Process may be treated as finished for its defined scope.
+  READY_NOT_DISPATCHED: Work definition exists but no execution Run has started. Process is not running and is not finished.
+  DISPATCHED_AWAITING_ACK: Work has been handed to an executor but start evidence is not yet recorded.
+  OPEN_ACTIVE: At least one RUNNING_CONFIRMED execution Run exists with start evidence. Process is not finished.
+  OPEN_BLOCKED: Work cannot finish until one or more named blockers are resolved. Process is not finished.
+  STALE_UNKNOWN: A previously active Run lacks sufficient current evidence; do not infer RUNNING.
+  NOT_STARTED: Process has not materially started. Process is not finished.
+measurement_note:
+  percent_is_secondary: true
+  completion_gate_is_authoritative_for_finished_question: true
+  running_claim_requires_run_id_and_start_evidence: true
+  terminal_claim_requires_persistent_terminal_result_artifact: true
+  engineering_completion_does_not_equal_independent_validation: true
+  independent_validation_does_not_equal_owner_cutover_authorization: true
+current_position:
+  last_closed_process: P07_ENGINEERING_INTEGRATION
+  current_primary_process: P08_GOVERNED_SHADOW_OPERATION
+  independent_validation_process: P09_INDEPENDENT_VALIDATION_READY_NOT_DISPATCHED
+  owner_approved_parallel_engineering_track: WO-AAA-RUN-REGISTRY-OPERATIONS-DASHBOARD-20260816
+  next_terminal_process: P10_CONTROLLED_CUTOVER
+  engineering_usable_mvp_percent: 85
+  full_controlled_cutover_program_percent: 52
+processes:
+  - id: P00
+    name: NAMING_AND_AUTHORITY
+    completion_gate: CLOSED
+    finished: true
+  - id: P01
+    name: RECOVERY_GAP_AND_BUILD_CONTRACT
+    completion_gate: CLOSED
+    finished: true
+  - id: P02
+    name: DETERMINISTIC_FOUNDATION
+    completion_gate: CLOSED
+    finished: true
+  - id: P03
+    name: CLI_API_OWNER_CONSOLE
+    completion_gate: CLOSED
+    finished: true
+  - id: P04
+    name: AGENT_RUNTIME_BOUNDARIES
+    completion_gate: CLOSED
+    finished: true
+    scope_note: Engineering runtime boundary only; not production autonomous authority.
+  - id: P05
+    name: NATURAL_LANGUAGE_WORK_INTENT
+    completion_gate: CLOSED
+    finished: true
+  - id: P06
+    name: RECOVERY_AND_LOCAL_ADVERSARIAL_HARDENING
+    completion_gate: CLOSED
+    finished: true
+    scope_note: Local/bounded engineering recovery scope only. Real S3/R2 failure drill remains a later operational gate.
+  - id: P07
+    name: ENGINEERING_INTEGRATION
+    completion_gate: CLOSED
+    finished: true
+    engineering_code_target_commit: 41d273d3177d6130ad9292c965b4c757d82d09ae
+    latest_full_stack_engineering_evidence:
+      python_tests: PASS_90_OF_90
+      owner_console_npm_ci_build: PASS
+      ci_run: 31906209098
+  - id: P08
+    name: GOVERNED_SHADOW_OPERATION
+    completion_gate: OPEN_BLOCKED
+    finished: false
+    implemented:
+      - discrepancy engine
+      - immutable shadow observations
+      - implementation/contract identity binding
+      - consecutive MATCH reset on binding drift
+      - external blocker gating
+    exit_criteria_remaining:
+      - actual governed multi-cycle shadow evidence completed
+      - no unexplained state divergence
+      - continuity event-ID collision adjudicated or formally dispositioned by SEMI-CONTROL-ARCHITECT
+    blockers:
+      - AAA-FINDING-CONTINUITY-EVENT-ID-COLLISION_v0.1_WORKING
+  - id: P09
+    name: INDEPENDENT_VALIDATION
+    completion_gate: READY_NOT_DISPATCHED
+    finished: false
+    current_state: PREPARED_NOT_DISPATCHED
+    validator: SEMI-VALIDATION-AUDITOR
+    active_run_id: null
+    running_confirmed: false
+    target_binding: control/aaa/validation/AAA-v0.1-INDEPENDENT-PREFLIGHT-TARGET-BINDING_v0.1_WORKING.yaml
+    work_order: control/workorders/WO-VALIDATION-AAA-v0.1-INDEPENDENT-PREFLIGHT-20260816.yaml
+    exit_criteria_remaining:
+      - validation Run explicitly dispatched and acknowledged
+      - independent exact-target rerun completed
+      - persistent terminal result artifact recorded
+      - explicit PASS or PASS_WITH_FINDINGS verdict returned
+      - independent findings reconciled without converting Engineering PASS into validation PASS by inference
+  - id: P10
+    name: CONTROLLED_CUTOVER
+    completion_gate: NOT_STARTED
+    finished: false
+    prerequisites:
+      - P08 CLOSED
+      - P09 CLOSED with acceptable validation verdict
+      - required operational provider/storage gates closed
+      - no release-blocking control findings
+      - explicit PROJECT_OWNER cutover approval
+    prohibited_until_prerequisites_closed:
+      - canonical_cutover
+      - production_release
+  - id: P11
+    name: POST_CUTOVER_STABILIZATION
+    completion_gate: NOT_STARTED
+    finished: false
+    prerequisites:
+      - P10 CLOSED
+parallel_engineering_tracks:
+  - work_order: control/workorders/WO-AAA-RUN-REGISTRY-OPERATIONS-DASHBOARD-20260816.yaml
+    status: OWNER_APPROVED_READY_FOR_ENGINEERING
+    independent_validation_completion_required_before_start: false
+    purpose: Persistent Run Registry plus Persona/Operations Dashboard
+operational_gates_not_yet_closed:
+  - LIVE_EXTERNAL_MODEL_PROVIDER_NETWORK_ADAPTER_EXECUTION
+  - REAL_S3_R2_PARTIAL_FAILURE_DRILL
+  - ACTUAL_GOVERNED_FULL_SHADOW_OPERATION_CYCLE
+  - CONTINUITY_EVENT_ID_COLLISION_ADJUDICATION
+  - INDEPENDENT_VALIDATION_PASS
+  - OWNER_CUTOVER_AUTHORIZATION
+external_project_blockers_kept_visible:
+  - M3TOP3_FND_02_F06_EXTERNAL_P0
+reporting_rule:
+  always_report_last_closed_process: true
+  always_report_ready_not_dispatched_separately_from_running: true
+  always_report_active_runs_by_run_id: true
+  always_report_blocked_processes: true
+  never_use_percent_alone_to_imply_finished: true

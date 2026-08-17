@@ -1,0 +1,72 @@
+record_id: AAA-INTEGRATION-ENGINEERING-RESULT
+version: v0.2_WORKING
+project: Asset Agent ASA
+short_name: AAA
+status: ENGINEERING_PASS_NOT_INDEPENDENT_VALIDATION
+recorded_at: '2026-08-16T04:24:00+09:00'
+candidate:
+  branch: aaa-integration-v0.2
+  tested_head: 75886590e452c3e5d0fb4952b1d09135bc7ec39f
+  control_base_commit: 8c79fc1ac9aa2b692486235ae107176ecc960dac
+  current_state_binding: v2.11
+  current_state_blob_sha: ba65b898bfaab2615f19e79bcdd6d92000dd1ffa
+  event_ledger_binding: v3.3
+  event_ledger_blob_sha: df9c5ad7d274167eaccde42119a8634f933e12e8
+work_order:
+  id: AAA-WO-SHADOW-DISCREPANCY-20260816
+  version: v1
+  sha256: 9ac5275f21f57e5baf51ec456f31eea74cc064a78e861893025f2213d6455cab
+  exact_base_commit: 0833dfc1d42814732b3de428428027a3ad990802
+engineering_ci:
+  workflow: AAA build tests
+  run_id: 31903777083
+  deterministic_job_id: 95058402094
+  owner_console_job_id: 95058402150
+  result: PASS
+  python_test_count: 28
+  python_pass_count: 28
+  python_fail_count: 0
+  owner_console_build: PASS
+shadow_discrepancy:
+  status: MATCH
+  scope: CONTROL_ANCHORS_V0_1_NOT_FULL_EVENT_REPLAY
+  anchor_count: 7
+  match_count: 7
+  mismatch_count: 0
+  unknown_count: 0
+  stale_binding: false
+  latest_control_event: EVT-VALIDATION-0005
+  classifications_supported: [MATCH, MISMATCH, STALE, UNKNOWN]
+verified_behaviors:
+  - DETERMINISTIC_SHADOW_ANCHOR_REBUILD
+  - CURRENT_STATE_TO_EVENT_LEDGER_HEAD_MATCH
+  - MISMATCH_DETECTION
+  - STALE_LEDGER_BINDING_DETECTION
+  - UNKNOWN_DO_NOT_GUESS_POLICY
+  - DUPLICATE_EVENT_REJECTION
+  - AAA_STATE_COMPARE_CLI
+  - READ_ONLY_STATE_COMPARE_HTTP_API
+  - HTTP_MUTATION_DENIAL
+  - OWNER_CONSOLE_SHADOW_STATUS_VIEW
+  - LLM_OFF_CONTROL_OPERATION
+  - WORK_ORDER_HASH_BINDING
+scope_caveats:
+  - SHADOW_ENGINE_IS_ANCHOR_COMPARISON_V0_1_NOT_FULL_LEDGER_REPLAY
+  - EVENT_LEDGER_PREDECESSOR_CHAIN_REPLAY_NOT_YET_IMPLEMENTED
+  - FRONTEND_DEPENDENCIES_NOT_YET_RELEASE_GRADE_LOCKED
+m3top3_external_blocker:
+  finding: FND_02_F06_ECONOMIC_EVENT_ID_ROTATION_BYPASS
+  independent_delta: FAIL
+  repaired_by_aaa: false
+  aaa_behavior: SURFACE_BLOCKER_ONLY
+  replay_authorized: false
+authority_boundary:
+  independent_validation_pass: NOT_CLAIMED
+  canonical_cutover: NOT_AUTHORIZED
+  model_freeze: NOT_AUTHORIZED
+  production_release: NOT_AUTHORIZED
+next_parallel:
+  - FRONTEND_DEPENDENCY_IDENTITY_LOCK
+  - EVENT_LEDGER_PREDECESSOR_CHAIN_SHADOW_REPLAY
+  - SHADOW_DISCREPANCY_API_UI_HARDENING
+  - RECOVERY_AND_PROVIDER_OFFLINE_ADVERSARIAL_TESTS

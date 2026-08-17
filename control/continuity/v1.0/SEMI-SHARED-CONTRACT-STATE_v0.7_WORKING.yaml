@@ -1,0 +1,109 @@
+state_id: SEMI-SHARED-CONTRACT-STATE
+version: v0.7_WORKING
+status: BALANCED_V1_DUAL_CORE_RECONCILED_OWNER_EXACT_FREEZE_APPROVED_SUCCESSOR_MATERIALIZATION_PENDING
+project: semiconductor-research
+as_of: '2026-08-16T17:19:00+09:00'
+supersedes: control/continuity/v1.0/SEMI-SHARED-CONTRACT-STATE_v0.6_WORKING.yaml
+
+parties:
+  CORE_A:
+    canonical_name: 문서·통제 아키텍트
+    persona_id: SEMI-CONTROL-ARCHITECT
+  CORE_B:
+    canonical_name: 모델 검증·설계 아키텍트
+    persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+
+r4_reconciliation:
+  verdict: DUAL_CORE_RECONCILED_READY_FOR_OWNER_EXACT_FREEZE
+  unresolved_semantic_conflicts: 0
+  mandatory_items: 8
+  agreed_items: 8
+  exact_candidate:
+    path: control/aaa/architecture/AAA-v1-R4-SHARED-CONTRACT-RECONCILIATION_v0.1_WORKING.json
+    sha256: 27f093555d5934f79a8501ef3426a0ade4d02d64370cc98a0cb0ea801e4ea01f
+    byte_size: 16092
+    git_blob_sha: fb89a4d92a77054ad8def32a001f6c55f56dd4f0
+    materialization_commit: 17b808d6d3fea6714d84788b88f19741071a07c8
+
+r5_owner_exact_freeze:
+  status: APPROVED
+  decided_at: '2026-08-16T17:19:00+09:00'
+  authority: PROJECT_OWNER
+  decision_receipt:
+    path: control/aaa/decisions/DECISION-AAA-v1-R5-OWNER-EXACT-FREEZE-20260816-001.json
+    sha256: c7cb71ca562d5a71c2809b0c7e1196775b7255d319cdc02a1a5db67931750e2e
+    byte_size: 2896
+    git_blob_sha: bf8aa0637b2a17abc121a16417d0eee65ba489fa
+    materialization_commit: 1288f2f8d524e0a2232abc899df94908833c6c63
+  freeze_manifest:
+    path: control/aaa/architecture/AAA-v1-R5-EXACT-FREEZE-MANIFEST_v1.0_FROZEN.json
+    sha256: 3b2d340ef6b99e7b31429286ba7ef7b21e0bf71b556d5fc208741df81d13ec1f
+    byte_size: 3793
+    git_blob_sha: 95bcea939fb831258dd4917388c7c5c0f9f6a986
+    materialization_commit: f11770bf8f944ef1cf2072ada5af8c2bec320a21
+
+existing_contracts:
+  MODEL_INPUT_SCHEMA:
+    version: MIS-v1.0
+    disposition: PRESERVE_EXISTING_SEMANTICS
+  PIT_SNAPSHOT_INTERFACE:
+    disposition: PRESERVE_EXISTING_SEMANTICS_WITH_FROZEN_BALANCED_V1_COMPATIBLE_TIME_EXTENSION
+  UNIVERSE_ELIGIBILITY:
+    disposition: PRESERVE_EXISTING_SEMANTICS
+  WINDOW_MAPPING:
+    version: WM-v1.1
+    disposition: PRESERVE_EXISTING_SEMANTICS
+  ENTRY_EXIT:
+    disposition: PRESERVE_EXISTING_SEMANTICS
+  OUTCOME_BUILDER:
+    disposition: PRESERVE_EXISTING_SEMANTICS
+  VALIDATION_DATASET_IDENTITY:
+    version: VDI-v1.0
+    disposition: PRESERVE_EXISTING_SEMANTICS
+  SCORER_IO:
+    version: SIO-v1.0
+    disposition: PRESERVE_EXISTING_SEMANTICS
+  MODEL_ARTIFACT_RELEASE_MANIFEST:
+    version: MARM-v1.0
+    disposition: PRESERVE_EXISTING_SEMANTICS
+
+frozen_balanced_v1_shared_semantics:
+  compatible_extensions:
+    - A01_TIME_SEMANTICS
+    - A03_LOGICAL_RUN_RUNATTEMPT_SHARED_REFERENCE_IMPACT
+    - A05_SCHEMA_FAMILY_VERSIONING
+    - A06_EXECUTION_SOURCE_PROVENANCE
+    - A07_PROJECT_NAMESPACE_CANONICAL_IDENTITY
+    - A10_ACTOR_AUTHORITY
+  successor_contracts_required_after_separate_implementation_authorization:
+    - EXACT_TARGET_DECISION_RECEIPT_v1.0_WORKING
+    - COMPATIBLE_VERSION_SET_RELEASE_MANIFEST_v1.0_WORKING
+
+scientific_firewall:
+  fact_existed_at_time_ne_public_evidence_available_at_time: true
+  publication_or_supported_cutoff_must_be_lte_snapshot_cutoff: true
+  no_fabricated_exact_publication_or_intraday_time: true
+  future_outcome_backfill_prohibited: true
+  later_execution_time_cannot_prove_earlier_evidence_availability: true
+  recovery_ne_rematerialization: true
+  unknown_historical_evidence_inference_prohibited: true
+
+legacy_preservation:
+  historical_t17_t18_t19_rewrite: false
+  synthetic_historical_runattempt: false
+  migrations_0001_0005_rewrite: false
+  frozen_schema_overwrite: false
+
+not_authorized:
+  implementation: true
+  successor_migration: true
+  live_execution: true
+  postgresql_operational_sot: true
+  controlled_cutover: true
+  production_release: true
+
+next_gate:
+  phase: AAA_V1_SUCCESSOR_ENGINEERING_SCOPE_AND_AUTHORIZATION
+  state: READY_NOT_DISPATCHED
+  first_possible_successor_migration_number_if_later_authorized: 6
+  t20_assumed: false

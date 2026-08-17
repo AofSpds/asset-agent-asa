@@ -1,0 +1,259 @@
+control_id: AAA-v1-R1-EXACT-BASELINE-MANIFEST
+version: v0.1_WORKING
+project: Asset Agent ASA
+phase: R1_EXACT_BASELINE_CAPTURE
+recorded_at: '2026-08-16T08:46:00+09:00'
+status: CLOSED
+purpose: >-
+  Exact observation-only capture of the current AAA implementation and control semantics after T19 bounded-cycle closeout and before Balanced v1 architecture delta classification. This artifact authorizes no semantic implementation change and moves no historical validation target.
+
+baseline_identity:
+  repository: AofSpds/asset-agent-asa
+  branch_context: aaa-integration-v0.2
+  exact_commit: a590717a2127b8ef4620d7933904868dd50c7396
+  git_tree_sha: 64d0cac8a91c9d0d9d3ca12f64123bc3c374ec97
+  commit_message: 'AAA: close T19 independent validation and enter Balanced v1 reconciliation'
+  closeout_ci_run: 31915510046
+  closeout_ci_conclusion: success
+  control_only_successors_must_not_move_r1_baseline: true
+
+transition_source:
+  artifact: control/aaa/architecture/AAA-v1-ARCHITECTURE-REVISION-TRANSITION-CONTROL_v0.1_OWNER-APPROVED.yaml
+  owner_profile: BALANCED_V1
+  exact_contract_freeze: NOT_YET
+  implementation_authorization: NOT_YET
+  t20_assumed: false
+
+migration_baseline:
+  manifest_path: aaa/db/MIGRATIONS.json
+  manifest_git_blob_sha1: 1f26876fcf4a75035626dc38f53f05122ab12ee8
+  authority: NON_AUTHORITATIVE_SHADOW_UNTIL_EXPLICIT_OWNER_CUTOVER
+  postgresql_required_for_certification: true
+  migrations:
+    - version: '0001'
+      path: aaa/db/migrations/0001_operational_execution_plane.sql
+      git_blob_sha1: fedbe647404f70af2f6c03042cec53dab224497c
+      physical_sha256: 66e5609fea1104f4aba4d0566989bf3a6c8d2b6e0b75cb274a79f7bdb48d68c2
+    - version: '0002'
+      path: aaa/db/migrations/0002_json_registry_source_identity.sql
+      git_blob_sha1: d1f41edeb8de31e99d158682f76274ba0d3a49cf
+      physical_sha256: dfd47bb167e4bbcef2de9cb45bec811c0acfbcc5f03bde1a49fc24990b7d16dc
+    - version: '0003'
+      path: aaa/db/migrations/0003_idempotent_events_atomic_completion.sql
+      git_blob_sha1: 75f40c260eb224646e870d30c4eabf58abf6391e
+      physical_sha256: 5d14f97a9b2d469885984c92fe3d725e213ec892616eee19a7708338b226374b
+    - version: '0004'
+      path: aaa/db/migrations/0004_execution_dispatcher_worker_runtime.sql
+      git_blob_sha1: c1e69b0cebdf965089004b476290e9d63187937c
+      physical_sha256: 23edc2c1dd3475498b5e39f5c1323affb6168ca1f7e220ccc26aa642240906ea
+    - version: '0005'
+      path: aaa/db/migrations/0005_t19_lease_heartbeat_fail_closed.sql
+      git_blob_sha1: e93eb7839a9311b6068429ea9efa793e5062f6a7
+      physical_sha256: 6ea318dba31f94392d6828cf64d2a9701c11e88142a13f53c9dcbb88fc29807a
+  frozen_0001_to_0005_rewrite_prohibited: true
+  successor_migration_floor: 6
+
+contract_file_baseline:
+  run_registry_entry_schema:
+    path: aaa/contracts/run_registry_entry.schema.json
+    git_blob_sha1: 5ee9cd87112d899ee22d82c2d4733747d72a2849
+  agent_run_schema:
+    path: aaa/contracts/agent_run.schema.json
+    git_blob_sha1: 8412bca92ee75dee42de98a7b8f95f2007ca9e48
+  result_manifest_schema:
+    path: aaa/contracts/result_manifest.schema.json
+    git_blob_sha1: e3fdc881a4bc1d0cb96d68cca11c5dea9d24cd51
+  run_registry_runtime:
+    path: aaa/src/aaa/ops/run_registry.py
+    git_blob_sha1: 862b53d40034ebd874b8497a7ddcad59c870e346
+  operational_read_service:
+    path: aaa/src/aaa/ops/operational_service.py
+    git_blob_sha1: a2e93e3d15349f7ed4fc2da3a480aec33de137ef
+  execution_contracts:
+    path: aaa/src/aaa/execution/contracts.py
+    git_blob_sha1: 3e2a5d1c9d9429a9152e25ee21dbc8366d8a755e
+  api_server:
+    path: aaa/src/aaa/api/server.py
+    git_blob_sha1: d28a72684460175f4dfe3adab383424cc960d855
+  cli_main:
+    path: aaa/src/aaa/cli/main.py
+    git_blob_sha1: df9edd74377e4ff52719509f9c54fa5785e94938
+  promotion_gate:
+    path: aaa/src/aaa/security/promotion.py
+    git_blob_sha1: eb1807a416202cc3b5c2073118350443c104c331
+
+observed_operational_authority:
+  governance_sot: GIT_GITHUB
+  run_persona_operational_authority: JSON_REGISTRY
+  postgresql_execution_state_role: NON_AUTHORITATIVE_SHADOW
+  large_artifact_sot_target: S3_R2
+  postgresql_operational_sot_authorized: false
+  t19_live_execution_authorized: false
+  controlled_cutover_authorized: false
+  production_release_authorized: false
+  cli_api_owner_console_common_read_service: true
+  postgres_authoritative_mode_exists_in_code_but_is_not_authorized: true
+  postgres_failure_in_authoritative_mode_fails_closed_without_json_fallback: true
+  worker_task_projection_absence_must_not_infer_liveness: true
+
+observed_run_semantics:
+  run_registry_entity: Run
+  independent_run_attempt_entity_exists: false
+  run_identity_field: run_id
+  run_binds_work_order: true
+  run_binds_exact_target_commit: true
+  run_binds_responsible_persona: true
+  run_contains_execution_lifecycle_state: true
+  run_contains_started_at_and_last_heartbeat_at: true
+  run_contains_lease_owner_epoch_and_expiry_in_postgresql: true
+  run_terminal_states:
+    - COMPLETED_PASS
+    - COMPLETED_FAIL
+    - COMPLETED_WITH_FINDINGS
+  terminal_run_requires_persistent_result: true
+  terminal_state_verdict_exact_mapping_required: true
+  terminal_result_physical_sha256_and_identity_verified_by_json_loader: true
+  historical_terminal_run_is_not_current_persona_activity: true
+  running_requires_start_and_heartbeat_evidence: true
+  future_start_or_heartbeat_yields_stale_unknown: true
+
+observed_execution_task_semantics:
+  table: aaa_ops.execution_tasks
+  task_id_primary_key: true
+  run_id_foreign_key: true
+  run_id_unique: true
+  observed_cardinality: ONE_EXECUTION_TASK_PER_RUN
+  task_states:
+    - AVAILABLE
+    - CLAIMED
+    - ACKNOWLEDGED
+    - RUNNING
+    - TERMINAL
+  retry_lineage_field: retry_of_run_id
+  retry_lineage_location: EXECUTION_TASK
+  retry_reuses_same_run_id_prohibited: true
+  claim_uses_skip_locked: true
+  claim_does_not_mark_run_running: true
+  ack_does_not_mark_run_running: true
+  start_sets_run_running_confirmed_and_first_heartbeat: true
+  stale_epoch_and_expired_lease_fail_closed: true
+
+observed_result_semantics:
+  table: aaa_ops.results
+  result_id_primary_key: true
+  run_id_unique: true
+  observed_cardinality: ONE_TERMINAL_RESULT_PER_RUN
+  verdicts:
+    - PASS
+    - FAIL
+    - PASS_WITH_FINDINGS
+  exact_target_commit_bound: true
+  work_order_bound: true
+  artifact_locator_sha256_byte_size_bound: true
+  atomic_terminalization_function: aaa_ops.complete_run_atomic
+  partial_or_checkpoint_result_entity_exists: false
+
+observed_event_semantics:
+  table: aaa_ops.run_events
+  event_id_global_primary_key: true
+  run_sequence_unique: true
+  idempotency_key_global_unique: true
+  append_only_database_trigger: true
+  actor_field: actor_identity
+  separate_actor_and_authority_fields_exist: false
+  event_type_is_free_text: true
+  payload_sha256_bound: true
+  prev_event_hash_and_event_hash_available: true
+  generic_event_receipt_or_authority_receipt_entity_exists: false
+
+observed_time_semantics:
+  database_execution_clock: transaction_timestamp()
+  run_execution_times:
+    - started_at
+    - last_heartbeat_at
+    - lease_expires_at
+    - created_at_db
+    - updated_at_db
+  event_time_field: observed_at_db
+  result_time_field: completed_at_db
+  snapshot_fields:
+    - pit_cutoff
+    - created_at_db
+  explicit_fact_or_effective_time_field: false
+  explicit_public_evidence_available_time_field: false
+  explicit_recorded_time_exists_for_db_objects: true
+  snapshot_cutoff_exists: true
+  time_semantics_are_not_yet_a_common_cross_domain_vocabulary: true
+
+observed_approval_authority_semantics:
+  work_order_ref_approval_fields:
+    - approval_state
+    - approval_identity
+    - approval_git_identity
+  exact_target_commit_bound_on_run_and_task: true
+  standalone_decision_receipt_entity_exists: false
+  approval_supersession_entity_exists: false
+  actor_identity_is_not_structurally_separate_from_authority_identity_in_event_schema: true
+
+observed_provenance_semantics:
+  exact_git_commit_used_for_run_and_task: true
+  work_order_git_identity_supported: true
+  execution_profile_sha256_bound: true
+  artifact_sha256_and_byte_size_bound: true
+  source_json_sha256_and_byte_size_supported_for_shadow_import: true
+  generic_working_tree_dirty_flag: false
+  generic_patch_or_diff_digest: false
+  generic_dependency_lock_identity_on_every_run: false
+  generic_input_bundle_identity_contract: false
+
+observed_promotion_semantics:
+  promotion_gate_function: authorize_canonical_promotion
+  required_boolean_gates:
+    - CONTROL_ACCEPTANCE
+    - REQUIRED_VALIDATION_PASS
+    - OWNER_RELEASE_APPROVAL
+    - DETERMINISTIC_PROMOTION_JOB
+  standalone_promotion_record_entity_exists: false
+  cross_store_promotion_receipt_entity_exists: false
+  fail_closed_if_any_gate_missing: true
+
+observed_api_cli_surface:
+  api_mutation_methods_prohibited: true
+  cli_mutation_commands_present: false
+  api_run_endpoint: /api/aaa/runs
+  api_persona_endpoint: /api/aaa/personas
+  api_worker_endpoint: /api/aaa/workers
+  api_task_endpoint: /api/aaa/tasks
+  worker_task_projection_requires_explicit_postgresql_connection: true
+  owner_console_reads_deterministic_api: true
+
+r1_absence_inventory_observation_only:
+  - NO_INDEPENDENT_RUNATTEMPT_ENTITY
+  - EXECUTION_TASK_RUN_ID_IS_UNIQUE_ONE_TO_ONE
+  - RETRY_LINEAGE_IS_TASK_LEVEL_RETRY_OF_RUN_ID
+  - NO_PARTIAL_OR_CHECKPOINT_RESULT_ENTITY
+  - NO_STANDALONE_DECISION_RECEIPT_ENTITY
+  - NO_STRUCTURAL_ACTOR_VS_AUTHORITY_EVENT_FIELDS
+  - NO_COMMON_FACT_EFFECTIVE_VS_EVIDENCE_AVAILABLE_TIME_FIELDS
+  - NO_GENERIC_ACTUAL_SOURCE_DIRTY_DIFF_DEPENDENCY_PROVENANCE_CONTRACT
+  - NO_STANDALONE_CROSS_STORE_PROMOTION_RECEIPT
+  - EVENT_ID_AND_IDEMPOTENCY_KEY_ARE_GLOBAL_UNIQUE_IN_POSTGRESQL
+
+non_interference:
+  implementation_changed_by_r1: false
+  schema_changed_by_r1: false
+  migrations_changed_by_r1: false
+  api_cli_changed_by_r1: false
+  historical_run_result_finding_changed_by_r1: false
+  shared_contract_changed_by_r1: false
+  model_methodology_changed_by_r1: false
+  ground_truth_pit_u127_changed_by_r1: false
+  owner_exact_freeze_claimed: false
+
+phase_transition:
+  R0_CURRENT_BOUNDED_T19_CLOSEOUT: CLOSED
+  R1_EXACT_BASELINE_CAPTURE: CLOSED
+  R2_ARCHITECTURE_DELTA_ANALYSIS: READY_NOT_DISPATCHED
+  R3_EXACT_CONTRACT_DESIGN: NOT_STARTED
+  R4_SHARED_CONTRACT_RECONCILIATION: NOT_STARTED
+  R5_OWNER_EXACT_FREEZE_DECISION: NOT_STARTED

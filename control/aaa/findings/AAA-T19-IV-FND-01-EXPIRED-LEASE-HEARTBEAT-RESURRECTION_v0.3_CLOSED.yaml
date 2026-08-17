@@ -1,0 +1,57 @@
+finding_id: AAA-T19-IV-FND-01-EXPIRED-LEASE-HEARTBEAT-RESURRECTION
+version: v0.3_CLOSED
+project: Asset Agent ASA
+track: T19
+severity: P0
+blocking: false
+status: CLOSED
+supersedes: control/aaa/findings/AAA-T19-IV-FND-01-EXPIRED-LEASE-HEARTBEAT-RESURRECTION_v0.2_WORKING.yaml
+recorded_at: '2026-08-16T08:42:00+09:00'
+source_failed_validation_run: RUN-VALIDATION-AAA-T19-INDEPENDENT-20260816-001
+source_failed_target: c867e3704b2744c3a826635b828ad6696e6281eb
+source_failed_result: control/aaa/results/RESULT-VALIDATION-AAA-T19-INDEPENDENT-20260816-001.json
+
+historical_failure:
+  expired_same_epoch_heartbeat_could_renew_expired_lease: true
+  prior_profile_timeout_seconds: 1800
+  prior_default_lease_ttl_seconds: 300
+  prior_periodic_heartbeat_during_command: false
+
+remediation:
+  engineering_code_target: 5fdf84a9433f91dead1449bdb7b330c646987cad
+  final_integrated_successor: 45a1541c4720387873a78e3a95fc697959d19248
+  successor_migration: aaa/db/migrations/0005_t19_lease_heartbeat_fail_closed.sql
+  successor_migration_sha256: 6ea318dba31f94392d6828cf64d2a9701c11e88142a13f53c9dcbb88fc29807a
+  governed_execution_ttl_seconds: 1860
+  profile_timeout_seconds: 1800
+  configured_safety_margin_seconds: 60
+
+independent_revalidation:
+  run_id: RUN-VALIDATION-AAA-T19-INDEPENDENT-20260816-002
+  result: control/aaa/results/RESULT-VALIDATION-AAA-T19-INDEPENDENT-20260816-002.json
+  exact_target: 45a1541c4720387873a78e3a95fc697959d19248
+  verdict: PASS
+  independent_validation_pass: true
+  verified_github_actions_run_id: 31914522096
+  verified_workflow_attempt: 4
+  deterministic_tests: PASS_145_OF_145
+  migration_integrity: PASS_5_OF_5
+  expired_same_epoch_heartbeat_rejected: true
+  stale_unknown_non_resurrection: true
+  expired_lease_terminalization_rejected: true
+  takeover_old_epoch_fencing: true
+  two_worker_single_claim_winner: true
+  json_postgresql_reconciliation: PASS_10_OF_10
+  backup_restore: PASS
+
+closure:
+  finding_closed: true
+  closed_reason: REMEDIATED_AND_INDEPENDENTLY_VERIFIED
+  historical_failed_target_preserved: true
+  historical_failed_result_preserved: true
+
+post_closure_authority:
+  live_execution_authorized: false
+  postgresql_operational_sot_authorized: false
+  controlled_cutover_authorized: false
+  production_release_authorized: false

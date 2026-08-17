@@ -1,0 +1,29 @@
+{
+  "run_id": "RUN-VALIDATION-AAA-v1-E4-RELEASE-SET-HASH-REVALIDATION-20260816-001",
+  "process_id": "AAA_V1_E4_RELEASE_SET_HASH_INDEPENDENT_REVALIDATION",
+  "work_order_id": "WO-VALIDATION-AAA-v1-E4-RELEASE-SET-HASH-REVALIDATION-20260816",
+  "responsible_persona": "SEMI-VALIDATION-AUDITOR",
+  "executor_role": "INDEPENDENT_VALIDATION",
+  "state": "COMPLETED_PASS",
+  "repository": "AofSpds/asset-agent-asa",
+  "exact_base_commit": "8a4aea0256bc630385bd463fc8969e5c88a74102",
+  "branch": "aaa-integration-v0.2",
+  "started_at": null,
+  "last_heartbeat_at": null,
+  "stale_after_seconds": 7200,
+  "canonical_output": false,
+  "terminal_result": {
+    "result_id": "RESULT-VALIDATION-AAA-v1-E4-RELEASE-SET-HASH-REVALIDATION-20260816-001",
+    "result_sha256": "13d5fe59fbba8e062d2ca3c1e0d30f4fea47cff7b692bd5ab8454cd830dc6b13",
+    "completed_at": "2026-08-16T22:59:00+09:00",
+    "persistent_locator": "control/aaa/results/RESULT-VALIDATION-AAA-v1-E4-RELEASE-SET-HASH-REVALIDATION-20260816-001.json",
+    "verdict": "PASS"
+  },
+  "notes": [
+    "Independent revalidation executed externally through the manual bridge at exact target 8a4aea0256bc630385bd463fc8969e5c88a74102.",
+    "No governed Run Registry ACK/start/heartbeat was maintained; no retroactive started_at or heartbeat is fabricated.",
+    "P0 AAA-v1-IV-FND-01 and P1 AAA-v1-IV-FND-02 are independently verified closed on the exact successor target.",
+    "Prior exact target 96234463cedaff2b7ec5d0ff49bec44684804b00 remains historical Independent Validation FAIL evidence.",
+    "Live execution, PostgreSQL Operational SoT, production canonical promotion, Controlled Cutover, and Production Release remain unauthorized."
+  ]
+}

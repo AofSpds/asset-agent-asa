@@ -1,0 +1,229 @@
+{
+  "control_id": "AAA-v1-SUCCESSOR-ENGINEERING-SCOPE",
+  "version": "v0.1_WORKING",
+  "project": "Asset Agent ASA",
+  "phase": "AAA_V1_SUCCESSOR_ENGINEERING_SCOPE_AND_AUTHORIZATION",
+  "recorded_at": "2026-08-16T18:05:00+09:00",
+  "status": "SCOPE_DEFINED_AWAITING_OWNER_IMPLEMENTATION_AUTHORIZATION",
+  "profile": "BALANCED_V1",
+  "authority_basis": {
+    "r5_owner_exact_freeze_decision": "DECISION-AAA-v1-R5-OWNER-EXACT-FREEZE-20260816-001",
+    "r5_freeze_manifest": "control/aaa/architecture/AAA-v1-R5-EXACT-FREEZE-MANIFEST_v1.0_FROZEN.json",
+    "frozen_target": {
+      "path": "control/aaa/architecture/AAA-v1-R4-SHARED-CONTRACT-RECONCILIATION_v0.1_WORKING.json",
+      "sha256": "27f093555d5934f79a8501ef3426a0ade4d02d64370cc98a0cb0ea801e4ea01f",
+      "byte_size": 16092,
+      "git_blob_sha": "fb89a4d92a77054ad8def32a001f6c55f56dd4f0",
+      "materialization_commit": "17b808d6d3fea6714d84788b88f19741071a07c8"
+    }
+  },
+  "scope_principles": [
+    "IMPLEMENT_FROZEN_SEMANTICS_FORWARD_ONLY",
+    "PRESERVE_MIGRATIONS_0001_TO_0005_BYTES",
+    "PRESERVE_HISTORICAL_T17_T18_T19_RUN_RESULT_SEMANTICS",
+    "NO_SYNTHETIC_HISTORICAL_RUNATTEMPT",
+    "JSON_REGISTRY_REMAINS_OPERATIONAL_AUTHORITY_DURING_SHADOW_UNTIL_SEPARATE_OWNER_CUTOVER",
+    "POSTGRESQL_REMAINS_NONAUTHORITATIVE_MIRROR_UNTIL_SEPARATE_OWNER_CUTOVER",
+    "NO_MODEL_FEATURE_SCORER_WEIGHT_RANKING_OR_BACKTEST_METHODOLOGY_CHANGE",
+    "FUTURE_OUTCOME_MUST_NOT_REPAIR_HISTORICAL_PIT",
+    "ACTOR_AND_AUTHORITY_REMAIN_DISTINCT_SEMANTIC_DIMENSIONS",
+    "APPROVAL_TARGET_X_DOES_NOT_AUTHORIZE_TARGET_Y"
+  ],
+  "engineering_tranches": {
+    "E1_IDENTITY_TIME_SCHEMA_FOUNDATION": {
+      "objective": "Materialize frozen identity/time/schema compatibility primitives and legacy-safe readers without changing model methodology or historical records.",
+      "required": [
+        "typed project namespace identity envelope",
+        "time semantic and time/evidence authority types and validators",
+        "schema-family metadata and exact declared compatible-set validators",
+        "legacy versus Balanced-v1 semantic version marker/projection",
+        "deterministic validation for no fabricated intraday/publication time",
+        "cross-domain identity collision fail-closed behavior",
+        "Shared Contract compatible-extension bindings without overwriting existing 9-of-9 artifacts"
+      ],
+      "database": {
+        "migration_floor": 6,
+        "rule": "First authorized successor migration may be 0006; numbering thereafter is forward-only.",
+        "legacy_bytes_rewrite": false
+      },
+      "exit_tests": [
+        "legacy fixtures remain semantic compatible",
+        "same raw local_id across different entity_family does not auto-merge",
+        "date-only evidence cannot gain intraday precision",
+        "publication_at or supported_cutoff_at must be <= snapshot_cutoff_at",
+        "declared compatible sets resolve exact immutable identities and may be directional"
+      ]
+    },
+    "E2_LOGICAL_RUN_RUNATTEMPT_EXECUTION_SEMANTICS": {
+      "objective": "Implement distinct Logical Run and RunAttempt execution semantics while preserving legacy T17/T18/T19 records.",
+      "required": [
+        "RunAttempt first-class entity",
+        "one-to-many Logical Run to RunAttempt cardinality",
+        "one-to-one RunAttempt to execution task after materialization",
+        "attempt ordinal uniqueness within Logical Run",
+        "worker/claim/ACK/start/heartbeat/lease/timeout/cancellation on RunAttempt",
+        "Attempt Termination Receipt",
+        "Logical Run Final Disposition Receipt",
+        "same-Logical-Run retry only when exact_execution_spec_hash is unchanged",
+        "material target/config/input/profile/dependency change forces new Logical Run",
+        "legacy compatibility projection labeled LEGACY_AAA_RUN_V0_X",
+        "no retroactive RunAttempt synthesis"
+      ],
+      "security_invariants": [
+        "NO_ARBITRARY_SHELL_FROM_WORK_ORDER",
+        "shell=False",
+        "exact target verification before governed start",
+        "expired or stale lease cannot heartbeat, terminalize, or self-revive",
+        "partial/checkpoint output cannot satisfy terminal success"
+      ],
+      "exit_tests": [
+        "same Logical Run can have two Attempts with identical exact_execution_spec_hash",
+        "changed target/config/input produces new Logical Run",
+        "ACK without start+current heartbeat never yields RUNNING_CONFIRMED",
+        "expired same-epoch heartbeat rejected",
+        "old fencing epoch cannot terminalize",
+        "retryable timeout may end Attempt without ending Logical Run",
+        "350_of_400 partial cannot become terminal PASS",
+        "legacy T19 Run remains unsynthesized"
+      ]
+    },
+    "E3_AUTHORITY_DECISION_PROVENANCE_EVENT": {
+      "objective": "Materialize authority-bearing receipts, execution provenance, and collision-safe operational event identity.",
+      "required": [
+        "actor_ref and authority_ref structural separation",
+        "Exact-Target Decision Receipt successor contract",
+        "Execution Provenance Receipt",
+        "mechanical clean-tree/commit/tree/profile/config/input verification",
+        "Operational Event typed namespace and scoped idempotency",
+        "append-only decision supersession/revocation",
+        "Shared Contract promotion evidence references exact dual-core reconciliation",
+        "operational event remains distinct from economic event"
+      ],
+      "exit_tests": [
+        "approval X invalid for target Y",
+        "dirty governed source fails closed",
+        "exact commit alone insufficient without required provenance",
+        "worker capability does not confer governance authority",
+        "duplicate operational event identity with different payload fails closed",
+        "idempotency keys are scoped",
+        "Independent Validation PASS does not imply Owner cutover/release"
+      ]
+    },
+    "E4_VERSION_SET_PROMOTION_RESTORE_HARDENING": {
+      "objective": "Implement compatible version-set, fail-closed promotion, and provider-neutral restore contract boundaries without enabling production authority.",
+      "required": [
+        "Compatible Version Set / Release Manifest successor contract",
+        "component_set_sha256 and exact immutable component references",
+        "Promotion Receipt with canonical pointer updated last",
+        "partial multi-store promotion fails closed with canonical authority unchanged",
+        "provider-neutral Restore Manifest and verification states",
+        "restore verification distinct from restore creation",
+        "Git governance / PostgreSQL operational / S3-R2 artifact planes remain explicit",
+        "no silent dual authority"
+      ],
+      "exit_tests": [
+        "floating latest cannot identify authoritative release",
+        "material component change creates different release-set identity",
+        "incomplete artifact cannot be canonically promoted",
+        "partial store failure cannot report completed promotion",
+        "restore without verification cannot become authoritative recovery",
+        "local backup/restore does not satisfy managed PITR/RPO/RTO qualification"
+      ]
+    }
+  },
+  "implementation_mapping_constraints": {
+    "postgresql": [
+      "forward-only migration 0006+ only",
+      "do not rewrite migrations 0001-0005",
+      "do not make PostgreSQL authoritative through engineering",
+      "PostgreSQL remains certifying for concurrency/lease/fencing tests where applicable"
+    ],
+    "json_registry": [
+      "remains operational authority during shadow until separate cutover",
+      "successor readers distinguish LEGACY_AAA_RUN_V0_X from Balanced-v1",
+      "no silent dual-authority fallback after later cutover"
+    ],
+    "api_cli_console": [
+      "expose legacy vs successor semantics explicitly",
+      "never infer historical run_attempt_id",
+      "do not describe dispatch as running",
+      "do not expose promotion/cutover as authorized without exact Decision Receipt evidence"
+    ]
+  },
+  "mandatory_cross_tranche_regression": [
+    "deterministic standard-library suite",
+    "PostgreSQL migration SHA integrity",
+    "PostgreSQL concurrency/lease/fencing smoke",
+    "JSON/PostgreSQL reconciliation while PG remains mirror",
+    "backup/restore smoke",
+    "Owner Console build",
+    "LLM-off Control Plane non-corruption",
+    "legacy T17/T18/T19 compatibility",
+    "scientific PIT firewall tests",
+    "exact-target approval mutation tests",
+    "partial-vs-terminal tests",
+    "promotion fail-closed tests"
+  ],
+  "explicitly_deferred_not_authorized": [
+    "Kafka",
+    "Pulsar",
+    "Kubernetes",
+    "generic distributed scheduler",
+    "generic policy engine",
+    "workflow DSL",
+    "event sourcing as sole state",
+    "CQRS",
+    "Saga framework",
+    "generic two-phase commit",
+    "enterprise IAM",
+    "SaaS multitenancy",
+    "generic checkpoint/resume framework",
+    "automated DR orchestration",
+    "enterprise SBOM platform",
+    "arbitrary shell or user-authored command graph"
+  ],
+  "out_of_scope": [
+    "Feature definition changes",
+    "Scorer math changes",
+    "Weight changes",
+    "Ranking contract changes",
+    "Backtest methodology changes",
+    "MFE/MAE semantic changes",
+    "historical continuity collision adjudication",
+    "P09 second rerun adjudication",
+    "T18 independent validation adjudication",
+    "managed PostgreSQL PITR/RPO/RTO qualification",
+    "PostgreSQL Operational SoT cutover",
+    "T19 live execution enablement",
+    "Controlled Cutover",
+    "Production Release"
+  ],
+  "engineering_authorization_boundary": {
+    "implementation_authorized_by_this_scope": false,
+    "migration_authorized_by_this_scope": false,
+    "work_order_issued": false,
+    "owner_exact_authorization_required": true,
+    "authorization_must_bind_this_scope_artifact_sha256": true,
+    "authorization_must_not_float_with_branch_head": true
+  },
+  "post_engineering_required_gates": [
+    "ENGINEERING_RESULT_AND_EXACT_SUCCESSOR_TARGET",
+    "INDEPENDENT_VALIDATION_OF_SUCCESSOR",
+    "SHADOW_COMPARE_AND_LEGACY_COMPATIBILITY_EVIDENCE",
+    "T18_MANAGED_POSTGRESQL_AND_PITR_RPO_RTO_QUALIFICATION_WHERE_STILL_APPLICABLE",
+    "SEPARATE_OWNER_POSTGRESQL_OPERATIONAL_SOT_CUTOVER_AUTHORIZATION",
+    "SEPARATE_OWNER_LIVE_EXECUTION_ENABLEMENT_AUTHORIZATION",
+    "P08_GOVERNED_SHADOW_OPERATION_COMPLETION",
+    "P09_INDEPENDENT_VALIDATION_CLOSURE_OR_GOVERNED_SUCCESSOR_DISPOSITION",
+    "P10_CONTROLLED_CUTOVER_OWNER_AUTHORIZATION"
+  ],
+  "recommended_execution_order": [
+    "E1_IDENTITY_TIME_SCHEMA_FOUNDATION",
+    "E2_LOGICAL_RUN_RUNATTEMPT_EXECUTION_SEMANTICS",
+    "E3_AUTHORITY_DECISION_PROVENANCE_EVENT",
+    "E4_VERSION_SET_PROMOTION_RESTORE_HARDENING",
+    "INTEGRATED_REGRESSION",
+    "INDEPENDENT_VALIDATION"
+  ],
+  "t20_assumed": false
+}

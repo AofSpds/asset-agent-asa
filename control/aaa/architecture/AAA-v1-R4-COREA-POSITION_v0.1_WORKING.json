@@ -1,0 +1,114 @@
+{
+  "control_id": "AAA-v1-R4-COREA-POSITION",
+  "version": "v0.1_WORKING",
+  "project": "Asset Agent ASA",
+  "phase": "R4_SHARED_CONTRACT_RECONCILIATION",
+  "persona_id": "SEMI-CONTROL-ARCHITECT",
+  "formal_name": "문서·통제 아키텍트(CORE A)",
+  "run_id": "RUN-AAA-v1-R4-COREA-POSITION-20260816-001",
+  "recorded_at": "2026-08-16T17:08:00+09:00",
+  "source_manual_bridge_packet": {
+    "sha256": "151f1d61aeb154d6f701be1ac4163d532049024f6035ebf4224b7e1ddaf035cb",
+    "byte_size": 31823
+  },
+  "target_binding": {
+    "r1_commit": "a590717a2127b8ef4620d7933904868dd50c7396",
+    "r1_tree": "64d0cac8a91c9d0d9d3ca12f64123bc3c374ec97",
+    "r3_design_commit": "ecd1284e5d4c9ff8cb554f5bd0ef0521061ffcc0",
+    "r3_git_blob_sha": "0bd250584eb3c479369b3518311daaadc154cc7a"
+  },
+  "positions": {
+    "A01_TIME_SEMANTICS": {
+      "position": "ACCEPT_WITH_MODIFICATION",
+      "impact": "COMPATIBLE_EXTENSION",
+      "version_impact": "NEW_WORKING_VERSION_REQUIRED",
+      "implementation": "LATER_SUCCESSOR_ENGINEERING_REQUIRED",
+      "modification": "Preserve publication_at versus supported_cutoff_at provenance mode; never fabricate exact publication time or intraday precision; time semantic and time/evidence authority are separate."
+    },
+    "A03_RUN_RUNATTEMPT_SHARED_REFERENCE_IMPACT": {
+      "position": "ACCEPT_WITH_MODIFICATION",
+      "impact": "COMPATIBLE_EXTENSION",
+      "version_impact": "NEW_WORKING_VERSION_REQUIRED",
+      "implementation": "LATER_SUCCESSOR_ENGINEERING_REQUIRED",
+      "modification": "Prospective scientific/business lineage binds Logical Run and physical realization binds RunAttempt where material; legacy run_id/capture_run_id semantics remain unchanged and no historical RunAttempt is synthesized."
+    },
+    "A05_SCHEMA_FAMILY_VERSIONING": {
+      "position": "ACCEPT_WITH_MODIFICATION",
+      "impact": "COMPATIBLE_EXTENSION",
+      "version_impact": "NEW_WORKING_VERSION_REQUIRED",
+      "implementation": "LATER_SUCCESSOR_ENGINEERING_REQUIRED",
+      "modification": "DECLARED_COMPATIBLE_SET must resolve to explicit exact schema versions; Frozen bytes remain immutable; data revision is not schema version."
+    },
+    "A06_SOURCE_PROVENANCE": {
+      "position": "ACCEPT_WITH_MODIFICATION",
+      "impact": "COMPATIBLE_EXTENSION",
+      "version_impact": "NEW_WORKING_VERSION_REQUIRED",
+      "implementation": "LATER_SUCCESSOR_ENGINEERING_REQUIRED",
+      "modification": "Use stable repository identity not only mutable repository name, verify commit/tree/clean checkout mechanically, bind immutable material inputs and keep execution-source provenance separate from historical-evidence provenance."
+    },
+    "A07_NAMESPACE_IDENTITY": {
+      "position": "ACCEPT_WITH_MODIFICATION",
+      "impact": "COMPATIBLE_EXTENSION",
+      "version_impact": "NEW_WORKING_VERSION_REQUIRED",
+      "implementation": "LATER_SUCCESSOR_ENGINEERING_REQUIRED",
+      "modification": "Canonical cross-domain tuple is project_namespace/entity_family/local_id; project_namespace is governed logical identity not derived from repo/branch/channel; historical IDs are never rewritten; ambiguity fails closed."
+    },
+    "A10_ACTOR_AUTHORITY": {
+      "position": "ACCEPT_WITH_MODIFICATION",
+      "impact": "COMPATIBLE_EXTENSION",
+      "version_impact": "NEW_WORKING_VERSION_REQUIRED",
+      "implementation": "LATER_SUCCESSOR_ENGINEERING_REQUIRED",
+      "modification": "Actor and Authority remain separate fields even when the same human/Persona legitimately occupies both roles; authority source and scope must still resolve explicitly."
+    },
+    "EXACT_TARGET_DECISION_RECEIPT": {
+      "position": "ACCEPT_WITH_MODIFICATION",
+      "impact": "NEW_SUCCESSOR_CONTRACT_REQUIRED",
+      "version_impact": "NEW_WORKING_VERSION_REQUIRED",
+      "implementation": "LATER_SUCCESSOR_ENGINEERING_REQUIRED",
+      "modification": "Create standalone append-only immutable successor receipt; exact target must resolve to immutable governed identity/version-set, floating branch/latest is invalid; legacy approval fields are not silently rematerialized."
+    },
+    "COMPATIBLE_VERSION_SET_RELEASE_MANIFEST": {
+      "position": "ACCEPT_WITH_MODIFICATION",
+      "impact": "NEW_SUCCESSOR_CONTRACT_REQUIRED",
+      "version_impact": "NEW_WORKING_VERSION_REQUIRED",
+      "implementation": "LATER_SUCCESSOR_ENGINEERING_REQUIRED",
+      "modification": "Bind immutable release_set_id/component refs/component_set_sha256/compatibility declaration/Decision Receipt; persisted artifacts bind byte size and persistent locator where applicable; existing shared artifacts are preserved."
+    }
+  },
+  "adversarial_cases": {
+    "1": "PASS_EXPECTED_NO_USE",
+    "2": "PASS_EXPECTED_NO",
+    "3": "PASS_EXPECTED_NO_NEW_LOGICAL_RUN",
+    "4": "PASS_EXPECTED_NO_SAME_LOGICAL_RUN",
+    "5": "PASS_EXPECTED_NO",
+    "6": "PASS_EXPECTED_NO",
+    "7": "PASS_EXPECTED_NO",
+    "8": "PASS_EXPECTED_NO",
+    "9": "PASS_EXPECTED_NO",
+    "10": "PASS_EXPECTED_NO"
+  },
+  "safety": {
+    "scientific_firewall_preserved": true,
+    "legacy_run_semantics_preserved": true,
+    "migrations_0001_0005_preserved": true,
+    "feature_scorer_weight_ranking_changed": false,
+    "backtest_methodology_changed": false,
+    "canonical_write_performed": false,
+    "implementation_write_performed": false
+  },
+  "owner_decision_items": [],
+  "new_successor_contracts_required": [
+    "EXACT_TARGET_DECISION_RECEIPT",
+    "COMPATIBLE_VERSION_SET_RELEASE_MANIFEST"
+  ],
+  "position_completeness": "COMPLETE",
+  "recommendation": "READY_FOR_DUAL_CORE_COMPARISON",
+  "authorization": {
+    "exact_contract_freeze": false,
+    "implementation": false,
+    "live_execution": false,
+    "postgresql_operational_sot": false,
+    "controlled_cutover": false,
+    "production_release": false
+  }
+}

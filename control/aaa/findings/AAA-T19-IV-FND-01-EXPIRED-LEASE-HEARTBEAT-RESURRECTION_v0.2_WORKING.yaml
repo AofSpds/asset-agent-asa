@@ -1,0 +1,45 @@
+finding_id: AAA-T19-IV-FND-01-EXPIRED-LEASE-HEARTBEAT-RESURRECTION
+version: v0.2_WORKING
+project: Asset Agent ASA
+track: T19
+severity: P0
+blocking: true
+status: ENGINEERING_REMEDIATED_AWAITING_INDEPENDENT_REVALIDATION
+supersedes: control/aaa/findings/AAA-T19-IV-FND-01-EXPIRED-LEASE-HEARTBEAT-RESURRECTION_v0.1_WORKING.yaml
+recorded_at: '2026-08-16T08:23:00+09:00'
+source_failed_validation_run: RUN-VALIDATION-AAA-T19-INDEPENDENT-20260816-001
+source_failed_target: c867e3704b2744c3a826635b828ad6696e6281eb
+source_failed_result: control/aaa/results/RESULT-VALIDATION-AAA-T19-INDEPENDENT-20260816-001.json
+
+original_failure:
+  expired_same_epoch_heartbeat_could_renew_expired_lease: true
+  long_command_profile_timeout_seconds: 1800
+  prior_default_lease_ttl_seconds: 300
+  prior_periodic_heartbeat_during_command: false
+
+engineering_remediation:
+  code_target: 5fdf84a9433f91dead1449bdb7b330c646987cad
+  final_integrated_successor: 45a1541c4720387873a78e3a95fc697959d19248
+  successor_migration: aaa/db/migrations/0005_t19_lease_heartbeat_fail_closed.sql
+  successor_migration_sha256: 6ea318dba31f94392d6828cf64d2a9701c11e88142a13f53c9dcbb88fc29807a
+  heartbeat_requires_existing_nonexpired_lease: true
+  governed_execution_ttl_seconds_for_validation_profile: 1860
+  validation_profile_timeout_seconds: 1800
+  safety_margin_seconds: 60
+  expired_same_epoch_adversarial_smoke: ENGINEERING_PASS
+  takeover_old_epoch_late_write_smoke: ENGINEERING_PASS
+  concurrency_fixture_isolated: true
+  deterministic_tests: PASS_145_OF_145
+
+closure:
+  engineering_evidence_closes_finding: false
+  independent_revalidation_required: true
+  revalidation_run: RUN-VALIDATION-AAA-T19-INDEPENDENT-20260816-002
+  revalidation_exact_target: 45a1541c4720387873a78e3a95fc697959d19248
+  independent_validation_pass: false
+
+until_independent_pass:
+  live_execution_authorized: false
+  postgresql_operational_sot_authorized: false
+  controlled_cutover_authorized: false
+  production_release_authorized: false

@@ -1,0 +1,97 @@
+control_id: AAA-PROCESS-GATE-STATUS
+version: v0.33_WORKING
+project: Asset Agent ASA
+recorded_at: '2026-08-17T01:59:00+09:00'
+supersedes: control/aaa/v0.1/AAA-PROCESS-GATE-STATUS_v0.32_WORKING.yaml
+purpose: >-
+  Forward remediation successor after Independent Validation FAIL on exact target
+  356314e96b04cceec904f5a8c016b7f66e7160ea. This record binds Roadmap v1.1
+  detailed acceptance semantics and preserves Stage 1 / Gate A READY_NOT_DISPATCHED.
+  No execution or authority transition is authorized.
+
+current_position:
+  current_controlled_activity: AAA_V1_MANAGED_POSTGRESQL_SHADOW_ENTRY_QUALIFICATION_PREPARATION
+  remediation_activity: AAA_V1_POSTIV_EXACT_TARGET_IV_REMEDIATION
+  prior_failed_postiv_target: 356314e96b04cceec904f5a8c016b7f66e7160ea
+  prior_failed_postiv_tree: f2628d6e02121ff0aad5c65c67d52e65cd26f0ca
+  prior_failed_postiv_verdict: FAIL
+  prior_failed_postiv_preserved: true
+  validated_successor_target: 8a4aea0256bc630385bd463fc8969e5c88a74102
+  validated_successor_tree: ffd65463413c9fee073db404c36f2461aa7a6c83
+  independent_revalidation_state: COMPLETED_PASS_ON_PRIOR_BALANCED_V1_FOUNDATION
+  remediation_successor_independent_validation: NOT_YET_ESTABLISHED
+  t20_assumed: false
+
+roadmap:
+  path: control/aaa/architecture/AAA-v1-POST-IV-OPERATING-ROADMAP_v1.1_OWNER-APPROVED.json
+  sha256: 5e8376d4af4dce67d5e0064a902854e9367dc98fbca6ae802f499741fe88761a
+  byte_size: 12037
+  status: OWNER_APPROVED_REMEDIATION_SUCCESSOR
+  stage_0_completed: true
+  current_stage: STAGE_1
+  current_stage_name: MANAGED_POSTGRESQL_SHADOW_ENTRY_QUALIFICATION
+  current_gate: GATE_A_SHADOW_ENTRY
+  current_state: READY_NOT_DISPATCHED
+  tranche_a_preparation_allowed: true
+  tranche_a_execution_authorized: false
+  actual_shadow_campaign_authorized: false
+
+remediation_findings:
+  FND_01:
+    id: AAA-IV-POSTIV-FND-01-ROADMAP-P0-ACCEPTANCE-DETAIL-UNDERBOUND
+    status: IMPLEMENTED_AWAITING_INDEPENDENT_VALIDATION
+  FND_02:
+    id: AAA-IV-POSTIV-FND-02-REQUIRED-SOURCE-HEALTH-FAILOPEN
+    status: IMPLEMENTED_AWAITING_INDEPENDENT_VALIDATION
+  FND_03:
+    id: AAA-IV-POSTIV-FND-03-POSTGRES-SOT-AUTHORITY-FLAG-OMITTED
+    status: IMPLEMENTED_AWAITING_INDEPENDENT_VALIDATION
+  FND_04:
+    id: AAA-IV-POSTIV-FND-04-M3TOP3-WORKSTREAM-CURRENT-STATE-SCHEMA-DRIFT
+    status: IMPLEMENTED_AWAITING_INDEPENDENT_VALIDATION
+
+operational_authority:
+  json_registry_operational_authority_during_shadow: true
+  postgresql_authoritative: false
+  bounded_shadow_execution_authorized: false
+  live_execution_authorized: false
+  postgresql_operational_sot_authorized: false
+  production_canonical_promotion_authorized: false
+  controlled_cutover_authorized: false
+  production_release_authorized: false
+
+owner_console:
+  current_operating_structure: REMEDIATED_AWAITING_INDEPENDENT_VALIDATION
+  projection_mode: READ_ONLY_DETERMINISTIC_FAIL_CLOSED_REQUIRED_SOURCES
+  source_of_truth: PERSISTENT_CONTROL_PLANE
+  persona_channel_separation_required: true
+  authority_flags_exact_boolean_projection: true
+  m3top3_current_state_v2_compatibility: EXPLICIT_BOUNDED
+
+pending_existing_runs_preserved:
+  p09_second_rerun:
+    run_id: RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-002
+    historical_state: DISPATCHED_AWAITING_ACK
+    current_disposition: NOT_REGISTERED
+  t18_independent_validation:
+    run_id: RUN-VALIDATION-AAA-T18-INDEPENDENT-20260816-001
+    historical_state: DISPATCHED_AWAITING_ACK
+    current_disposition: NOT_REGISTERED
+
+reporting_rules:
+  historical_state_and_current_disposition_are_separate: true
+  no_execution_evidence_means_not_running: true
+  engineering_pass_is_not_independent_validation_pass: true
+  independent_validation_pass_is_not_owner_cutover_authorization: true
+  independent_validation_pass_is_not_postgresql_sot_authorization: true
+  independent_validation_pass_is_not_live_execution_authorization: true
+  no_retroactive_execution_lifecycle_fabrication: true
+
+next_gate:
+  current_stage: STAGE_1
+  current_gate: GATE_A_SHADOW_ENTRY
+  phase: MANAGED_POSTGRESQL_SHADOW_ENTRY_QUALIFICATION
+  state: READY_NOT_DISPATCHED
+  owner_decision_required_before_any_authority_transition: true
+  tranche_a_execution_authorized: false
+  recommended_next_action: DISPATCH_EXACT_REMEDIATION_SUCCESSOR_TO_SEMI_VALIDATION_AUDITOR_ONLY

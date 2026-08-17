@@ -1,0 +1,86 @@
+{
+  "result_id": "RESULT-AAA-v1-E2-LOGICAL-RUN-RUNATTEMPT-20260816-001",
+  "project": "Asset Agent ASA",
+  "result_type": "SUCCESSOR_ENGINEERING_TRANCHE",
+  "tranche": "E2_LOGICAL_RUN_RUNATTEMPT_EXECUTION_SEMANTICS",
+  "work_order_id": "WO-AAA-v1-E2-LOGICAL-RUN-RUNATTEMPT-20260816",
+  "run_id": "RUN-AAA-v1-E2-LOGICAL-RUN-RUNATTEMPT-20260816-001",
+  "repository": "AofSpds/asset-agent-asa",
+  "engineering_branch": "aaa-v1-e2-logical-run-runattempt",
+  "exact_base_commit": "a681491bc8b08eb042b3a70e81a798b62b2cb68b",
+  "integrated_successor_commit": "0c56fe7855e6083ae0d96b570bb5f3f020079911",
+  "pull_request": 35,
+  "owner_authorization_decision": "DECISION-AAA-v1-SUCCESSOR-ENGINEERING-AUTHORIZATION-20260816-001",
+  "exact_engineering_scope_sha256": "fe1ff488e62bb500f520f395ce64f5428cbc384eb5cadc611f949ee46f8a66ac",
+  "frozen_semantic_target_sha256": "27f093555d5934f79a8501ef3426a0ade4d02d64370cc98a0cb0ea801e4ea01f",
+  "implementation": {
+    "deterministic_semantics_module": "aaa/src/aaa/core/execution_v1.py",
+    "logical_run_contract": "aaa/contracts/logical_run_v1.schema.json",
+    "run_attempt_contract": "aaa/contracts/run_attempt_v1.schema.json",
+    "attempt_termination_receipt_contract": "aaa/contracts/attempt_termination_receipt_v1.schema.json",
+    "logical_run_final_disposition_contract": "aaa/contracts/logical_run_final_disposition_receipt_v1.schema.json",
+    "successor_migration": "aaa/db/migrations/0007_balanced_v1_logical_run_runattempt.sql",
+    "migration_0007_sha256": "d8dc393501622cfb570c6bd6759a2d2ce79e8d28ce909037856f7e5a4f52bd55",
+    "historical_migrations_0001_0006_rewritten": false,
+    "historical_t17_t18_t19_rematerialized": false,
+    "synthetic_historical_runattempt_created": false,
+    "live_successor_execution_authorized": false,
+    "postgresql_authoritative": false
+  },
+  "acceptance": {
+    "logical_run_to_attempt_one_to_many": "PASS",
+    "attempt_to_execution_task_one_to_one_after_materialization": "PASS",
+    "attempt_ordinal_unique_and_contiguous": "PASS",
+    "claim_ack_start_semantics_separated": "PASS",
+    "running_requires_start_heartbeat_current_lease": "PASS",
+    "expired_same_epoch_heartbeat_rejected": "PASS",
+    "expired_same_epoch_terminalization_rejected": "PASS",
+    "same_spec_retry_new_attempt": "PASS",
+    "material_spec_change_requires_new_logical_run": "PASS",
+    "retryable_timeout_does_not_terminalize_logical_run": "PASS",
+    "attempt_terminal_receipt_required": "PASS",
+    "logical_run_final_disposition_required": "PASS",
+    "receipt_append_only_immutability": "PASS",
+    "legacy_runattempt_synthesis_prohibited": "PASS"
+  },
+  "ci": {
+    "branch_ci": 31939261432,
+    "pull_request_ci": 31939295047,
+    "post_merge_ci": 31939326970,
+    "deterministic_tests": {
+      "test_count": 180,
+      "pass_count": 180,
+      "fail_count": 0,
+      "error_count": 0
+    },
+    "postgresql_migrations_0001_0007_and_smokes": "PASS",
+    "t18_concurrent_lease_single_winner": "PASS",
+    "t19_two_worker_claim_single_winner": "PASS",
+    "json_postgresql_shadow_reconciliation": "PASS",
+    "local_backup_restore_drill": "PASS",
+    "owner_console_locked_install_build": "PASS"
+  },
+  "engineering_adjudication": {
+    "engineering_pass": true,
+    "independent_validation_required": true,
+    "independent_validation_pass": false,
+    "manual_github_bridge": true,
+    "running_confirmed_fabricated": false
+  },
+  "authority_boundary": {
+    "engineering_only": true,
+    "postgresql_operational_sot_authorized": false,
+    "live_execution_authorized": false,
+    "controlled_cutover_authorized": false,
+    "production_release_authorized": false,
+    "production_canonical_promotion_authorized": false
+  },
+  "non_interference": {
+    "model_feature_scorer_weight_ranking_backtest_changed": false,
+    "future_outcome_used_to_repair_historical_pit": false,
+    "p09_second_rerun_status_inferred": false,
+    "t18_independent_validation_status_inferred": false
+  },
+  "verdict": "PASS",
+  "completed_at": "2026-08-16T18:33:00+09:00"
+}

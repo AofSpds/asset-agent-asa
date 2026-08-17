@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://asset-agent-asa.local/contracts/time_evidence_v1.schema.json",
+  "title": "AAA Balanced v1 Governed Time Evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["time_semantic", "precision", "authority_kind", "authority_identity", "evidence_or_clock_reference"],
+  "properties": {
+    "time_semantic": {
+      "enum": [
+        "FACT_OR_EFFECTIVE_TIME",
+        "PUBLIC_EVIDENCE_AVAILABLE_TIME",
+        "RECORDED_TIME",
+        "SNAPSHOT_CUTOFF_TIME",
+        "EXECUTION_LIFECYCLE_TIME"
+      ]
+    },
+    "precision": {"enum": ["DATE", "DATETIME_TZ"]},
+    "value_date": {"type": "string", "format": "date"},
+    "value_datetime_tz": {"type": "string", "format": "date-time"},
+    "authority_kind": {
+      "enum": [
+        "SOURCE_EVIDENCE",
+        "GOVERNED_OPERATIONAL_STORE_CLOCK",
+        "IMMUTABLE_CERTIFICATION",
+        "EXTERNAL_GOVERNED_CALENDAR_OR_TIME_SOURCE"
+      ]
+    },
+    "authority_identity": {"type": "string", "minLength": 1},
+    "evidence_or_clock_reference": {"type": "string", "minLength": 1}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"precision": {"const": "DATE"}}, "required": ["precision"]},
+      "then": {"required": ["value_date"], "not": {"required": ["value_datetime_tz"]}}
+    },
+    {
+      "if": {"properties": {"precision": {"const": "DATETIME_TZ"}}, "required": ["precision"]},
+      "then": {"required": ["value_datetime_tz"], "not": {"required": ["value_date"]}}
+    }
+  ],
+  "x-aaa-invariants": [
+    "TIME_SEMANTIC and CLOCK_OR_EVIDENCE_AUTHORITY are separate dimensions",
+    "FACT_EXISTED_AT_TIME != PUBLIC_EVIDENCE_AVAILABLE_AT_TIME",
+    "DATE precision must never invent intraday time",
+    "recorded or execution time cannot establish earlier historical availability"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "run_id": "RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-001",
+  "process_id": "P09-INDEPENDENT-VALIDATION",
+  "work_order_id": "WO-VALIDATION-AAA-v0.2-INDEPENDENT-PREFLIGHT-20260816",
+  "responsible_persona": "SEMI-VALIDATION-AUDITOR",
+  "executor_role": "PREVALIDATION_CHECK",
+  "state": "COMPLETED_FAIL",
+  "repository": "AofSpds/asset-agent-asa",
+  "exact_base_commit": "80378610f9ac9e688c52417f0416e01c057400a7",
+  "branch": "aaa-integration-v0.2",
+  "started_at": "2026-08-16T06:10:53.067426+09:00",
+  "last_heartbeat_at": null,
+  "stale_after_seconds": 7200,
+  "canonical_output": false,
+  "terminal_result": {
+    "result_id": "RESULT-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-001",
+    "result_sha256": "e3e1c97e994f7459406940f4f290b9a45852bdbfa58b83720e46f9f08959d38e",
+    "completed_at": "2026-08-16T06:14:00+09:00",
+    "persistent_locator": "control/aaa/results/RESULT-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-001.json",
+    "verdict": "FAIL"
+  },
+  "notes": [
+    "Project Owner approved proceeding at 2026-08-16T05:55:00+09:00 after T17 integration.",
+    "Independent execution start evidence was observed externally at 2026-08-16T06:10:53.067426+09:00 in GitHub Actions workflow run 31907885316; no historical ACK or heartbeat was fabricated.",
+    "Independent Python suite reproduced PASS 101/101 and Owner Console npm ci/build passed, but mandatory adversarial acceptance failed on five blocking T17 Run Registry/Persona Operations findings.",
+    "Independent verdict is FAIL. Engineering PASS and Owner local smoke remain evidence inputs only and are not Independent Validation PASS.",
+    "P09 must remain OPEN_BLOCKED; Controlled Cutover and Production Release remain unauthorized."
+  ]
+}

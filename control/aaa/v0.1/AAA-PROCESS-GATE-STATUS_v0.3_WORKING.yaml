@@ -1,0 +1,79 @@
+control_id: AAA-PROCESS-GATE-STATUS
+version: v0.3_WORKING
+project: Asset Agent ASA
+short_name: AAA
+recorded_at: '2026-08-16T05:52:59+09:00'
+purpose: Current authoritative working snapshot for process completion and actual execution state.
+status_semantics:
+  CLOSED: Exit criteria satisfied and evidence bound.
+  READY_NOT_DISPATCHED: Work definition exists but no execution Run has started.
+  DISPATCHED_AWAITING_ACK: Work handed to an executor but start evidence not yet recorded.
+  OPEN_ACTIVE: At least one RUNNING_CONFIRMED Run exists with start evidence.
+  OPEN_BLOCKED: Named blocker prevents completion.
+  STALE_UNKNOWN: Previously active Run lacks sufficient current evidence; never infer RUNNING.
+  NOT_STARTED: Process has not materially started.
+completion_rules:
+  running_claim_requires_run_id_and_start_evidence: true
+  terminal_claim_requires_persistent_terminal_result_artifact: true
+  unknown_must_not_be_inferred_as_running: true
+  percent_is_secondary: true
+  channel_is_not_persona: true
+current_position:
+  last_closed_core_process: P07_ENGINEERING_INTEGRATION
+  current_primary_core_process: P08_GOVERNED_SHADOW_OPERATION
+  independent_validation_process: P09_INDEPENDENT_VALIDATION
+  next_terminal_core_process: P10_CONTROLLED_CUTOVER
+  engineering_usable_mvp_percent: 85
+  full_controlled_cutover_program_percent: 52
+core_processes:
+  P00_NAMING_AND_AUTHORITY: CLOSED
+  P01_RECOVERY_GAP_AND_BUILD_CONTRACT: CLOSED
+  P02_DETERMINISTIC_FOUNDATION: CLOSED
+  P03_CLI_API_OWNER_CONSOLE: CLOSED
+  P04_AGENT_RUNTIME_BOUNDARIES: CLOSED
+  P05_NATURAL_LANGUAGE_WORK_INTENT: CLOSED
+  P06_RECOVERY_AND_LOCAL_ADVERSARIAL_HARDENING: CLOSED
+  P07_ENGINEERING_INTEGRATION: CLOSED
+  P08_GOVERNED_SHADOW_OPERATION:
+    gate: OPEN_BLOCKED
+    blockers:
+      - AAA-FINDING-CONTINUITY-EVENT-ID-COLLISION_v0.1_WORKING
+    remaining:
+      - actual governed multi-cycle shadow evidence
+      - no unexplained state divergence
+      - continuity collision adjudication or formal disposition by SEMI-CONTROL-ARCHITECT
+  P09_INDEPENDENT_VALIDATION:
+    gate: READY_NOT_DISPATCHED
+    active_run_id: null
+    running_confirmed: false
+    validator: SEMI-VALIDATION-AUDITOR
+    note: Work Order and target binding exist, but no validation Run has been dispatched or started.
+  P10_CONTROLLED_CUTOVER: NOT_STARTED
+  P11_POST_CUTOVER_STABILIZATION: NOT_STARTED
+integrated_parallel_tracks:
+  AAA_T17_RUN_REGISTRY_OPERATIONS_DASHBOARD:
+    gate: CLOSED
+    engineering_integrated: true
+    integration_merge_commit: 80378610f9ac9e688c52417f0416e01c057400a7
+    integration_result: control/aaa/v0.1/AAA-INTEGRATION-ENGINEERING-RESULT_v0.3_WORKING.yaml
+    terminal_run: RUN-AAA-T17-INTEGRATION-20260816-002
+    terminal_result: RESULT-AAA-T17-INTEGRATION-v0.2
+    owner_local_smoke: PASS
+    effect:
+      - Persona current activity is visible separately from terminal history.
+      - Run states can be observed through shared Registry, CLI, API, and Owner Console.
+      - Completed Runs do not make a Persona appear currently active.
+operational_gates_not_yet_closed:
+  - LIVE_EXTERNAL_MODEL_PROVIDER_NETWORK_ADAPTER_EXECUTION
+  - REAL_S3_R2_PARTIAL_FAILURE_DRILL
+  - ACTUAL_GOVERNED_FULL_SHADOW_OPERATION_CYCLE
+  - CONTINUITY_EVENT_ID_COLLISION_ADJUDICATION
+  - INDEPENDENT_VALIDATION_PASS
+  - OWNER_CUTOVER_AUTHORIZATION
+external_project_blockers_kept_visible:
+  - M3TOP3_FND_02_F06_EXTERNAL_P0
+reporting_rule:
+  always_report_active_runs_by_run_id: true
+  always_report_ready_not_dispatched_separately_from_running: true
+  always_report_terminal_runs_separately_from_current_persona_activity: true
+  never_use_percent_alone_to_imply_finished: true

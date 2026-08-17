@@ -1,0 +1,64 @@
+{
+  "decision_id": "DECISION-AAA-v1-SUCCESSOR-ENGINEERING-AUTHORIZATION-20260816-001",
+  "project": "Asset Agent ASA",
+  "phase": "AAA_V1_SUCCESSOR_ENGINEERING_SCOPE_AND_AUTHORIZATION",
+  "decision_type": "AAA_V1_SUCCESSOR_ENGINEERING_IMPLEMENTATION_AUTHORIZATION",
+  "decision": "APPROVE",
+  "decided_at": "2026-08-16T18:10:00+09:00",
+  "authority_ref": {
+    "authority_role": "PROJECT_OWNER",
+    "authority_identity": "PROJECT_OWNER",
+    "authority_scope": "AAA_V1_SUCCESSOR_ENGINEERING_IMPLEMENTATION"
+  },
+  "actor_ref": {
+    "actor_type": "HUMAN_PROJECT_OWNER",
+    "actor_identity": "PROJECT_OWNER"
+  },
+  "target": {
+    "kind": "AAA_V1_SUCCESSOR_ENGINEERING_SCOPE",
+    "path": "control/aaa/architecture/AAA-v1-SUCCESSOR-ENGINEERING-SCOPE_v0.1_WORKING.json",
+    "sha256": "fe1ff488e62bb500f520f395ce64f5428cbc384eb5cadc611f949ee46f8a66ac",
+    "byte_size": 10849,
+    "git_blob_sha": "686eb406a93eeeb078e7b8fe35b0d2341c585105",
+    "materialization_commit": "3cfa0fdcda06fc50fcc46122067521851dab4ca5"
+  },
+  "frozen_semantic_basis": {
+    "owner_freeze_decision": "DECISION-AAA-v1-R5-OWNER-EXACT-FREEZE-20260816-001",
+    "freeze_manifest": "control/aaa/architecture/AAA-v1-R5-EXACT-FREEZE-MANIFEST_v1.0_FROZEN.json",
+    "frozen_r4_candidate_sha256": "27f093555d5934f79a8501ef3426a0ade4d02d64370cc98a0cb0ea801e4ea01f"
+  },
+  "authorized_scope": {
+    "implementation": true,
+    "successor_migrations_0006_plus_within_scope": true,
+    "bounded_engineering_work_orders": true,
+    "engineering_branch_and_pr_work": true,
+    "deterministic_and_postgresql_regression": true,
+    "api_cli_owner_console_successor_updates_within_scope": true,
+    "tranches": [
+      "E1_IDENTITY_TIME_SCHEMA_FOUNDATION",
+      "E2_LOGICAL_RUN_RUNATTEMPT_EXECUTION_SEMANTICS",
+      "E3_AUTHORITY_DECISION_PROVENANCE_EVENT",
+      "E4_VERSION_SET_PROMOTION_RESTORE_HARDENING"
+    ]
+  },
+  "explicitly_not_authorized": {
+    "model_feature_scorer_weight_ranking_backtest_methodology_change": true,
+    "historical_migration_0001_0005_rewrite": true,
+    "historical_t17_t18_t19_rematerialization": true,
+    "postgresql_operational_sot_cutover": true,
+    "live_worker_execution_enablement": true,
+    "controlled_cutover": true,
+    "production_release": true,
+    "production_canonical_promotion": true,
+    "managed_pitr_rpo_rto_qualification_waiver": true
+  },
+  "hard_rules": [
+    "APPROVAL_OF_SCOPE_X_IS_NOT_APPROVAL_OF_SCOPE_Y",
+    "IMPLEMENT_FROZEN_SEMANTICS_FORWARD_ONLY",
+    "MIGRATIONS_0001_TO_0005_REMAIN_IMMUTABLE",
+    "NO_SYNTHETIC_HISTORICAL_RUNATTEMPT",
+    "POSTGRESQL_REMAINS_NONAUTHORITATIVE_UNTIL_SEPARATE_OWNER_CUTOVER",
+    "JSON_REGISTRY_REMAINS_OPERATIONAL_AUTHORITY_DURING_SHADOW",
+    "ENGINEERING_PASS_IS_NOT_INDEPENDENT_VALIDATION_PASS"
+  ]
+}

@@ -1,0 +1,51 @@
+binding_id: AAA-v0.1-INDEPENDENT-PREFLIGHT-TARGET-BINDING
+version: v0.3_WORKING
+project: Asset Agent ASA
+short_name: AAA
+recorded_at: '2026-08-16T06:30:00+09:00'
+supersedes: control/aaa/validation/AAA-v0.1-INDEPENDENT-PREFLIGHT-TARGET-BINDING_v0.2_WORKING.yaml
+purpose: Bind the second P09 Independent Validation preflight to the exact integrated T17 remediation successor without allowing later control-only branch commits to change the engineering validation target.
+repository: AofSpds/asset-agent-asa
+branch_context: aaa-integration-v0.2
+exact_engineering_code_target:
+  commit: 30fdb278c218b24e44d66eb5f47935a196dc4f8c
+  validation_target_is_branch_latest_head: false
+  immutable_for_this_validation_run: true
+  predecessor_failed_target: 80378610f9ac9e688c52417f0416e01c057400a7
+  predecessor_independent_result: control/aaa/results/RESULT-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-001.json
+engineering_evidence:
+  remediation_work_order: control/workorders/WO-AAA-T17-P09-REMEDIATION-20260816.yaml
+  engineering_result: control/aaa/results/RESULT-AAA-T17-P09-REMEDIATION-v0.1.json
+  engineering_result_sha256: cffdb605a8ab0762e0859dd13c5a88aa01022c9a7b81b64d6ff88a3ffbdc2086
+  isolated_engineering_head: 27a30360f72a86d706cc8b84961aaac20cef7eb5
+  integration_candidate: 1921c8f97714b9cc0eda821c80246a5d5dc93d78
+  integration_merge_commit: 30fdb278c218b24e44d66eb5f47935a196dc4f8c
+  integration_candidate_push_ci: 31909472218
+  integration_candidate_pr_ci: 31909502381
+  integration_push_ci: 31909527442
+  post_result_run_binding_ci: 31909582754
+  python_suite: PASS_115_OF_115
+  owner_console_locked_install_build: PASS
+p09_findings_under_rerun:
+  - AAA-IV-T17-FND-01-FUTURE-HEARTBEAT-FALSE-RUNNING
+  - AAA-IV-T17-FND-02-TERMINAL-STATE-VERDICT-MISMATCH
+  - AAA-IV-T17-FND-03-TERMINAL-RESULT-PERSISTENCE-NOT-VERIFIED
+  - AAA-IV-T17-FND-04-WORK-ORDER-RUN-RESULT-REFERENTIAL-INTEGRITY
+  - AAA-IV-T17-FND-05-TIMEZONE-STRING-ACTIVITY-ORDER
+historical_identity_policy:
+  failed_target_overwritten: false
+  historical_result_v0_2_overwritten: false
+  referential_successor_result: control/aaa/results/RESULT-AAA-T17-INTEGRATION-v0.3.json
+independent_validation_state:
+  engineering_pass_is_independent_pass: false
+  independent_validation_pass: false
+  controlled_cutover_authorized: false
+  production_release_authorized: false
+known_blockers_preserved:
+  - AAA-FINDING-CONTINUITY-EVENT-ID-COLLISION_v0.1_WORKING
+  - M3TOP3_FND_02_F06_EXTERNAL_P0
+scientific_firewall:
+  future_outcome_access_required: false
+  future_outcome_use_for_repair_or_tuning: PROHIBITED
+  unknown_historical_evidence_inference: PROHIBITED
+status: READY_FOR_SECOND_INDEPENDENT_PREFLIGHT_DISPATCH

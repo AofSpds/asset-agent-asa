@@ -1,0 +1,89 @@
+control_id: AAA-PROCESS-GATE-STATUS
+version: v0.32_WORKING
+project: Asset Agent ASA
+recorded_at: '2026-08-17T01:25:00+09:00'
+supersedes: control/aaa/v0.1/AAA-PROCESS-GATE-STATUS_v0.31_WORKING.yaml
+purpose: >-
+  Owner-approved Post-IV roadmap integration and Current Operating Structure Owner Console
+  implementation closeout. Frozen Balanced v1 semantics remain unchanged. Stage 0 is integrated;
+  Stage 1 is the next bounded operational tranche but remains READY_NOT_DISPATCHED and execution
+  is not authorized.
+
+current_position:
+  current_controlled_activity: AAA_V1_MANAGED_POSTGRESQL_SHADOW_ENTRY_QUALIFICATION_PREPARATION
+  prior_failed_target: 96234463cedaff2b7ec5d0ff49bec44684804b00
+  prior_failed_target_verdict: FAIL
+  prior_failed_target_preserved: true
+  validated_successor_target: 8a4aea0256bc630385bd463fc8969e5c88a74102
+  validated_successor_tree: ffd65463413c9fee073db404c36f2461aa7a6c83
+  independent_revalidation_state: COMPLETED_PASS
+  independent_validation_pass: true
+  t20_assumed: false
+
+roadmap:
+  path: control/aaa/architecture/AAA-v1-POST-IV-OPERATING-ROADMAP_v1.0_OWNER-APPROVED.json
+  sha256: b147da5461140fd13c88ef5da5e222bd94f52e02d723baa8095c48008d9db91c
+  byte_size: 6839
+  status: OWNER_APPROVED_INTEGRATED
+  stage_0_completed: true
+  current_stage: STAGE_1
+  current_stage_name: MANAGED_POSTGRESQL_SHADOW_ENTRY_QUALIFICATION
+  current_gate: GATE_A_SHADOW_ENTRY
+  current_state: READY_NOT_DISPATCHED
+  tranche_a_preparation_allowed: true
+  tranche_a_execution_authorized: false
+  actual_shadow_campaign_authorized: false
+
+final_validator_modifications:
+  P0_01_authoritative_time_lease_clock_gate_A: REQUIRED
+  P0_02_result_persistence_terminal_ordering_stage_2: REQUIRED
+  P0_03_immutable_batch_expected_work_manifest_gate_B: REQUIRED
+  P0_04_pit_ai_adjudication_policy_taxonomy_model_version_gate_B: REQUIRED
+  P0_05_no_dual_authority_negative_test_gate_C: REQUIRED
+  P0_06_daily_governed_completion_window_cadence_gate_D: REQUIRED
+  P1_future_one_million_structural_scale_test: DEFERRED_NONBLOCKING
+
+operational_authority:
+  json_registry_operational_authority_during_shadow: true
+  postgresql_authoritative: false
+  bounded_shadow_execution_authorized: false
+  live_execution_authorized: false
+  postgresql_operational_sot_authorized: false
+  production_canonical_promotion_authorized: false
+  controlled_cutover_authorized: false
+  production_release_authorized: false
+
+owner_console:
+  current_operating_structure: IMPLEMENTED_AWAITING_INDEPENDENT_VALIDATION
+  projection_mode: READ_ONLY_DETERMINISTIC
+  source_of_truth: PERSISTENT_CONTROL_PLANE
+  manual_org_chart_source_of_truth: false
+  persona_channel_separation_required: true
+  auto_refresh_required: true
+
+pending_existing_runs_preserved:
+  p09_second_rerun:
+    run_id: RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-002
+    historical_state: DISPATCHED_AWAITING_ACK
+    current_disposition: NOT_REGISTERED
+  t18_independent_validation:
+    run_id: RUN-VALIDATION-AAA-T18-INDEPENDENT-20260816-001
+    historical_state: DISPATCHED_AWAITING_ACK
+    current_disposition: NOT_REGISTERED
+
+reporting_rules:
+  historical_state_and_current_disposition_are_separate: true
+  no_execution_evidence_means_not_running: true
+  independent_validation_pass_is_not_owner_cutover_authorization: true
+  independent_validation_pass_is_not_postgresql_sot_authorization: true
+  independent_validation_pass_is_not_live_execution_authorization: true
+  no_retroactive_execution_lifecycle_fabrication: true
+
+next_gate:
+  current_stage: STAGE_1
+  current_gate: GATE_A_SHADOW_ENTRY
+  phase: MANAGED_POSTGRESQL_SHADOW_ENTRY_QUALIFICATION
+  state: READY_NOT_DISPATCHED
+  owner_decision_required_before_any_authority_transition: true
+  tranche_a_execution_authorized: false
+  recommended_next_action: PREPARE_TRANCHE_A_SCOPE_EXACT_TARGET_PROVIDER_ENVIRONMENT_AND_VALIDATION_PLAN_ONLY

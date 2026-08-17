@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://asset-agent-asa.local/contracts/run_registry_entry.schema.json",
+  "title": "AAA Run Registry Entry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_id",
+    "process_id",
+    "work_order_id",
+    "responsible_persona",
+    "executor_role",
+    "state",
+    "repository",
+    "exact_base_commit",
+    "branch",
+    "started_at",
+    "last_heartbeat_at",
+    "stale_after_seconds",
+    "canonical_output",
+    "terminal_result"
+  ],
+  "properties": {
+    "run_id": {"type": "string", "minLength": 1},
+    "process_id": {"type": "string", "minLength": 1},
+    "work_order_id": {"type": "string", "minLength": 1},
+    "responsible_persona": {
+      "enum": [
+        "SEMI-CONTROL-ARCHITECT",
+        "SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT",
+        "SEMI-RESEARCH-ORCHESTRATOR",
+        "SEMI-VALIDATION-AUDITOR"
+      ]
+    },
+    "executor_role": {"type": "string", "minLength": 1},
+    "state": {
+      "enum": [
+        "READY_NOT_DISPATCHED",
+        "DISPATCHED_AWAITING_ACK",
+        "RUNNING_CONFIRMED",
+        "BLOCKED",
+        "STALE_UNKNOWN",
+        "COMPLETED_PASS",
+        "COMPLETED_FAIL",
+        "COMPLETED_WITH_FINDINGS"
+      ]
+    },
+    "repository": {"const": "AofSpds/asset-agent-asa"},
+    "exact_base_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "branch": {"type": "string", "minLength": 1},
+    "started_at": {"type": ["string", "null"], "format": "date-time"},
+    "last_heartbeat_at": {"type": ["string", "null"], "format": "date-time"},
+    "stale_after_seconds": {"type": "integer", "minimum": 60},
+    "canonical_output": {"const": false},
+    "terminal_result": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["result_id", "result_sha256", "completed_at", "persistent_locator", "verdict"],
+          "properties": {
+            "result_id": {"type": "string", "minLength": 1},
+            "result_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            "completed_at": {"type": "string", "format": "date-time"},
+            "persistent_locator": {"type": "string", "minLength": 1},
+            "verdict": {"enum": ["PASS", "FAIL", "PASS_WITH_FINDINGS"]}
+          }
+        }
+      ]
+    },
+    "notes": {"type": "array", "items": {"type": "string"}}
+  }
+}

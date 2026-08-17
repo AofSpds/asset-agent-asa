@@ -1,0 +1,101 @@
+control_id: AAA-PROCESS-GATE-STATUS
+version: v0.31_WORKING
+project: Asset Agent ASA
+recorded_at: '2026-08-16T22:59:00+09:00'
+supersedes: control/aaa/v0.1/AAA-PROCESS-GATE-STATUS_v0.30_WORKING.yaml
+purpose: >-
+  Authoritative working snapshot after fresh Independent Revalidation PASS on exact E4 remediation
+  successor 8a4aea0256bc630385bd463fc8969e5c88a74102, closure of the prior E4 P0/P1 findings,
+  and terminalization of the validation Run as COMPLETED_PASS. This PASS does not grant operational
+  authority, cutover or production release.
+
+current_position:
+  current_controlled_activity: AAA_V1_POST_INDEPENDENT_REVALIDATION_AUTHORITY_PLANNING
+  prior_failed_target: 96234463cedaff2b7ec5d0ff49bec44684804b00
+  prior_failed_target_verdict: FAIL
+  prior_failed_target_preserved: true
+  validated_successor_target: 8a4aea0256bc630385bd463fc8969e5c88a74102
+  validated_successor_tree: ffd65463413c9fee073db404c36f2461aa7a6c83
+  independent_revalidation_state: COMPLETED_PASS
+  independent_validation_pass: true
+  t20_assumed: false
+
+remediation_engineering:
+  run_id: RUN-AAA-v1-E4-RELEASE-SET-HASH-REMEDIATION-20260816-001
+  run_state: COMPLETED_WITH_FINDINGS
+  result_id: RESULT-AAA-v1-E4-RELEASE-SET-HASH-REMEDIATION-20260816-001
+  migration_0010_sha256: 07b4244fc007ca5a0d5488ed4675b25a4e81d6e787a75d19258cb43c8ead7b7a
+  pull_request: 38
+  integrated_successor: 8a4aea0256bc630385bd463fc8969e5c88a74102
+  integrated_tree: ffd65463413c9fee073db404c36f2461aa7a6c83
+  deterministic_tests: 214_of_214_pass
+  postgresql_e1_e4_contract_smoke_reconciliation_backup: PASS
+  owner_console_build: PASS
+
+independent_revalidation:
+  target_binding: control/aaa/validation/AAA-v1-E4-RELEASE-SET-HASH-REVALIDATION-TARGET-BINDING_v0.1_WORKING.yaml
+  work_order: control/workorders/WO-VALIDATION-AAA-v1-E4-RELEASE-SET-HASH-REVALIDATION-20260816.yaml
+  run_id: RUN-VALIDATION-AAA-v1-E4-RELEASE-SET-HASH-REVALIDATION-20260816-001
+  run_state: COMPLETED_PASS
+  result_id: RESULT-VALIDATION-AAA-v1-E4-RELEASE-SET-HASH-REVALIDATION-20260816-001
+  result_path: control/aaa/results/RESULT-VALIDATION-AAA-v1-E4-RELEASE-SET-HASH-REVALIDATION-20260816-001.json
+  result_sha256: 13d5fe59fbba8e062d2ca3c1e0d30f4fea47cff7b692bd5ab8454cd830dc6b13
+  exact_target: 8a4aea0256bc630385bd463fc8969e5c88a74102
+  exact_tree: ffd65463413c9fee073db404c36f2461aa7a6c83
+  verdict: PASS
+  independent_validation_pass: true
+  retroactive_ack_start_heartbeat_created: false
+
+findings:
+  AAA-v1-IV-FND-01-E4-RELEASE-SET-COMPONENT-HASH-BINDING-GAP:
+    severity: P0
+    blocking: false
+    state: CLOSED
+    closure_artifact: control/aaa/findings/AAA-v1-IV-FND-01-E4-RELEASE-SET-COMPONENT-HASH-BINDING-GAP_v0.3_CLOSED.yaml
+  AAA-v1-IV-FND-02-E4-POSTGRES-SMOKE-NOT-IN-CERTIFYING-WORKFLOW:
+    severity: P1
+    blocking: false
+    state: CLOSED
+    closure_artifact: control/aaa/findings/AAA-v1-IV-FND-02-E4-POSTGRES-SMOKE-NOT-IN-CERTIFYING-WORKFLOW_v0.3_CLOSED.yaml
+
+migration_policy:
+  migrations_0001_0009: IMMUTABLE_HISTORICAL_BASELINE
+  migration_0010: INTEGRATED_AND_INDEPENDENTLY_REVALIDATED
+  migration_0010_sha256: 07b4244fc007ca5a0d5488ed4675b25a4e81d6e787a75d19258cb43c8ead7b7a
+  migration_0009_rewritten: false
+
+operational_authority:
+  json_registry_operational_authority_during_shadow: true
+  postgresql_authoritative: false
+  live_execution_authorized: false
+  production_canonical_promotion_authorized: false
+  controlled_cutover_authorized: false
+  production_release_authorized: false
+
+pending_existing_runs_preserved:
+  p09_second_rerun:
+    run_id: RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-002
+    state: DISPATCHED_AWAITING_ACK
+  t18_independent_validation:
+    run_id: RUN-VALIDATION-AAA-T18-INDEPENDENT-20260816-001
+    state: DISPATCHED_AWAITING_ACK
+
+reporting_rules:
+  old_target_fail_and_new_target_pass_both_preserved: true
+  independent_validation_pass_is_not_owner_cutover_authorization: true
+  independent_validation_pass_is_not_postgresql_sot_authorization: true
+  independent_validation_pass_is_not_live_execution_authorization: true
+  no_retroactive_execution_lifecycle_fabrication: true
+
+next_gate:
+  phase: AAA_V1_POST_INDEPENDENT_REVALIDATION_AUTHORITY_PLANNING
+  state: READY_NOT_DISPATCHED
+  owner_decision_required_before_any_authority_transition: true
+  recommended_planning_topics:
+    - managed_postgresql_qualification
+    - PITR_RPO_RTO_qualification
+    - postgresql_operational_sot_shadow_and_cutover_design
+    - live_execution_enablement_gate
+    - legacy_P09_T18_governed_disposition
+    - controlled_cutover
+    - production_release

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://asset-agent-asa.local/contracts/attempt_termination_receipt_v1.schema.json",
+  "title": "AAA Balanced v1 Attempt Termination Receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["attempt_termination_id", "run_id", "run_attempt_id", "termination_class", "retryable_disposition", "actor_ref", "authority_ref", "terminated_at"],
+  "properties": {
+    "attempt_termination_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "run_attempt_id": {"type": "string", "minLength": 1},
+    "termination_class": {
+      "enum": ["BUSINESS_PASS", "BUSINESS_FAIL", "BUSINESS_PASS_WITH_FINDINGS", "VALIDATION_FAIL", "VALIDATION_WITH_FINDINGS", "APPLICATION_FAILURE", "INPUT_INTEGRITY_FAILURE", "EXECUTION_CONTRACT_VIOLATION", "SECURITY_POLICY_DENIAL", "INFRASTRUCTURE_TRANSIENT", "INFRASTRUCTURE_PERMANENT", "STALE_LEASE", "TIMEOUT", "CANCELLED_BY_AUTHORITY", "SUPERSEDED", "UNKNOWN_FAIL_CLOSED"]
+    },
+    "retryable_disposition": {
+      "enum": ["RETRYABLE_IF_POLICY_ALLOWS", "RETRYABLE_IF_POLICY_ALLOWS_NEW_ATTEMPT", "NOT_RETRYABLE", "NOT_EXECUTION_RETRY", "REQUIRES_NEW_LOGICAL_RUN"]
+    },
+    "actor_ref": {"type": "string", "minLength": 1},
+    "authority_ref": {"type": "string", "minLength": 1},
+    "terminated_at": {"type": "string", "format": "date-time"},
+    "terminal_result_ref": {"type": "string", "minLength": 1},
+    "failure_reason": {"type": "string"},
+    "cancellation_decision_ref": {"type": "string", "minLength": 1},
+    "timeout_policy_ref": {"type": "string", "minLength": 1}
+  },
+  "x-aaa-invariants": [
+    "every terminal RunAttempt has exactly one immutable termination receipt",
+    "infrastructure/timeout/stale/cancel termination is never silently mapped to PASS"
+  ]
+}

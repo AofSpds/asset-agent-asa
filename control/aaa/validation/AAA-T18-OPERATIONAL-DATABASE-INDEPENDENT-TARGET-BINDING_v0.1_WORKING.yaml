@@ -1,0 +1,52 @@
+binding_id: AAA-T18-OPERATIONAL-DATABASE-INDEPENDENT-TARGET-BINDING
+version: v0.1_WORKING
+project: Asset Agent ASA
+short_name: AAA
+track: T18_OPERATIONAL_DATABASE_PERSISTENT_EXECUTION_PLANE
+recorded_at: '2026-08-16T07:04:00+09:00'
+purpose: Bind T18 Independent Validation to the exact integrated engineering successor without allowing later governance or control-only commits to move the validation target.
+repository: AofSpds/asset-agent-asa
+branch_context: aaa-integration-v0.2
+exact_engineering_target:
+  commit: 59c9baf3a24b1cf7542a3643c296711c37d72c3c
+  immutable_for_this_validation_run: true
+  target_is_branch_latest_head: false
+engineering_origin:
+  owner_approval: control/aaa/architecture/AAA-T18-OPERATIONAL-DATABASE-ARCHITECTURE-REVIEW_v0.2_OWNER-APPROVED.yaml
+  work_order: control/workorders/WO-AAA-T18-OPERATIONAL-DATABASE-v0.1-20260816.yaml
+  engineering_run: control/aaa/runs/RUN-AAA-T18-OPERATIONAL-DATABASE-20260816-001.json
+  engineering_result: control/aaa/results/RESULT-AAA-T18-OPERATIONAL-DATABASE-v0.1.json
+  isolated_engineering_exact_target: 02739703a0ced83c80183c29dbfb302d2ce56b23
+  integration_pr: 30
+  integration_merge_commit: 59c9baf3a24b1cf7542a3643c296711c37d72c3c
+  preintegration_control_binding_ci: 31911056066
+  integration_pr_ci: 31911087391
+  post_merge_ci: 31911121891
+engineering_verdict: PASS_WITH_FINDINGS
+independent_validation_pass: false
+postgresql_operational_sot_cutover: false
+p09_non_interference:
+  p09_failed_target: 80378610f9ac9e688c52417f0416e01c057400a7
+  p09_current_rerun_target: 30fdb278c218b24e44d66eb5f47935a196dc4f8c
+  p09_current_rerun_id: RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-002
+  t18_validation_must_not_modify_p09: true
+validation_focus:
+  - migration SHA256 identity and deterministic rebuild
+  - JSON Run Registry byte identity import and 100 percent reconciliation
+  - WorkOrder Run Event Result referential integrity
+  - terminal Result and state atomicity
+  - exact-retry event idempotency and mismatch rejection
+  - lease single-winner and fencing token semantics
+  - stale and future-time fail-closed behavior
+  - PostgreSQL-authority DB outage no-JSON-fallback contract
+  - Experiment Snapshot Backtest execution metadata lineage boundaries
+  - backup restore engineering drill reproducibility
+  - CLI API common operational read path and Owner Console API-only boundary
+  - Git Governance SoT and S3/R2 Artifact SoT non-interference
+  - no Redis Kafka Kubernetes baseline dependency
+  - SQLite is not used as certifying backend
+  - scientific firewall and P09 non-interference
+cutover_authority:
+  independent_validation_can_authorize_operational_sot_cutover: false
+  project_owner_explicit_cutover_approval_still_required: true
+status: READY_FOR_INDEPENDENT_VALIDATION_DISPATCH

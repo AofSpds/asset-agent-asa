@@ -1,0 +1,89 @@
+{
+  "result_id": "RESULT-VALIDATION-AAA-T19-INDEPENDENT-20260816-002",
+  "project": "Asset Agent ASA",
+  "short_name": "AAA",
+  "process_id": "T19-INDEPENDENT-REVALIDATION",
+  "validation_run_id": "RUN-VALIDATION-AAA-T19-INDEPENDENT-20260816-002",
+  "work_order_id": "WO-VALIDATION-AAA-T19-LEASE-HEARTBEAT-REVALIDATION-v0.1-20260816",
+  "executor_persona": "SEMI-VALIDATION-AUDITOR",
+  "exact_validation_target": "45a1541c4720387873a78e3a95fc697959d19248",
+  "target_binding": "control/aaa/validation/AAA-T19-LEASE-HEARTBEAT-REVALIDATION-TARGET-BINDING_v0.1_WORKING.yaml",
+  "source_return_packet": {
+    "transport": "user_return_packet",
+    "sha256": "664f3bf81862c0b3075e4378f8278de21a6bfbf375285a444bbaa1ce33394a27",
+    "byte_size": 28068
+  },
+  "independent_control_adjudication": {
+    "packet_verdict_accepted_after_independent_evidence_check": true,
+    "verified_github_actions_workflow_run_id": 31914522096,
+    "verified_workflow_head_sha": "45a1541c4720387873a78e3a95fc697959d19248",
+    "verified_workflow_conclusion": "success",
+    "verified_workflow_attempt": 4,
+    "verified_deterministic_job_id": 95086100288,
+    "verified_postgresql_job_id": 95086100352,
+    "verified_owner_console_job_id": 95086099775,
+    "retroactive_governed_start_or_heartbeat_fabricated": false
+  },
+  "independent_reproduction": {
+    "python_tests": {
+      "test_count": 145,
+      "pass_count": 145,
+      "fail_count": 0,
+      "error_count": 0,
+      "runtime_seconds": 1.316
+    },
+    "owner_console_npm_ci": "PASS",
+    "owner_console_build": "PASS",
+    "postgresql_migration_sha": "PASS_5_OF_5",
+    "postgresql_migration_apply": "PASS",
+    "expired_same_epoch_heartbeat_rejected": true,
+    "stale_unknown_non_resurrection": true,
+    "expired_lease_terminalization_rejected": true,
+    "takeover_epoch_increment_and_old_epoch_fencing": true,
+    "two_worker_single_claim_winner": "PASS",
+    "json_postgresql_shadow_reconciliation": "PASS_10_OF_10",
+    "backup_restore": "PASS"
+  },
+  "migration_sha256": {
+    "0001": "66e5609fea1104f4aba4d0566989bf3a6c8d2b6e0b75cb274a79f7bdb48d68c2",
+    "0002": "dfd47bb167e4bbcef2de9cb45bec811c0acfbcc5f03bde1a49fc24990b7d16dc",
+    "0003": "5d14f97a9b2d469885984c92fe3d725e213ec892616eee19a7708338b226374b",
+    "0004": "23edc2c1dd3475498b5e39f5c1323affb6168ca1f7e220ccc26aa642240906ea",
+    "0005": "6ea318dba31f94392d6828cf64d2a9701c11e88142a13f53c9dcbb88fc29807a"
+  },
+  "p0_finding": {
+    "finding_id": "AAA-T19-IV-FND-01-EXPIRED-LEASE-HEARTBEAT-RESURRECTION",
+    "prior_severity": "P0",
+    "prior_blocking": true,
+    "revalidation_status": "REMEDIATED_AND_INDEPENDENTLY_VERIFIED",
+    "closure_disposition": "CLOSE",
+    "current_blocking": false
+  },
+  "governed_long_command_authority": {
+    "profile_timeout_seconds": 1800,
+    "configured_safety_margin_seconds": 60,
+    "governed_execution_ttl_seconds": 1860,
+    "contract": "execution_ttl_seconds >= profile_timeout_seconds + configured_safety_margin_seconds",
+    "pass": true
+  },
+  "verdict": "PASS",
+  "independent_validation_pass": true,
+  "recommended_run_state": "COMPLETED_PASS",
+  "recommended_t19_gate": "INDEPENDENT_VALIDATION_PASS",
+  "live_execution_authorized": false,
+  "postgresql_operational_sot_authorized": false,
+  "controlled_cutover_authorized": false,
+  "production_release_authorized": false,
+  "canonical_side_effect_check": "PASS",
+  "non_interference": {
+    "p09_original_failed_target": "80378610f9ac9e688c52417f0416e01c057400a7",
+    "p09_rerun_target": "30fdb278c218b24e44d66eb5f47935a196dc4f8c",
+    "t18_independent_target": "59c9baf3a24b1cf7542a3643c296711c37d72c3c",
+    "t19_prior_failed_target": "c867e3704b2744c3a826635b828ad6696e6281eb",
+    "model_methodology_changed": false,
+    "shared_contract_changed": false,
+    "ground_truth_pit_u127_changed": false
+  },
+  "persisted_by": "AAA_BUILD_CONTROL",
+  "completed_at": "2026-08-16T08:42:00+09:00"
+}

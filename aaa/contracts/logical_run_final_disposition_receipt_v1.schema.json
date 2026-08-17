@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://asset-agent-asa.local/contracts/logical_run_final_disposition_receipt_v1.schema.json",
+  "title": "AAA Balanced v1 Logical Run Final Disposition Receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["final_disposition_id", "run_id", "final_status", "authority_ref", "actor_ref", "decided_at"],
+  "properties": {
+    "final_disposition_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "final_status": {"enum": ["COMPLETED_PASS", "COMPLETED_FAIL", "COMPLETED_WITH_FINDINGS", "CANCELLED", "SUPERSEDED"]},
+    "selected_attempt_ref": {"type": "string", "minLength": 1},
+    "decision_ref": {"type": "string", "minLength": 1},
+    "authority_ref": {"type": "string", "minLength": 1},
+    "actor_ref": {"type": "string", "minLength": 1},
+    "decided_at": {"type": "string", "format": "date-time"}
+  },
+  "x-aaa-invariants": [
+    "Logical Run cannot become terminal without this receipt",
+    "completed Logical Run selects a terminal Attempt",
+    "cancelled or superseded Logical Run binds an authority decision reference"
+  ]
+}

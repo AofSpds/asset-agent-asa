@@ -1,0 +1,68 @@
+work_order_id: WO-VALIDATION-AAA-T19-LEASE-HEARTBEAT-REVALIDATION-v0.1-20260816
+project: Asset Agent ASA
+track: T19
+requesting_authority: PROJECT_OWNER
+requesting_control: AAA_BUILD_CONTROL
+executor_persona: SEMI-VALIDATION-AUDITOR
+executor_role: INDEPENDENT_VALIDATION
+state: DISPATCHED_AWAITING_ACK
+created_at: '2026-08-16T08:22:00+09:00'
+repository: AofSpds/asset-agent-asa
+branch_context: aaa-integration-v0.2
+exact_base_commit: 45a1541c4720387873a78e3a95fc697959d19248
+target_binding: control/aaa/validation/AAA-T19-LEASE-HEARTBEAT-REVALIDATION-TARGET-BINDING_v0.1_WORKING.yaml
+validation_run_id: RUN-VALIDATION-AAA-T19-INDEPENDENT-20260816-002
+source_failed_run_id: RUN-VALIDATION-AAA-T19-INDEPENDENT-20260816-001
+source_finding_id: AAA-T19-IV-FND-01-EXPIRED-LEASE-HEARTBEAT-RESURRECTION
+
+repository_permissions:
+  repository: READ_ONLY
+  local_temporary_workspace: ALLOWED
+  branch_write: PROHIBITED
+  pull_request_write: PROHIBITED
+  canonical_write: PROHIBITED
+
+objective: >-
+  Independently and adversarially revalidate the exact integrated T19 lease-heartbeat remediation successor, with special focus on the prior P0 expired-lease resurrection counterexample and without relying on Engineering PASS assertions.
+
+required_execution:
+  - checkout exact commit 45a1541c4720387873a78e3a95fc697959d19248
+  - independently rerun all target-binding tests and adversarial cases
+  - reproduce the prior expired same-epoch counterexample and require fail-closed behavior
+  - independently verify governed long-command execution authority and lease timeout margin
+  - record commands, test counts, failures, findings and exact environment evidence
+  - verify no canonical side effect
+  - return explicit PASS, PASS_WITH_FINDINGS or FAIL
+
+prohibited:
+  - modify T19 implementation during validation
+  - alter failed target c867e3704b2744c3a826635b828ad6696e6281eb
+  - alter P09 original/rerun validation targets
+  - alter T18 Independent Validation target or result
+  - enable PostgreSQL Operational SoT
+  - enable live T19 worker dispatch
+  - authorize Production Release or P10 Controlled Cutover
+  - change Model/Feature/Scorer/Weight/Ranking methodology
+  - change Shared Contract, Ground Truth, PIT or U127
+  - infer running or success without persistent evidence
+
+return_requirements:
+  validation_run_id: REQUIRED
+  exact_checkout_commit: REQUIRED
+  test_commands_and_counts: REQUIRED
+  migration_0001_0005_sha_results: REQUIRED
+  expired_same_epoch_heartbeat_result: REQUIRED
+  stale_unknown_non_resurrection_result: REQUIRED
+  expired_lease_terminalization_result: REQUIRED
+  takeover_old_epoch_results: REQUIRED
+  governed_long_command_lease_result: REQUIRED
+  concurrency_fixture_isolation_result: REQUIRED
+  security_and_authority_findings: REQUIRED
+  canonical_side_effect_check: REQUIRED
+  exclusions_preserved: REQUIRED
+  explicit_verdict: REQUIRED
+  independent_validation_pass_boolean: REQUIRED
+  finding_closure_recommendation: REQUIRED
+  live_execution_authorized_boolean: REQUIRED_FALSE
+  postgresql_operational_sot_authorized_boolean: REQUIRED_FALSE
+  controlled_cutover_authorized_boolean: REQUIRED_FALSE

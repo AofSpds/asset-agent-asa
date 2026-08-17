@@ -1,0 +1,110 @@
+control_id: AAA-v1-ARCHITECTURE-REVISION-TRANSITION-CONTROL
+version: v0.1_OWNER-APPROVED
+project: Asset Agent ASA
+recorded_at: '2026-08-16T08:42:00+09:00'
+owner_scope_status: APPROVED
+owner_selected_profile: BALANCED_V1
+exact_contract_freeze: NOT_YET
+implementation_authorization: NOT_YET
+production_release_authorized: false
+controlled_cutover_authorized: false
+postgresql_operational_sot_authorized: false
+live_execution_authorized: false
+
+source:
+  document_title: AAA v1 ARCHITECTURE REVISION PROPOSAL v0.1
+  date: '2026-08-16'
+  transport: owner_supplied_attachment
+  persistent_full_source_bytes_registered: false
+  note: This control record persists the approved direction and transition semantics; exact contract artifacts are created during reconciliation.
+
+transition_gate:
+  bounded_t19_closeout_required_first: true
+  t19_revalidation_run: RUN-VALIDATION-AAA-T19-INDEPENDENT-20260816-002
+  t19_revalidation_result: control/aaa/results/RESULT-VALIDATION-AAA-T19-INDEPENDENT-20260816-002.json
+  t19_revalidation_verdict: PASS
+  t19_p0_finding_closed: true
+  pause_new_semantic_engineering_after_t19_closeout: true
+  next_controlled_activity: AAA_V1_ARCHITECTURE_REVISION_RECONCILIATION
+  t20_assumed: false
+
+preservation:
+  rewrite_t18_t19_historical_commits: false
+  rewrite_historical_results_runs_findings: false
+  rewrite_migrations_0001_to_0005: false
+  recovery_is_not_rematerialization: true
+  successor_db_changes_forward_only: true
+  expected_next_migration_number_floor: 6
+
+balanced_v1_direction:
+  semantic_core: STRONG
+  generic_infrastructure: THIN
+  defer_implementation_is_not_defer_extensibility: true
+  freeze_concept_is_not_freeze_all_details: true
+  avoid_overengineering: true
+  avoid_underdesign: true
+  avoid_overfreeze: true
+
+freeze_now_candidates:
+  - A01_MINIMUM_PIT_TIME_SEMANTICS
+  - A03_LOGICAL_RUN_RUNATTEMPT_IDENTITY
+  - A05_SCHEMA_FAMILY_VERSIONING_PRINCIPLE
+  - A06_MINIMUM_ACTUAL_SOURCE_PROVENANCE
+  - A07_MINIMUM_PROJECT_NAMESPACE_CANONICAL_IDENTITY
+  - A08_FAIL_CLOSED_CROSS_STORE_PROMOTION_CONTRACT
+  - A10_ACTOR_NOT_AUTHORITY_SEMANTIC_BOUNDARY
+  - EXACT_TARGET_BINDING_FOR_AUTHORITY_BEARING_APPROVALS
+
+freeze_concept_only:
+  - A02_NARROW_GLOBAL_INVARIANT_CONTRACT
+  - A04_FAILURE_RETRY_CLASSIFICATION
+  - CANCELLATION_TIMEOUT_MODEL
+  - PARTIAL_CHECKPOINT_BOUNDARY
+  - COMPATIBLE_VERSION_SET_RELEASE_MANIFEST
+  - A09_PROVIDER_NEUTRAL_RESTORE_CONTRACT
+  - A11_COMMAND_WORKFLOW_BOUNDARY
+  - A12_EVENT_READY_OPERATIONAL_HISTORY
+
+keep_existing_implementation:
+  - POSTGRESQL_WORK_QUEUE
+  - WORKER_RUNTIME
+  - CLAIM_LEASE_FENCING
+  - EXECUTION_PROFILE
+  - API_CLI_OWNER_CONSOLE
+  - ATOMIC_NONCANONICAL_RESULT
+
+reconcile_before_further_semantic_build:
+  - LOGICAL_RUN_RUNATTEMPT_RELATION
+  - RETRY_OF_RUN_ID_SEMANTICS
+  - EXECUTION_TASK_RUN_CARDINALITY
+  - FAILURE_RETRY_SEMANTICS
+  - TIMEOUT_CANCELLATION_RESULT_REASON_SEMANTICS
+
+reconciliation_phases:
+  R0: CURRENT_BOUNDED_T19_CLOSEOUT_COMPLETE
+  R1: EXACT_BASELINE_CAPTURE
+  R2: ARCHITECTURE_DELTA_ANALYSIS_NO_CODE_MUTATION
+  R3: EXACT_CONTRACT_DESIGN
+  R4: CORE_A_CORE_B_SHARED_CONTRACT_RECONCILIATION
+  R5: PROJECT_OWNER_EXACT_FREEZE_DECISION
+
+shared_contract_rule:
+  core_a: SEMI-CONTROL-ARCHITECT
+  core_b: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+  unilateral_shared_contract_freeze_prohibited: true
+
+explicitly_not_authorized:
+  - KAFKA_OR_PULSAR_BASELINE
+  - KUBERNETES_BASELINE
+  - GENERIC_DISTRIBUTED_SCHEDULER
+  - GENERIC_POLICY_ENGINE
+  - WORKFLOW_DSL_OR_ENGINE
+  - EVENT_SOURCING_OR_CQRS_FRAMEWORK
+  - SAGA_OR_2PC_PLATFORM
+  - ENTERPRISE_IAM_PLATFORM
+  - SAAS_MULTITENANCY_PLATFORM
+  - AUTOMATED_DR_PLATFORM
+  - LIVE_CANONICAL_WORKER_EXECUTION
+  - POSTGRESQL_OPERATIONAL_SOT_CUTOVER
+  - PRODUCTION_RELEASE
+  - P10_CONTROLLED_CUTOVER

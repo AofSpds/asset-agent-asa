@@ -1,0 +1,65 @@
+work_order_id: WO-AAA-v1-E3-AUTHORITY-DECISION-PROVENANCE-EVENT-20260816
+project: Asset Agent ASA
+phase: AAA_V1_SUCCESSOR_ENGINEERING
+tranche: E3_AUTHORITY_DECISION_PROVENANCE_EVENT
+issued_at: '2026-08-16T18:36:00+09:00'
+status: APPROVED_FOR_BOUNDED_ENGINEERING
+requesting_control: AAA_BUILD_CONTROL
+responsible_persona: SEMI-CONTROL-ARCHITECT
+owner_authorization:
+  decision_id: DECISION-AAA-v1-SUCCESSOR-ENGINEERING-AUTHORIZATION-20260816-001
+  exact_scope_sha256: fe1ff488e62bb500f520f395ce64f5428cbc384eb5cadc611f949ee46f8a66ac
+frozen_semantic_basis:
+  freeze_manifest: control/aaa/architecture/AAA-v1-R5-EXACT-FREEZE-MANIFEST_v1.0_FROZEN.json
+  frozen_r4_sha256: 27f093555d5934f79a8501ef3426a0ade4d02d64370cc98a0cb0ea801e4ea01f
+prerequisites:
+  e1_result: control/aaa/results/RESULT-AAA-v1-E1-IDENTITY-TIME-SCHEMA-20260816-001.json
+  e2_result: control/aaa/results/RESULT-AAA-v1-E2-LOGICAL-RUN-RUNATTEMPT-20260816-001.json
+  e2_integrated_successor: 0c56fe7855e6083ae0d96b570bb5f3f020079911
+repository: AofSpds/asset-agent-asa
+integration_branch: aaa-integration-v0.2
+engineering_branch: aaa-v1-e3-authority-decision-provenance-event
+scope:
+  required:
+    - structural ActorRef and AuthorityRef separation
+    - standalone append-only Exact-Target Decision Receipt successor contract
+    - exact target identity rejects floating latest, branch-name-only, mutable aliases
+    - revocation/supersession appends new receipt and never mutates prior receipt
+    - Execution Provenance Receipt bound to Logical Run and RunAttempt
+    - governed execution source requires clean working tree and mechanical commit/tree/profile/config/input identity verification
+    - exact commit alone is insufficient provenance
+    - Operational Event uses typed project namespace, event family, aggregate identity, sequence, actor, authority, scoped idempotency and payload hash
+    - idempotency uniqueness scoped by project_namespace + producer_or_actor_scope + event_family + key
+    - sequence uniqueness scoped to aggregate
+    - duplicate canonical operational event identity with materially different payload fails closed
+    - Operational Event remains distinct from Economic Event
+    - Shared Contract promotion evidence can reference exact dual-core reconciliation/decision evidence without granting promotion authority
+    - forward-only PostgreSQL successor migration 0008+
+    - deterministic and PostgreSQL adversarial tests
+  prohibited:
+    - migrations 0001-0007 rewrite
+    - historical T17/T18/T19 rematerialization
+    - worker/service/CI capability becoming governance authority
+    - dirty governed execution
+    - floating target approval
+    - economic-event schema replacement or conflation with operational events
+    - model Feature/Scorer/Weight/Ranking/Backtest methodology change
+    - PostgreSQL Operational SoT cutover
+    - live worker enablement
+    - controlled cutover or production release
+acceptance:
+  - actor identity never substitutes for authority source/scope
+  - same underlying identity may be actor and authority only through separately populated semantic records
+  - approval target X cannot authorize target Y
+  - revoke/supersede preserves prior Decision Receipt bytes
+  - dirty execution provenance fails closed
+  - provenance exact commit/tree/profile/config/input must match bound Logical Run/execution evidence
+  - exact commit alone cannot construct complete governed provenance
+  - duplicate operational event canonical identity with different payload fails closed
+  - identical idempotency key in different typed scope is allowed; duplicate inside same scope fails closed
+  - aggregate sequence duplicate fails closed
+  - Independent Validation PASS cannot imply Owner Cutover/Release
+  - deterministic suite, PostgreSQL smoke/reconciliation/backup, Owner Console build pass
+result_requirement:
+  terminal_result_required: true
+  engineering_pass_is_not_independent_validation_pass: true

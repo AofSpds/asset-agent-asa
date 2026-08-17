@@ -1,0 +1,31 @@
+activation_id: AAA-WAVE5-ACTIVATION
+version: v0.1_WORKING
+project: Asset Agent ASA
+short_name: AAA
+status: ACTIVATED_PARALLEL
+pre_activation_exact_base: da5a2b6572a5a087ebfb2059a450609af60f5405
+branch_creation_exact_base: 6ba8d5637041605b9e15dcc00ca696825e92cd67
+tracks:
+  AAA-T15-NATURAL-LANGUAGE-NONCANONICAL:
+    objective: Convert natural-language requests through the provider gateway into immutable candidate Work Intent envelopes, then require deterministic confirmation before producing a noncanonical Work Order draft. Language/model output must never mutate Current State, Ground Truth, Shared Contracts, model freeze, release or canonical artifacts.
+    ownership:
+      - aaa/src/aaa/nl/**
+      - aaa/tests/test_nl_*.py
+    permission: LEVEL_2_ISOLATED_BRANCH_WRITE
+    canonical_write: PROHIBITED
+    llm_off_control_plane_must_remain_operational: true
+  AAA-T16-SHADOW-CYCLE-HARNESS:
+    objective: Build repeatable shadow observation cycles over bound Current State/discrepancy identities, detect stale or divergent observations, preserve immutable cycle evidence and explicitly carry the known full-history continuity collision as an external blocker instead of repairing it.
+    ownership:
+      - aaa/src/aaa/state/shadow_cycle.py
+      - aaa/tests/test_shadow_cycle_*.py
+    permission: LEVEL_2_ISOLATED_BRANCH_WRITE
+    canonical_write: PROHIBITED
+    historical_event_collision_repair: PROHIBITED
+file_ownership_overlap: NONE_BY_CONTRACT
+independent_validation_claim: PROHIBITED
+cutover_claim: PROHIBITED
+next_after_engineering:
+  - EXACT_BASE_COMBINED_INTEGRATION_TEST
+  - INDEPENDENT_VALIDATION_PREPARATION
+  - REAL_SHADOW_OPERATION_ONLY_WITH_GOVERNED_BOUND_INPUT_IDENTITIES

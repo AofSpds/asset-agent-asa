@@ -1,0 +1,87 @@
+registry_id: SEMI-CHANNEL-REGISTRY
+version: v1.4
+status: WORKING_OWNER_APPROVED_CURRENT_OPERATING_STRUCTURE
+project: semiconductor-research
+as_of: '2026-08-17T01:25:00+09:00'
+supersedes: control/continuity/v1.0/SEMI-CHANNEL-REGISTRY_v1.3.yaml
+
+channel_model:
+  principle: CHANNEL_IS_EPHEMERAL_EXECUTION_INSTANCE_NOT_PERSONA
+  lifecycle_states: [ACTIVE, ROTATING, CLOSED, ARCHIVED, RECOVERY_ONLY, PLANNED]
+  channel_may_exist_without_persona_binding: true
+  channel_does_not_create_persona_authority: true
+
+current_structure:
+  project_owner_authority_holder: PROJECT_OWNER
+  core_a_persona_exists: true
+  core_a_dedicated_active_channel: false
+  builder_controller_is_persona: false
+  adviser_is_persona: false
+  source_basis: PROJECT_OWNER_APPROVED_CURRENT_OPERATING_STRUCTURE_20260817
+
+instances:
+  - channel_instance_id: CTRL-ARCH-INSTANCE-004-20260815
+    persona_id: SEMI-CONTROL-ARCHITECT
+    channel_type: PERSONA_CHANNEL
+    display_name: M3Top3 문서·통제 아키텍트 predecessor
+    status: CLOSED
+    role: historical control architect channel
+    predecessor: CTRL-ARCH-LEGACY-BOOTSTRAP-20260815
+    successor: CTRL-ARCH-INSTANCE-005-20260816
+    start_checkpoint: CP-CTRL-20260815-GENESIS-001
+    end_checkpoint: CP-CTRL-20260816-ROTATION-001
+
+  - channel_instance_id: CTRL-ARCH-INSTANCE-005-20260816
+    persona_id: SEMI-CONTROL-ARCHITECT
+    channel_type: PERSONA_CHANNEL
+    display_name: M3Top3 문서·통제 아키텍트5
+    status: CLOSED
+    role: historical successor control architect channel
+    closure_basis: PROJECT_OWNER_CURRENT_STRUCTURE_NO_DEDICATED_CORE_A_CHANNEL_20260817
+    current_disposition: NOT_INSTANTIATED
+    start_checkpoint: CP-CTRL-20260816-ROTATION-001
+    end_checkpoint: null
+
+  - channel_instance_id: MODEL-ARCH-INSTANCE-002-20260815
+    persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+    channel_type: PERSONA_CHANNEL
+    display_name: M3Top3 모델 검증 설계 아키텍트2
+    status: ACTIVE
+    role: model / feature / scorer / weight / ranking / validation methodology
+    authority_relation: PERSONA_RESPONSIBILITY
+    current_workstream: M3TOP3_SCIENTIFIC_VALIDATION
+
+  - channel_instance_id: VALID-AUDIT-INSTANCE-001-20260816
+    persona_id: SEMI-VALIDATION-AUDITOR
+    channel_type: VALIDATION
+    display_name: M3Top3 독립 검증·감사팀
+    status: ACTIVE
+    role: independent validation / audit / adversarial review
+    authority_relation: VALIDATION_AUDIT
+    current_workstream: INDEPENDENT_VALIDATION
+
+  - channel_instance_id: AAA-ADVISER-CHANNEL-20260817-001
+    persona_id: null
+    channel_type: ADVISORY
+    display_name: AAA ADVISER
+    status: ACTIVE
+    role: Owner advisory / agenda / architecture and priority review
+    authority_relation: ADVISORY_DECISION_SUPPORT_ONLY
+    current_workstream: AAA_OPERATIONALIZATION
+
+  - channel_instance_id: AAA-BUILDER-CONTROLLER-20260817-001
+    persona_id: null
+    channel_type: CONTROLLER
+    display_name: AAA BUILDER CONTROLLER
+    status: ACTIVE
+    role: implementation / repository / Control integration / engineering orchestration / evidence packaging
+    authority_relation: OWNER_BOUND_IMPLEMENTATION_SCOPE_ONLY
+    current_workstream: AAA_OPERATIONALIZATION
+
+rules:
+  - ACTIVE_CHANNEL_NE_FORMAL_PERSONA
+  - CHANNEL_WITHOUT_PERSONA_BINDING_HAS_NO_PERSONA_AUTHORITY
+  - VALIDATION_CHANNEL_MUST_NOT_BE_IMPLEMENTER_INSTANCE
+  - CHANNEL_ROTATION_DOES_NOT_CHANGE_PROJECT_SEMANTICS
+  - RETURN_PACKET_IS_TRANSPORT_NOT_SOURCE_OF_TRUTH
+  - NO_ACTIVE_CHANNEL_BINDING_MUST_NOT_BE_INFERRED_FROM_CHAT_HISTORY

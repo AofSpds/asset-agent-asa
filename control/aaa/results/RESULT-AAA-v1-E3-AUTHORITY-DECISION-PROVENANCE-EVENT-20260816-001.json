@@ -1,0 +1,95 @@
+{
+  "result_id": "RESULT-AAA-v1-E3-AUTHORITY-DECISION-PROVENANCE-EVENT-20260816-001",
+  "project": "Asset Agent ASA",
+  "result_type": "SUCCESSOR_ENGINEERING_TRANCHE",
+  "tranche": "E3_AUTHORITY_DECISION_PROVENANCE_EVENT",
+  "work_order_id": "WO-AAA-v1-E3-AUTHORITY-DECISION-PROVENANCE-EVENT-20260816",
+  "run_id": "RUN-AAA-v1-E3-AUTHORITY-DECISION-PROVENANCE-EVENT-20260816-001",
+  "repository": "AofSpds/asset-agent-asa",
+  "engineering_branch": "aaa-v1-e3-authority-decision-provenance-event",
+  "exact_base_commit": "0fb2f64c864fbc1804f8193fc96b64cc63222bda",
+  "integrated_successor_commit": "afd9b789f907399ee50b1d94f3e131b73566e06f",
+  "pull_request": 36,
+  "owner_authorization_decision": "DECISION-AAA-v1-SUCCESSOR-ENGINEERING-AUTHORIZATION-20260816-001",
+  "exact_engineering_scope_sha256": "fe1ff488e62bb500f520f395ce64f5428cbc384eb5cadc611f949ee46f8a66ac",
+  "frozen_semantic_target_sha256": "27f093555d5934f79a8501ef3426a0ade4d02d64370cc98a0cb0ea801e4ea01f",
+  "implementation": {
+    "governance_semantics_module": "aaa/src/aaa/core/governance_v1.py",
+    "dependency_bound_logical_run_module": "aaa/src/aaa/core/execution_v1.py",
+    "actor_authority_contract": "aaa/contracts/actor_authority_refs_v1.schema.json",
+    "exact_target_decision_contract": "aaa/contracts/exact_target_decision_receipt_v1.schema.json",
+    "execution_provenance_contract": "aaa/contracts/execution_provenance_receipt_v1.schema.json",
+    "operational_event_contract": "aaa/contracts/operational_event_v1.schema.json",
+    "dependency_bound_logical_run_successor_contract": "aaa/contracts/logical_run_v1_1.schema.json",
+    "successor_migration": "aaa/db/migrations/0008_balanced_v1_authority_provenance_event.sql",
+    "migration_0008_sha256": "58455f35e83852330b8933444dd5d4deb8fc730e7d8e48f965e998688b096de6",
+    "historical_migrations_0001_0007_rewritten": false,
+    "historical_t17_t18_t19_rematerialized": false,
+    "postgresql_authoritative": false,
+    "live_successor_execution_authorized": false
+  },
+  "e2_finding_remediation": {
+    "finding_id": "AAA-v1-E2-FND-01-DEPENDENCY-LOCK-OMISSION",
+    "remediation": "PASS",
+    "dependency_lock_refs_in_exact_execution_spec_hash": true,
+    "dependency_lock_refs_in_logical_run_successor_contract": true,
+    "dependency_lock_refs_persisted_forward_only_in_migration_0008": true,
+    "provenance_mechanically_verifies_dependency_locks": true,
+    "migration_0007_rewritten": false
+  },
+  "acceptance": {
+    "actor_authority_structural_separation": "PASS",
+    "floating_target_rejected": "PASS",
+    "approval_x_does_not_authorize_y": "PASS",
+    "revocation_supersession_append_only": "PASS",
+    "dirty_governed_provenance_rejected": "PASS",
+    "commit_tree_profile_config_input_dependency_provenance_bound": "PASS",
+    "dependency_lock_change_requires_new_logical_run": "PASS",
+    "operational_event_exact_reappend_idempotent": "PASS",
+    "operational_event_identity_collision_different_payload_rejected": "PASS",
+    "idempotency_scoped_not_global": "PASS",
+    "aggregate_sequence_unique": "PASS",
+    "operational_event_distinct_from_economic_event": "PASS"
+  },
+  "ci": {
+    "branch_ci": 31939814883,
+    "pull_request_ci": 31939862152,
+    "post_merge_ci": 31939895426,
+    "deterministic_tests": {
+      "test_count": 198,
+      "pass_count": 198,
+      "fail_count": 0,
+      "error_count": 0
+    },
+    "postgresql_migrations_0001_0008_and_smokes": "PASS",
+    "t18_concurrent_lease_single_winner": "PASS",
+    "t19_two_worker_claim_single_winner": "PASS",
+    "json_postgresql_shadow_reconciliation": "PASS",
+    "local_backup_restore_drill": "PASS",
+    "owner_console_locked_install_build": "PASS"
+  },
+  "engineering_adjudication": {
+    "engineering_pass": true,
+    "independent_validation_required": true,
+    "independent_validation_pass": false,
+    "manual_github_bridge": true,
+    "running_confirmed_fabricated": false
+  },
+  "authority_boundary": {
+    "engineering_only": true,
+    "shared_contract_promotion_authorized": false,
+    "postgresql_operational_sot_authorized": false,
+    "live_execution_authorized": false,
+    "controlled_cutover_authorized": false,
+    "production_release_authorized": false,
+    "production_canonical_promotion_authorized": false
+  },
+  "non_interference": {
+    "model_feature_scorer_weight_ranking_backtest_changed": false,
+    "future_outcome_used_to_repair_historical_pit": false,
+    "p09_second_rerun_status_inferred": false,
+    "t18_independent_validation_status_inferred": false
+  },
+  "verdict": "PASS",
+  "completed_at": "2026-08-16T18:47:00+09:00"
+}

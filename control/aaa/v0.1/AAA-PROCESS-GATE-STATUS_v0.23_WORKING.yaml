@@ -1,0 +1,123 @@
+control_id: AAA-PROCESS-GATE-STATUS
+version: v0.23_WORKING
+project: Asset Agent ASA
+recorded_at: '2026-08-16T19:16:00+09:00'
+supersedes: control/aaa/v0.1/AAA-PROCESS-GATE-STATUS_v0.22_WORKING.yaml
+purpose: >-
+  Authoritative working snapshot after the Owner-authorized Balanced-v1 E4 tranche was integrated,
+  post-merge deterministic/PostgreSQL/Owner Console regression completed successfully, and the E4
+  Engineering Run was terminalized PASS without fabricating governed worker ACK/start/heartbeat.
+  All four authorized successor engineering tranches E1-E4 are now engineering-complete. This is
+  not Independent Validation PASS and does not authorize PostgreSQL Operational SoT, live execution,
+  production canonical promotion, Controlled Cutover, or Production Release.
+
+current_position:
+  current_controlled_activity: AAA_V1_SUCCESSOR_INDEPENDENT_VALIDATION_PREPARATION
+  successor_engineering_authorization_state: CLOSED_APPROVED
+  implementation_authorized: true
+  successor_engineering_state: COMPLETED_ENGINEERING_PASS
+  independent_validation_state: READY_NOT_DISPATCHED
+  t20_assumed: false
+
+owner_engineering_authorization:
+  decision_id: DECISION-AAA-v1-SUCCESSOR-ENGINEERING-AUTHORIZATION-20260816-001
+  exact_scope_sha256: fe1ff488e62bb500f520f395ce64f5428cbc384eb5cadc611f949ee46f8a66ac
+  authority: PROJECT_OWNER
+
+frozen_semantic_basis:
+  frozen_r4_sha256: 27f093555d5934f79a8501ef3426a0ade4d02d64370cc98a0cb0ea801e4ea01f
+  freeze_manifest: control/aaa/architecture/AAA-v1-R5-EXACT-FREEZE-MANIFEST_v1.0_FROZEN.json
+
+engineering:
+  E1_IDENTITY_TIME_SCHEMA_FOUNDATION:
+    state: COMPLETED_PASS
+    integrated_successor: ba45890d8777eb90622318467a50a1bbb888c9ca
+    independent_validation_pass: false
+  E2_LOGICAL_RUN_RUNATTEMPT_EXECUTION_SEMANTICS:
+    state: COMPLETED_PASS_WITH_FORWARD_REMEDIATION
+    integrated_successor: 0c56fe7855e6083ae0d96b570bb5f3f020079911
+    dependency_lock_finding: AAA-v1-E2-FND-01-DEPENDENCY-LOCK-OMISSION
+    finding_status: CLOSED_ENGINEERING_REMEDIATED_AWAITING_INDEPENDENT_VALIDATION
+    independent_validation_pass: false
+  E3_AUTHORITY_DECISION_PROVENANCE_EVENT:
+    state: COMPLETED_PASS
+    integrated_successor: afd9b789f907399ee50b1d94f3e131b73566e06f
+    pull_request: 36
+    independent_validation_pass: false
+  E4_VERSION_SET_PROMOTION_RESTORE_HARDENING:
+    state: COMPLETED_PASS
+    candidate_head: 7eb47e3d6d15dc82258811019e34189675fb5875
+    pull_request: 37
+    integrated_successor: 96234463cedaff2b7ec5d0ff49bec44684804b00
+    result: control/aaa/results/RESULT-AAA-v1-E4-VERSION-SET-PROMOTION-RESTORE-20260816-001.json
+    result_sha256: facb569bcdf9d05962072fb461081cffa1cebf9e2b29527f9ef85da0eb84281d
+    run_id: RUN-AAA-v1-E4-VERSION-SET-PROMOTION-RESTORE-20260816-001
+    run_state: COMPLETED_PASS
+    migration_0009_sha256: 86c4827a834e62d4319ba2a1c3c238320f095f3e2bbb199ff42f5c90e1e22ec2
+    branch_ci_run: 31940272507
+    pull_request_ci_run: 31941152083
+    postmerge_ci_run: 31941186718
+    deterministic_contract_tests: SUCCESS
+    postgres_contract_smoke: SUCCESS
+    owner_console_build_smoke: SUCCESS
+    independent_validation_pass: false
+
+migration_policy:
+  historical_0001_0005: IMMUTABLE
+  e1_0006: INTEGRATED_IMMUTABLE_SUCCESSOR
+  e2_0007: INTEGRATED_IMMUTABLE_SUCCESSOR
+  e3_0008: INTEGRATED_IMMUTABLE_SUCCESSOR
+  e4_0009: INTEGRATED_IMMUTABLE_SUCCESSOR
+  next_successor_migration_allowed_if_later_authorized: 10
+  postgresql_authoritative: false
+  json_registry_operational_authority_during_shadow: true
+
+balanced_v1_engineering_exact_target:
+  kind: INTEGRATED_SUCCESSOR_ENGINEERING_TARGET
+  commit: 96234463cedaff2b7ec5d0ff49bec44684804b00
+  note: Later control-only commits do not move the engineering target for Independent Validation.
+
+hard_boundaries:
+  engineering_pass_is_not_independent_validation_pass: true
+  independent_validation_pass_is_not_owner_cutover_authorization: true
+  compatible_version_set_must_be_exact_not_latest: true
+  canonical_pointer_update_must_be_last_after_verified_promotion: true
+  partial_multi_store_promotion_must_fail_closed: true
+  restore_created_is_not_restore_verified: true
+  restore_verified_is_not_postgresql_sot_cutover: true
+  no_silent_dual_authority: true
+  no_historical_t17_t18_t19_rematerialization: true
+  no_model_feature_scorer_weight_ranking_backtest_change: true
+
+not_authorized:
+  postgresql_operational_sot_cutover: true
+  live_worker_execution_enablement: true
+  production_canonical_promotion: true
+  controlled_cutover: true
+  production_release: true
+
+pending_existing_governed_work:
+  p09_second_rerun:
+    run_id: RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-002
+    state: DISPATCHED_AWAITING_ACK
+  t18_independent_validation:
+    run_id: RUN-VALIDATION-AAA-T18-INDEPENDENT-20260816-001
+    state: DISPATCHED_AWAITING_ACK
+
+next_gate:
+  phase: AAA_V1_SUCCESSOR_INDEPENDENT_VALIDATION
+  state: READY_NOT_DISPATCHED
+  exact_engineering_target: 96234463cedaff2b7ec5d0ff49bec44684804b00
+  validator: SEMI-VALIDATION-AUDITOR
+  requirements:
+    - exact target binding
+    - migration 0001-0009 SHA integrity
+    - E1-E4 frozen semantic acceptance
+    - adversarial Logical Run/RunAttempt and retry identity tests
+    - PIT information-time firewall tests
+    - dirty source/provenance fail-closed tests
+    - exact-target Decision Receipt mutation tests
+    - partial-versus-terminal tests
+    - promotion fail-closed tests
+    - restore authority separation tests
+    - legacy T17/T18/T19 non-rematerialization tests

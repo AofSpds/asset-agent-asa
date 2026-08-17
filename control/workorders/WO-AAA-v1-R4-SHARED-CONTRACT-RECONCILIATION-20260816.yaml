@@ -1,0 +1,83 @@
+work_order_id: WO-AAA-v1-R4-SHARED-CONTRACT-RECONCILIATION-20260816
+project: Asset Agent ASA
+phase: R4_SHARED_CONTRACT_RECONCILIATION
+requesting_authority: PROJECT_OWNER
+requesting_control: AAA_BUILD_CONTROL
+state: DISPATCHED_AWAITING_ACK
+created_at: '2026-08-16T09:08:00+09:00'
+repository: AofSpds/asset-agent-asa
+branch_context: aaa-integration-v0.2
+target_binding: control/aaa/architecture/AAA-v1-R4-SHARED-CONTRACT-RECONCILIATION-TARGET-BINDING_v0.1_WORKING.yaml
+
+required_participants:
+  CORE_A:
+    persona_id: SEMI-CONTROL-ARCHITECT
+    role: DATA_GROUND_TRUTH_PIT_ARTIFACT_CONTROL_CONTINUITY_AUTHORITY
+    position_run_id: RUN-AAA-v1-R4-COREA-POSITION-20260816-001
+  CORE_B:
+    persona_id: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+    role: MODEL_FEATURE_SCORER_WEIGHT_RANKING_VALIDATION_METHODOLOGY_AUTHORITY
+    position_run_id: RUN-AAA-v1-R4-COREB-POSITION-20260816-001
+
+objective: >-
+  Reconcile the exact R3 Balanced v1 Shared Contract intersection without changing implementation, migrations, model semantics, frozen historical artifacts, or existing Shared Contract semantics silently. Produce distinct CORE A and CORE B positions and one reconciled candidate only when both positions are materially evidenced.
+
+mandatory_scope:
+  - A01_TIME_SEMANTICS
+  - A03_LOGICAL_RUN_RUNATTEMPT_SHARED_REFERENCE_IMPACT
+  - A05_SCHEMA_FAMILY_VERSIONING
+  - A06_EXECUTION_SOURCE_PROVENANCE_WHERE_MODEL_REPLAY_INPUTS_APPLY
+  - A07_PROJECT_NAMESPACE_CANONICAL_IDENTITY_WHERE_CROSS_DOMAIN_REFS_APPLY
+  - A10_ACTOR_AUTHORITY_INTERSECTION_FOR_SHARED_CONTRACT_PROMOTION
+  - EXACT_TARGET_DECISION_RECEIPT
+  - COMPATIBLE_VERSION_SET_RELEASE_MANIFEST
+
+required_position_fields_per_item:
+  - position
+  - reason
+  - exact_reconciled_text_or_requested_modification
+  - impact_on_existing_shared_contract
+  - version_impact
+  - implementation_impact
+
+required_adversarial_cases:
+  - FACT_EXISTS_BEFORE_PUBLIC_EVIDENCE_AVAILABLE
+  - APPROVED_TARGET_X_BRANCH_MOVES_TO_Y
+  - SAME_SPEC_INFRASTRUCTURE_TIMEOUT_RETRY
+  - RETRY_AFTER_MATERIAL_SPEC_CHANGE
+  - WORKER_EXECUTES_WITHOUT_GOVERNANCE_AUTHORITY
+  - PARTIAL_350_OF_400_NOT_TERMINAL_PASS
+  - SAME_ID_STRING_DIFFERENT_NAMESPACE_NO_MERGE
+  - LEGACY_T19_RUN_NO_SYNTHETIC_RUNATTEMPT
+  - LATER_REPLAY_TIMESTAMP_NOT_HISTORICAL_AVAILABILITY_PROOF
+  - INDEPENDENT_VALIDATION_PASS_NOT_CUTOVER_AUTHORIZATION
+
+repository_permissions:
+  repository: READ_ONLY_FOR_RECONCILIATION
+  branch_write: PROHIBITED_FOR_RECONCILERS
+  pull_request_write: PROHIBITED_FOR_RECONCILERS
+  migration_write: PROHIBITED
+  implementation_write: PROHIBITED
+  frozen_artifact_write: PROHIBITED
+  model_change: PROHIBITED
+  shared_contract_promotion: PROHIBITED
+  owner_exact_freeze: PROHIBITED
+
+prohibited:
+  - fabricate the other Core position
+  - treat prior 9_of_9 general agreement as acceptance of new R3 semantics
+  - overwrite SEMI-SHARED-CONTRACT-STATE_v0.5_WORKING
+  - rewrite historical Runs Results Findings or migrations 0001 through 0005
+  - change Feature Scorer Weight Ranking Backtest methodology
+  - infer PASS FAIL or running for pending P09 or T18 validation Runs
+  - authorize live execution PostgreSQL Operational SoT controlled cutover or production release
+
+completion_gate:
+  both_core_positions_required: true
+  unresolved_semantic_conflict_must_equal: 0
+  exact_r3_input_binding_required: true
+  owner_decision_items_must_be_explicit: true
+  implementation_authorization_must_remain_false: true
+
+return_contract: >-
+  Each Core returns its own evidence-bound position. AAA BUILD CONTROL adjudicates only after both are received. If either is missing, R4 remains BLOCKED_MISSING_CORE_POSITION / DISPATCHED_AWAITING_ACK and R5 is not ready.

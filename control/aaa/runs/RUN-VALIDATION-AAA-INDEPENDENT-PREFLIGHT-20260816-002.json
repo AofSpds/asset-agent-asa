@@ -1,0 +1,24 @@
+{
+  "run_id": "RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-002",
+  "process_id": "P09-INDEPENDENT-VALIDATION",
+  "work_order_id": "WO-VALIDATION-AAA-v0.3-INDEPENDENT-PREFLIGHT-RERUN-20260816",
+  "responsible_persona": "SEMI-VALIDATION-AUDITOR",
+  "executor_role": "PREVALIDATION_CHECK",
+  "state": "DISPATCHED_AWAITING_ACK",
+  "repository": "AofSpds/asset-agent-asa",
+  "exact_base_commit": "30fdb278c218b24e44d66eb5f47935a196dc4f8c",
+  "branch": "aaa-integration-v0.2",
+  "started_at": null,
+  "last_heartbeat_at": null,
+  "stale_after_seconds": 7200,
+  "canonical_output": false,
+  "terminal_result": null,
+  "notes": [
+    "Second P09 Independent Validation rerun dispatched after bounded T17 remediation engineering integration.",
+    "Exact validation target is 30fdb278c218b24e44d66eb5f47935a196dc4f8c; later branch/control commits must not replace this target.",
+    "Predecessor failed target 80378610f9ac9e688c52417f0416e01c057400a7 remains preserved for audit.",
+    "Engineering remediation reproduced 115/115 plus Owner Console locked install/build PASS, but this is not Independent Validation PASS.",
+    "RUNNING_CONFIRMED must not be claimed until SEMI-VALIDATION-AUDITOR records actual start and heartbeat evidence.",
+    "Controlled Cutover and Production Release remain unauthorized."
+  ]
+}

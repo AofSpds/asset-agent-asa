@@ -1,0 +1,9 @@
+intent_id: AAA-WAVE2-BRANCH-INTENT
+version: v0.1_WORKING
+project: Asset Agent ASA
+short_name: AAA
+exact_base: 98ce04305890208087fb13d187de5be0f0f2acb5
+branches:
+  - aaa-t09-dependency-lock-v0
+  - aaa-t10-shadow-lineage-v0
+file_ownership_overlap: NONE_BY_CONTRACT

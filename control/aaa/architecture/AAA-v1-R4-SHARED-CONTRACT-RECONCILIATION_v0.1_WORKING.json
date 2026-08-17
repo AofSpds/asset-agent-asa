@@ -1,0 +1,229 @@
+{
+  "control_id": "AAA-v1-R4-SHARED-CONTRACT-RECONCILIATION",
+  "version": "v0.1_WORKING",
+  "project": "Asset Agent ASA",
+  "phase": "R4_SHARED_CONTRACT_RECONCILIATION",
+  "recorded_at": "2026-08-16T17:13:00+09:00",
+  "status": "DUAL_CORE_RECONCILED_READY_FOR_OWNER_EXACT_FREEZE",
+  "verdict": "DUAL_CORE_RECONCILED_READY_FOR_OWNER_EXACT_FREEZE",
+  "r5_ready": true,
+  "exact_inputs": {
+    "r1_commit": "a590717a2127b8ef4620d7933904868dd50c7396",
+    "r1_tree": "64d0cac8a91c9d0d9d3ca12f64123bc3c374ec97",
+    "r3_design_path": "control/aaa/architecture/AAA-v1-R3-EXACT-CONTRACT-DESIGN_v0.1_WORKING.yaml",
+    "r3_design_commit": "ecd1284e5d4c9ff8cb554f5bd0ef0521061ffcc0",
+    "r3_git_blob_sha": "0bd250584eb3c479369b3518311daaadc154cc7a",
+    "r4_target_binding": "control/aaa/architecture/AAA-v1-R4-SHARED-CONTRACT-RECONCILIATION-TARGET-BINDING_v0.1_WORKING.yaml"
+  },
+  "position_evidence": {
+    "core_a": {
+      "persona_id": "SEMI-CONTROL-ARCHITECT",
+      "run_id": "RUN-AAA-v1-R4-COREA-POSITION-20260816-001",
+      "artifact": "control/aaa/architecture/AAA-v1-R4-COREA-POSITION_v0.1_WORKING.json",
+      "artifact_sha256": "05052e934ed8c4bcd7c5b4df14d37feef40447301700e23df0611d0f78ddfc1b",
+      "artifact_byte_size": 5787,
+      "source_packet_sha256": "151f1d61aeb154d6f701be1ac4163d532049024f6035ebf4224b7e1ddaf035cb",
+      "source_packet_byte_size": 31823,
+      "terminal_result": "control/aaa/results/RESULT-AAA-v1-R4-COREA-POSITION-20260816-001.json"
+    },
+    "core_b": {
+      "persona_id": "SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT",
+      "run_id": "RUN-AAA-v1-R4-COREB-POSITION-20260816-001",
+      "artifact": "control/aaa/architecture/AAA-v1-R4-COREB-POSITION_v0.1_WORKING.json",
+      "artifact_sha256": "cf648b7e925fd1c5609a46325469e32764783f190be2c7b12d3d7ad2b3ab791e",
+      "artifact_byte_size": 5494,
+      "source_packet_sha256": "29c040f18aaa54749b5dccae7708ae91c6e56b55779c7ede7c42cbab2d608f69",
+      "source_packet_byte_size": 35998,
+      "terminal_result": "control/aaa/results/RESULT-AAA-v1-R4-COREB-POSITION-20260816-001.json"
+    }
+  },
+  "reconciliation_summary": {
+    "mandatory_items": 8,
+    "agreed_items": 8,
+    "unresolved_semantic_conflicts": 0,
+    "owner_decision_items": [],
+    "existing_9_of_9_shared_contracts_reopened": false,
+    "existing_9_of_9_shared_contracts_semantics_preserved": true,
+    "feature_definition_changed": false,
+    "scorer_math_changed": false,
+    "weights_changed": false,
+    "ranking_contract_changed": false,
+    "backtest_methodology_changed": false,
+    "historical_t17_t18_t19_rewritten": false,
+    "migrations_0001_0005_rewritten": false
+  },
+  "items": {
+    "A01_TIME_SEMANTICS": {
+      "core_a": "ACCEPT_WITH_MODIFICATION",
+      "core_b": "ACCEPT_WITH_MODIFICATION",
+      "reconciled_position": "AGREED_WITH_MODIFICATION",
+      "impact": "COMPATIBLE_EXTENSION",
+      "version_impact": "NEW_WORKING_VERSION_REQUIRED",
+      "implementation_impact": "LATER_SUCCESSOR_ENGINEERING_REQUIRED",
+      "exact_reconciled_text": [
+        "TIME_SEMANTIC and CLOCK_OR_EVIDENCE_AUTHORITY are separate governed dimensions.",
+        "FACT_OR_EFFECTIVE_TIME does not establish model-input admissibility.",
+        "PUBLIC_EVIDENCE_AVAILABLE_TIME is represented as an exact time only when governed immutable evidence supports that precision.",
+        "When governed evidence supports only a cutoff condition, preserve the existing supported_cutoff_at provenance mode and do not invent exact publication or intraday time.",
+        "Historical model/replay admissibility requires publication_at <= snapshot_cutoff_at OR supported_cutoff_at <= snapshot_cutoff_at under immutable governed provenance.",
+        "RECORDED_TIME and EXECUTION_LIFECYCLE_TIME never prove earlier historical evidence availability.",
+        "FACT_EXISTED_AT_TIME != PUBLIC_EVIDENCE_AVAILABLE_AT_TIME.",
+        "Future Outcome, MFE, MAE, Return, Rank, future High/Close, later Replay output, or later validation output shall not modify/backfill historical Snapshot, Feature, Ground Truth input, Evidence, or PIT admissibility."
+      ]
+    },
+    "A03_RUN_RUNATTEMPT_SHARED_REFERENCE_IMPACT": {
+      "core_a": "ACCEPT_WITH_MODIFICATION",
+      "core_b": "ACCEPT_WITH_MODIFICATION",
+      "reconciled_position": "AGREED_WITH_MODIFICATION",
+      "impact": "COMPATIBLE_EXTENSION",
+      "version_impact": "NEW_WORKING_VERSION_REQUIRED",
+      "implementation_impact": "LATER_SUCCESSOR_ENGINEERING_REQUIRED",
+      "exact_reconciled_text": [
+        "Prospective scientific/business reproducibility identity references Logical Run.",
+        "Physical execution-realization evidence additionally references RunAttempt where material.",
+        "Worker, lease, claim, ACK, start, heartbeat, timeout, cancellation, retry realization, and physical runtime evidence belong to RunAttempt.",
+        "A retry may remain under the same Logical Run only when exact_execution_spec_hash is identical and governed retry policy authorizes a new RunAttempt.",
+        "Any material change to exact target, Work Order execution specification, execution profile, material dependency/lock, configuration, material input/dataset/snapshot, or execution-material model/schema identity requires a new Logical Run.",
+        "Historical T17/T18/T19 run_id and capture_run_id fields retain their original schema meaning.",
+        "Historical absence of run_attempt_id remains absence by legacy schema; synthetic historical RunAttempt generation is prohibited.",
+        "Legacy compatibility readers must label legacy Run semantics explicitly and must not silently reclassify them into Balanced-v1 Logical Run semantics."
+      ]
+    },
+    "A05_SCHEMA_FAMILY_VERSIONING": {
+      "core_a": "ACCEPT_WITH_MODIFICATION",
+      "core_b": "ACCEPT_WITH_MODIFICATION",
+      "reconciled_position": "AGREED_WITH_MODIFICATION",
+      "impact": "COMPATIBLE_EXTENSION",
+      "version_impact": "NEW_WORKING_VERSION_REQUIRED",
+      "implementation_impact": "LATER_SUCCESSOR_ENGINEERING_REQUIRED",
+      "exact_reconciled_text": [
+        "Governed schema families bind schema_family_id, schema_version, schema_status, compatibility_with_predecessor, and reader_policy.",
+        "Frozen schema bytes are immutable; breaking semantics require a successor schema_version.",
+        "Record/data correction or snapshot revision is not a schema-version change; model version and schema version remain independent.",
+        "DECLARED_COMPATIBLE_SET must resolve to exact machine-resolvable schema identities/versions or an immutable compatible-set identity.",
+        "Floating latest, filename similarity, field-shape similarity, or presumed compatibility are prohibited.",
+        "Compatibility may be directional and shall not be presumed symmetric.",
+        "Existing MIS-v1.0, VDI-v1.0, MARM-v1.0, SIO-v1.0, and PIT interface historical semantics remain preserved unless separately superseded through governed versioning."
+      ]
+    },
+    "A06_SOURCE_PROVENANCE": {
+      "core_a": "ACCEPT_WITH_MODIFICATION",
+      "core_b": "ACCEPT_WITH_MODIFICATION",
+      "reconciled_position": "AGREED_WITH_MODIFICATION",
+      "impact": "COMPATIBLE_EXTENSION",
+      "version_impact": "NEW_WORKING_VERSION_REQUIRED",
+      "implementation_impact": "LATER_SUCCESSOR_ENGINEERING_REQUIRED",
+      "exact_reconciled_text": [
+        "Governed Balanced-v1 dirty-working-tree execution is prohibited fail-closed.",
+        "Execution provenance binds stable repository identity, exact commit, git tree where material, working_tree_clean, execution profile identity/hash, dependency/lock identities, configuration hash, material inputs, applicable dataset/snapshot/model/schema identities, runtime identity, and mechanical verification evidence.",
+        "Repository identity must not depend only on a mutable display/repository name.",
+        "Exact commit alone is insufficient; commit/tree/actual checkout must be mechanically verified before governed start where material.",
+        "Material persisted inputs bind immutable identities and, where canonical/release bytes are material, available SHA256, byte size, persistent locator, and lineage.",
+        "Execution Source Provenance != Historical Evidence Provenance.",
+        "Execution timestamp, retrieval timestamp, commit identity, or clean-tree status does not establish historical evidence availability.",
+        "PIT-consumed values remain independently governed by PIT provenance and cutoff contracts."
+      ]
+    },
+    "A07_NAMESPACE_IDENTITY": {
+      "core_a": "ACCEPT_WITH_MODIFICATION",
+      "core_b": "ACCEPT_WITH_MODIFICATION",
+      "reconciled_position": "AGREED_WITH_MODIFICATION",
+      "impact": "COMPATIBLE_EXTENSION",
+      "version_impact": "NEW_WORKING_VERSION_REQUIRED",
+      "implementation_impact": "LATER_SUCCESSOR_ENGINEERING_REQUIRED",
+      "exact_reconciled_text": [
+        "Cross-domain references use a typed identity envelope consisting of project_namespace, entity_family_or_type, and canonical/local identity, plus revision/supersession only where the domain contract requires it.",
+        "project_namespace is a governed logical identity and is not implicitly derived from repository_full_name, branch, channel, display label, or runtime location.",
+        "Repository rename or relocation does not silently change canonical project identity.",
+        "Historical canonical IDs such as company_id, fab_id, event_id, event_record_id, run_id, and result_id are preserved exactly and are not renumbered.",
+        "The same raw string under different namespace/entity-family identities is not automatically merged.",
+        "Ambiguous cross-domain resolution and materially conflicting duplicate canonical tuples fail closed absent an explicit domain revision contract.",
+        "Version-suffix rotation shall not bypass stable identity.",
+        "The existing continuity event-ID collision is not adjudicated by R4 and remains a separate SEMI-CONTROL-ARCHITECT continuity disposition."
+      ]
+    },
+    "A10_ACTOR_AUTHORITY": {
+      "core_a": "ACCEPT_WITH_MODIFICATION",
+      "core_b": "ACCEPT",
+      "reconciled_position": "AGREED_WITH_MODIFICATION",
+      "impact": "COMPATIBLE_EXTENSION",
+      "version_impact": "NEW_WORKING_VERSION_REQUIRED",
+      "implementation_impact": "LATER_SUCCESSOR_ENGINEERING_REQUIRED",
+      "exact_reconciled_text": [
+        "ACTOR_IDENTITY and AUTHORITY_IDENTITY are separate semantic dimensions.",
+        "Governed authority-bearing actions separately bind actor identity/type and authority identity/role/source/scope/exact target.",
+        "The same underlying human or Persona may legitimately appear in both dimensions for a specific action, but the actor record never substitutes for authority evidence.",
+        "Execution capability, credentials, filesystem access, CI capability, or Worker assignment do not confer governance authority.",
+        "Shared Contract promotion must resolve to dual-core reconciliation evidence and applicable promotion/Owner authority; an execution actor cannot manufacture that authority.",
+        "Independent Validation PASS does not imply Owner Freeze, Release, Live Execution, PostgreSQL Operational SoT, or Controlled Cutover.",
+        "Channel/session identity is transport context and not authority identity."
+      ]
+    },
+    "EXACT_TARGET_DECISION_RECEIPT": {
+      "core_a": "ACCEPT_WITH_MODIFICATION",
+      "core_b": "ACCEPT_WITH_MODIFICATION",
+      "reconciled_position": "AGREED_WITH_MODIFICATION",
+      "impact": "NEW_SUCCESSOR_CONTRACT_REQUIRED",
+      "version_impact": "NEW_WORKING_VERSION_REQUIRED",
+      "implementation_impact": "LATER_SUCCESSOR_ENGINEERING_REQUIRED",
+      "exact_reconciled_text": [
+        "EXACT_TARGET_DECISION_RECEIPT is a standalone append-only immutable successor contract.",
+        "Minimum fields include decision_id, decision_type, target_kind, exact_target_identity, authority_ref, actor_ref if different, decision, and decided_at; rationale/prerequisite/supersedes/revokes refs are optional.",
+        "Decision values include APPROVE, DENY, REVOKE, and SUPERSEDE.",
+        "exact_target_identity must resolve to an immutable governed target or immutable compatible-version-set identity; floating latest, branch name alone, current branch HEAD alias, or mutable path alias are invalid.",
+        "APPROVAL(TARGET_X) != APPROVAL(TARGET_Y); later branch/head movement cannot expand prior authority.",
+        "Revocation or supersession creates a new receipt and preserves prior receipt bytes.",
+        "Shared Contract promotion requiring dual-core reconciliation binds the exact reconciled decision and required dual-core authority evidence.",
+        "Existing legacy approval fields remain historical evidence under their original schema and are not silently rematerialized as successor Decision Receipts."
+      ]
+    },
+    "COMPATIBLE_VERSION_SET_RELEASE_MANIFEST": {
+      "core_a": "ACCEPT_WITH_MODIFICATION",
+      "core_b": "ACCEPT_WITH_MODIFICATION",
+      "reconciled_position": "AGREED_WITH_MODIFICATION",
+      "impact": "NEW_SUCCESSOR_CONTRACT_REQUIRED",
+      "version_impact": "NEW_WORKING_VERSION_REQUIRED",
+      "implementation_impact": "LATER_SUCCESSOR_ENGINEERING_REQUIRED",
+      "exact_reconciled_text": [
+        "A governed release/canonical-promotion candidate binds one immutable compatible version set identified by release_set_id, component_refs, component_set_sha256, compatibility declaration, and exact Decision Receipt reference.",
+        "Each material component reference resolves to an immutable identity/version and content hash or Git identity; persisted artifact/data components additionally bind byte size and persistent locator where applicable.",
+        "Applicable component kinds may include schema, model, feature spec, scorer/weights, model-input contract, scorer IO, execution profile, runtime source, configuration, dataset, snapshot, PIT contract, validation dataset, calendar/window mapping, Shared Contract, and model-artifact release manifest.",
+        "Floating latest is prohibited as authoritative release identity.",
+        "Individually valid components are not automatically a compatible release set; compatibility is explicitly declared or bound by an immutable compatible-set artifact.",
+        "Material changes to bound model/config/data/source/PIT/component identity create a different compatible-version-set identity and invalidate automatic reuse of validation evidence.",
+        "Existing 9/9 Shared Contract semantics and MIS-v1.0, VDI-v1.0, SIO-v1.0, MARM-v1.0, PIT, and WM-v1.1 artifacts remain preserved; prospective successors may add release_set_ref without rewriting historical bytes."
+      ]
+    }
+  },
+  "adversarial_case_results": {
+    "1": "PASS_NO_USE_BEFORE_EVIDENCE_ADMISSIBILITY",
+    "2": "PASS_APPROVAL_X_DOES_NOT_AUTHORIZE_Y",
+    "3": "PASS_SAME_LOGICAL_RUN_NEW_ATTEMPT_IF_SPEC_IDENTICAL_AND_RETRY_AUTHORIZED",
+    "4": "PASS_MATERIAL_SPEC_CHANGE_REQUIRES_NEW_LOGICAL_RUN",
+    "5": "PASS_WORKER_EXECUTION_DOES_NOT_CONFER_PROMOTION_AUTHORITY",
+    "6": "PASS_PARTIAL_350_OF_400_IS_NOT_TERMINAL_PASS",
+    "7": "PASS_SAME_RAW_ID_ACROSS_NAMESPACE_TYPE_DOES_NOT_AUTO_MERGE",
+    "8": "PASS_NO_SYNTHETIC_LEGACY_RUNATTEMPT",
+    "9": "PASS_LATER_EXECUTION_TIME_CANNOT_PROVE_EARLIER_EVIDENCE_AVAILABILITY",
+    "10": "PASS_INDEPENDENT_VALIDATION_DOES_NOT_AUTO_AUTHORIZE_CUTOVER_OR_PRODUCTION"
+  },
+  "successor_contracts_required": [
+    "EXACT_TARGET_DECISION_RECEIPT_v1.0_WORKING",
+    "COMPATIBLE_VERSION_SET_RELEASE_MANIFEST_v1.0_WORKING"
+  ],
+  "later_engineering_required": true,
+  "r5_owner_decision": {
+    "required": true,
+    "decision_type": "ARCHITECTURE_EXACT_FREEZE",
+    "candidate_target": "THIS_R4_RECONCILIATION_ARTIFACT_EXACT_IDENTITY",
+    "freeze_not_yet_authorized": true
+  },
+  "authorization_state": {
+    "exact_contract_freeze": false,
+    "implementation": false,
+    "live_execution": false,
+    "postgresql_operational_sot": false,
+    "controlled_cutover": false,
+    "production_release": false
+  }
+}

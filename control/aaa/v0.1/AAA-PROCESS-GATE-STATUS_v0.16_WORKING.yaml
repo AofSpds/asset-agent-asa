@@ -1,0 +1,237 @@
+control_id: AAA-PROCESS-GATE-STATUS
+version: v0.16_WORKING
+project: Asset Agent ASA
+short_name: AAA
+recorded_at: '2026-08-16T17:15:00+09:00'
+supersedes: control/aaa/v0.1/AAA-PROCESS-GATE-STATUS_v0.15_WORKING.yaml
+purpose: >-
+  Authoritative working snapshot after both independently produced R4 Core positions were returned,
+  persisted as terminal PASS position Runs, materially reconciled with zero semantic conflict, and
+  bound into one exact R4 candidate. R4 is CLOSED and R5 Owner Exact Freeze Decision is ready but
+  not dispatched. No exact freeze, implementation, PostgreSQL Operational SoT, live execution,
+  controlled cutover, or production release is implied.
+
+status_semantics:
+  CLOSED: Exit criteria satisfied and evidence bound.
+  READY_NOT_DISPATCHED: Work definition/candidate exists but no authority decision has been dispatched.
+  DISPATCHED_AWAITING_ACK: Work handed to an executor/authority but start/position evidence is absent.
+  OPEN_ACTIVE: Governed active work has sufficient current evidence.
+  OPEN_BLOCKED: Named blocker prevents completion.
+  STALE_UNKNOWN: Previously active execution lacks sufficient current evidence; never infer running.
+  NOT_STARTED: Process has not materially started.
+
+completion_rules:
+  terminal_claim_requires_persistent_terminal_result_artifact: true
+  dispatch_record_is_not_executor_ack: true
+  persona_is_not_worker: true
+  worker_is_not_channel: true
+  model_is_not_persona: true
+  actor_identity_is_not_authority_identity: true
+  approval_of_target_x_is_not_approval_of_target_y: true
+  engineering_pass_is_not_independent_validation_pass: true
+  independent_validation_pass_is_not_owner_cutover_authorization: true
+  expired_lease_must_not_authorize_heartbeat: true
+  stale_execution_authority_must_not_self_revive: true
+  shared_contract_requires_dual_core_reconciliation: true
+  both_core_positions_must_be_materially_evidenced: true
+  one_core_position_must_not_be_copied_as_the_other_core_position: true
+  r4_reconciliation_close_is_not_owner_exact_freeze: true
+  owner_exact_freeze_is_not_implementation_authorization: true
+  architecture_revision_implementation_requires_exact_freeze_and_separate_work_order: true
+  database_operational_sot_cutover_requires_separate_project_owner_approval: true
+  t19_live_execution_enablement_requires_separate_project_owner_approval: true
+  control_only_successor_must_not_move_r1_observed_baseline: true
+  legacy_run_semantics_must_not_be_retroactively_rematerialized: true
+  unknown_historical_evidence_must_not_be_inferred: true
+  future_outcome_must_not_repair_historical_pit: true
+  frozen_migrations_0001_0005_must_not_be_rewritten: true
+
+current_position:
+  last_closed_core_process: P07_ENGINEERING_INTEGRATION
+  original_current_primary_core_process: P08_GOVERNED_SHADOW_OPERATION
+  independent_validation_process: P09_INDEPENDENT_VALIDATION
+  next_terminal_core_process: P10_CONTROLLED_CUTOVER
+  current_controlled_activity: AAA_V1_ARCHITECTURE_REVISION_RECONCILIATION
+  architecture_revision_phase: R5_OWNER_EXACT_FREEZE_DECISION
+  architecture_revision_phase_state: READY_NOT_DISPATCHED
+  new_semantic_engineering_paused: true
+  t20_assumed: false
+
+core_processes:
+  P00_NAMING_AND_AUTHORITY: CLOSED
+  P01_RECOVERY_GAP_AND_BUILD_CONTRACT: CLOSED
+  P02_DETERMINISTIC_FOUNDATION: CLOSED
+  P03_CLI_API_OWNER_CONSOLE: CLOSED
+  P04_AGENT_RUNTIME_BOUNDARIES: CLOSED
+  P05_NATURAL_LANGUAGE_WORK_INTENT: CLOSED
+  P06_RECOVERY_AND_LOCAL_ADVERSARIAL_HARDENING: CLOSED
+  P07_ENGINEERING_INTEGRATION: CLOSED
+  P08_GOVERNED_SHADOW_OPERATION:
+    gate: OPEN_BLOCKED
+    blockers:
+      - AAA-FINDING-CONTINUITY-EVENT-ID-COLLISION_v0.1_WORKING
+    remaining:
+      - actual governed multi-cycle shadow evidence
+      - no unexplained state divergence
+      - continuity collision adjudication or formal disposition by SEMI-CONTROL-ARCHITECT
+    transition_note: New semantic engineering remains paused pending R5 Owner Exact Freeze and later implementation authorization.
+  P09_INDEPENDENT_VALIDATION:
+    gate: DISPATCHED_AWAITING_ACK
+    independent_validation_pass: false
+    prior_terminal_run:
+      run_id: RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-001
+      state: COMPLETED_FAIL
+      exact_failed_target: 80378610f9ac9e688c52417f0416e01c057400a7
+      terminal_result: control/aaa/results/RESULT-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-001.json
+    current_validation_run:
+      run_id: RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-002
+      state: DISPATCHED_AWAITING_ACK
+      running_confirmed: false
+      validator: SEMI-VALIDATION-AUDITOR
+      exact_engineering_code_target: 30fdb278c218b24e44d66eb5f47935a196dc4f8c
+  P10_CONTROLLED_CUTOVER: NOT_STARTED
+  P11_POST_CUTOVER_STABILIZATION: NOT_STARTED
+
+integrated_parallel_tracks:
+  AAA_T17_RUN_REGISTRY_OPERATIONS_DASHBOARD:
+    gate: ENGINEERING_REMEDIATED_AWAITING_INDEPENDENT_RERUN
+    remediation_integration_merge_commit: 30fdb278c218b24e44d66eb5f47935a196dc4f8c
+    independent_validation: PENDING_SECOND_RERUN
+  AAA_T18_OPERATIONAL_DATABASE_PERSISTENT_EXECUTION_PLANE:
+    gate: ENGINEERING_INTEGRATED_INDEPENDENT_VALIDATION_DISPATCHED
+    integration_merge_commit: 59c9baf3a24b1cf7542a3643c296711c37d72c3c
+    postgresql_authoritative: false
+    json_registry_authoritative_during_shadow: true
+    validation:
+      run_id: RUN-VALIDATION-AAA-T18-INDEPENDENT-20260816-001
+      state: DISPATCHED_AWAITING_ACK
+      running_confirmed: false
+      exact_target: 59c9baf3a24b1cf7542a3643c296711c37d72c3c
+      independent_validation_pass: false
+  AAA_T19_EXECUTION_DISPATCHER_WORKER_RUNTIME:
+    gate: INDEPENDENT_VALIDATION_PASS
+    bounded_t19_cycle_closed: true
+    final_integrated_successor: 45a1541c4720387873a78e3a95fc697959d19248
+    independent_revalidation:
+      run_id: RUN-VALIDATION-AAA-T19-INDEPENDENT-20260816-002
+      state: COMPLETED_PASS
+      verdict: PASS
+      independent_validation_pass: true
+    p0_finding:
+      finding_id: AAA-T19-IV-FND-01-EXPIRED-LEASE-HEARTBEAT-RESURRECTION
+      status: CLOSED
+      blocking: false
+    live_execution_authorized: false
+    postgresql_authoritative: false
+
+architecture_revision_transition:
+  transition_control: control/aaa/architecture/AAA-v1-ARCHITECTURE-REVISION-TRANSITION-CONTROL_v0.1_OWNER-APPROVED.yaml
+  profile: BALANCED_V1
+  owner_scope_status: APPROVED
+  exact_contract_freeze: NOT_YET
+  implementation_authorization: NOT_YET
+  R0_CURRENT_BOUNDED_T19_CLOSEOUT: CLOSED
+  R1_EXACT_BASELINE_CAPTURE: CLOSED
+  R1_baseline_artifact: control/aaa/architecture/AAA-v1-R1-EXACT-BASELINE-MANIFEST_v0.1_WORKING.yaml
+  R1_observed_exact_commit: a590717a2127b8ef4620d7933904868dd50c7396
+  R1_observed_git_tree: 64d0cac8a91c9d0d9d3ca12f64123bc3c374ec97
+  R2_ARCHITECTURE_DELTA_ANALYSIS: CLOSED
+  R2_delta_artifact: control/aaa/architecture/AAA-v1-R2-ARCHITECTURE-DELTA-ANALYSIS_v0.1_WORKING.yaml
+  R3_EXACT_CONTRACT_DESIGN: CLOSED
+  R3_contract_artifact: control/aaa/architecture/AAA-v1-R3-EXACT-CONTRACT-DESIGN_v0.1_WORKING.yaml
+  R3_design_commit: ecd1284e5d4c9ff8cb554f5bd0ef0521061ffcc0
+  R3_artifact_git_blob_sha: 0bd250584eb3c479369b3518311daaadc154cc7a
+  R4_SHARED_CONTRACT_RECONCILIATION: CLOSED
+  R4_reconciliation_verdict: DUAL_CORE_RECONCILED_READY_FOR_OWNER_EXACT_FREEZE
+  R4_reconciliation_artifact:
+    path: control/aaa/architecture/AAA-v1-R4-SHARED-CONTRACT-RECONCILIATION_v0.1_WORKING.json
+    sha256: 27f093555d5934f79a8501ef3426a0ade4d02d64370cc98a0cb0ea801e4ea01f
+    byte_size: 16092
+    git_blob_sha: fb89a4d92a77054ad8def32a001f6c55f56dd4f0
+    materialization_commit: 17b808d6d3fea6714d84788b88f19741071a07c8
+  R4_core_a_position_run:
+    run_id: RUN-AAA-v1-R4-COREA-POSITION-20260816-001
+    state: COMPLETED_PASS
+    artifact: control/aaa/architecture/AAA-v1-R4-COREA-POSITION_v0.1_WORKING.json
+    artifact_sha256: 05052e934ed8c4bcd7c5b4df14d37feef40447301700e23df0611d0f78ddfc1b
+    terminal_result: control/aaa/results/RESULT-AAA-v1-R4-COREA-POSITION-20260816-001.json
+  R4_core_b_position_run:
+    run_id: RUN-AAA-v1-R4-COREB-POSITION-20260816-001
+    state: COMPLETED_PASS
+    artifact: control/aaa/architecture/AAA-v1-R4-COREB-POSITION_v0.1_WORKING.json
+    artifact_sha256: cf648b7e925fd1c5609a46325469e32764783f190be2c7b12d3d7ad2b3ab791e
+    terminal_result: control/aaa/results/RESULT-AAA-v1-R4-COREB-POSITION-20260816-001.json
+  R4_mandatory_items: 8
+  R4_agreed_items: 8
+  R4_unresolved_semantic_conflicts: 0
+  R4_owner_decision_items: []
+  R4_shared_contract_state: control/continuity/v1.0/SEMI-SHARED-CONTRACT-STATE_v0.6_WORKING.yaml
+  R4_shared_contract_state_commit: 080cf3553d88bbb833b119e8b8f4a456efda8216
+  R5_OWNER_EXACT_FREEZE_DECISION: READY_NOT_DISPATCHED
+  R5_candidate_target:
+    kind: AAA_V1_R4_RECONCILED_EXACT_CONTRACT_CANDIDATE
+    path: control/aaa/architecture/AAA-v1-R4-SHARED-CONTRACT-RECONCILIATION_v0.1_WORKING.json
+    sha256: 27f093555d5934f79a8501ef3426a0ade4d02d64370cc98a0cb0ea801e4ea01f
+    byte_size: 16092
+    git_blob_sha: fb89a4d92a77054ad8def32a001f6c55f56dd4f0
+    freeze_decision_receipt: NOT_YET
+  t20_assumed: false
+
+r4_reconciled_shared_impacts:
+  COMPATIBLE_EXTENSION:
+    - A01_TIME_SEMANTICS
+    - A03_LOGICAL_RUN_RUNATTEMPT_SHARED_REFERENCE_IMPACT
+    - A05_SCHEMA_FAMILY_VERSIONING
+    - A06_EXECUTION_SOURCE_PROVENANCE
+    - A07_PROJECT_NAMESPACE_CANONICAL_IDENTITY
+    - A10_ACTOR_AUTHORITY
+  NEW_SUCCESSOR_CONTRACT_REQUIRED:
+    - EXACT_TARGET_DECISION_RECEIPT_v1.0_WORKING
+    - COMPATIBLE_VERSION_SET_RELEASE_MANIFEST_v1.0_WORKING
+  EXISTING_9_OF_9_SHARED_CONTRACTS_REOPENED: false
+  EXISTING_9_OF_9_SHARED_CONTRACTS_SEMANTICS_PRESERVED: true
+
+scientific_firewall:
+  fact_existed_at_time_ne_public_evidence_available_at_time: true
+  publication_or_supported_cutoff_must_be_lte_snapshot_cutoff: true
+  no_fabricated_exact_publication_or_intraday_time: true
+  future_outcome_backfill_prohibited: true
+  later_execution_time_cannot_prove_earlier_evidence_availability: true
+  recovery_ne_rematerialization: true
+  unknown_historical_evidence_inference_prohibited: true
+
+pending_validation_disposition:
+  p09_second_rerun:
+    run_id: RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-002
+    state: DISPATCHED_AWAITING_ACK
+    preserve_without_fabrication: true
+    automatic_r5_prerequisite: false
+  t18_independent_validation:
+    run_id: RUN-VALIDATION-AAA-T18-INDEPENDENT-20260816-001
+    state: DISPATCHED_AWAITING_ACK
+    preserve_without_fabrication: true
+    automatic_r5_prerequisite: false
+
+operational_gates_not_yet_closed:
+  - R5_OWNER_EXACT_FREEZE_DECISION
+  - AAA_V1_SUCCESSOR_ENGINEERING_AUTHORIZATION_AFTER_FREEZE
+  - AAA_V1_SUCCESSOR_INDEPENDENT_VALIDATION
+  - LIVE_EXTERNAL_MODEL_PROVIDER_NETWORK_ADAPTER_EXECUTION
+  - REAL_S3_R2_PARTIAL_FAILURE_DRILL
+  - ACTUAL_GOVERNED_FULL_SHADOW_OPERATION_CYCLE
+  - CONTINUITY_EVENT_ID_COLLISION_ADJUDICATION
+  - P09_SECOND_INDEPENDENT_RERUN_PASS_OR_EXPLICIT_REVISION_DISPOSITION
+  - T18_INDEPENDENT_VALIDATION_PASS_OR_EXPLICIT_REVISION_DISPOSITION
+  - T18_LIVE_MANAGED_POSTGRESQL_AND_PITR_RPO_RTO_QUALIFICATION
+  - T18_OWNER_OPERATIONAL_SOT_CUTOVER_AUTHORIZATION
+  - T19_OWNER_LIVE_EXECUTION_ENABLEMENT_AUTHORIZATION
+  - OWNER_CUTOVER_AUTHORIZATION
+
+reporting_rule:
+  r4_closed_must_not_be_reported_as_owner_exact_freeze: true
+  r5_ready_must_not_be_reported_as_r5_approved: true
+  exact_freeze_must_bind_candidate_sha256_not_floating_path_or_branch: true
+  do_not_infer_pending_p09_or_t18_pass_fail_or_running: true
+  do_not_report_t19_pass_as_live_execution_or_cutover_authority: true
+  always_preserve_legacy_run_semantics: true
+  never_use_future_outcome_to_repair_pit: true

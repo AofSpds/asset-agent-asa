@@ -1,0 +1,75 @@
+work_order_id: WO-AAA-T19-EXECUTION-RUNTIME-v0.1-20260816
+project: Asset Agent ASA
+track: T19
+requesting_authority: PROJECT_OWNER
+requesting_control: AAA_BUILD_CONTROL
+executor_persona: SEMI-CONTROL-ARCHITECT
+executor_role: ENGINEERING
+state: OWNER_APPROVED_READY_FOR_EXECUTION
+created_at: '2026-08-16T07:20:00+09:00'
+architecture_contract: control/aaa/architecture/AAA-T19-EXECUTION-DISPATCHER-WORKER-ARCHITECTURE-REVIEW_v0.2_OWNER-APPROVED.yaml
+repository: AofSpds/asset-agent-asa
+base_branch: aaa-integration-v0.2
+engineering_branch: aaa-t19-execution-runtime-v0.1
+
+objective: >-
+  Implement a bounded software Execution Dispatcher / Worker Runtime that turns approved Work Orders and Run dispatch records into verifiable software execution through registered worker claim, PostgreSQL lease/fencing, explicit ACK/start/heartbeat evidence, allowlisted execution profiles, failure recovery, and atomic terminal Result binding.
+
+scope:
+  include:
+    - T19_0 worker identity and execution profile contracts
+    - T19_1 deterministic dispatcher/task projection
+    - T19_2 worker register/claim/ACK/start/heartbeat/execute/result lifecycle
+    - T19_3 crash/lease-expiry/stale-token/duplicate-claim/partial-result recovery drills
+    - T19_4 CLI/API/Owner Console read-only worker/task/lease projections
+    - T19_5 deterministic independent-validation execution profile
+    - PostgreSQL certifying concurrency tests
+    - synthetic noncanonical end-to-end runs
+  exclude:
+    - live authoritative dispatch
+    - retroactive modification of existing validation Runs
+    - arbitrary shell execution
+    - PostgreSQL Operational SoT cutover
+    - Production Release or P10 Controlled Cutover
+    - model methodology, Shared Contract, Ground Truth, PIT, U127 changes
+
+execution_constraints:
+  arbitrary_shell_from_work_order: PROHIBITED
+  exact_git_target_required: true
+  execution_profile_hash_binding_required: true
+  worker_capability_and_persona_binding_required: true
+  postgres_server_time_for_lease: true
+  stale_fencing_token_rejected: true
+  terminal_result_atomicity_required: true
+  retry_creates_new_run_identity: true
+  chat_channel_is_not_worker: true
+  llm_required_for_control_plane: false
+
+preserved_validation_targets:
+  p09_failed: 80378610f9ac9e688c52417f0416e01c057400a7
+  p09_current_rerun: 30fdb278c218b24e44d66eb5f47935a196dc4f8c
+  t18_independent: 59c9baf3a24b1cf7542a3643c296711c37d72c3c
+
+acceptance:
+  - unapproved work order cannot become executable task
+  - one task raced by two workers has exactly one lease winner
+  - worker outside persona/capability/permission cannot claim
+  - target/profile mismatch blocks before command execution
+  - dispatch alone never creates ACK/start/heartbeat
+  - RUNNING_CONFIRMED requires start and current heartbeat
+  - stale lease token cannot heartbeat/event/terminalize
+  - worker crash never implies success
+  - partial result cannot create terminal Run
+  - terminal Result and Run transition are atomic
+  - retry uses new Run ID with lineage
+  - CLI/API/Owner Console show identical persistent truth
+  - LLM-off leaves deterministic execution control plane available
+  - existing P09/T18 validation targets unchanged
+  - full engineering CI and PostgreSQL drills PASS before integration
+
+required_outputs:
+  - code and migrations/contracts on isolated branch
+  - deterministic tests and PostgreSQL smoke/concurrency/recovery tests
+  - Engineering Result with exact commit and test evidence
+  - integration PR only after acceptance evidence
+  - no claim of Independent Validation PASS or live execution authority

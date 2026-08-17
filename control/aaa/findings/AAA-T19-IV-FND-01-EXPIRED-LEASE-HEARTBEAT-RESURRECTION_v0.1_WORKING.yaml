@@ -1,0 +1,58 @@
+finding_id: AAA-T19-IV-FND-01-EXPIRED-LEASE-HEARTBEAT-RESURRECTION
+version: v0.1_WORKING
+project: Asset Agent ASA
+track: T19
+source: SEMI-VALIDATION-AUDITOR
+source_validation_run: RUN-VALIDATION-AAA-T19-INDEPENDENT-20260816-001
+source_result: control/aaa/results/RESULT-VALIDATION-AAA-T19-INDEPENDENT-20260816-001.json
+exact_failed_target: c867e3704b2744c3a826635b828ad6696e6281eb
+recorded_at: '2026-08-16T08:05:00+09:00'
+severity: P0
+blocking: true
+status: OPEN
+finding_class: LEASE_VALIDITY_FENCING_FALSE_LIVENESS_EXECUTION_OWNERSHIP
+
+summary: >-
+  An expired lease can be renewed by the same Worker and lease_epoch through heartbeat without a governed lease reacquisition, allowing a stale execution owner to regain apparent liveness and potentially terminalize after operating through a lease-invalid interval.
+
+reachability:
+  default_lease_ttl_seconds: 300
+  validation_profile_timeout_seconds: 1800
+  periodic_heartbeat_during_command: false
+  reachable_in_normal_runtime: true
+
+failed_invariants:
+  - expired lease must not authorize heartbeat
+  - RUNNING_CONFIRMED requires a valid current lease, started_at, and valid heartbeat
+  - stale execution authority must not self-revive without explicit governed reacquisition or takeover
+  - long-running command execution must maintain lease continuity or fail closed
+
+positive_controls_preserved:
+  - wrong lease_epoch fencing passed
+  - two-worker initial claim single-winner passed
+  - claim does not imply running passed
+  - exact-target pre-ACK fail-closed passed
+  - shell=false execution boundary passed
+  - atomic terminal Result/Run path passed for valid lease
+  - retry lineage passed
+
+bounded_remediation_required:
+  - require lease_expires_at to be non-null and current before heartbeat renewal
+  - bind execution-task heartbeat to a currently valid Run lease
+  - add true periodic heartbeat during long-running command execution or enforce a governed TTL exceeding maximum execution duration with safety margin
+  - add expired same-epoch heartbeat regression
+  - add N to N+1 takeover and old-worker late-write regression
+  - add long-command greater-than-lease-TTL regression
+  - prove STALE_UNKNOWN cannot self-revive without governed reacquisition
+
+prohibited_scope_expansion:
+  - no Model/Feature/Scorer/Weight/Ranking change
+  - no Shared Contract change
+  - no Ground Truth/PIT/U127 change
+  - no P09 or T18 target mutation
+  - no PostgreSQL Operational SoT cutover
+  - no T19 live execution enablement
+  - no Production Release or P10 Controlled Cutover
+
+closure_condition: >-
+  A new immutable T19 successor must independently prove expired-lease heartbeat fail-closed behavior, continuous lease validity for long-running execution, takeover fencing, full regression, and receive SEMI-VALIDATION-AUDITOR PASS.

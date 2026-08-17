@@ -1,0 +1,280 @@
+control_id: AAA-T19-EXECUTION-DISPATCHER-WORKER-ARCHITECTURE-REVIEW
+version: v0.1_WORKING
+project: Asset Agent ASA
+track: T19
+track_name: AAA Execution Dispatcher / Worker Runtime
+recorded_at: '2026-08-16T07:16:00+09:00'
+prepared_by: AAA_BUILD_CONTROL
+requesting_authority: PROJECT_OWNER
+status: ARCHITECTURE_VERDICT_PROPOSED_OWNER_DECISION_REQUIRED
+implementation_started: false
+
+problem_statement:
+  observed_gap: >-
+    AAA can persist Owner-approved Work Orders and Run Registry dispatch records, but no software execution bridge currently claims those Runs and creates executor ACK/start/heartbeat/result evidence automatically.
+  consequence: >-
+    DISPATCHED_AWAITING_ACK is currently a truthful queue/control state, not proof that a separate ChatGPT channel or other executor process has started.
+  current_example:
+    run_id: RUN-VALIDATION-AAA-T18-INDEPENDENT-20260816-001
+    exact_target: 59c9baf3a24b1cf7542a3643c296711c37d72c3c
+    persistent_state: DISPATCHED_AWAITING_ACK
+    started_at: null
+    last_heartbeat_at: null
+    terminal_result: null
+
+architecture_verdict: ADOPT
+architecture_summary: >-
+  Introduce T19 as a software Execution Plane between approved Work Orders/Run Registry and actual executor processes. A Dispatcher creates/advertises executable tasks; registered Workers claim tasks under PostgreSQL lease/fencing semantics, acknowledge, execute only pre-approved execution profiles, emit heartbeats, persist evidence, and terminate through atomic Result binding. T19 must not treat a ChatGPT conversation channel as a worker process and must not infer execution from dispatch records.
+
+authority_boundaries:
+  project_owner:
+    - approves major T19 architecture direction
+    - approves production/live execution enablement
+    - retains final cutover/release authority
+  git_github_governance_sot:
+    - Work Order contract bytes
+    - execution profile definitions and permissions
+    - Persona and authority manifests
+    - architecture contracts
+    - decision ledger and release manifests
+  postgresql_t18_operational_plane:
+    - task availability/projection after authorized operational cutover
+    - worker registration metadata
+    - claim/lease/fencing state
+    - ACK/start/heartbeat/stale state
+    - Run Event metadata
+    - terminal Result metadata binding
+  s3_r2_artifact_sot:
+    - large stdout/stderr bundles
+    - datasets/snapshots/backtest bytes
+    - large evidence bundles
+    - immutable Result payload bytes when above Git-size policy
+  persona_boundary:
+    rule: Persona != Worker != Channel != Model
+    note: >-
+      SEMI-VALIDATION-AUDITOR is an organizational Persona. A T19 worker is a software execution instance that may be authorized to execute a bounded profile on behalf of that Persona. A chat channel is never evidence of worker liveness.
+
+non_interference:
+  p09_failed_target_preserved: 80378610f9ac9e688c52417f0416e01c057400a7
+  p09_current_rerun_target_preserved: 30fdb278c218b24e44d66eb5f47935a196dc4f8c
+  t18_independent_target_preserved: 59c9baf3a24b1cf7542a3643c296711c37d72c3c
+  t19_must_not_move_existing_validation_targets: true
+  t19_must_not_authorize_independent_validation_verdicts: true
+  t19_must_not_authorize_controlled_cutover: true
+  t19_must_not_change_model_methodology: true
+  t19_must_not_change_shared_contract: true
+  t19_must_not_change_ground_truth_pit_u127: true
+
+execution_model:
+  lifecycle:
+    - WORK_ORDER_APPROVED
+    - RUN_DISPATCH_RECORDED
+    - TASK_AVAILABLE
+    - WORKER_CLAIMED_WITH_LEASE
+    - EXECUTOR_ACK_RECORDED
+    - START_AND_FIRST_HEARTBEAT_RECORDED
+    - RUNNING_CONFIRMED
+    - PERIODIC_HEARTBEAT
+    - RESULT_BYTES_PERSISTED_AND_HASHED
+    - TERMINAL_RESULT_BOUND_ATOMICALLY
+    - RUN_TERMINAL
+  state_rules:
+    dispatch_does_not_equal_ack: true
+    ack_does_not_equal_running: true
+    running_requires_started_at_and_current_heartbeat: true
+    stale_heartbeat_means_stale_unknown: true
+    terminal_requires_persistent_result_identity: true
+    unknown_never_inferred_running: true
+    worker_crash_never_inferred_success: true
+    retry_reuses_run_id: false
+    retry_policy: NEW_RUN_ID_WITH_RETRY_OF_RUN_ID_LINEAGE
+
+worker_registration:
+  required_fields:
+    - worker_id
+    - worker_type
+    - runtime_version
+    - host_identity
+    - registered_capabilities
+    - authorized_persona_bindings
+    - max_concurrency
+    - last_seen_at
+    - enabled
+  recommended_worker_types:
+    - DETERMINISTIC_LOCAL_WORKER
+    - CI_VALIDATION_WORKER
+    - RESEARCH_TOOL_WORKER
+    - MODEL_EXPERIMENT_WORKER
+    - EXTERNAL_REASONING_WORKER
+  reasoning_rule: >-
+    If no authorized human/LLM reasoning worker is connected, reasoning-required tasks remain WAITING_FOR_REASONING and must not block or corrupt deterministic Control Plane operations.
+
+claim_and_lease:
+  database: PostgreSQL
+  mechanism:
+    - transactionally select eligible task using FOR UPDATE SKIP LOCKED or equivalent deterministic single-winner primitive
+    - increment lease_epoch on successful claim
+    - bind worker_id and lease_expires_at
+    - heartbeat and all mutations require matching run_id + worker_id + lease_epoch
+    - stale fencing token is always rejected
+  time_source: PostgreSQL server time for operational lease/stale decisions
+  duplicate_claim_behavior: SINGLE_WINNER
+  automatic_reassignment_after_stale: PROHIBITED_BY_DEFAULT
+  stale_recovery: explicit policy creates a new Run attempt; prior Run remains STALE_UNKNOWN or terminalized by authorized recovery adjudication
+
+execution_profiles:
+  principle: NO_ARBITRARY_SHELL_FROM_WORK_ORDER
+  contract: >-
+    A Work Order references an allowlisted execution_profile_id and exact Git identity. The worker maps that profile to a code-owned command template and bounded inputs. Untrusted Work Order text cannot become an arbitrary shell command.
+  minimum_profile_fields:
+    - execution_profile_id
+    - version
+    - exact_git_identity
+    - allowed_executor_personas
+    - command_or_entrypoint
+    - argument_schema
+    - environment_allowlist
+    - network_policy
+    - filesystem_policy
+    - timeout_seconds
+    - output_policy
+    - required_permission_level
+  secrets:
+    persisted_in_git_or_run_registry: false
+    injection: runtime secret provider/environment only
+    logging: redaction_required
+
+isolation:
+  read_only_validation:
+    repository_mode: READ_ONLY_EXACT_CHECKOUT
+    workspace: ephemeral
+    canonical_write: prohibited
+  engineering_mutation:
+    repository_mode: ISOLATED_BRANCH_OR_WORKTREE
+    canonical_write: prohibited_without_explicit_promotion_gate
+  default_process_isolation: subprocess_with_explicit_cwd_env_timeout
+  container_requirement_for_v0_1: optional
+  kubernetes_requirement_for_v0_1: false
+
+minimum_t19_scope:
+  T19_0_EXECUTION_CONTRACT:
+    - Worker identity schema
+    - execution profile schema
+    - task claim/lease/ACK/heartbeat/terminal state machine
+    - authority and non-inference rules
+  T19_1_DISPATCHER:
+    - materialize eligible approved Runs into executable task projection
+    - never create tasks from unapproved Work Orders
+    - deterministic idempotency
+  T19_2_WORKER_RUNTIME:
+    - register worker
+    - claim one task
+    - verify exact target/profile/persona/permission
+    - create ACK/start/heartbeat evidence
+    - execute bounded profile
+    - persist logs/evidence hashes
+    - atomically bind terminal Result
+  T19_3_FAILURE_RECOVERY:
+    - worker crash
+    - lease expiry
+    - stale fencing token
+    - partial Result write
+    - duplicate claim
+    - dispatcher restart
+    - worker restart
+  T19_4_CONTROL_SURFACES:
+    - CLI task/worker/run inspection
+    - read-only API projections
+    - Owner Console live worker/lease/heartbeat display
+    - no UI-side state inference
+  T19_5_VALIDATION_WORKER_PROFILE:
+    - first certifying profile is deterministic independent-validation execution against an exact immutable Git target
+    - must preserve validator read-only/canonical-side-effect-none rules
+  T19_6_MODEL_DEVELOPMENT_PROFILES:
+    - experiment runner
+    - snapshot materialization runner
+    - backtest runner
+    - validation runner
+    - each profile separately permissioned and hash-bound
+  T19_7_INDEPENDENT_VALIDATION:
+    - adversarial independent validation of T19 exact integrated successor
+
+implementation_order:
+  - finalize T19 architecture and Owner approval
+  - keep current P09/T18 validation manual bridge until T19 is live
+  - implement T19_0 through T19_4 in isolated engineering branch
+  - implement deterministic validation worker profile T19_5
+  - exercise local/CI worker with synthetic noncanonical Runs
+  - require T18 PostgreSQL operational authority prerequisites before live production dispatch
+  - integrate exact successor only after CI and recovery drills
+  - perform T19 Independent Validation
+  - separately request Owner live execution enablement
+  - only then migrate manual validation dispatch to automated worker claim
+
+relationship_to_t18:
+  engineering_can_proceed_before_t18_operational_sot_cutover: true
+  live_authoritative_dispatch_requires:
+    - T18_INDEPENDENT_VALIDATION_PASS
+    - LIVE_MANAGED_POSTGRESQL_QUALIFIED
+    - RPO_RTO_PITR_POLICY_APPROVED_AND_TESTED
+    - PROJECT_OWNER_POSTGRESQL_OPERATIONAL_SOT_CUTOVER_AUTHORIZATION
+  reason: >-
+    T19 should be engineered against the T18 contracts now, but production worker claims must not create a second operational authority while JSON remains authoritative.
+
+infrastructure_baseline:
+  postgresql: REQUIRED_FOR_CERTIFYING_CONCURRENCY_AND_LEASE_TESTS
+  redis: NOT_REQUIRED
+  kafka: NOT_REQUIRED
+  kubernetes: NOT_REQUIRED
+  sqlite: NON_CERTIFYING_TEST_DOUBLE_ONLY_IF_USEFUL
+  message_broker: NOT_REQUIRED_AT_V0_1
+  transport_model: PostgreSQL-backed pull/claim is sufficient at current scale
+
+acceptance_criteria:
+  - dispatch record alone never creates ACK/start/heartbeat
+  - two workers racing for one task produce exactly one lease winner
+  - stale lease_epoch cannot heartbeat, write events, or terminalize
+  - worker cannot claim a task outside registered capability/persona/permission
+  - unapproved Work Order can never become executable
+  - exact Git target mismatch fails before execution
+  - execution profile identity mismatch fails before execution
+  - arbitrary command injection through Work Order payload is impossible
+  - first heartbeat plus started_at is required before RUNNING_CONFIRMED
+  - worker crash causes no implicit success
+  - stale worker becomes STALE_UNKNOWN fail-closed
+  - exact retry idempotency produces no duplicate execution event
+  - terminal Result and Run state transition are atomic
+  - partial Result persistence cannot yield terminal Run
+  - retry creates a new Run identity with lineage to prior attempt
+  - CLI/API/Owner Console display the same persistent worker/run truth
+  - Owner Console never treats terminal history as current activity
+  - LLM-off does not block deterministic Dispatcher/Worker control plane
+  - reasoning-only task without reasoning worker becomes WAITING_FOR_REASONING
+  - no canonical write occurs without existing promotion/authority gates
+  - P09 and T18 existing exact validation targets remain unchanged
+  - full T19 Independent Validation PASS before live execution enablement
+  - Project Owner separately authorizes live execution enablement
+
+explicit_non_goals_v0_1:
+  - waking or controlling arbitrary ChatGPT conversation channels
+  - distributed multi-region scheduling
+  - Kafka event streaming
+  - Redis job queue
+  - Kubernetes orchestration
+  - autoscaling fleet management
+  - arbitrary user-supplied shell execution
+  - automatic production/canonical promotion
+  - automatic Independent Validation verdict generation
+
+current_manual_bridge:
+  required_until_t19_live: true
+  applies_to:
+    - RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-002
+    - RUN-VALIDATION-AAA-T18-INDEPENDENT-20260816-001
+  rule: >-
+    These existing Runs remain DISPATCHED_AWAITING_ACK until an actual authorized executor produces evidence. T19 design work must not retroactively fabricate ACK/start/heartbeat/result for them.
+
+owner_decision_requested:
+  proposed_direction: >-
+    Approve T19 as the bounded software execution layer using PostgreSQL pull/claim + lease/fencing, allowlisted execution profiles, registered workers, explicit ACK/start/heartbeat/result lifecycle, and no Redis/Kafka/Kubernetes baseline dependency.
+  implementation_authorized_by_this_record: false

@@ -1,0 +1,57 @@
+finding_id: AAA-v1-E2-FND-01-DEPENDENCY-LOCK-OMISSION
+version: v0.1_WORKING
+project: Asset Agent ASA
+recorded_at: '2026-08-16T18:38:00+09:00'
+source: AAA_BUILD_CONTROL_SUCCESSOR_ENGINEERING_SELF_AUDIT
+source_tranche: E3_AUTHORITY_DECISION_PROVENANCE_EVENT
+affected_tranche: E2_LOGICAL_RUN_RUNATTEMPT_EXECUTION_SEMANTICS
+severity: P0_CONTRACT_FIDELITY
+blocking: true
+status: OPEN_BOUNDED_REMEDIATION_IN_E3
+frozen_contract_basis:
+  r4_frozen_target_sha256: 27f093555d5934f79a8501ef3426a0ade4d02d64370cc98a0cb0ea801e4ea01f
+  r3_rule: material dependency/lock identity change requires a new Logical Run when execution-material
+observed_gap:
+  integrated_e2_successor: 0c56fe7855e6083ae0d96b570bb5f3f020079911
+  e2_exact_execution_spec_hash_includes:
+    - repository identity
+    - exact target commit
+    - execution profile identity and SHA256
+    - configuration SHA256
+    - material input refs
+    - schema family version refs
+  missing:
+    - dependency_lock_refs
+  consequence: >-
+    Two executions differing only in a material dependency/lock identity could currently produce the
+    same E2 deterministic exact_execution_spec_hash. That violates the frozen rule that material
+    dependency/lock change requires a new Logical Run.
+engineering_adjudication:
+  e2_other_semantics_invalidated: false
+  e2_engineering_pass_requires_qualification: true
+  independent_validation_pass_affected: false
+  reason: E2 has not received Independent Validation PASS.
+  live_execution_affected: false
+  reason_live: Live successor execution is not authorized.
+remediation:
+  tranche: E3_AUTHORITY_DECISION_PROVENANCE_EVENT
+  forward_only_migration: 0008_OR_LATER
+  required:
+    - add explicit dependency_lock_refs to successor Logical Run specification
+    - include exact dependency lock identities/hashes in deterministic exact_execution_spec_hash
+    - mechanically verify provenance dependency locks against the bound Logical Run specification
+    - adversarial test that dependency lock mutation requires a new Logical Run
+  prohibited:
+    - rewrite migration 0007
+    - reinterpret legacy T17/T18/T19 Runs
+    - synthesize historical RunAttempt
+closure_requires:
+  - corrected deterministic tests PASS
+  - corrected PostgreSQL contract tests PASS
+  - E3 integrated successor PASS
+  - finding successor status CLOSED_ENGINEERING_REMEDIATED_AWAITING_INDEPENDENT_VALIDATION
+not_authorized:
+  postgresql_operational_sot: true
+  live_execution: true
+  controlled_cutover: true
+  production_release: true

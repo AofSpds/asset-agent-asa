@@ -1,0 +1,886 @@
+control_id: AAA-v1-R3-EXACT-CONTRACT-DESIGN
+version: v0.1_WORKING
+project: Asset Agent ASA
+phase: R3_EXACT_CONTRACT_DESIGN
+recorded_at: '2026-08-16T08:56:00+09:00'
+status: DESIGN_COMPLETE_R4_RECONCILIATION_REQUIRED
+profile: BALANCED_V1
+purpose: >-
+  Convert the Owner-approved architecture direction and the R2 KEEP/EXTEND/REFACTOR
+  classification into exact candidate semantics for entities, fields, cardinalities,
+  invariants, compatibility, authority, provenance, promotion, restore, and operational
+  history. This is a design-complete R3 artifact. It is NOT Owner Exact Freeze,
+  implementation authorization, Shared Contract promotion, PostgreSQL Operational SoT
+  cutover, live execution enablement, controlled cutover, or production release.
+
+source_controls:
+  transition_control: control/aaa/architecture/AAA-v1-ARCHITECTURE-REVISION-TRANSITION-CONTROL_v0.1_OWNER-APPROVED.yaml
+  r1_baseline: control/aaa/architecture/AAA-v1-R1-EXACT-BASELINE-MANIFEST_v0.1_WORKING.yaml
+  r2_delta: control/aaa/architecture/AAA-v1-R2-ARCHITECTURE-DELTA-ANALYSIS_v0.1_WORKING.yaml
+  r1_observed_exact_commit: a590717a2127b8ef4620d7933904868dd50c7396
+  r1_observed_git_tree: 64d0cac8a91c9d0d9d3ca12f64123bc3c374ec97
+  historical_migrations_observed:
+    - aaa/db/migrations/0001_operational_execution_plane.sql
+    - aaa/db/migrations/0002_json_registry_source_identity.sql
+    - aaa/db/migrations/0003_idempotent_events_atomic_completion.sql
+    - aaa/db/migrations/0004_execution_dispatcher_worker_runtime.sql
+    - aaa/db/migrations/0005_t19_lease_heartbeat_fail_closed.sql
+
+r3_design_status:
+  exact_design_complete: true
+  exact_contract_freeze: false
+  owner_exact_freeze_required_later: true
+  shared_contract_reconciliation_required: true
+  implementation_authorized: false
+  successor_migration_authorized: false
+  expected_successor_migration_floor_if_later_authorized: 6
+  legacy_rematerialization_authorized: false
+  t20_assumed: false
+
+preservation_invariants:
+  - HISTORICAL_T17_T18_T19_RUNS_RESULTS_FINDINGS_ARE_IMMUTABLE_HISTORY
+  - MIGRATIONS_0001_TO_0005_MUST_NOT_BE_REWRITTEN
+  - LEGACY_RUNS_ARE_READ_UNDER_THE_SCHEMA_SEMANTICS_THAT_CREATED_THEM
+  - RECOVERY_IS_NOT_REMATERIALIZATION
+  - UNKNOWN_HISTORICAL_EVIDENCE_MUST_NOT_BE_INFERRED
+  - ENGINEERING_PASS_IS_NOT_INDEPENDENT_VALIDATION_PASS
+  - INDEPENDENT_VALIDATION_PASS_IS_NOT_OWNER_CUTOVER_AUTHORIZATION
+  - PERSONA_IS_NOT_WORKER
+  - WORKER_IS_NOT_CHANNEL
+  - MODEL_IS_NOT_PERSONA
+  - ACTOR_IDENTITY_IS_NOT_AUTHORITY_IDENTITY
+  - APPROVAL_OF_TARGET_X_IS_NOT_APPROVAL_OF_TARGET_Y
+  - FUTURE_OUTCOME_MUST_NOT_REPAIR_HISTORICAL_PIT_INPUT
+
+contract_blocks:
+  A01_TIME_SEMANTICS:
+    r2_classification: EXTEND
+    contract_level: P0_EXACT_FREEZE_CANDIDATE
+    principle: >-
+      Time meaning and the authority/source that establishes a time are separate dimensions.
+      No timestamp field may acquire a different semantic merely because the same physical
+      clock format is used.
+    semantic_types:
+      FACT_OR_EFFECTIVE_TIME:
+        meaning: Time at which a fact/state/event is effective in the represented domain.
+        allowed_precision:
+          - DATE
+          - DATETIME_TZ
+        rule: If only date precision is evidenced, do not invent intraday time.
+      PUBLIC_EVIDENCE_AVAILABLE_TIME:
+        meaning: Earliest governed time at which the supporting evidence was publicly available or otherwise validly supportable for PIT use.
+        allowed_precision:
+          - DATE
+          - DATETIME_TZ
+        rule: Must be supported by immutable evidence/source lineage; it is not inferred from later retrieval or execution unless the governed provenance mode explicitly defines the later retrieval as the only supported cutoff.
+      RECORDED_TIME:
+        meaning: Time the AAA/control system persisted or observed a record/action.
+        allowed_precision:
+          - DATETIME_TZ
+        default_clock_authority: GOVERNED_OPERATIONAL_STORE_CLOCK
+        rule: Recorded time is operational audit metadata and does not prove historical public availability.
+      SNAPSHOT_CUTOFF_TIME:
+        meaning: Authoritative PIT cutoff defining what information may be consumed by the snapshot/model input.
+        allowed_precision:
+          - DATETIME_TZ
+        canonical_existing_field: snapshot_cutoff_at
+      EXECUTION_LIFECYCLE_TIME:
+        meaning: Time of dispatch, claim, ACK, start, heartbeat, terminalization, cancellation, timeout, promotion, or restore activity.
+        allowed_precision:
+          - DATETIME_TZ
+        default_clock_authority: GOVERNED_OPERATIONAL_STORE_CLOCK
+    time_authority_shape:
+      required_fields:
+        - authority_kind
+        - authority_identity
+        - evidence_or_clock_reference
+      authority_kind_enum:
+        - SOURCE_EVIDENCE
+        - GOVERNED_OPERATIONAL_STORE_CLOCK
+        - IMMUTABLE_CERTIFICATION
+        - EXTERNAL_GOVERNED_CALENDAR_OR_TIME_SOURCE
+    hard_invariants:
+      - FACT_EXISTED_AT_TIME_NE_PUBLIC_EVIDENCE_AVAILABLE_AT_TIME
+      - SCORER_CONSUMED_EVIDENCE_REQUIRES_PUBLIC_EVIDENCE_AVAILABLE_TIME_OR_SUPPORTED_CUTOFF_LE_SNAPSHOT_CUTOFF_TIME
+      - LATER_EXECUTION_LIFECYCLE_TIME_CANNOT_ESTABLISH_EARLIER_HISTORICAL_AVAILABILITY
+      - FUTURE_EFFECTIVE_FACT_MAY_BE_PUBLICLY_KNOWN_BEFORE_EFFECTIVE_TIME_SO_NO_UNIVERSAL_ORDER_IS_INFERRED_BETWEEN_FACT_TIME_AND_AVAILABILITY_TIME
+      - RECORDED_TIME_NE_PUBLIC_EVIDENCE_AVAILABLE_TIME
+      - ALL_DATETIME_VALUES_MUST_BE_TIMEZONE_AWARE
+
+  A02_GLOBAL_INVARIANT_CONTRACT:
+    r2_classification: EXTEND
+    contract_level: P1_EXACT_CONCEPT_BOUNDARY
+    invariant_family_id: AAA-BALANCED-V1-GLOBAL-INVARIANTS
+    invariants:
+      INV_RUN_001: A Logical Run is not RUNNING merely because it was dispatched or has an available/claimed task.
+      INV_ATTEMPT_002: RunAttempt RUNNING_CONFIRMED requires governed start evidence, a current heartbeat, and current lease authority.
+      INV_LEASE_003: Expired or stale lease epoch cannot heartbeat, terminalize, or self-revive.
+      INV_TERM_004: Terminal execution outcome requires an immutable Attempt Termination Receipt; PASS/FAIL/PASS_WITH_FINDINGS additionally requires a persistent Result binding.
+      INV_RESULT_005: A Result must bind the same logical Run specification and exact target actually executed by its terminal RunAttempt.
+      INV_AUTH_006: Execution capability never implies governance authority.
+      INV_TARGET_007: Authority decisions are exact-target bound and cannot float with later branch/head changes.
+      INV_VALIDATION_008: Engineering PASS cannot satisfy Independent Validation PASS.
+      INV_CUTOVER_009: Independent Validation PASS cannot satisfy Owner cutover/release authorization.
+      INV_PIT_010: Future Outcome, MFE, MAE, Return, Rank, or later validation output cannot repair or backfill historical PIT evidence.
+      INV_HISTORY_011: Frozen historical artifact/version bytes are never overwritten by successor semantics.
+      INV_PARTIAL_012: Partial/checkpoint output cannot satisfy terminal success or terminal Result requirements.
+    implementation_rule: Invariants are semantic contracts; implementation mechanisms may change without changing invariant meaning.
+    deferred:
+      - GENERIC_POLICY_ENGINE
+      - DISTRIBUTED_INVARIANT_FRAMEWORK
+
+  A03_LOGICAL_RUN_AND_RUN_ATTEMPT:
+    r2_classification: REFACTOR
+    contract_level: P0_EXACT_FREEZE_CANDIDATE
+    selected_architecture: DISTINCT_LOGICAL_RUN_AND_RUN_ATTEMPT
+    logical_run:
+      semantic_role: Immutable logical execution intent plus exact execution specification.
+      identity_field: run_id
+      required_fields:
+        - run_id
+        - project_namespace
+        - process_id
+        - work_order_ref
+        - responsible_persona
+        - executor_role
+        - repository_identity
+        - exact_target_commit
+        - exact_execution_spec_hash
+        - execution_profile_ref
+        - configuration_sha256
+        - material_input_refs
+        - schema_family_version_refs
+        - created_at
+      optional_fields:
+        - experiment_ref
+        - snapshot_ref
+        - release_set_ref
+        - supersedes_run_id
+      logical_status_enum:
+        - READY_NOT_DISPATCHED
+        - DISPATCHED
+        - ACTIVE
+        - BLOCKED
+        - COMPLETED_PASS
+        - COMPLETED_FAIL
+        - COMPLETED_WITH_FINDINGS
+        - CANCELLED
+        - SUPERSEDED
+      rules:
+        - run_id remains immutable.
+        - exact_execution_spec_hash covers every field whose change would make the intended execution materially different.
+        - branch_context is descriptive only; exact_target_commit is authoritative for executable source identity.
+        - change to exact target, Work Order execution specification, execution profile identity, material configuration, or material input identity requires a new Logical Run.
+        - a Logical Run may have multiple RunAttempts only when exact_execution_spec_hash is unchanged.
+    run_attempt:
+      semantic_role: One concrete execution realization of one Logical Run.
+      identity_field: run_attempt_id
+      required_fields:
+        - run_attempt_id
+        - run_id
+        - attempt_ordinal
+        - execution_task_ref
+        - attempt_state
+        - lease_epoch
+        - created_at
+      conditional_fields:
+        - worker_id
+        - claimed_at
+        - acknowledged_at
+        - started_at
+        - last_heartbeat_at
+        - lease_expires_at
+        - timeout_at
+        - cancellation_ref
+        - retry_of_attempt_id
+        - retry_reason_code
+        - retry_authorization_ref
+        - terminal_receipt_ref
+        - terminal_result_ref
+      attempt_state_enum:
+        - CREATED
+        - CLAIMED
+        - ACKNOWLEDGED
+        - RUNNING_CONFIRMED
+        - STALE_UNKNOWN
+        - COMPLETED_PASS
+        - COMPLETED_FAIL
+        - COMPLETED_WITH_FINDINGS
+        - CANCELLED
+        - TIMED_OUT
+        - INFRASTRUCTURE_FAILED
+        - CONTRACT_FAILED
+      rules:
+        - attempt_ordinal is unique within run_id and starts at 1.
+        - retry_of_attempt_id, when populated, must resolve to an earlier attempt for the same run_id.
+        - worker/lease/start/heartbeat/timeout/cancellation fields belong to RunAttempt, not Logical Run.
+        - ACK alone never means RUNNING_CONFIRMED.
+        - RUNNING_CONFIRMED requires started_at and current last_heartbeat_at under an unexpired current lease epoch.
+        - stale or expired lease cannot be renewed by a heartbeat after expiry.
+    execution_task:
+      semantic_role: Queue/dispatch materialization for one RunAttempt.
+      cardinality: ONE_TO_ONE_WITH_RUN_ATTEMPT_IN_BALANCED_V1
+      rules:
+        - one RunAttempt has exactly one execution task once materialized.
+        - task claim is not RunAttempt ACK.
+        - task ACK is not RunAttempt start.
+        - task state is dispatch mechanics; RunAttempt state is execution semantics.
+    cardinalities:
+      WORK_ORDER_TO_LOGICAL_RUN: ONE_TO_MANY
+      LOGICAL_RUN_TO_RUN_ATTEMPT: ONE_TO_MANY
+      RUN_ATTEMPT_TO_EXECUTION_TASK: ONE_TO_ONE_AFTER_MATERIALIZATION
+      RUN_ATTEMPT_TO_TERMINATION_RECEIPT: ZERO_OR_ONE_NONTERMINAL_ONE_IF_TERMINAL
+      RUN_ATTEMPT_TO_RESULT: ZERO_OR_ONE
+      LOGICAL_RUN_TO_FINAL_DISPOSITION_RECEIPT: ZERO_OR_ONE_NONTERMINAL_ONE_IF_LOGICALLY_TERMINAL
+    terminal_aggregation:
+      rule: >-
+        A terminal RunAttempt does not automatically make the Logical Run terminal when the
+        attempt ended for a retryable infrastructure/timeout/stale-authority reason. Logical
+        Run terminal state requires a Final Disposition Receipt selecting a terminal attempt/result
+        or explicitly cancelling/superseding the Logical Run.
+    legacy_compatibility:
+      legacy_t17_t18_t19_run_shape: PRESERVE_AS_LEGACY_RUN_SEMANTICS
+      retroactive_run_attempt_synthesis: PROHIBITED
+      reader_policy: >-
+        Legacy Run records are exposed through a compatibility projection labeled LEGACY_RUN_V0_X;
+        absence of run_attempt_id on historical records is not filled by inference.
+
+  A04_FAILURE_RETRY_CANCELLATION_TIMEOUT:
+    r2_classification: REFACTOR
+    contract_level: P1_EXACT_CONCEPT_BOUNDARY
+    termination_class_enum:
+      - BUSINESS_PASS
+      - BUSINESS_FAIL
+      - BUSINESS_PASS_WITH_FINDINGS
+      - VALIDATION_FAIL
+      - VALIDATION_WITH_FINDINGS
+      - APPLICATION_FAILURE
+      - INPUT_INTEGRITY_FAILURE
+      - EXECUTION_CONTRACT_VIOLATION
+      - SECURITY_POLICY_DENIAL
+      - INFRASTRUCTURE_TRANSIENT
+      - INFRASTRUCTURE_PERMANENT
+      - STALE_LEASE
+      - TIMEOUT
+      - CANCELLED_BY_AUTHORITY
+      - SUPERSEDED
+      - UNKNOWN_FAIL_CLOSED
+    default_retryability:
+      INFRASTRUCTURE_TRANSIENT: RETRYABLE_IF_POLICY_ALLOWS
+      STALE_LEASE: RETRYABLE_IF_POLICY_ALLOWS_NEW_ATTEMPT
+      TIMEOUT: RETRYABLE_IF_POLICY_ALLOWS
+      INFRASTRUCTURE_PERMANENT: NOT_RETRYABLE_BY_DEFAULT
+      INPUT_INTEGRITY_FAILURE: NOT_RETRYABLE_UNTIL_INPUT_IDENTITY_CHANGES_THEN_NEW_LOGICAL_RUN
+      EXECUTION_CONTRACT_VIOLATION: NOT_RETRYABLE_UNTIL_CONTRACT_OR_SPEC_CHANGES_THEN_NEW_LOGICAL_RUN
+      SECURITY_POLICY_DENIAL: NOT_RETRYABLE_WITHOUT_NEW_AUTHORITY_OR_SPEC_THEN_NEW_LOGICAL_RUN
+      APPLICATION_FAILURE: POLICY_SPECIFIC_NO_IMPLICIT_RETRY
+      VALIDATION_FAIL: NOT_EXECUTION_RETRY
+      BUSINESS_FAIL: NOT_EXECUTION_RETRY
+      CANCELLED_BY_AUTHORITY: NOT_RETRYABLE_WITHOUT_NEW_DECISION
+      UNKNOWN_FAIL_CLOSED: NOT_RETRYABLE_BY_DEFAULT
+    same_logical_run_retry_requirements:
+      - exact_execution_spec_hash identical
+      - new run_attempt_id
+      - incremented attempt_ordinal
+      - retry_of_attempt_id populated
+      - retry_reason_code populated
+      - retry_authorization_ref resolves to governed retry policy or exact Decision Receipt
+    new_logical_run_required_if_any_changes:
+      - exact_target_commit
+      - material Work Order execution specification
+      - execution_profile identity or hash
+      - material dependency/lock identity
+      - configuration_sha256
+      - material input/dataset/snapshot identity
+      - model/feature/schema identity when part of execution specification
+    cancellation:
+      rule: Cancellation requires authority source/Decision Receipt; worker self-cancellation cannot impersonate Owner/Core authority.
+      terminalization: RunAttempt gets immutable termination receipt; Logical Run cancellation additionally requires Final Disposition Receipt.
+    timeout:
+      rule: Timeout is not PASS or business FAIL; it terminates the attempt under TIMEOUT and may leave the Logical Run retryable.
+    historical_t19_retry_rule:
+      preserve: true
+      note: Historical T19 retry-as-new-run-id semantics remain historical truth and are not rewritten.
+
+  A05_SCHEMA_FAMILY_VERSIONING:
+    r2_classification: EXTEND
+    contract_level: P0_EXACT_FREEZE_CANDIDATE_SHARED
+    schema_family_contract:
+      required_fields:
+        - schema_family_id
+        - schema_version
+        - schema_status
+        - compatibility_with_predecessor
+        - reader_policy
+      optional_fields:
+        - supersedes_schema_version
+        - migration_ref
+        - change_request_ref
+        - effective_from
+      schema_status_enum:
+        - WORKING
+        - CANDIDATE
+        - FROZEN
+        - DEPRECATED
+      compatibility_with_predecessor_enum:
+        - NON_BREAKING_ADDITIVE
+        - BREAKING_SUCCESSOR
+        - REVISION_ONLY_NO_SCHEMA_CHANGE
+        - NOT_APPLICABLE_INITIAL
+      reader_policy_enum:
+        - EXACT_VERSION_ONLY
+        - DECLARED_COMPATIBLE_SET
+      rules:
+        - frozen schema bytes are immutable.
+        - breaking changes require a new schema_version and explicit migration/compatibility disposition.
+        - schema version is independent from model version and data revision.
+        - correction of data uses record/snapshot revision semantics and does not masquerade as a schema version.
+        - compatibility is declared, never inferred from similar field names.
+        - legacy reader semantics remain available for historical records where required for audit.
+    platform_deferred:
+      - GENERIC_SCHEMA_REGISTRY_SERVICE
+      - AUTOMATIC_SCHEMA_NEGOTIATION
+
+  A06_EXECUTION_SOURCE_PROVENANCE:
+    r2_classification: EXTEND
+    contract_level: P0_EXACT_FREEZE_CANDIDATE_SHARED_WHERE_MODEL_INPUTS_APPLY
+    execution_provenance_receipt:
+      required_fields:
+        - provenance_receipt_id
+        - run_id
+        - run_attempt_id
+        - repository_identity
+        - exact_commit_sha
+        - git_tree_sha
+        - working_tree_clean
+        - execution_profile_id
+        - execution_profile_version
+        - execution_profile_sha256
+        - dependency_lock_refs
+        - configuration_sha256
+        - material_input_refs
+        - runtime_identity
+        - verified_by_actor_ref
+        - verified_at
+      dependency_lock_ref_shape:
+        - path_or_identity
+        - sha256
+      material_input_ref_shape:
+        required:
+          - domain
+          - immutable_identity
+        conditional:
+          - content_sha256
+          - locator
+          - schema_version
+          - snapshot_cutoff_at
+      hard_rules:
+        - working_tree_clean must be TRUE for Balanced v1 governed execution.
+        - dirty working tree execution is fail-closed and not authorized by this contract.
+        - exact_commit_sha must equal the Logical Run exact_target_commit.
+        - actual checkout commit and git tree must be verified before governed start.
+        - execution profile hash must equal the profile bound in the Logical Run specification.
+        - material configuration and material inputs must hash/resolve exactly to bound identities.
+        - provenance receipt creation does not itself grant execution authority.
+    dirty_tree_future_extension:
+      status: DEFERRED_NOT_AUTHORIZED
+      minimum_if_ever_proposed:
+        - immutable_patch_or_diff_digest
+        - explicit_authority_decision
+        - successor_contract_version
+    deferred:
+      - ENTERPRISE_SBOM_FRAMEWORK
+      - GENERIC_SOFTWARE_SUPPLY_CHAIN_ATTESTATION_PLATFORM
+
+  A07_PROJECT_NAMESPACE_CANONICAL_IDENTITY:
+    r2_classification: EXTEND
+    contract_level: P0_EXACT_FREEZE_CANDIDATE_SHARED_WHERE_CROSS_DOMAIN_REFS_APPLY
+    identity_envelope:
+      canonical_key_tuple:
+        - project_namespace
+        - entity_family
+        - local_id
+      project_namespace_default: SEMICONDUCTOR_RESEARCH
+      required_fields:
+        - project_namespace
+        - entity_family
+        - local_id
+      optional_fields:
+        - schema_version
+        - record_revision
+        - supersedes_ref
+      entity_family_examples:
+        - WORK_ORDER
+        - LOGICAL_RUN
+        - RUN_ATTEMPT
+        - EXECUTION_TASK
+        - RESULT
+        - DECISION_RECEIPT
+        - PROMOTION_RECEIPT
+        - RESTORE_MANIFEST
+        - OPERATIONAL_EVENT
+        - ECONOMIC_EVENT
+        - COMPANY
+        - FAB
+        - PIT_SNAPSHOT
+        - SOURCE
+        - EVIDENCE
+    compatibility_rule: Existing IDs remain local_id values; canonical envelope is additive and does not rewrite historical IDs.
+    collision_rules:
+      - duplicate canonical_key_tuple is a hard fail unless the domain contract explicitly defines revision under one stable logical identity.
+      - same local_id in different entity_family values is not a collision because canonical identities differ.
+      - same entity family and local_id with materially distinct identities must not be silently deduplicated, renumbered, or merged.
+      - version suffix rotation must not be used to bypass stable logical identity requirements.
+    continuity_collision_disposition:
+      current_named_blocker: AAA-FINDING-CONTINUITY-EVENT-ID-COLLISION_v0.1_WORKING
+      this_contract_resolves_historical_collision: false
+      authority_for_historical_adjudication: SEMI-CONTROL-ARCHITECT
+      rule: New namespace semantics prevent future ambiguity but do not infer which historical record wins.
+
+  A08_CROSS_STORE_PROMOTION:
+    r2_classification: EXTEND
+    contract_level: P0_EXACT_FREEZE_CANDIDATE
+    promotion_receipt:
+      required_fields:
+        - promotion_id
+        - promotion_kind
+        - source_refs
+        - source_version_set_hash
+        - destination_store
+        - destination_namespace
+        - exact_target_identity
+        - decision_receipt_ref
+        - actor_ref
+        - authority_ref
+        - status
+        - recorded_at
+      conditional_fields:
+        - validation_receipt_refs
+        - destination_receipts
+        - started_at
+        - completed_at
+        - failure_reason
+      status_enum:
+        - PREPARED
+        - IN_PROGRESS
+        - COMPLETED_VERIFIED
+        - FAILED_NO_PROMOTION
+        - FAILED_PARTIAL_FAIL_CLOSED
+      hard_rules:
+        - CONTROL_ACCEPTANCE_REQUIRED_WHERE_APPLICABLE
+        - REQUIRED_INDEPENDENT_VALIDATION_PASS_REQUIRED_WHERE_APPLICABLE
+        - OWNER_RELEASE_OR_CUTOVER_DECISION_REQUIRED_WHERE_APPLICABLE
+        - DETERMINISTIC_PROMOTION_JOB_REQUIRED
+        - exact target and source version set are immutable within one promotion_id.
+        - partial multi-store success cannot be reported as completed promotion.
+        - FAILED_PARTIAL_FAIL_CLOSED must leave canonical visibility/authority unchanged until explicit recovery/reconciliation.
+        - promotion actor may execute the operation but authority_ref and decision_receipt_ref determine permission.
+    storage_plane_rule:
+      - Git/GitHub governance state, PostgreSQL operational state, and immutable S3/R2 artifact state remain distinct authority/storage planes.
+      - no silent dual authority.
+    deferred:
+      - SAGA_PLATFORM
+      - GENERIC_TWO_PHASE_COMMIT
+      - DISTRIBUTED_TRANSACTION_FRAMEWORK
+
+  A09_PROVIDER_NEUTRAL_RESTORE:
+    r2_classification: EXTEND
+    contract_level: P1_EXACT_CONCEPT_BOUNDARY
+    restore_manifest:
+      required_fields:
+        - restore_manifest_id
+        - backup_or_snapshot_identity
+        - source_store_kind
+        - target_store_kind
+        - schema_migration_version_set
+        - immutable_artifact_refs
+        - restore_target_identity
+        - verification_plan_ref
+        - status
+      conditional_fields:
+        - rpo_policy_ref
+        - rto_policy_ref
+        - pitr_policy_ref
+        - restored_at
+        - verification_result_refs
+      status_enum:
+        - PREPARED
+        - RESTORED_UNVERIFIED
+        - RESTORED_VERIFIED
+        - FAILED_FAIL_CLOSED
+      rules:
+        - provider name is implementation metadata, not restore semantic identity.
+        - restore is not authoritative recovery until verification passes.
+        - restored state cannot silently become Operational SoT without the separately required Owner authority decision.
+        - local backup/restore drill does not substitute for managed provider PITR/RPO/RTO qualification.
+    deferred:
+      - AUTOMATED_DR_ORCHESTRATION
+      - PROVIDER_SPECIFIC_IMPLEMENTATION_FREEZE
+
+  A10_ACTOR_AND_AUTHORITY:
+    r2_classification: REFACTOR
+    contract_level: P0_EXACT_FREEZE_CANDIDATE
+    actor_ref:
+      required_fields:
+        - actor_type
+        - actor_identity
+      optional_fields:
+        - runtime_instance_id
+        - session_context_ref
+      actor_type_enum:
+        - HUMAN_OWNER
+        - PERSONA_INSTANCE
+        - WORKER
+        - SERVICE
+        - CI_JOB
+        - VALIDATOR_RUNTIME
+    authority_ref:
+      required_fields:
+        - authority_role
+        - authority_identity
+        - authority_scope
+        - authority_source_ref
+      authority_role_examples:
+        - PROJECT_OWNER
+        - SEMI_CONTROL_ARCHITECT
+        - SEMI_MODEL_VALIDATION_DESIGN_ARCHITECT
+        - SEMI_RESEARCH_ORCHESTRATOR
+        - SEMI_VALIDATION_AUDITOR
+        - BOUNDED_ENGINEERING_EXECUTION
+    hard_rules:
+      - ACTOR_IDENTITY_NE_AUTHORITY_IDENTITY_AS_A_SEMANTIC_DIMENSION
+      - a worker/service/CI job never gains governance authority merely by possessing capability or credentials.
+      - authority-bearing action must resolve authority_source_ref to a governed matrix, Work Order approval, Shared Contract decision, or exact Decision Receipt as appropriate.
+      - exact-target approval requires target binding at decision time.
+      - channel/session context may identify transport context but is never a Persona or authority source by itself.
+
+  A11_COMMAND_WORKFLOW_BOUNDARY:
+    r2_classification: KEEP
+    contract_level: P1_EXACT_CONCEPT_BOUNDARY
+    retained_rules:
+      - Work Order selects a code-owned/approved execution_profile_id or future governed workflow identity.
+      - Work Order cannot inject arbitrary shell, command, entrypoint, or script.
+      - execution profile identity and SHA256 are exact-bound.
+      - shell=False remains the execution baseline.
+      - exact target verification occurs before governed ACK/start/command execution.
+      - Persona/capability/permission checks remain mandatory.
+    future_multistep_rule: A future multi-step workflow may compose approved code-owned steps but may not become an arbitrary user-authored command graph under this contract.
+    deferred:
+      - WORKFLOW_DSL
+      - GENERIC_WORKFLOW_ENGINE
+      - ARBITRARY_COMMAND_GRAPH
+
+  A12_OPERATIONAL_EVENT_HISTORY:
+    r2_classification: REFACTOR
+    contract_level: P1_EXACT_CONCEPT_BOUNDARY_WITH_P0_IDENTITY_RULES
+    principle: Operational event history is append-only audit/provenance history, not the sole reconstructive source of all AAA state.
+    operational_event_shape:
+      required_fields:
+        - operational_event_id
+        - project_namespace
+        - event_family
+        - event_type
+        - event_schema_version
+        - aggregate_ref
+        - sequence_number
+        - observed_at
+        - actor_ref
+        - authority_ref
+        - idempotency_scope_key
+        - payload_sha256
+      optional_fields:
+        - decision_receipt_ref
+        - causation_event_ref
+        - correlation_id
+        - previous_event_hash
+        - event_hash
+      event_family_examples:
+        - RUN_LIFECYCLE
+        - ATTEMPT_LIFECYCLE
+        - DISPATCH
+        - LEASE
+        - RESULT
+        - DECISION
+        - PROMOTION
+        - RESTORE
+      aggregate_ref_shape:
+        - entity_family
+        - local_id
+    idempotency_rule: idempotency uniqueness is scoped by project_namespace + producer_or_actor_scope + event_family + idempotency_scope_key; it is not an untyped accidental global namespace.
+    sequence_rule: sequence_number uniqueness is scoped to aggregate_ref.
+    causality_rule: causation_event_ref is required only when the event directly derives from a prior governed operational event; correlation_id is used for multi-object workflows when deterministic cross-object tracing is required.
+    collision_rule: duplicate canonical operational event identity with materially different payload/meaning is a hard failure and cannot be silently deduplicated.
+    economic_event_separation:
+      - economic EVENT records remain domain economic/state-change records with their own stable event_id and event_record_id revision semantics.
+      - AAA OPERATIONAL_EVENT records are execution/control audit events.
+      - one must never be substituted for the other merely because both use the word event.
+    explicitly_not_authorized:
+      - EVENT_SOURCING_AS_SOLE_STATE
+      - CQRS_FRAMEWORK
+      - KAFKA_OR_PULSAR_BASELINE
+
+cross_cutting_receipts:
+  EXACT_TARGET_DECISION_RECEIPT:
+    contract_level: P0_EXACT_FREEZE_CANDIDATE
+    write_policy: APPEND_ONLY_IMMUTABLE
+    required_fields:
+      - decision_id
+      - decision_type
+      - target_kind
+      - exact_target_identity
+      - authority_ref
+      - actor_ref
+      - decision
+      - decided_at
+    optional_fields:
+      - rationale_ref
+      - prerequisite_receipt_refs
+      - supersedes_decision_ref
+      - revokes_decision_ref
+    decision_enum:
+      - APPROVE
+      - DENY
+      - REVOKE
+      - SUPERSEDE
+    required_applications:
+      - ARCHITECTURE_EXACT_FREEZE
+      - RELEASE
+      - CANONICAL_PROMOTION
+      - POSTGRESQL_OPERATIONAL_SOT_CUTOVER
+      - LIVE_EXECUTION_ENABLEMENT
+      - CONTROLLED_CUTOVER
+    hard_rules:
+      - decision is valid only for exact_target_identity recorded in the immutable receipt.
+      - revocation/supersession creates a new receipt; prior receipt bytes are not mutated.
+      - later branch/head movement cannot change the approved target.
+
+  ATTEMPT_TERMINATION_RECEIPT:
+    contract_level: P0_SUPPORTING
+    write_policy: APPEND_ONLY_IMMUTABLE
+    required_fields:
+      - attempt_termination_id
+      - run_id
+      - run_attempt_id
+      - termination_class
+      - retryable_disposition
+      - actor_ref
+      - authority_ref
+      - terminated_at
+    conditional_fields:
+      - terminal_result_ref
+      - failure_reason
+      - cancellation_decision_ref
+      - timeout_policy_ref
+    rules:
+      - every terminal RunAttempt has exactly one immutable termination receipt.
+      - BUSINESS_PASS/BUSINESS_FAIL/BUSINESS_PASS_WITH_FINDINGS and governed validation terminal outcomes require persistent Result identity where the underlying contract expects a Result artifact.
+      - infrastructure/timeout/stale/cancel termination is never silently mapped to PASS.
+
+  LOGICAL_RUN_FINAL_DISPOSITION_RECEIPT:
+    contract_level: P0_SUPPORTING
+    required_fields:
+      - final_disposition_id
+      - run_id
+      - final_status
+      - selected_attempt_ref_or_decision_ref
+      - authority_ref
+      - actor_ref
+      - decided_at
+    final_status_enum:
+      - COMPLETED_PASS
+      - COMPLETED_FAIL
+      - COMPLETED_WITH_FINDINGS
+      - CANCELLED
+      - SUPERSEDED
+    rule: Logical Run cannot become terminal without this receipt under Balanced v1 successor semantics.
+
+  PROMOTION_RECEIPT:
+    contract_level: P0_SUPPORTING
+    reference: contract_blocks.A08_CROSS_STORE_PROMOTION.promotion_receipt
+
+  EXECUTION_PROVENANCE_RECEIPT:
+    contract_level: P0_SUPPORTING
+    reference: contract_blocks.A06_EXECUTION_SOURCE_PROVENANCE.execution_provenance_receipt
+
+partial_and_checkpoint_boundary:
+  contract_level: P1_EXACT_CONCEPT_BOUNDARY
+  checkpoint_artifact_status: PARTIAL_NONTERMINAL
+  rules:
+    - a checkpoint may carry progress, lineage, hash, and resume metadata.
+    - a checkpoint cannot satisfy terminal_result_ref.
+    - incomplete 350_of_400 style progress cannot be represented as COMPLETED_PASS.
+    - checkpoint recovery/resume framework implementation is deferred.
+
+compatible_version_set_release_manifest:
+  contract_level: P1_EXACT_CONCEPT_BOUNDARY_SHARED
+  required_fields:
+    - release_set_id
+    - component_refs
+    - component_set_sha256
+    - compatibility_declaration_ref
+    - exact_decision_receipt_ref
+  component_ref_minimum:
+    - component_kind
+    - immutable_identity
+    - version
+    - content_hash_or_git_identity
+  component_kind_examples:
+    - SCHEMA
+    - MODEL
+    - FEATURE_SPEC
+    - EXECUTION_PROFILE
+    - CONFIGURATION
+    - DATASET
+    - SNAPSHOT
+    - RUNTIME
+  rule: Release/canonical promotion binds a compatible immutable set; floating latest is prohibited for governed release identity.
+  deferred:
+    - PACKAGE_MANAGER
+    - DEPENDENCY_SOLVER
+
+legacy_compatibility_contract:
+  legacy_schema_label: LEGACY_AAA_RUN_V0_X
+  applies_to:
+    - T17_RUN_REGISTRY
+    - T18_OPERATIONAL_DATABASE
+    - T19_EXECUTION_DISPATCHER_WORKER_RUNTIME
+  rules:
+    - historical run_id remains its original physical/logical identity under the historical schema.
+    - no synthetic run_attempt_id is fabricated for historical records.
+    - migration 0006 or later, if authorized, may add successor entities/columns/views but must not rewrite 0001-0005 bytes.
+    - compatibility view/API must make legacy versus Balanced-v1 successor semantics explicit.
+    - historical Result and Work Order bindings remain authoritative for their original Runs.
+
+r4_shared_contract_reconciliation_scope:
+  required: true
+  unilateral_promotion_prohibited: true
+  participants:
+    - SEMI-CONTROL-ARCHITECT
+    - SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+  shared_items:
+    A01_TIME_SEMANTICS:
+      reason: PIT snapshot/interface and model-consumed historical provenance are Shared Contract territory.
+      reconcile:
+        - PUBLIC_EVIDENCE_AVAILABLE_TIME
+        - SNAPSHOT_CUTOFF_TIME
+        - supported_cutoff semantics
+        - no-future-outcome rule
+    A05_SCHEMA_FAMILY_VERSIONING:
+      reason: model input/PIT/shared schemas and operational successor schemas require compatible version-set semantics without unilateral schema meaning changes.
+    A06_EXECUTION_SOURCE_PROVENANCE:
+      reason: model/feature/config/dataset/snapshot identities may be part of the exact execution specification and replay evidence.
+    A07_PROJECT_NAMESPACE_CANONICAL_IDENTITY:
+      reason: typed references cross Data/PIT/Model/Validation/Operational domains.
+    COMPATIBLE_VERSION_SET_RELEASE_MANIFEST:
+      reason: model release and data/control release identities are jointly relevant.
+    A10_AUTHORITY_INTERSECTION:
+      reason: Shared Contract promotion itself requires dual-core reconciliation; this does not alter the existing authority matrix unilaterally.
+  non_shared_implementation_details_not_to_negotiate_as_model_methodology:
+    - PostgreSQL table layout
+    - queue locking implementation
+    - lease SQL implementation
+    - Owner Console presentation
+    - worker process implementation
+  model_methodology_excluded:
+    - feature definitions
+    - scorer math
+    - weights
+    - ranking contract
+    - backtest methodology
+    - MFE_MAE semantic changes beyond already-shared interface contracts
+
+r4_required_decisions:
+  - ACCEPT_OR_AMEND_A01_SHARED_TIME_VOCABULARY
+  - ACCEPT_OR_AMEND_A05_SCHEMA_FAMILY_COMPATIBILITY_VOCABULARY
+  - ACCEPT_OR_AMEND_A06_MODEL_REPLAY_PROVENANCE_FIELDS
+  - ACCEPT_OR_AMEND_A07_CROSS_DOMAIN_TYPED_IDENTITY_ENVELOPE
+  - ACCEPT_OR_AMEND_COMPATIBLE_VERSION_SET_RELEASE_MANIFEST
+  - CONFIRM_NO_MODEL_METHODOLOGY_CHANGE
+  - CONFIRM_SHARED_CONTRACT_VERSIONING_AND_PROMOTION_PATH
+
+r5_owner_exact_freeze_candidate_after_r4:
+  p0_candidate_set:
+    - A01_TIME_SEMANTICS
+    - A03_LOGICAL_RUN_AND_RUN_ATTEMPT
+    - A05_SCHEMA_FAMILY_VERSIONING
+    - A06_EXECUTION_SOURCE_PROVENANCE
+    - A07_PROJECT_NAMESPACE_CANONICAL_IDENTITY
+    - A08_CROSS_STORE_PROMOTION
+    - A10_ACTOR_AND_AUTHORITY
+    - EXACT_TARGET_DECISION_RECEIPT
+    - ATTEMPT_TERMINATION_RECEIPT
+    - LOGICAL_RUN_FINAL_DISPOSITION_RECEIPT
+  p1_concept_boundary_set:
+    - A02_GLOBAL_INVARIANT_CONTRACT
+    - A04_FAILURE_RETRY_CANCELLATION_TIMEOUT
+    - A09_PROVIDER_NEUTRAL_RESTORE
+    - A11_COMMAND_WORKFLOW_BOUNDARY
+    - A12_OPERATIONAL_EVENT_HISTORY
+    - PARTIAL_AND_CHECKPOINT_BOUNDARY
+    - COMPATIBLE_VERSION_SET_RELEASE_MANIFEST
+  not_in_r5_freeze_unless_owner_explicitly_expands_scope:
+    - GENERIC_POLICY_ENGINE
+    - GENERIC_WORKFLOW_ENGINE_OR_DSL
+    - EVENT_SOURCING_OR_CQRS
+    - KAFKA_OR_PULSAR
+    - KUBERNETES
+    - GENERIC_DISTRIBUTED_SCHEDULER
+    - SAGA_OR_GENERIC_2PC
+    - ENTERPRISE_IAM
+    - SAAS_MULTITENANCY
+    - AUTOMATED_DR_ORCHESTRATION
+    - GENERIC_CHECKPOINT_FRAMEWORK
+    - ENTERPRISE_SBOM_PLATFORM
+
+implementation_mapping_if_and_only_if_later_authorized:
+  migration_floor: 6
+  likely_successor_domains:
+    - logical_run_successor_contract_or_projection
+    - run_attempts
+    - attempt_termination_receipts
+    - logical_run_final_disposition_receipts
+    - decision_receipts
+    - execution_provenance_receipts
+    - promotion_receipts
+    - operational_event_identity_and_authority_extension
+    - schema_family_compatibility_metadata
+  hard_non_authorizations:
+    - do not implement from R3 alone
+    - do not move PostgreSQL to authoritative SoT
+    - do not enable live execution
+    - do not change Shared Contract before R4 reconciliation
+    - do not change model methodology
+    - do not rewrite historical migrations or Runs/Results
+
+pending_existing_governed_work:
+  p09_second_independent_rerun:
+    run_id: RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-002
+    known_state_at_r2_close: DISPATCHED_AWAITING_ACK
+    disposition: PRESERVE_SEPARATELY_NO_FABRICATION
+  t18_independent_validation:
+    run_id: RUN-VALIDATION-AAA-T18-INDEPENDENT-20260816-001
+    known_state_at_r2_close: DISPATCHED_AWAITING_ACK
+    disposition: PRESERVE_SEPARATELY_NO_FABRICATION
+  t19_independent_validation:
+    status: PASS_ON_FINAL_INTEGRATED_SUCCESSOR
+    live_execution_authorized: false
+    postgresql_authoritative: false
+
+r3_exit_criteria:
+  entity_boundaries_exact: PASS
+  run_runattempt_cardinality_exact: PASS
+  time_semantics_exact: PASS
+  actor_authority_boundary_exact: PASS
+  decision_receipt_exact: PASS
+  provenance_minimum_exact: PASS
+  namespace_identity_exact: PASS
+  promotion_fail_closed_semantics_exact: PASS
+  legacy_compatibility_non_rematerialization_exact: PASS
+  shared_contract_intersections_identified: PASS
+  implementation_not_started: PASS
+  owner_exact_freeze_not_implied: PASS
+
+next_gate:
+  phase: R4_SHARED_CONTRACT_RECONCILIATION
+  state: READY_NOT_DISPATCHED
+  prerequisite: R3 design artifact persisted and control regression CI remains green

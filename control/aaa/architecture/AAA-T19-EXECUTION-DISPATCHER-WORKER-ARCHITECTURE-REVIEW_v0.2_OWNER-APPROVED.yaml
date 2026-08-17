@@ -1,0 +1,62 @@
+control_id: AAA-T19-EXECUTION-DISPATCHER-WORKER-ARCHITECTURE-REVIEW
+version: v0.2_OWNER-APPROVED
+project: Asset Agent ASA
+track: T19
+track_name: AAA Execution Dispatcher / Worker Runtime
+recorded_at: '2026-08-16T07:19:00+09:00'
+supersedes: control/aaa/architecture/AAA-T19-EXECUTION-DISPATCHER-WORKER-ARCHITECTURE-REVIEW_v0.1_WORKING.yaml
+requesting_authority: PROJECT_OWNER
+approved_by: PROJECT_OWNER
+status: OWNER_APPROVED_FOR_BOUNDED_ENGINEERING
+architecture_verdict: ADOPT
+implementation_authorized: true
+live_execution_authority_authorized: false
+postgresql_operational_sot_cutover_authorized: false
+production_release_authorized: false
+controlled_cutover_authorized: false
+
+approved_direction:
+  execution_plane: T19_DISPATCHER_WORKER_RUNTIME
+  transport_model: POSTGRESQL_PULL_CLAIM
+  lease_and_fencing: REQUIRED
+  allowlisted_execution_profiles: REQUIRED
+  arbitrary_shell_from_work_order: PROHIBITED
+  redis: NOT_REQUIRED
+  kafka: NOT_REQUIRED
+  kubernetes: NOT_REQUIRED
+  sqlite_certifying_backend: false
+  persona_worker_channel_model_boundary: 'Persona != Worker != Channel != Model'
+
+engineering_scope_authorized:
+  - T19_0_EXECUTION_CONTRACT
+  - T19_1_DISPATCHER
+  - T19_2_WORKER_RUNTIME
+  - T19_3_FAILURE_RECOVERY
+  - T19_4_CONTROL_SURFACES
+  - T19_5_VALIDATION_WORKER_PROFILE
+  - synthetic_noncanonical_worker_drills
+  - CI_POSTGRESQL_CONCURRENCY_AND_RECOVERY_TESTS
+  - engineering_integration_candidate
+
+engineering_scope_not_authorized:
+  - live authoritative dispatch
+  - retroactive ACK/start/heartbeat for existing P09 or T18 validation Runs
+  - PostgreSQL Operational SoT cutover
+  - Production Release or P10 Controlled Cutover
+  - arbitrary user-supplied shell execution
+  - model methodology or Shared Contract changes
+  - Ground Truth/PIT/U127 mutation
+
+non_interference:
+  p09_failed_target: 80378610f9ac9e688c52417f0416e01c057400a7
+  p09_current_rerun_target: 30fdb278c218b24e44d66eb5f47935a196dc4f8c
+  t18_independent_target: 59c9baf3a24b1cf7542a3643c296711c37d72c3c
+  exact_targets_must_not_move: true
+
+live_enablement_prerequisites:
+  - T18_INDEPENDENT_VALIDATION_PASS
+  - LIVE_MANAGED_POSTGRESQL_QUALIFIED
+  - RPO_RTO_PITR_POLICY_APPROVED_AND_TESTED
+  - T19_INDEPENDENT_VALIDATION_PASS
+  - PROJECT_OWNER_POSTGRESQL_OPERATIONAL_SOT_CUTOVER_AUTHORIZATION
+  - PROJECT_OWNER_T19_LIVE_EXECUTION_ENABLEMENT_AUTHORIZATION

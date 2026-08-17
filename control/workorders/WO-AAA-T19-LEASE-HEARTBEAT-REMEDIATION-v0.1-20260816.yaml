@@ -1,0 +1,70 @@
+work_order_id: WO-AAA-T19-LEASE-HEARTBEAT-REMEDIATION-v0.1-20260816
+project: Asset Agent ASA
+track: T19
+requesting_control: AAA_BUILD_CONTROL
+responsible_persona: AAA_BUILD_CONTROL
+state: OWNER_APPROVED_READY_FOR_EXECUTION
+created_at: '2026-08-16T08:05:00+09:00'
+owner_approved_at: '2026-08-16T08:10:00+09:00'
+owner_approval_source: PROJECT_OWNER_EXPLICIT_CHAT_APPROVAL
+repository: AofSpds/asset-agent-asa
+base_branch: aaa-integration-v0.2
+failed_exact_target: c867e3704b2744c3a826635b828ad6696e6281eb
+source_validation_run: RUN-VALIDATION-AAA-T19-INDEPENDENT-20260816-001
+source_validation_result: control/aaa/results/RESULT-VALIDATION-AAA-T19-INDEPENDENT-20260816-001.json
+blocking_finding: control/aaa/findings/AAA-T19-IV-FND-01-EXPIRED-LEASE-HEARTBEAT-RESURRECTION_v0.1_WORKING.yaml
+
+objective: >-
+  Produce a new immutable T19 successor that closes the P0 expired-lease heartbeat resurrection defect without redesigning unrelated AAA layers or changing any model/scientific/governance contract.
+
+bounded_scope:
+  - enforce current non-expired lease validity before heartbeat renewal
+  - ensure heartbeat_execution_task cannot revive an expired Run lease
+  - implement true periodic heartbeat continuity during long-running commands, or an equally fail-closed governed lease-duration mechanism that cannot operate through an expired lease
+  - preserve lease_epoch fencing and single-winner claim semantics
+  - add direct expired same-epoch heartbeat regression
+  - add takeover epoch N to N+1 old-worker late heartbeat/terminalization regression
+  - add long-command duration greater than lease TTL regression
+  - prove STALE_UNKNOWN cannot self-revive without governed lease reacquisition
+  - rerun full deterministic, PostgreSQL 16, reconciliation, backup/restore and Owner Console suites
+
+required_acceptance:
+  expired_same_epoch_heartbeat: REJECTED
+  expired_lease_self_resurrection: IMPOSSIBLE
+  long_command_lease_continuity: PASS_OR_FAIL_CLOSED
+  old_epoch_after_takeover_heartbeat: REJECTED
+  old_epoch_after_takeover_terminalization: REJECTED
+  claim_ack_start_semantics: PRESERVED
+  two_worker_single_claim_winner: PRESERVED
+  exact_target_preexecution_check: PRESERVED
+  shell_false_execution_boundary: PRESERVED
+  atomic_terminal_result_run: PRESERVED
+  full_regression: PASS
+  owner_console_locked_build: PASS
+  independent_validation_required_after_integration: true
+
+prohibited:
+  - modify failed exact target c867e3704b2744c3a826635b828ad6696e6281eb
+  - modify P09 original/rerun targets
+  - modify T18 Independent Validation target
+  - enable PostgreSQL Operational SoT
+  - enable T19 live authoritative execution
+  - authorize Production Release or P10 Controlled Cutover
+  - change Model/Feature/Scorer/Weight/Ranking methodology
+  - change Shared Contract
+  - change Ground Truth/PIT/U127
+  - weaken heartbeat or lease invariants to make tests pass
+
+execution_authorization:
+  owner_approval_for_successor_engineering: GRANTED
+  owner_approval_timestamp: '2026-08-16T08:10:00+09:00'
+  live_execution_authorized: false
+  postgresql_operational_sot_authorized: false
+  controlled_cutover_authorized: false
+
+expected_output:
+  - new immutable remediation branch and exact successor commit
+  - engineering Result with physical SHA256/byte size/lineage
+  - engineering Run terminal state
+  - integration PR and post-merge CI
+  - new Independent Validation target binding and Run only after engineering/integration PASS

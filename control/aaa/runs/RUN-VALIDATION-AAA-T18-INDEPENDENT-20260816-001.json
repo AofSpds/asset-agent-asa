@@ -1,0 +1,23 @@
+{
+  "run_id": "RUN-VALIDATION-AAA-T18-INDEPENDENT-20260816-001",
+  "process_id": "T18-INDEPENDENT-VALIDATION",
+  "work_order_id": "WO-VALIDATION-AAA-T18-v0.1-INDEPENDENT-20260816",
+  "responsible_persona": "SEMI-VALIDATION-AUDITOR",
+  "executor_role": "INDEPENDENT_VALIDATION",
+  "state": "DISPATCHED_AWAITING_ACK",
+  "repository": "AofSpds/asset-agent-asa",
+  "exact_base_commit": "59c9baf3a24b1cf7542a3643c296711c37d72c3c",
+  "branch": "aaa-integration-v0.2",
+  "started_at": null,
+  "last_heartbeat_at": null,
+  "stale_after_seconds": 7200,
+  "canonical_output": false,
+  "terminal_result": null,
+  "notes": [
+    "T18 Independent Validation is separate from engineering PASS_WITH_FINDINGS and separate from P09 Independent Validation.",
+    "Exact target is fixed at integrated engineering successor 59c9baf3a24b1cf7542a3643c296711c37d72c3c; later control-only commits must not move it.",
+    "RUNNING_CONFIRMED must not be claimed until SEMI-VALIDATION-AUDITOR records ACK/start/heartbeat evidence.",
+    "PostgreSQL remains non-authoritative; JSON remains operational authority during shadow.",
+    "Independent Validation cannot authorize PostgreSQL Operational SoT cutover, Production Release, or P10 Controlled Cutover."
+  ]
+}

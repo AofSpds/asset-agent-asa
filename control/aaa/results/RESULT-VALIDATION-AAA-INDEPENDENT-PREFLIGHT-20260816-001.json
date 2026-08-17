@@ -1,0 +1,80 @@
+{
+  "result_id": "RESULT-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-001",
+  "project": "Asset Agent ASA",
+  "short_name": "AAA",
+  "process_id": "P09-INDEPENDENT-VALIDATION",
+  "validation_run_id": "RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-001",
+  "work_order_id": "WO-VALIDATION-AAA-v0.2-INDEPENDENT-PREFLIGHT-20260816",
+  "executor_persona": "SEMI-VALIDATION-AUDITOR",
+  "exact_validation_target": "80378610f9ac9e688c52417f0416e01c057400a7",
+  "target_binding": "control/aaa/validation/AAA-v0.1-INDEPENDENT-PREFLIGHT-TARGET-BINDING_v0.2_WORKING.yaml",
+  "closure_readiness": "control/aaa/validation/AAA-P09-CLOSURE-READINESS_v0.1_WORKING.yaml",
+  "source_return_packet": {
+    "transport": "user_return_packet",
+    "sha256": "9fedd43235079de169cbe117e563b82398b2dd4af75ea9a2ecd3b066a4873e0a",
+    "byte_size": 21272
+  },
+  "execution_evidence": {
+    "started_at": "2026-08-16T06:10:53.067426+09:00",
+    "github_actions_workflow_run_id": 31907885316,
+    "python_job_id": 95070436019,
+    "owner_console_job_id": 95070517847,
+    "branch_latest_head_used_as_target": false
+  },
+  "automated_results": {
+    "python_tests": {
+      "test_count": 101,
+      "pass_count": 101,
+      "fail_count": 0,
+      "error_count": 0
+    },
+    "npm_ci": "PASS",
+    "owner_console_build": "PASS"
+  },
+  "independent_findings": [
+    {
+      "finding_id": "AAA-IV-T17-FND-01-FUTURE-HEARTBEAT-FALSE-RUNNING",
+      "severity": "P0",
+      "blocking": true
+    },
+    {
+      "finding_id": "AAA-IV-T17-FND-02-TERMINAL-STATE-VERDICT-MISMATCH",
+      "severity": "P0",
+      "blocking": true
+    },
+    {
+      "finding_id": "AAA-IV-T17-FND-03-TERMINAL-RESULT-PERSISTENCE-NOT-VERIFIED",
+      "severity": "P0",
+      "blocking": true
+    },
+    {
+      "finding_id": "AAA-IV-T17-FND-04-WORK-ORDER-RUN-RESULT-REFERENTIAL-INTEGRITY",
+      "severity": "P1",
+      "blocking": true
+    },
+    {
+      "finding_id": "AAA-IV-T17-FND-05-TIMEZONE-STRING-ACTIVITY-ORDER",
+      "severity": "P1",
+      "blocking": true
+    }
+  ],
+  "verdict": "FAIL",
+  "independent_validation_pass": false,
+  "p09_acceptance": "FAILED",
+  "recommended_run_state": "COMPLETED_FAIL",
+  "recommended_process_gate": "OPEN_BLOCKED",
+  "canonical_side_effect_check": "PASS",
+  "controlled_cutover_authorized": false,
+  "production_release_authorized": false,
+  "known_external_blockers_preserved": [
+    "AAA-FINDING-CONTINUITY-EVENT-ID-COLLISION_v0.1_WORKING",
+    "M3TOP3_FND_02_F06_EXTERNAL_P0"
+  ],
+  "scientific_firewall": {
+    "future_outcome_accessed": false,
+    "future_outcome_used_for_repair_or_tuning": false,
+    "unknown_historical_evidence_inferred": false
+  },
+  "persisted_by": "AAA_BUILD_CONTROL",
+  "completed_at": "2026-08-16T06:14:00+09:00"
+}

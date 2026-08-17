@@ -1,0 +1,29 @@
+{
+  "run_id": "RUN-VALIDATION-AAA-T19-INDEPENDENT-20260816-002",
+  "process_id": "T19-INDEPENDENT-REVALIDATION",
+  "work_order_id": "WO-VALIDATION-AAA-T19-LEASE-HEARTBEAT-REVALIDATION-v0.1-20260816",
+  "responsible_persona": "SEMI-VALIDATION-AUDITOR",
+  "executor_role": "INDEPENDENT_VALIDATION",
+  "state": "COMPLETED_PASS",
+  "repository": "AofSpds/asset-agent-asa",
+  "exact_base_commit": "45a1541c4720387873a78e3a95fc697959d19248",
+  "branch": "aaa-integration-v0.2",
+  "started_at": null,
+  "last_heartbeat_at": null,
+  "stale_after_seconds": 7200,
+  "canonical_output": false,
+  "terminal_result": {
+    "result_id": "RESULT-VALIDATION-AAA-T19-INDEPENDENT-20260816-002",
+    "result_sha256": "5b7babf35cdda1e67a10beeb005c7891b3d1fca3feffbd77d599ecfdd2c7e48d",
+    "completed_at": "2026-08-16T08:42:00+09:00",
+    "persistent_locator": "control/aaa/results/RESULT-VALIDATION-AAA-T19-INDEPENDENT-20260816-002.json",
+    "verdict": "PASS"
+  },
+  "notes": [
+    "Independent revalidation executed externally through the manual bridge at exact target 45a1541c4720387873a78e3a95fc697959d19248.",
+    "Fresh exact-target GitHub Actions evidence was independently rechecked by AAA BUILD CONTROL before accepting PASS.",
+    "Actual external execution evidence exists, but no governed Run Registry heartbeat was maintained; no retroactive started_at or heartbeat was fabricated.",
+    "P0 finding AAA-T19-IV-FND-01-EXPIRED-LEASE-HEARTBEAT-RESURRECTION is independently verified remediated and is eligible for closure.",
+    "T19 live authoritative execution, PostgreSQL Operational SoT, Production Release, and P10 Controlled Cutover remain unauthorized."
+  ]
+}

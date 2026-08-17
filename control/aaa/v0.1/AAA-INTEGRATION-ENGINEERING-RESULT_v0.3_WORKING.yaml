@@ -1,0 +1,57 @@
+record_id: AAA-INTEGRATION-ENGINEERING-RESULT
+version: v0.3_WORKING
+project: Asset Agent ASA
+short_name: AAA
+status: T17_ENGINEERING_INTEGRATED_PASS_NOT_INDEPENDENT_VALIDATION
+recorded_at: '2026-08-16T05:52:59+09:00'
+integration:
+  branch: aaa-integration-v0.2
+  pre_merge_base: 75f42d81f0f8ca809342e4dd194712265ac59c7d
+  feature_branch: aaa-t17-run-registry-ops-dashboard-v0
+  feature_head: b2bfab65447e16c16efbbc53d5c5f62d1a1a461a
+  pr_number: 27
+  merge_commit: 80378610f9ac9e688c52417f0416e01c057400a7
+  merge_result: PASS
+engineering_evidence:
+  feature_pr_ci_run: 31907704574
+  integration_push_ci_run: 31907885316
+  deterministic_tests: PASS
+  owner_console_build: PASS
+  owner_local_smoke: PASS
+integrated_scope:
+  - PERSISTENT_RUN_REGISTRY
+  - PERSONA_PROCESS_WORK_ORDER_RUN_RESULT_LINKAGE
+  - RUN_START_AND_HEARTBEAT_EVIDENCE
+  - STALE_UNKNOWN_DERIVATION
+  - TERMINAL_RESULT_IDENTITY_REQUIREMENT
+  - PERSONA_CURRENT_ACTIVITY_PROJECTION
+  - CLI_AAA_RUNS_AND_AAA_PERSONAS
+  - READ_ONLY_RUNS_AND_PERSONAS_HTTP_API
+  - OWNER_CONSOLE_OPERATIONS_VIEW
+  - VS_CODE_LOCAL_RUN_GUIDE
+semantic_hardening:
+  completed_run_does_not_imply_current_persona_activity: true
+  terminal_history_preserved_separately: true
+  missing_run_evidence_never_inferred_as_running: true
+persistent_result:
+  result_id: RESULT-AAA-T17-INTEGRATION-v0.2
+  sha256: 074d8f26960a53c644a907faa8f53256a5a9a607b4b9e4edc3f838d03ebaa55d
+  locator: control/aaa/results/RESULT-AAA-T17-INTEGRATION-v0.2.json
+persistent_run:
+  run_id: RUN-AAA-T17-INTEGRATION-20260816-002
+  terminal_state: COMPLETED_PASS
+  locator: control/aaa/runs/RUN-AAA-T17-INTEGRATION-20260816-002.json
+authority_boundary:
+  independent_validation_pass: NOT_CLAIMED
+  canonical_control_write: NOT_AUTHORIZED
+  replay: NOT_AUTHORIZED
+  model_freeze: NOT_AUTHORIZED
+  production_release: NOT_AUTHORIZED
+  controlled_cutover: NOT_AUTHORIZED
+remaining_program_gates:
+  - GOVERNED_SHADOW_OPERATION
+  - CONTINUITY_EVENT_ID_COLLISION_ADJUDICATION
+  - INDEPENDENT_VALIDATION
+  - LIVE_EXTERNAL_PROVIDER_EXECUTION
+  - REAL_S3_R2_PARTIAL_FAILURE_DRILL
+  - OWNER_CUTOVER_AUTHORIZATION

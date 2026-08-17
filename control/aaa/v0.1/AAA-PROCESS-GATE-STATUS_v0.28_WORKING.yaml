@@ -1,0 +1,101 @@
+control_id: AAA-PROCESS-GATE-STATUS
+version: v0.28_WORKING
+project: Asset Agent ASA
+recorded_at: '2026-08-16T20:03:00+09:00'
+supersedes: control/aaa/v0.1/AAA-PROCESS-GATE-STATUS_v0.27_WORKING.yaml
+purpose: >-
+  Authoritative working snapshot after SEMI-VALIDATION-AUDITOR returned a blocking Independent
+  Validation FAIL for the exact Balanced-v1 successor engineering target
+  96234463cedaff2b7ec5d0ff49bec44684804b00. The failed target and migration 0009 are preserved.
+  A bounded forward-only E4 release-set component/hash remediation has been issued under the existing
+  Owner engineering authorization, with migration 0010 as the first allowed successor migration.
+
+current_position:
+  current_controlled_activity: AAA_V1_E4_RELEASE_SET_HASH_REMEDIATION
+  successor_engineering_state: COMPLETED_ENGINEERING_PASS_HISTORICAL_TARGET_FAILED_IV
+  failed_engineering_exact_target: 96234463cedaff2b7ec5d0ff49bec44684804b00
+  independent_validation_state: COMPLETED_FAIL
+  independent_validation_pass: false
+  remediation_state: DISPATCHED_AWAITING_ACK
+  implementation_authorized: true
+  t20_assumed: false
+
+independent_validation:
+  validator: SEMI-VALIDATION-AUDITOR
+  run_id: RUN-VALIDATION-AAA-v1-SUCCESSOR-INDEPENDENT-20260816-001
+  run_state: COMPLETED_FAIL
+  result: control/aaa/results/RESULT-VALIDATION-AAA-v1-SUCCESSOR-INDEPENDENT-20260816-001.json
+  result_sha256: 622a742810efb088482cd1d0fe89c3443027a15a98c07477a9b50aedff70dd23
+  exact_target: 96234463cedaff2b7ec5d0ff49bec44684804b00
+  exact_tree: 42794657c15248ca8bac51b4883612277a692146
+  domain_verdicts:
+    E1: PASS
+    E2: PASS
+    E3: PASS
+    E4: FAIL
+    PIT_FIREWALL: PASS
+    LEGACY_NON_REMATERIALIZATION: PASS
+
+findings:
+  AAA-v1-IV-FND-01-E4-RELEASE-SET-COMPONENT-HASH-BINDING-GAP:
+    severity: P0
+    blocking: true
+    status: OPEN
+  AAA-v1-IV-FND-02-E4-POSTGRES-SMOKE-NOT-IN-CERTIFYING-WORKFLOW:
+    severity: P1
+    blocking: false
+    status: OPEN
+
+remediation:
+  work_order: control/workorders/WO-AAA-v1-E4-RELEASE-SET-HASH-REMEDIATION-20260816.yaml
+  run_id: RUN-AAA-v1-E4-RELEASE-SET-HASH-REMEDIATION-20260816-001
+  run_state: DISPATCHED_AWAITING_ACK
+  engineering_branch: aaa-v1-e4-release-set-hash-remediation-v0.1
+  failed_target_rewrite: false
+  migration_0009_rewrite: false
+  first_forward_successor_migration: '0010'
+  required_scope:
+    - mechanically bind actual release-set component membership to canonical component_set_sha256
+    - freeze membership after finalization or exact Decision binding
+    - reject stale Decision reuse after material membership change
+    - fail closed before promotion pointer mutation on actual-set/hash mismatch
+    - add E4 PostgreSQL smoke and adversarial cases to certifying workflow
+    - rerun deterministic, PostgreSQL, migration integrity, reconciliation/backup and Owner Console regression
+    - produce new exact successor commit/tree and dispatch fresh Independent Validation
+
+migration_policy:
+  migrations_0001_0009: IMMUTABLE_HISTORICAL_BASELINE
+  next_successor_migration: '0010'
+
+operational_authority:
+  json_registry_operational_authority_during_shadow: true
+  postgresql_authoritative: false
+  live_execution_authorized: false
+  production_canonical_promotion_authorized: false
+  controlled_cutover_authorized: false
+  production_release_authorized: false
+
+pending_existing_runs_preserved:
+  p09_second_rerun:
+    run_id: RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-002
+    state: DISPATCHED_AWAITING_ACK
+  t18_independent_validation:
+    run_id: RUN-VALIDATION-AAA-T18-INDEPENDENT-20260816-001
+    state: DISPATCHED_AWAITING_ACK
+
+reporting_rules:
+  failed_exact_target_is_immutable_evidence: true
+  dispatch_is_not_ack: true
+  ack_is_not_running: true
+  running_requires_started_at_and_current_heartbeat: true
+  independent_validation_fail_blocks_cutover: true
+  independent_validation_pass_would_not_itself_authorize_cutover: true
+
+next_gate:
+  phase: AAA_V1_E4_RELEASE_SET_HASH_REMEDIATION
+  state: DISPATCHED_AWAITING_ACK
+  unblock_condition:
+    - exact successor implementation completed
+    - migration 0010 and E4 certifying PostgreSQL adversarial coverage pass
+    - full integrated regression pass
+    - fresh exact-target Independent Validation dispatched

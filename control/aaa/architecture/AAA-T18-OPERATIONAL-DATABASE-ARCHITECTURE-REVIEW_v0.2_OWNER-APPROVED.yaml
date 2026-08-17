@@ -1,0 +1,41 @@
+architecture_review_id: AAA-T18-OPERATIONAL-DATABASE-ARCHITECTURE-REVIEW
+version: v0.2_OWNER-APPROVED
+project: Asset Agent ASA
+short_name: AAA
+track: T18_OPERATIONAL_DATABASE_PERSISTENT_EXECUTION_PLANE
+recorded_at: '2026-08-16T06:35:00+09:00'
+supersedes: control/aaa/architecture/AAA-T18-OPERATIONAL-DATABASE-ARCHITECTURE-REVIEW_v0.1_WORKING.yaml
+requesting_owner: PROJECT_OWNER
+approval_authority: PROJECT_OWNER
+approval_status: APPROVED_FOR_BOUNDED_ENGINEERING
+approved_direction:
+  - PostgreSQL owns mutable Operational / Execution State only after explicit operational SoT cutover.
+  - Git/GitHub remains Governance SoT for Work Orders, approvals, model/feature/scorer/weight/ranking specs, Shared Contract, architecture, migration code, and release manifests.
+  - S3/R2 remains Artifact SoT for large immutable dataset, snapshot, backtest, evidence, and result bytes.
+  - Baseline infrastructure is PostgreSQL only; Redis, Kafka, and Kubernetes are not prerequisites.
+  - SQLite is optional non-certifying test double only; PostgreSQL semantics are required for concurrency/lease/cutover certification.
+  - Migration is deterministic JSON import -> reconciliation -> read-only shadow -> drills -> independent validation -> explicit Owner operational SoT cutover.
+  - Long-lived mutable dual-authority or silent fallback from DB to stale JSON is prohibited.
+implementation_authorized_scope:
+  - T18_0_ARCHITECTURE_CONTRACT
+  - T18_1_DATABASE_SCHEMA_AND_MIGRATIONS
+  - T18_2_DETERMINISTIC_JSON_IMPORT
+  - T18_3_READ_ONLY_DUAL_READ_SHADOW
+  - T18_4_TRANSACTIONAL_OPERATIONAL_DRILLS
+  - T18_5_MODEL_DEVELOPMENT_PLANE_METADATA
+  - T18_6_COMMON_READ_PATH
+  - T18_7_RECOVERY_VALIDATION_AND_CUTOVER_PREPARATION
+explicitly_not_authorized_by_this_approval:
+  - PostgreSQL operational SoT cutover
+  - Production Release
+  - Controlled Cutover P10
+  - change to model methodology
+  - change to Shared Contract without required reconciliation
+  - mutation or reinterpretation of P09 historical exact targets
+  - replacement of S3/R2 Artifact SoT by PostgreSQL
+p09_non_interference:
+  predecessor_failed_target: 80378610f9ac9e688c52417f0416e01c057400a7
+  current_rerun_target: 30fdb278c218b24e44d66eb5f47935a196dc4f8c
+  current_rerun_id: RUN-VALIDATION-AAA-INDEPENDENT-PREFLIGHT-20260816-002
+  t18_must_not_modify_either_target: true
+next_action: Issue bounded T18 engineering Work Order and branch from the post-approval governance commit. PostgreSQL remains non-authoritative until a later explicit Project Owner operational SoT cutover approval.

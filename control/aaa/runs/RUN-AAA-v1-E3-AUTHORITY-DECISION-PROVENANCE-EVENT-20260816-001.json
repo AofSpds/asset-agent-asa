@@ -1,0 +1,32 @@
+{
+  "run_id": "RUN-AAA-v1-E3-AUTHORITY-DECISION-PROVENANCE-EVENT-20260816-001",
+  "process_id": "AAA_V1_SUCCESSOR_ENGINEERING_E3",
+  "work_order_id": "WO-AAA-v1-E3-AUTHORITY-DECISION-PROVENANCE-EVENT-20260816",
+  "responsible_persona": "SEMI-CONTROL-ARCHITECT",
+  "executor_role": "BOUNDED_ENGINEERING_IMPLEMENTATION",
+  "state": "COMPLETED_PASS",
+  "repository": "AofSpds/asset-agent-asa",
+  "exact_base_commit": "0fb2f64c864fbc1804f8193fc96b64cc63222bda",
+  "branch": "aaa-v1-e3-authority-decision-provenance-event",
+  "authorization_decision": "DECISION-AAA-v1-SUCCESSOR-ENGINEERING-AUTHORIZATION-20260816-001",
+  "exact_scope_sha256": "fe1ff488e62bb500f520f395ce64f5428cbc384eb5cadc611f949ee46f8a66ac",
+  "frozen_semantic_target_sha256": "27f093555d5934f79a8501ef3426a0ade4d02d64370cc98a0cb0ea801e4ea01f",
+  "started_at": null,
+  "last_heartbeat_at": null,
+  "stale_after_seconds": 7200,
+  "canonical_output": false,
+  "terminal_result": {
+    "result_id": "RESULT-AAA-v1-E3-AUTHORITY-DECISION-PROVENANCE-EVENT-20260816-001",
+    "result_sha256": "491e0e14f9a27629c146729bc3fc30bf241b135eeaf0c46b8b8ea3e8033d06b1",
+    "completed_at": "2026-08-16T18:47:00+09:00",
+    "persistent_locator": "control/aaa/results/RESULT-AAA-v1-E3-AUTHORITY-DECISION-PROVENANCE-EVENT-20260816-001.json",
+    "verdict": "PASS"
+  },
+  "notes": [
+    "Engineering execution occurred through the governed GitHub/manual bridge; started_at and heartbeat were not fabricated retroactively.",
+    "E3 implemented Actor/Authority, Exact-Target Decision, Execution Provenance and Operational Event successor semantics.",
+    "E2 dependency-lock omission was remediated forward-only in E3; migration 0007 was not rewritten.",
+    "No Shared Contract promotion, live execution, PostgreSQL authority, cutover, or production authority is granted.",
+    "Engineering PASS cannot satisfy Independent Validation PASS."
+  ]
+}

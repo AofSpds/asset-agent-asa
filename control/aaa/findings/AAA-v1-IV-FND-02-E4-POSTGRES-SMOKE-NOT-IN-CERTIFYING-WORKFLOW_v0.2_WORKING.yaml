@@ -1,0 +1,44 @@
+finding_id: AAA-v1-IV-FND-02-E4-POSTGRES-SMOKE-NOT-IN-CERTIFYING-WORKFLOW
+version: v0.2_WORKING
+project: Asset Agent ASA
+phase: AAA_V1_E4_RELEASE_SET_HASH_REMEDIATION
+recorded_at: '2026-08-16T21:27:00+09:00'
+supersedes: control/aaa/findings/AAA-v1-IV-FND-02-E4-POSTGRES-SMOKE-NOT-IN-CERTIFYING-WORKFLOW_v0.1_OPEN.yaml
+severity: P1
+blocking: false
+status: REMEDIATED_ENGINEERING_PENDING_INDEPENDENT_REVALIDATION
+validator_authority_to_close: SEMI-VALIDATION-AUDITOR
+exact_failed_target: 96234463cedaff2b7ec5d0ff49bec44684804b00
+engineering_successor_target: 8a4aea0256bc630385bd463fc8969e5c88a74102
+engineering_successor_tree: ffd65463413c9fee073db404c36f2461aa7a6c83
+pull_request: 38
+
+engineering_remediation:
+  certifying_workflow: .github/workflows/aaa-build-tests.yml
+  e4_postgresql_smoke: aaa/db/tests/e4_version_set_promotion_restore_smoke.sql
+  e4_postgresql_smoke_in_certifying_workflow: true
+  p0_adversarial_cases_added: true
+  migration_0010_hash_verification_in_certifying_job: true
+
+execution_evidence:
+  branch_ci_run: 31947462986
+  postmerge_ci_run: 31947529769
+  postmerge_postgresql_job: SUCCESS
+  deterministic_tests: 214_of_214_pass
+  owner_console: pass
+
+closure_rule: >-
+  Engineering coverage remediation is complete, but this finding is not CLOSED until the
+  SEMI-VALIDATION-AUDITOR independently confirms that the certifying PostgreSQL workflow actually
+  executes the E4 smoke on exact successor 8a4aea0256bc630385bd463fc8969e5c88a74102.
+
+preservation:
+  migration_0009_immutable: true
+  failed_exact_target_immutable: true
+
+authority_state:
+  live_execution_authorized: false
+  postgresql_operational_sot_authorized: false
+  production_canonical_promotion_authorized: false
+  controlled_cutover_authorized: false
+  production_release_authorized: false

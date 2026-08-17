@@ -1,0 +1,23 @@
+activation_id: AAA-WAVE3-ACTIVATION
+version: v0.1_WORKING
+project: Asset Agent ASA
+status: ACTIVATED_PARALLEL
+exact_base_commit: fed1edbbc41aa17427c75eb4f152369354948a85
+tracks:
+  AAA-T11-AGENT-RUNTIME:
+    branch: aaa-t11-agent-runtime-v0
+    objective: Mature immutable Agent Run lifecycle, exact Work Order/base binding, result identity and crash-safe terminal-state handling under permission ceiling L2.
+    ownership:
+      - aaa/src/aaa/agents/**
+      - aaa/tests/test_agent_runtime_*.py
+    permission: LEVEL_2_ISOLATED_BRANCH_WRITE
+  AAA-T12-RECOVERY:
+    branch: aaa-t12-recovery-v0
+    objective: Add deterministic recovery/adversarial checks for partial artifacts, interrupted run recovery, LLM-off survival and stale state without canonical mutation.
+    ownership:
+      - aaa/src/aaa/recovery/**
+      - aaa/tests/test_recovery_*.py
+    permission: LEVEL_2_ISOLATED_BRANCH_WRITE
+file_ownership_overlap: NONE_BY_CONTRACT
+canonical_write: PROHIBITED
+independent_validation_claim: PROHIBITED
