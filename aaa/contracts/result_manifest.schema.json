@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://asset-agent-asa.local/contracts/result_manifest.schema.json",
+  "title": "AAA Result Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["result_id", "run_id", "base_commit", "branch", "changed_files", "tests", "output_artifacts", "hashes", "blockers", "ready_for_integration"],
+  "properties": {
+    "result_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "base_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "branch": {"type": "string", "minLength": 1},
+    "changed_files": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "tests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "status"],
+        "properties": {
+          "name": {"type": "string"},
+          "status": {"enum": ["PASS", "FAIL", "SKIP", "NOT_RUN"]},
+          "evidence": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "output_artifacts": {"type": "array", "items": {"type": "object"}},
+    "hashes": {"type": "object", "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
+    "blockers": {"type": "array", "items": {"type": "string"}},
+    "ready_for_integration": {"type": "boolean"},
+    "independent_validation_claim": {"const": false, "default": false}
+  }
+}
