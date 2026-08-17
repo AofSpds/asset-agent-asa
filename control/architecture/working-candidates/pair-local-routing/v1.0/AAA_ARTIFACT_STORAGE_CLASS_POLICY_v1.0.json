@@ -1,0 +1,151 @@
+{
+  "artifact_id": "AAA-ARTIFACT-STORAGE-CLASS-POLICY",
+  "artifact_state": "WORKING_CANDIDATE_NOT_CANONICAL_NOT_FROZEN",
+  "authoring_persona": "AAA-CONTROL-ARCHITECT",
+  "authority_effect": {
+    "active_baseline": false,
+    "canonical": false,
+    "control_l1_pass": "NOT_CLAIMED",
+    "frozen": false,
+    "independent_validation_pass": "NOT_CLAIMED",
+    "owner_exact_artifact_acceptance": "PENDING"
+  },
+  "canonicalization_profile": {
+    "array_default": "ORDERED",
+    "encoding": "UTF-8",
+    "json_serialization": "COMPACT_NO_INSIGNIFICANT_WHITESPACE",
+    "llm_semantic_equivalence_inference": "PROHIBITED",
+    "object_key_order": "LEXICOGRAPHIC_UNICODE_CODEPOINT",
+    "profile_id": "AAA-PCSG-CANON-JSON-1",
+    "semantic_digest_algorithm": "SHA-256",
+    "semantic_digest_self_exclusion": [
+      "semantic_content_digest"
+    ],
+    "unicode_normalization": "NFC"
+  },
+  "exact_byte_identity_contract": {
+    "git_locator_where_used": [
+      "REPOSITORY",
+      "COMMIT",
+      "PATH",
+      "GIT_BLOB_ID",
+      "TREE_WHERE_APPLICABLE"
+    ],
+    "hash_mismatch_result": "EXACT_TARGET_MISMATCH",
+    "invariants": [
+      "GIT_BLOB_ID != AAA_ARTIFACT_SHA256",
+      "PERSISTENT_LOCATOR_IDENTITY != GOVERNED_BYTE_IDENTITY",
+      "RECOMPUTED_SHA256 == REGISTERED_SHA256_AFTER_RETRIEVAL",
+      "RECOMPUTED_BYTE_SIZE == REGISTERED_BYTE_SIZE_AFTER_RETRIEVAL"
+    ],
+    "required": [
+      "ARTIFACT_ID",
+      "VERSION",
+      "ARTIFACT_SHA256",
+      "BYTE_SIZE",
+      "SEMANTIC_CONTENT_DIGEST_WHERE_APPLICABLE",
+      "LINEAGE"
+    ]
+  },
+  "existing_persona_channel_state_guard_ref": {
+    "artifact_id": "AAA-PERSONA-CHANNEL-STATE-GUARD",
+    "byte_size": 8811,
+    "composition_mode": "REFERENCE_ONLY_NO_MODIFICATION",
+    "semantic_content_digest": "30cc8116dab95adef5028000328a224e40588307bf1f92ea8da3b8a8462b6d5c",
+    "sha256": "ac8678fc674d2ac35ea873a38f46384293a281a7bc1547c2ebfba8f8333a4012",
+    "version": "v1.0"
+  },
+  "git_for_all": false,
+  "git_lfs_policy": {
+    "default": false,
+    "p0_p1_default_use_requires": "END_TO_END_EXACT_BYTE_PROOF",
+    "preferred_large_object_route_until_proven": "GOVERNED_OBJECT_STORE",
+    "reason": "LFS_POINTER_IDENTITY_IS_NOT_UNDERLYING_ARTIFACT_IDENTITY",
+    "state": "REVIEW_REQUIRED"
+  },
+  "git_versioned_repository_candidates": [
+    "SMALL_MEDIUM_GOVERNED_JSON",
+    "TEXT_MARKDOWN_EVIDENCE",
+    "SCRIPTS",
+    "MANIFESTS",
+    "VALIDATOR_RECEIPTS",
+    "SOURCE_IDENTITY_MATRICES",
+    "CONFIGURATION",
+    "LINT_SPECIFICATIONS"
+  ],
+  "governed_object_store_candidates": [
+    "PARQUET",
+    "LARGE_BINARY_DATASETS",
+    "LARGE_REPLAY_OUTPUTS",
+    "LARGE_ZIP_BUNDLES",
+    "HIGH_VOLUME_GENERATED_EVIDENCE",
+    "OTHER_BULK_DATA_ARTIFACTS"
+  ],
+  "hybrid_model": true,
+  "immutability_acl_contract": {
+    "candidate_controls": [
+      "EXACT_COMMIT_PINNING",
+      "PROTECTED_GOVERNED_BRANCHES_OR_HISTORY",
+      "NO_FORCE_PUSH_WHERE_GOVERNED",
+      "RESTRICTED_DELETE",
+      "APPEND_ONLY_RECEIPT_LOCATIONS",
+      "CONTENT_ADDRESSED_PATHS",
+      "ARTIFACT_OWNER_SPECIFIC_ACL"
+    ],
+    "ownership": {
+      "AAA_VALIDATION_AUDITOR": "WRITES_OWN_L2_RECEIPTS_EVIDENCE",
+      "ASA": "WRITES_ASA_OWNED_ORCHESTRATION_ADVISORY_OBJECTS",
+      "AUTHOR": "WRITES_AUTHOR_OWNED_TARGETS",
+      "PAIRED_VALIDATOR": "WRITES_OWN_FINDINGS_RECEIPTS_EVIDENCE"
+    },
+    "p0_p1_retrieval_requires": [
+      "IMMUTABLE_OR_PINNED_LOCATOR",
+      "ARTIFACT_SHA256",
+      "BYTE_SIZE"
+    ],
+    "prohibited": [
+      "AUTHOR_OVERWRITE_VALIDATOR_RECEIPT",
+      "VALIDATOR_OVERWRITE_AUTHOR_TARGET_AND_PASS",
+      "ASA_OVERWRITE_DOMAIN_NORMATIVE_TARGET",
+      "CROSS_PERSONA_RECEIPT_MUTATION"
+    ]
+  },
+  "maintenance_revision": 0,
+  "normative_scope": "BOUNDED_ARTIFACT_STORAGE_CLASS_AND_IMMUTABILITY_POLICY",
+  "object_store_git_manifest_fields": [
+    "ARTIFACT_SHA256",
+    "BYTE_SIZE",
+    "OBJECT_LOCATOR_VERSION",
+    "LINEAGE",
+    "RECEIPT_REFS"
+  ],
+  "paired_validation_owner": "AAA-CONTROL-VALIDATOR",
+  "persistence_authority_invariants": [
+    "GIT_COMMIT  != VALIDATION_PASS",
+    "GIT_TAG != OWNER_ACCEPTANCE",
+    "PERSISTENCE != SEMANTIC_APPROVAL",
+    "PERSISTENT_LOCATOR != CANONICAL",
+    "PERSISTENT_LOCATOR != FROZEN",
+    "REPOSITORY_PATH_EXISTS != EXACT_TARGET_VERIFIED"
+  ],
+  "persistent_locator_state": "PENDING_REGISTRATION",
+  "persistent_store_state": "NOT_CHECKED",
+  "product": "ASSET AGENT ASA",
+  "project": "AAA",
+  "risk_class": "P1_CONTROL/P0_ARTIFACT_AUTHORITY_VALIDATION_RISK_SURFACE",
+  "semantic_baseline_version": "v1.0",
+  "semantic_content_digest": "4ce6536283e1837ef006c81f06684fbd8375597e3f54023f7d6e7ea04189c35c",
+  "source_work_packet": {
+    "final_normative_acceptance": "PENDING",
+    "owner_new_decision_required": false,
+    "source_authority": [
+      "OWNER_OPERATING_DIRECTION",
+      "AAA-ADVISORY-VALIDATOR/ACCEPT_WITH_MODIFICATIONS"
+    ],
+    "source_byte_size": 18911,
+    "source_filename": "밙여넋온 텍슴털 (1).txt",
+    "source_sha256": "039ea4325a3f5be2ecd57c4ca3e94a3bad5c66c279b33f956256429c46f002bf",
+    "work_packet_id": "AAA-ADVISOR-ASA-PAIR-LOCAL-ROUTING-PERSISTENT-LOCATOR-AUTHORING-WP-v1.0"
+  },
+  "version": "v1.0"
+}

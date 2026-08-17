@@ -1,0 +1,108 @@
+{
+  "PERSISTENT_LOCATOR_FIRST_DEFAULT_ACTIVE": false,
+  "PERSISTENT_ROUTING_CAPABILITY_STATE": "DESIGNED",
+  "artifact_id": "AAA-PERSISTENT-LOCATOR-ROUTING-DELTA",
+  "artifact_state": "WORKING_CANDIDATE_NOT_CANONICAL_NOT_FROZEN",
+  "authoring_persona": "AAA-CONTROL-ARCHITECT",
+  "authority_effect": {
+    "active_baseline": false,
+    "canonical": false,
+    "control_l1_pass": "NOT_CLAIMED",
+    "frozen": false,
+    "independent_validation_pass": "NOT_CLAIMED",
+    "owner_exact_artifact_acceptance": "PENDING"
+  },
+  "canonicalization_profile": {
+    "array_default": "ORDERED",
+    "encoding": "UTF-8",
+    "json_serialization": "COMPACT_NO_INSIGNIFICANT_WHITESPACE",
+    "llm_semantic_equivalence_inference": "PROHIBITED",
+    "object_key_order": "LEXICOGRAPHIC_UNICODE_CODEPOINT",
+    "profile_id": "AAA-PCSG-CANON-JSON-1",
+    "semantic_digest_algorithm": "SHA-256",
+    "semantic_digest_self_exclusion": [
+      "semantic_content_digest"
+    ],
+    "unicode_normalization": "NFC"
+  },
+  "capability_activation_gate": {
+    "aaa_engineering_validator_evidence": "REQUIRED",
+    "control_validation": "REQUIRED",
+    "current_state": "DESIGNED_NOT_ACTIVE",
+    "engineering_capability_proof": "REQUIRED"
+  },
+  "exact_verification": {
+    "mismatch": "EXACT_TARGET_MISMATCH",
+    "required_after_retrieval": [
+      "SHA256",
+      "BYTE_SIZE"
+    ],
+    "warning_only_on_mismatch": false
+  },
+  "existing_persona_channel_state_guard_ref": {
+    "artifact_id": "AAA-PERSONA-CHANNEL-STATE-GUARD",
+    "byte_size": 8811,
+    "composition_mode": "REFERENCE_ONLY_NO_MODIFICATION",
+    "semantic_content_digest": "30cc8116dab95adef5028000328a224e40588307bf1f92ea8da3b8a8462b6d5c",
+    "sha256": "ac8678fc674d2ac35ea873a38f46384293a281a7bc1547c2ebfba8f8333a4012",
+    "version": "v1.0"
+  },
+  "locator_eligibility": [
+    "REGISTERED",
+    "GOVERNED",
+    "AUTHORIZED"
+  ],
+  "maintenance_revision": 0,
+  "negative_invariants": [
+    "CHANNEL_LOCAL_BYTES_ABSENT != USER_ACTION_REQUIRED",
+    "REPOSITORY_ACCESS_FAILURE != ARTIFACT_ABSENCE",
+    "PERSISTENT_RETRIEVAL_FAILED != GLOBAL_ARTIFACT_LOSS",
+    "NOT_CHECKED != ABSENT"
+  ],
+  "normative_scope": "PERSISTENT_LOCATOR_FIRST_ROUTING_DESIGN_NOT_OPERATIONAL_DEFAULT",
+  "paired_validation_owner": "AAA-CONTROL-VALIDATOR",
+  "persistent_locator_state": "PENDING_REGISTRATION",
+  "persistent_store_state": "NOT_CHECKED",
+  "product": "ASSET AGENT ASA",
+  "project": "AAA",
+  "retrieval_sequence_before_user_action": [
+    "CHECK_REGISTERED_AUTHORITATIVE_PERSISTENT_LOCATOR",
+    "CHECK_GOVERNED_GIT_LOCATOR_WHERE_APPLICABLE",
+    "CHECK_GOVERNED_OBJECT_STORE_LOCATOR_WHERE_APPLICABLE",
+    "CHECK_AUTHORITATIVE_SOURCE_PERSONA_REGISTRATION",
+    "ATTEMPT_AUTHORIZED_RETRIEVAL",
+    "RECOMPUTE_SHA256",
+    "RECOMPUTE_BYTE_SIZE",
+    "VERIFY_EXACT_TARGET_IDENTITY"
+  ],
+  "retrieval_states": [
+    "NOT_CHECKED",
+    "LOCATOR_RESOLVED",
+    "RETRIEVAL_IN_PROGRESS",
+    "RETRIEVED_UNVERIFIED",
+    "VERIFIED_EXACT",
+    "EXACT_TARGET_MISMATCH",
+    "ACCESS_BLOCKED",
+    "LOCATOR_UNAVAILABLE"
+  ],
+  "risk_class": "P1_CONTROL/P0_ARTIFACT_AUTHORITY_VALIDATION_RISK_SURFACE",
+  "semantic_baseline_version": "v1.0",
+  "semantic_content_digest": "c4af680734f84e8c8c4c1ee3e68f8741341c0dbd3a0bb4cdd2c3643296a16b3e",
+  "source_work_packet": {
+    "final_normative_acceptance": "PENDING",
+    "owner_new_decision_required": false,
+    "source_authority": [
+      "OWNER_OPERATING_DIRECTION",
+      "AAA-ADVISORY-VALIDATOR/ACCEPT_WITH_MODIFICATIONS"
+    ],
+    "source_byte_size": 18911,
+    "source_filename": "붙여넣은 텍스트 (1).txt",
+    "source_sha256": "039ea4325a3f5be2ecd57c4ca3e94a3bad5c66c279b33f956256429c46f002bf",
+    "work_packet_id": "AAA-ADVISOR-ASA-PAIR-LOCAL-ROUTING-PERSISTENT-LOCATOR-AUTHORING-WP-v1.0"
+  },
+  "user_action_rule": {
+    "allowed_only_if": "MACHINE_ACCESSIBLE_AUTHORITATIVE_RETRIEVAL_UNAVAILABLE_AFTER_REQUIRED_CHECKS",
+    "routing_state": "USER_ACTION_REQUIRED"
+  },
+  "version": "v1.0"
+}

@@ -1,0 +1,107 @@
+{
+  "additive_only": true,
+  "artifact_id": "AAA-CONTROL-PLANE-ROUTING-STATE-DELTA",
+  "artifact_state": "WORKING_CANDIDATE_NOT_CANONICAL_NOT_FROZEN",
+  "authoring_persona": "AAA-CONTROL-ARCHITECT",
+  "authority_effect": {
+    "active_baseline": false,
+    "canonical": false,
+    "control_l1_pass": "NOT_CLAIMED",
+    "frozen": false,
+    "independent_validation_pass": "NOT_CLAIMED",
+    "owner_exact_artifact_acceptance": "PENDING"
+  },
+  "canonical_state_fields": {
+    "ESCALATION_REQUIRED": "BOOLEAN_SEPARATE_CONDITION",
+    "PERSISTENT_ROUTING_CAPABILITY_STATE": [
+      "DESIGNED",
+      "PROVEN",
+      "BLOCKED",
+      "NOT_APPLICABLE"
+    ],
+    "ROUTING_STATE": [
+      "NO_OWNER_ACTION_REQUIRED",
+      "OWNER_DECISION_REQUIRED",
+      "USER_ACTION_REQUIRED"
+    ]
+  },
+  "canonicalization_profile": {
+    "array_default": "ORDERED",
+    "encoding": "UTF-8",
+    "json_serialization": "COMPACT_NO_INSIGNIFICANT_WHITESPACE",
+    "llm_semantic_equivalence_inference": "PROHIBITED",
+    "object_key_order": "LEXICOGRAPHIC_UNICODE_CODEPOINT",
+    "profile_id": "AAA-PCSG-CANON-JSON-1",
+    "semantic_digest_algorithm": "SHA-256",
+    "semantic_digest_self_exclusion": [
+      "semantic_content_digest"
+    ],
+    "unicode_normalization": "NFC"
+  },
+  "composition_with_persona_guard": [
+    "PERSONA_CONTEXT_LOCK",
+    "SCOPED_STATE_MODEL",
+    "NEGATIVE_CLAIM_OBSERVATION_PROOF",
+    "HIGH_IMPACT_CONTRADICTION_CHECK",
+    "MATERIAL_STATE_PROVENANCE"
+  ],
+  "derived_fields": {
+    "OWNER_ACTION_REQUIRED": "ROUTING_STATE == OWNER_DECISION_REQUIRED",
+    "USER_ACTION_REQUIRED": "ROUTING_STATE == USER_ACTION_REQUIRED"
+  },
+  "derived_fields_independently_editable": false,
+  "duplicate_manually_editable_booleans": "AVOID",
+  "existing_persona_channel_state_guard_ref": {
+    "artifact_id": "AAA-PERSONA-CHANNEL-STATE-GUARD",
+    "byte_size": 8811,
+    "composition_mode": "REFERENCE_ONLY_NO_MODIFICATION",
+    "semantic_content_digest": "30cc8116dab95adef5028000328a224e40588307bf1f92ea8da3b8a8462b6d5c",
+    "sha256": "ac8678fc674d2ac35ea873a38f46384293a281a7bc1547c2ebfba8f8333a4012",
+    "version": "v1.0"
+  },
+  "maintenance_revision": 0,
+  "minimum_fields": [
+    "WORK_PACKET_ID",
+    "AUTHORIZED_SCOPE_REF",
+    "AUTHORING_PERSONA",
+    "PAIRED_VALIDATOR",
+    "CURRENT_EXACT_TARGET",
+    "PAIRED_VALIDATION_STATE",
+    "INDEPENDENT_VALIDATION_REQUIRED",
+    "INDEPENDENT_VALIDATION_STATE",
+    "NEXT_ACTION",
+    "NEXT_PERSONA",
+    "ROUTING_STATE",
+    "ESCALATION_REQUIRED",
+    "BLOCK_REASON",
+    "NEXT_INPUT_REFS",
+    "PERSISTENT_LOCATOR_REF",
+    "PERSISTENT_RETRIEVAL_STATE",
+    "LAST_MATERIAL_STATE_SOURCE"
+  ],
+  "new_semantic_sot": false,
+  "normative_scope": "MINIMAL_ROUTING_AND_PERSISTENT_RETRIEVAL_STATE_FIELDS",
+  "owner_report_default": "MILESTONE_AND_DECISION_SURFACE_ONLY",
+  "paired_validation_owner": "AAA-CONTROL-VALIDATOR",
+  "persistent_locator_state": "PENDING_REGISTRATION",
+  "persistent_store_state": "NOT_CHECKED",
+  "product": "ASSET AGENT ASA",
+  "project": "AAA",
+  "provenance_rule": "LAST_MATERIAL_STATE_SOURCE_MUST_NOT_CREATE_AUTHORITY",
+  "risk_class": "P1_CONTROL/P0_ARTIFACT_AUTHORITY_VALIDATION_RISK_SURFACE",
+  "semantic_baseline_version": "v1.0",
+  "semantic_content_digest": "353b37284216ff3975f6a364f5784fd622e4afc6c89c1b79f3e73f20b2e0af34",
+  "source_work_packet": {
+    "final_normative_acceptance": "PENDING",
+    "owner_new_decision_required": false,
+    "source_authority": [
+      "OWNER_OPERATING_DIRECTION",
+      "AAA-ADVISORY-VALIDATOR/ACCEPT_WITH_MODIFICATIONS"
+    ],
+    "source_byte_size": 18911,
+    "source_filename": "붙여넣은 텍스트 (1).txt",
+    "source_sha256": "039ea4325a3f5be2ecd57c4ca3e94a3bad5c66c279b33f956256429c46f002bf",
+    "work_packet_id": "AAA-ADVISOR-ASA-PAIR-LOCAL-ROUTING-PERSISTENT-LOCATOR-AUTHORING-WP-v1.0"
+  },
+  "version": "v1.0"
+}

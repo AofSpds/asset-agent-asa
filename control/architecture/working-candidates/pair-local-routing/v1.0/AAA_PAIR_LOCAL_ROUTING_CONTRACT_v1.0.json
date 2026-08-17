@@ -1,0 +1,247 @@
+{
+  "additive_control": true,
+  "artifact_id": "AAA-PAIR-LOCAL-ROUTING-CONTRACT",
+  "artifact_state": "WORKING_CANDIDATE_NOT_CANONICAL_NOT_FROZEN",
+  "asa_authority_contract": {
+    "asa_may": [
+      "MATERIALIZE",
+      "ROUTE",
+      "COORDINATE",
+      "ORCHESTRATE"
+    ],
+    "asa_may_not_originate": [
+      "OWNER_ONLY_AUTHORITY",
+      "NEW_P0_P1_REQUIREMENT_AUTHORITY",
+      "UNAUTHORIZED_SEMANTIC_SCOPE",
+      "DOMAIN_OWNED_SCIENTIFIC_SEMANTICS",
+      "SHARED_CONTRACT_AUTHORITY_MUTATION",
+      "FROZEN_SEMANTIC_MUTATION"
+    ],
+    "invariant": "ASA_ROUTING != AUTHORITY_ORIGINATION",
+    "material_authority_refs_where_applicable": [
+      "AUTHORIZED_SCOPE_REF",
+      "OWNER_DECISION_REF",
+      "DOMAIN_AUTHORITY_REF",
+      "APPROVED_NORMATIVE_SOURCE_REF"
+    ],
+    "prohibited_term": "ASA_AUTHORIZED_WORK_PACKET",
+    "required_term": "ASA_ROUTED_WORK_PACKET_BOUND_TO_AUTHORIZED_SCOPE"
+  },
+  "authoring_persona": "AAA-CONTROL-ARCHITECT",
+  "authority_effect": {
+    "active_baseline": false,
+    "canonical": false,
+    "control_l1_pass": "NOT_CLAIMED",
+    "frozen": false,
+    "independent_validation_pass": "NOT_CLAIMED",
+    "owner_exact_artifact_acceptance": "PENDING"
+  },
+  "canonicalization_profile": {
+    "array_default": "ORDERED",
+    "encoding": "UTF-8",
+    "json_serialization": "COMPACT_NO_INSIGNIFICANT_WHITESPACE",
+    "llm_semantic_equivalence_inference": "PROHIBITED",
+    "object_key_order": "LEXICOGRAPHIC_UNICODE_CODEPOINT",
+    "profile_id": "AAA-PCSG-CANON-JSON-1",
+    "semantic_digest_algorithm": "SHA-256",
+    "semantic_digest_self_exclusion": [
+      "semantic_content_digest"
+    ],
+    "unicode_normalization": "NFC"
+  },
+  "deterministic_next_persona_routing": {
+    "invariant": "AUTO_ROUTING != AUTO_PASS",
+    "material_fields": [
+      "WORK_PACKET_ID",
+      "AUTHORIZED_SCOPE_REF",
+      "CURRENT_EXACT_TARGET",
+      "CURRENT_STATE",
+      "NEXT_ACTION",
+      "NEXT_PERSONA",
+      "ROUTING_STATE",
+      "ESCALATION_REQUIRED",
+      "BLOCK_REASON",
+      "NEXT_INPUT_REFS",
+      "STATE_SOURCE"
+    ],
+    "representative_rules": {
+      "AUTHORIZED_L1_FINDING": "AUTHOR",
+      "AUTHOR_READY_FOR_L1": "PAIRED_VALIDATOR",
+      "L1_PASS_AND_L2_NOT_REQUIRED": "ASA_MILESTONE_AGGREGATION",
+      "L1_PASS_AND_L2_REQUIRED": "AAA-VALIDATION-AUDITOR",
+      "L2_PASS_AND_OWNER_ACCEPTANCE_REQUIRED": "ASA_OWNER_DECISION_REPORT",
+      "MATERIAL_CORRECTION": "FRESH_PAIRED_VALIDATION"
+    }
+  },
+  "escalation_semantics": {
+    "field": "ESCALATION_REQUIRED",
+    "invariant": "ESCALATION != OWNER_DECISION_BY_DEFAULT",
+    "is_routing_state_peer": false,
+    "when_true_router_must_resolve_to": [
+      "NO_OWNER_ACTION_REQUIRED",
+      "OWNER_DECISION_REQUIRED",
+      "USER_ACTION_REQUIRED"
+    ]
+  },
+  "existing_guard_modified": false,
+  "existing_persona_channel_state_guard_ref": {
+    "artifact_id": "AAA-PERSONA-CHANNEL-STATE-GUARD",
+    "byte_size": 8811,
+    "composition_mode": "REFERENCE_ONLY_NO_MODIFICATION",
+    "semantic_content_digest": "30cc8116dab95adef5028000328a224e40588307bf1f92ea8da3b8a8462b6d5c",
+    "sha256": "ac8678fc674d2ac35ea873a38f46384293a281a7bc1547c2ebfba8f8333a4012",
+    "version": "v1.0"
+  },
+  "finding_closure_contract": {
+    "author_allowed_states": [
+      "REMEDIATION_SUBMITTED",
+      "READY_FOR_REVALIDATION"
+    ],
+    "author_prohibited_state": "VALIDATOR_FINDING_RESOLVED_WITHOUT_APPLICABLE_VALIDATOR_ACT",
+    "deterministic_closure_allowed_only_when": {
+      "finding_class": "PREAUTHORIZED_DETERMINISTIC",
+      "semantic_effect": "NONE"
+    },
+    "examples": [
+      "SCHEMA_LINT",
+      "REQUIRED_FIELD_PRESENCE",
+      "HASH_EQUALITY",
+      "BYTE_SIZE_EQUALITY",
+      "DETERMINISTIC_FORMATTING",
+      "P2_P3_MECHANICAL_CONDITION"
+    ],
+    "p0_p1_substantive_validator_finding_deterministic_self_close": "PROHIBITED",
+    "uncertain_classification": "REVIEW_REQUIRED"
+  },
+  "maintenance_revision": 0,
+  "normative_scope": "PAIR_LOCAL_ROUTING_REMEDIATION_AND_OWNER_INTERFACE",
+  "owner_operating_model": {
+    "default_flow": [
+      "OWNER_OR_AUTHORIZED_DIRECTION",
+      "ASA_ROUTED_WORK_PACKET_BOUND_TO_AUTHORIZED_SCOPE",
+      "AUTHOR",
+      "PAIRED_VALIDATOR",
+      "L1_CLOSURE",
+      "AAA_VALIDATION_AUDITOR_WHERE_REQUIRED",
+      "ASA_INTEGRATED_REPORT",
+      "OWNER_ONLY_WHERE_OWNER_AUTHORITY_REQUIRED"
+    ],
+    "owner_interface": [
+      "REPORT",
+      "DECISION",
+      "APPROVAL"
+    ],
+    "owner_routine_roles_prohibited": [
+      "PACKET_TRANSPORTER",
+      "FILE_COURIER",
+      "AUTHOR_VALIDATOR_INTERMEDIARY",
+      "VALIDATION_COURIER",
+      "ROUTINE_ROUTER"
+    ]
+  },
+  "owner_reporting_boundary": {
+    "pair_local_transport_default_owner_interface": false,
+    "primary_fields": [
+      "WHAT_CHANGED",
+      "WHAT_IS_COMPLETE",
+      "WHAT_IS_BLOCKED",
+      "WHAT_IS_RUNNING",
+      "ROUTING_STATE",
+      "OWNER_DECISION_IF_REQUIRED",
+      "OPTIONS",
+      "ASA_RECOMMENDATION",
+      "RISK_IMPACT",
+      "WHAT_HAPPENS_NEXT"
+    ]
+  },
+  "pair_local_routing_and_remediation_loop": {
+    "does_not_mean": [
+      "SHARED_AUTHORITY",
+      "CO_AUTHORSHIP",
+      "MUTUAL_PASS_NEGOTIATION",
+      "VALIDATOR_AS_AUTHOR_ASSISTANT"
+    ],
+    "means": [
+      "ROUTING_AUTONOMY",
+      "AUTHORIZED_REMEDIATION_AUTONOMY",
+      "VALIDATION_INDEPENDENCE"
+    ],
+    "sequence": [
+      "AUTHOR",
+      "PAIRED_VALIDATOR",
+      "FINDING",
+      "AUTHOR_REMEDIATION",
+      "NEW_EXACT_TARGET_WHERE_MATERIAL",
+      "FRESH_VALIDATION",
+      "PASS_OR_FURTHER_FINDING_OR_ESCALATION"
+    ]
+  },
+  "paired_validation_owner": "AAA-CONTROL-VALIDATOR",
+  "persistent_locator_state": "PENDING_REGISTRATION",
+  "persistent_routing_capability": {
+    "PERSISTENT_LOCATOR_FIRST_DEFAULT_ACTIVE": false,
+    "PERSISTENT_ROUTING_CAPABILITY_STATE": "DESIGNED",
+    "activation_requires": [
+      "PERSISTENT_ROUTING_CAPABILITY_STATE == PROVEN",
+      "REQUIRED_CONTROL_VALIDATIONS_SATISFIED"
+    ],
+    "capability_proof_must_precede_authoring": false,
+    "engineering_capability_proof": "PENDING",
+    "engineering_validator_evidence": "PENDING",
+    "invariant": "ENGINEERING_CAPABILITY_PROOF != CONTROL_POLICY_VALIDATION",
+    "unproven_capability_operationally_available": false
+  },
+  "persistent_store_state": "NOT_CHECKED",
+  "product": "ASSET AGENT ASA",
+  "project": "AAA",
+  "review_corrections": {
+    "RC-01": "ADDITIVE_OBJECT_DO_NOT_REWRITE_EXISTING_PERSONA_CHANNEL_STATE_GUARD",
+    "RC-02": "ASA_ROUTED_WORK_PACKET_BOUND_TO_AUTHORIZED_SCOPE_WORDING",
+    "RC-03": "VALIDATOR_FUNCTION_PRESERVATION_VF01_VF07",
+    "RC-04": "P0_P1_SUBSTANTIVE_FINDING_CANNOT_SELF_CLOSE",
+    "RC-05": "ROUTING_STATE_IS_CANONICAL_DERIVED_OWNER_USER_FLAGS",
+    "RC-06": "ESCALATION_REQUIRED_IS_SEPARATE_CONDITION_NOT_ROUTING_PEER",
+    "RC-07": "PERSISTENT_LOCATOR_FIRST_REQUIRES_REGISTERED_GOVERNED_AUTHORIZED_RETRIEVAL_AND_EXACT_REHASH",
+    "RC-08": "CAPABILITY_DESIGNED_VS_PROVEN_SEPARATION_AND_ACTIVATION_GATE"
+  },
+  "risk_class": "P1_CONTROL/P0_ARTIFACT_AUTHORITY_VALIDATION_RISK_SURFACE",
+  "routing_state_model": {
+    "canonical_state_field": "ROUTING_STATE",
+    "contradiction_prohibited": true,
+    "derived_flags": {
+      "OWNER_ACTION_REQUIRED": "ROUTING_STATE == OWNER_DECISION_REQUIRED",
+      "USER_ACTION_REQUIRED": "ROUTING_STATE == USER_ACTION_REQUIRED"
+    },
+    "derived_flags_independently_editable": false,
+    "primary_values": [
+      "NO_OWNER_ACTION_REQUIRED",
+      "OWNER_DECISION_REQUIRED",
+      "USER_ACTION_REQUIRED"
+    ]
+  },
+  "semantic_baseline_version": "v1.0",
+  "semantic_content_digest": "87a9eb19eb28c4b1c09159b5201a299b0b07a23c03e353c1d0ae9fd1a651ebf0",
+  "source_work_packet": {
+    "final_normative_acceptance": "PENDING",
+    "owner_new_decision_required": false,
+    "source_authority": [
+      "OWNER_OPERATING_DIRECTION",
+      "AAA-ADVISORY-VALIDATOR/ACCEPT_WITH_MODIFICATIONS"
+    ],
+    "source_byte_size": 18911,
+    "source_filename": "붙여넣은 텍스트 (1).txt",
+    "source_sha256": "039ea4325a3f5be2ecd57c4ca3e94a3bad5c66c279b33f956256429c46f002bf",
+    "work_packet_id": "AAA-ADVISOR-ASA-PAIR-LOCAL-ROUTING-PERSISTENT-LOCATOR-AUTHORING-WP-v1.0"
+  },
+  "validator_function_preservation": {
+    "VF-01": "PAIRED_VALIDATOR_OWNS_INDEPENDENT_L1_JUDGMENT",
+    "VF-02": "VALIDATOR_MUST_NOT_MATERIALLY_AUTHOR_TARGET_AND_PASS_OWN_CHANGE_IN_SAME_ACT",
+    "VF-03": "MATERIAL_TARGET_CHANGE_REQUIRES_NEW_EXACT_IDENTITY_AND_FRESH_VALIDATION",
+    "VF-04": "VALIDATOR_RETAINS_DIRECT_UNDERLYING_EVIDENCE_CHALLENGE_RIGHT",
+    "VF-05": "VALIDATOR_MAY_ESCALATE_NEW_MATERIAL_P0_P1_OR_OUT_OF_SCOPE_FINDINGS",
+    "VF-06": "VALIDATOR_OWNED_FINDINGS_RECEIPTS_EVIDENCE_PROTECTED_FROM_AUTHOR_MUTATION_OR_DELETION",
+    "VF-07": "L1_PASS_DOES_NOT_CONSTRAIN_OR_BECOME_L2_PASS",
+    "invariant": "AUTOMATE_TRANSPORT != AUTOMATE_VALIDATION"
+  },
+  "version": "v1.0"
+}
