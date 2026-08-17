@@ -1,0 +1,133 @@
+{
+  "artifact_id": "AAA-ACTIVE-SHARED-CONTRACT-POINTER",
+  "artifact_kind": "P0_ACTIVE_SHARED_CONTRACT_AUTHORITY_POINTER",
+  "authority_firewall": {
+    "capability_baseline_freeze": false,
+    "embedded_open_state_rewrite": false,
+    "feature_change": false,
+    "full_replay": false,
+    "golden_replay": false,
+    "imputation_change": false,
+    "kl_c_03_closure": false,
+    "missingness_change": false,
+    "model_baseline_promotion": false,
+    "model_semantic_change": false,
+    "outcome_change": false,
+    "pit_change": false,
+    "production": false,
+    "ranking_change": false,
+    "release": false,
+    "scorer_change": false,
+    "shared_contract_semantic_change": false,
+    "target_byte_mutation": false,
+    "weight_change": false
+  },
+  "create_once": true,
+  "current_active_shared_contract_binding": {
+    "artifact_id": "AAA-SHARED-CONTRACT-LIMITED-ADDENDUM",
+    "byte_size": 40962,
+    "filename": "AAA_SHARED_CONTRACT_LIMITED_ADDENDUM_v0.1.json",
+    "new_shared_contract_version": false,
+    "persistent_locator": {
+      "commit": "96d1c02f3d057a0b06db913988e3cc16b980314d",
+      "git_blob": "d7702c1491bded7b2b90e857007599c36bc58b7d",
+      "path": "control/validation/shared-contract/v0.1/l2-inputs/input-01/AAA_SHARED_CONTRACT_LIMITED_ADDENDUM_v0.1.json",
+      "repository": "AofSpds/asset-agent-asa",
+      "tree": "c74f6c16050ca1824f42edb613952eae408555d1"
+    },
+    "semantic_content_digest": "3fe5183311187160b89e301c0ae8102a3e6977f52319a5a190c5710ea637a9a1",
+    "sha256": "29ac62477ee567f06cc76db8c843d0480a0ea9b4f7dfdda9d062177bd84abea3",
+    "target_immutable": true,
+    "target_semantic_change": false,
+    "version": "v0.1"
+  },
+  "delete": "PROHIBITED",
+  "domain_owner": "AAA-CONTROL-ARCHITECT",
+  "fresh_p0_l2_authority_binding": {
+    "artifact_id": "AAA-SHARED-CONTRACT-LIMITED-ADDENDUM-v0.1-P0-L2-INDEPENDENT-VALIDATION-RECEIPT",
+    "byte_exact_readback": "PASS",
+    "byte_size": 7208,
+    "commit": "2f4aedd28cff6d1437b0f69aa543884c1b94e177",
+    "git_blob": "dbf9f525336858e8dae73b8c57288be4f1fc89f1",
+    "independent_validation_state": "PASS",
+    "l2_verdict": "PASS_WITH_NONBLOCKING_FINDING",
+    "new_p0_findings": [],
+    "new_p1_findings": [],
+    "path": "control/validation/shared-contract/v0.1/auditor/aaa-validation-auditor/AAA_SHARED_CONTRACT_LIMITED_ADDENDUM_v0.1_P0_L2_INDEPENDENT_VALIDATION_RECEIPT_v1.0.json",
+    "receipt_owner": "AAA-VALIDATION-AUDITOR",
+    "sha256": "ff20d230632002b3d776eb5dc63ad7e79cfe1e23470795614fa74bc34276ccbd",
+    "tree": "44c801dcdc317ad35c6aca5653171e32f7270a25",
+    "version": "v1.0"
+  },
+  "lineage": {
+    "expected_change_class": "ADD_ONE_ACTIVE_POINTER_ARTIFACT_ONLY",
+    "fresh_p0_l2_receipt_commit": "2f4aedd28cff6d1437b0f69aa543884c1b94e177",
+    "owner_acceptance_receipt_commit": "011b7839f61ef759f58ba9b37627415c983caf69",
+    "pointer_materialization_base_commit": "011b7839f61ef759f58ba9b37627415c983caf69"
+  },
+  "overwrite": "PROHIBITED",
+  "owner_authority_binding": {
+    "decision_owner": "PROJECT OWNER",
+    "decision_time": "2026-08-18T04:44:00+09:00",
+    "owner_acceptance_state": "APPROVED_BY_OWNER",
+    "owner_promotion_authority": "GRANTED",
+    "receipt": {
+      "artifact_id": "AAA-OWNER-ACCEPTANCE-SHARED-CONTRACT-v0.1",
+      "byte_size": 4047,
+      "commit": "011b7839f61ef759f58ba9b37627415c983caf69",
+      "git_blob": "1a180257d065ad83838b321d37e9db0583e8c443",
+      "path": "control/decisions/shared-contract/v0.1/AAA_OWNER_ACCEPTANCE_SHARED_CONTRACT_v0.1_v1.0.json",
+      "pinned_content_readback": "PASS",
+      "sha256": "02c28a39ddfb0aa519ed8d21ceb76b8b7924879b0265c4f9e541ba47d790e98e",
+      "tree": "40363ad8910695847eec81ab1d25e6f624df79bc",
+      "version": "v1.0"
+    },
+    "source_text": "수락 및 승격 승인 합니다."
+  },
+  "product": "ASSET AGENT ASA",
+  "project": "AAA",
+  "qualification_state": {
+    "NB-SC-L2-01": {
+      "closed": false,
+      "disposition": "NONBLOCKING_PRESERVED_QUALIFICATION",
+      "kl_c_03": "VISIBLE_PRESERVED",
+      "not_applicable": false,
+      "strict_base_profile_conformance_verified": false,
+      "subject": "KL-C-03"
+    },
+    "NB-SC-L2-02": {
+      "current_external_control_state": {
+        "OPEN-REF-01": "SATISFIED_BY_INPUT_03_INPUT_04_INPUT_06_EVIDENCE",
+        "OPEN-VAL-01": "SATISFIED_BY_AAA-MODEL-DESIGN-VALIDATOR_SCIENTIFIC_L1"
+      },
+      "disposition": "NONBLOCKING_EXTERNAL_CLOSURE_EVIDENCE_BOUND",
+      "embedded_immutable_target_state": {
+        "OPEN-REF-01": "OPEN",
+        "OPEN-VAL-01": "OPEN"
+      },
+      "embedded_open_states_rewritten": false,
+      "subject": "OPEN-REF-01 / OPEN-VAL-01"
+    }
+  },
+  "state": {
+    "active_shared_contract_authority": "PENDING_VALIDATION_CLOSURE",
+    "canonical_shared_contract_candidate": true,
+    "canonical_shared_contract_state": "PENDING_POINTER_VALIDATION",
+    "current_active_shared_contract": "PENDING_P0_POINTER_CONTROL_VALIDATION",
+    "independent_p0_control_state_verification_required": true,
+    "independent_validator": "AAA-VALIDATION-AUDITOR",
+    "owner_acceptance_state": "APPROVED_BY_OWNER",
+    "owner_promotion_authority": "GRANTED",
+    "paired_validation_required": true,
+    "paired_validator": "AAA-CONTROL-VALIDATOR",
+    "pointer_authoring_state": "MATERIALIZED_PENDING_P0_CONTROL_VALIDATION"
+  },
+  "validation_route": {
+    "after_paired_pass": "ROUTE_THROUGH_ASA_TO_AAA-VALIDATION-AUDITOR_FOR_NARROW_P0_CONTROL_STATE_VERIFICATION",
+    "next_persona": "AAA ADVISOR / ASA",
+    "next_route": "AAA ADVISOR / ASA -> AAA-CONTROL-VALIDATOR",
+    "next_task": "AAA_SHARED_CONTRACT_v0.1_ACTIVE_POINTER_P0_CONTROL_L1_VALIDATION",
+    "shared_contract_target_l2_pass_is_not_active_pointer_p0_control_state_pass": true
+  },
+  "version": "v1.0"
+}
