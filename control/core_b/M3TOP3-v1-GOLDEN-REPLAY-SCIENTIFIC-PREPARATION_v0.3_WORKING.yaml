@@ -1,0 +1,143 @@
+preparation_id: M3TOP3-v1-GOLDEN-REPLAY-SCIENTIFIC-PREPARATION
+version: v0.2_WORKING
+status: CORE_B_SCIENTIFIC_PREPARATION_GR1_CANDIDATE
+project: AAA
+product: ASSET AGENT ASA
+owner_persona: AAA-MODEL-VALIDATION-DESIGN-ARCHITECT
+work_packet: AAA-FROZEN-M3TOP3-v1-GOLDEN-REPLAY-PREPARATION-PARALLEL-WORK-PACKET_v1.0
+created_at: '2026-08-17T08:54:00+09:00'
+successor_of:
+  path: control/core_b/M3TOP3-v1-GOLDEN-REPLAY-SCIENTIFIC-PREPARATION_v0.1_WORKING.yaml
+  version: v0.1_WORKING
+  git_blob_sha: 789343c5c7a7d56ecae7d8dd44e2ac79bd42b789
+  sha256: ced186f84f373a13f90e4a80f3ff64d85c6a0e70e4fe2dd6142af5809febb2ae
+  preservation_rule: PREDECESSOR_REMAINS_IMMUTABLE
+mode: PREPARATION_ONLY_NO_OFFICIAL_REPLAY
+scientific_semantics_changed: false
+outcome_used_for_tuning: false
+objective: >-
+  Verify that the exact Frozen/admissible M3Top3 v1 semantics, governed inputs, and deterministic implementation
+  reproduce precommitted scientific behavior on a small adversarial/reference fixture set before Full Replay.
+not_claimed:
+  - historical profitability
+  - superiority_over_other_models
+  - statistical_significance
+  - production_readiness
+  - official_golden_replay_pass
+  - full_replay_pass
+identity_inventory:
+  model_version: {id: M3TOP3-v1.0, state: PENDING_EXACT_BINDING, reason: model scientific identity exists but official frozen/admissible replay target is not yet authorized}
+  feature_contract: {id: M3TOP3-FEATURE-SCHEMA_v1.0_WORKING, state: BOUND}
+  missingness_contract: {id: M3TOP3-FEATURE-SCHEMA_v1.0_WORKING, state: BOUND}
+  imputation_contract: {id: NO_SILENT_IMPUTATION, state: BOUND, authority: M3TOP3-FEATURE-SCHEMA_v1.0_WORKING + M3TOP3-GATED-LINEAR_v1.0_WORKING}
+  scorer: {id: M3TOP3-GATED-LINEAR_v1.0_WORKING, state: BOUND}
+  weight_vector: {id: M3TOP3-WEIGHT-VERSION_v1.0_WORKING, state: BOUND}
+  ranking: {id: FINAL_SCORE_DESC_FULL_PRECISION_COMPANY_ID_ASC, state: BOUND}
+  selection_topk: {id: TOP3_PRIMARY_TOP10_DIAGNOSTIC, state: BOUND}
+  universe_eligibility: {id: U127_OUTER_MEMBERSHIP_INTERSECT_OPERATIONAL_UNIVERSE_T_INTERSECT_TRADABLE_ELIGIBLE_T, state: PENDING_EXACT_BINDING}
+  pit_admissibility: {id: M3TOP3-PIT-CONSUMED-PROVENANCE-CONTRACT_v1.0_WORKING, state: BOUND}
+  window_outcome: {id: WM-v1.1 + M3TOP3-VALIDATION-CONTRACT_v1.0_WORKING, state: BOUND}
+  implementation_target: {id: PENDING_FRESH_IV_TARGET, state: PENDING_EXACT_BINDING}
+  price_ca_calendar_release: {id: PENDING_EXACT_RELEASE_BINDINGS, state: PENDING_EXACT_BINDING}
+  validation_dataset_release: {id: VDI-v1.0, state: PENDING_EXACT_BINDING}
+  model_artifact_release: {id: MARM-v1.0, state: PENDING_EXACT_BINDING}
+fixture_taxonomy:
+  - GF-01_NORMAL_FULLY_SUPPORTED
+  - GF-02_FEATURE_MISSINGNESS
+  - GF-03_NOT_PROVEN_UNKNOWN_EVIDENCE
+  - GF-04_RETRIEVAL_NOT_FOUND
+  - GF-05_PIT_PUBLICATION_TIME_BOUNDARY
+  - GF-06_FACT_EXISTS_PUBLIC_EVIDENCE_NOT_AVAILABLE
+  - GF-07_IMPUTATION_SENSITIVE
+  - GF-08_RANKING_TIE
+  - GF-09_RANKABILITY_INCOMPLETE_COVERAGE
+  - GF-10_UNIVERSE_ELIGIBILITY_RELEASE_MISMATCH
+  - GF-11_U46_VS_U127_IDENTITY_GUARD
+  - GF-12_SCORER_ARITHMETIC_BOUNDARY
+  - GF-13_WEIGHT_APPLICATION_IDENTITY
+  - GF-14_TOP3_TOPK_SELECTION_BOUNDARY
+  - GF-15_CORPORATE_ACTION_PRICE_RELEASE_BOUNDARY
+  - GF-16_TRADING_CALENDAR_BOUNDARY
+  - GF-17_PARTIAL_EXPECTED_WORK_COMPLETION
+  - GF-18_FUTURE_OUTCOME_LEAKAGE
+  - GF-19_AI_ADJUDICATION_NOT_GROUND_TRUTH
+  - GF-20_FROZEN_RESULT_APPEND_ONLY_NO_OVERWRITE
+golden_fixture_taxonomy:
+  concrete_fixture_selection_owner: AAA-RESEARCH-ORCHESTRATOR
+acceptance_criteria_candidate:
+  precommit_state: CANDIDATE_BEFORE_OFFICIAL_RESULTS
+  criteria:
+    exact_input_identity_match: EXACT_MATCH
+    exact_model_config_identity_match: EXACT_MATCH
+    deterministic_score_equality: EXACT_MATCH_UNLESS_PREDECLARED_NUMERIC_TOLERANCE_REQUIRED
+    deterministic_rank_equality: EXACT_MATCH
+    deterministic_tie_handling: ORDER_MATCH
+    deterministic_eligibility_rankability: STATE_MATCH
+    missingness_imputation_behavior: STATE_AND_VALUE_MATCH
+    pit_cutoff_compliance: STATE_MATCH_FAIL_CLOSED_ON_VIOLATION
+    future_outcome_firewall: EXACT_ABSENCE_FROM_MODEL_INPUT_PATHS
+    expected_work_completeness: EXACT_COUNT_AND_SET_MATCH
+    result_lineage: EXACT_IDENTITY_CHAIN_REQUIRED
+    unknown_promotion: PROHIBITED
+    partial_as_complete: PROHIBITED
+    AC-14_PARTIAL_AS_COMPLETE_PROHIBITION: EXPECTED_WORK_TERMINAL_COUNT_AND_SET_MUST_MATCH_IMMUTABLE_MANIFEST_PROCESS_EXIT_SUCCESS_NE_COMPLETENESS
+    AC-15_EXACT_INPUT_RERUN_DETERMINISTIC_EQUIVALENCE: SAME_EXACT_INPUT_MODEL_CONFIG_FEATURE_SCORER_WEIGHTS_RANKING_RELEASE_IMPLEMENTATION_HARNESS_MUST_REPRODUCE_DETERMINISTIC_EQUIVALENT_SCIENTIFIC_OUTPUT_UNEXPECTED_DIFFERENCE_FAIL
+    AC-16_INDEPENDENTLY_ESTABLISHED_EXPECTED_RESULT: EXPECTED_RESULT_MUST_COME_FROM_INDEPENDENT_GOVERNED_REFERENCE_CALCULATION_OR_PREESTABLISHED_DETERMINISTIC_EXPECTATION_NOT_IMPLEMENTATION_UNDER_TEST_FIRST_OUTPUT
+    AC-17_RESULT_IMMUTABILITY: EXISTING_GOLDEN_RESULT_IDENTITY_AND_BYTES_MUST_NOT_BE_OVERWRITTEN_RERUN_CREATES_NEW_RESULT_IDENTITY_WITH_LINEAGE
+  tolerance_rule: any scientific tolerance must be fixed before official result inspection
+imputation_dependency:
+  state: RESOLVED
+  current_policy: NO_SILENT_IMPUTATION
+  fixture_requirement: GF-07 must prove missing remains governed NA/availability handling unless a separately authorized successor semantic exists
+  full_replay_routing: any material future imputation change capable of changing historical feature/score/rankability/ranking/selection requires Full Replay
+replay_boundary:
+  golden_replay: small exact deterministic scientific fixture validation
+  full_replay: complete historical governed evaluation execution
+  golden_pass_implies_full_pass: false
+failure_taxonomy:
+  - MODEL_IDENTITY_MISMATCH
+  - CONFIG_IDENTITY_MISMATCH
+  - FEATURE_SEMANTIC_MISMATCH
+  - MISSINGNESS_MISMATCH
+  - IMPUTATION_MISMATCH
+  - SCORER_MISMATCH
+  - WEIGHT_MISMATCH
+  - RANKING_MISMATCH
+  - ELIGIBILITY_MISMATCH
+  - PIT_VIOLATION
+  - FUTURE_LEAKAGE
+  - UNIVERSE_IDENTITY_MISMATCH
+  - PRICE_RELEASE_MISMATCH
+  - CALENDAR_MISMATCH
+  - EXPECTED_WORK_INCOMPLETE
+  - NONDETERMINISTIC_OUTPUT
+  - RESULT_LINEAGE_FAILURE
+  - UNKNOWN_PROMOTION_FAILURE
+  - GROUND_TRUTH_AUTHORITY_FAILURE
+  - PARTIAL_COMPLETION_FALSE_COMPLETE
+  - HISTORICAL_FAILED_TARGET_SELECTED
+  - CORPORATE_ACTION_IDENTITY_MISMATCH
+  - EXPECTED_RESULT_NOT_INDEPENDENTLY_ESTABLISHED
+  - REQUIRED_RELEASE_BINDING_MISSING
+official_entry_conditions:
+  - GR-GATE-01_EXACT_FROZEN_MODEL_IDENTITY
+  - GR-GATE-02_EXACT_FEATURE_MISSINGNESS_IMPUTATION_SCORER_WEIGHT_RANKING
+  - GR-GATE-03_ADMISSIBLE_FRESH_IV_IMPLEMENTATION_TARGET
+  - GR-GATE-04_PIT_SCIENTIFIC_ADMISSIBILITY
+  - GR-GATE-05_EXACT_UNIVERSE_ELIGIBILITY_RELEASE
+  - GR-GATE-06_EXACT_GOLDEN_FIXTURE_SET_IDENTITY
+  - GR-GATE-07_EXACT_PRICE_CA_CALENDAR_RELEASES
+  - GR-GATE-08_IMMUTABLE_EXPECTED_WORK_MANIFEST
+  - GR-GATE-09_PRECOMMITTED_ACCEPTANCE_CRITERIA
+  - GR-GATE-10_EXACT_HARNESS_IDENTITY
+  - GR-GATE-11_INPUT_OUTPUT_LINEAGE_AND_IMMUTABILITY
+  - GR-GATE-12_AUTHORIZED_PIT_ADMISSION_PASS
+current_official_entry: NOT_YET_AUTHORIZED
+readiness_level: GR1_INVENTORY_READY_CORE_B_ONLY
+next_required_cross_track_outputs:
+  - RESEARCH_GOLDEN_FIXTURE_PIT_DATA_READINESS_RETURN_PACKET
+  - ENGINEERING_DETERMINISTIC_HARNESS_RETURN_PACKET
+  - FRESH_IV_EXACT_IMPLEMENTATION_TARGET
+  - EXACT_UNIVERSE_ELIGIBILITY_PRICE_CA_CALENDAR_RELEASE_BINDINGS
+  - PIT_ADMISSION_AUTHORITY
+validator_route: AAA-MODEL-DESIGN-VALIDATOR once this exact scientific preparation artifact is selected as the L1 target
