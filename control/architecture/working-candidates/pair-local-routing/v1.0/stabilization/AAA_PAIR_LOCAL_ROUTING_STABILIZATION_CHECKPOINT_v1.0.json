@@ -1,0 +1,102 @@
+{
+  "activation_boundary": {
+    "ACTIVE_BASELINE": false,
+    "CANONICAL": false,
+    "FROZEN": false,
+    "OWNER_ACCEPTANCE": "NOT_ESTABLISHED",
+    "PERSISTENT_ROUTING_DEFAULT_ACTIVE": false,
+    "PRODUCTION_READY": false
+  },
+  "authoring_persona": "AAA-CONTROL-ARCHITECT",
+  "capability_state": {
+    "PERSISTENT_LOCATOR_FIRST_DEFAULT_ACTIVE": false,
+    "PERSISTENT_ROUTING_CAPABILITY_SCOPE_QUALIFIER": "BOUNDED_NON_PRODUCTION_GIT",
+    "PERSISTENT_ROUTING_CAPABILITY_STATE": "PROVEN",
+    "PLATFORM_ENFORCED_PERSONA_SPECIFIC_PATH_ACL": "NOT_PROVEN",
+    "PRODUCTION_READY": false
+  },
+  "checkpoint_id": "AAA-PAIR-LOCAL-ROUTING-STABILIZATION-CHECKPOINT-v1.0",
+  "checkpoint_state": "STABILIZATION_PARTIAL_COMPLETE_AUDITOR_RECEIPT_PENDING",
+  "checkpoint_time_kst": "2026-08-17T20:48:00+09:00",
+  "control_l1_evidence": {
+    "receipt_byte_size": 3626,
+    "receipt_commit": "45f15c0ed9da1102312fcb552cbea75df4f70828",
+    "receipt_git_blob_id": "d90edf69f8941318e29524083b794ccf0d6573a7",
+    "receipt_kind": "DETERMINISTIC_POST_HOC_EVIDENCE_OF_COMPLETED_VALIDATION_ACT",
+    "receipt_sha256": "2ebcb605fcd5c25901ee570da3b3a11568c1d87311423b18be93f2a20e412c73",
+    "receipt_tree": "a4fa1139daccd0ef3eb2dc5e615cb3c821941291",
+    "state": "PASS"
+  },
+  "independent_l2": {
+    "auditor_judgment_state": "PASS_WITH_NONBLOCKING_FINDING",
+    "evidence_sufficiency": "PASS",
+    "exact_auditor_receipt_persistence_state": "PENDING_SCOPE_AUTHORIZED_RECEIPT_WRITE",
+    "nonblocking_findings": [
+      "NB-CTRL-01",
+      "NB-L2-01"
+    ],
+    "note": "Do not manufacture a persistent IV receipt/state from the return packet; exact Auditor-owned receipt persistence remains separate.",
+    "p0_blockers": [],
+    "p1_blockers": [],
+    "persistent_independent_validation_receipt_state": "PENDING"
+  },
+  "is_owner_acceptance": false,
+  "is_semantic_sot": false,
+  "is_validation_receipt": false,
+  "persona_manifest_projection": {
+    "AAA ADVISOR / ASA": {
+      "authority_changed": false,
+      "role": "OWNER_FACING_ORCHESTRATION"
+    },
+    "AAA-CONTROL-ARCHITECT": {
+      "authority_changed": false,
+      "role": "CONTROL_AUTHORING_AND_STABILIZATION"
+    },
+    "AAA-CONTROL-VALIDATOR": {
+      "authority_changed": false,
+      "l1_state": "PASS",
+      "role": "PAIRED_CONTROL_L1_VALIDATION"
+    },
+    "AAA-ENGINEERING-VALIDATOR": {
+      "authority_changed": false,
+      "capability_evidence": "PASS",
+      "role": "PAIRED_ENGINEERING_VALIDATION"
+    },
+    "AAA-VALIDATION-AUDITOR": {
+      "authority_changed": false,
+      "l2_judgment": "PASS_WITH_NONBLOCKING_FINDING",
+      "receipt_persistence": "PENDING",
+      "role": "INDEPENDENT_VALIDATION_AUDIT"
+    }
+  },
+  "product": "ASSET AGENT ASA",
+  "project": "AAA",
+  "routing_state": {
+    "ESCALATION_REQUIRED": false,
+    "NEXT_ACTION": "AAA_VALIDATION_AUDITOR_EXACT_L2_RECEIPT_PERSISTENCE",
+    "NEXT_PERSONA": "AAA-VALIDATION-AUDITOR",
+    "OWNER_ACTION_REQUIRED": false,
+    "ROUTING_STATE": "NO_OWNER_ACTION_REQUIRED",
+    "USER_ACTION_REQUIRED": false
+  },
+  "semantic_target": {
+    "commit": "358cbb85edf829c1e52c4bc107f73a02b718ae5c",
+    "mutation_authorized": false,
+    "tree": "e9da2d072530e013bd8be58617ab06994e4b6247"
+  },
+  "state_normalization": {
+    "NB_CTRL_01": {
+      "authoring_time_state": "DESIGNED/PENDING_REGISTRATION",
+      "immutable_target_mutation_required": false,
+      "live_governed_evidence_state": "REGISTERED/PROVEN"
+    },
+    "NB_L2_01": {
+      "canonical_enum_field": "PERSISTENT_ROUTING_CAPABILITY_STATE",
+      "canonical_value": "PROVEN",
+      "qualification_value": "BOUNDED_NON_PRODUCTION_GIT",
+      "semantic_target_change_required": false,
+      "separate_qualification_field": "PERSISTENT_ROUTING_CAPABILITY_SCOPE_QUALIFIER"
+    }
+  },
+  "state_source": "PROVIDED_AAA_VALIDATION_AUDITOR_RETURN_PACKET_PLUS_PINNED_GIT_READBACK"
+}
