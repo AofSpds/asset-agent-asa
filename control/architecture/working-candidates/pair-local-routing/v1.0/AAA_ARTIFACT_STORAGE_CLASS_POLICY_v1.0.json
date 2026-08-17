@@ -121,7 +121,7 @@
   ],
   "paired_validation_owner": "AAA-CONTROL-VALIDATOR",
   "persistence_authority_invariants": [
-    "GIT_COMMIT  != VALIDATION_PASS",
+    "GIT_COMMIT != VALIDATION_PASS",
     "GIT_TAG != OWNER_ACCEPTANCE",
     "PERSISTENCE != SEMANTIC_APPROVAL",
     "PERSISTENT_LOCATOR != CANONICAL",
@@ -143,7 +143,7 @@
       "AAA-ADVISORY-VALIDATOR/ACCEPT_WITH_MODIFICATIONS"
     ],
     "source_byte_size": 18911,
-    "source_filename": "밙여넋온 텍슴털 (1).txt",
+    "source_filename": "붙여넣은 텍스트 (1).txt",
     "source_sha256": "039ea4325a3f5be2ecd57c4ca3e94a3bad5c66c279b33f956256429c46f002bf",
     "work_packet_id": "AAA-ADVISOR-ASA-PAIR-LOCAL-ROUTING-PERSISTENT-LOCATOR-AUTHORING-WP-v1.0"
   },
