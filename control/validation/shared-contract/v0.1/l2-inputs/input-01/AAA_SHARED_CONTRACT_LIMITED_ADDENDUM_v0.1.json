@@ -1,0 +1,913 @@
+{
+  "active_shared_contract_promotion": "NOT_AUTHORIZED",
+  "addendum_id": "AAA-SHARED-CONTRACT-LIMITED-ADDENDUM",
+  "addendum_version": "v0.1",
+  "authoring_persona": "AAA-CONTROL-ARCHITECT",
+  "authoring_state": "WORKING_CANDIDATE",
+  "authority_not_opened": {
+    "active_shared_contract_promotion": false,
+    "capability_baseline_v1_freeze": false,
+    "final_baseline_materialization": false,
+    "full_replay": false,
+    "golden_replay": false,
+    "implementation_target_selection": false,
+    "owner_acceptance": false,
+    "production_authority": false,
+    "replay_execution": false
+  },
+  "authority_owners": {
+    "core_a": {
+      "owns": [
+        "Data control",
+        "Ground Truth control mechanics",
+        "PIT evidence authority mechanics",
+        "Artifact authority",
+        "canonical data control",
+        "stable identity mechanics",
+        "lineage",
+        "exact artifact binding",
+        "Requirements & Design control",
+        "validation-state mechanics",
+        "baseline/freeze mechanics"
+      ],
+      "persona": "AAA-CONTROL-ARCHITECT"
+    },
+    "core_b": {
+      "owns": [
+        "Model semantics",
+        "Feature semantics",
+        "Missingness",
+        "Imputation",
+        "Scorer",
+        "Weight",
+        "Ranking",
+        "Selection",
+        "Replay scientific methodology",
+        "Evaluation scientific methodology",
+        "model promotion/rejection scientific methodology"
+      ],
+      "persona": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT"
+    }
+  },
+  "clause_reconciliation_matrix": [
+    {
+      "clause_id": "CLAUSE-01-STABLE-GOVERNED-IDENTITY",
+      "clause_text": "Governed Capability / Requirement / Invariant objects SHALL have stable identity where material to authority, semantic preservation, validation, reproducibility, or release.\n\nStable ID does not itself grant authority or Frozen status.",
+      "core_a_compatibility_refs": [
+        "stable_id_profile",
+        "state_model",
+        "semantic_identity_model"
+      ],
+      "disposition": "ACCEPT_AS_IS",
+      "material_conflict": false,
+      "semantic_normalization_applied": false,
+      "title": "STABLE GOVERNED IDENTITY"
+    },
+    {
+      "clause_id": "CLAUSE-02-ADD-NE-MODIFY",
+      "clause_text": "ADD != MODIFY.\n\nA new governed object does not authorize mutation of an existing governed object.",
+      "core_a_compatibility_refs": [
+        "work_packet_change_impact_contract.operation_enum",
+        "object_diff_spec.authorization_rules"
+      ],
+      "disposition": "ACCEPT_AS_IS",
+      "material_conflict": false,
+      "semantic_normalization_applied": false,
+      "title": "ADD != MODIFY"
+    },
+    {
+      "clause_id": "CLAUSE-03-PRESERVE-BY-DEFAULT",
+      "clause_text": "ABSENCE_FROM_AUTHORIZED_CHANGE_SCOPE = PRESERVE",
+      "core_a_compatibility_refs": [
+        "work_packet_change_impact_contract.preserve_all_others_required_value",
+        "object_diff_spec.authorization_rules"
+      ],
+      "disposition": "ACCEPT_AS_IS",
+      "material_conflict": false,
+      "semantic_normalization_applied": false,
+      "title": "PRESERVE BY DEFAULT"
+    },
+    {
+      "clause_id": "CLAUSE-04-EXPLICIT-REMOVAL",
+      "clause_text": "REMOVAL_REQUIRES_EXPLICIT_AUTHORIZATION.\n\nImplicit omission is not removal authority.",
+      "core_a_compatibility_refs": [
+        "work_packet_change_impact_contract.operation_contracts.REMOVE",
+        "object_diff_spec.authorization_rules"
+      ],
+      "disposition": "ACCEPT_AS_IS",
+      "material_conflict": false,
+      "semantic_normalization_applied": false,
+      "title": "EXPLICIT REMOVAL"
+    },
+    {
+      "clause_id": "CLAUSE-05-EXACT-BASELINE-BINDING",
+      "clause_text": "Meaningful semantic Work Packets SHALL bind the applicable Capability Baseline version/hash and exact implementation baseline identity.\n\nRoutine governed non-semantic maintenance MAY use a deterministic compatible baseline import when explicitly governed.\n\nNo floating `latest` authority.",
+      "core_a_compatibility_refs": [
+        "identity_contract",
+        "vcs_touch_evidence_spec",
+        "historical_failed_target_guard",
+        "implementation_target"
+      ],
+      "disposition": "ACCEPT_AS_IS",
+      "material_conflict": false,
+      "semantic_normalization_applied": false,
+      "title": "EXACT BASELINE BINDING"
+    },
+    {
+      "clause_id": "CLAUSE-06-ACTUAL-IMPACT-PROOF",
+      "clause_text": "Builder reports:\n\nCANDIDATE_ACTUAL_SEMANTIC_IMPACT\n+\nACTUAL_TOUCH_SET\n\nBuilder self-report alone does not prove preservation.\n\nDeterministic governed-object diff and actual VCS/file/component touch comparison SHALL establish actual impact.",
+      "core_a_compatibility_refs": [
+        "vcs_touch_evidence_spec",
+        "work_packet_change_impact_contract",
+        "object_diff_spec"
+      ],
+      "disposition": "ACCEPT_AS_IS",
+      "material_conflict": false,
+      "semantic_normalization_applied": false,
+      "title": "ACTUAL IMPACT PROOF"
+    },
+    {
+      "clause_id": "CLAUSE-07-AUTHORIZED-VS-ACTUAL-VALIDATION",
+      "clause_text": "Validation SHALL compare:\n\nAUTHORIZED_CHANGE_SET\n\nagainst\n\nDETERMINISTIC_ACTUAL_IMPACT\n\nand\n\nPRESERVE_SET.\n\nP0 scientific/shared semantics shall receive paired domain validation plus AAA-VALIDATION-AUDITOR Independent Validation according to project policy.",
+      "core_a_compatibility_refs": [
+        "work_packet_change_impact_contract.comparison_required",
+        "state_model",
+        "p0_always_check_skeleton"
+      ],
+      "disposition": "ACCEPT_AS_IS",
+      "material_conflict": false,
+      "semantic_normalization_applied": false,
+      "title": "AUTHORIZED VS ACTUAL VALIDATION"
+    },
+    {
+      "clause_id": "CLAUSE-08-PERSONA-AUTHORITY",
+      "clause_text": "Model / Feature / Missingness / Scorer / Weight / Ranking / Replay / Evaluation scientific semantics are governed by:\n\nAAA-MODEL-VALIDATION-DESIGN-ARCHITECT.\n\nData / Ground Truth / PIT evidence authority / Artifact / Control semantics are governed by:\n\nAAA-CONTROL-ARCHITECT.\n\nShared intersections including:\n\nPIT model admissibility\n\nUniverse eligibility/release\n\nWindow/Outcome interface\n\nevaluation/release compatibility\n\nrequire relevant Shared Contract reconciliation.",
+      "core_a_compatibility_refs": [
+        "core_b_pending_register.CORE_A_OWNED",
+        "core_b_pending_register.CORE_B_OWNED",
+        "core_b_pending_register.SHARED_RECONCILIATION_REQUIRED"
+      ],
+      "disposition": "ACCEPT_AS_IS",
+      "material_conflict": false,
+      "semantic_normalization_applied": false,
+      "title": "PERSONA AUTHORITY"
+    },
+    {
+      "clause_id": "CLAUSE-09-SHARED-CONTRACT-CHANGE-CONTROL",
+      "clause_text": "Shared Contract objects are governed objects.\n\nUNDECLARED_SHARED_CONTRACT_SEMANTIC_MUTATION = FAIL_CLOSED\n\nUnilateral Shared Contract semantic mutation is prohibited.",
+      "core_a_compatibility_refs": [
+        "work_packet_change_impact_contract",
+        "object_diff_spec",
+        "linter_spec"
+      ],
+      "disposition": "ACCEPT_AS_IS",
+      "material_conflict": false,
+      "semantic_normalization_applied": false,
+      "title": "SHARED CONTRACT CHANGE CONTROL"
+    },
+    {
+      "clause_id": "CLAUSE-10-BASELINE-NOT-SECOND-SCIENTIFIC-SOT",
+      "clause_text": "AAA-CAPABILITY-BASELINE = CONTROL / TRACEABILITY / PRESERVATION INDEX\n\nAAA-CAPABILITY-BASELINE != SECOND SCIENTIFIC SEMANTIC SOURCE OF TRUTH\n\nIt SHALL reference authoritative normative scientific sources and their governed semantic identity rather than unnecessarily duplicate scientific formulas/content.",
+      "core_a_compatibility_refs": [
+        "generated_view_policy",
+        "core_b_pending_register",
+        "identity_contract"
+      ],
+      "disposition": "ACCEPT_AS_IS",
+      "material_conflict": false,
+      "semantic_normalization_applied": false,
+      "title": "BASELINE IS NOT SECOND SEMANTIC SOT"
+    },
+    {
+      "clause_id": "CLAUSE-11-REGISTRATION-DOES-NOT-FREEZE",
+      "clause_text": "CAPABILITY_REGISTERED != CAPABILITY_FROZEN\n\nBaseline registration shall preserve independent:\n\nAUTHORING_STATE\n\nEVIDENCE_STATE\n\nPAIRED_VALIDATION_STATE\n\nINDEPENDENT_VALIDATION_STATE\n\nOWNER_ACCEPTANCE_STATE\n\nFROZEN_STATUS",
+      "core_a_compatibility_refs": [
+        "state_model",
+        "allowed_state_transitions",
+        "artifact_state"
+      ],
+      "disposition": "ACCEPT_AS_IS",
+      "material_conflict": false,
+      "semantic_normalization_applied": false,
+      "title": "REGISTRATION DOES NOT FREEZE"
+    }
+  ],
+  "core_b_rereconciliation_required": false,
+  "evaluation_compatibility_contract": {
+    "direct_comparison_requires_compatible_identity": [
+      "Evaluation Set / Validation Dataset",
+      "PIT policy",
+      "Universe / eligibility",
+      "Snapshot / Window Mapping",
+      "Entry rule",
+      "Exit / evaluation endpoint",
+      "Outcome definition",
+      "price / CA / calendar release where material",
+      "benchmark / denominator",
+      "required completeness"
+    ],
+    "incompatible_status": "NOT_DIRECTLY_COMPARABLE",
+    "prohibited_claims_when_incompatible": [
+      "MODEL_IMPROVED",
+      "MODEL_DEGRADED"
+    ]
+  },
+  "failed_target_guard": {
+    "current_implementation_target": "PENDING_FRESH_IV_TARGET",
+    "historical_failed_commit": "5c1539ad2ecdfb51d755286a9a190a34f9a2f6b3",
+    "historical_failed_tree": "9e8eb2e1814de076bdc4478982897d98fde4ccce",
+    "prohibited_as_accepted_baseline_target": true,
+    "prohibited_as_accepted_initial_capability_baseline_implementation_target": true,
+    "prohibited_as_fresh_iv_pass_target": true,
+    "prohibited_as_initial_rd_baseline_target": true,
+    "successor_commit_tree_inference": "PROHIBITED"
+  },
+  "frozen_status": "NOT_FROZEN",
+  "full_replay_contract": {
+    "non_triggers": [
+      "stable IDs assigned",
+      "baseline JSON generated",
+      "receipt registered",
+      "locator changed",
+      "file/module moved",
+      "documentation moved",
+      "CI changed",
+      "non-semantic refactor occurred",
+      "generated view changed"
+    ],
+    "required_triggers": [
+      "Feature meaning affecting historical scores",
+      "Weight vector",
+      "Scorer arithmetic / material gate semantics",
+      "Ranking / Top-K / tie / rankability",
+      "Universe / eligibility denominator",
+      "PIT admissibility policy",
+      "Snapshot / Entry / evaluation window",
+      "Outcome Builder",
+      "MFE / MAE / exact outcome-rank semantics",
+      "Price / CA / Calendar release semantics that affect outcomes",
+      "Material missingness policy affecting rankability/scorability",
+      "Scientific claim: \"better than Frozen predecessor on governed historical evaluation set\""
+    ],
+    "rule": "Full Replay is scientifically bounded to material semantics or governed comparative claims; control/metadata maintenance alone is not a trigger."
+  },
+  "guards": {
+    "builder_report_not_proof_guard": {
+      "result": "ACCEPTED",
+      "rule": "BUILDER_SELF_REPORT is candidate evidence only; preservation requires deterministic governed-object diff + actual VCS/file/component touch + semantic digest check + targeted regression when affected."
+    },
+    "initial_validation_not_auto_full_replay_guard": {
+      "result": "ACCEPTED",
+      "rule": "INITIAL_FULL_CAPABILITY_VALIDATION is required before baseline v1.0 Freeze, but pure registration/identity/preservation materialization does not automatically trigger M3Top3 Full Replay."
+    },
+    "second_scientific_sot_guard": {
+      "result": "ACCEPTED",
+      "rule": "AAA-CAPABILITY-BASELINE is CONTROL / IDENTITY / TRACEABILITY / PRESERVATION INDEX only; authoritative scientific sources remain external normative SoT and are referenced by identity/digest."
+    },
+    "stable_id_not_freeze_guard": {
+      "result": "ACCEPTED",
+      "rule": "STABLE_IDENTITY != FROZEN_STATUS; CAPABILITY_REGISTERED != CAPABILITY_FROZEN; registration cannot create Owner Acceptance or Freeze."
+    }
+  },
+  "legacy_artifact_preservation": {
+    "artifacts": [
+      "SEMI-EVAL-CORE v1.0",
+      "SEMI-DATA-ROUTE v1.1",
+      "SEMI-PIT-LEDGER v1.0",
+      "SEMI-UNIVERSE v1.0"
+    ],
+    "rule": "LEGACY_ARTIFACT != CURRENT_SUCCESSOR_SEMANTICS; preserve exact historical artifacts, use REFERENCE_ONLY unless explicitly adopted into a current successor contract."
+  },
+  "material_disagreements": [],
+  "normative_array_semantics": {
+    "authority_owners.core_a.owns": "SET",
+    "authority_owners.core_b.owns": "SET",
+    "clause_reconciliation_matrix": "ORDERED",
+    "evaluation_compatibility_contract.direct_comparison_requires_compatible_identity": "SET",
+    "evaluation_compatibility_contract.prohibited_claims_when_incompatible": "SET",
+    "full_replay_contract.non_triggers": "SET",
+    "full_replay_contract.required_triggers": "SET",
+    "legacy_artifact_preservation.artifacts": "SET",
+    "open_reconciliation_register": "SET",
+    "outcome_driven_change_firewall.must_not_retroactively_mutate": "SET",
+    "outcome_driven_change_firewall.observed_metrics_may_inform": "SET",
+    "outcome_driven_change_firewall.required_sequence": "ORDERED",
+    "p0_always_check_integration.checks": "SET",
+    "p1_check_when_affected_regression_routing.checks": "SET",
+    "scientific_capability_families": "SET",
+    "scientific_invariants": "SET",
+    "scientific_prohibited_behaviors": "SET",
+    "scientific_requirement_families": "SET",
+    "shared_boundary_objects": "SET",
+    "universe_identity_control.transition_requirements": "ORDERED"
+  },
+  "normative_scope": "Governance identity, preservation, authority-boundary, validation-routing, scientific-reference integration, regression-routing, Full Replay trigger control, and exact universe identity boundary only.",
+  "open_reconciliation_register": [
+    {
+      "description": "Exact persistent external CORE B normative source references/digests for SC-01..SC-12 are not separately provided in this Work Packet and must be bound before any final Baseline materialization/freeze that depends on them.",
+      "item_id": "OPEN-REF-01",
+      "material_disagreement": false,
+      "state": "OPEN",
+      "type": "NONBLOCKING_REFERENCE_BINDING"
+    },
+    {
+      "description": "ASA must determine whether AAA-MODEL-DESIGN-VALIDATOR scientific paired validation is required before L2 for this shared-boundary candidate.",
+      "item_id": "OPEN-VAL-01",
+      "material_disagreement": false,
+      "state": "OPEN",
+      "type": "VALIDATION_ROUTING_DECISION"
+    }
+  ],
+  "outcome_driven_change_firewall": {
+    "must_not_retroactively_mutate": [
+      "Feature",
+      "Weight",
+      "Score",
+      "PIT evidence",
+      "Snapshot",
+      "Ranking rule",
+      "Evaluation inputs"
+    ],
+    "observed_metrics_may_inform": [
+      "FAILURE_ANALYSIS",
+      "FUTURE_HYPOTHESIS"
+    ],
+    "required_sequence": [
+      "FROZEN MODEL",
+      "REPLAY",
+      "EVALUATION",
+      "FAILURE ANALYSIS",
+      "HYPOTHESIS",
+      "AUTHORIZED SUCCESSOR CHANGE",
+      "NEW MODEL VERSION",
+      "NEW EXACT TARGET",
+      "NEW VALIDATION",
+      "PROMOTE / REJECT"
+    ]
+  },
+  "owner_acceptance_state": "NOT_REQUESTED",
+  "p0_always_check_integration": {
+    "checks": [
+      {
+        "check_id": "P0-SCI-01",
+        "full_replay_automatic": false,
+        "name": "FROZEN_MODEL_SEMANTIC_DIGEST_UNCHANGED_UNLESS_EXPLICIT_SUCCESSOR",
+        "trigger": "ALWAYS"
+      },
+      {
+        "check_id": "P0-SCI-02",
+        "full_replay_automatic": false,
+        "name": "EXACT_MODEL_CONFIG_FEATURE_SCORER_WEIGHT_IDENTITY_BOUND",
+        "trigger": "ALWAYS"
+      },
+      {
+        "check_id": "P0-SCI-03",
+        "full_replay_automatic": false,
+        "name": "NO_FUTURE_OUTCOME_IN_HISTORICAL_MODEL_INPUT_PATH",
+        "trigger": "ALWAYS"
+      },
+      {
+        "check_id": "P0-SCI-04",
+        "full_replay_automatic": false,
+        "name": "PIT_ADMISSIBILITY_NOT_AFTER_SNAPSHOT_CUTOFF",
+        "trigger": "ALWAYS"
+      },
+      {
+        "check_id": "P0-SCI-05",
+        "full_replay_automatic": false,
+        "name": "FACT_EXISTED_AT_TIME_NE_PUBLIC_EVIDENCE_AVAILABLE_AT_TIME",
+        "trigger": "ALWAYS"
+      },
+      {
+        "check_id": "P0-SCI-06",
+        "full_replay_automatic": false,
+        "name": "UNKNOWN_NOT_PROVEN_NOT_FOUND_NOT_SILENTLY_PROMOTED",
+        "trigger": "ALWAYS"
+      },
+      {
+        "check_id": "P0-SCI-07",
+        "full_replay_automatic": false,
+        "name": "AI_ADJUDICATION_NE_GROUND_TRUTH",
+        "trigger": "ALWAYS"
+      },
+      {
+        "check_id": "P0-SCI-08",
+        "full_replay_automatic": false,
+        "name": "RANKING_AND_ELIGIBILITY_DENOMINATOR_IDENTITY_UNCHANGED_OR_EXPLICITLY_AUTHORIZED",
+        "trigger": "ALWAYS"
+      },
+      {
+        "check_id": "P0-SCI-09",
+        "full_replay_automatic": false,
+        "name": "INCOMPATIBLE_EVALUATION_PROTOCOL_NOT_PRESENTED_AS_DIRECTLY_COMPARABLE",
+        "trigger": "ALWAYS"
+      },
+      {
+        "check_id": "P0-SCI-10",
+        "full_replay_automatic": false,
+        "name": "EXPECTED_WORK_COMPLETENESS_NOT_FALSELY_CLAIMED",
+        "trigger": "ALWAYS"
+      },
+      {
+        "check_id": "P0-SCI-11",
+        "full_replay_automatic": false,
+        "name": "FROZEN_HISTORICAL_SCORE_RESULT_NOT_OVERWRITTEN",
+        "trigger": "ALWAYS"
+      },
+      {
+        "check_id": "P0-SCI-12",
+        "full_replay_automatic": false,
+        "name": "ENGINEERING_OR_RESEARCH_PASS_NE_INDEPENDENT_VALIDATION_PASS",
+        "trigger": "ALWAYS"
+      },
+      {
+        "check_id": "P0-SCI-13",
+        "full_replay_automatic": false,
+        "name": "INDEPENDENT_VALIDATION_PASS_NE_OWNER_FREEZE_RELEASE_AUTHORIZATION",
+        "trigger": "ALWAYS"
+      },
+      {
+        "check_id": "P0-SCI-14",
+        "full_replay_automatic": false,
+        "name": "AUTHORIZED_SEMANTIC_SCOPE_CONTAINS_ALL_ACTUAL_SCIENTIFIC_MUTATIONS",
+        "trigger": "ALWAYS"
+      },
+      {
+        "check_id": "P0-SCI-15",
+        "full_replay_automatic": false,
+        "name": "LEGACY_UNIVERSE_AND_SUCCESSOR_UNIVERSE_NOT_SILENTLY_CONFLATED",
+        "trigger": "ALWAYS"
+      },
+      {
+        "check_id": "P0-SCI-16",
+        "full_replay_automatic": false,
+        "name": "NO_OUTCOME_DRIVEN_RETROACTIVE_WEIGHT_FEATURE_SCORER_RANKING_MUTATION",
+        "trigger": "ALWAYS"
+      }
+    ],
+    "rule": "ALWAYS_CHECK != FULL_REPLAY_EVERY_TIME"
+  },
+  "p1_check_when_affected_regression_routing": {
+    "affected_path": "If impact is possible: TARGETED_REGRESSION -> PAIRED_VALIDATION -> INDEPENDENT_VALIDATION according to risk.",
+    "builder_report_authority": "SUPPLEMENTARY_ONLY",
+    "checks": [
+      "individual Feature formula/subrule",
+      "Feature source mapping",
+      "Feature missingness implementation",
+      "scorer arithmetic",
+      "gate implementation",
+      "weight application",
+      "normalization/winsorization",
+      "tie-break",
+      "ranking",
+      "rankability/coverage",
+      "Window Mapping",
+      "Entry/Exit",
+      "Outcome Builder",
+      "MFE/MAE Builder",
+      "Corporate Action path",
+      "Price release consumption",
+      "eligibility classifier",
+      "universe materialization",
+      "replay shard/partition logic",
+      "deterministic reducer",
+      "Result Manifest scientific fields",
+      "comparison calculator"
+    ],
+    "unchanged_fast_path": "If deterministic governed-object diff proves the scientific family UNCHANGED and actual implementation touch creates no plausible semantic impact, expensive scientific regression need not run."
+  },
+  "product": "ASSET AGENT ASA",
+  "project": "AAA",
+  "risk_class": "P0",
+  "scientific_capability_families": [
+    {
+      "authority_source_ref": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT / CORE B bounded reconciliation as transported by ASA Work Packet v1.0",
+      "baseline_role": "REFERENCE_INDEX_ONLY_NOT_SCIENTIFIC_SOT",
+      "control_owner": "AAA-CONTROL-ARCHITECT where authority/artifact/identity/PIT-evidence-control mechanics apply",
+      "family_id": "SC-01",
+      "governance_owner": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+      "name": "MODEL VERSION / FROZEN LINEAGE",
+      "normative_semantic_digest": "PENDING_EXACT_CORE_B_NORMATIVE_SOURCE_BINDING",
+      "normative_source_ref": "EXTERNAL_CORE_B_GOVERNED_NORMATIVE_SOURCE_REQUIRED_AT_BASELINE_MATERIALIZATION",
+      "preservation_expectation": "PRESERVE_BY_DEFAULT; explicit authorized successor required for semantic change",
+      "risk_tier": "P0/P1_BY_UNDERLYING_SCIENTIFIC_OBJECT; NO_DOWNGRADE_BY_REGISTRATION",
+      "validation_routing": "PAIRED_SCIENTIFIC_VALIDATION_WHEN_AFFECTED + AAA-VALIDATION-AUDITOR for P0"
+    },
+    {
+      "authority_source_ref": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT / CORE B bounded reconciliation as transported by ASA Work Packet v1.0",
+      "baseline_role": "REFERENCE_INDEX_ONLY_NOT_SCIENTIFIC_SOT",
+      "control_owner": "AAA-CONTROL-ARCHITECT where authority/artifact/identity/PIT-evidence-control mechanics apply",
+      "family_id": "SC-02",
+      "governance_owner": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+      "name": "FEATURE SEMANTICS / MISSINGNESS / INPUT ADMISSIBILITY",
+      "normative_semantic_digest": "PENDING_EXACT_CORE_B_NORMATIVE_SOURCE_BINDING",
+      "normative_source_ref": "EXTERNAL_CORE_B_GOVERNED_NORMATIVE_SOURCE_REQUIRED_AT_BASELINE_MATERIALIZATION",
+      "preservation_expectation": "PRESERVE_BY_DEFAULT; explicit authorized successor required for semantic change",
+      "risk_tier": "P0/P1_BY_UNDERLYING_SCIENTIFIC_OBJECT; NO_DOWNGRADE_BY_REGISTRATION",
+      "validation_routing": "PAIRED_SCIENTIFIC_VALIDATION_WHEN_AFFECTED + AAA-VALIDATION-AUDITOR for P0"
+    },
+    {
+      "authority_source_ref": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT / CORE B bounded reconciliation as transported by ASA Work Packet v1.0",
+      "baseline_role": "REFERENCE_INDEX_ONLY_NOT_SCIENTIFIC_SOT",
+      "control_owner": "AAA-CONTROL-ARCHITECT where authority/artifact/identity/PIT-evidence-control mechanics apply",
+      "family_id": "SC-03",
+      "governance_owner": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+      "name": "SCORER / WEIGHT CONTRACT",
+      "normative_semantic_digest": "PENDING_EXACT_CORE_B_NORMATIVE_SOURCE_BINDING",
+      "normative_source_ref": "EXTERNAL_CORE_B_GOVERNED_NORMATIVE_SOURCE_REQUIRED_AT_BASELINE_MATERIALIZATION",
+      "preservation_expectation": "PRESERVE_BY_DEFAULT; explicit authorized successor required for semantic change",
+      "risk_tier": "P0/P1_BY_UNDERLYING_SCIENTIFIC_OBJECT; NO_DOWNGRADE_BY_REGISTRATION",
+      "validation_routing": "PAIRED_SCIENTIFIC_VALIDATION_WHEN_AFFECTED + AAA-VALIDATION-AUDITOR for P0"
+    },
+    {
+      "authority_source_ref": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT / CORE B bounded reconciliation as transported by ASA Work Packet v1.0",
+      "baseline_role": "REFERENCE_INDEX_ONLY_NOT_SCIENTIFIC_SOT",
+      "control_owner": "AAA-CONTROL-ARCHITECT where authority/artifact/identity/PIT-evidence-control mechanics apply",
+      "family_id": "SC-04",
+      "governance_owner": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+      "name": "RANKING / SELECTION / ELIGIBILITY",
+      "normative_semantic_digest": "PENDING_EXACT_CORE_B_NORMATIVE_SOURCE_BINDING",
+      "normative_source_ref": "EXTERNAL_CORE_B_GOVERNED_NORMATIVE_SOURCE_REQUIRED_AT_BASELINE_MATERIALIZATION",
+      "preservation_expectation": "PRESERVE_BY_DEFAULT; explicit authorized successor required for semantic change",
+      "risk_tier": "P0/P1_BY_UNDERLYING_SCIENTIFIC_OBJECT; NO_DOWNGRADE_BY_REGISTRATION",
+      "validation_routing": "PAIRED_SCIENTIFIC_VALIDATION_WHEN_AFFECTED + AAA-VALIDATION-AUDITOR for P0"
+    },
+    {
+      "authority_source_ref": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT / CORE B bounded reconciliation as transported by ASA Work Packet v1.0",
+      "baseline_role": "REFERENCE_INDEX_ONLY_NOT_SCIENTIFIC_SOT",
+      "control_owner": "AAA-CONTROL-ARCHITECT where authority/artifact/identity/PIT-evidence-control mechanics apply",
+      "family_id": "SC-05",
+      "governance_owner": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+      "name": "PIT SCIENTIFIC ADMISSIBILITY FIREWALL",
+      "normative_semantic_digest": "PENDING_EXACT_CORE_B_NORMATIVE_SOURCE_BINDING",
+      "normative_source_ref": "EXTERNAL_CORE_B_GOVERNED_NORMATIVE_SOURCE_REQUIRED_AT_BASELINE_MATERIALIZATION",
+      "preservation_expectation": "PRESERVE_BY_DEFAULT; explicit authorized successor required for semantic change",
+      "risk_tier": "P0/P1_BY_UNDERLYING_SCIENTIFIC_OBJECT; NO_DOWNGRADE_BY_REGISTRATION",
+      "validation_routing": "PAIRED_SCIENTIFIC_VALIDATION_WHEN_AFFECTED + AAA-VALIDATION-AUDITOR for P0"
+    },
+    {
+      "authority_source_ref": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT / CORE B bounded reconciliation as transported by ASA Work Packet v1.0",
+      "baseline_role": "REFERENCE_INDEX_ONLY_NOT_SCIENTIFIC_SOT",
+      "control_owner": "AAA-CONTROL-ARCHITECT where authority/artifact/identity/PIT-evidence-control mechanics apply",
+      "family_id": "SC-06",
+      "governance_owner": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+      "name": "EVALUATION WINDOW / OUTCOME CONTRACT",
+      "normative_semantic_digest": "PENDING_EXACT_CORE_B_NORMATIVE_SOURCE_BINDING",
+      "normative_source_ref": "EXTERNAL_CORE_B_GOVERNED_NORMATIVE_SOURCE_REQUIRED_AT_BASELINE_MATERIALIZATION",
+      "preservation_expectation": "PRESERVE_BY_DEFAULT; explicit authorized successor required for semantic change",
+      "risk_tier": "P0/P1_BY_UNDERLYING_SCIENTIFIC_OBJECT; NO_DOWNGRADE_BY_REGISTRATION",
+      "validation_routing": "PAIRED_SCIENTIFIC_VALIDATION_WHEN_AFFECTED + AAA-VALIDATION-AUDITOR for P0"
+    },
+    {
+      "authority_source_ref": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT / CORE B bounded reconciliation as transported by ASA Work Packet v1.0",
+      "baseline_role": "REFERENCE_INDEX_ONLY_NOT_SCIENTIFIC_SOT",
+      "control_owner": "AAA-CONTROL-ARCHITECT where authority/artifact/identity/PIT-evidence-control mechanics apply",
+      "family_id": "SC-07",
+      "governance_owner": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+      "name": "EVALUATION COMPATIBILITY CONTRACT",
+      "normative_semantic_digest": "PENDING_EXACT_CORE_B_NORMATIVE_SOURCE_BINDING",
+      "normative_source_ref": "EXTERNAL_CORE_B_GOVERNED_NORMATIVE_SOURCE_REQUIRED_AT_BASELINE_MATERIALIZATION",
+      "preservation_expectation": "PRESERVE_BY_DEFAULT; explicit authorized successor required for semantic change",
+      "risk_tier": "P0/P1_BY_UNDERLYING_SCIENTIFIC_OBJECT; NO_DOWNGRADE_BY_REGISTRATION",
+      "validation_routing": "PAIRED_SCIENTIFIC_VALIDATION_WHEN_AFFECTED + AAA-VALIDATION-AUDITOR for P0"
+    },
+    {
+      "authority_source_ref": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT / CORE B bounded reconciliation as transported by ASA Work Packet v1.0",
+      "baseline_role": "REFERENCE_INDEX_ONLY_NOT_SCIENTIFIC_SOT",
+      "control_owner": "AAA-CONTROL-ARCHITECT where authority/artifact/identity/PIT-evidence-control mechanics apply",
+      "family_id": "SC-08",
+      "governance_owner": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+      "name": "REPLAY DETERMINISM / COMPLETENESS",
+      "normative_semantic_digest": "PENDING_EXACT_CORE_B_NORMATIVE_SOURCE_BINDING",
+      "normative_source_ref": "EXTERNAL_CORE_B_GOVERNED_NORMATIVE_SOURCE_REQUIRED_AT_BASELINE_MATERIALIZATION",
+      "preservation_expectation": "PRESERVE_BY_DEFAULT; explicit authorized successor required for semantic change",
+      "risk_tier": "P0/P1_BY_UNDERLYING_SCIENTIFIC_OBJECT; NO_DOWNGRADE_BY_REGISTRATION",
+      "validation_routing": "PAIRED_SCIENTIFIC_VALIDATION_WHEN_AFFECTED + AAA-VALIDATION-AUDITOR for P0"
+    },
+    {
+      "authority_source_ref": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT / CORE B bounded reconciliation as transported by ASA Work Packet v1.0",
+      "baseline_role": "REFERENCE_INDEX_ONLY_NOT_SCIENTIFIC_SOT",
+      "control_owner": "AAA-CONTROL-ARCHITECT where authority/artifact/identity/PIT-evidence-control mechanics apply",
+      "family_id": "SC-09",
+      "governance_owner": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+      "name": "FORWARD SUCCESSOR / PROMOTION DISCIPLINE",
+      "normative_semantic_digest": "PENDING_EXACT_CORE_B_NORMATIVE_SOURCE_BINDING",
+      "normative_source_ref": "EXTERNAL_CORE_B_GOVERNED_NORMATIVE_SOURCE_REQUIRED_AT_BASELINE_MATERIALIZATION",
+      "preservation_expectation": "PRESERVE_BY_DEFAULT; explicit authorized successor required for semantic change",
+      "risk_tier": "P0/P1_BY_UNDERLYING_SCIENTIFIC_OBJECT; NO_DOWNGRADE_BY_REGISTRATION",
+      "validation_routing": "PAIRED_SCIENTIFIC_VALIDATION_WHEN_AFFECTED + AAA-VALIDATION-AUDITOR for P0"
+    },
+    {
+      "authority_source_ref": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT / CORE B bounded reconciliation as transported by ASA Work Packet v1.0",
+      "baseline_role": "REFERENCE_INDEX_ONLY_NOT_SCIENTIFIC_SOT",
+      "control_owner": "AAA-CONTROL-ARCHITECT where authority/artifact/identity/PIT-evidence-control mechanics apply",
+      "family_id": "SC-10",
+      "governance_owner": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+      "name": "SCIENTIFIC AUTHORITY / VALIDATION SEPARATION",
+      "normative_semantic_digest": "PENDING_EXACT_CORE_B_NORMATIVE_SOURCE_BINDING",
+      "normative_source_ref": "EXTERNAL_CORE_B_GOVERNED_NORMATIVE_SOURCE_REQUIRED_AT_BASELINE_MATERIALIZATION",
+      "preservation_expectation": "PRESERVE_BY_DEFAULT; explicit authorized successor required for semantic change",
+      "risk_tier": "P0/P1_BY_UNDERLYING_SCIENTIFIC_OBJECT; NO_DOWNGRADE_BY_REGISTRATION",
+      "validation_routing": "PAIRED_SCIENTIFIC_VALIDATION_WHEN_AFFECTED + AAA-VALIDATION-AUDITOR for P0"
+    },
+    {
+      "authority_source_ref": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT / CORE B bounded reconciliation as transported by ASA Work Packet v1.0",
+      "baseline_role": "REFERENCE_INDEX_ONLY_NOT_SCIENTIFIC_SOT",
+      "control_owner": "AAA-CONTROL-ARCHITECT where authority/artifact/identity/PIT-evidence-control mechanics apply",
+      "family_id": "SC-11",
+      "governance_owner": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+      "name": "OUTCOME-DRIVEN CHANGE FIREWALL",
+      "normative_semantic_digest": "PENDING_EXACT_CORE_B_NORMATIVE_SOURCE_BINDING",
+      "normative_source_ref": "EXTERNAL_CORE_B_GOVERNED_NORMATIVE_SOURCE_REQUIRED_AT_BASELINE_MATERIALIZATION",
+      "preservation_expectation": "PRESERVE_BY_DEFAULT; explicit authorized successor required for semantic change",
+      "risk_tier": "P0/P1_BY_UNDERLYING_SCIENTIFIC_OBJECT; NO_DOWNGRADE_BY_REGISTRATION",
+      "validation_routing": "PAIRED_SCIENTIFIC_VALIDATION_WHEN_AFFECTED + AAA-VALIDATION-AUDITOR for P0"
+    },
+    {
+      "authority_source_ref": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT / CORE B bounded reconciliation as transported by ASA Work Packet v1.0",
+      "baseline_role": "REFERENCE_INDEX_ONLY_NOT_SCIENTIFIC_SOT",
+      "control_owner": "AAA-CONTROL-ARCHITECT where authority/artifact/identity/PIT-evidence-control mechanics apply",
+      "family_id": "SC-12",
+      "governance_owner": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+      "name": "UNIVERSE / ELIGIBILITY EXACT IDENTITY REQUIREMENT",
+      "normative_semantic_digest": "PENDING_EXACT_CORE_B_NORMATIVE_SOURCE_BINDING",
+      "normative_source_ref": "EXTERNAL_CORE_B_GOVERNED_NORMATIVE_SOURCE_REQUIRED_AT_BASELINE_MATERIALIZATION",
+      "preservation_expectation": "PRESERVE_BY_DEFAULT; explicit authorized successor required for semantic change",
+      "risk_tier": "P0/P1_BY_UNDERLYING_SCIENTIFIC_OBJECT; NO_DOWNGRADE_BY_REGISTRATION",
+      "validation_routing": "PAIRED_SCIENTIFIC_VALIDATION_WHEN_AFFECTED + AAA-VALIDATION-AUDITOR for P0"
+    }
+  ],
+  "scientific_invariants": [
+    {
+      "integration_mode": "REFERENCE_AND_ENFORCEMENT_ROUTING",
+      "invariant_id": "SINV-01",
+      "name": "FROZEN_SEMANTICS_IMMUTABLE"
+    },
+    {
+      "integration_mode": "REFERENCE_AND_ENFORCEMENT_ROUTING",
+      "invariant_id": "SINV-02",
+      "name": "EXACT_TARGET_VALIDATION_NON_TRANSFERABLE"
+    },
+    {
+      "integration_mode": "REFERENCE_AND_ENFORCEMENT_ROUTING",
+      "invariant_id": "SINV-03",
+      "name": "FUTURE_OUTCOME_NE_HISTORICAL_INPUT"
+    },
+    {
+      "integration_mode": "REFERENCE_AND_ENFORCEMENT_ROUTING",
+      "invariant_id": "SINV-04",
+      "name": "FACT_EXISTENCE_NE_INFORMATION_AVAILABILITY"
+    },
+    {
+      "integration_mode": "REFERENCE_AND_ENFORCEMENT_ROUTING",
+      "invariant_id": "SINV-05",
+      "name": "UNKNOWN_NOT_PROVEN_PRESERVED"
+    },
+    {
+      "integration_mode": "REFERENCE_AND_ENFORCEMENT_ROUTING",
+      "invariant_id": "SINV-06",
+      "name": "AI_ADJUDICATION_NE_GROUND_TRUTH"
+    },
+    {
+      "integration_mode": "REFERENCE_AND_ENFORCEMENT_ROUTING",
+      "invariant_id": "SINV-07",
+      "name": "NO_SILENT_SCORER_WEIGHT_RANK_CHANGE"
+    },
+    {
+      "integration_mode": "REFERENCE_AND_ENFORCEMENT_ROUTING",
+      "invariant_id": "SINV-08",
+      "name": "UNIVERSE_DENOMINATOR_EXACT_IDENTITY"
+    },
+    {
+      "integration_mode": "REFERENCE_AND_ENFORCEMENT_ROUTING",
+      "invariant_id": "SINV-09",
+      "name": "INCOMPATIBLE_PROTOCOL_NE_DIRECT_COMPARISON"
+    },
+    {
+      "integration_mode": "REFERENCE_AND_ENFORCEMENT_ROUTING",
+      "invariant_id": "SINV-10",
+      "name": "EXPECTED_WORK_INCOMPLETE_NE_COMPLETE"
+    },
+    {
+      "integration_mode": "REFERENCE_AND_ENFORCEMENT_ROUTING",
+      "invariant_id": "SINV-11",
+      "name": "FROZEN_RESULT_APPEND_ONLY"
+    },
+    {
+      "integration_mode": "REFERENCE_AND_ENFORCEMENT_ROUTING",
+      "invariant_id": "SINV-12",
+      "name": "ENGINEERING_PASS_NE_INDEPENDENT_VALIDATION_PASS"
+    },
+    {
+      "integration_mode": "REFERENCE_AND_ENFORCEMENT_ROUTING",
+      "invariant_id": "SINV-13",
+      "name": "INDEPENDENT_VALIDATION_PASS_NE_OWNER_FREEZE_RELEASE"
+    },
+    {
+      "integration_mode": "REFERENCE_AND_ENFORCEMENT_ROUTING",
+      "invariant_id": "SINV-14",
+      "name": "REPLAY_INPUT_OUTPUT_SEPARATION"
+    },
+    {
+      "integration_mode": "REFERENCE_AND_ENFORCEMENT_ROUTING",
+      "invariant_id": "SINV-15",
+      "name": "SEMANTIC_CHANGE_REQUIRES_DECLARED_SCOPE"
+    },
+    {
+      "integration_mode": "REFERENCE_AND_ENFORCEMENT_ROUTING",
+      "invariant_id": "SINV-16",
+      "name": "LEGACY_ARTIFACT_NE_CURRENT_SUCCESSOR_SEMANTICS"
+    }
+  ],
+  "scientific_prohibited_behaviors": [
+    {
+      "name": "SILENT_FROZEN_MODEL_MUTATION",
+      "prohibited_id": "SPROH-01",
+      "required_fail_mode": "FAIL_CLOSED"
+    },
+    {
+      "name": "OUTCOME_DRIVEN_RETROACTIVE_TUNING",
+      "prohibited_id": "SPROH-02",
+      "required_fail_mode": "FAIL_CLOSED"
+    },
+    {
+      "name": "HISTORICAL_PIT_BACKFILL_FROM_LATER_EVIDENCE",
+      "prohibited_id": "SPROH-03",
+      "required_fail_mode": "FAIL_CLOSED"
+    },
+    {
+      "name": "UNKNOWN_TO_VERIFIED_INFERENCE_WITHOUT_AUTHORITY",
+      "prohibited_id": "SPROH-04",
+      "required_fail_mode": "FAIL_CLOSED"
+    },
+    {
+      "name": "AI_TO_GROUND_TRUTH_PROMOTION",
+      "prohibited_id": "SPROH-05",
+      "required_fail_mode": "FAIL_CLOSED"
+    },
+    {
+      "name": "UNDECLARED_FEATURE_SCORER_WEIGHT_RANKING_CHANGE",
+      "prohibited_id": "SPROH-06",
+      "required_fail_mode": "FAIL_CLOSED"
+    },
+    {
+      "name": "UNDECLARED_EVALUATION_PROTOCOL_CHANGE",
+      "prohibited_id": "SPROH-07",
+      "required_fail_mode": "FAIL_CLOSED"
+    },
+    {
+      "name": "PARTIAL_REPLAY_REPORTED_AS_COMPLETE",
+      "prohibited_id": "SPROH-08",
+      "required_fail_mode": "FAIL_CLOSED"
+    },
+    {
+      "name": "INCOMPATIBLE_MODEL_RESULTS_REPORTED_AS_DIRECTLY_COMPARABLE",
+      "prohibited_id": "SPROH-09",
+      "required_fail_mode": "FAIL_CLOSED"
+    },
+    {
+      "name": "VALIDATION_PASS_TRANSFER_TO_DIFFERENT_EXACT_TARGET",
+      "prohibited_id": "SPROH-10",
+      "required_fail_mode": "FAIL_CLOSED"
+    },
+    {
+      "name": "LEGACY_U46_TO_U127_SILENT_NORMALIZATION",
+      "prohibited_id": "SPROH-11",
+      "required_fail_mode": "FAIL_CLOSED"
+    },
+    {
+      "name": "FROZEN_RESULT_OVERWRITE",
+      "prohibited_id": "SPROH-12",
+      "required_fail_mode": "FAIL_CLOSED"
+    },
+    {
+      "name": "EX_POST_HISTORY_RELABELED_AS_SEALED_HOLDOUT",
+      "prohibited_id": "SPROH-13",
+      "required_fail_mode": "FAIL_CLOSED"
+    }
+  ],
+  "scientific_requirement_families": [
+    {
+      "family_id": "SRF-01",
+      "integration_mode": "REFERENCE_ONLY; NO SCIENTIFIC CONTENT MUTATION",
+      "name": "MODEL_IDENTITY_AND_LINEAGE"
+    },
+    {
+      "family_id": "SRF-02",
+      "integration_mode": "REFERENCE_ONLY; NO SCIENTIFIC CONTENT MUTATION",
+      "name": "FEATURE_SEMANTICS_AND_MISSINGNESS"
+    },
+    {
+      "family_id": "SRF-03",
+      "integration_mode": "REFERENCE_ONLY; NO SCIENTIFIC CONTENT MUTATION",
+      "name": "SCORER_AND_WEIGHT_SEMANTICS"
+    },
+    {
+      "family_id": "SRF-04",
+      "integration_mode": "REFERENCE_ONLY; NO SCIENTIFIC CONTENT MUTATION",
+      "name": "RANKING_SELECTION_AND_ELIGIBILITY"
+    },
+    {
+      "family_id": "SRF-05",
+      "integration_mode": "REFERENCE_ONLY; NO SCIENTIFIC CONTENT MUTATION",
+      "name": "PIT_AND_EVIDENCE_ADMISSIBILITY"
+    },
+    {
+      "family_id": "SRF-06",
+      "integration_mode": "REFERENCE_ONLY; NO SCIENTIFIC CONTENT MUTATION",
+      "name": "EVALUATION_WINDOW_AND_OUTCOME"
+    },
+    {
+      "family_id": "SRF-07",
+      "integration_mode": "REFERENCE_ONLY; NO SCIENTIFIC CONTENT MUTATION",
+      "name": "EVALUATION_COMPATIBILITY"
+    },
+    {
+      "family_id": "SRF-08",
+      "integration_mode": "REFERENCE_ONLY; NO SCIENTIFIC CONTENT MUTATION",
+      "name": "REPLAY_DETERMINISM_AND_COMPLETENESS"
+    },
+    {
+      "family_id": "SRF-09",
+      "integration_mode": "REFERENCE_ONLY; NO SCIENTIFIC CONTENT MUTATION",
+      "name": "MODEL_PROMOTION_SUCCESSOR_DISCIPLINE"
+    },
+    {
+      "family_id": "SRF-10",
+      "integration_mode": "REFERENCE_ONLY; NO SCIENTIFIC CONTENT MUTATION",
+      "name": "SCIENTIFIC_AUTHORITY_AND_VALIDATION_SEPARATION"
+    },
+    {
+      "family_id": "SRF-11",
+      "integration_mode": "REFERENCE_ONLY; NO SCIENTIFIC CONTENT MUTATION",
+      "name": "OUTCOME_DRIVEN_CHANGE_FIREWALL"
+    },
+    {
+      "family_id": "SRF-12",
+      "integration_mode": "REFERENCE_ONLY; NO SCIENTIFIC CONTENT MUTATION",
+      "name": "UNIVERSE_IDENTITY_AND_DENOMINATOR_CONTROL"
+    }
+  ],
+  "semantic_content_digest": "3fe5183311187160b89e301c0ae8102a3e6977f52319a5a190c5710ea637a9a1",
+  "semantic_digest_profile": {
+    "algorithm": "SHA-256",
+    "input": "canonical normative projection excluding semantic_content_digest and artifact byte identity",
+    "note": "Working-candidate use only; does not promote or modify the existing canonicalization profile.",
+    "profile_id": "AAA-RD-CANON-JSON-2_COMPATIBLE_WORKING_CANDIDATE"
+  },
+  "shared_boundary_objects": [
+    "PIT model admissibility",
+    "Universe eligibility/release",
+    "Window / Outcome interfaces",
+    "evaluation dataset/release compatibility",
+    "model ↔ canonical data binding",
+    "Shared Contract clauses"
+  ],
+  "source_refs": {
+    "authorizing_work_packet": {
+      "issued_at": "2026-08-17T05:47:00+09:00",
+      "title": "AAA-CONTROL-ARCHITECT — CORE B SCIENTIFIC CONTRACT BOUNDED RECONCILIATION WORK PACKET",
+      "transport_byte_size": 35265,
+      "transport_sha256": "5f4c32e1781124fb485dabf0468aee94ee06097f898f01b7725ee778db1de689",
+      "version": "v1.0"
+    },
+    "source_core_a_ref": {
+      "artifact_id": "AAA-RD-PREMAT-PROFILE",
+      "byte_size": 24802,
+      "sha256": "ea593f3d6c6b94130d2ef54e156da7ed6f2e1004c484a94c9f077a44e25bb25b",
+      "validation_state": {
+        "independent_historical_act": "PASS",
+        "paired": "PASS"
+      },
+      "version": "v0.3"
+    },
+    "source_core_b_ref": {
+      "exact_external_core_b_artifact_ref": "NOT_SEPARATELY_PROVIDED_IN_CURRENT_WORK_PACKET",
+      "persona": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+      "semantic_change": false,
+      "transport_authority_ref": "ASA Work Packet v1.0 / CORE B scientific contract bounded reconciliation",
+      "verdict": "ACCEPT_WITH_BOUNDED_MODIFICATIONS"
+    }
+  },
+  "universe_identity_control": {
+    "generic_methodology_hardcoded_count_prohibited": true,
+    "legacy_u46_artifact": "SEMI-UNIVERSE v1.0",
+    "ranking_and_replay_binding": "EXACT_GOVERNED_UNIVERSE_OR_ELIGIBILITY_RELEASE_ID",
+    "rule": "U46 != U127",
+    "silent_normalization": "PROHIBITED",
+    "transition_requirements": [
+      "explicit successor lineage",
+      "eligibility release",
+      "impact analysis",
+      "validation as applicable"
+    ]
+  },
+  "validation_routing": {
+    "independent_validation_required": true,
+    "independent_validation_target": "AAA-VALIDATION-AUDITOR",
+    "material_validator_edit_same_act_pass": "PROHIBITED",
+    "paired_validation_required": true,
+    "paired_validation_target": "AAA-CONTROL-VALIDATOR",
+    "scientific_paired_validation": "ASA_DETERMINATION_REQUIRED_FOR_AAA-MODEL-DESIGN-VALIDATOR_BEFORE_L2"
+  }
+}
