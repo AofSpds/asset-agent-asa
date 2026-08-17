@@ -1,0 +1,42 @@
+finding_id: AAA-FINDING-CONTINUITY-EVENT-ID-COLLISION
+version: v0.1_WORKING
+project: Asset Agent ASA
+short_name: AAA
+status: DETECTED_FAIL_CLOSED_ROUTE_TO_CONTROL_ARCHITECT
+owner_domain: SEMI-CONTROL-ARCHITECT
+finding_class: CONTINUITY_EVENT_ID_COLLISION
+severity_for_aaa_full_shadow_replay: BLOCKER
+canonical_state_mutated_by_aaa: false
+collision:
+  event_id: EVT-SHARED-0002
+  first_occurrence:
+    ledger_path: control/continuity/v1.0/SEMI-CONTROL-EVENT-LEDGER_v1.2.jsonl
+    ledger_git_blob_sha: ca4e561cb93f271b73e3572f0f9b1593c3140194
+    timestamp: '2026-08-15T23:21:00+09:00'
+    event_type: FIVE_OPEN_SHARED_CONTRACTS_RECONCILED
+    practical_meaning: Nine M3Top3 shared contract definitions were recorded as reconciled.
+  conflicting_occurrence:
+    ledger_path: control/continuity/v1.0/SEMI-CONTROL-EVENT-LEDGER_v2.6.jsonl
+    ledger_git_blob_sha: 0d9bb2ec335597f171653ae87534530d01c37b6e
+    timestamp: '2026-08-16T00:59:00+09:00'
+    event_type: CORE_A_REVIEWED_CORE_B_SHARED_PREFLIGHT_INTERFACE_PROPOSAL
+    practical_meaning: CORE A review of a later shared preflight interface proposal was recorded under the same event_id.
+identity_semantics:
+  same_event_id: true
+  records_semantically_identical: false
+  safe_to_silently_deduplicate: false
+  safe_to_choose_latest_without_authority_rule: false
+aaa_behavior:
+  anchor_discrepancy_engine: UNAFFECTED_CONTINUES_READ_ONLY
+  full_event_lineage_replay: BLOCKED_FAIL_CLOSED
+  conflicting_event_records_discarded: false
+  automatic_canonical_repair: PROHIBITED
+required_control_adjudication:
+  - DEFINE_OR_REPAIR_UNIQUE_EVENT_ID_SEMANTICS_WITHOUT_REWRITING_FROZEN_HISTORY_UNLESS_GOVERNED
+  - PROVIDE_SUCCESSOR_OR_ADJUDICATION_RECORD_IF_FULL_REPLAY_SHOULD_TREAT_COLLISION_AS_ALIAS_OR_SUPERSESSION
+  - PRESERVE_LINEAGE_AND_EXACT_IDENTITIES
+cutover_effect:
+  shadow_anchor_compare: MAY_CONTINUE
+  full_shadow_event_replay_gate: NOT_PASSABLE_UNTIL_ADJUDICATED
+  canonical_cutover: NOT_AUTHORIZED
+independent_validation_pass: NOT_CLAIMED
