@@ -1,0 +1,143 @@
+{
+  "artifact_id": "AAA_SHARED_CONTRACT_v0.1_L2_EXACT_INPUT_TRANSPORT_MANIFEST",
+  "assembly_class": "NON_SEMANTIC_L2_TRANSPORT_ASSEMBLY",
+  "complete_input_count": "6/6",
+  "create_once": true,
+  "delete": "PROHIBITED",
+  "fresh_readback_evidence": {
+    "input_01_target_and_provenance": "PASS",
+    "input_02_receipt_and_registration": "PASS",
+    "input_03_receipt_and_registration": "PASS",
+    "input_04_evidence_and_registration": "PASS",
+    "input_05_evidence_and_registration": "PASS",
+    "input_06_registration_and_shared_evidence": "PASS",
+    "transport_pinned_git_blob_identity": "PASS"
+  },
+  "independent_validation_pass": "NOT_CLAIMED",
+  "input_01": {
+    "byte_sequence_equals_governed_exact_target": true,
+    "candidate_byte_size": 40962,
+    "candidate_sha256": "29ac62477ee567f06cc76db8c843d0480a0ea9b4f7dfdda9d062177bd84abea3",
+    "json_parse_reserialize_used": false,
+    "maintenance_class": "NON_SEMANTIC_ARTIFACT_MAINTENANCE",
+    "materialized_bytes_are_original_runtime_object": false,
+    "materialized_bytes_existed_at_original_authoring_time": false,
+    "normalization_applied": false,
+    "original_source_file_raw_bytes_recovered": false,
+    "persistent_locator": {
+      "branch": "aaa-shared-contract-input-01-exact-rematerialization-v1.0",
+      "commit": "96d1c02f3d057a0b06db913988e3cc16b980314d",
+      "git_blob": "d7702c1491bded7b2b90e857007599c36bc58b7d",
+      "path": "control/validation/shared-contract/v0.1/l2-inputs/input-01/AAA_SHARED_CONTRACT_LIMITED_ADDENDUM_v0.1.json",
+      "pinned_byte_exact_readback": "PASS",
+      "repository": "AofSpds/asset-agent-asa",
+      "retrieved_byte_size": 40962,
+      "retrieved_sha256": "29ac62477ee567f06cc76db8c843d0480a0ea9b4f7dfdda9d062177bd84abea3",
+      "tree": "c74f6c16050ca1824f42edb613952eae408555d1"
+    },
+    "provenance_record": {
+      "byte_size": 3775,
+      "commit": "8cfb73021378f4457b1cf14fa3884149b1c96c48",
+      "git_blob": "f6abd5890d6e6fea3c92a728791f10f3d0dabf8f",
+      "path": "control/validation/shared-contract/v0.1/l2-inputs/input-01/AAA_SHARED_CONTRACT_v0.1_L2_INPUT_01_EXACT_REMATERIALIZATION_PROVENANCE_v1.0.json",
+      "readback": "PASS",
+      "sha256": "a4d6f2205b5926bb3df5771d28e00b30bc5c2aa4ef60ae1b991451699e87bd78",
+      "tree": "37ec306258e832f087c1b584cb6663c7c0a650fa"
+    },
+    "recovery_class": "VERIFIED_EXACT_BYTE_REMATERIALIZATION",
+    "source_content_access": "CONFIRMED_FULL_CONTENT",
+    "source_extraction_method": "SOURCE.FILE_FULL_CONTENT_UTF8_STREAM_FROM_HISTORICAL_MARKDOWN_WRAPPER + REMOVE_EXACT_4_BYTE_OPENING_FENCE_AND_3_BYTE_CLOSING_FENCE + PRE_PERSISTENCE_SHA256_AND_BYTE_SIZE_GATE + SURVIVING_EXACT_TARGET_SOURCE_CROSSCHECK",
+    "source_native_raw_byte_access": false,
+    "source_platform_file_id": "file_00000000e5188208b774d51ef3863736",
+    "source_platform_filename": "붙여넣은 마크다운(1).md",
+    "source_platform_object_class": "Source.file",
+    "target": {
+      "artifact_id": "AAA-SHARED-CONTRACT-LIMITED-ADDENDUM",
+      "byte_size": 40962,
+      "filename": "AAA_SHARED_CONTRACT_LIMITED_ADDENDUM_v0.1.json",
+      "semantic_content_digest": "3fe5183311187160b89e301c0ae8102a3e6977f52319a5a190c5710ea637a9a1",
+      "sha256": "29ac62477ee567f06cc76db8c843d0480a0ea9b4f7dfdda9d062177bd84abea3",
+      "version": "v0.1"
+    }
+  },
+  "input_01_physical_acceptance_result": "24/24_PASS",
+  "input_vector": {
+    "INPUT-01": "PRESENT_VERIFIED_BYTE_ADDRESSABLE_PERSISTENT_EXACT_LOCATOR_PASS",
+    "INPUT-02": "REGISTERED_COMPLETE",
+    "INPUT-03": "REGISTERED_COMPLETE",
+    "INPUT-04": "REGISTERED_COMPLETE",
+    "INPUT-05": "REGISTERED_COMPLETE",
+    "INPUT-06": "REGISTERED_COMPLETE"
+  },
+  "kl_c_03": "VISIBLE_PRESERVED",
+  "l2_physical_gate_input01_raw_bytes": "CLOSED",
+  "l2_transport_physical_gate": "PASS",
+  "new_control_pass_created": false,
+  "new_validation_performed": false,
+  "next_persona": "AAA ADVISOR / ASA",
+  "next_route": "AAA ADVISOR / ASA -> AAA-VALIDATION-AUDITOR",
+  "next_task": "FRESH SHARED CONTRACT v0.1 P0 L2 INDEPENDENT VALIDATION",
+  "overwrite": "PROHIBITED",
+  "owner_acceptance": "NOT_ESTABLISHED",
+  "physical_gate_checks": {
+    "all_6_logical_inputs_present": "PASS",
+    "all_persistent_locators_exact": "PASS",
+    "all_required_exact_artifacts_physically_retrievable": "PASS",
+    "all_sha256_byte_size_bindings_intact": "PASS",
+    "kl_c_03_visible": "PASS",
+    "no_mandatory_manifest_field_missing": "PASS",
+    "no_mutable_branch_head_only_dependency": "PASS",
+    "no_post_registration_target_mutation": "PASS",
+    "second_semantic_sot_created": false,
+    "semantic_target_changed": false
+  },
+  "product": "ASSET AGENT ASA",
+  "project": "AAA",
+  "ready_for_shared_contract_fresh_l2": true,
+  "second_semantic_sot_created": false,
+  "semantic_target_changed": false,
+  "shared_contract_l2": "NOT_PERFORMED",
+  "successor_of": {
+    "artifact_id": "AAA_SHARED_CONTRACT_v0.1_L2_EXACT_INPUT_TRANSPORT_MANIFEST",
+    "byte_size": 8928,
+    "commit": "c3bc4a786ca4e68aebcdc1495bc1eee4e524892a",
+    "sha256": "caf7530e32b9a9135e34879761ca8ca0edff6a58f15691c694adbef19bbb6831",
+    "state": "IMMUTABLE_BLOCKED_HISTORICAL_ASSEMBLY_EVIDENCE",
+    "tree": "c8fad3ec4d197e0e0d5257bfeb9fc191401565e0",
+    "version": "v1.0"
+  },
+  "transport": {
+    "branch": "aaa-shared-contract-input-01-exact-rematerialization-v1.0",
+    "byte_size": 11310,
+    "filename": "AAA_SHARED_CONTRACT_v0.1_L2_EXACT_INPUT_TRANSPORT_v1.0.zip",
+    "git_blob": "2d8b748894870ad175772d1944b50027b63d9cc8",
+    "git_blob_id_not_transport_sha256": true,
+    "member_count": 2,
+    "members": [
+      {
+        "byte_size": 40962,
+        "name": "01/AAA_SHARED_CONTRACT_LIMITED_ADDENDUM_v0.1.json",
+        "role": "INPUT-01_EXACT_TARGET_BYTES",
+        "sha256": "29ac62477ee567f06cc76db8c843d0480a0ea9b4f7dfdda9d062177bd84abea3"
+      },
+      {
+        "byte_size": 8737,
+        "name": "AAA_SHARED_CONTRACT_v0.1_L2_EXACT_INPUT_PACKAGE_CONTENTS_v1.0.json",
+        "role": "PINNED_EXACT_REFERENCE_MANIFEST_FOR_INPUT_01_TO_06",
+        "sha256": "e6274aa23f9b0949d35fcb31a7f50edce13c5fc9a89b3426b804c2896abe561f"
+      }
+    ],
+    "package_form": "DETERMINISTIC_ZIP_WITH_EXACT_INPUT_01_BYTES_AND_PINNED_EXACT_REFERENCE_MANIFEST",
+    "path": "control/validation/shared-contract/v0.1/l2-transport/AAA_SHARED_CONTRACT_v0.1_L2_EXACT_INPUT_TRANSPORT_v1.0.zip",
+    "pinned_commit": "7d7c061328c0f45766c8f2c1804ba9f501c6c51d",
+    "repository": "AofSpds/asset-agent-asa",
+    "sha256": "83cf5ece2f1b9ae213c69d67887f9bb19c2d5962b95363f2c1a241a32f64ab79",
+    "transport_id": "AAA_SHARED_CONTRACT_v0.1_L2_EXACT_INPUT_TRANSPORT_v1.0",
+    "tree": "a8f94cefe3a55a490195c79e4537a54cf207ee76",
+    "zip_local_pre_persistence_verification": "PASS",
+    "zip_member_extraction_verification": "PASS",
+    "zip_pinned_commit_path_blob_identity_readback": "PASS"
+  },
+  "version": "v1.1",
+  "write_owner": "AAA-CONTROL-ARCHITECT"
+}
