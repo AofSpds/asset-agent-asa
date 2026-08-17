@@ -1,0 +1,86 @@
+{
+  "authoring_persona": "AAA-CONTROL-ARCHITECT",
+  "base_commit": "5f54a2f829b6ff42517e8159f3a1299a79e6fcdb",
+  "branch": "aaa-pair-local-routing-reg-v1.0",
+  "capability_evidence_binding": {
+    "aaa_engineering_validator_capability_evidence": "PASS",
+    "engineering_capability_proof": "PASS",
+    "engineering_l1_evidence_ref": {
+      "commit": "654288516e55cdac2cf88060aaef8bb75252f48f",
+      "git_blob_id": "603fb25b64fd7ad7e13309cf1295b3b401a0cd4b",
+      "path": "control/proofs/persistent-locator-capability/v0.1/validator/AAA_PERSISTENT_LOCATOR_CAPABILITY_PROOF_v0.1_VALIDATOR_RECEIPT.json",
+      "repository": "AofSpds/asset-agent-asa",
+      "target_byte_size": 321,
+      "target_commit": "6dfcf30ece05a044c6f42556ef42461d4f27c4bd",
+      "target_git_blob_id": "f61f0a2d450ad2ada65078559e583bd913528800",
+      "target_path": "control/proofs/persistent-locator-capability/v0.1/engineering/AAA_PERSISTENT_LOCATOR_CAPABILITY_PROOF_v0.1_TARGET.json",
+      "target_sha256": "4ad2dc8582a875ca76ebe09e346bbb15faa90e9a5a3e036073d357adc224bf6e",
+      "validation_layer": "L1_PAIRED_DOMAIN_VALIDATION",
+      "validator_persona": "AAA-ENGINEERING-VALIDATOR",
+      "verdict": "PASS"
+    },
+    "path_ownership_workflow": "PROVEN_BOUNDED_EXECUTION",
+    "persistent_locator_first_default_active": false,
+    "persistent_routing_capability_state": "PROVEN_BOUNDED_NON_PRODUCTION_GIT",
+    "platform_enforced_persona_specific_path_acl": "NOT_PROVEN",
+    "production_ready": false
+  },
+  "invariants": [
+    "REGISTRATION != VALIDATION_PASS",
+    "PERSISTENCE != SEMANTIC_APPROVAL",
+    "PERSISTENT_LOCATOR != CANONICAL",
+    "PERSISTENT_LOCATOR != FROZEN",
+    "PERSISTENT_ROUTING_CAPABILITY_PROVEN != OPERATIONAL_DEFAULT_ACTIVE",
+    "PLATFORM_PATH_ACL_NOT_PROVEN"
+  ],
+  "next_persona": "AAA-CONTROL-VALIDATOR",
+  "persona_guard_modified": false,
+  "product": "ASSET AGENT ASA",
+  "production_activation": false,
+  "project": "AAA",
+  "ready_for_control_l1": true,
+  "registration_id": "AAA-PAIR-LOCAL-ROUTING-PERSISTENT-REGISTRATION-v1.0",
+  "registration_role": "NON_SEMANTIC_PERSISTENT_REGISTRATION_EVIDENCE",
+  "registration_state": "REGISTERED_WORKING_CANDIDATE_PINNED_GIT",
+  "repository": "AofSpds/asset-agent-asa",
+  "routing_state": "NO_OWNER_ACTION_REQUIRED",
+  "semantic_content_changed": false,
+  "target_registration_vector": [
+    {
+      "artifact_id": "AAA-PAIR-LOCAL-ROUTING-CONTRACT",
+      "artifact_sha256": "94079b1e2d86339aeb68e47ec1f3ae6aaa199c06e10076f33effbdc5b5b6e52c",
+      "byte_size": 8838,
+      "git_blob_id": "d07a4b87ce1ee58560cb80048e89eeb6ef382eed",
+      "path": "control/architecture/working-candidates/pair-local-routing/v1.0/AAA_PAIR_LOCAL_ROUTING_CONTRACT_v1.0.json",
+      "semantic_content_digest": "87a9eb19eb28c4b1c09159b5201a299b0b07a23c03e353c1d0ae9fd1a651ebf0",
+      "version": "v1.0"
+    },
+    {
+      "artifact_id": "AAA-ARTIFACT-STORAGE-CLASS-POLICY",
+      "artifact_sha256": "4d682e5438912b64694c53bb8563bab450aa8dd9d127b894cf4a702c2436d020",
+      "byte_size": 5171,
+      "git_blob_id": "8931a535735c05574db1938d56d4747838002a52",
+      "path": "control/architecture/working-candidates/pair-local-routing/v1.0/AAA_ARTIFACT_STORAGE_CLASS_POLICY_v1.0.json",
+      "semantic_content_digest": "4ce6536283e1837ef006c81f06684fbd8375597e3f54023f7d6e7ea04189c35c",
+      "version": "v1.0"
+    },
+    {
+      "artifact_id": "AAA-PERSISTENT-LOCATOR-ROUTING-DELTA",
+      "artifact_sha256": "26c3c5c6376e03335d34ade776d5e242547e0403d5e5c781965692504d83a90a",
+      "byte_size": 3974,
+      "git_blob_id": "bb4e7c2d5aab448204a3bc3ecd172f9b64bf7ac5",
+      "path": "control/architecture/working-candidates/pair-local-routing/v1.0/AAA_PERSISTENT_LOCATOR_ROUTING_DELTA_v1.0.json",
+      "semantic_content_digest": "c4af680734f84e8c8c4c1ee3e68f8741341c0dbd3a0bb4cdd2c3643296a16b3e",
+      "version": "v1.0"
+    },
+    {
+      "artifact_id": "AAA-CONTROL-PLANE-ROUTING-STATE-DELTA",
+      "artifact_sha256": "b49f583c837619f1fa486c55918c9380249aa9d0bc466cb5ddc5ac014c24ee96",
+      "byte_size": 3844,
+      "git_blob_id": "b1fe8867955d374dea453bbf6a18a700b0e977be",
+      "path": "control/architecture/working-candidates/pair-local-routing/v1.0/AAA_CONTROL_PLANE_ROUTING_STATE_DELTA_v1.0.json",
+      "semantic_content_digest": "353b37284216ff3975f6a364f5784fd622e4afc6c89c1b79f3e73f20b2e0af34",
+      "version": "v1.0"
+    }
+  ]
+}
