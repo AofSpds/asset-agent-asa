@@ -1,0 +1,376 @@
+{
+  "artifact_id": "AAA_CORE_B_AUTHORITY_PRECEDENCE_INCIDENT_EVIDENCE_BINDING_v1.0",
+  "version": "v1.0",
+  "artifact_kind": "P0_PERSONA_AUTHORITY_INCIDENT_EXACT_EVIDENCE_BINDING_REGRESSION_FIXTURE",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "risk_class": "P0_PERSONA_AUTHORITY",
+  "authoring_persona": "AAA-CONTROL-ARCHITECT",
+  "authoring_state": "EVIDENCE_BOUND_WORKING_CANDIDATE",
+  "paired_validation_state": "PENDING",
+  "independent_validation_state": "PENDING",
+  "evidence_binding_state": "EVIDENCE_BOUND_WORKING_CANDIDATE_PENDING_PAIRED_CONTROL_VALIDATION",
+  "authority_resolution_state": "NOT_PERFORMED",
+  "current_core_b_authority_status": "P0_CONFLICT_UNDER_RECONCILIATION",
+  "current_state_preservation": {
+    "current_runtime_routing_projection": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+    "owner_directed_role_evidence_asserted": "AAA-MODEL-ARCHITECT",
+    "no_silent_role_switch": true,
+    "no_silent_stale_role_reaffirmation": true,
+    "incident_evidence_bound_not_equal_current_authority_resolved": true
+  },
+  "incident_classification": {
+    "asav_proposed_incident_classification": [
+      "STALE_PROJECTION",
+      "AUTHORITY_PRECEDENCE_INVERSION",
+      "CORRELATED_VALIDATION_FAILURE"
+    ],
+    "asav_classification_state": "ADVISORY_FINDING_PENDING_GOVERNED_P0_VALIDATION",
+    "classification_adopted_as_authoritative_truth_by_author": false,
+    "current_reliance_impact": "TO_BE_DETERMINED_BY_GOVERNED_VALIDATION_OR_SUBSEQUENT_AUTHORITY_ACT",
+    "correlated_validation_failure_regression_fixture_state": "MATERIALIZED_PENDING_PAIRED_AND_INDEPENDENT_VALIDATION",
+    "omitted_higher_or_newer_evidence_check_state": "PENDING_INDEPENDENT_VALIDATION",
+    "selective_representation_check_state": "PENDING_INDEPENDENT_VALIDATION",
+    "prior_validation_reliability": "NOT_ASSIGNED_BY_THIS_AUTHORING_ACT",
+    "current_reliance_on_prior_pass": "NOT_ASSIGNED_BY_THIS_AUTHORING_ACT"
+  },
+  "authority_precedence_control_principle": {
+    "prohibited_single_factor_resolution": [
+      "DOCUMENT_CLASS_ALONE",
+      "LATEST_TIMESTAMP_ALONE",
+      "CHAT_WORDING_ALONE",
+      "PROJECT_INSTRUCTION_ALONE"
+    ],
+    "relevant_dimensions": [
+      "EXACT_IDENTITY",
+      "AUTHORITY_CLASS",
+      "EXACT_SCOPE",
+      "APPLICABILITY",
+      "EFFECTIVE_STATE",
+      "DECISION_OR_CONTRACT_TIME",
+      "PREDECESSOR_SUCCESSOR_RELATION",
+      "SUPERSESSION_LINEAGE",
+      "OWNER_OR_NORMATIVE_SOURCE_REFS",
+      "ACTIVE_STATE_BINDING"
+    ],
+    "lower_projection_may_not_silently_supersede_higher_valid_authority": true,
+    "older_owner_decision_does_not_automatically_override_valid_later_owner_derived_successor": true,
+    "current_authority_resolution_formula": "EXACT_SCOPE + VALID_SUCCESSION + EFFECTIVE_STATE",
+    "final_authority_resolution_executed_by_this_artifact": false
+  },
+  "evidence": {
+    "EVIDENCE-A": {
+      "relationship": "DIRECT_OWNER_ROLE_RECORD",
+      "artifact_id": "AAA-OWNER-DECISION-CORE-B-MODEL-ROLE",
+      "repository": "AofSpds/asset-agent-asa",
+      "exact_commit": "bf8bddd9b86bc233a92a56a712f685f37f01a3f7",
+      "exact_tree": "5ed1989f17de6efe5027aba8165ac66bf29d5824",
+      "exact_path": "control/decisions/organization/v0.3/AAA_OWNER_DECISION_CORE_B_MODEL_ROLE_v1.0.json",
+      "exact_git_blob": "800826c9dc184df2db1c67c76b09fd84c0264195",
+      "byte_size": 2056,
+      "sha256": "f3de311c80dacd5137601030aa6d1a3f3988943f61c65bb5cae8da8844ae19ed",
+      "commit_message": "ASA: persist Owner-directed CORE B role resolution evidence",
+      "commit_time_utc": "2026-08-17T14:56:21Z",
+      "exact_owner_instruction": "CORE B는 AAA-MODEL-ARCHITECT  가 맞습니다. 바꿔주세요.",
+      "recorded_role": "AAA-MODEL-ARCHITECT",
+      "recorded_source_class": "CURRENT_PROJECT_CONVERSATION_DIRECT_OWNER_INSTRUCTION",
+      "recorded_effective_state": "CURRENT_OWNER_DIRECTED_ROLE_RESOLUTION",
+      "canonical": false,
+      "status": "WORKING_PERSISTENT_OWNER_DECISION_RECORD_AWAITING_VALIDATION_BINDING",
+      "predecessor_successor_assertions": {
+        "supersedes_current_use_of": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+        "supersedes_historical_bytes": false,
+        "current_state_update_required": true,
+        "persona_manifest_update_required": true
+      },
+      "critical_limitation": "PROVES_EXISTENCE_AND_EXACT_RECORDED_CONTENT_NOT_CURRENT_CANONICAL_ACTIVATION",
+      "verification": {
+        "exact_pinned_git_blob_retrieved": true,
+        "git_blob_sha1_recomputed_match": true,
+        "byte_size_recomputed": 2056,
+        "byte_size_match": true,
+        "sha256_recomputed": "f3de311c80dacd5137601030aa6d1a3f3988943f61c65bb5cae8da8844ae19ed",
+        "sha256_match": true,
+        "exact_owner_instruction_readback": "PASS"
+      }
+    },
+    "EVIDENCE-B": {
+      "relationship": "SUPPORTING_PREDECESSOR_CURRENT_STATE_RECORD",
+      "artifact_id": "AAA-PAIR-LOCAL-ROUTING-STABILIZATION-CHECKPOINT",
+      "artifact_filename": "AAA_PAIR_LOCAL_ROUTING_STABILIZATION_CHECKPOINT_v1.1_FINAL.json",
+      "version": "v1.1-final",
+      "repository": "AofSpds/asset-agent-asa",
+      "exact_commit": "1e5f4ac2971729d14e4a3ef47e3ef9cf6506bd12",
+      "exact_tree": "0f10de252b0a8f6eb5889a73cd50335135f6c01f",
+      "exact_path": "control/architecture/working-candidates/pair-local-routing/v1.0/stabilization/AAA_PAIR_LOCAL_ROUTING_STABILIZATION_CHECKPOINT_v1.1_FINAL.json",
+      "exact_git_blob": "02dd2568cc8d303cc750d3f8e386d6c18c5e55c9",
+      "byte_size": 8784,
+      "sha256": "3609c24a4fb9fe8e900b51f29b604c54133c61a1d194124ad5d187ec72ff96c0",
+      "commit_time_utc": "2026-08-17T12:44:56Z",
+      "relevant_field": "current_state_reconciliation.current_core_b_role",
+      "recorded_role": "AAA-MODEL-ARCHITECT",
+      "recorded_source_class": "OWNER_DECISION_VIA_AAA_ADVISOR_ASA_CURRENT_STATE_RESOLUTION",
+      "recorded_effective_state": "CHECKPOINT_COMPLETE_CURRENT_STATE_RECONCILIATION",
+      "predecessor_successor_assertions": {
+        "later_conflicting_predecessor_reference_in_evidence_c": true
+      },
+      "verification": {
+        "exact_pinned_git_blob_retrieved": true,
+        "git_blob_sha1_recomputed_match": true,
+        "byte_size_recomputed": 8784,
+        "byte_size_match": true,
+        "sha256_recomputed": "3609c24a4fb9fe8e900b51f29b604c54133c61a1d194124ad5d187ec72ff96c0",
+        "sha256_match": true,
+        "recorded_role_readback": "PASS"
+      }
+    },
+    "EVIDENCE-C": {
+      "relationship": "LATER_P0_AUTHORITY_RECONCILIATION_TARGET",
+      "artifact_id": "AAA-CORE-B-PERSONA-AUTHORITY-RECONCILIATION",
+      "version": "v1.0",
+      "repository": "AofSpds/asset-agent-asa",
+      "branch": "aaa-core-b-persona-authority-reconciliation-v1.0",
+      "exact_commit": "9c7a993b7d1685378066c5871436dbaad03c5e79",
+      "exact_tree": "76cdbf4b70a6405eae065bbfee34e08c6748ca41",
+      "exact_path": "control/organization/persona-authority/v1.0/AAA_CORE_B_PERSONA_AUTHORITY_RECONCILIATION_v1.0.json",
+      "exact_git_blob": "e7b8c76fcc240ac62c7f0f107fd19cdedc7af1d0",
+      "byte_size": 5486,
+      "sha256": "0ef274deafaf917a4873d16731ec32648a749f63a2c98912c98ed0fd680a0938",
+      "commit_time_utc": "2026-08-17T16:38:57Z",
+      "authoring_persona": "AAA-CONTROL-ARCHITECT",
+      "recorded_source_class": "CURRENT_PROJECT_WIDE_GOVERNING_INSTRUCTION",
+      "recorded_source_logical_ref": "AAA_PROJECT_INSTRUCTIONS::ROLE_TERMINOLOGY::CORE_B",
+      "recorded_role": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+      "paired_validator_selected": "AAA-MODEL-DESIGN-VALIDATOR",
+      "recorded_effective_state": "WORKING_CANDIDATE_PENDING_CONTROL_L1",
+      "predecessor_successor_assertions": {
+        "supersedes_current_projection_of": [
+          "AAA-MODEL-ARCHITECT"
+        ],
+        "conflicting_predecessor_refs": [
+          {
+            "artifact_id": "AAA-OWNER-DECISION-CORE-B-MODEL-ROLE",
+            "commit": "bf8bddd9b86bc233a92a56a712f685f37f01a3f7",
+            "git_blob": "800826c9dc184df2db1c67c76b09fd84c0264195",
+            "recorded_role": "AAA-MODEL-ARCHITECT",
+            "current_projection_effect": "SUPERSEDED_PENDING_VALIDATED_RECONCILIATION"
+          },
+          {
+            "artifact_id": "AAA-PAIR-LOCAL-ROUTING-STABILIZATION-CHECKPOINT",
+            "commit": "1e5f4ac2971729d14e4a3ef47e3ef9cf6506bd12",
+            "git_blob": "02dd2568cc8d303cc750d3f8e386d6c18c5e55c9",
+            "recorded_role": "AAA-MODEL-ARCHITECT",
+            "current_projection_effect": "SUPERSEDED_PENDING_VALIDATED_RECONCILIATION"
+          }
+        ]
+      },
+      "verification": {
+        "exact_pinned_git_blob_retrieved": true,
+        "git_blob_sha1_recomputed_match": true,
+        "byte_size_recomputed": 5486,
+        "byte_size_match": true,
+        "sha256_recomputed": "0ef274deafaf917a4873d16731ec32648a749f63a2c98912c98ed0fd680a0938",
+        "sha256_match": true,
+        "governing_source_selection_readback": "PASS",
+        "long_role_selection_readback": "PASS",
+        "contradictory_predecessor_refs_readback": "PASS"
+      }
+    },
+    "EVIDENCE-D": {
+      "relationship": "PAIRED_CONTROL_L1_RECEIPT_FOR_EVIDENCE_C",
+      "artifact_id": "AAA-CORE-B-PERSONA-AUTHORITY-RECONCILIATION-CONTROL-L1-RECEIPT",
+      "version": "v1.0",
+      "repository": "AofSpds/asset-agent-asa",
+      "exact_commit": "e3c46df8be1f18fb8ed5f63cb6ca98d11eb7dbd6",
+      "exact_tree": "99ba81008e6b5cb167da1ef1213780ea442e10b2",
+      "exact_path": "control/validation/persona-authority/v1.0/validator/aaa-control-validator/AAA_CORE_B_PERSONA_AUTHORITY_RECONCILIATION_CONTROL_L1_RECEIPT_v1.0.json",
+      "exact_git_blob": "fb0007f4cebb9ee92ac47c881de59d3611c33744",
+      "byte_size": 5111,
+      "sha256": "39179e30e2cc6003a366918f89a27a6572dfe479f029df0ce2848703f32797a1",
+      "commit_time_utc": "2026-08-17T16:53:58Z",
+      "validator": "AAA-CONTROL-VALIDATOR",
+      "validation_time_kst": "2026-08-18 01:43 KST",
+      "historical_verdict": "PASS",
+      "paired_validation_state": "PASS",
+      "recorded_role": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+      "recorded_source_class": "VALIDATOR_RECEIPT",
+      "recorded_effective_state": "PAIRED_PASS_READY_FOR_L2",
+      "predecessor_successor_assertions": {
+        "historical_predecessor_evidence_present_during_validation": true,
+        "predecessors": [
+          {
+            "artifact_id": "AAA-OWNER-DECISION-CORE-B-MODEL-ROLE",
+            "commit": "bf8bddd9b86bc233a92a56a712f685f37f01a3f7",
+            "recorded_role": "AAA-MODEL-ARCHITECT"
+          },
+          {
+            "artifact_id": "AAA-PAIR-LOCAL-ROUTING-STABILIZATION-CHECKPOINT",
+            "commit": "1e5f4ac2971729d14e4a3ef47e3ef9cf6506bd12",
+            "recorded_role": "AAA-MODEL-ARCHITECT"
+          }
+        ]
+      },
+      "verification": {
+        "exact_pinned_git_blob_retrieved": true,
+        "git_blob_sha1_recomputed_match": true,
+        "byte_size_recomputed": 5111,
+        "byte_size_match": true,
+        "sha256_recomputed": "39179e30e2cc6003a366918f89a27a6572dfe479f029df0ce2848703f32797a1",
+        "sha256_match": true,
+        "historical_l1_verdict_readback": "PASS",
+        "validated_long_role_readback": "PASS",
+        "predecessor_evidence_presence_readback": "PASS"
+      }
+    },
+    "EVIDENCE-E": {
+      "relationship": "INDEPENDENT_P0_L2_RECEIPT_FOR_EVIDENCE_C",
+      "artifact_id": "AAA-CORE-B-PERSONA-AUTHORITY-RECONCILIATION-P0-INDEPENDENT-VALIDATION-RECEIPT",
+      "version": "v1.0",
+      "repository": "AofSpds/asset-agent-asa",
+      "exact_commit": "e140c2ef185717770ea27778f3ea4d34c77adc57",
+      "exact_commit_role": "PINNED_BRANCH_TIP_CONTAINING_RECEIPT",
+      "exact_tree": "5ec2ea9aa1d32c7336623e10016f4a837f1478b7",
+      "exact_path": "control/validation/persona-authority/v1.0/auditor/aaa-validation-auditor/AAA_CORE_B_PERSONA_AUTHORITY_RECONCILIATION_P0_INDEPENDENT_VALIDATION_RECEIPT_v1.0.json",
+      "exact_git_blob": "0d1d033d9dd520ab49da31fe81041b72ce9cac34",
+      "byte_size": 5175,
+      "sha256": "a881a3fe95b6ef649ad27e05add3338b0d322e0b1de3984adea8c8b82e052d53",
+      "pinned_branch_tip_commit_time_utc": "2026-08-17T17:22:00Z",
+      "auditor": "AAA-VALIDATION-AUDITOR",
+      "source_independent_validation_time_kst": "2026-08-18 02:00 KST",
+      "receipt_materialization_time_kst": "2026-08-18 02:11 KST",
+      "historical_verdict": "PASS",
+      "independent_validation_state": "PASS",
+      "recorded_role": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+      "recorded_source_class": "FORMAL_P0_INDEPENDENT_VALIDATION_RECEIPT",
+      "recorded_effective_state": "IVA_AUTH_COREB_01_CLOSED_AFTER_EXACT_PERSISTENCE_AND_READBACK",
+      "embedded_l1_evidence": {
+        "commit": "e3c46df8be1f18fb8ed5f63cb6ca98d11eb7dbd6",
+        "tree": "99ba81008e6b5cb167da1ef1213780ea442e10b2",
+        "git_blob": "fb0007f4cebb9ee92ac47c881de59d3611c33744",
+        "byte_size": 5111,
+        "sha256": "39179e30e2cc6003a366918f89a27a6572dfe479f029df0ce2848703f32797a1"
+      },
+      "predecessor_successor_assertions": {
+        "historical_predecessor_evidence_preserved": true,
+        "predecessors": [
+          {
+            "artifact_id": "AAA-OWNER-DECISION-CORE-B-MODEL-ROLE",
+            "commit": "bf8bddd9b86bc233a92a56a712f685f37f01a3f7",
+            "recorded_role": "AAA-MODEL-ARCHITECT"
+          },
+          {
+            "artifact_id": "AAA-PAIR-LOCAL-ROUTING-STABILIZATION-CHECKPOINT",
+            "commit": "1e5f4ac2971729d14e4a3ef47e3ef9cf6506bd12",
+            "recorded_role": "AAA-MODEL-ARCHITECT"
+          }
+        ]
+      },
+      "verification": {
+        "exact_pinned_git_blob_retrieved": true,
+        "git_blob_sha1_recomputed_match": true,
+        "byte_size_recomputed": 5175,
+        "byte_size_match": true,
+        "sha256_recomputed": "a881a3fe95b6ef649ad27e05add3338b0d322e0b1de3984adea8c8b82e052d53",
+        "sha256_match": true,
+        "historical_l2_verdict_readback": "PASS",
+        "validated_long_role_readback": "PASS",
+        "embedded_l1_binding_readback": "PASS"
+      }
+    }
+  },
+  "source_relationships": [
+    {
+      "from": "EVIDENCE-A",
+      "to": "EVIDENCE-C",
+      "relation": "CONFLICTING_PREDECESSOR_REFERENCE_RECORDED_BY_C"
+    },
+    {
+      "from": "EVIDENCE-B",
+      "to": "EVIDENCE-C",
+      "relation": "CONFLICTING_PREDECESSOR_REFERENCE_RECORDED_BY_C"
+    },
+    {
+      "from": "EVIDENCE-C",
+      "to": "EVIDENCE-D",
+      "relation": "VALIDATED_BY_PAIRED_CONTROL_L1"
+    },
+    {
+      "from": "EVIDENCE-C",
+      "to": "EVIDENCE-E",
+      "relation": "VALIDATED_BY_INDEPENDENT_P0_L2"
+    },
+    {
+      "from": "EVIDENCE-D",
+      "to": "EVIDENCE-E",
+      "relation": "EMBEDDED_L1_EVIDENCE_BOUND_IN_E"
+    }
+  ],
+  "mandatory_distinctions": {
+    "existence_of_owner_directed_record_not_equal_canonical_activation_of_owner_directed_role": true,
+    "historical_validation_verdict_not_equal_current_reliance_on_historical_verdict": true,
+    "incident_classification_not_equal_current_authority_resolution": true
+  },
+  "preservation_and_scope": {
+    "historical_receipt_preservation": true,
+    "historical_rewrite": false,
+    "model_semantic_change": false,
+    "shared_contract_semantic_change": false,
+    "gt_pit_semantic_change": false,
+    "organization_cutover": false,
+    "current_persona_rename": false,
+    "current_authority_mutation": false,
+    "project_instructions_change": false,
+    "pairing_change": false,
+    "freeze": false,
+    "release": false,
+    "production": false,
+    "evidence_a_modified": false,
+    "evidence_b_modified": false,
+    "evidence_c_modified": false,
+    "evidence_d_modified": false,
+    "evidence_e_modified": false
+  },
+  "nonblocking_design_notes": {
+    "pair_cross_domain_violation_rule": "SURFACE_AND_ROUTE",
+    "alternate_l1_metadata": "QUALIFICATION_BASIS_REQUIRED",
+    "temporary_validation_audit_metadata": "VALIDATION_ACTOR_INSTANCE_ID_RECOMMENDED",
+    "whitepaper_import_future_evidence": [
+      "SOURCE_MD_SHA256",
+      "SOURCE_MD_BYTE_SIZE",
+      "IMPORT_COMMIT",
+      "IMPORT_PATH"
+    ],
+    "whitepaper_class": "NON_NORMATIVE_DOCUMENTATION_REFERENCE_MATERIALIZATION",
+    "scope_expanded_by_these_notes": false
+  },
+  "model_science_continuity": {
+    "global_model_science_blocker_created": false,
+    "parallel_work_may_continue": [
+      "FROZEN_MODEL_RECOVERY",
+      "GOLDEN_REPLAY_READINESS",
+      "FULL_REPLAY_PREPARATION",
+      "PERFORMANCE_EVALUATION_PREPARATION",
+      "BOUNDED_RESEARCH",
+      "BOUNDED_ENGINEERING_SUPPORT",
+      "MODEL_VALIDATION_PREPARATION"
+    ],
+    "p0_01_blocks": "UNQUALIFIED_ORGANIZATION_DESIGN_FINAL_ROUTING_TO_OWNER"
+  },
+  "validation_route": {
+    "ready_for_control_l1_if_exact_materialization_and_readback_pass": true,
+    "next_persona": "AAA-CONTROL-VALIDATOR",
+    "paired_l1_required": true,
+    "independent_p0_l2_required_after_l1": true,
+    "final_asav_closure_required_after_l2": true,
+    "p0_01_closed_by_this_artifact": false
+  },
+  "persistence_policy": {
+    "create_once": true,
+    "overwrite_prohibited": true,
+    "delete_prohibited": true,
+    "artifact_is_evidence_binding_not_authority_decision": true,
+    "artifact_is_not_current_state_pointer": true,
+    "artifact_is_not_organization_release": true,
+    "preserve_all_others": true
+  }
+}
