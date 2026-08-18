@@ -1,0 +1,394 @@
+{
+  "acceptance_self_check": {
+    "APPEND_ONLY_RULE": true,
+    "AUTHORITY_LINEAGE_DIGEST_RECOMPUTATION": true,
+    "AUTHORITY_LINEAGE_PROTECTED_BINDING": true,
+    "BYTE_PRESERVATION_RULE": true,
+    "EXACT_LOCATOR_SUFFICIENT": true,
+    "FIELD_CLASSIFICATION_COMPLETE": true,
+    "JSON_PARSEABILITY": true,
+    "MATERIALIZATION_IDENTITY_EXTERNAL_READBACK_REQUIRED": true,
+    "NO_GLOBAL_AUTHORITY_EXPANSION": true,
+    "PERSISTENT_ROUTING_DEFAULT_FALSE": true,
+    "PREDECESSOR_LINEAGE_EXACT": true,
+    "RESEARCH_OWNERSHIP_PRESERVED": true,
+    "SEMANTIC_DIGEST_RECOMPUTATION": true,
+    "SUCCESSOR_VERSION_v0_2": true,
+    "ZIP_PERSISTENT_STORE_DETERMINISTIC_FOR_EXACT_V0_1_V0_2": true,
+    "ZIP_STORAGE_CLASS_DETERMINISTIC_FOR_EXACT_V0_1_V0_2": true
+  },
+  "artifact_id": "AAA-RESEARCH-WORKING-CANDIDATE-PERSISTENCE-LOCATOR-CONVENTION",
+  "artifact_kind": "BOUNDED_CONTROL_CONVENTION",
+  "authoring_persona": "AAA-CONTROL-ARCHITECT",
+  "authoring_state": "MATERIALIZED_EXACT_VALIDATION_TARGET",
+  "authority_basis": [
+    {
+      "artifact_id": "AAA-ARTIFACT-STORAGE-CLASS-POLICY",
+      "byte_size": 5171,
+      "commit": "358cbb85edf829c1e52c4bc107f73a02b718ae5c",
+      "git_blob": "8931a535735c05574db1938d56d4747838002a52",
+      "path": "control/architecture/working-candidates/pair-local-routing/v1.0/AAA_ARTIFACT_STORAGE_CLASS_POLICY_v1.0.json",
+      "repository": "AofSpds/asset-agent-asa",
+      "sha256": "4d682e5438912b64694c53bb8563bab450aa8dd9d127b894cf4a702c2436d020",
+      "version": "v1.0"
+    },
+    {
+      "artifact_id": "AAA-PAIR-LOCAL-ROUTING-STABILIZATION-CHECKPOINT",
+      "byte_size": 8784,
+      "commit": "d7c490c373f2df356f31e4459c345328616b4eb3",
+      "git_blob": "02dd2568cc8d303cc750d3f8e386d6c18c5e55c9",
+      "path": "control/architecture/working-candidates/pair-local-routing/v1.0/stabilization/AAA_PAIR_LOCAL_ROUTING_STABILIZATION_CHECKPOINT_v1.1_FINAL.json",
+      "repository": "AofSpds/asset-agent-asa",
+      "version": "v1.1-final"
+    }
+  ],
+  "authority_lineage_binding_digest": "2e189a271575bee2049368ad0580738ae6a3d898f9844916e460ffe8fd257919",
+  "authority_lineage_binding_profile": "SHA256_UTF8_CANONICAL_JSON_SELECTED_TOP_LEVEL_FIELDS[artifact_id,artifact_kind,authoring_persona,authority_basis,authority_lineage_binding_profile,lineage,product,project,risk_class,semantic_baseline_version,semantic_digest_profile,source,validation_owner,version]_SORT_KEYS_COMPACT_NO_TRAILING_NEWLINE",
+  "field_classification_contract": {
+    "classes": {
+      "DERIVED_EVIDENCE": {
+        "authority_lineage_binding_digest_may_remain_unchanged": true,
+        "cannot_create_validation_pass_or_authority": true,
+        "immutable_revision_required_if_persisted_value_changes": true,
+        "must_be_deterministically_recomputable": true,
+        "semantic_content_digest_may_remain_unchanged": true
+      },
+      "GOVERNED_AUTHORITY_OR_LINEAGE": {
+        "authority_lineage_binding_digest_change_required_on_mutation": true,
+        "auto_apply": "PROHIBITED",
+        "fresh_validation": "REQUIRED_FOR_MATERIAL_CHANGE",
+        "review": "REQUIRED",
+        "semantic_content_digest_change_required_on_mutation": false
+      },
+      "MAINTENANCE": {
+        "allowed_only_for_explicit_maintenance_fields": true,
+        "authority_lineage_binding_digest_may_remain_unchanged": true,
+        "immutable_maintenance_revision_required": true,
+        "semantic_content_digest_may_remain_unchanged": true,
+        "semantic_or_authority_change_under_maintenance_label": "FAIL_CLOSED_REVIEW_REQUIRED"
+      },
+      "NORMATIVE_SEMANTIC": {
+        "auto_apply": "PROHIBITED",
+        "fresh_validation": "REQUIRED_FOR_MATERIAL_CHANGE",
+        "review": "REQUIRED",
+        "semantic_content_digest_change_required_on_mutation": true
+      },
+      "VALIDATION_STATE": {
+        "author_self_pass": "PROHIBITED",
+        "authority_lineage_binding_digest_may_remain_unchanged": true,
+        "auto_apply": "PROHIBITED_UNLESS_PREAUTHORIZED_DETERMINISTIC_RECEIPT_IMPORT",
+        "immutable_revision_required_if_embedded_state_changes": true,
+        "mutation_source": "EXACT_EXTERNAL_VALIDATION_OR_OWNER_RECEIPT_ONLY_AS_APPLICABLE",
+        "semantic_content_digest_may_remain_unchanged": true
+      }
+    },
+    "contract_owner": "AAA-CONTROL-ARCHITECT",
+    "invariants": [
+      "AUTHORITY_OR_NORMATIVE_SOURCE_SEMANTICS_MUST_NOT_BE_SILENTLY_MUTABLE_OUTSIDE_PROTECTED_DIGEST_OR_BINDING",
+      "NON_SEMANTIC_MAINTENANCE_MAY_PRESERVE_SEMANTIC_CONTENT_DIGEST_ONLY_FOR_FIELDS_CLASSIFIED_MAINTENANCE",
+      "AUTHORITY_BASIS_CHANGE_AUTO_APPLY_PROHIBITED_REVIEW_REQUIRED",
+      "LINEAGE_CHANGE_AUTO_APPLY_PROHIBITED_REVIEW_REQUIRED",
+      "UNCLASSIFIED_TOP_LEVEL_FIELD_MUTATION_FAIL_CLOSED_REVIEW_REQUIRED"
+    ],
+    "top_level_field_classes": {
+      "acceptance_self_check": "DERIVED_EVIDENCE",
+      "artifact_id": "GOVERNED_AUTHORITY_OR_LINEAGE",
+      "artifact_kind": "GOVERNED_AUTHORITY_OR_LINEAGE",
+      "authoring_persona": "GOVERNED_AUTHORITY_OR_LINEAGE",
+      "authoring_state": "VALIDATION_STATE",
+      "authority_basis": "GOVERNED_AUTHORITY_OR_LINEAGE",
+      "authority_lineage_binding_digest": "DERIVED_EVIDENCE",
+      "authority_lineage_binding_profile": "GOVERNED_AUTHORITY_OR_LINEAGE",
+      "field_classification_contract": "NORMATIVE_SEMANTIC",
+      "immediate_use_cases": "NORMATIVE_SEMANTIC",
+      "independent_validation_state": "VALIDATION_STATE",
+      "lineage": "GOVERNED_AUTHORITY_OR_LINEAGE",
+      "maintenance_revision": "MAINTENANCE",
+      "normative_semantics": "NORMATIVE_SEMANTIC",
+      "owner_acceptance_state": "VALIDATION_STATE",
+      "paired_validation_state": "VALIDATION_STATE",
+      "product": "GOVERNED_AUTHORITY_OR_LINEAGE",
+      "project": "GOVERNED_AUTHORITY_OR_LINEAGE",
+      "risk_class": "GOVERNED_AUTHORITY_OR_LINEAGE",
+      "semantic_baseline_version": "GOVERNED_AUTHORITY_OR_LINEAGE",
+      "semantic_content_digest": "DERIVED_EVIDENCE",
+      "semantic_digest_profile": "GOVERNED_AUTHORITY_OR_LINEAGE",
+      "source": "GOVERNED_AUTHORITY_OR_LINEAGE",
+      "validation_owner": "GOVERNED_AUTHORITY_OR_LINEAGE",
+      "version": "GOVERNED_AUTHORITY_OR_LINEAGE"
+    }
+  },
+  "immediate_use_cases": {
+    "artifact_family_id": "AAA-M3TOP3-GR-RESEARCH-PACKAGE",
+    "registered_artifact_family": "m3top3-gr-research-package",
+    "storage_route_id": "AAA-RESEARCH-WC-ZIP-EXACT-BOUND-v0.1-v0.2",
+    "v0.1": {
+      "byte_size": 35775,
+      "file": "AAA_M3TOP3_GR_RESEARCH_PACKAGE_v0.1_WORKING.zip",
+      "package_id": "AAA-M3TOP3-GR-RESEARCH-PACKAGE-v0.1-WORKING",
+      "path": "control/research/working-candidates/m3top3-gr-research-package/v0.1/AAA_M3TOP3_GR_RESEARCH_PACKAGE_v0.1_WORKING.zip",
+      "persistent_store": "EXISTING_BOUNDED_NON_PRODUCTION_GIT",
+      "registered_now": false,
+      "repository": "AofSpds/asset-agent-asa",
+      "role": "EXACT_PREDECESSOR_REQUIRED_FOR_DETERMINISTIC_PRESERVATION_VALIDATION",
+      "storage_class": "EXACT_BOUND_RESEARCH_WORKING_CANDIDATE_VALIDATION_PACKAGE_ZIP",
+      "version": "v0.1",
+      "zip_sha256": "3aaee7c1de2bd6f97e5ffd808fba980bf73fea1b604fb3c3b79e2be005180002"
+    },
+    "v0.2": {
+      "byte_size": 40210,
+      "file": "AAA_M3TOP3_GR_RESEARCH_PACKAGE_v0.2_WORKING.zip",
+      "package_id": "AAA-M3TOP3-GR-RESEARCH-PACKAGE-v0.2-WORKING",
+      "path": "control/research/working-candidates/m3top3-gr-research-package/v0.2/AAA_M3TOP3_GR_RESEARCH_PACKAGE_v0.2_WORKING.zip",
+      "persistent_store": "EXISTING_BOUNDED_NON_PRODUCTION_GIT",
+      "registered_now": false,
+      "repository": "AofSpds/asset-agent-asa",
+      "role": "CURRENT_RESEARCH_WORKING_CANDIDATE_SUCCESSOR",
+      "storage_class": "EXACT_BOUND_RESEARCH_WORKING_CANDIDATE_VALIDATION_PACKAGE_ZIP",
+      "version": "v0.2",
+      "zip_sha256": "5bbe75a4c9966abcb9f10d2f1e84df983977c1cf76d69e7bda6dfe4f24e60836"
+    }
+  },
+  "independent_validation_state": "NOT_PERFORMED",
+  "lineage": {
+    "source_findings": [
+      "RES-PERSIST-CTL-F01",
+      "RES-PERSIST-CTL-F02"
+    ],
+    "state": "IMMUTABLE_SUCCESSOR",
+    "successor_of": {
+      "artifact_id": "AAA-RESEARCH-WORKING-CANDIDATE-PERSISTENCE-LOCATOR-CONVENTION",
+      "byte_size": 5992,
+      "commit": "a0c607370ea10e58a2007b201467282b94f4d77b",
+      "git_blob": "eb1e2738ef29fa4b1a78821da363c7af52248275",
+      "path": "control/architecture/working-candidates/research-working-candidate-persistence/v0.1/AAA_RESEARCH_WORKING_CANDIDATE_PERSISTENCE_LOCATOR_CONVENTION_v0.1.json",
+      "preservation": "IMMUTABLE_NO_OVERWRITE",
+      "ref": "aaa-research-persistence-convention-v0.1",
+      "repository": "AofSpds/asset-agent-asa",
+      "semantic_content_digest": "0dc123dc39055bd971bd403fe8859c6f5b60878fd519246bbfbba2eae0762865",
+      "sha256": "917d65b0230128dcc36665952c2c1a85f0e33dbf4c074f10966fbe4f28f18ef7",
+      "tree": "61aab9d2b48dc1932014c34d2d0468c0d592e0db",
+      "version": "v0.1"
+    }
+  },
+  "maintenance_revision": 0,
+  "normative_semantics": {
+    "activation": {
+      "control_l1_required": true,
+      "effective_for_research_registration_now": false,
+      "model_semantic_change": false,
+      "organization_change": false,
+      "production": false,
+      "research_artifact_write_authorized_by_this_artifact": false,
+      "research_semantic_change": false,
+      "shared_contract_change": false
+    },
+    "byte_preservation": {
+      "mismatch": "FAIL_CLOSED_EXACT_TARGET_MISMATCH",
+      "registration_metadata": "EXTERNAL_TO_RESEARCH_SEMANTIC_BYTES",
+      "source_byte_size_equals_persisted_byte_size": true,
+      "source_sha256_equals_persisted_sha256": true,
+      "transformations_allowed": false
+    },
+    "exact_locator": {
+      "moving_branch_only": "INSUFFICIENT",
+      "readback": "REQUIRED_WITH_SHA256_AND_BYTE_SIZE_RECOMPUTATION",
+      "required": [
+        "OBJECT_ID",
+        "VERSION",
+        "REPOSITORY",
+        "PINNED_COMMIT",
+        "PATH",
+        "GIT_BLOB",
+        "SHA256",
+        "BYTE_SIZE",
+        "LINEAGE"
+      ],
+      "tree_and_ref": "SUPPLEMENTARY_WHERE_AVAILABLE"
+    },
+    "namespace": {
+      "artifact_family_binding": "EXPLICIT_AUTHORIZED_REGISTRATION_PACKET_REQUIRED",
+      "path_template": "<REGISTERED_ARTIFACT_FAMILY>/<VERSION>/<EXACT_SOURCE_FILENAME>",
+      "repository": "AofSpds/asset-agent-asa",
+      "root": "control/research/working-candidates",
+      "status": "WORKING_CANDIDATE_ONLY"
+    },
+    "owners": {
+      "persistence_changes_ownership": false,
+      "research_author": "AAA-RESEARCH-ORCHESTRATOR",
+      "research_validator": "AAA-RESEARCH-VALIDATOR"
+    },
+    "routing": {
+      "arbitrary_cross_persona_write": false,
+      "global_auto_activation": false,
+      "persistent_routing_default_active": false,
+      "registration_requires": [
+        "CONTROL_L1_PASS_CLASS",
+        "EXPLICIT_REGISTRATION_AUTHORIZATION",
+        "SOURCE_IDENTITY_VERIFICATION"
+      ]
+    },
+    "state": {
+      "active_release": false,
+      "canonical": false,
+      "frozen": false,
+      "owner_accepted": false,
+      "persistence_is_validation_pass": false,
+      "pit_admitted": false,
+      "validation_state": "USE_EXACT_EXTERNAL_RECEIPT_IF_PROVEN_ELSE_PENDING_OR_BLOCKED"
+    },
+    "storage": {
+      "eligible": "SMALL_MEDIUM_RESEARCH_WORKING_CANDIDATE_JSON_CSV_TEXT_MANIFEST",
+      "large_binary": "FOLLOW_EXISTING_STORAGE_CLASS_POLICY",
+      "mechanism": "EXISTING_BOUNDED_NON_PRODUCTION_GIT",
+      "new_storage_backend": false,
+      "zip_bounded_exact_route": {
+        "allowlist": [
+          {
+            "byte_size": 35775,
+            "exact_source_filename": "AAA_M3TOP3_GR_RESEARCH_PACKAGE_v0.1_WORKING.zip",
+            "package_id": "AAA-M3TOP3-GR-RESEARCH-PACKAGE-v0.1-WORKING",
+            "registered_artifact_family": "m3top3-gr-research-package",
+            "sha256": "3aaee7c1de2bd6f97e5ffd808fba980bf73fea1b604fb3c3b79e2be005180002",
+            "version": "v0.1"
+          },
+          {
+            "byte_size": 40210,
+            "exact_source_filename": "AAA_M3TOP3_GR_RESEARCH_PACKAGE_v0.2_WORKING.zip",
+            "package_id": "AAA-M3TOP3-GR-RESEARCH-PACKAGE-v0.2-WORKING",
+            "registered_artifact_family": "m3top3-gr-research-package",
+            "sha256": "5bbe75a4c9966abcb9f10d2f1e84df983977c1cf76d69e7bda6dfe4f24e60836",
+            "version": "v0.2"
+          }
+        ],
+        "artifact_family_inference_from_filename": "PROHIBITED",
+        "byte_preservation": {
+          "content_rewrite": "PROHIBITED",
+          "normalization": "PROHIBITED",
+          "re_zip": "PROHIBITED",
+          "registration_time_transformation": "PROHIBITED",
+          "source_byte_size_equals_persisted_byte_size": true,
+          "source_sha256_equals_persisted_sha256": true
+        },
+        "eligibility_basis": "EXACT_PACKAGE_ID_PLUS_VERSION_PLUS_SHA256_PLUS_BYTE_SIZE_ALLOWLIST",
+        "exact_locator_required": [
+          "OBJECT_ID",
+          "VERSION",
+          "REPOSITORY",
+          "PINNED_COMMIT",
+          "PATH",
+          "GIT_BLOB",
+          "SHA256",
+          "BYTE_SIZE",
+          "LINEAGE"
+        ],
+        "failure_semantics": {
+          "persisted_readback_mismatch": "FAIL_CLOSED_EXACT_TARGET_MISMATCH",
+          "retrieval_failure": "BLOCKED_ON_PERSISTENT_REGISTRATION_OR_EXACT_TARGET_RETRIEVAL",
+          "source_identity_mismatch": "FAIL_CLOSED_EXACT_TARGET_MISMATCH",
+          "unlisted_zip": "REVIEW_REQUIRED_STORAGE_CLASS_UNRESOLVED_NO_ROUTE_INHERITANCE"
+        },
+        "filename_extension_inference": "PROHIBITED",
+        "path_rule": "control/research/working-candidates/<REGISTERED_ARTIFACT_FAMILY>/<VERSION>/<EXACT_SOURCE_FILENAME>",
+        "persistent_store": {
+          "git_lfs": false,
+          "git_lfs_pointer_allowed": false,
+          "object_form": "ORDINARY_GIT_BLOB_BYTE_EXACT",
+          "repository": "AofSpds/asset-agent-asa",
+          "type": "EXISTING_BOUNDED_NON_PRODUCTION_GIT"
+        },
+        "route_id": "AAA-RESEARCH-WC-ZIP-EXACT-BOUND-v0.1-v0.2",
+        "scope_boundary": {
+          "future_unlisted_zip_inherits_route": false,
+          "git_for_all": false,
+          "global_auto_routing": false,
+          "global_object_store_routing": false,
+          "production_routing": false
+        },
+        "size_only_inference": "PROHIBITED",
+        "storage_class": "EXACT_BOUND_RESEARCH_WORKING_CANDIDATE_VALIDATION_PACKAGE_ZIP",
+        "supplementary_locator_fields": [
+          "REF",
+          "TREE"
+        ],
+        "validator_retrieval": {
+          "must_support": [
+            "PINNED_BYTE_RETRIEVAL",
+            "SHA256_RECOMPUTATION",
+            "BYTE_SIZE_RECOMPUTATION",
+            "LOCATOR_IDENTITY_VERIFICATION",
+            "FULL_DETERMINISTIC_PREDECESSOR_SUCCESSOR_DIFF",
+            "UNDECLARED_MODIFICATION_CHECK",
+            "UNAUTHORIZED_REMOVAL_CHECK"
+          ],
+          "validator": "AAA-RESEARCH-VALIDATOR"
+        },
+        "versioning": {
+          "material_successor_requires": [
+            "NEW_VERSION",
+            "NEW_EXACT_IDENTITY",
+            "NEW_PERSISTENT_LOCATOR",
+            "NEW_SHA256",
+            "NEW_BYTE_SIZE",
+            "EXPLICIT_LINEAGE"
+          ],
+          "predecessor_overwrite": "PROHIBITED",
+          "v0_1_v0_2_coexistence": "REQUIRED"
+        }
+      }
+    },
+    "successor": {
+      "destructive_overwrite": false,
+      "material_successor_requires": [
+        "NEW_VERSION",
+        "NEW_EXACT_IDENTITY",
+        "NEW_PATH",
+        "NEW_SHA256",
+        "NEW_BYTE_SIZE",
+        "EXPLICIT_LINEAGE"
+      ],
+      "predecessor_bytes": "PRESERVE",
+      "same_bytes_existing_path": "RETURN_ALREADY_REGISTERED_EXACT_AFTER_IDENTITY_MATCH"
+    },
+    "validator_retrieval": {
+      "chat_or_temp_only": "INSUFFICIENT",
+      "insufficient_forms": [
+        "CHAT_ONLY",
+        "TEMP_MNT_DATA_ONLY",
+        "RETURN_PACKET_PROSE_ONLY",
+        "AUTHOR_SELF_REPORT_ONLY",
+        "MOVING_BRANCH_ONLY"
+      ],
+      "required": [
+        "EXACT_PREDECESSOR",
+        "EXACT_SUCCESSOR",
+        "DETERMINISTIC_DIFF",
+        "UNDECLARED_CHANGE_CHECK"
+      ],
+      "retrieval_failure": "BLOCKED_ON_PERSISTENT_REGISTRATION_OR_EXACT_TARGET_RETRIEVAL",
+      "validator": "AAA-RESEARCH-VALIDATOR",
+      "zip_exact_route_required": true
+    }
+  },
+  "owner_acceptance_state": "NOT_PERFORMED",
+  "paired_validation_state": "NOT_PERFORMED",
+  "product": "ASSET AGENT ASA",
+  "project": "AAA",
+  "risk_class": "P0_VALIDATION_REPRODUCIBILITY_CONTROL",
+  "semantic_baseline_version": "v0.2",
+  "semantic_content_digest": "787134f981b86ea6a837e94aba10194b4f92cc36a5e338c60b9bcbbec0fd30b4",
+  "semantic_digest_profile": "SHA256_UTF8_CANONICAL_JSON_SELECTED_TOP_LEVEL_FIELDS[field_classification_contract,immediate_use_cases,normative_semantics]_SORT_KEYS_COMPACT_NO_TRAILING_NEWLINE",
+  "source": {
+    "authorized_findings": [
+      "RES-PERSIST-CTL-F01",
+      "RES-PERSIST-CTL-F02"
+    ],
+    "preserve_all_others": true,
+    "source_validation_act": "AAA-RES-PERSIST-CTL-L1-20260819-0418-v0.1-01",
+    "source_validation_verdict": "CHANGES_REQUIRED",
+    "source_validator": "AAA-CONTROL-VALIDATOR",
+    "work_packet_id": "AAA_RES_PERSIST_CONVENTION_F01_F02_SUCCESSOR_CORRECTION_v1.0"
+  },
+  "validation_owner": "AAA-CONTROL-VALIDATOR",
+  "version": "v0.2"
+}
