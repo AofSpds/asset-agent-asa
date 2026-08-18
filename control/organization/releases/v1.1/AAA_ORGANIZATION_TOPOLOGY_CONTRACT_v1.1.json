@@ -1,0 +1,349 @@
+{
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "artifact_id": "AAA-ORGANIZATION-TOPOLOGY-CONTRACT-v1.1",
+  "version": "v1.1",
+  "artifact_kind": "ROOT_NORMATIVE_ORGANIZATION_SEMANTIC_CONTRACT",
+  "organization_release_id": "AAA-ORGANIZATION-RELEASE-v1.1",
+  "authoring_persona": "AAA-CONTROL-ARCHITECT",
+  "authoring_state": "IMPLEMENTATION_TARGET_PRE_ACTIVATION",
+  "activation_state": "NOT_ACTIVE",
+  "paired_validation_state": "PENDING_FRESH_P0_L1",
+  "independent_validation_state": "PENDING_P0_L2",
+  "owner_cutover_state": "NOT_YET",
+  "successor_of": {
+    "release_id": "AAA-ORGANIZATION-RELEASE-v1.0",
+    "root_contract": {
+      "artifact_id": "AAA-ORGANIZATION-TOPOLOGY-CONTRACT-v1.0",
+      "commit": "2bd0aedd7b9f90bbe772e70981e40ae3fb11397d",
+      "tree": "8640032fb68e687d92fa851b3aa849f2670b1518",
+      "path": "control/organization/releases/v1.0/AAA_ORGANIZATION_TOPOLOGY_CONTRACT_v1.0.json",
+      "git_blob": "3adf7660ea273876fdf51cf228b36d1c0e8ccda9",
+      "sha256": "1cc049798ed95facaf9f2ccb7ddd50c628b5a1d8c2a8d8f90c2a4f2efd44b347",
+      "byte_size": 24161
+    },
+    "manifest": {
+      "artifact_id": "AAA-ORGANIZATION-RELEASE-MANIFEST-v1.0",
+      "commit": "fdfb0b4d543d3c002d14d2860afaf23eb4c10a7d",
+      "tree": "0c5554e46cf154cb132851eee494a42428c3249d",
+      "path": "control/organization/releases/v1.0/AAA_ORGANIZATION_RELEASE_MANIFEST_v1.0.json",
+      "git_blob": "c867625279b6cc6e9555b44bc8f452a8c87df799",
+      "sha256": "e0ca38f53d1d335298ddbeaf3aadef25535a312b032c4580d2d49e05695d5945",
+      "byte_size": 6828,
+      "release_set_digest": "7e441852b10999561c81a4575f91a401069335bff24310a48b33cf1c8a3f9022"
+    },
+    "validation_state": "PAIRED_VALIDATION_FAIL",
+    "source_l1_return": {
+      "validator": "AAA-CONTROL-VALIDATOR",
+      "validation_time": "2026-08-18T18:34:00+09:00",
+      "overall_l1_verdict": "FAIL",
+      "paired_validation_state": "FAIL",
+      "targeted_correction_required": true,
+      "ready_for_independent_p0_l2": false,
+      "receipt_state": "NOT_CREATED_DUE_FAIL",
+      "blocking_findings": ["ORG-P0-CTL-01", "ORG-P0-CTL-02"],
+      "source_class": "ASA_ROUTED_EXACT_VALIDATOR_RETURN_REFERENCE"
+    },
+    "successor_reason": "OWNER_APPROVED_O1_O5_SEMANTIC_PRESERVATION_RESTORATION_FOR_ORG_P0_CTL_01_AND_ORG_P0_CTL_02",
+    "predecessor_immutable": true
+  },
+  "normative_authority_source": {
+    "artifact_id": "AAA-OWNER-ORGANIZATION-DESIGN-DECISION-v1.0",
+    "version": "v1.0",
+    "commit": "8b9c428c687806d48d86aa3ce556db560c200a13",
+    "tree": "a756fd8b2bcde6abdbe93fac48c2ce6670285f86",
+    "path": "control/decisions/organization/v1.0/AAA_OWNER_ORGANIZATION_DESIGN_DECISION_v1.0.json",
+    "git_blob": "d53339bad9b4d8330357c99326b65b3d1822da6a",
+    "sha256": "286a9fd25746b370fa8a026e8096a3c223e1b05fd8c94d9f72382989497dc12d",
+    "byte_size": 2576,
+    "decision": "APPROVE_ALL_O1_O5",
+    "cutover_authorized": false
+  },
+  "remediation_scope": {
+    "ORG-P0-CTL-01": "REMEDIATED_AT_AUTHORING_LEVEL_BY_CANONICAL_AUTHORITY_SCOPE_MODEL_AND_COMPLETE_DOMAIN_SCOPE_RESTORATION",
+    "ORG-P0-CTL-02": "REMEDIATED_AT_AUTHORING_LEVEL_BY_COMPLETE_SUBSTANTIVE_L1_AND_INDEPENDENT_ASSURANCE_CONSTITUTION",
+    "targeted_restoration_only": true,
+    "new_owner_design_semantics_introduced": false
+  },
+  "o1_organization_topology": {
+    "owner": "PROJECT OWNER",
+    "owner_interface": "AAA-ASA",
+    "program_execution_top": "AAA-PMO-ORCHESTRATOR",
+    "execution_domains": ["AAA-CONTROL-ARCHITECT", "AAA-MODEL-ARCHITECT", "AAA-RESEARCH-ORCHESTRATOR", "AAA-ENGINEERING-ORCHESTRATOR"],
+    "paired_l1_organization": ["AAA-ADVISORY-VALIDATOR", "AAA-PMO-VALIDATOR", "AAA-CONTROL-VALIDATOR", "AAA-MODEL-VALIDATOR", "AAA-RESEARCH-VALIDATOR", "AAA-ENGINEERING-VALIDATOR"],
+    "independent_l2": "AAA-VALIDATION-AUDITOR",
+    "mandatory_separation": ["EXECUTION_ORGANIZATION_NE_PAIRED_L1_ORGANIZATION", "PAIRED_L1_ORGANIZATION_NE_IVA_L2_ORGANIZATION", "EXECUTION_ORGANIZATION_NE_IVA_L2_ORGANIZATION"],
+    "iva_not_roles": ["L1_MANAGEMENT_HEAD", "PAIRED_VALIDATOR_MANAGER", "DOMAIN_AUTHOR", "OWNER_SUBSTITUTE"],
+    "not_approved": ["NEW_DATA_PERSONA", "GENERIC_L1_HEAD_PERSONA", "GENERIC_BUILDER_SEMANTIC_AUTHORITY"]
+  },
+  "o2_persona_identity_code_pairing": {
+    "display_code_rule": "PAIRED_VALIDATOR_CODE_EQUALS_AUTHOR_CODE_PLUS_V",
+    "iva_code_exception": "IVA_IS_NOT_PAIRED_VALIDATOR",
+    "historical_ids_immutable": true,
+    "historical_artifact_rename_prohibited": true,
+    "persona_registry": [
+      {"code":"ASA","persona_id":"AAA-ASA","class":"OWNER_BOUND_INTERFACE","paired_validator":"AAA-ADVISORY-VALIDATOR","state":"PRE_ACTIVATION"},
+      {"code":"ASAV","persona_id":"AAA-ADVISORY-VALIDATOR","class":"PAIRED_L1_VALIDATOR","paired_author":"AAA-ASA","state":"PRE_ACTIVATION"},
+      {"code":"PMO","persona_id":"AAA-PMO-ORCHESTRATOR","class":"PROGRAM_EXECUTION_TOP","paired_validator":"AAA-PMO-VALIDATOR","state":"PRE_ACTIVATION"},
+      {"code":"PMOV","persona_id":"AAA-PMO-VALIDATOR","class":"PAIRED_L1_VALIDATOR","paired_author":"AAA-PMO-ORCHESTRATOR","state":"PRE_ACTIVATION"},
+      {"code":"CTL","persona_id":"AAA-CONTROL-ARCHITECT","class":"DOMAIN_AUTHOR_CONTROL","paired_validator":"AAA-CONTROL-VALIDATOR","state":"PRE_ACTIVATION"},
+      {"code":"CTLV","persona_id":"AAA-CONTROL-VALIDATOR","class":"PAIRED_L1_VALIDATOR","paired_author":"AAA-CONTROL-ARCHITECT","state":"PRE_ACTIVATION"},
+      {"code":"MOD","persona_id":"AAA-MODEL-ARCHITECT","class":"DOMAIN_AUTHOR_MODEL_SCIENCE","paired_validator":"AAA-MODEL-VALIDATOR","state":"PRE_ACTIVATION"},
+      {"code":"MODV","persona_id":"AAA-MODEL-VALIDATOR","class":"PAIRED_L1_VALIDATOR","paired_author":"AAA-MODEL-ARCHITECT","state":"PRE_ACTIVATION"},
+      {"code":"RES","persona_id":"AAA-RESEARCH-ORCHESTRATOR","class":"DOMAIN_AUTHOR_RESEARCH","paired_validator":"AAA-RESEARCH-VALIDATOR","state":"PRE_ACTIVATION"},
+      {"code":"RESV","persona_id":"AAA-RESEARCH-VALIDATOR","class":"PAIRED_L1_VALIDATOR","paired_author":"AAA-RESEARCH-ORCHESTRATOR","state":"PRE_ACTIVATION"},
+      {"code":"ENG","persona_id":"AAA-ENGINEERING-ORCHESTRATOR","class":"IMPLEMENTATION_RUNTIME_ORCHESTRATOR","paired_validator":"AAA-ENGINEERING-VALIDATOR","state":"PRE_ACTIVATION"},
+      {"code":"ENGV","persona_id":"AAA-ENGINEERING-VALIDATOR","class":"PAIRED_L1_VALIDATOR","paired_author":"AAA-ENGINEERING-ORCHESTRATOR","state":"PRE_ACTIVATION"},
+      {"code":"IVA","persona_id":"AAA-VALIDATION-AUDITOR","class":"L2_INDEPENDENT_AUDIT","paired_validator":"NOT_APPLICABLE","state":"PRE_ACTIVATION"}
+    ],
+    "authority_scope_model": {
+      "canonical_source_class": "SOLE_NORMATIVE_PER_AUTHOR_DOMAIN_AUTHORITY_SCOPE",
+      "canonical_scope_digest_algorithm": "SHA256_UTF8_CANONICAL_JSON_ARRAY",
+      "canonical_authority_scopes": {
+        "AAA-ASA": ["owner_bound_interface", "network_console", "owner_intent_interface", "owner_decision_surface", "owner_bound_advisory", "cross_track_orchestration_interface"],
+        "AAA-PMO-ORCHESTRATOR": ["planning", "sequencing", "routing", "coordination", "execution_integration", "blocker_surface"],
+        "AAA-CONTROL-ARCHITECT": ["data_governance", "ground_truth_control", "pit_control", "artifact_control", "authority_control", "control_architecture", "continuity", "requirements_design_control", "stable_identity_lineage", "change_detection_change_control", "validation_state_mechanics", "baseline_freeze_mechanics", "shared_contract_control", "persistent_context_current_state_mechanics"],
+        "AAA-MODEL-ARCHITECT": ["model_semantics", "feature_semantics", "missingness", "imputation", "scorer", "weight", "ranking", "replay_scientific_protocol", "performance_evaluation", "failure_analysis", "model_scientific_validation_methodology", "successor_tuning_successor_model_design"],
+        "AAA-RESEARCH-ORCHESTRATOR": ["research_orchestration", "source_retrieval", "evidence_preparation", "discovery_cognition", "source_diversity", "pit_safe_investigation", "disconfirming_evidence_search", "conflict_discovery", "gap_discovery", "alternative_mechanism_discovery", "evidence_conflict_surfacing", "research_package_authoring"],
+        "AAA-ENGINEERING-ORCHESTRATOR": ["implementation", "runtime", "automation", "tooling", "repository_operations", "resource_technical_resource_orchestration", "harness_implementation", "deterministic_execution", "raw_result_materialization", "reproducibility", "recovery_infrastructure", "rollback_infrastructure", "implementation_change", "test_execution", "deployment_preparation"]
+      },
+      "canonical_scope_digests": {
+        "AAA-ASA": "a61f6e99c902d5bd3e4a05ac951bc60373cc51405257dcd0f035bfee72f9865f",
+        "AAA-PMO-ORCHESTRATOR": "ca66dc5d7fc71365792f83c85298a083663d0fdbcb795efe84a97f43ebd5dab6",
+        "AAA-CONTROL-ARCHITECT": "26f87ad0547c87432135cc96dac8fb7a92a8631154c963dc1646d81424c8f45d",
+        "AAA-MODEL-ARCHITECT": "aae90eebe8d876f78da3646d85d4fbe02daa9aa0794502ac930f22bc2da0fed3",
+        "AAA-RESEARCH-ORCHESTRATOR": "49eeb42ae7a4d34641ba43a6354c7aa83db63f4cbf753349e6b1ecfbec35e4bb",
+        "AAA-ENGINEERING-ORCHESTRATOR": "be323f61ad94393a6860a552467e503b1311c2483f6a658e4bc17c091fc714e8"
+      },
+      "positive_authority_matrix_role": "DETERMINISTIC_GENERATED_PROJECTION_NOT_SECOND_NORMATIVE_SOURCE",
+      "positive_authority_matrix_projection_rule": "EXACT_COPY_OF_CANONICAL_AUTHORITY_SCOPE_BY_PERSONA_ID",
+      "positive_authority_matrix": {
+        "AAA-ASA": {"source_ref":"canonical_authority_scopes.AAA-ASA","projection":"EXACT_COPY"},
+        "AAA-PMO-ORCHESTRATOR": {"source_ref":"canonical_authority_scopes.AAA-PMO-ORCHESTRATOR","projection":"EXACT_COPY"},
+        "AAA-CONTROL-ARCHITECT": {"source_ref":"canonical_authority_scopes.AAA-CONTROL-ARCHITECT","projection":"EXACT_COPY"},
+        "AAA-MODEL-ARCHITECT": {"source_ref":"canonical_authority_scopes.AAA-MODEL-ARCHITECT","projection":"EXACT_COPY"},
+        "AAA-RESEARCH-ORCHESTRATOR": {"source_ref":"canonical_authority_scopes.AAA-RESEARCH-ORCHESTRATOR","projection":"EXACT_COPY"},
+        "AAA-ENGINEERING-ORCHESTRATOR": {"source_ref":"canonical_authority_scopes.AAA-ENGINEERING-ORCHESTRATOR","projection":"EXACT_COPY"}
+      },
+      "pair_author_scope_role": "DETERMINISTIC_PROJECTION_FROM_CANONICAL_AUTHORITY_SCOPE",
+      "pair_author_scope_projection_rule": "EXACT_COPY_OF_CANONICAL_AUTHORITY_SCOPE_FOR_PAIRED_AUTHOR",
+      "validator_scope_composition_rule": "CANONICAL_AUTHOR_SCOPE_UNION_VALIDATION_DUTIES_WITHOUT_AUTHOR_AUTHORITY_EXPANSION",
+      "ambiguity_rule": "NO_AMBIGUOUS_COMPETING_NORMATIVE_AUTHORITY_LISTS"
+    },
+    "strong_pair_contracts": [
+      {
+        "pair_id":"AAA-PAIR-ASA-ASAV-v1.1","author_persona_id":"AAA-ASA","author_code":"ASA","paired_validator_id":"AAA-ADVISORY-VALIDATOR","validator_code":"ASAV","pair_contract_version":"v1.1","pair_state":"PRE_ACTIVATION",
+        "canonical_authority_scope_source_ref":"authority_scope_model.canonical_authority_scopes.AAA-ASA","author_domain_scope_projection_rule":"EXACT_COPY_OF_CANONICAL_AUTHORITY_SCOPE","author_domain_scope":["owner_bound_interface","network_console","owner_intent_interface","owner_decision_surface","owner_bound_advisory","cross_track_orchestration_interface"],
+        "validator_validation_scope":["owner_bound_interface","network_console","owner_intent_interface","owner_decision_surface","owner_bound_advisory","cross_track_orchestration_interface","advisory_authority_boundary_validation","owner_substitution_guard","routing_integrity_validation","governance_violation_detection","semantic_preservation_challenge","authority_conflict_detection","undeclared_semantic_mutation_detection","preservation_failure_detection"],
+        "author_domain_scope_digest":"a61f6e99c902d5bd3e4a05ac951bc60373cc51405257dcd0f035bfee72f9865f","validator_scope_digest":"1adcfdde3dd250bc1b50ebebc7dbc8d5cb13a38dc4731faef48cf670171eb44e","scope_digest_algorithm":"SHA256_UTF8_CANONICAL_JSON_ARRAY","pair_contract_digest":"ae56a3af250c6e046c4c21189ebed2a3dd0858b171f9f3e6376b28cad9505de9","pair_contract_digest_algorithm":"SHA256_UTF8_CANONICAL_JSON_OBJECT_EXCLUDING_PAIR_CONTRACT_DIGEST",
+        "scope_subset_invariant":"AUTHOR_DOMAIN_SCOPE_SUBSET_OF_VALIDATOR_VALIDATION_SCOPE","scope_subset_check":true,"validation_classes":["P0_PAIRED_DOMAIN_VALIDATION_SUBSTANTIVE","P1_PAIRED_DOMAIN_VALIDATION_SUBSTANTIVE","IMPACT_BASED_TARGETED_VALIDATION"],"substantive_validation_rule":"LINT_SCHEMA_HASH_PASS_NE_SUBSTANTIVE_VALIDATION_PASS","recusal_rule":"MATERIAL_VALIDATOR_TARGET_OR_SOLUTION_COAUTHORSHIP_PROHIBITS_SAME_EXACT_TARGET_PASS","alternate_l1_route":"QUALIFIED_TARGET_DOMAIN_BOUND_ADHOC_PAIRED_VALIDATOR_FUNCTION_IF_GOVERNED_PAIR_RECUSES_OR_IS_CONFLICTED","succession_rule":"PAIR_CONTRACT_REVIEW_AND_SCOPE_REVALIDATION_REQUIRED_ON_MATERIAL_SCOPE_CHANGE"
+      },
+      {
+        "pair_id":"AAA-PAIR-PMO-PMOV-v1.1","author_persona_id":"AAA-PMO-ORCHESTRATOR","author_code":"PMO","paired_validator_id":"AAA-PMO-VALIDATOR","validator_code":"PMOV","pair_contract_version":"v1.1","pair_state":"PRE_ACTIVATION",
+        "canonical_authority_scope_source_ref":"authority_scope_model.canonical_authority_scopes.AAA-PMO-ORCHESTRATOR","author_domain_scope_projection_rule":"EXACT_COPY_OF_CANONICAL_AUTHORITY_SCOPE","author_domain_scope":["planning","sequencing","routing","coordination","execution_integration","blocker_surface"],
+        "validator_validation_scope":["planning","sequencing","routing","coordination","execution_integration","blocker_surface","pmo_authority_firewall_validation","routing_integrity_validation","blocker_suppression_detection","governance_violation_detection","semantic_preservation_challenge","authority_conflict_detection","undeclared_semantic_mutation_detection","preservation_failure_detection"],
+        "author_domain_scope_digest":"ca66dc5d7fc71365792f83c85298a083663d0fdbcb795efe84a97f43ebd5dab6","validator_scope_digest":"4749861c836b81f837953b3a27e68837f82fc601f7f412f26293183cd38cc094","scope_digest_algorithm":"SHA256_UTF8_CANONICAL_JSON_ARRAY","pair_contract_digest":"a17a505db48eac8f5f9ff1354c30b95c4894ba1e6804cebf548d20d6afc305cb","pair_contract_digest_algorithm":"SHA256_UTF8_CANONICAL_JSON_OBJECT_EXCLUDING_PAIR_CONTRACT_DIGEST",
+        "scope_subset_invariant":"AUTHOR_DOMAIN_SCOPE_SUBSET_OF_VALIDATOR_VALIDATION_SCOPE","scope_subset_check":true,"validation_classes":["P0_PAIRED_DOMAIN_VALIDATION_SUBSTANTIVE","P1_PAIRED_DOMAIN_VALIDATION_SUBSTANTIVE","IMPACT_BASED_TARGETED_VALIDATION"],"substantive_validation_rule":"LINT_SCHEMA_HASH_PASS_NE_SUBSTANTIVE_VALIDATION_PASS","recusal_rule":"MATERIAL_VALIDATOR_TARGET_OR_SOLUTION_COAUTHORSHIP_PROHIBITS_SAME_EXACT_TARGET_PASS","alternate_l1_route":"QUALIFIED_TARGET_DOMAIN_BOUND_ADHOC_PAIRED_VALIDATOR_FUNCTION_IF_GOVERNED_PAIR_RECUSES_OR_IS_CONFLICTED","succession_rule":"PAIR_CONTRACT_REVIEW_AND_SCOPE_REVALIDATION_REQUIRED_ON_MATERIAL_SCOPE_CHANGE"
+      },
+      {
+        "pair_id":"AAA-PAIR-CTL-CTLV-v1.1","author_persona_id":"AAA-CONTROL-ARCHITECT","author_code":"CTL","paired_validator_id":"AAA-CONTROL-VALIDATOR","validator_code":"CTLV","pair_contract_version":"v1.1","pair_state":"PRE_ACTIVATION",
+        "canonical_authority_scope_source_ref":"authority_scope_model.canonical_authority_scopes.AAA-CONTROL-ARCHITECT","author_domain_scope_projection_rule":"EXACT_COPY_OF_CANONICAL_AUTHORITY_SCOPE","author_domain_scope":["data_governance","ground_truth_control","pit_control","artifact_control","authority_control","control_architecture","continuity","requirements_design_control","stable_identity_lineage","change_detection_change_control","validation_state_mechanics","baseline_freeze_mechanics","shared_contract_control","persistent_context_current_state_mechanics"],
+        "validator_validation_scope":["data_governance","ground_truth_control","pit_control","artifact_control","authority_control","control_architecture","continuity","requirements_design_control","stable_identity_lineage","change_detection_change_control","validation_state_mechanics","baseline_freeze_mechanics","shared_contract_control","persistent_context_current_state_mechanics","unauthorized_semantic_mutation_detection","authority_conflict_detection","stale_governing_projection_detection","pit_leakage_detection","gt_contamination_detection","undeclared_semantic_touch_detection","persona_identity_validation","pair_contract_mismatch_detection","post_outcome_acceptance_criteria_mutation_detection","validation_state_manipulation_detection","preservation_failure_detection","semantic_preservation_challenge","evidence_conflict_challenge","counterexample_disconfirming_evidence_challenge"],
+        "author_domain_scope_digest":"26f87ad0547c87432135cc96dac8fb7a92a8631154c963dc1646d81424c8f45d","validator_scope_digest":"4b4e34571e51693d0738b3d56b2939573c7181126353c1e7b7d1e1b5ba66bfc1","scope_digest_algorithm":"SHA256_UTF8_CANONICAL_JSON_ARRAY","pair_contract_digest":"5a8133115b0599caba99061cf42f2c8ad7ba60262031d66927c0143104683e85","pair_contract_digest_algorithm":"SHA256_UTF8_CANONICAL_JSON_OBJECT_EXCLUDING_PAIR_CONTRACT_DIGEST",
+        "scope_subset_invariant":"AUTHOR_DOMAIN_SCOPE_SUBSET_OF_VALIDATOR_VALIDATION_SCOPE","scope_subset_check":true,"validation_classes":["P0_PAIRED_DOMAIN_VALIDATION_SUBSTANTIVE","P1_PAIRED_DOMAIN_VALIDATION_SUBSTANTIVE","IMPACT_BASED_TARGETED_VALIDATION"],"substantive_validation_rule":"LINT_SCHEMA_HASH_PASS_NE_SUBSTANTIVE_VALIDATION_PASS","recusal_rule":"MATERIAL_VALIDATOR_TARGET_OR_SOLUTION_COAUTHORSHIP_PROHIBITS_SAME_EXACT_TARGET_PASS","alternate_l1_route":"QUALIFIED_TARGET_DOMAIN_BOUND_ADHOC_PAIRED_VALIDATOR_FUNCTION_IF_GOVERNED_PAIR_RECUSES_OR_IS_CONFLICTED","succession_rule":"PAIR_CONTRACT_REVIEW_AND_SCOPE_REVALIDATION_REQUIRED_ON_MATERIAL_SCOPE_CHANGE"
+      },
+      {
+        "pair_id":"AAA-PAIR-MOD-MODV-v1.1","author_persona_id":"AAA-MODEL-ARCHITECT","author_code":"MOD","paired_validator_id":"AAA-MODEL-VALIDATOR","validator_code":"MODV","pair_contract_version":"v1.1","pair_state":"PRE_ACTIVATION",
+        "canonical_authority_scope_source_ref":"authority_scope_model.canonical_authority_scopes.AAA-MODEL-ARCHITECT","author_domain_scope_projection_rule":"EXACT_COPY_OF_CANONICAL_AUTHORITY_SCOPE","author_domain_scope":["model_semantics","feature_semantics","missingness","imputation","scorer","weight","ranking","replay_scientific_protocol","performance_evaluation","failure_analysis","model_scientific_validation_methodology","successor_tuning_successor_model_design"],
+        "validator_validation_scope":["model_semantics","feature_semantics","missingness","imputation","scorer","weight","ranking","replay_scientific_protocol","performance_evaluation","failure_analysis","model_scientific_validation_methodology","successor_tuning_successor_model_design","scientific_integrity_validation","pit_leakage_detection","outcome_leakage_detection","undeclared_semantic_touch_detection","authority_conflict_detection","stale_governing_projection_detection","governance_violation_detection","semantic_preservation_challenge","evidence_conflict_challenge","counterexample_disconfirming_evidence_challenge"],
+        "author_domain_scope_digest":"aae90eebe8d876f78da3646d85d4fbe02daa9aa0794502ac930f22bc2da0fed3","validator_scope_digest":"68489e2c3d97b84152b2eaa5f1e8300817988e59856978733502bb1d66d7c265","scope_digest_algorithm":"SHA256_UTF8_CANONICAL_JSON_ARRAY","pair_contract_digest":"a34fc2db601151861d611903e8ed8890ffb77910499a49d728d2dc78211eb4a6","pair_contract_digest_algorithm":"SHA256_UTF8_CANONICAL_JSON_OBJECT_EXCLUDING_PAIR_CONTRACT_DIGEST",
+        "scope_subset_invariant":"AUTHOR_DOMAIN_SCOPE_SUBSET_OF_VALIDATOR_VALIDATION_SCOPE","scope_subset_check":true,"validation_classes":["P0_PAIRED_DOMAIN_VALIDATION_SUBSTANTIVE","P1_PAIRED_DOMAIN_VALIDATION_SUBSTANTIVE","IMPACT_BASED_TARGETED_VALIDATION"],"substantive_validation_rule":"LINT_SCHEMA_HASH_PASS_NE_SUBSTANTIVE_VALIDATION_PASS","recusal_rule":"MATERIAL_VALIDATOR_TARGET_OR_SOLUTION_COAUTHORSHIP_PROHIBITS_SAME_EXACT_TARGET_PASS","alternate_l1_route":"QUALIFIED_TARGET_DOMAIN_BOUND_ADHOC_PAIRED_VALIDATOR_FUNCTION_IF_GOVERNED_PAIR_RECUSES_OR_IS_CONFLICTED","succession_rule":"PAIR_CONTRACT_REVIEW_AND_SCOPE_REVALIDATION_REQUIRED_ON_MATERIAL_SCOPE_CHANGE"
+      },
+      {
+        "pair_id":"AAA-PAIR-RES-RESV-v1.1","author_persona_id":"AAA-RESEARCH-ORCHESTRATOR","author_code":"RES","paired_validator_id":"AAA-RESEARCH-VALIDATOR","validator_code":"RESV","pair_contract_version":"v1.1","pair_state":"PRE_ACTIVATION",
+        "canonical_authority_scope_source_ref":"authority_scope_model.canonical_authority_scopes.AAA-RESEARCH-ORCHESTRATOR","author_domain_scope_projection_rule":"EXACT_COPY_OF_CANONICAL_AUTHORITY_SCOPE","author_domain_scope":["research_orchestration","source_retrieval","evidence_preparation","discovery_cognition","source_diversity","pit_safe_investigation","disconfirming_evidence_search","conflict_discovery","gap_discovery","alternative_mechanism_discovery","evidence_conflict_surfacing","research_package_authoring"],
+        "validator_validation_scope":["research_orchestration","source_retrieval","evidence_preparation","discovery_cognition","source_diversity","pit_safe_investigation","disconfirming_evidence_search","conflict_discovery","gap_discovery","alternative_mechanism_discovery","evidence_conflict_surfacing","research_package_authoring","source_quality_validation","evidence_integrity_validation","pit_availability_validation","fact_interpretation_separation_validation","authority_conflict_detection","governance_violation_detection","semantic_preservation_challenge","evidence_conflict_challenge","counterexample_disconfirming_evidence_challenge"],
+        "author_domain_scope_digest":"49eeb42ae7a4d34641ba43a6354c7aa83db63f4cbf753349e6b1ecfbec35e4bb","validator_scope_digest":"aafbe1c1fe17313fe38a3ee449fa2f63aa3340c5a0f5aaedfbc8ffffa2981fcc","scope_digest_algorithm":"SHA256_UTF8_CANONICAL_JSON_ARRAY","pair_contract_digest":"b4494133851a58ebaf9245a630231f45cfb6bbf8d0d7c6660783aa82c0de2daa","pair_contract_digest_algorithm":"SHA256_UTF8_CANONICAL_JSON_OBJECT_EXCLUDING_PAIR_CONTRACT_DIGEST",
+        "scope_subset_invariant":"AUTHOR_DOMAIN_SCOPE_SUBSET_OF_VALIDATOR_VALIDATION_SCOPE","scope_subset_check":true,"validation_classes":["P0_PAIRED_DOMAIN_VALIDATION_SUBSTANTIVE","P1_PAIRED_DOMAIN_VALIDATION_SUBSTANTIVE","IMPACT_BASED_TARGETED_VALIDATION"],"substantive_validation_rule":"LINT_SCHEMA_HASH_PASS_NE_SUBSTANTIVE_VALIDATION_PASS","recusal_rule":"MATERIAL_VALIDATOR_TARGET_OR_SOLUTION_COAUTHORSHIP_PROHIBITS_SAME_EXACT_TARGET_PASS","alternate_l1_route":"QUALIFIED_TARGET_DOMAIN_BOUND_ADHOC_PAIRED_VALIDATOR_FUNCTION_IF_GOVERNED_PAIR_RECUSES_OR_IS_CONFLICTED","succession_rule":"PAIR_CONTRACT_REVIEW_AND_SCOPE_REVALIDATION_REQUIRED_ON_MATERIAL_SCOPE_CHANGE"
+      },
+      {
+        "pair_id":"AAA-PAIR-ENG-ENGV-v1.1","author_persona_id":"AAA-ENGINEERING-ORCHESTRATOR","author_code":"ENG","paired_validator_id":"AAA-ENGINEERING-VALIDATOR","validator_code":"ENGV","pair_contract_version":"v1.1","pair_state":"PRE_ACTIVATION",
+        "canonical_authority_scope_source_ref":"authority_scope_model.canonical_authority_scopes.AAA-ENGINEERING-ORCHESTRATOR","author_domain_scope_projection_rule":"EXACT_COPY_OF_CANONICAL_AUTHORITY_SCOPE","author_domain_scope":["implementation","runtime","automation","tooling","repository_operations","resource_technical_resource_orchestration","harness_implementation","deterministic_execution","raw_result_materialization","reproducibility","recovery_infrastructure","rollback_infrastructure","implementation_change","test_execution","deployment_preparation"],
+        "validator_validation_scope":["implementation","runtime","automation","tooling","repository_operations","resource_technical_resource_orchestration","harness_implementation","deterministic_execution","raw_result_materialization","reproducibility","recovery_infrastructure","rollback_infrastructure","implementation_change","test_execution","deployment_preparation","implementation_scope_validation","vcs_touch_validation","deterministic_regression_validation","authority_boundary_validation","undeclared_semantic_touch_detection","governance_violation_detection","semantic_preservation_challenge","evidence_conflict_challenge","counterexample_disconfirming_evidence_challenge"],
+        "author_domain_scope_digest":"be323f61ad94393a6860a552467e503b1311c2483f6a658e4bc17c091fc714e8","validator_scope_digest":"d29d167befeb5aee3f78261a48768e7946a4ef8ea9c958067b376a93737524a5","scope_digest_algorithm":"SHA256_UTF8_CANONICAL_JSON_ARRAY","pair_contract_digest":"796ff50a6bda5b94e7fe14838dc308d640c7aa3860749340d7494784319280c7","pair_contract_digest_algorithm":"SHA256_UTF8_CANONICAL_JSON_OBJECT_EXCLUDING_PAIR_CONTRACT_DIGEST",
+        "scope_subset_invariant":"AUTHOR_DOMAIN_SCOPE_SUBSET_OF_VALIDATOR_VALIDATION_SCOPE","scope_subset_check":true,"validation_classes":["P0_PAIRED_DOMAIN_VALIDATION_SUBSTANTIVE","P1_PAIRED_DOMAIN_VALIDATION_SUBSTANTIVE","IMPACT_BASED_TARGETED_VALIDATION"],"substantive_validation_rule":"LINT_SCHEMA_HASH_PASS_NE_SUBSTANTIVE_VALIDATION_PASS","recusal_rule":"MATERIAL_VALIDATOR_TARGET_OR_SOLUTION_COAUTHORSHIP_PROHIBITS_SAME_EXACT_TARGET_PASS","alternate_l1_route":"QUALIFIED_TARGET_DOMAIN_BOUND_ADHOC_PAIRED_VALIDATOR_FUNCTION_IF_GOVERNED_PAIR_RECUSES_OR_IS_CONFLICTED","succession_rule":"PAIR_CONTRACT_REVIEW_AND_SCOPE_REVALIDATION_REQUIRED_ON_MATERIAL_SCOPE_CHANGE"
+      }
+    ],
+    "pair_contract_invariants": [
+      "AUTHOR_DOMAIN_SCOPE_SUBSET_OF_PAIRED_VALIDATOR_VALIDATION_SCOPE",
+      "AUTHOR_DOMAIN_SCOPE_EQUALS_COMPLETE_OWNER_APPROVED_CANONICAL_AUTHOR_DOMAIN_SCOPE",
+      "VALIDATOR_SCOPE_MAY_INCLUDE_VALIDATION_DUTIES_BEYOND_AUTHOR_AUTHORITY_WITHOUT_EXPANDING_AUTHOR_AUTHORITY",
+      "PAIR_CONTRACT_NE_AUTHORITY_EXPANSION",
+      "ALL_PAIR_STATES_PRE_ACTIVATION_UNTIL_OWNER_CUTOVER_ACTIVATION"
+    ]
+  },
+  "o3_authority_validation_constitution": {
+    "owner_final_authority": ["project_goals", "major_priorities", "major_architecture", "major_requirement_design_direction", "persona_authority_structure", "organization_topology", "freeze", "release", "production", "major_governed_p0_risk_acceptance_where_applicable"],
+    "owner_not_infallibility": true,
+    "owner_decision_direct_state_transform_prohibited": ["FAIL_TO_PASS", "NOT_PROVEN_TO_VERIFIED", "CONFLICT_TO_RESOLVED", "INVALID_EVIDENCE_TO_VALID_EVIDENCE"],
+    "separation_invariant": "AUTHOR_EXECUTOR_NE_PAIRED_L1_NE_INDEPENDENT_L2",
+    "validation_levels": {"L1":"PAIRED_DOMAIN_VALIDATION","L2":"INDEPENDENT_VALIDATION_AUDIT","L3":"OWNER_DECISION_WHERE_REQUIRED"},
+    "risk_defaults": {"P0":["PAIRED_L1","INDEPENDENT_L2"],"P1":["PAIRED_L1","L2_IMPACT_BASED"],"UNCERTAIN_CLASSIFICATION":"REVIEW_REQUIRED"},
+    "substantive_paired_validation": {
+      "p0_p1_paired_domain_validation": "SUBSTANTIVE_DOMAIN_CHALLENGE",
+      "lint_only_validation": "INSUFFICIENT_FOR_SUBSTANTIVE_PASS",
+      "lint_pass_ne_substantive_validation_pass": true,
+      "required_checks": ["semantic_preservation", "authority_conflict", "undeclared_semantic_mutation", "pit_gt_contamination_where_applicable", "scope_mismatch", "evidence_conflict", "counterexample_disconfirming_evidence_where_relevant", "wrong_persona_identity", "pair_mismatch", "validation_state_mutation", "preservation_failure"],
+      "cross_domain_material_issue": "SURFACE_AND_ROUTE",
+      "foreign_domain_semantic_adjudication": "PROHIBITED"
+    },
+    "pair_validator_authorship_recusal": {
+      "validator_may": ["identify_defects", "identify_missing_evidence", "identify_violated_invariants", "identify_counterexamples", "identify_blocking_conditions", "FAIL", "BLOCK", "RECUSE", "SURFACE_AND_ROUTE"],
+      "materially_choose_or_author_exact_normative_solution_then_pass_same_exact_target_same_act": "PROHIBITED",
+      "material_validator_coauthorship_same_exact_target_pass": "PROHIBITED",
+      "materially_changed_artifact_requires": "NEW_EXACT_TARGET_AND_FRESH_VALIDATION"
+    },
+    "adhoc_paired_l1_fallback": {
+      "function_class": "TEMPORARY_ADHOC_PAIRED_VALIDATOR_FUNCTION",
+      "iva_substitution_for_conflicted_l1": "PROHIBITED",
+      "required_properties": {"target_domain_bound":true,"single_act":true,"no_material_target_authorship":true,"no_material_solution_coauthorship":true,"conflict_declaration":"REQUIRED","qualification_basis":"REQUIRED","exact_receipt":"REQUIRED","auto_expire_after_act":true,"successor_authority":"NONE"}
+    },
+    "iva_independence": {
+      "persona_id": "AAA-VALIDATION-AUDITOR",
+      "role": "INDEPENDENT_L2",
+      "material_target_authorship_or_solution_coauthorship_same_exact_target_l2_eligibility": false,
+      "material_prior_participation_in_exact_subject_must_be_assessed": true,
+      "new_channel_ne_new_persona": true,
+      "new_channel_alone_restores_independence": false,
+      "independence_property_basis": ["EXACT_ACTOR_PERSONA", "EXACT_TARGET", "EXACT_AUDIT_ACT", "MATERIAL_PRIOR_INVOLVEMENT"],
+      "same_foundation_model_family_alone_automatic_disqualification": false,
+      "material_authorship_or_conflict_requires_recusal": true
+    },
+    "qualified_adhoc_independent_auditor": {
+      "trigger": "PERSISTENT_IVA_MATERIALLY_CONFLICTED",
+      "iva_action": "RECUSE",
+      "appointment_authority": "HUMAN_OWNER_VIA_ASA",
+      "function_class": "QUALIFIED_TARGET_BOUND_ADHOC_INDEPENDENT_AUDITOR_FUNCTION",
+      "persistent_persona": false,
+      "iva_successor": false,
+      "new_organization_node_by_default": false,
+      "same_foundation_model_family_alone_automatic_disqualification": false,
+      "required_properties": {"target_bound":true,"single_purpose":true,"single_audit_act":true,"no_material_target_authorship":true,"no_material_solution_coauthorship":true,"conflict_declaration":"REQUIRED","qualification_basis":"REQUIRED","independent_exact_target_review":"REQUIRED","sufficient_evidence_access":"REQUIRED","exact_receipt":"REQUIRED","auto_expire_after_act":true,"successor_authority":"NONE"}
+    },
+    "owner_audit_boundary": {
+      "owner_may_request": ["SURPRISE_AUDIT", "FORENSIC_AUDIT", "LOW_LEVEL_AUDIT"],
+      "timing": "ANY_TIME",
+      "requires_pmo_approval": false,
+      "requires_asa_approval": false,
+      "asa_role": "INTERFACE_ONLY",
+      "owner_audit_ne_owner_review": true,
+      "owner_audit_ne_independent_validation_pass": true,
+      "owner_direction_defines_scope_not_validation_verdict": true,
+      "cannot_manufacture": ["L1_PASS", "L2_PASS", "VERIFIED_EVIDENCE_STATE"]
+    },
+    "no_infinite_audit_regression": {
+      "required": true,
+      "independence_evaluated_per_exact_target_and_exact_audit_act": true,
+      "auditor_of_auditor_does_not_imply_infinite_chain": true,
+      "conflicted_designated_independent_actor_route": "ONE_QUALIFIED_ALTERNATIVE_FOR_EXACT_ACT",
+      "valid_independent_act_terminates_under_governed_lifecycle": true
+    },
+    "authority_conflict_register": {
+      "artifact_concept_id": "AAA-AUTHORITY-CONFLICT-REGISTER",
+      "class": "FIRST_CLASS_GOVERNED_CONTROL_STATE_MECHANISM",
+      "purpose": "RECORD_UNRESOLVED_MATERIAL_AUTHORITY_CONFLICTS_WITHOUT_SILENT_RESOLUTION",
+      "not_roles": ["OWNER_AUTHORITY_SOURCE", "SECOND_ORGANIZATION_SEMANTIC_SOT", "SECOND_SHARED_CONTRACT", "SUBSTITUTE_FOR_AUTHORITY_RESOLUTION_ACT"],
+      "minimum_fields": ["CONFLICT_ID", "OBJECT_DOMAIN", "COMPETING_AUTHORITY_REFS", "RISK_CLASS", "CURRENT_STATE", "EFFECTIVE_STATE_UNCERTAINTY", "BLOCKING_APPLICABILITY", "RESOLUTION_ROUTE", "SUCCESSOR_CLOSURE_REFS"],
+      "unresolved_applicable_p0_authority_conflict": "P0_PASS_PROHIBITED",
+      "uncertain_p0_p1_classification": "REVIEW_REQUIRED"
+    },
+    "authority_precedence_conflict_handling": {"authority_resolution_requires":["exact_scope","valid_succession","effective_state"],"document_class_alone_prohibited":true,"latest_timestamp_alone_prohibited":true,"stale_projection_must_be_detected":true},
+    "correlated_validation_failure": {"approved_governance_failure_class":true,"condition":"AUTHOR_L1_L2_MATERIALLY_SHARE_SAME_INVALID_PREMISE","may_constitute":["TARGET_FAILURE","VALIDATION_SYSTEM_FAILURE"],"historical_receipts_immutable":true,"historical_pass_ne_current_reliance":true},
+    "validation_state_separation": {"states":["AUTHORING_STATE","EVIDENCE_STATE","PAIRED_VALIDATION_STATE","INDEPENDENT_VALIDATION_STATE","OWNER_ACCEPTANCE_STATE","OWNER_CUTOVER_STATE"],"test_pass_ne_requirement_preservation_proof":true,"research_pass_ne_engineering_pass":true,"engineering_pass_ne_paired_validation_pass":true,"paired_validation_pass_ne_independent_validation_pass":true,"independent_validation_pass_ne_owner_acceptance":true},
+    "asa": {"role":"OWNER_BOUND_INTERFACE_NETWORK_CONSOLE","not_roles":["SECOND_OWNER","SOVEREIGN_PRINCIPAL","VALIDATION_AUTHORITY","AUTONOMOUS_OWNER_DECISION_AUTHORITY"],"computation_may_challenge_owner_preference":true,"computation_output_is_owner_final_position":false},
+    "pmo": {"may":["plan","sequence","route","coordinate","integrate_execution","surface_blockers"],"may_not":["supersede_domain_semantics","mutate_source_truth","mutate_validation_state","FAIL_TO_PASS","NOT_PROVEN_TO_VERIFIED","BLOCKED_TO_COMPLETE","downgrade_p0_p1_without_authority","suppress_dissent","suppress_owner_reporting"]}
+  },
+  "o4_persona_lifecycle_runtime": {
+    "default_creation_flow": ["FUNCTIONAL_GAP_DETECTED", "AD_HOC_FUNCTION_WHERE_PRACTICAL", "PERSONA_NECESSITY_TEST", "PERSONA_CANDIDATE", "OWNER_DELIBERATION_VIA_ASA", "EXPLICIT_OWNER_PERSONA_CREATION_DECISION", "CREATION_FISSION_PACKET", "OWNER_OPENS_GOVERNED_CHANNEL", "ACTIVATION"],
+    "function_exists_ne_persistent_persona_required": true,
+    "persona_created_ne_authority_inherited": true,
+    "reserved_future_event_classes": ["EVOLVE", "SPLIT", "MERGE", "SUCCESSOR", "RECOVER", "SUNSET", "RETIRE"],
+    "same_persona_runtime_succession": {"activation_rule":"ACTIVATION_READY_SUCCESSION_PACKET_PLUS_OWNER_OPENS_NEW_CHANNEL_REQUIRES_IDENTITY_STATE_READBACK","readback_match":"ACTIVE","readback_mismatch":"ACTIVATION_INVALID_UNCONFIRMED_AND_MATERIAL_WORK_BLOCKED"},
+    "anti_split_brain": {"one_persona_two_material_authoring_active_runtimes":"PROHIBITED","predecessor_after_valid_succession_packet":"DRAINING"},
+    "persona_fission": {"pre_cutover":"AAA ADVISOR / ASA","post_cutover_targets":["AAA-ASA","AAA-PMO-ORCHESTRATOR"],"classification":"PERSONA_FUNCTIONAL_FISSION_NOT_SIMPLE_CHANNEL_SUCCESSION","authorized_now":false}
+  },
+  "o5_control_plane_cutover": {
+    "one_logical_active_organization_semantic_release_required": true,
+    "root_normative_contract": "AAA-ORGANIZATION-TOPOLOGY-CONTRACT-v1.1",
+    "physical_modularity": "PERMITTED",
+    "release_binding_required": ["ONE_ORGANIZATION_RELEASE_ID", "ONE_RELEASE_SET_DIGEST"],
+    "second_active_organization_semantic_sot": "PROHIBITED",
+    "state_class_separation": {"owner_decision_receipt":"AUTHORITY_EVIDENCE","organization_contract_release_set":"SEMANTIC_SOT","active_organization_pointer_current_state":"ACTIVATION_REFERENCE","validation_receipts":"VALIDATION_EVIDENCE","organization_ui":"GENERATED_VIEW","whitepaper":"REFERENCE_ONLY_COGNITIVE_DOCUMENT"},
+    "owner_decision_stages": {"stage_1":{"name":"OWNER_ORGANIZATION_DESIGN_DECISION","state":"APPROVED"},"stage_2":{"name":"OWNER_CUTOVER_ACTIVATION_DECISION","state":"NOT_YET"}},
+    "design_finalization_ne_operational_cutover": true,
+    "pre_activation_release_state": ["IMPLEMENTATION_TARGET", "PRE_ACTIVATION", "PENDING_PAIRED_CONTROL_VALIDATION", "PENDING_INDEPENDENT_P0_VALIDATION", "PENDING_OWNER_CUTOVER_ACTIVATION_DECISION"],
+    "active_pointer_change_authorized": false,
+    "routing_change_authorized": false,
+    "persona_activation_authorized": false,
+    "pair_activation_authorized": false,
+    "predecessor_runtime_retirement_authorized": false,
+    "fission_execution_authorized": false
+  },
+  "current_to_post_cutover_mapping": [
+    {"current":"AAA ADVISOR / ASA","post_cutover":["AAA-ASA","AAA-PMO-ORCHESTRATOR"],"transition":"FUNCTIONAL_FISSION","authority_inheritance":"EXPLICIT_REBIND_REQUIRED","effective_now":false},
+    {"current":"AAA-CONTROL-ARCHITECT","post_cutover":["AAA-CONTROL-ARCHITECT"],"transition":"RETAIN_ID","effective_now":false},
+    {"current":"AAA-CONTROL-VALIDATOR","post_cutover":["AAA-CONTROL-VALIDATOR"],"transition":"RETAIN_ID","effective_now":false},
+    {"current":"AAA-MODEL-VALIDATION-DESIGN-ARCHITECT","post_cutover":["AAA-MODEL-ARCHITECT"],"transition":"SUCCESSOR_REBIND","authority_inheritance":"NOT_AUTOMATIC","current_pre_cutover_authority_status":"P0_CONFLICT_UNDER_RECONCILIATION","effective_now":false},
+    {"current":"AAA-MODEL-DESIGN-VALIDATOR","post_cutover":["AAA-MODEL-VALIDATOR"],"transition":"SUCCESSOR_REBIND","authority_inheritance":"NOT_AUTOMATIC","effective_now":false},
+    {"current":"AAA-RESEARCH-ORCHESTRATOR","post_cutover":["AAA-RESEARCH-ORCHESTRATOR"],"transition":"RETAIN_ID","effective_now":false},
+    {"current":"AAA-RESEARCH-VALIDATOR","post_cutover":["AAA-RESEARCH-VALIDATOR"],"transition":"RETAIN_ID","effective_now":false},
+    {"current":"AAA-ENGINEERING-EXECUTION-FUNCTION","post_cutover":["AAA-ENGINEERING-ORCHESTRATOR"],"transition":"SUCCESSOR_REBIND","authority_inheritance":"NOT_AUTOMATIC","effective_now":false},
+    {"current":"AAA-ENGINEERING-VALIDATOR","post_cutover":["AAA-ENGINEERING-VALIDATOR"],"transition":"RETAIN_ID","effective_now":false},
+    {"current":"AAA-VALIDATION-AUDITOR","post_cutover":["AAA-VALIDATION-AUDITOR"],"transition":"RETAIN_ID","effective_now":false}
+  ],
+  "pre_cutover_preservation": {
+    "current_organization_state": "PRE_CUTOVER",
+    "current_owner_facing_persona": "AAA ADVISOR / ASA",
+    "current_core_b_runtime_routing_projection": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+    "owner_directed_short_role_evidence": "AAA-MODEL-ARCHITECT",
+    "later_owner_approved_active_shared_contract_role": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+    "current_core_b_authority_status": "P0_CONFLICT_UNDER_RECONCILIATION",
+    "current_core_b_authority_resolved": false,
+    "current_routing_changed": false,
+    "current_persona_rename": false,
+    "current_pairing_changed": false,
+    "cutover_executed": false,
+    "post_cutover_personas_active": false,
+    "strong_pairs_active": false,
+    "shared_contract_semantic_change": false,
+    "model_semantic_change": false,
+    "gt_pit_semantic_change": false,
+    "historical_artifact_rewrite": false
+  },
+  "requirements_design_traceability": {
+    "owner_intent_ref": "AAA-OWNER-ORGANIZATION-DESIGN-DECISION-v1.0",
+    "approved_normative_source_ref": "OWNER_DECISION_RECEIPT",
+    "derived_requirement_from": ["O1", "O2", "O3", "O4", "O5"],
+    "capability": "POST_CUTOVER_ORGANIZATION_GOVERNANCE",
+    "requirements": ["O1_TOPOLOGY", "O2_PERSONA_IDENTITY_CODE_STRONG_PAIRING", "O3_AUTHORITY_VALIDATION_CONSTITUTION", "O4_PERSONA_LIFECYCLE_RUNTIME", "O5_CONTROL_PLANE_REALIZATION_CUTOVER"],
+    "design_contract": "AAA-ORGANIZATION-TOPOLOGY-CONTRACT-v1.1",
+    "implementation_target": "AAA-ORGANIZATION-RELEASE-v1.1_PRE_ACTIVATION",
+    "test_validation_target": "EXACT_RELEASE_SET_PENDING_FRESH_P0_L1_AND_L2",
+    "shared_contract_ref": {"artifact_id":"AAA-SHARED-CONTRACT-LIMITED-ADDENDUM","version":"v0.1","active_state_commit":"4d70f6ae32604bcef3f4a8027074163d5e5c80cd"}
+  },
+  "traceability_maintenance": {
+    "created": false,
+    "reason": "NONBLOCKING_AND_NOT_REQUIRED_FOR_P0_SUCCESSOR_AUTHORING",
+    "p0_01_chain": {
+      "incident_v1_1_commit": "9789b0a19029f1ca983ef5e255723d0742b3896d",
+      "fresh_v1_1_control_l1_commit": "da2db7b3535078bb5a8b300b8cbad2e59178904e",
+      "fresh_v1_1_adhoc_p0_l2_commit": "b8035dc799e8c8967ac9e990cd70bf95d06ef522",
+      "asav_final_closure_logical_ref": "AAA_CORE_B_AUTHORITY_PRECEDENCE_INCIDENT_P0_01_FINAL_CLOSURE_v1.0",
+      "asav_exact_persistent_locator": "NOT_PROVEN"
+    }
+  },
+  "whitepaper_boundary": {"authority":"NONE","normative_effect":"NONE","import_into_requirements_without_explicit_O1_O5_basis":"PROHIBITED"},
+  "organization_status_ui_boundary": {"risk_class":"P1","mode":"READ_ONLY_GENERATED_VIEW","semantic_sot":false,"critical_path":false},
+  "persistence_policy": {"create_once":true,"overwrite_prohibited":true,"delete_prohibited":true,"historical_artifacts_immutable":true,"preserve_all_others":true},
+  "authoring_acceptance_contract": {"criteria_count":40,"author_self_issued_paired_pass":false,"ready_for_fresh_control_l1_requires_all_authoring_criteria":true}
+}
