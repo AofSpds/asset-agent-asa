@@ -1,0 +1,103 @@
+{
+  "artifact_id": "AAA-TW-OPTION-A-A2-AUTHOR-PERSONA-BINDING-RESOLUTION-v0.1",
+  "artifact_kind": "NON_NORMATIVE_DERIVED_ORCHESTRATION_CHECKPOINT",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-ASA",
+  "checkpoint_time": "2026-08-19T20:14:00+09:00",
+  "purpose": "Resolve the exact current persistent organization-authority binding for the future A2 material Author run without creating a new Persona or authority.",
+  "authority_created": false,
+  "validation_claim": "NONE",
+  "owner_action_required": false,
+  "a2_material_run_executed": false,
+  "canonical_persona_id": "AAA-CONTROL-ARCHITECT",
+  "persona_code": "CTL",
+  "active_organization_binding": {
+    "active_branch": "aaa-organization-active-v1.3",
+    "phase_b_activation_commit": "d7c490c373f2df356f31e4459c345328616b4eb3",
+    "active_pointer": {
+      "artifact_id": "AAA-ACTIVE-ORGANIZATION-POINTER-v1.0",
+      "path": "control/authority/organization/active/AAA_ACTIVE_ORGANIZATION_POINTER_v1.0.json",
+      "git_blob": "30cbecc2a961d5fd92b28e00be419f5a590110c1",
+      "pointer_state": "ACTIVE",
+      "release_id": "AAA-ORGANIZATION-RELEASE-v1.3",
+      "release_set_digest": "63e0b8ca07a7c68181a1624972811271406beff173985fb15e8fe7a3ccf6abaa"
+    },
+    "current_state": {
+      "artifact_id": "AAA-ORGANIZATION-CURRENT-ACTIVE-STATE-v1.0",
+      "path": "control/authority/organization/active/AAA_ORGANIZATION_CURRENT_ACTIVE_STATE_v1.0.json",
+      "git_blob": "cad42e60efea2eb67bb663b5ff889277c028e66c",
+      "state": "POST_CUTOVER_ACTIVE",
+      "execution_domain_contains_persona": true
+    },
+    "root_normative_contract": {
+      "artifact_id": "AAA-ORGANIZATION-TOPOLOGY-CONTRACT-v1.3",
+      "commit": "9d0e1198f317385e0342442332e8a1136da9d23c",
+      "git_blob": "1e994241becdfb214e520de44e684d457b5334b4",
+      "sha256": "e92c1d241194e8825df94e4e637b772041b5371fb553984e4e8806a2d4682c02",
+      "path": "control/organization/releases/v1.3/AAA_ORGANIZATION_TOPOLOGY_CONTRACT_v1.3.json"
+    },
+    "authority_restoration_source": {
+      "artifact_id": "AAA-ORGANIZATION-TOPOLOGY-CONTRACT-v1.1",
+      "commit": "7a13c42f646bb9d7ad798ea240b7249d9a3557b5",
+      "git_blob": "942ece9458acdb2edc56318a0e3e48cb8bad5caf",
+      "sha256": "497ecfc3ef083173b068fb9abac1413adba7a004aacd6d26e495a22df3709a44",
+      "path": "control/organization/releases/v1.1/AAA_ORGANIZATION_TOPOLOGY_CONTRACT_v1.1.json",
+      "binding_rule_from_v1_3": "O201/O203 restore authority and canonical authority semantics from exact RESTORE content; pair references resolve only against exact RESTORE artifact."
+    }
+  },
+  "resolved_author_scope": {
+    "json_pointer": "#/authority/canonical/AAA-CONTROL-ARCHITECT",
+    "scope_digest": "26f87ad0547c87432135cc96dac8fb7a92a8631154c963dc1646d81424c8f45d",
+    "scope": [
+      "data_governance",
+      "ground_truth_control",
+      "pit_control",
+      "artifact_control",
+      "authority_control",
+      "control_architecture",
+      "continuity",
+      "requirements_design_control",
+      "stable_identity_lineage",
+      "change_detection_change_control",
+      "validation_state_mechanics",
+      "baseline_freeze_mechanics",
+      "shared_contract_control",
+      "persistent_context_current_state_mechanics"
+    ]
+  },
+  "resolved_pair_binding": {
+    "pair_id": "AAA-PAIR-CTL-CTLV-v1.1",
+    "author_persona_id": "AAA-CONTROL-ARCHITECT",
+    "paired_validator_id": "AAA-CONTROL-VALIDATOR",
+    "pair_contract_digest": "ab463a68e386bf22bd79b71f555dbdcb2fa7bd8408f24597f098c30072205208",
+    "author_scope_ref": "#/authority/canonical/AAA-CONTROL-ARCHITECT",
+    "author_scope_digest": "26f87ad0547c87432135cc96dac8fb7a92a8631154c963dc1646d81424c8f45d",
+    "validator_scope_digest": "4b4e34571e51693d0738b3d56b2939573c7181126353c1e7b7d1e1b5ba66bfc1",
+    "validator_duties_ref": "#/authority/validator_duties/AAA-CONTROL-VALIDATOR"
+  },
+  "a2_binding_resolution": {
+    "persona_manifest_requirement_resolution": "RESOLVED_BY_ACTIVE_ORGANIZATION_AUTHORITY_CHAIN_AND_EXACT_CANONICAL_SCOPE_POINTER; NO STANDALONE AAA-CONTROL-ARCHITECT PERSONA-MANIFEST ARTIFACT IS REQUIRED OR INVENTED FOR THIS PILOT.",
+    "runtime_packet_persona_id": "AAA-CONTROL-ARCHITECT",
+    "runtime_packet_persona_binding_ref": "aaa-organization-active-v1.3@d7c490c373f2df356f31e4459c345328616b4eb3 -> AAA-ACTIVE-ORGANIZATION-POINTER-v1.0 -> AAA-ORGANIZATION-TOPOLOGY-CONTRACT-v1.3@9d0e1198f317385e0342442332e8a1136da9d23c -> RESTORE AAA-ORGANIZATION-TOPOLOGY-CONTRACT-v1.1@7a13c42f646bb9d7ad798ea240b7249d9a3557b5#/authority/canonical/AAA-CONTROL-ARCHITECT",
+    "runtime_packet_persona_binding_digest": "26f87ad0547c87432135cc96dac8fb7a92a8631154c963dc1646d81424c8f45d",
+    "dry_packet_predecessor": {
+      "persona_runtime_packet_id": "AAA-TW-S0-PRP-DRY-AUTHOR-CTL-v0.1",
+      "commit": "e9a3123e9278aa39d4a94a63651668a7aad0a124",
+      "git_blob": "81f67a708f8b0e6b2609331c91e8d2876c6b6855",
+      "packet_semantic_digest": "7656a29656f9be82e035bbf1494a50ee165656cc75e205a9965578c474453386",
+      "classification": "STATIC_DRY_FIXTURE_ONLY_NOT_RUNTIME_EVIDENCE"
+    },
+    "work_item_id": "AAA-PERSISTENT-LOCATOR-CAPABILITY-PROOF-v0.1"
+  },
+  "firewalls": {
+    "no_persona_creation": true,
+    "no_authority_expansion": true,
+    "no_normative_organization_mutation": true,
+    "no_s0_execution": true,
+    "no_stage10": true,
+    "track_a_touch": [],
+    "codex_dependency": "DEFERRED_UNTIL_OWNER_REPORTS_AVAILABLE_RUNTIME"
+  },
+  "next_preparation_step": "MATERIALIZE_DISPOSABLE_A2_INPUT_FIXTURE_AND_EXACT_ISOLATED_WRITE_PATH_ON_THIS NONNORMATIVE PILOT BRANCH"
+}
