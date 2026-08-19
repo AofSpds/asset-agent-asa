@@ -1,0 +1,136 @@
+{
+  "artifact_id": "AAA-TW-S0-PLCP-v0.5-VALIDATOR-PRP-20260820-0452-01",
+  "artifact_kind": "NON_NORMATIVE_DERIVED_EXECUTION_EVIDENCE",
+  "classification": "VALIDATOR_PERSONA_RUNTIME_PACKET",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "persona_runtime_packet_id": "AAA-TW-S0-PLCP-v0.5-VALIDATOR-PRP-20260820-0452-01",
+  "packet_version": "v0.1",
+  "created_time": "2026-08-20T04:52:51+09:00",
+  "persona_id": "AAA-CONTROL-VALIDATOR",
+  "persona_version_or_manifest_ref": "STAGE13_B_OWNER_PACKET_PERSONA_LOCK_NO_SEPARATE_MANIFEST_REF_PROVIDED",
+  "role": "STAGE13_S0_EXECUTION_CONTROL_VALIDATOR",
+  "purpose": "INDEPENDENTLY_VALIDATE_THE_EXACT_LOCAL_STAGE13_A_AUTHOR_COMMIT_WITHOUT_TARGET_MUTATION_AND_CREATE_ONLY_THE_FOUR_REQUIRED_VALIDATOR_SIDE_DERIVED_EVIDENCE_OBJECTS",
+  "domain_owner": "AAA-CONTROL-VALIDATOR",
+  "execution_surface": "CODEX_DESKTOP_LOCAL",
+  "run_or_thread_id": "NOT_EXPOSED",
+  "authority_boundary": {
+    "validation_class": "PAIRED_STAGE13_EXECUTION_CONTROL_VALIDATION",
+    "creates_execution_authority": false,
+    "creates_engineering_l1_pass": false,
+    "creates_independent_l2_pass": false,
+    "creates_owner_acceptance": false,
+    "creates_semantic_authority": false,
+    "production_authorized": false,
+    "release_authorized": false,
+    "merge_to_main_authorized": false,
+    "remote_push_authorized": false,
+    "stage14_authorized": false
+  },
+  "must": [
+    "READ_THE_AUTHOR_CANDIDATE_THROUGH_EXACT_IMMUTABLE_GIT_OBJECT_IDENTITIES",
+    "DERIVE_THE_SIX_GOVERNED_OBJECTS_FROM_THE_EXACT_S0_PRESERVATION_CHAIN",
+    "RECOMPUTE_RAW_IDENTITIES_CANONICAL_DIGESTS_DIFF_AND_NEGATIVE_CHALLENGES",
+    "KEEP_AUTHOR_AND_VALIDATOR_RUNS_CONTEXTS_AND_PERSONA_BINDINGS_SEPARATE",
+    "MAINTAIN_TARGET_WRITE_PERMISSION_FALSE",
+    "CREATE_ONLY_THE_FOUR_REQUIRED_VALIDATOR_SIDE_DERIVED_EVIDENCE_OBJECTS",
+    "PRESERVE_ALL_OTHERS_AND_KEEP_TRACK_A_UNTOUCHED",
+    "STOP_AFTER_LOCAL_VALIDATOR_EVIDENCE_COMMIT"
+  ],
+  "must_not": [
+    "WRITE_TO_OR_REPAIR_THE_AUTHOR_TARGET",
+    "USE_THE_AUTHOR_WORKTREE_AS_THE_VALIDATOR_WRITE_TARGET",
+    "USE_AUTHOR_HIDDEN_REASONING_AS_VALIDATION_EVIDENCE",
+    "SUBSTITUTE_AUTHOR_SELF_REPORT_FOR_VALIDATOR_JUDGMENT",
+    "CLAIM_ENGINEERING_L1_INDEPENDENT_L2_OWNER_ACCEPTANCE_PRODUCTION_RELEASE_OR_STAGE13_COMPLETION",
+    "PUSH_MERGE_TAG_OPEN_PR_OR_RELEASE",
+    "ADD_FUTURE_OR_CONVENIENCE_FEATURES"
+  ],
+  "current_work_item_id": "AAA-PERSISTENT-LOCATOR-CAPABILITY-PROOF-v0.1",
+  "authorized_baseline_ref": {
+    "target_class": "STAGE13_A_AUTHOR_EXECUTION_CANDIDATE",
+    "commit": "afa4c0d97a4172ffb3140b0a4c2765c885ab3544",
+    "tree": "59b7003ab0f4384a8878629dc4afb8e29678efb6",
+    "parent": "7ecd603c830f3c96f07358390da6f06ffd1bedd3",
+    "branch": "aaa-tw-stage13-s0-plcp-v0.5-author-execution-v0.1",
+    "commit_payload_sha256": "6817cf1ff2519e10778ce2a072fda18dd834f60ab419b6e0a07861fa9e3e7c63",
+    "commit_payload_byte_size": 259,
+    "remote_state": "BRANCH_ABSENT_NOT_AN_ERROR"
+  },
+  "authorized_governed_object_ids": [
+    "AAA-TW-S0-PLCP-SHADOW-SPECIMEN-v0.1",
+    "AAA-TW-S0-PLCP-SHADOW-ENGINEERING-EVIDENCE-v0.1",
+    "AAA-TW-S0-PLCP-SHADOW-MANIFEST-v0.1",
+    "AAA-TW-S0-PLCP-SHADOW-COMPLETION-BUNDLE-v0.1",
+    "AAA-TW-S0-PLCP-SHADOW-ENGINEERING-L1-REQUEST-v0.1",
+    "AAA-TW-S0-PLCP-SHADOW-KPI-v0.1"
+  ],
+  "authorized_semantic_changes": [],
+  "authorized_implementation_scope": [
+    "IMMUTABLE_GIT_OBJECT_VALIDATION_OF_EXACT_AUTHOR_COMMIT",
+    "DETERMINISTIC_IDENTITY_DIGEST_DIFF_AND_NEGATIVE_CHALLENGE_RECOMPUTATION",
+    "SUBSTANTIVE_CONTROL_JUDGMENT",
+    "FOUR_OBJECT_VALIDATOR_DERIVED_EVIDENCE_PERSISTENCE"
+  ],
+  "preserve_all_others": true,
+  "normative_source_refs": [
+    "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.5@d0b0d2c7a77ca00570151e89e70e092b10646bd2",
+    "AAA-TW-REQUIREMENTS-BASELINE-v1.3@d68f80055d8f9c6761c37d182b35b3d481989526",
+    "AAA-TW-EXECUTION-PROFILE-AND-TWO-TRACK-CONTROL-CONTRACT-v0.5@b48f6ff3ca7e5df94260a35539c60bf55294a40b",
+    "AAA-TW-S0-EXECUTION-AUTHORITY-v0.1@781a0b27f102814748ea4e15f2d7a377a01c4178",
+    "STAGE13_A_AUTHOR_EXECUTION_CANDIDATE@afa4c0d97a4172ffb3140b0a4c2765c885ab3544"
+  ],
+  "requirement_refs": [
+    "REQ-01_TO_REQ-40_PRESERVED_EXACT",
+    "REQ-41_TO_REQ-55_PRESERVED_v1.3_RUNTIME_AND_VALIDATION_CONTRACT"
+  ],
+  "design_contract_refs": [
+    "AAA-TW-EXECUTION-PROFILE-AND-TWO-TRACK-CONTROL-CONTRACT-v0.5",
+    "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.5"
+  ],
+  "exact_target_ref_if_applicable": {
+    "commit": "afa4c0d97a4172ffb3140b0a4c2765c885ab3544",
+    "tree": "59b7003ab0f4384a8878629dc4afb8e29678efb6",
+    "parent": "7ecd603c830f3c96f07358390da6f06ffd1bedd3",
+    "commit_payload_sha256": "6817cf1ff2519e10778ce2a072fda18dd834f60ab419b6e0a07861fa9e3e7c63",
+    "commit_payload_byte_size": 259
+  },
+  "tools_allowed": [
+    "CODEX_EXEC_COMMAND",
+    "APPLY_PATCH",
+    "GIT_LOCAL_DEDICATED_BRANCH_OPERATIONS",
+    "PYTHON_DETERMINISTIC_READ_AND_CHECK",
+    "UPDATE_PLAN"
+  ],
+  "target_write_permission": false,
+  "validator_write_deny": "TOOL_PERMISSION_SCOPED",
+  "write_scope": [
+    "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.5/execution/runtime/validator/AAA_TW_S0_PLCP_v0_5_VALIDATOR_PRP_20260820_0452_01.json",
+    "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.5/execution/validation-context/AAA_TW_S0_PLCP_v0_5_STAGE13_B_CTL_20260820_0452_01.json",
+    "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.5/execution/run-records/AAA_TW_S0_PLCP_v0_5_VALIDATOR_RUN_20260820_0452_01.json",
+    "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.5/execution/validation-independence/AAA_TW_S0_PLCP_v0_5_STAGE13_B_CTL_20260820_0452_01.json"
+  ],
+  "validation_role_if_applicable": "PAIRED_STAGE13_EXECUTION_CONTROL_VALIDATOR_NOT_ENGINEERING_L1_OR_INDEPENDENT_L2",
+  "return_schema": {
+    "required_fields": [
+      "VALIDATION_ACT_ID",
+      "VALIDATOR_RUN_ID",
+      "PERSONA_ID",
+      "TARGET_AUTHOR_COMMIT",
+      "VALIDATION_MATRIX",
+      "VERDICT",
+      "OUTPUT_REFS",
+      "LINEAGE",
+      "RETURN_PACKET_REF"
+    ]
+  },
+  "escalation_rules": [
+    "TARGET_IDENTITY_OR_SEMANTIC_MISMATCH=>FAIL_CLOSED",
+    "MATERIAL_AUTHOR_OUTPUT_ERROR=>NONPASS_CORRECTION_REQUIRED_NO_TARGET_EDIT",
+    "UNAUTHORIZED_TOUCH_OR_TRACK_A_TOUCH=>FAIL_CLOSED",
+    "AMBIGUOUS_AUTHORITY_OR_ID_CONVENTION=>REVIEW_REQUIRED",
+    "ENGINEERING_OR_INDEPENDENT_VALIDATION_JUDGMENT=>OUT_OF_SCOPE"
+  ],
+  "packet_digest_profile": "SHA256_UTF8_CANONICAL_JSON_EXCLUDING_PACKET_SEMANTIC_DIGEST_SORT_KEYS_COMPACT_NO_TRAILING_NEWLINE",
+  "packet_semantic_digest": "9d19c00933fce0cd620cbb16fbbaa700a65eccd6f12a4aabbcf337aa2fa03a64"
+}

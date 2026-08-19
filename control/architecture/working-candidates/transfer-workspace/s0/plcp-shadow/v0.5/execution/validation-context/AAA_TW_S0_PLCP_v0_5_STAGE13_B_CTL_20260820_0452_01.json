@@ -1,0 +1,231 @@
+{
+  "artifact_id": "AAA-TW-S0-PLCP-v0.5-STAGE13-B-CTL-20260820-0452-01-VALIDATION-CONTEXT-BUNDLE",
+  "artifact_kind": "NON_NORMATIVE_DERIVED_EXECUTION_EVIDENCE",
+  "classification": "VALIDATION_CONTEXT_BUNDLE",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "validation_act_id": "AAA-TW-S0-PLCP-v0.5-STAGE13-B-CTL-20260820-0452-01",
+  "validation_class": "PAIRED_STAGE13_EXECUTION_CONTROL_VALIDATION",
+  "context_bundle_version": "v0.1",
+  "constructed_time": "2026-08-20T04:52:51+09:00",
+  "constructed_by_persona": "AAA-CONTROL-VALIDATOR",
+  "context_freshness": "NEW_FRESH_CODEX_CONVERSATION",
+  "run_or_thread_id": "NOT_EXPOSED",
+  "persona_runtime_binding": {
+    "persona_runtime_packet_id": "AAA-TW-S0-PLCP-v0.5-VALIDATOR-PRP-20260820-0452-01",
+    "path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.5/execution/runtime/validator/AAA_TW_S0_PLCP_v0_5_VALIDATOR_PRP_20260820_0452_01.json",
+    "packet_semantic_digest": "9d19c00933fce0cd620cbb16fbbaa700a65eccd6f12a4aabbcf337aa2fa03a64",
+    "sha256": "9de856b1a330b2a56b94067b1f2d028ab6c50052e4231bc739ef742332afc048",
+    "byte_size": 6680,
+    "git_blob": "70594aa4fa6fe193bcf2b594a7920ba312c9e429"
+  },
+  "source_handoff": {
+    "from_persona": "AAA-ASA",
+    "from_execution_instance": "ASA-TW",
+    "to_persona": "AAA-CONTROL-VALIDATOR",
+    "task": "AAA_TW_STAGE13_B_S0_PLCP_SHADOW_INSTANCE_v0.5_FRESH_CONTROL_VALIDATION_v0.1",
+    "transport_class": "EXTERNAL_STAGE13_B_HANDOFF_PACKET_NOT_SEMANTIC_SOT",
+    "author_hidden_reasoning_received": false,
+    "owner_pending_change_reconciliation": "COMPLETE",
+    "owner_current_change_set": [],
+    "owner_direction": "EXECUTE_EXACT_VALIDATED_S0_AS_IS"
+  },
+  "exact_target_ref": {
+    "target_class": "STAGE13_A_AUTHOR_EXECUTION_CANDIDATE",
+    "commit": "afa4c0d97a4172ffb3140b0a4c2765c885ab3544",
+    "tree": "59b7003ab0f4384a8878629dc4afb8e29678efb6",
+    "parent": "7ecd603c830f3c96f07358390da6f06ffd1bedd3",
+    "branch": "aaa-tw-stage13-s0-plcp-v0.5-author-execution-v0.1",
+    "author_worktree": "C:/w/s13",
+    "remote_branch_state": "ABSENT_CONFIRMED_BY_GIT_LS_REMOTE",
+    "target_sha256_profile": "SHA256_RAW_GIT_COMMIT_PAYLOAD_FROM_GIT_CAT_FILE_COMMIT",
+    "target_sha256": "6817cf1ff2519e10778ce2a072fda18dd834f60ab419b6e0a07861fa9e3e7c63",
+    "target_byte_size": 259,
+    "tree_payload_sha256": "00b489caef48b6adbe99851f2176fc54ccc7bebbd07add6b56a5786da57bc0a0",
+    "tree_payload_byte_size": 214,
+    "target_write_permission": false,
+    "exact_commit_preferred_over_mutable_branch": true
+  },
+  "author_runtime_bindings": {
+    "author_persona_id": "AAA-CONTROL-ARCHITECT",
+    "author_agent_run_id": "AAA-TW-S0-PLCP-v0.5-AUTHOR-RUN-20260820-0349-01",
+    "author_persona_runtime_packet_id": "AAA-TW-S0-PLCP-v0.5-AUTHOR-PRP-20260820-0349-01",
+    "author_persona_runtime_packet_path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.5/execution/runtime/author/AAA_TW_S0_PLCP_v0_5_AUTHOR_PRP_20260820_0349_01.json",
+    "author_persona_runtime_packet_sha256": "f367a004159ec7c0e05ffc6e78dc479882970b58cc3f62f9fe24de242161020f",
+    "author_persona_runtime_packet_byte_size": 8295,
+    "author_persona_runtime_packet_git_blob": "d5c07e3f60abc9f789d3e40d6d0cdd73b393fcbb",
+    "author_persona_runtime_packet_semantic_digest": "ecf10125aebdb2f01e541bc2ff0d5defddcdc77004e7607f2d9c50e6f5524cb6",
+    "author_run_record_path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.5/execution/run-records/AAA_TW_S0_PLCP_v0_5_AUTHOR_RUN_20260820_0349_01.json",
+    "author_run_record_sha256": "d363de8f5a58f4602bae0cfc207c3a2efa3f310c3d4569e981f7d0b2074f2f09",
+    "author_run_record_byte_size": 17813,
+    "author_run_record_git_blob": "3ad4ab3cab4c82eb9906b153e56a6ff6e21c9ce2",
+    "author_run_record_digest": "4e968242d234d0c06e53940d3fae1e69b5512f44baa77ad8f2c1b67663353868"
+  },
+  "exact_normative_inputs": {
+    "s0": {
+      "artifact_id": "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.5",
+      "commit": "d0b0d2c7a77ca00570151e89e70e092b10646bd2",
+      "tree": "ca1e410f745c54d6d66579173739e28bbf54590e",
+      "git_blob": "7bc6e4c2194bc2f06d61367434cab38947b40e0d",
+      "sha256": "abd1d42be8b2a9b25eba266cfd939905e1799c93dc975fedcb560478cbcefdd8",
+      "byte_size": 13947,
+      "semantic_content_digest": "370a934edfaf72dc2e06d5e45b7c38be8026e3cf85e8d11c2903d2e342be48f2",
+      "semantic_canonical_input_byte_size": 4992
+    },
+    "requirements": {
+      "artifact_id": "AAA-TW-REQUIREMENTS-BASELINE",
+      "version": "v1.3",
+      "commit": "d68f80055d8f9c6761c37d182b35b3d481989526",
+      "git_blob": "0e76fe653f18a1267a273332f955394f2e4e07d2",
+      "sha256": "8d133d27dc8841230c78ee2e1acb7ec5655982ce8093973183c2c984ae236d0d",
+      "byte_size": 9626,
+      "semantic_content_digest": "adb703b36919d4be2bd04eb0549ed9f772598cc685265add77973150fefc6a9c"
+    },
+    "profile": {
+      "artifact_id": "AAA-TW-EXECUTION-PROFILE-AND-TWO-TRACK-CONTROL-CONTRACT",
+      "version": "v0.5",
+      "commit": "b48f6ff3ca7e5df94260a35539c60bf55294a40b",
+      "git_blob": "6b8fd5dae8bd2d3da9f9eb69a3421a5a9ded7439",
+      "sha256": "5c678fc7620b09262b415d1dbb8f911726e17c4313849eb3a0f78794e91ef17e",
+      "byte_size": 18533,
+      "semantic_content_digest": "c2a6068ea4229b41df471b99f950f0948b501423653faae231fbeddf4e3d2205"
+    }
+  },
+  "execution_authority_chain": {
+    "stage10": {
+      "artifact_id": "AAA-TW-S0-EXECUTION-AUTHORITY-v0.1",
+      "commit": "781a0b27f102814748ea4e15f2d7a377a01c4178",
+      "tree": "d678be2ad4aeb2bdb995bc1bb2ecfb18ef199c33",
+      "git_blob": "4c5f252253c3137906903aa2f77afd4fe3a55922",
+      "sha256": "96ef23a0bab23cfd9d700a0475689e13dd78ee26e607f652eb80d32918fb1280",
+      "byte_size": 16763
+    },
+    "stage11_l1": {
+      "validation_act_id": "AAA-TW-S0-EXECUTION-AUTHORITY-v0.1-P0-CTL-L1-20260820-0144-01",
+      "commit": "5ad9333f3c9db66008792f46800a426eb6bbeceb",
+      "git_blob": "ca2dbc683a9d3aff6606d11961bb012c393df8cc",
+      "sha256": "f2d40d9b1d53136c8f0391ae3eedd220477475077253896c3af129e9e601acab",
+      "byte_size": 13618,
+      "matrix": "36/36 PASS",
+      "verdict": "PASS"
+    },
+    "stage12_l2": {
+      "validation_act_id": "AAA-TW-S0-EXECUTION-AUTHORITY-v0.1-P0-IV-L2-20260820-0213-01",
+      "commit": "7ecd603c830f3c96f07358390da6f06ffd1bedd3",
+      "git_blob": "a43d2dde4dd19bf5dfd850ec98cd1b598353c5ef",
+      "sha256": "c6f17c2a1605736d3fb00ac530c5b875e96e3c7abb280071855f5d5d5a4ead79",
+      "byte_size": 15878,
+      "matrix": "46/46 PASS",
+      "verdict": "PASS"
+    }
+  },
+  "governed_object_set": [
+    {
+      "object_id": "AAA-TW-S0-PLCP-SHADOW-SPECIMEN-v0.1",
+      "path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.1/execution/shadow/AAA_TW_S0_PLCP_SHADOW_SPECIMEN_v0.1_TARGET.json",
+      "git_blob": "f61f0a2d450ad2ada65078559e583bd913528800",
+      "sha256": "4ad2dc8582a875ca76ebe09e346bbb15faa90e9a5a3e036073d357adc224bf6e",
+      "byte_size": 321
+    },
+    {
+      "object_id": "AAA-TW-S0-PLCP-SHADOW-ENGINEERING-EVIDENCE-v0.1",
+      "path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.1/execution/evidence/AAA_TW_S0_PLCP_SHADOW_ENGINEERING_EVIDENCE_v0.1.json",
+      "git_blob": "0a04b9ec3bc5e0a68e934d1f98eaa3f3ea0f9815",
+      "sha256": "6326ae06f78c799d03bb84f40d254f8cc8d88404f8d68376b5a07e24c8883fbc",
+      "byte_size": 7988,
+      "content_digest": "58aa5f000bf5d652288915599d06fdabdd38fb82cd1ecc131168d05689ab517f"
+    },
+    {
+      "object_id": "AAA-TW-S0-PLCP-SHADOW-MANIFEST-v0.1",
+      "path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.1/execution/manifests/AAA_TW_S0_PLCP_SHADOW_MANIFEST_v0.1.json",
+      "git_blob": "8633183fe492e964e53a5d23bb3960a16d29c0b6",
+      "sha256": "06c6c14a75ac82da572efa85441d6afff5a2b5dbab58b0cfc1e94ebe001609a7",
+      "byte_size": 6877,
+      "manifest_digest": "bbe7954363e5c4b5a22b756caeb61a5d290890b044635201cd118b5f2352f832"
+    },
+    {
+      "object_id": "AAA-TW-S0-PLCP-SHADOW-COMPLETION-BUNDLE-v0.1",
+      "path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.1/execution/completion/AAA_TW_S0_PLCP_SHADOW_COMPLETION_BUNDLE_v0.1.json",
+      "git_blob": "f50c05ebca3b325b705806270ae14a186bd036e9",
+      "sha256": "b80cc484e4c1040d38d2253dc70bf238544c28ffa443e76c1fda5d39aeef2243",
+      "byte_size": 8886,
+      "completion_digest": "ae0130762bfb25da5c9847a406728016f068fdd31f6a0add2f2535d4d1b0b189"
+    },
+    {
+      "object_id": "AAA-TW-S0-PLCP-SHADOW-ENGINEERING-L1-REQUEST-v0.1",
+      "path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.1/execution/validation-request/AAA_TW_S0_PLCP_SHADOW_ENGINEERING_L1_REQUEST_v0.1.json",
+      "git_blob": "c1385732e356df049970eb72e9e5286830471ab2",
+      "sha256": "0361fdb8ebf59f2b9d5dcfd37254fd8c8c49bf7ad8758f0c267e4c46b7fca98b",
+      "byte_size": 6484,
+      "request_digest": "bf9be2f1124ef8edeb30796ddb846d43b33a334ced01701233fdd03bd97a3e2d"
+    },
+    {
+      "object_id": "AAA-TW-S0-PLCP-SHADOW-KPI-v0.1",
+      "path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.1/execution/telemetry/AAA_TW_S0_PLCP_SHADOW_KPI_v0.1.json",
+      "git_blob": "fada7bc7903f10e1f63273a59ff7f57ec8f447b5",
+      "sha256": "73d4d82c72b0b83e7403d3e9f016952baaedae857cab15af92ef690e25541236",
+      "byte_size": 3995,
+      "telemetry_digest": "befc654425f215950bd8e5a24197e2a0d808c1f24acd7f95fcd4c6ca1b6e6292"
+    }
+  ],
+  "governed_object_count": 6,
+  "author_diff_contract": {
+    "base_commit": "7ecd603c830f3c96f07358390da6f06ffd1bedd3",
+    "added_paths": 8,
+    "modified_paths": 0,
+    "deleted_paths": 0,
+    "renamed_paths": 0,
+    "expected_touch_set": "SIX_GOVERNED_OBJECTS_PLUS_AUTHOR_PRP_PLUS_AUTHOR_RUN_RECORD",
+    "track_a_expected_touch_set": []
+  },
+  "validation_obligations": [
+    "B01_AUTHOR_COMMIT_IDENTITY",
+    "B02_AUTHOR_TREE_IDENTITY",
+    "B03_AUTHOR_PARENT_IDENTITY",
+    "B04_AUTHOR_BRANCH_BINDING",
+    "B05_AUTHOR_REMOTE_ABSENCE_TRUTHFULNESS",
+    "B06_EXACT_DIFF_8_ADDED",
+    "B07_ZERO_MODIFIED",
+    "B08_ZERO_DELETED",
+    "B09_ZERO_RENAMED",
+    "B10_GOVERNED_OBJECT_COUNT_6",
+    "B11_THROUGH_B18_EIGHT_OBJECT_IDENTITIES",
+    "B19_SPECIMEN_HISTORICAL_BYTE_EQUALITY",
+    "B20_THROUGH_B26_AUTHORITY_AND_OWNER_BINDINGS",
+    "B27_THROUGH_B38_PRESERVATION_SEPARATION_AND_IDENTITY_FIREWALL",
+    "B39_THROUGH_B41_NEGATIVE_FAIL_CLOSED_CHALLENGES",
+    "B42_THROUGH_B49_AUTHORITY_SCOPE_AND_PROVENANCE",
+    "B50_CONTEXT_FRESHNESS",
+    "B51_VALIDATOR_EVIDENCE_OBJECT_SET_COMPLETE",
+    "B52_VALIDATION_INDEPENDENCE_METADATA_TRUTHFUL"
+  ],
+  "negative_challenge_inputs": {
+    "wrong_commit": "7ecd603c830f3c96f07358390da6f06ffd1bedd3",
+    "wrong_path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.1/execution/shadow/AAA_TW_S0_PLCP_SHADOW_SPECIMEN_v0.1_WRONG_PATH.json",
+    "modified_byte_mutation": "APPEND_ASCII_MODIFIED_IN_MEMORY_ONLY",
+    "mutable_branch_identity_allowed": false,
+    "silent_match_allowed": false
+  },
+  "context_separation": {
+    "author_context_reused": false,
+    "author_hidden_reasoning_used": false,
+    "validator_context_constructed_separately": true,
+    "validator_worktree": "C:/w/s13v",
+    "validator_branch_base": "7ecd603c830f3c96f07358390da6f06ffd1bedd3",
+    "author_candidate_is_validator_write_target": false,
+    "target_write_permission": false,
+    "validator_write_deny": "TOOL_PERMISSION_SCOPED"
+  },
+  "authority_firewall": {
+    "semantic_authority_created": false,
+    "engineering_l1_performed": false,
+    "independent_l2_performed": false,
+    "owner_acceptance_performed": false,
+    "production_authorized": false,
+    "release_authorized": false,
+    "stage13_complete": false,
+    "stage14_started": false
+  },
+  "input_context_digest_profile": "SHA256_UTF8_CANONICAL_JSON_EXCLUDING_INPUT_CONTEXT_DIGEST_SORT_KEYS_COMPACT_NO_TRAILING_NEWLINE",
+  "input_context_digest": "6f230ee156abb164e51aec3e72ef23776cf90280ab91e637dea6a29a6b9f9342"
+}
