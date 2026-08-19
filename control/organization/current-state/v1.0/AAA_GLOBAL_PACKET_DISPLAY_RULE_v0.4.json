@@ -1,0 +1,292 @@
+{
+  "artifact_id": "AAA-GLOBAL-PACKET-DISPLAY-RULE-v0.4",
+  "version": "v0.4",
+  "artifact_kind": "PROJECT_GLOBAL_DISPLAY_AND_EXECUTION_RESOURCE_OPERATING_RULE_SUCCESSOR_OVERLAY",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authority_principal": "HUMAN PROJECT OWNER",
+  "authoring_persona": "AAA-ASA",
+  "owner_directive_task": "AAA_GLOBAL_QUALITY_FIRST_EXECUTION_AND_REASONING_GRADE_POLICY_v0.1",
+  "scope": "PROJECT_GLOBAL_ALL_RELEVANT_AAA_CHANNELS_WORKSPACES_PERSONAS_AND_MAJOR_EXECUTION_PLANS",
+  "state": "ACTIVE_OPERATING_RULE",
+  "apply_immediately": true,
+  "bootstrap_on_new_channel_or_successor_instance": true,
+  "predecessor": {
+    "artifact_id": "AAA-GLOBAL-PACKET-DISPLAY-RULE-v0.3",
+    "version": "v0.3",
+    "path": "control/organization/current-state/v1.0/AAA_GLOBAL_PACKET_DISPLAY_RULE_v0.3.json",
+    "git_blob": "43293e611e2855561fc56a3fd2c60efa04cdf068",
+    "commit": "8ff81a7d0933b681ab43ba517f9b9f9863f712b0"
+  },
+  "effective_composition": {
+    "mode": "IMMUTABLE_PREDECESSOR_PLUS_EXPLICIT_EXECUTION_RESOURCE_OVERRIDE",
+    "preserve_all_predecessor_rules_except_explicitly_superseded_execution_resource_fields": true,
+    "authorized_change_scope": [
+      "QUALITY_FIRST_EXECUTION_PRIORITY",
+      "EXECUTION_GRADE_DEFAULT",
+      "PRO_REQUIRED_VS_PRO_PREFERRED",
+      "MULTI_WORKER_GRADE_DEFAULTS",
+      "GRADE_ESCALATION_AND_DOWNGRADE_CRITERIA",
+      "EXECUTION_GRADE_DISPLAY_FIELDS"
+    ],
+    "removal_authorized": false,
+    "unlisted_predecessor_semantics": "PRESERVE_EXACT"
+  },
+  "supersession": {
+    "source_policy_artifact": "AAA-GLOBAL-PACKET-DISPLAY-RULE-v0.2",
+    "source_owner_directive": "AAA_GLOBAL_EXECUTION_GRADE_AND_MULTI_WORKER_PRO_POLICY_v0.1",
+    "reconciled_state": "SUPERSEDED_ONLY_WHERE_CONFLICTING_WITH_v0.4",
+    "explicitly_superseded_interpretations": [
+      "USE_LOWEST_EXECUTION_GRADE_THAT_CAN_RELIABLY_COMPLETE_EXACT_WORK_ITEM",
+      "COMPLEX_MULTI_WORKER_MAIN_PRO_PREFERRED_AS_GENERAL_DEFAULT",
+      "TW_MAIN_PRO_PREFERRED_ONLY_BECAUSE_WORK_IS_MULTI_WORKER"
+    ],
+    "replacement_interpretations": [
+      "SUBSTANTIVE_AAA_WORK_DEFAULTS_TO_EXTRA_HIGH_WHERE_AVAILABLE_AND_APPROPRIATE",
+      "HIGH_IS_FOR_BOUNDED_DETERMINISTIC_OR_MECHANICAL_WORK_WHERE_DEEPER_REASONING_IS_NOT_EXPECTED_TO_MATERIALLY_IMPROVE_QUALITY",
+      "PRO_IS_SELECTIVE_WHEN_MATERIAL_QUALITY_IMPROVEMENT_IS_EXPECTED",
+      "MULTI_WORKER_COUNT_DOES_NOT_TRIGGER_PRO",
+      "TW_MAIN_AND_MAIN_ORCHESTRATOR_DEFAULT_TO_EXTRA_HIGH",
+      "FINAL_SYNTHESIS_DEFAULTS_TO_EXTRA_HIGH_AND_ESCALATES_TO_PRO_ONLY_WHEN_MATERIALLY_JUSTIFIED"
+    ],
+    "compatible_v0.2_fields_preserved": true
+  },
+  "classification": {
+    "overall": "NON_SEMANTIC_OPERATING_AND_RESOURCE_ALLOCATION_RULE",
+    "display_schema": "NON_SEMANTIC_OPERATING_RULE",
+    "execution_grade_recommendation": "NON_SEMANTIC_RESOURCE_PLANNING_POLICY",
+    "pro_resource_allocation": "NON_SEMANTIC_RESOURCE_PLANNING_POLICY",
+    "multi_worker_resource_allocation": "NON_SEMANTIC_RESOURCE_PLANNING_POLICY",
+    "quality_first_runtime_preference": "NON_SEMANTIC_EXECUTION_PROFILE",
+    "authority_semantics_changed": false,
+    "validation_semantics_changed": false,
+    "shared_contract_semantics_changed": false,
+    "requirements_semantics_changed": false,
+    "design_contract_semantics_changed": false,
+    "model_science_semantics_changed": false,
+    "governed_semantic_change_requested": false,
+    "ctl_route_required_for_current_rule": false,
+    "review_required_boundary": [
+      "ANY_CHANGE_TO_PERSONA_OR_AUTHORITY_SEMANTICS",
+      "ANY_CHANGE_TO_VALIDATION_INDEPENDENCE_OR_VALIDATION_FLOOR",
+      "ANY_REQUIREMENTS_OR_DESIGN_SEMANTIC_CHANGE",
+      "ANY_SHARED_CONTRACT_SEMANTIC_CHANGE",
+      "ANY_MODEL_FEATURE_SCORER_WEIGHT_RANKING_PIT_GT_EVALUATION_SEMANTIC_CHANGE",
+      "ANY_CLAIM_THAT_EXECUTION_GRADE_ITSELF_CREATES_AUTHORITY_INDEPENDENCE_OR_VALIDATION_PASS"
+    ]
+  },
+  "quality_priority": [
+    "QUALITY",
+    "VALIDATION_RELIABILITY",
+    "COMPLETENESS",
+    "COMPUTE_EFFICIENCY",
+    "SPEED"
+  ],
+  "latency_policy": {
+    "long_runtime_is_acceptable": true,
+    "do_not_downgrade_for_elapsed_time_alone": true,
+    "do_not_shorten_validation_for_latency_alone": true,
+    "do_not_skip_contradiction_investigation_for_speed": true,
+    "do_not_reduce_falsification_depth_for_compute_cost_alone": true,
+    "long_runtime_is_not_failure": true,
+    "fast_completion_is_not_quality": true,
+    "owner_facing_long_run_requirement": "VISIBLE_AND_TRACEABLE"
+  },
+  "execution_grade_policy": {
+    "grades": {
+      "HIGH": "BOUNDED_DETERMINISTIC_MECHANICAL_OR_NARROW_EXECUTION",
+      "EXTRA_HIGH": "PRIMARY_QUALITY_ORIENTED_DEFAULT_FOR_SUBSTANTIVE_AAA_REASONING",
+      "PRO": "SELECTIVE_HIGHEST_VALUE_REASONING_RESOURCE_WHERE_MATERIAL_QUALITY_IMPROVEMENT_IS_EXPECTED"
+    },
+    "substantive_default": "EXTRA_HIGH",
+    "high_use_conditions": [
+      "DETERMINISTIC",
+      "NARROW_AND_WELL_SPECIFIED",
+      "MECHANICAL_TRANSFORMATION",
+      "DEEPER_REASONING_NOT_EXPECTED_TO_MATERIALLY_IMPROVE_QUALITY"
+    ],
+    "high_examples": [
+      "PACKET_FORMATTING",
+      "METADATA_HANDLING",
+      "RECEIPT_REGISTRATION",
+      "ROUTING",
+      "PROGRESS_UPDATE",
+      "EXACT_EXTRACTION",
+      "HASH_OR_DIGEST_CHECK",
+      "LINT",
+      "TEST_EXECUTION",
+      "SIMPLE_DETERMINISTIC_COMPARISON"
+    ],
+    "pro_routine_default": false,
+    "pro_priority": [
+      "MODEL_FAILURE_ANALYSIS",
+      "FORWARD_SUCCESSOR_MODEL_DESIGN",
+      "MAJOR_ARCHITECTURE_REDESIGN",
+      "P0_P1_SEMANTIC_CONFLICT_RESOLUTION",
+      "MULTIPLE_PLAUSIBLE_ROOT_CAUSE_ADJUDICATION",
+      "CONTRADICTORY_HIGH_VALUE_EVIDENCE_SYNTHESIS",
+      "MAJOR_FALSIFICATION",
+      "DIFFICULT_INDEPENDENT_VALIDATION_REASONING",
+      "CROSS_DOMAIN_SEMANTIC_RECONCILIATION",
+      "COMPLEX_MULTI_WORKER_FINAL_SYNTHESIS",
+      "HIGH_IMPACT_BASELINE_REDIRECTION_DECISION"
+    ],
+    "pro_classes": {
+      "NOT_APPLICABLE": "PRO_NOT_MATERIALLY_EXPECTED_TO_IMPROVE_THIS_WORK",
+      "PRO_PREFERRED": "PRO_EXPECTED_TO_IMPROVE_QUALITY_BUT_EXTRA_HIGH_IS_ACCEPTABLE_FALLBACK",
+      "PRO_REQUIRED": "LOWER_REASONING_DEPTH_CREATES_UNACCEPTABLE_RISK_OF_INFERIOR_MATERIAL_DECISION"
+    },
+    "pro_unavailable_behavior": {
+      "PRO_PREFERRED": "EXTRA_HIGH_MAY_CONTINUE",
+      "PRO_REQUIRED": "NO_SILENT_DOWNGRADE_RECORD_LIMITATION_AND_ESCALATE_DEFER_OR_SEEK_OWNER_DECISION_AS_APPLICABLE"
+    },
+    "do_not_label_routine_work_pro_required": true,
+    "execution_grade_is_not_validation_state": true,
+    "pro_is_not_independence": true,
+    "extra_high_is_not_pass": true
+  },
+  "parallelism_policy": {
+    "modes": ["SINGLE", "MULTI_WORKER"],
+    "parallelize_only_for": [
+      "COVERAGE",
+      "INDEPENDENCE",
+      "SPECIALIZATION",
+      "FALSIFICATION",
+      "EXECUTION_QUALITY"
+    ],
+    "parallelize_for_speed_alone": false,
+    "serial_deep_reasoning_may_be_preferred_over_parallel_shallow_execution": true,
+    "more_workers_does_not_equal_better_quality": true,
+    "smallest_meaningful_worker_count_rule": true,
+    "worker_count_does_not_imply_pro": true,
+    "defaults": {
+      "tw_main": "EXTRA_HIGH",
+      "main_orchestrator": "EXTRA_HIGH",
+      "bounded_workers": "HIGH_OR_EXTRA_HIGH",
+      "pro_specialist": "SELECTIVE",
+      "final_synthesis": "EXTRA_HIGH_DEFAULT_PRO_WHEN_MATERIALLY_JUSTIFIED"
+    },
+    "pro_triggers_are_reasoning_complexity_not_worker_count": [
+      "CROSS_WORKER_CONTRADICTION",
+      "HIDDEN_DEPENDENCY",
+      "MULTIPLE_COMPETING_CAUSAL_EXPLANATIONS",
+      "SEMANTIC_CONFLICT",
+      "HIGH_IMPACT_FINAL_JUDGMENT",
+      "MAJOR_SYNTHESIS_UNCERTAINTY"
+    ]
+  },
+  "context_quality_policy": {
+    "worker_context": [
+      "SUFFICIENT",
+      "BOUND",
+      "TASK_RELEVANT"
+    ],
+    "preferred_context_composition": [
+      "PERSISTENT_AAA_STATE",
+      "PERSONA_RUNTIME_PACKET",
+      "EXACT_WORKITEM",
+      "REQUIRED_NORMATIVE_SOURCES",
+      "RELEVANT_EVIDENCE",
+      "EXACT_RETURN_CONTRACT"
+    ],
+    "context_efficiency_desirable": true,
+    "context_minimization_must_not_create_reasoning_quality_loss": true,
+    "context_minimization_must_not_create_requirement_loss": true
+  },
+  "domain_quality_profiles": {
+    "validation": {
+      "quality_over_speed": true,
+      "preserve_existing_l1_l2_l3_architecture": true,
+      "contradiction_and_falsification_depth_not_reduced_for_latency": true
+    },
+    "research": {
+      "evidence_quality_over_retrieval_speed": true,
+      "coverage_over_premature_closure": true,
+      "preserve_contradiction": true,
+      "pit_correctness_over_narrative_completeness": true,
+      "preserve_uncertainty_states": ["NOT_PROVEN", "PARTIAL", "CONFLICT", "UNKNOWN"]
+    },
+    "model_science": {
+      "track_a": [
+        "FROZEN_MODEL",
+        "GOLDEN_REPLAY",
+        "FULL_REPLAY",
+        "PERFORMANCE_EVALUATION",
+        "FAILURE_ANALYSIS",
+        "FORWARD_SUCCESSOR"
+      ],
+      "pro_priority_focus": ["FAILURE_ANALYSIS", "FORWARD_SUCCESSOR"],
+      "deterministic_replay_does_not_automatically_require_pro": true
+    },
+    "engineering": {
+      "non_trivial_default": "EXTRA_HIGH",
+      "bounded_deterministic_default": "HIGH",
+      "pro_for": [
+        "COMPLEX_ROOT_CAUSE_DIAGNOSIS",
+        "ARCHITECTURE_LEVEL_REDESIGN",
+        "CROSS_COMPONENT_SEMANTIC_RECONCILIATION",
+        "UNUSUALLY_DIFFICULT_FAILURE_ANALYSIS"
+      ],
+      "deterministic_test_lint_typecheck_digest_diff_do_not_require_pro": true
+    }
+  },
+  "grade_escalation_triggers": [
+    "EVIDENCE_BECOMES_CONTRADICTORY",
+    "UNEXPECTED_DEPENDENCIES_EMERGE",
+    "MULTIPLE_PLAUSIBLE_EXPLANATIONS_REMAIN",
+    "MATERIAL_P0_P1_SEMANTIC_ISSUE_APPEARS",
+    "CROSS_DOMAIN_RECONCILIATION_BECOMES_NECESSARY",
+    "REPEATED_LOWER_GRADE_ATTEMPTS_FAIL",
+    "FINAL_SYNTHESIS_MATERIALLY_AFFECTS_ARCHITECTURE_OR_MODEL_BASELINE",
+    "SUBSTANTIVE_FALSIFICATION_REQUIRES_DEEPER_REASONING"
+  ],
+  "grade_non_triggers": [
+    "ARTIFACT_IS_LONG",
+    "MANY_FILES_EXIST",
+    "MANY_WORKERS_EXIST",
+    "EXECUTION_IS_SLOW"
+  ],
+  "grade_downgrade_rule": {
+    "allowed_when_quality_based": true,
+    "not_allowed_for_latency_alone": true,
+    "typical_valid_reasons": [
+      "WORK_BECOMES_DETERMINISTIC",
+      "SCOPE_BECOMES_NARROW_AND_EXACT",
+      "REMAINING_WORK_IS_MECHANICAL_OR_TEST_LINT_DIFF_EXTRACTION_FORMATTING"
+    ]
+  },
+  "display_rule": {
+    "major_packet_fields": [
+      "EXECUTION_GRADE",
+      "PRO_CLASS",
+      "PARALLELISM",
+      "PRO_JUSTIFICATION"
+    ],
+    "optional_fields": [
+      "WORKER_COUNT",
+      "MAIN_EXECUTION_GRADE",
+      "WORKER_DEFAULT_GRADE"
+    ],
+    "owner_facing_progress_line": "진행 n/N · 현재: <STEP> · 상태: <STATUS> · 실행등급: <GRADE> · 병렬: <MODE> · 다음: <NEXT> · Owner Action: <NONE/REQUIRED>",
+    "no_process_plan_rule": "진행: Process Plan 초기화 필요",
+    "do_not_invent_progress_fraction": true
+  },
+  "validation_firewall": {
+    "execution_grade_creates_independence": false,
+    "pro_model_equals_validator_independence": false,
+    "multi_worker_equals_multi_persona_independence": false,
+    "author_may_self_issue_paired_pass": false,
+    "author_may_self_issue_independent_pass": false,
+    "existing_validation_architecture_unchanged": true
+  },
+  "runtime_injection_state": "PROJECT_BOOTSTRAP_RULE_REGISTERED_PRODUCT_LEVEL_AUTOMATIC_INJECTION_NOT_INDEPENDENTLY_PROVEN",
+  "existing_channel_refresh_rule": "NO_REINSTANTIATION_REQUIRED_BUT_LIVE_CHANNEL_HISTORY_IS_NOT_RETROACTIVELY_REWRITTEN;APPLY_ON_CURRENT_STATE_REFRESH_OR_NEXT_RELEVANT_HANDOFF",
+  "persistent_location_role": "PROJECT_COMMON_CURRENT_STATE_BOOTSTRAP_RULE_SUCCESSOR",
+  "source_of_truth_rule": "v0.3_REMAINS_IMMUTABLE_PREDECESSOR;v0.4_OVERRIDES_ONLY_THE_CONFLICTING_EXECUTION_RESOURCE_INTERPRETATIONS_INHERITED_FROM_v0.2_AND_PRESERVES_ALL_OTHER_ACTIVE_PREDECESSOR_RULES",
+  "lineage": {
+    "successor_of": "AAA-GLOBAL-PACKET-DISPLAY-RULE-v0.3",
+    "reconciles": "AAA-GLOBAL-PACKET-DISPLAY-RULE-v0.2_EXECUTION_RESOURCE_POLICY",
+    "change_class": "NON_SEMANTIC_QUALITY_FIRST_EXECUTION_RESOURCE_POLICY_REFINEMENT",
+    "owner_source_ref": "AAA_GLOBAL_QUALITY_FIRST_EXECUTION_AND_REASONING_GRADE_POLICY_v0.1"
+  }
+}
