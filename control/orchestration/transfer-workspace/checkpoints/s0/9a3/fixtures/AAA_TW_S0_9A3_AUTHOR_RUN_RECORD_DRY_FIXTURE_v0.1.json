@@ -1,0 +1,53 @@
+{
+  "artifact_id": "AAA-TW-S0-9A3-AUTHOR-RUN-RECORD-DRY-FIXTURE-v0.1",
+  "artifact_kind": "NON_NORMATIVE_DRY_BINDING_TEST_FIXTURE",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "fixture_authoring_persona": "AAA-ASA",
+  "run_id": "AAA-TW-S0-DRYRUN-AUTHOR-20260819-9A3-01",
+  "persona_id": "AAA-CONTROL-ARCHITECT",
+  "persona_binding_ref": {
+    "persona_runtime_packet_id": "AAA-TW-S0-PRP-DRY-AUTHOR-CTL-v0.1",
+    "packet_semantic_digest": "7656a29656f9be82e035bbf1494a50ee165656cc75e205a9965578c474453386",
+    "fixture_commit": "e9a3123e9278aa39d4a94a63651668a7aad0a124",
+    "fixture_git_blob": "81f67a708f8b0e6b2609331c91e8d2876c6b6855"
+  },
+  "work_item_id": "AAA-PERSISTENT-LOCATOR-CAPABILITY-PROOF-v0.1",
+  "run_class": "DRY_BINDING_ONLY_NO_SUBAGENT_EXECUTION",
+  "start_time": "2026-08-19T18:34:00+09:00",
+  "end_time": "2026-08-19T18:34:00+09:00",
+  "input_refs": [
+    {
+      "artifact_id": "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.5",
+      "commit": "d0b0d2c7a77ca00570151e89e70e092b10646bd2",
+      "git_blob": "7bc6e4c2194bc2f06d61367434cab38947b40e0d",
+      "semantic_content_digest": "370a934edfaf72dc2e06d5e45b7c38be8026e3cf85e8d11c2903d2e342be48f2"
+    },
+    "AAA-TW-REQUIREMENTS-BASELINE_v1.3",
+    "AAA-TW-EXECUTION-PROFILE-AND-TWO-TRACK-CONTROL-CONTRACT_v0.5"
+  ],
+  "exact_target_ref_if_applicable": {
+    "artifact_id": "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.5",
+    "commit": "d0b0d2c7a77ca00570151e89e70e092b10646bd2",
+    "git_blob": "7bc6e4c2194bc2f06d61367434cab38947b40e0d",
+    "semantic_content_digest": "370a934edfaf72dc2e06d5e45b7c38be8026e3cf85e8d11c2903d2e342be48f2"
+  },
+  "tools_allowed": [],
+  "actual_tool_usage": [],
+  "write_permission": false,
+  "authorized_write_scope": [],
+  "actual_touch_set": [],
+  "output_refs": [
+    "THIS_DRY_RUN_RECORD_ONLY"
+  ],
+  "result_state": "DRY_BINDING_STRUCTURE_PASS_RUNTIME_EXECUTION_NOT_PERFORMED",
+  "lineage": {
+    "predecessor_checkpoint": "AAA-TW-S0-9A2-RUNTIME-SURFACE-AND-TOOL-CAPABILITY-INSPECTION-v0.1",
+    "actual_subagent_run": false,
+    "creates_capability_pass": false,
+    "creates_validation_pass": false
+  },
+  "return_packet_ref": "NOT_APPLICABLE_DRY_FIXTURE",
+  "run_record_digest_profile": "SHA256_UTF8_CANONICAL_JSON_EXCLUDING_RUN_RECORD_DIGEST_SORT_KEYS_COMPACT_NO_TRAILING_NEWLINE",
+  "run_record_digest": "5d9d3134cd493f6e96bedfa463e3ee1da21a7f153f3fbb7dd5abe12730f0f9a7"
+}
