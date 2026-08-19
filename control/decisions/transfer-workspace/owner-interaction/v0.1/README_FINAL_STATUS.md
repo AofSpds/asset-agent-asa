@@ -1,0 +1,1 @@
+TW owner-interaction shorthand rule v0.1 is persisted on this branch as a noncanonical TW-local operating rule. The exact rule is in `AAA_TW_OWNER_INTERACTION_MICRO_CHECKPOINT_RULE_v0.1.json`. Formal promotion into governed Requirements/Profile is not claimed and remains subject to AAA-CONTROL-ARCHITECT authoring and applicable validation.
