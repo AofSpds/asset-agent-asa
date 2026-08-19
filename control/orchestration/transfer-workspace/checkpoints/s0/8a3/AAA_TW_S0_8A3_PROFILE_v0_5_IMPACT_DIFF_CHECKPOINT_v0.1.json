@@ -1,0 +1,133 @@
+{
+  "artifact_id": "AAA-TW-S0-8A3-PROFILE-v0.5-IMPACT-DIFF-CHECKPOINT-v0.1",
+  "artifact_kind": "NON_NORMATIVE_DERIVED_ORCHESTRATION_CHECKPOINT",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-ASA",
+  "delegate_role": "TW LONG-PROCESS DELEGATE",
+  "checkpoint": "8A-3_PROFILE_v0.5_IMPACT_DIFF",
+  "checkpoint_time": "2026-08-19T18:09:00+09:00",
+  "state": "COMPLETE",
+  "authority_created": false,
+  "validation_claim": "NONE",
+  "governed_target_modified": false,
+  "normative_semantics_modified": false,
+  "predecessor_checkpoint": {
+    "artifact_id": "AAA-TW-S0-8A2-REQUIREMENTS-v1.3-IMPACT-DIFF-CHECKPOINT-v0.1",
+    "commit": "49fb0d94ccd28b29780150a406c19a4dede1f277"
+  },
+  "source_s0": {
+    "artifact_id": "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.3",
+    "commit": "3de57418380c33445d546dfd87b51e7067c3162b",
+    "embedded_profile_version": "v0.3",
+    "embedded_profile_commit": "538eac20f69b5c1abb11af60b6f1309da265bf7b",
+    "embedded_profile_semantic_content_digest": "d6e5ff43e546a531e26befd0c4d61c0df89a519ce889bc7320fd0179f2775fe2"
+  },
+  "profile_lineage": {
+    "v0_3": {
+      "commit": "538eac20f69b5c1abb11af60b6f1309da265bf7b",
+      "git_blob": "5205200fc70d4776c6c64f3ba9efdae53e10e994",
+      "semantic_content_digest": "d6e5ff43e546a531e26befd0c4d61c0df89a519ce889bc7320fd0179f2775fe2",
+      "paired_validation_state": "NOT_PERFORMED",
+      "independent_validation_state": "NOT_PERFORMED",
+      "s0_execution_authorized": false
+    },
+    "v0_4": {
+      "commit": "b0237407eb854e44c8e23accd44e46c55fd93c2e",
+      "git_blob": "462345a72d1c6133eac5aca181adb02c239ce15a",
+      "successor_of_version": "v0.3",
+      "authorized_subagent_first_semantic_redesign": false,
+      "authorized_correction_scope": [
+        "PROFILE-CTL-L1-F01_CURRENT_REQUIREMENTS_AUTHORITY_REBIND",
+        "PROFILE-CTL-L1-F02_COMPLETE_GOVERNED_DIGEST_COVERAGE",
+        "PROFILE-CTL-L1-F03_OWNER_DIRECTION_CURRENT_VALIDATION_EVIDENCE_REBIND"
+      ],
+      "historical_validation_state": "P0_L1_HISTORICAL_PASS_P0_L2_CORRECTION_REQUIRED_FULL_P0_NOT_COMPLETE"
+    },
+    "v0_5_current": {
+      "commit": "b48f6ff3ca7e5df94260a35539c60bf55294a40b",
+      "git_blob": "6b8fd5dae8bd2d3da9f9eb69a3421a5a9ded7439",
+      "semantic_content_digest": "c2a6068ea4229b41df471b99f950f0948b501423653faae231fbeddf4e3d2205",
+      "successor_of_version": "v0.4",
+      "paired_validation_state": "PASS",
+      "independent_validation_state": "PASS",
+      "full_p0_validation": "COMPLETE",
+      "s0_execution_authorized": false,
+      "product_capability_state": "NOT_PROVEN",
+      "global_tw_adoption": false,
+      "production_authorized": false
+    }
+  },
+  "profile_semantic_impact": {
+    "execution_mechanism_direction": {
+      "v0_3": "CHATGPT_WORK_PLUS_PERSONA_BOUND_EPHEMERAL_SUBAGENT_EXECUTION_PREFERRED_NEAR_TERM",
+      "v0_5": "PRESERVED",
+      "impact": "NO_EXECUTION_MECHANISM_REDIRECTION_DETECTED"
+    },
+    "identity_model": {
+      "invariant": "CHANNEL != PERSONA != SUBAGENT_INSTANCE != AUTHORITY",
+      "impact": "PRESERVED"
+    },
+    "persona_runtime_packet_contract": {
+      "impact": "PRESERVED"
+    },
+    "subagent_run_record_contract": {
+      "impact": "PRESERVED"
+    },
+    "validation_architecture": {
+      "L1": "PAIRED_DOMAIN_VALIDATION",
+      "L2": "AAA-VALIDATION-AUDITOR_INDEPENDENT_VALIDATION_AUDIT",
+      "L3": "OWNER_DECISION_WHERE_REQUIRED",
+      "impact": "PRESERVED"
+    },
+    "validator_separation": {
+      "author_and_validator_separate_runs": true,
+      "validator_separate_context_bundle": true,
+      "validator_target_write_permission_default": false,
+      "same_act_material_target_modification_and_pass": "PROHIBITED",
+      "impact": "PRESERVED"
+    },
+    "deterministic_control": {
+      "calculable_work": "CODE_OR_DETERMINISTIC_TOOLING",
+      "subagent_agreement_is_deterministic_evidence": false,
+      "impact": "PRESERVED_AND_ALIGNED_WITH_REQ_55"
+    },
+    "completion_boundary": {
+      "unvalidated_intermediate_exports": "NONE_BY_DEFAULT",
+      "impact": "PRESERVED"
+    },
+    "track_a": {
+      "expected_touch_set": [],
+      "mutation_authorized": false,
+      "impact": "PRESERVED"
+    }
+  },
+  "current_profile_binding_impact": {
+    "exact_profile_binding_change_detected": true,
+    "embedded_profile_v0_3_is_current": false,
+    "current_profile_v0_5_is_full_p0_validated": true,
+    "current_requirements_authority_chain_is_v1_3": true,
+    "owner_direction_validation_evidence_is_current": true,
+    "field_classification_contract_added_in_current_profile_lineage": true,
+    "field_classification_contract_effect_on_s0": "GOVERNS_PROFILE_FIELD_CHANGE_CLASSIFICATION; DOES_NOT BY ITSELF REDIRECT THE EXISTING S0 EXECUTION MECHANISM",
+    "current_profile_authority_state_must_be_bound_by_reconciled_s0": true
+  },
+  "impact_classification": {
+    "subagent_first_behavioral_redesign_detected": false,
+    "validation_architecture_redesign_detected": false,
+    "authority_or_profile_exact_binding_change_detected": true,
+    "current_s0_v0_3_ready_as_exact_current_profile_bound_target": false,
+    "successor_exact_target_required": "DEFERRED_TO_8A4_COMBINED_CLASSIFICATION_AND_8B_EXACT_TARGET_RESOLUTION",
+    "result": "CURRENT_PROFILE_RECONCILIATION_REQUIRED_NO_OWNER_DECISION_AT_THIS_CHECKPOINT"
+  },
+  "firewalls": {
+    "s0_execution_started": false,
+    "s0_execution_authorized": false,
+    "product_capability_state": "NOT_PROVEN",
+    "global_tw_adoption_authorized": false,
+    "production_authorized": false,
+    "track_a_touch": []
+  },
+  "next_checkpoint": "8A-4_COMBINED_PRESERVATION_AND_CHANGE_CLASSIFICATION",
+  "owner_action": "CONTINUE_ONLY"
+}
