@@ -1,0 +1,132 @@
+{
+  "artifact_id": "AAA-TW-S0-8A4-COMBINED-PRESERVATION-AND-CHANGE-CLASSIFICATION-CHECKPOINT-v0.1",
+  "artifact_kind": "NON_NORMATIVE_DERIVED_ORCHESTRATION_CHECKPOINT",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-ASA",
+  "delegate_role": "TW LONG-PROCESS DELEGATE",
+  "checkpoint": "8A-4_COMBINED_PRESERVATION_AND_CHANGE_CLASSIFICATION",
+  "checkpoint_time": "2026-08-19T18:11:00+09:00",
+  "state": "COMPLETE",
+  "authority_created": false,
+  "validation_claim": "NONE",
+  "governed_target_modified": false,
+  "normative_semantics_modified_by_checkpoint": false,
+  "inputs": {
+    "s0_v0_3": {
+      "artifact_id": "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.3",
+      "commit": "3de57418380c33445d546dfd87b51e7067c3162b",
+      "git_blob": "64ed5acc3a5cbb0b333cc526306e44406ad7aa0e",
+      "semantic_content_digest": "492962aff9e1cc29e24ae4550c4ca9562fa9a96d92111993d512a6ada76edbd1"
+    },
+    "requirements_v1_3": {
+      "commit": "d68f80055d8f9c6761c37d182b35b3d481989526",
+      "git_blob": "0e76fe653f18a1267a273332f955394f2e4e07d2",
+      "effective_requirement_count": 55,
+      "full_p0_validation": "COMPLETE"
+    },
+    "profile_v0_5": {
+      "commit": "b48f6ff3ca7e5df94260a35539c60bf55294a40b",
+      "git_blob": "6b8fd5dae8bd2d3da9f9eb69a3421a5a9ded7439",
+      "full_p0_validation": "COMPLETE"
+    },
+    "owner_direction_v1_1": {
+      "target_commit": "dc5c385fe93abab1441f8830142a5c5201ca3c94",
+      "semantic_target_unchanged": true,
+      "paired_validation_state": "PASS",
+      "independent_validation_state": "PASS"
+    }
+  },
+  "preserve_exact_semantics": [
+    "SAME_FIRST_S0_LINEAGE_NO_SECOND_S0",
+    "WORK_ITEM_ID_AAA-PERSISTENT-LOCATOR-CAPABILITY-PROOF-v0.1",
+    "SIX_GOVERNED_ENGINEERING_OUTPUT_SEMANTICS",
+    "SUBAGENT_FIRST_EXECUTION_DIRECTION",
+    "CHANNEL_PERSONA_SUBAGENT_AUTHORITY_IDENTITY_INVARIANT",
+    "PERSONA_RUNTIME_PACKET_CONTRACT_DIRECTION",
+    "AUTHOR_VALIDATOR_SEPARATE_RUNS",
+    "VALIDATOR_SEPARATE_CONTEXT_BUNDLE",
+    "VALIDATOR_TARGET_WRITE_DEFAULT_DENY",
+    "EXACT_TARGET_AND_DIGEST_BINDING",
+    "TRUTHFUL_INDEPENDENCE_METADATA_NO_OVERCLAIM",
+    "RUN_ATTRIBUTION_RECONSTRUCTABILITY",
+    "UNVALIDATED_INTERMEDIATE_EXPORT_NONE_BY_DEFAULT",
+    "DETERMINISTIC_CHECKS_DISTINCT_FROM_SUBAGENT_JUDGMENT",
+    "PRODUCT_CAPABILITY_STATE_NOT_PROVEN_UNTIL_CAPABILITY_PROOF",
+    "S0_EXECUTION_AUTHORIZED_FALSE",
+    "GLOBAL_TW_ADOPTION_FALSE",
+    "PRODUCTION_AUTHORIZED_FALSE",
+    "TRACK_A_EXPECTED_TOUCH_SET_EMPTY_AND_MUTATION_UNAUTHORIZED"
+  ],
+  "required_current_binding_changes": [
+    {
+      "object": "REQUIREMENTS_BINDING",
+      "from": "AAA-TW-REQUIREMENTS-BASELINE_v1.1",
+      "to": "AAA-TW-REQUIREMENTS-BASELINE_v1.3",
+      "classification": "MATERIAL_CONTROL_BINDING_CHANGE",
+      "reason": "S0 v0.3 normative_overlay.requirements.effective_ref is v1.1 and current v1.3 adds explicit MUST REQ-55 plus validated authority lineage."
+    },
+    {
+      "object": "REQ-55_EXPLICIT_APPLICABILITY",
+      "from": "NOT_EXPLICITLY_BOUND_IN_S0_v0.3_REQUIREMENT_SET",
+      "to": "EXPLICIT_CURRENT_REQUIREMENT_BINDING",
+      "classification": "MATERIAL_REQUIREMENT_SET_BINDING_CHANGE_NO_BEHAVIORAL_REDIRECTION",
+      "reason": "Existing S0 acceptance is directionally aligned but cannot substitute for current Requirement authority."
+    },
+    {
+      "object": "PROFILE_BINDING",
+      "from": "AAA-TW-EXECUTION-PROFILE-AND-TWO-TRACK-CONTROL-CONTRACT_v0.3",
+      "to": "AAA-TW-EXECUTION-PROFILE-AND-TWO-TRACK-CONTROL-CONTRACT_v0.5",
+      "classification": "MATERIAL_CONTROL_AUTHORITY_BINDING_CHANGE",
+      "reason": "Current Profile v0.5 is the full-P0-validated successor and v0.3 is not current authority."
+    },
+    {
+      "object": "OWNER_DIRECTION_VALIDATION_EVIDENCE",
+      "from": "P0_VALIDATION_PENDING_AS_EMBEDDED",
+      "to": "P0_L1_PASS_P0_L2_PASS_EVIDENCE_BINDING",
+      "classification": "AUTHORITY_LINEAGE_STATE_REBIND",
+      "reason": "Owner direction semantic target is unchanged but current validation evidence is materially different from embedded stale state."
+    }
+  ],
+  "combined_materiality_reasoning": {
+    "requirements_effective_ref_is_inside_s0_normative_overlay": true,
+    "current_req_55_must_be_explicitly_bound": true,
+    "semantic_content_digest_would_change_if_normative_overlay_current_binding_is_corrected": true,
+    "non_semantic_maintenance_classification_available": false,
+    "auto_apply_permitted": false,
+    "review_required": true,
+    "behavioral_redesign_detected": false,
+    "authority_and_requirement_binding_materiality_detected": true
+  },
+  "successor_resolution": {
+    "successor_exact_target_required": true,
+    "classification": "IMMUTABLE_SUCCESSOR_REQUIRED_BOUNDED_CURRENT_AUTHORITY_AND_REQUIREMENT_BINDING_RECONCILIATION",
+    "not_allowed": [
+      "OVERWRITE_S0_v0.3",
+      "RETROACTIVE_PATCH_S0_v0.3",
+      "TREAT_REFERENCE_REBIND_AS_NON_SEMANTIC_MAINTENANCE",
+      "START_SECOND_S0_LINEAGE",
+      "START_S0_EXECUTION_BEFORE_SUCCESSOR_VALIDATION_AND_AUTHORITY_GATES"
+    ],
+    "preserve_predecessor": true,
+    "successor_version_candidate": "v0.4",
+    "successor_version_is_final_exact_target": false,
+    "final_exact_target_resolution_deferred_to": "8B"
+  },
+  "scope_firewall": {
+    "model_semantic_change": "NONE",
+    "shared_contract_change": "NONE",
+    "pit_change": "NONE",
+    "ground_truth_change": "NONE",
+    "six_governed_output_semantic_change": "NONE",
+    "engineering_implementation_authorized": false,
+    "s0_execution_authorized": false,
+    "production_authorized": false,
+    "track_a_touch": []
+  },
+  "owner_decision_required": false,
+  "owner_approval_required": false,
+  "blocked": false,
+  "next_checkpoint": "8B-1_SUCCESSOR_EXACT_TARGET_COMPOSITION_RESOLUTION",
+  "owner_action": "CONTINUE_ONLY"
+}
