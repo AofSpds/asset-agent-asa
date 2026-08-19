@@ -6,13 +6,13 @@
   "authority_principal": "HUMAN PROJECT OWNER",
   "state": "ACTIVE_POINTER",
   "current_target": {
-    "artifact_id": "AAA-GLOBAL-PACKET-DISPLAY-RULE-v0.2",
-    "version": "v0.2",
+    "artifact_id": "AAA-GLOBAL-PACKET-DISPLAY-RULE-v0.3",
+    "version": "v0.3",
     "repository": "AofSpds/asset-agent-asa",
     "branch": "main",
-    "commit": "7d5727e5d634e2bea445f133178daf28073c1f48",
-    "path": "control/organization/current-state/v1.0/AAA_GLOBAL_PACKET_DISPLAY_RULE_v0.2.json",
-    "git_blob": "6914257be5e73fddf155f1dce0b507c51a42620b"
+    "commit": "32252ae8ff5258acd6783c5634879e29dcf819d2",
+    "path": "control/organization/current-state/v1.0/AAA_GLOBAL_PACKET_DISPLAY_RULE_v0.3.json",
+    "git_blob": "66c53a15ba37f710d3f6ca04c0042fe65df2a937"
   },
   "bootstrap_rule": "NEW_CHANNEL_OR_SUCCESSOR_INSTANCE_SHOULD_RESOLVE_THIS_POINTER_DURING_AAA_CURRENT_STATE_BOOTSTRAP",
   "runtime_injection_state": "PROJECT_BOOTSTRAP_POINTER_ACTIVE_PRODUCT_LEVEL_AUTOMATIC_INJECTION_NOT_INDEPENDENTLY_PROVEN",
