@@ -1,0 +1,111 @@
+{
+  "artifact_id": "AAA-TW-S0-8A2-REQUIREMENTS-v1.3-IMPACT-DIFF-CHECKPOINT-v0.1",
+  "artifact_kind": "NON_NORMATIVE_DERIVED_ORCHESTRATION_CHECKPOINT",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-ASA",
+  "delegate_role": "TW LONG-PROCESS DELEGATE",
+  "checkpoint": "8A-2_REQUIREMENTS_v1.3_IMPACT_DIFF",
+  "checkpoint_time": "2026-08-19T18:07:00+09:00",
+  "state": "COMPLETE",
+  "authority_created": false,
+  "validation_claim": "NONE",
+  "governed_target_modified": false,
+  "normative_semantics_modified": false,
+  "predecessor_checkpoint": {
+    "artifact_id": "AAA-TW-S0-8A1-CURRENT-REFERENCE-AUDIT-CHECKPOINT-v0.1",
+    "commit": "493e0ad0aefdabfbeddbd018e7b30f16b96ce7fc"
+  },
+  "source_s0": {
+    "artifact_id": "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.3",
+    "commit": "3de57418380c33445d546dfd87b51e7067c3162b",
+    "git_blob": "64ed5acc3a5cbb0b333cc526306e44406ad7aa0e",
+    "embedded_requirements_version": "v1.1",
+    "embedded_requirements_commit": "e982ec8c605304dddd34cf8b7880af6abaa95d39",
+    "embedded_requirements_semantic_content_digest": "f2aaa9715e14e8678fd95a789f3caf90adf7835cd97c835821547547e2135d8f"
+  },
+  "requirements_lineage": {
+    "v1_1": {
+      "commit": "e982ec8c605304dddd34cf8b7880af6abaa95d39",
+      "git_blob": "24a1c5fa9e22cf9c76e9c0257ba28f4587c9637c",
+      "effective_requirement_count": 54,
+      "added_requirement_ids": ["REQ-41","REQ-42","REQ-43","REQ-44","REQ-45","REQ-46","REQ-47","REQ-48","REQ-49","REQ-50","REQ-51","REQ-52","REQ-53","REQ-54"],
+      "modified_requirement_ids": [],
+      "removed_requirement_ids": [],
+      "validation_state_at_target": "NOT_PERFORMED"
+    },
+    "v1_2": {
+      "commit": "7c93aa2fab1c5f955a4a5edaf9c5f1edee7e7d20",
+      "git_blob": "3663ce9de4f974904a4ed96b812330142c41ca71",
+      "semantic_change_from_v1_1": {
+        "added_requirement_ids": ["REQ-55"],
+        "modified_existing_requirement_semantics": [],
+        "removed_requirement_ids": []
+      },
+      "req_41_to_req_54_semantics_change_from_v1_1": false,
+      "authority_and_reconciliation_metadata_corrections": true
+    },
+    "v1_3_current": {
+      "commit": "d68f80055d8f9c6761c37d182b35b3d481989526",
+      "git_blob": "0e76fe653f18a1267a273332f955394f2e4e07d2",
+      "semantic_content_digest": "adb703b36919d4be2bd04eb0549ed9f772598cc685265add77973150fefc6a9c",
+      "effective_requirement_count": 55,
+      "full_p0_validation": "COMPLETE",
+      "v1_2_to_v1_3_requirement_semantic_diff": {
+        "ADD": 0,
+        "MODIFY": 0,
+        "REMOVE": 0
+      },
+      "authorized_change_scope": "AUTHORITY_LINEAGE_SOURCE_REBIND_ONLY"
+    }
+  },
+  "deterministic_requirement_impact": {
+    "v1_1_to_current_v1_3": {
+      "preserved_requirement_ids": "REQ-01_TO_REQ-54",
+      "added_requirement_ids": ["REQ-55"],
+      "modified_existing_requirement_ids": [],
+      "removed_requirement_ids": [],
+      "current_effective_requirement_count": 55
+    },
+    "req_55": {
+      "area": "Deterministic Evidence",
+      "enforcement": "MUST",
+      "requirement": "Deterministic evidence and Subagent judgment shall remain distinct. Agreement, consensus, or repeated agreement among one or more Subagent executions shall not by itself constitute deterministic evidence, test PASS, Requirement-preservation proof, or Validation PASS.",
+      "acceptance_effects": [
+        "DETERMINISTIC_EVIDENCE_REF_REQUIRED_WHEN_GOVERNING_CONTRACT_REQUIRES_IT",
+        "DETERMINISTIC_EVIDENCE_INDEPENDENTLY_RECOMPUTABLE_WHERE_APPLICABLE",
+        "SUBAGENT_AGREEMENT_CANNOT_SUBSTITUTE_FOR_DETERMINISTIC_EVIDENCE",
+        "AGENT_JUDGMENT_MAY_INTERPRET_BUT_NOT_REPLACE_DETERMINISTIC_EVIDENCE",
+        "TEST_PASS_REMAINS_DISTINCT_FROM_VALIDATOR_PASS"
+      ]
+    }
+  },
+  "s0_v0_3_compatibility": {
+    "existing_acceptance_direction": "DETERMINISTIC_CHECKS_REMAIN_DISTINCT_FROM_SUBAGENT_JUDGMENT",
+    "behavioral_direction_compatible_with_req_55": true,
+    "exact_current_requirement_binding_complete": false,
+    "reason_exact_binding_incomplete": "S0 v0.3 explicitly binds Requirements v1.1, which contains 54 requirements and therefore does not bind current REQ-55 or the validated v1.3 authority lineage.",
+    "no_evidence_of_conflict_with_req_01_to_req_54": true,
+    "current_reconciliation_must_explicitly_bind_req_55": true,
+    "must_not_treat_existing_acceptance_phrase_as_requirement_authority_substitute": true
+  },
+  "impact_classification": {
+    "domain_behavior_redirection_detected": false,
+    "requirement_set_exact_binding_change_detected": true,
+    "new_must_requirement_after_s0_v0_3_binding": "REQ-55",
+    "authority_lineage_current_target_change_detected": true,
+    "current_s0_v0_3_ready_as_exact_current_requirement_bound_target": false,
+    "successor_exact_target_required": "DEFERRED_UNTIL_PROFILE_IMPACT_AND_COMBINED_CLASSIFICATION_8A3_8A4_8B",
+    "result": "CURRENT_REQUIREMENT_RECONCILIATION_REQUIRED_NO_OWNER_DECISION_AT_THIS_CHECKPOINT"
+  },
+  "firewalls": {
+    "s0_execution_started": false,
+    "s0_execution_authorized": false,
+    "product_capability_state": "NOT_PROVEN",
+    "global_tw_adoption_authorized": false,
+    "production_authorized": false,
+    "track_a_touch": []
+  },
+  "next_checkpoint": "8A-3_PROFILE_v0.5_IMPACT_DIFF",
+  "owner_action": "CONTINUE_ONLY"
+}
