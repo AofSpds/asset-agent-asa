@@ -1,0 +1,68 @@
+{
+  "artifact_id": "AAA-ASA-TO-CTL-CORE-A-P0-RECEIPT-PERSISTENCE-OPTION1-ROUTE-v0.1",
+  "artifact_kind": "NON_NORMATIVE_ORCHESTRATION_WORK_PACKET_RECORD",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "from_persona": "AAA-ASA",
+  "to_persona": "AAA-CONTROL-ARCHITECT",
+  "route_time": "2026-08-19T18:49:00+09:00",
+  "authority_created": false,
+  "validation_claim": "NONE",
+  "owner_decision_state": "APPROVED",
+  "owner_decision_ref": {
+    "artifact_id": "HUMAN-PROJECT-OWNER-DECISION-20260819-1845-CORE-A-P0-RECEIPT-PERSISTENCE-CLARIFICATION",
+    "commit": "1aa9157f5fcf174f2b7a4510de3a72312782b8cf",
+    "git_blob": "230ffa8bc9a7bd58af11245c988befbdab6c9322",
+    "semantic_content_digest": "599f321ee95958f4196fbef89e0c7c0906449ec66a9917427281a4674b4026fd"
+  },
+  "current_authority_target": {
+    "object_id": "AAA-CORE-A-P0-VALIDATOR-OWNED-RECEIPT-PERSISTENCE-AUTHORITY",
+    "version": "v0.2",
+    "commit": "21befbb9287112da0fa53ca7b8b9ddade97723c4",
+    "path": "control/architecture/working-candidates/validation-evidence-persistence/v0.2/AAA_CORE_A_P0_VALIDATOR_OWNED_RECEIPT_PERSISTENCE_AUTHORITY_v0.2.json",
+    "semantic_content_digest": "0a8aaedbca501f7fa370e15afa1bcca3eb09f1a7ba35d58fab9dd774bc8ccd54",
+    "authority_lineage_binding_digest": "46efcd7a968cc2199c5618147168fcc892a2f799a0d764583914495c610a385d",
+    "paired_validation_state": "REVIEW_REQUIRED_HISTORICAL_ACT",
+    "active_baseline": false
+  },
+  "source_ctlv_validation_act_id": "AAA-CORE-A-P0-RECEIPT-PERSISTENCE-AUTH-v0.2-CTL-L1-20260819-1834-01",
+  "owner_clarifications": {
+    "OD01_BOOTSTRAP_SUCCESSOR_CONTINUITY": "APPROVED_FOR_IMMUTABLE_CORRECTION_OR_REMEDIATION_SUCCESSORS_OF_SAME_STABLE_AUTHORITY_CLASS_WITHOUT_SCOPE_EXPANSION_UNTIL_FULL_P0_CLOSURE_OR_OWNER_REJECTION_ABANDONMENT_OR_GENUINE_CLASS_REPLACEMENT",
+    "OD02_RECEIPT_WRITE_REF_POLICY": "VALIDATOR_OWNED_PER_ACT_DETERMINISTIC_REF",
+    "receipt_ref_initial_anchor": "EXACT_PINNED_TARGET_COMMIT",
+    "receipt_ref_advance_limit": 1,
+    "target_ref_mutation_for_receipt": "PROHIBITED",
+    "cross_validator_receipt_ref_write": "PROHIBITED",
+    "receipt_ref_reuse": "PROHIBITED",
+    "post_write_identity_closure": "READBACK_VERIFICATION_ONLY"
+  },
+  "ctl_required_action": {
+    "classification": "DETERMINE_MINIMUM_GOVERNED_BINDING_FORM_FOR_OD01_AND_OD02",
+    "expected_default": "IMMUTABLE_SUCCESSOR_LIKELY_BUT_NOT_PREJUDGED",
+    "must_preserve": [
+      "v0.1_AND_v0.2_IMMUTABLE_HISTORY",
+      "v0.2_RECEIPT_SELF_REFERENCE_REALIZABILITY_SEMANTICS",
+      "STABLE_OBJECT_ID_IF_SAME_AUTHORITY_CLASS",
+      "VALIDATOR_VERDICT_OWNERSHIP",
+      "VALIDATOR_RECEIPT_OWNERSHIP",
+      "POST_HOC_RECEIPT_AUTHORIZED_FALSE",
+      "DETERMINISTIC_IMPORT_AUTHORIZED_FALSE",
+      "IMPLEMENTATION_AUTHORIZED_FALSE",
+      "C04B_CLOSED_NOT_PROVEN",
+      "RESEARCH_REGISTRATION_RETRY_FALSE",
+      "GOLDEN_REPLAY_FALSE"
+    ],
+    "must_not": [
+      "MUTATE_v0.2_IN_PLACE",
+      "CREATE_VALIDATION_PASS",
+      "EXPAND_RECEIPT_AUTHORITY_SCOPE",
+      "CREATE_GENERAL_PURPOSE_GITHUB_WRITE_AUTHORITY",
+      "ALTER_MODEL_PIT_GT_OR_TRACK_A_SCIENTIFIC_SEMANTICS"
+    ]
+  },
+  "next_after_ctl": "FRESH_AAA_CONTROL_VALIDATOR_P0_L1_ON_NEW_EXACT_TARGET_IF_MATERIALIZED",
+  "owner_action_required": false,
+  "implementation_authorized": false,
+  "track_a_stage": "7/15",
+  "parallel_tw_state_unchanged": "TW_STAGE_9_SUBAGENT_CAPABILITY_PROOF_REMAINS_SEPARATE_AND_UNAFFECTED"
+}
