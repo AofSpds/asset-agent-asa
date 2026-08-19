@@ -1,0 +1,22 @@
+{
+  "artifact_id": "AAA-GLOBAL-PACKET-DISPLAY-RULE-CURRENT",
+  "artifact_kind": "PROJECT_COMMON_CURRENT_STATE_POINTER",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authority_principal": "HUMAN PROJECT OWNER",
+  "state": "ACTIVE_POINTER",
+  "current_target": {
+    "artifact_id": "AAA-GLOBAL-PACKET-DISPLAY-RULE-v0.2",
+    "version": "v0.2",
+    "repository": "AofSpds/asset-agent-asa",
+    "branch": "main",
+    "commit": "7d5727e5d634e2bea445f133178daf28073c1f48",
+    "path": "control/organization/current-state/v1.0/AAA_GLOBAL_PACKET_DISPLAY_RULE_v0.2.json",
+    "git_blob": "6914257be5e73fddf155f1dce0b507c51a42620b"
+  },
+  "bootstrap_rule": "NEW_CHANNEL_OR_SUCCESSOR_INSTANCE_SHOULD_RESOLVE_THIS_POINTER_DURING_AAA_CURRENT_STATE_BOOTSTRAP",
+  "runtime_injection_state": "PROJECT_BOOTSTRAP_POINTER_ACTIVE_PRODUCT_LEVEL_AUTOMATIC_INJECTION_NOT_INDEPENDENTLY_PROVEN",
+  "existing_channel_refresh_rule": "NO_REINSTANTIATION_REQUIRED_APPLY_ON_NEXT_PACKET_HANDOFF_OR_CURRENT_STATE_REFRESH",
+  "canonical_authority_rule": "CANONICAL_PERSONA_NAME_REMAINS_SOLE_AUTHORITY_AND_ROUTING_IDENTIFIER",
+  "pointer_semantic_role": "NON_SEMANTIC_CURRENT_STATE_RESOLUTION"
+}
