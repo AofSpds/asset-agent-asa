@@ -1,0 +1,8 @@
+2026-08-19 17:25 KST
+HUMAN PROJECT OWNER:
+문제 없을땐 ㅇ 이거만 타자 쳐도 넘어가시고 문제 있거나 반드시 승인이 필요할땐 바로 제가 알수 있도록 요청 주세요.
+
+Interpretation boundary:
+- Exact token ㅇ means CONTINUE only after a safe TW micro-checkpoint explicitly marked as requiring no formal approval/decision/authority.
+- It never substitutes for formal Owner Approval or Authority.
+- If formal action or material-risk judgment is required, TW must stop and request it conspicuously.
