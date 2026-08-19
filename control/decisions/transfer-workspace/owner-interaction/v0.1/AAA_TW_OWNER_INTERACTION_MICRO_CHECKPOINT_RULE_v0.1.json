@@ -1,0 +1,92 @@
+{
+  "artifact_id": "AAA-TW-OWNER-INTERACTION-MICRO-CHECKPOINT-RULE-v0.1",
+  "artifact_kind": "OWNER_APPROVED_NONCANONICAL_TW_LOCAL_OPERATING_RULE",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "version": "v0.1",
+  "decision_time": "2026-08-19T17:25:00+09:00",
+  "authority_principal": "HUMAN PROJECT OWNER",
+  "captured_by": "AAA-ASA",
+  "scope": "AAA-TRANSFER-WORKSPACE_TW_OWNER_INTERACTION_DURING_BOUNDED_MICRO_CHECKPOINT_EXECUTION",
+  "state": "ACTIVE_TW_LOCAL_OWNER_INTERACTION_RULE",
+  "canonical_persona_registration": false,
+  "canonical_organization_change": false,
+  "additional_authority_created": false,
+  "validation_independence_created": false,
+  "requirements_semantics_changed_by_this_artifact": false,
+  "shared_contract_semantics_changed": false,
+  "model_semantics_changed": false,
+  "global_project_rule": false,
+  "owner_directive": {
+    "source_text": "문제 없을땐 ㅇ 이거만 타자 쳐도 넘어가시고 문제 있거나 반드시 승인이 필요할땐 바로 제가 알수 있도록 요청 주세요.",
+    "intent": "MINIMIZE_OWNER_TYPING_AND_KEEP_TW_WORK_BOUNDED_WHILE_PRESERVING_EXPLICIT_APPROVAL_AND_DECISION_GATES"
+  },
+  "continuation_shorthand": {
+    "token": "ㅇ",
+    "match_rule": "TRIMMED_OWNER_MESSAGE_EQUALS_EXACT_TOKEN",
+    "meaning": "CONTINUE_TO_NEXT_BOUNDED_TW_MICRO_CHECKPOINT",
+    "allowed_only_when_previous_checkpoint_explicitly_states": [
+      "CHECKPOINT_COMPLETE_OR_SAFE_TO_CONTINUE",
+      "BLOCKED_FALSE",
+      "DECISION_REQUIRED_FALSE",
+      "OWNER_APPROVAL_REQUIRED_FALSE",
+      "OWNER_AUTHORITY_GRANT_REQUIRED_FALSE",
+      "MATERIAL_RISK_REQUIRING_OWNER_JUDGMENT_FALSE"
+    ],
+    "does_not_mean": [
+      "OWNER_ACCEPTANCE",
+      "FORMAL_OWNER_APPROVAL",
+      "OWNER_AUTHORITY_GRANT",
+      "SEMANTIC_CHANGE_AUTHORIZATION",
+      "REQUIREMENT_MODIFICATION_AUTHORIZATION",
+      "SHARED_CONTRACT_CHANGE_AUTHORIZATION",
+      "MODEL_SEMANTIC_CHANGE_AUTHORIZATION",
+      "FREEZE_OR_RELEASE_APPROVAL",
+      "PRODUCTION_AUTHORIZATION",
+      "S0_EXECUTION_AUTHORITY"
+    ]
+  },
+  "mandatory_escalation_display": {
+    "rule": "IF_ANY_FORMAL_OWNER_DECISION_APPROVAL_AUTHORITY_OR_MATERIAL_RISK_IS_REQUIRED_DO_NOT_TREAT_SHORTHAND_AS_APPROVAL_AND_STOP_FOR_EXPLICIT_OWNER_RESPONSE",
+    "required_alert_prefixes": [
+      "⚠️ OWNER APPROVAL REQUIRED",
+      "⚠️ OWNER DECISION REQUIRED",
+      "⚠️ OWNER AUTHORITY REQUIRED",
+      "⚠️ BLOCKED / MATERIAL RISK"
+    ],
+    "required_request_content": [
+      "EXACT_TARGET_OR_ACTION",
+      "WHY_OWNER_ACTION_IS_REQUIRED",
+      "CHOICES_IF_APPLICABLE",
+      "MATERIAL_RISK_AND_DOWNSTREAM_IMPACT",
+      "WHAT_HAPPENS_IF_NOT_APPROVED",
+      "EXACT_RESPONSE_REQUESTED"
+    ],
+    "ambiguous_owner_intent": "FAIL_CLOSED_AND_REQUEST_EXPLICIT_RESPONSE"
+  },
+  "checkpoint_safety": {
+    "preferred_execution_pattern": [
+      "EXECUTE_BOUNDED_WORK",
+      "PERSIST_WHERE_APPLICABLE",
+      "READ_BACK_OR_VERIFY",
+      "CLASSIFY_STATE",
+      "REPORT_CHECKPOINT",
+      "WAIT_FOR_OWNER_CONTINUATION_TOKEN_WHEN_CHANNEL_CONTINUATION_IS_DESIRED"
+    ],
+    "do_not_stop_mid_atomic_write_or_validation_act_when_avoidable": true,
+    "interrupted_ambiguous_state": "DO_NOT_ASSUME_SUCCESS_REHYDRATE_FROM_PERSISTENT_STATE_AND_FAIL_CLOSED_IF_AMBIGUOUS"
+  },
+  "formalization_boundary": {
+    "current_role": "NONCANONICAL_TW_LOCAL_OPERATING_RULE",
+    "promotion_into_governed_TW_requirement_or_execution_profile": "REVIEW_REQUIRED",
+    "promotion_authoring_owner": "AAA-CONTROL-ARCHITECT",
+    "promotion_paired_validator": "AAA-CONTROL-VALIDATOR",
+    "independent_validation_if_P0_or_material_authority_semantics_emerge": "AAA-VALIDATION-AUDITOR",
+    "no_claim_of_requirement_or_profile_modification": true
+  },
+  "lineage": {
+    "source": "HUMAN_PROJECT_OWNER_DIRECTIVE_2026-08-19T17:25+09:00",
+    "predecessor": null,
+    "successor_policy": "IMMUTABLE_SUCCESSOR_IF_RULE_SEMANTICS_CHANGE"
+  }
+}
