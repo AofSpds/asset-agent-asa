@@ -1,0 +1,208 @@
+{
+  "artifact_id": "AAA-TW-S0-9A1-SUBAGENT-CAPABILITY-PROOF-BOUNDARY-AND-TEST-MATRIX-v0.1",
+  "artifact_kind": "NON_NORMATIVE_DERIVED_ORCHESTRATION_CHECKPOINT",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-ASA",
+  "delegate_role": "TW LONG-PROCESS DELEGATE",
+  "checkpoint": "9A-1_SUBAGENT_CAPABILITY_PROOF_BOUNDARY_AND_TEST_MATRIX",
+  "checkpoint_time": "2026-08-19T18:25:00+09:00",
+  "state": "COMPLETE",
+  "authority_created": false,
+  "validation_claim": "NONE",
+  "product_capability_claim": "NONE",
+  "governed_target_modified_by_this_checkpoint": false,
+  "normative_semantics_modified_by_this_checkpoint": false,
+  "predecessor_checkpoint": {
+    "artifact_id": "AAA-TW-S0-8B3-SEQUENCE-RECONCILIATION-AND-STAGE8-CLOSE-CHECKPOINT-v0.1",
+    "commit": "9ecae2cbe8a7ba138b3f9b672b9fba30dd29f85f"
+  },
+  "exact_s0_target_under_future_execution": {
+    "artifact_id": "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.5",
+    "version": "v0.5",
+    "commit": "d0b0d2c7a77ca00570151e89e70e092b10646bd2",
+    "git_blob": "7bc6e4c2194bc2f06d61367434cab38947b40e0d",
+    "semantic_content_digest": "370a934edfaf72dc2e06d5e45b7c38be8026e3cf85e8d11c2903d2e342be48f2",
+    "s0_execution_authorized": false,
+    "product_capability_state": "NOT_PROVEN"
+  },
+  "proof_scope": {
+    "purpose": "PROVE_OR_FAIL_CLOSED_THE_MINIMUM_SUBAGENT_ORCHESTRATION_CAPABILITY_REQUIRED_BEFORE_STAGE_7C_OWNER_EXECUTION_AUTHORITY_MATERIALIZATION",
+    "proves": [
+      "BOUNDED_SUBAGENT_EXECUTION_SURFACE_EXISTS_AND_IS_CALLABLE",
+      "PERSONA_RUNTIME_PACKET_CAN_BE_BOUND_TO_A_MATERIAL_RUN",
+      "RUN_ID_AND_PERSONA_ID_REMAIN_DISTINCT_AND_RECONSTRUCTABLE",
+      "AUTHOR_AND_VALIDATOR_CAN_RUN_AS_SEPARATE_EXECUTION_ACTS",
+      "VALIDATOR_CAN_USE_A_SEPARATELY_CONSTRUCTED_CONTEXT_BUNDLE",
+      "VALIDATOR_TARGET_WRITE_CAN_BE_DENIED_BY_DEFAULT",
+      "EXACT_TARGET_AND_DIGEST_CAN_BE_BOUND_TO_VALIDATION_CONTEXT",
+      "RUN_ATTRIBUTION_AND_INDEPENDENCE_METADATA_CAN_BE_PERSISTED_AND_READ_BACK",
+      "DETERMINISTIC_EVIDENCE_REMAINS_DISTINCT_FROM_SUBAGENT_JUDGMENT",
+      "INTERRUPTED_OR_UNSUPPORTED_CAPABILITY_FAILS_CLOSED"
+    ],
+    "does_not_prove": [
+      "S0_EXECUTION_SUCCESS",
+      "MODEL_PROVIDER_INDEPENDENCE",
+      "MODEL_FAMILY_INDEPENDENCE",
+      "VALIDATOR_SCIENTIFIC_CORRECTNESS",
+      "INDEPENDENT_VALIDATION_PASS",
+      "OWNER_ACCEPTANCE",
+      "GLOBAL_TW_ADOPTION",
+      "PRODUCTION_READINESS",
+      "MODEL_OR_TRACK_A_SEMANTICS"
+    ]
+  },
+  "test_matrix": [
+    {
+      "test_id": "CAP-01",
+      "name": "CALLABLE_BOUNDED_SUBAGENT_SURFACE",
+      "class": "HARD_BLOCKING",
+      "requirement_refs": ["REQ-41"],
+      "pass_condition": "A bounded ephemeral execution instance can be started through an actually available runtime surface without pretending a normal chat turn is a subagent.",
+      "evidence_required": ["RUNTIME_SURFACE_IDENTIFIER", "MATERIAL_RUN_START_EVIDENCE", "RUN_BOUNDARY_EVIDENCE"],
+      "failure": "CAPABILITY_NOT_PROVEN_OR_BLOCKED"
+    },
+    {
+      "test_id": "CAP-02",
+      "name": "PERSONA_RUNTIME_PACKET_BINDING",
+      "class": "HARD_BLOCKING",
+      "requirement_refs": ["REQ-42", "REQ-53"],
+      "pass_condition": "The material run is bound to one explicit versioned digestible reconstructable Persona Runtime Packet and does not depend on full chat history as the Persona contract.",
+      "evidence_required": ["PERSONA_RUNTIME_PACKET_ID", "PACKET_SEMANTIC_DIGEST", "PERSONA_BINDING_REF"],
+      "failure": "FAIL_CLOSED"
+    },
+    {
+      "test_id": "CAP-03",
+      "name": "RUN_ID_PERSONA_ID_SEPARATION",
+      "class": "HARD_BLOCKING",
+      "requirement_refs": ["REQ-43", "REQ-44"],
+      "pass_condition": "RUN_ID is unique for the material run, differs from PERSONA_ID, and the explicit Persona binding is reconstructable.",
+      "evidence_required": ["RUN_ID", "PERSONA_ID", "PERSONA_BINDING_REF"],
+      "failure": "FAIL_CLOSED"
+    },
+    {
+      "test_id": "CAP-04",
+      "name": "AUTHOR_RUN_RECORD_RECONSTRUCTION",
+      "class": "HARD_BLOCKING",
+      "requirement_refs": ["REQ-54"],
+      "pass_condition": "An Author run record contains inputs, allowed tools, actual tool usage, authorized write scope, actual touch set, outputs, result state and lineage and can be read back.",
+      "evidence_required": ["AUTHOR_SUBAGENT_RUN_RECORD", "PERSISTENT_READBACK"],
+      "failure": "FAIL_CLOSED"
+    },
+    {
+      "test_id": "CAP-05",
+      "name": "SEPARATE_AUTHOR_VALIDATOR_RUNS",
+      "class": "HARD_BLOCKING",
+      "requirement_refs": ["REQ-45"],
+      "pass_condition": "AUTHOR_AGENT_RUN_ID != VALIDATOR_AGENT_RUN_ID and the two executions are separate material acts.",
+      "evidence_required": ["AUTHOR_AGENT_RUN_ID", "VALIDATOR_AGENT_RUN_ID", "SEPARATE_RUN_EVIDENCE"],
+      "failure": "FAIL_CLOSED"
+    },
+    {
+      "test_id": "CAP-06",
+      "name": "SEPARATE_VALIDATION_CONTEXT_BUNDLE",
+      "class": "HARD_BLOCKING",
+      "requirement_refs": ["REQ-46"],
+      "pass_condition": "Validator run is supplied a separately constructed validation context bundle with its own INPUT_CONTEXT_DIGEST.",
+      "evidence_required": ["VALIDATION_CONTEXT_BUNDLE", "INPUT_CONTEXT_DIGEST"],
+      "failure": "FAIL_CLOSED"
+    },
+    {
+      "test_id": "CAP-07",
+      "name": "VALIDATOR_TARGET_WRITE_DEFAULT_DENY",
+      "class": "HARD_BLOCKING",
+      "requirement_refs": ["REQ-47"],
+      "pass_condition": "Validator execution has TARGET_WRITE_PERMISSION=false and cannot materially modify the exact target in the same validation act.",
+      "evidence_required": ["TARGET_WRITE_PERMISSION", "ACTUAL_TOUCH_SET"],
+      "failure": "FAIL_CLOSED"
+    },
+    {
+      "test_id": "CAP-08",
+      "name": "EXACT_TARGET_AND_DIGEST_BINDING",
+      "class": "HARD_BLOCKING",
+      "requirement_refs": ["REQ-48"],
+      "pass_condition": "Validation context binds an exact target reference and SHA256 or applicable canonical normative digest that is independently recomputable.",
+      "evidence_required": ["EXACT_TARGET_REF", "TARGET_SHA256_OR_CANONICAL_DIGEST", "RECOMPUTATION_RESULT"],
+      "failure": "FAIL_CLOSED"
+    },
+    {
+      "test_id": "CAP-09",
+      "name": "TRUTHFUL_INDEPENDENCE_METADATA",
+      "class": "HARD_BLOCKING",
+      "requirement_refs": ["REQ-49", "REQ-50", "REQ-51"],
+      "pass_condition": "Same-model/provider status, separate-thread/context status, target-write permission and independence class are recorded truthfully; no provider/model-family independence is claimed without proof.",
+      "evidence_required": ["VALIDATION_INDEPENDENCE_METADATA", "SAME_MODEL_FAMILY", "SAME_PROVIDER", "INDEPENDENCE_CLASS"],
+      "failure": "FAIL_CLOSED_OR_NOT_PROVEN"
+    },
+    {
+      "test_id": "CAP-10",
+      "name": "CORRECTION_ROUTE_WITHOUT_ROUTINE_OWNER_RELAY",
+      "class": "CONDITIONAL_ON_FINDING",
+      "requirement_refs": ["REQ-52"],
+      "pass_condition": "If a validator finding is intentionally induced or naturally occurs in the proof, correction routing can return to a correction run without requiring Owner packet transport unless a genuine Owner decision surface appears.",
+      "evidence_required": ["VALIDATOR_FINDING_REF", "CORRECTION_RUN_RECORD_OR_NOT_APPLICABLE", "OWNER_MANUAL_RELAY_COUNT"],
+      "failure": "REVIEW_REQUIRED_IF_APPLICABLE"
+    },
+    {
+      "test_id": "CAP-11",
+      "name": "DETERMINISTIC_EVIDENCE_SEPARATION",
+      "class": "HARD_BLOCKING",
+      "requirement_refs": ["REQ-55", "REQ-26"],
+      "pass_condition": "Deterministic checks are independently recomputable where applicable and Subagent agreement is never used as a substitute for deterministic evidence, test PASS, Requirement preservation proof or Validation PASS.",
+      "evidence_required": ["DETERMINISTIC_CHECK_REF", "RECOMPUTATION_RESULT", "AGENT_JUDGMENT_SEPARATION_RECORD"],
+      "failure": "FAIL_CLOSED"
+    },
+    {
+      "test_id": "CAP-12",
+      "name": "PERSISTENCE_AND_RECONSTRUCTION_AFTER_BOUNDARY",
+      "class": "HARD_BLOCKING",
+      "requirement_refs": ["REQ-54"],
+      "pass_condition": "After the bounded proof act, run attribution, inputs, outputs, target refs and result state can be reconstructed from persistent records without relying on chat continuity.",
+      "evidence_required": ["PERSISTENT_LOCATORS", "READBACK_RESULT", "RECONSTRUCTION_RESULT"],
+      "failure": "FAIL_CLOSED"
+    },
+    {
+      "test_id": "CAP-13",
+      "name": "UNSUPPORTED_OR_INTERRUPTED_CAPABILITY_FAIL_CLOSED",
+      "class": "HARD_BLOCKING",
+      "requirement_refs": ["REQ-41", "REQ-21", "REQ-22"],
+      "pass_condition": "If the required runtime surface is unavailable, interrupted, or ambiguous, no capability PASS, validation PASS or S0 execution authority is inferred and the state resolves to NOT_PROVEN/BLOCKED/REVIEW_REQUIRED.",
+      "evidence_required": ["FAIL_CLOSED_STATE_TRANSITION_EVIDENCE_OR_PASS_NOT_APPLICABLE_IF_FULL_CAPABILITY_PROVEN"],
+      "failure": "FAIL_CLOSED"
+    }
+  ],
+  "result_classification_contract": {
+    "PROVEN": "ALL_HARD_BLOCKING_TESTS_PASS_AND_ALL_APPLICABLE_CONDITIONAL_TESTS_PASS_OR_ARE_EXPLICITLY_NOT_APPLICABLE",
+    "NOT_PROVEN": "REQUIRED_EVIDENCE_IS_MISSING_OR_RUNTIME_PROPERTIES_CANNOT_BE_VERIFIED_WITHOUT_PROVING_CAPABILITY_ABSENCE",
+    "BLOCKED": "REQUIRED_RUNTIME_SURFACE_OR_REQUIRED_CONTROL_MECHANISM_IS_CONFIRMED_UNAVAILABLE_FOR_THE_PROOF",
+    "REVIEW_REQUIRED": "AMBIGUOUS_OR_PARTIAL_RESULT_WHERE_PROCEEDING_WOULD_OVERCLAIM_CAPABILITY",
+    "PARTIAL_DOES_NOT_AUTHORIZE_STAGE_10": true
+  },
+  "proof_execution_order": [
+    "9A-2_RUNTIME_SURFACE_AND_TOOL_CAPABILITY_INSPECTION",
+    "9A-3_MINIMUM_PERSONA_RUNTIME_PACKET_AND_RUN_RECORD_DRY_BINDING",
+    "9B-1_BOUNDED_AUTHOR_SUBAGENT_PROOF_RUN_IF_CAPABILITY_EXISTS",
+    "9B-2_SEPARATE_VALIDATOR_SUBAGENT_PROOF_RUN_IF_CAPABILITY_EXISTS",
+    "9B-3_DETERMINISTIC_RECOMPUTATION_AND_PERSISTENT_RECONSTRUCTION",
+    "9B-4_FINAL_CAPABILITY_CLASSIFICATION"
+  ],
+  "execution_cadence": {
+    "target_micro_checkpoint_minutes": "20_TO_30",
+    "hard_timeout": false,
+    "atomic_rule": "DO_NOT_STOP_BETWEEN_EXECUTE_PERSIST_VERIFY_WHEN_AVOIDABLE"
+  },
+  "firewalls": {
+    "s0_execution_authorized": false,
+    "owner_execution_authority_materialized": false,
+    "engineering_implementation_authorized": false,
+    "global_tw_adoption_authorized": false,
+    "production_authorized": false,
+    "product_capability_state": "NOT_PROVEN_UNTIL_9B4",
+    "track_a_touch": []
+  },
+  "blocked": false,
+  "owner_decision_required": false,
+  "owner_approval_required": false,
+  "next_checkpoint": "9A-2_RUNTIME_SURFACE_AND_TOOL_CAPABILITY_INSPECTION",
+  "owner_action": "CONTINUE_ONLY"
+}
