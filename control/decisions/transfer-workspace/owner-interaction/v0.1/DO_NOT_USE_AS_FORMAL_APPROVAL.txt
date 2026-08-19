@@ -1,0 +1,1 @@
+The token ㅇ is CONTINUE only when the immediately preceding TW checkpoint explicitly states that no formal Owner decision, approval, authority grant, or material-risk judgment is required. Otherwise it MUST NOT be treated as approval. Ambiguity fails closed.
