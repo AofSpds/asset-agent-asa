@@ -1,0 +1,93 @@
+{
+  "artifact_id": "AAA-TW-S0-9A3-MINIMUM-PERSONA-RUNTIME-PACKET-AND-RUN-RECORD-DRY-BINDING-v0.1",
+  "artifact_kind": "NON_NORMATIVE_DERIVED_ORCHESTRATION_CHECKPOINT",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-ASA",
+  "delegate_role": "TW LONG-PROCESS DELEGATE",
+  "checkpoint": "9A-3_MINIMUM_PERSONA_RUNTIME_PACKET_AND_RUN_RECORD_DRY_BINDING",
+  "checkpoint_time": "2026-08-19T18:34:00+09:00",
+  "state": "COMPLETE_STATIC_CONTROL_BINDING_READY_RUNTIME_CAPABILITY_STILL_NOT_PROVEN",
+  "authority_created": false,
+  "validation_claim": "NONE",
+  "product_capability_claim": "NONE",
+  "actual_subagent_execution": false,
+  "governed_target_modified_by_this_checkpoint": false,
+  "normative_semantics_modified_by_this_checkpoint": false,
+  "predecessor_checkpoint": {
+    "artifact_id": "AAA-TW-S0-9A2-RUNTIME-SURFACE-AND-TOOL-CAPABILITY-INSPECTION-v0.1",
+    "commit": "71c14951284016ee9bdbebe5dee13c702a826974"
+  },
+  "dry_fixture_evidence": {
+    "persona_runtime_packet": {
+      "artifact_id": "AAA-TW-S0-9A3-AUTHOR-PERSONA-RUNTIME-PACKET-DRY-FIXTURE-v0.1",
+      "commit": "e9a3123e9278aa39d4a94a63651668a7aad0a124",
+      "git_blob": "81f67a708f8b0e6b2609331c91e8d2876c6b6855",
+      "packet_semantic_digest": "7656a29656f9be82e035bbf1494a50ee165656cc75e205a9965578c474453386",
+      "readback": "PASS",
+      "state": "STATIC_DRY_BINDING_ONLY_NOT_EXECUTED"
+    },
+    "author_run_record": {
+      "artifact_id": "AAA-TW-S0-9A3-AUTHOR-RUN-RECORD-DRY-FIXTURE-v0.1",
+      "commit": "d88148c567e0343e39a0a50d58c23afb89afb7a8",
+      "git_blob": "162a14fde759bfff2afb95e98f7c2bed5b2edca5",
+      "run_id": "AAA-TW-S0-DRYRUN-AUTHOR-20260819-9A3-01",
+      "persona_id": "AAA-CONTROL-ARCHITECT",
+      "run_record_digest": "5d9d3134cd493f6e96bedfa463e3ee1da21a7f153f3fbb7dd5abe12730f0f9a7",
+      "readback": "PASS",
+      "state": "DRY_BINDING_STRUCTURE_PASS_RUNTIME_EXECUTION_NOT_PERFORMED"
+    }
+  },
+  "structural_checks": {
+    "persona_runtime_packet_is_versioned": true,
+    "persona_runtime_packet_is_digest_bound": true,
+    "persona_runtime_packet_is_reconstructable_from_persistent_locator": true,
+    "persona_id_and_run_id_are_distinct": true,
+    "run_record_binds_packet_digest": true,
+    "run_record_binds_exact_s0_v0_5_target": true,
+    "write_permission_false": true,
+    "authorized_write_scope_empty": true,
+    "actual_touch_set_empty": true,
+    "tools_allowed_empty_for_dry_fixture": true,
+    "actual_tool_usage_empty": true,
+    "track_a_touch": [],
+    "persistent_readback_pass": true
+  },
+  "test_matrix_effect": {
+    "CAP-01_CALLABLE_BOUNDED_SUBAGENT_SURFACE": "NOT_PROVEN_ON_CURRENT_CHAT_SURFACE",
+    "CAP-02_PERSONA_RUNTIME_PACKET_BINDING": "STATIC_CONTROL_STRUCTURE_READY_NOT_RUNTIME_PASS",
+    "CAP-03_RUN_ID_PERSONA_ID_SEPARATION": "STATIC_CONTROL_STRUCTURE_READY_NOT_RUNTIME_PASS",
+    "CAP-04_AUTHOR_RUN_RECORD_RECONSTRUCTION": "STATIC_CONTROL_STRUCTURE_READY_NOT_RUNTIME_PASS",
+    "CAP-08_EXACT_TARGET_AND_DIGEST_BINDING": "STATIC_CONTROL_STRUCTURE_READY_NOT_RUNTIME_PASS",
+    "CAP-12_PERSISTENCE_AND_RECONSTRUCTION_AFTER_BOUNDARY": "STATIC_FIXTURE_READBACK_PASS_NOT_MATERIAL_RUN_PASS",
+    "CAP-05_TO_CAP-07_CAP-09_TO_CAP-11_CAP-13": "NOT_EXECUTED_AS_MATERIAL_RUNTIME_PROOF"
+  },
+  "interpretation": {
+    "control_plane_packet_and_record_schema_can_be_materialized_and_persisted": true,
+    "runtime_gap_isolated_from_control_artifact_gap": true,
+    "normal_chat_turn_not_treated_as_subagent": true,
+    "static_fixture_not_counted_as_material_run": true,
+    "static_fixture_not_counted_as_capability_pass": true,
+    "stage_10_authorization_allowed": false
+  },
+  "runtime_gating": {
+    "9B-1_AUTHOR_SUBAGENT_PROOF_RUN": "NOT_STARTABLE_FROM_CURRENT_CHAT_UNLESS_A_CALLABLE_BOUNDED_SUBAGENT_SURFACE_BECOMES_AVAILABLE",
+    "9B-2_VALIDATOR_SUBAGENT_PROOF_RUN": "NOT_STARTABLE_BECAUSE_9B-1_RUNTIME_GATE_NOT_SATISFIED",
+    "next_safe_work": "9B-3_DETERMINISTIC_RECOMPUTATION_AND_PERSISTENT_RECONSTRUCTION_OF_DRY_EVIDENCE_THEN_9B-4_FINAL_CLASSIFICATION",
+    "expected_if_no_new_runtime_surface": "FINAL_CAPABILITY_CLASSIFICATION_NOT_PROVEN"
+  },
+  "firewalls": {
+    "s0_execution_authorized": false,
+    "owner_execution_authority_materialized": false,
+    "engineering_implementation_authorized": false,
+    "global_tw_adoption_authorized": false,
+    "production_authorized": false,
+    "product_capability_state": "NOT_PROVEN",
+    "track_a_touch": []
+  },
+  "blocked": false,
+  "owner_decision_required": false,
+  "owner_approval_required": false,
+  "next_checkpoint": "9B-3_DETERMINISTIC_RECOMPUTATION_AND_PERSISTENT_RECONSTRUCTION",
+  "owner_action": "CONTINUE_ONLY"
+}
