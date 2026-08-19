@@ -1,0 +1,85 @@
+{
+  "artifact_id": "AAA-TW-S0-9A2-RUNTIME-SURFACE-AND-TOOL-CAPABILITY-INSPECTION-v0.1",
+  "artifact_kind": "NON_NORMATIVE_DERIVED_ORCHESTRATION_CHECKPOINT",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-ASA",
+  "delegate_role": "TW LONG-PROCESS DELEGATE",
+  "checkpoint": "9A-2_RUNTIME_SURFACE_AND_TOOL_CAPABILITY_INSPECTION",
+  "checkpoint_time": "2026-08-19T18:33:00+09:00",
+  "state": "COMPLETE_WITH_CAPABILITY_NOT_PROVEN_ON_CURRENT_CHAT_SURFACE",
+  "authority_created": false,
+  "validation_claim": "NONE",
+  "product_capability_claim": "NONE",
+  "governed_target_modified_by_this_checkpoint": false,
+  "normative_semantics_modified_by_this_checkpoint": false,
+  "predecessor_checkpoint": {
+    "artifact_id": "AAA-TW-S0-9A1-SUBAGENT-CAPABILITY-PROOF-BOUNDARY-AND-TEST-MATRIX-v0.1",
+    "commit": "0dddab29802d39df691ad11db05b8c37d60aacfb"
+  },
+  "current_channel_runtime_inspection": {
+    "bounded_ephemeral_subagent_launcher_directly_invokable_from_current_chat": false,
+    "chatgpt_work_task_launcher_directly_invokable_from_current_chat": false,
+    "codex_agent_launcher_directly_invokable_from_current_chat": false,
+    "workspace_agent_runner_directly_invokable_from_current_chat": false,
+    "separate_author_agent_execution_act_creatable_by_current_tool_surface": false,
+    "separate_validator_agent_execution_act_creatable_by_current_tool_surface": false,
+    "reason": "The currently exposed invokable tool surface in this chat provides web, GitHub/app connectors, automations, artifact and utility functions, but no native launcher function that creates a bounded separate Work/Codex/Workspace-Agent execution instance. A normal chat turn is explicitly not accepted as Subagent evidence under CAP-01."
+  },
+  "official_openai_product_surface_evidence": {
+    "chatgpt_work": {
+      "state": "DOCUMENTED_AVAILABLE_ON_ELIGIBLE_PLANS_AND_SURFACES",
+      "evidence": "OpenAI Help documents ChatGPT Work as an agent for longer multi-step work, available on eligible paid plans on web/mobile and desktop where included.",
+      "capability_relevance": "ESTABLISHES_PRODUCT_LEVEL_AGENTIC_SURFACE_EXISTS_BUT_NOT_A_CURRENT_CHAT_NESTED_LAUNCH_PROOF"
+    },
+    "codex_multiple_agents": {
+      "state": "DOCUMENTED_AVAILABLE_IN_CODEX_APP",
+      "evidence": "OpenAI Help documents the Codex app as supporting multiple agents in parallel and cloud delegation in isolated sandboxes.",
+      "capability_relevance": "POTENTIAL_ALTERNATE_EXECUTION_ENGINE_FOR_A_BOUND_PERSONA_RUN_BUT_NOT_INVOCABLE_FROM_CURRENT_CHAT_TOOL_SURFACE"
+    },
+    "workspace_agents": {
+      "state": "DOCUMENTED_FOR_ELIGIBLE_BUSINESS_AND_ENTERPRISE_WORKSPACES",
+      "evidence": "OpenAI Help documents Workspace Agents for repeatable workflows, with creation/testing/sharing/scheduling/API trigger where enabled.",
+      "capability_relevance": "POTENTIAL_PERSISTENT_AGENT_SURFACE_NOT_YET_PROVEN_AS_EPHEMERAL_SUBAGENT_LAUNCHER_FOR_THIS_S0"
+    },
+    "multi_agent_coordination": {
+      "state": "DOCUMENTED_IN_WORK_OR_CODEX_DESKTOP_VOICE_AND_CODEX_APP_CONTEXTS",
+      "evidence": "Official release notes describe coordinating multiple agents across Work/Codex in supported desktop experiences.",
+      "capability_relevance": "SHOWS_PRODUCT_FAMILY_MULTI_AGENT_CAPABILITY_EXISTS_SOMEWHERE_BUT_DOES_NOT_PROVE_THIS_CURRENT_CHANNEL_CAN_PROGRAMMATICALLY_SPAWN_REQUIRED_RUNS"
+    }
+  },
+  "plugin_and_app_surface_inspection": {
+    "workspace_agents_plugin_search_result": "NO_INSTALLABLE_MATCH_RETURNED_FOR_CURRENT_USER_AWARE_PLUGIN_SEARCH",
+    "interpretation": "DO_NOT_INFER_GLOBAL_UNAVAILABILITY; ONLY CURRENTLY_SEARCHABLE_PLUGIN_SURFACE_DID_NOT EXPOSE_A_WORKSPACE_AGENTS_PLUGIN",
+    "no_install_performed": true,
+    "no_external_framework_introduced": true
+  },
+  "capability_test_effect": {
+    "CAP-01_CALLABLE_BOUNDED_SUBAGENT_SURFACE": "NOT_PROVEN_ON_CURRENT_CHAT_SURFACE",
+    "CAP-02_TO_CAP-13": "NOT_EXECUTED_AS_RUNTIME_PROOF_AT_THIS_CHECKPOINT",
+    "product_family_agentic_capability": "EXISTS_IN_DOCUMENTED_ALTERNATE_SURFACES",
+    "current_channel_required_nested_execution_capability": "NOT_PROVEN",
+    "blocked": false,
+    "why_not_blocked": "The capability is documented on alternate OpenAI product surfaces, so absence is not proven; only direct current-chat invocation is unproven/unexposed.",
+    "stage_10_authorization_allowed": false
+  },
+  "next_resolution_options": {
+    "option_A": "CONTINUE_9A3_STATIC_PERSONA_RUNTIME_PACKET_AND_RUN_RECORD_DRY_BINDING_TO_PROVE_CONTROL_ARTIFACT_READINESS_WITHOUT_OVERCLAIMING_RUNTIME_CAPABILITY",
+    "option_B": "MOVE_PROOF_TO_AN_ACTUALLY_AVAILABLE_WORK_OR_CODEX_MULTI_AGENT_SURFACE_IF_OWNER_HAS_ACCESS_AND_IF_A_BOUND_EXECUTION_CAN_BE_EVIDENCED_WITHOUT_MANUAL_RELAY",
+    "default_recommendation": "OPTION_A_NOW_THEN_FINALIZE_NOT_PROVEN_UNLESS_AN_INVOCABLE_MULTI_AGENT_SURFACE_BECOMES_AVAILABLE_WITHIN_THE_TW_EXECUTION_CONTEXT",
+    "reason": "One bounded static dry-binding can separate control-plane readiness from runtime-surface absence without starting an infrastructure project or pretending capability PASS."
+  },
+  "firewalls": {
+    "s0_execution_authorized": false,
+    "owner_execution_authority_materialized": false,
+    "engineering_implementation_authorized": false,
+    "global_tw_adoption_authorized": false,
+    "production_authorized": false,
+    "product_capability_state": "NOT_PROVEN",
+    "track_a_touch": []
+  },
+  "owner_decision_required": false,
+  "owner_approval_required": false,
+  "next_checkpoint": "9A-3_MINIMUM_PERSONA_RUNTIME_PACKET_AND_RUN_RECORD_DRY_BINDING",
+  "owner_action": "CONTINUE_ONLY"
+}
