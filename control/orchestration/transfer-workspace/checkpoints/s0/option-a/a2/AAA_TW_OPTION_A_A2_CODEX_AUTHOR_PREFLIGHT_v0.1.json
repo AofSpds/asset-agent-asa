@@ -1,0 +1,71 @@
+{
+  "artifact_id": "AAA-TW-OPTION-A-A2-CODEX-AUTHOR-PREFLIGHT-v0.1",
+  "artifact_kind": "NON_NORMATIVE_DERIVED_ORCHESTRATION_CHECKPOINT",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-ASA",
+  "checkpoint": "OPTION_A_A2_CODEX_AUTHOR_PREFLIGHT",
+  "checkpoint_time": "2026-08-19T20:15:00+09:00",
+  "state": "PREPARED_RUNTIME_SURFACE_PENDING",
+  "owner_decision_ref": "HUMAN-PROJECT-OWNER-DECISION-20260819-1923-TW-STAGE9-OPTION-A-HYBRID",
+  "a1_reconciliation_ref": "AAA-TW-OPTION-A-A1-WORK-BOUNDED-PILOT-RECONCILIATION-v0.1",
+  "repository": "AofSpds/asset-agent-asa",
+  "pilot_branch": "aaa-tw-option-a-a2-preflight-v0.1",
+  "author_persona_id": "AAA-CONTROL-ARCHITECT",
+  "existing_dry_persona_runtime_packet": {
+    "packet_id": "AAA-TW-S0-PRP-DRY-AUTHOR-CTL-v0.1",
+    "commit": "e9a3123e9278aa39d4a94a63651668a7aad0a124",
+    "git_blob": "81f67a708f8b0e6b2609331c91e8d2876c6b6855",
+    "semantic_digest": "7656a29656f9be82e035bbf1494a50ee165656cc75e205a9965578c474453386",
+    "state": "STATIC_DRY_BINDING_ONLY_NOT_EXECUTED"
+  },
+  "existing_work_item_id": "AAA-PERSISTENT-LOCATOR-CAPABILITY-PROOF-v0.1",
+  "current_canonical_persona_manifest_exact_ref": {
+    "state": "NOT_RESOLVED_FROM_CURRENT_REPOSITORY_SEARCH",
+    "action": "DO_NOT_INVENT; RESOLVE_BEFORE_PROMOTING_PERSONA_BINDING_TO_MATERIAL_RUNTIME_EVIDENCE"
+  },
+  "disposable_input_fixture": {
+    "artifact_id": "AAA-TW-A2-AUTHOR-MATERIAL-PROOF-INPUT-v0.1",
+    "path": "control/orchestration/transfer-workspace/pilots/s0/option-a/a2/input/AAA_TW_A2_AUTHOR_MATERIAL_PROOF_INPUT_v0.1.json",
+    "creation_commit": "9fc27f1959a63d4227c59550e5fc38c77485a5f3",
+    "normative": false,
+    "governed_effect": "NONE"
+  },
+  "isolated_author_candidate_path": "control/orchestration/transfer-workspace/pilots/s0/option-a/a2/candidate/AAA_TW_A2_AUTHOR_MATERIAL_PROOF_CANDIDATE_v0.1.json",
+  "write_scope": [
+    "control/orchestration/transfer-workspace/pilots/s0/option-a/a2/candidate/AAA_TW_A2_AUTHOR_MATERIAL_PROOF_CANDIDATE_v0.1.json"
+  ],
+  "read_only_governed_target": {
+    "artifact_id": "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.5",
+    "commit": "d0b0d2c7a77ca00570151e89e70e092b10646bd2",
+    "git_blob": "7bc6e4c2194bc2f06d61367434cab38947b40e0d",
+    "semantic_digest": "370a934edfaf72dc2e06d5e45b7c38be8026e3cf85e8d11c2903d2e342be48f2",
+    "write_authorized": false
+  },
+  "a2_material_runtime_success_floor": [
+    "DISTINCT_ACTUAL_CODEX_OR_EQUIVALENT_AUTHOR_RUN",
+    "EXACT_AUTHOR_PERSONA_BINDING_WITHOUT_INVENTION",
+    "EXACT_INPUT_FIXTURE_READ",
+    "BOUNDED_CANDIDATE_WRITE_ONLY",
+    "ACTUAL_TOOL_OR_COMMAND_ATTRIBUTION",
+    "GIT_STATUS_OR_EQUIVALENT",
+    "GIT_DIFF_OR_EQUIVALENT",
+    "COMPLETE_TOUCH_SET",
+    "DETERMINISTIC_EXPECTED_OUTPUT_CHECK",
+    "STRUCTURED_RETURN"
+  ],
+  "firewalls": {
+    "stage10_allowed": false,
+    "s0_execution_authorized": false,
+    "engineering_implementation_authorized": false,
+    "production_authorized": false,
+    "global_tw_adoption_authorized": false,
+    "track_a_touch": [],
+    "new_framework_authorized": false,
+    "new_database_authorized": false,
+    "new_workflow_engine_authorized": false
+  },
+  "runtime_surface": "DEFERRED_UNTIL_OWNER_HOME_WINDOWS_CODEX_OR_EQUIVALENT_AVAILABLE",
+  "owner_action_required_now": false,
+  "next_route": "WHEN_CODEX_AVAILABLE: RESOLVE_OR_EXPLICITLY CLASSIFY_PERSONA_MANIFEST_BINDING, THEN EXECUTE A2 ON DISPOSABLE FIXTURE ONLY"
+}
