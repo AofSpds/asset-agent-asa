@@ -1,0 +1,363 @@
+{
+  "artifact_id": "AAA-TW-S0-EXECUTION-AUTHORITY-v0.1",
+  "artifact_class": "P0_EXACT_S0_EXECUTION_AUTHORITY_CONTROL_CANDIDATE",
+  "artifact_kind": "NORMATIVE_AUTHORITY_CANDIDATE_NOT_YET_EFFECTIVE",
+  "version": "v0.1",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "risk_class": [
+    "P0_AUTHORITY",
+    "P0_CONTROL",
+    "P0_EXACT_TARGET",
+    "P0_PRE_EXECUTION"
+  ],
+  "authoring_state": "CANDIDATE",
+  "authoring_time": "2026-08-20T01:16:27+09:00",
+  "stage": {
+    "master_progress": "10/15",
+    "current": "10_EXACT_OWNER_S0_EXECUTION_AUTHORITY_MATERIALIZATION",
+    "predecessor": "09_PRODUCT_SUBAGENT_CAPABILITY_PROOF",
+    "next_if_stage10_authoring_completes": "11_FRESH_P0_PAIRED_CONTROL_VALIDATION",
+    "stage10_action": "CREATE_AND_MATERIALIZE_THIS_AUTHORITY_CONTRACT_ONLY",
+    "stage10_is_actual_s0_execution": false,
+    "stage11_or_stage12_performed_by_stage10": false
+  },
+  "persona_and_execution_lock": {
+    "canonical_authoring_persona": "AAA-CONTROL-ARCHITECT",
+    "persona_alias": "CORE A",
+    "role": "P0_EXECUTION_AUTHORITY_CONTROL_AUTHOR",
+    "execution_instance": "BOUNDED_CODEX_RUNTIME",
+    "execution_surface": "CODEX_DESKTOP_LOCAL",
+    "run_or_thread_id": "NOT_EXPOSED",
+    "identity_invariant": "PERSONA != CODEX_THREAD",
+    "codex_classification": "BOUNDED_EXECUTION_SURFACE_NOT_PERSONA"
+  },
+  "owner_directive_resolution": {
+    "authority_origin": "Human Project Owner",
+    "directive_text": "go",
+    "context_resolved_meaning": "AUTHORIZE_STAGE10_TO_BEGIN_AND_AUTHOR_THE_STAGE10_CONTROL_CANDIDATE_ONLY",
+    "authorize_stage10_to_begin": true,
+    "authorize_stage10_control_authoring": true,
+    "authorize_local_deterministic_control_work": true,
+    "authorize_local_commit_within_exact_stage10_touch_scope": true,
+    "authorize_actual_s0_execution": false,
+    "authorize_stage13": false,
+    "authorize_production": false,
+    "authorize_release": false,
+    "authorize_main_merge": false,
+    "authorize_remote_push": false,
+    "authorize_validation_pass_on_behalf_of_validators": false,
+    "expansion_beyond_stage10": "PROHIBITED",
+    "interpretation_firewall": [
+      "OWNER_GO != S0_EXECUTION_APPROVAL",
+      "OWNER_GO != PRODUCTION_AUTHORIZATION",
+      "OWNER_GO != INDEPENDENT_VALIDATION_PASS"
+    ]
+  },
+  "authority_parties": {
+    "authority_subject": "FUTURE_BOUNDED_S0_EXECUTION_INSTANCE_OR_INSTANCES",
+    "authority_origin": "Human Project Owner",
+    "authority_materializer": "AAA-CONTROL-ARCHITECT",
+    "authority_validation_owner_l1": "AAA-CONTROL-VALIDATOR",
+    "authority_validation_owner_l2": "AAA-VALIDATION-AUDITOR",
+    "authority_final_execution_gate": "Human Project Owner where required by pending-change reconciliation or the applicable authority contract"
+  },
+  "authority_effect": {
+    "current_state": "CANDIDATE_NOT_EFFECTIVE_FOR_S0_EXECUTION",
+    "actual_s0_execution_authorized_now": false,
+    "future_stage13_eligibility_created_now": false,
+    "effect_if_stage11_stage12_and_owner_reconciliation_are_not_complete": "NO_EXECUTION_AUTHORITY",
+    "semantic_authority_created_by_stage10": "CANDIDATE_AUTHORITY_CONTRACT_ONLY",
+    "production_authorized": false,
+    "release_authorized": false,
+    "merge_to_main_authorized": false
+  },
+  "exact_implementation_target": {
+    "artifact_id": "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.5",
+    "repository": "AofSpds/asset-agent-asa",
+    "path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.5/control/AAA_TW_S0_PLCP_SHADOW_INSTANCE_v0.5.json",
+    "commit": "d0b0d2c7a77ca00570151e89e70e092b10646bd2",
+    "tree": "ca1e410f745c54d6d66579173739e28bbf54590e",
+    "git_blob": "7bc6e4c2194bc2f06d61367434cab38947b40e0d",
+    "sha256": "abd1d42be8b2a9b25eba266cfd939905e1799c93dc975fedcb560478cbcefdd8",
+    "byte_size": 13947,
+    "semantic_content_digest": "370a934edfaf72dc2e06d5e45b7c38be8026e3cf85e8d11c2903d2e342be48f2",
+    "semantic_digest_profile": "SHA256_UTF8_CANONICAL_JSON_NORMATIVE_OVERLAY_SORT_KEYS_COMPACT_NO_TRAILING_NEWLINE",
+    "semantic_canonical_input_byte_size": 4992,
+    "identity_check_required_before_future_execution": true,
+    "mutation_during_stage10": "PROHIBITED"
+  },
+  "validated_s0_control_design": {
+    "control_design_validated": true,
+    "actual_s0_execution_already_performed": false,
+    "previous_s0_execution_authority": false,
+    "fresh_l1": {
+      "validation_act_id": "AAA-TW-S0-PLCP-v0.5-P0-CTL-L1-20260819-1852-01",
+      "validator": "AAA-CONTROL-VALIDATOR",
+      "receipt_commit": "ca71237026176402625090b7d9ae962d780d33e1",
+      "receipt_tree": "6d3af33a85ce78e25559b88cd5e6025e118c90d3",
+      "receipt_git_blob": "ee15be82dc57165535da0220db5e5413a26da6d8",
+      "receipt_sha256": "c11c3d38796cfd251e6ce7483b1c86c880b5b379ff5786cf502f87c55b39d40f",
+      "receipt_byte_size": 6825,
+      "receipt_path": "control/validation/core-a/p0/AAA-TW-S0-PLCP-SHADOW-INSTANCE/v0.5/validator/aaa-control-validator/AAA-TW-S0-PLCP-v0.5-P0-CTL-L1-20260819-1852-01/AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.5-P0-CONTROL-L1-RECEIPT.json",
+      "matrix": "90/90 PASS",
+      "target_changed_by_validator": false
+    },
+    "fresh_l2": {
+      "validation_act_id": "AAA-TW-S0-PLCP-v0.5-P0-IV-L2-20260819-1909-01",
+      "validator": "AAA-VALIDATION-AUDITOR",
+      "receipt_commit": "d8c89e7df70f8056a9a96271d595cf8449a9d72f",
+      "receipt_tree": "21002f92582add93429171e67481ec5a3bfa5126",
+      "receipt_git_blob": "7ec84ec0077576b892cb9b8f78b96d380ba5640c",
+      "receipt_sha256": "4885b4f06b722a0686b88ba276d7d33ac0eeee57c7201dc0ded7f52d882dc4da",
+      "receipt_byte_size": 9157,
+      "receipt_path": "control/validation/core-a/p0/AAA-TW-S0-PLCP-SHADOW-INSTANCE/v0.5/auditor/aaa-validation-auditor/AAA-TW-S0-PLCP-v0.5-P0-IV-L2-20260819-1909-01/AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.5-P0-INDEPENDENT-L2-RECEIPT.json",
+      "matrix": "100/100 PASS",
+      "paired_l1_receipt_commit": "ca71237026176402625090b7d9ae962d780d33e1",
+      "target_changed_by_validator": false
+    },
+    "validation_scope_firewall": "THESE_RECEIPTS_VALIDATE_THE_S0_CONTROL_DESIGN_TARGET_ONLY_AND_DO_NOT_VALIDATE_THIS_STAGE10_CANDIDATE_OR_AUTHORIZE_ACTUAL_S0_EXECUTION"
+  },
+  "stage09_capability_basis": {
+    "final_asa_classification": "PROVEN_FOR_REQUIRED_S0_SUBAGENT_ORCHESTRATION_SURFACE",
+    "classification_owner": "AAA-ASA / ASA-TW",
+    "classification_type": "ASA_ORCHESTRATION_CAPABILITY_DECISION",
+    "paired_validation_pass_claim": "NONE",
+    "independent_validation_pass_claim": "NONE",
+    "owner_acceptance_claim": "NONE",
+    "capability_acts": {
+      "A1": "PASS_FOR_A1_SCOPE",
+      "A2": "PASS_FOR_A2_SCOPE",
+      "A3": "PASS_FOR_A3_SCOPE",
+      "A4": "COMPLETE_FAULT_AUTHOR_TO_SEPARATE_VALIDATOR_NONPASS_TO_CORRECTION_AUTHOR_TO_FRESH_VALIDATOR_PASS",
+      "A5": "PASS_FOR_A5_PERSISTENT_RECONSTRUCTION_SCOPE",
+      "A6": "COMPLETE_FOR_A6_SYNTHESIS_SCOPE"
+    },
+    "a5_persistent_evidence": {
+      "branch": "aaa-tw-option-a-a5-evidence-reconstruction-v0.1",
+      "commit": "a5ae6346f35602522d566d7048aea414db4ec416",
+      "tree": "745b13dd047c9e1d5ecd3ec334246605178a25f9",
+      "remote_branch_head_at_stage10_authoring": "a5ae6346f35602522d566d7048aea414db4ec416",
+      "reconstruction_artifact_id": "AAA-TW-OPTION-A-A5-RUNTIME-EVIDENCE-RECONSTRUCTION-v0.1",
+      "identity_artifact_id": "AAA-TW-OPTION-A-A5-RUNTIME-EVIDENCE-IDENTITY-v0.1",
+      "classification": "DERIVED_PERSISTENT_RECONSTRUCTION",
+      "persistent_reconstruction": "PROVEN",
+      "not_original_runtime_canonicity": true,
+      "historical_authority_boundary_preserved": "THE_A5_ARTIFACT_RECORDED_STAGE10_ALLOWED_FALSE_AND_STAGE09_IN_PROGRESS_AT_A5_CREATION; IT DOES_NOT_ITSELF_AUTHORIZE_STAGE10",
+      "current_stage10_authoring_authority_source": "HUMAN_PROJECT_OWNER_GO_CONTEXT_RESOLVED_BY_AAA_ASA_STAGE10_PACKET"
+    },
+    "retained_limitations": {
+      "native_codex_run_thread_id": "NOT_EXPOSED",
+      "validator_write_deny": "TOOL_PERMISSION_SCOPED",
+      "cap17_owner_manual_relay_reduction": "NOT_PROVEN_ACKNOWLEDGED_NONBLOCKING_UX_DEBT_FOR_BOUNDED_S0",
+      "original_a2_a4_runtime_candidates_canonicalized": false
+    }
+  },
+  "operating_surface_decision": {
+    "current_practical_model": [
+      "OWNER",
+      "AAA-ASA / ASA-TW",
+      "CHATGPT_WORK_FOR_LARGE_CONTEXT_PLANNING_OR_SYNTHESIS_WHERE_PREFERRED",
+      "CODEX_BOUNDED_EXECUTION_INSTANCES_FOR_DEMONSTRATED_MATERIAL_REPOSITORY_WORK",
+      "SEPARATE_VALIDATOR_EXECUTION",
+      "GIT_CONTROL_PLANE_FOR_DURABLE_EXACT_EVIDENCE",
+      "AAA-ASA_SYNTHESIS_AND_AUTHORITY_BOUNDARY"
+    ],
+    "option_a_hybrid": "CURRENT_PRACTICAL_OPERATING_MODEL",
+    "permanent_architecture_frozen": false,
+    "codex_permanent_mandatory_dependency": "FALSE_NOT_DECIDED",
+    "work_planning_only_permanent_rule": "FALSE_NOT_DECIDED"
+  },
+  "authorized_semantic_scope": {
+    "scope": "ONLY_THE_EXACT_S0_EXECUTION_SEMANTICS_ALREADY_VALIDATED_FOR_THE_CONTENT_ADDRESSED_TARGET",
+    "scope_source": "exact_implementation_target_in_its_entirety",
+    "additive_semantic_authority": "NONE",
+    "undeclared_semantic_mutation": "FAIL_CLOSED",
+    "frozen_semantic_mutation": "PROHIBITED",
+    "material_target_change": "NEW_EXACT_TARGET_REQUIRING_FRESH_VALIDATION_AND_NEW_AUTHORITY_PATH_AS_APPLICABLE",
+    "execution_evidence_improvements_may_modify_validated_s0_semantics": false
+  },
+  "preservation_boundary": {
+    "preserve_all_others": true,
+    "absence_from_authorized_change_scope": "PRESERVE",
+    "removal_requires_explicit_authorization": true,
+    "stage10_authorized_touch_set": [
+      "control/architecture/working-candidates/transfer-workspace/s0/execution-authority/v0.1/control/AAA_TW_S0_EXECUTION_AUTHORITY_v0.1.json"
+    ],
+    "future_s0_implementation_scope_binding": "THE_EXACT_CONTENT_ADDRESSED_S0_TARGET_IS_THE_COMPLETE_SEMANTIC_SCOPE; NO UNLISTED OBJECT_PATH_OR_BEHAVIOR_IS AUTHORIZED",
+    "future_exact_concrete_touch_set_rule": "MUST_BE_DERIVED_FROM_AND_SHOWN_TO_MATCH_THE_EXACT_S0_TARGET_BEFORE_ANY_STAGE13_WRITE",
+    "explicitly_preserved": [
+      "S0_VALIDATED_SEMANTIC_TARGET",
+      "SCIENTIFIC_AND_MODEL_ARTIFACTS",
+      "TRACK_A",
+      "UNRELATED_CONTROL_ARTIFACTS",
+      "ORGANIZATION_TOPOLOGY",
+      "SHARED_CONTRACTS",
+      "REQUIREMENTS_SEMANTICS",
+      "MODEL_SEMANTICS",
+      "MAIN_BRANCH"
+    ],
+    "undeclared_touch": "TRIAGE",
+    "confirmed_unauthorized_semantic_mutation": "FAIL_CLOSED"
+  },
+  "author_validator_execution_contract": {
+    "author_must_differ_from_validator": true,
+    "expected_bounded_execution_shape": [
+      "PERSONA_RUNTIME_PACKET",
+      "AAA_CONTROL_ARCHITECT_OR_EXACT_AUTHORIZED_AUTHOR_EXECUTION",
+      "DETERMINISTIC_EVIDENCE",
+      "EXACT_CANDIDATE",
+      "SEPARATE_VALIDATOR_RUNTIME",
+      "FINDING"
+    ],
+    "nonpass_flow": [
+      "NONPASS_FINDING",
+      "CORRECTION_AUTHOR",
+      "NEW_EXACT_CORRECTED_TARGET",
+      "FRESH_VALIDATOR",
+      "FRESH_FINDING"
+    ],
+    "material_target_change_rule": "NEW_EXACT_TARGET_REQUIRES_FRESH_VALIDATION",
+    "validator_prohibitions": [
+      "MATERIALLY_EDIT_TARGET_AND_PASS_SAME_VALIDATION_ACT",
+      "REQUIRE_AUTHOR_HIDDEN_REASONING_AS_EVIDENCE",
+      "SELF_CREATE_INDEPENDENT_VALIDATION_PASS",
+      "CONVERT_NOT_PERFORMED_INTO_PASS"
+    ]
+  },
+  "future_stage13_deterministic_evidence_contract": {
+    "capture_where_applicable": [
+      "PERSONA_ID",
+      "ROLE",
+      "EXECUTION_SURFACE",
+      "EXACT_BASE_TARGET",
+      "EXACT_INPUT_IDENTITIES",
+      "EXACT_OUTPUT_IDENTITY",
+      "PRE_AND_POST_SHA256",
+      "BYTE_SIZE",
+      "SEMANTIC_DIGEST",
+      "COMMANDS_ACTUALLY_EXECUTED",
+      "TOOLS_ACTUALLY_USED",
+      "GIT_STATUS",
+      "DETERMINISTIC_OBJECT_DIFF",
+      "COMPLETE_ACTUAL_TOUCH_SET",
+      "AUTHORIZED_TOUCH_SET",
+      "UNAUTHORIZED_TOUCH_DETECTION",
+      "EXACT_COMMIT_TREE_BLOB_IDENTITY_WHERE_PERSISTED",
+      "PROVENANCE_AND_LINEAGE",
+      "VALIDATOR_CONTEXT_FRESHNESS",
+      "TARGET_NON_MUTATION_EVIDENCE",
+      "CORRECTION_LINEAGE_IF_ANY",
+      "STRUCTURED_RESULT",
+      "LIMITATIONS",
+      "PERSISTENT_EVIDENCE_LOCATOR"
+    ],
+    "native_run_or_thread_id_rule": "RECORD_IF_AVAILABLE_OTHERWISE_USE_NOT_EXPOSED_AND_DO_NOT_INVENT",
+    "preferred_persistence_flow": [
+      "RUNTIME_ACT",
+      "STRUCTURED_EVIDENCE_ENVELOPE",
+      "EXACT_PERSISTENT_LOCATOR",
+      "VALIDATION"
+    ],
+    "persistence_timing": "AS_CLOSE_TO_THE_ORIGINAL_ACT_AS_PRACTICAL",
+    "later_reconstruction": "ALLOWED_ONLY_WITH_TRUTHFUL_DERIVED_PROVENANCE_AND_NOT_AS_ORIGINAL_RUNTIME_CANONICITY"
+  },
+  "cap17_boundary": {
+    "capability": "OWNER_MANUAL_RELAY_REDUCTION",
+    "current_state": "NOT_PROVEN",
+    "a7_disposition": "NONBLOCKING_UX_DEBT_FOR_CURRENT_BOUNDED_S0",
+    "stage10_may_proceed": true,
+    "owner_manual_relay_count_zero_claim": false,
+    "cap17_fully_proven_claim": false,
+    "future_design_objective": "OWNER_TO_ASA_TO_AUTHOR_RUNTIME_TO_VALIDATOR_RUNTIME_TO_CORRECTION_AND_FRESH_VALIDATOR_IF_NEEDED_TO_PERSISTENT_EVIDENCE_TO_ASA",
+    "validator_independence_must_be_preserved": true
+  },
+  "mandatory_validation_and_execution_gates": {
+    "stage11": {
+      "name": "AAA-CONTROL-VALIDATOR_FRESH_P0_PAIRED_CONTROL_VALIDATION",
+      "target": "THIS_EXACT_STAGE10_CANDIDATE",
+      "required": true,
+      "performed_by_stage10_author": false,
+      "state": "NOT_PERFORMED",
+      "pass_may_be_claimed_by_stage10_author": false
+    },
+    "stage12": {
+      "name": "AAA-VALIDATION-AUDITOR_FRESH_P0_INDEPENDENT_VALIDATION",
+      "target": "THIS_EXACT_STAGE10_CANDIDATE_AFTER_STAGE11_PASS",
+      "required": true,
+      "eligible_only_after_stage11_pass": true,
+      "pass_required_for_stage13_eligibility": true,
+      "performed_by_stage10_author": false,
+      "state": "NOT_PERFORMED",
+      "pass_may_be_claimed_by_stage10_author": false
+    },
+    "stage13": {
+      "name": "ACTUAL_S0_EXECUTION",
+      "authorized_now": false,
+      "eligible_only_after_required_stage12_result_and_owner_pending_change_reconciliation": true,
+      "required_stage12_result": "PASS",
+      "eligibility_is_not_actual_execution": true,
+      "pre_execution_identity_recheck_required": true,
+      "old_authority_must_not_be_used_after_material_semantic_change": true
+    }
+  },
+  "owner_pending_change_gate": {
+    "owner_pending_changes": true,
+    "content": "NOT_YET_PROVIDED",
+    "stage13_pre_execution_owner_reconciliation_required": true,
+    "required_sequence": [
+      "AAA_ASA_TW_NOTIFIES_OWNER_BEFORE_ACTUAL_S0_EXECUTION",
+      "OWNER_PENDING_CHANGES_ARE_RECEIVED",
+      "CHANGES_ARE_CLASSIFIED_SEMANTIC_OR_NON_SEMANTIC",
+      "IMPACT_IS_CHECKED_AGAINST_REQUIREMENT_PROFILE_S0_EXACT_TARGET_AUTHORITY_AND_VALIDATION",
+      "ONLY_A_RECONCILED_NON_MATERIAL_STATE_MAY_CONTINUE_TO_THE_REMAINING_EXECUTION_GATE"
+    ],
+    "material_semantic_change_flow": [
+      "DO_NOT_EXECUTE_OLD_S0_AUTHORITY",
+      "CREATE_SUCCESSOR_EXACT_TARGET",
+      "PRODUCE_DETERMINISTIC_EXACT_DIFF",
+      "OBTAIN_REQUIRED_FRESH_VALIDATION",
+      "FOLLOW_NEW_AUTHORITY_PATH_AS_APPLICABLE"
+    ]
+  },
+  "prohibited_actions": [
+    "EXECUTE_ACTUAL_S0",
+    "START_STAGE13",
+    "SELF_GRANT_AAA_CONTROL_VALIDATOR_PASS",
+    "SELF_GRANT_AAA_VALIDATION_AUDITOR_PASS",
+    "MODIFY_VALIDATED_S0_SEMANTICS",
+    "DOWNGRADE_P0_RISK",
+    "TREAT_A7_AS_INDEPENDENT_VALIDATION",
+    "TREAT_A6_AS_INDEPENDENT_VALIDATION",
+    "TREAT_A5_RECONSTRUCTION_AS_ORIGINAL_RUNTIME_CANONICITY",
+    "CLAIM_CAP17_FULLY_PROVEN",
+    "INVENT_CODEX_NATIVE_RUN_OR_THREAD_ID",
+    "MAKE_CODEX_A_PERSONA",
+    "MERGE_TO_MAIN",
+    "PUSH_REMOTE_WITHOUT_NEW_EXPLICIT_APPROVAL",
+    "FORCE_PUSH",
+    "TAG",
+    "OPEN_PR",
+    "RELEASE"
+  ],
+  "stage10_persistence_contract": {
+    "base_commit": "a5ae6346f35602522d566d7048aea414db4ec416",
+    "base_tree": "745b13dd047c9e1d5ecd3ec334246605178a25f9",
+    "branch": "aaa-tw-stage10-s0-execution-authority-v0.1",
+    "candidate_path": "control/architecture/working-candidates/transfer-workspace/s0/execution-authority/v0.1/control/AAA_TW_S0_EXECUTION_AUTHORITY_v0.1.json",
+    "create_once": true,
+    "overwrite_prohibited": true,
+    "history_rewrite_prohibited": true,
+    "remote_push_state": "NOT_AUTHORIZED_BY_STAGE10_PACKET",
+    "remote_push_requires_new_explicit_owner_authority": true,
+    "self_identity_mode": "EXTERNAL_POST_WRITE_PINNED_READBACK_TO_AVOID_SELF_REFERENCE_CYCLE"
+  },
+  "validation_and_acceptance_state": {
+    "stage10_authoring_evidence_state": "PENDING_EXTERNAL_POST_WRITE_DETERMINISTIC_VERIFICATION",
+    "paired_validation_state": "NOT_PERFORMED",
+    "independent_validation_state": "NOT_PERFORMED",
+    "owner_acceptance_state": "NOT_PERFORMED",
+    "stage10_author_pass_is_stage11_validator_pass": false,
+    "stage10_author_pass_is_stage12_independent_validation_pass": false
+  }
+}
