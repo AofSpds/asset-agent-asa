@@ -1,0 +1,42 @@
+{
+  "artifact_id": "HUMAN-PROJECT-OWNER-REAFFIRMATION-20260819-1943-TW-STAGE9-OPTION-A-HYBRID-CODEX-INCLUDED",
+  "artifact_type": "OWNER_DECISION_REAFFIRMATION",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "owner_decision_principal": "HUMAN PROJECT OWNER",
+  "recording_persona": "AAA-ASA",
+  "reaffirmation_time": "2026-08-19T19:43:00+09:00",
+  "source_owner_decision_ref": "HUMAN-PROJECT-OWNER-DECISION-20260819-1923-TW-STAGE9-OPTION-A-HYBRID",
+  "source_owner_decision_commit": "a11e6d19df45e1df070cce8154b05d02d3edba25",
+  "source_stage9_checkpoint_ref": "AAA-TW-S0-9B4-FINAL-SUBAGENT-CAPABILITY-CLASSIFICATION-v0.1",
+  "owner_reaffirmation_input": "에이 그냥 CODEX 포함해서 결정할께요 OPTION A 승인합니다. 해보고 결정하쥬 뭐 ㅋㅋㅋ",
+  "reaffirmed_semantics": {
+    "option_a_hybrid_remains_approved": true,
+    "work_included": true,
+    "codex_included": true,
+    "codex_permanent_mandatory_dependency_decided": false,
+    "pilot_first_then_operating_model_decision": true,
+    "optimize_for_owner_efficiency_and_convenience": true,
+    "governance_and_validation_controls_not_weakened": true,
+    "stage10_not_authorized_by_this_reaffirmation": true,
+    "s0_execution_not_authorized_by_this_reaffirmation": true,
+    "option_c_not_authorized": true,
+    "fallback_if_material_runtime_proof_fails": "OPTION_B_HOLD_NOT_PROVEN"
+  },
+  "pilot_evaluation_dimensions": [
+    "OWNER_MANUAL_RELAY_COUNT",
+    "OWNER_ACTIVE_INTERVENTION_TIME",
+    "WINDOWS_AND_MOBILE_CONVENIENCE",
+    "WORK_PLANNING_RESEARCH_SYNTHESIS_UTILITY",
+    "CODEX_REPOSITORY_EXECUTION_UTILITY",
+    "AUTHOR_VALIDATOR_RUNTIME_SEPARATION_EVIDENCE",
+    "DETERMINISTIC_TEST_AND_TOUCH_SET_EVIDENCE_COMPLETENESS",
+    "SETUP_AND_OPERATIONAL_BURDEN",
+    "ERROR_AND_RECOVERY_BURDEN",
+    "USAGE_AND_COST_BURDEN"
+  ],
+  "semantic_delta_from_source_owner_decision": false,
+  "decision_state": "REAFFIRMED_NO_SEMANTIC_DELTA",
+  "next_route": "CONTINUE_OPTION_A_HYBRID_BOUNDED_PILOT",
+  "owner_action_required": false
+}
