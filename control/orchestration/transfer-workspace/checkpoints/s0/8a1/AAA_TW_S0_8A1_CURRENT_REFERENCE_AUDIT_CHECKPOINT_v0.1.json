@@ -1,0 +1,96 @@
+{
+  "artifact_id": "AAA-TW-S0-8A1-CURRENT-REFERENCE-AUDIT-CHECKPOINT-v0.1",
+  "artifact_kind": "NON_NORMATIVE_DERIVED_ORCHESTRATION_CHECKPOINT",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-ASA",
+  "delegate_role": "TW LONG-PROCESS DELEGATE",
+  "checkpoint": "8A-1_CURRENT_S0_REFERENCE_AUDIT",
+  "checkpoint_time": "2026-08-19T17:50:00+09:00",
+  "state": "COMPLETE",
+  "authority_created": false,
+  "validation_claim": "NONE",
+  "governed_target_modified": false,
+  "normative_semantics_modified": false,
+  "source_s0_exact_target": {
+    "artifact_id": "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.3",
+    "branch": "aaa-tw-s0-plcp-shadow-instance-v0.3-subagent-first",
+    "commit": "3de57418380c33445d546dfd87b51e7067c3162b",
+    "path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.3/control/AAA_TW_S0_PLCP_SHADOW_INSTANCE_v0.3.json",
+    "git_blob": "64ed5acc3a5cbb0b333cc526306e44406ad7aa0e",
+    "semantic_content_digest": "492962aff9e1cc29e24ae4550c4ca9562fa9a96d92111993d512a6ada76edbd1",
+    "paired_validation_state": "NOT_PERFORMED",
+    "independent_validation_state": "NOT_PERFORMED",
+    "s0_execution_authorized": false
+  },
+  "reference_audit": {
+    "requirements_reference": {
+      "embedded_in_s0": {
+        "version": "v1.1",
+        "commit": "e982ec8c605304dddd34cf8b7880af6abaa95d39",
+        "semantic_content_digest": "f2aaa9715e14e8678fd95a789f3caf90adf7835cd97c835821547547e2135d8f",
+        "validation_state_as_embedded": "NOT_PERFORMED"
+      },
+      "current": {
+        "version": "v1.3",
+        "commit": "d68f80055d8f9c6761c37d182b35b3d481989526",
+        "git_blob": "0e76fe653f18a1267a273332f955394f2e4e07d2",
+        "semantic_content_digest": "adb703b36919d4be2bd04eb0549ed9f772598cc685265add77973150fefc6a9c",
+        "effective_requirement_count": 55,
+        "full_p0_validation": "COMPLETE"
+      },
+      "result": "STALE_EMBEDDED_REFERENCE"
+    },
+    "profile_reference": {
+      "embedded_in_s0": {
+        "version": "v0.3",
+        "commit": "538eac20f69b5c1abb11af60b6f1309da265bf7b",
+        "semantic_content_digest": "d6e5ff43e546a531e26befd0c4d61c0df89a519ce889bc7320fd0179f2775fe2",
+        "validation_state_as_embedded": "NOT_PERFORMED"
+      },
+      "current": {
+        "version": "v0.5",
+        "commit": "b48f6ff3ca7e5df94260a35539c60bf55294a40b",
+        "git_blob": "6b8fd5dae8bd2d3da9f9eb69a3421a5a9ded7439",
+        "semantic_content_digest": "c2a6068ea4229b41df471b99f950f0948b501423653faae231fbeddf4e3d2205",
+        "paired_validation_state": "PASS",
+        "independent_validation_state": "PASS",
+        "full_p0_validation": "COMPLETE",
+        "l2_receipt_commit": "ac8dc6955a8e3c5a3c68a2172fe6a297a1cacd2d"
+      },
+      "result": "STALE_EMBEDDED_REFERENCE"
+    },
+    "owner_direction_reference": {
+      "embedded_in_s0": {
+        "version": "v1.1",
+        "commit": "dc5c385fe93abab1441f8830142a5c5201ca3c94",
+        "semantic_content_digest": "22caac00731d574400ad282db0c61fe0562fbd24c80ed7e0d79787d36c2a6c80",
+        "validation_state_as_embedded": "P0_VALIDATION_PENDING"
+      },
+      "current": {
+        "same_exact_semantic_target": true,
+        "target_commit": "dc5c385fe93abab1441f8830142a5c5201ca3c94",
+        "paired_validation_state": "PASS",
+        "independent_validation_state": "PASS",
+        "l2_receipt_commit": "0e19371622056a75603f4a66f1910a15f8ec42d8"
+      },
+      "result": "TARGET_IDENTITY_CURRENT_BUT_EMBEDDED_VALIDATION_REPRESENTATION_STALE"
+    }
+  },
+  "preserved_live_firewalls": {
+    "product_capability_state": "NOT_PROVEN",
+    "s0_execution_authorized": false,
+    "global_tw_adoption_authorized": false,
+    "production_authorized": false,
+    "track_a_mutation_authorized": false
+  },
+  "audit_result": {
+    "source_s0_v0_3_is_current_ready_for_validation_or_execution": false,
+    "reason": "S0 v0.3 embeds superseded Requirements v1.1 and Profile v0.3 references plus stale Owner-direction validation-state metadata; current authority is Requirements v1.3 + Profile v0.5 with separate PASS receipts.",
+    "current_reference_reconciliation_required_before_s0_validation_or_execution": true,
+    "successor_exact_target_required": "CLASSIFICATION_DEFERRED_TO_8A2_8A3_8A4_AND_8B",
+    "no_s0_execution_started": true
+  },
+  "next_checkpoint": "8A-2_REQUIREMENTS_v1.3_IMPACT_DIFF",
+  "owner_action": "CONTINUE_ONLY"
+}
