@@ -1,0 +1,80 @@
+{
+  "artifact_id": "AAA-GLOBAL-PACKET-DISPLAY-RULE-v0.1",
+  "version": "v0.1",
+  "artifact_kind": "PROJECT_GLOBAL_DISPLAY_AND_PACKET_FORMAT_RULE",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authority_principal": "HUMAN PROJECT OWNER",
+  "owner_directive_task": "AAA_GLOBAL_PACKET_OFFICIAL_CODE_AND_PROGRESS_RULE_v0.1",
+  "scope": "PROJECT_GLOBAL_ALL_CHANNELS_AND_PERSONAS",
+  "state": "ACTIVE_DISPLAY_RULE",
+  "semantic_authority_effect": "NONE_DISPLAY_ONLY",
+  "routing_authority_effect": "NONE",
+  "apply_immediately": true,
+  "bootstrap_on_new_channel_or_successor_instance": true,
+  "display_rule": {
+    "persona_display_format": "CANONICAL_PERSONA_NAME (OFFICIAL_PERSONA_CODE)",
+    "authority_and_routing_key": "CANONICAL_PERSONA_NAME_ONLY",
+    "official_persona_code_is_authority": false,
+    "invent_new_codes_without_registry_authority": false,
+    "historical_legacy_persona_text_mutation": "PROHIBITED",
+    "historical_legacy_resolution_rule": "PRESERVE_ORIGINAL_TEXT_AND_RESOLVE_CURRENT_DISPLAY_ROUTING_TO_CANONICAL_AAA_NAME",
+    "owner_facing_progress_line": "진행 n/N · 현재: <STEP> · 상태: <STATUS> · 다음: <NEXT> · Owner Action: <NONE/REQUIRED>",
+    "owner_facing_detail_policy": "KEEP_COMPACT_UNLESS_MATERIAL_EXPLANATION_REQUIRED"
+  },
+  "official_persona_code_registry": [
+    {"canonical_persona_name": "AAA-ASA", "official_persona_code": "ASA"},
+    {"canonical_persona_name": "AAA-ADVISORY-VALIDATOR", "official_persona_code": "ASAV"},
+    {"canonical_persona_name": "AAA-PMO-ORCHESTRATOR", "official_persona_code": "PMO"},
+    {"canonical_persona_name": "AAA-PMO-VALIDATOR", "official_persona_code": "PMOV"},
+    {"canonical_persona_name": "AAA-CONTROL-ARCHITECT", "official_persona_code": "CTL"},
+    {"canonical_persona_name": "AAA-CONTROL-VALIDATOR", "official_persona_code": "CTLV"},
+    {"canonical_persona_name": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT", "official_persona_code": "MOD"},
+    {"canonical_persona_name": "AAA-MODEL-DESIGN-VALIDATOR", "official_persona_code": "MODV"},
+    {"canonical_persona_name": "AAA-RESEARCH-ORCHESTRATOR", "official_persona_code": "RES"},
+    {"canonical_persona_name": "AAA-RESEARCH-VALIDATOR", "official_persona_code": "RESV"},
+    {"canonical_persona_name": "AAA-ENGINEERING-ORCHESTRATOR", "official_persona_code": "ENG"},
+    {"canonical_persona_name": "AAA-ENGINEERING-VALIDATOR", "official_persona_code": "ENGV"},
+    {"canonical_persona_name": "AAA-VALIDATION-AUDITOR", "official_persona_code": "IVA"}
+  ],
+  "workspace_code_registry": [
+    {
+      "canonical_workspace_name": "AAA-TRANSFER-WORKSPACE",
+      "official_workspace_code": "TW",
+      "is_persona": false,
+      "authority_role": "NONE_BY_CODE"
+    }
+  ],
+  "progress_rule": {
+    "canonical_progress_owner": [
+      "AAA-ASA",
+      "AAA-TRANSFER-WORKSPACE_WHERE_EXPLICITLY_DELEGATED"
+    ],
+    "individual_persona_rule": "REPORT_OWN_STEP_RESULT_AND_EVIDENCE_ONLY",
+    "individual_persona_may_guess_global_progress": false,
+    "recommended_status_values": [
+      "READY",
+      "RUNNING",
+      "WAITING_RETURN",
+      "BLOCKED",
+      "COMPLETE"
+    ]
+  },
+  "packet_header_minimum": [
+    "TO = <CANONICAL_PERSONA_NAME> (<OFFICIAL_PERSONA_CODE>)",
+    "PROCESS_PLAN_ID = <IF_APPLICABLE>",
+    "PROGRESS = <n/N>",
+    "CURRENT_STEP = <STEP>",
+    "STATUS = <READY/RUNNING/WAITING_RETURN/BLOCKED/COMPLETE>",
+    "NEXT_STEP = <STEP>",
+    "OWNER_ACTION_REQUIRED = <TRUE/FALSE>"
+  ],
+  "implementation_rule": {
+    "display_only_code_use": "IMMEDIATE_APPLY_PERMITTED",
+    "official_code_as_automated_routing_key": "PROHIBITED_UNLESS_SEPARATELY_REGISTERED_FOR_ROUTING",
+    "display_rule_registration_requires_separate_validation_bottleneck": false,
+    "preserve_existing_packet_semantics_and_authority_rules": true
+  },
+  "persistent_location_role": "PROJECT_COMMON_CURRENT_STATE_BOOTSTRAP_RULE",
+  "source_of_truth_rule": "THIS_ARTIFACT_IS_THE_PERSISTENT_PROJECT_COMMON_DISPLAY_RULE;_CANONICAL_PERSONA_NAMES_REMAIN_AUTHORITY_AND_ROUTING_KEYS"
+}
