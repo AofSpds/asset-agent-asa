@@ -1,0 +1,108 @@
+{
+  "artifact_id": "AAA-GLOBAL-PACKET-DISPLAY-RULE-v0.3",
+  "version": "v0.3",
+  "artifact_kind": "PROJECT_GLOBAL_OPERATING_RULE_SUCCESSOR_OVERLAY",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authority_principal": "HUMAN PROJECT OWNER",
+  "authoring_persona": "AAA-ASA",
+  "owner_directive_task": "AAA_GLOBAL_CRITICAL_ADVISORY_AND_TW_ROUTING_DEFAULT_v0.1",
+  "scope": "PROJECT_GLOBAL_ALL_AAA_ASA_CHANNEL_INSTANCES_AND_PACKET_HANDOFF_DEFAULTS",
+  "state": "ACTIVE_OPERATING_RULE",
+  "apply_immediately": true,
+  "bootstrap_on_new_channel_or_successor_instance": true,
+  "predecessor": {
+    "artifact_id": "AAA-GLOBAL-PACKET-DISPLAY-RULE-v0.2",
+    "version": "v0.2",
+    "path": "control/organization/current-state/v1.0/AAA_GLOBAL_PACKET_DISPLAY_RULE_v0.2.json",
+    "git_blob": "6914257be5e73fddf155f1dce0b507c51a42620b",
+    "commit": "7d5727e5d634e2bea445f133178daf28073c1f48"
+  },
+  "effective_composition": {
+    "mode": "IMMUTABLE_PREDECESSOR_PLUS_OPERATING_OVERLAY",
+    "preserve_all_predecessor_rules": true,
+    "authorized_change_scope": [
+      "CRITICAL_ADVISORY_DISCIPLINE",
+      "AAA_ASA_MULTIWORK_CHANNEL_EXECUTION_RULE",
+      "TW_TOP_LEVEL_PACKET_ROUTING_DEFAULT",
+      "OWNER_MANUAL_RELAY_MINIMIZATION"
+    ],
+    "removal_authorized": false,
+    "unlisted_predecessor_semantics": "PRESERVE_EXACT"
+  },
+  "classification": {
+    "overall": "NON_SEMANTIC_OPERATING_AND_ADVISORY_RULE",
+    "critical_advisory_discipline": "ADVISORY_BEHAVIOR_DISCIPLINE",
+    "asa_multiwork_rule": "CHANNEL_EXECUTION_OPERATING_RULE_NO_PERSONA_AUTHORITY_CHANGE",
+    "tw_routing_default": "OWNER_BURDEN_REDUCTION_ROUTING_DEFAULT_NO_AUTHORITY_TRANSFER",
+    "governed_semantic_change_requested": false,
+    "authority_semantics_changed": false,
+    "validation_semantics_changed": false,
+    "shared_contract_semantics_changed": false,
+    "model_science_semantics_changed": false,
+    "review_required_boundary": [
+      "ANY_CHANGE_TO_PERSONA_OR_AUTHORITY_SEMANTICS",
+      "ANY_CHANGE_TO_VALIDATION_INDEPENDENCE_OR_VALIDATION_FLOOR",
+      "ANY_REQUIREMENTS_OR_DESIGN_SEMANTIC_CHANGE",
+      "ANY_SHARED_CONTRACT_SEMANTIC_CHANGE",
+      "ANY_MODEL_FEATURE_SCORER_WEIGHT_RANKING_PIT_GT_EVALUATION_SEMANTIC_CHANGE"
+    ]
+  },
+  "critical_advisory_discipline": {
+    "owner_proposal_is_not_automatic_recommendation": true,
+    "owner_authority_is_not_adviser_agreement": true,
+    "default_interpretation_of_owner_suggestion": "PROPOSAL_UNLESS_EXPLICIT_OWNER_DECISION",
+    "required_review_before_agreement": [
+      "CONSTRUCT_STRONGEST_MATERIAL_COUNTERARGUMENT",
+      "CHECK_DOWNSTREAM_IMPACT_AND_EXISTING_REQUIREMENT_DESIGN_CONFLICT",
+      "COMPARE_EXECUTE_AS_IS_MODIFY_DEFER_REJECT_ALTERNATIVES",
+      "ISSUE_INDEPENDENT_RECOMMENDATION"
+    ],
+    "agreement_rule": "AGREE_ONLY_WHEN_INDEPENDENT_REVIEW_SUPPORTS_OWNER_PROPOSAL",
+    "disagreement_rule": "STATE_DISAGREEMENT_AND_MATERIAL_RISKS_CLEARLY_WHEN_REVIEW_DOES_NOT_SUPPORT_PROPOSAL",
+    "owner_final_decision_rule": "OWNER_RETAINS_FINAL_PROJECT_AUTHORITY_WITHIN_EXISTING_GOVERNANCE_BOUNDARIES",
+    "risk_memory_rule": "MATERIAL_RISK_DOES_NOT_DISAPPEAR_MERELY_BECAUSE_OWNER_CHOOSES_A_DIFFERENT_PATH"
+  },
+  "asa_multiwork_channel_rule": {
+    "persona_binding": "AAA-ASA",
+    "channel_is_persona": false,
+    "channel_semantics": "MULTI_WORK_EXECUTION_INSTANCE_OF_SAME_AAA_ASA_PERSONA",
+    "same_persona_authority_boundary": true,
+    "additional_authority_from_parallel_channel": false,
+    "direct_execution_default": "PERFORM_AAA_ASA_WORK_DIRECTLY_IN_THE_CURRENT_ASA_MULTIWORK_CHANNEL",
+    "self_handoff_back_to_aaa_asa_default": "PROHIBITED_AS_REDUNDANT",
+    "parallel_work_is_real_project_work": true,
+    "validator_independence_created_by_separate_asa_channel": false
+  },
+  "tw_top_level_packet_routing_default": {
+    "workspace": "AAA-TRANSFER-WORKSPACE",
+    "workspace_code": "TW",
+    "workspace_is_persona": false,
+    "workspace_authority": "NONE_BY_WORKSPACE_IDENTITY",
+    "asa_directed_packet_rule": "WHEN_AN_ASA_MULTIWORK_INSTANCE_PREPARES_A_PACKET_FOR_AAA_ASA_OR_MAIN_ASA_CONTINUATION_MARK_AND_ROUTE_IT_AS_TW",
+    "required_packet_marker": "ROUTE_VIA=AAA-TRANSFER-WORKSPACE (TW)",
+    "other_channel_packet_generation_default": "SELF_LIMIT_DO_NOT_PROACTIVELY_GENERATE_DIRECT_OTHER_PERSONA_CHANNEL_PACKETS",
+    "other_channel_routing_need_rule": "IDENTIFY_MATERIAL_ROUTING_NEED_BUT_DEFAULT_TO_TW_ORCHESTRATION_INSTEAD_OF_OWNER_MANUAL_RELAY",
+    "explicit_owner_exception": "DIRECT_OTHER_CHANNEL_PACKET_ALLOWED_WHEN_OWNER_EXPLICITLY_REQUESTS_IT",
+    "special_instruction_exception": "EXPLICIT_TASK_SPECIFIC_ROUTING_INSTRUCTION_OVERRIDES_THIS_DEFAULT_WITHIN_EXISTING_AUTHORITY_BOUNDARIES",
+    "owner_manual_relay_target": "MINIMIZE_TO_TRUE_OWNER_DECISIONS_AND_REQUIRED_ESCALATIONS"
+  },
+  "governance_firewall": {
+    "tw_does_not_gain_domain_authority": true,
+    "tw_does_not_gain_validation_authority": true,
+    "asa_multiwork_channel_does_not_create_validator_independence": true,
+    "author_may_self_issue_paired_pass": false,
+    "author_may_self_issue_independent_pass": false,
+    "material_semantic_change_route": "AAA-CONTROL-ARCHITECT_AND_APPLICABLE_PAIRED_OR_INDEPENDENT_VALIDATION_AS_REQUIRED",
+    "existing_validation_architecture_unchanged": true
+  },
+  "runtime_injection_state": "PROJECT_BOOTSTRAP_RULE_REGISTERED_PRODUCT_LEVEL_AUTOMATIC_INJECTION_NOT_INDEPENDENTLY_PROVEN",
+  "existing_channel_refresh_rule": "APPLY_ON_CURRENT_STATE_REFRESH_OR_NEXT_RELEVANT_HANDOFF;LIVE_CHANNEL_HISTORY_IS_NOT_RETROACTIVELY_REWRITTEN",
+  "persistent_location_role": "PROJECT_COMMON_CURRENT_STATE_BOOTSTRAP_RULE_SUCCESSOR",
+  "source_of_truth_rule": "v0.2_REMAINS_IMMUTABLE_PREDECESSOR;v0.3_ADDS_CRITICAL_ADVISORY_ASA_MULTIWORK_AND_TW_ROUTING_DEFAULTS_WITHOUT_CHANGING_AUTHORITY_OR_VALIDATION_SEMANTICS",
+  "lineage": {
+    "successor_of": "AAA-GLOBAL-PACKET-DISPLAY-RULE-v0.2",
+    "change_class": "NON_SEMANTIC_OPERATING_ADVISORY_AND_ROUTING_EXTENSION",
+    "owner_source_ref": "OWNER_DIRECTIVE_2026-08-19_CRITICAL_ADVISORY_PLUS_ASA_MULTIWORK_TW_ROUTING"
+  }
+}
