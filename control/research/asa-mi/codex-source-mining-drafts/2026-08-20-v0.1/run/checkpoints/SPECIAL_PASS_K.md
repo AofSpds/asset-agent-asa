@@ -1,0 +1,14 @@
+# Specialized Pass K — RESIDUAL_AND_UNCLASSIFIED
+
+```text
+PASS_ID = SPECIAL_PASS_K
+PASS_STATE = COMPLETE
+CORPUS_FILES_CONSIDERED = 18
+OBJECTS_AUDITED = 97
+NEW_OBJECT_COUNT = 7
+NEW_OBJECT_IDS = CX-INF-0024, CX-INF-0025, CX-INF-0026, CX-INF-0027, CX-INF-0028, CX-INF-0029, CX-INF-0030
+NEW_RELATION_CANDIDATE_COUNT = 0
+KNOWN_AMBIGUITIES = OWNER_TAGGING_PENDING
+```
+
+This pass reviewed the full corpus through the named specialist lens. Existing objects were not duplicated merely to inflate counts.
