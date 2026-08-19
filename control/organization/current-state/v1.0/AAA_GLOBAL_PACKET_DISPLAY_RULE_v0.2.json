@@ -1,0 +1,183 @@
+{
+  "artifact_id": "AAA-GLOBAL-PACKET-DISPLAY-RULE-v0.2",
+  "version": "v0.2",
+  "artifact_kind": "PROJECT_GLOBAL_DISPLAY_AND_EXECUTION_RESOURCE_OPERATING_RULE",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authority_principal": "HUMAN PROJECT OWNER",
+  "owner_directive_task": "AAA_GLOBAL_EXECUTION_GRADE_AND_MULTI_WORKER_PRO_POLICY_v0.1",
+  "scope": "PROJECT_GLOBAL_ALL_CHANNELS_PERSONAS_AND_MAJOR_TW_EXECUTION_PLANS",
+  "state": "ACTIVE_DISPLAY_AND_RESOURCE_ALLOCATION_RULE",
+  "apply_immediately": true,
+  "bootstrap_on_new_channel_or_successor_instance": true,
+  "predecessor": {
+    "artifact_id": "AAA-GLOBAL-PACKET-DISPLAY-RULE-v0.1",
+    "path": "control/organization/current-state/v1.0/AAA_GLOBAL_PACKET_DISPLAY_RULE_v0.1.json",
+    "git_blob": "9cb0856d471ae239c54f5e633ab09cd95ae1d79c"
+  },
+  "classification": {
+    "overall": "NON_SEMANTIC_OPERATING_RULE",
+    "display_schema": "NON_SEMANTIC_OPERATING_RULE",
+    "execution_grade_recommendation": "NON_SEMANTIC_RESOURCE_PLANNING_METADATA",
+    "pro_resource_allocation_default": "NON_SEMANTIC_RESOURCE_PLANNING_POLICY",
+    "multi_worker_resource_allocation_default": "NON_SEMANTIC_RESOURCE_PLANNING_POLICY",
+    "validation_independence_statements": "PRESERVE_EXISTING_GOVERNED_SEMANTICS_NO_CHANGE",
+    "authority_routing_statements": "PRESERVE_EXISTING_GOVERNED_SEMANTICS_NO_CHANGE",
+    "governed_semantic_change_requested": false,
+    "ctl_route_required_for_current_rule": false,
+    "review_required_boundary": [
+      "ANY_CHANGE_TO_PERSONA_OR_AUTHORITY_SEMANTICS",
+      "ANY_CHANGE_TO_VALIDATION_INDEPENDENCE_OR_VALIDATION_FLOOR",
+      "ANY_REQUIREMENTS_OR_DESIGN_SEMANTIC_CHANGE",
+      "ANY_SHARED_CONTRACT_SEMANTIC_CHANGE",
+      "ANY_CLAIM_THAT_EXECUTION_GRADE_ITSELF_CREATES_INDEPENDENCE_OR_AUTHORITY",
+      "ANY_CLAIM_OF_ACTUAL_PRODUCT_EXECUTION_CAPABILITY_WITHOUT_RUNTIME_EVIDENCE"
+    ]
+  },
+  "runtime_injection_state": "PROJECT_BOOTSTRAP_RULE_REGISTERED_PRODUCT_LEVEL_AUTOMATIC_INJECTION_NOT_INDEPENDENTLY_PROVEN",
+  "existing_channel_refresh_rule": "NO_REINSTANTIATION_REQUIRED_BUT_EXISTING_LIVE_CHANNELS_DO_NOT_RETROACTIVELY_MUTATE;APPLY_ON_NEXT_PACKET_HANDOFF_OR_CURRENT_STATE_REFRESH",
+  "display_rule": {
+    "persona_display_format": "CANONICAL_PERSONA_NAME (OFFICIAL_PERSONA_CODE)",
+    "authority_and_routing_key": "CANONICAL_PERSONA_NAME_ONLY",
+    "official_persona_code_is_authority": false,
+    "invent_new_codes_without_registry_authority": false,
+    "historical_legacy_persona_text_mutation": "PROHIBITED",
+    "historical_legacy_resolution_rule": "PRESERVE_ORIGINAL_TEXT_AND_RESOLVE_CURRENT_DISPLAY_ROUTING_TO_CANONICAL_AAA_NAME",
+    "owner_facing_progress_line": "진행 n/N · 현재: <STEP> · 상태: <STATUS> · 다음: <NEXT> · 실행등급: <GRADE> · 병렬: <MODE> · Owner Action: <NONE/REQUIRED>",
+    "multi_worker_optional_composition_line": "구성: MAIN=<GRADE> / WORKERS=<GRADE×COUNT> [+ PRO SPECIALIST×N]",
+    "owner_facing_detail_policy": "KEEP_COMPACT_UNLESS_MATERIAL_EXPLANATION_REQUIRED"
+  },
+  "official_persona_code_registry": [
+    {"canonical_persona_name": "AAA-ASA", "official_persona_code": "ASA"},
+    {"canonical_persona_name": "AAA-ADVISORY-VALIDATOR", "official_persona_code": "ASAV"},
+    {"canonical_persona_name": "AAA-PMO-ORCHESTRATOR", "official_persona_code": "PMO"},
+    {"canonical_persona_name": "AAA-PMO-VALIDATOR", "official_persona_code": "PMOV"},
+    {"canonical_persona_name": "AAA-CONTROL-ARCHITECT", "official_persona_code": "CTL"},
+    {"canonical_persona_name": "AAA-CONTROL-VALIDATOR", "official_persona_code": "CTLV"},
+    {"canonical_persona_name": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT", "official_persona_code": "MOD"},
+    {"canonical_persona_name": "AAA-MODEL-DESIGN-VALIDATOR", "official_persona_code": "MODV"},
+    {"canonical_persona_name": "AAA-RESEARCH-ORCHESTRATOR", "official_persona_code": "RES"},
+    {"canonical_persona_name": "AAA-RESEARCH-VALIDATOR", "official_persona_code": "RESV"},
+    {"canonical_persona_name": "AAA-ENGINEERING-ORCHESTRATOR", "official_persona_code": "ENG"},
+    {"canonical_persona_name": "AAA-ENGINEERING-VALIDATOR", "official_persona_code": "ENGV"},
+    {"canonical_persona_name": "AAA-VALIDATION-AUDITOR", "official_persona_code": "IVA"}
+  ],
+  "workspace_code_registry": [
+    {"canonical_workspace_name": "AAA-TRANSFER-WORKSPACE", "official_workspace_code": "TW", "is_persona": false, "authority_role": "NONE_BY_CODE"}
+  ],
+  "progress_rule": {
+    "canonical_progress_owner": ["AAA-ASA", "AAA-TRANSFER-WORKSPACE_WHERE_EXPLICITLY_DELEGATED"],
+    "individual_persona_rule": "REPORT_OWN_STEP_RESULT_AND_EVIDENCE_ONLY",
+    "individual_persona_may_guess_global_progress": false,
+    "recommended_status_values": ["READY", "RUNNING", "WAITING_RETURN", "BLOCKED", "COMPLETE"]
+  },
+  "execution_grade_policy": {
+    "grades": {
+      "HIGH": "BOUNDED_GENERAL_EXECUTION_OR_DETERMINISTIC_WORK",
+      "EXTRA_HIGH": "SUBSTANTIAL_REASONING_OR_COMPLEX_IMPLEMENTATION_WITH_BOUNDED_SCOPE",
+      "PRO": "SCARCE_HIGH_REASONING_CAPACITY_FOR_MULTI_HYPOTHESIS_LONG_HORIZON_OR_CROSS_DOMAIN_SYNTHESIS"
+    },
+    "default_rule": "USE_LOWEST_EXECUTION_GRADE_THAT_CAN_RELIABLY_COMPLETE_EXACT_WORK_ITEM",
+    "pro_requires_justification_when_used": true,
+    "routine_work_pro_default": false,
+    "pro_priority": [
+      "FAILURE_ANALYSIS",
+      "FORWARD_SUCCESSOR_DESIGN",
+      "ARCHITECTURE_DECISIONS",
+      "P0_P1_SEMANTIC_CONFLICT",
+      "FALSIFICATION",
+      "INDEPENDENT_AUDIT_REASONING",
+      "MULTI_WORKER_SYNTHESIS"
+    ],
+    "do_not_spend_pro_on": [
+      "ROUTINE_PACKET_RELAY",
+      "SIMPLE_PROGRESS_REPORTING",
+      "METADATA_FORMATTING",
+      "RECEIPT_TRANSPORT",
+      "STRAIGHTFORWARD_DETERMINISTIC_TESTS",
+      "SIMPLE_FILE_TRANSFORMATION",
+      "BASIC_ROUTING"
+    ],
+    "fixed_pro_quota": "NONE",
+    "do_not_invent_quota_without_runtime_limit_and_workload_evidence": true,
+    "grade_is_compute_resource_metadata_only": true,
+    "grade_change_is_governed_artifact_semantic_change": false,
+    "actual_product_grade_enforcement_state": "NOT_PROVEN_UNLESS_RUNTIME_EVIDENCE_EXISTS"
+  },
+  "parallelism_policy": {
+    "modes": ["SINGLE", "MULTI_WORKER"],
+    "multi_worker_does_not_imply_all_pro": true,
+    "recommended_complex_multi_worker_default": {
+      "main": "PRO_WHEN_COMPLEX_DECOMPOSITION_CROSS_RESULT_RECONCILIATION_OR_FINAL_SYNTHESIS",
+      "workers": "HIGH_OR_EXTRA_HIGH_BY_DEFAULT",
+      "pro_specialist": "SELECTIVE_FOR_ROOT_CAUSE_FALSIFICATION_MAJOR_SEMANTIC_DESIGN_OR_HIGH_COMPLEXITY_VALIDATION"
+    },
+    "simple_partition_rule": "MULTI_WORKER_SIMPLE_PARTITION_DOES_NOT_REQUIRE_PRO_MAIN",
+    "tw_defaults": {
+      "tw_main": "PRO_PREFERRED_ONLY_FOR_COMPLEX_MULTI_WORKER_OR_FINAL_SEMANTIC_SYNTHESIS",
+      "author_workers": "HIGH_OR_EXTRA_HIGH_DEFAULT",
+      "correction_workers": "HIGH_OR_EXTRA_HIGH_DEFAULT_UNLESS_MAJOR_SEMANTIC_REDESIGN",
+      "validator_workers": "EXTRA_HIGH_DEFAULT_PRO_ONLY_FOR_DEEP_FALSIFICATION_CROSS_DOMAIN_OR_COMPLEX_P0_P1_REASONING",
+      "iva": "PRO_OPTIONAL_WHEN_INDEPENDENT_AUDIT_TARGET_MATERIALLY_WARRANTS_DEPTH"
+    },
+    "actual_multi_worker_runtime_capability_state": "NOT_PROVEN_GLOBALLY_BY_THIS_POLICY"
+  },
+  "validation_firewall": {
+    "execution_grade_creates_independence": false,
+    "pro_model_equals_validator_independence": false,
+    "multi_worker_equals_multi_persona_independence": false,
+    "author_may_self_issue_paired_pass": false,
+    "author_may_self_issue_independent_pass": false,
+    "existing_validation_architecture_unchanged": true,
+    "independence_must_be_evidenced_by": [
+      "PERSONA_BINDING",
+      "SEPARATE_EXECUTION_ACT",
+      "SEPARATE_AGENT_THREAD",
+      "SEPARATE_CONTEXT_BUNDLE",
+      "TARGET_WRITE_PERMISSION",
+      "MODEL_FAMILY",
+      "PROVIDER",
+      "EVIDENCE_ROUTE",
+      "VALIDATION_ACT_ID"
+    ]
+  },
+  "optional_workitem_fields": [
+    "EXECUTION_GRADE",
+    "PARALLELISM",
+    "WORKER_COUNT",
+    "MAIN_EXECUTION_GRADE",
+    "WORKER_DEFAULT_GRADE",
+    "PRO_SPECIALIST_COUNT",
+    "PRO_JUSTIFICATION",
+    "EXPECTED_REASONING_CLASS",
+    "RESOURCE_ESCALATION_RULE"
+  ],
+  "grade_escalation_triggers": [
+    "UNEXPECTED_CONTRADICTION",
+    "MULTIPLE_PLAUSIBLE_ROOT_CAUSES",
+    "CROSS_DOMAIN_SEMANTIC_CONFLICT",
+    "P0_P1_ISSUE_EMERGES",
+    "BOUNDED_WORKER_REPEATED_REASONING_FAILURE",
+    "FINAL_SYNTHESIS_REQUIRES_DEEPER_REASONING"
+  ],
+  "grade_downgrade_triggers": [
+    "WORK_BECOMES_DETERMINISTIC",
+    "SCOPE_DECOMPOSED_INTO_INDEPENDENT_BOUNDED_TASKS",
+    "STABLE_EXACT_CONTRACT_EXISTS",
+    "REMAINING_WORK_IS_TEST_LINT_DIFF_EXTRACTION_FORMATTING"
+  ],
+  "implementation_rule": {
+    "display_and_resource_metadata_apply_immediately": true,
+    "no_separate_validation_bottleneck_for_non_semantic_operating_metadata": true,
+    "official_code_as_automated_routing_key": "PROHIBITED_UNLESS_SEPARATELY_REGISTERED_FOR_ROUTING",
+    "preserve_existing_packet_semantics_authority_and_validation_rules": true,
+    "material_governed_semantic_change": "ROUTE_TO_AAA-CONTROL-ARCHITECT_AND_APPLICABLE_VALIDATION"
+  },
+  "persistent_location_role": "PROJECT_COMMON_CURRENT_STATE_BOOTSTRAP_RULE",
+  "source_of_truth_rule": "THIS_ARTIFACT_SUPERSEDES_v0.1_FOR_PACKET_DISPLAY_AND_ADDS_NON_SEMANTIC_EXECUTION_RESOURCE_PLANNING_DEFAULTS;CANONICAL_PERSONA_NAMES_REMAIN_AUTHORITY_AND_ROUTING_KEYS",
+  "lineage": {
+    "successor_of": "AAA-GLOBAL-PACKET-DISPLAY-RULE-v0.1",
+    "change_class": "NON_SEMANTIC_OPERATING_DISPLAY_AND_RESOURCE_ALLOCATION_EXTENSION",
+    "owner_source_ref": "AAA_GLOBAL_EXECUTION_GRADE_AND_MULTI_WORKER_PRO_POLICY_v0.1"
+  }
+}
