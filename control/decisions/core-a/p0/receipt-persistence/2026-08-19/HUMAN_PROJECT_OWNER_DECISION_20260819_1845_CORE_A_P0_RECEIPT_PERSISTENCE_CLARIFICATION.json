@@ -1,0 +1,89 @@
+{
+  "artifact_id": "HUMAN-PROJECT-OWNER-DECISION-20260819-1845-CORE-A-P0-RECEIPT-PERSISTENCE-CLARIFICATION",
+  "artifact_type": "P0_OWNER_AUTHORITY_CLARIFICATION_DECISION",
+  "authority_safety_boundary": {
+    "c04b_reopen_authorized": false,
+    "cross_domain_receipt_authority": false,
+    "deterministic_import_authority": false,
+    "github_general_purpose_write_authority": false,
+    "golden_replay_authorized": false,
+    "implementation_authorized": false,
+    "new_domain_authority": false,
+    "new_verdict_authority": false,
+    "post_hoc_receipt_authority": false,
+    "production_authorized": false,
+    "research_or_model_receipt_authority": false,
+    "research_registration_retry_authorized": false,
+    "validation_verdict_created_by_owner_decision": false
+  },
+  "governance_interpretation": {
+    "does_not_retroactively_convert_prior_review_required_to_pass": true,
+    "fresh_validation_required": true,
+    "owner_is_not_exempt_from_validation_and_authority_rules": true,
+    "prospective_authority_clarification_before_receipt_persistence": true,
+    "v0_1_and_v0_2_historical_targets_and_review_required_acts_preserved": true
+  },
+  "lineage": {
+    "approved_from_option": "OPTION_1",
+    "ctl_classification_required_for_successor_or_separate_authority_object": true,
+    "in_place_v0_2_mutation": "PROHIBITED",
+    "source_current_authority_target_commit": "21befbb9287112da0fa53ca7b8b9ddade97723c4",
+    "source_current_authority_target_version": "v0.2"
+  },
+  "next_control_route": "AAA-CONTROL-ARCHITECT",
+  "owner_decision_principal": "HUMAN PROJECT OWNER",
+  "owner_decision_semantics": {
+    "OD01_BOOTSTRAP_SUCCESSOR_CONTINUITY": {
+      "bootstrap_termination_rule": [
+        "FULL_P0_VALIDATION_CLOSURE_OF_THE_AUTHORITY_CLASS",
+        "OWNER_REJECTION_OR_ABANDONMENT_OF_THE_AUTHORITY_CLASS",
+        "GENUINELY_DIFFERENT_AUTHORITY_CLASS_OR_MATERIALLY_CHANGED_AUTHORITY_SCOPE_REPLACES_IT"
+      ],
+      "decision": "APPROVED",
+      "exact_semantic": "The bootstrap authority approved on 2026-08-19 15:59 KST remains applicable to immutable correction/remediation successors of the SAME stable receipt-persistence authority class/object, provided that the stable authority OBJECT_ID remains the same; Owner-approved domain/scope is not expanded; Validator verdict ownership is unchanged; Validator receipt ownership is unchanged; bootstrap capability is not widened; post-hoc/import authority is not added; and the authority class has not yet achieved Full P0 closure. Such an immutable correction successor does NOT by itself constitute bootstrap-terminating AUTHORITY_CLASS_SUPERSEDED.",
+      "scope_expansion_is_not_correction_successor": true
+    },
+    "OD02_RECEIPT_WRITE_REF_POLICY": {
+      "cross_validator_receipt_ref_write": "PROHIBITED",
+      "decision": "VALIDATOR_OWNED_PER_ACT_REF",
+      "exact_ref_derivation_rule": {
+        "normalization_rule": "Exact path-safe normalization and deterministic validator token mapping shall be defined by the governed Control contract; it must be uniquely derivable from the approved required inputs and must not widen authority.",
+        "reference_class": "aaa-validation-receipts/core-a/p0/<PATH_SAFE_TARGET_OBJECT_ID>/<TARGET_VERSION>/<DETERMINISTIC_VALIDATOR_TOKEN>/<PATH_SAFE_VALIDATION_ACT_ID>",
+        "required_derivation_inputs": [
+          "CORE_A_P0",
+          "TARGET_OBJECT_ID",
+          "TARGET_VERSION",
+          "VALIDATOR_PERSONA",
+          "VALIDATION_ACT_ID"
+        ]
+      },
+      "material_receipt_correction": "NEW_VALIDATION_ACT_OR_SUCCESSOR_RECEIPT_AS_APPLICABLE_PLUS_NEW_RECEIPT_ID_PLUS_NEW_DETERMINISTIC_RECEIPT_REF",
+      "post_write_identity_closure": "READBACK_VERIFICATION_ONLY_NO_FURTHER_REF_ADVANCE",
+      "receipt_ref_advance_limit": "ONE",
+      "receipt_ref_advance_semantic": "TARGET_COMMIT_TO_CREATE_ONCE_LAYER_A_RECEIPT_COMMIT",
+      "receipt_ref_initial_anchor": "EXACT_PINNED_TARGET_COMMIT",
+      "receipt_ref_reuse": "PROHIBITED",
+      "target_ref_mutation_for_receipt": "PROHIBITED"
+    }
+  },
+  "owner_decision_state": "APPROVED",
+  "owner_decision_time": "2026-08-19T18:45:00+09:00",
+  "product": "ASSET AGENT ASA",
+  "project": "AAA",
+  "recording_persona": "AAA-ASA",
+  "semantic_content_digest": "599f321ee95958f4196fbef89e0c7c0906449ec66a9917427281a4674b4026fd",
+  "semantic_content_digest_profile": "SHA256_UTF8_CANONICAL_JSON_owner_decision_semantics_SORT_KEYS_COMPACT_NO_TRAILING_NEWLINE",
+  "source_request": {
+    "current_authority_target": {
+      "artifact_id": "AAA-CORE-A-P0-VALIDATOR-OWNED-RECEIPT-PERSISTENCE-AUTHORITY",
+      "exact_target_commit": "21befbb9287112da0fa53ca7b8b9ddade97723c4",
+      "version": "v0.2"
+    },
+    "from_persona": "AAA-PMO-ORCHESTRATOR",
+    "source_ctlv_validation_act_id": "AAA-CORE-A-P0-RECEIPT-PERSISTENCE-AUTH-v0.2-CTL-L1-20260819-1834-01",
+    "source_ctlv_verdict": "REVIEW_REQUIRED",
+    "source_owner_bootstrap_decision_ref": "HUMAN-PROJECT-OWNER-DECISION-20260819-1559-CORE-A-P0-VALIDATOR-RECEIPT-PERSISTENCE",
+    "task": "AAA_CORE_A_P0_VALIDATOR_RECEIPT_BOOTSTRAP_AND_WRITE_REF_OWNER_CLARIFICATION_v0.1"
+  },
+  "track_a_stage": "7/15"
+}
