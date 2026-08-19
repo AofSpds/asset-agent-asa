@@ -1,0 +1,25 @@
+# Repository Corpus Source Inventory
+
+Measured files: **18**  
+Measured bytes: **198964**
+
+| Path | Bytes | Corpus class | Source level | Mined |
+|---|---:|---|---|---|
+| `control/research/asa-mi/brainstorm-registry/v0.1/AAA_ASA_MI_BRAINSTORM_HYPOTHESIS_PRINCIPLE_REGISTRY_v0.1.md` | 25236 | LIVE_RESEARCH | LIVE_REPOSITORY_RESEARCH_RECORD | YES |
+| `control/research/asa-mi/checkpoints/2026-08-20/AAA_ASA_MI_CURRENT_RESEARCH_STATE_CHECKPOINT_2026-08-20T0509KST_v0.1.md` | 4563 | LIVE_RESEARCH | LIVE_REPOSITORY_RESEARCH_RECORD | YES |
+| `control/research/asa-mi/foundational-worldview/v0.1/AAA_ASA_MI_FOUNDATIONAL_WORLDVIEW_v0.1.md` | 10061 | LIVE_RESEARCH | LIVE_REPOSITORY_RESEARCH_RECORD | YES |
+| `control/research/asa-mi/planning-guidance/v0.1/AAA_ASA_MI_PLANNING_PRINCIPLES_AND_RECOMMENDATIONS_v0.1.md` | 12180 | LIVE_RESEARCH | LIVE_REPOSITORY_RESEARCH_RECORD | YES |
+| `control/research/asa-mi/planning-guidance/v0.1/references/AAA_ASA_MI_REPRESENTATION_PRIOR_ART_REFERENCE_REGISTER_v0.1.md` | 8877 | REFERENCE | LOW_WEIGHT_EXTERNAL_REFERENCE_REGISTER | YES |
+| `control/research/asa-mi/source-normalized-drafts/v0.1/00_README_SOURCE_NORMALIZATION_BOUNDARY.md` | 4986 | HISTORICAL_SOURCE_NORMALIZED | SECONDARY_NORMALIZED_SOURCE | YES |
+| `control/research/asa-mi/source-normalized-drafts/v0.1/01_SOURCE_REGISTER.md` | 7408 | HISTORICAL_SOURCE_NORMALIZED | SECONDARY_NORMALIZED_SOURCE | YES |
+| `control/research/asa-mi/source-normalized-drafts/v0.1/02_WHITEPAPER_SOURCE_OBJECTS.md` | 8700 | HISTORICAL_SOURCE_NORMALIZED | SECONDARY_NORMALIZED_SOURCE | YES |
+| `control/research/asa-mi/source-normalized-drafts/v0.1/03_ASA_MI_PLANNER_SOURCE_OBJECTS.md` | 13459 | HISTORICAL_SOURCE_NORMALIZED | SECONDARY_NORMALIZED_SOURCE | YES |
+| `control/research/asa-mi/source-normalized-drafts/v0.1/04_RED_I_SOURCE_OBJECTS.md` | 12853 | HISTORICAL_SOURCE_NORMALIZED | SECONDARY_NORMALIZED_SOURCE | YES |
+| `control/research/asa-mi/source-normalized-drafts/v0.1/05_RED_II_SOURCE_OBJECTS.md` | 10447 | HISTORICAL_SOURCE_NORMALIZED | SECONDARY_NORMALIZED_SOURCE | YES |
+| `control/research/asa-mi/source-normalized-drafts/v0.1/06_RED_III_SOURCE_OBJECTS.md` | 13701 | HISTORICAL_SOURCE_NORMALIZED | SECONDARY_NORMALIZED_SOURCE | YES |
+| `control/research/asa-mi/source-normalized-drafts/v0.1/07_CROSS_SOURCE_HYPOTHESIS_CANDIDATE_MAP.md` | 16244 | HISTORICAL_SOURCE_NORMALIZED | SECONDARY_NORMALIZED_SOURCE | YES |
+| `control/research/asa-mi/source-normalized-drafts/v0.1/08_OPEN_QUESTION_AND_EXPERIMENT_CATALOG.md` | 16594 | HISTORICAL_SOURCE_NORMALIZED | SECONDARY_NORMALIZED_SOURCE | YES |
+| `control/research/asa-mi/source-normalized-drafts/v0.1/09_TAGGING_BACKLOG_NEXT_SESSION.md` | 7173 | HISTORICAL_SOURCE_NORMALIZED | SECONDARY_NORMALIZED_SOURCE | YES |
+| `control/research/asa-mi/source-normalized-drafts/v0.1/10_TRACEABILITY_MATRIX.md` | 8295 | HISTORICAL_SOURCE_NORMALIZED | SECONDARY_NORMALIZED_SOURCE | YES |
+| `control/research/asa-mi/source-normalized-drafts/v0.1/11_ADDITIONAL_SOURCE_OBJECTS_AND_PARKING_LOT.md` | 12360 | HISTORICAL_SOURCE_NORMALIZED | SECONDARY_NORMALIZED_SOURCE | YES |
+| `control/research/asa-mi/source-normalized-drafts/v0.1/12_DRAFT_MANIFEST.md` | 5827 | HISTORICAL_SOURCE_NORMALIZED | SECONDARY_NORMALIZED_SOURCE | YES |
