@@ -1,0 +1,88 @@
+{
+  "artifact_id": "HUMAN-PROJECT-OWNER-DECISION-20260819-1923-TW-STAGE9-OPTION-A-HYBRID",
+  "artifact_type": "OWNER_EXECUTION_SURFACE_DECISION",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "owner_decision_principal": "HUMAN PROJECT OWNER",
+  "recording_persona": "AAA-ASA",
+  "owner_decision_time": "2026-08-19T19:23:00+09:00",
+  "owner_decision_state": "APPROVED",
+  "owner_decision_input": "네 가장 효율적이고 편한 쪽으로 디자인 하신거면 OPTION A 승인합니다.",
+  "source_stage9_checkpoint": {
+    "artifact_id": "AAA-TW-S0-9B4-FINAL-SUBAGENT-CAPABILITY-CLASSIFICATION-v0.1",
+    "commit": "a3158c43495f102b3b86f07570a55e0b16ad2279",
+    "state": "COMPLETE_CAPABILITY_NOT_PROVEN",
+    "product_capability_claim": "NOT_PROVEN"
+  },
+  "owner_decision_semantics": {
+    "decision": "OPTION_A_HYBRID_APPROVED",
+    "design_objective": "MAXIMIZE_EFFICIENCY_AND_OWNER_CONVENIENCE_WITHOUT_WEAKENING_GOVERNANCE_OR_VALIDATION_CONTROLS",
+    "front_end": "AAA-ASA_CHAT_OWNER_FRONT_DOOR",
+    "work_role": [
+      "PLANNING",
+      "RESEARCH",
+      "LONG_HORIZON_ANALYSIS",
+      "DOCUMENT_AND_ARTIFACT_SYNTHESIS",
+      "OWNER_FACING_RESULT_SYNTHESIS"
+    ],
+    "codex_role": [
+      "REPOSITORY_EXECUTION",
+      "DETERMINISTIC_TESTS_AND_DIFFS",
+      "AUTHOR_MATERIAL_RUNS",
+      "VALIDATOR_MATERIAL_RUNS",
+      "CORRECTION_RUNS",
+      "RUNTIME_CAPABILITY_PROOF"
+    ],
+    "persistent_sot": "GIT_CONTROL_PLANE",
+    "mobile_operating_model": "ASA_AND_WORK_PRIMARY_PLUS_CODEX_REMOTE_WHEN_AVAILABLE",
+    "windows_execution_host": "SUPPORTED_PREFERRED_OWNER_ENVIRONMENT",
+    "proof_scope": "ONLY_UNPROVEN_MATERIAL_RUNTIME_CAPS_REPEAT; PRESERVE_EXISTING_STATIC_CONTROL_EVIDENCE",
+    "success_gate": "ALL_HARD_BLOCKING_STAGE9_CAPABILITY_TESTS_PASS_WITH_MATERIAL_RUNTIME_EVIDENCE",
+    "stage10_gate": "PROHIBITED_UNTIL_STAGE9_CAPABILITY_PROVEN",
+    "fallback_on_pilot_failure": "OPTION_B_HOLD_NOT_PROVEN",
+    "option_c_auto_entry": false,
+    "option_c_requires_new_owner_decision": true,
+    "owner_manual_relay_kpi_priority": true,
+    "owner_manual_relay_target": "MINIMIZE_TOWARD_ZERO_WITHOUT_HIDING_TRUE_OWNER_DECISION_GATES",
+    "new_framework_authorized": false,
+    "new_database_authorized": false,
+    "new_workflow_engine_authorized": false,
+    "model_semantic_change_authorized": false,
+    "pit_change_authorized": false,
+    "ground_truth_change_authorized": false,
+    "shared_contract_change_authorized": false,
+    "s0_execution_authorized": false,
+    "implementation_authorized": false,
+    "production_authorized": false,
+    "independent_validation_pass_created": false
+  },
+  "pilot_execution_sequence": [
+    "A0_SURFACE_PRECHECK_WINDOWS_WORK_CODEX_AND_MOBILE_REMOTE",
+    "A1_WORK_BOUNDED_PLANNING_CONTEXT_AND_OWNER_UX_PILOT",
+    "A2_CODEX_AUTHOR_MATERIAL_RUNTIME_PROOF",
+    "A3_CODEX_VALIDATOR_SEPARATE_MATERIAL_RUNTIME_PROOF",
+    "A4_CORRECTION_LOOP_WITHOUT_ROUTINE_OWNER_RELAY_IF_FINDING_OCCURS",
+    "A5_DETERMINISTIC_RECOMPUTATION_AND_GIT_EVIDENCE_RECONSTRUCTION",
+    "A6_WORK_SYNTHESIS_AND_ASA_OWNER_FACING_RESULT",
+    "A7_STAGE9_FINAL_RECLASSIFICATION"
+  ],
+  "runtime_validation_firewall": {
+    "codex_separate_threads_do_not_equal_independent_validation": true,
+    "same_provider_or_model_must_be_disclosed_truthfully": true,
+    "validator_target_write_default_deny_must_be_materially_evidenced": true,
+    "normal_chat_turn_is_not_subagent_evidence": true,
+    "work_agent_judgment_is_not_validation_pass": true,
+    "agent_agreement_is_not_deterministic_evidence": true
+  },
+  "scope_firewall": {
+    "track_a_touch": [],
+    "second_s0_started": false,
+    "existing_s0_v0_5_mutation_authorized": false,
+    "global_tw_adoption_authorized": false,
+    "owner_execution_authority_materialized": false
+  },
+  "semantic_content_digest": "dcc9eb25f4222859f0048ceb1a9d4ca139b130b1d9794f0b3358e08e8ba83f87",
+  "semantic_content_digest_profile": "SHA256_UTF8_CANONICAL_JSON_owner_decision_semantics_SORT_KEYS_COMPACT_NO_TRAILING_NEWLINE",
+  "next_route": "AAA-ASA_TW_STAGE9_OPTION_A_HYBRID_PILOT_PREPARATION",
+  "owner_action_required": false
+}
