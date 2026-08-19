@@ -1,0 +1,78 @@
+{
+  "artifact_id": "AAA-TW-S0-8B1-SUCCESSOR-EXACT-TARGET-COMPOSITION-RESOLUTION-CHECKPOINT-v0.1",
+  "artifact_kind": "NON_NORMATIVE_DERIVED_ORCHESTRATION_CHECKPOINT",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-ASA",
+  "delegate_role": "TW LONG-PROCESS DELEGATE",
+  "checkpoint": "8B-1_SUCCESSOR_EXACT_TARGET_COMPOSITION_RESOLUTION",
+  "checkpoint_time": "2026-08-19T18:15:00+09:00",
+  "state": "COMPLETE",
+  "authority_created": false,
+  "validation_claim": "NONE",
+  "governed_target_modified_by_this_checkpoint": false,
+  "normative_semantics_modified_by_this_checkpoint": false,
+  "predecessor_checkpoint": {
+    "artifact_id": "AAA-TW-S0-8A4-COMBINED-PRESERVATION-AND-CHANGE-CLASSIFICATION-CHECKPOINT-v0.1",
+    "commit": "f2a93e1d787788447057acd7363f8bd02eeeb5d1"
+  },
+  "discovery": {
+    "existing_author_owned_successor_found": true,
+    "disposition": "REUSE_EXISTING_EXACT_TARGET_DO_NOT_DUPLICATE_AUTHORING",
+    "reason": "AAA-CONTROL-ARCHITECT has already materialized the bounded immutable successor of S0 v0.3 on a dedicated branch. Duplicate normative write is prohibited and unnecessary."
+  },
+  "resolved_exact_target": {
+    "artifact_id": "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.4",
+    "version": "v0.4",
+    "authoring_persona": "AAA-CONTROL-ARCHITECT",
+    "authoring_state": "MATERIALIZED_EXACT_VALIDATION_TARGET",
+    "repository": "AofSpds/asset-agent-asa",
+    "branch": "aaa-tw-s0-plcp-shadow-instance-v0.4-current-authority-rebind",
+    "commit": "ba91403930c97db4e66e937d1ce7da04c342d4c1",
+    "tree": "f1947d80bdb18170cf0ce47130af3c2493d52a1d",
+    "path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.4/control/AAA_TW_S0_PLCP_SHADOW_INSTANCE_v0.4.json",
+    "git_blob": "528fbc9746c6e50f32b081013031a31281220d58",
+    "byte_size": 13677,
+    "parent_commit": "3de57418380c33445d546dfd87b51e7067c3162b"
+  },
+  "composition_verification": {
+    "composition_class": "IMMUTABLE_PREDECESSOR_v0.3_PLUS_BOUNDED_CURRENT_AUTHORITY_REBIND_OVERLAY",
+    "predecessor_exact_v0_3_bound": true,
+    "requirements_v1_3_bound": true,
+    "req_55_explicitly_bound": true,
+    "profile_v0_5_bound": true,
+    "owner_direction_v1_1_same_semantic_target_bound": true,
+    "owner_direction_l1_l2_validation_evidence_bound": true,
+    "requirements_l1_l2_validation_evidence_bound": true,
+    "profile_l1_l2_validation_evidence_bound": true,
+    "successor_execution_evidence_path_templates_rebound_v0_3_to_v0_4": true,
+    "preserve_all_others": true,
+    "six_governed_engineering_output_semantics_preserved": true,
+    "subagent_first_direction_preserved": true,
+    "validation_architecture_preserved": true,
+    "deterministic_evidence_vs_subagent_judgment_separation_preserved": true,
+    "track_a_expected_touch_set_empty": true
+  },
+  "firewall_readback": {
+    "paired_validation_state": "NOT_PERFORMED_AS_TARGET_AUTHORED_STATE",
+    "independent_validation_state": "NOT_PERFORMED_AS_TARGET_AUTHORED_STATE",
+    "product_capability_state": "NOT_PROVEN",
+    "s0_execution_authorized": false,
+    "engineering_implementation_authorized": false,
+    "global_tw_adoption_authorized": false,
+    "production_authorized": false
+  },
+  "resolution": {
+    "successor_version_candidate_v0_4": "CONFIRMED_EXISTING_EXACT_TARGET",
+    "new_successor_materialization_required": false,
+    "duplicate_normative_write_prohibited": true,
+    "second_s0_lineage_started": false,
+    "next_required_act": "VERIFY_CURRENT_VALIDATION_STATE_AND_ROUTE_EXISTING_EXACT_TARGET_TO_REQUIRED_FRESH_PAIRED_VALIDATION_IF_NOT_ALREADY_COMPLETE",
+    "stage_9_subagent_capability_proof_not_started": true
+  },
+  "blocked": false,
+  "owner_decision_required": false,
+  "owner_approval_required": false,
+  "next_checkpoint": "8B-2_EXISTING_v0.4_VALIDATION_STATE_AND_EXACT_IDENTITY_GATE",
+  "owner_action": "CONTINUE_ONLY"
+}
