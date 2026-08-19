@@ -1,0 +1,58 @@
+{
+  "artifact_id": "AAA-TW-A2-AUTHOR-MATERIAL-PROOF-INPUT-v0.1",
+  "artifact_kind": "NONCANONICAL_DISPOSABLE_RUNTIME_PROOF_FIXTURE",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "purpose": "BOUNDED_CODEX_OR_EQUIVALENT_AUTHOR_MATERIAL_RUNTIME_PROOF_ONLY",
+  "governed_effect": "NONE",
+  "normative": false,
+  "production": false,
+  "s0_execution": false,
+  "track_a_touch_allowed": false,
+  "input": {
+    "alpha": 7,
+    "beta": 11
+  },
+  "deterministic_rule": {
+    "required_output_fields": [
+      "alpha",
+      "beta",
+      "sum",
+      "product",
+      "canonical"
+    ],
+    "sum": "alpha + beta",
+    "product": "alpha * beta",
+    "canonical": "alpha=<alpha>|beta=<beta>"
+  },
+  "expected_output": {
+    "alpha": 7,
+    "beta": 11,
+    "sum": 18,
+    "product": 77,
+    "canonical": "alpha=7|beta=11"
+  },
+  "author_write_target_relative_path": "control/orchestration/transfer-workspace/pilots/s0/option-a/a2/candidate/AAA_TW_A2_AUTHOR_MATERIAL_PROOF_CANDIDATE_v0.1.json",
+  "prohibited_touches": [
+    "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.5/",
+    "control/architecture/working-candidates/transfer-workspace/requirements/v1.3/",
+    "control/architecture/working-candidates/transfer-workspace/v0.5/",
+    "control/validation/",
+    "control/decisions/",
+    "model",
+    "pit",
+    "ground_truth",
+    "active_baseline"
+  ],
+  "success_evidence_required": [
+    "DISTINCT_MATERIAL_RUNTIME_OR_THREAD_ID_IF_EXPOSED",
+    "PERSONA_BINDING",
+    "ACTUAL_COMMAND_OR_TOOL_USE",
+    "CANDIDATE_FILE_WRITE",
+    "GIT_STATUS_OR_EQUIVALENT",
+    "GIT_DIFF_OR_EQUIVALENT",
+    "COMPLETE_ACTUAL_TOUCH_SET",
+    "DETERMINISTIC_OUTPUT_CHECK",
+    "STRUCTURED_RETURN"
+  ]
+}
