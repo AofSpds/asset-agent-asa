@@ -1,0 +1,13 @@
+﻿GAP_ID,COMPARISON,DIMENSION,AS_IS_STATE,TO_BE_STATE,DELTA_TYPE,SOURCE_REF,AFFECTED_OBJECTS,SEVERITY_FOR_TAGGING,CLOSURE_STATE,NOTES
+GAP-001,A vs B,SOURCE_COVERAGE,stale local has no ASA-MI path,verified remote has 18-file corpus,SOURCE_COVERAGE_DELTA,local/remote Git refs,,HIGH,CLOSED_BY_BASELINE_SELECTION,A is freshness evidence only
+GAP-002,C vs E[source],MACHINE_READABILITY,provisional Markdown objects,separate parseable JSONL registry,REPRESENTATION_DELTA,source-normalized-drafts,all source objects,HIGH,CLOSED_IN_DRAFT,raw-source claims not upgraded
+GAP-003,C vs E[source],STATUS_AXES,source statuses embedded inconsistently,source/current/Owner status separated,CLASSIFICATION_DELTA,source-normalized-drafts,all source objects,HIGH,CLOSED_IN_DRAFT,Owner tagging pending
+GAP-004,D vs E[live],LIVE_OBJECTIZATION,mixed narrative and registry structures,uniform live object registry,REPRESENTATION_DELTA,live research files,all live objects,MEDIUM,CLOSED_IN_DRAFT,no retroactive source attribution
+GAP-005,C vs D,HISTORICAL_LIVE_LINEAGE,placeholder links only,candidate crosswalk with provenance,RELATION_DELTA,traceability matrix,relation candidates,HIGH,DRAFTED,relations unconfirmed
+GAP-006,C+D vs E,ALTERNATIVE_VISIBILITY,alternatives distributed across RED and parking lot,single alternative/historical registry,CONTENT_DELTA,RED and parking-lot files,counter hypotheses,HIGH,CLOSED_IN_DRAFT,no winner selected
+GAP-007,C+D vs E,NEGATIVE_SEMANTICS,DOES_NOT_ASSERT scattered,negative/non-claim view,NEGATIVE_SEMANTICS_DELTA,all corpus,negative objects,MEDIUM,CLOSED_IN_DRAFT,preserves scope limits
+GAP-008,C+D vs E,EXPERIMENTS,source tests and live candidates distributed,source tests and Codex-derived tests separated,EXPERIMENT_DELTA,experiment catalog,experiments,HIGH,CLOSED_IN_DRAFT,derived tests marked Codex
+GAP-009,C+D vs E,TAGGING,worksheet without complete queue,measured object-level queue,REPRESENTATION_DELTA,tagging backlog,all objects,HIGH,CLOSED_IN_DRAFT,Owner decisions absent
+GAP-010,B vs E,RAW SOURCES,seven locators but no raw files,seven explicit missingness records,RAW_SOURCE_MISSINGNESS,source register,,HIGH,OPEN_FUTURE_RERUN,cannot close in repository mode
+GAP-011,C+D vs E,RESIDUALS,parking lot and schema failures distributed,unclassified and schema-extension views,RESIDUAL_DELTA,parking lot/live registry,residual objects,MEDIUM,CLOSED_IN_DRAFT,not treated as low value
+GAP-012,C+D vs E,REVIEW_ENTRYPOINT,Owner must traverse many files,six-file morning entrypoint,TRACEABILITY_DELTA,entire corpus,,HIGH,CLOSED_IN_DRAFT,links supplied in run manifest

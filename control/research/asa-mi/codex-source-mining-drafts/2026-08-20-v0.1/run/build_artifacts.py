@@ -161,6 +161,14 @@ def recovery_pass_for(class_name: str) -> str:
     return "FULL_SWEEP_1"
 
 
+def negative_subclass(statement: str, fields: dict[str, str] | None = None) -> str:
+    fields = fields or {}
+    text = statement.lower()
+    if "!=" in statement or " does not " in f" {text} " or text.startswith("not ") or fields.get("DOES_NOT_ASSERT"):
+        return "NEGATIVE_CLAIM"
+    return ""
+
+
 def source_objects() -> list[dict]:
     records: list[dict] = []
     seen: set[str] = set()
@@ -187,6 +195,7 @@ def source_objects() -> list[dict]:
                 "ORIGIN_OBJECT_ID": origin,
                 "CORPUS_GROUP": "C_EXISTING_SOURCE_NORMALIZED_AS_IS",
                 "CLASS": class_name,
+                "SUBCLASS": negative_subclass(statement, fields),
                 "STATEMENT": statement,
                 "SHORT_FORM": fields.get("SHORT_FORM", fields.get("FORM", statement)),
                 "SOURCE_ID": source_id,
@@ -231,7 +240,7 @@ def source_objects() -> list[dict]:
         locator = rel(NORM / ("00_README_SOURCE_NORMALIZATION_BOUNDARY.md" if origin.startswith("SN-META") else "11_ADDITIONAL_SOURCE_OBJECTS_AND_PARKING_LOT.md"))
         records.append({
             "OBJECT_ID": f"CX-SRC-META-{counters['META']:04d}", "ORIGIN_OBJECT_ID": origin,
-            "CORPUS_GROUP": "C_EXISTING_SOURCE_NORMALIZED_AS_IS", "CLASS": class_name,
+            "CORPUS_GROUP": "C_EXISTING_SOURCE_NORMALIZED_AS_IS", "CLASS": class_name, "SUBCLASS": negative_subclass(statement),
             "STATEMENT": statement, "SHORT_FORM": statement, "SOURCE_ID": "SOURCE-NORMALIZED-SET",
             "SOURCE_LOCATOR": f"{locator}#{origin}", "SOURCE_LEVEL": "SECONDARY_NORMALIZED_SOURCE",
             "SOURCE_ROLE": "HISTORICAL_SOURCE_NORMALIZED_RECORD", "SOURCE_POSITION_STATE": "PRESERVED",
@@ -268,6 +277,7 @@ def live_objects() -> list[dict]:
                 "ORIGIN_OBJECT_ID": origin,
                 "CORPUS_GROUP": "D_LIVE_BRAINSTORM_AS_IS",
                 "CLASS": class_name,
+                "SUBCLASS": negative_subclass(statement_for(heading, fields, block), fields),
                 "STATEMENT": statement_for(heading, fields, block),
                 "SHORT_FORM": fields.get("SHORT_FORM", fields.get("FORM", heading)),
                 "SOURCE_ID": path.stem,
@@ -293,7 +303,7 @@ def live_objects() -> list[dict]:
             counters["BRAINSTORM"] += 1
             records.append({
                 "OBJECT_ID": f"CX-LIVE-BRAINSTORM-{counters['BRAINSTORM']:04d}", "ORIGIN_OBJECT_ID": origin,
-                "CORPUS_GROUP": "D_LIVE_BRAINSTORM_AS_IS", "CLASS": "CS_PRIOR" if state == "CS_PRIOR_PENDING" else "OPEN_QUESTION",
+                "CORPUS_GROUP": "D_LIVE_BRAINSTORM_AS_IS", "CLASS": "CS_PRIOR" if state == "CS_PRIOR_PENDING" else "OPEN_QUESTION", "SUBCLASS": negative_subclass(statement),
                 "STATEMENT": statement, "SHORT_FORM": statement, "SOURCE_ID": path.stem,
                 "SOURCE_LOCATOR": f"{rel(path)}#{origin}", "SOURCE_LEVEL": "LIVE_REPOSITORY_RESEARCH_RECORD",
                 "SOURCE_ROLE": "CURRENT_BRAINSTORM_BACKLOG", "SOURCE_POSITION_STATE": state,
@@ -319,7 +329,7 @@ def live_objects() -> list[dict]:
         class_name = "PHILOSOPHICAL_GROUNDING" if origin.startswith("W-") else "WORKING_HYPOTHESIS"
         records.append({
             "OBJECT_ID": f"CX-LIVE-WORLDVIEW-{counters['WORLDVIEW']:04d}", "ORIGIN_OBJECT_ID": f"WORLDVIEW-{origin}",
-            "CORPUS_GROUP": "D_LIVE_BRAINSTORM_AS_IS", "CLASS": class_name, "STATEMENT": paragraph,
+            "CORPUS_GROUP": "D_LIVE_BRAINSTORM_AS_IS", "CLASS": class_name, "SUBCLASS": negative_subclass(paragraph), "STATEMENT": paragraph,
             "SHORT_FORM": heading, "SOURCE_ID": worldview.stem, "SOURCE_LOCATOR": f"{rel(worldview)}#{origin}",
             "SOURCE_LEVEL": "LIVE_REPOSITORY_RESEARCH_RECORD", "SOURCE_ROLE": "CURRENT_FOUNDATIONAL_WORLDVIEW",
             "SOURCE_POSITION_STATE": "ESTABLISHED_WORKING_HYPOTHESIS", "OWNER_POSITION_STATE": "RECORDED_CURRENT_RESEARCH_WORLDVIEW",
@@ -342,7 +352,7 @@ def live_objects() -> list[dict]:
         counters["CHECKPOINT"] += 1
         records.append({
             "OBJECT_ID": f"CX-LIVE-CHECKPOINT-{counters['CHECKPOINT']:04d}", "ORIGIN_OBJECT_ID": origin,
-            "CORPUS_GROUP": "D_LIVE_BRAINSTORM_AS_IS", "CLASS": class_name, "STATEMENT": statement,
+            "CORPUS_GROUP": "D_LIVE_BRAINSTORM_AS_IS", "CLASS": class_name, "SUBCLASS": negative_subclass(statement), "STATEMENT": statement,
             "SHORT_FORM": statement, "SOURCE_ID": checkpoint.stem, "SOURCE_LOCATOR": f"{rel(checkpoint)}#{origin}",
             "SOURCE_LEVEL": "LIVE_REPOSITORY_RESEARCH_RECORD", "SOURCE_ROLE": "CURRENT_RESEARCH_STATE_CHECKPOINT",
             "SOURCE_POSITION_STATE": "WORKING_CHECKPOINT", "OWNER_POSITION_STATE": "RECORDED_NOT_FINAL",
@@ -391,7 +401,7 @@ def inferred_objects() -> list[dict]:
     for idx, (class_name, statement, recovery_pass) in enumerate(items, 1):
         records.append({
             "OBJECT_ID": f"CX-INF-{idx:04d}", "ORIGIN_OBJECT_ID": "", "CORPUS_GROUP": "E_CODEX_MINED_TO_BE_DRAFT",
-            "CLASS": class_name, "STATEMENT": statement, "SHORT_FORM": statement,
+            "CLASS": class_name, "SUBCLASS": "", "STATEMENT": statement, "SHORT_FORM": statement,
             "SOURCE_ID": "CODEX-ASA-MI-OVERNIGHT-MINING-v0.3", "SOURCE_LOCATOR": "codex-inferred/objects.jsonl",
             "SOURCE_LEVEL": "CODEX_INFERENCE", "SOURCE_ROLE": "CODEX_DERIVED_CANDIDATE",
             "SOURCE_POSITION_STATE": "NOT_APPLICABLE", "OWNER_POSITION_STATE": "NOT_OWNER_POSITION",
@@ -712,7 +722,7 @@ An independent family-by-family residual review found no new material. This is c
         "01_EXPLICIT_SOURCE_OBJECTS.md": (src, "Explicit Source Objects"),
         "02_ALTERNATIVE_AND_HISTORICAL_HYPOTHESES.md": ([r for r in src if r["CLASS"] in {"COUNTER_HYPOTHESIS","ALTERNATIVE_HYPOTHESIS","HISTORICAL_HYPOTHESIS","COUNTERARGUMENT","CORRECTION"}], "Alternative and Historical Hypotheses"),
         "03_MODELS_CONCEPTS_AND_MAPPINGS.md": ([r for r in src if r["CLASS"] in {"MODEL","CONCEPT","MAPPING","DESIGN_CANDIDATE"}], "Models, Concepts, and Mappings"),
-        "04_NEGATIVE_CLAIMS_AND_NON_CLAIMS.md": ([r for r in src if r["CLASS"] in {"NEGATIVE_CLAIM","NON_CLAIM"} or r.get("DOES_NOT_ASSERT")], "Negative Claims and Non-Claims"),
+        "04_NEGATIVE_CLAIMS_AND_NON_CLAIMS.md": ([r for r in src if r["CLASS"] in {"NEGATIVE_CLAIM","NON_CLAIM"} or r.get("SUBCLASS") == "NEGATIVE_CLAIM" or r.get("DOES_NOT_ASSERT")], "Negative Claims and Non-Claims"),
         "05_OPEN_QUESTIONS.md": ([r for r in src if r["CLASS"] == "OPEN_QUESTION"], "Open Questions"),
         "06_EXPERIMENTS_AND_KILL_TESTS.md": ([r for r in src if r["CLASS"] in {"EXPERIMENT_IDEA","KILL_TEST"}], "Experiments and Kill Tests"),
         "07_FAILURE_MODES_AND_RISKS.md": ([r for r in src if r["CLASS"] in {"RISK","FAILURE_MODE"}], "Failure Modes and Risks"),
@@ -932,7 +942,23 @@ Tag source status, current research relevance, and Owner position separately. `C
     write(OUT / "tagging" / "04_PRIORITY_REVIEW_SETS.md", "\n".join(lines))
 
     counts = Counter(r["CLASS"] for r in all_rows)
-    write(OUT / "run" / "06_OBJECT_COUNT_REPORT.md", "\n".join(["# Object Count Report", "", f"SOURCE_DERIVED_OBJECT_COUNT = {len(src)}", f"LIVE_OBJECT_COUNT = {len(live)}", f"CODEX_INFERRED_OBJECT_COUNT = {len(inf)}", f"RELATION_CANDIDATE_COUNT = {len(rels)}", f"TAGGING_QUEUE_COUNT = {len(queue)}", "", "## Object count by class", ""] + [f"- `{key}` = {value}" for key, value in sorted(counts.items())]))
+    historical_hypotheses = sum(r["CLASS"] in {"WORKING_HYPOTHESIS", "COUNTER_HYPOTHESIS", "ALTERNATIVE_HYPOTHESIS"} for r in src)
+    negative_claims = sum(r.get("SUBCLASS") == "NEGATIVE_CLAIM" for r in all_rows)
+    equivalence_count = sum(r["RELATION"] == "POSSIBLE_SEMANTIC_EQUIVALENCE" for r in rels)
+    write(OUT / "run" / "06_OBJECT_COUNT_REPORT.md", "\n".join([
+        "# Object Count Report", "", f"SOURCE_DERIVED_OBJECT_COUNT = {len(src)}", f"LIVE_OBJECT_COUNT = {len(live)}",
+        f"CODEX_INFERRED_OBJECT_COUNT = {len(inf)}", f"RELATION_CANDIDATE_COUNT = {len(rels)}",
+        f"ALTERNATIVE_HYPOTHESIS_COUNT = {counts['ALTERNATIVE_HYPOTHESIS']}",
+        f"COUNTER_HYPOTHESIS_COUNT = {counts['COUNTER_HYPOTHESIS']}",
+        f"HISTORICAL_SOURCE_HYPOTHESIS_COUNT = {historical_hypotheses}",
+        f"PRINCIPLE_COUNT = {counts['PRINCIPLE']}", f"DESIGN_INTENT_COUNT = {counts['DESIGN_INTENT']}",
+        f"OPEN_QUESTION_COUNT = {counts['OPEN_QUESTION']}", f"EXPERIMENT_COUNT = {counts['EXPERIMENT_IDEA']}",
+        f"KILL_TEST_COUNT = {counts['KILL_TEST']}", f"FAILURE_MODE_COUNT = {counts['FAILURE_MODE']}",
+        f"NEGATIVE_CLAIM_COUNT = {negative_claims}", f"NON_CLAIM_COUNT = {counts['NON_CLAIM']}",
+        f"CS_PRIOR_PENDING_COUNT = {counts['CS_PRIOR']}", f"PHILOSOPHICAL_GROUNDING_COUNT = {counts['PHILOSOPHICAL_GROUNDING']}",
+        f"UNCLASSIFIED_COUNT = {counts['UNCLASSIFIED']}", f"POSSIBLE_SEMANTIC_EQUIVALENCE_COUNT = {equivalence_count}",
+        "RAW_SOURCE_MISSING_COUNT = 7", f"TAGGING_QUEUE_COUNT = {len(queue)}", "", "## Object count by class", ""
+    ] + [f"- `{key}` = {value}" for key, value in sorted(counts.items())]))
     write(OUT / "run" / "07_INTEGRITY_AUDIT.md", """# Integrity Audit
 
 State: `PENDING_FINAL_COMMAND_VERIFICATION`
