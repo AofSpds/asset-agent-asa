@@ -1,0 +1,92 @@
+{
+  "artifact_id": "AAA-TW-S0-8B3-SEQUENCE-RECONCILIATION-AND-STAGE8-CLOSE-CHECKPOINT-v0.1",
+  "artifact_kind": "NON_NORMATIVE_DERIVED_ORCHESTRATION_CHECKPOINT",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-ASA",
+  "delegate_role": "TW LONG-PROCESS DELEGATE",
+  "checkpoint": "8B-3_SEQUENCE_RECONCILIATION_AND_STAGE8_CLOSE",
+  "checkpoint_time": "2026-08-19T18:20:00+09:00",
+  "state": "COMPLETE",
+  "authority_created": false,
+  "validation_claim": "NONE",
+  "governed_target_modified_by_this_checkpoint": false,
+  "normative_semantics_modified_by_this_checkpoint": false,
+  "predecessor_checkpoint": {
+    "artifact_id": "AAA-TW-S0-8B2-VALIDATION-STATE-AND-EXACT-IDENTITY-GATE-CHECKPOINT-v0.1",
+    "commit": "a64c75e994536c99f02340d30a18fafb93c7a569"
+  },
+  "resolved_current_exact_target": {
+    "artifact_id": "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.5",
+    "version": "v0.5",
+    "authoring_persona": "AAA-CONTROL-ARCHITECT",
+    "repository": "AofSpds/asset-agent-asa",
+    "branch": "aaa-tw-s0-plcp-shadow-instance-v0.5-owner-direction-l2-evidence-correction",
+    "commit": "d0b0d2c7a77ca00570151e89e70e092b10646bd2",
+    "tree": "ca1e410f745c54d6d66579173739e28bbf54590e",
+    "path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.5/control/AAA_TW_S0_PLCP_SHADOW_INSTANCE_v0.5.json",
+    "git_blob": "7bc6e4c2194bc2f06d61367434cab38947b40e0d",
+    "byte_size": 13947,
+    "semantic_content_digest": "370a934edfaf72dc2e06d5e45b7c38be8026e3cf85e8d11c2903d2e342be48f2",
+    "paired_validation_state_as_authored": "NOT_PERFORMED",
+    "independent_validation_state_as_authored": "NOT_PERFORMED",
+    "s0_execution_authorized": false,
+    "product_capability_state": "NOT_PROVEN"
+  },
+  "process_sequence_reconciliation": {
+    "canonical_known_plan": {
+      "8_of_15": "S0 current-target impact analysis + exact target resolution",
+      "9_of_15": "Subagent Capability Proof",
+      "10_of_15": "Stage 7C exact Owner S0 Execution Authority materialization",
+      "11_of_15": "Stage 7C P0 L1",
+      "12_of_15": "Stage 7C P0 L2",
+      "13_of_15": "Actual Subagent-first S0 Execution"
+    },
+    "prior_8b2_next_label": "8B-3_FRESH_L1_ROUTE_PREPARATION_FOR_S0_v0.5",
+    "prior_8b2_next_label_disposition": "CORRECTED_BEFORE_VALIDATION_START",
+    "correction_reason": "Starting a fresh S0 target L1 here would advance an extra validation act not present in the currently known 15-stage sequence. Stage 8 objective is exact current-target resolution; Stage 9 is capability proof. No validation act is started without an exact governed route establishing that it belongs at this boundary.",
+    "fresh_l1_started": false,
+    "fresh_l1_receipt_created": false,
+    "validator_persona_invoked": false,
+    "owner_manual_relay_required": false
+  },
+  "stage_8_completion": {
+    "impact_analysis_complete": true,
+    "exact_target_resolution_complete": true,
+    "current_target_version": "v0.5",
+    "same_first_s0_lineage": true,
+    "second_s0_started": false,
+    "unvalidated_target_not_overclaimed_as_validated": true,
+    "s0_execution_not_started": true,
+    "stage_8_status": "COMPLETE"
+  },
+  "stage_9_entry_guard": {
+    "next_stage": "9_OF_15_SUBAGENT_CAPABILITY_PROOF",
+    "purpose": "Prove or fail-closed the required Subagent orchestration capability before any S0 execution authority is materialized.",
+    "must_not": [
+      "START_ACTUAL_S0_EXECUTION",
+      "CLAIM_PRODUCT_CAPABILITY_PROVEN_WITHOUT_EVIDENCE",
+      "MUTATE_S0_v0.5_TARGET",
+      "CREATE_VALIDATION_PASS_FROM_ASA",
+      "ALTER_MODEL_OR_TRACK_A_SEMANTICS"
+    ],
+    "allowed": [
+      "BOUND_CAPABILITY_SURFACE_INSPECTION",
+      "DETERMINISTIC_CAPABILITY_CHECKS_WHERE_AVAILABLE",
+      "PROCEDURAL_SUBAGENT_PROOF_IF_RUNTIME_SURFACE_EXISTS",
+      "NOT_PROVEN_OR_BLOCKED_RESULT_IF_CAPABILITY_IS_UNAVAILABLE"
+    ]
+  },
+  "firewalls": {
+    "s0_execution_authorized": false,
+    "engineering_implementation_authorized": false,
+    "global_tw_adoption_authorized": false,
+    "production_authorized": false,
+    "track_a_touch": []
+  },
+  "blocked": false,
+  "owner_decision_required": false,
+  "owner_approval_required": false,
+  "next_checkpoint": "9A-1_SUBAGENT_CAPABILITY_PROOF_BOUNDARY_AND_TEST_MATRIX",
+  "owner_action": "CONTINUE_ONLY"
+}
