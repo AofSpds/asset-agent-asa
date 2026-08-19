@@ -85,6 +85,9 @@ def normalize_class(raw: str, origin: str) -> str:
         ("HISTORICAL_HYPOTHESIS", "HISTORICAL_HYPOTHESIS"),
         ("FALSIFICATION_TARGET", "KILL_TEST"),
         ("EXPERIMENT", "EXPERIMENT_IDEA"),
+        ("PLANNING_RECOMMENDATION", "RESEARCH_PRINCIPLE"),
+        ("RESEARCH_METHOD_CANDIDATE", "RESEARCH_PRINCIPLE"),
+        ("EVALUATION_DIMENSION", "EVALUATION_PRINCIPLE"),
         ("OPEN_QUESTION", "OPEN_QUESTION"),
         ("-OQ-", "OPEN_QUESTION"),
         ("RISK", "RISK"),
@@ -115,6 +118,8 @@ def normalize_class(raw: str, origin: str) -> str:
             return result
     if "-H-" in origin or "-ALT-" in origin or "-CH-" in origin:
         return "WORKING_HYPOTHESIS"
+    if "-EXP-" in origin:
+        return "EXPERIMENT_IDEA"
     if "-PC-" in origin:
         return "PRINCIPLE"
     if "-M-" in origin:
@@ -193,6 +198,7 @@ def source_objects() -> list[dict]:
                 "CURRENT_RESEARCH_STATE": "NOT_YET_TAGGED",
                 "CONFIRMATION_STATE": fields.get("CONFIRMATION", fields.get("CONFIRMATION_STATE", "NOT_CONFIRMED")),
                 "DOES_NOT_ASSERT": fields.get("DOES_NOT_ASSERT", ""),
+                "SOURCE_RECORD_TEXT": block,
                 "INFERENCE_STATE": "SOURCE_DERIVED_FROM_NORMALIZED_RECORD",
                 "RECOVERY_PASS": recovery_pass_for(class_name),
                 "NOTES": "Raw primary source was not accessed in this run.",
@@ -231,6 +237,7 @@ def source_objects() -> list[dict]:
             "SOURCE_ROLE": "HISTORICAL_SOURCE_NORMALIZED_RECORD", "SOURCE_POSITION_STATE": "PRESERVED",
             "OWNER_POSITION_STATE": "UNKNOWN", "CURRENT_RESEARCH_STATE": "NOT_YET_TAGGED",
             "CONFIRMATION_STATE": "NOT_CONFIRMED", "DOES_NOT_ASSERT": "CURRENT_OWNER_ADOPTION",
+            "SOURCE_RECORD_TEXT": statement,
             "INFERENCE_STATE": "SOURCE_DERIVED_FROM_NORMALIZED_RECORD", "RECOVERY_PASS": recovery_pass_for(class_name),
             "NOTES": "Preserved boundary, thesis, or parking-lot record; raw primary source not accessed.",
         })
@@ -272,6 +279,7 @@ def live_objects() -> list[dict]:
                 "CURRENT_RESEARCH_STATE": fields.get("STATE", "NOT_YET_TAGGED"),
                 "CONFIRMATION_STATE": fields.get("CONFIRMATION_STATE", "UNCONFIRMED"),
                 "DOES_NOT_ASSERT": fields.get("DOES_NOT_ASSERT", "FINAL_TRUTH_OR_NORMATIVE_AUTHORITY"),
+                "SOURCE_RECORD_TEXT": block,
                 "INFERENCE_STATE": "EXPLICIT_LIVE_REPOSITORY_RECORD",
                 "RECOVERY_PASS": recovery_pass_for(class_name),
                 "NOTES": heading,
@@ -291,6 +299,7 @@ def live_objects() -> list[dict]:
                 "SOURCE_ROLE": "CURRENT_BRAINSTORM_BACKLOG", "SOURCE_POSITION_STATE": state,
                 "OWNER_POSITION_STATE": "OPEN_RESEARCH_QUESTION", "CURRENT_RESEARCH_STATE": state,
                 "CONFIRMATION_STATE": "UNCONFIRMED", "DOES_NOT_ASSERT": "ANSWER_OR_ADOPTION",
+                "SOURCE_RECORD_TEXT": match.group(0),
                 "INFERENCE_STATE": "EXPLICIT_LIVE_REPOSITORY_RECORD", "RECOVERY_PASS": "FULL_SWEEP_3" if state == "CS_PRIOR_PENDING" else "FULL_SWEEP_1",
                 "NOTES": "Explicit backlog entry.",
             })
@@ -316,6 +325,7 @@ def live_objects() -> list[dict]:
             "SOURCE_POSITION_STATE": "ESTABLISHED_WORKING_HYPOTHESIS", "OWNER_POSITION_STATE": "RECORDED_CURRENT_RESEARCH_WORLDVIEW",
             "CURRENT_RESEARCH_STATE": "ACTIVE_UNCONFIRMED", "CONFIRMATION_STATE": "UNCONFIRMED",
             "DOES_NOT_ASSERT": "FINAL_TRUTH", "INFERENCE_STATE": "EXPLICIT_LIVE_REPOSITORY_RECORD",
+            "SOURCE_RECORD_TEXT": body,
             "RECOVERY_PASS": recovery_pass_for(class_name), "NOTES": heading,
         })
         seen.add((rel(worldview), origin))
@@ -338,6 +348,7 @@ def live_objects() -> list[dict]:
             "SOURCE_POSITION_STATE": "WORKING_CHECKPOINT", "OWNER_POSITION_STATE": "RECORDED_NOT_FINAL",
             "CURRENT_RESEARCH_STATE": "ACTIVE_OR_OPEN", "CONFIRMATION_STATE": "UNCONFIRMED",
             "DOES_NOT_ASSERT": "FINAL_TRUTH_OR_OWNER_ACCEPTANCE", "INFERENCE_STATE": "EXPLICIT_LIVE_REPOSITORY_RECORD",
+            "SOURCE_RECORD_TEXT": statement,
             "RECOVERY_PASS": recovery_pass_for(class_name), "NOTES": "Checkpoint synthesis explicitly recorded in the source file.",
         })
     return records
