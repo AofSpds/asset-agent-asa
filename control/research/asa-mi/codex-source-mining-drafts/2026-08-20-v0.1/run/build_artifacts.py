@@ -488,6 +488,8 @@ def markdown_objects(title: str, rows: list[dict], note: str = "") -> str:
         lines += [note, ""]
     for row in rows:
         lines += [f"## {row['OBJECT_ID']} — {row.get('ORIGIN_OBJECT_ID') or 'CODEX_INFERRED'}", "", f"- Class: `{row['CLASS']}`", f"- Status: `{row['CURRENT_RESEARCH_STATE']}`", f"- Source level: `{row['SOURCE_LEVEL']}`", f"- Source: `{row['SOURCE_LOCATOR']}`", f"- Statement: {row['STATEMENT']}", ""]
+        if row.get("SOURCE_RECORD_TEXT"):
+            lines += ["Source record:", "", "```text", row["SOURCE_RECORD_TEXT"], "```", ""]
     if not rows:
         lines.append("No object in this category was recovered from the repository corpus.")
     return "\n".join(lines)
@@ -720,6 +722,21 @@ An independent family-by-family residual review found no new material. This is c
     }
     for filename, (rows, title) in source_sets.items():
         write(OUT / "source-derived" / filename, markdown_objects(title, rows, "Historical records are secondary normalized sources; raw primary verification was not performed."))
+    write(OUT / "source-derived" / "10_SOURCE_COVERAGE_AND_MISSINGNESS.md", f"""# Source Coverage and Missingness
+
+```text
+REPOSITORY_CORPUS_FILES = 18
+HISTORICAL_NORMALIZED_FILES = 13
+SOURCE_DERIVED_OBJECTS = {len(src)}
+HISTORICAL_SOURCE_IDS = [SRC-WP1, SRC-WP2, SRC-MI0, SRC-MI1, SRC-R1, SRC-R2, SRC-R3]
+RAW_PRIMARY_SOURCE_VERIFICATION = NOT_PERFORMED
+RAW_PRIMARY_SOURCE_MISSING_COUNT = 7
+```
+
+All 13 normalized files were considered. Every recovered historical object retains a repository locator and, where present, its original normalized record text. The seven historical raw source bodies are not repository-addressable and were not searched for elsewhere or reconstructed from the web.
+
+Exact historical filenames and chat locators are preserved in `../run/03_RAW_SOURCE_MISSINGNESS.md`. This draft measures repository-record recall; it does not claim sentence-level or raw-source completeness and therefore reports no coverage percentage.
+""")
 
     live_sets = {
         "01_LIVE_PRINCIPLES_AND_DESIGN_INTENT.md": ([r for r in live if r["CLASS"] in {"PRINCIPLE","RESEARCH_PRINCIPLE","DESIGN_INTENT","EVALUATION_PRINCIPLE"}], "Live Principles and Design Intent"),
