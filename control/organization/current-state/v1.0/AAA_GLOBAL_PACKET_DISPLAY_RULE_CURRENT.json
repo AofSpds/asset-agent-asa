@@ -10,9 +10,9 @@
     "version": "v0.3",
     "repository": "AofSpds/asset-agent-asa",
     "branch": "main",
-    "commit": "84e4f217a9e152bff8d910a25a52adfaea357509",
+    "commit": "79ab2b2809e0d3a059030d7b457b684bd641282e",
     "path": "control/organization/current-state/v1.0/AAA_GLOBAL_PACKET_DISPLAY_RULE_v0.3.json",
-    "git_blob": "4ebf7db3f0828a4958d105eb3c4eb10a863e3ff3"
+    "git_blob": "18a085d1843cab1b43a8581b9db9f848d4f0dd88"
   },
   "bootstrap_rule": "NEW_CHANNEL_OR_SUCCESSOR_INSTANCE_SHOULD_RESOLVE_THIS_POINTER_DURING_AAA_CURRENT_STATE_BOOTSTRAP",
   "runtime_injection_state": "PROJECT_BOOTSTRAP_POINTER_ACTIVE_PRODUCT_LEVEL_AUTOMATIC_INJECTION_NOT_INDEPENDENTLY_PROVEN",
