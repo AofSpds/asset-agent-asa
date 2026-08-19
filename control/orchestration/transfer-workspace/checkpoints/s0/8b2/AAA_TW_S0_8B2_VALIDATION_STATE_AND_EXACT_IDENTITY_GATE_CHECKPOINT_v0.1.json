@@ -1,0 +1,84 @@
+{
+  "artifact_id": "AAA-TW-S0-8B2-VALIDATION-STATE-AND-EXACT-IDENTITY-GATE-CHECKPOINT-v0.1",
+  "artifact_kind": "NON_NORMATIVE_DERIVED_ORCHESTRATION_CHECKPOINT",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-ASA",
+  "delegate_role": "TW LONG-PROCESS DELEGATE",
+  "checkpoint": "8B-2_VALIDATION_STATE_AND_EXACT_IDENTITY_GATE",
+  "checkpoint_time": "2026-08-19T18:18:00+09:00",
+  "state": "COMPLETE_WITH_CURRENT_TARGET_CORRECTION",
+  "authority_created": false,
+  "validation_claim": "NONE",
+  "governed_target_modified_by_this_checkpoint": false,
+  "normative_semantics_modified_by_this_checkpoint": false,
+  "predecessor_checkpoint": {
+    "artifact_id": "AAA-TW-S0-8B1-SUCCESSOR-EXACT-TARGET-COMPOSITION-RESOLUTION-CHECKPOINT-v0.1",
+    "commit": "78cdeee21024a98af2a305d5d241be1ec9548e9f",
+    "disposition": "SUPERSEDED_AS_CURRENT_TARGET_RESOLUTION_ONLY; HISTORICAL_CHECKPOINT_PRESERVED"
+  },
+  "current_target_discovery": {
+    "v0_4_was_not_current_pass_target": true,
+    "v0_4_validation_state": "P0_CTLV_L1_CORRECTION_REQUIRED_NOT_CURRENT_PASS_TARGET",
+    "v0_4_material_finding_ref": "S0-v0.4-CTL-L1-F01",
+    "existing_author_owned_correction_successor_found": true,
+    "corrected_current_target_version": "v0.5",
+    "reason": "AAA-CONTROL-ARCHITECT had already materialized immutable v0.5 successor correcting Owner Direction v1.1 L2 exact-evidence identity after v0.4 paired-control finding."
+  },
+  "resolved_current_exact_target": {
+    "artifact_id": "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.5",
+    "version": "v0.5",
+    "authoring_persona": "AAA-CONTROL-ARCHITECT",
+    "authoring_state": "MATERIALIZED_EXACT_VALIDATION_TARGET",
+    "repository": "AofSpds/asset-agent-asa",
+    "branch": "aaa-tw-s0-plcp-shadow-instance-v0.5-owner-direction-l2-evidence-correction",
+    "commit": "d0b0d2c7a77ca00570151e89e70e092b10646bd2",
+    "tree": "ca1e410f745c54d6d66579173739e28bbf54590e",
+    "path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.5/control/AAA_TW_S0_PLCP_SHADOW_INSTANCE_v0.5.json",
+    "git_blob": "7bc6e4c2194bc2f06d61367434cab38947b40e0d",
+    "byte_size": 13947,
+    "semantic_content_digest": "370a934edfaf72dc2e06d5e45b7c38be8026e3cf85e8d11c2903d2e342be48f2",
+    "parent_commit": "ba91403930c97db4e66e937d1ce7da04c342d4c1"
+  },
+  "correction_scope_readback": {
+    "composition_class": "IMMUTABLE_PREDECESSOR_v0.4_PLUS_OWNER_DIRECTION_v1.1_L2_EXACT_EVIDENCE_IDENTITY_CORRECTION",
+    "predecessor_v0_4_preserved": true,
+    "owner_direction_semantic_target_unchanged": true,
+    "owner_direction_l2_exact_evidence_identity_corrected": true,
+    "requirements_v1_3_binding_preserved": true,
+    "req_55_binding_preserved": true,
+    "profile_v0_5_binding_preserved": true,
+    "six_governed_engineering_output_semantics_preserved": true,
+    "subagent_first_direction_preserved": true,
+    "track_a_touch": []
+  },
+  "current_validation_gate": {
+    "target_authored_paired_validation_state": "NOT_PERFORMED",
+    "target_authored_independent_validation_state": "NOT_PERFORMED",
+    "fresh_paired_validation_receipt_for_v0_5_found_in_bounded_current_branch_inspection": false,
+    "fresh_independent_validation_receipt_for_v0_5_found_in_bounded_current_branch_inspection": false,
+    "current_exact_target_ready_to_be_treated_as_validated": false,
+    "required_next_validation": "FRESH_PAIRED_CONTROL_VALIDATION_L1_ON_EXACT_v0.5",
+    "independent_l2_after_l1": "REQUIRED_IF_RISK_CLASS_REMAINS_P0_OR_AS_GOVERNED_BY_CURRENT_PLAN"
+  },
+  "firewalls": {
+    "product_capability_state": "NOT_PROVEN",
+    "s0_execution_authorized": false,
+    "engineering_implementation_authorized": false,
+    "global_tw_adoption_authorized": false,
+    "production_authorized": false,
+    "stage_9_subagent_capability_proof_started": false
+  },
+  "process_effect": {
+    "stage_8_current_target_analysis": "CONTINUES_ON_CORRECTED_v0.5_EXACT_TARGET",
+    "no_second_s0": true,
+    "no_duplicate_normative_write": true,
+    "8b1_error_class": "STALE_CURRENT_TARGET_RESOLUTION_CAUGHT_BY_VALIDATION_STATE_GATE_BEFORE_ANY_VALIDATION_OR_EXECUTION",
+    "safety_result": "FAIL_CLOSED_SUCCESSFUL_NO_DOWNSTREAM_EXECUTION_OCCURRED"
+  },
+  "blocked": false,
+  "owner_decision_required": false,
+  "owner_approval_required": false,
+  "next_checkpoint": "8B-3_FRESH_L1_ROUTE_PREPARATION_FOR_S0_v0.5",
+  "owner_action": "CONTINUE_ONLY"
+}
