@@ -1,0 +1,33 @@
+{
+  "artifact_id": "AAA-TW-OPTION-A-A0-PC-CAFE-ENVIRONMENT-PRECHECK-v0.1",
+  "artifact_kind": "NON_NORMATIVE_DERIVED_ORCHESTRATION_CHECKPOINT",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-ASA",
+  "checkpoint": "OPTION_A_A0_WINDOWS_SURFACE_PRECHECK",
+  "checkpoint_time": "2026-08-19T19:33:00+09:00",
+  "state": "PARTIAL_ENVIRONMENT_BLOCK_RETRY_HOME_WINDOWS",
+  "owner_decision_ref": "HUMAN-PROJECT-OWNER-DECISION-20260819-1923-TW-STAGE9-OPTION-A-HYBRID",
+  "observed_environment": "PC_CAFE_MANAGED_WINDOWS",
+  "observed_ui": {
+    "surface": "MICROSOFT_STORE_OR_APP_INSTALL_UPDATE_FLOW",
+    "message": "업데이트 서비스 중 하나가 제대로 실행되고 있지 않습니다.",
+    "error_code": "0x80070424"
+  },
+  "classification": {
+    "codex_product_capability": "NOT_TESTED",
+    "work_product_capability": "NOT_TESTED_IN_THIS_CHECKPOINT",
+    "account_entitlement": "NOT_TESTED",
+    "local_install_surface": "ENVIRONMENT_CONSTRAINED_OR_SERVICE_UNAVAILABLE",
+    "global_product_unavailability_claim": false,
+    "home_windows_retry_required": true
+  },
+  "decision": "DO_NOT_TROUBLESHOOT_OR_CHANGE_MANAGED_PC_CAFE_WINDOWS_SERVICES; DEFER WINDOWS_CODEX_INSTALL_SURFACE_TEST_TO_OWNER_HOME_PC",
+  "reason": "The observed error is compatible with a managed or restricted Windows environment and does not establish Codex/Work capability absence. Altering services or administrator policy on a PC-cafe machine is unnecessary and outside the bounded proof objective.",
+  "stage9_state": "NOT_PROVEN_UNCHANGED",
+  "stage10_allowed": false,
+  "s0_execution_authorized": false,
+  "track_a_touch": [],
+  "next_route": "CONTINUE_NONINSTALL_OPTION_A_PRECHECKS_IF_CONVENIENT; OTHERWISE_RESUME_A0_ON_HOME_WINDOWS_PC",
+  "owner_action_required": false
+}
