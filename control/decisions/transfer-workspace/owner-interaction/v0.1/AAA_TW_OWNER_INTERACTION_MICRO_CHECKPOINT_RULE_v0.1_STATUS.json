@@ -1,0 +1,10 @@
+{
+  "artifact_id": "AAA-TW-OWNER-INTERACTION-MICRO-CHECKPOINT-RULE-v0.1-STATUS",
+  "state": "ACTIVE_TW_LOCAL_RULE",
+  "rule_ref": "AAA-TW-OWNER-INTERACTION-MICRO-CHECKPOINT-RULE-v0.1",
+  "branch": "aaa-tw-owner-interaction-micro-checkpoint-rule-v0.1",
+  "latest_registration_commit_before_status": "c375b1f1e265bfb94d49c91b0d307d1ccf5c0a1f",
+  "scope": "NONCANONICAL_TW_LOCAL_OWNER_INTERACTION",
+  "formal_validation_claim": "NONE",
+  "governed_requirements_or_profile_changed": false
+}
