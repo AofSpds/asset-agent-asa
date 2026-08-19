@@ -1,0 +1,603 @@
+{
+  "artifact_id": "AAA-TW-OPTION-A-A5-RUNTIME-EVIDENCE-RECONSTRUCTION-v0.1",
+  "artifact_kind": "NON_NORMATIVE_DERIVED_RUNTIME_EVIDENCE_RECONSTRUCTION",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "version": "v0.1",
+  "authoring_persona": "AAA-CONTROL-ARCHITECT",
+  "authoring_role": "CONTROL_EVIDENCE_RECONSTRUCTION_AUTHOR",
+  "orchestrated_by": "AAA-ASA / ASA-TW",
+  "stage": "09",
+  "stage09_state": "IN_PROGRESS",
+  "source_baseline_commit": "1982a36c1c350cd1a83470065d044d02aac09613",
+  "evidence_semantics": "DERIVED_NONNORMATIVE",
+  "normative_semantic_mutation": false,
+  "evidence_origin_model": {
+    "allowed_categories": [
+      "DETERMINISTIC_RECOMPUTED",
+      "PRIOR_RUNTIME_RETURN",
+      "EXACT_GIT_OBJECT",
+      "DERIVED_FROM_RECOMPUTED_EVIDENCE",
+      "NOT_PROVEN"
+    ],
+    "classification_rule": "Each material field or explicitly grouped descendant set has an evidence origin. Mixed-origin claims retain each contributing category and do not promote PRIOR_RUNTIME_RETURN into deterministic proof.",
+    "descendant_rule": "An evidence_origins entry ending in .* applies to every descendant leaf of that named object."
+  },
+  "persona_binding_chain": {
+    "persona": "AAA-CONTROL-ARCHITECT",
+    "persona_code": "CTL",
+    "active_organization_branch": "aaa-organization-active-v1.3",
+    "active_organization_commit": "d7c490c373f2df356f31e4459c345328616b4eb3",
+    "active_branch_remote_ref_resolved_to_commit": true,
+    "root_normative_contract": "AAA-ORGANIZATION-TOPOLOGY-CONTRACT-v1.3",
+    "root_normative_contract_commit": "9d0e1198f317385e0342442332e8a1136da9d23c",
+    "authority_restoration_source": "AAA-ORGANIZATION-TOPOLOGY-CONTRACT-v1.1",
+    "authority_restoration_commit": "7a13c42f646bb9d7ad798ea240b7249d9a3557b5",
+    "author_scope_pointer": "#/authority/canonical/AAA-CONTROL-ARCHITECT",
+    "author_scope_digest": "26f87ad0547c87432135cc96dac8fb7a92a8631154c963dc1646d81424c8f45d",
+    "author_scope_pointer_direct_readback": "NOT_PROVEN",
+    "a5_authority_scope": [
+      "artifact_control",
+      "continuity",
+      "stable_identity_lineage",
+      "change_detection_change_control",
+      "persistent_context_current_state_mechanics"
+    ],
+    "evidence_origins": {
+      "persona": ["PRIOR_RUNTIME_RETURN"],
+      "persona_code": ["PRIOR_RUNTIME_RETURN"],
+      "active_organization_branch": ["EXACT_GIT_OBJECT"],
+      "active_organization_commit": ["EXACT_GIT_OBJECT"],
+      "active_branch_remote_ref_resolved_to_commit": ["EXACT_GIT_OBJECT"],
+      "root_normative_contract": ["EXACT_GIT_OBJECT"],
+      "root_normative_contract_commit": ["EXACT_GIT_OBJECT"],
+      "authority_restoration_source": ["PRIOR_RUNTIME_RETURN"],
+      "authority_restoration_commit": ["EXACT_GIT_OBJECT"],
+      "author_scope_pointer": ["PRIOR_RUNTIME_RETURN"],
+      "author_scope_digest": ["PRIOR_RUNTIME_RETURN"],
+      "author_scope_pointer_direct_readback": ["NOT_PROVEN"],
+      "a5_authority_scope.*": ["PRIOR_RUNTIME_RETURN"]
+    }
+  },
+  "source_baseline_recomputation": {
+    "repository": "AofSpds/asset-agent-asa",
+    "commit": "1982a36c1c350cd1a83470065d044d02aac09613",
+    "commit_object_type": "commit",
+    "path": "control/orchestration/transfer-workspace/runtime-proof/option-a/a2/disposable/AAA_TW_OPTION_A_A2_DISPOSABLE_INPUT_v0.1.json",
+    "git_blob": "1ea6598e61b9514da14f1cba14ac4734340b7425",
+    "valid_json": true,
+    "source_artifact_id": "AAA-TW-OPTION-A-A2-DISPOSABLE-INPUT-v0.1",
+    "source_artifact_kind": "NON_NORMATIVE_DISPOSABLE_RUNTIME_PROOF_FIXTURE",
+    "input": {
+      "alpha": 7,
+      "beta": 11,
+      "labels": ["TW", "A2", "AUTHOR_PROOF"]
+    },
+    "recomputed_result": {
+      "sum": 18,
+      "product": 77,
+      "labels_sorted": ["A2", "AUTHOR_PROOF", "TW"],
+      "source_artifact_id": "AAA-TW-OPTION-A-A2-DISPOSABLE-INPUT-v0.1"
+    },
+    "rules_applied": {
+      "sum": "7 + 11",
+      "product": "7 * 11",
+      "labels_sorted": "ordinal lexicographic ascending",
+      "source_artifact_id": "exact copy of input artifact_id"
+    },
+    "result": "PROVEN",
+    "evidence_origins": {
+      "repository": ["PRIOR_RUNTIME_RETURN"],
+      "commit": ["EXACT_GIT_OBJECT"],
+      "commit_object_type": ["EXACT_GIT_OBJECT"],
+      "path": ["EXACT_GIT_OBJECT"],
+      "git_blob": ["EXACT_GIT_OBJECT"],
+      "valid_json": ["DETERMINISTIC_RECOMPUTED"],
+      "source_artifact_id": ["DETERMINISTIC_RECOMPUTED"],
+      "source_artifact_kind": ["DETERMINISTIC_RECOMPUTED"],
+      "input.*": ["DETERMINISTIC_RECOMPUTED"],
+      "recomputed_result.*": ["DETERMINISTIC_RECOMPUTED"],
+      "rules_applied.*": ["DERIVED_FROM_RECOMPUTED_EVIDENCE"],
+      "result": ["DERIVED_FROM_RECOMPUTED_EVIDENCE"]
+    }
+  },
+  "acts": [
+    {
+      "act_id": "A2",
+      "persona": "AAA-CONTROL-ARCHITECT",
+      "role": "AUTHOR",
+      "runtime_surface": "CODEX_DESKTOP_LOCAL",
+      "runtime_id_state": "NOT_EXPOSED",
+      "worktree": "C:/Users/ms1pk/dev/asset-agent-asa/asset-agent-asa-a2-author-runtime-1982a36",
+      "head": "1982a36c1c350cd1a83470065d044d02aac09613",
+      "target": "C:/Users/ms1pk/dev/asset-agent-asa/asset-agent-asa-a2-author-runtime-1982a36/control/orchestration/transfer-workspace/runtime-proof/option-a/a2/disposable/AAA_TW_OPTION_A_A2_AUTHOR_CANDIDATE_v0.1.json",
+      "current_target_identity": {
+        "exists": true,
+        "sha256": "78257842B465832EF5CB12D8E0EC3B19E00C4D9FB4870436FF86ACCE6107AA42",
+        "byte_size": 166,
+        "valid_json": true,
+        "content": {
+          "sum": 18,
+          "product": 77,
+          "labels_sorted": ["A2", "AUTHOR_PROOF", "TW"],
+          "source_artifact_id": "AAA-TW-OPTION-A-A2-DISPOSABLE-INPUT-v0.1"
+        },
+        "targeted_git_status": "?? control/orchestration/transfer-workspace/runtime-proof/option-a/a2/disposable/AAA_TW_OPTION_A_A2_AUTHOR_CANDIDATE_v0.1.json"
+      },
+      "deterministic_result": "PASS",
+      "touch_set": [
+        "control/orchestration/transfer-workspace/runtime-proof/option-a/a2/disposable/AAA_TW_OPTION_A_A2_AUTHOR_CANDIDATE_v0.1.json"
+      ],
+      "touch_count": 1,
+      "prohibited_touch": "NONE",
+      "tools_reported_used": ["exec_command", "apply_patch"],
+      "result_classification": "PASS_FOR_A2_SCOPE",
+      "evidence_origins": {
+        "act_id": ["PRIOR_RUNTIME_RETURN"],
+        "persona": ["PRIOR_RUNTIME_RETURN"],
+        "role": ["PRIOR_RUNTIME_RETURN"],
+        "runtime_surface": ["PRIOR_RUNTIME_RETURN"],
+        "runtime_id_state": ["PRIOR_RUNTIME_RETURN"],
+        "worktree": ["DETERMINISTIC_RECOMPUTED"],
+        "head": ["EXACT_GIT_OBJECT"],
+        "target": ["DETERMINISTIC_RECOMPUTED"],
+        "current_target_identity.*": ["DETERMINISTIC_RECOMPUTED"],
+        "deterministic_result": ["DERIVED_FROM_RECOMPUTED_EVIDENCE"],
+        "touch_set.*": ["PRIOR_RUNTIME_RETURN"],
+        "touch_count": ["PRIOR_RUNTIME_RETURN"],
+        "prohibited_touch": ["PRIOR_RUNTIME_RETURN"],
+        "tools_reported_used.*": ["PRIOR_RUNTIME_RETURN"],
+        "result_classification": ["PRIOR_RUNTIME_RETURN"]
+      }
+    },
+    {
+      "act_id": "A3",
+      "persona": "AAA-CONTROL-VALIDATOR",
+      "role": "VALIDATOR",
+      "runtime_surface": "CODEX_DESKTOP_LOCAL",
+      "runtime_id_state": "NOT_EXPOSED",
+      "separate_context": "NEW_CODEX_CONVERSATION",
+      "pair_id": "AAA-PAIR-CTL-CTLV-v1.1",
+      "target": "C:/Users/ms1pk/dev/asset-agent-asa/asset-agent-asa-a2-author-runtime-1982a36/control/orchestration/transfer-workspace/runtime-proof/option-a/a2/disposable/AAA_TW_OPTION_A_A2_AUTHOR_CANDIDATE_v0.1.json",
+      "current_target_identity": {
+        "sha256": "78257842B465832EF5CB12D8E0EC3B19E00C4D9FB4870436FF86ACCE6107AA42",
+        "byte_size": 166,
+        "content_matches_recomputed_source_result": true
+      },
+      "reported_pre_target_sha256": "78257842B465832EF5CB12D8E0EC3B19E00C4D9FB4870436FF86ACCE6107AA42",
+      "reported_post_target_sha256": "78257842B465832EF5CB12D8E0EC3B19E00C4D9FB4870436FF86ACCE6107AA42",
+      "reported_checks": {
+        "VALID_JSON": "PASS",
+        "DETERMINISTIC_SCOPE": "PASS",
+        "SUM": "PASS",
+        "PRODUCT": "PASS",
+        "LABEL_SORT": "PASS",
+        "SOURCE_ARTIFACT_ID": "PASS",
+        "NO_VALIDATION_CLAIM": "PASS",
+        "NO_AUTHORITY_POLICY_CREATION": "PASS",
+        "NONNORMATIVE_DISPOSABLE_SCOPE": "PASS",
+        "EXACT_SOURCE_COMMIT": "PASS"
+      },
+      "reconstructed_checks": {
+        "VALID_JSON": "PASS",
+        "SUM": "PASS",
+        "PRODUCT": "PASS",
+        "LABEL_SORT": "PASS",
+        "SOURCE_ARTIFACT_ID": "PASS",
+        "EXACT_SOURCE_COMMIT": "PASS",
+        "SUBSTANTIVE_RESULT": "PASS"
+      },
+      "reported_target_non_mutation": "PROVEN",
+      "validator_additional_touch_set": [],
+      "target_write_deny_class": "TOOL_PERMISSION_SCOPED",
+      "author_hidden_reasoning_received": false,
+      "substantive_finding": "PASS",
+      "result_classification": "PASS_FOR_A3_SCOPE",
+      "evidence_origins": {
+        "act_id": ["PRIOR_RUNTIME_RETURN"],
+        "persona": ["PRIOR_RUNTIME_RETURN"],
+        "role": ["PRIOR_RUNTIME_RETURN"],
+        "runtime_surface": ["PRIOR_RUNTIME_RETURN"],
+        "runtime_id_state": ["PRIOR_RUNTIME_RETURN"],
+        "separate_context": ["PRIOR_RUNTIME_RETURN"],
+        "pair_id": ["EXACT_GIT_OBJECT", "PRIOR_RUNTIME_RETURN"],
+        "target": ["DETERMINISTIC_RECOMPUTED"],
+        "current_target_identity.*": ["DETERMINISTIC_RECOMPUTED"],
+        "reported_pre_target_sha256": ["PRIOR_RUNTIME_RETURN"],
+        "reported_post_target_sha256": ["PRIOR_RUNTIME_RETURN"],
+        "reported_checks.*": ["PRIOR_RUNTIME_RETURN"],
+        "reconstructed_checks.*": ["DERIVED_FROM_RECOMPUTED_EVIDENCE"],
+        "reported_target_non_mutation": ["PRIOR_RUNTIME_RETURN"],
+        "validator_additional_touch_set.*": ["PRIOR_RUNTIME_RETURN"],
+        "target_write_deny_class": ["PRIOR_RUNTIME_RETURN"],
+        "author_hidden_reasoning_received": ["PRIOR_RUNTIME_RETURN"],
+        "substantive_finding": ["PRIOR_RUNTIME_RETURN"],
+        "result_classification": ["PRIOR_RUNTIME_RETURN"]
+      }
+    },
+    {
+      "act_id": "A4.1",
+      "persona": "AAA-CONTROL-ARCHITECT",
+      "role": "AUTHOR",
+      "runtime_surface": "CODEX_DESKTOP_LOCAL",
+      "runtime_id_state": "NOT_EXPOSED",
+      "worktree": "C:/Users/ms1pk/dev/asset-agent-asa/asset-agent-asa-a4-fault-author-1982a36-20260819-2335",
+      "head": "1982a36c1c350cd1a83470065d044d02aac09613",
+      "fault_type": "INTENTIONAL_SUM_MISMATCH_ONLY",
+      "correct_expected_sum": 18,
+      "intentional_actual_sum": 19,
+      "candidate_existed_before_reported_run": false,
+      "candidate_created_by_reported_run": true,
+      "target": "C:/Users/ms1pk/dev/asset-agent-asa/asset-agent-asa-a4-fault-author-1982a36-20260819-2335/control/orchestration/transfer-workspace/runtime-proof/option-a/a2/disposable/AAA_TW_OPTION_A_A2_AUTHOR_CANDIDATE_v0.1.json",
+      "current_target_identity": {
+        "exists": true,
+        "sha256": "7996BAEA305CE6995664695ECE8F5611D3D42E0C6FFB401C14A83FEDB018C57C",
+        "byte_size": 166,
+        "valid_json": true,
+        "content": {
+          "sum": 19,
+          "product": 77,
+          "labels_sorted": ["A2", "AUTHOR_PROOF", "TW"],
+          "source_artifact_id": "AAA-TW-OPTION-A-A2-DISPOSABLE-INPUT-v0.1"
+        },
+        "targeted_git_status": "?? control/orchestration/transfer-workspace/runtime-proof/option-a/a2/disposable/AAA_TW_OPTION_A_A2_AUTHOR_CANDIDATE_v0.1.json"
+      },
+      "deterministic_result": "SUM_MISMATCH_ONLY",
+      "touch_set": [
+        "control/orchestration/transfer-workspace/runtime-proof/option-a/a2/disposable/AAA_TW_OPTION_A_A2_AUTHOR_CANDIDATE_v0.1.json"
+      ],
+      "touch_count": 1,
+      "authorized_only": true,
+      "prohibited_touch": "NONE",
+      "result_classification": "PASS_FOR_CONTROLLED_FAULT_AUTHOR_SCOPE",
+      "evidence_origins": {
+        "act_id": ["PRIOR_RUNTIME_RETURN"],
+        "persona": ["PRIOR_RUNTIME_RETURN"],
+        "role": ["PRIOR_RUNTIME_RETURN"],
+        "runtime_surface": ["PRIOR_RUNTIME_RETURN"],
+        "runtime_id_state": ["PRIOR_RUNTIME_RETURN"],
+        "worktree": ["DETERMINISTIC_RECOMPUTED"],
+        "head": ["EXACT_GIT_OBJECT"],
+        "fault_type": ["PRIOR_RUNTIME_RETURN"],
+        "correct_expected_sum": ["DETERMINISTIC_RECOMPUTED"],
+        "intentional_actual_sum": ["DETERMINISTIC_RECOMPUTED", "PRIOR_RUNTIME_RETURN"],
+        "candidate_existed_before_reported_run": ["PRIOR_RUNTIME_RETURN"],
+        "candidate_created_by_reported_run": ["PRIOR_RUNTIME_RETURN"],
+        "target": ["DETERMINISTIC_RECOMPUTED"],
+        "current_target_identity.*": ["DETERMINISTIC_RECOMPUTED"],
+        "deterministic_result": ["DERIVED_FROM_RECOMPUTED_EVIDENCE"],
+        "touch_set.*": ["PRIOR_RUNTIME_RETURN"],
+        "touch_count": ["PRIOR_RUNTIME_RETURN"],
+        "authorized_only": ["PRIOR_RUNTIME_RETURN"],
+        "prohibited_touch": ["PRIOR_RUNTIME_RETURN"],
+        "result_classification": ["PRIOR_RUNTIME_RETURN"]
+      }
+    },
+    {
+      "act_id": "A4.2",
+      "persona": "AAA-CONTROL-VALIDATOR",
+      "role": "VALIDATOR",
+      "runtime_surface": "CODEX_DESKTOP_LOCAL",
+      "runtime_id_state": "NOT_EXPOSED",
+      "separate_context": "NEW_CODEX_CONVERSATION",
+      "target": "C:/Users/ms1pk/dev/asset-agent-asa/asset-agent-asa-a4-fault-author-1982a36-20260819-2335/control/orchestration/transfer-workspace/runtime-proof/option-a/a2/disposable/AAA_TW_OPTION_A_A2_AUTHOR_CANDIDATE_v0.1.json",
+      "current_target_identity": {
+        "sha256": "7996BAEA305CE6995664695ECE8F5611D3D42E0C6FFB401C14A83FEDB018C57C",
+        "byte_size": 166,
+        "actual_sum": 19
+      },
+      "reported_pre_target_sha256": "7996BAEA305CE6995664695ECE8F5611D3D42E0C6FFB401C14A83FEDB018C57C",
+      "reported_post_target_sha256": "7996BAEA305CE6995664695ECE8F5611D3D42E0C6FFB401C14A83FEDB018C57C",
+      "reported_checks": {
+        "VALID_JSON": "PASS",
+        "DETERMINISTIC_SCOPE": "PASS",
+        "SUM": "FAIL",
+        "PRODUCT": "PASS",
+        "LABEL_SORT": "PASS",
+        "SOURCE_ARTIFACT_ID": "PASS",
+        "NO_VALIDATION_CLAIM": "PASS",
+        "NO_AUTHORITY_POLICY_CREATION": "PASS",
+        "NONNORMATIVE_DISPOSABLE_SCOPE": "PASS",
+        "EXACT_SOURCE_COMMIT": "PASS"
+      },
+      "reconstructed_checks": {
+        "VALID_JSON": "PASS",
+        "SUM": "FAIL",
+        "EXPECTED_SUM": 18,
+        "ACTUAL_SUM": 19,
+        "PRODUCT": "PASS",
+        "LABEL_SORT": "PASS",
+        "SOURCE_ARTIFACT_ID": "PASS",
+        "EXACT_SOURCE_COMMIT": "PASS",
+        "SUBSTANTIVE_RESULT": "NONPASS",
+        "NONPASS_REASON": "DETERMINISTIC_SUM_MISMATCH"
+      },
+      "reported_target_non_mutation": "PROVEN",
+      "validator_additional_touch_set": [],
+      "target_write_deny_class": "TOOL_PERMISSION_SCOPED",
+      "author_hidden_reasoning_received": false,
+      "substantive_finding": "NONPASS",
+      "nonpass_reason": "DETERMINISTIC_SUM_MISMATCH",
+      "result_classification": "PASS_FOR_EXPECTED_NONPASS_VALIDATOR_SCOPE",
+      "evidence_origins": {
+        "act_id": ["PRIOR_RUNTIME_RETURN"],
+        "persona": ["PRIOR_RUNTIME_RETURN"],
+        "role": ["PRIOR_RUNTIME_RETURN"],
+        "runtime_surface": ["PRIOR_RUNTIME_RETURN"],
+        "runtime_id_state": ["PRIOR_RUNTIME_RETURN"],
+        "separate_context": ["PRIOR_RUNTIME_RETURN"],
+        "target": ["DETERMINISTIC_RECOMPUTED"],
+        "current_target_identity.*": ["DETERMINISTIC_RECOMPUTED"],
+        "reported_pre_target_sha256": ["PRIOR_RUNTIME_RETURN"],
+        "reported_post_target_sha256": ["PRIOR_RUNTIME_RETURN"],
+        "reported_checks.*": ["PRIOR_RUNTIME_RETURN"],
+        "reconstructed_checks.*": ["DERIVED_FROM_RECOMPUTED_EVIDENCE"],
+        "reported_target_non_mutation": ["PRIOR_RUNTIME_RETURN"],
+        "validator_additional_touch_set.*": ["PRIOR_RUNTIME_RETURN"],
+        "target_write_deny_class": ["PRIOR_RUNTIME_RETURN"],
+        "author_hidden_reasoning_received": ["PRIOR_RUNTIME_RETURN"],
+        "substantive_finding": ["PRIOR_RUNTIME_RETURN"],
+        "nonpass_reason": ["PRIOR_RUNTIME_RETURN", "DERIVED_FROM_RECOMPUTED_EVIDENCE"],
+        "result_classification": ["PRIOR_RUNTIME_RETURN"]
+      }
+    },
+    {
+      "act_id": "A4.3",
+      "persona": "AAA-CONTROL-ARCHITECT",
+      "role": "CORRECTION_AUTHOR",
+      "runtime_surface": "CODEX_DESKTOP_LOCAL",
+      "runtime_id_state": "NOT_EXPOSED",
+      "worktree": "C:/Users/ms1pk/dev/asset-agent-asa/asset-agent-asa-a4-correction-author-1982a36-20260819-2352",
+      "head": "1982a36c1c350cd1a83470065d044d02aac09613",
+      "nonpass_reason_received": "DETERMINISTIC_SUM_MISMATCH",
+      "reported_before_sum": 19,
+      "after_sum": 18,
+      "corrected_candidate_existed_before_reported_run": false,
+      "corrected_candidate_created_by_reported_run": true,
+      "fault_target_used_as_write_target": false,
+      "a2_a3_target_used_as_write_target": false,
+      "target": "C:/Users/ms1pk/dev/asset-agent-asa/asset-agent-asa-a4-correction-author-1982a36-20260819-2352/control/orchestration/transfer-workspace/runtime-proof/option-a/a2/disposable/AAA_TW_OPTION_A_A2_AUTHOR_CANDIDATE_v0.1.json",
+      "current_target_identity": {
+        "exists": true,
+        "sha256": "78257842B465832EF5CB12D8E0EC3B19E00C4D9FB4870436FF86ACCE6107AA42",
+        "byte_size": 166,
+        "valid_json": true,
+        "content": {
+          "sum": 18,
+          "product": 77,
+          "labels_sorted": ["A2", "AUTHOR_PROOF", "TW"],
+          "source_artifact_id": "AAA-TW-OPTION-A-A2-DISPOSABLE-INPUT-v0.1"
+        },
+        "targeted_git_status": "?? control/orchestration/transfer-workspace/runtime-proof/option-a/a2/disposable/AAA_TW_OPTION_A_A2_AUTHOR_CANDIDATE_v0.1.json"
+      },
+      "correction_deterministic_check": "PASS",
+      "current_fault_target_sha256": "7996BAEA305CE6995664695ECE8F5611D3D42E0C6FFB401C14A83FEDB018C57C",
+      "current_fault_target_preservation": "PROVEN_CURRENT_STATE",
+      "reported_fault_target_preservation": "PROVEN",
+      "touch_set": [
+        "control/orchestration/transfer-workspace/runtime-proof/option-a/a2/disposable/AAA_TW_OPTION_A_A2_AUTHOR_CANDIDATE_v0.1.json"
+      ],
+      "touch_count": 1,
+      "authorized_only": true,
+      "prohibited_touch": "NONE",
+      "result_classification": "PASS_FOR_CORRECTION_AUTHOR_SCOPE",
+      "evidence_origins": {
+        "act_id": ["PRIOR_RUNTIME_RETURN"],
+        "persona": ["PRIOR_RUNTIME_RETURN"],
+        "role": ["PRIOR_RUNTIME_RETURN"],
+        "runtime_surface": ["PRIOR_RUNTIME_RETURN"],
+        "runtime_id_state": ["PRIOR_RUNTIME_RETURN"],
+        "worktree": ["DETERMINISTIC_RECOMPUTED"],
+        "head": ["EXACT_GIT_OBJECT"],
+        "nonpass_reason_received": ["PRIOR_RUNTIME_RETURN"],
+        "reported_before_sum": ["PRIOR_RUNTIME_RETURN"],
+        "after_sum": ["DETERMINISTIC_RECOMPUTED"],
+        "corrected_candidate_existed_before_reported_run": ["PRIOR_RUNTIME_RETURN"],
+        "corrected_candidate_created_by_reported_run": ["PRIOR_RUNTIME_RETURN"],
+        "fault_target_used_as_write_target": ["PRIOR_RUNTIME_RETURN"],
+        "a2_a3_target_used_as_write_target": ["PRIOR_RUNTIME_RETURN"],
+        "target": ["DETERMINISTIC_RECOMPUTED"],
+        "current_target_identity.*": ["DETERMINISTIC_RECOMPUTED"],
+        "correction_deterministic_check": ["DERIVED_FROM_RECOMPUTED_EVIDENCE"],
+        "current_fault_target_sha256": ["DETERMINISTIC_RECOMPUTED"],
+        "current_fault_target_preservation": ["DERIVED_FROM_RECOMPUTED_EVIDENCE"],
+        "reported_fault_target_preservation": ["PRIOR_RUNTIME_RETURN"],
+        "touch_set.*": ["PRIOR_RUNTIME_RETURN"],
+        "touch_count": ["PRIOR_RUNTIME_RETURN"],
+        "authorized_only": ["PRIOR_RUNTIME_RETURN"],
+        "prohibited_touch": ["PRIOR_RUNTIME_RETURN"],
+        "result_classification": ["PRIOR_RUNTIME_RETURN"]
+      }
+    },
+    {
+      "act_id": "A4.4",
+      "persona": "AAA-CONTROL-VALIDATOR",
+      "role": "FRESH_VALIDATOR",
+      "runtime_surface": "CODEX_DESKTOP_LOCAL",
+      "runtime_id_state": "NOT_EXPOSED",
+      "separate_context": "NEW_CODEX_CONVERSATION",
+      "fresh_relative_to_a4_2": "PROVEN",
+      "target": "C:/Users/ms1pk/dev/asset-agent-asa/asset-agent-asa-a4-correction-author-1982a36-20260819-2352/control/orchestration/transfer-workspace/runtime-proof/option-a/a2/disposable/AAA_TW_OPTION_A_A2_AUTHOR_CANDIDATE_v0.1.json",
+      "current_target_identity": {
+        "sha256": "78257842B465832EF5CB12D8E0EC3B19E00C4D9FB4870436FF86ACCE6107AA42",
+        "byte_size": 166,
+        "content_matches_recomputed_source_result": true
+      },
+      "reported_pre_target_sha256": "78257842B465832EF5CB12D8E0EC3B19E00C4D9FB4870436FF86ACCE6107AA42",
+      "reported_post_target_sha256": "78257842B465832EF5CB12D8E0EC3B19E00C4D9FB4870436FF86ACCE6107AA42",
+      "reported_checks": {
+        "VALID_JSON": "PASS",
+        "DETERMINISTIC_SCOPE": "PASS",
+        "SUM": "PASS",
+        "PRODUCT": "PASS",
+        "LABEL_SORT": "PASS",
+        "SOURCE_ARTIFACT_ID": "PASS",
+        "NO_VALIDATION_CLAIM": "PASS",
+        "NO_AUTHORITY_POLICY_CREATION": "PASS",
+        "NONNORMATIVE_DISPOSABLE_SCOPE": "PASS",
+        "EXACT_SOURCE_COMMIT": "PASS"
+      },
+      "reconstructed_checks": {
+        "VALID_JSON": "PASS",
+        "SUM": "PASS",
+        "PRODUCT": "PASS",
+        "LABEL_SORT": "PASS",
+        "SOURCE_ARTIFACT_ID": "PASS",
+        "EXACT_SOURCE_COMMIT": "PASS",
+        "SUBSTANTIVE_RESULT": "PASS"
+      },
+      "correction_transition": "PROVEN",
+      "fault_predecessor_sha256": "7996BAEA305CE6995664695ECE8F5611D3D42E0C6FFB401C14A83FEDB018C57C",
+      "current_fault_predecessor_preservation": "PROVEN_CURRENT_STATE",
+      "reported_fault_predecessor_preservation": "PROVEN",
+      "reported_target_non_mutation": "PROVEN",
+      "validator_additional_touch_set": [],
+      "target_write_deny_class": "TOOL_PERMISSION_SCOPED",
+      "author_hidden_reasoning_received": false,
+      "a4_2_hidden_reasoning_received": false,
+      "substantive_finding": "PASS",
+      "result_classification": "PASS_FOR_FRESH_REVALIDATION_SCOPE",
+      "evidence_origins": {
+        "act_id": ["PRIOR_RUNTIME_RETURN"],
+        "persona": ["PRIOR_RUNTIME_RETURN"],
+        "role": ["PRIOR_RUNTIME_RETURN"],
+        "runtime_surface": ["PRIOR_RUNTIME_RETURN"],
+        "runtime_id_state": ["PRIOR_RUNTIME_RETURN"],
+        "separate_context": ["PRIOR_RUNTIME_RETURN"],
+        "fresh_relative_to_a4_2": ["PRIOR_RUNTIME_RETURN"],
+        "target": ["DETERMINISTIC_RECOMPUTED"],
+        "current_target_identity.*": ["DETERMINISTIC_RECOMPUTED"],
+        "reported_pre_target_sha256": ["PRIOR_RUNTIME_RETURN"],
+        "reported_post_target_sha256": ["PRIOR_RUNTIME_RETURN"],
+        "reported_checks.*": ["PRIOR_RUNTIME_RETURN"],
+        "reconstructed_checks.*": ["DERIVED_FROM_RECOMPUTED_EVIDENCE"],
+        "correction_transition": ["DETERMINISTIC_RECOMPUTED", "PRIOR_RUNTIME_RETURN"],
+        "fault_predecessor_sha256": ["DETERMINISTIC_RECOMPUTED"],
+        "current_fault_predecessor_preservation": ["DERIVED_FROM_RECOMPUTED_EVIDENCE"],
+        "reported_fault_predecessor_preservation": ["PRIOR_RUNTIME_RETURN"],
+        "reported_target_non_mutation": ["PRIOR_RUNTIME_RETURN"],
+        "validator_additional_touch_set.*": ["PRIOR_RUNTIME_RETURN"],
+        "target_write_deny_class": ["PRIOR_RUNTIME_RETURN"],
+        "author_hidden_reasoning_received": ["PRIOR_RUNTIME_RETURN"],
+        "a4_2_hidden_reasoning_received": ["PRIOR_RUNTIME_RETURN"],
+        "substantive_finding": ["PRIOR_RUNTIME_RETURN"],
+        "result_classification": ["PRIOR_RUNTIME_RETURN"]
+      }
+    }
+  ],
+  "correction_lineage": {
+    "sequence": [
+      {
+        "act": "A4.1",
+        "state": "FAULT_SUM_19",
+        "sha256": "7996BAEA305CE6995664695ECE8F5611D3D42E0C6FFB401C14A83FEDB018C57C"
+      },
+      {
+        "act": "A4.2",
+        "state": "NONPASS",
+        "reason": "DETERMINISTIC_SUM_MISMATCH"
+      },
+      {
+        "act": "A4.3",
+        "state": "CORRECTED_SUM_18",
+        "sha256": "78257842B465832EF5CB12D8E0EC3B19E00C4D9FB4870436FF86ACCE6107AA42"
+      },
+      {
+        "act": "A4.4",
+        "state": "PASS"
+      }
+    ],
+    "deterministic_transition": "19 -> NONPASS -> 18 -> PASS",
+    "fault_hash_differs_from_corrected_hash": true,
+    "a2_hash_equals_corrected_hash": true,
+    "hash_equality_is_not_provenance_equality": true,
+    "reconstruction_result": "PROVEN",
+    "evidence_origins": {
+      "sequence.0.*": ["DETERMINISTIC_RECOMPUTED", "PRIOR_RUNTIME_RETURN"],
+      "sequence.1.*": ["PRIOR_RUNTIME_RETURN", "DERIVED_FROM_RECOMPUTED_EVIDENCE"],
+      "sequence.2.*": ["DETERMINISTIC_RECOMPUTED", "PRIOR_RUNTIME_RETURN"],
+      "sequence.3.*": ["PRIOR_RUNTIME_RETURN", "DERIVED_FROM_RECOMPUTED_EVIDENCE"],
+      "deterministic_transition": ["DETERMINISTIC_RECOMPUTED", "PRIOR_RUNTIME_RETURN"],
+      "fault_hash_differs_from_corrected_hash": ["DETERMINISTIC_RECOMPUTED"],
+      "a2_hash_equals_corrected_hash": ["DETERMINISTIC_RECOMPUTED"],
+      "hash_equality_is_not_provenance_equality": ["DERIVED_FROM_RECOMPUTED_EVIDENCE", "PRIOR_RUNTIME_RETURN"],
+      "reconstruction_result": ["DERIVED_FROM_RECOMPUTED_EVIDENCE"]
+    }
+  },
+  "limitations": [
+    {
+      "id": "LIMITATION_01",
+      "statement": "Native Codex run/thread identifiers were not exposed.",
+      "classification": "RUNTIME_ID_NOT_EXPOSED / NOT_A_FAILURE_BY_ITSELF",
+      "evidence_origin": ["PRIOR_RUNTIME_RETURN"]
+    },
+    {
+      "id": "LIMITATION_02",
+      "statement": "Validator target write-deny was TOOL_PERMISSION_SCOPED, not GLOBALLY_READ_ONLY_RUNTIME and not UNIVERSAL_TECHNICAL_ENFORCEMENT.",
+      "classification": "BOUNDED_WRITE_DENY",
+      "evidence_origin": ["PRIOR_RUNTIME_RETURN"]
+    },
+    {
+      "id": "LIMITATION_03",
+      "statement": "Initial Git reads in some Validator contexts and the A5 worktree encountered dubious-ownership protection; reruns used command-local -c safe.directory=<exact worktree>. No persistent Git configuration mutation was performed by A5.",
+      "classification": "COMMAND_LOCAL_GIT_SAFE_DIRECTORY",
+      "evidence_origin": ["PRIOR_RUNTIME_RETURN", "DERIVED_FROM_RECOMPUTED_EVIDENCE"]
+    },
+    {
+      "id": "LIMITATION_04",
+      "statement": "The A2 and A4.3 corrected candidates have identical bytes and SHA256, but hash equality is not provenance equality; distinct worktree paths and prior runtime creation/correction lineage preserve the distinction.",
+      "classification": "HASH_EQUALITY_NOT_PROVENANCE_EQUALITY",
+      "evidence_origin": ["DETERMINISTIC_RECOMPUTED", "PRIOR_RUNTIME_RETURN"]
+    },
+    {
+      "id": "LIMITATION_05",
+      "statement": "The original runtime candidates remain local untracked disposable files. This reconstruction records their current identities and prior runtime lineage but does not claim those candidate files became canonical Git artifacts.",
+      "classification": "ORIGINAL_CANDIDATES_NOT_PERSISTED_AS_GIT_ARTIFACTS",
+      "evidence_origin": ["DETERMINISTIC_RECOMPUTED", "PRIOR_RUNTIME_RETURN"]
+    },
+    {
+      "id": "LIMITATION_06",
+      "statement": "The owner manually relayed packets/results during this pilot. OWNER_MANUAL_RELAY_COUNT=0 and CAP-17 FULLY PROVEN are not claimed; that UX question is reserved for A6/A7.",
+      "classification": "MANUAL_RELAY_PRESERVED",
+      "evidence_origin": ["PRIOR_RUNTIME_RETURN"]
+    }
+  ],
+  "authority_boundaries": {
+    "a5_creates_new_normative_semantics": false,
+    "stage10_allowed": false,
+    "s0_execution_authorized": false,
+    "production_authorized": false,
+    "independent_validation_claim": "none",
+    "owner_acceptance_claim": "none",
+    "stage09_overall_pass_claim": "none",
+    "a6_executed": false,
+    "original_runtime_candidates_canonicalized": false,
+    "evidence_origins": {
+      "a5_creates_new_normative_semantics": ["PRIOR_RUNTIME_RETURN"],
+      "stage10_allowed": ["PRIOR_RUNTIME_RETURN"],
+      "s0_execution_authorized": ["PRIOR_RUNTIME_RETURN"],
+      "production_authorized": ["PRIOR_RUNTIME_RETURN"],
+      "independent_validation_claim": ["PRIOR_RUNTIME_RETURN"],
+      "owner_acceptance_claim": ["PRIOR_RUNTIME_RETURN"],
+      "stage09_overall_pass_claim": ["PRIOR_RUNTIME_RETURN"],
+      "a6_executed": ["DERIVED_FROM_RECOMPUTED_EVIDENCE"],
+      "original_runtime_candidates_canonicalized": ["DERIVED_FROM_RECOMPUTED_EVIDENCE"]
+    }
+  },
+  "top_level_evidence_origins": {
+    "artifact_id": ["PRIOR_RUNTIME_RETURN"],
+    "artifact_kind": ["PRIOR_RUNTIME_RETURN"],
+    "project": ["EXACT_GIT_OBJECT", "PRIOR_RUNTIME_RETURN"],
+    "product": ["EXACT_GIT_OBJECT", "PRIOR_RUNTIME_RETURN"],
+    "version": ["PRIOR_RUNTIME_RETURN"],
+    "authoring_persona": ["PRIOR_RUNTIME_RETURN"],
+    "authoring_role": ["PRIOR_RUNTIME_RETURN"],
+    "orchestrated_by": ["PRIOR_RUNTIME_RETURN"],
+    "stage": ["PRIOR_RUNTIME_RETURN"],
+    "stage09_state": ["PRIOR_RUNTIME_RETURN"],
+    "source_baseline_commit": ["EXACT_GIT_OBJECT"],
+    "evidence_semantics": ["PRIOR_RUNTIME_RETURN"],
+    "normative_semantic_mutation": ["PRIOR_RUNTIME_RETURN"],
+    "evidence_origin_model.*": ["PRIOR_RUNTIME_RETURN"]
+  }
+}
