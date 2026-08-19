@@ -1,0 +1,16 @@
+{
+  "artifact_id": "AAA-TW-OWNER-INTERACTION-MICRO-CHECKPOINT-RULE-v0.1-REGISTRATION-RECEIPT",
+  "artifact_kind": "NONVALIDATING_REGISTRATION_RECEIPT",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "registered_rule": "AAA-TW-OWNER-INTERACTION-MICRO-CHECKPOINT-RULE-v0.1",
+  "registration_branch": "aaa-tw-owner-interaction-micro-checkpoint-rule-v0.1",
+  "source_commit": "dadadc99de50b419456981fbd6205c96e5093b9c",
+  "captured_by": "AAA-ASA",
+  "registration_state": "PERSISTED",
+  "validation_claim": "NONE",
+  "paired_validation_state": "NOT_PERFORMED",
+  "independent_validation_state": "NOT_PERFORMED",
+  "normative_promotion_state": "NOT_PERFORMED",
+  "note": "Receipt records persistence only; it does not create validation authority or modify governed TW Requirements/Profile semantics."
+}
