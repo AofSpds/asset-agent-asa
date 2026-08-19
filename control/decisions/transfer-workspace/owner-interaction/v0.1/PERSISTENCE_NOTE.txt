@@ -1,0 +1,2 @@
+Persistent local TW rule branch: aaa-tw-owner-interaction-micro-checkpoint-rule-v0.1
+Primary artifact: control/decisions/transfer-workspace/owner-interaction/v0.1/AAA_TW_OWNER_INTERACTION_MICRO_CHECKPOINT_RULE_v0.1.json
