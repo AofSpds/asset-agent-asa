@@ -6,7 +6,7 @@
   "product": "ASSET AGENT ASA",
   "authority_principal": "HUMAN PROJECT OWNER",
   "authoring_persona": "AAA-ASA",
-  "owner_directive_task": "AAA_GLOBAL_CRITICAL_ADVISORY_AND_TW_ROUTING_DEFAULT_v0.1",
+  "owner_directive_task": "AAA_GLOBAL_CRITICAL_ADVISORY_AND_NONCANONICAL_ROUTING_DEFAULT_v0.2",
   "scope": "PROJECT_GLOBAL_ALL_AAA_ASA_CHANNEL_INSTANCES_AND_PACKET_HANDOFF_DEFAULTS",
   "state": "ACTIVE_OPERATING_RULE",
   "apply_immediately": true,
@@ -24,7 +24,7 @@
     "authorized_change_scope": [
       "CRITICAL_ADVISORY_DISCIPLINE",
       "AAA_ASA_MULTIWORK_CHANNEL_EXECUTION_RULE",
-      "TW_TOP_LEVEL_PACKET_ROUTING_DEFAULT",
+      "NONCANONICAL_CHANNEL_ROUTING_DEFAULT",
       "OWNER_MANUAL_RELAY_MINIMIZATION"
     ],
     "removal_authorized": false,
@@ -34,7 +34,7 @@
     "overall": "NON_SEMANTIC_OPERATING_AND_ADVISORY_RULE",
     "critical_advisory_discipline": "ADVISORY_BEHAVIOR_DISCIPLINE",
     "asa_multiwork_rule": "CHANNEL_EXECUTION_OPERATING_RULE_NO_PERSONA_AUTHORITY_CHANGE",
-    "tw_routing_default": "OWNER_BURDEN_REDUCTION_ROUTING_DEFAULT_NO_AUTHORITY_TRANSFER",
+    "noncanonical_channel_routing_default": "EPHEMERAL_ROUTING_DISCIPLINE_NOT_CANONICAL_ORGANIZATION_OR_AUTHORITY_REGISTRY",
     "governed_semantic_change_requested": false,
     "authority_semantics_changed": false,
     "validation_semantics_changed": false,
@@ -74,22 +74,21 @@
     "parallel_work_is_real_project_work": true,
     "validator_independence_created_by_separate_asa_channel": false
   },
-  "tw_top_level_packet_routing_default": {
-    "workspace": "AAA-TRANSFER-WORKSPACE",
-    "workspace_code": "TW",
-    "workspace_is_persona": false,
-    "workspace_authority": "NONE_BY_WORKSPACE_IDENTITY",
-    "asa_directed_packet_rule": "WHEN_AN_ASA_MULTIWORK_INSTANCE_PREPARES_A_PACKET_FOR_AAA_ASA_OR_MAIN_ASA_CONTINUATION_MARK_AND_ROUTE_IT_AS_TW",
-    "required_packet_marker": "ROUTE_VIA=AAA-TRANSFER-WORKSPACE (TW)",
+  "noncanonical_channel_routing_default": {
+    "canonical_registration_rule": "NONCANONICAL_OR_EPHEMERAL_CHANNEL_WORKSPACE_IDENTIFIERS_MUST_NOT_BE_REGISTERED_AS_CANONICAL_PERSONA_AUTHORITY_OR_ORGANIZATION_COMPONENTS",
+    "persistent_git_naming_rule": "DO_NOT_PERSIST_EPHEMERAL_CHANNEL_OR_WORKSPACE_NAMES_IN_PROJECT_GLOBAL_CANONICAL_RULES_UNLESS_EXPLICIT_OWNER_AUTHORIZATION_REQUIRES_TRACEABILITY",
+    "routing_instruction_source": "PROJECT_INSTRUCTIONS_OR_CURRENT_OWNER_DIRECTIVE_NOT_CANONICAL_GIT_IDENTITY",
+    "asa_continuation_default": "WHEN_A_NONCANONICAL_MULTIWORK_CHANNEL_PREPARES_A_CONTINUATION_FOR_MAIN_ASA_USE_THE_OWNER_DEFINED_NONCANONICAL_ROUTE_WITHOUT_CREATING_A_CANONICAL_PERSONA_OR_AUTHORITY_RECORD",
     "other_channel_packet_generation_default": "SELF_LIMIT_DO_NOT_PROACTIVELY_GENERATE_DIRECT_OTHER_PERSONA_CHANNEL_PACKETS",
-    "other_channel_routing_need_rule": "IDENTIFY_MATERIAL_ROUTING_NEED_BUT_DEFAULT_TO_TW_ORCHESTRATION_INSTEAD_OF_OWNER_MANUAL_RELAY",
+    "other_channel_routing_need_rule": "IDENTIFY_MATERIAL_ROUTING_NEED_BUT_AVOID_OWNER_MANUAL_RELAY_WHEN_AN_OWNER_DEFINED_INTERNAL_ROUTE_EXISTS",
     "explicit_owner_exception": "DIRECT_OTHER_CHANNEL_PACKET_ALLOWED_WHEN_OWNER_EXPLICITLY_REQUESTS_IT",
     "special_instruction_exception": "EXPLICIT_TASK_SPECIFIC_ROUTING_INSTRUCTION_OVERRIDES_THIS_DEFAULT_WITHIN_EXISTING_AUTHORITY_BOUNDARIES",
-    "owner_manual_relay_target": "MINIMIZE_TO_TRUE_OWNER_DECISIONS_AND_REQUIRED_ESCALATIONS"
+    "owner_manual_relay_target": "MINIMIZE_TO_TRUE_OWNER_DECISIONS_AND_REQUIRED_ESCALATIONS",
+    "predecessor_workspace_registry_resolution": "NONCANONICAL_WORKSPACE_IDENTIFIERS_PRESENT_IN_PREDECESSOR_METADATA_ARE_HISTORICAL_DISPLAY_ONLY_AND_MUST_NOT_BE_USED_AS_CURRENT_PERSONA_AUTHORITY_OR_ORGANIZATION_REGISTRY"
   },
   "governance_firewall": {
-    "tw_does_not_gain_domain_authority": true,
-    "tw_does_not_gain_validation_authority": true,
+    "noncanonical_channel_does_not_gain_domain_authority": true,
+    "noncanonical_channel_does_not_gain_validation_authority": true,
     "asa_multiwork_channel_does_not_create_validator_independence": true,
     "author_may_self_issue_paired_pass": false,
     "author_may_self_issue_independent_pass": false,
@@ -99,10 +98,10 @@
   "runtime_injection_state": "PROJECT_BOOTSTRAP_RULE_REGISTERED_PRODUCT_LEVEL_AUTOMATIC_INJECTION_NOT_INDEPENDENTLY_PROVEN",
   "existing_channel_refresh_rule": "APPLY_ON_CURRENT_STATE_REFRESH_OR_NEXT_RELEVANT_HANDOFF;LIVE_CHANNEL_HISTORY_IS_NOT_RETROACTIVELY_REWRITTEN",
   "persistent_location_role": "PROJECT_COMMON_CURRENT_STATE_BOOTSTRAP_RULE_SUCCESSOR",
-  "source_of_truth_rule": "v0.2_REMAINS_IMMUTABLE_PREDECESSOR;v0.3_ADDS_CRITICAL_ADVISORY_ASA_MULTIWORK_AND_TW_ROUTING_DEFAULTS_WITHOUT_CHANGING_AUTHORITY_OR_VALIDATION_SEMANTICS",
+  "source_of_truth_rule": "v0.2_REMAINS_IMMUTABLE_PREDECESSOR;v0.3_ADDS_CRITICAL_ADVISORY_ASA_MULTIWORK_AND_GENERIC_NONCANONICAL_ROUTING_DEFAULTS_WITHOUT_CHANGING_AUTHORITY_OR_VALIDATION_SEMANTICS",
   "lineage": {
     "successor_of": "AAA-GLOBAL-PACKET-DISPLAY-RULE-v0.2",
     "change_class": "NON_SEMANTIC_OPERATING_ADVISORY_AND_ROUTING_EXTENSION",
-    "owner_source_ref": "OWNER_DIRECTIVE_2026-08-19_CRITICAL_ADVISORY_PLUS_ASA_MULTIWORK_TW_ROUTING"
+    "owner_source_ref": "OWNER_DIRECTIVE_2026-08-19_CRITICAL_ADVISORY_PLUS_ASA_MULTIWORK_NONCANONICAL_ROUTING"
   }
 }
