@@ -1,0 +1,91 @@
+{
+  "artifact_id": "AAA-TW-S0-9A3-AUTHOR-PERSONA-RUNTIME-PACKET-DRY-FIXTURE-v0.1",
+  "artifact_kind": "NON_NORMATIVE_DRY_BINDING_TEST_FIXTURE",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "fixture_authoring_persona": "AAA-ASA",
+  "fixture_state": "STATIC_DRY_BINDING_ONLY_NOT_EXECUTED",
+  "persona_runtime_packet_id": "AAA-TW-S0-PRP-DRY-AUTHOR-CTL-v0.1",
+  "packet_version": "v0.1",
+  "persona_id": "AAA-CONTROL-ARCHITECT",
+  "persona_version_or_manifest_ref": "CURRENT_CANONICAL_AAA_CONTROL_ARCHITECT_MANIFEST_REF_REQUIRED_AT_REAL_RUN",
+  "role": "AUTHOR",
+  "purpose": "DRY_BIND_CURRENT_S0_v0.5_CONTROL_AUTHOR_RUN_WITHOUT_EXECUTING_A_SUBAGENT",
+  "domain_owner": "AAA-CONTROL-ARCHITECT",
+  "authority_boundary": {
+    "creates_execution_authority": false,
+    "creates_validation_authority": false,
+    "creates_owner_acceptance": false,
+    "may_modify_exact_s0_target_in_this_fixture": false,
+    "actual_runtime_execution": false
+  },
+  "must": [
+    "BIND_TO_EXACT_S0_v0.5_TARGET",
+    "BIND_TO_REQUIREMENTS_v1.3_AND_PROFILE_v0.5",
+    "PRESERVE_ALL_OTHERS",
+    "KEEP_CHANNEL_PERSONA_SUBAGENT_AUTHORITY_IDENTITIES_DISTINCT",
+    "RECORD_RUN_ID_SEPARATELY_FROM_PERSONA_ID",
+    "KEEP_DETERMINISTIC_EVIDENCE_DISTINCT_FROM_AGENT_JUDGMENT"
+  ],
+  "must_not": [
+    "START_ACTUAL_S0_EXECUTION",
+    "CLAIM_CAPABILITY_PROVEN",
+    "CLAIM_VALIDATION_PASS",
+    "MODIFY_S0_v0.5",
+    "TOUCH_TRACK_A",
+    "CREATE_PRODUCTION_AUTHORITY"
+  ],
+  "current_work_item_id": "AAA-PERSISTENT-LOCATOR-CAPABILITY-PROOF-v0.1",
+  "authorized_baseline_ref": {
+    "artifact_id": "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.5",
+    "commit": "d0b0d2c7a77ca00570151e89e70e092b10646bd2",
+    "git_blob": "7bc6e4c2194bc2f06d61367434cab38947b40e0d",
+    "semantic_content_digest": "370a934edfaf72dc2e06d5e45b7c38be8026e3cf85e8d11c2903d2e342be48f2"
+  },
+  "authorized_governed_object_ids": [],
+  "authorized_semantic_changes": [],
+  "authorized_implementation_scope": [],
+  "preserve_all_others": true,
+  "normative_source_refs": [
+    "AAA-TW-REQUIREMENTS-BASELINE_v1.3",
+    "AAA-TW-EXECUTION-PROFILE-AND-TWO-TRACK-CONTROL-CONTRACT_v0.5",
+    "AAA-OWNER-TW-SUBAGENT-FIRST-EXECUTION-DIRECTION-DECISION_v1.1"
+  ],
+  "requirement_refs": [
+    "REQ-41",
+    "REQ-42",
+    "REQ-43",
+    "REQ-44",
+    "REQ-54",
+    "REQ-55"
+  ],
+  "design_contract_refs": [
+    "AAA-TW-EXECUTION-PROFILE-AND-TWO-TRACK-CONTROL-CONTRACT_v0.5"
+  ],
+  "exact_target_ref_if_applicable": {
+    "artifact_id": "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.5",
+    "commit": "d0b0d2c7a77ca00570151e89e70e092b10646bd2",
+    "git_blob": "7bc6e4c2194bc2f06d61367434cab38947b40e0d",
+    "semantic_content_digest": "370a934edfaf72dc2e06d5e45b7c38be8026e3cf85e8d11c2903d2e342be48f2"
+  },
+  "tools_allowed": [],
+  "write_scope": [],
+  "validation_role_if_applicable": "NOT_APPLICABLE_AUTHOR_DRY_FIXTURE",
+  "return_schema": {
+    "required_fields": [
+      "RUN_ID",
+      "PERSONA_ID",
+      "RESULT_STATE",
+      "OUTPUT_REFS",
+      "LINEAGE",
+      "RETURN_PACKET_REF"
+    ]
+  },
+  "escalation_rules": [
+    "UNSUPPORTED_RUNTIME=>NOT_PROVEN_OR_BLOCKED",
+    "AMBIGUOUS_AUTHORITY=>FAIL_CLOSED",
+    "OWNER_DECISION_SURFACE=>STOP_AND_ESCALATE"
+  ],
+  "packet_digest_profile": "SHA256_UTF8_CANONICAL_JSON_EXCLUDING_PACKET_SEMANTIC_DIGEST_SORT_KEYS_COMPACT_NO_TRAILING_NEWLINE",
+  "packet_semantic_digest": "7656a29656f9be82e035bbf1494a50ee165656cc75e205a9965578c474453386"
+}
