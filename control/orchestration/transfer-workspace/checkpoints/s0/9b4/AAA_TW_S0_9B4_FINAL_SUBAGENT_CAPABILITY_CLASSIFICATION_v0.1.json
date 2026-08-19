@@ -1,0 +1,84 @@
+{
+  "artifact_id": "AAA-TW-S0-9B4-FINAL-SUBAGENT-CAPABILITY-CLASSIFICATION-v0.1",
+  "artifact_kind": "NON_NORMATIVE_DERIVED_ORCHESTRATION_CHECKPOINT",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-ASA",
+  "delegate_role": "TW LONG-PROCESS DELEGATE",
+  "checkpoint": "9B-4_FINAL_SUBAGENT_CAPABILITY_CLASSIFICATION",
+  "checkpoint_time": "2026-08-19T18:53:00+09:00",
+  "state": "COMPLETE_CAPABILITY_NOT_PROVEN",
+  "authority_created": false,
+  "validation_claim": "NONE",
+  "product_capability_claim": "NOT_PROVEN",
+  "actual_subagent_execution": false,
+  "governed_target_modified_by_this_checkpoint": false,
+  "normative_semantics_modified_by_this_checkpoint": false,
+  "predecessor_checkpoint": {
+    "artifact_id": "AAA-TW-S0-9B3-DETERMINISTIC-RECOMPUTATION-AND-PERSISTENT-RECONSTRUCTION-v0.1",
+    "commit": "94e296dc85d23d2ec1db483c3913176162667403"
+  },
+  "exact_s0_target": {
+    "artifact_id": "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.5",
+    "version": "v0.5",
+    "commit": "d0b0d2c7a77ca00570151e89e70e092b10646bd2",
+    "git_blob": "7bc6e4c2194bc2f06d61367434cab38947b40e0d",
+    "semantic_content_digest": "370a934edfaf72dc2e06d5e45b7c38be8026e3cf85e8d11c2903d2e342be48f2",
+    "s0_execution_authorized": false
+  },
+  "test_matrix_final_state": {
+    "CAP-01_CALLABLE_BOUNDED_SUBAGENT_SURFACE": "NOT_PROVEN",
+    "CAP-02_PERSONA_RUNTIME_PACKET_BINDING": "STATIC_CONTROL_STRUCTURE_AND_DETERMINISTIC_RECOMPUTATION_PASS_NOT_RUNTIME_PASS",
+    "CAP-03_RUN_ID_PERSONA_ID_SEPARATION": "STATIC_CONTROL_STRUCTURE_AND_RECONSTRUCTION_PASS_NOT_RUNTIME_PASS",
+    "CAP-04_AUTHOR_RUN_RECORD_RECONSTRUCTION": "STATIC_PERSISTENT_RECONSTRUCTION_PASS_NOT_MATERIAL_RUN_PASS",
+    "CAP-05_SEPARATE_AUTHOR_VALIDATOR_RUNS": "NOT_EXECUTED_AS_MATERIAL_RUNTIME_PROOF",
+    "CAP-06_SEPARATE_VALIDATION_CONTEXT_BUNDLE": "NOT_EXECUTED_AS_MATERIAL_RUNTIME_PROOF",
+    "CAP-07_VALIDATOR_TARGET_WRITE_DEFAULT_DENY": "NOT_EXECUTED_AS_MATERIAL_RUNTIME_PROOF",
+    "CAP-08_EXACT_TARGET_AND_DIGEST_BINDING": "STATIC_BINDING_INTEGRITY_PASS_NOT_VALIDATOR_RUNTIME_PASS",
+    "CAP-09_TRUTHFUL_INDEPENDENCE_METADATA": "NOT_EXECUTED_AS_MATERIAL_RUNTIME_PROOF",
+    "CAP-10_CORRECTION_ROUTE_WITHOUT_ROUTINE_OWNER_RELAY": "NOT_APPLICABLE_NOT_REACHED_BECAUSE_MATERIAL_RUNTIME_PROOF_DID_NOT_START",
+    "CAP-11_DETERMINISTIC_EVIDENCE_SEPARATION": "STATIC_DETERMINISTIC_MECHANISM_DEMONSTRATED_NOT_FULL_RUNTIME_PASS",
+    "CAP-12_PERSISTENCE_AND_RECONSTRUCTION_AFTER_BOUNDARY": "STATIC_FIXTURE_CHAIN_RECONSTRUCTION_PASS_NOT_MATERIAL_RUN_PASS",
+    "CAP-13_UNSUPPORTED_OR_INTERRUPTED_CAPABILITY_FAIL_CLOSED": "PASS_AS_CONTROL_BEHAVIOR_OBSERVED_NO_CAPABILITY_OR_AUTHORITY_OVERCLAIM"
+  },
+  "classification_contract_application": {
+    "all_hard_blocking_tests_pass": false,
+    "required_runtime_evidence_missing": true,
+    "runtime_surface_confirmed_globally_absent": false,
+    "result": "NOT_PROVEN",
+    "why_not_blocked": "Required bounded subagent execution is not exposed on the current chat tool surface, but alternate OpenAI agentic surfaces were documented; global capability absence is not established.",
+    "why_not_review_required": "The evidence gap is identified and bounded rather than semantically ambiguous; the contract maps missing required evidence to NOT_PROVEN.",
+    "why_not_proven": "CAP-01 and multiple material runtime separation tests lack actual run evidence."
+  },
+  "stage_9_completion": {
+    "stage_9_status": "COMPLETE_NOT_PROVEN",
+    "control_plane_static_readiness": "PROVEN_FOR_STATIC_FIXTURE_SCOPE_ONLY",
+    "runtime_subagent_capability": "NOT_PROVEN",
+    "stage_10_owner_execution_authority_materialization_allowed": false,
+    "actual_s0_execution_allowed": false,
+    "second_s0_started": false
+  },
+  "decision_surface": {
+    "owner_decision_required": true,
+    "decision_reason": "The governed Stage 10 gate cannot be crossed because the required runtime capability is NOT_PROVEN. Continuing requires a choice about the execution surface or deferring/stopping this S0 path; ASA cannot invent a runtime or weaken the requirement.",
+    "recommended_option": "OPTION_A_MOVE_CAPABILITY_PROOF_TO_ACTUALLY_AVAILABLE_CHATGPT_WORK_OR_CODEX_MULTI_AGENT_SURFACE_IF_OWNER_HAS_ACCESS_AND_IF_RUN_BOUNDARY_EVIDENCE_CAN_BE_PERSISTED_WITHOUT_REDESIGN",
+    "option_A": "MOVE_CAPABILITY_PROOF_TO_ACTUALLY_AVAILABLE_WORK_OR_CODEX_MULTI_AGENT_SURFACE_AND_REPEAT_ONLY_THE_UNPROVEN_MATERIAL_RUNTIME_TESTS_WITH_EXISTING_CONTROL_CONTRACTS",
+    "option_B": "ACCEPT_NOT_PROVEN_AND_DEFER_OR_STOP_STAGE_10_AND_ACTUAL_S0_EXECUTION_UNTIL_REQUIRED_RUNTIME_SURFACE_BECOMES_AVAILABLE",
+    "option_C": "AUTHORIZE_A_SEPARATE_SMALLEST_REPLACEMENT_RUNTIME_MECHANISM_REVIEW; THIS IS A NEW CONTROL_OR_ARCHITECTURE DECISION SURFACE_AND_IS_NOT_AUTO_AUTHORIZED",
+    "no_decision_default": "FAIL_CLOSED_HOLD_AT_STAGE_9_NOT_PROVEN"
+  },
+  "firewalls": {
+    "s0_execution_authorized": false,
+    "owner_execution_authority_materialized": false,
+    "engineering_implementation_authorized": false,
+    "global_tw_adoption_authorized": false,
+    "production_authorized": false,
+    "product_capability_state": "NOT_PROVEN",
+    "track_a_touch": []
+  },
+  "blocked": false,
+  "owner_approval_required": false,
+  "owner_decision_required": true,
+  "next_checkpoint": "OWNER_DECISION_GATE_ON_SUBAGENT_RUNTIME_SURFACE",
+  "owner_action": "DECISION_REQUIRED"
+}
