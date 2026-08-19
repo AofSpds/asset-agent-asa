@@ -1,0 +1,96 @@
+{
+  "artifact_id": "AAA-ASA-TO-CTL-CORE-A-P0-RECEIPT-PERSISTENCE-v0.3-F01-ROUTE-v0.1",
+  "artifact_kind": "NON_NORMATIVE_ORCHESTRATION_ROUTE",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-ASA",
+  "route_time": "2026-08-19T20:12:00+09:00",
+  "from": "AAA-ASA",
+  "to": "AAA-CONTROL-ARCHITECT",
+  "authority_created": false,
+  "validation_claim": "NONE",
+  "owner_action_required": false,
+  "track_a_progress": "7/15_UNCHANGED_BY_ASA_ROUTE",
+  "source_exact_target": {
+    "object_id": "AAA-CORE-A-P0-VALIDATOR-OWNED-RECEIPT-PERSISTENCE-AUTHORITY",
+    "version": "v0.3",
+    "commit": "0c6fa52de8e8af34028eebb4406cf448ced82bf0",
+    "tree": "9301ca6c3ed09a48148f390fe4634f0549821cc5",
+    "git_blob": "d3fcbd59ea3ffa9c396a07d9b012a36b953c0495",
+    "sha256": "2701868419e4fb2bfb00da75a3a8d7745892e0dae6a102f606a22fa578d25979",
+    "semantic_content_digest": "7e326d66d108ed602c82d8fad2aa8d0656896f49c33f5c2c2c867f90b742927f",
+    "authority_lineage_binding_digest": "408526945c56f27133299a759aa1b97978a58a902fadd9c3b6780873393f1862"
+  },
+  "source_validation": {
+    "validator": "AAA-CONTROL-VALIDATOR",
+    "validation_act_id": "AAA-CORE-A-P0-RECEIPT-PERSISTENCE-AUTH-v0.3-CTL-L1-20260819-1957-01",
+    "verdict": "REVIEW_REQUIRED",
+    "receipt_ref": "refs/heads/aaa-validation-receipts/core-a/p0/AAA-CORE-A-P0-VALIDATOR-OWNED-RECEIPT-PERSISTENCE-AUTHORITY/v0.3/ctlv/AAA-CORE-A-P0-RECEIPT-PERSISTENCE-AUTH-v0.3-CTL-L1-20260819-1957-01",
+    "receipt_path": "control/validation/core-a/p0/AAA-CORE-A-P0-VALIDATOR-OWNED-RECEIPT-PERSISTENCE-AUTHORITY/v0.3/validator/aaa-control-validator/AAA-CORE-A-P0-RECEIPT-PERSISTENCE-AUTH-v0.3-CTL-L1-20260819-1957-01/AAA-CORE-A-P0-RECEIPT-PERSISTENCE-AUTH-v0.3-P0-CTL-L1-RECEIPT-20260819-1957-01.json",
+    "receipt_git_blob": "eacdb139ca159fd395a80881f0ea9a158f1d6418",
+    "acceptance_accounting": {
+      "total": 52,
+      "pass": 49,
+      "review_required": 2,
+      "not_proven_nondispositive": 1,
+      "fail": 0
+    }
+  },
+  "material_finding": {
+    "finding_id": "CORE-A-P0-RECEIPT-AUTH-v0.3-CTL-L1-F01",
+    "title": "REF_NORMALIZATION_GRAMMAR_NOT_COMPLETE_GIT_REF_SAFETY",
+    "risk": "P0_AUTHORITY_CONTROL",
+    "affected_path": "ref_policy.grammar",
+    "observed": "TARGET_OBJECT_ID and VALIDATION_ACT_ID regexes admit strings invalid as Git ref components, including consecutive dots, components ending .lock, and components ending period.",
+    "required_action_from_validator": "AAA-CONTROL-ARCHITECT must materialize an immutable successor adding explicit Git-ref-format fail-closed validation or an equivalent collision-free deterministic grammar while preserving OD-01/OD-02, Layer A/B, ownership, scope, and all firewalls."
+  },
+  "route_instruction": {
+    "classification": "MATERIAL_CORRECTION_SUCCESSOR_REQUIRED_BY_PAIRED_VALIDATOR_FINDING",
+    "in_place_v0_3_mutation": "PROHIBITED",
+    "expected_successor_version_if_no_later_successor_exists": "v0.4",
+    "must_inspect_latest_lineage_before_materialization": true,
+    "authorized_correction_scope": [
+      "COMPLETE_GIT_REF_SAFETY_FOR_TARGET_OBJECT_ID_AND_VALIDATION_ACT_ID_COMPONENTS",
+      "DETERMINISTIC_FAIL_CLOSED_ILLEGAL_REF_COMPONENT_CHECKS",
+      "EXACT_REBINDING_NEEDED_FOR_IMMUTABLE_SUCCESSOR_IDENTITY"
+    ],
+    "preserve": [
+      "OD01_OWNER_CLARIFICATION_SEMANTICS",
+      "OD02_VALIDATOR_OWNED_PER_ACT_REF_SEMANTICS",
+      "VALIDATOR_TOKEN_ALLOWLIST_MAPPING",
+      "LAYER_A_LAYER_B_SELF_REFERENCE_SOLUTION",
+      "VALIDATOR_VERDICT_OWNERSHIP",
+      "VALIDATOR_RECEIPT_OWNERSHIP",
+      "CROSS_VALIDATOR_WRITE_PROHIBITION",
+      "TARGET_REF_MUTATION_PROHIBITION",
+      "CREATE_ONCE_ONE_ADVANCE_NO_DELETE_NO_FORCE_NO_REUSE",
+      "P0_CORE_A_SCOPE",
+      "POST_HOC_FALSE",
+      "DETERMINISTIC_IMPORT_FALSE",
+      "C04B_CLOSED_NOT_PROVEN",
+      "ALL_SCIENTIFIC_AND_CROSS_DOMAIN_FIREWALLS",
+      "HISTORICAL_v0_1_v0_2_v0_3_IMMUTABILITY"
+    ],
+    "prohibited": [
+      "AUTHORITY_SCOPE_EXPANSION",
+      "GENERAL_GITHUB_WRITE_AUTHORITY",
+      "CROSS_VALIDATOR_REF_OR_RECEIPT_WRITE",
+      "POST_HOC_RECEIPT_AUTHORITY",
+      "DETERMINISTIC_IMPORT_AUTHORITY",
+      "MODEL_OR_RESEARCH_OR_PIT_OR_GROUND_TRUTH_CHANGE",
+      "OWNER_DECISION_REINTERPRETATION"
+    ]
+  },
+  "validation_route_after_successor": [
+    "FRESH_AAA_CONTROL_VALIDATOR_P0_L1_ON_NEW_EXACT_TARGET",
+    "IF_L1_PASS_AND_OWN_RECEIPT_STATE5_CLOSED_THEN_FRESH_AAA_VALIDATION_AUDITOR_P0_L2",
+    "NO_OWNER_DECISION_UNLESS_CORRECTION_REQUIRES_SCOPE_OR_SEMANTIC_EXPANSION"
+  ],
+  "parallel_tw_state": {
+    "stage": "9/15",
+    "option_a_hybrid": "ACTIVE",
+    "work_a1": "COMPLETE_PASS_FOR_BOUNDED_SCOPE",
+    "codex_a2_plus": "DEFERRED_UNTIL_OWNER_REPORTS_AVAILABLE_RUNTIME",
+    "s0_execution_authorized": false
+  }
+}
