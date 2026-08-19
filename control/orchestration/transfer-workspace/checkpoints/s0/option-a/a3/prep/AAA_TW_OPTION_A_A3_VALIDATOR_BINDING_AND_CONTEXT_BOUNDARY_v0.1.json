@@ -1,0 +1,104 @@
+{
+  "artifact_id": "AAA-TW-OPTION-A-A3-VALIDATOR-BINDING-AND-CONTEXT-BOUNDARY-v0.1",
+  "artifact_kind": "NON_NORMATIVE_DERIVED_ORCHESTRATION_CHECKPOINT",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-ASA",
+  "checkpoint_time": "2026-08-19T20:16:00+09:00",
+  "purpose": "Pre-resolve the canonical paired Validator binding and the minimum separate Validation Context boundary for future A3 without performing validation or creating a validation act.",
+  "authority_created": false,
+  "validation_claim": "NONE",
+  "validation_executed": false,
+  "owner_action_required": false,
+  "validator_persona_id": "AAA-CONTROL-VALIDATOR",
+  "paired_author_persona_id": "AAA-CONTROL-ARCHITECT",
+  "organization_authority_chain": {
+    "active_branch": "aaa-organization-active-v1.3",
+    "activation_commit": "d7c490c373f2df356f31e4459c345328616b4eb3",
+    "active_pointer_git_blob": "30cbecc2a961d5fd92b28e00be419f5a590110c1",
+    "root_contract_commit": "9d0e1198f317385e0342442332e8a1136da9d23c",
+    "root_contract_git_blob": "1e994241becdfb214e520de44e684d457b5334b4",
+    "restore_contract_commit": "7a13c42f646bb9d7ad798ea240b7249d9a3557b5",
+    "restore_contract_git_blob": "942ece9458acdb2edc56318a0e3e48cb8bad5caf"
+  },
+  "pair_binding": {
+    "pair_id": "AAA-PAIR-CTL-CTLV-v1.1",
+    "pair_contract_digest": "ab463a68e386bf22bd79b71f555dbdcb2fa7bd8408f24597f098c30072205208",
+    "author_scope_ref": "#/authority/canonical/AAA-CONTROL-ARCHITECT",
+    "author_scope_digest": "26f87ad0547c87432135cc96dac8fb7a92a8631154c963dc1646d81424c8f45d",
+    "validator_duties_ref": "#/authority/validator_duties/AAA-CONTROL-VALIDATOR",
+    "validator_scope_digest": "4b4e34571e51693d0738b3d56b2939573c7181126353c1e7b7d1e1b5ba66bfc1",
+    "validation_classes": ["P0_SUBSTANTIVE", "P1_SUBSTANTIVE", "IMPACT_TARGETED"],
+    "recusal_rule": "MATERIAL_COAUTHORSHIP=>SAME_TARGET_PASS_PROHIBITED"
+  },
+  "validator_duties": [
+    "unauthorized_semantic_mutation_detection",
+    "authority_conflict_detection",
+    "stale_governing_projection_detection",
+    "pit_leakage_detection",
+    "gt_contamination_detection",
+    "undeclared_semantic_touch_detection",
+    "persona_identity_validation",
+    "pair_contract_mismatch_detection",
+    "post_outcome_acceptance_criteria_mutation_detection",
+    "validation_state_manipulation_detection",
+    "preservation_failure_detection",
+    "semantic_preservation_challenge",
+    "evidence_conflict_challenge",
+    "counterexample_disconfirming_evidence_challenge"
+  ],
+  "future_a3_separate_context_bundle": {
+    "include_only": [
+      "A2_AUTHOR_RUN_ID_OR_EXACT_NOT_EXPOSED_STATE",
+      "A2_PERSONA_BINDING_REF_AND_DIGEST",
+      "A2_WORK_ITEM_ID",
+      "A2_EXACT_INPUT_FIXTURE_IDENTITY",
+      "A2_EXACT_CANDIDATE_COMMIT_BLOB_SHA256_AND_PATH",
+      "A2_GIT_DIFF_AND_COMPLETE_TOUCH_SET",
+      "A2_DETERMINISTIC_COMMAND_OUTPUTS",
+      "A3_ACCEPTANCE_CRITERIA_AND_VALIDATOR_DUTIES",
+      "READ_ONLY_GOVERNING_S0_REQUIREMENTS_PROFILE_REFS_AS_NEEDED"
+    ],
+    "exclude": [
+      "AUTHOR_PRIVATE_REASONING",
+      "AUTHOR_CHAT_HISTORY_NOT_REQUIRED_FOR_EXACT_EVIDENCE",
+      "COORDINATOR_SPECULATION",
+      "ANY_VALIDATION_VERDICT_PRECOMMITMENT"
+    ],
+    "construction_rule": "BUILD_FROM_PERSISTED_OR_EXACT_RETURNED_A2_EVIDENCE_AFTER_A2_COMPLETES; DO_NOT PRETEND AN A2 CANDIDATE EXISTS BEFORE MATERIAL RUN."
+  },
+  "future_a3_write_boundary": {
+    "required_default": "TARGET_WRITE_FALSE",
+    "acceptable_classifications": [
+      "TECHNICALLY_ENFORCED",
+      "TOOL_PERMISSION_SCOPED",
+      "PROCEDURAL_ONLY",
+      "NOT_PROVEN"
+    ],
+    "prompt_only_deny_is_technical_enforcement": false,
+    "target_candidate_path": "PENDING_EXACT_A2_OUTPUT_IDENTITY",
+    "validator_output_scope": "SEPARATE_FINDING_OR_EVIDENCE_OUTPUT_ONLY_IF_EXPLICITLY_AUTHORIZED_AT_A3",
+    "target_ref_advance_authority": false
+  },
+  "a3_readiness": {
+    "canonical_validator_binding_resolved": true,
+    "separate_context_schema_resolved": true,
+    "exact_a2_candidate_available": false,
+    "material_runtime_available": false,
+    "ready_to_execute": false,
+    "blocking_inputs": [
+      "A2_MATERIAL_AUTHOR_RUN_COMPLETE",
+      "A2_EXACT_CANDIDATE_IDENTITY",
+      "SUPPORTED_DISTINCT_MATERIAL_RUNTIME_AVAILABLE",
+      "MATERIAL_TARGET_WRITE_BOUNDARY_CONFIGURATION"
+    ]
+  },
+  "firewalls": {
+    "validator_is_not_author": true,
+    "validator_is_not_independent_l2": true,
+    "same_provider_or_model_does_not_imply_independence": true,
+    "no_stage10": true,
+    "no_s0_execution": true,
+    "track_a_touch": []
+  }
+}
