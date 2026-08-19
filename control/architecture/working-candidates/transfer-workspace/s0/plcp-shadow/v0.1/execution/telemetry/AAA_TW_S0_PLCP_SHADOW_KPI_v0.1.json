@@ -1,0 +1,97 @@
+{
+  "artifact_id": "AAA-TW-S0-PLCP-SHADOW-KPI-v0.1",
+  "artifact_kind": "NON_PRODUCTION_S0_EXECUTION_KPI_TELEMETRY",
+  "object_role": "KPI_TELEMETRY",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "version": "v0.1",
+  "work_item_id": "AAA-PERSISTENT-LOCATOR-CAPABILITY-PROOF-v0.1",
+  "author_run_id": "AAA-TW-S0-PLCP-v0.5-AUTHOR-RUN-20260820-0349-01",
+  "measurement_scope": "STAGE13_A_AUTHOR_EXECUTION_ONLY",
+  "measurement_state": "AUTHOR_PRECOMMIT_SNAPSHOT_VALIDATOR_NOT_YET_RUN",
+  "required_s0_kpis": {
+    "OWNER_MANUAL_RELAY_COUNT": {
+      "value": "NOT_MEASURED",
+      "reason": "CURRENT_CODEX_DELEGATION_DELIVERY_DOES_NOT_EXPOSE_A_RELIABLE_MANUAL_COPY_COUNT"
+    },
+    "OWNER_ACTIVE_INTERVENTION_TIME": {
+      "value": "NOT_MEASURED",
+      "reason": "NO_AUTHORITATIVE_TIMER_FOR_OWNER_ACTIVE_TIME_IS_EXPOSED"
+    },
+    "OWNER_DECISION_COUNT": {
+      "value": 1,
+      "basis": "CURRENT_STAGE13_OWNER_PENDING_CHANGE_RECONCILIATION_DECISION_IN_INPUT_PACKET"
+    },
+    "ROUTINE_VALIDATION_ROUTING_COUNT": {
+      "value": 0,
+      "basis": "AUTHOR_SCOPE_STOPS_BEFORE_SEPARATE_STAGE13_B_ROUTING"
+    },
+    "PERSONA_REHYDRATION_COUNT": {
+      "value": 1,
+      "basis": "ONE_AUTHOR_PERSONA_RUNTIME_PACKET_BUILT_FOR_THIS_MATERIAL_RUN"
+    },
+    "CONTEXT_RECONSTRUCTION_COUNT": {
+      "value": 1,
+      "basis": "ONE_FRESH_AUTHOR_CONVERSATION_RECONSTRUCTED_FROM_EXACT_PERSISTED_INPUTS_AND_PACKET"
+    },
+    "TW_ATTRIBUTABLE_TRACK_A_DELAY": {
+      "value": 0,
+      "unit": "OBSERVED_AUTHOR_ACT_BLOCKING_EVENTS",
+      "basis": "TRACK_A_WAS_NOT_TOUCHED_OR_BLOCKED_BY_THIS_AUTHOR_ACT"
+    }
+  },
+  "where_feasible_s0_kpis": {
+    "TOTAL_EXECUTION_ACT_COUNT": 1,
+    "CODE_REPLACEABLE_ACT_COUNT": 1,
+    "LLM_REASONING_ACT_COUNT": 1,
+    "VALIDATION_JUDGMENT_ACT_COUNT": 0,
+    "OWNER_DECISION_ACT_COUNT": 1,
+    "CORRECTION_LOOP_COUNT": 0
+  },
+  "subagent_first_kpis": {
+    "SUBAGENT_RUN_COUNT": 1,
+    "AUTHOR_SUBAGENT_RUN_COUNT": 1,
+    "VALIDATOR_SUBAGENT_RUN_COUNT": 0,
+    "CORRECTION_SUBAGENT_RUN_COUNT": 0,
+    "L2_SUBAGENT_RUN_COUNT": 0,
+    "PERSONA_RUNTIME_PACKET_BUILD_SUCCESS": true,
+    "PERSONA_BINDING_FAILURE_COUNT": 0,
+    "SUBAGENT_CONTEXT_LEAKAGE_COUNT": 0,
+    "VALIDATOR_TARGET_WRITE_VIOLATION_COUNT": 0,
+    "RUN_ATTRIBUTION_COMPLETENESS": "1_OF_1_MATERIAL_AUTHOR_RUN_BOUND",
+    "RUN_RESULT_RECONSTRUCTION_SUCCESS": "PENDING_FINAL_AUTHOR_COMMIT_AND_EXTERNAL_READBACK",
+    "SEPARATE_AGENT_THREAD_RATE": "NOT_YET_APPLICABLE_VALIDATOR_NOT_RUN",
+    "SEPARATE_CONTEXT_BUNDLE_RATE": "NOT_YET_APPLICABLE_VALIDATOR_NOT_RUN",
+    "SAME_MODEL_FAMILY_RATE": "NOT_MEASURED_VALIDATOR_NOT_RUN",
+    "SAME_PROVIDER_RATE": "NOT_MEASURED_VALIDATOR_NOT_RUN"
+  },
+  "deterministic_results": {
+    "prewrite_gate": "16/16 PASS",
+    "governed_object_count": 6,
+    "authorized_touch_set_count": 8,
+    "shadow_specimen_byte_size": 321,
+    "shadow_specimen_sha256": "4ad2dc8582a875ca76ebe09e346bbb15faa90e9a5a3e036073d357adc224bf6e",
+    "shadow_specimen_git_blob": "f61f0a2d450ad2ada65078559e583bd913528800",
+    "historical_byte_exact_equality": true,
+    "negative_challenge_silent_match_count": 0,
+    "unauthorized_touch_count": 0,
+    "track_a_touch_count": 0,
+    "removal_count": 0,
+    "production_promotion_count": 0
+  },
+  "authority_and_state_firewall": {
+    "creates_semantic_authority": false,
+    "creates_validation_authority": false,
+    "stage13_complete": false,
+    "owner_acceptance_state": "NOT_PERFORMED",
+    "production_authorized": false,
+    "remote_push_state": "NOT_PERFORMED"
+  },
+  "limitations": [
+    "NATIVE_CODEX_RUN_OR_THREAD_ID_NOT_EXPOSED",
+    "OWNER_MANUAL_RELAY_COUNT_AND_ACTIVE_INTERVENTION_TIME_NOT_RELIABLY_MEASURABLE",
+    "VALIDATOR_SEPARATION_RATES_AND_MODEL_PROVIDER_COMPARISONS_REQUIRE_STAGE13_B"
+  ],
+  "telemetry_digest_profile": "SHA256_UTF8_CANONICAL_JSON_EXCLUDING_TELEMETRY_DIGEST_SORT_KEYS_COMPACT_NO_TRAILING_NEWLINE",
+  "telemetry_digest": "befc654425f215950bd8e5a24197e2a0d808c1f24acd7f95fcd4c6ca1b6e6292"
+}

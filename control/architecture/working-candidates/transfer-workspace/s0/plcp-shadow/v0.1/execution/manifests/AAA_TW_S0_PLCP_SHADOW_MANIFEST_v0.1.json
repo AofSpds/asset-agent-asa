@@ -1,0 +1,126 @@
+{
+  "artifact_id": "AAA-TW-S0-PLCP-SHADOW-MANIFEST-v0.1",
+  "artifact_kind": "NON_PRODUCTION_S0_ENGINEERING_MANIFEST",
+  "object_role": "ENGINEERING_MANIFEST",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "version": "v0.1",
+  "work_item_id": "AAA-PERSISTENT-LOCATOR-CAPABILITY-PROOF-v0.1",
+  "workspace_instance_id": "AAA-TW-S0-PLCP-SHADOW-WORKSPACE-v0.5",
+  "s0_artifact_id": "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.5",
+  "execution_mode": "SHADOW_REPRODUCTION",
+  "non_production": true,
+  "canonical": false,
+  "frozen": false,
+  "production": false,
+  "authoring_persona": "AAA-CONTROL-ARCHITECT",
+  "author_run_id": "AAA-TW-S0-PLCP-v0.5-AUTHOR-RUN-20260820-0349-01",
+  "runtime_packet_binding": {
+    "persona_runtime_packet_id": "AAA-TW-S0-PLCP-v0.5-AUTHOR-PRP-20260820-0349-01",
+    "packet_semantic_digest": "ecf10125aebdb2f01e541bc2ff0d5defddcdc77004e7607f2d9c50e6f5524cb6",
+    "path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.5/execution/runtime/author/AAA_TW_S0_PLCP_v0_5_AUTHOR_PRP_20260820_0349_01.json"
+  },
+  "exact_authority_chain": {
+    "execution_authority_commit": "781a0b27f102814748ea4e15f2d7a377a01c4178",
+    "execution_authority_git_blob": "4c5f252253c3137906903aa2f77afd4fe3a55922",
+    "paired_l1_receipt_commit": "5ad9333f3c9db66008792f46800a426eb6bbeceb",
+    "paired_l1_receipt_git_blob": "ca2dbc683a9d3aff6606d11961bb012c393df8cc",
+    "independent_l2_receipt_commit": "7ecd603c830f3c96f07358390da6f06ffd1bedd3",
+    "independent_l2_receipt_git_blob": "a43d2dde4dd19bf5dfd850ec98cd1b598353c5ef",
+    "owner_pending_change_reconciliation": "COMPLETE_CURRENT_CHANGE_SET_EMPTY_PROCEED_EXACT_S0_AS_IS"
+  },
+  "normative_inputs": {
+    "s0": {
+      "artifact_id": "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.5",
+      "commit": "d0b0d2c7a77ca00570151e89e70e092b10646bd2",
+      "git_blob": "7bc6e4c2194bc2f06d61367434cab38947b40e0d",
+      "sha256": "abd1d42be8b2a9b25eba266cfd939905e1799c93dc975fedcb560478cbcefdd8",
+      "semantic_content_digest": "370a934edfaf72dc2e06d5e45b7c38be8026e3cf85e8d11c2903d2e342be48f2"
+    },
+    "requirements": {
+      "artifact_id": "AAA-TW-REQUIREMENTS-BASELINE",
+      "version": "v1.3",
+      "commit": "d68f80055d8f9c6761c37d182b35b3d481989526",
+      "git_blob": "0e76fe653f18a1267a273332f955394f2e4e07d2",
+      "sha256": "8d133d27dc8841230c78ee2e1acb7ec5655982ce8093973183c2c984ae236d0d",
+      "semantic_content_digest": "adb703b36919d4be2bd04eb0549ed9f772598cc685265add77973150fefc6a9c"
+    },
+    "profile": {
+      "artifact_id": "AAA-TW-EXECUTION-PROFILE-AND-TWO-TRACK-CONTROL-CONTRACT",
+      "version": "v0.5",
+      "commit": "b48f6ff3ca7e5df94260a35539c60bf55294a40b",
+      "git_blob": "6b8fd5dae8bd2d3da9f9eb69a3421a5a9ded7439",
+      "sha256": "5c678fc7620b09262b415d1dbb8f911726e17c4313849eb3a0f78794e91ef17e",
+      "semantic_content_digest": "c2a6068ea4229b41df471b99f950f0948b501423653faae231fbeddf4e3d2205"
+    }
+  },
+  "governed_object_registry": [
+    {
+      "object_id": "AAA-TW-S0-PLCP-SHADOW-SPECIMEN-v0.1",
+      "object_role": "SHADOW_SPECIMEN",
+      "path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.1/execution/shadow/AAA_TW_S0_PLCP_SHADOW_SPECIMEN_v0.1_TARGET.json",
+      "sha256": "4ad2dc8582a875ca76ebe09e346bbb15faa90e9a5a3e036073d357adc224bf6e",
+      "byte_size": 321,
+      "git_blob": "f61f0a2d450ad2ada65078559e583bd913528800",
+      "identity_state": "EXACT_PRECOMMIT_CONTENT_IDENTITY"
+    },
+    {
+      "object_id": "AAA-TW-S0-PLCP-SHADOW-ENGINEERING-EVIDENCE-v0.1",
+      "object_role": "ENGINEERING_EVIDENCE",
+      "path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.1/execution/evidence/AAA_TW_S0_PLCP_SHADOW_ENGINEERING_EVIDENCE_v0.1.json",
+      "content_digest": "58aa5f000bf5d652288915599d06fdabdd38fb82cd1ecc131168d05689ab517f",
+      "sha256": "6326ae06f78c799d03bb84f40d254f8cc8d88404f8d68376b5a07e24c8883fbc",
+      "byte_size": 7988,
+      "git_blob": "0a04b9ec3bc5e0a68e934d1f98eaa3f3ea0f9815",
+      "identity_state": "EXACT_PRECOMMIT_CONTENT_IDENTITY"
+    },
+    {
+      "object_id": "AAA-TW-S0-PLCP-SHADOW-MANIFEST-v0.1",
+      "object_role": "ENGINEERING_MANIFEST",
+      "path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.1/execution/manifests/AAA_TW_S0_PLCP_SHADOW_MANIFEST_v0.1.json",
+      "identity_state": "SELF_IDENTITY_EXTERNALLY_BOUND_BY_RUN_RECORD_AND_AUTHOR_COMMIT"
+    },
+    {
+      "object_id": "AAA-TW-S0-PLCP-SHADOW-COMPLETION-BUNDLE-v0.1",
+      "object_role": "COMPLETION_BUNDLE",
+      "path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.1/execution/completion/AAA_TW_S0_PLCP_SHADOW_COMPLETION_BUNDLE_v0.1.json",
+      "identity_state": "EXTERNALLY_BOUND_BY_RUN_RECORD_AND_AUTHOR_COMMIT"
+    },
+    {
+      "object_id": "AAA-TW-S0-PLCP-SHADOW-ENGINEERING-L1-REQUEST-v0.1",
+      "object_role": "ENGINEERING_L1_REQUEST",
+      "path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.1/execution/validation-request/AAA_TW_S0_PLCP_SHADOW_ENGINEERING_L1_REQUEST_v0.1.json",
+      "identity_state": "EXTERNALLY_BOUND_BY_RUN_RECORD_AND_AUTHOR_COMMIT"
+    },
+    {
+      "object_id": "AAA-TW-S0-PLCP-SHADOW-KPI-v0.1",
+      "object_role": "KPI_TELEMETRY",
+      "path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.1/execution/telemetry/AAA_TW_S0_PLCP_SHADOW_KPI_v0.1.json",
+      "identity_state": "EXTERNALLY_BOUND_BY_RUN_RECORD_AND_AUTHOR_COMMIT"
+    }
+  ],
+  "governed_object_count": 6,
+  "authorized_semantic_changes": [],
+  "authorized_implementation_scope": [
+    "REPRODUCE_HISTORICAL_PLCP_CAPABILITY_IN_ISOLATED_S0_NAMESPACE",
+    "CREATE_EXACT_SHADOW_SPECIMEN_WITH_BYTES_EQUAL_TO_HISTORICAL_TARGET",
+    "EXECUTE_DETERMINISTIC_POSITIVE_AND_NEGATIVE_LOCATOR_CHALLENGES",
+    "ASSEMBLE_S0_SPECIFIC_EVIDENCE_MANIFEST_COMPLETION_VALIDATION_REQUEST_TELEMETRY",
+    "NO_EXISTING_OBJECT_MUTATION"
+  ],
+  "authorized_touch_set_count": 8,
+  "track_a_expected_touch_set": [],
+  "preserve_all_others": true,
+  "removal_authorized": false,
+  "persistent_locator_candidate": {
+    "repository": "AofSpds/asset-agent-asa",
+    "path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.1/execution/shadow/AAA_TW_S0_PLCP_SHADOW_SPECIMEN_v0.1_TARGET.json",
+    "git_blob": "f61f0a2d450ad2ada65078559e583bd913528800",
+    "commit": "AUTHOR_COMMIT_SHA_EXTERNAL_POST_WRITE_BINDING",
+    "branch_name_is_identity": false,
+    "remote_persistence": "NOT_PERFORMED"
+  },
+  "routing_state": "READY_FOR_STAGE13_AUTHOR_COMPLETION_ASSEMBLY_THEN_SEPARATE_AAA_CONTROL_VALIDATOR",
+  "manifest_digest_profile": "SHA256_UTF8_CANONICAL_JSON_EXCLUDING_MANIFEST_DIGEST_SORT_KEYS_COMPACT_NO_TRAILING_NEWLINE",
+  "manifest_digest": "bbe7954363e5c4b5a22b756caeb61a5d290890b044635201cd118b5f2352f832"
+}

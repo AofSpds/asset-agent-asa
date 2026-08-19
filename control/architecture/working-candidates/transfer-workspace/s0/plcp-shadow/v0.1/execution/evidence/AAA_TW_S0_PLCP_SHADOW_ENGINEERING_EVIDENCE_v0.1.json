@@ -1,0 +1,167 @@
+{
+  "artifact_id": "AAA-TW-S0-PLCP-SHADOW-ENGINEERING-EVIDENCE-v0.1",
+  "artifact_kind": "NON_PRODUCTION_S0_ENGINEERING_EXECUTION_EVIDENCE",
+  "object_role": "ENGINEERING_EVIDENCE",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "version": "v0.1",
+  "non_production": true,
+  "canonical": false,
+  "frozen": false,
+  "production": false,
+  "authoring_persona": "AAA-CONTROL-ARCHITECT",
+  "author_run_id": "AAA-TW-S0-PLCP-v0.5-AUTHOR-RUN-20260820-0349-01",
+  "persona_runtime_packet": {
+    "persona_runtime_packet_id": "AAA-TW-S0-PLCP-v0.5-AUTHOR-PRP-20260820-0349-01",
+    "path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.5/execution/runtime/author/AAA_TW_S0_PLCP_v0_5_AUTHOR_PRP_20260820_0349_01.json",
+    "packet_semantic_digest": "ecf10125aebdb2f01e541bc2ff0d5defddcdc77004e7607f2d9c50e6f5524cb6",
+    "sha256": "f367a004159ec7c0e05ffc6e78dc479882970b58cc3f62f9fe24de242161020f",
+    "byte_size": 8295,
+    "git_blob": "d5c07e3f60abc9f789d3e40d6d0cdd73b393fcbb"
+  },
+  "exact_execution_target": {
+    "artifact_id": "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.5",
+    "commit": "d0b0d2c7a77ca00570151e89e70e092b10646bd2",
+    "tree": "ca1e410f745c54d6d66579173739e28bbf54590e",
+    "git_blob": "7bc6e4c2194bc2f06d61367434cab38947b40e0d",
+    "sha256": "abd1d42be8b2a9b25eba266cfd939905e1799c93dc975fedcb560478cbcefdd8",
+    "byte_size": 13947,
+    "semantic_content_digest": "370a934edfaf72dc2e06d5e45b7c38be8026e3cf85e8d11c2903d2e342be48f2",
+    "semantic_canonical_input_byte_size": 4992
+  },
+  "source_target": {
+    "artifact_id": "AAA-PLCP-TEST-TARGET-v0.1",
+    "path": "control/proofs/persistent-locator-capability/v0.1/engineering/AAA_PERSISTENT_LOCATOR_CAPABILITY_PROOF_v0.1_TARGET.json",
+    "commit": "6dfcf30ece05a044c6f42556ef42461d4f27c4bd",
+    "tree": "ef1f5457685fff0ec703efb5124e157f65aa4e5c",
+    "git_blob": "f61f0a2d450ad2ada65078559e583bd913528800",
+    "sha256": "4ad2dc8582a875ca76ebe09e346bbb15faa90e9a5a3e036073d357adc224bf6e",
+    "byte_size": 321,
+    "authority": "NONE",
+    "identity_role": "REPLICATED_HISTORICAL_PAYLOAD_SOURCE_ONLY"
+  },
+  "shadow_specimen": {
+    "governed_object_id": "AAA-TW-S0-PLCP-SHADOW-SPECIMEN-v0.1",
+    "embedded_payload_artifact_id": "AAA-PLCP-TEST-TARGET-v0.1",
+    "embedded_identifier_is_governed_identity": false,
+    "path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.1/execution/shadow/AAA_TW_S0_PLCP_SHADOW_SPECIMEN_v0.1_TARGET.json",
+    "git_blob": "f61f0a2d450ad2ada65078559e583bd913528800",
+    "sha256": "4ad2dc8582a875ca76ebe09e346bbb15faa90e9a5a3e036073d357adc224bf6e",
+    "byte_size": 321,
+    "bytes_equal_to_source": true,
+    "new_s0_identity_carrier": "EXTERNAL_S0_ENVELOPE_PLUS_MANIFEST_PLUS_PINNED_AUTHOR_COMMIT_PATH_BINDING",
+    "author_commit_binding": "EXTERNAL_POST_WRITE_PINNED_READBACK_REQUIRED_TO_AVOID_SELF_REFERENCE_CYCLE"
+  },
+  "deterministic_challenges": {
+    "source_pinned_commit_path_retrieval": {
+      "command_class": "GIT_SHOW_PINNED_COMMIT_PATH",
+      "result": "PASS",
+      "retrieved_sha256": "4ad2dc8582a875ca76ebe09e346bbb15faa90e9a5a3e036073d357adc224bf6e",
+      "retrieved_byte_size": 321
+    },
+    "source_direct_git_blob_retrieval": {
+      "command_class": "GIT_CAT_FILE_BLOB",
+      "result": "PASS",
+      "retrieved_git_blob": "f61f0a2d450ad2ada65078559e583bd913528800",
+      "retrieved_sha256": "4ad2dc8582a875ca76ebe09e346bbb15faa90e9a5a3e036073d357adc224bf6e",
+      "retrieved_byte_size": 321
+    },
+    "shadow_materialization": {
+      "command_class": "APPLY_PATCH_PLUS_BYTE_ACCURATE_PYTHON_READBACK",
+      "result": "PASS",
+      "local_sha256": "4ad2dc8582a875ca76ebe09e346bbb15faa90e9a5a3e036073d357adc224bf6e",
+      "local_byte_size": 321,
+      "computed_git_blob": "f61f0a2d450ad2ada65078559e583bd913528800"
+    },
+    "byte_exact_equality": {
+      "comparison_domain": "RAW_GIT_BLOB_BYTES_TO_RAW_MATERIALIZED_FILE_BYTES",
+      "result": "PASS",
+      "equal": true
+    },
+    "wrong_commit": {
+      "tested_ref": "7ecd603c830f3c96f07358390da6f06ffd1bedd3",
+      "tested_path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.1/execution/shadow/AAA_TW_S0_PLCP_SHADOW_SPECIMEN_v0.1_TARGET.json",
+      "result": "NOT_FOUND_AT_AUTHORIZED_STAGE12_BASE",
+      "silent_match": false,
+      "check": "PASS"
+    },
+    "wrong_path": {
+      "tested_path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.1/execution/shadow/AAA_TW_S0_PLCP_SHADOW_SPECIMEN_v0.1_WRONG_PATH.json",
+      "result": "NOT_FOUND",
+      "silent_match": false,
+      "check": "PASS"
+    },
+    "modified_bytes": {
+      "mutation": "APPEND_ASCII_MODIFIED_IN_MEMORY_ONLY",
+      "modified_specimen_sha256": "a3c792b0f4d0c0e2953d1c31e48bafd4510cb040098f5ef14e1436a8b3d5212f",
+      "modified_specimen_byte_size": 329,
+      "registered_sha_match": false,
+      "registered_size_match": false,
+      "silent_match": false,
+      "check": "PASS"
+    },
+    "mutable_branch_movement": {
+      "exact_locator_uses_branch_name": false,
+      "direct_blob_locator": "f61f0a2d450ad2ada65078559e583bd913528800",
+      "pinned_author_commit_locator": "EXTERNAL_POST_WRITE_PINNED_READBACK_REQUIRED",
+      "branch_movement_can_change_registered_bytes": false,
+      "check": "PASS_SPECIFICATION_AND_DIRECT_BLOB_IDENTITY"
+    },
+    "access_failure_semantics": {
+      "repository_access_revocation_test_performed": false,
+      "accepted_failure_classes": [
+        "ACCESS_BLOCKED",
+        "RETRIEVAL_FAILED"
+      ],
+      "artifact_absent_inference_on_access_failure": false,
+      "invariant": "ACCESS_FAILURE != GLOBAL_ARTIFACT_LOSS",
+      "check": "PASS_SPECIFICATION"
+    }
+  },
+  "pre_post_state": {
+    "authorized_stage12_base": "7ecd603c830f3c96f07358390da6f06ffd1bedd3",
+    "target_exists_at_base": false,
+    "pre_sha256": "NOT_APPLICABLE_NEW_OBJECT",
+    "post_sha256": "4ad2dc8582a875ca76ebe09e346bbb15faa90e9a5a3e036073d357adc224bf6e",
+    "existing_object_modified": false,
+    "existing_object_removed": false
+  },
+  "scope_preservation": {
+    "preserve_all_others": true,
+    "authorized_semantic_changes": [],
+    "track_a_touch_set": [],
+    "s0_control_target_changed": false,
+    "requirements_changed": false,
+    "shared_contract_changed": false,
+    "production_activation_performed": false,
+    "canonical_promotion_performed": false,
+    "frozen_promotion_performed": false
+  },
+  "acceptance_check_precommit": {
+    "AC01_DETERMINISTIC_SHADOW_TARGET_MATERIALIZATION": "PASS",
+    "AC02_EXACT_BYTE_HASH_SIZE_BLOB_REGISTRATION": "PASS",
+    "AC03_PINNED_COMMIT_PATH_RETRIEVAL": "POST_AUTHOR_COMMIT_EXTERNAL_READBACK_REQUIRED",
+    "AC04_DIRECT_GIT_BLOB_RETRIEVAL": "PASS",
+    "AC05_BYTE_EXACT_EQUALITY": "PASS",
+    "AC06_WRONG_COMMIT_CHALLENGE": "PASS",
+    "AC07_WRONG_PATH_CHALLENGE": "PASS",
+    "AC08_MODIFIED_BYTE_CHALLENGE": "PASS",
+    "AC09_MUTABLE_BRANCH_MOVEMENT_CHALLENGE": "PASS",
+    "AC10_ACCESS_FAILURE_SEMANTICS": "PASS_SPECIFICATION",
+    "AC11_NO_SILENT_MATCH": "PASS",
+    "AC12_TOUCH_SET_EXACTNESS": "FINAL_PRECOMMIT_RUN_RECORD_BINDING_REQUIRED",
+    "AC13_PRESERVE_ALL_OTHERS": "PASS_AT_EVIDENCE_MATERIALIZATION",
+    "AC14_NO_PROMOTION": "PASS",
+    "AC15_FINAL_EXACT_CANDIDATE_ASSEMBLY": "COMPLETION_BUNDLE_REQUIRED",
+    "AC16_VALIDATOR_EVIDENCE_BUNDLE": "ENGINEERING_L1_REQUEST_REQUIRED"
+  },
+  "provenance": {
+    "source_historical_target_commit": "6dfcf30ece05a044c6f42556ef42461d4f27c4bd",
+    "s0_authority_commit": "781a0b27f102814748ea4e15f2d7a377a01c4178",
+    "stage13_base_commit": "7ecd603c830f3c96f07358390da6f06ffd1bedd3",
+    "execution_method": "DETERMINISTIC_LOCAL_GIT_OBJECT_READS_BYTE_COMPARISON_AND_BOUNDED_AUTHOR_REASONING",
+    "later_validation_required": true
+  },
+  "content_digest_profile": "SHA256_UTF8_CANONICAL_JSON_EXCLUDING_CONTENT_DIGEST_SORT_KEYS_COMPACT_NO_TRAILING_NEWLINE",
+  "content_digest": "58aa5f000bf5d652288915599d06fdabdd38fb82cd1ecc131168d05689ab517f"
+}

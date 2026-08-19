@@ -1,0 +1,162 @@
+{
+  "artifact_id": "AAA-TW-S0-PLCP-v0.5-AUTHOR-PRP-20260820-0349-01",
+  "artifact_kind": "NON_NORMATIVE_DERIVED_EXECUTION_EVIDENCE",
+  "classification": "AUTHOR_PERSONA_RUNTIME_PACKET",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "persona_runtime_packet_id": "AAA-TW-S0-PLCP-v0.5-AUTHOR-PRP-20260820-0349-01",
+  "packet_version": "v0.1",
+  "created_time": "2026-08-20T03:49:17+09:00",
+  "persona_id": "AAA-CONTROL-ARCHITECT",
+  "persona_version_or_manifest_ref": "STAGE13_OWNER_PACKET_PERSONA_LOCK_NO_SEPARATE_MANIFEST_REF_PROVIDED",
+  "role": "STAGE13_S0_EXECUTION_AUTHOR",
+  "purpose": "EXECUTE_ONLY_THE_EXACT_VALIDATED_AAA_TW_S0_PLCP_SHADOW_INSTANCE_v0.5_AND_CREATE_AUTHOR_SIDE_DERIVED_EVIDENCE",
+  "domain_owner": "AAA-CONTROL-ARCHITECT",
+  "execution_surface": "CODEX_DESKTOP_LOCAL",
+  "run_or_thread_id": "NOT_EXPOSED",
+  "authority_boundary": {
+    "actual_s0_execution_authorized_by_current_owner_reconciliation": true,
+    "authority_source": "HUMAN_PROJECT_OWNER_STAGE13_PACKET_VIA_AAA_ASA_ASA_TW",
+    "creates_execution_authority": false,
+    "creates_validation_authority": false,
+    "creates_owner_acceptance": false,
+    "production_authorized": false,
+    "release_authorized": false,
+    "merge_to_main_authorized": false,
+    "remote_push_authorized": false,
+    "validator_role_assumed": false
+  },
+  "must": [
+    "BIND_TO_EXACT_STAGE10_AUTHORITY_STAGE11_L1_STAGE12_L2_AND_S0_v0.5_IDENTITIES",
+    "EXECUTE_ONLY_THE_SIX_PRESERVED_GOVERNED_OBJECTS",
+    "CREATE_THE_TWO_REQUIRED_AUTHOR_SIDE_DERIVED_EVIDENCE_OBJECTS",
+    "REPRODUCE_THE_HISTORICAL_TARGET_BYTES_EXACTLY",
+    "RUN_DETERMINISTIC_POSITIVE_AND_NEGATIVE_LOCATOR_CHECKS",
+    "PRESERVE_ALL_OTHERS",
+    "KEEP_CHANNEL_PERSONA_RUN_INSTANCE_AND_AUTHORITY_IDENTITIES_DISTINCT",
+    "STOP_AFTER_LOCAL_AUTHOR_COMMIT_FOR_SEPARATE_VALIDATION"
+  ],
+  "must_not": [
+    "MODIFY_THE_VALIDATED_S0_CONTROL_TARGET",
+    "MODIFY_REQUIREMENTS_OR_SHARED_CONTRACTS",
+    "TOUCH_TRACK_A",
+    "ADD_FUTURE_OR_CONVENIENCE_FEATURES",
+    "REMOVE_EXISTING_OBJECTS",
+    "CLAIM_VALIDATOR_PASS_OR_STAGE13_COMPLETION",
+    "PUSH_MERGE_TAG_OPEN_PR_OR_RELEASE"
+  ],
+  "current_work_item_id": "AAA-PERSISTENT-LOCATOR-CAPABILITY-PROOF-v0.1",
+  "authorized_baseline_ref": {
+    "artifact_id": "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.5",
+    "path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.5/control/AAA_TW_S0_PLCP_SHADOW_INSTANCE_v0.5.json",
+    "commit": "d0b0d2c7a77ca00570151e89e70e092b10646bd2",
+    "tree": "ca1e410f745c54d6d66579173739e28bbf54590e",
+    "git_blob": "7bc6e4c2194bc2f06d61367434cab38947b40e0d",
+    "sha256": "abd1d42be8b2a9b25eba266cfd939905e1799c93dc975fedcb560478cbcefdd8",
+    "byte_size": 13947,
+    "semantic_content_digest": "370a934edfaf72dc2e06d5e45b7c38be8026e3cf85e8d11c2903d2e342be48f2"
+  },
+  "execution_authority_ref": {
+    "artifact_id": "AAA-TW-S0-EXECUTION-AUTHORITY-v0.1",
+    "commit": "781a0b27f102814748ea4e15f2d7a377a01c4178",
+    "tree": "d678be2ad4aeb2bdb995bc1bb2ecfb18ef199c33",
+    "git_blob": "4c5f252253c3137906903aa2f77afd4fe3a55922",
+    "sha256": "96ef23a0bab23cfd9d700a0475689e13dd78ee26e607f652eb80d32918fb1280",
+    "byte_size": 16763
+  },
+  "authority_validation_refs": {
+    "paired_l1": {
+      "validation_act_id": "AAA-TW-S0-EXECUTION-AUTHORITY-v0.1-P0-CTL-L1-20260820-0144-01",
+      "commit": "5ad9333f3c9db66008792f46800a426eb6bbeceb",
+      "git_blob": "ca2dbc683a9d3aff6606d11961bb012c393df8cc",
+      "sha256": "f2d40d9b1d53136c8f0391ae3eedd220477475077253896c3af129e9e601acab",
+      "matrix": "36/36 PASS"
+    },
+    "independent_l2": {
+      "validation_act_id": "AAA-TW-S0-EXECUTION-AUTHORITY-v0.1-P0-IV-L2-20260820-0213-01",
+      "commit": "7ecd603c830f3c96f07358390da6f06ffd1bedd3",
+      "git_blob": "a43d2dde4dd19bf5dfd850ec98cd1b598353c5ef",
+      "sha256": "c6f17c2a1605736d3fb00ac530c5b875e96e3c7abb280071855f5d5d5a4ead79",
+      "matrix": "46/46 PASS"
+    }
+  },
+  "authorized_governed_object_ids": [
+    "AAA-TW-S0-PLCP-SHADOW-SPECIMEN-v0.1",
+    "AAA-TW-S0-PLCP-SHADOW-ENGINEERING-EVIDENCE-v0.1",
+    "AAA-TW-S0-PLCP-SHADOW-MANIFEST-v0.1",
+    "AAA-TW-S0-PLCP-SHADOW-COMPLETION-BUNDLE-v0.1",
+    "AAA-TW-S0-PLCP-SHADOW-ENGINEERING-L1-REQUEST-v0.1",
+    "AAA-TW-S0-PLCP-SHADOW-KPI-v0.1"
+  ],
+  "authorized_semantic_changes": [],
+  "authorized_behavioral_changes": [
+    "REPRODUCE_HISTORICAL_PLCP_CAPABILITY_IN_ISOLATED_S0_NAMESPACE",
+    "CREATE_EXACT_SHADOW_SPECIMEN_WITH_BYTES_EQUAL_TO_HISTORICAL_TARGET",
+    "EXECUTE_DETERMINISTIC_POSITIVE_AND_NEGATIVE_LOCATOR_CHALLENGES",
+    "ASSEMBLE_S0_SPECIFIC_EVIDENCE_MANIFEST_COMPLETION_VALIDATION_REQUEST_TELEMETRY",
+    "NO_EXISTING_OBJECT_MUTATION"
+  ],
+  "authorized_implementation_scope": [
+    "REPRODUCE_HISTORICAL_PLCP_CAPABILITY_IN_ISOLATED_S0_NAMESPACE",
+    "CREATE_EXACT_SHADOW_SPECIMEN_WITH_BYTES_EQUAL_TO_HISTORICAL_TARGET",
+    "EXECUTE_DETERMINISTIC_POSITIVE_AND_NEGATIVE_LOCATOR_CHALLENGES",
+    "ASSEMBLE_S0_SPECIFIC_EVIDENCE_MANIFEST_COMPLETION_VALIDATION_REQUEST_TELEMETRY",
+    "NO_EXISTING_OBJECT_MUTATION"
+  ],
+  "preserve_all_others": true,
+  "normative_source_refs": [
+    "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.5@d0b0d2c7a77ca00570151e89e70e092b10646bd2",
+    "AAA-TW-REQUIREMENTS-BASELINE-v1.3@d68f80055d8f9c6761c37d182b35b3d481989526",
+    "AAA-TW-EXECUTION-PROFILE-AND-TWO-TRACK-CONTROL-CONTRACT-v0.5@b48f6ff3ca7e5df94260a35539c60bf55294a40b",
+    "AAA-TW-S0-EXECUTION-AUTHORITY-v0.1@781a0b27f102814748ea4e15f2d7a377a01c4178"
+  ],
+  "requirement_refs": [
+    "REQ-01_TO_REQ-40_PRESERVED_EXACT",
+    "REQ-41_TO_REQ-55_PRESERVED_v1.3_RUNTIME_AND_VALIDATION_CONTRACT"
+  ],
+  "design_contract_refs": [
+    "AAA-TW-EXECUTION-PROFILE-AND-TWO-TRACK-CONTROL-CONTRACT-v0.5",
+    "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.5"
+  ],
+  "exact_target_ref_if_applicable": {
+    "artifact_id": "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.5",
+    "commit": "d0b0d2c7a77ca00570151e89e70e092b10646bd2",
+    "git_blob": "7bc6e4c2194bc2f06d61367434cab38947b40e0d",
+    "semantic_content_digest": "370a934edfaf72dc2e06d5e45b7c38be8026e3cf85e8d11c2903d2e342be48f2"
+  },
+  "tools_allowed": [
+    "CODEX_EXEC_COMMAND",
+    "APPLY_PATCH",
+    "GIT_LOCAL_DEDICATED_BRANCH_OPERATIONS",
+    "PYTHON_DETERMINISTIC_READ_AND_CHECK"
+  ],
+  "write_scope": [
+    "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.1/execution/shadow/AAA_TW_S0_PLCP_SHADOW_SPECIMEN_v0.1_TARGET.json",
+    "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.1/execution/evidence/AAA_TW_S0_PLCP_SHADOW_ENGINEERING_EVIDENCE_v0.1.json",
+    "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.1/execution/manifests/AAA_TW_S0_PLCP_SHADOW_MANIFEST_v0.1.json",
+    "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.1/execution/completion/AAA_TW_S0_PLCP_SHADOW_COMPLETION_BUNDLE_v0.1.json",
+    "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.1/execution/validation-request/AAA_TW_S0_PLCP_SHADOW_ENGINEERING_L1_REQUEST_v0.1.json",
+    "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.1/execution/telemetry/AAA_TW_S0_PLCP_SHADOW_KPI_v0.1.json",
+    "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.5/execution/runtime/author/AAA_TW_S0_PLCP_v0_5_AUTHOR_PRP_20260820_0349_01.json",
+    "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.5/execution/run-records/AAA_TW_S0_PLCP_v0_5_AUTHOR_RUN_20260820_0349_01.json"
+  ],
+  "validation_role_if_applicable": "NOT_APPLICABLE_AUTHOR_MUST_NOT_SELF_VALIDATE",
+  "return_schema": {
+    "required_fields": [
+      "RUN_ID",
+      "PERSONA_ID",
+      "RESULT_STATE",
+      "OUTPUT_REFS",
+      "LINEAGE",
+      "RETURN_PACKET_REF"
+    ]
+  },
+  "escalation_rules": [
+    "IDENTITY_OR_SEMANTIC_DIGEST_MISMATCH=>FAIL_CLOSED",
+    "UNAUTHORIZED_TOUCH_OR_TRACK_A_TOUCH=>FAIL_CLOSED",
+    "AMBIGUOUS_AUTHORITY_OR_NEW_FEATURE_DESIRE=>FUTURE_CHANGE_CANDIDATE_DO_NOT_IMPLEMENT",
+    "VALIDATION_JUDGMENT=>ROUTE_TO_SEPARATE_AAA_CONTROL_VALIDATOR"
+  ],
+  "packet_digest_profile": "SHA256_UTF8_CANONICAL_JSON_EXCLUDING_PACKET_SEMANTIC_DIGEST_SORT_KEYS_COMPACT_NO_TRAILING_NEWLINE",
+  "packet_semantic_digest": "ecf10125aebdb2f01e541bc2ff0d5defddcdc77004e7607f2d9c50e6f5524cb6"
+}

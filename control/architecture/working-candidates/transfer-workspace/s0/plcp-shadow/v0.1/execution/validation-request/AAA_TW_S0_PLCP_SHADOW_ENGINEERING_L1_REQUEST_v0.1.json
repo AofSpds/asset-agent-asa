@@ -1,0 +1,123 @@
+{
+  "artifact_id": "AAA-TW-S0-PLCP-SHADOW-ENGINEERING-L1-REQUEST-v0.1",
+  "artifact_kind": "NON_PRODUCTION_S0_ENGINEERING_L1_VALIDATION_REQUEST",
+  "object_role": "ENGINEERING_L1_REQUEST",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "version": "v0.1",
+  "work_item_id": "AAA-PERSISTENT-LOCATOR-CAPABILITY-PROOF-v0.1",
+  "authoring_persona": "AAA-CONTROL-ARCHITECT",
+  "author_run_id": "AAA-TW-S0-PLCP-v0.5-AUTHOR-RUN-20260820-0349-01",
+  "requested_validator": "AAA-ENGINEERING-VALIDATOR",
+  "requested_validation_layer": "STAGE14_FRESH_ENGINEERING_L1_AFTER_STAGE13_COMPLETION",
+  "immediate_next_required_act": "STAGE13_B_SEPARATE_AAA_CONTROL_VALIDATOR",
+  "routing_firewall": {
+    "this_request_does_not_skip_stage13_b": true,
+    "stage13_complete": false,
+    "engineering_l1_eligible_now": false,
+    "eligibility_condition": "STAGE13_B_PASS_AND_STAGE13_BOUNDED_AUTHOR_VALIDATOR_LOOP_COMPLETE",
+    "request_is_validator_pass": false,
+    "test_pass_is_validator_pass": false,
+    "validator_target_write_permission": false
+  },
+  "exact_s0_target": {
+    "artifact_id": "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.5",
+    "path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.5/control/AAA_TW_S0_PLCP_SHADOW_INSTANCE_v0.5.json",
+    "commit": "d0b0d2c7a77ca00570151e89e70e092b10646bd2",
+    "tree": "ca1e410f745c54d6d66579173739e28bbf54590e",
+    "git_blob": "7bc6e4c2194bc2f06d61367434cab38947b40e0d",
+    "sha256": "abd1d42be8b2a9b25eba266cfd939905e1799c93dc975fedcb560478cbcefdd8",
+    "semantic_content_digest": "370a934edfaf72dc2e06d5e45b7c38be8026e3cf85e8d11c2903d2e342be48f2"
+  },
+  "author_candidate_locator": {
+    "repository": "AofSpds/asset-agent-asa",
+    "branch": "aaa-tw-stage13-s0-plcp-v0.5-author-execution-v0.1",
+    "commit": "AUTHOR_COMMIT_SHA_EXTERNAL_POST_WRITE_BINDING",
+    "tree": "AUTHOR_TREE_SHA_EXTERNAL_POST_WRITE_BINDING",
+    "remote_push_state": "NOT_PERFORMED",
+    "local_candidate_only": true
+  },
+  "runtime_attribution": {
+    "persona_id": "AAA-CONTROL-ARCHITECT",
+    "persona_runtime_packet_id": "AAA-TW-S0-PLCP-v0.5-AUTHOR-PRP-20260820-0349-01",
+    "persona_runtime_packet_digest": "ecf10125aebdb2f01e541bc2ff0d5defddcdc77004e7607f2d9c50e6f5524cb6",
+    "author_run_id": "AAA-TW-S0-PLCP-v0.5-AUTHOR-RUN-20260820-0349-01",
+    "run_or_thread_id": "NOT_EXPOSED",
+    "execution_surface": "CODEX_DESKTOP_LOCAL"
+  },
+  "evidence_bundle": [
+    {
+      "object_id": "AAA-TW-S0-PLCP-SHADOW-SPECIMEN-v0.1",
+      "path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.1/execution/shadow/AAA_TW_S0_PLCP_SHADOW_SPECIMEN_v0.1_TARGET.json",
+      "sha256": "4ad2dc8582a875ca76ebe09e346bbb15faa90e9a5a3e036073d357adc224bf6e",
+      "byte_size": 321,
+      "git_blob": "f61f0a2d450ad2ada65078559e583bd913528800"
+    },
+    {
+      "object_id": "AAA-TW-S0-PLCP-SHADOW-ENGINEERING-EVIDENCE-v0.1",
+      "path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.1/execution/evidence/AAA_TW_S0_PLCP_SHADOW_ENGINEERING_EVIDENCE_v0.1.json",
+      "content_digest": "58aa5f000bf5d652288915599d06fdabdd38fb82cd1ecc131168d05689ab517f",
+      "sha256": "6326ae06f78c799d03bb84f40d254f8cc8d88404f8d68376b5a07e24c8883fbc",
+      "byte_size": 7988,
+      "git_blob": "0a04b9ec3bc5e0a68e934d1f98eaa3f3ea0f9815"
+    },
+    {
+      "object_id": "AAA-TW-S0-PLCP-SHADOW-MANIFEST-v0.1",
+      "path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.1/execution/manifests/AAA_TW_S0_PLCP_SHADOW_MANIFEST_v0.1.json",
+      "manifest_digest": "bbe7954363e5c4b5a22b756caeb61a5d290890b044635201cd118b5f2352f832",
+      "sha256": "06c6c14a75ac82da572efa85441d6afff5a2b5dbab58b0cfc1e94ebe001609a7",
+      "byte_size": 6877,
+      "git_blob": "8633183fe492e964e53a5d23bb3960a16d29c0b6"
+    },
+    {
+      "object_id": "AAA-TW-S0-PLCP-SHADOW-KPI-v0.1",
+      "path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.1/execution/telemetry/AAA_TW_S0_PLCP_SHADOW_KPI_v0.1.json",
+      "telemetry_digest": "befc654425f215950bd8e5a24197e2a0d808c1f24acd7f95fcd4c6ca1b6e6292",
+      "sha256": "73d4d82c72b0b83e7403d3e9f016952baaedae857cab15af92ef690e25541236",
+      "byte_size": 3995,
+      "git_blob": "fada7bc7903f10e1f63273a59ff7f57ec8f447b5"
+    },
+    {
+      "object_id": "AAA-TW-S0-PLCP-SHADOW-COMPLETION-BUNDLE-v0.1",
+      "path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.1/execution/completion/AAA_TW_S0_PLCP_SHADOW_COMPLETION_BUNDLE_v0.1.json",
+      "identity_binding": "EXACT_IDENTITY_IN_AUTHOR_RUN_RECORD_AND_FINAL_COMMIT_TREE"
+    },
+    {
+      "object_id": "AAA-TW-S0-PLCP-SHADOW-ENGINEERING-L1-REQUEST-v0.1",
+      "path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.1/execution/validation-request/AAA_TW_S0_PLCP_SHADOW_ENGINEERING_L1_REQUEST_v0.1.json",
+      "identity_binding": "SELF_IDENTITY_IN_AUTHOR_RUN_RECORD_AND_FINAL_COMMIT_TREE"
+    }
+  ],
+  "required_independent_checks": [
+    "EXACT_RESULT_REPRODUCTION",
+    "AUTHORIZED_TOUCH_PRESERVATION",
+    "NEGATIVE_CHALLENGE_CORRECTNESS",
+    "FAILURE_SEMANTICS",
+    "EVIDENCE_SUFFICIENCY",
+    "AUTOMATION_INDUCED_BLIND_SPOTS",
+    "PERSONA_ATTRIBUTION",
+    "SCOPE_PRESERVATION"
+  ],
+  "specific_reproduction_requests": [
+    "RECOMPUTE_ALL_EIGHT_OUTPUT_SHA256_BYTE_SIZE_AND_GIT_BLOB_IDENTITIES",
+    "RETRIEVE_SHADOW_SPECIMEN_BY_AUTHOR_COMMIT_PLUS_PATH",
+    "RETRIEVE_SHADOW_SPECIMEN_BY_DIRECT_GIT_BLOB",
+    "COMPARE_SHADOW_BYTES_TO_HISTORICAL_TARGET_BLOB_f61f0a2d450ad2ada65078559e583bd913528800",
+    "REPEAT_WRONG_COMMIT_WRONG_PATH_MODIFIED_BYTE_AND_BRANCH_MOVEMENT_CHALLENGES",
+    "CONFIRM_ACTUAL_TOUCH_SET_EQUALS_AUTHORIZED_TOUCH_SET",
+    "CONFIRM_TRACK_A_S0_CONTROL_REQUIREMENTS_AND_SHARED_CONTRACT_NONMUTATION",
+    "CONFIRM_NO_PRODUCTION_CANONICAL_FROZEN_RELEASE_OR_REMOTE_PROMOTION"
+  ],
+  "author_assertions_not_validation_verdicts": {
+    "prewrite_gate": "16/16 PASS",
+    "governed_object_count": 6,
+    "unauthorized_touch_set": [],
+    "track_a_touch_set": [],
+    "semantic_changes": [],
+    "future_change_candidates": [],
+    "stage13_complete": false
+  },
+  "request_state": "PREPARED_NOT_YET_ELIGIBLE_PENDING_STAGE13_B_SEPARATE_CONTROL_VALIDATION",
+  "request_digest_profile": "SHA256_UTF8_CANONICAL_JSON_EXCLUDING_REQUEST_DIGEST_SORT_KEYS_COMPACT_NO_TRAILING_NEWLINE",
+  "request_digest": "bf9be2f1124ef8edeb30796ddb846d43b33a334ced01701233fdd03bd97a3e2d"
+}
