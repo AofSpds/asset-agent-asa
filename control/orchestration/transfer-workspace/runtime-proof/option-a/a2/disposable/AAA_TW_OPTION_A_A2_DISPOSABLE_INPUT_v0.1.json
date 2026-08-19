@@ -1,0 +1,59 @@
+{
+  "artifact_id": "AAA-TW-OPTION-A-A2-DISPOSABLE-INPUT-v0.1",
+  "artifact_kind": "NON_NORMATIVE_DISPOSABLE_RUNTIME_PROOF_FIXTURE",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "fixture_owner": "AAA-ASA",
+  "fixture_purpose": "Provide one harmless deterministic repository-bound Author workload for future Option A A2 material-runtime proof.",
+  "governed_object": false,
+  "normative_source": false,
+  "authority_artifact": false,
+  "validation_receipt": false,
+  "production_artifact": false,
+  "input": {
+    "alpha": 7,
+    "beta": 11,
+    "labels": ["TW", "A2", "AUTHOR_PROOF"]
+  },
+  "deterministic_rule": {
+    "output_object": {
+      "sum": "alpha + beta",
+      "product": "alpha * beta",
+      "labels_sorted": "lexicographically ascending copy of labels",
+      "source_artifact_id": "exact copy of input artifact_id"
+    },
+    "expected_values": {
+      "sum": 18,
+      "product": 77,
+      "labels_sorted": ["A2", "AUTHOR_PROOF", "TW"],
+      "source_artifact_id": "AAA-TW-OPTION-A-A2-DISPOSABLE-INPUT-v0.1"
+    }
+  },
+  "authorized_future_a2_output_path": "control/orchestration/transfer-workspace/runtime-proof/option-a/a2/disposable/AAA_TW_OPTION_A_A2_AUTHOR_CANDIDATE_v0.1.json",
+  "authorized_future_a2_write_scope": [
+    "CREATE_EXACTLY_THE_AUTHORIZED_OUTPUT_PATH_IF_ABSENT"
+  ],
+  "preserve_all_others": true,
+  "future_a2_author_requirements": [
+    "READ_THIS_EXACT_INPUT_FROM_THE_PINNED_PREP_COMMIT",
+    "CREATE_ONLY_THE_AUTHORIZED_OUTPUT_PATH",
+    "APPLY_THE_DETERMINISTIC_RULE",
+    "RUN_DETERMINISTIC_LOCAL_CHECKS",
+    "RETURN_GIT_STATUS_DIFF_AND_COMPLETE_TOUCH_SET",
+    "RETURN_NATIVE_RUNTIME_OR_THREAD_ID_IF_EXPOSED_OTHERWISE_NOT_EXPOSED",
+    "DO_NOT_CLAIM_VALIDATION_PASS"
+  ],
+  "prohibited": [
+    "MODIFY_THIS_INPUT_FIXTURE",
+    "MODIFY_S0_v0.5",
+    "MODIFY_REQUIREMENTS_v1.3",
+    "MODIFY_PROFILE_v0.5",
+    "MODIFY_ORGANIZATION_AUTHORITY",
+    "MODIFY_VALIDATION_RECEIPTS",
+    "MODIFY_OWNER_DECISIONS",
+    "TOUCH_TRACK_A_SCIENTIFIC_ARTIFACTS",
+    "START_STAGE10",
+    "START_ACTUAL_S0_EXECUTION",
+    "CREATE_NEW_FRAMEWORK_DATABASE_OR_WORKFLOW_ENGINE"
+  ]
+}
