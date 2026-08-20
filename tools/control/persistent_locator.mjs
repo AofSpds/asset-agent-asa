@@ -70,7 +70,9 @@ const EXIT_CODES = Object.freeze({
 });
 
 const CANONICAL_JSON_PROFILE = "JSON_SORT_KEYS_COMPACT_UTF8_NO_TRAILING_NEWLINE";
-const VALIDATED_CAPABILITY_RELATIONSHIP = "VALIDATED_CAPABILITY_PROOF_SOURCE";
+const EXACT_PREDECESSOR_RELATIONSHIP = "EXACT_SUCCESSOR_OF_DECLARED_PREDECESSOR";
+const SUBJECT_DECLARED_PREDECESSOR_PROFILE = "AAA_SUBJECT_DECLARED_EXACT_PREDECESSOR_v0.1";
+const ACCEPTED_TARGET_PROVENANCE_PROFILE = "AAA_OWNER_DECISION_ACCEPTED_EXACT_TARGET_PROVENANCE_v0.1";
 const ARTIFACT_SPECIFIC_SEMANTIC_PROFILES = Object.freeze({
   SHA256_UTF8_CANONICAL_JSON_NORMATIVE_OVERLAY_SORT_KEYS_COMPACT_NO_TRAILING_NEWLINE: Object.freeze({
     digest_algorithm: "SHA256",
@@ -228,6 +230,21 @@ function identityMatches(left, right) {
   });
 }
 
+function declaredPredecessorIdentity(subjectArtifact, repository) {
+  const predecessor = subjectArtifact?.lineage?.predecessor_exact;
+  if (!predecessor || typeof predecessor !== "object" || Array.isArray(predecessor)) return null;
+  return {
+    artifact_id: predecessor.artifact_id,
+    version: predecessor.version,
+    repository,
+    exact_commit: predecessor.commit,
+    exact_path: predecessor.path,
+    git_blob: predecessor.git_blob,
+    sha256: predecessor.artifact_sha256 ?? predecessor.sha256,
+    byte_size: predecessor.byte_size,
+  };
+}
+
 function verifyExactIdentityRecord(identity, repositoryPath) {
   const validation = validateIdentityFields(identity);
   if (!validation.ok) {
@@ -306,6 +323,9 @@ function verifyAuthorizationEvidence(locator, evidence, repositoryPath, proofFie
   if (
     authorizationArtifact.artifact_id !== authorizationRef
     || evidence.artifact_id !== authorizationRef
+    || authorizationArtifact.artifact_kind !== "OWNER_DECISION_RECEIPT_AUTHORITY_ARTIFACT"
+    || authorizationArtifact.authority_principal !== "HUMAN PROJECT OWNER"
+    || authorizationArtifact.receipt_role !== "AUTHORITY_EVIDENCE_NOT_SECOND_SEMANTIC_SOT"
     || authorizationArtifact.approved_semantic_scope?.s0_result_accepted !== true
     || authorizationArtifact.approved_semantic_scope?.apply_validated_s0_capability !== true
     || !identityMatches(acceptedIdentity, locator)
@@ -453,21 +473,49 @@ function verifySemanticDigest(locator, context, repositoryPath, blobBytes) {
   };
 }
 
-function verifyLineage(locator, context, repositoryPath) {
+function verifyLineage(locator, context, repositoryPath, subjectBlob) {
   const records = Array.isArray(context?.lineage_records) ? context.lineage_records : [];
   const selected = requireExactlyOne(records.filter((record) => record?.lineage_ref === locator.lineage_ref));
   if (!selected.ok) {
     return { ok: false, proof_state: selected.proof_state, reason: "LINEAGE_NOT_VERIFIED" };
   }
   const record = selected.record;
-  if (!identityMatches(record.subject, locator) || record.relationship_type !== VALIDATED_CAPABILITY_RELATIONSHIP) {
-    return { ok: false, proof_state: "CONFLICT", reason: "LINEAGE_CONFLICT" };
+  if (
+    !identityMatches(record.subject, locator)
+    || record.proof_profile !== SUBJECT_DECLARED_PREDECESSOR_PROFILE
+    || record.relationship_type !== EXACT_PREDECESSOR_RELATIONSHIP
+  ) {
+    return { ok: false, proof_state: "CONFLICT", reason: "LINEAGE_NOT_VERIFIED" };
   }
-  if (record.authorized_relation !== true || typeof record.authorization_ref !== "string" || !record.referenced_artifact) {
+  if (typeof record.authorization_ref !== "string" || !record.referenced_artifact) {
     return { ok: false, proof_state: "PARTIAL", reason: "LINEAGE_NOT_VERIFIED" };
   }
   if (record.referenced_artifact.repository !== locator.repository) {
-    return { ok: false, proof_state: "CONFLICT", reason: "LINEAGE_CONFLICT" };
+    return { ok: false, proof_state: "CONFLICT", reason: "LINEAGE_NOT_VERIFIED" };
+  }
+  let subjectArtifact;
+  try {
+    subjectArtifact = JSON.parse(subjectBlob.toString("utf8"));
+  } catch {
+    return { ok: false, proof_state: "CONFLICT", reason: "LINEAGE_SUBJECT_ARTIFACT_INVALID" };
+  }
+  const declaredPredecessor = declaredPredecessorIdentity(subjectArtifact, locator.repository);
+  if (
+    subjectArtifact.work_item_id !== locator.lineage_ref
+    || !declaredPredecessor
+    || typeof declaredPredecessor.artifact_id !== "string"
+    || typeof declaredPredecessor.version !== "string"
+    || subjectArtifact.lineage?.successor_of_version !== declaredPredecessor.version
+    || !identityMatches(declaredPredecessor, record.referenced_artifact)
+    || declaredPredecessor.artifact_id !== record.referenced_artifact.artifact_id
+    || declaredPredecessor.version !== record.referenced_artifact.version
+  ) {
+    return {
+      ok: false,
+      proof_state: "CONFLICT",
+      reason: "LINEAGE_NOT_VERIFIED",
+      detail: "DECLARED_EXACT_PREDECESSOR_RELATIONSHIP_MISMATCH",
+    };
   }
   const referencedArtifact = verifyExactIdentityRecord(record.referenced_artifact, repositoryPath);
   if (!referencedArtifact.ok) {
@@ -483,8 +531,12 @@ function verifyLineage(locator, context, repositoryPath) {
   } catch {
     return { ok: false, proof_state: "CONFLICT", reason: "LINEAGE_REFERENCED_ARTIFACT_INVALID" };
   }
-  if (referencedArtifactContent.work_item_id !== locator.lineage_ref) {
-    return { ok: false, proof_state: "CONFLICT", reason: "LINEAGE_REF_BINDING_CONFLICT" };
+  if (
+    referencedArtifactContent.artifact_id !== declaredPredecessor.artifact_id
+    || referencedArtifactContent.version !== declaredPredecessor.version
+    || referencedArtifactContent.work_item_id !== locator.lineage_ref
+  ) {
+    return { ok: false, proof_state: "CONFLICT", reason: "LINEAGE_NOT_VERIFIED" };
   }
   const authorization = verifyAuthorizationEvidence(
     locator,
@@ -500,10 +552,14 @@ function verifyLineage(locator, context, repositoryPath) {
   return {
     ok: true,
     state: "LINEAGE_VERIFIED",
+    proof_profile: record.proof_profile,
     lineage_ref: locator.lineage_ref,
     relationship_type: record.relationship_type,
-    referenced_artifact_id: record.referenced_artifact.artifact_id ?? null,
+    referenced_artifact_id: declaredPredecessor.artifact_id,
+    referenced_artifact_version: declaredPredecessor.version,
+    referenced_artifact_identity: record.referenced_artifact,
     authorization_ref: record.authorization_ref,
+    authorization_evidence_identity: record.authorization_evidence,
   };
 }
 
@@ -513,20 +569,24 @@ function verifyProvenance(locator, context, repositoryPath, verifiedLineage) {
     record?.lineage_ref === locator.lineage_ref && identityMatches(record?.subject, locator)
   )));
   if (!selected.ok) {
-    return { ok: false, proof_state: selected.proof_state, reason: "PROVENANCE_NOT_VERIFIED" };
+    return { ok: false, proof_state: selected.proof_state, reason: "PROVENANCE_NOT_PROVEN" };
   }
   const record = selected.record;
   if (
-    record.authorized !== true
-    || record.provenance_assertion !== "EXPLICIT_PROVENANCE_EVIDENCE"
+    record.evidence_profile !== ACCEPTED_TARGET_PROVENANCE_PROFILE
     || record.relationship_type !== verifiedLineage.relationship_type
     || typeof record.authorization_ref !== "string"
     || !record.evidence
   ) {
-    return { ok: false, proof_state: "PARTIAL", reason: "PROVENANCE_NOT_VERIFIED" };
+    return { ok: false, proof_state: "PARTIAL", reason: "PROVENANCE_NOT_PROVEN" };
   }
-  if (record.evidence.repository !== locator.repository) {
-    return { ok: false, proof_state: "CONFLICT", reason: "PROVENANCE_CONFLICT" };
+  if (
+    record.evidence.repository !== locator.repository
+    || verifiedLineage.authorization_ref !== record.authorization_ref
+    || !identityMatches(record.evidence, verifiedLineage.authorization_evidence_identity)
+    || record.evidence.artifact_id !== verifiedLineage.authorization_evidence_identity?.artifact_id
+  ) {
+    return { ok: false, proof_state: "CONFLICT", reason: "PROVENANCE_NOT_PROVEN" };
   }
   const evidence = verifyAuthorizationEvidence(
     locator,
@@ -542,6 +602,7 @@ function verifyProvenance(locator, context, repositoryPath, verifiedLineage) {
   return {
     ok: true,
     state: "PROVENANCE_VERIFIED",
+    evidence_profile: record.evidence_profile,
     relationship_type: record.relationship_type,
     evidence_artifact_id: record.evidence.artifact_id ?? null,
     authorization_ref: record.authorization_ref,
@@ -620,7 +681,7 @@ export function verifyLocator(locator, options = {}) {
       );
     }
 
-    const lineageVerification = verifyLineage(locator, verificationContext, repositoryPath);
+    const lineageVerification = verifyLineage(locator, verificationContext, repositoryPath, exactIdentity.blob);
     if (!lineageVerification.ok) {
       return proofFailure(
         locator,
@@ -667,9 +728,13 @@ export function verifyLocator(locator, options = {}) {
       semantic_content_digest: semanticVerification.semantic_content_digest,
       lineage_state: lineageVerification.state,
       lineage_ref: lineageVerification.lineage_ref,
+      lineage_proof_profile: lineageVerification.proof_profile,
       lineage_relationship_type: lineageVerification.relationship_type,
+      lineage_referenced_artifact_id: lineageVerification.referenced_artifact_id,
+      lineage_referenced_artifact_version: lineageVerification.referenced_artifact_version,
       lineage_authorization_ref: lineageVerification.authorization_ref,
       provenance_state: provenanceVerification.state,
+      provenance_evidence_profile: provenanceVerification.evidence_profile,
       provenance_evidence_artifact_id: provenanceVerification.evidence_artifact_id,
       provenance_authorization_ref: provenanceVerification.authorization_ref,
       discovery_branch_used_for_identity: false,

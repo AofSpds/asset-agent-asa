@@ -12,13 +12,17 @@ import { classifyGitFailure, verifyLocator } from "../persistent_locator.mjs";
 const TEST_REPOSITORY = "AAA/TestFixture";
 const TEST_REMOTE = "https://github.com/AAA/TestFixture.git";
 const TEST_LINEAGE_REF = "AAA-TEST-LINEAGE";
-const TEST_RELATIONSHIP = "VALIDATED_CAPABILITY_PROOF_SOURCE";
+const TEST_RELATIONSHIP = "EXACT_SUCCESSOR_OF_DECLARED_PREDECESSOR";
+const TEST_LINEAGE_PROFILE = "AAA_SUBJECT_DECLARED_EXACT_PREDECESSOR_v0.1";
+const TEST_PROVENANCE_PROFILE = "AAA_OWNER_DECISION_ACCEPTED_EXACT_TARGET_PROVENANCE_v0.1";
 const TEST_AUTHORIZATION_REF = "AAA-TEST-OWNER-DECISION";
 const TEST_SEMANTIC_PROFILE = "SHA256_UTF8_CANONICAL_JSON_NORMATIVE_OVERLAY_SORT_KEYS_COMPACT_NO_TRAILING_NEWLINE";
 
 let repositoryPath;
 let locator;
 let verificationContext;
+let predecessorIdentity;
+let nonPredecessorIdentity;
 
 function git(...args) {
   return execFileSync("git", ["-C", repositoryPath, ...args], { encoding: "utf8" }).trim();
@@ -69,30 +73,58 @@ before(() => {
   git("remote", "add", "origin", TEST_REMOTE);
   mkdirSync(join(repositoryPath, "control"));
 
+  const predecessorArtifact = {
+    artifact_id: "AAA-TEST-PREDECESSOR-v0.1",
+    version: "v0.1",
+    work_item_id: TEST_LINEAGE_REF,
+  };
+  const nonPredecessorArtifact = {
+    artifact_id: "AAA-TEST-NON-PREDECESSOR-v0.1",
+    version: "v0.1-alternative",
+    work_item_id: TEST_LINEAGE_REF,
+  };
+  writeFileSync(join(repositoryPath, "control", "predecessor.json"), `${JSON.stringify(predecessorArtifact, null, 2)}\n`);
+  writeFileSync(join(repositoryPath, "control", "non-predecessor.json"), `${JSON.stringify(nonPredecessorArtifact, null, 2)}\n`);
+  git("add", "control/predecessor.json", "control/non-predecessor.json");
+  git("commit", "-m", "test: add exact predecessor and substitution candidate");
+  const predecessorCommit = git("rev-parse", "HEAD");
+  predecessorIdentity = identityAt(predecessorCommit, "control/predecessor.json", predecessorArtifact.artifact_id);
+  predecessorIdentity.version = predecessorArtifact.version;
+  nonPredecessorIdentity = identityAt(predecessorCommit, "control/non-predecessor.json", nonPredecessorArtifact.artifact_id);
+  nonPredecessorIdentity.version = nonPredecessorArtifact.version;
+
   const targetArtifact = {
-    artifact_id: "AAA-TEST-TARGET",
+    artifact_id: "AAA-TEST-TARGET-v0.2",
+    version: "v0.2",
     work_item_id: TEST_LINEAGE_REF,
     normative_overlay: { enabled: true, value: 1 },
     semantic_digest_profile: TEST_SEMANTIC_PROFILE,
-  };
-  const lineageArtifact = {
-    artifact_id: "AAA-TEST-LINEAGE-ARTIFACT",
-    work_item_id: TEST_LINEAGE_REF,
-    relationship_type: TEST_RELATIONSHIP,
+    lineage: {
+      predecessor_exact: {
+        artifact_id: predecessorIdentity.artifact_id,
+        version: predecessorIdentity.version,
+        commit: predecessorIdentity.exact_commit,
+        path: predecessorIdentity.exact_path,
+        git_blob: predecessorIdentity.git_blob,
+        artifact_sha256: predecessorIdentity.sha256,
+        byte_size: predecessorIdentity.byte_size,
+      },
+      successor_of_version: predecessorIdentity.version,
+    },
   };
   writeFileSync(join(repositoryPath, "control", "target.json"), `${JSON.stringify(targetArtifact, null, 2)}\n`);
-  writeFileSync(join(repositoryPath, "control", "lineage.json"), `${JSON.stringify(lineageArtifact, null, 2)}\n`);
-  writeFileSync(join(repositoryPath, "control", "authorization.json"), "{}\n");
-  git("add", "control/target.json", "control/lineage.json", "control/authorization.json");
-  git("commit", "-m", "test: add exact target and proof artifacts");
+  git("add", "control/target.json");
+  git("commit", "-m", "test: add exact successor target");
   const exactCommit = git("rev-parse", "HEAD");
 
-  const targetIdentity = identityAt(exactCommit, "control/target.json", "AAA-TEST-TARGET");
-  const lineageIdentity = identityAt(exactCommit, "control/lineage.json", "AAA-TEST-LINEAGE-ARTIFACT");
+  const targetIdentity = identityAt(exactCommit, "control/target.json", targetArtifact.artifact_id);
   const semanticDigest = sha256(Buffer.from(JSON.stringify(stableValue(targetArtifact.normative_overlay))));
 
   const authorizationArtifact = {
     artifact_id: TEST_AUTHORIZATION_REF,
+    artifact_kind: "OWNER_DECISION_RECEIPT_AUTHORITY_ARTIFACT",
+    authority_principal: "HUMAN PROJECT OWNER",
+    receipt_role: "AUTHORITY_EVIDENCE_NOT_SECOND_SEMANTIC_SOT",
     approved_semantic_scope: {
       s0_result_accepted: true,
       apply_validated_s0_capability: true,
@@ -153,9 +185,9 @@ before(() => {
       {
         lineage_ref: TEST_LINEAGE_REF,
         subject,
-        referenced_artifact: lineageIdentity,
+        proof_profile: TEST_LINEAGE_PROFILE,
+        referenced_artifact: predecessorIdentity,
         relationship_type: TEST_RELATIONSHIP,
-        authorized_relation: true,
         authorization_ref: TEST_AUTHORIZATION_REF,
         authorization_claim_profile: "AAA_OWNER_DECISION_ACCEPTED_EXACT_TARGET_v0.1",
         authorization_evidence: authorizationIdentity,
@@ -166,8 +198,7 @@ before(() => {
         subject,
         lineage_ref: TEST_LINEAGE_REF,
         relationship_type: TEST_RELATIONSHIP,
-        provenance_assertion: "EXPLICIT_PROVENANCE_EVIDENCE",
-        authorized: true,
+        evidence_profile: TEST_PROVENANCE_PROFILE,
         authorization_ref: TEST_AUTHORIZATION_REF,
         authorization_claim_profile: "AAA_OWNER_DECISION_ACCEPTED_EXACT_TARGET_v0.1",
         evidence: authorizationIdentity,
@@ -189,7 +220,10 @@ test("explicit repository, lineage, semantic profile, and provenance evidence su
   assert.equal(result.repository_identity_state, "REPOSITORY_VERIFIED");
   assert.equal(result.semantic_content_digest_state, "SEMANTIC_DIGEST_VERIFIED");
   assert.equal(result.lineage_state, "LINEAGE_VERIFIED");
+  assert.equal(result.lineage_proof_profile, TEST_LINEAGE_PROFILE);
+  assert.equal(result.lineage_referenced_artifact_id, predecessorIdentity.artifact_id);
   assert.equal(result.provenance_state, "PROVENANCE_VERIFIED");
+  assert.equal(result.provenance_evidence_profile, TEST_PROVENANCE_PROFILE);
   assert.equal(result.discovery_branch_used_for_identity, false);
 });
 
@@ -263,6 +297,28 @@ test("wrong lineage reference is rejected as NOT_PROVEN", () => {
   assert.equal(result.lineage_state, "NOT_PROVEN");
 });
 
+test("exact non-predecessor with the same work item cannot verify lineage", () => {
+  const context = structuredClone(verificationContext);
+  context.lineage_records[0].referenced_artifact = nonPredecessorIdentity;
+  context.lineage_records[0].authorized_relation = true;
+  const result = verifyLocator(locator, { repositoryPath, verificationContext: context });
+  assert.equal(result.state, "RETRIEVAL_FAILED");
+  assert.equal(result.reason, "LINEAGE_NOT_VERIFIED");
+  assert.equal(result.lineage_state, "CONFLICT");
+  assert.notEqual(result.state, "VERIFIED_EXACT");
+});
+
+test("caller relationship metadata cannot replace the code-bound successor relation", () => {
+  const context = structuredClone(verificationContext);
+  context.lineage_records[0].relationship_type = "VALIDATED_CAPABILITY_PROOF_SOURCE";
+  context.lineage_records[0].authorized_relation = true;
+  const result = verifyLocator(locator, { repositoryPath, verificationContext: context });
+  assert.equal(result.state, "RETRIEVAL_FAILED");
+  assert.equal(result.reason, "LINEAGE_NOT_VERIFIED");
+  assert.equal(result.lineage_state, "CONFLICT");
+  assert.notEqual(result.state, "VERIFIED_EXACT");
+});
+
 test("missing artifact-specific semantic profile is rejected", () => {
   const context = structuredClone(verificationContext);
   context.semantic_profiles = [];
@@ -298,8 +354,30 @@ test("hash and metadata equality without explicit provenance cannot verify prove
   context.provenance_records = [];
   const result = verifyLocator(locator, { repositoryPath, verificationContext: context });
   assert.equal(result.state, "RETRIEVAL_FAILED");
-  assert.equal(result.reason, "PROVENANCE_NOT_VERIFIED");
+  assert.equal(result.reason, "PROVENANCE_NOT_PROVEN");
   assert.equal(result.provenance_state, "NOT_PROVEN");
+});
+
+test("unbound caller provenance assertion cannot elevate proof state", () => {
+  const context = structuredClone(verificationContext);
+  context.provenance_records = [
+    {
+      subject: subjectIdentity(locator),
+      lineage_ref: locator.lineage_ref,
+      relationship_type: TEST_RELATIONSHIP,
+      provenance_assertion: "EXPLICIT_PROVENANCE_EVIDENCE",
+      authorized: true,
+      authorization_ref: TEST_AUTHORIZATION_REF,
+      authorization_claim_profile: "AAA_OWNER_DECISION_ACCEPTED_EXACT_TARGET_v0.1",
+      sha256: locator.sha256,
+      byte_size: locator.byte_size,
+    },
+  ];
+  const result = verifyLocator(locator, { repositoryPath, verificationContext: context });
+  assert.equal(result.state, "RETRIEVAL_FAILED");
+  assert.equal(result.reason, "PROVENANCE_NOT_PROVEN");
+  assert.equal(result.provenance_state, "PARTIAL");
+  assert.notEqual(result.state, "VERIFIED_EXACT");
 });
 
 test("invalid locator identity is rejected", () => {
@@ -334,6 +412,16 @@ test("existing exact S0 locator remains VERIFIED_EXACT with explicit governed pr
     sha256: "79350f128f8bb4016011b32edfd35f2cde7c6aef093fccf4dc60fd8d658a309c",
     byte_size: 4482,
   };
+  const exactPredecessor = {
+    artifact_id: "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.4",
+    version: "v0.4",
+    repository: s0.repository,
+    exact_commit: "ba91403930c97db4e66e937d1ce7da04c342d4c1",
+    exact_path: "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.4/control/AAA_TW_S0_PLCP_SHADOW_INSTANCE_v0.4.json",
+    git_blob: "528fbc9746c6e50f32b081013031a31281220d58",
+    sha256: "00934140c17fc21992f5e51eb174b07c18c17f4d5f6a7e15a553eae5796b95c4",
+    byte_size: 13677,
+  };
   const context = {
     repository_bindings: [
       {
@@ -365,9 +453,9 @@ test("existing exact S0 locator remains VERIFIED_EXACT with explicit governed pr
       {
         lineage_ref: s0.lineage_ref,
         subject,
-        referenced_artifact: { artifact_id: "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.5", ...subject },
+        proof_profile: TEST_LINEAGE_PROFILE,
+        referenced_artifact: exactPredecessor,
         relationship_type: TEST_RELATIONSHIP,
-        authorized_relation: true,
         authorization_ref: ownerDecision.artifact_id,
         authorization_claim_profile: "AAA_OWNER_DECISION_ACCEPTED_EXACT_TARGET_v0.1",
         authorization_evidence: ownerDecision,
@@ -378,8 +466,7 @@ test("existing exact S0 locator remains VERIFIED_EXACT with explicit governed pr
         subject,
         lineage_ref: s0.lineage_ref,
         relationship_type: TEST_RELATIONSHIP,
-        provenance_assertion: "EXPLICIT_PROVENANCE_EVIDENCE",
-        authorized: true,
+        evidence_profile: TEST_PROVENANCE_PROFILE,
         authorization_ref: ownerDecision.artifact_id,
         authorization_claim_profile: "AAA_OWNER_DECISION_ACCEPTED_EXACT_TARGET_v0.1",
         evidence: ownerDecision,
@@ -392,5 +479,7 @@ test("existing exact S0 locator remains VERIFIED_EXACT with explicit governed pr
   assert.equal(result.semantic_content_digest_state, "SEMANTIC_DIGEST_VERIFIED");
   assert.equal(result.semantic_canonical_input_byte_size, 4992);
   assert.equal(result.lineage_state, "LINEAGE_VERIFIED");
+  assert.equal(result.lineage_referenced_artifact_id, exactPredecessor.artifact_id);
+  assert.equal(result.lineage_referenced_artifact_version, exactPredecessor.version);
   assert.equal(result.provenance_state, "PROVENANCE_VERIFIED");
 });

@@ -1,37 +1,37 @@
 {
   "artifact_id": "AAA-PERSISTENT-LOCATOR-ACTIVE-INTERFACE-v0.1-AUTHOR-EVIDENCE",
   "artifact_kind": "NON_NORMATIVE_DERIVED_AUTHOR_IMPLEMENTATION_EVIDENCE",
-  "version": "v0.1-correction-2",
+  "version": "v0.1-correction-3",
   "project": "AAA",
   "product": "ASSET AGENT ASA",
-  "task": "AAA_TW_PERSISTENT_LOCATOR_ACTIVE_ADOPTION_v0.1_SECOND_BOUNDED_CORRECTION_SUCCESSOR",
-  "run_id": "AAA-PL-ACTIVE-ADOPTION-v0.1-CORRECTION-2-AUTHOR-20260820-1101-01",
+  "task": "AAA_TW_PERSISTENT_LOCATOR_ACTIVE_ADOPTION_v0.1_THIRD_BOUNDED_CORRECTION_SUCCESSOR",
+  "run_id": "AAA-PL-ACTIVE-ADOPTION-v0.1-CORRECTION-3-AUTHOR-20260820-1313-01",
   "persona_id": "AAA-CONTROL-ARCHITECT",
   "execution_surface": "CODEX_DESKTOP_LOCAL",
-  "created_time": "2026-08-20T11:01:01+09:00",
+  "created_time": "2026-08-20T13:13:31+09:00",
   "materiality_class": "NON_SEMANTIC_IMPLEMENTATION_CORRECTION_TO_EXISTING_P0_SEMANTIC_TARGET",
   "risk_class": "P0_CONTROL",
   "correction_predecessor": {
-    "previous_author_commit": "c8f30705851f73c3debd3fa73a273b3d836b994b",
-    "previous_author_tree": "31adac39f9a394be0a4d5fe03b3e5369eb947bba",
-    "validator_commit": "c0aefa9a491a88206b80b1fa83b44795b750298a",
-    "validator_tree": "da5d95c20ac9924af479b61a0fdc47bcce36cd62",
-    "validation_act_id": "AAA-TW-PERSISTENT-LOCATOR-ACTIVE-ADOPTION-v0.1-P0-CTL-L1-20260820-1019-01",
-    "matrix": "28/32 PASS; 4/32 NONPASS",
+    "previous_author_commit": "f6d8fad399a9eb4cbf024ef4df5dedcba013e2d2",
+    "previous_author_tree": "6ae316571aa8a7c4b7f97f5b7188d9f4b4535c70",
+    "validator_commit": "6f530db8270ac2fe032700d3b9fca5f7247cc914",
+    "validator_tree": "01234c0de18f4f7d97fbc602024ae23822d792f8",
+    "validation_act_id": "AAA-TW-PERSISTENT-LOCATOR-ACTIVE-ADOPTION-v0.1-C2-P0-CTL-L1-20260820-1154-01",
+    "matrix": "30/32 PASS; 2/32 NONPASS",
     "verdict": "REVIEW_REQUIRED",
-    "branch_base": "c0aefa9a491a88206b80b1fa83b44795b750298a"
+    "branch_base": "6f530db8270ac2fe032700d3b9fca5f7247cc914"
   },
   "predecessor_evidence_identity": {
-    "commit": "c8f30705851f73c3debd3fa73a273b3d836b994b",
+    "commit": "f6d8fad399a9eb4cbf024ef4df5dedcba013e2d2",
     "path": "control/architecture/working-candidates/persistent-locator-active-adoption/v0.1/evidence/AAA_PERSISTENT_LOCATOR_ACTIVE_INTERFACE_v0.1_AUTHOR_EVIDENCE.json",
-    "git_blob": "b45d967b9cefae1706cc4832b3c652a4e8ebc823",
-    "sha256": "ef66298f7b6ca860d659a25899d15d5d33c08ef4319496824f4eddbf86c3a650",
-    "byte_size": 6194,
-    "evidence_digest": "ec9025440a8bfca058d7142f86ebe2106f569af5cd342094d5b2c4ad81422f7b",
+    "git_blob": "c92bb9da441bab5cd27ba0519c4be90adcdf14d5",
+    "sha256": "9a9aeaf8e635f83b08fbf6c38df279d80cb136733a0bb1d77ddcb6b0ffa61fc8",
+    "byte_size": 10570,
+    "evidence_digest": "b7363dca6a91d3282e238a3e7e24bddf609da007b1abf356b590f02aa44a9a31",
     "overwritten_in_history": false
   },
   "authority_boundary": {
-    "authorized_change": "FIX_THE_FOUR_CONTROL_VALIDATOR_FINDINGS_ONLY",
+    "authorized_change": "FIX_F02_LINEAGE_AND_F04_PROVENANCE_TRUST_BOUNDARIES_ONLY",
     "authorized_semantic_scope": "ADD_MINIMUM_FUTURE_MATERIAL_AAA_GIT_ARTIFACT_LOCATOR_INTERFACE_CANDIDATE",
     "scope_expansion_authorized": false,
     "active_pointer_mutation_authorized": false,
@@ -43,7 +43,7 @@
   "findings_resolution": [
     {
       "finding": "REPOSITORY_IDENTITY_BINDING",
-      "state": "RESOLVED_IN_AUTHOR_CORRECTION_CANDIDATE",
+      "state": "PRESERVED_FROM_C2_FRESH_L1_PASS",
       "mechanics": [
         "REQUIRE_GOVERNED_VERIFICATION_CONTEXT",
         "REQUIRE_EXACT_AUTHORIZATION_EVIDENCE_ACCEPTING_THE_SUBJECT_IDENTITY",
@@ -55,19 +55,23 @@
     },
     {
       "finding": "LINEAGE_REF_VERIFICATION",
-      "state": "RESOLVED_IN_AUTHOR_CORRECTION_CANDIDATE",
+      "state": "RESOLVED_IN_C3_AUTHOR_CORRECTION_CANDIDATE",
       "mechanics": [
         "REQUIRE_ONE_EXACT_LINEAGE_RECORD",
+        "READ_DECLARED_PREDECESSOR_IDENTITY_FROM_THE_EXACT_SUBJECT_ARTIFACT_BYTES",
+        "REQUIRE_SUBJECT_SUCCESSOR_OF_VERSION_TO_EQUAL_DECLARED_PREDECESSOR_VERSION",
         "VERIFY_REFERENCED_ARTIFACT_COMMIT_PATH_BLOB_SHA256_AND_BYTE_SIZE",
+        "REQUIRE_REFERENCED_IDENTITY_TO_EQUAL_THE_SUBJECT_DECLARED_EXACT_PREDECESSOR",
         "VERIFY_REFERENCED_ARTIFACT_WORK_ITEM_ID_EQUALS_LINEAGE_REF",
-        "REQUIRE_EXPLICIT_RELATIONSHIP_TYPE",
-        "VERIFY_EXACT_AUTHORIZATION_EVIDENCE",
+        "REQUIRE_CODE_BOUND_EXACT_SUCCESSOR_OF_DECLARED_PREDECESSOR_RELATIONSHIP",
+        "BIND_RELATIONSHIP_TO_OWNER_ACCEPTANCE_OF_THE_EXACT_SUBJECT_BYTES",
+        "REJECT_NON_PREDECESSOR_SUBSTITUTION_EVEN_WITH_SAME_WORK_ITEM_ID_OR_CALLER_AUTHORIZED_FLAG",
         "RETURN_NOT_PROVEN_PARTIAL_CONFLICT_OR_UNKNOWN_WITHOUT_VERIFIED_EXACT"
       ]
     },
     {
       "finding": "SEMANTIC_DIGEST_PROFILE_ENFORCEMENT",
-      "state": "RESOLVED_IN_AUTHOR_CORRECTION_CANDIDATE",
+      "state": "PRESERVED_FROM_C2_FRESH_L1_PASS",
       "mechanics": [
         "REQUIRE_ONE_ARTIFACT_IDENTITY_BOUND_SEMANTIC_PROFILE",
         "REQUIRE_PROFILE_ID_MATCHING_THE_EXACT_ARTIFACT_DECLARATION",
@@ -80,13 +84,17 @@
     },
     {
       "finding": "PROVENANCE_NON_INFERENCE",
-      "state": "RESOLVED_IN_AUTHOR_CORRECTION_CANDIDATE",
+      "state": "RESOLVED_IN_C3_AUTHOR_CORRECTION_CANDIDATE",
       "mechanics": [
-        "REQUIRE_ONE_EXPLICIT_PROVENANCE_RECORD",
-        "REQUIRE_EXACT_SUBJECT_IDENTITY_AND_VERIFIED_LINEAGE_RELATIONSHIP",
-        "VERIFY_EXACT_AUTHORIZATION_EVIDENCE_ACCEPTING_THE_SUBJECT",
-        "HASH_AND_METADATA_EQUALITY_WITHOUT_PROVENANCE_RECORD_RETURNS_NOT_PROVEN",
-        "ONLY_COMPLETE_PROOF_RETURNS_PROVENANCE_VERIFIED"
+        "TREAT_CALLER_PROVENANCE_RECORD_AS_A_REFERENCE_ONLY_NOT_EVIDENCE",
+        "IGNORE_CALLER_AUTHORIZED_AND_PROVENANCE_ASSERTION_METADATA_FOR_STATE_ELEVATION",
+        "REQUIRE_CODE_BOUND_ACCEPTED_EXACT_TARGET_PROVENANCE_EVIDENCE_PROFILE",
+        "RESOLVE_AND_VERIFY_THE_EXACT_OWNER_ACCEPTED_TARGET_EVIDENCE_IDENTITY",
+        "REQUIRE_OWNER_DECISION_AUTHORITY_ARTIFACT_KIND_HUMAN_OWNER_PRINCIPAL_AND_AUTHORITY_EVIDENCE_ROLE",
+        "REQUIRE_EVIDENCE_CONTENT_TO_ACCEPT_THE_EXACT_SUBJECT_IDENTITY",
+        "REQUIRE_THE_SAME_EXACT_AUTHORIZATION_EVIDENCE_IDENTITY_AS_THE_VERIFIED_EXACT_LINEAGE",
+        "RETURN_PROVENANCE_NOT_PROVEN_WITHOUT_EXACT_EVIDENCE",
+        "ONLY_RESOLVED_EVIDENCE_PLUS_VERIFIED_LINEAGE_MAY_RETURN_PROVENANCE_VERIFIED"
       ]
     }
   ],
@@ -101,8 +109,9 @@
     "authorization_claim_profile": "AAA_OWNER_DECISION_ACCEPTED_EXACT_TARGET_v0.1",
     "repository_binding_proof": "AUTHORIZED_GITHUB_HOST_PLUS_OWNER_NAME_PLUS_CANONICAL_ORIGIN_URL_PLUS_REMOTE_TRACKING_REACHABILITY_PLUS_EXACT_AUTHORIZATION_EVIDENCE",
     "semantic_profile_binding": "EXACT_SUBJECT_IDENTITY_PLUS_ARTIFACT_DECLARED_PROFILE_ID_PLUS_CODE_BOUND_PROFILE_IMPLEMENTATION_PLUS_CANONICAL_SELECTION_PLUS_EXACT_AUTHORIZATION_EVIDENCE",
-    "lineage_binding": "EXACT_SUBJECT_AND_REFERENCED_ARTIFACT_PLUS_WORK_ITEM_ID_PLUS_EXPLICIT_RELATIONSHIP_PLUS_AUTHORIZATION_EVIDENCE",
-    "provenance_binding": "EXPLICIT_RECORD_PLUS_VERIFIED_IDENTITY_PLUS_VERIFIED_LINEAGE_PLUS_EXACT_AUTHORIZATION_EVIDENCE",
+    "lineage_binding": "EXACT_SUBJECT_BYTES_DECLARE_THE_ONLY_ACCEPTABLE_PREDECESSOR_PLUS_EXPLICIT_CODE_BOUND_RELATIONSHIP_PLUS_WORK_ITEM_BINDING_PLUS_EXACT_ACCEPTED_SUBJECT_AUTHORIZATION_EVIDENCE",
+    "provenance_binding": "CALLER_REFERENCE_ONLY_PLUS_CODE_BOUND_EVIDENCE_PROFILE_PLUS_EXACT_OWNER_ACCEPTED_TARGET_EVIDENCE_RESOLUTION_PLUS_VERIFIED_EXACT_LINEAGE_AND_AUTHORIZATION_REF_BINDING",
+    "caller_metadata_can_elevate_state": false,
     "context_absent_result": "RETRIEVAL_FAILED/VERIFICATION_CONTEXT_REQUIRED",
     "no_generic_digest_profile_added": true,
     "generic_agent_framework_created": false
@@ -111,14 +120,17 @@
     "runtime": "NODE_JS_STANDARD_LIBRARY_ONLY",
     "syntax_checks": "2/2 PASS",
     "test_command": "node --test tools/control/tests/test_persistent_locator.mjs",
-    "test_result": "15/15 PASS",
+    "test_result": "18/18 PASS",
     "required_correction_matrix": {
       "wrong_repository_identity_rejected": "PASS",
       "wrong_lineage_reference_rejected": "PASS_NOT_PROVEN",
+      "exact_non_predecessor_same_work_item_rejected": "PASS_LINEAGE_NOT_VERIFIED_CONFLICT",
+      "caller_relationship_metadata_cannot_replace_code_bound_relation": "PASS_LINEAGE_NOT_VERIFIED_CONFLICT",
       "missing_semantic_profile_rejected": "PASS",
       "generic_digest_equality_cannot_create_verified_exact": "PASS",
       "verification_context_cannot_redefine_artifact_specific_profile": "PASS",
       "explicit_provenance_succeeds": "PASS_PROVENANCE_VERIFIED",
+      "unbound_caller_provenance_assertion_rejected": "PASS_PROVENANCE_NOT_PROVEN",
       "s0_exact_locator_readback_remains_verified_exact": "PASS"
     },
     "preserved_prior_matrix": {
@@ -144,7 +156,12 @@
     "repository_identity_state": "REPOSITORY_VERIFIED",
     "semantic_content_digest_state": "SEMANTIC_DIGEST_VERIFIED",
     "lineage_state": "LINEAGE_VERIFIED",
+    "lineage_proof_profile": "AAA_SUBJECT_DECLARED_EXACT_PREDECESSOR_v0.1",
+    "lineage_relationship_type": "EXACT_SUCCESSOR_OF_DECLARED_PREDECESSOR",
+    "lineage_referenced_artifact_id": "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.4",
+    "lineage_referenced_artifact_version": "v0.4",
     "provenance_state": "PROVENANCE_VERIFIED",
+    "provenance_evidence_profile": "AAA_OWNER_DECISION_ACCEPTED_EXACT_TARGET_PROVENANCE_v0.1",
     "result": "VERIFIED_EXACT"
   },
   "semantic_digest_change_set": {
@@ -197,8 +214,8 @@
     "THIS_AUTHOR_EVIDENCE_DOES_NOT_CREATE_A_PAIRED_OR_INDEPENDENT_VALIDATION_PASS",
     "ACTIVE_POINTER_REMAINS_UNMOVED",
     "PRODUCTION_RELEASE_AND_MAIN_MERGE_REMAIN_UNAUTHORIZED",
-    "VERIFICATION_CONTEXT_MUST_ITSELF_BE_GOVERNED_AND_EXACTLY_BOUND_BY_ITS_CALLER"
+    "CALLER_METADATA_IS_NEVER_TREATED_AS_LINEAGE_OR_PROVENANCE_EVIDENCE"
   ],
   "evidence_digest_profile": "SHA256_UTF8_CANONICAL_JSON_EXCLUDING_EVIDENCE_DIGEST_SORT_KEYS_COMPACT_NO_TRAILING_NEWLINE",
-  "evidence_digest": "b7363dca6a91d3282e238a3e7e24bddf609da007b1abf356b590f02aa44a9a31"
+  "evidence_digest": "29675a65ce1fb59355fd3c34b6947365d3ff5e375627fe3ab502fc052eadeb74"
 }
