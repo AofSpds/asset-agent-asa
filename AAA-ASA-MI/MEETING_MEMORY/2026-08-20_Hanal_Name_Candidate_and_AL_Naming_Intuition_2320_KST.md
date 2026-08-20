@@ -1,6 +1,6 @@
 # 한알 Name Candidate / AL Naming Intuition Clarification
 
-TIME = 2026-08-20 23:20 KST
+TIME = 2026-08-20 23:23 KST
 STATE = WORKING_RESEARCH_MEMORY / NAMING_CANDIDATE_ONLY / NON_NORMATIVE
 
 ## 0. Purpose
@@ -23,6 +23,8 @@ NOT:
 
 `한알` is a NAME CANDIDATE for a lower-level world-model concept distinct from ASA.
 
+The Owner currently thinks of `알` approximately as a Korean-language naming intuition for an `object` or bounded/distinguishable thing, not as a formal translation contract and not as a frozen ontology.
+
 Its naming intuition should not be reduced to `seed`.
 
 Owner explicitly corrected the prior seed-centered interpretation.
@@ -40,6 +42,12 @@ The owner-provided image also referenced ordinary Korean usages such as `달걀`
 
 IMPORTANT:
 `알 = seed` is NOT the representative meaning intended here.
+
+The current nearest naming intuition is closer to:
+
+`알 ≈ 객체(object)를 우리말 감각으로 부르는 후보 표현`
+
+This is only a naming intuition, not a formal semantic equivalence.
 
 ## 3. AL naming intuition
 
@@ -62,6 +70,7 @@ In particular, do NOT infer at this stage that:
 - AL has fixed inside/outside semantics.
 - AL is biologically alive.
 - AL means seed/germination.
+- `알` is a normative Korean translation of software/object-oriented `object`.
 
 ## 4. Owner image / metaphor direction
 
@@ -95,7 +104,7 @@ For now preserve only:
 NAME_CANDIDATE = `한알`
 
 OWNER_NAMING_INTUITION =
-`AL / 알` evokes a minimal distinguishable/boundable unit in the Owner's language intuition, including ordinary `알` usages with shell/interior imagery; it is not primarily a seed metaphor.
+`알` is currently thought of roughly as a Korean-language, object-like naming intuition: something that can be treated as a distinguishable unit, with ordinary Korean usages such as 눈알/닭알/알맹이 and shell/interior imagery contributing to the name. It is not primarily a seed metaphor.
 
 MODEL_SEMANTICS = OPEN
 
@@ -105,7 +114,21 @@ INSTANCE_EVENT_RELATION_SELECTION = OPEN
 
 SEMANTIC_PROMOTION = PROHIBITED_WITHOUT_LATER_REVIEW
 
-## 7. Correction of prior ASA interpretation
+## 7. MS0 naming note
+
+Current milestone working-name candidate:
+
+`MS0 — ONTOGENESIS`
+
+Subtitle / explanatory subtitle:
+
+`UNDECIDED / DEFERRED`
+
+Do not invent a subtitle merely to make the current historical record look more complete later.
+
+If a later subtitle is adopted, preserve the fact that it was adopted later rather than retroactively presenting it as original.
+
+## 8. Correction of prior ASA interpretation
 
 Prior ASA interpretation that linked `한알` primarily to seed/germination was an over-interpretation and is withdrawn.
 
