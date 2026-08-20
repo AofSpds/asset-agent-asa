@@ -1,0 +1,238 @@
+{
+  "artifact_id": "AAA-PERSISTENT-LOCATOR-ACTIVE-INTERFACE-v0.1",
+  "artifact_kind": "P0_MINIMUM_ACTIVE_ADOPTION_INTERFACE_EXACT_TARGET",
+  "version": "v0.1",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-CONTROL-ARCHITECT",
+  "authoring_state": "MATERIALIZED_EXACT_VALIDATION_TARGET",
+  "materiality_class": "SEMANTIC_CHANGE",
+  "risk_class": "P0_CONTROL",
+  "pre_change_baseline": {
+    "ref": "aaa-tw-control-v0.5-exact-predecessor-correction",
+    "commit": "ac8dc6955a8e3c5a3c68a2172fe6a297a1cacd2d",
+    "tree": "4d297e0903a4682f4b66bb64465b81bbddc5c1e2"
+  },
+  "active_control_resolution": {
+    "tw_profile": {
+      "artifact_id": "AAA-TW-EXECUTION-PROFILE-AND-TWO-TRACK-CONTROL-CONTRACT",
+      "commit": "b48f6ff3ca7e5df94260a35539c60bf55294a40b",
+      "tree": "1f4f3581c27760cbccbb1dbcbf5763309ed01559",
+      "path": "control/architecture/working-candidates/transfer-workspace/v0.5/AAA_TW_EXECUTION_PROFILE_AND_TWO_TRACK_CONTROL_CONTRACT_v0.5.json",
+      "git_blob": "6b8fd5dae8bd2d3da9f9eb69a3421a5a9ded7439",
+      "sha256": "5c678fc7620b09262b415d1dbb8f911726e17c4313849eb3a0f78794e91ef17e",
+      "byte_size": 18533,
+      "semantic_content_digest": "c2a6068ea4229b41df471b99f950f0948b501423653faae231fbeddf4e3d2205",
+      "validation_state": "P0_L1_PASS_P0_L2_PASS_FULL_P0_COMPLETE"
+    },
+    "requirements": {
+      "artifact_id": "AAA-TW-REQUIREMENTS-BASELINE-v1.3",
+      "commit": "d68f80055d8f9c6761c37d182b35b3d481989526",
+      "tree": "6f7520a24a994f19bfe5fffa66a4c9df3daa64aa",
+      "path": "control/architecture/working-candidates/transfer-workspace/requirements/v1.3/AAA_TW_REQUIREMENTS_BASELINE_v1.3.json",
+      "git_blob": "0e76fe653f18a1267a273332f955394f2e4e07d2",
+      "sha256": "8d133d27dc8841230c78ee2e1acb7ec5655982ce8093973183c2c984ae236d0d",
+      "byte_size": 9626,
+      "semantic_content_digest": "adb703b36919d4be2bd04eb0549ed9f772598cc685265add77973150fefc6a9c",
+      "validation_state": "P0_L1_PASS_P0_L2_PASS_FULL_P0_COMPLETE"
+    },
+    "organization_pointer": {
+      "artifact_id": "AAA-ACTIVE-ORGANIZATION-POINTER-v1.0",
+      "commit": "d7c490c373f2df356f31e4459c345328616b4eb3",
+      "tree": "e4cd5ac507738b0a38420540550dd7e4f5b38c45",
+      "path": "control/authority/organization/active/AAA_ACTIVE_ORGANIZATION_POINTER_v1.0.json",
+      "git_blob": "30cbecc2a961d5fd92b28e00be419f5a590110c1",
+      "sha256": "343276d1ac5429d5917287a0d45fe662ea26981e7366d06b9df837f0956c339a",
+      "byte_size": 3410,
+      "state": "ACTIVE"
+    },
+    "shared_contract_current_state": {
+      "artifact_id": "AAA-SHARED-CONTRACT-CURRENT-ACTIVE-STATE",
+      "commit": "4d70f6ae32604bcef3f4a8027074163d5e5c80cd",
+      "tree": "b77ce02a917267e6b801934a01bac4c76e811c4b",
+      "path": "control/authority/shared-contract/active/AAA_SHARED_CONTRACT_CURRENT_ACTIVE_STATE_v1.0.json",
+      "git_blob": "9463e3802abd09d41c20675239c2df7739ac2751",
+      "sha256": "265abf282ab3b9df95d01f99dcec255516e9b6be2b6686077873de112df6bedd",
+      "byte_size": 8786,
+      "state": "ACTIVE",
+      "target_semantic_change": false
+    },
+    "shared_contract_exact_target": {
+      "artifact_id": "AAA-SHARED-CONTRACT-LIMITED-ADDENDUM-v0.1",
+      "commit": "96d1c02f3d057a0b06db913988e3cc16b980314d",
+      "tree": "c74f6c16050ca1824f42edb613952eae408555d1",
+      "path": "control/validation/shared-contract/v0.1/l2-inputs/input-01/AAA_SHARED_CONTRACT_LIMITED_ADDENDUM_v0.1.json",
+      "git_blob": "d7702c1491bded7b2b90e857007599c36bc58b7d",
+      "sha256": "29ac62477ee567f06cc76db8c843d0480a0ea9b4f7dfdda9d062177bd84abea3",
+      "byte_size": 40962,
+      "semantic_content_digest": "3fe5183311187160b89e301c0ae8102a3e6977f52319a5a190c5710ea637a9a1"
+    }
+  },
+  "lineage": {
+    "existing_design_predecessor": {
+      "artifact_id": "AAA-PERSISTENT-LOCATOR-ROUTING-DELTA-v1.0",
+      "commit": "358cbb85edf829c1e52c4bc107f73a02b718ae5c",
+      "tree": "e9da2d072530e013bd8be58617ab06994e4b6247",
+      "path": "control/architecture/working-candidates/pair-local-routing/v1.0/AAA_PERSISTENT_LOCATOR_ROUTING_DELTA_v1.0.json",
+      "git_blob": "bb4e7c2d5aab448204a3bc3ecd172f9b64bf7ac5",
+      "sha256": "26c3c5c6376e03335d34ade776d5e242547e0403d5e5c781965692504d83a90a",
+      "byte_size": 3974,
+      "semantic_content_digest": "c4af680734f84e8c8c4c1ee3e68f8741341c0dbd3a0bb4cdd2c3643296a16b3e",
+      "prior_default_active": false
+    },
+    "owner_decision_ref": {
+      "artifact_id": "AAA-OWNER-TW-VALIDATED-S0-TO-ACTIVE-MINIMUM-ADOPTION-DECISION-v0.1",
+      "path": "control/decisions/transfer-workspace/persistent-locator-adoption/v0.1/AAA_OWNER_TW_VALIDATED_S0_TO_ACTIVE_MINIMUM_ADOPTION_DECISION_v0.1.json",
+      "semantic_content_digest": "5a48a1aaf52ff2e826c3b920dce9a534839c040115f9d6fd26cc6fa881e9dc4b",
+      "exact_identity_state": "POST_COMMIT_BINDING_REQUIRED"
+    },
+    "s0_validated_capability": {
+      "artifact_id": "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.5",
+      "repository": "AofSpds/asset-agent-asa",
+      "exact_commit": "d0b0d2c7a77ca00570151e89e70e092b10646bd2",
+      "exact_path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.5/control/AAA_TW_S0_PLCP_SHADOW_INSTANCE_v0.5.json",
+      "git_blob": "7bc6e4c2194bc2f06d61367434cab38947b40e0d",
+      "sha256": "abd1d42be8b2a9b25eba266cfd939905e1799c93dc975fedcb560478cbcefdd8",
+      "byte_size": 13947,
+      "semantic_content_digest_if_applicable": "370a934edfaf72dc2e06d5e45b7c38be8026e3cf85e8d11c2903d2e342be48f2",
+      "lineage_ref": "AAA-PERSISTENT-LOCATOR-CAPABILITY-PROOF-v0.1",
+      "stage13_author_commit": "afa4c0d97a4172ffb3140b0a4c2765c885ab3544",
+      "stage13_control_validator_commit": "2987dda2f50566471cf9706ac516fe8e2111a094",
+      "stage14_engineering_validator_commit": "b633f7c9efc7eb0e0d65b3d4e1f9247c2536cdc9"
+    }
+  },
+  "normative_interface": {
+    "scope": {
+      "applies_to": "FUTURE_MATERIAL_AAA_GIT_CONTROL_PLANE_ARTIFACT_REGISTRATIONS_AFTER_ACTIVATION_GATE_PASS",
+      "storage_class": "SMALL_MEDIUM_GOVERNED_GIT_OBJECTS",
+      "non_git_object_store_semantics_changed": false,
+      "historical_mass_backfill_authorized": false,
+      "production_authorized": false,
+      "release_authorized": false,
+      "main_merge_authorized": false
+    },
+    "locator_record_contract": {
+      "required_fields": [
+        "repository",
+        "exact_commit",
+        "exact_path",
+        "git_blob",
+        "sha256",
+        "byte_size",
+        "semantic_content_digest_if_applicable",
+        "lineage_ref"
+      ],
+      "optional_discovery_fields": [
+        "discovery_branch"
+      ],
+      "full_commit_required": true,
+      "full_git_blob_required": true,
+      "semantic_content_digest_value": "FULL_SHA256_OR_NULL_IF_NOT_APPLICABLE",
+      "lineage_ref_required": true
+    },
+    "identity_contract": {
+      "authoritative_content_identity": "EXACT_COMMIT_AND_EXACT_PATH_RESOLVING_TO_REGISTERED_GIT_BLOB_PLUS_SHA256_AND_BYTE_SIZE",
+      "direct_git_blob_identity": "AUTHORITATIVE_CONTENT_IDENTITY",
+      "branch_role": "DISCOVERY_OR_CONVENIENCE_ONLY",
+      "branch_is_exact_identity": false,
+      "hash_equality_is_provenance_equality": false,
+      "repository_path_exists_is_exact_target_verified": false
+    },
+    "deterministic_readback": {
+      "sequence": [
+        "RESOLVE_EXACT_COMMIT",
+        "RESOLVE_EXACT_COMMIT_COLON_EXACT_PATH",
+        "COMPARE_RESOLVED_GIT_BLOB",
+        "READ_RAW_GIT_BLOB_BYTES",
+        "RECOMPUTE_SHA256",
+        "RECOMPUTE_BYTE_SIZE",
+        "RECOMPUTE_SEMANTIC_DIGEST_USING_ARTIFACT_SPECIFIC_PROFILE_IF_APPLICABLE",
+        "VERIFY_LINEAGE_REF"
+      ],
+      "working_tree_checkout_required": false,
+      "warning_only_on_identity_mismatch": false,
+      "success_state": "VERIFIED_EXACT"
+    },
+    "failure_semantics": {
+      "primary_states": [
+        "NOT_FOUND",
+        "ACCESS_BLOCKED",
+        "RETRIEVAL_FAILED",
+        "UNKNOWN"
+      ],
+      "identity_mismatch_primary_state": "RETRIEVAL_FAILED",
+      "identity_mismatch_reason": "IDENTITY_MISMATCH",
+      "access_failure_is_global_artifact_loss": false,
+      "access_blocked_implies_artifact_absence": false,
+      "unclassified_failure": "UNKNOWN",
+      "silent_match": "PROHIBITED"
+    },
+    "registration_rules": {
+      "registration_requires_exact_readback": true,
+      "registration_is_validation_pass": false,
+      "persistence_is_semantic_approval": false,
+      "persistent_locator_is_canonical_or_frozen": false,
+      "author_persona_attribution_required": true,
+      "validator_persona_attribution_required_for_validation_evidence": true,
+      "non_normative_runtime_evidence_may_be_registered": true,
+      "non_normative_runtime_evidence_creates_semantic_authority": false
+    },
+    "historical_safety": {
+      "proven_exact_provenance": "REGISTER_TRUTHFULLY",
+      "unproven_or_incomplete_provenance_states": [
+        "NOT_PROVEN",
+        "PARTIAL",
+        "CONFLICT",
+        "UNKNOWN"
+      ],
+      "silent_historical_provenance_invention": "PROHIBITED",
+      "recovery_is_rematerialization": false,
+      "historical_artifact_rewrite": "PROHIBITED"
+    },
+    "change_control": {
+      "preserve_all_others": true,
+      "deterministic_object_states": [
+        "ADDED",
+        "UNCHANGED",
+        "MODIFIED",
+        "REMOVED"
+      ],
+      "unauthorized_modified_or_removed": "FAIL_CLOSED",
+      "undeclared_semantic_mutation": "FAIL_CLOSED",
+      "removal_authorized": false,
+      "track_a_expected_touch_set": []
+    },
+    "activation_boundary": {
+      "owner_adoption_direction_received": true,
+      "candidate_materialized": true,
+      "paired_p0_control_l1_required": true,
+      "independent_l2_required": true,
+      "active_pointer_mutation_before_required_validation": "PROHIBITED",
+      "operational_use_before_activation_gate_pass": "PROHIBITED",
+      "activation_after_required_validation_requires_new_owner_decision": false
+    },
+    "state_separation": {
+      "authoring_state": "MATERIALIZED_EXACT_VALIDATION_TARGET",
+      "evidence_state": "AUTHOR_DETERMINISTIC_EVIDENCE_PENDING_FINAL_BINDING",
+      "paired_validation_state": "PENDING_FRESH_P0_CONTROL_L1",
+      "independent_validation_state": "PENDING_AFTER_PAIRED_PASS",
+      "owner_acceptance_state": "ACCEPTED_FOR_THIS_BOUNDED_S0_MILESTONE"
+    }
+  },
+  "implementation_binding": {
+    "verifier_path": "tools/control/persistent_locator.mjs",
+    "test_path": "tools/control/tests/test_persistent_locator.mjs",
+    "runtime": "NODE_JS_STANDARD_LIBRARY_ONLY",
+    "semantic_digest_recomputation": "ARTIFACT_SPECIFIC_PROFILE_REQUIRED_NOT_GENERICALLY_INFERRED",
+    "generic_agent_framework_created": false,
+    "new_database_created": false,
+    "new_workflow_engine_created": false
+  },
+  "selected_semantic_fields": [
+    "normative_interface"
+  ],
+  "semantic_digest_profile": "SHA256_UTF8_CANONICAL_JSON_EXACT_SELECTED_FIELDS_SORT_KEYS_COMPACT_NO_TRAILING_NEWLINE",
+  "semantic_canonical_input_byte_size": 3586,
+  "semantic_content_digest": "4a84224c560d27fd86615a4de68085636a59dc4103f1c79ed7b3c147a72f9978",
+  "preserve_all_others": true
+}

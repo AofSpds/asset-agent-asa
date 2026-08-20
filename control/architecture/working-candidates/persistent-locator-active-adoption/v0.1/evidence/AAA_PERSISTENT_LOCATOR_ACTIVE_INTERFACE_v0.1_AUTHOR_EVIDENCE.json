@@ -1,0 +1,120 @@
+{
+  "artifact_id": "AAA-PERSISTENT-LOCATOR-ACTIVE-INTERFACE-v0.1-AUTHOR-EVIDENCE",
+  "artifact_kind": "NON_NORMATIVE_DERIVED_AUTHOR_IMPLEMENTATION_EVIDENCE",
+  "version": "v0.1",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "run_id": "AAA-PL-ACTIVE-ADOPTION-v0.1-AUTHOR-20260820-0948-01",
+  "persona_id": "AAA-CONTROL-ARCHITECT",
+  "execution_surface": "CODEX_DESKTOP_LOCAL",
+  "created_time": "2026-08-20T09:48:00+09:00",
+  "work_item_id": "AAA_TW_VALIDATED_S0_TO_ACTIVE_MINIMUM_ADOPTION_v0.1",
+  "pre_change_baseline": {
+    "ref": "aaa-tw-control-v0.5-exact-predecessor-correction",
+    "commit": "ac8dc6955a8e3c5a3c68a2172fe6a297a1cacd2d",
+    "tree": "4d297e0903a4682f4b66bb64465b81bbddc5c1e2"
+  },
+  "authorized_governed_object_ids": [
+    "AAA-OWNER-TW-VALIDATED-S0-TO-ACTIVE-MINIMUM-ADOPTION-DECISION-v0.1",
+    "AAA-PERSISTENT-LOCATOR-ACTIVE-INTERFACE-v0.1",
+    "AAA-PERSISTENT-LOCATOR-ACTIVE-INTERFACE-v0.1-AUTHOR-EVIDENCE",
+    "AAA-PERSISTENT-LOCATOR-ACTIVE-INTERFACE-v0.1-P0-CONTROL-L1-REQUEST"
+  ],
+  "authorized_semantic_changes": [
+    "ADD_MINIMUM_FUTURE_MATERIAL_AAA_GIT_ARTIFACT_LOCATOR_INTERFACE_CANDIDATE",
+    "BIND_EXACT_COMMIT_PATH_BLOB_SHA256_BYTE_SIZE_OPTIONAL_SEMANTIC_DIGEST_AND_LINEAGE",
+    "DISTINGUISH_NOT_FOUND_ACCESS_BLOCKED_RETRIEVAL_FAILED_AND_UNKNOWN",
+    "KEEP_BRANCH_DISCOVERY_ONLY_AND_PROHIBIT_ACCESS_FAILURE_AS_ABSENCE_INFERENCE"
+  ],
+  "authorized_implementation_scope": [
+    "NODE_STANDARD_LIBRARY_DETERMINISTIC_GIT_OBJECT_VERIFIER",
+    "DIRECT_VERIFIER_TESTS_FOR_EXACT_READBACK_FAILURE_CLASSIFICATION_AND_BRANCH_IDENTITY_FIREWALL",
+    "OWNER_DECISION_AND_P0_VALIDATION_HANDOFF_ARTIFACTS"
+  ],
+  "preserve_all_others": true,
+  "author_target_objects": [
+    {
+      "artifact_id": "AAA-OWNER-TW-VALIDATED-S0-TO-ACTIVE-MINIMUM-ADOPTION-DECISION-v0.1",
+      "path": "control/decisions/transfer-workspace/persistent-locator-adoption/v0.1/AAA_OWNER_TW_VALIDATED_S0_TO_ACTIVE_MINIMUM_ADOPTION_DECISION_v0.1.json",
+      "semantic_content_digest": "5a48a1aaf52ff2e826c3b920dce9a534839c040115f9d6fd26cc6fa881e9dc4b",
+      "semantic_canonical_input_byte_size": 826,
+      "exact_identity_state": "POST_COMMIT_BINDING_REQUIRED"
+    },
+    {
+      "artifact_id": "AAA-PERSISTENT-LOCATOR-ACTIVE-INTERFACE-v0.1",
+      "path": "control/architecture/working-candidates/persistent-locator-active-adoption/v0.1/AAA_PERSISTENT_LOCATOR_ACTIVE_INTERFACE_v0.1.json",
+      "semantic_content_digest": "4a84224c560d27fd86615a4de68085636a59dc4103f1c79ed7b3c147a72f9978",
+      "semantic_canonical_input_byte_size": 3586,
+      "exact_identity_state": "POST_COMMIT_BINDING_REQUIRED"
+    }
+  ],
+  "s0_validated_input_readback": {
+    "artifact_id": "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.5",
+    "commit": "d0b0d2c7a77ca00570151e89e70e092b10646bd2",
+    "path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.5/control/AAA_TW_S0_PLCP_SHADOW_INSTANCE_v0.5.json",
+    "git_blob": "7bc6e4c2194bc2f06d61367434cab38947b40e0d",
+    "sha256": "abd1d42be8b2a9b25eba266cfd939905e1799c93dc975fedcb560478cbcefdd8",
+    "byte_size": 13947,
+    "semantic_content_digest": "370a934edfaf72dc2e06d5e45b7c38be8026e3cf85e8d11c2903d2e342be48f2",
+    "verifier_result": "VERIFIED_EXACT",
+    "discovery_branch_used_for_identity": false
+  },
+  "deterministic_verification": {
+    "node_runtime": "v24.13.0",
+    "unit_test_command": "node --test tools/control/tests/test_persistent_locator.mjs",
+    "unit_test_result": "6/6 PASS",
+    "semantic_digest_recomputation": "2/2 PASS",
+    "s0_exact_locator_readback": "1/1 VERIFIED_EXACT",
+    "combined_result": "9/9 PASS",
+    "failure_state_coverage": [
+      "NOT_FOUND",
+      "ACCESS_BLOCKED",
+      "RETRIEVAL_FAILED"
+    ],
+    "unknown_state_implementation": "UNCLASSIFIED_EXCEPTION_FALLBACK_PRESENT",
+    "semantic_digest_generic_inference": "NOT_PERFORMED_ARTIFACT_SPECIFIC_PROFILE_REQUIRED"
+  },
+  "first_commit_expected_touch_set": [
+    "control/architecture/working-candidates/persistent-locator-active-adoption/v0.1/AAA_PERSISTENT_LOCATOR_ACTIVE_INTERFACE_v0.1.json",
+    "control/architecture/working-candidates/persistent-locator-active-adoption/v0.1/evidence/AAA_PERSISTENT_LOCATOR_ACTIVE_INTERFACE_v0.1_AUTHOR_EVIDENCE.json",
+    "control/decisions/transfer-workspace/persistent-locator-adoption/v0.1/AAA_OWNER_TW_VALIDATED_S0_TO_ACTIVE_MINIMUM_ADOPTION_DECISION_v0.1.json",
+    "tools/control/persistent_locator.mjs",
+    "tools/control/tests/test_persistent_locator.mjs"
+  ],
+  "final_expected_additional_touch_set": [
+    "control/architecture/working-candidates/persistent-locator-active-adoption/v0.1/validation-request/AAA_PERSISTENT_LOCATOR_ACTIVE_INTERFACE_v0.1_P0_CONTROL_L1_REQUEST.json"
+  ],
+  "object_state_counts_before_validation_request": {
+    "added": 5,
+    "unchanged": "ALL_PREEXISTING_BASELINE_OBJECTS",
+    "modified": 0,
+    "removed": 0
+  },
+  "track_a_touch_set": [],
+  "scope_preservation": {
+    "requirements_changed": false,
+    "shared_contract_changed": false,
+    "organization_topology_changed": false,
+    "active_baseline_pointer_changed": false,
+    "model_semantics_changed": false,
+    "pit_gt_changed": false,
+    "production_or_release_performed": false,
+    "historical_s0_artifacts_changed": false,
+    "historical_locator_mass_backfill_performed": false
+  },
+  "state_separation": {
+    "authoring_state": "AUTHOR_TARGET_MATERIALIZED_PENDING_COMMIT",
+    "evidence_state": "NON_NORMATIVE_DERIVED_EVIDENCE",
+    "paired_validation_state": "PENDING_FRESH_P0_CONTROL_L1",
+    "independent_validation_state": "PENDING_AFTER_PAIRED_PASS",
+    "owner_acceptance_state": "ACCEPTED_FOR_THIS_BOUNDED_S0_MILESTONE"
+  },
+  "limitations": [
+    "ACTIVE_POINTER_NOT_MOVED_BEFORE_REQUIRED_VALIDATION",
+    "EMPIRICAL_REMOTE_ACCESS_REVOCATION_TEST_NOT_REPEATED_S0_SPECIFICATION_BINDING_PRESERVED",
+    "SEMANTIC_DIGEST_RECOMPUTATION_REQUIRES_EACH_ARTIFACT_DECLARED_PROFILE",
+    "AUTHOR_DOES_NOT_CLAIM_PAIRED_OR_INDEPENDENT_VALIDATION_PASS"
+  ],
+  "evidence_digest_profile": "SHA256_UTF8_CANONICAL_JSON_EXCLUDING_EVIDENCE_DIGEST_SORT_KEYS_COMPACT_NO_TRAILING_NEWLINE",
+  "evidence_digest": "ec9025440a8bfca058d7142f86ebe2106f569af5cd342094d5b2c4ad81422f7b"
+}
