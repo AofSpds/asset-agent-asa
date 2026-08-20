@@ -1,0 +1,101 @@
+{
+  "artifact_id": "AAA-ACCIDENTAL-MAIN-TOUCH-6d177cbb-REMEDIATION-RECEIPT-v0.1",
+  "artifact_kind": "NON_NORMATIVE_REPOSITORY_REMEDIATION_RECEIPT",
+  "version": "v0.1",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "remediation_act_id": "AAA-ACCIDENTAL-MAIN-TOUCH-6d177cbb-REMEDIATION-CTL-20260820-01",
+  "authoring_persona": "AAA-CONTROL-ARCHITECT",
+  "owner_approval_state": "APPROVED",
+  "owner_approval_scope": "EXACT_ACCIDENTAL_TOUCH_RESTORATION_ONLY",
+  "incident": {
+    "incident_class": "UNAUTHORIZED_NONSEMANTIC_EMPTY_FILE_TOUCH_UNDECLARED_REPOSITORY_TOUCH",
+    "accidental_commit": "6d177cbb6304e54f8a3b1d633db9f31d149780e7",
+    "accidental_parent": "c9ec6febc6c05001c37db1567980b65915a5c681",
+    "accidental_tree": "6e26f96fe65c00e07fc7581c7506eb66c30a06b9",
+    "accidental_path": "__do_not_exist__",
+    "accidental_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+    "accidental_byte_size": 0,
+    "semantic_mutation": false
+  },
+  "preflight": {
+    "accidental_commit_exists_on_canonical_repository": true,
+    "exact_parent_match": true,
+    "commit_introduced_exact_path_only": true,
+    "exact_empty_blob_match": true,
+    "zero_byte_content_verified": true,
+    "other_file_mutation_in_accidental_commit": false,
+    "subsequent_legitimate_path_modification_detected": false,
+    "result": "PASS"
+  },
+  "restoration": {
+    "method": "FORWARD_AUDITABLE_REVERT_NO_HISTORY_REWRITE",
+    "branch": "main",
+    "restoration_commit": "97a0021baebc3f98111189a2532f37d94f2a8487",
+    "restoration_parent": "abcda350bcc1b1bd21b60930362e108729855272",
+    "restoration_tree": "7bf1a8d0bf0d1ad82cebc4433fa9dc5e98abb9cb",
+    "restoration_touch_set": {
+      "deleted": ["__do_not_exist__"],
+      "added": [],
+      "modified": [],
+      "renamed": [],
+      "other_touch": []
+    },
+    "unauthorized_touch_set": [],
+    "history_rewrite_performed": false,
+    "semantic_mutation_state": "FALSE_NONSEMANTIC_RESTORATION"
+  },
+  "remote_proof": {
+    "canonical_repository": "AofSpds/asset-agent-asa",
+    "remote_push_state": "PERSISTED_TO_CANONICAL_GITHUB_MAIN",
+    "restoration_commit_remote_readback": "VERIFIED",
+    "restoration_tree_remote_readback": "VERIFIED",
+    "restoration_parent_remote_readback": "VERIFIED",
+    "main_pointed_to_restoration_commit_at_readback": true,
+    "accidental_path_absent_at_restoration_commit": true,
+    "restoration_touch_set_exact": true,
+    "remote_readback_state": "VERIFIED"
+  },
+  "active_pointer": {
+    "path": "manifests/active/active-manifest.yaml",
+    "git_blob_before": "091d28c938f6701e91c4e0126722f0fd868cfa02",
+    "git_blob_after_restoration": "091d28c938f6701e91c4e0126722f0fd868cfa02",
+    "state": "UNCHANGED_NOT_MOVED"
+  },
+  "preservation": {
+    "shared_contract_modified": false,
+    "requirements_modified": false,
+    "active_interface_semantics_modified": false,
+    "owner_decision_modified": false,
+    "track_a_modified": false,
+    "pit_ground_truth_modified": false,
+    "model_semantics_modified": false,
+    "persistent_locator_c4_started": false,
+    "pending_p0_controls_authored_in_this_act": false,
+    "result": "PASS_FOR_AUTHORIZED_NONSEMANTIC_REPOSITORY_RESTORATION"
+  },
+  "receipt_persistence": {
+    "classification": "AUTHORIZED_AUDIT_RECEIPT_PERSISTENCE_SEPARATE_FROM_RESTORATION_TOUCH_SET",
+    "path": "control/organization/current-state/v1.0/AAA_ACCIDENTAL_MAIN_TOUCH_6d177cbb_REMEDIATION_RECEIPT_v0.1.json"
+  },
+  "follow_up_policy_input": {
+    "status": "RECORDED_NOT_GLOBALIZED_IN_THIS_ACT",
+    "items": [
+      "FILE_THREAT_CLASSIFICATION_SHOULD_BE_GOVERNED_BY_INTERNAL_POLICY",
+      "AUDIT_CRITERIA_SHOULD_BE_INJECTABLE_INTO_RELEVANT_AUTHORING_VALIDATOR_AUDITOR_PERSONAS",
+      "RECOVERY_REMEDIATION_AUTHORITY_SHOULD_BE_DESIGNED_BY_ROLE_WHERE_NEEDED",
+      "SAFE_DETERMINISTIC_SELF_RECOVERY_IS_DESIRABLE",
+      "SELF_RECOVERY_REQUIRES_DETECTION_CLASSIFICATION_EXACT_RESTORATION_READBACK_AUDITABLE_RECEIPT",
+      "ROUTINE_DETERMINISTIC_NONSEMANTIC_RECOVERY_WITH_ALREADY_DELEGATED_MODIFICATION_DELETION_AUTHORITY_SHOULD_NOT_NORMALLY_REQUIRE_NEW_PER_INCIDENT_OWNER_APPROVAL",
+      "OWNER_MUST_REMAIN_INFORMED_OF_MEANINGFUL_INCIDENTS_AND_REMEDIATION_STATE",
+      "SEMANTIC_FROZEN_ACCEPTED_AUTHORITY_GT_PIT_SHARED_CONTRACT_OR_UNCERTAIN_CASES_REMAIN_ESCALATION_SENSITIVE",
+      "AFTER_CURRENT_PERSISTENT_LOCATOR_PROCESS_NOTIFY_OWNER_VALIDATOR_AUTHORITY_AUDIT_CRITERIA_REVIEW_MEETING_CAN_BE_HELD"
+    ]
+  },
+  "remediation_state": "PASS_FOR_AUTHORIZED_NONSEMANTIC_REPOSITORY_RESTORATION",
+  "production_authorized": false,
+  "release_authorized": false,
+  "main_merge_authorized": false,
+  "active_pointer_move_authorized": false,
+  "next_required_act": "SEPARATE_ALREADY_OWNER_AUTHORIZED_PERSISTENT_LOCATOR_P0_CONTROL_AUTHORING_ACT"
+}
