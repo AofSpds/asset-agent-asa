@@ -69,3 +69,5 @@ This is a working research memory space.
 - 2026-08-21_MS0_30min_Pilot_Design_0015_KST.md
 - 2026-08-21_MS0_30min_Pilot_Execution_0029_KST.md
 - 2026-08-21_MS0_30min_Pilot_Interpretation_and_Timebox_Correction_0032_KST.md
+- 2026-08-21_MS0_Model_Proposal_Admission_Gate_0034_KST.md
+- 2026-08-21_MS0_Model_Proposal_Validator_Architecture_0036_KST.md
