@@ -118,3 +118,29 @@ MILESTONE_LABEL != MODEL_PRIMITIVE
 `FIAT LUX`, `별`, `Adam`, `한알`, `ONTOGENESIS` may guide human memory and project narrative, but MUST NOT be used to silently determine the formal architecture.
 
 Formal meaning is assigned only when modeling/research justifies it.
+
+## 8. Semantic adaptability of naming
+
+Owner clarification:
+
+The names were intentionally chosen because they can remain useful across multiple possible future model structures.
+
+The model is not yet decided, and the names MUST NOT constrain that decision.
+
+After the model becomes clearer, current semantic interpretation of the names may be refined, expanded, or remapped to fit the resulting model.
+
+Therefore:
+
+`NAME STABILITY` may coexist with `SEMANTIC INTERPRETATION EVOLUTION`.
+
+This does NOT authorize rewriting historical records to imply that the later interpretation existed earlier.
+
+Historical naming context remains preserved; later meaning is added as a successor/current interpretation.
+
+In short:
+
+NAME MAY PERSIST
++
+CURRENT MEANING MAY EVOLVE
++
+HISTORICAL MEANING MUST NOT BE RETROACTIVELY REWRITTEN.
