@@ -1,0 +1,151 @@
+{
+  "artifact_id": "AAA-PERSISTENT-LOCATOR-ACTIVE-INTERFACE-v0.1-P0-CONTROL-L1-REQUEST",
+  "artifact_kind": "P0_CONTROL_VALIDATION_REQUEST",
+  "version": "v0.1",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "requesting_persona": "AAA-CONTROL-ARCHITECT",
+  "requested_validator": "AAA-CONTROL-VALIDATOR",
+  "validator_target_write_permission": false,
+  "validation_class": "FRESH_P0_PAIRED_CONTROL_L1",
+  "work_item_id": "AAA_TW_VALIDATED_S0_TO_ACTIVE_MINIMUM_ADOPTION_v0.1",
+  "materiality_class": "SEMANTIC_CHANGE",
+  "risk_class": "P0_CONTROL",
+  "exact_author_target": {
+    "branch": "aaa-tw-post-s0-persistent-locator-active-adoption-v0.1",
+    "commit": "bb974162a1c41331424819d7736b5c3f2d4f436f",
+    "tree": "f5680fdafbcd464c78e0d3cb58ac2c47fe66157b",
+    "parent": "ac8dc6955a8e3c5a3c68a2172fe6a297a1cacd2d",
+    "branch_role": "DISCOVERY_AND_HANDOFF_ONLY",
+    "authoritative_target_identity": "EXACT_COMMIT_PATH_BLOB_SHA256_BYTE_SIZE"
+  },
+  "target_vector": [
+    {
+      "artifact_id": "AAA-PERSISTENT-LOCATOR-ACTIVE-INTERFACE-v0.1",
+      "path": "control/architecture/working-candidates/persistent-locator-active-adoption/v0.1/AAA_PERSISTENT_LOCATOR_ACTIVE_INTERFACE_v0.1.json",
+      "git_blob": "ba5331185a6b33386a1fd4da694fa9702ff724b5",
+      "sha256": "24955cc52bced0ff517e2bb98ecbc6b0274d1b794101321e2aba9566dbc6e8ce",
+      "byte_size": 11115,
+      "semantic_content_digest": "4a84224c560d27fd86615a4de68085636a59dc4103f1c79ed7b3c147a72f9978",
+      "semantic_canonical_input_byte_size": 3586
+    },
+    {
+      "artifact_id": "AAA-OWNER-TW-VALIDATED-S0-TO-ACTIVE-MINIMUM-ADOPTION-DECISION-v0.1",
+      "path": "control/decisions/transfer-workspace/persistent-locator-adoption/v0.1/AAA_OWNER_TW_VALIDATED_S0_TO_ACTIVE_MINIMUM_ADOPTION_DECISION_v0.1.json",
+      "git_blob": "89556dc2524226bdf0d0ba516f4dddbde00e1c30",
+      "sha256": "79350f128f8bb4016011b32edfd35f2cde7c6aef093fccf4dc60fd8d658a309c",
+      "byte_size": 4482,
+      "semantic_content_digest": "5a48a1aaf52ff2e826c3b920dce9a534839c040115f9d6fd26cc6fa881e9dc4b",
+      "semantic_canonical_input_byte_size": 826
+    },
+    {
+      "artifact_id": "AAA-PERSISTENT-LOCATOR-ACTIVE-INTERFACE-v0.1-AUTHOR-EVIDENCE",
+      "path": "control/architecture/working-candidates/persistent-locator-active-adoption/v0.1/evidence/AAA_PERSISTENT_LOCATOR_ACTIVE_INTERFACE_v0.1_AUTHOR_EVIDENCE.json",
+      "git_blob": "b45d967b9cefae1706cc4832b3c652a4e8ebc823",
+      "sha256": "ef66298f7b6ca860d659a25899d15d5d33c08ef4319496824f4eddbf86c3a650",
+      "byte_size": 6194,
+      "evidence_digest": "ec9025440a8bfca058d7142f86ebe2106f569af5cd342094d5b2c4ad81422f7b"
+    },
+    {
+      "artifact_id": "AAA-PERSISTENT-LOCATOR-DETERMINISTIC-VERIFIER-v0.1",
+      "path": "tools/control/persistent_locator.mjs",
+      "git_blob": "0265743473a732ee2be1a0b37560161408f1db4d",
+      "sha256": "2cf470757ed412f6bbdee13df000dae28d3a203259e9e1067e0232abe553c865",
+      "byte_size": 8771
+    },
+    {
+      "artifact_id": "AAA-PERSISTENT-LOCATOR-DETERMINISTIC-VERIFIER-TESTS-v0.1",
+      "path": "tools/control/tests/test_persistent_locator.mjs",
+      "git_blob": "e023cd353c13e5388fcc5dfe83fd8aeb2f7b572e",
+      "sha256": "e005c1122f7ecdd3fd1d66fecffb14a314b20094541b95a72c6eb072cce7f921",
+      "byte_size": 3454
+    }
+  ],
+  "s0_validated_input_bindings": {
+    "control_target": {
+      "artifact_id": "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.5",
+      "commit": "d0b0d2c7a77ca00570151e89e70e092b10646bd2",
+      "git_blob": "7bc6e4c2194bc2f06d61367434cab38947b40e0d",
+      "sha256": "abd1d42be8b2a9b25eba266cfd939905e1799c93dc975fedcb560478cbcefdd8",
+      "byte_size": 13947,
+      "semantic_content_digest": "370a934edfaf72dc2e06d5e45b7c38be8026e3cf85e8d11c2903d2e342be48f2"
+    },
+    "stage13_author": {
+      "commit": "afa4c0d97a4172ffb3140b0a4c2765c885ab3544",
+      "tree": "59b7003ab0f4384a8878629dc4afb8e29678efb6",
+      "result": "PASS_FOR_STAGE13_AUTHOR_SCOPE"
+    },
+    "stage13_control_validator": {
+      "commit": "2987dda2f50566471cf9706ac516fe8e2111a094",
+      "tree": "0d5cd0079aba0ad0b3c0852e81f7f04b77c78b11",
+      "matrix": "52/52 PASS",
+      "result": "PASS_FOR_STAGE13_B_CONTROL_VALIDATION_SCOPE"
+    },
+    "stage14_engineering_validator": {
+      "validation_act_id": "AAA-TW-S0-PLCP-v0.5-STAGE14-ENG-L1-20260820-0604-01",
+      "commit": "b633f7c9efc7eb0e0d65b3d4e1f9247c2536cdc9",
+      "tree": "aebc6d562cd4b8fa0d0f9756c0928613cf052c6f",
+      "receipt_git_blob": "30079bb2da5960c9210221485f70f87e249c913c",
+      "receipt_sha256": "4edade2db156369997faa74a657c219faf08c28a2d7847025aa811f35b3b8a58",
+      "receipt_byte_size": 18419,
+      "matrix": "56/56 PASS",
+      "remote_readback": "20/20 PASS",
+      "result": "PASS_FOR_STAGE14_ENGINEERING_L1_SCOPE"
+    }
+  },
+  "author_deterministic_results": {
+    "verifier_unit_tests": "6/6 PASS",
+    "semantic_digest_recomputation": "2/2 PASS",
+    "s0_exact_locator_readback": "1/1 VERIFIED_EXACT",
+    "combined": "9/9 PASS"
+  },
+  "author_diff": {
+    "base": "ac8dc6955a8e3c5a3c68a2172fe6a297a1cacd2d",
+    "target": "bb974162a1c41331424819d7736b5c3f2d4f436f",
+    "added": 5,
+    "modified": 0,
+    "removed": 0,
+    "renamed": 0,
+    "unauthorized_touch_set": [],
+    "track_a_touch_set": []
+  },
+  "validation_matrix": [
+    "V01_EXACT_AUTHOR_COMMIT_TREE_PARENT",
+    "V02_FIVE_TARGET_OBJECT_RAW_IDENTITIES",
+    "V03_OWNER_DECISION_RECEIPT_ROLE_AND_SCOPE",
+    "V04_OWNER_DECISION_SEMANTIC_DIGEST_RECOMPUTATION",
+    "V05_INTERFACE_SEMANTIC_DIGEST_RECOMPUTATION",
+    "V06_S0_BINDINGS_MATCH_ACCEPTED_COMPLETED_PROOF",
+    "V07_NO_S0_RESEARCH_OR_HISTORICAL_ARTIFACT_REWRITE",
+    "V08_LOCATOR_REQUIRED_FIELDS_EXACT",
+    "V09_COMMIT_OR_BLOB_AUTHORITATIVE_BRANCH_DISCOVERY_ONLY",
+    "V10_NOT_FOUND_ACCESS_BLOCKED_RETRIEVAL_FAILED_UNKNOWN_DISTINCT",
+    "V11_ACCESS_FAILURE_NOT_GLOBAL_ARTIFACT_LOSS",
+    "V12_AUTHOR_VALIDATOR_ATTRIBUTION_PRESERVED",
+    "V13_HISTORICAL_UNPROVEN_STATES_PRESERVED",
+    "V14_DETERMINISTIC_TOUCH_SET_FAIL_CLOSED",
+    "V15_TRACK_A_EMPTY_TOUCH_SET",
+    "V16_REQUIREMENTS_SHARED_CONTRACT_ORGANIZATION_UNCHANGED",
+    "V17_VERIFIER_TESTS_RECOMPUTE",
+    "V18_NO_GENERIC_AGENT_FRAMEWORK_OR_UNPLANNED_FEATURE",
+    "V19_ACTIVE_POINTER_NOT_MOVED_BEFORE_VALIDATION",
+    "V20_OWNER_REAPPROVAL_NOT_REQUIRED_FOR_SAME_IN_SCOPE_ADOPTION"
+  ],
+  "requested_result_states": [
+    "PASS",
+    "REVIEW_REQUIRED",
+    "FAIL"
+  ],
+  "routing_after_paired_validation": {
+    "on_pass": "ROUTE_EXACT_TARGET_TO_AAA-VALIDATION-AUDITOR_FOR_FRESH_P0_L2",
+    "on_material_finding": "RETURN_TO_AAA-CONTROL-ARCHITECT_FOR_EXACT_SUCCESSOR_OR_BOUNDED_CORRECTION",
+    "on_l2_pass": "MATERIALIZE_MINIMUM_ACTIVE_POINTER_REGISTRATION_WITHOUT_NEW_OWNER_DECISION",
+    "production_or_release": "NOT_AUTHORIZED"
+  },
+  "state": "READY_FOR_FRESH_P0_CONTROL_L1",
+  "paired_validation_required": true,
+  "independent_l2_required": true,
+  "owner_reapproval_required": false,
+  "request_digest_profile": "SHA256_UTF8_CANONICAL_JSON_EXCLUDING_REQUEST_DIGEST_SORT_KEYS_COMPACT_NO_TRAILING_NEWLINE",
+  "request_digest": "5d65117e9f2429fbc61ed34a23f9b7297564c7fbf0ee872a475449d7065843f0"
+}
