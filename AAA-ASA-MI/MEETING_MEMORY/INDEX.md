@@ -30,3 +30,4 @@ This is a working research memory space.
 - 2026-08-20_Relational_Existence_Reachability_and_Operational_Absence_1721_KST.md
 - 2026-08-20_Scope_Local_Callability_and_Instantiation_1727_KST.md
 - 2026-08-20_Memory_Layer_Representation_Refinement_1728_KST.md
+- 2026-08-20_Perspective_As_Relation_Recall_Stimulus_1735_KST.md
