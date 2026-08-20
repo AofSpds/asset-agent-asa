@@ -23,9 +23,9 @@
   },
   "exact_material_correction_target": {
     "branch": "aaa-tw-post-s0-persistent-locator-active-adoption-v0.1-second-bounded-correction",
-    "commit": "b30fdd113b88fa8b9842d13276ec77a6055ef995",
-    "tree": "142fe3b7beb8bf9d155933e9f0a745f9044f42ad",
-    "parent": "c0aefa9a491a88206b80b1fa83b44795b750298a",
+    "commit": "edfde9ae619be9219bddac5d66f7aea43437a49f",
+    "tree": "22978a1f40141658790b869d31a373ab33d9fbe7",
+    "parent": "c23d9100eb8fa7ba1866259dadf39e0583e6e765",
     "branch_role": "DISCOVERY_AND_HANDOFF_ONLY",
     "authoritative_target_identity": "EXACT_COMMIT_TREE_AND_TARGET_PATH_BLOB_SHA256_BYTE_SIZE",
     "final_request_binding_commit_state": "POST_COMMIT_EXTERNAL_BINDING_REQUIRED"
@@ -62,26 +62,26 @@
       "artifact_id": "AAA-PERSISTENT-LOCATOR-DETERMINISTIC-VERIFIER-v0.1",
       "state": "MODIFIED_CORRECTION",
       "path": "tools/control/persistent_locator.mjs",
-      "git_blob": "0e22a57f1d055b3f6271e7d2309516e1f69c48bb",
-      "sha256": "4dbc0f1c5735282277a765b30ae789756a9ddb533159b7aecffea173a8298ed9",
-      "byte_size": 27464
+      "git_blob": "b67833273c16ec7b60766249d9a6bd2a7b684c66",
+      "sha256": "b7245a8f9a13ef3ff0f5460af8669b10e0bd0a7d3e436c0cf4b38730393bf720",
+      "byte_size": 28525
     },
     {
       "artifact_id": "AAA-PERSISTENT-LOCATOR-DETERMINISTIC-VERIFIER-TESTS-v0.1",
       "state": "MODIFIED_CORRECTION",
       "path": "tools/control/tests/test_persistent_locator.mjs",
-      "git_blob": "7f2c3ff1babcf660138012f201542bd64402095f",
-      "sha256": "76fe429b2a9e2b812d6b30a153525168c5338add2fad63bbc3603068e0f584a6",
-      "byte_size": 15467
+      "git_blob": "90a48ede4b93af629705778c0bc8fe41bdca5195",
+      "sha256": "109835aa6649f4d501fd5fca58c110d570fa442f5dd71df6023628b92392c486",
+      "byte_size": 16235
     },
     {
       "artifact_id": "AAA-PERSISTENT-LOCATOR-ACTIVE-INTERFACE-v0.1-AUTHOR-EVIDENCE",
       "state": "MODIFIED_CORRECTION_EVIDENCE",
       "path": "control/architecture/working-candidates/persistent-locator-active-adoption/v0.1/evidence/AAA_PERSISTENT_LOCATOR_ACTIVE_INTERFACE_v0.1_AUTHOR_EVIDENCE.json",
-      "git_blob": "7d09bf3d84a8203f32929bf95a8bf9dc02d65fdd",
-      "sha256": "d1757161443deb033e2f302a4b5b685def50c6f2d31a80122046da44414f447b",
-      "byte_size": 10310,
-      "evidence_digest": "76f9f230c1373a72a6d65a1f56064774e7a350f12eab08c2aa418d9a1a53decf"
+      "git_blob": "c92bb9da441bab5cd27ba0519c4be90adcdf14d5",
+      "sha256": "9a9aeaf8e635f83b08fbf6c38df279d80cb136733a0bb1d77ddcb6b0ffa61fc8",
+      "byte_size": 10570,
+      "evidence_digest": "b7363dca6a91d3282e238a3e7e24bddf609da007b1abf356b590f02aa44a9a31"
     }
   ],
   "finding_closure_claims_for_fresh_validation": {
@@ -93,7 +93,7 @@
   },
   "author_deterministic_results": {
     "syntax_checks": "2/2 PASS",
-    "verifier_tests": "14/14 PASS",
+    "verifier_tests": "15/15 PASS",
     "required_correction_tests": "6/6 PASS",
     "preserved_identity_and_failure_tests": "8/8 PASS",
     "s0_exact_locator_readback": "VERIFIED_EXACT",
@@ -105,7 +105,11 @@
   },
   "correction_touch_contract": {
     "base_commit": "c0aefa9a491a88206b80b1fa83b44795b750298a",
-    "phase_one_commit": "b30fdd113b88fa8b9842d13276ec77a6055ef995",
+    "material_correction_commits": [
+      "b30fdd113b88fa8b9842d13276ec77a6055ef995",
+      "edfde9ae619be9219bddac5d66f7aea43437a49f"
+    ],
+    "material_correction_tip": "edfde9ae619be9219bddac5d66f7aea43437a49f",
     "phase_one_modified": 3,
     "phase_one_added": 0,
     "phase_one_deleted": 0,
@@ -176,5 +180,5 @@
   "independent_l2_required": true,
   "active_pointer_moved": false,
   "request_digest_profile": "SHA256_UTF8_CANONICAL_JSON_EXCLUDING_REQUEST_DIGEST_SORT_KEYS_COMPACT_NO_TRAILING_NEWLINE",
-  "request_digest": "9d283871e5ecce4866c5322060465738710da8b0e88727cbf1a1e39fd3d68d0f"
+  "request_digest": "d9315a764707e6cc5e086d06b84abb966162ce130991b6d7c8f79c5fd3a3332d"
 }
