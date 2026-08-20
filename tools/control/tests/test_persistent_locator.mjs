@@ -14,7 +14,7 @@ const TEST_REMOTE = "https://github.com/AAA/TestFixture.git";
 const TEST_LINEAGE_REF = "AAA-TEST-LINEAGE";
 const TEST_RELATIONSHIP = "VALIDATED_CAPABILITY_PROOF_SOURCE";
 const TEST_AUTHORIZATION_REF = "AAA-TEST-OWNER-DECISION";
-const TEST_SEMANTIC_PROFILE = "AAA-TEST-NORMATIVE-OVERLAY-v0.1";
+const TEST_SEMANTIC_PROFILE = "SHA256_UTF8_CANONICAL_JSON_NORMATIVE_OVERLAY_SORT_KEYS_COMPACT_NO_TRAILING_NEWLINE";
 
 let repositoryPath;
 let locator;
@@ -131,6 +131,7 @@ before(() => {
         authorization_claim_profile: "AAA_OWNER_DECISION_ACCEPTED_EXACT_TARGET_v0.1",
         authorization_evidence: authorizationIdentity,
         remote_name: "origin",
+        repository_host: "github.com",
         allowed_remote_urls: [TEST_REMOTE],
         require_commit_reachable_from_remote_tracking_ref: true,
       },
@@ -279,6 +280,19 @@ test("generic raw digest equality cannot create VERIFIED_EXACT", () => {
   assert.notEqual(result.state, "VERIFIED_EXACT");
 });
 
+test("verification context cannot redefine an artifact-specific profile selection", () => {
+  const context = structuredClone(verificationContext);
+  context.semantic_profiles[0].selection.field = "work_item_id";
+  const wrongSelectionDigest = sha256(Buffer.from(JSON.stringify(TEST_LINEAGE_REF)));
+  const result = verifyLocator(
+    { ...locator, semantic_content_digest_if_applicable: wrongSelectionDigest },
+    { repositoryPath, verificationContext: context },
+  );
+  assert.equal(result.state, "RETRIEVAL_FAILED");
+  assert.equal(result.reason, "SEMANTIC_PROFILE_NOT_PROVEN");
+  assert.notEqual(result.state, "VERIFIED_EXACT");
+});
+
 test("hash and metadata equality without explicit provenance cannot verify provenance", () => {
   const context = structuredClone(verificationContext);
   context.provenance_records = [];
@@ -329,6 +343,7 @@ test("existing exact S0 locator remains VERIFIED_EXACT with explicit governed pr
         authorization_claim_profile: "AAA_OWNER_DECISION_ACCEPTED_EXACT_TARGET_v0.1",
         authorization_evidence: ownerDecision,
         remote_name: "origin",
+        repository_host: "github.com",
         allowed_remote_urls: ["https://github.com/AofSpds/asset-agent-asa.git"],
         require_commit_reachable_from_remote_tracking_ref: true,
       },

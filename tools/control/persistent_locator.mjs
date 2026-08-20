@@ -70,6 +70,15 @@ const EXIT_CODES = Object.freeze({
 });
 
 const CANONICAL_JSON_PROFILE = "JSON_SORT_KEYS_COMPACT_UTF8_NO_TRAILING_NEWLINE";
+const VALIDATED_CAPABILITY_RELATIONSHIP = "VALIDATED_CAPABILITY_PROOF_SOURCE";
+const ARTIFACT_SPECIFIC_SEMANTIC_PROFILES = Object.freeze({
+  SHA256_UTF8_CANONICAL_JSON_NORMATIVE_OVERLAY_SORT_KEYS_COMPACT_NO_TRAILING_NEWLINE: Object.freeze({
+    digest_algorithm: "SHA256",
+    canonicalization: CANONICAL_JSON_PROFILE,
+    selection_type: "TOP_LEVEL_VALUE",
+    selection_field: "normative_overlay",
+  }),
+});
 
 function bufferToText(value) {
   if (!value) return "";
@@ -191,18 +200,22 @@ function normalizeRemoteRepository(remoteUrl) {
   const trimmed = remoteUrl.trim().replace(/[\\/]$/, "").replace(/\.git$/i, "");
   const scpLike = trimmed.match(/^[^@]+@([^:]+):(.+)$/);
   let pathname;
+  let host;
   if (scpLike) {
+    host = scpLike[1].toLowerCase();
     pathname = scpLike[2];
   } else {
     try {
-      pathname = new URL(trimmed).pathname;
+      const parsed = new URL(trimmed);
+      host = parsed.hostname.toLowerCase();
+      pathname = parsed.pathname;
     } catch {
       return null;
     }
   }
   const segments = pathname.replace(/^\/+/, "").split("/").filter(Boolean);
   if (segments.length !== 2) return null;
-  return `${segments[0]}/${segments[1]}`;
+  return { host, repository: `${segments[0]}/${segments[1]}` };
 }
 
 function identityMatches(left, right) {
@@ -313,6 +326,7 @@ function verifyRepositoryBinding(locator, context, repositoryPath) {
     binding.authorized !== true
     || typeof binding.authorization_ref !== "string"
     || typeof binding.remote_name !== "string"
+    || binding.repository_host !== "github.com"
     || !Array.isArray(binding.allowed_remote_urls)
     || binding.require_commit_reachable_from_remote_tracking_ref !== true
   ) {
@@ -335,7 +349,11 @@ function verifyRepositoryBinding(locator, context, repositoryPath) {
   }
   const observedRemote = remoteRead.stdout.toString("utf8").trim();
   const normalizedRepository = normalizeRemoteRepository(observedRemote);
-  if (!binding.allowed_remote_urls.includes(observedRemote) || normalizedRepository !== locator.repository) {
+  if (
+    !binding.allowed_remote_urls.includes(observedRemote)
+    || normalizedRepository?.host !== binding.repository_host
+    || normalizedRepository?.repository !== locator.repository
+  ) {
     return {
       ok: false,
       proof_state: "CONFLICT",
@@ -378,14 +396,20 @@ function verifySemanticDigest(locator, context, repositoryPath, blobBytes) {
     return { ok: false, proof_state: selected.proof_state, reason: "SEMANTIC_PROFILE_NOT_PROVEN" };
   }
   const profile = selected.record;
+  const implementedProfile = ARTIFACT_SPECIFIC_SEMANTIC_PROFILES[profile?.profile_id];
   if (
-    profile.authorized !== true
+    !implementedProfile
+    || profile.authorized !== true
     || typeof profile.authorization_ref !== "string"
     || typeof profile.profile_id !== "string"
     || profile.digest_algorithm !== "SHA256"
     || profile.canonicalization !== CANONICAL_JSON_PROFILE
     || profile.selection?.type !== "TOP_LEVEL_VALUE"
     || typeof profile.selection?.field !== "string"
+    || profile.digest_algorithm !== implementedProfile.digest_algorithm
+    || profile.canonicalization !== implementedProfile.canonicalization
+    || profile.selection.type !== implementedProfile.selection_type
+    || profile.selection.field !== implementedProfile.selection_field
   ) {
     return { ok: false, proof_state: "PARTIAL", reason: "SEMANTIC_PROFILE_NOT_PROVEN" };
   }
@@ -436,7 +460,7 @@ function verifyLineage(locator, context, repositoryPath) {
     return { ok: false, proof_state: selected.proof_state, reason: "LINEAGE_NOT_VERIFIED" };
   }
   const record = selected.record;
-  if (!identityMatches(record.subject, locator) || typeof record.relationship_type !== "string" || record.relationship_type.length === 0) {
+  if (!identityMatches(record.subject, locator) || record.relationship_type !== VALIDATED_CAPABILITY_RELATIONSHIP) {
     return { ok: false, proof_state: "CONFLICT", reason: "LINEAGE_CONFLICT" };
   }
   if (record.authorized_relation !== true || typeof record.authorization_ref !== "string" || !record.referenced_artifact) {
