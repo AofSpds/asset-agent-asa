@@ -1,0 +1,50 @@
+{
+  "artifact_id": "AAA-PERSISTENT-LOCATOR-P0-CONTROLS-FRESH-L1-REQUEST-v0.1",
+  "artifact_kind": "NON_NORMATIVE_VALIDATION_REQUEST",
+  "author_target_write_after_request": "NO_MATERIAL_TARGET_MUTATION_WITHOUT_NEW_EXACT_TARGET",
+  "c4_eligibility": "BLOCKED",
+  "exact_targets": [
+    {
+      "artifact_id": "AAA-PERSISTENT-LOCATOR-SUBJECT-SCOPED-AUTHORITY-BINDING-v0.1",
+      "byte_size": 9003,
+      "commit": "079fa333115e2bbe4e4bb3ff0077a07882f9105a",
+      "git_blob": "c6a0a95a9999b2dbf5b9be63fa8c46638cfb3c09",
+      "path": "control/architecture/working-candidates/persistent-locator-active-adoption/v0.1/p0-controls/AAA_PERSISTENT_LOCATOR_SUBJECT_SCOPED_AUTHORITY_BINDING_v0.1.json",
+      "semantic_digest": "5db936d91eca07d2c9b4ec32a33cf6454637a4c16b749a67d61005e8688973fc",
+      "sha256": "786de8a7f6588f039f988370b838c42e81e90007c7d7cad93a200b5c0230548c",
+      "tree": "4939350abeb0529bff57c323d255feba2fdf1156",
+      "version": "v0.1"
+    },
+    {
+      "artifact_id": "AAA-PERSISTENT-LOCATOR-LIVE-CANONICAL-REMOTE-PROOF-CONTRACT-v0.1",
+      "byte_size": 5731,
+      "commit": "079fa333115e2bbe4e4bb3ff0077a07882f9105a",
+      "git_blob": "21ae9e6c3909490db6a4c5ab78d14b63cc7f93ac",
+      "path": "control/architecture/working-candidates/persistent-locator-active-adoption/v0.1/p0-controls/AAA_PERSISTENT_LOCATOR_LIVE_CANONICAL_REMOTE_PROOF_CONTRACT_v0.1.json",
+      "semantic_digest": "eb8c3d91b82accca22b298791ecfa73f9cc329c6634edbb3a50e2d1a00820353",
+      "sha256": "254448c52681655ec5e1298db608a0ba0961fb614306e0dad8f053fb4df4bedc",
+      "tree": "4939350abeb0529bff57c323d255feba2fdf1156",
+      "version": "v0.1"
+    }
+  ],
+  "independent_validation_state": "NOT_PERFORMED",
+  "owner_exact_acceptance_state": "PENDING_AFTER_L1_L2",
+  "paired_validation_state": "NOT_PERFORMED",
+  "product": "ASSET AGENT ASA",
+  "project": "AAA",
+  "requester_persona": "AAA-CONTROL-ARCHITECT",
+  "required_validation_scope": [
+    "FRESH_EXACT_BYTE_AND_SEMANTIC_DIGEST_RECOMPUTATION",
+    "SUBJECT_SCOPED_AUTHORITY_SELECTION_NON_CIRCULARITY",
+    "CALLER_AUTHORITY_OVERRIDE_REJECTION",
+    "SUBJECT_PREDECESSOR_OWNER_EVIDENCE_EXACT_BINDING",
+    "LIVE_CANONICAL_REMOTE_FRESH_NETWORK_PROOF",
+    "REMOTE_STATE_AXIS_SEPARATE_FROM_OWNER_AUTHORITY",
+    "NO_GLOBAL_AUTHORITY_REGISTRY",
+    "NO_SHARED_CONTRACT_MUTATION",
+    "PRESERVATION_OF_C3_OWNER_DECISION_ACTIVE_POINTER"
+  ],
+  "target_validator": "AAA-CONTROL-VALIDATOR",
+  "validation_class": "P0_PAIRED_CONTROL_L1_FRESH",
+  "version": "v0.1"
+}
