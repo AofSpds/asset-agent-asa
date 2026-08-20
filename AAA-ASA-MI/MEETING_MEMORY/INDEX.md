@@ -17,3 +17,4 @@ This is a working research memory space.
 - 2026-08-20_Task_Design_Preparation.md
 - 2026-08-20_P0_Mutability_and_NonDefinition_Clarification.md
 - 2026-08-20_Channel_Succession_Checkpoint_1448_KST.md
+- 2026-08-20_INIT_Currentization_Function_Relation_Instance_Brainstorm_1555_KST.md
