@@ -1,20 +1,29 @@
 # Source Ingest Status
 
-STATE = PARTIAL_SOURCE_MIRROR / EVALUATION_COMPLETE
+STATE = ARM_SEPARATED_SOURCE_ARCHIVE_PRESENT / INDIVIDUAL_SOURCE_MIRROR_PARTIAL / EVALUATION_COMPLETE
 
-Persisted under this model-space namespace in the current commit series:
-- dedicated MODEL_SPACE index and authority boundary;
-- ASA independent evaluations for ARM-A/B/C;
-- ASA cross-arm semantic convergence analysis;
-- executable micro-probe source for ARM-A, ARM-B, ARM-C;
-- ARM-A probe replay receipt.
+MODEL_SPACE_ROOT = `AAA-ASA-MI/MODEL_SPACE/MS0_BASELINE_INDEPENDENT_ARMS_v0.2/`
 
-Reviewed in-chat but not yet byte-for-byte mirrored as individual Git source files in this commit series:
-- ARM-A protocol/blind-divergence/deep-proposal/preflight/diversity/finalist/RETURN-PACKET split artifacts;
-- ARM-B blind-divergence/deep-proposal/preflight/diversity/finalist/RETURN-PACKET split artifacts;
-- ARM-C research-ledger and RETURN PACKET.
+Arm-separated persistence is present under:
+- `ARM-A/`
+- `ARM-B/`
+- `ARM-C/`
 
-IMPORTANT:
-- This status file does not treat chat or /mnt/data as persistent SoT.
-- The evaluations are persisted, but source-mirror completeness is explicitly PARTIAL until the remaining text artifacts are materialized in Git.
-- No validation or canonicality claim is created by either the source mirror or the evaluations.
+Each ARM has a dedicated `SOURCE_ARCHIVE/` for the full evidence bundle. Executable/replay source material that has been individually materialized is kept under each ARM's `SOURCE/` directory. This preserves ARM separation and prevents the model-space archive from becoming a cross-arm live bus.
+
+Persisted evaluation material under `ASA_EVALUATION/`:
+- `ARM-A_INDEPENDENT_EVALUATION_v0.1.md`
+- `ARM-B_INDEPENDENT_EVALUATION_v0.1.md`
+- `ARM-C_INDEPENDENT_EVALUATION_v0.1.md`
+- `CROSS_ARM_SEMANTIC_CONVERGENCE_v0.1.md`
+
+Individual split-file mirror status:
+- Some original source artifacts remain represented in the full evidence archive rather than as separate top-level Git text files.
+- Therefore `INDIVIDUAL_SOURCE_MIRROR_COMPLETE` is **not** claimed.
+- The source archive itself is ARM-separated and persistent; no owner reconstruction from chat or `/mnt/data` is required.
+
+Authority boundary:
+- Source persistence != validation.
+- ASA evaluation != paired validator PASS.
+- Cross-arm convergence != truth or canonical model selection.
+- No artifact in this namespace is promoted to canonical/frozen 한알 by this ingest status.
