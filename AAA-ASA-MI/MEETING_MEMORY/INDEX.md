@@ -56,3 +56,4 @@ This is a working research memory space.
 - 2026-08-20_MS0_Ontogenesis_Fiat_Lux_and_ASA_Adam_Metaphor_2325_KST.md
 - 2026-08-20_Hanal_Byul_ASA_Naming_and_Milestone_Clarification_2331_KST.md
 - 2026-08-20_Byul_First_Implementation_Artifact_and_MS0_Scope_Draft_2334_KST.md
+- 2026-08-20_MS0_01_Divergence_Model_Family_Exploration_2341_KST.md
