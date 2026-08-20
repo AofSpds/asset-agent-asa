@@ -60,3 +60,4 @@ This is a working research memory space.
 - 2026-08-20_MS0_02_Pressure_Test_2344_KST.md
 - 2026-08-20_MS0_Dual_Evaluation_Filters_Positive_Negative_2347_KST.md
 - 2026-08-20_MS0_Dual_Survivor_Gate_Positive_Champion_and_Robustness_Champion_2350_KST.md
+- 2026-08-20_MS0_03_Dual_Reference_Candidate_Construction_2355_KST.md
