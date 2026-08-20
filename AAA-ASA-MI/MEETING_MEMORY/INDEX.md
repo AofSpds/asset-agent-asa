@@ -29,3 +29,4 @@ This is a working research memory space.
 - 2026-08-20_Relational_Constitution_Relation_As_Essence_Clarification_1717_KST.md
 - 2026-08-20_Relational_Existence_Reachability_and_Operational_Absence_1721_KST.md
 - 2026-08-20_Scope_Local_Callability_and_Instantiation_1727_KST.md
+- 2026-08-20_Memory_Layer_Representation_Refinement_1728_KST.md
