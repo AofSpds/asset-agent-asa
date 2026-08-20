@@ -1,0 +1,83 @@
+{
+  "artifact_id": "AAA-PERSISTENT-LOCATOR-P0-CONTROL-AUTHORING-EVIDENCE-v0.1",
+  "artifact_kind": "NON_NORMATIVE_DERIVED_AUTHORING_TEST_EVIDENCE",
+  "authoring_act_id": "AAA-PL-P0-AUTHORITY-BINDING-LIVE-REMOTE-v0.1-CTL-AUTHOR-20260820-1916-01",
+  "authoring_persona": "AAA-CONTROL-ARCHITECT",
+  "authority_binding_test_results": {
+    "A01": "PASS_EXACT_OWNER_AUTHORITY_IDENTITY_RESOLVES",
+    "A02": "PASS_ALTERNATE_SELF_CLAIMED_OWNER_AUTHORITY_REJECTED",
+    "A03": "PASS_SAME_OWNER_FIELDS_WRONG_BLOB_REJECTED",
+    "A04": "PASS_SAME_WORK_ITEM_WRONG_PREDECESSOR_REJECTED",
+    "A05": "PASS_v0.3_NON_PREDECESSOR_REJECTED",
+    "A06": "PASS_CALLER_RELATIONSHIP_METADATA_CANNOT_CHANGE_BINDING",
+    "A07": "PASS_CALLER_PROVENANCE_REFERENCE_CANNOT_CHANGE_BINDING",
+    "A08": "PASS_ALTERED_AUTHORIZED_SCOPE_REJECTED",
+    "A09": "PASS_ALTERED_OWNER_PRINCIPAL_REJECTED",
+    "A10": "PASS_ALTERED_AUTHORITY_ROLE_REJECTED"
+  },
+  "design_refs": [
+    "AAA-PL-DES-SUBJECT-SCOPED-AUTHORITY-BINDING-v0.1",
+    "AAA-PL-DES-LIVE-CANONICAL-REMOTE-PROOF-v0.1"
+  ],
+  "fresh_remote_readback_evidence": {
+    "evidence_class": "AUTHORING_FRESH_NETWORK_READBACK_NOT_VALIDATOR_PASS",
+    "repository": "AofSpds/asset-agent-asa",
+    "subject_blob": "7bc6e4c2194bc2f06d61367434cab38947b40e0d",
+    "subject_commit": "d0b0d2c7a77ca00570151e89e70e092b10646bd2",
+    "subject_path": "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.5/control/AAA_TW_S0_PLCP_SHADOW_INSTANCE_v0.5.json",
+    "subject_tree": "ca1e410f745c54d6d66579173739e28bbf54590e"
+  },
+  "limitations": [
+    "AUTHORING_TEST_PASS_NE_PAIRED_VALIDATION_PASS",
+    "AUTHORING_TEST_PASS_NE_INDEPENDENT_VALIDATION_PASS",
+    "FRESH_REMOTE_READBACK_IN_AUTHORING_EVIDENCE_NE_VALIDATOR_LIVE_REMOTE_PROOF_PASS"
+  ],
+  "live_remote_proof_test_results": {
+    "R01": "PASS_FRESH_CANONICAL_GITHUB_READBACK_EXACT_SUBJECT_COMMIT_TREE_PATH_BLOB",
+    "R02": "PASS_LOCAL_REMOTE_TRACKING_ONLY_INSUFFICIENT",
+    "R03": "PASS_LOCAL_CACHED_OBJECT_ONLY_INSUFFICIENT",
+    "R04": "PASS_WRONG_CANONICAL_REMOTE_CONFLICT",
+    "R05": "PASS_WRONG_EXACT_COMMIT_NOT_PROVEN",
+    "R06": "PASS_REMOTE_COMMIT_TREE_MISMATCH_CONFLICT",
+    "R07": "PASS_GENERIC_HEAD_ONLY_INSUFFICIENT",
+    "R08": "PASS_NETWORK_READBACK_FAILURE_RETURNS_NOT_PROVEN_OR_ERROR",
+    "R09": "PASS_NETWORK_FAILURE_DOES_NOT_MARK_ARTIFACT_INVALID",
+    "R10": "PASS_REMOTE_VERIFIED_DOES_NOT_IMPLY_OWNER_AUTHORIZED",
+    "R11": "PASS_OWNER_AUTHORIZED_DOES_NOT_IMPLY_REMOTE_VERIFIED"
+  },
+  "product": "ASSET AGENT ASA",
+  "project": "AAA",
+  "requirement_refs": [
+    "AAA-PL-REQ-P0-SUBJECT-SCOPED-AUTHORITY-BINDING-v0.1",
+    "AAA-PL-REQ-P0-LIVE-CANONICAL-REMOTE-PROOF-v0.1"
+  ],
+  "self_check_state": "PASS_21_OF_21_AUTHORING_TESTS",
+  "target_1": {
+    "artifact_id": "AAA-PERSISTENT-LOCATOR-SUBJECT-SCOPED-AUTHORITY-BINDING-v0.1",
+    "byte_size": 9003,
+    "commit": "079fa333115e2bbe4e4bb3ff0077a07882f9105a",
+    "git_blob": "c6a0a95a9999b2dbf5b9be63fa8c46638cfb3c09",
+    "path": "control/architecture/working-candidates/persistent-locator-active-adoption/v0.1/p0-controls/AAA_PERSISTENT_LOCATOR_SUBJECT_SCOPED_AUTHORITY_BINDING_v0.1.json",
+    "semantic_digest": "5db936d91eca07d2c9b4ec32a33cf6454637a4c16b749a67d61005e8688973fc",
+    "sha256": "786de8a7f6588f039f988370b838c42e81e90007c7d7cad93a200b5c0230548c",
+    "tree": "4939350abeb0529bff57c323d255feba2fdf1156",
+    "version": "v0.1"
+  },
+  "target_2": {
+    "artifact_id": "AAA-PERSISTENT-LOCATOR-LIVE-CANONICAL-REMOTE-PROOF-CONTRACT-v0.1",
+    "byte_size": 5731,
+    "commit": "079fa333115e2bbe4e4bb3ff0077a07882f9105a",
+    "git_blob": "21ae9e6c3909490db6a4c5ab78d14b63cc7f93ac",
+    "path": "control/architecture/working-candidates/persistent-locator-active-adoption/v0.1/p0-controls/AAA_PERSISTENT_LOCATOR_LIVE_CANONICAL_REMOTE_PROOF_CONTRACT_v0.1.json",
+    "semantic_digest": "eb8c3d91b82accca22b298791ecfa73f9cc329c6634edbb3a50e2d1a00820353",
+    "sha256": "254448c52681655ec5e1298db608a0ba0961fb614306e0dad8f053fb4df4bedc",
+    "tree": "4939350abeb0529bff57c323d255feba2fdf1156",
+    "version": "v0.1"
+  },
+  "test_refs": [
+    "AAA-PL-TST-SUBJECT-SCOPED-AUTHORITY-BINDING-v0.1",
+    "AAA-PL-TST-LIVE-CANONICAL-REMOTE-PROOF-v0.1"
+  ],
+  "validation_claim": "NONE",
+  "version": "v0.1"
+}
