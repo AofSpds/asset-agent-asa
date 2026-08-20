@@ -43,3 +43,4 @@ This is a working research memory space.
 - 2026-08-20_Sovereignty_Relational_Property_Membrane_Weighting_and_Whitepaper_Reharvest_Next_1834_KST.md
 - 2026-08-20_Whitepaper_Reharvest_Terminology_Clarification_1835_KST.md
 - 2026-08-20_PCS_SHAI_Whitepaper_Reharvest_First_Pass_1838_KST.md
+- 2026-08-20_Legacy_Currentization_Lineage_Link_Rule_1842_KST.md
