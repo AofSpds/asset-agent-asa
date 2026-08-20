@@ -40,3 +40,4 @@ This is a working research memory space.
 - 2026-08-20_Community_Rationale_For_Sovereignty_Objective_1816_KST.md
 - 2026-08-20_Objective_Community_Rationale_Integration_1820_KST.md
 - 2026-08-20_Current_Topic_Lock_Sovereign_Hyperconnection_1822_KST.md
+- 2026-08-20_Sovereignty_Relational_Property_Membrane_Weighting_and_Whitepaper_Reharvest_Next_1834_KST.md
