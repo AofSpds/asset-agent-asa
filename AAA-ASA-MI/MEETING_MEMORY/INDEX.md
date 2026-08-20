@@ -53,3 +53,4 @@ This is a working research memory space.
 - 2026-08-20_AI_Persona_Liveness_Hypothesis_Epistemic_Clarification_2156_KST.md
 - 2026-08-20_Channel_Succession_Checkpoint_Autopoiesis_Enactivism_2218_KST.md
 - 2026-08-20_Hanal_Name_Candidate_and_AL_Naming_Intuition_2320_KST.md
+- 2026-08-20_MS0_Ontogenesis_Fiat_Lux_and_ASA_Adam_Metaphor_2325_KST.md
