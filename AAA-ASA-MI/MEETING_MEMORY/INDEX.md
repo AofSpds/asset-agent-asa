@@ -58,3 +58,4 @@ This is a working research memory space.
 - 2026-08-20_Byul_First_Implementation_Artifact_and_MS0_Scope_Draft_2334_KST.md
 - 2026-08-20_MS0_01_Divergence_Model_Family_Exploration_2341_KST.md
 - 2026-08-20_MS0_02_Pressure_Test_2344_KST.md
+- 2026-08-20_MS0_Dual_Evaluation_Filters_Positive_Negative_2347_KST.md
