@@ -1,0 +1,136 @@
+{
+  "artifact_id": "AAA-TW-PERSISTENT-LOCATOR-ACTIVE-ADOPTION-v0.1-P0-CTL-L1-20260820-1019-01-VALIDATION-CONTEXT-BUNDLE",
+  "artifact_kind": "NON_NORMATIVE_DERIVED_VALIDATION_EVIDENCE",
+  "classification": "VALIDATION_CONTEXT_BUNDLE",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "validation_act_id": "AAA-TW-PERSISTENT-LOCATOR-ACTIVE-ADOPTION-v0.1-P0-CTL-L1-20260820-1019-01",
+  "validation_class": "P0_PAIRED_CONTROL_L1",
+  "constructed_time": "2026-08-20T10:19:24+09:00",
+  "constructed_by_persona": "AAA-CONTROL-VALIDATOR",
+  "context_freshness": "NEW_FRESH_CODEX_CONVERSATION",
+  "run_or_thread_id": "NOT_EXPOSED",
+  "source_handoff": {
+    "from_persona": "AAA-ASA/ASA-TW",
+    "to_persona": "AAA-CONTROL-VALIDATOR",
+    "task": "AAA_TW_PERSISTENT_LOCATOR_ACTIVE_ADOPTION_v0.1_FRESH_P0_CONTROL_L1_VALIDATION",
+    "author_return_packet_used_as_substitute_for_validation": false,
+    "author_hidden_reasoning_received": false
+  },
+  "exact_target_ref": {
+    "commit": "c8f30705851f73c3debd3fa73a273b3d836b994b",
+    "tree": "31adac39f9a394be0a4d5fe03b3e5369eb947bba",
+    "parent": "bb974162a1c41331424819d7736b5c3f2d4f436f",
+    "branch": "aaa-tw-post-s0-persistent-locator-active-adoption-v0.1",
+    "remote_ref_readback": "c8f30705851f73c3debd3fa73a273b3d836b994b",
+    "target_write_permission": false
+  },
+  "owner_decision_binding": {
+    "artifact_id": "AAA-OWNER-TW-VALIDATED-S0-TO-ACTIVE-MINIMUM-ADOPTION-DECISION-v0.1",
+    "commit": "bb974162a1c41331424819d7736b5c3f2d4f436f",
+    "tree": "f5680fdafbcd464c78e0d3cb58ac2c47fe66157b",
+    "path": "control/decisions/transfer-workspace/persistent-locator-adoption/v0.1/AAA_OWNER_TW_VALIDATED_S0_TO_ACTIVE_MINIMUM_ADOPTION_DECISION_v0.1.json",
+    "git_blob": "89556dc2524226bdf0d0ba516f4dddbde00e1c30",
+    "sha256": "79350f128f8bb4016011b32edfd35f2cde7c6aef093fccf4dc60fd8d658a309c",
+    "byte_size": 4482,
+    "semantic_content_digest": "5a48a1aaf52ff2e826c3b920dce9a534839c040115f9d6fd26cc6fa881e9dc4b",
+    "semantic_canonical_input_byte_size": 826,
+    "independent_recomputation": "PASS"
+  },
+  "active_control_resolution": {
+    "selected_write_base": "aaa-tw-control-v0.5-exact-predecessor-correction@ac8dc6955a8e3c5a3c68a2172fe6a297a1cacd2d",
+    "selected_write_base_tree": "4d297e0903a4682f4b66bb64465b81bbddc5c1e2",
+    "active_pointer_path": "manifests/active/active-manifest.yaml",
+    "active_pointer_blob_before": "091d28c938f6701e91c4e0126722f0fd868cfa02",
+    "active_pointer_blob_at_author_target": "091d28c938f6701e91c4e0126722f0fd868cfa02",
+    "active_pointer_sha256": "690ab7cf32f290cdcbbdaa23ed8570f25836fb6944666ea3c36bf1baa6bcccfd",
+    "active_pointer_byte_size": 2204,
+    "active_pointer_mutated_by_author": false
+  },
+  "preserved_governed_refs": {
+    "profile": {
+      "commit": "b48f6ff3ca7e5df94260a35539c60bf55294a40b",
+      "tree": "1f4f3581c27760cbccbb1dbcbf5763309ed01559",
+      "git_blob": "6b8fd5dae8bd2d3da9f9eb69a3421a5a9ded7439",
+      "sha256": "5c678fc7620b09262b415d1dbb8f911726e17c4313849eb3a0f78794e91ef17e",
+      "byte_size": 18533,
+      "result": "PASS_EXACT_IDENTITY"
+    },
+    "requirements": {
+      "commit": "d68f80055d8f9c6761c37d182b35b3d481989526",
+      "tree": "6f7520a24a994f19bfe5fffa66a4c9df3daa64aa",
+      "git_blob": "0e76fe653f18a1267a273332f955394f2e4e07d2",
+      "sha256": "8d133d27dc8841230c78ee2e1acb7ec5655982ce8093973183c2c984ae236d0d",
+      "byte_size": 9626,
+      "result": "PASS_EXACT_IDENTITY"
+    },
+    "organization_pointer": {
+      "commit": "d7c490c373f2df356f31e4459c345328616b4eb3",
+      "tree": "e4cd5ac507738b0a38420540550dd7e4f5b38c45",
+      "git_blob": "30cbecc2a961d5fd92b28e00be419f5a590110c1",
+      "sha256": "343276d1ac5429d5917287a0d45fe662ea26981e7366d06b9df837f0956c339a",
+      "byte_size": 3410,
+      "result": "PASS_EXACT_IDENTITY"
+    },
+    "shared_contract_current_state": {
+      "commit": "4d70f6ae32604bcef3f4a8027074163d5e5c80cd",
+      "tree": "b77ce02a917267e6b801934a01bac4c76e811c4b",
+      "git_blob": "9463e3802abd09d41c20675239c2df7739ac2751",
+      "sha256": "265abf282ab3b9df95d01f99dcec255516e9b6be2b6686077873de112df6bedd",
+      "byte_size": 8786,
+      "result": "PASS_EXACT_IDENTITY"
+    },
+    "shared_contract_exact_target": {
+      "commit": "96d1c02f3d057a0b06db913988e3cc16b980314d",
+      "tree": "c74f6c16050ca1824f42edb613952eae408555d1",
+      "git_blob": "d7702c1491bded7b2b90e857007599c36bc58b7d",
+      "sha256": "29ac62477ee567f06cc76db8c843d0480a0ea9b4f7dfdda9d062177bd84abea3",
+      "byte_size": 40962,
+      "result": "PASS_EXACT_IDENTITY"
+    }
+  },
+  "s0_validated_input": {
+    "artifact_id": "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.5",
+    "commit": "d0b0d2c7a77ca00570151e89e70e092b10646bd2",
+    "tree": "ca1e410f745c54d6d66579173739e28bbf54590e",
+    "git_blob": "7bc6e4c2194bc2f06d61367434cab38947b40e0d",
+    "sha256": "abd1d42be8b2a9b25eba266cfd939905e1799c93dc975fedcb560478cbcefdd8",
+    "byte_size": 13947,
+    "semantic_content_digest": "370a934edfaf72dc2e06d5e45b7c38be8026e3cf85e8d11c2903d2e342be48f2",
+    "raw_identity_recheck": "PASS",
+    "s0_research_reopened": false
+  },
+  "author_diff_contract": {
+    "base_commit": "ac8dc6955a8e3c5a3c68a2172fe6a297a1cacd2d",
+    "author_commit": "c8f30705851f73c3debd3fa73a273b3d836b994b",
+    "added": 6,
+    "modified": 0,
+    "deleted": 0,
+    "renamed": 0,
+    "track_a_touch_set": [],
+    "unauthorized_touch_set": []
+  },
+  "prewrite_gate": {
+    "V01_EXACT_AUTHOR_COMMIT": "PASS",
+    "V02_EXACT_TREE": "PASS",
+    "V03_EXACT_DIFF": "PASS",
+    "V04_OWNER_DECISION_BINDING": "PASS",
+    "V05_ACTIVE_POINTER_UNCHANGED": "PASS",
+    "V06_SIX_OBJECT_SCOPE": "PASS",
+    "V07_REQUIREMENTS_UNCHANGED": "PASS",
+    "V08_PROFILE_UNCHANGED": "PASS",
+    "V09_SHARED_CONTRACT_UNCHANGED": "PASS",
+    "V10_TRACK_A_EMPTY": "PASS",
+    "V11_VERIFIER_TESTS_REPRODUCED": "PASS",
+    "V12_NO_UNAUTHORIZED_SEMANTIC_EXPANSION": "PASS",
+    "result": "12/12 PASS"
+  },
+  "adversarial_challenge_inputs": {
+    "wrong_repository_claim": "WrongOwner/WrongRepository",
+    "unproven_lineage_claim": "BOGUS-UNPROVEN-LINEAGE",
+    "semantic_digest_case": "NON_NULL_REGISTERED_DIGEST_WITHOUT_ARTIFACT_PROFILE_EXECUTION",
+    "expected_safety_rule": "HASH_EQUALITY_IS_NOT_PROVENANCE_EQUALITY_AND_NO_SILENT_PROVENANCE_INVENTION"
+  },
+  "context_digest_profile": "SHA256_UTF8_CANONICAL_JSON_EXCLUDING_CONTEXT_DIGEST_SORT_KEYS_COMPACT_NO_TRAILING_NEWLINE",
+  "context_digest": "793e363ada6d43d7dafccfa596ebf3e816a1d7de1c3ad092822099d031618daf"
+}

@@ -1,0 +1,67 @@
+{
+  "artifact_id": "AAA-TW-PERSISTENT-LOCATOR-ACTIVE-ADOPTION-v0.1-VALIDATOR-PRP-20260820-1019-01",
+  "artifact_kind": "NON_NORMATIVE_DERIVED_VALIDATION_EVIDENCE",
+  "classification": "VALIDATOR_PERSONA_RUNTIME_PACKET",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "task": "AAA_TW_PERSISTENT_LOCATOR_ACTIVE_ADOPTION_v0.1_FRESH_P0_CONTROL_L1_VALIDATION",
+  "validation_act_id": "AAA-TW-PERSISTENT-LOCATOR-ACTIVE-ADOPTION-v0.1-P0-CTL-L1-20260820-1019-01",
+  "validation_class": "P0_PAIRED_CONTROL_L1",
+  "persona_id": "AAA-CONTROL-VALIDATOR",
+  "role": "FRESH_P0_CONTROL_L1_VALIDATOR",
+  "execution_surface": "CODEX_DESKTOP_LOCAL",
+  "run_or_thread_id": "NOT_EXPOSED",
+  "context_freshness": "NEW_FRESH_CODEX_CONVERSATION",
+  "target": {
+    "author_persona": "AAA-CONTROL-ARCHITECT",
+    "commit": "c8f30705851f73c3debd3fa73a273b3d836b994b",
+    "tree": "31adac39f9a394be0a4d5fe03b3e5369eb947bba",
+    "parent": "bb974162a1c41331424819d7736b5c3f2d4f436f",
+    "branch": "aaa-tw-post-s0-persistent-locator-active-adoption-v0.1",
+    "target_write_permission": false,
+    "branch_is_exact_identity": false
+  },
+  "authority": {
+    "owner_decision_artifact_id": "AAA-OWNER-TW-VALIDATED-S0-TO-ACTIVE-MINIMUM-ADOPTION-DECISION-v0.1",
+    "owner_authorizes_candidate": true,
+    "owner_authorizes_production": false,
+    "owner_authorizes_release": false,
+    "owner_authorizes_main_merge": false,
+    "validator_may_create_derived_evidence_only": true,
+    "validator_may_correct_author_target": false,
+    "validator_may_move_active_pointer": false
+  },
+  "risk_class": "P0_CONTROL",
+  "write_scope": [
+    "control/architecture/working-candidates/persistent-locator-active-adoption/v0.1/execution/runtime/validator/AAA_TW_PERSISTENT_LOCATOR_ACTIVE_ADOPTION_v0_1_VALIDATOR_PRP_20260820_1019_01.json",
+    "control/architecture/working-candidates/persistent-locator-active-adoption/v0.1/execution/validation-context/AAA_TW_PERSISTENT_LOCATOR_ACTIVE_ADOPTION_v0_1_P0_CTL_L1_20260820_1019_01.json",
+    "control/architecture/working-candidates/persistent-locator-active-adoption/v0.1/execution/run-records/AAA_TW_PERSISTENT_LOCATOR_ACTIVE_ADOPTION_v0_1_VALIDATOR_RUN_20260820_1019_01.json",
+    "control/architecture/working-candidates/persistent-locator-active-adoption/v0.1/execution/validation-independence/AAA_TW_PERSISTENT_LOCATOR_ACTIVE_ADOPTION_v0_1_P0_CTL_L1_20260820_1019_01.json"
+  ],
+  "validation_obligations": [
+    "VERIFY_EXACT_AUTHOR_COMMIT_TREE_PARENT_AND_REMOTE_REF",
+    "RECOMPUTE_EXACT_SIX_OBJECT_DIFF",
+    "VERIFY_OWNER_DECISION_BINDING",
+    "VERIFY_ACTIVE_POINTER_NONMUTATION",
+    "VERIFY_REQUIREMENTS_PROFILE_SHARED_CONTRACT_ORGANIZATION_PRESERVATION",
+    "VERIFY_TRACK_A_EMPTY_TOUCH_SET",
+    "REPRODUCE_DETERMINISTIC_VERIFIER_TESTS",
+    "CHALLENGE_REPOSITORY_LINEAGE_AND_SEMANTIC_DIGEST_ENFORCEMENT",
+    "FAIL_CLOSED_ON_MATERIAL_CONTRACT_IMPLEMENTATION_GAP"
+  ],
+  "escalation_rules": [
+    "TARGET_IDENTITY_MISMATCH=>FAIL_CLOSED",
+    "UNAUTHORIZED_TOUCH_OR_TRACK_A_TOUCH=>FAIL_CLOSED",
+    "NORMATIVE_INTERFACE_NOT_ENFORCED_BY_BOUND_VERIFIER=>REVIEW_REQUIRED_CORRECTION_REQUIRED",
+    "L1_NONPASS=>DO_NOT_ROUTE_TO_L2_AND_DO_NOT_MOVE_ACTIVE_POINTER"
+  ],
+  "tools_used": [
+    "GIT_READ_ONLY_OBJECT_AND_DIFF_COMMANDS",
+    "NODE_STANDARD_LIBRARY_TEST_RUNNER",
+    "NODE_INLINE_ADVERSARIAL_VERIFICATION",
+    "APPLY_PATCH",
+    "GIT_VALIDATOR_EVIDENCE_BRANCH_OPERATIONS"
+  ],
+  "packet_digest_profile": "SHA256_UTF8_CANONICAL_JSON_EXCLUDING_PACKET_SEMANTIC_DIGEST_SORT_KEYS_COMPACT_NO_TRAILING_NEWLINE",
+  "packet_semantic_digest": "3bedb897aab41e078f0a519ed1607b32096dc747d28b6de46a41a71cfea91434"
+}

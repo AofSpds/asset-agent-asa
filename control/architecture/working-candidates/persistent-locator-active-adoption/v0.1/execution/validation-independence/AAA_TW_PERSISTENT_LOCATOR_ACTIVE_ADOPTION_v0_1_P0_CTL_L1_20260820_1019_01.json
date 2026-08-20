@@ -1,0 +1,80 @@
+{
+  "artifact_id": "AAA-TW-PERSISTENT-LOCATOR-ACTIVE-ADOPTION-v0.1-P0-CTL-L1-20260820-1019-01-VALIDATION-INDEPENDENCE-METADATA",
+  "artifact_kind": "NON_NORMATIVE_DERIVED_VALIDATION_EVIDENCE",
+  "classification": "VALIDATION_INDEPENDENCE_METADATA",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "validation_act_id": "AAA-TW-PERSISTENT-LOCATOR-ACTIVE-ADOPTION-v0.1-P0-CTL-L1-20260820-1019-01",
+  "validation_class": "P0_PAIRED_CONTROL_L1",
+  "recorded_time": "2026-08-20T10:19:24+09:00",
+  "author_persona": "AAA-CONTROL-ARCHITECT",
+  "validator_persona": "AAA-CONTROL-VALIDATOR",
+  "author_validator_personas_differ": true,
+  "separate_context_bundle": true,
+  "fresh_conversation": true,
+  "author_hidden_reasoning_used": false,
+  "author_self_report_used_as_substitute_for_validation": false,
+  "exact_target_ref": {
+    "commit": "c8f30705851f73c3debd3fa73a273b3d836b994b",
+    "tree": "31adac39f9a394be0a4d5fe03b3e5369eb947bba",
+    "branch": "aaa-tw-post-s0-persistent-locator-active-adoption-v0.1",
+    "branch_name_is_exact_identity": false
+  },
+  "validator_execution": {
+    "run_id": "AAA-TW-PERSISTENT-LOCATOR-ACTIVE-ADOPTION-v0.1-VALIDATOR-RUN-20260820-1019-01",
+    "run_or_thread_id": "NOT_EXPOSED",
+    "worktree": "C:/w/plv",
+    "branch": "aaa-tw-post-s0-persistent-locator-active-adoption-v0.1-ctlv-l1",
+    "branch_base": "c8f30705851f73c3debd3fa73a273b3d836b994b",
+    "target_write_permission": false,
+    "validator_evidence_write_permission": true
+  },
+  "target_nonmutation": {
+    "author_commit_before": "c8f30705851f73c3debd3fa73a273b3d836b994b",
+    "author_commit_after": "c8f30705851f73c3debd3fa73a273b3d836b994b",
+    "author_tree_before": "31adac39f9a394be0a4d5fe03b3e5369eb947bba",
+    "author_tree_after": "31adac39f9a394be0a4d5fe03b3e5369eb947bba",
+    "target_changed_by_validator": false,
+    "author_worktree_used_as_write_target": false,
+    "active_pointer_moved": false
+  },
+  "independent_execution_results": {
+    "git_remote_author_ref_checked": true,
+    "git_commit_tree_parent_recomputed": true,
+    "git_diff_recomputed": true,
+    "raw_blob_sha256_and_size_recomputed": true,
+    "owner_and_interface_semantic_digests_recomputed": true,
+    "node_unit_tests_executed": true,
+    "s0_exact_readback_executed": true,
+    "negative_identity_challenges_executed": true,
+    "repository_and_lineage_adversarial_challenges_executed": true
+  },
+  "independent_findings": [
+    {
+      "finding_id": "PLAA-L1-F01-REPOSITORY-CLAIM-NOT-BOUND",
+      "severity": "P0_BLOCKING",
+      "result": "WRONG_REPOSITORY_CLAIM_RETURNED_VERIFIED_EXACT"
+    },
+    {
+      "finding_id": "PLAA-L1-F02-LINEAGE-REF-NOT-VERIFIED",
+      "severity": "P0_BLOCKING",
+      "result": "BOGUS_UNPROVEN_LINEAGE_RETURNED_VERIFIED_EXACT"
+    },
+    {
+      "finding_id": "PLAA-L1-F03-SEMANTIC-DIGEST-READBACK-INCOMPLETE",
+      "severity": "P0_BLOCKING",
+      "result": "VERIFIED_EXACT_RETURNED_WHILE_PROFILE_SPECIFIC_RECOMPUTATION_REMAINED_REQUIRED"
+    }
+  ],
+  "independence_class": "PROCEDURAL_FRESH_CONTEXT_SEPARATE_RUN_TARGET_NONMUTATION_ONLY",
+  "model_family_independence": "NOT_PROVEN",
+  "provider_independence": "NOT_PROVEN",
+  "independence_claim_limit": "NO_MODEL_FAMILY_OR_PROVIDER_INDEPENDENCE_CLAIM",
+  "validation_result_state": "REVIEW_REQUIRED_CORRECTION_REQUIRED_FAIL_CLOSED",
+  "creates_l1_pass": false,
+  "creates_independent_l2_pass": false,
+  "creates_owner_acceptance": false,
+  "creates_production_or_release_authority": false,
+  "independence_digest_profile": "SHA256_UTF8_CANONICAL_JSON_EXCLUDING_INDEPENDENCE_DIGEST_SORT_KEYS_COMPACT_NO_TRAILING_NEWLINE",
+  "independence_digest": "85e7298382d4f7236260a42c2d5f0370c61e9cca6112cb2d0422794962aaa780"
+}

@@ -1,0 +1,228 @@
+{
+  "artifact_id": "AAA-TW-PERSISTENT-LOCATOR-ACTIVE-ADOPTION-v0.1-VALIDATOR-RUN-RECORD-20260820-1019-01",
+  "artifact_kind": "NON_NORMATIVE_DERIVED_VALIDATION_EVIDENCE",
+  "classification": "VALIDATOR_RUN_RECORD",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "task": "AAA_TW_PERSISTENT_LOCATOR_ACTIVE_ADOPTION_v0.1_FRESH_P0_CONTROL_L1_VALIDATION",
+  "run_id": "AAA-TW-PERSISTENT-LOCATOR-ACTIVE-ADOPTION-v0.1-VALIDATOR-RUN-20260820-1019-01",
+  "validation_act_id": "AAA-TW-PERSISTENT-LOCATOR-ACTIVE-ADOPTION-v0.1-P0-CTL-L1-20260820-1019-01",
+  "persona_id": "AAA-CONTROL-VALIDATOR",
+  "validation_class": "P0_PAIRED_CONTROL_L1",
+  "execution_surface": "CODEX_DESKTOP_LOCAL",
+  "run_or_thread_id": "NOT_EXPOSED",
+  "first_explicit_clock_capture": "2026-08-20T10:19:24+09:00",
+  "target": {
+    "author_commit": "c8f30705851f73c3debd3fa73a273b3d836b994b",
+    "author_tree": "31adac39f9a394be0a4d5fe03b3e5369eb947bba",
+    "author_parent": "bb974162a1c41331424819d7736b5c3f2d4f436f",
+    "author_branch": "aaa-tw-post-s0-persistent-locator-active-adoption-v0.1",
+    "remote_ref": "c8f30705851f73c3debd3fa73a273b3d836b994b",
+    "target_write_permission": false
+  },
+  "materiality_review": {
+    "author_classification": "SEMANTIC_CHANGE/P0_CONTROL",
+    "validator_classification": "SEMANTIC_CHANGE/P0_CONTROL",
+    "classification_result": "PASS",
+    "authorized_scope_only": true,
+    "unplanned_semantic_expansion_detected": false
+  },
+  "author_diff": {
+    "base": "ac8dc6955a8e3c5a3c68a2172fe6a297a1cacd2d",
+    "added_paths": [
+      "control/architecture/working-candidates/persistent-locator-active-adoption/v0.1/AAA_PERSISTENT_LOCATOR_ACTIVE_INTERFACE_v0.1.json",
+      "control/architecture/working-candidates/persistent-locator-active-adoption/v0.1/evidence/AAA_PERSISTENT_LOCATOR_ACTIVE_INTERFACE_v0.1_AUTHOR_EVIDENCE.json",
+      "control/architecture/working-candidates/persistent-locator-active-adoption/v0.1/validation-request/AAA_PERSISTENT_LOCATOR_ACTIVE_INTERFACE_v0.1_P0_CONTROL_L1_REQUEST.json",
+      "control/decisions/transfer-workspace/persistent-locator-adoption/v0.1/AAA_OWNER_TW_VALIDATED_S0_TO_ACTIVE_MINIMUM_ADOPTION_DECISION_v0.1.json",
+      "tools/control/persistent_locator.mjs",
+      "tools/control/tests/test_persistent_locator.mjs"
+    ],
+    "added_count": 6,
+    "modified_count": 0,
+    "deleted_count": 0,
+    "renamed_count": 0,
+    "result": "PASS_EXACT_SIX_ADDITIONS"
+  },
+  "target_object_identity_matrix": [
+    {
+      "object_id": "AAA-PERSISTENT-LOCATOR-ACTIVE-INTERFACE-v0.1",
+      "git_blob": "ba5331185a6b33386a1fd4da694fa9702ff724b5",
+      "sha256": "24955cc52bced0ff517e2bb98ecbc6b0274d1b794101321e2aba9566dbc6e8ce",
+      "byte_size": 11115,
+      "semantic_content_digest": "4a84224c560d27fd86615a4de68085636a59dc4103f1c79ed7b3c147a72f9978",
+      "result": "PASS"
+    },
+    {
+      "object_id": "AAA-PERSISTENT-LOCATOR-ACTIVE-INTERFACE-v0.1-AUTHOR-EVIDENCE",
+      "git_blob": "b45d967b9cefae1706cc4832b3c652a4e8ebc823",
+      "sha256": "ef66298f7b6ca860d659a25899d15d5d33c08ef4319496824f4eddbf86c3a650",
+      "byte_size": 6194,
+      "result": "PASS"
+    },
+    {
+      "object_id": "AAA-PERSISTENT-LOCATOR-ACTIVE-INTERFACE-v0.1-P0-CONTROL-L1-REQUEST",
+      "git_blob": "f54301267b1020b27ef319347b8f4b186ef2d439",
+      "sha256": "014b21b4866f45fd216000e21f2a318fcec975923aa1a8656738b16887e3d31f",
+      "byte_size": 7137,
+      "result": "PASS"
+    },
+    {
+      "object_id": "AAA-OWNER-TW-VALIDATED-S0-TO-ACTIVE-MINIMUM-ADOPTION-DECISION-v0.1",
+      "git_blob": "89556dc2524226bdf0d0ba516f4dddbde00e1c30",
+      "sha256": "79350f128f8bb4016011b32edfd35f2cde7c6aef093fccf4dc60fd8d658a309c",
+      "byte_size": 4482,
+      "semantic_content_digest": "5a48a1aaf52ff2e826c3b920dce9a534839c040115f9d6fd26cc6fa881e9dc4b",
+      "result": "PASS"
+    },
+    {
+      "object_id": "AAA-PERSISTENT-LOCATOR-DETERMINISTIC-VERIFIER-v0.1",
+      "git_blob": "0265743473a732ee2be1a0b37560161408f1db4d",
+      "sha256": "2cf470757ed412f6bbdee13df000dae28d3a203259e9e1067e0232abe553c865",
+      "byte_size": 8771,
+      "result": "PASS"
+    },
+    {
+      "object_id": "AAA-PERSISTENT-LOCATOR-DETERMINISTIC-VERIFIER-TESTS-v0.1",
+      "git_blob": "e023cd353c13e5388fcc5dfe83fd8aeb2f7b572e",
+      "sha256": "e005c1122f7ecdd3fd1d66fecffb14a314b20094541b95a72c6eb072cce7f921",
+      "byte_size": 3454,
+      "result": "PASS"
+    }
+  ],
+  "prewrite_gate": {
+    "V01_EXACT_AUTHOR_COMMIT": "PASS",
+    "V02_EXACT_TREE": "PASS",
+    "V03_EXACT_DIFF": "PASS",
+    "V04_OWNER_DECISION_BINDING": "PASS",
+    "V05_ACTIVE_POINTER_UNCHANGED": "PASS",
+    "V06_SIX_OBJECT_SCOPE": "PASS",
+    "V07_REQUIREMENTS_UNCHANGED": "PASS",
+    "V08_PROFILE_UNCHANGED": "PASS",
+    "V09_SHARED_CONTRACT_UNCHANGED": "PASS",
+    "V10_TRACK_A_EMPTY": "PASS",
+    "V11_VERIFIER_TESTS_REPRODUCED": "PASS",
+    "V12_NO_UNAUTHORIZED_SEMANTIC_EXPANSION": "PASS",
+    "result": "12/12 PASS"
+  },
+  "deterministic_execution_results": {
+    "author_unit_tests": "6/6 PASS_REPRODUCED",
+    "s0_exact_locator_readback": "VERIFIED_EXACT",
+    "missing_commit": "NOT_FOUND",
+    "missing_path": "NOT_FOUND",
+    "modified_expected_sha256": "RETRIEVAL_FAILED_IDENTITY_MISMATCH",
+    "moved_discovery_branch": "VERIFIED_EXACT_PINNED_COMMIT_PRESERVED",
+    "invalid_git_blob_identity": "RETRIEVAL_FAILED_INVALID_LOCATOR_RECORD",
+    "access_denial_classifier": "ACCESS_BLOCKED_NOT_NOT_FOUND",
+    "wrong_repository_claim": "VERIFIED_EXACT_UNEXPECTED",
+    "unproven_lineage_claim": "VERIFIED_EXACT_UNEXPECTED",
+    "non_null_semantic_digest": "VERIFIED_EXACT_WITH_REGISTERED_PROFILE_SPECIFIC_RECOMPUTATION_REQUIRED_UNEXPECTED"
+  },
+  "findings": [
+    {
+      "finding_id": "PLAA-L1-F01-REPOSITORY-CLAIM-NOT-BOUND",
+      "severity": "P0_BLOCKING",
+      "contract_basis": [
+        "LOCATOR_REQUIRES_REPOSITORY",
+        "NO_INFERRED_PROVENANCE",
+        "HASH_EQUALITY_IS_NOT_PROVENANCE_EQUALITY"
+      ],
+      "observed": "repository=WrongOwner/WrongRepository was echoed in a VERIFIED_EXACT result while verification ran against AofSpds/asset-agent-asa",
+      "impact": "CONTENT_BYTES_CAN_BE_EXACT_WHILE_THE_REGISTERED_REPOSITORY_PROVENANCE_CLAIM_IS_FALSE",
+      "correction": "BIND_THE_CLAIMED_REPOSITORY_TO_A_DETERMINISTIC_REMOTE_OR_REGISTERED_REPOSITORY_ID_OR_EXPLICITLY_RETURN_THE_REPOSITORY_CLAIM_AS_UNVERIFIED_AND_DO_NOT_EMIT_FULL_LOCATOR_VERIFIED_EXACT"
+    },
+    {
+      "finding_id": "PLAA-L1-F02-LINEAGE-REF-NOT-VERIFIED",
+      "severity": "P0_BLOCKING",
+      "contract_basis": [
+        "NORMATIVE_SEQUENCE_VERIFY_LINEAGE_REF",
+        "PRESERVE_PROVENANCE_LINEAGE",
+        "NO_SILENT_PROVENANCE_INVENTION"
+      ],
+      "observed": "lineage_ref=BOGUS-UNPROVEN-LINEAGE was echoed in a VERIFIED_EXACT result",
+      "impact": "AN_UNPROVEN_LINEAGE_CLAIM_IS_PRESENTED_INSIDE_A_SUCCESS_RESULT",
+      "correction": "RESOLVE_AND_VERIFY_LINEAGE_REF_USING_THE_GOVERNED_REGISTRY_OR_RETURN_AN_EXPLICIT_NOT_PROVEN_PARTIAL_CONFLICT_OR_UNKNOWN_LINEAGE_STATE_WITHOUT_FULL_LOCATOR_VERIFIED_EXACT"
+    },
+    {
+      "finding_id": "PLAA-L1-F03-SEMANTIC-DIGEST-READBACK-INCOMPLETE",
+      "severity": "P0_BLOCKING",
+      "contract_basis": [
+        "NORMATIVE_SEQUENCE_RECOMPUTE_SEMANTIC_DIGEST_USING_ARTIFACT_SPECIFIC_PROFILE_IF_APPLICABLE",
+        "SILENT_MATCH_PROHIBITED"
+      ],
+      "observed": "A non-null semantic digest produced overall VERIFIED_EXACT while semantic_content_digest_state remained REGISTERED_PROFILE_SPECIFIC_RECOMPUTATION_REQUIRED",
+      "impact": "THE_NORMATIVE_READBACK_SEQUENCE_IS_INCOMPLETE_WHILE_THE_OVERALL SUCCESS STATE IS COMPLETE",
+      "correction": "EXECUTE_AN_EXPLICIT_ARTIFACT_SPECIFIC_PROFILE_OR_RETURN_A_NON_SUCCESS_OR_EXPLICIT_PARTIAL_STATE_UNTIL_THE_APPLICABLE_SEMANTIC_DIGEST_IS_RECOMPUTED"
+    }
+  ],
+  "validation_matrix": {
+    "L01_AUTHOR_COMMIT": "PASS",
+    "L02_AUTHOR_TREE": "PASS",
+    "L03_AUTHOR_PARENT": "PASS",
+    "L04_AUTHOR_REMOTE_REF": "PASS",
+    "L05_BASE_DIFF_EXACT": "PASS",
+    "L06_SIX_OBJECT_SCOPE": "PASS",
+    "L07_ZERO_MODIFIED_DELETED_RENAMED": "PASS",
+    "L08_OWNER_RAW_IDENTITY": "PASS",
+    "L09_OWNER_SEMANTIC_DIGEST": "PASS",
+    "L10_S0_BINDINGS": "PASS",
+    "L11_ACTIVE_BASELINE": "PASS",
+    "L12_ACTIVE_POINTER_NONMUTATION": "PASS",
+    "L13_REQUIREMENTS_PRESERVATION": "PASS",
+    "L14_PROFILE_PRESERVATION": "PASS",
+    "L15_SHARED_CONTRACT_PRESERVATION": "PASS",
+    "L16_ORGANIZATION_PRESERVATION": "PASS",
+    "L17_TRACK_A_EMPTY": "PASS",
+    "L18_MATERIALITY_CLASS": "PASS",
+    "L19_AUTHORIZED_SEMANTIC_SCOPE_ONLY": "PASS",
+    "L20_INTERFACE_RAW_IDENTITY": "PASS",
+    "L21_INTERFACE_SEMANTIC_DIGEST": "PASS",
+    "L22_REQUIRED_LOCATOR_FIELDS": "PASS",
+    "L23_COMMIT_BLOB_AUTHORITY_BRANCH_DISCOVERY_ONLY": "PASS",
+    "L24_FAILURE_TAXONOMY": "PASS",
+    "L25_ACCESS_FAILURE_NOT_GLOBAL_LOSS": "PASS",
+    "L26_AUTHOR_TESTS_REPRODUCED": "PASS",
+    "L27_S0_EXACT_READBACK": "PASS",
+    "L28_REQUIRED_NEGATIVE_IDENTITY_CHALLENGES": "PASS",
+    "L29_REPOSITORY_CLAIM_BINDING": "NONPASS",
+    "L30_LINEAGE_REF_VERIFICATION": "NONPASS",
+    "L31_APPLICABLE_SEMANTIC_DIGEST_COMPLETION": "NONPASS",
+    "L32_NO_SILENT_PROVENANCE_INVENTION": "NONPASS"
+  },
+  "matrix_result": {
+    "pass_count": 28,
+    "nonpass_count": 4,
+    "total": 32,
+    "result": "28/32 PASS; 4/32 NONPASS"
+  },
+  "preservation_boundary": {
+    "preserve_all_others": true,
+    "unauthorized_touch_set": [],
+    "track_a_touch_set": [],
+    "requirements_changed": false,
+    "profile_changed": false,
+    "shared_contract_changed": false,
+    "organization_pointer_changed": false,
+    "active_pointer_changed": false,
+    "production_activation_performed": false,
+    "release_performed": false,
+    "main_merge_performed": false
+  },
+  "validator_evidence_output_paths": [
+    "control/architecture/working-candidates/persistent-locator-active-adoption/v0.1/execution/runtime/validator/AAA_TW_PERSISTENT_LOCATOR_ACTIVE_ADOPTION_v0_1_VALIDATOR_PRP_20260820_1019_01.json",
+    "control/architecture/working-candidates/persistent-locator-active-adoption/v0.1/execution/validation-context/AAA_TW_PERSISTENT_LOCATOR_ACTIVE_ADOPTION_v0_1_P0_CTL_L1_20260820_1019_01.json",
+    "control/architecture/working-candidates/persistent-locator-active-adoption/v0.1/execution/run-records/AAA_TW_PERSISTENT_LOCATOR_ACTIVE_ADOPTION_v0_1_VALIDATOR_RUN_20260820_1019_01.json",
+    "control/architecture/working-candidates/persistent-locator-active-adoption/v0.1/execution/validation-independence/AAA_TW_PERSISTENT_LOCATOR_ACTIVE_ADOPTION_v0_1_P0_CTL_L1_20260820_1019_01.json"
+  ],
+  "result": {
+    "verdict": "REVIEW_REQUIRED",
+    "correction_required": true,
+    "target_changed_by_validator": false,
+    "active_pointer_moved": false,
+    "paired_l1_pass_created": false,
+    "independent_l2_required_now": false,
+    "stage_next": "AAA-CONTROL-ARCHITECT_BOUNDED_CORRECTION_SUCCESSOR_THEN_FRESH_P0_CONTROL_L1",
+    "l2_route": "BLOCKED_UNTIL_CORRECTED_SUCCESSOR_RECEIVES_FRESH_L1_PASS"
+  },
+  "run_record_digest_profile": "SHA256_UTF8_CANONICAL_JSON_EXCLUDING_RUN_RECORD_DIGEST_SORT_KEYS_COMPACT_NO_TRAILING_NEWLINE",
+  "run_record_digest": "41dc1da9939f5fa562ffe9a71fb60a53921a8906efd20a2e1c792c055826e254"
+}
