@@ -22,3 +22,4 @@ This is a working research memory space.
 - 2026-08-20_Instance_As_Relational_View_Materialized_View_Boundary_Deepening_1615_KST.md
 - 2026-08-20_Relational_View_Adversarial_Attack_Surface_1623_KST.md
 - 2026-08-20_Member_Composition_Deep_Brainstorm_1638_KST.md
+- 2026-08-20_Relational_Constitution_Owner_Confirmation_1647_KST.md
