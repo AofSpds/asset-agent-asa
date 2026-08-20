@@ -48,3 +48,4 @@ This is a working research memory space.
 - 2026-08-20_Continuance_and_Succession_Dual_View_1854_KST.md
 - 2026-08-20_Legacy_Human_Familiar_View_Current_Structural_View_Mapping_and_Human_Familiarity_Objective_1857_KST.md
 - 2026-08-20_Hypothesis_Harvest_Working_Guideline_1901_KST.md
+- 2026-08-20_Standpoint_Operational_Subjectivity_Dissent_Reharvest_Currentization_1908_KST.md
