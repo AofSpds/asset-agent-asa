@@ -64,3 +64,4 @@ This is a working research memory space.
 - 2026-08-20_MS0_Tournament_Structure_Six_Candidates_Main_Round_Dual_Finalists_2359_KST.md
 - 2026-08-20_MS0_Tournament_8_Target_6_Minimum_Main_Round_Dual_Finalists_2359_KST.md
 - 2026-08-21_MS0_02_Main_Round_Common_Gate_and_Finalist_Selection_0001_KST.md
+- 2026-08-21_MS0_03_Final_Round_Dual_Reference_Candidate_Protocol_0004_KST.md
