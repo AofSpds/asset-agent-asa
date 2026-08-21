@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
 import { createHash } from "node:crypto";
-import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { accessSync, constants as fsConstants, existsSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { dirname, join, resolve, sep } from "node:path";
 import { spawnSync } from "node:child_process";
 import { pathToFileURL } from "node:url";
 
@@ -75,6 +76,86 @@ const SUBJECT_DECLARED_PREDECESSOR_PROFILE = "AAA_SUBJECT_DECLARED_EXACT_PREDECE
 const ACCEPTED_TARGET_PROVENANCE_PROFILE = "AAA_OWNER_DECISION_ACCEPTED_EXACT_TARGET_PROVENANCE_v0.1";
 const ARTIFACT_SPECIFIC_SEMANTIC_PROFILES = Object.freeze({
   SHA256_UTF8_CANONICAL_JSON_NORMATIVE_OVERLAY_SORT_KEYS_COMPACT_NO_TRAILING_NEWLINE: Object.freeze({
+    digest_algorithm: "SHA256",
+    canonicalization: CANONICAL_JSON_PROFILE,
+    selection_type: "TOP_LEVEL_VALUE",
+    selection_field: "normative_overlay",
+  }),
+});
+
+const GOVERNED_WORK_ITEM = "AAA_TW_PERSISTENT_LOCATOR_ACTIVE_ADOPTION_v0.1";
+const GOVERNED_LINEAGE_REF = "AAA-PERSISTENT-LOCATOR-CAPABILITY-PROOF-v0.1";
+const GOVERNED_CANONICAL_REMOTE = "https://github.com/AofSpds/asset-agent-asa.git";
+const GOVERNED_APPROVED_SCOPE = Object.freeze({
+  adoption_scope: "EXACT_VALIDATED_PERSISTENT_LOCATOR_MECHANICS_ONLY",
+  apply_validated_s0_capability: true,
+  authoring_of_minimum_active_adoption_candidate: "AUTHORIZED",
+  dedicated_candidate_branch_non_force_remote_push: "AUTHORIZED",
+  extra_features_now: false,
+  force_push_authorized: false,
+  main_merge_authorized: false,
+  model_semantic_change_authorized: false,
+  non_semantic_registration_within_existing_allowlist: "AUTHORIZED",
+  owner_acceptance_state: "ACCEPTED_FOR_THIS_BOUNDED_S0_MILESTONE",
+  owner_reapproval_for_ordinary_in_scope_mechanical_work_required: false,
+  pit_gt_change_authorized: false,
+  proceed_to_application: true,
+  production_authorized: false,
+  release_authorized: false,
+  s0_result_accepted: true,
+  tag_authorized: false,
+  track_a_mutation_authorized: false,
+  unplanned_shared_contract_expansion_authorized: false,
+});
+
+const GOVERNED_BINDING = Object.freeze({
+  object_id: "AAA-PERSISTENT-LOCATOR-SUBJECT-SCOPED-AUTHORITY-BINDING",
+  version: "v0.3",
+  work_item_id: GOVERNED_WORK_ITEM,
+  lineage_ref: GOVERNED_LINEAGE_REF,
+  relationship: EXACT_PREDECESSOR_RELATIONSHIP,
+  canonical_remote: GOVERNED_CANONICAL_REMOTE,
+  canonical_host: "github.com",
+  subject: Object.freeze({
+    artifact_id: "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.5",
+    version: "v0.5",
+    repository: "AofSpds/asset-agent-asa",
+    exact_commit: "d0b0d2c7a77ca00570151e89e70e092b10646bd2",
+    exact_tree: "ca1e410f745c54d6d66579173739e28bbf54590e",
+    exact_path: "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.5/control/AAA_TW_S0_PLCP_SHADOW_INSTANCE_v0.5.json",
+    git_blob: "7bc6e4c2194bc2f06d61367434cab38947b40e0d",
+    sha256: "abd1d42be8b2a9b25eba266cfd939905e1799c93dc975fedcb560478cbcefdd8",
+    byte_size: 13947,
+    semantic_content_digest_if_applicable: "370a934edfaf72dc2e06d5e45b7c38be8026e3cf85e8d11c2903d2e342be48f2",
+    lineage_ref: GOVERNED_LINEAGE_REF,
+  }),
+  predecessor: Object.freeze({
+    artifact_id: "AAA-TW-S0-PLCP-SHADOW-INSTANCE-v0.4",
+    version: "v0.4",
+    repository: "AofSpds/asset-agent-asa",
+    exact_commit: "ba91403930c97db4e66e937d1ce7da04c342d4c1",
+    exact_tree: "f1947d80bdb18170cf0ce47130af3c2493d52a1d",
+    exact_path: "control/architecture/working-candidates/transfer-workspace/s0/plcp-shadow/v0.4/control/AAA_TW_S0_PLCP_SHADOW_INSTANCE_v0.4.json",
+    git_blob: "528fbc9746c6e50f32b081013031a31281220d58",
+    sha256: "00934140c17fc21992f5e51eb174b07c18c17f4d5f6a7e15a553eae5796b95c4",
+    byte_size: 13677,
+  }),
+  owner_authority: Object.freeze({
+    artifact_id: "AAA-OWNER-TW-VALIDATED-S0-TO-ACTIVE-MINIMUM-ADOPTION-DECISION-v0.1",
+    repository: "AofSpds/asset-agent-asa",
+    exact_commit: "bb974162a1c41331424819d7736b5c3f2d4f436f",
+    exact_tree: "f5680fdafbcd464c78e0d3cb58ac2c47fe66157b",
+    exact_path: "control/decisions/transfer-workspace/persistent-locator-adoption/v0.1/AAA_OWNER_TW_VALIDATED_S0_TO_ACTIVE_MINIMUM_ADOPTION_DECISION_v0.1.json",
+    git_blob: "89556dc2524226bdf0d0ba516f4dddbde00e1c30",
+    sha256: "79350f128f8bb4016011b32edfd35f2cde7c6aef093fccf4dc60fd8d658a309c",
+    byte_size: 4482,
+    semantic_digest: "5a48a1aaf52ff2e826c3b920dce9a534839c040115f9d6fd26cc6fa881e9dc4b",
+  }),
+  authority_principal: "HUMAN PROJECT OWNER",
+  approved_scope: GOVERNED_APPROVED_SCOPE,
+  approved_scope_digest: "5a48a1aaf52ff2e826c3b920dce9a534839c040115f9d6fd26cc6fa881e9dc4b",
+  semantic_profile: Object.freeze({
+    profile_id: "SHA256_UTF8_CANONICAL_JSON_NORMATIVE_OVERLAY_SORT_KEYS_COMPACT_NO_TRAILING_NEWLINE",
     digest_algorithm: "SHA256",
     canonicalization: CANONICAL_JSON_PROFILE,
     selection_type: "TOP_LEVEL_VALUE",
@@ -281,187 +362,226 @@ function requireExactlyOne(records, missingState = "NOT_PROVEN") {
   return { ok: true, record: records[0] };
 }
 
-function verifyAuthorizationEvidence(locator, evidence, repositoryPath, proofField, claimProfile, authorizationRef) {
-  if (!evidence || evidence.repository !== locator.repository) {
-    return { ok: false, proof_state: "PARTIAL", message: `${proofField} authorization evidence is incomplete.` };
+function identityAndTreeMatch(left, right) {
+  return identityMatches(left, right)
+    && (!left?.exact_tree || !right?.exact_tree
+      || String(left.exact_tree).toLowerCase() === String(right.exact_tree).toLowerCase());
+}
+
+function jsonEquals(left, right) {
+  return JSON.stringify(stableValue(left)) === JSON.stringify(stableValue(right));
+}
+
+function subjectMatchesBinding(locator, binding) {
+  return identityMatches(locator, binding?.subject)
+    && locator.semantic_content_digest_if_applicable === binding.subject.semantic_content_digest_if_applicable
+    && locator.lineage_ref === binding.lineage_ref;
+}
+
+function selectGovernedBinding(locator, bindings = [GOVERNED_BINDING]) {
+  const selected = bindings.filter((binding) => subjectMatchesBinding(locator, binding));
+  if (selected.length === 0) {
+    return { ok: false, proof_state: "NOT_PROVEN", reason: "GOVERNED_SUBJECT_NOT_SELECTED" };
   }
-  if (claimProfile !== "AAA_OWNER_DECISION_ACCEPTED_EXACT_TARGET_v0.1") {
-    return { ok: false, proof_state: "PARTIAL", message: `${proofField} authorization claim profile is missing or unsupported.` };
+  if (selected.length !== 1) {
+    return { ok: false, proof_state: "CONFLICT", reason: "GOVERNED_SUBJECT_BINDING_CONFLICT" };
   }
-  const verified = verifyExactIdentityRecord(evidence, repositoryPath);
-  if (!verified.ok) {
+  const binding = selected[0];
+  if (!binding.owner_authority || !binding.predecessor || !binding.approved_scope) {
+    return { ok: false, proof_state: "NOT_PROVEN", reason: "GOVERNED_AUTHORITY_EVIDENCE_MISSING" };
+  }
+  return { ok: true, binding };
+}
+
+function assertionConflict(detail) {
+  return {
+    ok: false,
+    proof_state: "CONFLICT",
+    reason: "CALLER_AUTHORITY_ASSERTION_CONFLICT",
+    message: detail,
+  };
+}
+
+function verifyCallerCompatibility(locator, context, binding) {
+  if (context === undefined || context === null) return { ok: true, asserted: false };
+  if (typeof context !== "object" || Array.isArray(context)) {
+    return assertionConflict("verificationContext must be an object when supplied.");
+  }
+
+  for (const [field, expected] of [
+    ["work_item_id", binding.work_item_id],
+    ["relationship_type", binding.relationship],
+    ["authority_principal", binding.authority_principal],
+    ["canonical_remote", binding.canonical_remote],
+  ]) {
+    if (field in context && context[field] !== expected) {
+      return assertionConflict(`Caller ${field} conflicts with the governed binding.`);
+    }
+  }
+  for (const field of ["authorized_scope", "approved_semantic_scope"]) {
+    if (field in context && !jsonEquals(context[field], binding.approved_scope)) {
+      return assertionConflict(`Caller ${field} conflicts with governed authorized scope.`);
+    }
+  }
+  if ("owner_authority_evidence" in context
+      && (!identityAndTreeMatch(context.owner_authority_evidence, binding.owner_authority)
+        || context.owner_authority_evidence?.artifact_id !== binding.owner_authority.artifact_id)) {
+    return assertionConflict("Caller selected alternate Owner authority evidence.");
+  }
+
+  const arrays = ["repository_bindings", "semantic_profiles", "lineage_records", "provenance_records"];
+  for (const field of arrays) {
+    if (field in context && !Array.isArray(context[field])) {
+      return assertionConflict(`Caller ${field} must be an array when supplied.`);
+    }
+  }
+
+  const repositoryAssertions = (context.repository_bindings ?? []).filter(
+    (record) => record?.repository === locator.repository,
+  );
+  if (repositoryAssertions.length > 1) return assertionConflict("Caller supplied multiple authority bindings for the governed subject.");
+  if (repositoryAssertions.length === 1) {
+    const record = repositoryAssertions[0];
+    if (
+      record.authorized !== true
+      || record.authorization_ref !== binding.owner_authority.artifact_id
+      || record.authorization_claim_profile !== "AAA_OWNER_DECISION_ACCEPTED_EXACT_TARGET_v0.1"
+      || !identityAndTreeMatch(record.authorization_evidence, binding.owner_authority)
+      || record.authorization_evidence?.artifact_id !== binding.owner_authority.artifact_id
+      || ("repository_host" in record && record.repository_host !== binding.canonical_host)
+      || ("allowed_remote_urls" in record
+        && (!Array.isArray(record.allowed_remote_urls)
+          || record.allowed_remote_urls.length !== 1
+          || record.allowed_remote_urls[0] !== binding.canonical_remote))
+    ) {
+      return assertionConflict("Caller repository binding conflicts with governed authority or canonical remote.");
+    }
+  }
+
+  const semanticAssertions = (context.semantic_profiles ?? []).filter(
+    (record) => identityMatches(record?.applies_to, locator),
+  );
+  if (semanticAssertions.length > 1) return assertionConflict("Caller supplied multiple semantic authority assertions.");
+  if (semanticAssertions.length === 1) {
+    const record = semanticAssertions[0];
+    if (
+      record.profile_id !== binding.semantic_profile.profile_id
+      || record.digest_algorithm !== binding.semantic_profile.digest_algorithm
+      || record.canonicalization !== binding.semantic_profile.canonicalization
+      || record.selection?.type !== binding.semantic_profile.selection_type
+      || record.selection?.field !== binding.semantic_profile.selection_field
+      || record.authorization_ref !== binding.owner_authority.artifact_id
+      || !identityAndTreeMatch(record.authorization_evidence, binding.owner_authority)
+    ) {
+      return assertionConflict("Caller semantic or authority assertion conflicts with the governed binding.");
+    }
+  }
+
+  const lineageAssertions = (context.lineage_records ?? []).filter(
+    (record) => record?.lineage_ref === locator.lineage_ref,
+  );
+  if (lineageAssertions.length > 1) return assertionConflict("Caller supplied multiple relationship assertions.");
+  if (lineageAssertions.length === 1) {
+    const record = lineageAssertions[0];
+    if (
+      !identityMatches(record.subject, binding.subject)
+      || record.proof_profile !== SUBJECT_DECLARED_PREDECESSOR_PROFILE
+      || record.relationship_type !== binding.relationship
+      || !identityAndTreeMatch(record.referenced_artifact, binding.predecessor)
+      || record.referenced_artifact?.artifact_id !== binding.predecessor.artifact_id
+      || record.authorization_ref !== binding.owner_authority.artifact_id
+      || !identityAndTreeMatch(record.authorization_evidence, binding.owner_authority)
+    ) {
+      return assertionConflict("Caller relationship assertion conflicts with the governed binding.");
+    }
+  }
+
+  const provenanceAssertions = (context.provenance_records ?? []).filter(
+    (record) => record?.lineage_ref === locator.lineage_ref || identityMatches(record?.subject, locator),
+  );
+  if (provenanceAssertions.length > 1) return assertionConflict("Caller supplied multiple provenance assertions.");
+  if (provenanceAssertions.length === 1) {
+    const record = provenanceAssertions[0];
+    if (
+      !identityMatches(record.subject, binding.subject)
+      || record.relationship_type !== binding.relationship
+      || record.evidence_profile !== ACCEPTED_TARGET_PROVENANCE_PROFILE
+      || record.authorization_ref !== binding.owner_authority.artifact_id
+      || !identityAndTreeMatch(record.evidence, binding.owner_authority)
+      || record.evidence?.artifact_id !== binding.owner_authority.artifact_id
+    ) {
+      return assertionConflict("Caller provenance assertion conflicts with the governed binding.");
+    }
+  }
+  return { ok: true, asserted: Object.keys(context).length > 0 };
+}
+
+function verifyGovernedOwnerAuthority(binding, repositoryPath) {
+  const evidence = verifyExactIdentityRecord(binding.owner_authority, repositoryPath);
+  if (!evidence.ok) {
     return {
       ok: false,
-      proof_state: verified.reason === "PARTIAL_IDENTITY_RECORD" ? "PARTIAL" : "NOT_PROVEN",
-      message: `${proofField} authorization evidence exact identity was not proven.`,
+      proof_state: evidence.reason === "IDENTITY_MISMATCH" ? "CONFLICT" : "NOT_PROVEN",
+      reason: "GOVERNED_OWNER_AUTHORITY_NOT_PROVEN",
     };
   }
-  const remoteReachability = runGit(repositoryPath, [
-    "for-each-ref",
-    "--format=%(refname)",
-    `--contains=${evidence.exact_commit}`,
-    "refs/remotes/",
-  ]);
-  if (!remoteReachability.ok || remoteReachability.stdout.toString("utf8").trim().length === 0) {
-    return { ok: false, proof_state: "NOT_PROVEN", message: `${proofField} authorization evidence remote reachability was not proven.` };
-  }
-  let authorizationArtifact;
+  let artifact;
   try {
-    authorizationArtifact = JSON.parse(verified.blob.toString("utf8"));
+    artifact = JSON.parse(evidence.blob.toString("utf8"));
   } catch {
-    return { ok: false, proof_state: "CONFLICT", message: `${proofField} authorization evidence is not valid JSON.` };
+    return { ok: false, proof_state: "CONFLICT", reason: "GOVERNED_OWNER_AUTHORITY_INVALID" };
   }
-  const accepted = authorizationArtifact.accepted_exact_s0_target;
+  const accepted = artifact.accepted_exact_s0_target;
   const acceptedIdentity = accepted && {
     repository: accepted.repository,
     exact_commit: accepted.commit,
+    exact_tree: accepted.tree,
     exact_path: accepted.path,
     git_blob: accepted.git_blob,
     sha256: accepted.sha256,
     byte_size: accepted.byte_size,
   };
+  const canonicalScope = Buffer.from(JSON.stringify(stableValue(artifact.approved_semantic_scope)), "utf8");
+  const scopeDigest = createHash("sha256").update(canonicalScope).digest("hex");
   if (
-    authorizationArtifact.artifact_id !== authorizationRef
-    || evidence.artifact_id !== authorizationRef
-    || authorizationArtifact.artifact_kind !== "OWNER_DECISION_RECEIPT_AUTHORITY_ARTIFACT"
-    || authorizationArtifact.authority_principal !== "HUMAN PROJECT OWNER"
-    || authorizationArtifact.receipt_role !== "AUTHORITY_EVIDENCE_NOT_SECOND_SEMANTIC_SOT"
-    || authorizationArtifact.approved_semantic_scope?.s0_result_accepted !== true
-    || authorizationArtifact.approved_semantic_scope?.apply_validated_s0_capability !== true
-    || !identityMatches(acceptedIdentity, locator)
+    artifact.artifact_id !== binding.owner_authority.artifact_id
+    || artifact.artifact_kind !== "OWNER_DECISION_RECEIPT_AUTHORITY_ARTIFACT"
+    || artifact.authority_principal !== binding.authority_principal
+    || artifact.receipt_role !== "AUTHORITY_EVIDENCE_NOT_SECOND_SEMANTIC_SOT"
+    || !jsonEquals(artifact.approved_semantic_scope, binding.approved_scope)
+    || scopeDigest !== binding.approved_scope_digest
+    || artifact.semantic_content_digest !== binding.approved_scope_digest
+    || artifact.semantic_canonical_input_byte_size !== canonicalScope.length
+    || !identityAndTreeMatch(acceptedIdentity, binding.subject)
+    || accepted.artifact_id !== binding.subject.artifact_id
+    || accepted.semantic_content_digest !== binding.subject.semantic_content_digest_if_applicable
   ) {
-    return { ok: false, proof_state: "CONFLICT", message: `${proofField} authorization evidence does not accept the exact subject identity.` };
-  }
-  return { ok: true };
-}
-
-function verifyRepositoryBinding(locator, context, repositoryPath) {
-  const bindings = Array.isArray(context?.repository_bindings) ? context.repository_bindings : [];
-  const selected = requireExactlyOne(bindings.filter((binding) => binding?.repository === locator.repository));
-  if (!selected.ok) {
-    return { ok: false, proof_state: selected.proof_state, reason: "REPOSITORY_IDENTITY_NOT_PROVEN" };
-  }
-  const binding = selected.record;
-  if (
-    binding.authorized !== true
-    || typeof binding.authorization_ref !== "string"
-    || typeof binding.remote_name !== "string"
-    || binding.repository_host !== "github.com"
-    || !Array.isArray(binding.allowed_remote_urls)
-    || binding.require_commit_reachable_from_remote_tracking_ref !== true
-  ) {
-    return { ok: false, proof_state: "PARTIAL", reason: "REPOSITORY_IDENTITY_NOT_PROVEN" };
-  }
-  const authorization = verifyAuthorizationEvidence(
-    locator,
-    binding.authorization_evidence,
-    repositoryPath,
-    "repository",
-    binding.authorization_claim_profile,
-    binding.authorization_ref,
-  );
-  if (!authorization.ok) {
-    return { ok: false, proof_state: authorization.proof_state, reason: "REPOSITORY_IDENTITY_NOT_PROVEN", message: authorization.message };
-  }
-  const remoteRead = runGit(repositoryPath, ["remote", "get-url", binding.remote_name]);
-  if (!remoteRead.ok) {
-    return { ok: false, proof_state: "NOT_PROVEN", reason: "REPOSITORY_IDENTITY_NOT_PROVEN", message: remoteRead.message };
-  }
-  const observedRemote = remoteRead.stdout.toString("utf8").trim();
-  const normalizedRepository = normalizeRemoteRepository(observedRemote);
-  if (
-    !binding.allowed_remote_urls.includes(observedRemote)
-    || normalizedRepository?.host !== binding.repository_host
-    || normalizedRepository?.repository !== locator.repository
-  ) {
-    return {
-      ok: false,
-      proof_state: "CONFLICT",
-      reason: "REPOSITORY_IDENTITY_CONFLICT",
-      message: `Observed remote does not bind to authorized repository ${locator.repository}.`,
-    };
-  }
-  const remoteNamespace = `refs/remotes/${binding.remote_name}/`;
-  const reachability = runGit(repositoryPath, [
-    "for-each-ref",
-    "--format=%(refname)",
-    `--contains=${locator.exact_commit}`,
-    remoteNamespace,
-  ]);
-  if (!reachability.ok || reachability.stdout.toString("utf8").trim().length === 0) {
-    return {
-      ok: false,
-      proof_state: "NOT_PROVEN",
-      reason: "REPOSITORY_COMMIT_REACHABILITY_NOT_PROVEN",
-      message: `Exact commit is not reachable from ${remoteNamespace}.`,
-    };
+    return { ok: false, proof_state: "CONFLICT", reason: "GOVERNED_OWNER_AUTHORITY_CONFLICT" };
   }
   return {
     ok: true,
-    state: "REPOSITORY_VERIFIED",
-    remote_name: binding.remote_name,
-    observed_remote: observedRemote,
-    remote_tracking_ref_evidence: reachability.stdout.toString("utf8").trim().split(/\r?\n/),
-    authorization_ref: binding.authorization_ref,
+    state: "OWNER_AUTHORIZED",
+    authority_artifact_id: binding.owner_authority.artifact_id,
+    authority_principal: binding.authority_principal,
+    approved_scope_digest: scopeDigest,
   };
 }
 
-function verifySemanticDigest(locator, context, repositoryPath, blobBytes) {
-  if (locator.semantic_content_digest_if_applicable === null) {
-    return { ok: true, state: "NOT_APPLICABLE", profile_id: null };
-  }
-  const profiles = Array.isArray(context?.semantic_profiles) ? context.semantic_profiles : [];
-  const selected = requireExactlyOne(profiles.filter((profile) => identityMatches(profile?.applies_to, locator)));
-  if (!selected.ok) {
-    return { ok: false, proof_state: selected.proof_state, reason: "SEMANTIC_PROFILE_NOT_PROVEN" };
-  }
-  const profile = selected.record;
-  const implementedProfile = ARTIFACT_SPECIFIC_SEMANTIC_PROFILES[profile?.profile_id];
-  if (
-    !implementedProfile
-    || profile.authorized !== true
-    || typeof profile.authorization_ref !== "string"
-    || typeof profile.profile_id !== "string"
-    || profile.digest_algorithm !== "SHA256"
-    || profile.canonicalization !== CANONICAL_JSON_PROFILE
-    || profile.selection?.type !== "TOP_LEVEL_VALUE"
-    || typeof profile.selection?.field !== "string"
-    || profile.digest_algorithm !== implementedProfile.digest_algorithm
-    || profile.canonicalization !== implementedProfile.canonicalization
-    || profile.selection.type !== implementedProfile.selection_type
-    || profile.selection.field !== implementedProfile.selection_field
-  ) {
-    return { ok: false, proof_state: "PARTIAL", reason: "SEMANTIC_PROFILE_NOT_PROVEN" };
-  }
-  const authorization = verifyAuthorizationEvidence(
-    locator,
-    profile.authorization_evidence,
-    repositoryPath,
-    "semantic profile",
-    profile.authorization_claim_profile,
-    profile.authorization_ref,
-  );
-  if (!authorization.ok) {
-    return { ok: false, proof_state: authorization.proof_state, reason: "SEMANTIC_PROFILE_NOT_PROVEN", message: authorization.message };
-  }
+function verifyGovernedSemanticDigest(locator, binding, subjectBlob) {
   let artifact;
   try {
-    artifact = JSON.parse(blobBytes.toString("utf8"));
+    artifact = JSON.parse(subjectBlob.toString("utf8"));
   } catch {
     return { ok: false, proof_state: "CONFLICT", reason: "SEMANTIC_PROFILE_INPUT_INVALID" };
   }
-  if (artifact.semantic_digest_profile !== profile.profile_id || !(profile.selection.field in artifact)) {
+  const profile = binding.semantic_profile;
+  if (artifact.semantic_digest_profile !== profile.profile_id || !(profile.selection_field in artifact)) {
     return { ok: false, proof_state: "CONFLICT", reason: "SEMANTIC_PROFILE_ARTIFACT_BINDING_CONFLICT" };
   }
-  const canonicalInput = Buffer.from(JSON.stringify(stableValue(artifact[profile.selection.field])), "utf8");
+  const canonicalInput = Buffer.from(JSON.stringify(stableValue(artifact[profile.selection_field])), "utf8");
   const observedDigest = createHash("sha256").update(canonicalInput).digest("hex");
   if (observedDigest !== locator.semantic_content_digest_if_applicable.toLowerCase()) {
-    return {
-      ok: false,
-      proof_state: "CONFLICT",
-      reason: "SEMANTIC_DIGEST_MISMATCH",
-      observed_semantic_content_digest: observedDigest,
-    };
+    return { ok: false, proof_state: "CONFLICT", reason: "SEMANTIC_DIGEST_MISMATCH", observed_digest: observedDigest };
   }
   return {
     ok: true,
@@ -469,298 +589,355 @@ function verifySemanticDigest(locator, context, repositoryPath, blobBytes) {
     profile_id: profile.profile_id,
     canonical_input_byte_size: canonicalInput.length,
     semantic_content_digest: observedDigest,
-    authorization_ref: profile.authorization_ref,
   };
 }
 
-function verifyLineage(locator, context, repositoryPath, subjectBlob) {
-  const records = Array.isArray(context?.lineage_records) ? context.lineage_records : [];
-  const selected = requireExactlyOne(records.filter((record) => record?.lineage_ref === locator.lineage_ref));
-  if (!selected.ok) {
-    return { ok: false, proof_state: selected.proof_state, reason: "LINEAGE_NOT_VERIFIED" };
-  }
-  const record = selected.record;
-  if (
-    !identityMatches(record.subject, locator)
-    || record.proof_profile !== SUBJECT_DECLARED_PREDECESSOR_PROFILE
-    || record.relationship_type !== EXACT_PREDECESSOR_RELATIONSHIP
-  ) {
-    return { ok: false, proof_state: "CONFLICT", reason: "LINEAGE_NOT_VERIFIED" };
-  }
-  if (typeof record.authorization_ref !== "string" || !record.referenced_artifact) {
-    return { ok: false, proof_state: "PARTIAL", reason: "LINEAGE_NOT_VERIFIED" };
-  }
-  if (record.referenced_artifact.repository !== locator.repository) {
-    return { ok: false, proof_state: "CONFLICT", reason: "LINEAGE_NOT_VERIFIED" };
-  }
-  let subjectArtifact;
+function verifyGovernedLineage(locator, binding, repositoryPath, subjectBlob) {
+  let artifact;
   try {
-    subjectArtifact = JSON.parse(subjectBlob.toString("utf8"));
+    artifact = JSON.parse(subjectBlob.toString("utf8"));
   } catch {
     return { ok: false, proof_state: "CONFLICT", reason: "LINEAGE_SUBJECT_ARTIFACT_INVALID" };
   }
-  const declaredPredecessor = declaredPredecessorIdentity(subjectArtifact, locator.repository);
+  const declared = declaredPredecessorIdentity(artifact, locator.repository);
   if (
-    subjectArtifact.work_item_id !== locator.lineage_ref
-    || !declaredPredecessor
-    || typeof declaredPredecessor.artifact_id !== "string"
-    || typeof declaredPredecessor.version !== "string"
-    || subjectArtifact.lineage?.successor_of_version !== declaredPredecessor.version
-    || !identityMatches(declaredPredecessor, record.referenced_artifact)
-    || declaredPredecessor.artifact_id !== record.referenced_artifact.artifact_id
-    || declaredPredecessor.version !== record.referenced_artifact.version
+    artifact.artifact_id !== binding.subject.artifact_id
+    || artifact.version !== binding.subject.version
+    || artifact.work_item_id !== binding.lineage_ref
+    || artifact.lineage?.successor_of_version !== binding.predecessor.version
+    || !declared
+    || declared.artifact_id !== binding.predecessor.artifact_id
+    || declared.version !== binding.predecessor.version
+    || !identityAndTreeMatch(declared, binding.predecessor)
   ) {
-    return {
-      ok: false,
-      proof_state: "CONFLICT",
-      reason: "LINEAGE_NOT_VERIFIED",
-      detail: "DECLARED_EXACT_PREDECESSOR_RELATIONSHIP_MISMATCH",
-    };
+    return { ok: false, proof_state: "CONFLICT", reason: "LINEAGE_NOT_VERIFIED" };
   }
-  const referencedArtifact = verifyExactIdentityRecord(record.referenced_artifact, repositoryPath);
-  if (!referencedArtifact.ok) {
-    return {
-      ok: false,
-      proof_state: referencedArtifact.reason === "PARTIAL_IDENTITY_RECORD" ? "PARTIAL" : "NOT_PROVEN",
-      reason: "LINEAGE_REFERENCED_ARTIFACT_NOT_PROVEN",
-    };
+  const predecessor = verifyExactIdentityRecord(binding.predecessor, repositoryPath);
+  if (!predecessor.ok) {
+    return { ok: false, proof_state: "NOT_PROVEN", reason: "LINEAGE_REFERENCED_ARTIFACT_NOT_PROVEN" };
   }
-  let referencedArtifactContent;
+  let predecessorArtifact;
   try {
-    referencedArtifactContent = JSON.parse(referencedArtifact.blob.toString("utf8"));
+    predecessorArtifact = JSON.parse(predecessor.blob.toString("utf8"));
   } catch {
     return { ok: false, proof_state: "CONFLICT", reason: "LINEAGE_REFERENCED_ARTIFACT_INVALID" };
   }
   if (
-    referencedArtifactContent.artifact_id !== declaredPredecessor.artifact_id
-    || referencedArtifactContent.version !== declaredPredecessor.version
-    || referencedArtifactContent.work_item_id !== locator.lineage_ref
+    predecessorArtifact.artifact_id !== binding.predecessor.artifact_id
+    || predecessorArtifact.version !== binding.predecessor.version
+    || predecessorArtifact.work_item_id !== binding.lineage_ref
   ) {
     return { ok: false, proof_state: "CONFLICT", reason: "LINEAGE_NOT_VERIFIED" };
-  }
-  const authorization = verifyAuthorizationEvidence(
-    locator,
-    record.authorization_evidence,
-    repositoryPath,
-    "lineage",
-    record.authorization_claim_profile,
-    record.authorization_ref,
-  );
-  if (!authorization.ok) {
-    return { ok: false, proof_state: authorization.proof_state, reason: "LINEAGE_AUTHORIZATION_NOT_PROVEN", message: authorization.message };
   }
   return {
     ok: true,
     state: "LINEAGE_VERIFIED",
-    proof_profile: record.proof_profile,
-    lineage_ref: locator.lineage_ref,
-    relationship_type: record.relationship_type,
-    referenced_artifact_id: declaredPredecessor.artifact_id,
-    referenced_artifact_version: declaredPredecessor.version,
-    referenced_artifact_identity: record.referenced_artifact,
-    authorization_ref: record.authorization_ref,
-    authorization_evidence_identity: record.authorization_evidence,
+    relationship: binding.relationship,
+    referenced_artifact_id: binding.predecessor.artifact_id,
+    referenced_artifact_version: binding.predecessor.version,
   };
 }
 
-function verifyProvenance(locator, context, repositoryPath, verifiedLineage) {
-  const records = Array.isArray(context?.provenance_records) ? context.provenance_records : [];
-  const selected = requireExactlyOne(records.filter((record) => (
-    record?.lineage_ref === locator.lineage_ref && identityMatches(record?.subject, locator)
-  )));
-  if (!selected.ok) {
-    return { ok: false, proof_state: selected.proof_state, reason: "PROVENANCE_NOT_PROVEN" };
-  }
-  const record = selected.record;
-  if (
-    record.evidence_profile !== ACCEPTED_TARGET_PROVENANCE_PROFILE
-    || record.relationship_type !== verifiedLineage.relationship_type
-    || typeof record.authorization_ref !== "string"
-    || !record.evidence
-  ) {
-    return { ok: false, proof_state: "PARTIAL", reason: "PROVENANCE_NOT_PROVEN" };
-  }
-  if (
-    record.evidence.repository !== locator.repository
-    || verifiedLineage.authorization_ref !== record.authorization_ref
-    || !identityMatches(record.evidence, verifiedLineage.authorization_evidence_identity)
-    || record.evidence.artifact_id !== verifiedLineage.authorization_evidence_identity?.artifact_id
-  ) {
-    return { ok: false, proof_state: "CONFLICT", reason: "PROVENANCE_NOT_PROVEN" };
-  }
-  const evidence = verifyAuthorizationEvidence(
-    locator,
-    record.evidence,
-    repositoryPath,
-    "provenance",
-    record.authorization_claim_profile,
-    record.authorization_ref,
-  );
-  if (!evidence.ok) {
-    return { ok: false, proof_state: evidence.proof_state, reason: "PROVENANCE_EVIDENCE_NOT_PROVEN", message: evidence.message };
-  }
+function liveRemoteFailure(state, reason, message, extra = {}) {
   return {
-    ok: true,
-    state: "PROVENANCE_VERIFIED",
-    evidence_profile: record.evidence_profile,
-    relationship_type: record.relationship_type,
-    evidence_artifact_id: record.evidence.artifact_id ?? null,
-    authorization_ref: record.authorization_ref,
+    ok: false,
+    state,
+    reason,
+    message: message || undefined,
+    fresh_network_operation_attempted: true,
+    isolated_temporary_proof_storage: true,
+    governed_repository_mutated_for_proof: false,
+    ...extra,
   };
 }
+
+function selectProofParent(governedRepositoryPath) {
+  const governedRoot = governedRepositoryPath ? resolve(governedRepositoryPath) : null;
+  const candidates = [process.env.TMPDIR, tmpdir(), governedRoot ? dirname(governedRoot) : null]
+    .filter((candidate, index, values) => candidate && values.indexOf(candidate) === index);
+  for (const candidate of candidates) {
+    const resolvedCandidate = resolve(candidate);
+    if (governedRoot && (resolvedCandidate === governedRoot || resolvedCandidate.startsWith(`${governedRoot}${sep}`))) {
+      continue;
+    }
+    try {
+      if (!existsSync(resolvedCandidate)) continue;
+      accessSync(resolvedCandidate, fsConstants.W_OK);
+      return resolvedCandidate;
+    } catch {
+      // Try the next isolated parent without weakening proof requirements.
+    }
+  }
+  throw new Error("No writable isolated proof-storage parent is available outside the governed repository.");
+}
+
+function verifyLiveCanonicalRemoteProof(locator, binding, governedRepositoryPath) {
+  let proofPath;
+  try {
+    proofPath = mkdtempSync(join(selectProofParent(governedRepositoryPath), "aaa-pl-live-canonical-remote-"));
+    const init = runGit(proofPath, ["init", "--bare"]);
+    if (!init.ok) {
+      return liveRemoteFailure("LIVE_CANONICAL_REMOTE_ERROR", "ISOLATED_PROOF_STORAGE_FAILED", init.message);
+    }
+    const fetch = runGit(proofPath, [
+      "-c",
+      "protocol.version=2",
+      "fetch",
+      "--no-tags",
+      "--depth=1",
+      binding.canonical_remote,
+      binding.subject.exact_commit,
+    ]);
+    if (!fetch.ok) {
+      if (/couldn't find remote ref|not our ref|unadvertised object|no such ref/i.test(fetch.message ?? "")) {
+        return liveRemoteFailure(
+          "LIVE_CANONICAL_REMOTE_NOT_PROVEN",
+          "EXACT_COMMIT_NOT_INDEPENDENTLY_PROVEN",
+          fetch.message,
+        );
+      }
+      return liveRemoteFailure(
+        "LIVE_CANONICAL_REMOTE_ERROR",
+        "REMOTE_NETWORK_FAILURE",
+        fetch.message,
+        { transport_failure_state: fetch.state },
+      );
+    }
+
+    const fetchedCommit = runGit(proofPath, ["rev-parse", "--verify", "FETCH_HEAD^{commit}"]);
+    if (!fetchedCommit.ok) {
+      return liveRemoteFailure("LIVE_CANONICAL_REMOTE_NOT_PROVEN", "EXACT_COMMIT_NOT_INDEPENDENTLY_PROVEN", fetchedCommit.message);
+    }
+    const observedCommit = fetchedCommit.stdout.toString("ascii").trim().toLowerCase();
+    if (observedCommit !== binding.subject.exact_commit.toLowerCase()) {
+      return liveRemoteFailure("LIVE_CANONICAL_REMOTE_CONFLICT", "REMOTE_COMMIT_MISMATCH");
+    }
+
+    const treeRead = runGit(proofPath, ["rev-parse", "--verify", `${observedCommit}^{tree}`]);
+    if (!treeRead.ok) return liveRemoteFailure("LIVE_CANONICAL_REMOTE_CONFLICT", "REMOTE_COMMIT_TREE_MISMATCH", treeRead.message);
+    const observedTree = treeRead.stdout.toString("ascii").trim().toLowerCase();
+    if (observedTree !== binding.subject.exact_tree.toLowerCase()) {
+      return liveRemoteFailure(
+        "LIVE_CANONICAL_REMOTE_CONFLICT",
+        "REMOTE_COMMIT_TREE_MISMATCH",
+        undefined,
+        { observed_tree: observedTree },
+      );
+    }
+
+    const pathRead = runGit(proofPath, ["rev-parse", "--verify", `${observedCommit}:${binding.subject.exact_path}`]);
+    if (!pathRead.ok) return liveRemoteFailure("LIVE_CANONICAL_REMOTE_CONFLICT", "REMOTE_PATH_BLOB_CONFLICT", pathRead.message);
+    const observedBlob = pathRead.stdout.toString("ascii").trim().toLowerCase();
+    if (observedBlob !== locator.git_blob.toLowerCase() || observedBlob !== binding.subject.git_blob.toLowerCase()) {
+      return liveRemoteFailure(
+        "LIVE_CANONICAL_REMOTE_CONFLICT",
+        "REMOTE_PATH_BLOB_CONFLICT",
+        undefined,
+        { observed_blob: observedBlob },
+      );
+    }
+
+    const blobRead = runGit(proofPath, ["cat-file", "blob", observedBlob]);
+    if (!blobRead.ok) return liveRemoteFailure("LIVE_CANONICAL_REMOTE_CONFLICT", "REMOTE_PATH_BLOB_CONFLICT", blobRead.message);
+    const observedSha256 = createHash("sha256").update(blobRead.stdout).digest("hex");
+    const observedByteSize = blobRead.stdout.length;
+    if (observedSha256 !== locator.sha256.toLowerCase() || observedByteSize !== locator.byte_size) {
+      return liveRemoteFailure(
+        "LIVE_CANONICAL_REMOTE_CONFLICT",
+        "REMOTE_PATH_CONTENT_IDENTITY_MISMATCH",
+        undefined,
+        { observed_sha256: observedSha256, observed_byte_size: observedByteSize },
+      );
+    }
+    return {
+      ok: true,
+      state: "LIVE_CANONICAL_REMOTE_VERIFIED",
+      canonical_remote: binding.canonical_remote,
+      exact_commit: observedCommit,
+      exact_tree: observedTree,
+      exact_path: binding.subject.exact_path,
+      git_blob: observedBlob,
+      sha256: observedSha256,
+      byte_size: observedByteSize,
+      fresh_network_operation_attempted: true,
+      fresh_network_readback_succeeded: true,
+      isolated_temporary_proof_storage: true,
+      governed_repository_mutated_for_proof: false,
+    };
+  } catch (error) {
+    return liveRemoteFailure(
+      "LIVE_CANONICAL_REMOTE_ERROR",
+      "REMOTE_NETWORK_FAILURE",
+      error instanceof Error ? error.message : String(error),
+    );
+  } finally {
+    if (proofPath) rmSync(proofPath, { recursive: true, force: true });
+  }
+}
+
+function allRequiredAxesVerified(axes) {
+  return axes.artifact_identity_state === "ARTIFACT_IDENTITY_VERIFIED"
+    && axes.owner_authority_state === "OWNER_AUTHORIZED"
+    && axes.live_canonical_remote_state === "LIVE_CANONICAL_REMOTE_VERIFIED"
+    && ["SEMANTIC_DIGEST_VERIFIED", "NOT_APPLICABLE"].includes(axes.semantic_content_digest_state)
+    && axes.lineage_state === "LINEAGE_VERIFIED"
+    && axes.provenance_state === "PROVENANCE_VERIFIED";
+}
+
+export const __testing = Object.freeze({
+  allRequiredAxesVerified,
+  selectGovernedBinding,
+  verifyCallerCompatibility,
+  verifyLiveCanonicalRemoteProof,
+});
 
 export function verifyLocator(locator, options = {}) {
   const schemaFailure = validateLocatorRecord(locator);
-  if (schemaFailure) return schemaFailure;
-
-  const repositoryPath = resolve(options.repositoryPath ?? process.cwd());
-  const verificationContext = options.verificationContext;
-  if (!verificationContext || typeof verificationContext !== "object" || Array.isArray(verificationContext)) {
-    return proofFailure(
-      locator,
-      "VERIFICATION_CONTEXT_REQUIRED",
-      {
-        repository_identity_state: "NOT_PROVEN",
-        semantic_content_digest_state: "NOT_PROVEN",
-        lineage_state: "NOT_PROVEN",
-        provenance_state: "NOT_PROVEN",
-      },
-      "VERIFIED_EXACT requires governed repository, semantic-profile, lineage, and provenance evidence.",
-    );
+  if (schemaFailure) {
+    return {
+      ...schemaFailure,
+      artifact_identity_state: "NOT_PROVEN",
+      owner_authority_state: "NOT_PROVEN",
+      live_canonical_remote_state: "LIVE_CANONICAL_REMOTE_NOT_PROVEN",
+      semantic_content_digest_state: "NOT_PROVEN",
+      lineage_state: "NOT_PROVEN",
+      provenance_state: "NOT_PROVEN",
+    };
   }
 
+  const repositoryPath = resolve(options.repositoryPath ?? process.cwd());
+  const axes = {
+    artifact_identity_state: "NOT_PROVEN",
+    owner_authority_state: "NOT_PROVEN",
+    live_canonical_remote_state: "LIVE_CANONICAL_REMOTE_NOT_PROVEN",
+    semantic_content_digest_state: "NOT_PROVEN",
+    lineage_state: "NOT_PROVEN",
+    provenance_state: "NOT_PROVEN",
+  };
+  const fail = (reason, state = "RETRIEVAL_FAILED", extra = {}) => ({
+    state,
+    verified: false,
+    reason,
+    repository: locator.repository,
+    exact_commit: locator.exact_commit,
+    exact_path: locator.exact_path,
+    ...axes,
+    ...extra,
+  });
+
   try {
+    const selected = selectGovernedBinding(locator);
+    if (!selected.ok) {
+      axes.owner_authority_state = selected.proof_state;
+      return fail(selected.reason);
+    }
+    const binding = selected.binding;
+
     const repositoryCheck = runGit(repositoryPath, ["rev-parse", "--is-inside-work-tree"]);
-    if (!repositoryCheck.ok) return failure(locator, repositoryCheck);
+    if (!repositoryCheck.ok) return fail(repositoryCheck.reason, repositoryCheck.state, { message: repositoryCheck.message });
 
-    const commitCheck = runGit(repositoryPath, ["cat-file", "-e", `${locator.exact_commit}^{commit}`]);
-    if (!commitCheck.ok) return failure(locator, commitCheck);
+    const artifactIdentity = verifyExactIdentityRecord(locator, repositoryPath);
+    if (!artifactIdentity.ok) {
+      axes.artifact_identity_state = artifactIdentity.reason === "IDENTITY_MISMATCH" ? "CONFLICT" : "NOT_PROVEN";
+      return fail(artifactIdentity.reason, artifactIdentity.state, {
+        message: artifactIdentity.message,
+        mismatch_fields: artifactIdentity.mismatch_fields,
+      });
+    }
+    axes.artifact_identity_state = "ARTIFACT_IDENTITY_VERIFIED";
 
-    const exactIdentity = verifyExactIdentityRecord(locator, repositoryPath);
-    if (!exactIdentity.ok) {
-      return failure(
-        locator,
-        exactIdentity,
-        {
-          mismatch_fields: exactIdentity.mismatch_fields,
-          repository_identity_state: "NOT_PROVEN",
-          semantic_content_digest_state: "NOT_PROVEN",
-          lineage_state: "NOT_PROVEN",
-          provenance_state: "NOT_PROVEN",
-        },
-      );
+    const compatibility = verifyCallerCompatibility(locator, options.verificationContext, binding);
+    if (!compatibility.ok) {
+      axes.owner_authority_state = compatibility.proof_state;
+      axes.lineage_state = compatibility.proof_state;
+      axes.provenance_state = compatibility.proof_state;
+      return fail(compatibility.reason, "RETRIEVAL_FAILED", { message: compatibility.message });
     }
 
-    const repositoryBinding = verifyRepositoryBinding(locator, verificationContext, repositoryPath);
-    if (!repositoryBinding.ok) {
-      return proofFailure(
-        locator,
-        repositoryBinding.reason,
-        {
-          repository_identity_state: repositoryBinding.proof_state,
-          semantic_content_digest_state: "NOT_PROVEN",
-          lineage_state: "NOT_PROVEN",
-          provenance_state: "NOT_PROVEN",
-        },
-        repositoryBinding.message,
-      );
+    const ownerAuthority = verifyGovernedOwnerAuthority(binding, repositoryPath);
+    if (!ownerAuthority.ok) {
+      axes.owner_authority_state = ownerAuthority.proof_state;
+      return fail(ownerAuthority.reason);
+    }
+    axes.owner_authority_state = ownerAuthority.state;
+
+    const semantic = verifyGovernedSemanticDigest(locator, binding, artifactIdentity.blob);
+    if (!semantic.ok) {
+      axes.semantic_content_digest_state = semantic.proof_state;
+      return fail(semantic.reason, "RETRIEVAL_FAILED", { observed_semantic_content_digest: semantic.observed_digest });
+    }
+    axes.semantic_content_digest_state = semantic.state;
+
+    const lineage = verifyGovernedLineage(locator, binding, repositoryPath, artifactIdentity.blob);
+    if (!lineage.ok) {
+      axes.lineage_state = lineage.proof_state;
+      return fail(lineage.reason);
+    }
+    axes.lineage_state = lineage.state;
+    axes.provenance_state = "PROVENANCE_VERIFIED";
+
+    const liveRemote = verifyLiveCanonicalRemoteProof(locator, binding, repositoryPath);
+    axes.live_canonical_remote_state = liveRemote.state;
+    if (!liveRemote.ok) {
+      return fail(liveRemote.reason, "RETRIEVAL_FAILED", {
+        message: liveRemote.message,
+        fresh_network_operation_attempted: liveRemote.fresh_network_operation_attempted,
+        isolated_temporary_proof_storage: liveRemote.isolated_temporary_proof_storage,
+        governed_repository_mutated_for_proof: liveRemote.governed_repository_mutated_for_proof,
+        remote_transport_failure_state: liveRemote.transport_failure_state,
+        artifact_invalid: false,
+      });
     }
 
-    const semanticVerification = verifySemanticDigest(locator, verificationContext, repositoryPath, exactIdentity.blob);
-    if (!semanticVerification.ok) {
-      return proofFailure(
-        locator,
-        semanticVerification.reason,
-        {
-          repository_identity_state: repositoryBinding.state,
-          semantic_content_digest_state: semanticVerification.proof_state,
-          lineage_state: "NOT_PROVEN",
-          provenance_state: "NOT_PROVEN",
-          observed_semantic_content_digest: semanticVerification.observed_semantic_content_digest,
-        },
-      );
+    if (!allRequiredAxesVerified(axes)) {
+      return fail("REQUIRED_STATE_AXIS_NOT_VERIFIED");
     }
-
-    const lineageVerification = verifyLineage(locator, verificationContext, repositoryPath, exactIdentity.blob);
-    if (!lineageVerification.ok) {
-      return proofFailure(
-        locator,
-        lineageVerification.reason,
-        {
-          repository_identity_state: repositoryBinding.state,
-          semantic_content_digest_state: semanticVerification.state,
-          lineage_state: lineageVerification.proof_state,
-          provenance_state: "NOT_PROVEN",
-        },
-        lineageVerification.message,
-      );
-    }
-
-    const provenanceVerification = verifyProvenance(locator, verificationContext, repositoryPath, lineageVerification);
-    if (!provenanceVerification.ok) {
-      return proofFailure(
-        locator,
-        provenanceVerification.reason,
-        {
-          repository_identity_state: repositoryBinding.state,
-          semantic_content_digest_state: semanticVerification.state,
-          lineage_state: lineageVerification.state,
-          provenance_state: provenanceVerification.proof_state,
-        },
-      );
-    }
-
     return {
       state: "VERIFIED_EXACT",
       verified: true,
       repository: locator.repository,
       exact_commit: locator.exact_commit.toLowerCase(),
+      exact_tree: binding.subject.exact_tree,
       exact_path: locator.exact_path,
-      git_blob: exactIdentity.observed_blob,
+      git_blob: artifactIdentity.observed_blob,
       sha256: locator.sha256.toLowerCase(),
       byte_size: locator.byte_size,
-      repository_identity_state: repositoryBinding.state,
-      repository_authorization_ref: repositoryBinding.authorization_ref,
-      repository_remote_tracking_ref_evidence: repositoryBinding.remote_tracking_ref_evidence,
-      semantic_content_digest_state: semanticVerification.state,
-      semantic_profile_id: semanticVerification.profile_id,
-      semantic_canonical_input_byte_size: semanticVerification.canonical_input_byte_size,
-      semantic_content_digest: semanticVerification.semantic_content_digest,
-      lineage_state: lineageVerification.state,
-      lineage_ref: lineageVerification.lineage_ref,
-      lineage_proof_profile: lineageVerification.proof_profile,
-      lineage_relationship_type: lineageVerification.relationship_type,
-      lineage_referenced_artifact_id: lineageVerification.referenced_artifact_id,
-      lineage_referenced_artifact_version: lineageVerification.referenced_artifact_version,
-      lineage_authorization_ref: lineageVerification.authorization_ref,
-      provenance_state: provenanceVerification.state,
-      provenance_evidence_profile: provenanceVerification.evidence_profile,
-      provenance_evidence_artifact_id: provenanceVerification.evidence_artifact_id,
-      provenance_authorization_ref: provenanceVerification.authorization_ref,
+      ...axes,
+      repository_identity_state: liveRemote.state,
+      repository_authorization_ref: ownerAuthority.authority_artifact_id,
+      authority_principal: ownerAuthority.authority_principal,
+      approved_scope_digest: ownerAuthority.approved_scope_digest,
+      semantic_profile_id: semantic.profile_id,
+      semantic_canonical_input_byte_size: semantic.canonical_input_byte_size,
+      semantic_content_digest: semantic.semantic_content_digest,
+      lineage_ref: binding.lineage_ref,
+      lineage_proof_profile: SUBJECT_DECLARED_PREDECESSOR_PROFILE,
+      lineage_relationship_type: lineage.relationship,
+      lineage_referenced_artifact_id: lineage.referenced_artifact_id,
+      lineage_referenced_artifact_version: lineage.referenced_artifact_version,
+      provenance_evidence_profile: ACCEPTED_TARGET_PROVENANCE_PROFILE,
+      provenance_evidence_artifact_id: ownerAuthority.authority_artifact_id,
+      fresh_network_operation_attempted: liveRemote.fresh_network_operation_attempted,
+      fresh_network_readback_succeeded: liveRemote.fresh_network_readback_succeeded,
+      isolated_temporary_proof_storage: liveRemote.isolated_temporary_proof_storage,
+      governed_repository_mutated_for_proof: liveRemote.governed_repository_mutated_for_proof,
       discovery_branch_used_for_identity: false,
+      caller_assertion_used_as_trust_root: false,
     };
   } catch (error) {
-    return failure(
-      locator,
-      {
-        state: "UNKNOWN",
-        reason: "UNCLASSIFIED_VERIFIER_EXCEPTION",
-        message: error instanceof Error ? error.message : String(error),
-      },
-      {
-        repository_identity_state: "UNKNOWN",
-        semantic_content_digest_state: "UNKNOWN",
-        lineage_state: "UNKNOWN",
-        provenance_state: "UNKNOWN",
-      },
-    );
+    axes.artifact_identity_state = axes.artifact_identity_state === "NOT_PROVEN" ? "UNKNOWN" : axes.artifact_identity_state;
+    axes.owner_authority_state = axes.owner_authority_state === "NOT_PROVEN" ? "UNKNOWN" : axes.owner_authority_state;
+    axes.live_canonical_remote_state = "LIVE_CANONICAL_REMOTE_ERROR";
+    return fail("UNCLASSIFIED_VERIFIER_EXCEPTION", "UNKNOWN", {
+      message: error instanceof Error ? error.message : String(error),
+    });
   }
 }
 
 function parseArguments(argv) {
   if (argv.length < 2 || argv[0] !== "verify") {
     throw new Error(
-      "Usage: persistent_locator.mjs verify <locator.json> --context <verification-context.json> [--repo <git-worktree>]",
+      "Usage: persistent_locator.mjs verify <locator.json> [--context <compatibility-assertions.json>] [--repo <git-worktree>]",
     );
   }
   const locatorPath = argv[1];
@@ -777,7 +954,6 @@ function parseArguments(argv) {
       throw new Error(`Unknown argument: ${argv[index]}`);
     }
   }
-  if (!contextPath) throw new Error("--context is required for repository, lineage, semantic, and provenance proof.");
   return { locatorPath, repositoryPath, contextPath };
 }
 
@@ -785,7 +961,7 @@ function main() {
   try {
     const { locatorPath, repositoryPath, contextPath } = parseArguments(process.argv.slice(2));
     const parsed = JSON.parse(readFileSync(resolve(locatorPath), "utf8"));
-    const verificationContext = JSON.parse(readFileSync(resolve(contextPath), "utf8"));
+    const verificationContext = contextPath ? JSON.parse(readFileSync(resolve(contextPath), "utf8")) : undefined;
     const locator = parsed.locator ?? parsed;
     const result = verifyLocator(locator, { repositoryPath, verificationContext });
     process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
