@@ -6,8 +6,9 @@
 - Branch: `research/asa-me-shadow-scene-p0-p1-20260821-v01`
 - Base commit: `5028fc536f2732996c98cbd1e9effa8725d584dc`
 - Base tree: `781e13f72ce94677e124dd44c9ad90b951e4c98c`
-- Freeze commit: `THIS_COMMIT`
-- Freeze tree: `THIS_COMMIT_TREE`
+- Freeze commit: `cfeebcded01dbb130052d59b47c0c610a2fec425`
+- Freeze tree: `5768fd89ee9b3e585d85dd42d6d5268d38d0c0c7`
+- Freeze verification: remote branch path fetch and exact Git blob checks `PASS`
 - Freeze time: commit-author/committer time recorded by GitHub
 - Execution environment: ChatGPT Work / Codex root orchestrator with separated scene-builder and independent QA workers
 
