@@ -6,7 +6,7 @@
   "product": "ASSET AGENT ASA",
   "state": "WORKING_CANDIDATE_NOT_ACTIVE_AUTHORITY",
   "semantic_sot": false,
-  "target_commit": "c430a48dc70ef6208801a1e4e5e9318d4955bf39",
+  "target_commit": "97b09a4c6d28b96c40f281ce761ddf48692787a9",
   "canonical_project_instructions": {
     "path": "control/bootstrap/project-instructions/v1.0/AAA_PROJECT_INSTRUCTIONS_CANONICAL_v1.0.md",
     "git_blob": "b95a64fb2a11202b5e1c3490db90e27ad25650f0",
