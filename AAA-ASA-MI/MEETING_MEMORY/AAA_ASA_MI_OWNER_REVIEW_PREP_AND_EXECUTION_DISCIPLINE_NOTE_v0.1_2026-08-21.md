@@ -188,3 +188,18 @@ Purpose: test high-value or unstable findings on independent evaluators/problems
 
 R6. Owner Decision — conditional
 Purpose: choose method repair, basis repair, second pilot, larger-cohort review, or reconsideration of a material assumption. No automatic 48-position authorization.
+
+## 9. Owner pre-result note — 2026-08-21 14:59 KST
+
+OWNER_EXPLICIT_STATEMENT:
+- The review criteria currently feel somewhat ambiguous.
+- The current execution is taking noticeably longer than the earlier roughly five-minute class of runs.
+
+INTERPRETATION_RESTRICTION:
+- Do not infer that longer runtime implies higher quality.
+- Do not infer that ambiguity means the method is invalid.
+- Treat criterion ambiguity itself as an item to examine in method review and post-result calibration analysis.
+
+REVIEW CONSEQUENCE:
+- Owner pre-review should not force artificial precision where the research target is not yet mature enough to support it.
+- Prefer a small number of hard methodological minimums plus explicit UNCERTAIN/OPEN states over pretending to have sharp scientific thresholds prematurely.
