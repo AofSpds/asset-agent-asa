@@ -1,0 +1,86 @@
+name: AAA PL C4 F01 ENGV Fresh Network Proof
+
+on:
+  pull_request:
+    branches:
+      - aaa-pl-c4-f01-f02-runtime-realization-v0.1
+    paths:
+      - .github/workflows/aaa-pl-c4-f01-engv-fresh-network-proof.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  fresh-network-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout exact implementation target
+        uses: actions/checkout@v4
+        with:
+          ref: 33ad394531202872e579bd1b4a70295ee68c2f60
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Configure ephemeral private Git authentication for child git processes
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set +x
+          AUTH="$(printf 'x-access-token:%s' "$GITHUB_TOKEN" | base64 -w0)"
+          git config --global --add http.https://github.com/.extraheader "AUTHORIZATION: basic $AUTH"
+
+      - name: Verify exact target and syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "33ad394531202872e579bd1b4a70295ee68c2f60"
+          node --check tools/control/persistent_locator.mjs
+          node --check tools/control/tests/test_persistent_locator.mjs
+
+      - name: Execute full suite with mandatory fresh authenticated external proof
+        id: fresh_test
+        shell: bash
+        env:
+          AAA_RUN_FRESH_NETWORK_TESTS: '1'
+        run: |
+          set -euo pipefail
+          mkdir -p validation-evidence
+          node --test tools/control/tests/test_persistent_locator.mjs 2>&1 | tee validation-evidence/node-test.log
+
+      - name: Write non-normative execution evidence
+        if: ${{ success() }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > validation-evidence/fresh-network-proof.txt <<'EOF'
+          PROJECT=AAA
+          PRODUCT=ASSET AGENT ASA
+          EVIDENCE_CLASS=NON_NORMATIVE_EXECUTION_EVIDENCE
+          EXACT_TARGET=33ad394531202872e579bd1b4a70295ee68c2f60
+          AAA_RUN_FRESH_NETWORK_TESTS=1
+          FRESH_AUTHENTICATED_EXTERNAL_TEST=PASS
+          VALIDATION_CLAIM=NONE
+          EOF
+          printf 'RUN_ID=%s\nRUN_ATTEMPT=%s\n' "$GITHUB_RUN_ID" "$GITHUB_RUN_ATTEMPT" >> validation-evidence/fresh-network-proof.txt
+
+      - name: Upload execution evidence
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: aaa-pl-c4-f01-fresh-network-proof
+          path: validation-evidence/
+          if-no-files-found: warn
+
+      - name: Remove ephemeral Git credential configuration
+        if: ${{ always() }}
+        shell: bash
+        run: |
+          git config --global --unset-all http.https://github.com/.extraheader || true
