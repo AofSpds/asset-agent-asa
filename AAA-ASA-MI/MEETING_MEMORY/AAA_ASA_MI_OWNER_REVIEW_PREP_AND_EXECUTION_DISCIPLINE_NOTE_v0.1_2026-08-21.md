@@ -163,7 +163,7 @@ Current coarse estimate from screenshot only:
 | Step | Purpose | Expected effort | Status |
 |---|---|---:|---|
 | O1. Reconstruct protocol's pre-registered expectations | Prevent post-result goal shifting | 5 min | In progress |
-| O2. Record Owner's own pre-result expectations | Separate Owner intuition from protocol criteria | 10–15 min | Not started |
+| O2. Record Owner's own pre-result expectations | Separate Owner intuition from protocol criteria | 10–15 min | In progress |
 | O3. Record falsification / distrust conditions | Define what would weaken current assumptions or invalidate attractive results | 10 min | Not started |
 | O4. Freeze method-verdict rules | Predefine METHOD_REPAIR / SUPPORTED_WITH_LIMITATIONS / SUPPORTED_FOR_NEXT_STAGE | 10 min | Drafted conceptually, not yet Owner-reviewed |
 | O5. Result Intake Gate | Check execution integrity before reading exciting conclusions | ASA-prepared | Conceptually prepared |
@@ -203,3 +203,29 @@ INTERPRETATION_RESTRICTION:
 REVIEW CONSEQUENCE:
 - Owner pre-review should not force artificial precision where the research target is not yet mature enough to support it.
 - Prefer a small number of hard methodological minimums plus explicit UNCERTAIN/OPEN states over pretending to have sharp scientific thresholds prematurely.
+
+## 10. Owner pre-result expectation — 2026-08-21 15:06 KST
+
+OWNER_EXPLICIT_STATEMENT:
+- "일단 현재의 가설 세계관을 잘 반영한 다양한 모델과 현재의 가설 세계관을 잘 반영하지 못했지만 그래도 상당히 좋은 대안 세계관 모델이 나왔으면 해요"
+
+OWNER_INTENT_CAPTURED_WITHOUT_EXPANSION:
+1. The Owner hopes to see multiple genuinely diverse models that nevertheless represent the current working worldview well.
+2. The Owner also hopes to see substantially good alternative-worldview models even when they do not represent the current working worldview well.
+
+INTERPRETATION_RESTRICTIONS:
+- Do not treat similarity to the current worldview as a universal model-quality criterion.
+- Do not treat low similarity to the current worldview as a defect for an alternative-worldview candidate.
+- Do not infer that either family is expected to defeat the other.
+- Do not count wording/style variation as model diversity without structural or explanatory differences.
+- Do not infer that the current working worldview is true merely because multiple Track-A-like candidates converge on it.
+
+ASA_RESEARCH_INTERPRETATION_FOR_LATER_REVIEW_ONLY:
+- The expectation creates two distinct desirable surfaces:
+  A. CURRENT-WORLDVIEW FIDELITY WITH INTERNAL MODEL DIVERSITY.
+  B. ALTERNATIVE-WORLDVIEW QUALITY WITH LOW DEPENDENCE ON CURRENT-WORLDVIEW SIMILARITY.
+- Later review should therefore ask separately:
+  - Did the current-worldview-informed side produce structurally diverse implementations/explanations rather than one repeated attractor?
+  - Did the purpose/problem-first side produce any strong alternative explanatory structures that remain good on their own terms?
+  - Was either side rewarded merely for vocabulary similarity or familiarity?
+- This is an Owner expectation, not an acceptance threshold and not a frozen evaluation rule.
