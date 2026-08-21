@@ -1,0 +1,49 @@
+{
+  "artifact_id": "AAA-PROJECT-INSTRUCTIONS-CURRENT-CANDIDATE-v1.0",
+  "artifact_kind": "PROJECT_INSTRUCTIONS_GIT_BOOTSTRAP_POINTER_CANDIDATE",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "state": "WORKING_CANDIDATE_NOT_ACTIVE_AUTHORITY",
+  "semantic_sot": false,
+  "target_commit": "7a78f59d7a04447f68cc1bd80f7b78ef100446f8",
+  "canonical_project_instructions": {
+    "path": "control/bootstrap/project-instructions/v1.0/AAA_PROJECT_INSTRUCTIONS_CANONICAL_v1.0.md",
+    "git_blob": "b95a64fb2a11202b5e1c3490db90e27ad25650f0",
+    "byte_size": 9418
+  },
+  "project_instruction_stub": {
+    "path": "control/bootstrap/project-instructions/v1.0/AAA_PROJECT_INSTRUCTIONS_BOOTSTRAP_STUB_v1.0.md",
+    "git_blob": "a5571fd738413c4fc90bf498e1a167a99446b46b",
+    "purpose": "Minimal text intended to remain in ChatGPT Project Instructions while detailed AAA rules are resolved from Git."
+  },
+  "persona_memory_index": {
+    "path": "control/persona-memory/v1.0/AAA_PERSONA_MEMORY_INDEX_v1.0.json",
+    "git_blob": "2b0b4d42b941949ad7235a3e126f6b988e075194"
+  },
+  "persona_runtime_memo_template": {
+    "path": "control/persona-memory/v1.0/AAA_PERSONA_RUNTIME_INJECTION_MEMO_TEMPLATE_v1.0.md"
+  },
+  "bootstrap_sequence": [
+    "READ_THIS_POINTER",
+    "READ_CANONICAL_PROJECT_INSTRUCTIONS",
+    "RESOLVE_ACTIVE_PERSISTENT_LOCATOR",
+    "RESOLVE_ACTIVE_ORGANIZATION",
+    "RESOLVE_ACTIVE_SHARED_CONTRACT",
+    "RESOLVE_PERSONA_AUTHORITY_AND_MANIFEST",
+    "RESOLVE_PERSONA_MEMORY_INDEX",
+    "READ_CURRENT_PERSONA_MEMORY",
+    "COMPARE_PERSONA_ROLE_PAIR_AND_AUTHORITY_SURFACES",
+    "IF_CONSISTENT_START_MATERIAL_WORK_ELSE_BOOTSTRAP_REVIEW_REQUIRED"
+  ],
+  "fail_closed_conditions": [
+    "POINTER_OR_TARGET_UNREADABLE",
+    "EXACT_TARGET_IDENTITY_MISMATCH",
+    "MULTIPLE_CURRENT_PERSONA_RESOLUTION",
+    "P0_AUTHORITY_CONFLICT",
+    "ACTIVE_ORGANIZATION_SHARED_CONTRACT_PERSONA_MANIFEST_CONFLICT",
+    "MEMORY_CONFLICT_WITH_GOVERNED_CURRENT_STATE"
+  ],
+  "memory_rule": "Persona memory supports continuity and runtime injection context but never creates authority, validation PASS, model semantics, Shared Contract semantics, Freeze, Release, or Production authority.",
+  "activation_note": "This candidate does not itself modify ChatGPT Project Instructions or activate a new project-wide authority pointer. Product-level Project Instructions replacement and governed activation remain separate acts."
+}
