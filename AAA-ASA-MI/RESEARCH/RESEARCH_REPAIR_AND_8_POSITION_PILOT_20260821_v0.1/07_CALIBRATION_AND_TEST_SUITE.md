@@ -108,7 +108,7 @@ No difference reversed a qualification. No lexical/project-term advantage appear
 
 `CALIBRATION_RESULT_V0.2_FULL = INCOMPLETE_STATIC_AUDIT`.
 
-`PILOT_COMPARATIVE_EVALUATION = QUARANTINED_PENDING_V0.3`.
+`HISTORICAL_PILOT_STATE_AFTER_V0.2 = QUARANTINED_PENDING_V0.3`; this state was later released only after the v0.3 replicated pass below.
 
 The already-produced pilot receipts are preserved but cannot support released comparative conclusions until the unchanged framework passes a fully instantiated successor control.
 
