@@ -1,0 +1,30 @@
+{
+  "artifact_id": "AAA-PERSONA-MEMORY-INDEX-v1.0",
+  "artifact_kind": "PERSONA_PERSISTENT_MEMORY_INDEX_CANDIDATE",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "state": "WORKING_CANDIDATE_NOT_ACTIVE_AUTHORITY",
+  "semantic_sot": false,
+  "purpose": "Resolve each current AAA Persona to a durable memo space used for channel/persona continuity and runtime bootstrap support.",
+  "memory_is_authority": false,
+  "conflict_rule": "MEMORY_CONFLICT_WITH_CURRENT_GOVERNED_AUTHORITY=>BOOTSTRAP_REVIEW_REQUIRED",
+  "template_path": "control/persona-memory/v1.0/AAA_PERSONA_RUNTIME_INJECTION_MEMO_TEMPLATE_v1.0.md",
+  "personas": [
+    {"persona_id":"AAA-ASA","memory_path":"control/persona-memory/v1.0/AAA-ASA/MEMORY.md","paired_persona":"AAA-ADVISORY-VALIDATOR"},
+    {"persona_id":"AAA-ADVISORY-VALIDATOR","memory_path":"control/persona-memory/v1.0/AAA-ADVISORY-VALIDATOR/MEMORY.md","paired_persona":"AAA-ASA"},
+    {"persona_id":"AAA-PMO-ORCHESTRATOR","memory_path":"control/persona-memory/v1.0/AAA-PMO-ORCHESTRATOR/MEMORY.md","paired_persona":"AAA-PMO-VALIDATOR"},
+    {"persona_id":"AAA-PMO-VALIDATOR","memory_path":"control/persona-memory/v1.0/AAA-PMO-VALIDATOR/MEMORY.md","paired_persona":"AAA-PMO-ORCHESTRATOR"},
+    {"persona_id":"AAA-CONTROL-ARCHITECT","memory_path":"control/persona-memory/v1.0/AAA-CONTROL-ARCHITECT/MEMORY.md","paired_persona":"AAA-CONTROL-VALIDATOR"},
+    {"persona_id":"AAA-CONTROL-VALIDATOR","memory_path":"control/persona-memory/v1.0/AAA-CONTROL-VALIDATOR/MEMORY.md","paired_persona":"AAA-CONTROL-ARCHITECT"},
+    {"persona_id":"AAA-MODEL-VALIDATION-DESIGN-ARCHITECT","memory_path":"control/persona-memory/v1.0/AAA-MODEL-VALIDATION-DESIGN-ARCHITECT/MEMORY.md","paired_persona":"AAA-MODEL-DESIGN-VALIDATOR"},
+    {"persona_id":"AAA-MODEL-DESIGN-VALIDATOR","memory_path":"control/persona-memory/v1.0/AAA-MODEL-DESIGN-VALIDATOR/MEMORY.md","paired_persona":"AAA-MODEL-VALIDATION-DESIGN-ARCHITECT"},
+    {"persona_id":"AAA-RESEARCH-ORCHESTRATOR","memory_path":"control/persona-memory/v1.0/AAA-RESEARCH-ORCHESTRATOR/MEMORY.md","paired_persona":"AAA-RESEARCH-VALIDATOR"},
+    {"persona_id":"AAA-RESEARCH-VALIDATOR","memory_path":"control/persona-memory/v1.0/AAA-RESEARCH-VALIDATOR/MEMORY.md","paired_persona":"AAA-RESEARCH-ORCHESTRATOR"},
+    {"persona_id":"AAA-ENGINEERING-ORCHESTRATOR","memory_path":"control/persona-memory/v1.0/AAA-ENGINEERING-ORCHESTRATOR/MEMORY.md","paired_persona":"AAA-ENGINEERING-VALIDATOR"},
+    {"persona_id":"AAA-ENGINEERING-VALIDATOR","memory_path":"control/persona-memory/v1.0/AAA-ENGINEERING-VALIDATOR/MEMORY.md","paired_persona":"AAA-ENGINEERING-ORCHESTRATOR"},
+    {"persona_id":"AAA-VALIDATION-AUDITOR","memory_path":"control/persona-memory/v1.0/AAA-VALIDATION-AUDITOR/MEMORY.md","paired_persona":null}
+  ],
+  "historical_persona_rule": "Do not create current memory routes for superseded persona IDs merely because historical artifacts contain them; preserve historical references separately.",
+  "maintenance_rule": "Persona may append/update its memo for continuity; any authority/model/shared-contract semantic claim must reference the actual governed source and cannot be created by memory text alone."
+}
