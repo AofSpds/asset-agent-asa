@@ -162,8 +162,8 @@ Current coarse estimate from screenshot only:
 
 | Step | Purpose | Expected effort | Status |
 |---|---|---:|---|
-| O1. Reconstruct protocol's pre-registered expectations | Prevent post-result goal shifting | 5 min | In progress |
-| O2. Record Owner's own pre-result expectations | Separate Owner intuition from protocol criteria | 10–15 min | In progress |
+| O1. Reconstruct protocol's pre-registered expectations | Prevent post-result goal shifting | 5 min | Completed |
+| O2. Record Owner's own pre-result expectations | Separate Owner intuition from protocol criteria | 10–15 min | Completed for current cycle; preserve as subjective expectation, not scientific threshold |
 | O3. Record falsification / distrust conditions | Define what would weaken current assumptions or invalidate attractive results | 10 min | Not started |
 | O4. Freeze method-verdict rules | Predefine METHOD_REPAIR / SUPPORTED_WITH_LIMITATIONS / SUPPORTED_FOR_NEXT_STAGE | 10 min | Drafted conceptually, not yet Owner-reviewed |
 | O5. Result Intake Gate | Check execution integrity before reading exciting conclusions | ASA-prepared | Conceptually prepared |
@@ -229,3 +229,22 @@ ASA_RESEARCH_INTERPRETATION_FOR_LATER_REVIEW_ONLY:
   - Did the purpose/problem-first side produce any strong alternative explanatory structures that remain good on their own terms?
   - Was either side rewarded merely for vocabulary similarity or familiarity?
 - This is an Owner expectation, not an acceptance threshold and not a frozen evaluation rule.
+
+## 11. Owner minimum personal hope for this pilot — 2026-08-21 15:09 KST
+
+OWNER_EXPLICIT_STATEMENT:
+- "뭔가 일단 마음에 드는 거 하나라도 나왔으면 해요"
+
+OWNER_INTENT_CAPTURED_WITHOUT_EXPANSION:
+- For this pilot, the Owner would personally like at least one candidate/model to emerge that is genuinely compelling to the Owner.
+
+INTERPRETATION_RESTRICTIONS:
+- Do not define "마음에 드는" on the Owner's behalf before the result is seen.
+- Do not infer that this candidate must come from the current-worldview-informed group or the alternative-worldview group.
+- Do not treat Owner personal appeal as scientific validation, methodological PASS, canonical adoption, or freeze authority.
+- Do not infer that absence of a personally compelling candidate automatically means the methodology failed.
+- Conversely, do not allow one attractive candidate to override calibration failure, provenance problems, evaluator instability, or other method-integrity failures.
+
+ASA_RESEARCH_INTERPRETATION_FOR_LATER_REVIEW_ONLY:
+- This provides a subjective minimum aspiration distinct from the protocol's scientific success conditions: at least one candidate should ideally generate enough explanatory, structural, or design interest that the Owner wants to examine it further.
+- Whether such interest ultimately survives method review, independent validation, and replication remains a separate question.
