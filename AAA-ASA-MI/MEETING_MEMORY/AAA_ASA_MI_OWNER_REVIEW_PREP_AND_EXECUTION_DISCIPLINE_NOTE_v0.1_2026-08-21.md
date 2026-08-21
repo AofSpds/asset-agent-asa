@@ -248,3 +248,25 @@ INTERPRETATION_RESTRICTIONS:
 ASA_RESEARCH_INTERPRETATION_FOR_LATER_REVIEW_ONLY:
 - This provides a subjective minimum aspiration distinct from the protocol's scientific success conditions: at least one candidate should ideally generate enough explanatory, structural, or design interest that the Owner wants to examine it further.
 - Whether such interest ultimately survives method review, independent validation, and replication remains a separate question.
+
+## 12. Owner concern: model persuasiveness and AI-to-AI epistemic closure — 2026-08-21 15:09 KST
+
+OWNER_EXPLICIT_STATEMENT:
+- "세계관 모델이 설득력이 있어야 하는데 사실 확신이 없어요 지금 이게 ai 끼리 토론하는거죠?"
+
+OWNER_INTENT_CAPTURED_WITHOUT_EXPANSION:
+1. A worldview/model should ultimately be persuasive or convincing enough to the Owner/human reviewer, not merely internally preferred by AI evaluators.
+2. The Owner is uncertain whether the present process may amount to AI systems evaluating or debating outputs produced by other AI systems.
+
+INTERPRETATION_RESTRICTIONS:
+- Do not infer that human persuasiveness is equivalent to scientific truth or methodological validity.
+- Do not infer that AI-to-AI evaluation is automatically invalid.
+- Do not claim epistemic independence merely because agents/evaluators are procedurally separated or blinded.
+- If the same or closely related base model/configuration generated and evaluated candidates, treat shared-prior/model-family correlation as a material methodological limitation unless independent evidence shows otherwise.
+
+POST-RESULT METHOD-REVIEW REQUIREMENTS:
+- Identify whether candidate authors and evaluators used the same underlying model family/configuration or meaningfully independent ones.
+- Distinguish procedural independence (blindness, separate context, separate roles) from epistemic/model independence.
+- Inspect whether evaluator agreement may reflect shared model priors rather than genuine external discrimination.
+- Add a separate HUMAN PERSUASIVENESS / OWNER COMPREHENSIBILITY review surface after scientific/method integrity review, not as a substitute for it.
+- Prefer direct Owner review of at least the strongest current-worldview candidate(s), strongest alternative-worldview candidate(s), and any candidate whose AI-evaluator score is high but whose human explanatory case is weak or opaque.
