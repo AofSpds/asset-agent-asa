@@ -6,7 +6,7 @@
   "product": "ASSET AGENT ASA",
   "state": "WORKING_CANDIDATE_NOT_ACTIVE_AUTHORITY",
   "semantic_sot": false,
-  "target_commit": "a163817e96357b2a309ce2643188c0818c9a989c",
+  "target_commit": "c430a48dc70ef6208801a1e4e5e9318d4955bf39",
   "canonical_project_instructions": {
     "path": "control/bootstrap/project-instructions/v1.0/AAA_PROJECT_INSTRUCTIONS_CANONICAL_v1.0.md",
     "git_blob": "b95a64fb2a11202b5e1c3490db90e27ad25650f0",
@@ -14,8 +14,8 @@
   },
   "project_instruction_stub": {
     "path": "control/bootstrap/project-instructions/v1.0/AAA_PROJECT_INSTRUCTIONS_BOOTSTRAP_STUB_v1.0.md",
-    "git_blob": "21e8717228b7346fbd2064035b78d2e5635772ab",
-    "purpose": "Minimal text intended to remain in ChatGPT Project Instructions while detailed AAA rules are resolved from Git."
+    "git_blob": "f535e492767886dcc044d416e2875267e01e5a2a",
+    "purpose": "Minimal ChatGPT Project Instructions: bootstrap URL + persona selector + common/persona memory/worklog loadout + fail-closed."
   },
   "project_common_memory": {
     "path": "control/persona-memory/v1.0/COMMON/PROJECT_MEMORY.md",
