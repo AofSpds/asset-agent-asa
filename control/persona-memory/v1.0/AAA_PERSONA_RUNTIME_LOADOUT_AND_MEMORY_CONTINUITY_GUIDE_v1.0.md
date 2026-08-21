@@ -13,8 +13,19 @@ STATE = WORKING_CANDIDATE_NOT_ACTIVE_AUTHORITY
 
 Memory/Worklog는 continuity source이고 authority SoT가 아니다. Authority 충돌은 memory로 덮지 않는다.
 
+### 0.1 Runtime Adapter 원칙
+Persistent Persona system은 하나만 유지하고 실행환경별 bootstrap 입구만 분리한다.
+
+- ChatGPT / Project Channel: Project Instructions의 GitHub `BOOTSTRAP_URL`을 connector로 읽는다.
+- Codex / Local Repository: repository root의 `AGENTS.md`를 진입점으로 삼아 local filesystem에서 bootstrap pointer를 직접 읽는다.
+
+Codex 상세 adapter:
+`control/bootstrap/codex/v1.0/AAA_CODEX_LOCAL_BOOTSTRAP_v1.0.md`
+
+즉 `ONE PERSONA/MEMORY SYSTEM + MULTIPLE RUNTIME ADAPTERS`이며 ChatGPT와 Codex가 별도 Persona/Memory 체계를 만들지 않는다.
+
 ## 1. COMMON LOADOUT — 모든 Persona가 먼저 챙길 장비
-첫 substantive 응답 전에 다음을 읽는다.
+첫 substantive 응답/작업 전에 다음을 읽는다.
 
 1. Project bootstrap pointer
 2. Canonical Project Instructions
@@ -35,7 +46,7 @@ Memory/Worklog는 continuity source이고 authority SoT가 아니다. Authority 
 - current bootstrap/authority conflicts
 
 ## 2. USER OPEN KEYWORD → PERSONA ROUTING
-Owner가 새 채널의 첫 메시지로 Persona code 또는 canonical Persona 이름을 입력하면 `AAA_PERSONA_RUNTIME_SELECTOR_REGISTRY_v1.0.json`으로 resolve한다.
+Owner가 새 채널의 첫 메시지 또는 Codex task에서 Persona code/canonical Persona 이름을 입력하면 `AAA_PERSONA_RUNTIME_SELECTOR_REGISTRY_v1.0.json`으로 resolve한다.
 
 예:
 - `asa` → `AAA-ASA`
@@ -54,6 +65,8 @@ Owner가 새 채널의 첫 메시지로 Persona code 또는 canonical Persona �
 
 Selector는 Persona를 찾기 위한 runtime routing key일 뿐 authority를 만들거나 변경하지 않는다.
 resolve 후 반드시 governed current state에서 해당 Persona가 current인지 확인한다.
+
+Codex에서는 explicit `TARGET_PERSONA` 또는 exact work packet의 governed target Persona가 selector보다 우선할 수 있으며, 상세 precedence는 Codex adapter를 따른다.
 
 ## 3. PERSONA LOADOUT — 자기 장비 챙기기
 Persona가 resolve되면 Persona Memory Index에서 해당 Persona의 다음 파일을 읽는다.
@@ -75,7 +88,7 @@ Persona가 resolve되면 Persona Memory Index에서 해당 Persona의 다음 파
 - 최근 WORKLOG entries
 
 ## 4. PERSONA LOCK 응답
-loadout이 성공하면 첫 응답에서 최소한 자기 Persona를 분명히 밝힌다.
+loadout이 성공하면 첫 응답/실행 로그에서 최소한 자기 Persona를 분명히 밝힌다.
 
 예:
 `CURRENT_PERSONA_LOCK = AAA-CONTROL-ARCHITECT (CTL)`
@@ -115,6 +128,19 @@ Persona가 둘 이상으로 resolve되거나 authority/current-state가 충돌�
 
 과거 기록을 조용히 덮어쓰지 않는다. 상태 변화는 ACTIVE / STALE / SUPERSEDED / CLOSED 등으로 남긴다.
 
+### 6.1 Codex 병렬 실행 기록
+여러 Codex worker가 병렬 실행될 때 동일 `MEMORY.md` / `WORKLOG.md`를 동시에 수정하면 merge conflict와 기록 손상이 발생할 수 있다.
+
+따라서 병렬 worker는 shared log를 직접 경합하지 않고 각자 unique append-only run journal을 만든다.
+
+경로 규칙:
+`control/persona-memory/v1.0/<PERSONA>/runs/YYYY-MM-DD/<timestamp>_<task-slug>_<worker-id>.md`
+
+최소 schema:
+`control/bootstrap/codex/v1.0/AAA_CODEX_RUN_JOURNAL_TEMPLATE_v1.0.md`
+
+이후 지정된 Persona/PMO consolidation 단계가 durable item을 `MEMORY.md`/`WORKLOG.md`로 승격할 수 있다. 원본 run journal은 삭제하지 않는다.
+
 ## 7. 메모 승격 규칙
 모든 대화를 전부 저장하지 않는다. 다음이면 persistence 후보로 본다.
 
@@ -127,27 +153,37 @@ Persona가 둘 이상으로 resolve되거나 authority/current-state가 충돌�
 
 Memory가 authority를 새로 만들면 안 된다. normative claim은 실제 governed source ref를 붙인다.
 
-## 8. 매 메시지 Persona 재평가
-사용자 메시지마다 대상 Persona를 resolve한다.
+## 8. 매 메시지/작업 Persona 재평가
+사용자 메시지 또는 새 Codex task마다 대상 Persona를 resolve한다.
 
 - 명시 selector/canonical Persona가 있으면 해당 Persona로 routing 요청을 해석한다.
-- 명시 Persona가 없으면 proven channel Persona를 유지한다.
+- 명시 Persona가 없으면 proven channel/run Persona를 유지한다.
 - proven Persona도 없으면 Owner-facing default `AAA-ASA`로 시작한다.
 - 다른 Persona가 호출되면 해당 Persona common/persona loadout을 다시 수행한다.
 
-## 9. Fail Closed
+## 9. Persona != Branch / Worktree
+Persona는 조직 정체성이고 branch/worktree는 실행 격리 단위다.
+
+- Persona 선택만으로 branch를 만들지 않는다.
+- read-only 분석은 새 branch가 불필요하다.
+- repository를 수정하는 Codex 작업은 task별 isolated branch/worktree를 사용한다.
+- 병렬 workers는 mutable worktree를 공유하지 않는다.
+- 같은 Persona도 서로 다른 task라면 서로 다른 branch/worktree를 사용할 수 있다.
+
+## 10. Fail Closed
 다음이면 material work를 진행하지 않는다.
 - Git bootstrap/pointer를 읽지 못함
 - current authority/persona가 충돌
 - selector가 복수 current Persona에 매칭
 - Persona Memory가 governed current state와 충돌하고 해소되지 않음
 - blocking P0가 있는데 정상 current로 가정해야 작업이 가능함
+- Codex task가 현재 Persona authority를 초과하는 권한을 요구함
 
 상태:
 `BOOTSTRAP_REVIEW_REQUIRED`
 
-## 10. 성공 기준 / Regression
-Fresh channel에서 다른 설명 없이 아래 단어만 입력해도 각각 정확히 동작해야 한다.
+## 11. 성공 기준 / Regression
+Fresh ChatGPT channel 또는 clean Codex local invocation에서 다른 승계 context 없이 아래 selector가 정확히 동작해야 한다.
 
 `ASA / ASAV / PMO / PMOV / CTL / CTLV / MOD / MODV / RES / RESV / ENG / ENGV / IVA`
 
@@ -159,5 +195,8 @@ Fresh channel에서 다른 설명 없이 아래 단어만 입력해도 각각 �
 5. 자기 Persona lock 응답
 6. stale/superseded Persona를 current로 승격하지 않음
 7. 열린 blocker/task/checkpoint를 이어받음
+8. Codex에서는 local repository bootstrap을 사용
+9. mutable 병렬 작업은 task branch/worktree로 격리
+10. 병렬 실행기록은 unique run journal로 충돌 없이 persistence
 
-이 7개가 모두 PASS해야 Persona 재현/기억승계를 성공으로 본다.
+이 조건이 모두 PASS해야 Persona 재현/기억승계를 성공으로 본다.
