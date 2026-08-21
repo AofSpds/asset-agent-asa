@@ -1,0 +1,14 @@
+{
+  "generated_at_kst": "2026-08-21T16:54:39+0900",
+  "entropy_source": "openssl rand -hex 32",
+  "assignment": {
+    "seed_hex": "1fba7466ff5d5758f495bc7c7e80137a9442598d1c80ba78f475cd749c22b15a",
+    "seed_sha256": "78d9c8e81af7d82c869eff0730ce4eb362fcae0f9a151ba14f27b08c6731c096",
+    "algorithm": "xor-fold 8x32-bit words, xorshift32, Fisher-Yates"
+  },
+  "presentation_order": {
+    "seed_hex": "656960b3d3bdae5f4e0ebe63ddb8010aa22fa9f801a3e9fca460febb231c2750",
+    "seed_sha256": "3fa305271c4be76fdfeb9af0a325ab54d585966ce4952473f74bd86305cc3885",
+    "algorithm": "xor-fold 8x32-bit words, xorshift32, Fisher-Yates"
+  }
+}
