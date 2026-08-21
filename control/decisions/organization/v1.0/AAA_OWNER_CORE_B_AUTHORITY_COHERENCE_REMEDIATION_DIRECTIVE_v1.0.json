@@ -1,0 +1,105 @@
+{
+  "artifact_id": "AAA-OWNER-CORE-B-AUTHORITY-COHERENCE-REMEDIATION-DIRECTIVE-v1.0",
+  "artifact_kind": "OWNER_REMEDIATION_AUTHORITY_RECEIPT",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authority_principal": "HUMAN PROJECT OWNER",
+  "routed_by": "AAA-ASA",
+  "decision_time_kst": "2026-08-22 04:04 KST",
+  "owner_exact_text": "바로 잡으세요",
+  "resolved_referent": "IMMEDIATELY_PRECEDING_AAA_ASA_GLOBAL_AUDIT_FINDING_CORE_B_ACTIVE_ORGANIZATION_VS_RECONCILED_SHARED_CONTRACT_PERSONA_PAIR_CONFLICT",
+  "decision": "AUTHORIZE_IMMEDIATE_P0_CORE_B_AUTHORITY_COHERENCE_REMEDIATION_AUTHORING_AND_VALIDATION",
+  "authorized_objective": {
+    "required_current_pair": {
+      "authoring_persona": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+      "paired_validator": "AAA-MODEL-DESIGN-VALIDATOR"
+    },
+    "required_consistency_surfaces": [
+      "PERSONA_AUTHORITY_RECONCILIATION",
+      "PERSONA_MANIFEST_CURRENT_PROJECTION",
+      "ACTIVE_ORGANIZATION_CURRENT_STATE",
+      "ACTIVE_ORGANIZATION_ROUTING_STATE",
+      "ACTIVE_ORGANIZATION_PAIR_ACTIVATION_STATE",
+      "ACTIVE_SHARED_CONTRACT_AUTHORITY_OWNER_PROJECTION",
+      "PROJECT_COMMON_PERSONA_CODE_REGISTRY"
+    ],
+    "required_result": "ONE_CURRENT_CORE_B_AUTHORING_PERSONA_AND_ONE_MATCHING_PAIRED_VALIDATOR_WITH_NO_COMPETING_ACTIVE_PROJECTION"
+  },
+  "authority_basis": {
+    "current_project_role_terminology": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT + AAA-MODEL-DESIGN-VALIDATOR",
+    "validated_persona_authority_reconciliation": {
+      "artifact_id": "AAA-CORE-B-PERSONA-AUTHORITY-RECONCILIATION-P0-INDEPENDENT-VALIDATION-RECEIPT",
+      "commit": "e140c2ef185717770ea27778f3ea4d34c77adc57",
+      "git_blob": "0d1d033d9dd520ab49da31fe81041b72ce9cac34",
+      "path": "control/validation/persona-authority/v1.0/auditor/aaa-validation-auditor/AAA_CORE_B_PERSONA_AUTHORITY_RECONCILIATION_P0_INDEPENDENT_VALIDATION_RECEIPT_v1.0.json",
+      "validated_authoring_persona": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+      "validated_paired_validator": "AAA-MODEL-DESIGN-VALIDATOR"
+    },
+    "active_shared_contract_projection": {
+      "artifact_id": "AAA-SHARED-CONTRACT-CURRENT-ACTIVE-STATE",
+      "active_shared_contract": "AAA-SHARED-CONTRACT-LIMITED-ADDENDUM v0.1",
+      "core_b_persona": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT"
+    },
+    "conflicting_active_organization_projection": {
+      "artifact_id": "AAA-ORGANIZATION-CURRENT-ACTIVE-STATE-v1.0",
+      "active_authoring_persona": "AAA-MODEL-ARCHITECT",
+      "active_paired_validator": "AAA-MODEL-VALIDATOR",
+      "status": "STALE_PROJECTION_TO_BE_SUPERSEDED_NOT_REWRITTEN"
+    }
+  },
+  "authorized_change_scope": [
+    "CREATE_SUCCESSOR_ORGANIZATION_RELEASE_FOR_CORE_B_PERSONA_PAIR_COHERENCE",
+    "CREATE_SUCCESSOR_ACTIVE_ORGANIZATION_PROJECTIONS_BOUND_TO_THAT_RELEASE",
+    "NORMALIZE_CORE_B_ROUTING_TO_REQUIRED_CURRENT_PAIR",
+    "NORMALIZE_CORE_B_PAIR_ACTIVATION_TO_REQUIRED_CURRENT_PAIR",
+    "BIND_EXISTING_VALIDATED_PERSONA_AUTHORITY_SUCCESSOR_INTO_CURRENT_ORGANIZATION_LINEAGE",
+    "PRESERVE_HISTORICAL_V1_3_AND_ALL_PRIOR_RECEIPTS_IMMUTABLY",
+    "RUN_FRESH_P0_PAIRED_CONTROL_L1_ON_EXACT_SUCCESSOR_TARGET",
+    "RUN_FRESH_P0_INDEPENDENT_L2_ON_SAME_EXACT_SUCCESSOR_TARGET",
+    "PERFORM_NEW_CHANNEL_BOOTSTRAP_REGRESSION_AFTER_ACTIVATION"
+  ],
+  "preserve_all_others": true,
+  "removal_authorized": false,
+  "historical_rewrite_authorized": false,
+  "not_authorized_by_this_directive": {
+    "model_semantic_change": true,
+    "feature_change": true,
+    "missingness_change": true,
+    "imputation_change": true,
+    "scorer_change": true,
+    "weight_change": true,
+    "ranking_change": true,
+    "pit_gt_change": true,
+    "shared_contract_semantic_change": true,
+    "model_freeze": true,
+    "production_release": true,
+    "m3top3_replay_execution": true,
+    "final_organization_cutover_without_exact_target_bound_post_validation_owner_decision": true
+  },
+  "routing_hold": {
+    "state": "ACTIVE_OWNER_DIRECTIVE_HOLD",
+    "blocked_until": "P0_CORE_B_AUTHORITY_COHERENCE_SUCCESSOR_ACTIVATED_AND_BOOTSTRAP_REGRESSION_PASS",
+    "blocked_work": [
+      "NEW_MATERIAL_CORE_B_SEMANTIC_AUTHORING_USING_STALE_ACTIVE_ORGANIZATION_PAIR",
+      "M3TOP3_MODEL_VALIDATION_ENTRY_USING_AMBIGUOUS_PERSONA_ROUTING"
+    ],
+    "allowed_work": [
+      "P0_REMEDIATION_AUTHORING",
+      "P0_REMEDIATION_VALIDATION",
+      "NON_SEMANTIC_EVIDENCE_COLLECTION",
+      "DETERMINISTIC_PRESERVATION_AND_DIFF_CHECKS"
+    ]
+  },
+  "required_route": [
+    "AAA-ASA",
+    "AAA-ADVISORY-VALIDATOR",
+    "AAA-CONTROL-ARCHITECT",
+    "AAA-CONTROL-VALIDATOR",
+    "AAA-VALIDATION-AUDITOR",
+    "HUMAN PROJECT OWNER"
+  ],
+  "receipt_is_semantic_sot": false,
+  "receipt_role": "OWNER_AUTHORITY_EVIDENCE_AND_REMEDIATION_SCOPE_BINDING",
+  "owner_final_cutover_decision_required_after_exact_target_validation": true
+}
