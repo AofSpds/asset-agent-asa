@@ -17,6 +17,7 @@ PAIR = AAA-ADVISORY-VALIDATOR
 - 2026-08-22 04:44: 모든 Persona 공통 주입 내용을 먼저 읽고, 채널 오픈 keyword로 Persona를 resolve하고, 해당 Persona의 전용 memory/worklog/current task를 loadout하며, 중요한 내용을 작업일지에 지속 기록하도록 요청.
 - 2026-08-22 05:02: Codex/local repository에서도 같은 Persona memory system을 사용하도록 local bootstrap adapter를 추가하라고 승인. Persona 선택 자체에는 branch를 만들지 않고 실제 repository mutation에만 task별 isolated branch/worktree를 사용한다.
 - 2026-08-22 05:11: 별도 bootstrap/Codex regression 완료를 기다리지 말고 실작업을 진행하면서 검증하자는 Owner 방향. M3Top3를 지금 돌릴 수 있는지 확인하여 모델 검증 본류를 재개하려 함.
+- 2026-08-22 07:00: Byul 채널 승계 시 직전에 생성한 상세 문서 자체는 memory checkpoint에서 제외하고, Git에 이미 축적된 Byul research memory와 Persona bootstrap을 통해 successor가 스스로 복구할 수 있도록 요청.
 
 ## CURRENT_TASK_AND_STATE
 - TASK = AAA_PROJECT_INSTRUCTIONS_GIT_BOOTSTRAP_AND_PERSONA_MEMORY_v1.0 + M3TOP3_RESUMPTION_PREFLIGHT
@@ -45,6 +46,16 @@ PAIR = AAA-ADVISORY-VALIDATOR
 - Memory와 governed current state가 충돌하면 memory를 신뢰하지 않고 BOOTSTRAP_REVIEW_REQUIRED.
 - Historical persona text는 보존하되 current routing은 canonical current state로 resolve한다.
 - Bootstrap 편의성 검증이 scientific/model validation을 계속 지연시키지 않도록 실작업 우선으로 복귀하되, P0 authority와 official replay gate는 우회하지 않는다.
+- Byul successor channel은 이전 장문 chat이나 handoff 내용을 truth로 삼지 않고 AAA bootstrap으로 Persona를 먼저 복구한 뒤 `AofSpds/Byul` Git memory/current-state를 읽어 연구 맥락을 복원한다.
+
+## BYUL_CONTINUATION_CHECKPOINT
+- REPOSITORY = `AofSpds/Byul`
+- CHECKPOINT_PATH = `versions/v0.01/memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md`
+- CHECKPOINT_COMMIT = `8133e3d79c88b582bea6b8a45bc8a1970b261734`
+- CHECKPOINT_SCOPE = Current Byul research state, Round-1 clean-rerun interpretation, anti-confirmation-bias corrections, Pro detailed-schedule-review usage, and successor read order.
+- EXCLUDED_BY_OWNER = The separately generated detailed document from the immediately preceding Byul step is intentionally excluded from this memory checkpoint.
+- DEFAULT_CONTINUATION_PERSONA = `AAA-ASA (ASA)` unless Owner explicitly invokes another current Persona selector.
+- SUCCESSOR_RULE = Read AAA bootstrap/common/persona memory first, then Byul README/current status/Core Principles/memory 12–17/v0.1 contract and exact run artifacts as needed. Do not ask Owner to reconstruct already persisted context manually.
 
 ## REQUIRED_NORMATIVE_REFS
 - AGENTS.md
@@ -72,12 +83,14 @@ PAIR = AAA-ADVISORY-VALIDATOR
 - Codex parallel append-only run journal template initialized.
 - Draft PR #46 remains open against main.
 - Owner explicitly prefers resuming real M3Top3/model-validation work rather than waiting for standalone bootstrap regression completion.
+- Byul channel succession checkpoint persisted at `AofSpds/Byul@8133e3d79c88b582bea6b8a45bc8a1970b261734`, with the separately generated detailed document excluded by Owner direction.
 
 ## NEXT_ROUTE
-- Determine M3Top3 official vs diagnostic execution boundary from current gates.
+- Determine M3Top3 official vs diagnostic execution boundary from current gates when that workstream is active.
 - Do not claim official Golden Replay/Full Replay until Core B authority coherence and exact official entry gates are closed.
 - Resume permissible engineering/preparation work that does not mutate model semantics or falsely create official replay status.
 - Continue bootstrap/fresh-channel/Codex regression opportunistically in-use rather than as a standalone scientific-work blocker unless a P0 conflict is encountered.
+- For Byul continuation, recover `versions/v0.01/memory/17_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-22_0700_KST.md` and follow its read order before proposing next work.
 
 ## DO_NOT_FORGET
 - Persona Memory는 authority SoT가 아니다.
@@ -86,6 +99,7 @@ PAIR = AAA-ADVISORY-VALIDATOR
 - "재현 성공"은 파일 존재가 아니라 fresh ChatGPT/Codex invocation에서 실제 Persona lock + correct current task/memory recovery까지 통과해야 한다.
 - Codex parallel worker 기록 충돌을 shared WORKLOG append로 해결하지 않는다; unique run journal을 사용한다.
 - M3Top3 diagnostic/preparation 실행과 official Golden/Full Replay를 구분한다.
+- Byul 상세 문서의 내용을 Persona memory에 재주입하지 않는다; Owner가 제외를 지시한 현재 checkpoint에서는 Git research memory locator만 유지한다.
 
 ## MEMORY_LOG
 - TIME_KST = 2026-08-22 04:19 KST | IMPORTANCE = HIGH | LIFECYCLE = PERSONA | STATE = ACTIVE | SOURCE_REF = OWNER_REQUEST | NOTE = 조직도별 persistent memo 공간 초기화.
@@ -93,3 +107,4 @@ PAIR = AAA-ADVISORY-VALIDATOR
 - TIME_KST = 2026-08-22 04:44 KST | IMPORTANCE = CRITICAL | LIFECYCLE = PROJECT | STATE = ACTIVE | SOURCE_REF = OWNER_REQUEST | NOTE = 공통 프로젝트 loadout → keyword Persona routing → Persona MEMORY/WORKLOG/current-state loadout → Persona lock → 중요 작업일지 지속기록을 fresh-channel 재현 표준으로 요청. Candidate structure materialized in Git.
 - TIME_KST = 2026-08-22 05:02 KST | IMPORTANCE = CRITICAL | LIFECYCLE = PROJECT | STATE = ACTIVE | SOURCE_REF = OWNER_APPROVAL | NOTE = Codex는 별도 Persona system이 아니라 local repository bootstrap adapter를 사용하며, Persona selection과 branch/worktree isolation을 분리하고 병렬 worker는 unique run journal을 사용하도록 승인/구현.
 - TIME_KST = 2026-08-22 05:11 KST | IMPORTANCE = HIGH | LIFECYCLE = PROJECT | STATE = ACTIVE | SOURCE_REF = OWNER_DIRECTION | NOTE = 별도 bootstrap regression을 기다리지 말고 실작업으로 복귀하며 M3Top3 실행 가능 여부를 우선 판단. Governance convenience가 scientific work를 계속 지연시키지 않되 P0/official replay gates는 우회하지 않음.
+- TIME_KST = 2026-08-22 07:00 KST | IMPORTANCE = HIGH | LIFECYCLE = PERSONA | STATE = ACTIVE | SOURCE_REF = OWNER_SUCCESSION_DIRECTIVE | NOTE = Byul successor channel은 Git bootstrap/persona loadout + Byul memory checkpoint로 복구한다. Immediately preceding generated detailed document is excluded from memory by Owner instruction. Byul checkpoint commit `8133e3d79c88b582bea6b8a45bc8a1970b261734`.
