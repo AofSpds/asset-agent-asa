@@ -1,0 +1,54 @@
+{
+  "dispatch_id": "AAA-ASA-MI-D1-WORKER-DISPATCH-v0.1",
+  "state": "PROCEDURE_FROZEN_BEFORE_ANY_WORKER_RESULT",
+  "neutral_control_commit": "a1bbc8301497db11fff281881fbb7c98b86efc1a",
+  "candidate_research_commit": "d50b73e91f3964626c060bd0165cbaa3371442c4",
+  "fixture_sha256": "f38cf09c9adc27eea7da5b45e2ce646759a00a698ee251ae8a2aecaa399c4f33",
+  "worker_template_sha256": "a3aafeeb44a79fc58ccf964572c5c376e2847e3eace0ba16d6df0a82f4cf5bb9",
+  "packet_generation_rule": "MECHANICAL_SUBSTITUTION_ONLY_NO_POST_RESULT_PROTOCOL_CHANGE",
+  "workers": [
+    {
+      "position": "A1",
+      "candidate_path": "AAA-ASA-MI/RESEARCH/RESEARCH_REPAIR_AND_8_POSITION_PILOT_20260821_v0.1/CANDIDATES/TRACK_A_A1.md",
+      "candidate_sha256": "52baca209f9259b2c78b8d31e4d949a71461c20b278255df569c41237ae32ddd"
+    },
+    {
+      "position": "A2",
+      "candidate_path": "AAA-ASA-MI/RESEARCH/RESEARCH_REPAIR_AND_8_POSITION_PILOT_20260821_v0.1/CANDIDATES/TRACK_A_A2.md",
+      "candidate_sha256": "18afa0c3926cd734569397f732e0a2b73a8522af2ced19ee8d64e3f315bd0b68"
+    },
+    {
+      "position": "A3",
+      "candidate_path": "AAA-ASA-MI/RESEARCH/RESEARCH_REPAIR_AND_8_POSITION_PILOT_20260821_v0.1/CANDIDATES/TRACK_A_A3.md",
+      "candidate_sha256": "63a2e01022335ee1966a151204df49b4c05bf9e73bbb23b93170005b9667b4ec"
+    },
+    {
+      "position": "A4",
+      "candidate_path": "AAA-ASA-MI/RESEARCH/RESEARCH_REPAIR_AND_8_POSITION_PILOT_20260821_v0.1/CANDIDATES/TRACK_A_A4.md",
+      "candidate_sha256": "f997f3a69219f7c3e673ccb51794e4b99fad2bd097a5968f286c18d1180db14a"
+    },
+    {
+      "position": "B1",
+      "candidate_path": "AAA-ASA-MI/RESEARCH/RESEARCH_REPAIR_AND_8_POSITION_PILOT_20260821_v0.1/CANDIDATES/TRACK_B_B1.md",
+      "candidate_sha256": "b01789ff065aaa6f76ec7a800a87961ee83778debd026dd4617afffd8bdbd096"
+    },
+    {
+      "position": "B2",
+      "candidate_path": "AAA-ASA-MI/RESEARCH/RESEARCH_REPAIR_AND_8_POSITION_PILOT_20260821_v0.1/CANDIDATES/TRACK_B_B2.md",
+      "candidate_sha256": "013561e89d9e1d9ef9d94723d9a3e20b1b2b40fd85883f9c9e89c808786d1f5c"
+    },
+    {
+      "position": "B3",
+      "candidate_path": "AAA-ASA-MI/RESEARCH/RESEARCH_REPAIR_AND_8_POSITION_PILOT_20260821_v0.1/CANDIDATES/TRACK_B_B3.md",
+      "candidate_sha256": "90723ecd1aebbe7692e41a2272901071bc084ffed6a9e7fe9a5ed93aaed0a79c"
+    },
+    {
+      "position": "B4",
+      "candidate_path": "AAA-ASA-MI/RESEARCH/RESEARCH_REPAIR_AND_8_POSITION_PILOT_20260821_v0.1/CANDIDATES/TRACK_B_B4.md",
+      "candidate_sha256": "be0693df4942d33b84d829dd70d4d584bae82dc1931fc225c40bad2e7d1673f6"
+    }
+  ],
+  "result_visibility_before_dual_freeze": "DIGEST_RECEIPTS_ONLY",
+  "readable_predictions_visible_to_owner_or_me": false,
+  "winner_selection_authorized": false
+}
