@@ -111,3 +111,80 @@ This note does NOT:
 - claim Independent Validation PASS,
 - reinterpret any explicit Owner statement beyond the directions above,
 - treat the current reinforcement plan as permanent.
+
+## 7. Owner-reported live Work progress snapshot — 2026-08-21 14:55 KST
+
+SOURCE_TYPE = OWNER-PROVIDED WORK-UI SCREENSHOT
+VERIFICATION_STATE = UI_OBSERVATION_ONLY / FINAL_ARTIFACTS_NOT_YET_REVIEWED
+
+Observed items from the screenshot:
+
+- Track B pre-reveal step shown as completed.
+- Calibration v0.1 reportedly matched 7 controls, but a borderline case produced divergent judgment; this was recorded as a pre-registered failure rather than hidden.
+- Evaluation framework/calibration was revised to v0.2 by adding a more operational boundary and a common classifier.
+- Two blind evaluators reportedly reproduced the same final classifications under v0.2:
+  - 2 structurally positive cases passed,
+  - 1 genuine borderline case remained uncertain,
+  - 5 negative cases failed.
+- Removing terminology did not reportedly improve outcomes, which is relevant to vocabulary/ontology-bias checking.
+- Independent comparison of the eight candidates has started.
+- Candidate files/hashes were reportedly frozen before the final held-out set/key was used.
+- Two independent evaluators are reviewing blinded documents without Track labels.
+- Theory extraction is shown as completed and is being kept separate from evaluation scores.
+
+Interpretation discipline:
+- These are progress observations, not accepted scientific findings.
+- Final claims require artifact/commit/evidence review after Work completion.
+- Calibration v0.1's borderline divergence should remain visible in later method review even if v0.2 succeeds.
+
+## 8. Live execution roadmap and parallel Owner/ASA preparation
+
+### Main Work roadmap
+
+| Phase | Purpose | Expected effort | Live status as of 14:55 KST |
+|---|---|---:|---|
+| 0. Exact state/source check | Fix exact inputs, repository state, source gaps | 5–10 min | Appears completed earlier |
+| 1. Research basis reinforcement | Separate purpose/problem/assumptions/provenance | 15–25 min | Appears substantially progressed/completed |
+| 2. Current Six scope audit | Distinguish demonstrated, untested, unknown | 10–20 min | Appears substantially progressed |
+| 3. Evaluation framework correction | Separate qualification, model fidelity, expressiveness, purpose fit, theory contribution | 10–20 min | v0.2 correction shown completed |
+| 4. Calibration + test suite | Test evaluator against positive/negative/borderline/mimic/overfit cases | 10–20 min | v0.1 failure recorded; v0.2 repeated blind classification shown completed |
+| 4R. Calibration repair if needed | Repair evaluator after calibration failure | +15–30 min | One repair cycle appears already executed |
+| 5. 8-position research pilot | Generate/freeze diverse A/B candidates | 20–40 min | Candidate freeze appears completed; independent comparison started |
+| 6. Replicated evaluation + theory extraction | Measure evaluator disagreement and recover theory separately | 20–35 min | In progress; theory extraction shown completed, blind evaluation ongoing |
+| 7. Synthesis + persistence | Separate source/result/interpretation and route next decision | 10–20 min | Not yet evidenced complete |
+
+Current coarse estimate from screenshot only:
+- Main research generation/freeze appears mostly complete.
+- Remaining critical work is replicated/blind evaluation, disagreement analysis, final synthesis, and persistence verification.
+- Do not assign a precise percent-complete until final task graph/artifacts are available.
+
+### Owner/ASA parallel preparation roadmap
+
+| Step | Purpose | Expected effort | Status |
+|---|---|---:|---|
+| O1. Reconstruct protocol's pre-registered expectations | Prevent post-result goal shifting | 5 min | In progress |
+| O2. Record Owner's own pre-result expectations | Separate Owner intuition from protocol criteria | 10–15 min | Not started |
+| O3. Record falsification / distrust conditions | Define what would weaken current assumptions or invalidate attractive results | 10 min | Not started |
+| O4. Freeze method-verdict rules | Predefine METHOD_REPAIR / SUPPORTED_WITH_LIMITATIONS / SUPPORTED_FOR_NEXT_STAGE | 10 min | Drafted conceptually, not yet Owner-reviewed |
+| O5. Result Intake Gate | Check execution integrity before reading exciting conclusions | ASA-prepared | Conceptually prepared |
+| O6. Independent validation / replication routing | Launch exact-target review immediately after result | ASA-prepared | Skeleton pending exact result identifiers |
+
+### Post-result roadmap
+
+R1. Result Intake — 5–10 min
+Purpose: verify exact execution, targets, persistence, and evidence boundaries.
+
+R2. ASA Method Review — 15–30 min
+Purpose: evaluate calibration, blind integrity, evaluator independence, controls, leakage/bias, and disagreement.
+
+R3. Research Findings Review — 20–40 min
+Purpose: identify weakened assumptions, strengthened evidence, independent discoveries, new alternatives, and useful negative results.
+
+R4. AAA-RESEARCH-VALIDATOR L1 — separate execution
+Purpose: independent paired-domain validation of the exact research result; author cannot self-PASS.
+
+R5. Targeted Replication / Red-Team — conditional, parallelizable
+Purpose: test high-value or unstable findings on independent evaluators/problems without broad rerun by default.
+
+R6. Owner Decision — conditional
+Purpose: choose method repair, basis repair, second pilot, larger-cohort review, or reconsideration of a material assumption. No automatic 48-position authorization.
