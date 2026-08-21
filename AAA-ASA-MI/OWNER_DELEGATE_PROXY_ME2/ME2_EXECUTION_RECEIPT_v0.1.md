@@ -20,8 +20,9 @@
 - ODP-0 head/tree: `04612ff674d54c0739aca26e8f9e3206daea5b91` / `8d646dfc209de1dc89351c3e4527182078c15095`
 - Result branch: `research/asa-me-shadow-scene-p0-p1-20260821-v01`
 - Scene freeze commit/tree: `cfeebcded01dbb130052d59b47c0c610a2fec425` / `5768fd89ee9b3e585d85dd42d6d5268d38d0c0c7`
-- Proxy/bundle materialization commit: `THIS_COMMIT`
-- Proxy/bundle materialization tree: `THIS_COMMIT_TREE`
+- Proxy/bundle materialization commit: `1962708f78388aa1be37334e5cca11afe663c1a0`
+- Proxy/bundle materialization tree: `288c41f756df0ec913f37b3036cf1944b4049323`
+- Final receipt commit: `FINAL_RECEIPT_COMMIT_REPORTED_IN_RETURN_PACKET`
 
 ## State Summary
 

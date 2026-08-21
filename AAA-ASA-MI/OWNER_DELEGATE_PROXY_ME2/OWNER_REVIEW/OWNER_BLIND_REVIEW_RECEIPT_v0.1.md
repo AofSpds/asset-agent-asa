@@ -22,8 +22,8 @@
 
 ## State
 
-- Bundle materialization commit: `THIS_COMMIT`
+- Bundle materialization commit/tree: `1962708f78388aa1be37334e5cca11afe663c1a0` / `288c41f756df0ec913f37b3036cf1944b4049323`
+- Receipt finalization commit: `FINAL_RECEIPT_COMMIT_REPORTED_IN_RETURN_PACKET`
 - `OWNER_BLIND_REVIEW_READY = TRUE`
 - Alias codebook remains `SEALED_UNTIL_OWNER_INITIAL_JUDGMENT_FREEZE`.
 - No additional elicitation should occur until the completed initial response form is frozen.
-

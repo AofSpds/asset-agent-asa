@@ -9,7 +9,7 @@
 - Freeze commit: `cfeebcded01dbb130052d59b47c0c610a2fec425`
 - Freeze tree: `5768fd89ee9b3e585d85dd42d6d5268d38d0c0c7`
 - Freeze verification: remote branch path fetch and exact Git blob checks `PASS`
-- Freeze time: commit-author/committer time recorded by GitHub
+- Freeze time: `2026-08-21T08:10:16Z` / `2026-08-21T17:10:16+0900`
 - Execution environment: ChatGPT Work / Codex root orchestrator with separated scene-builder and independent QA workers
 
 ## Exact Input Freeze

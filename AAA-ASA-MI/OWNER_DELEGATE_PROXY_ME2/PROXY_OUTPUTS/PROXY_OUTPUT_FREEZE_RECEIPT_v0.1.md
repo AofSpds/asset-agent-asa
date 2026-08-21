@@ -41,10 +41,10 @@
 ## Materialization
 
 - Result branch: `research/asa-me-shadow-scene-p0-p1-20260821-v01`
-- Output materialization commit: `THIS_COMMIT`
-- Output materialization tree: `THIS_COMMIT_TREE`
-- Receipt generation time: `2026-08-21T08:24:13Z` / `2026-08-21T17:24:13+0900`
+- Output materialization commit: `1962708f78388aa1be37334e5cca11afe663c1a0`
+- Output materialization tree: `288c41f756df0ec913f37b3036cf1944b4049323`
+- Output materialization time: `2026-08-21T08:26:24Z` / `2026-08-21T17:26:24+0900`
+- Receipt finalization commit: `FINAL_RECEIPT_COMMIT_REPORTED_IN_RETURN_PACKET`
 - Prediction content disclosure in this receipt: `NONE`
 - Owner authority: `NONE`
 - Independent Validation claim: `NONE`
-
