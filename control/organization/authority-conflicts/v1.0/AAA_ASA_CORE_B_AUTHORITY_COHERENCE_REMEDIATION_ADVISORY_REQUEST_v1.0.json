@@ -1,0 +1,109 @@
+{
+  "artifact_id": "AAA-ASA-CORE-B-AUTHORITY-COHERENCE-REMEDIATION-ADVISORY-REQUEST-v1.0",
+  "artifact_kind": "ASA_ADVISORY_VALIDATION_REQUEST_NOT_SEMANTIC_SOT",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "from_persona": "AAA-ASA",
+  "to_persona": "AAA-ADVISORY-VALIDATOR",
+  "risk_class": "P0_AUTHORITY_CURRENT_STATE_COHERENCE",
+  "request_time_kst": "2026-08-22 04:04 KST",
+  "owner_directive": {
+    "artifact_id": "AAA-OWNER-CORE-B-AUTHORITY-COHERENCE-REMEDIATION-DIRECTIVE-v1.0",
+    "commit": "5256da49b621732cae2e69f5f1563c5ba2fae886",
+    "git_blob": "4928b3d12e9ad5587a689ea19ac89c3225203510",
+    "path": "control/decisions/organization/v1.0/AAA_OWNER_CORE_B_AUTHORITY_COHERENCE_REMEDIATION_DIRECTIVE_v1.0.json",
+    "owner_exact_text": "바로 잡으세요"
+  },
+  "problem_statement": {
+    "active_organization_pair": [
+      "AAA-MODEL-ARCHITECT",
+      "AAA-MODEL-VALIDATOR"
+    ],
+    "current_governing_and_reconciled_pair": [
+      "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+      "AAA-MODEL-DESIGN-VALIDATOR"
+    ],
+    "classification": "COMPETING_CURRENT_CORE_B_PERSONA_PAIR_PROJECTIONS",
+    "required_behavior": "FAIL_CLOSED_FOR_MATERIAL_CORE_B_ROUTING_UNTIL_RECONCILED"
+  },
+  "evidence_refs": [
+    {
+      "artifact_id": "AAA-ORGANIZATION-CURRENT-ACTIVE-STATE-v1.0",
+      "branch": "aaa-persistent-locator-active-v0.3",
+      "git_blob": "cad42e60efea2eb67bb663b5ff889277c028e66c",
+      "path": "control/authority/organization/active/AAA_ORGANIZATION_CURRENT_ACTIVE_STATE_v1.0.json",
+      "observed": "AAA-MODEL-ARCHITECT + AAA-MODEL-VALIDATOR"
+    },
+    {
+      "artifact_id": "AAA-ORGANIZATION-ACTIVE-ROUTING-STATE-v1.0",
+      "branch": "aaa-persistent-locator-active-v0.3",
+      "git_blob": "ca48540479b3c25ef4c8573a457d12a53e576246",
+      "path": "control/authority/organization/active/AAA_ORGANIZATION_ACTIVE_ROUTING_STATE_v1.0.json",
+      "observed": "AAA-MODEL-ARCHITECT -> AAA-MODEL-VALIDATOR"
+    },
+    {
+      "artifact_id": "AAA-ORGANIZATION-PAIR-ACTIVATION-STATE-v1.0",
+      "branch": "aaa-persistent-locator-active-v0.3",
+      "git_blob": "3579860fd20e497161e13a9ccc8fa0c7fac0db61",
+      "path": "control/authority/organization/active/AAA_ORGANIZATION_PAIR_ACTIVATION_STATE_v1.0.json",
+      "observed": "AAA-MODEL-ARCHITECT + AAA-MODEL-VALIDATOR ACTIVE"
+    },
+    {
+      "artifact_id": "AAA-CORE-B-PERSONA-AUTHORITY-RECONCILIATION-P0-INDEPENDENT-VALIDATION-RECEIPT",
+      "commit": "e140c2ef185717770ea27778f3ea4d34c77adc57",
+      "git_blob": "0d1d033d9dd520ab49da31fe81041b72ce9cac34",
+      "path": "control/validation/persona-authority/v1.0/auditor/aaa-validation-auditor/AAA_CORE_B_PERSONA_AUTHORITY_RECONCILIATION_P0_INDEPENDENT_VALIDATION_RECEIPT_v1.0.json",
+      "observed": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT + AAA-MODEL-DESIGN-VALIDATOR PASS"
+    },
+    {
+      "artifact_id": "AAA-SHARED-CONTRACT-LIMITED-ADDENDUM",
+      "commit": "96d1c02f3d057a0b06db913988e3cc16b980314d",
+      "git_blob": "d7702c1491bded7b2b90e857007599c36bc58b7d",
+      "path": "control/validation/shared-contract/v0.1/l2-inputs/input-01/AAA_SHARED_CONTRACT_LIMITED_ADDENDUM_v0.1.json",
+      "observed": "authority_owners.core_b.persona=AAA-MODEL-VALIDATION-DESIGN-ARCHITECT"
+    },
+    {
+      "artifact_id": "AAA-CORE-B-AUTHORITY-PRECEDENCE-INCIDENT-EVIDENCE-BINDING-v1.1-ADHOC-P0-INDEPENDENT-VALIDATION-RECEIPT",
+      "commit": "b8035dc799e8c8967ac9e990cd70bf95d06ef522",
+      "git_blob": "90d8f3366f82c75c943cc62dadafdba70a980853",
+      "path": "control/validation/organization/authority-conflicts/v1.0/auditor/ad-hoc/AAA_CORE_B_AUTHORITY_PRECEDENCE_INCIDENT_EVIDENCE_BINDING_v1.1_ADHOC_P0_INDEPENDENT_VALIDATION_RECEIPT.json",
+      "observed": "p0_01_closed=false; ready_for_asav_closure=true"
+    }
+  ],
+  "requested_advisory_validation": [
+    "CONFIRM_OWNER_DIRECTIVE_REFERENT_AND_SCOPE",
+    "CONFIRM_FAIL_CLOSED_ROUTING_HOLD_IS_APPROPRIATE",
+    "CONFIRM_REMEDIATION_MUST_BE_AUTHORED_BY_AAA-CONTROL-ARCHITECT",
+    "CONFIRM_REQUIRED_PAIRED_VALIDATOR_AAA-CONTROL-VALIDATOR",
+    "CONFIRM_P0_REQUIRES_AAA-VALIDATION-AUDITOR_AFTER_FRESH_L1",
+    "CONFIRM_EXISTING_V1_3_AND_HISTORICAL_RECEIPTS_MUST_REMAIN_IMMUTABLE",
+    "CONFIRM_FINAL_OWNER_CUTOVER_DECISION_MUST_BIND_NEW_EXACT_SUCCESSOR_TARGET",
+    "CHECK_WHETHER_PRIOR_P0_01_ASAV_FINAL_CLOSURE_MUST_BE COMPLETED_AS_PREREQUISITE_OR_CAN_BE CLOSED WITHIN_THIS_REMEDIATION_LINEAGE"
+  ],
+  "prohibited_in_this_advisory_act": [
+    "MATERIAL_NORMATIVE_TARGET_REWRITE",
+    "SELF_ISSUED_INDEPENDENT_VALIDATION_PASS",
+    "ACTIVE_ORGANIZATION_POINTER_MOVE",
+    "MODEL_SEMANTIC_CHANGE",
+    "SHARED_CONTRACT_SEMANTIC_CHANGE",
+    "M3TOP3_REPLAY_EXECUTION"
+  ],
+  "expected_return": {
+    "verdict": [
+      "PASS_ROUTE_TO_AAA-CONTROL-ARCHITECT",
+      "PASS_WITH_REQUIRED_SCOPE_CORRECTIONS",
+      "BLOCKED"
+    ],
+    "must_include": [
+      "EXACT_OWNER_DIRECTIVE_IDENTITY",
+      "EXACT_EVIDENCE_SET_REVIEWED",
+      "P0_CLASSIFICATION",
+      "ROUTING_DECISION",
+      "P0_01_CLOSURE_DISPOSITION",
+      "NO_AUTHORITY_EXPANSION_STATEMENT"
+    ]
+  },
+  "advisory_validation_state": "PENDING",
+  "semantic_sot": false
+}
