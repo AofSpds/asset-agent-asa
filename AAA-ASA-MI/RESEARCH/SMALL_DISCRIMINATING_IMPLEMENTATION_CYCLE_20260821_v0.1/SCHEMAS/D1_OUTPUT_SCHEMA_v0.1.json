@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "AAA-ASA-MI-D1-OUTPUT-SCHEMA-v0.1",
+  "title": "D1 adapter output neutral envelope",
+  "type": "object",
+  "required": [
+    "adapter_id",
+    "candidate_position",
+    "candidate_exact_sha256",
+    "fixture_id",
+    "fixture_sha256",
+    "candidate_semantics_unchanged",
+    "variant_results"
+  ],
+  "properties": {
+    "adapter_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "candidate_position": {
+      "type": "string",
+      "pattern": "^(A[1-4]|B[1-4])$"
+    },
+    "candidate_exact_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "fixture_id": {
+      "const": "AAA-ASA-MI-D1-PROMISE-ORIGIN-v0.1"
+    },
+    "fixture_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "candidate_semantics_unchanged": {
+      "const": true
+    },
+    "adapter_version": {
+      "type": "string"
+    },
+    "variant_results": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "required": [
+          "variant_id",
+          "BEHAVIOR_RELATION",
+          "MEMORY_CONTENT_RELATION",
+          "PROMISE_ORIGIN_STATUS",
+          "DESCENT_STATUS",
+          "COMMITMENT_OR_OBLIGATION_STATUS",
+          "CONTINUATION_STATUS",
+          "AUTHORITY_STATUS",
+          "SAME_PERSONA_STATUS",
+          "UNKNOWN_NOT_PROVEN_OUT_OF_SCOPE",
+          "DECISION_DEPENDENCIES",
+          "CHANGED_INPUT_CAUSING_OUTPUT_DELTA",
+          "EVIDENCE_MODE"
+        ],
+        "properties": {
+          "variant_id": {
+            "enum": [
+              "D1-A",
+              "D1-B",
+              "D1-C",
+              "D1-D",
+              "D1-E"
+            ]
+          },
+          "EVIDENCE_MODE": {
+            "enum": [
+              "FORMAL_DERIVATION",
+              "EXECUTABLE_REPLAY",
+              "REVIEWER_INFERENCE",
+              "SOURCE_CLAIM",
+              "HUMAN_JUDGMENT",
+              "NOT_TESTED"
+            ]
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}
