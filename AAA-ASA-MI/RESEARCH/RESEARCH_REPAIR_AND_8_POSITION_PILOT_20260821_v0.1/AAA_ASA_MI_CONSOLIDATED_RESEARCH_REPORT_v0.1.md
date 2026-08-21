@@ -330,4 +330,10 @@ Reveal 후 B1/B3/B4 core는 바뀌지 않았다. B2는 내부 operational model�
 
 `NEXT_ALLOWED_RESEARCH = SOURCE_REBASELINE + SMALL_DISCRIMINATING_IMPLEMENTATION_CYCLE`.
 
-`PERSISTENCE_STATE = FEATURE_BRANCH_COMMIT_PENDING_RECEIPT`.
+`PERSISTENCE_STATE = PERSISTED_TO_FEATURE_BRANCH`.
+
+- Branch: `research/asa-mi-repair-pilot-20260821-v0-1`
+- Primary artifact commit: `4106c18c7733a415b9e6bebb1ec597d95806ff7f`
+- Primary artifact tree: `e70ff85d703819c2cde759868f168a96ab6c7b03`
+- Parent/input HEAD: `50c4a1d92e743e7e1862b61d848f12e046d49bdd`
+- Pull request: not created; this cycle authorized persistence, not adoption/review publication.
