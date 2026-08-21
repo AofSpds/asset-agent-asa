@@ -1,0 +1,36 @@
+{
+  "artifact_id": "AAA-PERSONA-RUNTIME-SELECTOR-REGISTRY-v1.0",
+  "artifact_kind": "USER_INVOKED_PERSONA_RUNTIME_SELECTOR_CANDIDATE",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "state": "WORKING_CANDIDATE_NOT_ACTIVE_AUTHORITY",
+  "semantic_sot": false,
+  "authority_effect": "NONE_BY_SELECTOR",
+  "purpose": "Resolve a Human Project Owner channel-open keyword to the intended current AAA Persona before loading Persona-specific memory and worklog.",
+  "normalization": {
+    "case_sensitive": false,
+    "trim_whitespace": true,
+    "canonical_name_preferred_after_resolution": true,
+    "selector_does_not_create_or_change_authority": true
+  },
+  "selectors": [
+    {"canonical_persona":"AAA-ASA","official_code":"ASA","accepted_selectors":["ASA","AAA-ASA"]},
+    {"canonical_persona":"AAA-ADVISORY-VALIDATOR","official_code":"ASAV","accepted_selectors":["ASAV","AAA-ADVISORY-VALIDATOR"]},
+    {"canonical_persona":"AAA-PMO-ORCHESTRATOR","official_code":"PMO","accepted_selectors":["PMO","AAA-PMO-ORCHESTRATOR"]},
+    {"canonical_persona":"AAA-PMO-VALIDATOR","official_code":"PMOV","accepted_selectors":["PMOV","AAA-PMO-VALIDATOR"]},
+    {"canonical_persona":"AAA-CONTROL-ARCHITECT","official_code":"CTL","accepted_selectors":["CTL","AAA-CONTROL-ARCHITECT"]},
+    {"canonical_persona":"AAA-CONTROL-VALIDATOR","official_code":"CTLV","accepted_selectors":["CTLV","AAA-CONTROL-VALIDATOR"]},
+    {"canonical_persona":"AAA-MODEL-VALIDATION-DESIGN-ARCHITECT","official_code":"MOD","accepted_selectors":["MOD","AAA-MODEL-VALIDATION-DESIGN-ARCHITECT"]},
+    {"canonical_persona":"AAA-MODEL-DESIGN-VALIDATOR","official_code":"MODV","accepted_selectors":["MODV","AAA-MODEL-DESIGN-VALIDATOR"]},
+    {"canonical_persona":"AAA-RESEARCH-ORCHESTRATOR","official_code":"RES","accepted_selectors":["RES","AAA-RESEARCH-ORCHESTRATOR"]},
+    {"canonical_persona":"AAA-RESEARCH-VALIDATOR","official_code":"RESV","accepted_selectors":["RESV","AAA-RESEARCH-VALIDATOR"]},
+    {"canonical_persona":"AAA-ENGINEERING-ORCHESTRATOR","official_code":"ENG","accepted_selectors":["ENG","AAA-ENGINEERING-ORCHESTRATOR"]},
+    {"canonical_persona":"AAA-ENGINEERING-VALIDATOR","official_code":"ENGV","accepted_selectors":["ENGV","AAA-ENGINEERING-VALIDATOR"]},
+    {"canonical_persona":"AAA-VALIDATION-AUDITOR","official_code":"IVA","accepted_selectors":["IVA","AAA-VALIDATION-AUDITOR"]}
+  ],
+  "resolution_rule": "OWNER_MESSAGE_EXACT_OR_CLEAR_SELECTOR_MATCH=>RESOLVE_CANONICAL_PERSONA=>VERIFY_PERSONA_IS_CURRENT_IN_GOVERNED_STATE=>LOAD_COMMON_MEMORY=>LOAD_PERSONA_MEMORY_AND_WORKLOG=>RESPOND_WITH_CURRENT_PERSONA_LOCK",
+  "no_match_rule": "IF_PROVEN_CHANNEL_PERSONA_EXISTS_KEEP_IT_ELSE_DEFAULT_AAA_ASA",
+  "ambiguous_rule": "MULTIPLE_SELECTOR_OR_CURRENT_AUTHORITY_MATCHES=>BOOTSTRAP_REVIEW_REQUIRED",
+  "historical_rule": "Historical/superseded persona text is evidence only and is not an accepted runtime selector unless separately governed as current."
+}
