@@ -105,6 +105,16 @@ STATE = OWNER_PASS
 - Calendar time alone is not sufficient evidence. If evidence is insufficient at 3M or 6M, extend Shadow rather than forcing promotion or rejection.
 - Do not impose a mechanical 12M wait if sufficient governed evidence is available earlier; likewise, do not promote merely because 3M or 6M has elapsed.
 
+### J14 — exact source/model/data/fixture/run lineage
+STATE = OWNER_PASS
+- Official M3Top3 validation claims must bind to exact Model Release, Dataset Releases, Golden Fixture Set, Replay Run and material evidence lineage rather than a human-readable source list alone.
+- Model lineage shall identify the material semantic object through contract/version, code commit/blob/hash, config/scorer identity, feature/ranking/missingness rule versions and related release binding as applicable.
+- Released validation data shall identify U127/eligibility, PIT, price, CA, trading-calendar, entity-history and other material inputs through release/path/version/commit/hash/manifest/schema/row-count receipts as applicable.
+- Golden fixtures and Replay inputs/outputs require exact identities/hashes and independent expected-output oracles; do not use the same implementation to generate both expected and actual values.
+- Material internal evidence artifacts require exact identity. Dynamic external sources should preserve locator, publication/retrieval timing and captured/archive/evidence receipt sufficient to reproduce what was actually observed, rather than forcing meaningless hashes on uncaptured changing pages.
+- Preserve a traversable provenance chain from `CLAIM → RUN → MODEL → DATA → SOURCE/FIXTURE` so later revisions cannot silently change the evidentiary basis of an earlier result.
+- Exact-identity rigor is mandatory for material validation inputs/outputs, but incidental explanatory references need not be burdened with the same artifact-control level.
+
 ## DOCUMENT REVISION RULE
 - Do not regenerate the two advisory documents after each item.
 - Continue accumulating Owner dispositions here.
