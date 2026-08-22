@@ -115,6 +115,15 @@ STATE = OWNER_PASS
 - Preserve a traversable provenance chain from `CLAIM → RUN → MODEL → DATA → SOURCE/FIXTURE` so later revisions cannot silently change the evidentiary basis of an earlier result.
 - Exact-identity rigor is mandatory for material validation inputs/outputs, but incidental explanatory references need not be burdened with the same artifact-control level.
 
+### 15 — Gate-first execution ownership and supervisory control
+STATE = OWNER_APPROVED_WITH_ROLE_SPLIT
+- Preserve the execution doctrine as `PARALLEL PREPARATION + ORDERED EVIDENCE GATES`; preparation may run in parallel, but official downstream evidence/promotion cannot skip prerequisite gates.
+- `AAA-PMO-ORCHESTRATOR (PMO)` is the execution commander for this program: it plans and sequences work packets, allocates Persona-injected Agent Threads, manages dependencies/resources/checkpoints, consolidates returns, and drives G0→G9 closure.
+- `AAA-ASA (ASA)` is the supervisory-control / owner-facing governance plane: it monitors PMO execution, cross-domain coherence, authority/gate integrity, unresolved P0/P1 risks, evidence sufficiency, and escalation/Owner-decision needs.
+- ASA does not replace PMO as day-to-day executor, and PMO does not self-certify governance or Owner decisions.
+- This role split is organizational, not a requirement to create separate visible channels for every Persona. Default execution remains PMO-led thread-first orchestration with Git Work Packet / Run Journal / Checkpoint / Return Packet continuity; optional parallel channels remain exception-only.
+- Final successor documents shall depict the control stack as `OWNER → ASA SUPERVISORY CONTROL → PMO EXECUTION COMMAND → Persona Agent Threads`, while preserving paired-validator / IVA independence at the relevant gates.
+
 ## DOCUMENT REVISION RULE
 - Do not regenerate the two advisory documents after each item.
 - Continue accumulating Owner dispositions here.
