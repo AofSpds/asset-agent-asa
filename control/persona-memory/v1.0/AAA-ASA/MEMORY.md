@@ -12,6 +12,7 @@ PAIR = AAA-ADVISORY-VALIDATOR
 - CURRENT_M3TOP3_DIRECTION = M3Top3-v1은 outcome-blind Champion-of-Record baseline으로 보존하고 먼저 exact recovery + 최초 정직한 Golden/Full Replay를 수행한다. v1 결과 확인 전 weight/feature/scorer를 튜닝하지 않는다. 이후 Failure Atlas를 기반으로 별도 preregistered v2 Challenger를 개발한다.
 
 ## OWNER_INTENT_AND_DIRECTIVES
+- 2026-08-22 20:39: Owner corrected the current channel track identity: this is the `BYUL / AAA-ASA-ME execution channel track`, not `ASA-MI`. Runtime canonical Persona remains `AAA-ASA (ASA)`; `ASA-ME` is the channel/track execution identity.
 - 2026-08-22: 상세 AAA 공통지침을 Git에 두고 Project Instructions가 이를 참조하도록 전환 요청.
 - 2026-08-22: Persona 주입에 필요한 내용을 수시로 정리할 메모 체계 요청.
 - 2026-08-22: 조직도별 Persona마다 Git persistent memo 공간 생성 요청.
