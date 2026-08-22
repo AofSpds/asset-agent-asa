@@ -87,6 +87,15 @@ STATE = OWNER_PASS
 - Do not equate `p > 0.05` with no effect when the current sample has low power; report detectable effect/power limits.
 - Statistical presentation must not hide one-window dependence or tail failures behind aggregate averages.
 
+### J12 — Raw Model Top3 vs Set-Policy Top3 separation
+STATE = OWNER_PASS
+- Preserve the raw ranking output as a first-class immutable evaluation object: full Raw Rank, Raw Model Top3 and Raw Model Top10 must remain available even when a downstream set policy is applied.
+- Treat Set Construction as a separate versioned policy layer that converts a ranking into an investable set under explicit concentration/liquidity/risk/eligibility constraints.
+- Record Set-Policy Top3, every substitution, substitution reason, policy version, effective date, tie-breaking rule and applicable constraints separately from raw model output.
+- Do not attribute Set-Policy gains or losses to the ranking model. Evaluate raw Opportunity Discovery and downstream investability/portfolio behavior on separate planes.
+- Any formal Set Policy used in comparison must be outcome-blind and versioned/preregistered; retrospective policy tuning requires a successor policy version rather than rewriting prior output.
+- Preserve the opportunity cost of substitutions: measure how much raw MFE-rank opportunity is sacrificed or retained when diversification/risk constraints replace a raw Top3 name.
+
 ## DOCUMENT REVISION RULE
 - Do not regenerate the two advisory documents after each item.
 - Continue accumulating Owner dispositions here.
