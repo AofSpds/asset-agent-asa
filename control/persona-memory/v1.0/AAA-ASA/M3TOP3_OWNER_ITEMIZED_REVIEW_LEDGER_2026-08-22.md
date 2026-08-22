@@ -53,6 +53,14 @@ STATE = OWNER_APPROVED_WITH_MODIFICATION
 - New minimum-coverage, abstention, confidence penalty, or F08-as-confidence rules are successor/v2 hypotheses unless an exact pre-existing v1 contract proves they were already part of v1.
 - Preserve `NOT_FOUND != BUSINESS_NEGATIVE` and do not turn retrieval failure into silent zero/negative scoring.
 
+### J08 — Core B authority currentization and official-entry hold scope
+STATE = OWNER_APPROVED
+- Preserve the existing Owner remediation direction: current Core B pair is `AAA-MODEL-VALIDATION-DESIGN-ARCHITECT (MOD)` + `AAA-MODEL-DESIGN-VALIDATOR (MODV)` and the stale active organization projection must be superseded through governed successor currentization rather than historical rewrite.
+- Before Core B authority coherence is closed, block official Core B semantic authoring through the stale/ambiguous route and block official M3Top3 model-validation / Golden / Full Replay entry or PASS claims that depend on ambiguous routing.
+- Do not interpret this as a blanket stop on M3Top3 scientific preparation.
+- Continue in parallel: exact v1 recovery, historical data/PIT reconstruction, U127/entity/CA/price readiness, non-semantic evidence collection, test specification, deterministic preservation/diff preparation.
+- Final documents shall distinguish `OFFICIAL SEMANTIC / MODEL-VALIDATION ENTRY HOLD` from `PERMITTED PREPARATION / DATA READINESS WORK`.
+
 ## DOCUMENT REVISION RULE
 - Do not regenerate the two advisory documents after each item.
 - Continue accumulating Owner dispositions here.
