@@ -45,6 +45,14 @@ STATE = OWNER_APPROVED
 - Preserve source bundle, snapshot cutoff, annotator/model version, prompt/rubric version, confidence, disagreement and adjudication provenance.
 - Apply risk-based dual coding rather than indiscriminate dual coding of every objective field.
 
+### J07 — missingness renormalization and coverage diagnostics
+STATE = OWNER_APPROVED_WITH_MODIFICATION
+- Preserve the exact original M3Top3-v1 available-component renormalization semantics; do not add a new minimum-coverage or abstention rule retroactively to v1 before first official replay.
+- Mandatory v1 diagnostics shall expose Coverage Ratio, Available Feature Count, Missing Feature Bitmap, Effective Weight Vector, Evidence Coverage, and sparse-score/low-coverage flags.
+- Full Replay/Failure Atlas shall stratify performance by coverage and inspect whether low-coverage high scores create Critical Miss or deep-tail false positives.
+- New minimum-coverage, abstention, confidence penalty, or F08-as-confidence rules are successor/v2 hypotheses unless an exact pre-existing v1 contract proves they were already part of v1.
+- Preserve `NOT_FOUND != BUSINESS_NEGATIVE` and do not turn retrieval failure into silent zero/negative scoring.
+
 ## DOCUMENT REVISION RULE
 - Do not regenerate the two advisory documents after each item.
 - Continue accumulating Owner dispositions here.
