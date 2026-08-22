@@ -124,6 +124,16 @@ STATE = OWNER_APPROVED_WITH_ROLE_SPLIT
 - This role split is organizational, not a requirement to create separate visible channels for every Persona. Default execution remains PMO-led thread-first orchestration with Git Work Packet / Run Journal / Checkpoint / Return Packet continuity; optional parallel channels remain exception-only.
 - Final successor documents shall depict the control stack as `OWNER → ASA SUPERVISORY CONTROL → PMO EXECUTION COMMAND → Persona Agent Threads`, while preserving paired-validator / IVA independence at the relevant gates.
 
+### 16 — explicit M3Top3 model-state ladder
+STATE = OWNER_APPROVED_WITH_MODIFICATION
+- Use an explicit model-state ladder to prevent implementation recovery, governance freeze, Golden qualification, historical replay evaluation and Champion/promotion from being conflated.
+- Current pre-result v1 naming should be simplified to `M3Top3-v1 Pre-outcome Baseline Candidate` rather than prematurely using Champion/Frozen terminology.
+- Recommended ladder: `S0 PRE-OUTCOME BASELINE CANDIDATE → S1 EXACT-RECOVERED BASELINE → S2 FROZEN BASELINE-OF-RECORD → S3 GOLDEN-QUALIFIED BASELINE → S4 REPLAY-EVALUATED BASELINE → S5 CHAMPION / PROMOTED MODEL`.
+- `Exact-Recovered` means contract/code/config/semantics identity is recovered; it does not itself create Freeze authority.
+- `Frozen` requires a governed exact-target freeze decision; `Golden-Qualified` proves implementation-contract conformance, not alpha superiority; `Replay-Evaluated` means historical evaluation completed, not automatic Champion status.
+- State transitions are evidence-gated. PMO prepares the evidence/transition package, ASA supervises state-transition integrity, and the required paired validator / IVA / Owner gates remain applicable according to the governing authority level.
+- The exact labels may be shortened in dashboards, but no label may imply evidence or authority that has not been obtained.
+
 ## DOCUMENT REVISION RULE
 - Do not regenerate the two advisory documents after each item.
 - Continue accumulating Owner dispositions here.
