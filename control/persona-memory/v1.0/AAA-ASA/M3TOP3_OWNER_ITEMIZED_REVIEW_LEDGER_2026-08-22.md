@@ -79,6 +79,14 @@ STATE = OWNER_APPROVED
 - If an early Recall stage is used, explicitly measure winner recall and the irreversible loss introduced by early candidate exclusion.
 - No architecture promotion before comparative evidence; staged architecture remains a strong research hypothesis, not a canonical successor mandate.
 
+### J11 — current-stage statistical inference priority
+STATE = OWNER_PASS
+- Current-stage primary inference shall emphasize per-window raw metrics, effect sizes, worst-window/tail severity, leave-one-window-out stability, exact/permutation tests, stratified randomization where relevant, power simulation, practical non-inferiority, and regime consistency.
+- SPA/MCS/PBO are not discarded; they are secondary/later tools after additional independent regimes and a complete preregistered model-trial registry make their outputs more interpretable.
+- DSR is not a universal Top-K model-superiority certificate; reserve it for a separately defined tradable return series where Sharpe-type inference is actually applicable.
+- Do not equate `p > 0.05` with no effect when the current sample has low power; report detectable effect/power limits.
+- Statistical presentation must not hide one-window dependence or tail failures behind aggregate averages.
+
 ## DOCUMENT REVISION RULE
 - Do not regenerate the two advisory documents after each item.
 - Continue accumulating Owner dispositions here.
