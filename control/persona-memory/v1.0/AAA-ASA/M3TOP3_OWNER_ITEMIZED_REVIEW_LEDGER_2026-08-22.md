@@ -96,6 +96,15 @@ STATE = OWNER_PASS
 - Any formal Set Policy used in comparison must be outcome-blind and versioned/preregistered; retrospective policy tuning requires a successor policy version rather than rewriting prior output.
 - Preserve the opportunity cost of substitutions: measure how much raw MFE-rank opportunity is sacrificed or retained when diversification/risk constraints replace a raw Top3 name.
 
+### J13 — Forward Shadow checkpoints vs automatic promotion
+STATE = OWNER_PASS
+- Treat 3M and 6M as scheduled Forward-Shadow evidence checkpoints, not automatic model-promotion thresholds.
+- The 3M checkpoint is the first mature prospective evidence review; assess matured cohort MFE-rank performance, Raw Top3/Top10 health, Critical Miss/deep-tail behavior, investability path, coverage/missingness, PIT integrity, operational reproducibility and ranking turnover.
+- The 6M checkpoint extends the evidence review across additional matured cohorts/regime variation and inspects worst cohort, concentration dependence, leave-one-cohort-out stability, practical non-inferiority/superiority, and operational stability.
+- Promotion eligibility depends on sufficient matured prospective cohorts and effective independent evidence, preregistered performance/tail-risk criteria, no unresolved material P0, independent validation, and final Owner decision.
+- Calendar time alone is not sufficient evidence. If evidence is insufficient at 3M or 6M, extend Shadow rather than forcing promotion or rejection.
+- Do not impose a mechanical 12M wait if sufficient governed evidence is available earlier; likewise, do not promote merely because 3M or 6M has elapsed.
+
 ## DOCUMENT REVISION RULE
 - Do not regenerate the two advisory documents after each item.
 - Continue accumulating Owner dispositions here.
