@@ -140,7 +140,7 @@ class KnownFailureIntegrityTests(unittest.TestCase):
 
     def test_self_consistent_forged_retrieval_company_is_rejected(self):
         self._rewrite_self_consistent_audit(lambda rows: rows[0].__setitem__("company_id", "FORGED-COMPANY"))
-        self.assert_code(lambda: verify_snapshot_artifacts(self.snapshot_dir), "RETRIEVAL_AUDIT_SEMANTIC_MISMATCH")
+        self.assert_code(lambda: verify_snapshot_artifacts(self.snapshot_dir), "SNAPSHOT_UNIVERSE_MEMBER_MISSING")
 
     def test_self_consistent_forged_retrieval_cutoff_is_rejected(self):
         self._rewrite_self_consistent_audit(lambda rows: rows[0].__setitem__("cutoff_at", "2025-01-01T23:59:59+09:00"))
@@ -152,7 +152,7 @@ class KnownFailureIntegrityTests(unittest.TestCase):
 
     def test_self_consistent_missing_retrieval_receipt_is_rejected(self):
         self._rewrite_self_consistent_audit(lambda rows: rows.clear())
-        self.assert_code(lambda: verify_snapshot_artifacts(self.snapshot_dir), "RETRIEVAL_AUDIT_SEMANTIC_MISMATCH")
+        self.assert_code(lambda: verify_snapshot_artifacts(self.snapshot_dir), "SNAPSHOT_UNIVERSE_MEMBER_MISSING")
 
     def test_kf_int_004_declared_row_count_mismatch(self):
         path = self.snapshot_dir / "manifest.json"
@@ -189,7 +189,7 @@ class KnownFailureIntegrityTests(unittest.TestCase):
         manifest["snapshot_date"]="2030-12-31"
         self._rewrite_manifest_identity(manifest)
         manifest_path.write_text(json.dumps(manifest),encoding="utf-8")
-        self.assert_code(lambda:verify_snapshot_artifacts(self.snapshot_dir),"RETRIEVAL_AUDIT_SEMANTIC_MISMATCH")
+        self.assert_code(lambda:verify_snapshot_artifacts(self.snapshot_dir),"SNAPSHOT_DATE_LINEAGE_MISMATCH")
 
     def test_self_consistent_model_pit_identity_forgery_is_rejected(self):
         model_path=self.snapshot_dir/"model_input.jsonl"
@@ -226,11 +226,11 @@ class KnownFailureIntegrityTests(unittest.TestCase):
 
     def test_self_consistent_duplicate_pit_price_reference_is_rejected(self):
         self._rewrite_self_consistent_price_lineage(pit_ref_transform=lambda refs:refs+[dict(refs[0])])
-        self.assert_code(lambda:verify_snapshot_artifacts(self.snapshot_dir),"RETRIEVAL_AUDIT_SEMANTIC_MISMATCH")
+        self.assert_code(lambda:verify_snapshot_artifacts(self.snapshot_dir),"DUPLICATE_DATASET_REF_DOMAIN")
 
     def test_self_consistent_missing_pit_price_reference_is_rejected(self):
         self._rewrite_self_consistent_price_lineage(pit_ref_transform=lambda refs:[])
-        self.assert_code(lambda:verify_snapshot_artifacts(self.snapshot_dir),"RETRIEVAL_AUDIT_SEMANTIC_MISMATCH")
+        self.assert_code(lambda:verify_snapshot_artifacts(self.snapshot_dir),"DATASET_REF_DOMAIN_MISSING")
 
 
 if __name__ == "__main__":

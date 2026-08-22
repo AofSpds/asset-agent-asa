@@ -17,6 +17,11 @@ Important implementation choices:
 - Canonical validation rule is Entry = first trading-day Open after Snapshot/Window Start; Exit = first trading-day Open after configured Window End; MFE/MAE use holding rows through Window End. `horizon_close` is a **non-canonical diagnostic extension** retained separately because M3Top3 research explicitly needs 3M close behavior.
 - Window dates are injected by a `WindowResolver`; W1-W8 meanings are not hard-coded.
 - Tie policy defaults to `UNRESOLVED_CONTROL`. A deterministic company-id fallback exists only as `COMPANY_ID_ASC_DIAGNOSTIC`.
+- A JSONL universe cannot certify itself. Snapshot admission requires a separate exact `m3top3-universe-lineage-v1` manifest and denominator artifact. The manifest binds logical locators, source byte hashes, parsed-state hashes, applicable snapshot dates, partitions, row counts, and full/eligible identity-set digests.
+- In-memory universe fixtures use an explicitly tagged `SYNTHETIC_IN_MEMORY_DIAGNOSTIC` exception. That exception is rejected unless `universe_authority_status=DIAGNOSTIC` and cannot create Official, canonical, Golden, Replay, Freeze, Release, or Production authority.
+- READY snapshot rows cover the complete applicable universe `U`, including terminal `entry_eligible=FALSE` rows; unresolved eligibility is not READY. Scoring coverage is exactly `U`. Ranking, prediction ledger, and outcome coverage are exactly the eligible subset `E`.
+- Result artifacts preserve both the historical Top3 outcome view and a separately named `full_universe_outcomes` view for all of `E`; outcome formulas and Top3 metrics are unchanged.
+- Release statuses are fail-closed. `PARTIAL`, `UNVERIFIED`, and lineage/hash/set drift are rejected before scoring or output mutation.
 - Core unit tests are standard-library-only. Production Parquet access uses the optional DuckDB adapter.
 
 Example historical snapshot CLI:

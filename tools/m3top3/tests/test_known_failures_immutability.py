@@ -11,7 +11,7 @@ from unittest.mock import patch
 
 from tools.m3top3.admission import M3Top3AdmissionError
 from tools.m3top3.core import canonical_json_bytes
-from tools.m3top3.ledger import AppendOnlyLedger, ImmutableJsonArtifactStore
+from tools.m3top3.ledger import AppendOnlyLedger, ImmutableJsonArtifactStore, PredictionLedger
 from tools.m3top3.snapshot import SnapshotStore
 from tools.m3top3.tests._known_failure_helpers import CountingScorer, diagnostic_runner, materialize_ready_snapshot
 
@@ -96,23 +96,25 @@ class KnownFailureImmutabilityTests(unittest.TestCase):
 
     def test_kf_imm_003_same_run_id_different_result_is_rejected(self):
         output = self.root / "results"
+        ledger = PredictionLedger(self.root / "results-prediction-ledger.jsonl")
         runner1, _ = diagnostic_runner(self.price, self.dates, CountingScorer("9"))
-        first = runner1.run_snapshot(self.snapshot_dir, output)
+        first = runner1.run_snapshot(self.snapshot_dir, output, ledger)
         result_path = output / self.dates[0].isoformat() / f"{first['validation_run_id']}.json"
         prior = result_path.read_bytes()
         runner2, _ = diagnostic_runner(self.price, self.dates, CountingScorer("8"))
         with self.assertRaises(M3Top3AdmissionError) as caught:
-            runner2.run_snapshot(self.snapshot_dir, output)
+            runner2.run_snapshot(self.snapshot_dir, output, ledger)
         self.assertEqual(caught.exception.code, "NONDETERMINISTIC_RERUN")
         self.assertEqual(result_path.read_bytes(), prior)
 
     def test_kf_imm_004_same_run_id_identical_bytes_reused(self):
         output = self.root / "results"
+        ledger = PredictionLedger(self.root / "results-prediction-ledger.jsonl")
         runner, _ = diagnostic_runner(self.price, self.dates, CountingScorer("9"))
-        first = runner.run_snapshot(self.snapshot_dir, output)
+        first = runner.run_snapshot(self.snapshot_dir, output, ledger)
         result_path = output / self.dates[0].isoformat() / f"{first['validation_run_id']}.json"
         prior = result_path.read_bytes(); prior_mtime = result_path.stat().st_mtime_ns
-        second = runner.run_snapshot(self.snapshot_dir, output)
+        second = runner.run_snapshot(self.snapshot_dir, output, ledger)
         self.assertEqual(second["artifact_state"], "REUSED")
         self.assertEqual(result_path.read_bytes(), prior)
         self.assertEqual(result_path.stat().st_mtime_ns, prior_mtime)
@@ -121,12 +123,14 @@ class KnownFailureImmutabilityTests(unittest.TestCase):
         class OtherVersionScorer(CountingScorer):
             model_version = "diagnostic-v1"
         output = self.root / "results"
+        ledger = PredictionLedger(self.root / "results-prediction-ledger.jsonl")
         runner1, _ = diagnostic_runner(self.price, self.dates, CountingScorer("9"))
         runner2, _ = diagnostic_runner(self.price, self.dates, OtherVersionScorer("9"))
-        first = runner1.run_snapshot(self.snapshot_dir, output)
-        second = runner2.run_snapshot(self.snapshot_dir, output)
+        first = runner1.run_snapshot(self.snapshot_dir, output, ledger)
+        second = runner2.run_snapshot(self.snapshot_dir, output, ledger)
         self.assertNotEqual(first["validation_run_id"], second["validation_run_id"])
-        self.assertEqual(len(list((output / self.dates[0].isoformat()).glob("*.json"))), 2)
+        result_files=[path for path in (output / self.dates[0].isoformat()).glob("*.json") if not path.name.endswith(".manifest.json")]
+        self.assertEqual(len(result_files), 2)
 
     def test_concurrent_different_payloads_cannot_both_append_or_overwrite(self):
         path=self.root/"concurrent"/"run.json"
@@ -152,6 +156,8 @@ class KnownFailureImmutabilityTests(unittest.TestCase):
 
     def test_ledger_admission_failure_precedes_result_artifact_write(self):
         class RejectingLedger:
+            def preflight_many(self,rows):
+                raise M3Top3AdmissionError("NONDETERMINISTIC_RERUN","concurrent ledger collision",exit_code=3)
             def append_many(self,rows):
                 raise M3Top3AdmissionError("NONDETERMINISTIC_RERUN","concurrent ledger collision",exit_code=3)
         output=self.root/"ledger-first-output"

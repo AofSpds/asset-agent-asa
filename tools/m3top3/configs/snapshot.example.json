@@ -11,10 +11,23 @@
   "generator_git_commit": null,
   "reconstruction_version": "RECONSTRUCTION_v0.1_WORKING",
   "universe_jsonl": "/data/control/u127-history.jsonl",
+  "denominator_jsonl": "/data/control/u127-denominator-history.jsonl",
+  "universe_lineage_manifest": "/data/control/u127-universe-lineage-v1.json",
+  "universe_lineage_manifest_hash": null,
+  "universe_expectation_manifest": "/data/control/u127-universe-expectation-v1.json",
+  "universe_expectation_manifest_hash": null,
+  "denominator_expectation_manifest": "/data/control/u127-denominator-expectation-v1.json",
+  "denominator_expectation_manifest_hash": null,
   "universe_release_id": "U127_FREEZE_CANDIDATE_WORKING",
   "universe_authority_status": "WORKING_FREEZE_CANDIDATE",
+  "universe_release_hash": null,
+  "universe_release_status": null,
+  "denominator_release_id": null,
+  "denominator_release_hash": null,
+  "denominator_release_status": null,
   "features_jsonl": "/data/control/pit-features-working.jsonl",
   "feature_source_version": "U127_WORKING_v0.8_OR_LATER",
+  "feature_source_status": "DIAGNOSTIC_VERIFIED",
   "price_paths": [
     "/data/raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/marcap-2024.parquet",
     "/data/raw/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1/marcap-2025.parquet",
@@ -22,5 +35,8 @@
   ],
   "price_dataset_id": "SEMI-PRICE-MARCAP-KRX-2024-2026_v1",
   "price_dataset_hash": "419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7",
-  "price_source_semantics": "RAW_IMMUTABLE"
+  "price_source_semantics": "RAW_IMMUTABLE",
+  "price_release": {
+    "release_status": "DIAGNOSTIC_VERIFIED"
+  }
 }

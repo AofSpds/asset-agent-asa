@@ -29,7 +29,7 @@ class KnownFailureSnapshotTests(unittest.TestCase):
         self.assertEqual(built.model_inputs, [])
         with self.assertRaises(M3Top3AdmissionError) as caught:
             SnapshotStore(self.root / "blocked-store").write(built, {})
-        self.assertEqual(caught.exception.code, "BLOCKED_SNAPSHOT_NOT_READY")
+        self.assertEqual(caught.exception.code, "BLOCKED_MANIFEST_STATE_CONTRADICTION_OR_BLOCKED_SNAPSHOT_NOT_READY")
         self.assertFalse((self.root / "blocked-store").exists())
 
     def _assert_manifest_block(self, status, blockers, expected):
@@ -52,16 +52,16 @@ class KnownFailureSnapshotTests(unittest.TestCase):
         self.assertFalse(output.exists())
 
     def test_kf_snp_002_partial_manifest_blocked_before_scorer(self):
-        self._assert_manifest_block("SNAPSHOT_PARTIAL", ["C1:ELIGIBILITY_UNRESOLVED"], "BLOCKED_SNAPSHOT_NOT_READY")
+        self._assert_manifest_block("SNAPSHOT_PARTIAL", ["C1:ELIGIBILITY_UNRESOLVED"], "BLOCKED_MANIFEST_STATE_CONTRADICTION_OR_BLOCKED_SNAPSHOT_NOT_READY")
 
     def test_kf_snp_003_blocked_manifest_blocked_before_scorer(self):
-        self._assert_manifest_block("SNAPSHOT_BLOCKED", ["C1:PIT_PUBLICATION_AFTER_CUTOFF"], "BLOCKED_SNAPSHOT_NOT_READY")
+        self._assert_manifest_block("SNAPSHOT_BLOCKED", ["C1:PIT_PUBLICATION_AFTER_CUTOFF"], "BLOCKED_MANIFEST_STATE_CONTRADICTION_OR_BLOCKED_SNAPSHOT_NOT_READY")
 
     def test_kf_snp_004_ready_with_blocker_is_contradiction(self):
-        self._assert_manifest_block("SNAPSHOT_READY", ["unexpected"], "BLOCKED_MANIFEST_STATE_CONTRADICTION")
+        self._assert_manifest_block("SNAPSHOT_READY", ["unexpected"], "BLOCKED_MANIFEST_STATE_CONTRADICTION_OR_BLOCKED_SNAPSHOT_NOT_READY")
 
     def test_snapshot_block_has_zero_ledger_and_run_mutation(self):
-        self._assert_manifest_block("SNAPSHOT_PARTIAL", ["blocked"], "BLOCKED_SNAPSHOT_NOT_READY")
+        self._assert_manifest_block("SNAPSHOT_PARTIAL", ["blocked"], "BLOCKED_MANIFEST_STATE_CONTRADICTION_OR_BLOCKED_SNAPSHOT_NOT_READY")
 
     def test_retrieval_audit_is_hash_bound_and_non_scoreable(self):
         rows=[
@@ -156,7 +156,7 @@ class KnownFailureSnapshotTests(unittest.TestCase):
         output=self.root/"prepublish-check"
         with self.assertRaises(M3Top3AdmissionError) as caught:
             SnapshotStore(output).write(built,{})
-        self.assertEqual(caught.exception.code,"RETRIEVAL_AUDIT_SEMANTIC_MISMATCH")
+        self.assertEqual(caught.exception.code,"DUPLICATE_SCOREABLE_SNAPSHOT_KEY")
         self.assertFalse((output/dates[0].isoformat()).exists())
 
 
