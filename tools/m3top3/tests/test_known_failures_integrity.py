@@ -76,6 +76,31 @@ class KnownFailureIntegrityTests(unittest.TestCase):
     def _rewrite_manifest_identity(self, manifest):
         manifest["snapshot_manifest_identity_hash"] = sha256_hex(_snapshot_manifest_identity_payload(manifest))
 
+    def _rewrite_self_consistent_price_lineage(self,manifest_id=None,manifest_hash=None,pit_ref_transform=None):
+        pit_path=self.snapshot_dir/"pit_snapshot.jsonl"; model_path=self.snapshot_dir/"model_input.jsonl"; audit_path=self.snapshot_dir/"retrieval_audit.jsonl"; manifest_path=self.snapshot_dir/"manifest.json"
+        pit_rows=[json.loads(line) for line in pit_path.read_text(encoding="utf-8").splitlines() if line.strip()]
+        model_rows=[json.loads(line) for line in model_path.read_text(encoding="utf-8").splitlines() if line.strip()]
+        audit_rows=[json.loads(line) for line in audit_path.read_text(encoding="utf-8").splitlines() if line.strip()]
+        manifest=json.loads(manifest_path.read_text(encoding="utf-8"))
+        if manifest_id is not None:
+            manifest["price_dataset_id"]=manifest_id
+            for model in model_rows: model["price_dataset_id"]=manifest_id
+        if manifest_hash is not None: manifest["price_dataset_hash"]=manifest_hash
+        models={(row["company_id"],row["snapshot_cutoff_at"]):row for row in model_rows}
+        if pit_ref_transform is not None:
+            for pit in pit_rows:
+                pit["dataset_refs"]=pit_ref_transform(list(pit["dataset_refs"]))
+                identity_payload={field:pit.get(field) for field in ("company_id","snapshot_cutoff_at","snapshot_schema_version","snapshot_revision","f1_f2_effective_refs","f3_observation_refs","evidence_refs","dataset_refs","universe_release_id","tradability_state_ref","retrieval_receipt_id","retrieval_source_hash")}
+                pit["pit_snapshot_id"]=deterministic_id("pit",identity_payload)
+                pit["capture_run_id"]=deterministic_id("capture",{"pit_snapshot_id":pit["pit_snapshot_id"],"generator_version":pit["generator_version"]})
+                models[(pit["company_id"],pit["snapshot_cutoff_at"])]["pit_snapshot_id"]=pit["pit_snapshot_id"]
+        pit_text="".join(json.dumps(row,ensure_ascii=False,sort_keys=True,separators=(",",":"))+"\n" for row in pit_rows)
+        model_text="".join(json.dumps(row,ensure_ascii=False,sort_keys=True,separators=(",",":"))+"\n" for row in model_rows)
+        pit_path.write_text(pit_text,encoding="utf-8"); model_path.write_text(model_text,encoding="utf-8")
+        manifest["pit_file_sha256"]=sha256_hex(pit_text); manifest["model_input_file_sha256"]=sha256_hex(model_text)
+        manifest["snapshot_content_hash"]=aggregate_hash([sha256_hex(row) for row in pit_rows]+[sha256_hex(row) for row in model_rows]+[sha256_hex(row) for row in audit_rows])
+        self._rewrite_manifest_identity(manifest); manifest_path.write_text(json.dumps(manifest),encoding="utf-8")
+
     def test_kf_int_001_malformed_jsonl_blocks_before_scorer_and_write(self):
         model = self.snapshot_dir / "model_input.jsonl"
         model.write_text("{malformed\n", encoding="utf-8")
@@ -194,6 +219,18 @@ class KnownFailureIntegrityTests(unittest.TestCase):
         output=self.root/"lineage-mismatch-output"
         self.assert_code(lambda:runner.run_snapshot(self.snapshot_dir,output),"PRICE_LINEAGE_MISMATCH")
         self.assertFalse(output.exists())
+
+    def test_self_consistent_manifest_model_price_drift_from_pit_is_rejected(self):
+        self._rewrite_self_consistent_price_lineage("FORGED-DATASET","f"*64)
+        self.assert_code(lambda:verify_snapshot_artifacts(self.snapshot_dir),"RETRIEVAL_AUDIT_SEMANTIC_MISMATCH")
+
+    def test_self_consistent_duplicate_pit_price_reference_is_rejected(self):
+        self._rewrite_self_consistent_price_lineage(pit_ref_transform=lambda refs:refs+[dict(refs[0])])
+        self.assert_code(lambda:verify_snapshot_artifacts(self.snapshot_dir),"RETRIEVAL_AUDIT_SEMANTIC_MISMATCH")
+
+    def test_self_consistent_missing_pit_price_reference_is_rejected(self):
+        self._rewrite_self_consistent_price_lineage(pit_ref_transform=lambda refs:[])
+        self.assert_code(lambda:verify_snapshot_artifacts(self.snapshot_dir),"RETRIEVAL_AUDIT_SEMANTIC_MISMATCH")
 
 
 if __name__ == "__main__":

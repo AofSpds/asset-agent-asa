@@ -321,6 +321,18 @@ def _verify_retrieval_audit_semantics(
                 )
         if model_row.get("price_dataset_id") != manifest.get("price_dataset_id") or model_row.get("price_source_semantics") != manifest.get("price_source_semantics"):
             _retrieval_semantic_failure("model-input price lineage differs from manifest", {"company_id": key[0]})
+        dataset_refs=pit_row.get("dataset_refs")
+        price_refs=[] if not isinstance(dataset_refs,list) else [
+            ref for ref in dataset_refs
+            if isinstance(ref,dict)
+            and ref.get("domain")=="SOURCE_DATASET"
+            and ref.get("source_id")==manifest.get("price_dataset_id")
+        ]
+        if len(price_refs)!=1 or price_refs[0].get("content_hash")!=manifest.get("price_dataset_hash"):
+            _retrieval_semantic_failure(
+                "PIT price dataset reference is not exactly bound to manifest/model price identity",
+                {"company_id":key[0],"matching_ref_count":len(price_refs)},
+            )
         if pit_row.get("generator_version") != manifest.get("generator_version"):
             _retrieval_semantic_failure("PIT generator version differs from manifest", {"company_id": key[0]})
         if pit_row.get("universe_release_id") != manifest.get("universe_release_id"):
