@@ -70,6 +70,15 @@ STATE = OWNER_APPROVED
 - Formal Challenger identities/specifications must be preregistered before their outcome comparison.
 - The 2~3 budget is not a permanent lifetime cap; later rounds may add new challengers through new preregistration after additional evidence.
 
+### J10 — staged architecture status and comparison discipline
+STATE = OWNER_APPROVED
+- Preserve `Candidate Recall → Tail Ranking → Confidence/Risk → Set Construction` as a high-priority successor architecture hypothesis, not as a preselected preferred solution or default winner.
+- Compare staged architecture against a direct full-universe ranking architecture and simpler constrained alternatives under matched evaluation conditions.
+- Treat Opportunity, Confidence, Risk, Eligibility and Set Construction as separable modeling hypotheses whose value must be demonstrated rather than assumed.
+- Preserve `RAW MODEL TOP3` separately from any `SET-POLICY TOP3`; portfolio/set policy gains must not be misattributed to raw ranking-model improvement.
+- If an early Recall stage is used, explicitly measure winner recall and the irreversible loss introduced by early candidate exclusion.
+- No architecture promotion before comparative evidence; staged architecture remains a strong research hypothesis, not a canonical successor mandate.
+
 ## DOCUMENT REVISION RULE
 - Do not regenerate the two advisory documents after each item.
 - Continue accumulating Owner dispositions here.
