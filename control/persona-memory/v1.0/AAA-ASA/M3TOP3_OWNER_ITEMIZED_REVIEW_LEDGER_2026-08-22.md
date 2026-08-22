@@ -61,6 +61,15 @@ STATE = OWNER_APPROVED
 - Continue in parallel: exact v1 recovery, historical data/PIT reconstruction, U127/entity/CA/price readiness, non-semantic evidence collection, test specification, deterministic preservation/diff preparation.
 - Final documents shall distinguish `OFFICIAL SEMANTIC / MODEL-VALIDATION ENTRY HOLD` from `PERMITTED PREPARATION / DATA READINESS WORK`.
 
+### J09 — Round-1 material Challenger budget
+STATE = OWNER_APPROVED
+- The `2~3` limit applies to the first formal material Challenger set, not to the number of research ideas or prototypes.
+- Idea/Research Pool and Prototype/Diagnostic work may be broader, subject to PIT/outcome-firewall and journaling discipline.
+- Simple baselines such as momentum-only, event-only, revision-only, valuation/base and random/equal-weight controls do not consume the formal material Challenger budget.
+- Round-1 material Challengers should be selected after exact v1 Full Replay + Failure Atlas and should represent distinct failure hypotheses rather than cosmetic variants.
+- Formal Challenger identities/specifications must be preregistered before their outcome comparison.
+- The 2~3 budget is not a permanent lifetime cap; later rounds may add new challengers through new preregistration after additional evidence.
+
 ## DOCUMENT REVISION RULE
 - Do not regenerate the two advisory documents after each item.
 - Continue accumulating Owner dispositions here.
