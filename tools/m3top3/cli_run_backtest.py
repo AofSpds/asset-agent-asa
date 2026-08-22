@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+from datetime import date
 from pathlib import Path
 
 from .admission import EXIT_AUTHORITY, EXIT_BLOCKED, EXIT_INTEGRITY, M3Top3AdmissionError, verify_official_scorer
@@ -37,7 +38,13 @@ def main(argv:list[str]|None=None) -> int:
             raise M3Top3AdmissionError("PLACEHOLDER_CONFIG_NOT_ADMISSIBLE","unsupported execution_mode",exit_code=EXIT_AUTHORITY)
         ranking=RankingEngine(cfg.get("tie_break_policy","UNRESOLVED_CONTROL")); price=DuckDBParquetPriceProvider(cfg["price_paths"],cfg["price_dataset_id"],cfg["price_dataset_hash"],cfg.get("price_source_semantics","RAW_IMMUTABLE"),cfg.get("price_release"),cfg.get("price_component_manifest")); windows=ExplicitWindowResolver(cfg["window_end_by_snapshot_date"],cfg.get("window_protocol_version","UNRESOLVED_CONTROL")); outcomes=OutcomeBuilder(price,windows,cfg.get("validation_protocol_version","m3top3-outcome-working-v0.1")); runner=ValidationRunner(scorer,ranking,outcomes,execution_mode=mode,scorer_config_bytes=scorer_config_bytes,official_scorer_receipt=scorer_receipt)
         root=Path(args.snapshot_root); out=Path(args.output); ledger=PredictionLedger(out/"prediction-ledger.jsonl"); results=[]; blocked=[]; failed_integrity=[]; failed_authority=[]
-        snapshot_dirs=sorted(p for p in root.iterdir() if p.is_dir() and (p/"manifest.json").exists())
+        snapshot_dirs=[]
+        for candidate in sorted(root.iterdir()):
+            if not candidate.is_dir() or candidate.name.startswith(".") or not (candidate/"manifest.json").exists():
+                continue
+            try: date.fromisoformat(candidate.name)
+            except ValueError: continue
+            snapshot_dirs.append(candidate)
         for d in snapshot_dirs:
             try:
                 result=runner.run_snapshot(d,out/"runs",ledger)

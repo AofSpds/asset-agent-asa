@@ -36,6 +36,21 @@ class KnownFailurePriceTests(unittest.TestCase):
         write_price_csv(path, standard_price_rows())
         self.assert_code("PRICE_CANONICAL_GLOBALLY_BLOCKED", lambda: CsvPriceProvider(path, dataset_hash=hash_file(path), semantics="PRICE_CANONICAL"), 4)
 
+    def test_unrecognized_price_semantics_is_fail_closed_at_construction(self):
+        path=self.root/"unknown-semantics.csv"
+        write_price_csv(path,standard_price_rows())
+        self.assert_code("UNSUPPORTED_PRICE_SEMANTICS",lambda:CsvPriceProvider(path,dataset_hash=hash_file(path),semantics="TYPO_CANONICALISH"),4)
+
+    def test_post_construction_semantics_mutation_is_fail_closed(self):
+        provider=price_provider(self.root)
+        provider.semantics="TYPO_CANONICALISH"
+        self.assert_code("UNSUPPORTED_PRICE_SEMANTICS",lambda:provider.trading_dates(date(2025,1,2),date(2025,1,31)),4)
+
+    def test_post_construction_price_byte_mutation_is_rejected_before_read(self):
+        provider=price_provider(self.root)
+        provider.path.write_bytes(provider.path.read_bytes()+b"tamper")
+        self.assert_code("PRICE_COMPONENT_HASH_MISMATCH",lambda:provider.trading_dates(date(2025,1,2),date(2025,1,31)))
+
     def test_kf_prc_003_duplicate_csv_key(self):
         rows = standard_price_rows()[:1] * 2
         self.assert_code("DUPLICATE_PRICE_KEY", lambda: price_provider(self.root, rows))
@@ -153,7 +168,7 @@ class KnownFailurePriceTests(unittest.TestCase):
         with patch("tools.m3top3.providers.importlib.import_module",return_value=self._fake_duck(columns,handler)):
             self.assert_code("CA_EVIDENCE_INCOMPLETE",lambda: DuckDBParquetPriceProvider([parquet],"P",hash_file(parquet)))
 
-    def test_kf_prc_006_canonical_parquet_requires_ca_schema_before_global_gate(self):
+    def test_kf_prc_006_canonical_parquet_is_globally_blocked_before_query(self):
         parquet=self.root/"canonical-no-ca.parquet"; parquet.write_bytes(b"fixture")
         columns=("date","code","open","high","low","close")
         def handler(query,params):
@@ -161,7 +176,28 @@ class KnownFailurePriceTests(unittest.TestCase):
             return []
         release={"frozen":True,"authority_receipt":"SELF","ca_receipt":"SELF","unresolved_ca_candidates":0}
         with patch("tools.m3top3.providers.importlib.import_module",return_value=self._fake_duck(columns,handler)):
-            self.assert_code("PRICE_CANONICAL_CA_INCOMPLETE",lambda: DuckDBParquetPriceProvider([parquet],"P",hash_file(parquet),"PRICE_CANONICAL",release),4)
+            self.assert_code("PRICE_CANONICAL_GLOBALLY_BLOCKED",lambda: DuckDBParquetPriceProvider([parquet],"P",hash_file(parquet),"PRICE_CANONICAL",release),4)
+
+    def test_parquet_hash_mismatch_blocks_before_connect_or_query(self):
+        parquet=self.root/"prequery-hash-mismatch.parquet"; parquet.write_bytes(b"fixture")
+        calls=[]
+        class Result:
+            def __init__(self,rows): self.rows=rows
+            def fetchall(self): return self.rows
+            def fetchone(self): return self.rows[0] if self.rows else None
+        class Connection:
+            def execute(self,query,params=None):
+                calls.append(query)
+                if query.startswith("DESCRIBE"): return Result([(name,) for name in ("date","code","open","high","low","close")])
+                return Result([])
+        class Duck:
+            @staticmethod
+            def connect():
+                calls.append("connect")
+                return Connection()
+        with patch("tools.m3top3.providers.importlib.import_module",return_value=Duck):
+            self.assert_code("PRICE_COMPONENT_HASH_MISMATCH",lambda:DuckDBParquetPriceProvider([parquet],"P","0"*64))
+        self.assertEqual(calls,[])
 
     def _multi_component_fixture(self):
         first=self.root/"part-a.parquet"; second=self.root/"part-b.parquet"
@@ -214,6 +250,13 @@ class KnownFailurePriceTests(unittest.TestCase):
                 "PRICE_COMPONENT_MANIFEST_MISMATCH",
                 lambda: DuckDBParquetPriceProvider(paths,"P-MULTI",dataset_hash,component_manifest=manifest),
             )
+
+    def test_parquet_component_mutation_after_init_is_rejected_before_lazy_query(self):
+        paths,dataset_hash,manifest,duck=self._multi_component_fixture()
+        with patch("tools.m3top3.providers.importlib.import_module",return_value=duck):
+            provider=DuckDBParquetPriceProvider(paths,"P-MULTI",dataset_hash,component_manifest=manifest)
+            paths[0].write_bytes(paths[0].read_bytes()+b"tamper")
+            self.assert_code("PRICE_COMPONENT_HASH_MISMATCH",lambda:provider.trading_dates(date(2025,1,2),date(2025,1,31)))
 
 
 if __name__ == "__main__":

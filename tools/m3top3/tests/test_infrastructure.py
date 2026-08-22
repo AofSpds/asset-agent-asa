@@ -8,6 +8,7 @@ from decimal import Decimal
 from pathlib import Path
 
 from tools.m3top3.backtest import ValidationRunner
+from tools.m3top3.admission import M3Top3AdmissionError
 from tools.m3top3.core import hash_file
 from tools.m3top3.ledger import PredictionLedger
 from tools.m3top3.model_interface import DiagnosticFixtureScorer, RankingEngine, ScoreResult
@@ -68,7 +69,8 @@ class InfraTests(unittest.TestCase):
         store=SnapshotStore(self.root/"snaps"); batch=BatchSnapshotGenerator(self.builder,store); r1=batch.run(self.dates[0],self.dates[4],{"generator_version":"v0"}); r2=batch.run(self.dates[0],self.dates[4],{"generator_version":"v0"}); self.assertEqual((r1.generated,r2.reused),(5,5)); self.assertTrue(r2.accounting_pass)
     def test_17_prediction_ledger_immutable(self):
         p=PredictionLedger(self.root/"pred.jsonl"); row={"prediction_id":"P1","x":1}; self.assertEqual(p.append(row),"APPENDED"); self.assertEqual(p.append(row),"REUSED");
-        with self.assertRaises(ValueError): p.append({"prediction_id":"P1","x":2})
+        with self.assertRaises(M3Top3AdmissionError) as caught: p.append({"prediction_id":"P1","x":2})
+        self.assertEqual((caught.exception.code,caught.exception.exit_code),("NONDETERMINISTIC_RERUN",3))
     def test_18_multi_model_same_snapshot_possible(self):
         pit=self.builder.build(self.dates[0]).model_inputs[0]["pit_snapshot_id"]; s1=ScoreResult("S1",pit,"C1","005930","m1",Decimal("1"),"OK",[]); s2=ScoreResult("S2",pit,"C1","005930","m2",Decimal("1"),"OK",[]); self.assertEqual(s1.pit_snapshot_id,s2.pit_snapshot_id); self.assertNotEqual(s1.model_version,s2.model_version)
     def test_19_tie_policy_blocks_official_resolution(self):

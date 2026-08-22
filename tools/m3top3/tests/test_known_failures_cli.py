@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import io
 import json
+import shutil
 import tempfile
 import unittest
 from contextlib import redirect_stdout
@@ -122,6 +123,31 @@ class KnownFailureCLITests(unittest.TestCase):
         self.assertEqual(status,4)
         self.assertEqual(summary["code"],"OFFICIAL_MODE_GLOBALLY_BLOCKED")
         self.assertFalse(output.exists())
+
+    def test_malformed_feature_jsonl_is_integrity_exit_three(self):
+        universe=self.root/"universe.jsonl"
+        universe.write_text(json.dumps({"company_id":"C1","security_code":"005930","valid_from":"2020-01-01","valid_to":None,"operational_member":True,"tradable_eligible":True,"universe_record_id":"U1"})+"\n",encoding="utf-8")
+        features=self.root/"features.jsonl"; features.write_text("{malformed\n",encoding="utf-8")
+        config=self.root/"snapshot-malformed-feature.json"
+        config.write_text(json.dumps({"execution_mode":"DIAGNOSTIC","universe_jsonl":str(universe),"universe_release_id":"U","universe_authority_status":"DIAGNOSTIC","features_jsonl":str(features),"feature_source_version":"F","price_paths":["unused"],"price_dataset_id":"P","price_dataset_hash":"unused"}),encoding="utf-8")
+        output=self.root/"malformed-output"
+        status,summary=self._run_quiet(snapshot_main,["--config",str(config),"--start","2025-01-02","--end","2025-01-02","--output",str(output)])
+        self.assertEqual(status,3)
+        self.assertEqual(summary["code"],"BLOCKED_INPUT_INTEGRITY")
+        self.assertFalse(output.exists())
+
+    def test_hidden_staging_snapshot_directory_is_not_enumerated(self):
+        snapshot_dir,dates,price,_=materialize_ready_snapshot(self.root)
+        staging=snapshot_dir.parent/f".{snapshot_dir.name}.deadbeef.staging"
+        shutil.copytree(snapshot_dir,staging)
+        config=self.root/"backtest-staging.json"
+        self._backtest_config(config,dates[0].isoformat(),dates[5].isoformat())
+        output=self.root/"staging-output"
+        with patch("tools.m3top3.cli_run_backtest.load_scorer",return_value=CountingScorer()),patch("tools.m3top3.cli_run_backtest.DuckDBParquetPriceProvider",return_value=price):
+            status,summary=self._run_quiet(backtest_main,["--config",str(config),"--snapshot-root",str(snapshot_dir.parent),"--output",str(output)])
+        self.assertEqual(status,0)
+        self.assertEqual(summary["requested"],1)
+        self.assertEqual(summary["admitted"],1)
 
 
 if __name__ == "__main__":

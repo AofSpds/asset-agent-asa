@@ -5,7 +5,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from tools.m3top3.admission import M3Top3AdmissionError
+from tools.m3top3.admission import M3Top3AdmissionError, _snapshot_manifest_identity_payload
+from tools.m3top3.core import aggregate_hash, deterministic_id, sha256_hex
 from tools.m3top3.ledger import PredictionLedger
 from tools.m3top3.providers import InMemoryFeatureProvider
 from tools.m3top3.snapshot import BatchSnapshotGenerator, SnapshotStore
@@ -37,6 +38,7 @@ class KnownFailureSnapshotTests(unittest.TestCase):
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         manifest["snapshot_status"] = status
         manifest["blockers"] = blockers
+        manifest["snapshot_manifest_identity_hash"] = sha256_hex(_snapshot_manifest_identity_payload(manifest))
         manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
         scorer = CountingScorer()
         runner, _ = diagnostic_runner(price, dates, scorer)
@@ -106,6 +108,56 @@ class KnownFailureSnapshotTests(unittest.TestCase):
         self.assertEqual((result.blocked,result.generated),(1,0))
         self.assertIn("RETRIEVAL_RECEIPT_RECONCILIATION_FAILED",result.blocked_dates[0])
         self.assertFalse(output.exists())
+
+    def test_self_consistent_forged_provider_receipt_is_blocked(self):
+        class ForgedProvider(InMemoryFeatureProvider):
+            def records_at(self,company_id,cutoff_at):
+                rows=super().records_at(company_id,cutoff_at)
+                receipt=self.last_retrieval_receipt
+                receipt["source_matching_rows"]+=1
+                receipt["excluded_rows"]+=1
+                receipt["source_hash"]="f"*64
+                receipt["exclusions"].append({"row_id":"FORGED-EXCLUSION","codes":["PIT_PUBLICATION_AFTER_CUTOFF"]})
+                payload={k:v for k,v in receipt.items() if k!="retrieval_receipt_id"}
+                receipt["retrieval_receipt_id"]=deterministic_id("retrieval",payload)
+                return rows
+        rows=[{"company_id":"C1","feature_id":"F01","value":"1","publication_at":"2025-01-02T10:00:00+09:00"}]
+        dates,_,builder=ready_builder(self.root)
+        builder.features=ForgedProvider(rows); output=self.root/"forged-receipt"
+        result=BatchSnapshotGenerator(builder,SnapshotStore(output)).run(dates[0],dates[0],{})
+        self.assertEqual((result.blocked,result.generated),(1,0))
+        self.assertIn("RETRIEVAL_RECEIPT_RECONCILIATION_FAILED",result.blocked_dates[0])
+        self.assertFalse(output.exists())
+
+    def test_exact_provider_instance_method_forgery_is_independently_reconstructed(self):
+        rows=[{"company_id":"C1","feature_id":"F01","value":"1","publication_at":"2025-01-02T10:00:00+09:00"}]
+        provider=InMemoryFeatureProvider(rows); original=provider.records_at
+        def forged(company_id,cutoff_at):
+            selected=original(company_id,cutoff_at)
+            provider.last_retrieval_receipt["source_hash"]="f"*64
+            payload={k:v for k,v in provider.last_retrieval_receipt.items() if k!="retrieval_receipt_id"}
+            provider.last_retrieval_receipt["retrieval_receipt_id"]=deterministic_id("retrieval",payload)
+            return selected
+        provider.records_at=forged
+        dates,_,builder=ready_builder(self.root); builder.features=provider
+        output=self.root/"exact-provider-forgery"
+        result=BatchSnapshotGenerator(builder,SnapshotStore(output)).run(dates[0],dates[0],{})
+        self.assertEqual((result.blocked,result.generated),(1,0))
+        self.assertIn("RETRIEVAL_RECEIPT_RECONCILIATION_FAILED",result.blocked_dates[0])
+        self.assertFalse(output.exists())
+
+    def test_duplicate_company_slice_is_verified_before_publish(self):
+        dates,_,builder=ready_builder(self.root)
+        built=builder.build(dates[0])
+        built.pit_rows.append(dict(built.pit_rows[0]))
+        built.model_inputs.append(dict(built.model_inputs[0]))
+        built.retrieval_audits.append(dict(built.retrieval_audits[0]))
+        built.snapshot_set_entry_hash=aggregate_hash([sha256_hex(row) for row in built.pit_rows]+[sha256_hex(row) for row in built.model_inputs]+[sha256_hex(row) for row in built.retrieval_audits])
+        output=self.root/"prepublish-check"
+        with self.assertRaises(M3Top3AdmissionError) as caught:
+            SnapshotStore(output).write(built,{})
+        self.assertEqual(caught.exception.code,"RETRIEVAL_AUDIT_SEMANTIC_MISMATCH")
+        self.assertFalse((output/dates[0].isoformat()).exists())
 
 
 if __name__ == "__main__":

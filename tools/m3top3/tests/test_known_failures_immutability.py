@@ -1,11 +1,15 @@
 from __future__ import annotations
 
 import tempfile
+import threading
 import unittest
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import replace
 from pathlib import Path
 
 from tools.m3top3.admission import M3Top3AdmissionError
+from tools.m3top3.core import canonical_json_bytes
+from tools.m3top3.ledger import AppendOnlyLedger, ImmutableJsonArtifactStore
 from tools.m3top3.snapshot import SnapshotStore
 from tools.m3top3.tests._known_failure_helpers import CountingScorer, diagnostic_runner, materialize_ready_snapshot
 
@@ -83,6 +87,39 @@ class KnownFailureImmutabilityTests(unittest.TestCase):
         second = runner2.run_snapshot(self.snapshot_dir, output)
         self.assertNotEqual(first["validation_run_id"], second["validation_run_id"])
         self.assertEqual(len(list((output / self.dates[0].isoformat()).glob("*.json"))), 2)
+
+    def test_concurrent_different_payloads_cannot_both_append_or_overwrite(self):
+        path=self.root/"concurrent"/"run.json"
+        barrier=threading.Barrier(2)
+        def attempt(row):
+            barrier.wait()
+            try: return ImmutableJsonArtifactStore(path).admit(row)
+            except M3Top3AdmissionError as exc: return exc.code
+        row_a={"run":"SAME","payload":"A"}; row_b={"run":"SAME","payload":"B"}
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            results=list(pool.map(attempt,(row_a,row_b)))
+        self.assertEqual(results.count("APPENDED"),1)
+        self.assertEqual(results.count("NONDETERMINISTIC_RERUN"),1)
+        self.assertIn(path.read_bytes(),(canonical_json_bytes(row_a)+b"\n",canonical_json_bytes(row_b)+b"\n"))
+
+    def test_two_ledger_instances_cannot_append_conflicting_same_identity(self):
+        path=self.root/"ledger-race"/"ledger.jsonl"
+        first=AppendOnlyLedger(path,"id"); second=AppendOnlyLedger(path,"id")
+        self.assertEqual(first.append({"id":"SAME","value":"A"}),"APPENDED")
+        with self.assertRaises(M3Top3AdmissionError) as caught: second.append({"id":"SAME","value":"B"})
+        self.assertEqual((caught.exception.code,caught.exception.exit_code),("NONDETERMINISTIC_RERUN",3))
+        self.assertEqual(path.read_bytes(),canonical_json_bytes({"id":"SAME","value":"A"})+b"\n")
+
+    def test_ledger_admission_failure_precedes_result_artifact_write(self):
+        class RejectingLedger:
+            def append_many(self,rows):
+                raise M3Top3AdmissionError("NONDETERMINISTIC_RERUN","concurrent ledger collision",exit_code=3)
+        output=self.root/"ledger-first-output"
+        runner,_=diagnostic_runner(self.price,self.dates,CountingScorer("9"))
+        with self.assertRaises(M3Top3AdmissionError) as caught:
+            runner.run_snapshot(self.snapshot_dir,output,RejectingLedger())
+        self.assertEqual((caught.exception.code,caught.exception.exit_code),("NONDETERMINISTIC_RERUN",3))
+        self.assertFalse(output.exists())
 
 
 if __name__ == "__main__":

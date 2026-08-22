@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass
+from datetime import date, datetime
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -13,6 +14,7 @@ EXIT_INTEGRITY = 3
 EXIT_AUTHORITY = 4
 OFFICIAL_EXECUTION_ENABLED = False
 PRICE_CANONICAL_VALIDATION_ENABLED = False
+ALLOWED_PRICE_SEMANTICS = frozenset({"RAW_IMMUTABLE", "PRICE_CANONICAL"})
 
 
 class M3Top3AdmissionError(RuntimeError):
@@ -108,10 +110,12 @@ def _retrieval_semantic_failure(message: str, details: dict[str, Any] | None = N
 
 
 def _verify_retrieval_audit_semantics(
+    snapshot_dir: Path,
     manifest: dict[str, Any],
     pit_rows: list[dict[str, Any]],
     model_inputs: list[dict[str, Any]],
     retrieval_audits: list[dict[str, Any]],
+    allow_staging: bool = False,
 ) -> None:
     """Revalidate retrieval receipts independently of declared hashes.
 
@@ -132,31 +136,106 @@ def _verify_retrieval_audit_semantics(
         )
 
     manifest_cutoff = manifest.get("snapshot_cutoff_at")
+    manifest_date = manifest.get("snapshot_date")
     if not isinstance(manifest_cutoff, str) or not manifest_cutoff:
         _retrieval_semantic_failure("manifest snapshot_cutoff_at must be a non-empty string")
+    if not isinstance(manifest_date, str) or not manifest_date:
+        _retrieval_semantic_failure("manifest snapshot_date must be a non-empty string")
+    try:
+        parsed_date = date.fromisoformat(manifest_date)
+        parsed_cutoff = datetime.fromisoformat(manifest_cutoff)
+    except (TypeError, ValueError) as exc:
+        _retrieval_semantic_failure("manifest snapshot date/cutoff is invalid", {"cause": type(exc).__name__})
+    if parsed_cutoff.tzinfo is None or parsed_cutoff.utcoffset() is None:
+        _retrieval_semantic_failure("manifest snapshot cutoff must be timezone-aware")
+    if parsed_cutoff.date() != parsed_date:
+        _retrieval_semantic_failure(
+            "manifest snapshot date and cutoff calendar date differ",
+            {"snapshot_date": manifest_date, "snapshot_cutoff_at": manifest_cutoff},
+        )
+    canonical_directory = snapshot_dir.name == manifest_date
+    internal_staging_directory = (
+        allow_staging
+        and snapshot_dir.name.startswith(f".{manifest_date}.")
+        and snapshot_dir.name.endswith(".staging")
+    )
+    if not canonical_directory and not internal_staging_directory:
+        _retrieval_semantic_failure(
+            "snapshot directory identity differs from manifest snapshot_date",
+            {"directory": snapshot_dir.name, "snapshot_date": manifest_date},
+        )
 
-    def row_keys(rows: list[dict[str, Any]], artifact: str) -> set[tuple[str, str]]:
-        keys: list[tuple[str, str]] = []
+    def row_keys(rows: list[dict[str, Any]], artifact: str) -> set[tuple[str, str, str, str]]:
+        keys: list[tuple[str, str, str, str]] = []
         for index, row in enumerate(rows):
             company_id = row.get("company_id")
             cutoff_at = row.get("snapshot_cutoff_at")
-            if not isinstance(company_id, str) or not company_id or not isinstance(cutoff_at, str) or cutoff_at != manifest_cutoff:
+            snapshot_date = row.get("snapshot_date")
+            pit_snapshot_id = row.get("pit_snapshot_id")
+            if (
+                not isinstance(company_id, str)
+                or not company_id
+                or not isinstance(cutoff_at, str)
+                or cutoff_at != manifest_cutoff
+                or snapshot_date != manifest_date
+                or not isinstance(pit_snapshot_id, str)
+                or not pit_snapshot_id
+            ):
                 _retrieval_semantic_failure(
-                    f"{artifact} company/cutoff identity is invalid",
-                    {"artifact": artifact, "row_index": index, "company_id": company_id, "cutoff_at": cutoff_at},
+                    f"{artifact} company/date/cutoff/PIT identity is invalid",
+                    {
+                        "artifact": artifact,
+                        "row_index": index,
+                        "company_id": company_id,
+                        "snapshot_date": snapshot_date,
+                        "cutoff_at": cutoff_at,
+                        "pit_snapshot_id": pit_snapshot_id,
+                    },
                 )
-            keys.append((company_id, cutoff_at))
+            keys.append((company_id, snapshot_date, cutoff_at, pit_snapshot_id))
         if len(set(keys)) != len(keys):
-            _retrieval_semantic_failure(f"{artifact} contains a duplicate company/cutoff slice", {"artifact": artifact})
+            _retrieval_semantic_failure(f"{artifact} contains a duplicate company/date/cutoff/PIT slice", {"artifact": artifact})
         return set(keys)
 
     pit_keys = row_keys(pit_rows, "pit_snapshot.jsonl")
     model_keys = row_keys(model_inputs, "model_input.jsonl")
     if pit_keys != model_keys:
         _retrieval_semantic_failure(
-            "PIT and model-input company/cutoff identities differ",
+            "PIT and model-input company/date/cutoff/PIT identities differ",
             {"pit_keys": sorted(pit_keys), "model_keys": sorted(model_keys)},
         )
+
+    pit_by_company: dict[tuple[str, str], dict[str, Any]] = {}
+    model_by_company: dict[tuple[str, str], dict[str, Any]] = {}
+    for index, row in enumerate(pit_rows):
+        identity_payload = {
+            "company_id": row.get("company_id"),
+            "snapshot_cutoff_at": row.get("snapshot_cutoff_at"),
+            "snapshot_schema_version": row.get("snapshot_schema_version"),
+            "snapshot_revision": row.get("snapshot_revision"),
+            "f1_f2_effective_refs": row.get("f1_f2_effective_refs"),
+            "f3_observation_refs": row.get("f3_observation_refs"),
+            "evidence_refs": row.get("evidence_refs"),
+            "dataset_refs": row.get("dataset_refs"),
+            "universe_release_id": row.get("universe_release_id"),
+            "tradability_state_ref": row.get("tradability_state_ref"),
+            "retrieval_receipt_id": row.get("retrieval_receipt_id"),
+            "retrieval_source_hash": row.get("retrieval_source_hash"),
+        }
+        if row.get("pit_snapshot_id") != deterministic_id("pit", identity_payload):
+            _retrieval_semantic_failure("PIT snapshot ID is not deterministic for its semantic payload", {"row_index": index})
+        generator_version = row.get("generator_version")
+        if not isinstance(generator_version, str) or not generator_version:
+            _retrieval_semantic_failure("PIT row generator_version must be a non-empty string", {"row_index": index})
+        expected_capture = deterministic_id(
+            "capture",
+            {"pit_snapshot_id": row.get("pit_snapshot_id"), "generator_version": generator_version},
+        )
+        if row.get("capture_run_id") != expected_capture:
+            _retrieval_semantic_failure("capture_run_id is not deterministic for PIT/generator identity", {"row_index": index})
+        pit_by_company[(row["company_id"], row["snapshot_cutoff_at"])] = row
+    for row in model_inputs:
+        model_by_company[(row["company_id"], row["snapshot_cutoff_at"])] = row
 
     required = {
         "retrieval_receipt_id",
@@ -171,6 +250,7 @@ def _verify_retrieval_audit_semantics(
         "cutoff_frozen_bundle",
     }
     audit_keys: list[tuple[str, str]] = []
+    audit_by_company: dict[tuple[str, str], dict[str, Any]] = {}
     for index, receipt in enumerate(retrieval_audits):
         missing = sorted(required - set(receipt))
         if missing:
@@ -221,15 +301,69 @@ def _verify_retrieval_audit_semantics(
         if receipt_id != deterministic_id("retrieval", payload):
             _retrieval_semantic_failure("retrieval receipt ID is not deterministic for its payload", {"row_index": index})
         audit_keys.append((company_id, cutoff_at))
+        audit_by_company[(company_id, cutoff_at)] = receipt
 
-    if len(set(audit_keys)) != len(audit_keys) or set(audit_keys) != pit_keys:
+    pit_company_keys = {(company_id, cutoff_at) for company_id, _, cutoff_at, _ in pit_keys}
+    if len(set(audit_keys)) != len(audit_keys) or set(audit_keys) != pit_company_keys:
         _retrieval_semantic_failure(
             "retrieval receipt company/cutoff identities are not one-to-one with PIT/model rows",
-            {"receipt_keys": sorted(set(audit_keys)), "pit_keys": sorted(pit_keys)},
+            {"receipt_keys": sorted(set(audit_keys)), "pit_keys": sorted(pit_company_keys)},
         )
+    for key in sorted(pit_company_keys):
+        pit_row = pit_by_company[key]
+        model_row = model_by_company[key]
+        receipt = audit_by_company[key]
+        for row, artifact in ((pit_row, "pit_snapshot.jsonl"), (model_row, "model_input.jsonl")):
+            if row.get("retrieval_receipt_id") != receipt["retrieval_receipt_id"] or row.get("retrieval_source_hash") != receipt["source_hash"]:
+                _retrieval_semantic_failure(
+                    f"{artifact} retrieval lineage differs from the audit receipt",
+                    {"company_id": key[0]},
+                )
+        if model_row.get("price_dataset_id") != manifest.get("price_dataset_id") or model_row.get("price_source_semantics") != manifest.get("price_source_semantics"):
+            _retrieval_semantic_failure("model-input price lineage differs from manifest", {"company_id": key[0]})
+        if pit_row.get("generator_version") != manifest.get("generator_version"):
+            _retrieval_semantic_failure("PIT generator version differs from manifest", {"company_id": key[0]})
+        if pit_row.get("universe_release_id") != manifest.get("universe_release_id"):
+            _retrieval_semantic_failure("PIT universe release differs from manifest", {"company_id": key[0]})
+        if receipt.get("source_version") != manifest.get("feature_source_version"):
+            _retrieval_semantic_failure("retrieval source version differs from manifest", {"company_id": key[0]})
+        if model_row.get("reconstruction_version") != manifest.get("reconstruction_version"):
+            _retrieval_semantic_failure("model reconstruction version differs from manifest", {"company_id": key[0]})
+
+    expected_receipt_ids = sorted(receipt["retrieval_receipt_id"] for receipt in retrieval_audits)
+    expected_source_hashes = sorted({receipt["source_hash"] for receipt in retrieval_audits})
+    if manifest.get("retrieval_receipt_ids") != expected_receipt_ids or manifest.get("retrieval_source_hashes") != expected_source_hashes:
+        _retrieval_semantic_failure("manifest retrieval lineage does not match audit rows")
 
 
-def verify_snapshot_artifacts(snapshot_dir: str | Path) -> VerifiedSnapshot:
+def _snapshot_manifest_identity_payload(manifest: dict[str, Any]) -> dict[str, Any]:
+    fields = (
+        "snapshot_date",
+        "snapshot_cutoff_at",
+        "snapshot_content_hash",
+        "snapshot_status",
+        "blockers",
+        "pit_row_count",
+        "model_input_row_count",
+        "retrieval_audit_row_count",
+        "pit_file_sha256",
+        "model_input_file_sha256",
+        "retrieval_audit_file_sha256",
+        "retrieval_audit_content_hash",
+        "retrieval_receipt_ids",
+        "retrieval_source_hashes",
+        "generator_version",
+        "universe_release_id",
+        "feature_source_version",
+        "price_dataset_id",
+        "price_dataset_hash",
+        "price_source_semantics",
+        "reconstruction_version",
+    )
+    return {field: manifest.get(field) for field in fields}
+
+
+def verify_snapshot_artifacts(snapshot_dir: str | Path, *, allow_staging: bool = False) -> VerifiedSnapshot:
     """Verify state, actual bytes, row counts, and semantic aggregate.
 
     Verification occurs before a scorer or output path may be touched.
@@ -237,6 +371,14 @@ def verify_snapshot_artifacts(snapshot_dir: str | Path) -> VerifiedSnapshot:
 
     snapshot_dir = Path(snapshot_dir)
     manifest = _read_manifest(snapshot_dir / "manifest.json")
+    expected_manifest_identity = sha256_hex(_snapshot_manifest_identity_payload(manifest))
+    if manifest.get("snapshot_manifest_identity_hash") != expected_manifest_identity:
+        raise M3Top3AdmissionError(
+            "SNAPSHOT_MANIFEST_IDENTITY_MISMATCH",
+            "manifest control identity differs from its declared hash",
+            {"expected": expected_manifest_identity, "declared": manifest.get("snapshot_manifest_identity_hash")},
+            EXIT_INTEGRITY,
+        )
     status = manifest.get("snapshot_status")
     blockers = manifest.get("blockers")
     if not isinstance(blockers, list):
@@ -336,7 +478,7 @@ def verify_snapshot_artifacts(snapshot_dir: str | Path) -> VerifiedSnapshot:
             {"expected": manifest.get("snapshot_content_hash"), "actual": aggregate},
             EXIT_INTEGRITY,
         )
-    _verify_retrieval_audit_semantics(manifest, pit_rows, model_inputs, retrieval_audits)
+    _verify_retrieval_audit_semantics(snapshot_dir, manifest, pit_rows, model_inputs, retrieval_audits, allow_staging)
     return VerifiedSnapshot(manifest, pit_rows, model_inputs, retrieval_audits)
 
 
@@ -434,15 +576,76 @@ def verify_official_scorer(
 def verify_price_release(provider: Any, admission_config: dict[str, Any] | None = None) -> None:
     """Re-verify provider byte identity and canonical/CA release admission."""
 
-    actual_hash = getattr(provider, "actual_dataset_hash", None)
-    if not actual_hash or getattr(provider, "dataset_hash", None) != actual_hash:
+    semantics = getattr(provider, "semantics", None)
+    if semantics not in ALLOWED_PRICE_SEMANTICS:
+        raise M3Top3AdmissionError(
+            "UNSUPPORTED_PRICE_SEMANTICS",
+            "price semantics must match the governed allowlist exactly",
+            {"semantics": semantics, "allowed": sorted(ALLOWED_PRICE_SEMANTICS)},
+            EXIT_AUTHORITY,
+        )
+    raw_paths = getattr(provider, "paths", None)
+    if raw_paths is None:
+        single_path = getattr(provider, "path", None)
+        raw_paths = [single_path] if single_path is not None else []
+    paths = [Path(path).resolve() for path in raw_paths]
+    if not paths:
+        raise M3Top3AdmissionError(
+            "PRICE_COMPONENT_PATHS_UNAVAILABLE",
+            "price provider must expose exact component paths for live byte verification",
+            exit_code=EXIT_INTEGRITY,
+        )
+    try:
+        live_component_hashes = {str(path): hash_file(path) for path in paths}
+    except OSError as exc:
+        raise M3Top3AdmissionError(
+            "PRICE_COMPONENT_HASH_MISMATCH",
+            "price component bytes are unavailable during live verification",
+            {"cause": type(exc).__name__},
+            EXIT_INTEGRITY,
+        ) from exc
+    cached_components = {str(Path(path).resolve()): digest for path, digest in getattr(provider, "component_hashes", {}).items()}
+    actual_hash = (
+        next(iter(live_component_hashes.values()))
+        if len(live_component_hashes) == 1
+        else price_dataset_identity_hash(getattr(provider, "dataset_id", ""), live_component_hashes)
+    )
+    if (
+        not actual_hash
+        or getattr(provider, "dataset_hash", None) != actual_hash
+        or getattr(provider, "actual_dataset_hash", None) != actual_hash
+        or cached_components != live_component_hashes
+    ):
         raise M3Top3AdmissionError(
             "PRICE_COMPONENT_HASH_MISMATCH",
             "configured price hash differs from actual component bytes",
-            {"declared": getattr(provider, "dataset_hash", None), "actual": actual_hash},
+            {
+                "declared": getattr(provider, "dataset_hash", None),
+                "cached": getattr(provider, "actual_dataset_hash", None),
+                "actual": actual_hash,
+            },
             EXIT_INTEGRITY,
         )
-    if getattr(provider, "semantics", None) != "PRICE_CANONICAL":
+    if len(live_component_hashes) > 1:
+        manifest = getattr(provider, "component_manifest", None)
+        required = {"manifest_version", "hash_algorithm", "dataset_id", "dataset_hash", "components"}
+        expected_components = [{"path": path, "sha256": digest} for path, digest in sorted(live_component_hashes.items())]
+        if (
+            not isinstance(manifest, dict)
+            or required - set(manifest)
+            or manifest.get("manifest_version") != "m3top3-price-components-v1"
+            or manifest.get("hash_algorithm") != "SHA256"
+            or manifest.get("dataset_id") != getattr(provider, "dataset_id", None)
+            or manifest.get("dataset_hash") != actual_hash
+            or manifest.get("components") != expected_components
+        ):
+            raise M3Top3AdmissionError(
+                "PRICE_COMPONENT_MANIFEST_MISMATCH",
+                "live component paths/hashes or dataset identity differ from the versioned manifest",
+                {"expected_components": expected_components},
+                EXIT_INTEGRITY,
+            )
+    if semantics != "PRICE_CANONICAL":
         return
     if not PRICE_CANONICAL_VALIDATION_ENABLED:
         raise M3Top3AdmissionError(

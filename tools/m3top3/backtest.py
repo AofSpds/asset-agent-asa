@@ -8,7 +8,7 @@ from decimal import Decimal
 from pathlib import Path
 from typing import Any, Protocol
 
-from .admission import verify_official_scorer, verify_price_release, verify_snapshot_artifacts
+from .admission import EXIT_INTEGRITY, M3Top3AdmissionError, verify_official_scorer, verify_price_release, verify_snapshot_artifacts
 from .core import deterministic_id, sha256_hex
 from .ledger import ImmutableJsonArtifactStore, PredictionLedger
 from .model_interface import ModelScorer, RankingEngine
@@ -43,6 +43,12 @@ class ValidationRunner:
     def run_snapshot(self,snapshot_dir:str|Path,output_dir:str|Path,prediction_ledger:PredictionLedger|None=None)->dict[str,Any]:
         snapshot_dir=Path(snapshot_dir); output_dir=Path(output_dir)
         verified=verify_snapshot_artifacts(snapshot_dir); manifest=verified.manifest; inputs=verified.model_inputs
+        verify_price_release(self.outcome_builder.price)
+        price=self.outcome_builder.price
+        expected_price_lineage={"price_dataset_id":getattr(price,"dataset_id",None),"price_dataset_hash":getattr(price,"dataset_hash",None),"price_source_semantics":getattr(price,"semantics",None)}
+        actual_price_lineage={field:manifest.get(field) for field in expected_price_lineage}
+        if actual_price_lineage!=expected_price_lineage:
+            raise M3Top3AdmissionError("PRICE_LINEAGE_MISMATCH","snapshot and outcome provider price identities differ",{"snapshot":actual_price_lineage,"outcome_provider":expected_price_lineage},EXIT_INTEGRITY)
         eligibility={r["pit_snapshot_id"]:r["entry_eligible"] for r in inputs}; scores=[self.scorer.score(r) for r in inputs]; ranked=self.ranking.rank(scores,eligibility)
         if ranked and ranked[0].get("status")=="BLOCKED_TIE_POLICY_UNRESOLVED": return {"status":"BLOCKED_TIE_POLICY_UNRESOLVED","snapshot_date":manifest["snapshot_date"],"ranked":ranked}
         selected=[r for r in ranked if r["selected_top3"]]; outcomes=[]; by_pit={r["pit_snapshot_id"]:r for r in inputs}
@@ -60,8 +66,8 @@ class ValidationRunner:
             for r in selected:
                 inp=by_pit[r["pit_snapshot_id"]]
                 record=PredictionLedger.build_record(r,manifest["snapshot_cutoff_at"],sha256_hex(inp),status="EXPERIMENTAL")
-                prediction_ledger.check(record); prediction_records.append(record)
-        artifact_state=ImmutableJsonArtifactStore(output_dir/manifest["snapshot_date"]/f"{run_id}.json").admit(result)
+                prediction_records.append(record)
         if prediction_ledger is not None:
-            for record in prediction_records: prediction_ledger.append(record)
+            prediction_ledger.append_many(prediction_records)
+        artifact_state=ImmutableJsonArtifactStore(output_dir/manifest["snapshot_date"]/f"{run_id}.json").admit(result)
         return {**result,"artifact_state":artifact_state}

@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from tools.m3top3.admission import M3Top3AdmissionError, verify_snapshot_artifacts
+from tools.m3top3.admission import M3Top3AdmissionError, _snapshot_manifest_identity_payload, verify_snapshot_artifacts
 from tools.m3top3.core import aggregate_hash, deterministic_id, sha256_hex
 from tools.m3top3.tests._known_failure_helpers import CountingScorer, diagnostic_runner, materialize_ready_snapshot
 
@@ -25,7 +25,7 @@ class KnownFailureIntegrityTests(unittest.TestCase):
         self.assertEqual(caught.exception.code, code)
         self.assertEqual(caught.exception.exit_code, 3)
 
-    def _rewrite_self_consistent_audit(self, mutator, recompute_receipt_id=True):
+    def _rewrite_self_consistent_audit(self, mutator, recompute_receipt_id=True, align_row_lineage=False):
         audit_path = self.snapshot_dir / "retrieval_audit.jsonl"
         audit_rows = [json.loads(line) for line in audit_path.read_text(encoding="utf-8").splitlines() if line.strip()]
         mutator(audit_rows)
@@ -37,8 +37,29 @@ class KnownFailureIntegrityTests(unittest.TestCase):
         audit_path.write_text(audit_text, encoding="utf-8")
         pit_rows = [json.loads(line) for line in (self.snapshot_dir / "pit_snapshot.jsonl").read_text(encoding="utf-8").splitlines() if line.strip()]
         model_rows = [json.loads(line) for line in (self.snapshot_dir / "model_input.jsonl").read_text(encoding="utf-8").splitlines() if line.strip()]
+        if align_row_lineage:
+            receipts={(row["company_id"],row["cutoff_at"]):row for row in audit_rows}
+            models={(row["company_id"],row["snapshot_cutoff_at"]):row for row in model_rows}
+            for pit in pit_rows:
+                receipt=receipts[(pit["company_id"],pit["snapshot_cutoff_at"])]
+                pit["retrieval_receipt_id"]=receipt["retrieval_receipt_id"]
+                pit["retrieval_source_hash"]=receipt["source_hash"]
+                identity_payload={field:pit.get(field) for field in ("company_id","snapshot_cutoff_at","snapshot_schema_version","snapshot_revision","f1_f2_effective_refs","f3_observation_refs","evidence_refs","dataset_refs","universe_release_id","tradability_state_ref","retrieval_receipt_id","retrieval_source_hash")}
+                pit["pit_snapshot_id"]=deterministic_id("pit",identity_payload)
+                pit["capture_run_id"]=deterministic_id("capture",{"pit_snapshot_id":pit["pit_snapshot_id"],"generator_version":pit["generator_version"]})
+                model=models[(pit["company_id"],pit["snapshot_cutoff_at"])]
+                model["pit_snapshot_id"]=pit["pit_snapshot_id"]
+                model["retrieval_receipt_id"]=receipt["retrieval_receipt_id"]
+                model["retrieval_source_hash"]=receipt["source_hash"]
+            pit_text="".join(json.dumps(row,ensure_ascii=False,sort_keys=True,separators=(",",":"))+"\n" for row in pit_rows)
+            model_text="".join(json.dumps(row,ensure_ascii=False,sort_keys=True,separators=(",",":"))+"\n" for row in model_rows)
+            (self.snapshot_dir/"pit_snapshot.jsonl").write_text(pit_text,encoding="utf-8")
+            (self.snapshot_dir/"model_input.jsonl").write_text(model_text,encoding="utf-8")
         manifest_path = self.snapshot_dir / "manifest.json"
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        if align_row_lineage:
+            manifest["pit_file_sha256"]=sha256_hex(pit_text)
+            manifest["model_input_file_sha256"]=sha256_hex(model_text)
         manifest["retrieval_audit_row_count"] = len(audit_rows)
         manifest["retrieval_audit_file_sha256"] = sha256_hex(audit_text)
         manifest["retrieval_audit_content_hash"] = aggregate_hash([sha256_hex(row) for row in audit_rows])
@@ -47,7 +68,13 @@ class KnownFailureIntegrityTests(unittest.TestCase):
             + [sha256_hex(row) for row in model_rows]
             + [sha256_hex(row) for row in audit_rows]
         )
+        manifest["retrieval_receipt_ids"] = sorted(row["retrieval_receipt_id"] for row in audit_rows)
+        manifest["retrieval_source_hashes"] = sorted({row["source_hash"] for row in audit_rows})
+        manifest["snapshot_manifest_identity_hash"] = sha256_hex(_snapshot_manifest_identity_payload(manifest))
         manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+
+    def _rewrite_manifest_identity(self, manifest):
+        manifest["snapshot_manifest_identity_hash"] = sha256_hex(_snapshot_manifest_identity_payload(manifest))
 
     def test_kf_int_001_malformed_jsonl_blocks_before_scorer_and_write(self):
         model = self.snapshot_dir / "model_input.jsonl"
@@ -82,8 +109,8 @@ class KnownFailureIntegrityTests(unittest.TestCase):
 
     def test_self_consistent_forged_retrieval_counts_are_rejected(self):
         def forge(rows):
-            rows[0]["selected_rows"] += 1
-        self._rewrite_self_consistent_audit(forge)
+            rows[0]["source_matching_rows"] += 1
+        self._rewrite_self_consistent_audit(forge,align_row_lineage=True)
         self.assert_code(lambda: verify_snapshot_artifacts(self.snapshot_dir), "RETRIEVAL_AUDIT_SEMANTIC_MISMATCH")
 
     def test_self_consistent_forged_retrieval_company_is_rejected(self):
@@ -106,6 +133,7 @@ class KnownFailureIntegrityTests(unittest.TestCase):
         path = self.snapshot_dir / "manifest.json"
         manifest = json.loads(path.read_text(encoding="utf-8"))
         manifest["model_input_row_count"] = 99
+        self._rewrite_manifest_identity(manifest)
         path.write_text(json.dumps(manifest), encoding="utf-8")
         self.assert_code(lambda: verify_snapshot_artifacts(self.snapshot_dir), "ROW_COUNT_MISMATCH")
 
@@ -113,6 +141,7 @@ class KnownFailureIntegrityTests(unittest.TestCase):
         path = self.snapshot_dir / "manifest.json"
         manifest = json.loads(path.read_text(encoding="utf-8"))
         manifest["pit_row_count"] = 99
+        self._rewrite_manifest_identity(manifest)
         path.write_text(json.dumps(manifest), encoding="utf-8")
         self.assert_code(lambda: verify_snapshot_artifacts(self.snapshot_dir), "ROW_COUNT_MISMATCH")
 
@@ -125,8 +154,46 @@ class KnownFailureIntegrityTests(unittest.TestCase):
         manifest_path = self.snapshot_dir / "manifest.json"
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         manifest["model_input_file_sha256"] = sha256_hex(payload)
+        self._rewrite_manifest_identity(manifest)
         manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
         self.assert_code(lambda: verify_snapshot_artifacts(self.snapshot_dir), "SNAPSHOT_CONTENT_HASH_MISMATCH")
+
+    def test_self_consistent_manifest_date_forgery_is_rejected(self):
+        manifest_path=self.snapshot_dir/"manifest.json"
+        manifest=json.loads(manifest_path.read_text(encoding="utf-8"))
+        manifest["snapshot_date"]="2030-12-31"
+        self._rewrite_manifest_identity(manifest)
+        manifest_path.write_text(json.dumps(manifest),encoding="utf-8")
+        self.assert_code(lambda:verify_snapshot_artifacts(self.snapshot_dir),"RETRIEVAL_AUDIT_SEMANTIC_MISMATCH")
+
+    def test_self_consistent_model_pit_identity_forgery_is_rejected(self):
+        model_path=self.snapshot_dir/"model_input.jsonl"
+        model_rows=[json.loads(line) for line in model_path.read_text(encoding="utf-8").splitlines() if line.strip()]
+        model_rows[0]["pit_snapshot_id"]="pit_FORGED"
+        model_text="".join(json.dumps(row,ensure_ascii=False,sort_keys=True,separators=(",",":"))+"\n" for row in model_rows)
+        model_path.write_text(model_text,encoding="utf-8")
+        pit_rows=[json.loads(line) for line in (self.snapshot_dir/"pit_snapshot.jsonl").read_text(encoding="utf-8").splitlines() if line.strip()]
+        audit_rows=[json.loads(line) for line in (self.snapshot_dir/"retrieval_audit.jsonl").read_text(encoding="utf-8").splitlines() if line.strip()]
+        manifest_path=self.snapshot_dir/"manifest.json"
+        manifest=json.loads(manifest_path.read_text(encoding="utf-8"))
+        manifest["model_input_file_sha256"]=sha256_hex(model_text)
+        manifest["snapshot_content_hash"]=aggregate_hash([sha256_hex(row) for row in pit_rows]+[sha256_hex(row) for row in model_rows]+[sha256_hex(row) for row in audit_rows])
+        self._rewrite_manifest_identity(manifest)
+        manifest_path.write_text(json.dumps(manifest),encoding="utf-8")
+        self.assert_code(lambda:verify_snapshot_artifacts(self.snapshot_dir),"RETRIEVAL_AUDIT_SEMANTIC_MISMATCH")
+
+    def test_hidden_staging_directory_is_not_externally_admissible(self):
+        staging=self.snapshot_dir.with_name(f".{self.snapshot_dir.name}.deadbeef.staging")
+        self.snapshot_dir.rename(staging)
+        self.snapshot_dir=staging
+        self.assert_code(lambda:verify_snapshot_artifacts(staging),"RETRIEVAL_AUDIT_SEMANTIC_MISMATCH")
+
+    def test_snapshot_and_outcome_price_lineage_mismatch_is_rejected(self):
+        runner,_=diagnostic_runner(self.price,self.dates,CountingScorer())
+        runner.outcome_builder.price.dataset_id="FORGED-OTHER-DATASET"
+        output=self.root/"lineage-mismatch-output"
+        self.assert_code(lambda:runner.run_snapshot(self.snapshot_dir,output),"PRICE_LINEAGE_MISMATCH")
+        self.assertFalse(output.exists())
 
 
 if __name__ == "__main__":

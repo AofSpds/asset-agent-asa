@@ -45,11 +45,15 @@ class JsonlUniverseProvider:
         self.release_id = release_id
         self.authority_status = authority_status
         rows: list[UniverseState] = []
-        for line in self.path.read_text(encoding="utf-8").splitlines():
-            if not line.strip():
-                continue
-            r = json.loads(line)
-            rows.append(UniverseState(str(r["company_id"]), str(r["security_code"]), parse_date(r["valid_from"]) if r.get("valid_from") else None, parse_date(r["valid_to"]) if r.get("valid_to") else None, r.get("operational_member"), r.get("tradable_eligible"), str(r["universe_record_id"]), str(r.get("status", "VERIFIED"))))
+        try:
+            for line_number,line in enumerate(self.path.read_text(encoding="utf-8").splitlines(),1):
+                if not line.strip():
+                    continue
+                r = json.loads(line)
+                if not isinstance(r,dict): raise TypeError("universe row must be an object")
+                rows.append(UniverseState(str(r["company_id"]), str(r["security_code"]), parse_date(r["valid_from"]) if r.get("valid_from") else None, parse_date(r["valid_to"]) if r.get("valid_to") else None, r.get("operational_member"), r.get("tradable_eligible"), str(r["universe_record_id"]), str(r.get("status", "VERIFIED"))))
+        except (OSError,UnicodeError,json.JSONDecodeError,KeyError,TypeError,ValueError) as exc:
+            raise M3Top3AdmissionError("BLOCKED_INPUT_INTEGRITY","universe JSONL is unreadable or malformed",{"path":str(self.path),"line":locals().get("line_number"),"cause":type(exc).__name__},EXIT_INTEGRITY) from exc
         self._rows = rows
 
     def states_at(self, snapshot_date: date) -> Sequence[UniverseState]:
@@ -71,9 +75,15 @@ class PITFeatureProvider(Protocol):
 class JsonlFeatureProvider:
     def __init__(self, path: str | Path, source_version: str, cutoff_frozen_bundle: bool = False):
         self.path = Path(path); self.source_version = source_version; self.cutoff_frozen_bundle=cutoff_frozen_bundle; self._rows = []; self.retrieval_receipts=[]; self.last_retrieval_receipt=None
-        for line in self.path.read_text(encoding="utf-8").splitlines():
-            if line.strip(): self._rows.append(json.loads(line))
-        self.source_hash=hash_file(self.path)
+        try:
+            for line_number,line in enumerate(self.path.read_text(encoding="utf-8").splitlines(),1):
+                if line.strip():
+                    row=json.loads(line)
+                    if not isinstance(row,dict): raise TypeError("feature row must be an object")
+                    self._rows.append(row)
+            self.source_hash=hash_file(self.path)
+        except (OSError,UnicodeError,json.JSONDecodeError,TypeError,ValueError) as exc:
+            raise M3Top3AdmissionError("BLOCKED_INPUT_INTEGRITY","feature JSONL is unreadable or malformed",{"path":str(self.path),"line":locals().get("line_number"),"cause":type(exc).__name__},EXIT_INTEGRITY) from exc
 
     def records_at(self, company_id: str, cutoff_at: datetime) -> Sequence[dict[str, Any]]:
         return _select_feature_rows(self,company_id,cutoff_at)
@@ -160,10 +170,10 @@ class CsvPriceProvider:
                     raise M3Top3AdmissionError("DUPLICATE_PRICE_KEY",f"duplicate price key {key}",{"line":line_number,"code":row.code,"date":row.date.isoformat()},EXIT_INTEGRITY)
                 seen.add(key); _validate_price_row(row,{"line":line_number,"path":str(self.path)}); rows.append(row)
         self._rows=rows; self._by_key={(r.code,r.date):r for r in rows}; self._dates=sorted({r.date for r in rows}); verify_price_release(self,admission_config)
-    def trading_dates(self,start:date,end:date)->list[date]: return [d for d in self._dates if start<=d<=end]
-    def row(self,code:str,trading_date:date)->PriceRow|None: return self._by_key.get((str(code).zfill(6),trading_date))
+    def trading_dates(self,start:date,end:date)->list[date]: verify_price_release(self); return [d for d in self._dates if start<=d<=end]
+    def row(self,code:str,trading_date:date)->PriceRow|None: verify_price_release(self); return self._by_key.get((str(code).zfill(6),trading_date))
     def rows(self,code:str,start:date,end:date)->list[PriceRow]:
-        code=str(code).zfill(6); return [r for r in self._rows if r.code==code and start<=r.date<=end]
+        verify_price_release(self); code=str(code).zfill(6); return [r for r in self._rows if r.code==code and start<=r.date<=end]
 
 
 class DuckDBParquetPriceProvider:
@@ -171,9 +181,11 @@ class DuckDBParquetPriceProvider:
     def __init__(self, paths: Sequence[str | Path], dataset_id: str, dataset_hash: str, semantics: str = "RAW_IMMUTABLE", admission_config: dict[str, Any] | None = None, component_manifest: dict[str, Any] | None = None):
         try: duckdb=importlib.import_module("duckdb")
         except ImportError as exc: raise RuntimeError("DuckDBParquetPriceProvider requires the optional 'duckdb' package") from exc
-        self._duckdb=duckdb; self.paths=[str(Path(p).resolve()) for p in paths]; self.dataset_id=dataset_id; self.dataset_hash=dataset_hash; self.semantics=semantics; self.canonical_release=admission_config; self.component_manifest=component_manifest; self._con=duckdb.connect()
+        self._duckdb=duckdb; self.paths=[str(Path(p).resolve()) for p in paths]; self.dataset_id=dataset_id; self.dataset_hash=dataset_hash; self.semantics=semantics; self.canonical_release=admission_config; self.component_manifest=component_manifest
         self.component_hashes={p:hash_file(Path(p)) for p in self.paths}; self.actual_dataset_hash=next(iter(self.component_hashes.values())) if len(self.component_hashes)==1 else price_dataset_identity_hash(self.dataset_id,self.component_hashes)
         verify_price_component_manifest(self,component_manifest)
+        verify_price_release(self,admission_config)
+        self._con=duckdb.connect()
         list_sql="["+",".join(repr(p) for p in self.paths)+"]"; self._source_sql=f"read_parquet({list_sql}, union_by_name=true)"
         cols={r[0].lower():r[0] for r in self._con.execute(f"DESCRIBE SELECT * FROM {self._source_sql}").fetchall()}; required={"date","code","open","high","low","close"}; missing=required-set(cols)
         if missing: raise ValueError(f"price parquet missing required columns: {sorted(missing)}")
@@ -197,13 +209,16 @@ class DuckDBParquetPriceProvider:
         verify_price_release(self,admission_config)
     def _c(self,lower:str)->str: return '"'+self._cols[lower].replace('"','""')+'"'
     def trading_dates(self,start:date,end:date)->list[date]:
+        verify_price_release(self)
         q=f"SELECT DISTINCT CAST({self._c('date')} AS DATE) d FROM {self._source_sql} WHERE CAST({self._c('date')} AS DATE) BETWEEN ? AND ? ORDER BY d"; return [r[0] for r in self._con.execute(q,[start,end]).fetchall()]
     def row(self,code:str,trading_date:date)->PriceRow|None:
+        verify_price_release(self)
         q=f"SELECT {self._select_columns()} FROM {self._source_sql} WHERE LPAD(CAST({self._c('code')} AS VARCHAR),6,'0')=? AND CAST({self._c('date')} AS DATE)=?"; rows=self._con.execute(q,[str(code).zfill(6),trading_date]).fetchall()
         if len(rows)>1: raise M3Top3AdmissionError("DUPLICATE_PRICE_KEY",f"duplicate price key {(code,trading_date)}",exit_code=EXIT_INTEGRITY)
         row=rows[0] if rows else None
         return None if not row else self._price_row(row)
     def rows(self,code:str,start:date,end:date)->list[PriceRow]:
+        verify_price_release(self)
         q=f"SELECT {self._select_columns()} FROM {self._source_sql} WHERE LPAD(CAST({self._c('code')} AS VARCHAR),6,'0')=? AND CAST({self._c('date')} AS DATE) BETWEEN ? AND ? ORDER BY 1"; out=[]
         for row in self._con.execute(q,[str(code).zfill(6),start,end]).fetchall(): out.append(self._price_row(row))
         return out

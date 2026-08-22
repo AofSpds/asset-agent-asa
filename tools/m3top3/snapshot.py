@@ -6,10 +6,10 @@ from datetime import date, datetime
 from pathlib import Path
 from typing import Any
 
-from .admission import EXIT_BLOCKED, M3Top3AdmissionError, verify_snapshot_artifacts
+from .admission import EXIT_BLOCKED, M3Top3AdmissionError, _snapshot_manifest_identity_payload, verify_snapshot_artifacts
 from .core import aggregate_hash, atomic_write_json, atomic_write_text, deterministic_id, sha256_hex, snapshot_cutoff
 from .pit_guard import PITGuard, PITLeakageError
-from .providers import PITFeatureProvider, PriceProvider, UniverseProvider, UniverseState
+from .providers import InMemoryFeatureProvider, JsonlFeatureProvider, PITFeatureProvider, PriceProvider, UniverseProvider, UniverseState
 
 
 @dataclass(frozen=True)
@@ -43,6 +43,15 @@ class SnapshotBuilder:
         receipts_before=len(getattr(self.features,"retrieval_receipts",[])) if hasattr(self.features,"retrieval_receipts") else None
         raw_features=[dict(r) for r in self.features.records_at(state.company_id, cutoff_at)]; blockers=[]
         retrieval_receipt=self._require_retrieval_receipt(state.company_id,cutoff_at,raw_features,receipts_before)
+        expected_features,expected_receipt=self._independent_retrieval_slice(state.company_id,cutoff_at)
+        if raw_features!=expected_features or retrieval_receipt!=expected_receipt:
+            raise M3Top3AdmissionError(
+                "RETRIEVAL_RECEIPT_RECONCILIATION_FAILED",
+                "provider output/receipt differs from an independent reconstruction over the admitted raw source",
+                {"company_id":state.company_id,"selected_actual":len(raw_features),"selected_expected":len(expected_features)},
+                EXIT_BLOCKED,
+            )
+        raw_features=expected_features; retrieval_receipt=expected_receipt
         self.guard.assert_model_inputs(raw_features, cutoff_at)
         observation_refs=[]; evidence_refs=[]; model_features={}; feature_trace=[]
         for r in raw_features:
@@ -67,12 +76,37 @@ class SnapshotBuilder:
         for r in raw_features:
             ref=r.get("f1_f2_ref")
             if isinstance(ref,dict) and ref.get("domain") and ref.get("ref_id"): f1_refs.append({"domain":str(ref["domain"]),"ref_id":str(ref["ref_id"])})
-        semantic={"company_id":state.company_id,"snapshot_cutoff_at":cutoff_at.isoformat(),"snapshot_schema_version":self.config.snapshot_schema_version,"snapshot_revision":0,"f1_f2_effective_refs":f1_refs,"f3_observation_refs":observation_refs,"evidence_refs":sorted(set(evidence_refs)),"dataset_refs":[{"domain":"SOURCE_DATASET","source_id":self.price.dataset_id,"content_hash":self.price.dataset_hash,"locator":None}],"universe_release_id":self.universe.release_id,"tradability_state_ref":{"domain":"TRADABILITY_HISTORY","ref_id":state.universe_record_id}}
+        semantic={"company_id":state.company_id,"snapshot_cutoff_at":cutoff_at.isoformat(),"snapshot_schema_version":self.config.snapshot_schema_version,"snapshot_revision":0,"f1_f2_effective_refs":f1_refs,"f3_observation_refs":observation_refs,"evidence_refs":sorted(set(evidence_refs)) or None,"dataset_refs":[{"domain":"SOURCE_DATASET","source_id":self.price.dataset_id,"content_hash":self.price.dataset_hash,"locator":None}],"universe_release_id":self.universe.release_id,"tradability_state_ref":{"domain":"TRADABILITY_HISTORY","ref_id":state.universe_record_id},"retrieval_receipt_id":retrieval_receipt["retrieval_receipt_id"],"retrieval_source_hash":retrieval_receipt["source_hash"]}
         pit_snapshot_id=deterministic_id("pit",semantic); capture_run_id=deterministic_id("capture",{"pit_snapshot_id":pit_snapshot_id,"generator_version":self.config.generator_version})
-        pit_row={"pit_snapshot_id":pit_snapshot_id,"company_id":state.company_id,"snapshot_cutoff_at":cutoff_at.isoformat(),"snapshot_date":snapshot_date.isoformat(),"snapshot_schema_version":self.config.snapshot_schema_version,"snapshot_revision":0,"supersedes_ref":None,"capture_run_id":capture_run_id,"snapshot_frozen":False,"snapshot_frozen_at":None,"f1_f2_effective_refs":f1_refs,"f3_observation_refs":observation_refs,"evidence_refs":sorted(set(evidence_refs)) or None,"dataset_refs":semantic["dataset_refs"],"universe_release_id":self.universe.release_id,"tradability_state_ref":semantic["tradability_state_ref"],"schema_version":self.config.snapshot_schema_version}
-        model_input={"pit_snapshot_id":pit_snapshot_id,"snapshot_date":snapshot_date.isoformat(),"snapshot_cutoff_at":cutoff_at.isoformat(),"company_id":state.company_id,"security_code":str(state.security_code).zfill(6),"universe_member":state.operational_member,"entry_eligible":eligibility,"universe_authority_status":self.universe.authority_status,"price_dataset_id":self.price.dataset_id,"price_source_semantics":self.price.semantics,"feature_values":model_features,"feature_trace":feature_trace,"model_input_schema_version":self.config.model_input_schema_version,"reconstruction_version":self.config.reconstruction_version}
+        pit_row={"pit_snapshot_id":pit_snapshot_id,"company_id":state.company_id,"snapshot_cutoff_at":cutoff_at.isoformat(),"snapshot_date":snapshot_date.isoformat(),"snapshot_schema_version":self.config.snapshot_schema_version,"snapshot_revision":0,"supersedes_ref":None,"capture_run_id":capture_run_id,"generator_version":self.config.generator_version,"snapshot_frozen":False,"snapshot_frozen_at":None,"f1_f2_effective_refs":f1_refs,"f3_observation_refs":observation_refs,"evidence_refs":semantic["evidence_refs"],"dataset_refs":semantic["dataset_refs"],"universe_release_id":self.universe.release_id,"tradability_state_ref":semantic["tradability_state_ref"],"retrieval_receipt_id":retrieval_receipt["retrieval_receipt_id"],"retrieval_source_hash":retrieval_receipt["source_hash"],"schema_version":self.config.snapshot_schema_version}
+        model_input={"pit_snapshot_id":pit_snapshot_id,"snapshot_date":snapshot_date.isoformat(),"snapshot_cutoff_at":cutoff_at.isoformat(),"company_id":state.company_id,"security_code":str(state.security_code).zfill(6),"universe_member":state.operational_member,"entry_eligible":eligibility,"universe_authority_status":self.universe.authority_status,"price_dataset_id":self.price.dataset_id,"price_source_semantics":self.price.semantics,"retrieval_receipt_id":retrieval_receipt["retrieval_receipt_id"],"retrieval_source_hash":retrieval_receipt["source_hash"],"feature_values":model_features,"feature_trace":feature_trace,"model_input_schema_version":self.config.model_input_schema_version,"reconstruction_version":self.config.reconstruction_version}
         self.guard.assert_model_inputs([model_input],cutoff_at)
         return pit_row,model_input,blockers,dict(retrieval_receipt) if isinstance(retrieval_receipt,dict) else None
+
+    def _independent_retrieval_slice(self,company_id:str,cutoff_at:datetime)->tuple[list[dict[str,Any]],dict[str,Any]]:
+        if type(self.features) is JsonlFeatureProvider:
+            shadow=JsonlFeatureProvider(self.features.path,self.features.source_version,self.features.cutoff_frozen_bundle)
+        elif type(self.features) is InMemoryFeatureProvider:
+            shadow=InMemoryFeatureProvider(self.features._rows,self.features.source_version,self.features.cutoff_frozen_bundle)
+        elif isinstance(self.features,(JsonlFeatureProvider,InMemoryFeatureProvider)):
+            raise M3Top3AdmissionError(
+                "RETRIEVAL_RECEIPT_RECONCILIATION_FAILED",
+                "feature-provider subclasses are not admitted at the raw-source trust boundary",
+                {"provider_type":type(self.features).__name__},
+                EXIT_BLOCKED,
+            )
+        else:
+            raise M3Top3AdmissionError(
+                "MISSING_DETERMINISTIC_RETRIEVAL_RECEIPT",
+                "feature provider has no independently auditable raw-source adapter",
+                {"provider_type":type(self.features).__name__},
+                EXIT_BLOCKED,
+            )
+        rows=[dict(row) for row in shadow.records_at(company_id,cutoff_at)]
+        receipt=shadow.last_retrieval_receipt
+        if not isinstance(receipt,dict):
+            raise M3Top3AdmissionError("MISSING_DETERMINISTIC_RETRIEVAL_RECEIPT","independent raw-source reconstruction emitted no receipt",exit_code=EXIT_BLOCKED)
+        return rows,dict(receipt)
 
     def _require_retrieval_receipt(self,company_id:str,cutoff_at:datetime,raw_features:list[dict[str,Any]],receipts_before:int|None)->dict[str,Any]:
         receipts=getattr(self.features,"retrieval_receipts",None); receipt=getattr(self.features,"last_retrieval_receipt",None)
@@ -129,7 +163,13 @@ class SnapshotStore:
             raise M3Top3AdmissionError("BLOCKED_SNAPSHOT_NOT_READY","only READY snapshots with zero blockers may enter the scoreable store",{"snapshot_status":built.status,"blockers":built.blockers},EXIT_BLOCKED)
         d=self._dir(built.snapshot_date)
         pit_text="".join(json.dumps(r,ensure_ascii=False,sort_keys=True,separators=(",",":"))+"\n" for r in built.pit_rows); mi_text="".join(json.dumps(r,ensure_ascii=False,sort_keys=True,separators=(",",":"))+"\n" for r in built.model_inputs); audit_text="".join(json.dumps(r,ensure_ascii=False,sort_keys=True,separators=(",",":"))+"\n" for r in built.retrieval_audits)
-        manifest={**metadata,"snapshot_date":built.snapshot_date.isoformat(),"snapshot_cutoff_at":built.cutoff_at.isoformat(),"snapshot_content_hash":built.snapshot_set_entry_hash,"snapshot_status":built.status,"blockers":built.blockers,"pit_row_count":len(built.pit_rows),"model_input_row_count":len(built.model_inputs),"retrieval_audit_row_count":len(built.retrieval_audits),"pit_file_sha256":sha256_hex(pit_text),"model_input_file_sha256":sha256_hex(mi_text),"retrieval_audit_file_sha256":sha256_hex(audit_text),"retrieval_audit_content_hash":aggregate_hash([sha256_hex(a) for a in built.retrieval_audits])}
+        first_pit=built.pit_rows[0] if built.pit_rows else {}
+        first_model=built.model_inputs[0] if built.model_inputs else {}
+        first_audit=built.retrieval_audits[0] if built.retrieval_audits else {}
+        dataset_refs=first_pit.get("dataset_refs") if isinstance(first_pit.get("dataset_refs"),list) else []
+        price_ref=next((ref for ref in dataset_refs if isinstance(ref,dict) and ref.get("source_id")==first_model.get("price_dataset_id")),{})
+        manifest={**metadata,"generator_version":first_pit.get("generator_version"),"universe_release_id":first_pit.get("universe_release_id"),"feature_source_version":first_audit.get("source_version"),"price_dataset_id":first_model.get("price_dataset_id"),"price_dataset_hash":price_ref.get("content_hash"),"price_source_semantics":first_model.get("price_source_semantics"),"reconstruction_version":first_model.get("reconstruction_version"),"snapshot_date":built.snapshot_date.isoformat(),"snapshot_cutoff_at":built.cutoff_at.isoformat(),"snapshot_content_hash":built.snapshot_set_entry_hash,"snapshot_status":built.status,"blockers":built.blockers,"pit_row_count":len(built.pit_rows),"model_input_row_count":len(built.model_inputs),"retrieval_audit_row_count":len(built.retrieval_audits),"pit_file_sha256":sha256_hex(pit_text),"model_input_file_sha256":sha256_hex(mi_text),"retrieval_audit_file_sha256":sha256_hex(audit_text),"retrieval_audit_content_hash":aggregate_hash([sha256_hex(a) for a in built.retrieval_audits]),"retrieval_receipt_ids":sorted(a["retrieval_receipt_id"] for a in built.retrieval_audits),"retrieval_source_hashes":sorted({a["source_hash"] for a in built.retrieval_audits})}
+        manifest["snapshot_manifest_identity_hash"]=sha256_hex(_snapshot_manifest_identity_payload(manifest))
         targets=(d/"pit_snapshot.jsonl",d/"model_input.jsonl",d/"retrieval_audit.jsonl",d/"manifest.json")
         if any(path.exists() for path in targets):
             if not all(path.exists() for path in targets):
@@ -148,6 +188,10 @@ class SnapshotStore:
         atomic_write_text(staging/"model_input.jsonl",mi_text)
         atomic_write_text(staging/"retrieval_audit.jsonl",audit_text)
         atomic_write_json(staging/"manifest.json",manifest)
+        try:
+            verify_snapshot_artifacts(staging,allow_staging=True)
+        except M3Top3AdmissionError:
+            raise
         try:
             staging.rename(d)
         except OSError as exc:
