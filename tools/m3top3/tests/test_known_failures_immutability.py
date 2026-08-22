@@ -3,9 +3,11 @@ from __future__ import annotations
 import tempfile
 import threading
 import unittest
+import os
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import replace
 from pathlib import Path
+from unittest.mock import patch
 
 from tools.m3top3.admission import M3Top3AdmissionError
 from tools.m3top3.core import canonical_json_bytes
@@ -53,6 +55,31 @@ class KnownFailureImmutabilityTests(unittest.TestCase):
             SnapshotStore(other_root).write(self.built, {})
         self.assertEqual(caught.exception.code, "IMMUTABLE_SNAPSHOT_COLLISION")
         self.assertEqual(marker.read_bytes(), b"prior")
+
+    def test_empty_concurrent_snapshot_target_is_not_replaced(self):
+        other_root=self.root/"empty-concurrent"
+        target=other_root/self.built.snapshot_date.isoformat(); target.mkdir(parents=True)
+        prior_inode=target.stat().st_ino
+        with self.assertRaises(M3Top3AdmissionError) as caught:
+            SnapshotStore(other_root).write(self.built,{})
+        self.assertEqual(caught.exception.code,"IMMUTABLE_SNAPSHOT_COLLISION")
+        self.assertEqual(target.stat().st_ino,prior_inode)
+        self.assertEqual(list(target.iterdir()),[])
+
+    def test_snapshot_manifest_is_published_last(self):
+        other_root=self.root/"manifest-last"
+        target=other_root/self.built.snapshot_date.isoformat(); real_link=os.link
+        def fail_manifest(source,destination):
+            if Path(destination).name=="manifest.json": raise OSError("injected manifest publish failure")
+            return real_link(source,destination)
+        with patch("tools.m3top3.snapshot.os.link",side_effect=fail_manifest):
+            with self.assertRaises(M3Top3AdmissionError) as caught:
+                SnapshotStore(other_root).write(self.built,{})
+        self.assertEqual(caught.exception.code,"IMMUTABLE_SNAPSHOT_COLLISION")
+        self.assertTrue((target/"pit_snapshot.jsonl").exists())
+        self.assertTrue((target/"model_input.jsonl").exists())
+        self.assertTrue((target/"retrieval_audit.jsonl").exists())
+        self.assertFalse((target/"manifest.json").exists())
 
     def test_kf_imm_003_same_run_id_different_result_is_rejected(self):
         output = self.root / "results"

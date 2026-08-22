@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 from dataclasses import dataclass, field
 from datetime import date, datetime
 from pathlib import Path
@@ -193,9 +194,17 @@ class SnapshotStore:
         except M3Top3AdmissionError:
             raise
         try:
-            staging.rename(d)
+            d.mkdir(exist_ok=False)
         except OSError as exc:
-            raise M3Top3AdmissionError("IMMUTABLE_SNAPSHOT_COLLISION","snapshot target appeared during atomic create",{"snapshot_date":built.snapshot_date.isoformat(),"staging":str(staging)},3) from exc
+            raise M3Top3AdmissionError("IMMUTABLE_SNAPSHOT_COLLISION","snapshot target appeared before create-only publish",{"snapshot_date":built.snapshot_date.isoformat(),"staging":str(staging)},3) from exc
+        publish_order=("pit_snapshot.jsonl","model_input.jsonl","retrieval_audit.jsonl","manifest.json")
+        try:
+            for name in publish_order:
+                os.link(staging/name,d/name)
+        except OSError as exc:
+            raise M3Top3AdmissionError("IMMUTABLE_SNAPSHOT_COLLISION","snapshot no-replace publish failed; incomplete canonical directory is quarantined by missing/last manifest",{"snapshot_date":built.snapshot_date.isoformat(),"staging":str(staging),"published_manifest":(d/"manifest.json").exists()},3) from exc
+        for name in publish_order: (staging/name).unlink()
+        staging.rmdir()
         return manifest
 
 
