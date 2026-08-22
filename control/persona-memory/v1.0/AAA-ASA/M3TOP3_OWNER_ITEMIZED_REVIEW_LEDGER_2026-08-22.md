@@ -134,6 +134,16 @@ STATE = OWNER_APPROVED_WITH_MODIFICATION
 - State transitions are evidence-gated. PMO prepares the evidence/transition package, ASA supervises state-transition integrity, and the required paired validator / IVA / Owner gates remain applicable according to the governing authority level.
 - The exact labels may be shortened in dashboards, but no label may imply evidence or authority that has not been obtained.
 
+### J02 Amendment / 17 — U127 current-phase freeze vs future universe refinement
+STATE = OWNER_CORRECTION_ACCEPTED / ITEM17_AMENDED
+- Supersede only the permanence implied by the earlier phrase `fixed 127-company membership` in J02. It means `temporarily fixed for the current model-detection / validation phase`, not permanently immutable membership.
+- Current U127 was assembled by collecting relevant listed peer/sector companies so that the current M3Top3 model can be detected, debugged and validated with sufficient breadth and discrimination.
+- Until the model-detection/refinement work becomes sufficiently precise, U127 membership is held stable as the current working/canonical validation universe so denominator drift does not contaminate the present validation program.
+- After the model and universe-selection logic become more precise, the validation universe may be re-examined and formally confirmed, expanded, reduced or otherwise succeeded through a new version/release. Do not silently mutate the historical U127 release or rewrite prior replay denominators.
+- `Historical Eligible Universe_T` for the current U127 phase remains derived from the then-current U127 release using PIT business-scope and tradability eligibility; membership, historical eligibility and feature/data coverage remain separate concepts.
+- Future universe refinement is not treated as a defect in U127 and does not automatically reclassify U127 as a Challenge Universe. U127 remains the current-phase M3Top3 validation master until a governed successor universe is defined.
+- Any later successor universe must preserve lineage to U127 and allow results to be distinguished by universe release/version so performance changes are not misattributed to the model when they are caused by denominator/membership changes.
+
 ## DOCUMENT REVISION RULE
 - Do not regenerate the two advisory documents after each item.
 - Continue accumulating Owner dispositions here.
