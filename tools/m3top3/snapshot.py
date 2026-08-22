@@ -6,7 +6,8 @@ from datetime import date, datetime
 from pathlib import Path
 from typing import Any
 
-from .core import aggregate_hash, atomic_write_json, deterministic_id, sha256_hex, snapshot_cutoff
+from .admission import EXIT_BLOCKED, M3Top3AdmissionError, verify_snapshot_artifacts
+from .core import aggregate_hash, atomic_write_json, atomic_write_text, deterministic_id, sha256_hex, snapshot_cutoff
 from .pit_guard import PITGuard, PITLeakageError
 from .providers import PITFeatureProvider, PriceProvider, UniverseProvider, UniverseState
 
@@ -29,6 +30,7 @@ class BuiltSnapshot:
     snapshot_set_entry_hash: str
     pit_rows: list[dict[str, Any]]
     model_inputs: list[dict[str, Any]]
+    retrieval_audits: list[dict[str, Any]]
     status: str
     blockers: list[str] = field(default_factory=list)
 
@@ -39,9 +41,9 @@ class SnapshotBuilder:
 
     def _build_company(self, state: UniverseState, snapshot_date: date, cutoff_at: datetime):
         raw_features=[dict(r) for r in self.features.records_at(state.company_id, cutoff_at)]; blockers=[]
-        try: self.guard.assert_model_inputs(raw_features, cutoff_at)
-        except PITLeakageError as exc: blockers.extend(v.code for v in exc.violations)
+        self.guard.assert_model_inputs(raw_features, cutoff_at)
         observation_refs=[]; evidence_refs=[]; model_features={}; feature_trace=[]
+        retrieval_receipt=getattr(self.features,"last_retrieval_receipt",None)
         for r in raw_features:
             if r.get("evidence_id"):
                 evidence_refs.append(str(r["evidence_id"])); observation_refs.append({"domain":"EVIDENCE","reference_payload":{"evidence_id":str(r["evidence_id"])}})
@@ -69,17 +71,26 @@ class SnapshotBuilder:
         pit_row={"pit_snapshot_id":pit_snapshot_id,"company_id":state.company_id,"snapshot_cutoff_at":cutoff_at.isoformat(),"snapshot_date":snapshot_date.isoformat(),"snapshot_schema_version":self.config.snapshot_schema_version,"snapshot_revision":0,"supersedes_ref":None,"capture_run_id":capture_run_id,"snapshot_frozen":False,"snapshot_frozen_at":None,"f1_f2_effective_refs":f1_refs,"f3_observation_refs":observation_refs,"evidence_refs":sorted(set(evidence_refs)) or None,"dataset_refs":semantic["dataset_refs"],"universe_release_id":self.universe.release_id,"tradability_state_ref":semantic["tradability_state_ref"],"schema_version":self.config.snapshot_schema_version}
         model_input={"pit_snapshot_id":pit_snapshot_id,"snapshot_date":snapshot_date.isoformat(),"snapshot_cutoff_at":cutoff_at.isoformat(),"company_id":state.company_id,"security_code":str(state.security_code).zfill(6),"universe_member":state.operational_member,"entry_eligible":eligibility,"universe_authority_status":self.universe.authority_status,"price_dataset_id":self.price.dataset_id,"price_source_semantics":self.price.semantics,"feature_values":model_features,"feature_trace":feature_trace,"model_input_schema_version":self.config.model_input_schema_version,"reconstruction_version":self.config.reconstruction_version}
         self.guard.assert_model_inputs([model_input],cutoff_at)
-        return pit_row,model_input,blockers
+        return pit_row,model_input,blockers,dict(retrieval_receipt) if isinstance(retrieval_receipt,dict) else None
 
     def build(self,snapshot_date:date)->BuiltSnapshot:
-        cutoff_at=snapshot_cutoff(snapshot_date,self.config.cutoff_local_time,self.config.timezone); states=self.universe.states_at(snapshot_date); pit_rows=[]; model_inputs=[]; blockers=[]
+        cutoff_at=snapshot_cutoff(snapshot_date,self.config.cutoff_local_time,self.config.timezone); states=self.universe.states_at(snapshot_date); pit_rows=[]; model_inputs=[]; retrieval_audits=[]; blockers=[]
         for state in sorted(states,key=lambda x:(x.company_id,x.security_code)):
-            p,m,b=self._build_company(state,snapshot_date,cutoff_at); pit_rows.append(p); model_inputs.append(m); blockers.extend(f"{state.company_id}:{x}" for x in b)
-        entry_hash=aggregate_hash([sha256_hex(p) for p in pit_rows]+[sha256_hex(m) for m in model_inputs])
+            try:
+                p,m,b,audit=self._build_company(state,snapshot_date,cutoff_at)
+            except PITLeakageError as exc:
+                blockers.extend(f"{state.company_id}:{v.code}" for v in exc.violations)
+                continue
+            pit_rows.append(p); model_inputs.append(m); blockers.extend(f"{state.company_id}:{x}" for x in b)
+            if audit is not None: retrieval_audits.append(audit)
+        entry_hash=aggregate_hash([sha256_hex(p) for p in pit_rows]+[sha256_hex(m) for m in model_inputs]+[sha256_hex(a) for a in retrieval_audits])
         if not states: status="SNAPSHOT_BLOCKED"; blockers.append("NO_UNIVERSE_STATES")
+        elif any(not blocker.endswith(":ELIGIBILITY_UNRESOLVED") for blocker in blockers):
+            status="SNAPSHOT_BLOCKED"; model_inputs=[]
+            entry_hash=aggregate_hash([sha256_hex(p) for p in pit_rows]+[sha256_hex(a) for a in retrieval_audits])
         elif blockers: status="SNAPSHOT_PARTIAL"
         else: status="SNAPSHOT_READY"
-        return BuiltSnapshot(snapshot_date,cutoff_at,entry_hash,pit_rows,model_inputs,status,sorted(set(blockers)))
+        return BuiltSnapshot(snapshot_date,cutoff_at,entry_hash,pit_rows,model_inputs,retrieval_audits,status,sorted(set(blockers)))
 
 
 class SnapshotStore:
@@ -88,35 +99,73 @@ class SnapshotStore:
     def valid_existing(self,built:BuiltSnapshot)->bool:
         p=self._dir(built.snapshot_date)/"manifest.json"
         if not p.exists(): return False
-        try: manifest=json.loads(p.read_text(encoding="utf-8"))
-        except Exception: return False
-        return manifest.get("snapshot_content_hash")==built.snapshot_set_entry_hash
+        verified=verify_snapshot_artifacts(p.parent)
+        if verified.manifest.get("snapshot_content_hash") != built.snapshot_set_entry_hash:
+            raise M3Top3AdmissionError("IMMUTABLE_SNAPSHOT_COLLISION","existing snapshot identity has different semantic content",{"snapshot_date":built.snapshot_date.isoformat()},3)
+        return True
     def write(self,built:BuiltSnapshot,metadata:dict[str,Any])->dict[str,Any]:
-        d=self._dir(built.snapshot_date); d.mkdir(parents=True,exist_ok=True)
-        pit_text="".join(json.dumps(r,ensure_ascii=False,sort_keys=True,separators=(",",":"))+"\n" for r in built.pit_rows); mi_text="".join(json.dumps(r,ensure_ascii=False,sort_keys=True,separators=(",",":"))+"\n" for r in built.model_inputs)
-        (d/"pit_snapshot.jsonl").write_text(pit_text,encoding="utf-8"); (d/"model_input.jsonl").write_text(mi_text,encoding="utf-8")
-        manifest={**metadata,"snapshot_date":built.snapshot_date.isoformat(),"snapshot_cutoff_at":built.cutoff_at.isoformat(),"snapshot_content_hash":built.snapshot_set_entry_hash,"snapshot_status":built.status,"blockers":built.blockers,"pit_row_count":len(built.pit_rows),"model_input_row_count":len(built.model_inputs),"pit_file_sha256":sha256_hex(pit_text),"model_input_file_sha256":sha256_hex(mi_text)}; atomic_write_json(d/"manifest.json",manifest); return manifest
+        if built.status != "SNAPSHOT_READY" or built.blockers:
+            raise M3Top3AdmissionError("BLOCKED_SNAPSHOT_NOT_READY","only READY snapshots with zero blockers may enter the scoreable store",{"snapshot_status":built.status,"blockers":built.blockers},EXIT_BLOCKED)
+        d=self._dir(built.snapshot_date)
+        pit_text="".join(json.dumps(r,ensure_ascii=False,sort_keys=True,separators=(",",":"))+"\n" for r in built.pit_rows); mi_text="".join(json.dumps(r,ensure_ascii=False,sort_keys=True,separators=(",",":"))+"\n" for r in built.model_inputs); audit_text="".join(json.dumps(r,ensure_ascii=False,sort_keys=True,separators=(",",":"))+"\n" for r in built.retrieval_audits)
+        manifest={**metadata,"snapshot_date":built.snapshot_date.isoformat(),"snapshot_cutoff_at":built.cutoff_at.isoformat(),"snapshot_content_hash":built.snapshot_set_entry_hash,"snapshot_status":built.status,"blockers":built.blockers,"pit_row_count":len(built.pit_rows),"model_input_row_count":len(built.model_inputs),"retrieval_audit_row_count":len(built.retrieval_audits),"pit_file_sha256":sha256_hex(pit_text),"model_input_file_sha256":sha256_hex(mi_text),"retrieval_audit_file_sha256":sha256_hex(audit_text),"retrieval_audit_content_hash":aggregate_hash([sha256_hex(a) for a in built.retrieval_audits])}
+        targets=(d/"pit_snapshot.jsonl",d/"model_input.jsonl",d/"retrieval_audit.jsonl",d/"manifest.json")
+        if any(path.exists() for path in targets):
+            if not all(path.exists() for path in targets):
+                raise M3Top3AdmissionError("IMMUTABLE_SNAPSHOT_COLLISION","incomplete existing snapshot identity cannot be overwritten",{"snapshot_date":built.snapshot_date.isoformat()},3)
+            verified=verify_snapshot_artifacts(d)
+            prior_manifest=verified.manifest
+            if prior_manifest.get("snapshot_content_hash") != built.snapshot_set_entry_hash or (d/"pit_snapshot.jsonl").read_text(encoding="utf-8") != pit_text or (d/"model_input.jsonl").read_text(encoding="utf-8") != mi_text or (d/"retrieval_audit.jsonl").read_text(encoding="utf-8") != audit_text:
+                raise M3Top3AdmissionError("IMMUTABLE_SNAPSHOT_COLLISION","existing snapshot identity has different bytes",{"snapshot_date":built.snapshot_date.isoformat()},3)
+            return prior_manifest
+        d.parent.mkdir(parents=True,exist_ok=True)
+        staging=d.with_name(f".{d.name}.{built.snapshot_set_entry_hash[:12]}.staging")
+        if staging.exists():
+            raise M3Top3AdmissionError("IMMUTABLE_SNAPSHOT_COLLISION","stale create-only snapshot staging identity exists",{"path":str(staging)},3)
+        staging.mkdir(exist_ok=False)
+        atomic_write_text(staging/"pit_snapshot.jsonl",pit_text)
+        atomic_write_text(staging/"model_input.jsonl",mi_text)
+        atomic_write_text(staging/"retrieval_audit.jsonl",audit_text)
+        atomic_write_json(staging/"manifest.json",manifest)
+        try:
+            staging.rename(d)
+        except OSError as exc:
+            raise M3Top3AdmissionError("IMMUTABLE_SNAPSHOT_COLLISION","snapshot target appeared during atomic create",{"snapshot_date":built.snapshot_date.isoformat(),"staging":str(staging)},3) from exc
+        return manifest
 
 
 @dataclass
 class BatchResult:
     requested:int; generated:int; failed:int; reused:int; failed_dates:list[str]; manifests:list[dict[str,Any]]
+    blocked:int=0; blocked_dates:list[str]=field(default_factory=list); failed_integrity:int=0; failed_authority:int=0
     @property
-    def accounting_pass(self)->bool: return self.requested==self.generated+self.failed+self.reused
+    def accounting_pass(self)->bool: return self.requested==self.generated+self.failed+self.reused+self.blocked
 
 
 class BatchSnapshotGenerator:
     def __init__(self,builder:SnapshotBuilder,store:SnapshotStore,retries:int=1): self.builder=builder; self.store=store; self.retries=max(0,retries)
     def run(self,start:date,end:date,metadata:dict[str,Any])->BatchResult:
-        dates=self.builder.price.trading_dates(start,end); generated=failed=reused=0; failed_dates=[]; manifests=[]
+        dates=self.builder.price.trading_dates(start,end); generated=failed=reused=blocked=failed_integrity=failed_authority=0; failed_dates=[]; blocked_dates=[]; manifests=[]
         for d in dates:
             last_error=None
             for _ in range(self.retries+1):
                 try:
                     built=self.builder.build(d)
+                    if built.status != "SNAPSHOT_READY" or built.blockers:
+                        blocked+=1; blocked_dates.append(f"{d.isoformat()}:{built.status}:{','.join(built.blockers)}"); break
                     if self.store.valid_existing(built): reused+=1; break
                     manifests.append(self.store.write(built,metadata)); generated+=1; break
+                except PITLeakageError as exc:
+                    blocked+=1; blocked_dates.append(f"{d.isoformat()}:PIT:{','.join(v.code for v in exc.violations)}"); break
+                except M3Top3AdmissionError as exc:
+                    if exc.exit_code==EXIT_BLOCKED:
+                        blocked+=1; blocked_dates.append(f"{d.isoformat()}:{exc.code}:{exc}")
+                    else:
+                        failed+=1; failed_dates.append(f"{d.isoformat()}:{exc.code}:{exc}")
+                        if exc.exit_code==3: failed_integrity+=1
+                        if exc.exit_code==4: failed_authority+=1
+                    break
                 except Exception as exc: last_error=exc
             else:
                 failed+=1; failed_dates.append(f"{d.isoformat()}:{type(last_error).__name__}:{last_error}")
-        return BatchResult(len(dates),generated,failed,reused,failed_dates,manifests)
+        return BatchResult(len(dates),generated,failed,reused,failed_dates,manifests,blocked,blocked_dates,failed_integrity,failed_authority)

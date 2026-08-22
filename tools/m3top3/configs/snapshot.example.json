@@ -1,4 +1,8 @@
 {
+  "execution_mode": "DIAGNOSTIC",
+  "official_admission": false,
+  "hash_algorithm": "SHA256",
+  "price_manifest_path": null,
   "timezone": "Asia/Seoul",
   "cutoff_local_time": "23:59:59",
   "snapshot_schema_version": "v0.1",

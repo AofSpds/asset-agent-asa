@@ -1,0 +1,32 @@
+{
+  "packet_id": "R-WP4-01-KNOWN-FAILURE-LOCK-20260823-0122",
+  "task": "M3TOP3 R-WP4-01 Known-Failure Lock",
+  "inspection_mode": "READ_ONLY_GITHUB",
+  "repository": "AofSpds/asset-agent-asa",
+  "branch": "aaa-pmo-m3top3-work-ultra-execution-directive-20260822",
+  "requested_head": "167c1b05e25df658b322cf428c72ce3a4f476544",
+  "observed_branch_head": "167c1b05e25df658b322cf428c72ce3a4f476544",
+  "head_match": true,
+  "tree_sha": "537d7da7cd2ec7559c9587a94a422954e7f58d35",
+  "commit_message": "pmo worklog: checkpoint final M3Top3 advisory document set",
+  "commit_url": "https://github.com/AofSpds/asset-agent-asa/commit/167c1b05e25df658b322cf428c72ce3a4f476544",
+  "inspection_time_kst": "2026-08-23T01:22:55+09:00",
+  "repository_mutated": false,
+  "tests_executed": false,
+  "iva_execution_participation": "NONE",
+  "source_blobs": {
+    "tools/m3top3/pit_guard.py": "f2aa6a3d0114bec4e617519ccc406adb21584054",
+    "tools/m3top3/snapshot.py": "fee10678d3843d979946594f362251928a7d274a",
+    "tools/m3top3/backtest.py": "8812d6566d13bbf9e3841844b5e3c3a6641c0873",
+    "tools/m3top3/cli_run_backtest.py": "66326d14be85aff4fc0c551a0d74a771ed5ea8fe",
+    "tools/m3top3/cli_build_snapshots.py": "5ddd5a74cec0c2b3df026d04a3ebf4756158fd44",
+    "tools/m3top3/providers.py": "ae6b185ccb2d6a4b6dede6e922cdc5f4cc324fe5",
+    "tools/m3top3/core.py": "e81561e737c3419013dc1bc5adff5ae258365862",
+    "tools/m3top3/model_interface.py": "1bc359a70a399a1eb94ef33703e2e5487afa8006",
+    "tools/m3top3/outcome.py": "76173598c2baeb648e770431a8082a23efd5a646",
+    "tools/m3top3/ledger.py": "d9eaba8791426405cea53845b35a2bd235000ebf",
+    "tools/m3top3/tests/test_infrastructure.py": "354717bcd2f5bcc0b768ad76a674f25bd65b78d4",
+    "tools/m3top3/configs/backtest.example.json": "05d7b40a511406d2f1057a0fa92010c27c7da33f",
+    "tools/m3top3/configs/snapshot.example.json": "cb13d80be4ddb20bff73130e622c731153035b58"
+  }
+}

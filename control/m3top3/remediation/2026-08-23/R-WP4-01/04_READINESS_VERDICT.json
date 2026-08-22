@@ -1,0 +1,31 @@
+{
+  "packet_id": "R-WP4-01-KNOWN-FAILURE-LOCK-20260823-0122",
+  "specification_verdict": "PASS",
+  "implementation_readiness": "READY_TO_CREATE_RED_TESTS_IN_ISOLATED_WORKTREE",
+  "current_runtime_readiness": "BLOCKED",
+  "official_golden_readiness": "BLOCKED",
+  "full_replay_readiness": "BLOCKED",
+  "tests_executed_in_this_packet": false,
+  "repository_mutated": false,
+  "repository_pushed": false,
+  "core_b_v_f04": {
+    "status": "INCORPORATED",
+    "raw_source_rule": "RAW_SOURCE_FUTURE_ROW_EXCLUDED_WITH_AUDIT",
+    "consumed_slice_rule": "CONSUMED_SLICE_FUTURE_ROW_BLOCKED",
+    "logical_id_count_changed": false
+  },
+  "known_failure_cases": 33,
+  "p0_cases_specified": 33,
+  "unmapped_requested_p0_cases": 0,
+  "acceptance_counts": {
+    "logical_known_failure_ids": 33,
+    "minimum_parameterized_negative_executions": 44,
+    "existing_infrastructure_tests_required_green": 25,
+    "minimum_combined_executions": 69,
+    "minimum_guard_mutation_checks": 14,
+    "allowed_failures_errors_unexpected_skips": 0
+  },
+  "required_next_action": "Materialize the 33 RED tests, capture pre-patch failures, then apply the ordered minimal patch set.",
+  "claim_limit": "Fail-closed regression specification only; no implementation, test-pass, model-validation, Official Golden, Full Replay, or production claim.",
+  "iva_execution_participation": "NONE"
+}

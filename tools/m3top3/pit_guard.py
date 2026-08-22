@@ -36,9 +36,12 @@ class PITGuard:
 
     def validate_publication(self, publication_at: str | datetime | None, cutoff_at: str | datetime) -> list[GuardViolation]:
         if publication_at is None:
-            return []
-        p = parse_datetime(publication_at)
-        c = parse_datetime(cutoff_at)
+            return [GuardViolation("MISSING_PUBLICATION_AT", "publication_at is required for historical evidence", "publication_at")]
+        try:
+            p = parse_datetime(publication_at)
+            c = parse_datetime(cutoff_at)
+        except (ValueError, TypeError):
+            return [GuardViolation("INVALID_PUBLICATION_DATETIME", "publication_at must be a valid timezone-aware datetime", "publication_at")]
         if p > c:
             return [GuardViolation("PIT_PUBLICATION_AFTER_CUTOFF", f"publication_at {p.isoformat()} > cutoff {c.isoformat()}", "publication_at")]
         return []
@@ -56,18 +59,37 @@ class PITGuard:
     def validate_model_input(self, record: dict[str, Any], cutoff_at: str | datetime) -> list[GuardViolation]:
         violations: list[GuardViolation] = []
         cutoff = parse_datetime(cutoff_at)
+        if any(k in record for k in ("feature_id", "evidence_id", "event_record_id", "source_ref")) and not any(
+            k in record for k in ("publication_at", "feature_publication_at")
+        ):
+            violations.append(GuardViolation("MISSING_PUBLICATION_AT", "historical feature/evidence row requires publication_at", "publication_at"))
         for key, value, path in self._walk(record):
             lk = key.lower()
             if lk in FORBIDDEN_MODEL_INPUT_FIELDS:
                 violations.append(GuardViolation("FUTURE_FIELD_IN_MODEL_INPUT", f"forbidden model-input field {path!r}", path))
-            if lk in {"publication_at", "feature_publication_at"} and value is not None:
+            if lk in {"publication_at", "feature_publication_at"}:
+                if value is None:
+                    violations.append(GuardViolation("MISSING_PUBLICATION_AT", f"missing publication datetime at {path}", path))
+                else:
+                    try:
+                        if parse_datetime(value) > cutoff:
+                            violations.append(GuardViolation("PIT_PUBLICATION_AFTER_CUTOFF", f"{path} is after snapshot cutoff", path))
+                    except (ValueError, TypeError):
+                        violations.append(GuardViolation("INVALID_PUBLICATION_DATETIME", f"invalid timezone-aware publication datetime at {path}", path))
+            if lk in {"effective_at", "as_of", "valid_from"} and value is not None:
                 try:
                     if parse_datetime(value) > cutoff:
-                        violations.append(GuardViolation("PIT_PUBLICATION_AFTER_CUTOFF", f"{path} is after snapshot cutoff", path))
+                        violations.append(GuardViolation("PIT_EFFECTIVE_AFTER_CUTOFF", f"{path} is after snapshot cutoff", path))
                 except (ValueError, TypeError):
-                    violations.append(GuardViolation("INVALID_PUBLICATION_DATETIME", f"invalid timezone-aware publication datetime at {path}", path))
-            if lk == "corporate_action_observed_at" and value is not None and parse_datetime(value) > cutoff:
-                violations.append(GuardViolation("POST_SNAPSHOT_CA_KNOWLEDGE", "corporate-action knowledge was observed after the snapshot cutoff", path))
+                    violations.append(GuardViolation("INVALID_EFFECTIVE_DATETIME", f"invalid timezone-aware effective datetime at {path}", path))
+            if lk == "corporate_action_observed_at" and value is not None:
+                try:
+                    if parse_datetime(value) > cutoff:
+                        violations.append(GuardViolation("POST_SNAPSHOT_CA_KNOWLEDGE", "corporate-action knowledge was observed after the snapshot cutoff", path))
+                except (ValueError, TypeError):
+                    violations.append(GuardViolation("INVALID_EFFECTIVE_DATETIME", f"invalid corporate-action observation datetime at {path}", path))
+            if lk == "available_before_entry" and value is False:
+                violations.append(GuardViolation("NOT_AVAILABLE_BEFORE_ENTRY", "historical evidence was not available before entry", path))
             if lk == "current_only" and value is True:
                 violations.append(GuardViolation("CURRENT_ONLY_FIELD_IN_HISTORY", "current-only record cannot be used in historical PIT input", path))
         return violations

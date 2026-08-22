@@ -1,0 +1,239 @@
+{
+  "manifest_id": "AAA-M3TOP3-R-WP1-01-IDENTITY-CANDIDATE-MANIFEST-20260823-01",
+  "manifest_version": "v0.1",
+  "status": "CANDIDATE_READ_ONLY_DISCOVERY",
+  "work_packet": "R-WP1-01 Exact Identity Recovery",
+  "execution_controls": {
+    "read_only": true,
+    "semantic_mutation": false,
+    "outcome_tuning": false,
+    "iva_execution_participation": "NONE"
+  },
+  "identity_verdict": {
+    "current_state": "S0_PRE_OUTCOME_BASELINE_CANDIDATE",
+    "exact_executable_identity": "NOT_RECOVERED",
+    "s0_to_s1_eligibility": "NOT_ELIGIBLE",
+    "official_golden_entry": "PROHIBITED",
+    "official_full_replay_entry": "PROHIBITED",
+    "owner_identity_choice_now": "NOT_YET_REQUIRED",
+    "owner_choice_trigger": "EXACT_SOURCE_RECOVERY_EXHAUSTED_OR_MISMATCH_CONFIRMED"
+  },
+  "component_classification": [
+    {
+      "component": "legacy_semantic_source_bytes",
+      "classification": "EXACT_RECOVERED",
+      "scope_limit": "SOURCE_BYTES_ONLY_NOT_COMPLETE_MODEL_IDENTITY"
+    },
+    {
+      "component": "complete_v1_contract",
+      "classification": "MISSING"
+    },
+    {
+      "component": "official_v1_scorer",
+      "classification": "MISSING"
+    },
+    {
+      "component": "official_v1_config",
+      "classification": "MISSING"
+    },
+    {
+      "component": "f01_f09_mapping",
+      "classification": "SEMANTIC_RECONSTRUCTION",
+      "scope_limit": "PARTIAL_FRAGMENTS_ONLY"
+    },
+    {
+      "component": "weight_vector",
+      "classification": "SEMANTIC_RECONSTRUCTION",
+      "scope_limit": "SIX_AXIS_WEIGHTS_RECOVERED_EXACTLY_BUT_FEATURE_TO_AXIS_EXECUTABLE_MAPPING_MISSING"
+    },
+    {
+      "component": "gate_contract",
+      "classification": "MISSING"
+    },
+    {
+      "component": "na_missingness_contract",
+      "classification": "SEMANTIC_RECONSTRUCTION",
+      "scope_limit": "NOT_FOUND_NOT_NEGATIVE_AND_NO_SILENT_IMPUTATION_POINTER_ONLY"
+    },
+    {
+      "component": "tie_contract",
+      "classification": "MISSING"
+    },
+    {
+      "component": "ranking_topk_contract",
+      "classification": "SEMANTIC_RECONSTRUCTION",
+      "scope_limit": "LATE_POINTER_WITHOUT_BOUND_TARGET"
+    },
+    {
+      "component": "window_outcome_contract",
+      "classification": "SEMANTIC_RECONSTRUCTION",
+      "scope_limit": "GENERAL_LEGACY_RULE_EXACT_W1_W8_REGISTRY_ONLY_OUTCOME_EXPOSED"
+    },
+    {
+      "component": "environment_lock",
+      "classification": "MISSING"
+    },
+    {
+      "component": "v1_specific_expected_outputs",
+      "classification": "MISSING"
+    },
+    {
+      "component": "model_artifact_release_manifest",
+      "classification": "MISSING"
+    },
+    {
+      "component": "outcome_winner_access_provenance",
+      "classification": "MISSING_WITH_KNOWN_EXPOSURE_FLOOR"
+    }
+  ],
+  "exact_local_evidence": [
+    {
+      "path": "project_sources/06-Semi_Eval_Core_v1.0_2026-08-14.docx",
+      "sha256": "3a8c70df26dee0b3c1430846cd9934aa237fd2075f322d78d899ed8cb81acc54",
+      "byte_size": 48851,
+      "role": "LEGACY_SEMANTIC_SOURCE"
+    },
+    {
+      "path": "project_sources/07-Semi_Data_Route_v1.1_2026-08-14.docx",
+      "sha256": "508f98e88c150ceb751db2227727db529eb04da467c53a6eed5278ca5e17aa02",
+      "byte_size": 49660,
+      "role": "LEGACY_DATA_AND_WINDOW_SOURCE"
+    },
+    {
+      "path": "project_sources/08-Semi_Universe_v1.0_2026-08-14.docx",
+      "sha256": "eef313bc71bd0a5cb019f92e43e1bf38c2a63633bb847320d1cb4c8fe4ea9023",
+      "byte_size": 42132,
+      "role": "U46_UNIVERSE_SOURCE"
+    },
+    {
+      "path": "project_sources/09-SEMI-PIT-LEDGER_v1.0.docx",
+      "sha256": "acde50e7090382e95cc585227c4dd52df6b3f342258b6debfa0aabb7db94006a",
+      "byte_size": 38985,
+      "role": "PIT_LEDGER_CONTRACT_SOURCE"
+    },
+    {
+      "path": "qa/wp2_sources/U127_Data_Expansion_Working_v0.8_2026-08-15.xlsx",
+      "sha256": "44501584c9dc6224637e9193219c1e8c87507af77dc15dc3944a3d04af524cda",
+      "byte_size": 563995,
+      "role": "OUTCOME_EXPOSED_U127_WORKING_ARTIFACT"
+    }
+  ],
+  "research_package_authorization": {
+    "repository": "AofSpds/asset-agent-asa",
+    "path": "control/architecture/working-candidates/research-working-candidate-persistence/registration-authorization/v0.1/AAA_M3TOP3_GR_RESEARCH_v0.1_v0.2_EXACT_ZIP_REGISTRATION_AUTHORIZATION_v0.1.json",
+    "commit": "0940227893c9439a2f196586067c5ec2e3f31959",
+    "tree": "95faa861034589bfa0932b3d97f157317b31a94d",
+    "git_blob": "2085322578ba779d7dbcddc69fb352ca137fb680",
+    "sha256": "ada5267873ba9aa19a10e83f26f9490711a79f9df781bc80167b51e992d387da",
+    "byte_size": 15954,
+    "registration_execution_authorized": false,
+    "registration_execution_state": "NOT_EXECUTED",
+    "registration_readback_state": "NOT_EXECUTED"
+  },
+  "exact_package_recovery_targets": [
+    {
+      "object_id": "AAA-M3TOP3-GR-RESEARCH-PACKAGE-v0.1-WORKING",
+      "version": "v0.1",
+      "path": "control/research/working-candidates/m3top3-gr-research-package/v0.1/AAA_M3TOP3_GR_RESEARCH_PACKAGE_v0.1_WORKING.zip",
+      "expected_sha256": "3aaee7c1de2bd6f97e5ffd808fba980bf73fea1b604fb3c3b79e2be005180002",
+      "expected_byte_size": 35775,
+      "git_readback": "NOT_FOUND"
+    },
+    {
+      "object_id": "AAA-M3TOP3-GR-RESEARCH-PACKAGE-v0.2-WORKING",
+      "version": "v0.2",
+      "path": "control/research/working-candidates/m3top3-gr-research-package/v0.2/AAA_M3TOP3_GR_RESEARCH_PACKAGE_v0.2_WORKING.zip",
+      "expected_sha256": "5bbe75a4c9966abcb9f10d2f1e84df983977c1cf76d69e7bda6dfe4f24e60836",
+      "expected_byte_size": 40210,
+      "git_readback": "NOT_FOUND"
+    }
+  ],
+  "library_exact_source_search": {
+    "status": "NO_MATCH",
+    "search_date": "2026-08-23 KST",
+    "surface": "CONNECTED_CHATGPT_LIBRARY",
+    "queries": [
+      "AAA_M3TOP3_GR_RESEARCH_PACKAGE_v0.1_WORKING.zip",
+      "AAA_M3TOP3_GR_RESEARCH_PACKAGE_v0.2_WORKING.zip",
+      "M3TOP3_GR_RESEARCH_PACKAGE",
+      "GR Research Package",
+      "3aaee7c1de2bd6f97e5ffd808fba980bf73fea1b604fb3c3b79e2be005180002",
+      "5bbe75a4c9966abcb9f10d2f1e84df983977c1cf76d69e7bda6dfe4f24e60836"
+    ],
+    "scope_limit": "NO_GLOBAL_NONEXISTENCE_INFERENCE"
+  },
+  "exact_git_evidence": [
+    {
+      "path": "control/m3top3/v0.1/M3TOP3-INFRASTRUCTURE-SPEC_v0.1.yaml",
+      "commit": "1cd98e5612d9f734c6215cc6ecee475534859d02",
+      "git_blob": "15ff7344f3547a0dd62eb8d92179c47d1b611583",
+      "status": "WORKING_ENGINEERING_NOT_OFFICIAL_V1"
+    },
+    {
+      "path": "control/m3top3/v0.1/M3TOP3-BACKTEST-INTERFACE_v0.1.yaml",
+      "commit": "4e66b90d7136de5cb62c767a4ecc84d45e23f6e2",
+      "git_blob": "24612eaeb21904323bfb7ec2356c2e1e8daa2040",
+      "status": "WORKING_BACKTEST_INTERFACE_NOT_OFFICIAL_V1"
+    },
+    {
+      "path": "control/m3top3/v0.1/M3TOP3-SNAPSHOT-MANIFEST-CONTRACT_v0.1.yaml",
+      "commit": "35bd4fb56d2469850ca4fc38e636634b65c40882",
+      "git_blob": "3b0bad79e21d84efbe12921fd26ee5e336f7f9a1",
+      "status": "WORKING_SNAPSHOT_MANIFEST_CONTRACT_NOT_EXACT_V1_BINDING"
+    },
+    {
+      "path": "tools/m3top3/model_interface.py",
+      "commit": "2615bc34747f147cbc7ed1992c1c752185638868",
+      "git_blob": "1bc359a70a399a1eb94ef33703e2e5487afa8006",
+      "status": "INTERFACE_AND_DIAGNOSTIC_SCORER_NOT_OFFICIAL_V1"
+    },
+    {
+      "path": "tools/m3top3/configs/snapshot.example.json",
+      "commit": "dad9cc0d5dd07095910fca0dd9a31c40f08f456b",
+      "git_blob": "cb13d80be4ddb20bff73130e622c731153035b58",
+      "status": "WORKING_EXAMPLE"
+    },
+    {
+      "path": "tools/m3top3/configs/backtest.example.json",
+      "commit": "c5040082b8c20f22309fdf49eec29e2867ea47f7",
+      "git_blob": "05d7b40a511406d2f1057a0fa92010c27c7da33f",
+      "status": "WORKING_EXAMPLE_UNRESOLVED_WINDOW_AND_TIE"
+    },
+    {
+      "path": "tools/m3top3/tests/test_infrastructure.py",
+      "commit": "c7dfc55fe96fcfc0dd198ed1b50f18036704234c",
+      "git_blob": "354717bcd2f5bcc0b768ad76a674f25bd65b78d4",
+      "status": "SYNTHETIC_INFRA_TESTS_NOT_V1_EXPECTED_OUTPUTS"
+    },
+    {
+      "path": "control/core_b/M3TOP3-v1-GOLDEN-REPLAY-SCIENTIFIC-PREPARATION_v0.3_WORKING.yaml",
+      "observed_tree": "537d7da7cd2ec7559c9587a94a422954e7f58d35",
+      "git_blob": "315bffb3d0803da7b6f7da18268b8ab6b0e3ba4b",
+      "status": "PREPARATION_ONLY_PENDING_EXACT_BINDINGS"
+    },
+    {
+      "path": "control/persona-memory/v1.0/AAA-ASA/runs/2026-08-22/0701_m3top3_deep_review_asa.md",
+      "observed_tree": "537d7da7cd2ec7559c9587a94a422954e7f58d35",
+      "git_blob": "309db6a9e019ded5b30b57464c168b3ef2d6a87d",
+      "status": "KNOWN_OUTCOME_EXPOSURE_FLOOR_NOT_COMPLETE_ACCESS_LEDGER"
+    }
+  ],
+  "claim_locks": {
+    "v1_exact_recovered": false,
+    "v1_pre_outcome_provenance_proven": false,
+    "working_scorer_is_official_v1": false,
+    "gf_taxonomy_is_expected_output_bundle": false,
+    "s1_eligible": false,
+    "freeze_authorized": false,
+    "official_golden_authorized": false,
+    "official_full_replay_authorized": false
+  },
+  "next_action": {
+    "action": "FINAL_EXACT_SOURCE_BYTE_RECOVERY",
+    "targets": [
+      "AAA_M3TOP3_GR_RESEARCH_PACKAGE_v0.1_WORKING.zip",
+      "AAA_M3TOP3_GR_RESEARCH_PACKAGE_v0.2_WORKING.zip"
+    ],
+    "failure_route": "OWNER_IDENTITY_DECISION_FOR_S0_ARCHIVAL_OR_V1R_SEMANTIC_RECONSTRUCTION"
+  }
+}

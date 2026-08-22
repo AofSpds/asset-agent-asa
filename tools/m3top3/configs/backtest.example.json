@@ -1,4 +1,10 @@
 {
+  "execution_mode": "DIAGNOSTIC",
+  "official_admission": false,
+  "hash_algorithm": "SHA256",
+  "price_manifest_path": null,
+  "official_model_receipt": null,
+  "scorer_config_path": null,
   "scorer_plugin": "project_model_package:M3Top3Scorer",
   "scorer_kwargs": {},
   "tie_break_policy": "UNRESOLVED_CONTROL",
