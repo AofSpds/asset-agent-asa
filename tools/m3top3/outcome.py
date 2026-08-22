@@ -5,6 +5,7 @@ from datetime import date
 from decimal import Decimal
 from typing import Protocol
 
+from .admission import verify_price_release
 from .core import deterministic_id
 from .providers import PriceProvider
 
@@ -36,6 +37,7 @@ class OutcomeBuilder:
         self.price=price; self.windows=windows; self.validation_protocol_version=validation_protocol_version
 
     def build(self,model_score_id:str,code:str,snapshot_date:date)->OutcomeRecord:
+        verify_price_release(self.price)
         window_end=self.windows.window_end(snapshot_date)
         candidates=self.price.trading_dates(snapshot_date,window_end)
         future=self.price.trading_dates(window_end,date(window_end.year+1,window_end.month,min(window_end.day,28)))

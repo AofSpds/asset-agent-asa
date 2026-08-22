@@ -1,0 +1,49 @@
+{
+  "receipt_id": "AAA-M3TOP3-R-WP4-02-LOCAL-GREEN-20260823-0150",
+  "exact_base_commit": "167c1b05e25df658b322cf428c72ce3a4f476544",
+  "candidate_state": "LOCAL_IMPLEMENTATION_CANDIDATE_GREEN_AWAITING_GIT_HEAD_AND_PAIRED_VALIDATION",
+  "suite_command": "python -m unittest discover -s tools/m3top3/tests -p 'test_*.py' -v",
+  "suite_result": {
+    "executed": 80,
+    "failures": 0,
+    "errors": 0,
+    "unexpected_skips": 0,
+    "status": "PASS"
+  },
+  "existing_infrastructure_tests": {
+    "executed": 25,
+    "passed": 25
+  },
+  "known_failure_mapping": {
+    "logical_ids_mapped": 33,
+    "logical_ids_required": 33,
+    "missing_ids": []
+  },
+  "targeted_mutation_checks": {
+    "harness": "remediation/r_wp4_failclosed_impl/run_targeted_mutation_checks.py",
+    "harness_sha256": "9c00a88b69293fa45958e147882f98b9cc275dbea276681c8bd78b2a3c87137a",
+    "temp_copies_only": true,
+    "source_mutated": false,
+    "requested": 15,
+    "killed_red": 15,
+    "survived_or_error": 0,
+    "status": "PASS"
+  },
+  "compile_checks": {
+    "python_compileall": "PASS",
+    "python_py_compile": "PASS"
+  },
+  "core_b_v_f04_correction": {
+    "status": "IMPLEMENTED",
+    "raw_longitudinal_future_rows": "EXCLUDED_WITH_DETERMINISTIC_RETRIEVAL_AUDIT",
+    "consumed_slice_future_rows": "BLOCKED",
+    "cutoff_frozen_bundle_future_rows": "BLOCKED",
+    "retrieval_audit_storage": "SEPARATE_NON_SCOREABLE_RETRIEVAL_AUDIT_JSONL_HASH_BOUND_BY_MANIFEST",
+    "excluded_values_in_pit_or_model_input": false
+  },
+  "iva_execution_participation": "NONE",
+  "official_golden": "BLOCKED",
+  "full_replay": "BLOCKED",
+  "model_state_advancement": "PROHIBITED",
+  "production_authority": "NONE"
+}

@@ -1,0 +1,34 @@
+{
+  "receipt_id": "R-WP4-02-PMO-INTEGRATED-TEST-v0.4",
+  "work_packet": "R-WP4-02_FAIL_CLOSED_RUNTIME",
+  "integrated_at_kst": "2026-08-23 03:08:00 KST",
+  "exact_runtime_head": "4fffdfb03fdd4ae6bf6656d2034abd3ef701ae4f",
+  "exact_tree": "56dec4ec870a596627e250f4b89f95009c43f8cd",
+  "branch": "aaa-m3top3-p0-runtime-failclosed-remediation-20260823",
+  "source_base": "167c1b05e25df658b322cf428c72ce3a4f476544",
+  "state": "PAIRED_VALIDATED_WITH_EVIDENCE_QUALIFICATIONS",
+  "tests": {"requested": 120, "passed": 120, "failed": 0, "errors": 0, "skipped": 0},
+  "compileall": "PASS",
+  "py_compile": "PASS",
+  "mutations": {"requested": 33, "killed_red": 33, "survived_or_error": 0, "source_mutated": false},
+  "concurrency": {"rounds": 100, "attempts": 200, "unclassified_exceptions": 0, "valid_final_snapshots": 100, "invalid_final_snapshots": 0},
+  "validators": {
+    "ENGV": {"verdict": "PASS_WITH_QUALIFICATION", "md_sha256": "d291dd68f278c57468cd02c5bff0f47821f728f2243ca43fd035790c0f64d989", "json_sha256": "d9bc9a3c3a982b45662cb78acaffb26af10c1ef811e8132129d14e1f1ab461b2"},
+    "CTLV": {"verdict": "PASS_WITH_EVIDENCE_QUALIFICATION", "md_sha256": "9d3bcb6fd72e45ff22862cafabcbd4fa0e8e66b97fd5678daa617498720e73e7"},
+    "CORE_B_L1": {"verdict": "PASS_WITH_NONBLOCKING_EVIDENCE_QUALIFICATIONS", "md_sha256": "0a8a5627ae4b5fd6a5c5e4db28986c2eaf59891a93b359d59cb59318510e9f8d"}
+  },
+  "superseded_candidates": [
+    "9f664a29436efb52be008b0d8c168a817da95411",
+    "6e4677cd631fdf23f16814aa54c14a4e927fa0a6",
+    "6b604ff20e8a01095a46f5f9cbac647cef7eb727",
+    "e7e68ad6244a36fac2e679a26eaef191810df411",
+    "0fbb7128c0f15481187ddc3a151d8c760d6c2aed",
+    "91f0238e557153367bef4334e79cfc9ab1ac0209"
+  ],
+  "retrospective_evidence": {"chronology": "POST_HOC", "materialization": "SEMANTIC_EQUIVALENT_PLUS_ONE_TRAILING_LF_PER_FILE", "byte_exact": false},
+  "claim_locks": {"model_state": "S0_PRE_OUTCOME_BASELINE_CANDIDATE", "official_execution": "BLOCKED", "price_canonical": "BLOCKED", "official_golden": "BLOCKED", "full_replay": "BLOCKED", "freeze": "BLOCKED", "promotion": "BLOCKED", "release": "BLOCKED", "production": "NONE"},
+  "model_semantics_changed": false,
+  "iva_execution_participation": "NONE",
+  "owner_action_required": false,
+  "next_route": "R-WP4-03_CANONICAL_LINEAGE_AND_FULL_UNIVERSE"
+}
