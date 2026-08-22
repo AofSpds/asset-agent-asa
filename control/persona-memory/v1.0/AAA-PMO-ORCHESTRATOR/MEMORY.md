@@ -5,35 +5,64 @@ PERSONA_CLASS = PROGRAM_EXECUTION_ORCHESTRATION
 PAIR = AAA-PMO-VALIDATOR
 
 ## CURRENT_RUNTIME_MEMO
-- STATE = INITIALIZED_EMPTY
+- STATE = ACTIVE_PROGRAM_DESIGN_DIRECTIVE_RECORDED
 - NOTE = 프로그램 계획/순서/라우팅/통합/Blocker continuity memo.
+- CURRENT_PROGRAM = M3TOP3 P0 VALIDATION REBASE
+- PROGRAM_CONTROL = HUMAN PROJECT OWNER
+- PROGRAM_ORCHESTRATION = AAA-PMO-ORCHESTRATOR
+- EXECUTION_ENVIRONMENT = WORK ULTRA MODE
 
 ## OWNER_INTENT_AND_DIRECTIVES
-- 없음.
+- 2026-08-22 17:xx KST | Owner exact direction: "작업 계획서는 PMO가 OWNER 관제하에 진행하며 WORK 울트라 모드가 실행하게 됩니다. 페르소나 조직도를 참고 각 작업의 성격을 파악해서 페르소나를 지정해주고 병렬 실행이 필요한 내용을 맡겨야 합니다. 병렬 채널 수행과 병렬 실행은 다른 내용입니다. 병렬 실행시 각 페르소나를 주입한 코드에이전트 쓰레드를 쓰도록 하는것입니다. 병렬 채널 수행은 작업의 빠른 진척도를 위해 여러 채널을 이용하는것이입니다. 현재 작업중이신 내용에 현재 내용을 추가해서 기술해주세요."
+- M3Top3 실행계획의 단일 프로그램 관제·순서·의존성·라우팅·통합 책임은 Owner 통제 하의 AAA-PMO-ORCHESTRATOR가 맡는다.
+- WORK Ultra는 PMO가 발행한 Work Packet을 수행하는 실행환경이며, 프로그램·도메인 semantic authority·Validation PASS·Owner authority를 생성하지 않는다.
+- PMO는 각 작업의 성격을 판정해 canonical Persona와 paired Validator를 지정한다.
+- `PARALLEL_CHANNEL_OPERATION`과 `PARALLEL_EXECUTION`을 동일시하지 않는다.
+  - PARALLEL_CHANNEL_OPERATION = 진행 가속을 위해 여러 독립 채널을 열고 각 채널에 canonical Persona와 bounded task를 부여하는 운영 방식. 각 채널은 PMO에 하나의 RETURN PACKET을 반환한다.
+  - PARALLEL_EXECUTION = WORK Ultra 내부에서 canonical Persona를 주입한 여러 code-agent thread가 task-specific isolated branch/worktree와 unique append-only run journal을 사용해 동시에 실행하는 방식.
+- 병렬 채널은 연구·설계·검토·검증·의사결정 준비를 분산할 수 있고, 병렬 실행은 코드·데이터·테스트·artifact 생산을 실제 동시 수행한다. 어느 쪽도 Persona authority나 validation state를 자동 생성하지 않는다.
+- PMO가 두 병렬면의 dependency, input/output identity, blocker, consolidation order를 통합 관리하고 Owner에게 결정이 필요한 지점만 escalation한다.
 
 ## CURRENT_TASK_AND_STATE
-- 없음.
+- TASK = M3TOP3_FINAL_P0_VALIDATION_REBASE_EXECUTION_PLAN_WITH_OWNER_CONTROL_PMO_ORCHESTRATION_WORK_ULTRA_PARALLELISM
+- STATE = OWNER_EXECUTION_MODEL_CORRECTION_RECORDED / DOCUMENT_PLAN_REVISION_IN_PROGRESS
+- CURRENT_REQUIRED_OUTPUT = M3Top3 final execution plan with Persona assignment, parallel channel plan, WORK Ultra persona-injected parallel execution plan, Owner decision points, gates, and PMO control model.
 
 ## OPEN_BLOCKERS
-- 없음.
+- Core B current authority/persona coherence P0 remediation remains open; official model-validation entry stays fail-closed until successor activation/regression.
+- Exact v1 identity, Population/U127/exposure, Evaluation Charter, runtime/data readiness, independent Golden, and official replay gates remain open.
+- WORK Ultra execution contract, thread isolation paths, and exact task packets are execution-plan recommendations until separately materialized/validated.
 
 ## IMPORTANT_DECISIONS_TO_REMEMBER
-- 없음.
+- Owner controls the program; PMO is the program execution orchestrator; WORK Ultra is the execution substrate.
+- ASA remains Owner-facing advisory/orchestration support but is not the master program execution controller for this workplan.
+- PMO cannot supersede domain semantics; domain Authoring Persona and paired Validator retain their exact authority boundaries.
+- Every task must have TARGET_PERSONA, paired validator, authorized scope, preserve-all-others, exact inputs, output identity, gate, blocker, and return route.
+- Multiple channels and multiple code-agent threads are separate concurrency mechanisms and must be planned, named, tracked, and consolidated separately.
+- Persona != channel != code-agent thread != branch/worktree.
+- Parallel WORK Ultra threads must not race on shared MEMORY/WORKLOG or shared mutable worktree; each uses a unique append-only run journal.
 
 ## REQUIRED_NORMATIVE_REFS
 - Project Instructions current pointer
 - Active Organization routing state
 - Current program checkpoint / Owner decision refs
+- AAA-PMO-ORCHESTRATOR / AAA-PMO-VALIDATOR Persona pair
+- Core B authority coherence remediation directive
+- M3Top3 final comparative adjudication and P0 validation rebase execution-plan candidate
 
 ## LATEST_CHECKPOINTS
-- 없음.
+- 2026-08-22 | Owner corrected execution governance: Owner-controlled PMO program management; WORK Ultra execution; explicit separation of parallel channels vs persona-injected code-agent thread parallel execution.
 
 ## NEXT_ROUTE
-- 없음.
+- Revise final M3Top3 execution-plan document.
+- Route the completed program plan to AAA-PMO-VALIDATOR for routing/integration/firewall review.
+- After Owner approval, PMO materializes bounded channel packets and WORK Ultra thread packets by Persona and Gate.
 
 ## DO_NOT_FORGET
 - PMO는 domain semantic supersession authority가 아니다.
 - Persona Memory는 program progress SoT를 대체하지 않는다.
+- WORK Ultra execution result != Paired Validation PASS != Independent Validation PASS != Owner decision.
 
 ## MEMORY_LOG
 - TIME_KST = 2026-08-22 04:19 KST | IMPORTANCE = HIGH | LIFECYCLE = PERSONA | STATE = ACTIVE | SOURCE_REF = OWNER_REQUEST | NOTE = 조직도별 persistent memo 공간 초기화.
+- TIME_KST = 2026-08-22 17:xx KST | IMPORTANCE = P0_PROGRAM | LIFECYCLE = PROGRAM | STATE = ACTIVE | SOURCE_REF = OWNER_EXACT_DIRECTION | NOTE = M3Top3 program is Owner-controlled, PMO-orchestrated, WORK Ultra-executed; parallel channel operation and persona-injected code-agent thread parallel execution are separate mechanisms.
