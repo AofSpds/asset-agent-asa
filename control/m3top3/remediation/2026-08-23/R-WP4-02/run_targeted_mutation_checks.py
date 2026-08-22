@@ -52,6 +52,7 @@ MUTATIONS = [
     Mutation("MUT-PIT-PRICE-DATASET-BINDING", "tools/m3top3/admission.py", 'if len(price_refs)!=1 or price_refs[0].get("content_hash")!=manifest.get("price_dataset_hash"):', 'if False and (len(price_refs)!=1 or price_refs[0].get("content_hash")!=manifest.get("price_dataset_hash")):', "tools.m3top3.tests.test_known_failures_integrity.KnownFailureIntegrityTests.test_self_consistent_manifest_model_price_drift_from_pit_is_rejected"),
     Mutation("MUT-SNAPSHOT-TARGET-EXCLUSIVE", "tools/m3top3/snapshot.py", 'd.mkdir(exist_ok=False)', 'd.mkdir(exist_ok=True)', "tools.m3top3.tests.test_known_failures_immutability.KnownFailureImmutabilityTests.test_empty_concurrent_snapshot_target_is_not_replaced"),
     Mutation("MUT-SNAPSHOT-MANIFEST-LAST", "tools/m3top3/snapshot.py", 'publish_order=("pit_snapshot.jsonl","model_input.jsonl","retrieval_audit.jsonl","manifest.json")', 'publish_order=("manifest.json","pit_snapshot.jsonl","model_input.jsonl","retrieval_audit.jsonl")', "tools.m3top3.tests.test_known_failures_immutability.KnownFailureImmutabilityTests.test_snapshot_manifest_is_published_last"),
+    Mutation("MUT-STAGING-RACE-CLASSIFICATION", "tools/m3top3/snapshot.py", 'raise M3Top3AdmissionError("IMMUTABLE_SNAPSHOT_COLLISION","snapshot staging identity appeared during create-only admission",{"path":str(staging)},3) from exc', 'raise exc  # MUTATION: raw staging race leaks as unclassified', "tools.m3top3.tests.test_known_failures_immutability.KnownFailureImmutabilityTests.test_staging_mkdir_race_is_classified_integrity_collision"),
 ]
 
 

@@ -81,6 +81,19 @@ class KnownFailureImmutabilityTests(unittest.TestCase):
         self.assertTrue((target/"retrieval_audit.jsonl").exists())
         self.assertFalse((target/"manifest.json").exists())
 
+    def test_staging_mkdir_race_is_classified_integrity_collision(self):
+        other_root=self.root/"staging-race"; real_mkdir=Path.mkdir
+        def raced_mkdir(path,*args,**kwargs):
+            if path.name.endswith(".staging"): raise FileExistsError("injected staging race")
+            return real_mkdir(path,*args,**kwargs)
+        caught=None
+        with patch("pathlib.Path.mkdir",new=raced_mkdir):
+            try: SnapshotStore(other_root).write(self.built,{})
+            except Exception as exc: caught=exc
+        self.assertIsInstance(caught,M3Top3AdmissionError)
+        self.assertEqual((caught.code,caught.exit_code),("IMMUTABLE_SNAPSHOT_COLLISION",3))
+        self.assertFalse((other_root/self.built.snapshot_date.isoformat()).exists())
+
     def test_kf_imm_003_same_run_id_different_result_is_rejected(self):
         output = self.root / "results"
         runner1, _ = diagnostic_runner(self.price, self.dates, CountingScorer("9"))

@@ -184,7 +184,10 @@ class SnapshotStore:
         staging=d.with_name(f".{d.name}.{built.snapshot_set_entry_hash[:12]}.staging")
         if staging.exists():
             raise M3Top3AdmissionError("IMMUTABLE_SNAPSHOT_COLLISION","stale create-only snapshot staging identity exists",{"path":str(staging)},3)
-        staging.mkdir(exist_ok=False)
+        try:
+            staging.mkdir(exist_ok=False)
+        except OSError as exc:
+            raise M3Top3AdmissionError("IMMUTABLE_SNAPSHOT_COLLISION","snapshot staging identity appeared during create-only admission",{"path":str(staging)},3) from exc
         atomic_write_text(staging/"pit_snapshot.jsonl",pit_text)
         atomic_write_text(staging/"model_input.jsonl",mi_text)
         atomic_write_text(staging/"retrieval_audit.jsonl",audit_text)
