@@ -24,6 +24,7 @@ def main(argv:list[str]|None=None) -> int:
     args=p.parse_args(argv)
     try:
         config_path=Path(args.config); cfg=json.loads(config_path.read_text(encoding="utf-8")); mode=cfg.get("execution_mode","DIAGNOSTIC")
+        if mode=="OFFICIAL": raise M3Top3AdmissionError("OFFICIAL_MODE_GLOBALLY_BLOCKED","official execution has no active governed trust root",exit_code=EXIT_AUTHORITY)
         try: scorer=load_scorer(cfg["scorer_plugin"],cfg.get("scorer_kwargs",{}))
         except (ImportError,AttributeError,KeyError,TypeError,ValueError) as exc:
             raise M3Top3AdmissionError("OFFICIAL_SCORER_ADMISSION_DENIED",f"scorer plugin cannot be loaded: {exc}",exit_code=EXIT_AUTHORITY) from exc
@@ -34,7 +35,7 @@ def main(argv:list[str]|None=None) -> int:
             scorer_config_bytes=Path(scorer_config_path).read_bytes(); scorer_receipt=_load_json_or_path(cfg.get("official_model_receipt")); verify_official_scorer(scorer,scorer_config_bytes,scorer_receipt)
         elif mode!="DIAGNOSTIC":
             raise M3Top3AdmissionError("PLACEHOLDER_CONFIG_NOT_ADMISSIBLE","unsupported execution_mode",exit_code=EXIT_AUTHORITY)
-        ranking=RankingEngine(cfg.get("tie_break_policy","UNRESOLVED_CONTROL")); price=DuckDBParquetPriceProvider(cfg["price_paths"],cfg["price_dataset_id"],cfg["price_dataset_hash"],cfg.get("price_source_semantics","RAW_IMMUTABLE"),cfg.get("price_release")); windows=ExplicitWindowResolver(cfg["window_end_by_snapshot_date"],cfg.get("window_protocol_version","UNRESOLVED_CONTROL")); outcomes=OutcomeBuilder(price,windows,cfg.get("validation_protocol_version","m3top3-outcome-working-v0.1")); runner=ValidationRunner(scorer,ranking,outcomes,execution_mode=mode,scorer_config_bytes=scorer_config_bytes,official_scorer_receipt=scorer_receipt)
+        ranking=RankingEngine(cfg.get("tie_break_policy","UNRESOLVED_CONTROL")); price=DuckDBParquetPriceProvider(cfg["price_paths"],cfg["price_dataset_id"],cfg["price_dataset_hash"],cfg.get("price_source_semantics","RAW_IMMUTABLE"),cfg.get("price_release"),cfg.get("price_component_manifest")); windows=ExplicitWindowResolver(cfg["window_end_by_snapshot_date"],cfg.get("window_protocol_version","UNRESOLVED_CONTROL")); outcomes=OutcomeBuilder(price,windows,cfg.get("validation_protocol_version","m3top3-outcome-working-v0.1")); runner=ValidationRunner(scorer,ranking,outcomes,execution_mode=mode,scorer_config_bytes=scorer_config_bytes,official_scorer_receipt=scorer_receipt)
         root=Path(args.snapshot_root); out=Path(args.output); ledger=PredictionLedger(out/"prediction-ledger.jsonl"); results=[]; blocked=[]; failed_integrity=[]; failed_authority=[]
         snapshot_dirs=sorted(p for p in root.iterdir() if p.is_dir() and (p/"manifest.json").exists())
         for d in snapshot_dirs:

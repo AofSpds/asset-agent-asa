@@ -1,0 +1,41 @@
+{
+  "receipt_id": "AAA-M3TOP3-R-WP4-02-REMEDIATED-GREEN-20260823-0218",
+  "prepared_by": "AAA-PMO-ORCHESTRATOR_INTEGRATION_OF_FROZEN_AUTHOR_OUTPUTS",
+  "exact_base_commit": "167c1b05e25df658b322cf428c72ce3a4f476544",
+  "rejected_intermediate_commit": "9f664a29436efb52be008b0d8c168a817da95411",
+  "candidate_state": "IMPLEMENTATION_CANDIDATE_GREEN_PAIRED_REVALIDATION_PENDING",
+  "suite": {"executed": 97, "passed": 97, "failures": 0, "errors": 0, "skips": 0},
+  "existing_infrastructure_tests": {"executed": 25, "passed": 25},
+  "compileall": "PASS",
+  "py_compile": "PASS",
+  "mutations": {"requested": 18, "killed_red": 18, "survived_or_error": 0, "source_mutated": false, "harness_sha256": "3c7aa98bedc4aa5f5479fa8f370f22386669afdeb75b4a31b17b2060a9f15941"},
+  "known_failure_logical_ids": {"expected": 33, "covered": 33},
+  "retrospective_exact_base": {
+    "receipt_type": "POST-HOC_RETROSPECTIVE_EXACT_BASE_RED",
+    "chronological_pre_patch_claim": false,
+    "logical_ids": 33,
+    "red_observed": 27,
+    "control_absent_source_observed": 5,
+    "base_safe_observed": 1,
+    "collection_import_error_used_as_red_evidence": false,
+    "receipt_sha256": "2718e061ea85b5ca43053c055bef5b4915d00dd49afa03e3a0e6bd7bcc949cb3",
+    "observation_matrix_sha256": "b3c446e9d8a4a44d1d1f84de00855c6d8e822257a2624bd8763c90ada2d54abe"
+  },
+  "engv_findings_disposition": {
+    "ENGV-F01": "CLOSED_IN_CANDIDATE_BUILD_AND_READBACK_SEMANTIC_RECONCILIATION",
+    "ENGV-F02": "CLOSED_IN_CANDIDATE_PARQUET_CA_MAPPING_AND_VALIDATION",
+    "ENGV-F03": "CLOSED_AS_QUALIFIED_POST_HOC_EXACT_BASE_EVIDENCE_NOT_CHRONOLOGICAL_TDD",
+    "ENGV-F04": "CLOSED_IN_CANDIDATE_SEPARATE_AUDIT_HASH_AND_RECONCILIATION_MUTATIONS",
+    "ENGV-F05": "CLOSED_IN_CANDIDATE_VERSIONED_COMPONENT_MANIFEST_FOR_MULTI_COMPONENT_INPUT",
+    "ENGV-F06": "CLOSED_IN_CANDIDATE_GLOBAL_OFFICIAL_KILL_SWITCH"
+  },
+  "official_execution": "GLOBALLY_BLOCKED",
+  "price_canonical_validation": "GLOBALLY_BLOCKED",
+  "model_semantics_changed": false,
+  "official_golden": "BLOCKED",
+  "full_replay": "BLOCKED",
+  "model_state": "S0_PRE_OUTCOME_BASELINE_CANDIDATE",
+  "production_authority": "NONE",
+  "iva_execution_participation": "NONE",
+  "completed_at_kst": "2026-08-23T02:18:32+09:00"
+}

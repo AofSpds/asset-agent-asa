@@ -111,7 +111,16 @@ class KnownFailureCLITests(unittest.TestCase):
         with patch("tools.m3top3.cli_run_backtest.load_scorer", return_value=DiagnosticFixtureScorer()):
             status, summary = self._run_quiet(backtest_main, ["--config",str(config),"--snapshot-root",str(self.root/"snapshots"),"--output",str(output)])
         self.assertEqual(status, 4)
-        self.assertEqual(summary["code"], "OFFICIAL_SCORER_ADMISSION_DENIED")
+        self.assertEqual(summary["code"], "OFFICIAL_MODE_GLOBALLY_BLOCKED")
+        self.assertFalse(output.exists())
+
+    def test_snapshot_cli_official_mode_globally_blocked_without_output(self):
+        config=self.root/"snapshot-official.json"
+        config.write_text(json.dumps({"execution_mode":"OFFICIAL"}),encoding="utf-8")
+        output=self.root/"official-output"
+        status,summary=self._run_quiet(snapshot_main,["--config",str(config),"--start","2025-01-02","--end","2025-01-02","--output",str(output)])
+        self.assertEqual(status,4)
+        self.assertEqual(summary["code"],"OFFICIAL_MODE_GLOBALLY_BLOCKED")
         self.assertFalse(output.exists())
 
 

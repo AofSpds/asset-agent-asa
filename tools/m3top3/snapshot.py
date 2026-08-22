@@ -40,10 +40,11 @@ class SnapshotBuilder:
         self.universe=universe; self.features=features; self.price=price; self.config=config; self.guard=guard or PITGuard()
 
     def _build_company(self, state: UniverseState, snapshot_date: date, cutoff_at: datetime):
+        receipts_before=len(getattr(self.features,"retrieval_receipts",[])) if hasattr(self.features,"retrieval_receipts") else None
         raw_features=[dict(r) for r in self.features.records_at(state.company_id, cutoff_at)]; blockers=[]
+        retrieval_receipt=self._require_retrieval_receipt(state.company_id,cutoff_at,raw_features,receipts_before)
         self.guard.assert_model_inputs(raw_features, cutoff_at)
         observation_refs=[]; evidence_refs=[]; model_features={}; feature_trace=[]
-        retrieval_receipt=getattr(self.features,"last_retrieval_receipt",None)
         for r in raw_features:
             if r.get("evidence_id"):
                 evidence_refs.append(str(r["evidence_id"])); observation_refs.append({"domain":"EVIDENCE","reference_payload":{"evidence_id":str(r["evidence_id"])}})
@@ -72,6 +73,26 @@ class SnapshotBuilder:
         model_input={"pit_snapshot_id":pit_snapshot_id,"snapshot_date":snapshot_date.isoformat(),"snapshot_cutoff_at":cutoff_at.isoformat(),"company_id":state.company_id,"security_code":str(state.security_code).zfill(6),"universe_member":state.operational_member,"entry_eligible":eligibility,"universe_authority_status":self.universe.authority_status,"price_dataset_id":self.price.dataset_id,"price_source_semantics":self.price.semantics,"feature_values":model_features,"feature_trace":feature_trace,"model_input_schema_version":self.config.model_input_schema_version,"reconstruction_version":self.config.reconstruction_version}
         self.guard.assert_model_inputs([model_input],cutoff_at)
         return pit_row,model_input,blockers,dict(retrieval_receipt) if isinstance(retrieval_receipt,dict) else None
+
+    def _require_retrieval_receipt(self,company_id:str,cutoff_at:datetime,raw_features:list[dict[str,Any]],receipts_before:int|None)->dict[str,Any]:
+        receipts=getattr(self.features,"retrieval_receipts",None); receipt=getattr(self.features,"last_retrieval_receipt",None)
+        if not isinstance(receipts,list) or receipts_before is None or len(receipts)!=receipts_before+1 or not isinstance(receipt,dict) or receipts[-1] is not receipt:
+            raise M3Top3AdmissionError("MISSING_DETERMINISTIC_RETRIEVAL_RECEIPT","feature provider must emit exactly one deterministic receipt per company/cutoff slice",{"company_id":company_id,"cutoff_at":cutoff_at.isoformat()},EXIT_BLOCKED)
+        required={"retrieval_receipt_id","company_id","cutoff_at","source_version","source_hash","source_matching_rows","selected_rows","excluded_rows","exclusions","cutoff_frozen_bundle"}
+        if required-set(receipt) or receipt.get("company_id")!=company_id or receipt.get("cutoff_at")!=cutoff_at.isoformat() or receipt.get("source_version")!=getattr(self.features,"source_version",None):
+            raise M3Top3AdmissionError("RETRIEVAL_RECEIPT_RECONCILIATION_FAILED","retrieval receipt identity does not match the consumed slice",{"company_id":company_id},EXIT_BLOCKED)
+        source_hash=receipt.get("source_hash")
+        counts=(receipt.get("source_matching_rows"),receipt.get("selected_rows"),receipt.get("excluded_rows"))
+        exclusions=receipt.get("exclusions")
+        valid_hash=isinstance(source_hash,str) and len(source_hash)==64 and all(c in "0123456789abcdef" for c in source_hash.lower())
+        valid_counts=all(isinstance(v,int) and not isinstance(v,bool) and v>=0 for v in counts)
+        valid_exclusions=isinstance(exclusions,list) and all(isinstance(item,dict) and item.get("row_id") and isinstance(item.get("codes"),list) and item["codes"] for item in exclusions)
+        if not valid_hash or not valid_counts or not valid_exclusions or counts[0]!=counts[1]+counts[2] or counts[1]!=len(raw_features) or counts[2]!=len(exclusions):
+            raise M3Top3AdmissionError("RETRIEVAL_RECEIPT_RECONCILIATION_FAILED","retrieval receipt counts/hash/exclusions do not reconcile",{"company_id":company_id,"counts":counts,"selected_actual":len(raw_features)},EXIT_BLOCKED)
+        payload={k:v for k,v in receipt.items() if k!="retrieval_receipt_id"}
+        if receipt.get("retrieval_receipt_id")!=deterministic_id("retrieval",payload):
+            raise M3Top3AdmissionError("RETRIEVAL_RECEIPT_RECONCILIATION_FAILED","retrieval receipt ID is not deterministic for its payload",{"company_id":company_id},EXIT_BLOCKED)
+        return receipt
 
     def build(self,snapshot_date:date)->BuiltSnapshot:
         cutoff_at=snapshot_cutoff(snapshot_date,self.config.cutoff_local_time,self.config.timezone); states=self.universe.states_at(snapshot_date); pit_rows=[]; model_inputs=[]; retrieval_audits=[]; blockers=[]

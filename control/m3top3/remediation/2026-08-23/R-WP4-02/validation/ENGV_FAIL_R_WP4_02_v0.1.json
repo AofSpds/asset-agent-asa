@@ -1,0 +1,86 @@
+{
+  "receipt_id": "AAA-M3TOP3-R-WP4-02-ENGV-20260823-0157-01",
+  "validator_persona": "AAA-ENGINEERING-VALIDATOR",
+  "exact_base_commit": "167c1b05e25df658b322cf428c72ce3a4f476544",
+  "candidate_root": "/workspace/scratch/577256efb437/remediation/runtime_checkout",
+  "verdict": "FAIL_REMEDIATION_REQUIRED_REVALIDATION_REQUIRED",
+  "candidate_identity": {
+    "implementation_receipt_sha256": "717e698eec9c5d2a5903aa1df8f8304de1a7fea9876b4e9af097c870f505606c",
+    "test_receipt_sha256": "0564ce375026ac99496a3ce385022e481d9ae8065131f39f3a12ac332876026a",
+    "mutation_harness_sha256": "9c00a88b69293fa45958e147882f98b9cc275dbea276681c8bd78b2a3c87137a",
+    "declared_file_digests_checked": 21,
+    "declared_file_digest_mismatches": 0
+  },
+  "independent_execution": {
+    "unittest": {
+      "executed": 80,
+      "passed": 80,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "transcript_sha256": "aa631780a0ab562a8f17844c04787a4b3274c7bcfe60d766a8cba637ebfd3ebe"
+    },
+    "compileall": "PASS",
+    "py_compile": "PASS",
+    "mutations": {
+      "requested": 15,
+      "killed_red": 15,
+      "survived_or_error": 0,
+      "source_mutated": false,
+      "transcript_sha256": "e537a2c49509badd75ab146f63b82df11d23121917ca40ecc628c44e684593d2"
+    },
+    "logical_known_failure_ids_present": 33,
+    "known_failure_prefixed_executions": 47
+  },
+  "blocking_findings": [
+    {
+      "id": "ENGV-F01",
+      "severity": "P0",
+      "finding": "Retrieval receipt is optional and receipt counts/identity are not reconciled; no-audit and contradictory-audit snapshots are admitted READY."
+    },
+    {
+      "id": "ENGV-F02",
+      "severity": "P0",
+      "finding": "DuckDB parquet adapter ignores CA flag/factor/evidence fields, leaving KF-PRC-005 open on the production adapter."
+    },
+    {
+      "id": "ENGV-F03",
+      "severity": "P0_EVIDENCE",
+      "finding": "Required pre-remediation RED receipt against the exact base is absent."
+    },
+    {
+      "id": "ENGV-F04",
+      "severity": "P0_EVIDENCE",
+      "finding": "Mutation harness omits the separately required retrieval-audit mutation."
+    },
+    {
+      "id": "ENGV-F05",
+      "severity": "P0",
+      "finding": "Multi-component price admission is not bound to a versioned path-to-component-hash manifest."
+    },
+    {
+      "id": "ENGV-F06",
+      "severity": "P0",
+      "finding": "Snapshot CLI accepts OFFICIAL mode with working/default placeholder authority values."
+    }
+  ],
+  "model_semantics_review": {
+    "feature_definition_change_detected": false,
+    "weight_change_detected": false,
+    "gate_change_detected": false,
+    "ranking_objective_change_detected": false,
+    "outcome_formula_change_detected": false,
+    "exact_base_equal_files": [
+      "tools/m3top3/core.py",
+      "tools/m3top3/model_interface.py",
+      "tools/m3top3/README.md",
+      "tools/m3top3/__init__.py"
+    ]
+  },
+  "official_golden": "BLOCKED",
+  "full_replay": "BLOCKED",
+  "model_state_advancement": "PROHIBITED",
+  "production_authority": "NONE",
+  "iva_execution_participation": "NONE",
+  "completed_at_kst": "2026-08-23T01:57:23+09:00"
+}

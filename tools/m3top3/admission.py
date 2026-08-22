@@ -5,12 +5,14 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable
 
-from .core import aggregate_hash, canonical_json_bytes, hash_file, sha256_hex
+from .core import aggregate_hash, canonical_json_bytes, deterministic_id, hash_file, sha256_hex
 
 
 EXIT_BLOCKED = 2
 EXIT_INTEGRITY = 3
 EXIT_AUTHORITY = 4
+OFFICIAL_EXECUTION_ENABLED = False
+PRICE_CANONICAL_VALIDATION_ENABLED = False
 
 
 class M3Top3AdmissionError(RuntimeError):
@@ -94,6 +96,137 @@ def _read_jsonl(path: Path) -> tuple[bytes, list[dict[str, Any]]]:
             )
         rows.append(row)
     return payload, rows
+
+
+def _retrieval_semantic_failure(message: str, details: dict[str, Any] | None = None) -> None:
+    raise M3Top3AdmissionError(
+        "RETRIEVAL_AUDIT_SEMANTIC_MISMATCH",
+        message,
+        details,
+        EXIT_INTEGRITY,
+    )
+
+
+def _verify_retrieval_audit_semantics(
+    manifest: dict[str, Any],
+    pit_rows: list[dict[str, Any]],
+    model_inputs: list[dict[str, Any]],
+    retrieval_audits: list[dict[str, Any]],
+) -> None:
+    """Revalidate retrieval receipts independently of declared hashes.
+
+    Hash binding detects byte drift.  This check prevents a self-consistent
+    rewrite of the audit bytes and every declared aggregate from turning an
+    invalid receipt into an admissible snapshot.
+    """
+
+    expected_count = len(pit_rows)
+    if len(model_inputs) != expected_count or len(retrieval_audits) != expected_count:
+        _retrieval_semantic_failure(
+            "READY snapshot requires exactly one PIT row, model input, and retrieval receipt per company slice",
+            {
+                "pit_rows": len(pit_rows),
+                "model_inputs": len(model_inputs),
+                "retrieval_audits": len(retrieval_audits),
+            },
+        )
+
+    manifest_cutoff = manifest.get("snapshot_cutoff_at")
+    if not isinstance(manifest_cutoff, str) or not manifest_cutoff:
+        _retrieval_semantic_failure("manifest snapshot_cutoff_at must be a non-empty string")
+
+    def row_keys(rows: list[dict[str, Any]], artifact: str) -> set[tuple[str, str]]:
+        keys: list[tuple[str, str]] = []
+        for index, row in enumerate(rows):
+            company_id = row.get("company_id")
+            cutoff_at = row.get("snapshot_cutoff_at")
+            if not isinstance(company_id, str) or not company_id or not isinstance(cutoff_at, str) or cutoff_at != manifest_cutoff:
+                _retrieval_semantic_failure(
+                    f"{artifact} company/cutoff identity is invalid",
+                    {"artifact": artifact, "row_index": index, "company_id": company_id, "cutoff_at": cutoff_at},
+                )
+            keys.append((company_id, cutoff_at))
+        if len(set(keys)) != len(keys):
+            _retrieval_semantic_failure(f"{artifact} contains a duplicate company/cutoff slice", {"artifact": artifact})
+        return set(keys)
+
+    pit_keys = row_keys(pit_rows, "pit_snapshot.jsonl")
+    model_keys = row_keys(model_inputs, "model_input.jsonl")
+    if pit_keys != model_keys:
+        _retrieval_semantic_failure(
+            "PIT and model-input company/cutoff identities differ",
+            {"pit_keys": sorted(pit_keys), "model_keys": sorted(model_keys)},
+        )
+
+    required = {
+        "retrieval_receipt_id",
+        "company_id",
+        "cutoff_at",
+        "source_version",
+        "source_hash",
+        "source_matching_rows",
+        "selected_rows",
+        "excluded_rows",
+        "exclusions",
+        "cutoff_frozen_bundle",
+    }
+    audit_keys: list[tuple[str, str]] = []
+    for index, receipt in enumerate(retrieval_audits):
+        missing = sorted(required - set(receipt))
+        if missing:
+            _retrieval_semantic_failure("retrieval receipt is missing required fields", {"row_index": index, "missing": missing})
+        company_id = receipt.get("company_id")
+        cutoff_at = receipt.get("cutoff_at")
+        source_version = receipt.get("source_version")
+        source_hash = receipt.get("source_hash")
+        receipt_id = receipt.get("retrieval_receipt_id")
+        exclusions = receipt.get("exclusions")
+        if not all(isinstance(value, str) and value for value in (company_id, cutoff_at, source_version, source_hash, receipt_id)):
+            _retrieval_semantic_failure("retrieval receipt identity/source fields must be non-empty strings", {"row_index": index})
+        if cutoff_at != manifest_cutoff:
+            _retrieval_semantic_failure(
+                "retrieval receipt cutoff differs from the snapshot cutoff",
+                {"row_index": index, "receipt_cutoff": cutoff_at, "manifest_cutoff": manifest_cutoff},
+            )
+        if len(source_hash) != 64 or any(character not in "0123456789abcdef" for character in source_hash.lower()):
+            _retrieval_semantic_failure("retrieval receipt source_hash must be a SHA256 hex digest", {"row_index": index})
+        counts = [receipt.get(name) for name in ("source_matching_rows", "selected_rows", "excluded_rows")]
+        if any(not isinstance(value, int) or isinstance(value, bool) or value < 0 for value in counts):
+            _retrieval_semantic_failure("retrieval receipt counts must be non-negative integers", {"row_index": index, "counts": counts})
+        source_matching_rows, selected_rows, excluded_rows = counts
+        if source_matching_rows != selected_rows + excluded_rows:
+            _retrieval_semantic_failure(
+                "retrieval receipt counts do not reconcile",
+                {
+                    "row_index": index,
+                    "source_matching_rows": source_matching_rows,
+                    "selected_rows": selected_rows,
+                    "excluded_rows": excluded_rows,
+                },
+            )
+        if not isinstance(exclusions, list) or excluded_rows != len(exclusions):
+            _retrieval_semantic_failure(
+                "retrieval receipt excluded_rows differs from exclusions length",
+                {"row_index": index, "excluded_rows": excluded_rows},
+            )
+        if not isinstance(receipt.get("cutoff_frozen_bundle"), bool):
+            _retrieval_semantic_failure("retrieval receipt cutoff_frozen_bundle must be boolean", {"row_index": index})
+        for exclusion_index, exclusion in enumerate(exclusions):
+            if not isinstance(exclusion, dict) or not isinstance(exclusion.get("row_id"), str) or not exclusion.get("row_id"):
+                _retrieval_semantic_failure("retrieval exclusion requires a non-empty row_id", {"row_index": index, "exclusion_index": exclusion_index})
+            codes = exclusion.get("codes")
+            if not isinstance(codes, list) or not codes or any(not isinstance(code, str) or not code for code in codes):
+                _retrieval_semantic_failure("retrieval exclusion requires non-empty string codes", {"row_index": index, "exclusion_index": exclusion_index})
+        payload = {key: value for key, value in receipt.items() if key != "retrieval_receipt_id"}
+        if receipt_id != deterministic_id("retrieval", payload):
+            _retrieval_semantic_failure("retrieval receipt ID is not deterministic for its payload", {"row_index": index})
+        audit_keys.append((company_id, cutoff_at))
+
+    if len(set(audit_keys)) != len(audit_keys) or set(audit_keys) != pit_keys:
+        _retrieval_semantic_failure(
+            "retrieval receipt company/cutoff identities are not one-to-one with PIT/model rows",
+            {"receipt_keys": sorted(set(audit_keys)), "pit_keys": sorted(pit_keys)},
+        )
 
 
 def verify_snapshot_artifacts(snapshot_dir: str | Path) -> VerifiedSnapshot:
@@ -203,6 +336,7 @@ def verify_snapshot_artifacts(snapshot_dir: str | Path) -> VerifiedSnapshot:
             {"expected": manifest.get("snapshot_content_hash"), "actual": aggregate},
             EXIT_INTEGRITY,
         )
+    _verify_retrieval_audit_semantics(manifest, pit_rows, model_inputs, retrieval_audits)
     return VerifiedSnapshot(manifest, pit_rows, model_inputs, retrieval_audits)
 
 
@@ -226,6 +360,13 @@ def verify_official_scorer(
     receipt: dict[str, Any] | None,
 ) -> None:
     """Admit an exact scorer/config identity for official-mode execution."""
+
+    if not OFFICIAL_EXECUTION_ENABLED:
+        raise M3Top3AdmissionError(
+            "OFFICIAL_MODE_GLOBALLY_BLOCKED",
+            "no active governed authority registry or cryptographic trust root admits official execution",
+            exit_code=EXIT_AUTHORITY,
+        )
 
     if getattr(scorer, "model_id", None) == "DIAGNOSTIC_FIXTURE" or scorer.__class__.__name__.lower().startswith("diagnostic"):
         raise M3Top3AdmissionError(
@@ -303,24 +444,29 @@ def verify_price_release(provider: Any, admission_config: dict[str, Any] | None 
         )
     if getattr(provider, "semantics", None) != "PRICE_CANONICAL":
         return
-    receipt = admission_config if admission_config is not None else getattr(provider, "canonical_release", None)
-    required = ("frozen", "authority_receipt", "ca_receipt", "unresolved_ca_candidates")
-    if not isinstance(receipt, dict) or any(key not in receipt for key in required):
+    if not PRICE_CANONICAL_VALIDATION_ENABLED:
         raise M3Top3AdmissionError(
-            "PRICE_CANONICAL_ADMISSION_DENIED",
-            "canonical semantics require frozen authority and CA receipts",
+            "PRICE_CANONICAL_GLOBALLY_BLOCKED",
+            "self-asserted canonical receipts cannot create VALIDATION authority",
             exit_code=EXIT_AUTHORITY,
         )
-    if receipt.get("frozen") is not True or not receipt.get("authority_receipt") or not receipt.get("ca_receipt"):
-        raise M3Top3AdmissionError(
-            "PRICE_CANONICAL_ADMISSION_DENIED",
-            "canonical release receipt is incomplete",
-            exit_code=EXIT_AUTHORITY,
-        )
-    if receipt.get("unresolved_ca_candidates") != 0:
-        raise M3Top3AdmissionError(
-            "PRICE_CANONICAL_CA_INCOMPLETE",
-            "canonical release contains unresolved corporate-action candidates",
-            {"unresolved_ca_candidates": receipt.get("unresolved_ca_candidates")},
-            EXIT_AUTHORITY,
-        )
+
+
+def price_dataset_identity_hash(dataset_id: str, component_hashes: dict[str, str]) -> str:
+    components=[{"path":path,"sha256":digest} for path,digest in sorted(component_hashes.items())]
+    return sha256_hex({"manifest_version":"m3top3-price-components-v1","dataset_id":dataset_id,"components":components})
+
+
+def verify_price_component_manifest(provider: Any, manifest: dict[str, Any] | None) -> None:
+    components=getattr(provider,"component_hashes",{})
+    if len(components)<=1:
+        return
+    if not isinstance(manifest,dict):
+        raise M3Top3AdmissionError("PRICE_COMPONENT_MANIFEST_REQUIRED","multi-component price input requires a versioned byte manifest",exit_code=EXIT_INTEGRITY)
+    required={"manifest_version","hash_algorithm","dataset_id","dataset_hash","components"}
+    if required-set(manifest) or manifest.get("manifest_version")!="m3top3-price-components-v1" or manifest.get("hash_algorithm")!="SHA256":
+        raise M3Top3AdmissionError("PRICE_COMPONENT_MANIFEST_MISMATCH","price component manifest schema/version is invalid",exit_code=EXIT_INTEGRITY)
+    expected=[{"path":path,"sha256":digest} for path,digest in sorted(components.items())]
+    declared=manifest.get("components")
+    if manifest.get("dataset_id")!=getattr(provider,"dataset_id",None) or manifest.get("dataset_hash")!=getattr(provider,"actual_dataset_hash",None) or declared!=expected:
+        raise M3Top3AdmissionError("PRICE_COMPONENT_MANIFEST_MISMATCH","component paths/hashes or dataset identity do not match actual bytes",{"expected_components":expected},EXIT_INTEGRITY)

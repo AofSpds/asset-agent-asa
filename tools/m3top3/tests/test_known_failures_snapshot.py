@@ -7,7 +7,8 @@ from pathlib import Path
 
 from tools.m3top3.admission import M3Top3AdmissionError
 from tools.m3top3.ledger import PredictionLedger
-from tools.m3top3.snapshot import SnapshotStore
+from tools.m3top3.providers import InMemoryFeatureProvider
+from tools.m3top3.snapshot import BatchSnapshotGenerator, SnapshotStore
 from tools.m3top3.tests._known_failure_helpers import CountingScorer, diagnostic_runner, materialize_ready_snapshot, ready_builder
 
 
@@ -79,6 +80,32 @@ class KnownFailureSnapshotTests(unittest.TestCase):
         self.assertIn("PIT_PUBLICATION_AFTER_CUTOFF",audit_text)
         self.assertEqual(manifest["retrieval_audit_row_count"],1)
         self.assertEqual(len(manifest["retrieval_audit_file_sha256"]),64)
+
+    def test_missing_retrieval_receipt_blocks_builder_and_zero_writes(self):
+        class BareFeatureProvider:
+            source_version="BARE"
+            def records_at(self,company_id,cutoff_at):
+                return [{"company_id":company_id,"feature_id":"F01","value":"1","publication_at":"2025-01-02T10:00:00+09:00"}]
+        dates,_,builder=ready_builder(self.root)
+        builder.features=BareFeatureProvider(); output=self.root/"missing-receipt"
+        result=BatchSnapshotGenerator(builder,SnapshotStore(output)).run(dates[0],dates[0],{})
+        self.assertEqual((result.blocked,result.generated),(1,0))
+        self.assertIn("MISSING_DETERMINISTIC_RETRIEVAL_RECEIPT",result.blocked_dates[0])
+        self.assertFalse(output.exists())
+
+    def test_unreconciled_retrieval_receipt_blocks_builder_and_zero_writes(self):
+        class UnreconciledProvider(InMemoryFeatureProvider):
+            def records_at(self,company_id,cutoff_at):
+                rows=super().records_at(company_id,cutoff_at)
+                self.last_retrieval_receipt["selected_rows"]+=1
+                return rows
+        rows=[{"company_id":"C1","feature_id":"F01","value":"1","publication_at":"2025-01-02T10:00:00+09:00"}]
+        dates,_,builder=ready_builder(self.root)
+        builder.features=UnreconciledProvider(rows); output=self.root/"bad-receipt"
+        result=BatchSnapshotGenerator(builder,SnapshotStore(output)).run(dates[0],dates[0],{})
+        self.assertEqual((result.blocked,result.generated),(1,0))
+        self.assertIn("RETRIEVAL_RECEIPT_RECONCILIATION_FAILED",result.blocked_dates[0])
+        self.assertFalse(output.exists())
 
 
 if __name__ == "__main__":

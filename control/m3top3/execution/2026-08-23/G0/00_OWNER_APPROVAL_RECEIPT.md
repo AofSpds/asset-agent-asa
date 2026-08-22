@@ -1,0 +1,49 @@
+# M3Top3 G0 Owner Approval Receipt
+
+```text
+PROJECT = AAA
+PRODUCT = ASSET AGENT ASA
+PROGRAM = M3TOP3_P0_VALIDATION_REBASE
+RECEIPT_ID = AAA-M3TOP3-OWNER-APPROVE-CLOSE-DISPATCH-20260823-0045-01
+OWNER_DECISION = APPROVE_AND_CLOSE + PMO_DIRECT_DISPATCH=YES
+RECEIVED_AT = 2026-08-23 00:45 KST
+RECEIVED_BY = AAA-PMO-ORCHESTRATOR (PMO)
+
+PLANNING_DESIGN_PHASE = CLOSED
+PMO_DIRECT_DISPATCH = ACTIVE
+IMMEDIATE_AUTHORIZED_EXECUTION = G0 + BOUNDED_WP0_WP4_PREFLIGHT
+IVA_EXECUTION_PARTICIPATION = NONE
+IVA_WORK_PACKET = PROHIBITED
+IVA_EXECUTION_SURFACE = NOT_OPENED
+OWNER_ACTION_REQUIRED = FALSE
+
+CURRENT_MODEL_STATE = S0_PRE_OUTCOME_BASELINE_CANDIDATE
+MODEL_PERFORMANCE = NOT_VALIDATED
+FREEZE_AUTHORIZED = FALSE
+OFFICIAL_GOLDEN_AUTHORIZED = FALSE
+OFFICIAL_REPLAY_AUTHORIZED = FALSE
+CHAMPION_PROMOTION_AUTHORIZED = FALSE
+RELEASE_PRODUCTION_AUTHORIZED = FALSE
+```
+
+## Exact approval target
+
+| Target | SHA256 | Bytes | Receipt status |
+|---|---|---:|---|
+| M3Top3_Final_Review_Synthesis_and_Governed_Recommendation_v1.2_2026-08-22.docx | `a7d87f07d5d442ac01b0fbaa9ebc2f5c6bbd52bf25d67b4ba319e66e86f9fdbc` | 54,065 | PASS |
+| M3Top3_Owner_Governed_PMO_WORK_ULTRA_Execution_Masterplan_v1.2_2026-08-22.docx | `819e2c12bd149129e5054350c355b9132842d44841e09a1da2dbd1050888c7dd` | 52,999 | PASS |
+| Planning Design Closure v1.0 | `f444cdea45c8d44c8bbbd70a178f2002935018935431dd5664c509aa883da45d` | 47,148 | PASS |
+| PMO Initial Execution Workplan v1.0 | `94855875d1b4bca937be1dc0e4a6df2558bdddba32554bef060b407984e1df4b` | 55,630 | PASS |
+
+ASAV validation act: `AAA-M3TOP3-V1.2-ASAV-PLAN-L1-20260822-2316-01`  
+ASAV return commit: `d257a40808fc596e2dddf46a7472ab6dc77a3d49`  
+Verdict: `PASS_WITH_FINDING / YES_WITH_FINDINGS`
+
+## Standing Owner correction
+
+IVA는 실행조직 외부의 독립 검증기관이다. IVA는 본 실행의 계획·설계·구현·중간검토·증거생산·RACI·작업 Lane에 참여하지 않는다. 완료 패키지에 대한 별도 독립감사는 Owner가 별도로 호출하는 외부 행위이며, 본 Receipt는 이를 호출하지 않는다.
+
+## Claim lock
+
+본 승인은 승인된 계획의 준비·감사 실행만 허용한다. Model Semantic Authority, S1/S2/S3/S4/S5 상태, Freeze, Official Golden PASS, Full Replay PASS, Champion/Promotion, Release 또는 Production 권한을 생성하지 않는다.
+

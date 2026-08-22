@@ -52,7 +52,7 @@ class KnownFailureModelAdmissionTests(unittest.TestCase):
         self.assertEqual(caught.exception.code, code)
         self.assertEqual(caught.exception.exit_code, 4)
 
-    def test_kf_mod_001_missing_plugin_exits_four_before_output(self):
+    def test_kf_mod_001_official_kill_switch_precedes_missing_plugin(self):
         config = self.root / "config.json"
         config.write_text(json.dumps({"execution_mode": "OFFICIAL", "scorer_plugin": "missing_package:MissingScorer"}), encoding="utf-8")
         output = self.root / "output"
@@ -62,25 +62,25 @@ class KnownFailureModelAdmissionTests(unittest.TestCase):
         self.assertFalse(output.exists())
 
     def test_kf_mod_002_diagnostic_scorer_denied_in_official_mode(self):
-        self.assert_code(lambda: verify_official_scorer(DiagnosticFixtureScorer(), self.config_bytes, self.receipt), "OFFICIAL_SCORER_ADMISSION_DENIED")
+        self.assert_code(lambda: verify_official_scorer(DiagnosticFixtureScorer(), self.config_bytes, self.receipt), "OFFICIAL_MODE_GLOBALLY_BLOCKED")
 
     def test_kf_mod_003_missing_exact_identity_receipt(self):
-        self.assert_code(lambda: verify_official_scorer(self.scorer, self.config_bytes, None), "OFFICIAL_SCORER_ADMISSION_DENIED")
+        self.assert_code(lambda: verify_official_scorer(self.scorer, self.config_bytes, None), "OFFICIAL_MODE_GLOBALLY_BLOCKED")
 
     def test_kf_mod_004_declared_config_hash_mismatch(self):
         receipt = dict(self.receipt)
         receipt["config_sha256"] = "0" * 64
-        self.assert_code(lambda: verify_official_scorer(self.scorer, self.config_bytes, receipt), "SCORER_CONFIG_HASH_MISMATCH")
+        self.assert_code(lambda: verify_official_scorer(self.scorer, self.config_bytes, receipt), "OFFICIAL_MODE_GLOBALLY_BLOCKED")
 
     def test_kf_mod_005_working_placeholder_config_denied(self):
         config = b'{"model":"M3TOP3","status":"WORKING"}'
         scorer = OfficialFixtureScorer(self.artifact, sha256_hex(config))
         receipt = dict(self.receipt)
         receipt["config_sha256"] = sha256_hex(config)
-        self.assert_code(lambda: verify_official_scorer(scorer, config, receipt), "PLACEHOLDER_CONFIG_NOT_ADMISSIBLE")
+        self.assert_code(lambda: verify_official_scorer(scorer, config, receipt), "OFFICIAL_MODE_GLOBALLY_BLOCKED")
 
-    def test_exact_official_fixture_positive_control(self):
-        verify_official_scorer(self.scorer, self.config_bytes, self.receipt)
+    def test_self_asserted_exact_official_fixture_is_still_globally_blocked(self):
+        self.assert_code(lambda: verify_official_scorer(self.scorer,self.config_bytes,self.receipt),"OFFICIAL_MODE_GLOBALLY_BLOCKED")
 
 
 if __name__ == "__main__":

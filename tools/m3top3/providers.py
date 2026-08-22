@@ -9,8 +9,8 @@ from decimal import Decimal
 from pathlib import Path
 from typing import Any, Protocol, Sequence
 
-from .admission import EXIT_INTEGRITY, M3Top3AdmissionError, verify_price_release
-from .core import aggregate_hash, deterministic_id, hash_file, parse_date, parse_datetime, sha256_hex
+from .admission import EXIT_INTEGRITY, M3Top3AdmissionError, price_dataset_identity_hash, verify_price_component_manifest, verify_price_release
+from .core import deterministic_id, hash_file, parse_date, parse_datetime, sha256_hex
 from .pit_guard import GuardViolation, PITGuard, PITLeakageError
 
 
@@ -151,7 +151,6 @@ class CsvPriceProvider:
     def __init__(self, path: str | Path, dataset_id: str = "TEST-PRICE", dataset_hash: str = "TEST", semantics: str = "RAW_IMMUTABLE", admission_config: dict[str, Any] | None = None):
         self.path=Path(path); self.dataset_id=dataset_id; self.dataset_hash=dataset_hash; self.semantics=semantics; self.canonical_release=admission_config; rows=[]
         self.component_hashes={str(self.path):hash_file(self.path)}; self.actual_dataset_hash=self.component_hashes[str(self.path)]
-        verify_price_release(self,admission_config)
         seen:set[tuple[str,date]]=set()
         with self.path.open("r", encoding="utf-8", newline="") as f:
             for line_number,r in enumerate(csv.DictReader(f),2):
@@ -160,7 +159,7 @@ class CsvPriceProvider:
                 if key in seen:
                     raise M3Top3AdmissionError("DUPLICATE_PRICE_KEY",f"duplicate price key {key}",{"line":line_number,"code":row.code,"date":row.date.isoformat()},EXIT_INTEGRITY)
                 seen.add(key); _validate_price_row(row,{"line":line_number,"path":str(self.path)}); rows.append(row)
-        self._rows=rows; self._by_key={(r.code,r.date):r for r in rows}; self._dates=sorted({r.date for r in rows})
+        self._rows=rows; self._by_key={(r.code,r.date):r for r in rows}; self._dates=sorted({r.date for r in rows}); verify_price_release(self,admission_config)
     def trading_dates(self,start:date,end:date)->list[date]: return [d for d in self._dates if start<=d<=end]
     def row(self,code:str,trading_date:date)->PriceRow|None: return self._by_key.get((str(code).zfill(6),trading_date))
     def rows(self,code:str,start:date,end:date)->list[PriceRow]:
@@ -169,12 +168,12 @@ class CsvPriceProvider:
 
 class DuckDBParquetPriceProvider:
     """Optional production adapter for RAW marcap or PRICE-CANONICAL parquet."""
-    def __init__(self, paths: Sequence[str | Path], dataset_id: str, dataset_hash: str, semantics: str = "RAW_IMMUTABLE", admission_config: dict[str, Any] | None = None):
+    def __init__(self, paths: Sequence[str | Path], dataset_id: str, dataset_hash: str, semantics: str = "RAW_IMMUTABLE", admission_config: dict[str, Any] | None = None, component_manifest: dict[str, Any] | None = None):
         try: duckdb=importlib.import_module("duckdb")
         except ImportError as exc: raise RuntimeError("DuckDBParquetPriceProvider requires the optional 'duckdb' package") from exc
-        self._duckdb=duckdb; self.paths=[str(Path(p)) for p in paths]; self.dataset_id=dataset_id; self.dataset_hash=dataset_hash; self.semantics=semantics; self.canonical_release=admission_config; self._con=duckdb.connect()
-        self.component_hashes={p:hash_file(Path(p)) for p in self.paths}; self.actual_dataset_hash=next(iter(self.component_hashes.values())) if len(self.component_hashes)==1 else aggregate_hash(self.component_hashes.values())
-        verify_price_release(self,admission_config)
+        self._duckdb=duckdb; self.paths=[str(Path(p).resolve()) for p in paths]; self.dataset_id=dataset_id; self.dataset_hash=dataset_hash; self.semantics=semantics; self.canonical_release=admission_config; self.component_manifest=component_manifest; self._con=duckdb.connect()
+        self.component_hashes={p:hash_file(Path(p)) for p in self.paths}; self.actual_dataset_hash=next(iter(self.component_hashes.values())) if len(self.component_hashes)==1 else price_dataset_identity_hash(self.dataset_id,self.component_hashes)
+        verify_price_component_manifest(self,component_manifest)
         list_sql="["+",".join(repr(p) for p in self.paths)+"]"; self._source_sql=f"read_parquet({list_sql}, union_by_name=true)"
         cols={r[0].lower():r[0] for r in self._con.execute(f"DESCRIBE SELECT * FROM {self._source_sql}").fetchall()}; required={"date","code","open","high","low","close"}; missing=required-set(cols)
         if missing: raise ValueError(f"price parquet missing required columns: {sorted(missing)}")
@@ -183,18 +182,39 @@ class DuckDBParquetPriceProvider:
         if duplicate: raise M3Top3AdmissionError("DUPLICATE_PRICE_KEY",f"duplicate price key {(duplicate[0],duplicate[1])}",{"code":duplicate[0],"date":str(duplicate[1]),"count":duplicate[2]},EXIT_INTEGRITY)
         invalid=self._con.execute(f"SELECT CAST({self._c('date')} AS DATE), LPAD(CAST({self._c('code')} AS VARCHAR),6,'0'), {self._c('open')}, {self._c('high')}, {self._c('low')}, {self._c('close')} FROM {self._source_sql} WHERE {self._c('open')}<=0 OR {self._c('high')}<=0 OR {self._c('low')}<=0 OR {self._c('close')}<=0 OR {self._c('high')}<GREATEST({self._c('open')},{self._c('close')}) OR {self._c('low')}>LEAST({self._c('open')},{self._c('close')}) OR {self._c('low')}>{self._c('high')} LIMIT 1").fetchone()
         if invalid: raise M3Top3AdmissionError("INVALID_OHLC",f"invalid OHLC row {(invalid[1],invalid[0])}",{"code":invalid[1],"date":str(invalid[0])},EXIT_INTEGRITY)
+        ca_columns={"corporate_action_flag","adjustment_factor","corporate_action_evidence_id"}
+        if self.semantics=="PRICE_CANONICAL" and not ca_columns.issubset(self._cols):
+            raise M3Top3AdmissionError("PRICE_CANONICAL_CA_INCOMPLETE","canonical parquet lacks required CA flag/factor/evidence columns",{"missing":sorted(ca_columns-set(self._cols))},4)
+        if "corporate_action_flag" in self._cols:
+            if not {"adjustment_factor","corporate_action_evidence_id"}.issubset(self._cols):
+                flagged=self._con.execute(f"SELECT CAST({self._c('date')} AS DATE), LPAD(CAST({self._c('code')} AS VARCHAR),6,'0') FROM {self._source_sql} WHERE CAST({self._c('corporate_action_flag')} AS BOOLEAN)=TRUE LIMIT 1").fetchone()
+                if flagged: raise M3Top3AdmissionError("CA_EVIDENCE_INCOMPLETE","flagged parquet CA row lacks factor/evidence schema",{"date":str(flagged[0]),"code":flagged[1]},EXIT_INTEGRITY)
+            else:
+                invalid_ca=self._con.execute(f"SELECT CAST({self._c('date')} AS DATE), LPAD(CAST({self._c('code')} AS VARCHAR),6,'0'), {self._c('adjustment_factor')}, CAST({self._c('corporate_action_evidence_id')} AS VARCHAR) FROM {self._source_sql} WHERE CAST({self._c('corporate_action_flag')} AS BOOLEAN)=TRUE AND ({self._c('adjustment_factor')} IS NULL OR {self._c('adjustment_factor')}<=0 OR {self._c('corporate_action_evidence_id')} IS NULL OR TRIM(CAST({self._c('corporate_action_evidence_id')} AS VARCHAR))='') LIMIT 1").fetchone()
+                if invalid_ca:
+                    code="INVALID_ADJUSTMENT_FACTOR" if invalid_ca[2] is not None and Decimal(str(invalid_ca[2]))<=0 else "CA_EVIDENCE_INCOMPLETE"
+                    raise M3Top3AdmissionError(code,"invalid parquet corporate-action evidence/factor",{"date":str(invalid_ca[0]),"code":invalid_ca[1]},EXIT_INTEGRITY)
+        verify_price_release(self,admission_config)
     def _c(self,lower:str)->str: return '"'+self._cols[lower].replace('"','""')+'"'
     def trading_dates(self,start:date,end:date)->list[date]:
         q=f"SELECT DISTINCT CAST({self._c('date')} AS DATE) d FROM {self._source_sql} WHERE CAST({self._c('date')} AS DATE) BETWEEN ? AND ? ORDER BY d"; return [r[0] for r in self._con.execute(q,[start,end]).fetchall()]
     def row(self,code:str,trading_date:date)->PriceRow|None:
-        q=f"SELECT CAST({self._c('date')} AS DATE), CAST({self._c('code')} AS VARCHAR), {self._c('open')}, {self._c('high')}, {self._c('low')}, {self._c('close')} FROM {self._source_sql} WHERE LPAD(CAST({self._c('code')} AS VARCHAR),6,'0')=? AND CAST({self._c('date')} AS DATE)=?"; rows=self._con.execute(q,[str(code).zfill(6),trading_date]).fetchall()
+        q=f"SELECT {self._select_columns()} FROM {self._source_sql} WHERE LPAD(CAST({self._c('code')} AS VARCHAR),6,'0')=? AND CAST({self._c('date')} AS DATE)=?"; rows=self._con.execute(q,[str(code).zfill(6),trading_date]).fetchall()
         if len(rows)>1: raise M3Top3AdmissionError("DUPLICATE_PRICE_KEY",f"duplicate price key {(code,trading_date)}",exit_code=EXIT_INTEGRITY)
         row=rows[0] if rows else None
-        return None if not row else PriceRow(row[0],str(row[1]).zfill(6),*(Decimal(str(x)) for x in row[2:6]))
+        return None if not row else self._price_row(row)
     def rows(self,code:str,start:date,end:date)->list[PriceRow]:
-        q=f"SELECT CAST({self._c('date')} AS DATE), CAST({self._c('code')} AS VARCHAR), {self._c('open')}, {self._c('high')}, {self._c('low')}, {self._c('close')} FROM {self._source_sql} WHERE LPAD(CAST({self._c('code')} AS VARCHAR),6,'0')=? AND CAST({self._c('date')} AS DATE) BETWEEN ? AND ? ORDER BY 1"; out=[]
-        for row in self._con.execute(q,[str(code).zfill(6),start,end]).fetchall(): out.append(PriceRow(row[0],str(row[1]).zfill(6),*(Decimal(str(x)) for x in row[2:6])))
+        q=f"SELECT {self._select_columns()} FROM {self._source_sql} WHERE LPAD(CAST({self._c('code')} AS VARCHAR),6,'0')=? AND CAST({self._c('date')} AS DATE) BETWEEN ? AND ? ORDER BY 1"; out=[]
+        for row in self._con.execute(q,[str(code).zfill(6),start,end]).fetchall(): out.append(self._price_row(row))
         return out
+    def _select_columns(self)->str:
+        flag=f"CAST({self._c('corporate_action_flag')} AS BOOLEAN)" if "corporate_action_flag" in self._cols else "NULL"
+        factor=self._c("adjustment_factor") if "adjustment_factor" in self._cols else "NULL"
+        evidence=f"CAST({self._c('corporate_action_evidence_id')} AS VARCHAR)" if "corporate_action_evidence_id" in self._cols else "NULL"
+        return f"CAST({self._c('date')} AS DATE), CAST({self._c('code')} AS VARCHAR), {self._c('open')}, {self._c('high')}, {self._c('low')}, {self._c('close')}, {flag}, {factor}, {evidence}"
+    def _price_row(self,row)->PriceRow:
+        result=PriceRow(row[0],str(row[1]).zfill(6),*(Decimal(str(x)) for x in row[2:6]),corporate_action_flag=bool(row[6]) if row[6] is not None else None,adjustment_factor=Decimal(str(row[7])) if row[7] is not None else None,corporate_action_evidence_id=str(row[8]) if row[8] is not None else None)
+        _validate_price_row(result,{"provider":"DuckDBParquetPriceProvider","code":result.code,"date":result.date.isoformat()}); return result
 
 
 def _validate_price_row(row: PriceRow, locator: dict[str, Any]) -> None:
