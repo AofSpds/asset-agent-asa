@@ -1,0 +1,50 @@
+{
+  "schema_version": "m3top3-g1-g4-git-archive-receipt-v0.1",
+  "receipt_id": "M3TOP3-G1-G4-GIT-ARCHIVE-20260823-01",
+  "issued_at_kst": "2026-08-23T21:20:06+09:00",
+  "issuer": "AAA-PMO-ORCHESTRATOR",
+  "owner_authority": "APPROVE_AND_CLOSE_PLUS_PMO_DIRECT_DISPATCH_YES",
+  "repository": "AofSpds/asset-agent-asa",
+  "branch": "aaa-m3top3-p0-canonical-lineage-full-universe-20260823",
+  "branch_preupdate_head": "1d6822736d97f8ddc76ae03e43d7cd594294b086",
+  "branch_preupdate_tree": "2e08038a8c8c887da4c421fb2adcc74b35e444f9",
+  "archive_tree": "f8a4af7d306b62b43819b7265488bf3c97a5d5a4",
+  "archive_commit": "6e200f25d1e562628b2e1ff5f67a7655cc716b70",
+  "archive_commit_url": "https://github.com/AofSpds/asset-agent-asa/commit/6e200f25d1e562628b2e1ff5f67a7655cc716b70",
+  "archive_root": "control/m3top3/remediation/2026-08-23/G1-G4-INTEGRATED-v0.1",
+  "archived_file_count": 29,
+  "branch_update": {
+    "method": "FAST_FORWARD",
+    "force": false,
+    "success": true
+  },
+  "postupdate_verification": {
+    "branch_head": "6e200f25d1e562628b2e1ff5f67a7655cc716b70",
+    "compare_status": "ahead",
+    "ahead_by": 1,
+    "behind_by": 0,
+    "total_commits": 1,
+    "changed_paths": 29,
+    "all_paths_added": true
+  },
+  "archive_scope": [
+    "G0 dispatch currentization",
+    "G1 baseline-identity audit",
+    "G2 universe/exposure audit and Owner-policy disposition",
+    "G3 data/annotation audit",
+    "bounded source-custody recovery probe",
+    "deterministic 32-cell eligibility process sample plus fixed control",
+    "W4 x 3 non-scoreable fail-closed pilot",
+    "G4 formal validation request",
+    "integrated status, checkpoint and artifact manifest"
+  ],
+  "claim_boundary": {
+    "model_state": "S0_PRE_OUTCOME_BASELINE_CANDIDATE",
+    "official_golden": "BLOCKED",
+    "full_replay": "BLOCKED",
+    "freeze_promotion_release_merge_production": "NOT_AUTHORIZED",
+    "iva_execution_participation": "NONE"
+  },
+  "owner_action_required": false,
+  "status": "FORWARD_ONLY_ARCHIVE_VERIFIED"
+}
