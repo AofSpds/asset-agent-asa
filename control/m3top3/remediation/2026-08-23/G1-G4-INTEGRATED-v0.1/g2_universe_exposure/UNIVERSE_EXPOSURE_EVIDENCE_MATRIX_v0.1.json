@@ -1,0 +1,664 @@
+{
+  "audit_id": "M3TOP3-G1-LANE-B-UNIVERSE-EXPOSURE-v0.1",
+  "schema_version": "m3top3-universe-exposure-evidence-matrix-v0.1",
+  "observed_at": "2026-08-23T20:45:05+09:00",
+  "audit_role": "INTERNAL_PMO_EVIDENCE_AUDIT",
+  "audit_mode": "READ_ONLY",
+  "iva_participation": "NONE",
+  "runtime_or_git_mutation": "NONE",
+  "official_golden_replay_execution": "NONE",
+  "allowed_statuses": [
+    "PROVEN",
+    "CONTRADICTED",
+    "UNPROVEN",
+    "NOT_FOUND"
+  ],
+  "source_artifacts": [
+    {
+      "artifact_id": "OWNER_APPROVAL_RECEIPT",
+      "path": "deliverables/M3TOP3_G0_EXECUTION_BUNDLE_2026-08-23/00_OWNER_APPROVAL_RECEIPT.md",
+      "sha256": "9854813fc9a384e2314739cb6f58854599aefeaa8182cdc53defd0effe5ae205",
+      "role": "WP2_AUTHORIZATION_AND_OWNER_ACTION_BOUNDARY"
+    },
+    {
+      "artifact_id": "DIRECT_DISPATCH_PACKET",
+      "path": "upload/M3Top3_Owner_to_PMO_Direct_Dispatch_Packet_v1.0_2026-08-22(1).md",
+      "sha256": "16688e3cc089f9d60524b3ea6ff7f34fa6ad59c0aa66bfc7b1940c54914d82cf",
+      "role": "EXECUTION_AUTHORITY_BOUNDARY"
+    },
+    {
+      "artifact_id": "PMO_INITIAL_WORKPLAN",
+      "path": "upload/M3Top3_PMO_Initial_Execution_Workplan_v1.0_2026-08-22(1).docx",
+      "sha256": "94855875d1b4bca937be1dc0e4a6df2558bdddba32554bef060b407984e1df4b",
+      "role": "WP2_G2_REQUIREMENTS"
+    },
+    {
+      "artifact_id": "PLANNING_CLOSURE_REVIEW",
+      "path": "upload/M3Top3_Planning_Design_Closure_Review_and_Owner_Decision_v1.0_2026-08-22(1).docx",
+      "sha256": "f444cdea45c8d44c8bbbd70a178f2002935018935431dd5664c509aa883da45d",
+      "role": "PLANNING_AND_CLAIM_BOUNDARY"
+    },
+    {
+      "artifact_id": "SEMI_UNIVERSE_V1_0",
+      "path": "project_sources/08-Semi_Universe_v1.0_2026-08-14.docx",
+      "sha256": "eef313bc71bd0a5cb019f92e43e1bf38c2a63633bb847320d1cb4c8fe4ea9023",
+      "role": "U46_SOURCE_REGISTRATION_AND_HISTORICAL_ELIGIBILITY_RULE"
+    },
+    {
+      "artifact_id": "SEMI_SOURCE_INDEX_V1_0",
+      "path": "project_sources/11-SEMI-SOURCE-INDEX_v1.0.docx",
+      "sha256": "2131ebe6724a8c2d235e7e6f06d4fdde2819ab460bd5c907e2f7ca32e02dac46",
+      "role": "U46_LOCATOR_CROSS_REGISTER"
+    },
+    {
+      "artifact_id": "SEMI_COMPANY_MASTER_V0_1",
+      "path": "project_sources/12-SEMI-COMPANY-MASTER_v0.1.docx",
+      "sha256": "03842717f3bb6815610541496b1f5dadfd44a0e277dc9364c5632cbfb5520cd6",
+      "role": "U46_STRUCTURAL_SEED_AND_ID_CROSS_REGISTER"
+    },
+    {
+      "artifact_id": "SEMI_FAB_MASTER_V1_0",
+      "path": "project_sources/14-SEMI-FAB-MASTER_v1.0_2026-08-14.docx",
+      "sha256": "528d1a59ac5b6796b95f70605675f273d80ef744da8d6460da60204d3cff4159",
+      "role": "CONTEXTUAL_FAB_SOURCE_NOT_UNIVERSE_AUTHORITY"
+    },
+    {
+      "artifact_id": "U127_WORKING_WORKBOOK_V0_8",
+      "path": "qa/wp2_sources/U127_Data_Expansion_Working_v0.8_2026-08-15.xlsx",
+      "sha256": "44501584c9dc6224637e9193219c1e8c87507af77dc15dc3944a3d04af524cda",
+      "role": "PRIMARY_U127_WORKING_AND_OUTCOME_EXPOSED_ARTIFACT"
+    },
+    {
+      "artifact_id": "U127_WORKING_MEMBERSHIP_PROVENANCE_GAPS",
+      "path": "remediation/r_wp23_data_closure/01_U127_WORKING_MEMBERSHIP_PROVENANCE_GAPS.csv",
+      "sha256": "752138a1897cdacfcbb4762ac0caf5888007e49ac4605f88152576e544eeaa33",
+      "role": "WORKING_127_ROW_MAPPING_AND_PROVENANCE_GAPS"
+    },
+    {
+      "artifact_id": "W1_W8_EXPOSURE_ROLE_MANIFEST",
+      "path": "remediation/r_wp23_data_closure/02_W1_W8_WINDOW_EXPOSURE_ROLE_MANIFEST.csv",
+      "sha256": "f346e1227cf3828bde82117af951027e4387bb729f779e227ae6cb07f481bbd7",
+      "role": "EXACT_WINDOW_AND_EXPOSURE_CLASSIFICATION"
+    },
+    {
+      "artifact_id": "CURRENT_EVIDENCE_INVENTORY",
+      "path": "remediation/r_wp4_03_lineage/03_CURRENT_EVIDENCE_INVENTORY_v0.1.json",
+      "sha256": "d41425d14c8846d3665d3d23016a456e70e1c25454eef7b78ecea720b0be00cd",
+      "role": "CURRENT_BYTE_INVENTORY_AND_MISSING_RELEASE_OBJECTS"
+    },
+    {
+      "artifact_id": "ADMISSIBILITY_MATRIX",
+      "path": "remediation/r_wp4_03_lineage/04_ADMISSIBLE_VS_BLOCKED_POPULATION_MATRIX_v0.1.json",
+      "sha256": "c792396220612a911a6810c5dba8eb03ac020a1d54920dbbe19d9c984cd6e9bb",
+      "role": "POPULATION_VS_CHALLENGE_USE_BOUNDARY"
+    },
+    {
+      "artifact_id": "V0_4_RUNTIME_FREEZE_MANIFEST",
+      "path": "remediation/r_wp4_03_v04_authority/R_WP4_03_V0_4_CANONICAL_FREEZE_MANIFEST_v1.json",
+      "sha256": "e3a34016b8ca5c20582499716ddcdc807e8215e766d4f5fa6ec3eec40cd88636",
+      "role": "RUNTIME_CANDIDATE_IDENTITY_NOT_UNIVERSE_AUTHORITY"
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "AUTH-001",
+      "plane": "AUTHORITY",
+      "claim": "Bounded WP2 Universe/exposure audit is authorized and does not require current Owner action.",
+      "status": "PROVEN",
+      "evidence": [
+        "OWNER_APPROVAL_RECEIPT: IMMEDIATE_AUTHORIZED_EXECUTION=G0+BOUNDED_WP0_WP4_PREFLIGHT",
+        "BOUNDED_WORK_PACKET_WP2: OWNER_ACTION_REQUIRED=FALSE"
+      ],
+      "limitation": "No authority for false Population/holdout claims or downstream state advancement."
+    },
+    {
+      "finding_id": "AUTH-002",
+      "plane": "AUTHORITY",
+      "claim": "IVA participated in this work lane or evidence production.",
+      "status": "CONTRADICTED",
+      "evidence": [
+        "OWNER_APPROVAL_RECEIPT: IVA_EXECUTION_PARTICIPATION=NONE and IVA_WORK_PACKET=PROHIBITED",
+        "This audit was performed as INTERNAL_PMO_EVIDENCE_AUDIT"
+      ],
+      "limitation": "A future external IVA act would require a separate Owner call."
+    },
+    {
+      "finding_id": "U46-001",
+      "plane": "POPULATION_UNIVERSE",
+      "claim": "Semi_Universe_v1.0 registers an exact 46-member current list.",
+      "status": "PROVEN",
+      "evidence": [
+        "SEMI_UNIVERSE_V1_0: CURRENT_COUNT=46",
+        "46 table rows, all ACTIVE; 38 legacy TOP38 plus 8 added on 2026-08-14"
+      ],
+      "limitation": "Source registration is not an immutable U127 applicability release."
+    },
+    {
+      "finding_id": "U46-002",
+      "plane": "POPULATION_UNIVERSE",
+      "claim": "U46 names and KRX codes cross-register exactly across Universe, Company Master, and Source Index.",
+      "status": "PROVEN",
+      "evidence": [
+        "Counts=46/46/46",
+        "Name sets equal=true",
+        "Order equal=true",
+        "Code differences=0",
+        "Company IDs all equal KRX:<code>"
+      ],
+      "limitation": "Company Master documents DART ID and listing-date gaps; this is not full entity/corporate-history closure."
+    },
+    {
+      "finding_id": "U46-003",
+      "plane": "POPULATION_UNIVERSE",
+      "claim": "U46 is proven to have been generated outcome-blind from a complete candidate population.",
+      "status": "UNPROVEN",
+      "evidence": [
+        "No candidate-population artifact",
+        "No rejection ledger",
+        "No selector/timestamp ledger",
+        "No outcome-concealment or access receipt"
+      ],
+      "limitation": "The historical listing/tradability/business rule does not prove outer-universe selection blindness."
+    },
+    {
+      "finding_id": "U46-004",
+      "plane": "AUTHORITY",
+      "claim": "Semi_Universe_v1.0 is the exact authority for all 127 U127 members.",
+      "status": "CONTRADICTED",
+      "evidence": [
+        "SEMI_UNIVERSE_V1_0 explicitly limits CURRENT_COUNT to 46",
+        "SEMI_COMPANY_MASTER_V0_1 explicitly uses CURRENT_COUNT=46",
+        "U81 is absent from these registered source documents"
+      ],
+      "limitation": "The document remains a prior U46 rule/list reference."
+    },
+    {
+      "finding_id": "POP-001",
+      "plane": "POPULATION_UNIVERSE",
+      "claim": "A separate outcome-blind Population Universe release exists on the inspected surface.",
+      "status": "NOT_FOUND",
+      "evidence": [
+        "No immutable membership bytes",
+        "No external applicability manifest",
+        "No authority receipt or authoritative set digest"
+      ],
+      "limitation": "Population-performance and unbiased-discovery claims remain blocked."
+    },
+    {
+      "finding_id": "U127-001",
+      "plane": "CHALLENGE_UNIVERSE",
+      "claim": "The current U127 working mapping contains 127 unique rows composed of U46=46 and U81=81.",
+      "status": "PROVEN",
+      "evidence": [
+        "Working rows=127",
+        "Group counts U46=46 and U81=81",
+        "Unique canonical names=127",
+        "Unique KRX codes=127",
+        "Unique company IDs=127"
+      ],
+      "limitation": "This is working enumeration, not a governed release."
+    },
+    {
+      "finding_id": "U127-002",
+      "plane": "CHALLENGE_UNIVERSE",
+      "claim": "The U127 working mapping has complete released entity identity.",
+      "status": "CONTRADICTED",
+      "evidence": [
+        "company_id_binding_status READY=127",
+        "identity_status PARTIAL=127 and READY=0",
+        "entity_resolution_status READY=5 and PARTIAL=122"
+      ],
+      "limitation": "Working join keys do not equal entity/corporate-history release closure."
+    },
+    {
+      "finding_id": "U127-003",
+      "plane": "CHALLENGE_UNIVERSE",
+      "claim": "The U127 working workbook presents itself as current authority.",
+      "status": "CONTRADICTED",
+      "evidence": [
+        "Coverage_Matrix self-classification: PRE_RESEARCH_SNAPSHOT",
+        "HISTORICAL_STATUS_ONLY",
+        "DO_NOT_USE_AS_CURRENT_AUTHORITY=TRUE"
+      ],
+      "limitation": "Its admissible role is working/descriptive only."
+    },
+    {
+      "finding_id": "U127-004",
+      "plane": "CHALLENGE_UNIVERSE",
+      "claim": "U127 row-level inclusion is proven outcome-blind.",
+      "status": "UNPROVEN",
+      "evidence": [
+        "outer_universe_provenance_status=NOT_PROVEN_ROW_LEVEL_OUTCOME_BLIND for 127/127 rows",
+        "Candidate population, rejected candidates, selector, selection time, and concealment are absent"
+      ],
+      "limitation": "Absence of proof does not establish selector intent."
+    },
+    {
+      "finding_id": "U127-005",
+      "plane": "CHALLENGE_UNIVERSE",
+      "claim": "U127 membership was intentionally selected because members became historical winners.",
+      "status": "UNPROVEN",
+      "evidence": [
+        "No genesis ledger",
+        "No selection-time outcome-access ledger"
+      ],
+      "limitation": "The audit does not infer historical intent from current artifact exposure."
+    },
+    {
+      "finding_id": "U127-006",
+      "plane": "CHALLENGE_UNIVERSE",
+      "claim": "The current U127 artifact is outcome-exposed.",
+      "status": "PROVEN",
+      "evidence": [
+        "Baseline_Windows!F2:I9 contains winner/MFE/Top10/Top20 fields",
+        "Price_Full_Rank_Reval!A2:Q980 contains 979 outcome-ranked rows",
+        "Price_Reval_Summary!A2:I9 contains outcome summaries",
+        "Coverage_Matrix includes Top10/Top20 appearance fields"
+      ],
+      "limitation": "Artifact exposure does not identify actual viewers."
+    },
+    {
+      "finding_id": "U127-007",
+      "plane": "CHALLENGE_UNIVERSE",
+      "claim": "U127 is established as an unbiased Population Universe.",
+      "status": "UNPROVEN",
+      "admissibility": "NOT_ADMISSIBLE",
+      "evidence": [
+        "Outcome-blind row provenance=0/127",
+        "Current artifact is outcome-exposed",
+        "External applicability manifest is absent"
+      ],
+      "limitation": "The missing genesis evidence does not prove historical selection bias; it does require fail-closed exclusion from unbiased Population use. Population results must be separately released and reported."
+    },
+    {
+      "finding_id": "U127-008",
+      "plane": "CHALLENGE_UNIVERSE",
+      "claim": "The safe current governance role for U127 is an outcome-exposed/winner-enriched Challenge Universe.",
+      "status": "PROVEN",
+      "evidence": [
+        "ADMISSIBILITY_MATRIX population_scope=WINNER_ENRICHED_CHALLENGE_UNIVERSE",
+        "Current workbook outcome exposure is direct",
+        "Owner-approved control prohibits treating U127 as permanent or automatically unbiased"
+      ],
+      "limitation": "This role label is conservative; it is not proof that every row was selected because of a future winner."
+    },
+    {
+      "finding_id": "U127-009",
+      "plane": "AUTHORITY",
+      "claim": "An authoritative U127 release/applicability manifest and authority-bound set digest were located.",
+      "status": "NOT_FOUND",
+      "evidence": [
+        "CURRENT_EVIDENCE_INVENTORY: U127-OUTCOME-BLIND-APPLICABILITY-MANIFEST=NOT_MATERIALIZED",
+        "Current U127 digest is explicitly an independent non-authoritative projection",
+        "Runtime example configuration retains null manifest/release hashes"
+      ],
+      "limitation": "U127 remains FREEZE_CANDIDATE/working only."
+    },
+    {
+      "finding_id": "U127-010",
+      "plane": "CHALLENGE_UNIVERSE",
+      "claim": "The workbook filename or package metadata proves the U127 origin/selection timestamp.",
+      "status": "UNPROVEN",
+      "evidence": [
+        "OOXML docProps/core.xml is absent",
+        "Filename date is not an origin receipt",
+        "ZIP member timestamps are not independent provenance",
+        "17 sheets contain zero formulas and zero external links"
+      ],
+      "limitation": "The checks describe current materialized bytes only; selector and selection time remain unknown."
+    },
+    {
+      "finding_id": "DEN-001",
+      "plane": "HISTORICAL_DENOMINATOR",
+      "claim": "A full exact U/E/I/UNRESOLVED historical denominator release exists for 127 companies by eight windows.",
+      "status": "NOT_FOUND",
+      "evidence": [
+        "1016 total company-window cells",
+        "502 deterministic=465 ELIGIBLE+37 INELIGIBLE",
+        "514 UNRESOLVED",
+        "Eligible and ineligible full partition bytes are not materialized"
+      ],
+      "limitation": "No denominator release or no-drift claim can be made."
+    },
+    {
+      "finding_id": "W-001",
+      "plane": "WINDOW_REGISTRY",
+      "claim": "W1-W8 cutoff, period, entry, last trading day, and working eligible counts are exactly enumerable.",
+      "status": "PROVEN",
+      "evidence": [
+        "Baseline_Windows!A2:L9",
+        "W1_W8_EXPOSURE_ROLE_MANIFEST contains eight rows"
+      ],
+      "limitation": "Working eligible counts are not a frozen denominator release."
+    },
+    {
+      "finding_id": "W-002",
+      "plane": "OUTCOME_EXPOSURE",
+      "claim": "All eight W1-W8 windows have outcome fields exposed in the current workbook.",
+      "status": "PROVEN",
+      "evidence": [
+        "artifact_outcome_exposure=EXPOSED_IN_CURRENT_WORKBOOK for 8/8 windows",
+        "Winner and MFE values are present for 8/8 windows"
+      ],
+      "limitation": "This establishes artifact exposure, not individual access events."
+    },
+    {
+      "finding_id": "W-003",
+      "plane": "OUTCOME_EXPOSURE",
+      "claim": "A complete historical person access ledger was located for W1-W8 outcomes.",
+      "status": "NOT_FOUND",
+      "evidence": [
+        "historical_person_access_ledger=ABSENT for 8/8 windows",
+        "No separate person access file was located by repository/workspace search"
+      ],
+      "limitation": "Actual human viewers and access times cannot be attributed."
+    },
+    {
+      "finding_id": "W-004",
+      "plane": "OUTCOME_EXPOSURE",
+      "claim": "A complete historical model/LLM access ledger was located for W1-W8 outcomes.",
+      "status": "NOT_FOUND",
+      "evidence": [
+        "historical_model_access_ledger=ABSENT for 8/8 windows",
+        "No separate model/LLM access file was located by repository/workspace search"
+      ],
+      "limitation": "Actual model/LLM viewers and access times cannot be attributed."
+    },
+    {
+      "finding_id": "W-005",
+      "plane": "HOLDOUT",
+      "claim": "W1-W8 constitute a clean sealed historical holdout.",
+      "status": "CONTRADICTED",
+      "evidence": [
+        "All eight outcomes are exposed in the current workbook",
+        "Person and model access ledgers are absent",
+        "No independent sealed-holdout receipt was located"
+      ],
+      "limitation": "All eight windows are development/descriptive only."
+    },
+    {
+      "finding_id": "W-006",
+      "plane": "HOLDOUT",
+      "claim": "Another clean historical holdout or independently sealed window registry is proven on the inspected surface.",
+      "status": "NOT_FOUND",
+      "evidence": [
+        "No pre-exposure seal",
+        "No custodian receipt",
+        "No complete access history",
+        "No unexposed historical window registry"
+      ],
+      "limitation": "True successor OOS defaults to prospective evidence."
+    },
+    {
+      "finding_id": "RT-001",
+      "plane": "RUNTIME_GIT_MATERIALIZATION",
+      "claim": "The v0.4 runtime candidate itself closes or promotes a real U127 release.",
+      "status": "CONTRADICTED",
+      "evidence": [
+        "README states package does not promote U127",
+        "README states W1-W8 meanings are not hard-coded",
+        "Snapshot example uses placeholder /data/control paths and null manifest/release hashes",
+        "Backtest example has empty window_end_by_snapshot_date and UNRESOLVED_CONTROL"
+      ],
+      "limitation": "Runtime freeze identity and data/Universe release identity are separate planes."
+    }
+  ],
+  "u46_cross_registration": {
+    "status": "PROVEN",
+    "universe_count": 46,
+    "company_master_count": 46,
+    "source_index_count": 46,
+    "name_sets_equal": true,
+    "order_equal": true,
+    "missing_from_company_master": [],
+    "extra_in_company_master": [],
+    "missing_from_source_index": [],
+    "extra_in_source_index": [],
+    "code_differences": [],
+    "company_id_format_mismatches": []
+  },
+  "u127_working_state": {
+    "status": "PROVEN",
+    "membership_rows": 127,
+    "group_counts": {
+      "U46": 46,
+      "U81": 81
+    },
+    "unique_canonical_names": 127,
+    "unique_krx_codes": 127,
+    "unique_company_ids": 127,
+    "company_id_binding_ready": 127,
+    "identity_ready": 0,
+    "identity_partial": 127,
+    "entity_resolution_ready": 5,
+    "entity_resolution_partial": 122,
+    "row_level_outcome_blind_provenance_proven": 0,
+    "freeze_candidate_rows": 127,
+    "projection_digests_not_release_authority": {
+      "profile": "SHA256_CANONICAL_JSON_ARRAY_SORT_KEYS_COMPACT_SORTED_BY_COMPANY_ID_SECURITY_CODE_FIELDS_COMPANY_ID_SECURITY_CODE_ONLY",
+      "U127": {
+        "count": 127,
+        "digest": "d5ec26474d53c45079bf7dd3f36d2be17e057dee85fb763c49f57e922bc43321"
+      },
+      "U46": {
+        "count": 46,
+        "digest": "6a6ca96b99449f44347508b8a637bde9f813f1a6210324d19657a3c4e9251a60"
+      },
+      "U81": {
+        "count": 81,
+        "digest": "2ca7bee5d529dbba78a090607497d86b7a8005b69b7aa3018b927a5e2be85ebc"
+      }
+    }
+  },
+  "universe_plane_disposition": {
+    "population_universe": {
+      "status": "NOT_FOUND",
+      "role": "BLOCKED",
+      "claim_lock": "NO_UNBIASED_POPULATION_OR_GENERALIZED_DISCOVERY_POWER_CLAIM"
+    },
+    "u127_challenge_universe": {
+      "status": "PROVEN",
+      "role": "OUTCOME_EXPOSED_WINNER_ENRICHED_CHALLENGE_UNIVERSE",
+      "allowed_use": [
+        "WORKING_MEMBERSHIP_ENUMERATION",
+        "DEVELOPMENT",
+        "DESCRIPTIVE_ANALYSIS",
+        "STRESS_TESTING"
+      ],
+      "prohibited_use": [
+        "UNBIASED_POPULATION_UNIVERSE",
+        "GENERALIZED_DISCOVERY_POWER",
+        "OFFICIAL_DENOMINATOR"
+      ],
+      "selection_mechanism": {
+        "outcome_blind": "UNPROVEN",
+        "intentionally_winner_driven": "UNPROVEN"
+      }
+    }
+  },
+  "window_registry": [
+    {
+      "window": "W1",
+      "snapshot_cutoff_at": "2024-08-09",
+      "period_start": "2024-08-10",
+      "period_end": "2024-11-10",
+      "entry": "2024-08-12",
+      "last_trading_day": "2024-11-08",
+      "working_eligible_count": 119,
+      "winner_1": "로체시스템즈",
+      "winner_1_mfe": "74.22%",
+      "artifact_outcome_exposure": "PROVEN",
+      "person_access_ledger": "NOT_FOUND",
+      "model_access_ledger": "NOT_FOUND",
+      "allowed_role": "DEVELOPMENT_OR_DESCRIPTIVE_ONLY",
+      "sealed_holdout_claim": "CONTRADICTED"
+    },
+    {
+      "window": "W2",
+      "snapshot_cutoff_at": "2024-11-08",
+      "period_start": "2024-11-10",
+      "period_end": "2025-02-10",
+      "entry": "2024-11-11",
+      "last_trading_day": "2025-02-10",
+      "working_eligible_count": 120,
+      "winner_1": "와이씨켐",
+      "winner_1_mfe": "99.80%",
+      "artifact_outcome_exposure": "PROVEN",
+      "person_access_ledger": "NOT_FOUND",
+      "model_access_ledger": "NOT_FOUND",
+      "allowed_role": "DEVELOPMENT_OR_DESCRIPTIVE_ONLY",
+      "sealed_holdout_claim": "CONTRADICTED"
+    },
+    {
+      "window": "W3",
+      "snapshot_cutoff_at": "2025-02-10",
+      "period_start": "2025-02-10",
+      "period_end": "2025-05-10",
+      "entry": "2025-02-11",
+      "last_trading_day": "2025-05-09",
+      "working_eligible_count": 121,
+      "winner_1": "마이크로컨텍솔",
+      "winner_1_mfe": "103.28%",
+      "artifact_outcome_exposure": "PROVEN",
+      "person_access_ledger": "NOT_FOUND",
+      "model_access_ledger": "NOT_FOUND",
+      "allowed_role": "DEVELOPMENT_OR_DESCRIPTIVE_ONLY",
+      "sealed_holdout_claim": "CONTRADICTED"
+    },
+    {
+      "window": "W4",
+      "snapshot_cutoff_at": "2025-05-09",
+      "period_start": "2025-05-10",
+      "period_end": "2025-08-10",
+      "entry": "2025-05-12",
+      "last_trading_day": "2025-08-08",
+      "working_eligible_count": 124,
+      "winner_1": "마이크로컨텍솔",
+      "winner_1_mfe": "116.95%",
+      "artifact_outcome_exposure": "PROVEN",
+      "person_access_ledger": "NOT_FOUND",
+      "model_access_ledger": "NOT_FOUND",
+      "allowed_role": "DEVELOPMENT_OR_DESCRIPTIVE_ONLY",
+      "sealed_holdout_claim": "CONTRADICTED"
+    },
+    {
+      "window": "W5",
+      "snapshot_cutoff_at": "2025-08-08",
+      "period_start": "2025-08-10",
+      "period_end": "2025-11-10",
+      "entry": "2025-08-11",
+      "last_trading_day": "2025-11-10",
+      "working_eligible_count": 124,
+      "winner_1": "원익홀딩스",
+      "winner_1_mfe": "418.35%",
+      "artifact_outcome_exposure": "PROVEN",
+      "person_access_ledger": "NOT_FOUND",
+      "model_access_ledger": "NOT_FOUND",
+      "allowed_role": "DEVELOPMENT_OR_DESCRIPTIVE_ONLY",
+      "sealed_holdout_claim": "CONTRADICTED"
+    },
+    {
+      "window": "W6",
+      "snapshot_cutoff_at": "2025-11-10",
+      "period_start": "2025-11-10",
+      "period_end": "2026-02-10",
+      "entry": "2025-11-11",
+      "last_trading_day": "2026-02-10",
+      "working_eligible_count": 124,
+      "winner_1": "코리아써키트",
+      "winner_1_mfe": "239.15%",
+      "artifact_outcome_exposure": "PROVEN",
+      "person_access_ledger": "NOT_FOUND",
+      "model_access_ledger": "NOT_FOUND",
+      "allowed_role": "DEVELOPMENT_OR_DESCRIPTIVE_ONLY",
+      "sealed_holdout_claim": "CONTRADICTED"
+    },
+    {
+      "window": "W7",
+      "snapshot_cutoff_at": "2026-02-10",
+      "period_start": "2026-02-10",
+      "period_end": "2026-05-10",
+      "entry": "2026-02-11",
+      "last_trading_day": "2026-05-08",
+      "working_eligible_count": 125,
+      "winner_1": "코스텍시스",
+      "winner_1_mfe": "293.29%",
+      "artifact_outcome_exposure": "PROVEN",
+      "person_access_ledger": "NOT_FOUND",
+      "model_access_ledger": "NOT_FOUND",
+      "allowed_role": "DEVELOPMENT_OR_DESCRIPTIVE_ONLY",
+      "sealed_holdout_claim": "CONTRADICTED"
+    },
+    {
+      "window": "W8",
+      "snapshot_cutoff_at": "2026-05-08",
+      "period_start": "2026-05-10",
+      "period_end": "2026-08-10",
+      "entry": "2026-05-11",
+      "last_trading_day": "2026-08-10",
+      "working_eligible_count": 122,
+      "winner_1": "미래산업",
+      "winner_1_mfe": "270.37%",
+      "artifact_outcome_exposure": "PROVEN",
+      "person_access_ledger": "NOT_FOUND",
+      "model_access_ledger": "NOT_FOUND",
+      "allowed_role": "DEVELOPMENT_OR_DESCRIPTIVE_ONLY",
+      "sealed_holdout_claim": "CONTRADICTED"
+    }
+  ],
+  "clean_holdout_disposition": {
+    "w1_w8_sealed_holdout": "CONTRADICTED",
+    "other_historical_sealed_holdout": "NOT_FOUND",
+    "clean_holdout_available_now": false,
+    "current_allowed_historical_role": "DEVELOPMENT_OR_DESCRIPTIVE_ONLY",
+    "successor_true_oos_default": "PROSPECTIVE_ONLY",
+    "exception_requirement": "INDEPENDENT_PREEXISTING_SEAL_PLUS_COMPLETE_PERSON_AND_MODEL_ACCESS_HISTORY_PLUS_VERIFICATION"
+  },
+  "g1_lane_b_closure": {
+    "closed": [
+      "U46_46_ROW_SOURCE_REGISTRATION",
+      "U46_CROSS_REGISTRATION_46_OF_46",
+      "U127_WORKING_ENUMERATION_127_EQUALS_46_PLUS_81",
+      "U127_WORKING_MAPPING_VS_RELEASE_AUTHORITY_SEPARATION",
+      "U127_CURRENT_ARTIFACT_OUTCOME_EXPOSURE",
+      "W1_W8_EXACT_DATES_WORKING_COUNTS_WINNERS_MFE",
+      "PERSON_AND_MODEL_ACCESS_LEDGERS_NOT_FOUND_ON_INSPECTED_SURFACE",
+      "POPULATION_BLOCKED_U127_CHALLENGE_ONLY_W1_W8_DEVELOPMENT_ONLY_ROLE"
+    ],
+    "not_closed": [
+      "OUTCOME_BLIND_POPULATION_UNIVERSE",
+      "U127_SELECTION_GENESIS",
+      "U127_INDEPENDENTLY_EVIDENCED_ORIGIN_OR_SELECTION_TIMESTAMP",
+      "U127_ROW_LEVEL_OUTCOME_BLIND_PROVENANCE",
+      "PROOF_OF_OR_AGAINST_INTENTIONAL_WINNER_DRIVEN_SELECTION",
+      "U127_AUTHORITATIVE_APPLICABILITY_RELEASE_MANIFEST",
+      "U127_AUTHORITY_BOUND_SET_DIGEST",
+      "FULL_ENTITY_AND_CORPORATE_HISTORY_MAPPING_127",
+      "FULL_HISTORICAL_DENOMINATOR_RELEASE",
+      "HUMAN_OR_MODEL_OUTCOME_ACCESS_HISTORY",
+      "W1_W8_SEALED_HOLDOUT",
+      "ANY_ALTERNATIVE_CLEAN_HISTORICAL_HOLDOUT",
+      "MATERIALIZED_PROSPECTIVE_COHORT"
+    ]
+  },
+  "owner_decision": {
+    "status": "PROVEN",
+    "owner_action_required_now": false,
+    "owner_decision_needed_now": "NONE",
+    "basis": "The existing Owner receipt authorizes bounded WP2 and explicitly sets OWNER_ACTION_REQUIRED=FALSE; fail-closed evidence classification is within approved scope.",
+    "pmo_action": [
+      "PRESERVE_U127_AS_OUTCOME_EXPOSED_WINNER_ENRICHED_CHALLENGE_UNIVERSE",
+      "KEEP_POPULATION_UNIVERSE_BLOCKED",
+      "LOCK_W1_W8_TO_DEVELOPMENT_OR_DESCRIPTIVE_ONLY",
+      "ROUTE_SUCCESSOR_TRUE_OOS_TO_PROSPECTIVE_EVIDENCE"
+    ],
+    "new_owner_decision_triggers": [
+      "PROPOSAL_TO_USE_U127_AS_UNBIASED_POPULATION_UNIVERSE",
+      "PROPOSAL_TO_CALL_W1_W8_SEALED_OR_OOS",
+      "MATERIAL_PRODUCT_OR_EVALUATION_SCOPE_CHANGE",
+      "PROPOSAL_TO_WAIVE_PROSPECTIVE_EVIDENCE_REQUIREMENT"
+    ],
+    "nonwaivable_fact_rule": "OWNER_APPROVAL_CAN_AUTHORIZE_A_CHANGED_PLAN_BUT_CANNOT_CONVERT_MISSING_PROVENANCE_OR_ACCESS_HISTORY_INTO_PROOF"
+  },
+  "overall_disposition": "PARTIAL_EVIDENCE_CLOSED_POPULATION_UNIVERSE_BLOCKED_U127_CHALLENGE_ONLY_W1_W8_DEVELOPMENT_OR_DESCRIPTIVE_ONLY_CLEAN_HOLDOUT_NOT_PROVEN"
+}

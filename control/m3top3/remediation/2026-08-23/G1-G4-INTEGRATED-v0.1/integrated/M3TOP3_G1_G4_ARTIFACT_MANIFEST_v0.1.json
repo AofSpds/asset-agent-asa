@@ -1,0 +1,87 @@
+{
+  "schema_version": "m3top3-g1-g4-artifact-manifest-v0.1",
+  "manifest_id": "M3TOP3-G1-G4-ARTIFACT-MANIFEST-20260823-01",
+  "issued_at_kst": "2026-08-23T21:20:06+09:00",
+  "issuer": "AAA-PMO-ORCHESTRATOR",
+  "owner_action_required": false,
+  "iva_execution_participation": "NONE",
+  "artifacts": [
+    {
+      "path": "remediation/g1_integrated/M3TOP3_G1_G4_MASTER_STATUS_v0.1.json",
+      "sha256": "baadfd569e0d11d139cd2778cbc5fd442f2074d3ad36978ed7c9083573151a76",
+      "role": "CONTROLLING_MACHINE_STATUS"
+    },
+    {
+      "path": "remediation/g1_integrated/M3TOP3_G1_G4_INTEGRATED_CHECKPOINT_v0.1.md",
+      "sha256": "9a9a06c48e067810280c5742c1cf0efd2a2dade2833d6e9c8bc4752893af7ec9",
+      "role": "HUMAN_READABLE_CHECKPOINT"
+    },
+    {
+      "path": "remediation/g1_integrated/G2_U127_W1_W8_POLICY_DISPOSITION_v0.1.json",
+      "sha256": "6e80363bd8446fa7a42b54f03a668b214a14547e6a87aef981b8c42f2293d647",
+      "role": "OWNER_PLAN_PRECEDENCE_DISPOSITION"
+    },
+    {
+      "path": "remediation/g1_integrated/M3TOP3_SOURCE_CUSTODY_RECOVERY_PROBE_v0.1.json",
+      "sha256": "01883efe8b347d24ca4d52dc39be15ec7abec9771f2a6f1b619392c5ab73e8fc",
+      "role": "BOUNDED_RECOVERY_SEARCH_RECEIPT"
+    },
+    {
+      "path": "remediation/next_bounded_execution/M3TOP3_PMO_BOUNDED_RECOVERY_AND_NONSCOREABLE_ASSEMBLY_PACKET_v0.1.md",
+      "sha256": "69845efc8354dbb9e579b02128ebf8ff25f9875a5ea1611738389c8751d88271",
+      "role": "NEXT_BOUNDED_EXECUTION_PACKET"
+    },
+    {
+      "path": "remediation/next_bounded_execution/T0_INPUT_FREEZE_RECEIPT_v0.1.json",
+      "sha256": "6d02ef2aa11fe56751190ad47af4b660372859e7509047a8b124a4e9c4aeabab",
+      "role": "INPUT_FREEZE_RECEIPT"
+    },
+    {
+      "path": "remediation/g2_eligibility_process_sample/ELIGIBILITY_PROCESS_VALIDATION_SAMPLE_MANIFEST_v0.1.csv",
+      "sha256": "bd1dcef5e446591b25ee902c46e010618a3aef30f9ca58865ab01daceb89715b",
+      "role": "DETERMINISTIC_32_CELL_SAMPLE_PLUS_FIXED_CONTROL"
+    },
+    {
+      "path": "remediation/g2_eligibility_process_sample/ELIGIBILITY_PROCESS_VALIDATION_SAMPLE_MANIFEST_v0.1.json",
+      "sha256": "02f6da31f4b608a6c2f41d7d6dc93faed55b23f54e14c31857458cb1751a662a",
+      "role": "MACHINE_READABLE_SAMPLE_MANIFEST"
+    },
+    {
+      "path": "remediation/g2_eligibility_process_sample/ELIGIBILITY_PROCESS_VALIDATION_SAMPLE_RECEIPT_v0.1.md",
+      "sha256": "5e56fd23c5d9b6d6776e0604380fa0327ef407d4c53551980e9b5f48efbba7fd",
+      "role": "SAMPLE_FREEZE_RECEIPT"
+    },
+    {
+      "path": "remediation/g2_eligibility_process_sample/select_eligibility_process_sample_v0_1.py",
+      "sha256": "0e7195ffbc374d8c5041b65fa7e4bf39d182f53b6ff085387b606d4af6952958",
+      "role": "DETERMINISTIC_SAMPLE_GENERATOR"
+    },
+    {
+      "path": "remediation/g3_w4_nonscoreable_pilot/W4_X3_NONSCOREABLE_PILOT_CONTRACT_v0.1.json",
+      "sha256": "17b9736e335f786142e2a08eaa43ee37939842f45c48288e059e57d3f4ee2587",
+      "role": "PILOT_CONTRACT"
+    },
+    {
+      "path": "remediation/g3_w4_nonscoreable_pilot/W4_X3_MECHANICAL_OBSERVATION_RECEIPT_v0.1.json",
+      "sha256": "86ddbaba9ee05d949671c02afccd830c0abc7f589ef23e973192f3dc99f2e663",
+      "role": "MACHINE_MECHANICAL_OBSERVATION_RECEIPT"
+    },
+    {
+      "path": "remediation/g3_w4_nonscoreable_pilot/W4_X3_NONSCOREABLE_PILOT_RECEIPT_v0.1.md",
+      "sha256": "302caad469d48b2905675d3f05d561dd9cdd12a3a373f45045fd1c5e4f1bcf1d",
+      "role": "HUMAN_PILOT_RECEIPT"
+    },
+    {
+      "path": "remediation/g3_w4_nonscoreable_pilot/audit_w4_nonscoreable.py",
+      "sha256": "e577d7fa742c303acd9394fe413de03e94c3b0d143bdde35a6c34f90970fe450",
+      "role": "READ_ONLY_REPRODUCIBILITY_SCRIPT"
+    },
+    {
+      "path": "remediation/g4_formal_validation_request/G4_FORMAL_VALIDATION_REQUEST_v0.1.md",
+      "sha256": "9afb57f21166beadf21d0ce22d285e1033659322a2d483454f437b2682e9a097",
+      "role": "FORMAL_G4_ENGV_CTLV_PMOV_REQUEST"
+    }
+  ],
+  "claim_boundary": "INTERNAL_PMO_EVIDENCE_ONLY_NO_MODEL_DATA_GOLDEN_REPLAY_OR_PRODUCTION_VALIDATION",
+  "status": "MANIFEST_ISSUED"
+}

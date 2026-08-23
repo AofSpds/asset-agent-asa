@@ -1,0 +1,146 @@
+{
+  "schema_version": "m3top3-w4-x3-mechanical-observation-receipt-v0.1",
+  "audit_id": "M3TOP3-W4-X3-NONSCOREABLE-MECHANICAL-OBSERVATION-20260823-01",
+  "issued_at_kst": "2026-08-23T21:09:29+09:00",
+  "mode": "READ_ONLY_STDOUT_ONLY_REPRODUCED",
+  "iva_execution_participation": "NONE",
+  "script": {
+    "path": "remediation/g3_w4_nonscoreable_pilot/audit_w4_nonscoreable.py",
+    "sha256": "e577d7fa742c303acd9394fe413de03e94c3b0d143bdde35a6c34f90970fe450"
+  },
+  "toolchain": {
+    "python": "3.12.13",
+    "numpy": "2.5.2",
+    "pyarrow": "17.0.0"
+  },
+  "window": {
+    "window": "W4",
+    "cutoff": "2025-05-09",
+    "entry": "2025-05-12",
+    "last_trading_day": "2025-08-08"
+  },
+  "inputs": {
+    "parquet": {
+      "path": "project_sources/16-marcap-2025.parquet",
+      "bytes": 25153419,
+      "sha256": "2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e"
+    },
+    "membership": {
+      "path": "remediation/r_wp23_data_closure/01_U127_WORKING_MEMBERSHIP_PROVENANCE_GAPS.csv",
+      "rows": 127,
+      "sha256": "752138a1897cdacfcbb4762ac0caf5888007e49ac4605f88152576e544eeaa33"
+    },
+    "schema": {
+      "path": "project_sources/13-SEMI-PRICE-LEDGER_v1.0_SCHEMA.csv",
+      "columns": 20,
+      "sha256": "67c8633579c3b624ffa2254bdf4173f205b1617b64ed960b9b1e200bc1e01c25"
+    }
+  },
+  "raw_schema": {
+    "columns": 18,
+    "governed_ca_fields_present": false
+  },
+  "observations": [
+    {
+      "company": "케이씨텍",
+      "code": "281820",
+      "company_id": "KRX:281820",
+      "identity_binding_status": "READY",
+      "case": "NORMAL_ELIGIBLE_PRICE_PATH",
+      "eligibility_state": "ELIGIBLE",
+      "period_row_count": 64,
+      "period_first_date": "2025-05-09",
+      "period_last_date": "2025-08-08",
+      "boundary_presence": {"cutoff": true, "entry": true, "last_trading_day": true},
+      "duplicate_date_rows": 0,
+      "zero_open_high_low_count": 0,
+      "zero_open_high_low_dates": [],
+      "governed_ca_fields_present_in_raw": false,
+      "ca_observation_state": "NOT_ADMISSIBLE_FROM_RAW_SCHEMA",
+      "source_bundle_state": "NOT_FOUND_PER_G3_AUDIT",
+      "publication_at_state": "NULL_PER_G3_AUDIT",
+      "annotation_lineage_state": "NOT_FOUND_PER_G3_AUDIT",
+      "score_admission": false,
+      "rank_admission": false,
+      "outcome_admission": false,
+      "terminal_state": "FAIL_CLOSED_PENDING_SOURCE_BUNDLE_PUBLICATION_AND_ELIGIBILITY_CONTROLS"
+    },
+    {
+      "company": "미래산업",
+      "code": "025560",
+      "company_id": "KRX:025560",
+      "identity_binding_status": "READY",
+      "case": "CA_ZERO_OHL_STRESS_PATH",
+      "eligibility_state": "ELIGIBLE",
+      "period_row_count": 64,
+      "period_first_date": "2025-05-09",
+      "period_last_date": "2025-08-08",
+      "boundary_presence": {"cutoff": true, "entry": true, "last_trading_day": true},
+      "duplicate_date_rows": 0,
+      "zero_open_high_low_count": 17,
+      "zero_open_high_low_dates": [
+        "2025-06-27",
+        "2025-06-30",
+        "2025-07-01",
+        "2025-07-02",
+        "2025-07-03",
+        "2025-07-04",
+        "2025-07-07",
+        "2025-07-08",
+        "2025-07-09",
+        "2025-07-10",
+        "2025-07-11",
+        "2025-07-14",
+        "2025-07-15",
+        "2025-07-16",
+        "2025-07-17",
+        "2025-07-18",
+        "2025-07-21"
+      ],
+      "governed_ca_fields_present_in_raw": false,
+      "ca_observation_state": "NOT_ADMISSIBLE_FROM_RAW_SCHEMA",
+      "source_bundle_state": "NOT_FOUND_PER_G3_AUDIT",
+      "publication_at_state": "NULL_PER_G3_AUDIT",
+      "annotation_lineage_state": "NOT_FOUND_PER_G3_AUDIT",
+      "score_admission": false,
+      "rank_admission": false,
+      "outcome_admission": false,
+      "terminal_state": "FAIL_CLOSED_PENDING_SOURCE_BUNDLE_PUBLICATION_AND_ELIGIBILITY_CONTROLS"
+    },
+    {
+      "company": "삼양엔씨켐",
+      "code": "482630",
+      "company_id": "KRX:482630",
+      "identity_binding_status": "READY",
+      "case": "DENOMINATOR_NEGATIVE_CONTROL",
+      "eligibility_state": "UNRESOLVED",
+      "period_row_count": 64,
+      "period_first_date": "2025-05-09",
+      "period_last_date": "2025-08-08",
+      "boundary_presence": {"cutoff": true, "entry": true, "last_trading_day": true},
+      "duplicate_date_rows": 0,
+      "zero_open_high_low_count": 0,
+      "zero_open_high_low_dates": [],
+      "governed_ca_fields_present_in_raw": false,
+      "ca_observation_state": "NOT_ADMISSIBLE_FROM_RAW_SCHEMA",
+      "source_bundle_state": "NOT_FOUND_PER_G3_AUDIT",
+      "publication_at_state": "NULL_PER_G3_AUDIT",
+      "annotation_lineage_state": "NOT_FOUND_PER_G3_AUDIT",
+      "score_admission": false,
+      "rank_admission": false,
+      "outcome_admission": false,
+      "terminal_state": "FAIL_CLOSED_PENDING_SOURCE_BUNDLE_PUBLICATION_AND_ELIGIBILITY_CONTROLS"
+    }
+  ],
+  "claim_boundary": {
+    "score": "PROHIBITED",
+    "rank": "PROHIBITED",
+    "top_k": "PROHIBITED",
+    "return": "PROHIBITED",
+    "outcome_performance": "PROHIBITED",
+    "official_golden": "PROHIBITED",
+    "official_replay": "PROHIBITED",
+    "price_canonical": "NOT_ESTABLISHED"
+  },
+  "overall_state": "MECHANICAL_OBSERVATION_COMPLETE_ASSEMBLY_ADMISSION_FAIL_CLOSED"
+}

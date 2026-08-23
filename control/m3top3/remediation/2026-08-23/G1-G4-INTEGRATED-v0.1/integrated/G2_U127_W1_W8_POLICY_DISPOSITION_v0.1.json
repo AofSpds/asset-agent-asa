@@ -1,0 +1,67 @@
+{
+  "schema_version": "m3top3-g2-u127-w1-w8-policy-disposition-v0.1",
+  "disposition_id": "M3TOP3-G2-U127-W1-W8-POLICY-DISPOSITION-20260823-01",
+  "issued_at_kst": "2026-08-23T21:09:29+09:00",
+  "issuer": "AAA-PMO-ORCHESTRATOR",
+  "owner_action_required": false,
+  "iva_execution_participation": "NONE",
+  "authority_precedence": [
+    {
+      "rank": 1,
+      "artifact": "M3Top3_Final_Review_Synthesis_and_Governed_Recommendation_v1.2_2026-08-22.docx",
+      "sha256": "a7d87f07d5d442ac01b0fbaa9ebc2f5c6bbd52bf25d67b4ba319e66e86f9fdbc",
+      "status": "OWNER_APPROVED_EXACT_POLICY"
+    },
+    {
+      "rank": 2,
+      "artifact": "M3Top3_Owner_Governed_PMO_WORK_ULTRA_Execution_Masterplan_v1.2_2026-08-22.docx",
+      "sha256": "819e2c12bd149129e5054350c355b9132842d44841e09a1da2dbd1050888c7dd",
+      "status": "OWNER_APPROVED_EXACT_EXECUTION_PLAN"
+    },
+    {
+      "rank": 3,
+      "artifact": "UNIVERSE_EXPOSURE_AUDIT_v0.1.md / DATA_ANNOTATION_READINESS_AUDIT_v0.1.md",
+      "status": "INTERNAL_FACT_AUDITS_SUBORDINATE_TO_OWNER_POLICY"
+    }
+  ],
+  "controlling_policy": {
+    "u127_current_role": "CURRENT_PHASE_WORKING_CANONICAL_VALIDATION_UNIVERSE",
+    "u127_membership_rule": "KEEP_STABLE_DURING_CURRENT_PHASE_TO_PREVENT_DENOMINATOR_DRIFT",
+    "u127_genesis_outcome_conditioning": "AUDIT_ITEM_UNPROVEN_EITHER_WAY",
+    "automatic_challenge_reclassification": "PROHIBITED_WITHOUT_EVIDENCE",
+    "automatic_population_reclassification": "PROHIBITED_WITHOUT_EVIDENCE",
+    "unbiased_population_or_generalized_discovery_claim": "PROHIBITED",
+    "w1_w8_exact_v1_first_honest_historical_evaluation": "PERMITTED_AFTER_G1_TO_G5_CLOSE",
+    "w1_w8_clean_holdout_or_oos_superiority_claim": "PROHIBITED",
+    "w1_w8_challenger_role_after_first_replay_and_failure_atlas": "EXPOSED_HISTORICAL_DEVELOPMENT_DIAGNOSTIC_COMPARATIVE_SET_ONLY",
+    "successor_true_oos_default": "PROSPECTIVE_ONLY"
+  },
+  "superseded_internal_conclusions": [
+    {
+      "statement": "U127 is admissible only as an outcome-exposed winner-enriched Challenge Universe",
+      "disposition": "SUPERSEDED_POLICY_OVERREACH",
+      "retained_facts": [
+        "127 equals 46 plus 81",
+        "current workbook contains outcome fields",
+        "row-level selection-genesis provenance is absent"
+      ]
+    },
+    {
+      "statement": "W1-W8 are development/descriptive only for all uses",
+      "disposition": "SUPERSEDED_POLICY_OVERREACH",
+      "retained_facts": [
+        "outcomes are exposed",
+        "no sealed-holdout receipt or complete access ledger was found",
+        "clean holdout and OOS-superiority claims are prohibited"
+      ]
+    }
+  ],
+  "execution_consequence": {
+    "G2_state": "IN_PROGRESS",
+    "G6_current_state": "DEPENDENCY_BLOCKED",
+    "G6_future_entry_condition": "G1_TO_G5_SATISFIED_AND_EXACT_PRE_OUTCOME_V1_FROZEN_FOR_REPLAY",
+    "challenger_data_boundary": "AFTER_G6_G7_EXPOSURE_W1_W8_ARE_NOT_HOLDOUTS",
+    "official_golden_or_replay_authorized_now": false
+  },
+  "preservation_rule": "The original internal audits are preserved unchanged as historical evidence. This disposition controls only the policy/use classification where those audits exceeded the Owner-approved exact v1.2 plan."
+}

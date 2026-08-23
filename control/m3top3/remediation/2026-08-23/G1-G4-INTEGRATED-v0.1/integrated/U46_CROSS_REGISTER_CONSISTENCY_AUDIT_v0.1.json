@@ -1,0 +1,49 @@
+{
+  "schema_version": "m3top3-g1-u46-cross-register-consistency-audit-v0.1",
+  "audit_id": "M3TOP3-G1-U46-CROSS-REGISTER-20260823-01",
+  "issued_at_kst": "2026-08-23T20:41:14+09:00",
+  "issuer": "AAA-PMO-ORCHESTRATOR",
+  "execution_mode": "READ_ONLY_CROSS_REGISTER_AUDIT",
+  "iva_execution_participation": "NONE",
+  "sources": [
+    {"path": "project_sources/08-Semi_Universe_v1.0_2026-08-14.docx", "sha256": "eef313bc71bd0a5cb019f92e43e1bf38c2a63633bb847320d1cb4c8fe4ea9023"},
+    {"path": "project_sources/11-SEMI-SOURCE-INDEX_v1.0.docx", "sha256": "2131ebe6724a8c2d235e7e6f06d4fdde2819ab460bd5c907e2f7ca32e02dac46"},
+    {"path": "project_sources/12-SEMI-COMPANY-MASTER_v0.1.docx", "sha256": "03842717f3bb6815610541496b1f5dadfd44a0e277dc9364c5632cbfb5520cd6"},
+    {"path": "project_sources/15-SEMI-PRICE-LEDGER_v1.0_INGEST-AUDIT_BLOCKED_2026-08-14.csv", "sha256": "6e8d0eabbd4cafaf8f3073528a3d75c7ec15713a4efa27ba5308a176776e0728"}
+  ],
+  "enumeration": {
+    "universe_rows": 46,
+    "source_index_rows": 46,
+    "company_master_identity_blocks": 46,
+    "legacy_ingest_audit_rows": 46,
+    "prior_top38_rows": 38,
+    "added_2026_08_14_rows": 8,
+    "active_rows": 46
+  },
+  "exact_set_checks": {
+    "universe_vs_source_index_company_names": "MATCH_46_OF_46",
+    "source_index_vs_company_master_name_code_pairs": "MATCH_46_OF_46",
+    "source_index_vs_legacy_ingest_audit_codes": "MATCH_46_OF_46",
+    "duplicate_universe_names": 0,
+    "duplicate_source_index_codes": 0,
+    "duplicate_company_master_codes": 0,
+    "duplicate_ingest_audit_codes": 0
+  },
+  "identity_and_provenance_gaps": {
+    "company_master_dart_corp_id_not_found": 46,
+    "company_master_listing_date_not_found": 46,
+    "official_homepage_not_verified": 37,
+    "official_homepage_present": 9,
+    "historical_point_in_time_tradability_complete": false,
+    "outer_universe_outcome_blind_provenance_proven": false
+  },
+  "verdict": {
+    "u46_current_enumeration_consistency": "PASS",
+    "u46_exact_historical_eligibility_release": "BLOCKED",
+    "u46_as_outcome_blind_population_universe": "NOT_PROVEN",
+    "u127_scope": "NOT_ESTABLISHED_BY_THESE_FOUR_SOURCE_REGISTERS",
+    "official_golden": "BLOCKED",
+    "full_replay": "BLOCKED"
+  },
+  "scope_note": "This closes only cross-register equality for the currently enumerated U46 names and KRX codes. It does not prove historical listing/tradability, row-level business eligibility, outcome-blind selection provenance, or any U127 population claim."
+}

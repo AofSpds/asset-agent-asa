@@ -1,0 +1,116 @@
+{
+  "schema_version": "m3top3-w4-x3-nonscoreable-pilot-contract-v0.1",
+  "contract_id": "M3TOP3-W4-X3-NONSCOREABLE-PILOT-20260823-01",
+  "issued_at_kst": "2026-08-23T21:09:29+09:00",
+  "issuer": "AAA-PMO-ORCHESTRATOR",
+  "authority": "APPROVE_AND_CLOSE_PLUS_PMO_DIRECT_DISPATCH_YES",
+  "owner_action_required": false,
+  "iva_execution_participation": "NONE",
+  "purpose": "DATA_ASSEMBLY_AND_FAIL_CLOSED_CONTROL_DEMONSTRATION_ONLY",
+  "window": {
+    "id": "W4",
+    "snapshot_cutoff_at": "2025-05-09",
+    "entry_date": "2025-05-12",
+    "last_trading_day": "2025-08-08"
+  },
+  "targets": [
+    {
+      "company": "케이씨텍",
+      "code": "281820",
+      "company_id": "KRX:281820",
+      "control_case": "NORMAL_ELIGIBLE_PRICE_PATH",
+      "eligibility_state": "ELIGIBLE"
+    },
+    {
+      "company": "미래산업",
+      "code": "025560",
+      "company_id": "KRX:025560",
+      "control_case": "CA_ZERO_OHL_STRESS_PATH",
+      "eligibility_state": "ELIGIBLE"
+    },
+    {
+      "company": "삼양엔씨켐",
+      "code": "482630",
+      "company_id": "KRX:482630",
+      "control_case": "DENOMINATOR_NEGATIVE_CONTROL",
+      "eligibility_state": "UNRESOLVED"
+    }
+  ],
+  "input_bindings": [
+    {
+      "path": "project_sources/16-marcap-2025.parquet",
+      "sha256": "2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e",
+      "role": "RAW_2025_PRICE_COMPONENT_ONLY"
+    },
+    {
+      "path": "project_sources/13-SEMI-PRICE-LEDGER_v1.0_SCHEMA.csv",
+      "sha256": "67c8633579c3b624ffa2254bdf4173f205b1617b64ed960b9b1e200bc1e01c25",
+      "role": "CANONICAL_FIELD_REFERENCE_ONLY"
+    },
+    {
+      "path": "remediation/r_wp23_data_closure/01_U127_WORKING_MEMBERSHIP_PROVENANCE_GAPS.csv",
+      "sha256": "752138a1897cdacfcbb4762ac0caf5888007e49ac4605f88152576e544eeaa33",
+      "role": "CURRENT_PHASE_WORKING_MEMBERSHIP_AND_IDENTITY_BINDING"
+    },
+    {
+      "path": "remediation/r_wp23_data_closure/03_DENOMINATOR_CLOSURE_QUEUE.csv",
+      "sha256": "02bde437c04b1cc3d314b30e9bdd41bdb9a9164d0d2df4468728bdab8089eb62",
+      "role": "ELIGIBILITY_BLOCKER_REFERENCE"
+    },
+    {
+      "path": "remediation/g1_data_readiness/DATA_ANNOTATION_READINESS_MATRIX_v0.1.json",
+      "sha256": "7ad599f41313c8148cf205b6b80d71885b33b69414fdb32bff10490ec32821dc",
+      "role": "SOURCE_BUNDLE_PUBLICATION_ANNOTATION_CLAIM_LOCKS"
+    }
+  ],
+  "bundle_contract": {
+    "bundle_id_format": "W4|company_id|revision",
+    "mandatory_fields": [
+      "raw_source_locator",
+      "raw_source_sha256",
+      "retrieval_at_timezone_aware",
+      "retrieval_actor",
+      "publication_at_timezone_aware",
+      "available_before_entry",
+      "company_id",
+      "canonical_name",
+      "KRX_code",
+      "eligibility_state",
+      "price_component_sha256",
+      "boundary_date_presence",
+      "zero_open_high_low_state",
+      "corporate_action_evidence_state",
+      "source_bundle_sha256",
+      "access_sidecar_sha256",
+      "concealment_receipt_sha256",
+      "score_admission",
+      "rank_admission",
+      "outcome_admission"
+    ],
+    "neutral_fact_only": true,
+    "official_feature_labels_permitted": false,
+    "outcome_role_assigned": false
+  },
+  "admission_defaults": {
+    "score_admission": false,
+    "rank_admission": false,
+    "outcome_admission": false,
+    "price_canonical": false
+  },
+  "stop_rules": [
+    "INPUT_HASH_MISMATCH",
+    "PUBLICATION_AT_NULL_OR_AFTER_CUTOFF",
+    "SOURCE_BUNDLE_OR_ACCESS_SIDECAR_MISSING",
+    "IDENTITY_BINDING_MISSING",
+    "OUTCOME_WINNER_RANK_RETURN_OR_CURRENT_SUCCESS_EXPOSED_TO_BUNDLE",
+    "OFFICIAL_FEATURE_SEMANTICS_MUST_BE_INFERRED",
+    "ZERO_OHL_OR_CA_REQUIRES_UNGOVERNED_CORRECTION",
+    "UNRESOLVED_ELIGIBILITY_ROW_IS_SILENTLY_DROPPED_OR_SCORED",
+    "IVA_EXECUTION_PARTICIPATION_REQUESTED"
+  ],
+  "terminal_states": [
+    "ASSEMBLED_CANDIDATE",
+    "FAIL_CLOSED"
+  ],
+  "claim_ceiling": "ASSEMBLY_CONTROL_ONLY_NO_DATA_RELEASE_MODEL_VALIDATION_OR_PERFORMANCE_CLAIM"
+}
