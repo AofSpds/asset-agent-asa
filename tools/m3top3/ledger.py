@@ -282,8 +282,8 @@ def publication_transaction(*identities: str):
 class FullRunArtifactStore:
     """Create-only full-run set with a separate commit manifest published last.
 
-    The result JSON and its three auxiliary JSONL files are *not* a published
-    run until the exact v2 commit manifest exists.  A process failure that
+    The result JSON and its four auxiliary JSONL files are *not* a published
+    run until the exact v3 commit manifest exists.  A process failure that
     leaves any subset of those files behind is therefore terminal for that run
     identity: a later attempt must not silently resume the partial write.
 
@@ -293,7 +293,10 @@ class FullRunArtifactStore:
     expected prediction identities, exact live row hashes, and count.
     """
 
-    COMMIT_SCHEMA_VERSION = "m3top3-full-run-commit-v2"
+    COMMIT_SCHEMA_VERSION = "m3top3-full-run-commit-v3"
+    RESULT_CONTRACT_VERSION = "m3top3-validation-result-v3"
+    SELECTED_TOP3_METRICS_VIEW_VERSION = "m3top3-selected-top3-metrics-v1"
+    FULL_UNIVERSE_VIEW_VERSION = "m3top3-full-eligible-universe-outcome-metrics-v1"
 
     def __init__(self,path:str|Path):
         self.path=Path(path)
@@ -307,10 +310,23 @@ class FullRunArtifactStore:
         stem=self.path.with_suffix("")
         def jsonl(rows:list[dict[str,Any]])->bytes:
             return b"".join(canonical_json_bytes(row)+b"\n" for row in rows)
+        scorer_outputs=result.get("scorer_outputs"); ranked=result.get("ranked")
+        outcomes=result.get("outcomes"); full_outcomes=result.get("full_universe_outcomes")
+        if (
+            result.get("result_contract_version")!=self.RESULT_CONTRACT_VERSION
+            or result.get("selected_top3_metrics_view_version")!=self.SELECTED_TOP3_METRICS_VIEW_VERSION
+            or result.get("full_universe_view_version")!=self.FULL_UNIVERSE_VIEW_VERSION
+            or not all(isinstance(rows,list) for rows in (scorer_outputs,ranked,outcomes,full_outcomes))
+            or result.get("ranked_count")!=len(ranked)
+            or result.get("outcome_count")!=len(outcomes)
+            or result.get("full_universe_outcome_count")!=len(full_outcomes)
+        ):
+            raise M3Top3AdmissionError("INCOMPLETE_RESULT_PUBLICATION","full-run result does not satisfy the exact v3 result/view/count contract",{"validation_run_id":result.get("validation_run_id")},EXIT_INTEGRITY)
         return {
-            stem.with_name(stem.name+".scorer_outputs.jsonl"):jsonl(result["scorer_outputs"]),
-            stem.with_name(stem.name+".ranking.jsonl"):jsonl(result["ranked"]),
-            stem.with_name(stem.name+".outcomes.jsonl"):jsonl(result["outcomes"]),
+            stem.with_name(stem.name+".scorer_outputs.jsonl"):jsonl(scorer_outputs),
+            stem.with_name(stem.name+".ranking.jsonl"):jsonl(ranked),
+            stem.with_name(stem.name+".outcomes.jsonl"):jsonl(outcomes),
+            stem.with_name(stem.name+".full_universe_outcomes.jsonl"):jsonl(full_outcomes),
             self.path:canonical_json_bytes(result)+b"\n",
         }
 
@@ -321,6 +337,7 @@ class FullRunArtifactStore:
             stem.with_name(stem.name+".scorer_outputs.jsonl"),
             stem.with_name(stem.name+".ranking.jsonl"),
             stem.with_name(stem.name+".outcomes.jsonl"),
+            stem.with_name(stem.name+".full_universe_outcomes.jsonl"),
             self.path,
         )
 
@@ -490,15 +507,20 @@ class FullRunArtifactStore:
         by_suffix={
             "scorer_outputs_sha256":next(payload for path,payload in payloads.items() if path.name.endswith(".scorer_outputs.jsonl")),
             "ranking_sha256":next(payload for path,payload in payloads.items() if path.name.endswith(".ranking.jsonl")),
-            "outcomes_sha256":next(payload for path,payload in payloads.items() if path.name.endswith(".outcomes.jsonl")),
+            "outcomes_sha256":next(payload for path,payload in payloads.items() if path.name.endswith(".outcomes.jsonl") and not path.name.endswith(".full_universe_outcomes.jsonl")),
+            "full_universe_outcomes_sha256":next(payload for path,payload in payloads.items() if path.name.endswith(".full_universe_outcomes.jsonl")),
         }
         return {
             "schema_version":self.COMMIT_SCHEMA_VERSION,
             "status":"COMPLETE",
             "validation_run_id":result["validation_run_id"],
+            "result_contract_version":result.get("result_contract_version"),
+            "selected_top3_metrics_view_version":result.get("selected_top3_metrics_view_version"),
+            "full_universe_view_version":result.get("full_universe_view_version"),
             "result_sha256":hashlib.sha256(payloads[self.path]).hexdigest(),
             "ranked_count":result["ranked_count"],
             "outcome_record_count":result["outcome_count"],
+            "full_universe_outcome_record_count":result["full_universe_outcome_count"],
             **{key:hashlib.sha256(payload).hexdigest() for key,payload in by_suffix.items()},
             **self._prediction_batch(result,ledger_path,require_complete=require_complete_batch),
         }
@@ -557,7 +579,7 @@ class FullRunArtifactStore:
             if manifest_bytes!=canonical_json_bytes(manifest)+b"\n" or manifest!=expected:
                 raise M3Top3AdmissionError(
                     "INCOMPLETE_RESULT_PUBLICATION",
-                    "full-run commit manifest is not the exact v2 commit for the live artifact and prediction batch",
+                    "full-run commit manifest is not the exact v3 commit for the live artifact and prediction batch",
                     {"path":str(self.manifest_path)},
                     EXIT_INTEGRITY,
                 )

@@ -32,6 +32,11 @@ class RiskMetric(Protocol):
     def evaluate(self, prediction: dict[str, Any], outcome: dict[str, Any]) -> dict[str, Any]: ...
 
 
+RESULT_CONTRACT_VERSION="m3top3-validation-result-v3"
+SELECTED_TOP3_METRICS_VIEW_VERSION="m3top3-selected-top3-metrics-v1"
+FULL_UNIVERSE_VIEW_VERSION="m3top3-full-eligible-universe-outcome-metrics-v1"
+
+
 def _jsonable(value: Any) -> Any:
     if isinstance(value, Decimal): return str(value)
     if isinstance(value, date): return value.isoformat()
@@ -83,7 +88,26 @@ def _verify_built_outcome(built:Any,ranking:dict[str,Any],builder:OutcomeBuilder
 
 
 class MetricsEngine:
-    def summarize(self,outcomes:list[dict[str,Any]],eligible_count:int)->dict[str,Any]:
+    def summarize(self,outcomes:list[dict[str,Any]],eligible_count:int|None=None)->dict[str,Any]:
+        """Preserve the historical selected-Top3 metric formula by default.
+
+        Supplying ``eligible_count`` selects the separately versioned full-E
+        accounting view.  It must never change the population of the legacy
+        unversioned ``metrics`` result field.
+        """
+
+        if eligible_count is not None:
+            return self.summarize_full_eligible_universe(outcomes,eligible_count)
+        try:
+            returns=[Decimal(str(row["return_ratio"])) for row in outcomes if row.get("return_ratio") is not None]
+            mfe_returns=[(Decimal(str(row["mfe"]))/Decimal(str(row["entry"]))) - Decimal("1") for row in outcomes if row.get("entry") is not None and row.get("mfe") is not None]
+        except (InvalidOperation,ValueError,TypeError,ZeroDivisionError) as exc:
+            raise M3Top3AdmissionError("OUTCOME_RANKING_IDENTITY_MISMATCH","metrics input contains malformed numeric outcome values",{"cause":type(exc).__name__},EXIT_INTEGRITY) from exc
+        if any(not value.is_finite() for value in returns+mfe_returns):
+            raise M3Top3AdmissionError("OUTCOME_RANKING_IDENTITY_MISMATCH","metrics input contains non-finite outcome values",exit_code=EXIT_INTEGRITY)
+        return {"valid_return_count":len(returns),"mean_return":str(sum(returns)/Decimal(len(returns))) if returns else None,"median_return":str(statistics.median(returns)) if returns else None,"win_rate":str(Decimal(sum(value>0 for value in returns))/Decimal(len(returns))) if returns else None,"mean_mfe_return":str(sum(mfe_returns)/Decimal(len(mfe_returns))) if mfe_returns else None}
+
+    def summarize_full_eligible_universe(self,outcomes:list[dict[str,Any]],eligible_count:int)->dict[str,Any]:
         if len(outcomes)!=eligible_count:
             raise M3Top3AdmissionError("METRIC_DENOMINATOR_INTEGRITY_FAILURE","outcome-record count differs from eligible denominator",{"eligible_count":eligible_count,"outcome_record_count":len(outcomes)},EXIT_INTEGRITY)
         if any(row.get("outcome_validity") not in OUTCOME_VALIDITY_ALLOWLIST for row in outcomes):
@@ -107,13 +131,16 @@ class MetricsEngine:
         return {**accounting,"metrics_status":"COMPLETE","mean_return":str(sum(returns)/Decimal(len(returns))) if returns else None,"median_return":str(statistics.median(returns)) if returns else None,"win_rate":str(Decimal(sum(value>0 for value in returns))/Decimal(len(returns))) if returns else None,"mean_mfe_return":str(sum(mfe_returns)/Decimal(len(mfe_returns))) if mfe_returns else None}
 
 
-RUN_IDENTITY_FIELDS=frozenset({"snapshot_manifest_identity_hash","snapshot_content_hash","universe_member_set_digest","eligible_set_digest","denominator_partition_digest","execution_lineage_identity_hash","scorer_identity_hash","ranking_protocol_version","window_protocol_version","validation_protocol_version","result_revision"})
+RUN_IDENTITY_FIELDS=frozenset({"snapshot_manifest_identity_hash","snapshot_content_hash","universe_member_set_digest","eligible_set_digest","denominator_partition_digest","execution_lineage_identity_hash","scorer_identity_hash","ranking_protocol_version","window_protocol_version","validation_protocol_version","result_contract_version","selected_top3_metrics_view_version","full_universe_view_version","result_revision"})
 
 
 def verify_validation_run_identity(result:dict[str,Any])->None:
     payload=result.get("validation_run_identity_payload")
     if not isinstance(payload,dict) or set(payload)!=RUN_IDENTITY_FIELDS or any(payload.get(field) in {None,""} for field in RUN_IDENTITY_FIELDS):
         raise M3Top3AdmissionError("RUN_ID_LINEAGE_MISMATCH","validation run identity omits required exact lineage inputs",exit_code=EXIT_INTEGRITY)
+    expected_versions={"result_contract_version":RESULT_CONTRACT_VERSION,"selected_top3_metrics_view_version":SELECTED_TOP3_METRICS_VIEW_VERSION,"full_universe_view_version":FULL_UNIVERSE_VIEW_VERSION}
+    if any(payload.get(field)!=value for field,value in expected_versions.items()):
+        raise M3Top3AdmissionError("RUN_ID_LINEAGE_MISMATCH","validation run identity contains a non-admitted result/view contract version",{"versions":{field:payload.get(field) for field in expected_versions}},EXIT_INTEGRITY)
     expected=deterministic_id("validationrun",payload)
     if result.get("validation_run_id")!=expected:
         raise M3Top3AdmissionError("RUN_ID_LINEAGE_MISMATCH","validation run ID differs from exact lineage payload",{"declared":result.get("validation_run_id"),"expected":expected},EXIT_INTEGRITY)
@@ -199,6 +226,49 @@ def verify_result_status_claim(status:str,price_semantics:str,metrics:dict[str,A
         raise M3Top3AdmissionError("RESULT_STATUS_NOT_ADMITTED","result status is outside the exact admitted vocabulary",{"status":status},EXIT_INTEGRITY)
     if status=="VALIDATION" and (price_semantics=="RAW_IMMUTABLE" or metrics.get("pending_outcome_count",0)>0):
         raise M3Top3AdmissionError("INVALID_VALIDATION_STATUS_CLAIM","raw/CA-pending output cannot be labeled VALIDATION",exit_code=EXIT_AUTHORITY)
+
+
+def verify_full_run_result(result:dict[str,Any])->None:
+    """Independently re-admit the legacy Top3 and full-E result views."""
+
+    verify_validation_run_identity(result)
+    if (
+        result.get("result_contract_version")!=RESULT_CONTRACT_VERSION
+        or result.get("selected_top3_metrics_view_version")!=SELECTED_TOP3_METRICS_VIEW_VERSION
+        or result.get("full_universe_view_version")!=FULL_UNIVERSE_VIEW_VERSION
+    ):
+        raise M3Top3AdmissionError("RUN_ID_LINEAGE_MISMATCH","result/view contract version is not admitted",exit_code=EXIT_INTEGRITY)
+    ranked=result.get("ranked"); outcomes=result.get("outcomes"); full_outcomes=result.get("full_universe_outcomes")
+    if not isinstance(ranked,list) or not isinstance(outcomes,list) or not isinstance(full_outcomes,list):
+        raise M3Top3AdmissionError("FULL_OUTCOME_SET_MEMBER_MISSING","full ranking and both outcome views are required",exit_code=EXIT_INTEGRITY)
+    if result.get("ranked_count")!=len(ranked) or [row.get("rank") for row in ranked]!=list(range(1,len(ranked)+1)):
+        raise M3Top3AdmissionError("FULL_RANKING_SET_MISMATCH","published ranking count/sequence differs from the full ranking",exit_code=EXIT_INTEGRITY)
+    projected=[row for row in ranked if row.get("selected_top3") is True]
+    selected_outcomes=[row for row in full_outcomes if row.get("selected_top3") is True]
+    if (
+        len(projected)!=min(3,len(ranked))
+        or result.get("top3")!=projected
+        or result.get("selected_top3_count")!=len(projected)
+        or outcomes!=selected_outcomes
+        or result.get("selected_top3_outcomes")!=selected_outcomes
+        or result.get("outcome_count")!=len(selected_outcomes)
+        or result.get("selected_top3_outcome_count")!=len(selected_outcomes)
+    ):
+        raise M3Top3AdmissionError("TOP3_PROJECTION_MISMATCH","legacy outcomes/metrics population is not the exact selected Top3 projection",exit_code=EXIT_INTEGRITY)
+    ranked_ids=[row.get("model_score_id") for row in ranked]
+    full_ids=[row.get("model_score_id") for row in full_outcomes if isinstance(row,dict)]
+    if len(full_ids)!=len(full_outcomes) or len(full_ids)!=len(set(full_ids)):
+        raise M3Top3AdmissionError("DUPLICATE_OUTCOME_IDENTITY","full-E outcome identities are malformed or duplicate",exit_code=EXIT_INTEGRITY)
+    missing=sorted(set(ranked_ids)-set(full_ids)); extra=sorted(set(full_ids)-set(ranked_ids))
+    if missing: raise M3Top3AdmissionError("FULL_OUTCOME_SET_MEMBER_MISSING","full-E outcome view omits ranked members",{"missing":missing},EXIT_INTEGRITY)
+    if extra: raise M3Top3AdmissionError("FULL_OUTCOME_SET_MEMBER_EXTRA","full-E outcome view contains outside-E members",{"extra":extra},EXIT_INTEGRITY)
+    if result.get("full_universe_outcome_count")!=len(full_outcomes):
+        raise M3Top3AdmissionError("METRIC_DENOMINATOR_INTEGRITY_FAILURE","full-E outcome count does not reconcile",exit_code=EXIT_INTEGRITY)
+    governed_top3=MetricsEngine().summarize(selected_outcomes)
+    governed_full=MetricsEngine().summarize_full_eligible_universe(full_outcomes,result.get("eligible_count"))
+    if result.get("metrics")!=governed_top3 or result.get("selected_top3_metrics")!=governed_top3 or result.get("full_universe_metrics")!=governed_full:
+        raise M3Top3AdmissionError("METRIC_DENOMINATOR_INTEGRITY_FAILURE","published Top3/full-E metrics are not exact governed recomputations",exit_code=EXIT_INTEGRITY)
+    verify_result_status_claim(result.get("status"),result.get("price_source_semantics"),governed_full)
 
 
 class ValidationRunner:
@@ -296,14 +366,16 @@ class ValidationRunner:
             _verify_built_outcome(built,row,self.outcome_builder,date.fromisoformat(manifest["snapshot_date"]))
             outcomes.append({**_jsonable(asdict(built)),"pit_snapshot_id":row["pit_snapshot_id"],"company_id":row["company_id"],"security_code":row["security_code"],"denominator_member_id":row["denominator_member_id"],"eligibility_record_id":row["eligibility_record_id"],"rank":row["rank"],"selected_top3":row["selected_top3"],"dataset_refs":outcome_refs})
         _verify_outcome_coverage(ranked,outcomes,outcome_refs)
-        metrics=self.metrics.summarize(outcomes,eligible_count); result_status="PRELIMINARY" if price.semantics=="RAW_IMMUTABLE" or metrics["pending_outcome_count"] else "EXPERIMENTAL"
-        verify_result_status_claim(result_status,price.semantics,metrics)
-        scorer_identity={key:value for key,value in self.scorer_identity.items() if key!="scorer_artifact_path"}
-        lineage={"snapshot_manifest_identity_hash":manifest["snapshot_manifest_identity_hash"],"snapshot_content_hash":manifest["snapshot_content_hash"],"execution_lineage_bundle_hash":manifest["execution_lineage_bundle_hash"],"execution_lineage_identity_hash":manifest["execution_lineage_identity_hash"],"lineage_releases":manifest["lineage_releases"],"eligible_identity_hash":manifest["eligible_identity_hash"],"ineligible_identity_hash":manifest["ineligible_identity_hash"],"denominator_partition_digest":manifest["denominator_partition_digest"],"scorer_identity":scorer_identity,"validation_protocol_version":self.outcome_builder.validation_protocol_version,"result_revision":0}
-        lineage_hash=sha256_hex(lineage); run_payload={"snapshot_manifest_identity_hash":manifest["snapshot_manifest_identity_hash"],"snapshot_content_hash":manifest["snapshot_content_hash"],"universe_member_set_digest":manifest["universe_member_set_digest"],"eligible_set_digest":manifest["eligible_set_digest"],"denominator_partition_digest":manifest["denominator_partition_digest"],"execution_lineage_identity_hash":manifest["execution_lineage_identity_hash"],"scorer_identity_hash":self.scorer_identity["scorer_identity_hash"],"ranking_protocol_version":getattr(self.ranking,"tie_break_policy",None),"window_protocol_version":getattr(self.outcome_builder.windows,"protocol_version",None),"validation_protocol_version":self.outcome_builder.validation_protocol_version,"result_revision":0}; run_id=deterministic_id("validationrun",run_payload)
         selected=[row for row in ranked if row["selected_top3"]]; selected_outcomes=[row for row in outcomes if row["selected_top3"]]
-        result={"validation_run_id":run_id,"validation_run_identity_payload":run_payload,"result_revision":0,"status":result_status,"snapshot_date":manifest["snapshot_date"],"snapshot_content_hash":manifest["snapshot_content_hash"],"lineage":lineage,"lineage_hash":lineage_hash,"model_id":self.scorer.model_id,"model_version":self.scorer.model_version,"price_dataset_id":price.dataset_id,"price_dataset_hash":price.dataset_hash,"price_source_semantics":price.semantics,"price_release_status":price.release_status,"validation_protocol_version":self.outcome_builder.validation_protocol_version,"universe_count":len(inputs),"eligible_count":eligible_count,"scorer_output_count":len(scorer_outputs),"scorer_output_identity_hash":aggregate_hash([sha256_hex(row) for row in scorer_outputs]),"ranked_count":len(ranked),"selected_top3_count":len(selected),"outcome_count":len(outcomes),"selected_top3_outcome_count":len(selected_outcomes),"scorer_outputs":scorer_outputs,"ranked":ranked,"top10":ranked[:10],"top3":selected,"outcomes":outcomes,"selected_top3_outcomes":selected_outcomes,"full_universe_outcomes":outcomes,"full_universe_outcome_count":len(outcomes),"metrics":metrics}
-        verify_validation_run_identity(result)
+        selected_top3_metrics=self.metrics.summarize(selected_outcomes)
+        full_universe_metrics=self.metrics.summarize_full_eligible_universe(outcomes,eligible_count)
+        result_status="PRELIMINARY" if price.semantics=="RAW_IMMUTABLE" or full_universe_metrics["pending_outcome_count"] else "EXPERIMENTAL"
+        verify_result_status_claim(result_status,price.semantics,full_universe_metrics)
+        scorer_identity={key:value for key,value in self.scorer_identity.items() if key!="scorer_artifact_path"}
+        lineage={"snapshot_manifest_identity_hash":manifest["snapshot_manifest_identity_hash"],"snapshot_content_hash":manifest["snapshot_content_hash"],"execution_lineage_bundle_hash":manifest["execution_lineage_bundle_hash"],"execution_lineage_identity_hash":manifest["execution_lineage_identity_hash"],"lineage_releases":manifest["lineage_releases"],"eligible_identity_hash":manifest["eligible_identity_hash"],"ineligible_identity_hash":manifest["ineligible_identity_hash"],"denominator_partition_digest":manifest["denominator_partition_digest"],"scorer_identity":scorer_identity,"validation_protocol_version":self.outcome_builder.validation_protocol_version,"result_contract_version":RESULT_CONTRACT_VERSION,"selected_top3_metrics_view_version":SELECTED_TOP3_METRICS_VIEW_VERSION,"full_universe_view_version":FULL_UNIVERSE_VIEW_VERSION,"result_revision":0}
+        lineage_hash=sha256_hex(lineage); run_payload={"snapshot_manifest_identity_hash":manifest["snapshot_manifest_identity_hash"],"snapshot_content_hash":manifest["snapshot_content_hash"],"universe_member_set_digest":manifest["universe_member_set_digest"],"eligible_set_digest":manifest["eligible_set_digest"],"denominator_partition_digest":manifest["denominator_partition_digest"],"execution_lineage_identity_hash":manifest["execution_lineage_identity_hash"],"scorer_identity_hash":self.scorer_identity["scorer_identity_hash"],"ranking_protocol_version":getattr(self.ranking,"tie_break_policy",None),"window_protocol_version":getattr(self.outcome_builder.windows,"protocol_version",None),"validation_protocol_version":self.outcome_builder.validation_protocol_version,"result_contract_version":RESULT_CONTRACT_VERSION,"selected_top3_metrics_view_version":SELECTED_TOP3_METRICS_VIEW_VERSION,"full_universe_view_version":FULL_UNIVERSE_VIEW_VERSION,"result_revision":0}; run_id=deterministic_id("validationrun",run_payload)
+        result={"result_contract_version":RESULT_CONTRACT_VERSION,"validation_run_id":run_id,"validation_run_identity_payload":run_payload,"result_revision":0,"status":result_status,"snapshot_date":manifest["snapshot_date"],"snapshot_content_hash":manifest["snapshot_content_hash"],"lineage":lineage,"lineage_hash":lineage_hash,"model_id":self.scorer.model_id,"model_version":self.scorer.model_version,"price_dataset_id":price.dataset_id,"price_dataset_hash":price.dataset_hash,"price_source_semantics":price.semantics,"price_release_status":price.release_status,"validation_protocol_version":self.outcome_builder.validation_protocol_version,"universe_count":len(inputs),"eligible_count":eligible_count,"scorer_output_count":len(scorer_outputs),"scorer_output_identity_hash":aggregate_hash([sha256_hex(row) for row in scorer_outputs]),"ranked_count":len(ranked),"selected_top3_count":len(selected),"outcome_count":len(selected_outcomes),"selected_top3_outcome_count":len(selected_outcomes),"scorer_outputs":scorer_outputs,"ranked":ranked,"top10":ranked[:10],"top3":selected,"outcomes":selected_outcomes,"selected_top3_outcomes":selected_outcomes,"selected_top3_metrics_view_version":SELECTED_TOP3_METRICS_VIEW_VERSION,"selected_top3_metrics":selected_top3_metrics,"full_universe_view_version":FULL_UNIVERSE_VIEW_VERSION,"full_universe_outcomes":outcomes,"full_universe_outcome_count":len(outcomes),"full_universe_metrics":full_universe_metrics,"metrics":selected_top3_metrics}
+        verify_full_run_result(result)
         if prediction_ledger is None:
             raise M3Top3AdmissionError("FULL_RANKING_LEDGER_INCOMPLETE","every publishable diagnostic run requires an immutable full-E prediction ledger",exit_code=EXIT_INTEGRITY)
         prediction_records=[]

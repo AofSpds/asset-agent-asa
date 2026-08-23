@@ -450,9 +450,10 @@ class RWP403MatrixTests(unittest.TestCase):
             runner,_=diagnostic_runner(f["price"],f["dates"],scorer,execution_lineage=f["lineage"])
             result=runner.run_snapshot(f["snapshot_dir"],self.root/"out",PredictionLedger(self.root/"outcome-prediction-ledger.jsonl"))
             self.assertEqual(result["status"],"PRELIMINARY")
-            self.assertGreater(result["metrics"]["pending_outcome_count"],0)
-            self.assertIsNone(result["metrics"]["mean_mfe_return"])
-            self.assertEqual(result["outcome_count"],result["eligible_count"])
+            self.assertGreater(result["full_universe_metrics"]["pending_outcome_count"],0)
+            self.assertIsNone(result["full_universe_metrics"]["mean_mfe_return"])
+            self.assertEqual(result["outcome_count"],result["selected_top3_count"])
+            self.assertEqual(result["full_universe_outcome_count"],result["eligible_count"])
             return "PASS_EXPLICIT_PENDING_OUTCOME"
         if c=="OUT-006": return MetricsEngine().summarize([],1)
         if c=="OUT-007": return verify_result_status_claim("VALIDATION","RAW_IMMUTABLE",{"pending_outcome_count":1})

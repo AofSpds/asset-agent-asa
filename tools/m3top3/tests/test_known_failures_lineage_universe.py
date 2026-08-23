@@ -229,10 +229,13 @@ class KnownFailureCanonicalLineageAndUniverseTests(unittest.TestCase):
         result = runner.run_snapshot(snapshot_dir, self.root / "full-result", PredictionLedger(ledger_path))
         self.assertEqual(result["ranked_count"], 4)
         self.assertEqual(result["selected_top3_count"], 3)
-        self.assertEqual(result["outcome_count"], 4)
+        self.assertEqual(result["outcome_count"], 3)
         self.assertEqual(result["selected_top3_outcome_count"], 3)
         self.assertEqual(result["full_universe_outcome_count"], 4)
         self.assertEqual(len(result["full_universe_outcomes"]), 4)
+        self.assertEqual(result["outcomes"], result["selected_top3_outcomes"])
+        self.assertEqual(result["metrics"], result["selected_top3_metrics"])
+        self.assertEqual(result["full_universe_metrics"]["eligible_count"], 4)
         self.assertEqual(len(ledger_path.read_text(encoding="utf-8").splitlines()), 4)
 
     def test_result_rejects_noncontiguous_or_subset_ranking(self):

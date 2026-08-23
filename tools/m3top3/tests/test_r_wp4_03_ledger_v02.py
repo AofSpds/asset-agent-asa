@@ -29,20 +29,27 @@ def _result(run: str, lineage: str, companies: tuple[str, ...] = ("C1", "C2")) -
                 "denominator_member_id": f"denom-{run}-{company}",
             }
         )
+    full_outcomes = [
+        {"model_score_id": row["model_score_id"], "company_id": row["company_id"]}
+        for row in ranked
+    ]
+    selected_outcomes = [row for row, ranking in zip(full_outcomes, ranked) if ranking["selected_top3"]]
     return {
+        "result_contract_version": "m3top3-validation-result-v3",
+        "selected_top3_metrics_view_version": "m3top3-selected-top3-metrics-v1",
+        "full_universe_view_version": "m3top3-full-eligible-universe-outcome-metrics-v1",
         "validation_run_id": run,
         "lineage_hash": lineage,
         "ranked_count": len(ranked),
-        "outcome_count": len(ranked),
+        "outcome_count": len(selected_outcomes),
+        "full_universe_outcome_count": len(full_outcomes),
         "scorer_outputs": [
             {"model_score_id": row["model_score_id"], "company_id": row["company_id"]}
             for row in ranked
         ],
         "ranked": ranked,
-        "outcomes": [
-            {"model_score_id": row["model_score_id"], "company_id": row["company_id"]}
-            for row in ranked
-        ],
+        "outcomes": selected_outcomes,
+        "full_universe_outcomes": full_outcomes,
     }
 
 
@@ -84,7 +91,10 @@ class FullRunArtifactStoreV02Tests(unittest.TestCase):
         self.assertEqual(store.publish(result), "APPENDED")
         self.assertEqual(self._store("R1").preflight(result), "REUSED")
         manifest = json.loads(store.manifest_path.read_text(encoding="utf-8"))
-        self.assertEqual(manifest["schema_version"], "m3top3-full-run-commit-v2")
+        self.assertEqual(manifest["schema_version"], "m3top3-full-run-commit-v3")
+        self.assertEqual(manifest["outcome_record_count"], result["outcome_count"])
+        self.assertEqual(manifest["full_universe_outcome_record_count"], result["full_universe_outcome_count"])
+        self.assertNotEqual(manifest["outcomes_sha256"], manifest["full_universe_outcomes_sha256"] if len(result["ranked"])>3 else "")
         self.assertEqual(manifest["prediction_batch_count"], 0)
         self.assertNotIn("ledger_sha256", manifest)
 
@@ -213,7 +223,7 @@ class FullRunArtifactStoreV02Tests(unittest.TestCase):
         store.preflight(result)
         store.publish(result)
         self.assertEqual(calls[-1], store.manifest_path)
-        self.assertEqual(len(calls), 5)
+        self.assertEqual(len(calls), 6)
 
     def test_shared_ledger_identity_serializes_different_run_transactions(self) -> None:
         first_entered = threading.Event()

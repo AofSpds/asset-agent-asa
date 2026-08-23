@@ -24,8 +24,8 @@ SCHEMA_VERSION = "r-wp4-03-production-matrix-report-v1"
 MANIFEST_SCHEMA = "r-wp4-03-freeze-manifest-v1"
 TREE_ALGORITHM = "sha256-canonical-json-relative-path-size-sha256-v1"
 TREE_SCOPE = "tools/m3top3"
-ACCEPTED_RUNTIME_COMMIT = "4fffdfb03fdd4ae6bf6656d2034abd3ef701ae4f"
-EVIDENCE_PARENT_COMMIT = "495c070be37f978c8be536c0b469d2d07cf0c071"
+ACCEPTED_RUNTIME_COMMIT = "ea52bde2ed65c46f3e797f640b60dd9741aa8fe1"
+EVIDENCE_PARENT_COMMIT = "3d75dab93d31b20f2f4d42de38cbc6aae96a6ccd"
 EXCLUDED_PARTS = {"__pycache__", ".pytest_cache", ".mypy_cache"}
 
 
