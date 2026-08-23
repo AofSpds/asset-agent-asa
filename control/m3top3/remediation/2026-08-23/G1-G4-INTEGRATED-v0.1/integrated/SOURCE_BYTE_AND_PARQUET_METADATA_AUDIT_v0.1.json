@@ -1,0 +1,72 @@
+{
+  "schema_version": "m3top3-g1-source-byte-and-parquet-metadata-audit-v0.1",
+  "audit_id": "M3TOP3-G1-SOURCE-BYTE-PARQUET-METADATA-20260823-01",
+  "issued_at_kst": "2026-08-23T20:41:14+09:00",
+  "issuer": "AAA-PMO-ORCHESTRATOR",
+  "execution_mode": "READ_ONLY_METADATA_AUDIT",
+  "iva_execution_participation": "NONE",
+  "source_files": [
+    {"path": "project_sources/01-Samsung_Semiconductor_Future_Technology_Platform_Map_v1.1_2026-08-09.docx", "bytes": 58716, "sha256": "b3d011c16cc3bd33ffd5235f2f2af93bbc7d4ed5affb407cbe5ec635ee32f087"},
+    {"path": "project_sources/02-Future_Semiconductor_System_Architecture_Memory_Manufacturing_Map_v1.0_2026-08-10.docx", "bytes": 63244, "sha256": "99e4a200921fa44cbc8792f64705efccf7ff2c79e7e91fc1f425d9bfc559395e"},
+    {"path": "project_sources/03-Korea_Semiconductor_Equipment_CAPEX_Early_Revenue_Response_Map_v1.0_2026-08-11.docx", "bytes": 46162, "sha256": "4871de83a6c6ce6bc0fdbf0e0779731e11225d3284505a1c7b7ea00d3d348909"},
+    {"path": "project_sources/04-SK_Hynix_CAPEX_Korea_Equipment_Ecosystem_Report_v0_2026-08-14.docx", "bytes": 45329, "sha256": "2d160445a9726d69e257299d67a699e4874e4e4d39d1acecfb36466cf6ac5e4b"},
+    {"path": "project_sources/05-Korea_Semiconductor_SupplyChain_TOP38_Master_Scorecard_v2.2_Detail_2026-08-14.docx", "bytes": 53141, "sha256": "e41b02dcb642f72b447c6c468c6d590e19aff468e6bc99413b7da5ef0cde6300"},
+    {"path": "project_sources/06-Semi_Eval_Core_v1.0_2026-08-14.docx", "bytes": 48851, "sha256": "3a8c70df26dee0b3c1430846cd9934aa237fd2075f322d78d899ed8cb81acc54"},
+    {"path": "project_sources/07-Semi_Data_Route_v1.1_2026-08-14.docx", "bytes": 49660, "sha256": "508f98e88c150ceb751db2227727db529eb04da467c53a6eed5278ca5e17aa02"},
+    {"path": "project_sources/08-Semi_Universe_v1.0_2026-08-14.docx", "bytes": 42132, "sha256": "eef313bc71bd0a5cb019f92e43e1bf38c2a63633bb847320d1cb4c8fe4ea9023"},
+    {"path": "project_sources/09-SEMI-PIT-LEDGER_v1.0.docx", "bytes": 38985, "sha256": "acde50e7090382e95cc585227c4dd52df6b3f342258b6debfa0aabb7db94006a"},
+    {"path": "project_sources/10-SEMI-PRICE-LEDGER_IMPORT-MANIFEST_v1.0.csv", "bytes": 763, "sha256": "ca8f117a83cd3da800a2a2b5e0ebdca3c89ff658ff3fd21b5083e4aae9ab98ce"},
+    {"path": "project_sources/11-SEMI-SOURCE-INDEX_v1.0.docx", "bytes": 40850, "sha256": "2131ebe6724a8c2d235e7e6f06d4fdde2819ab460bd5c907e2f7ca32e02dac46"},
+    {"path": "project_sources/12-SEMI-COMPANY-MASTER_v0.1.docx", "bytes": 57619, "sha256": "03842717f3bb6815610541496b1f5dadfd44a0e277dc9364c5632cbfb5520cd6"},
+    {"path": "project_sources/13-SEMI-PRICE-LEDGER_v1.0_SCHEMA.csv", "bytes": 219, "sha256": "67c8633579c3b624ffa2254bdf4173f205b1617b64ed960b9b1e200bc1e01c25"},
+    {"path": "project_sources/14-SEMI-FAB-MASTER_v1.0_2026-08-14.docx", "bytes": 47640, "sha256": "528d1a59ac5b6796b95f70605675f273d80ef744da8d6460da60204d3cff4159"},
+    {"path": "project_sources/15-SEMI-PRICE-LEDGER_v1.0_INGEST-AUDIT_BLOCKED_2026-08-14.csv", "bytes": 20209, "sha256": "6e8d0eabbd4cafaf8f3073528a3d75c7ec15713a4efa27ba5308a176776e0728"},
+    {"path": "project_sources/16-marcap-2025.parquet", "bytes": 25153419, "sha256": "2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e"}
+  ],
+  "marcap_2025_parquet_footer": {
+    "format_magic": "PAR1",
+    "metadata_bytes": 8833,
+    "format_version": 2,
+    "created_by": "parquet-cpp-arrow version 21.0.0",
+    "row_groups": 1,
+    "rows": 696524,
+    "columns": 18,
+    "column_names": ["Code", "Name", "Close", "Dept", "ChangeCode", "Changes", "ChangesRatio", "Volume", "Amount", "Open", "High", "Low", "Marcap", "Stocks", "Market", "MarketId", "Rank", "Date"],
+    "null_count_from_single_row_group_statistics": 0,
+    "date_min_utc": "2025-01-02T00:00:00+00:00",
+    "date_max_utc": "2025-12-30T00:00:00+00:00",
+    "code_min_lexical": "000020",
+    "code_max_lexical": "950250",
+    "zero_ohlc_possible_from_statistics": true,
+    "zero_ohlc_basis": "Single-row-group min statistics are -0.0 for Open, High and Low; row-level causes are not adjudicated by this metadata audit.",
+    "footer_parse_method": "Direct read-only Thrift Compact Protocol decoding of the Parquet footer; no row payload or source byte was modified."
+  },
+  "interface_gap": {
+    "declared_ledger_schema_columns": 20,
+    "raw_parquet_columns": 18,
+    "raw_parquet_missing_governed_sidecar_fields": [
+      "Corporate_Action_Flag",
+      "Adjustment_Factor",
+      "Trading_Status",
+      "Corporate_Action_Type",
+      "Action_Source",
+      "Action_Confidence",
+      "Raw_Provider",
+      "Universe_Eligible_Flag"
+    ],
+    "interpretation": "The raw 2025 market parquet is a source component, not a completed SEMI-PRICE-LEDGER release. Governed corporate-action, trading-status, provenance and eligibility fields require a separate deterministic admission/derivation layer.",
+    "required_range_declared_by_manifest": "2024-01-01 through 2026-08-14",
+    "current_named_parquet_range": "2025-01-02 through 2025-12-30",
+    "2024_named_component_present": false,
+    "2026_named_component_present": false,
+    "price_canonical_eligibility": "BLOCKED"
+  },
+  "claim_ceiling": {
+    "price_component_byte_identity_2025": "PROVEN",
+    "three_year_price_release": "NOT_PROVEN",
+    "corporate_action_completeness": "NOT_PROVEN",
+    "official_golden": "BLOCKED",
+    "full_replay": "BLOCKED",
+    "model_performance": "NOT_EVALUATED"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": "r-wp4-03-v0-4-concurrency-summary-v1",
+  "candidate_version": "v0.4",
+  "candidate_source_tree_sha256": "37b10c54baee9aba7f33f1b59d524e0a24e4e1e1561483a030527a2bff566c73",
+  "canonical_freeze_manifest_sha256": "e3a34016b8ca5c20582499716ddcdc807e8215e766d4f5fa6ec3eec40cd88636",
+  "full_receipt_path": "/workspace/scratch/577256efb437/remediation/r_wp4_03_v04_authority/R_WP4_03_V0_4_CONCURRENCY_4X100_RECEIPT_v1.json",
+  "full_receipt_sha256": "7e6480286b469c939d658e7d996b75fc5262b4a49d01e87d45f8d47dc20264f9",
+  "contract": "manifest-last",
+  "full_run_commit_schema": "m3top3-full-run-commit-v3",
+  "probes": {
+    "snapshot": {"requested": 100, "passed": 100, "failed": 0, "raw_exceptions": 0},
+    "full_identical": {"requested": 100, "passed": 100, "failed": 0, "raw_exceptions": 0},
+    "full_conflicting": {"requested": 100, "passed": 100, "failed": 0, "raw_exceptions": 0},
+    "ledger": {"requested": 100, "passed": 100, "failed": 0, "raw_exceptions": 0}
+  },
+  "total_requested": 400,
+  "total_passed": 400,
+  "total_failed": 0,
+  "status": "PASS",
+  "iva_execution_participation": "NONE"
+}

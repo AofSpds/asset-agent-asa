@@ -1,0 +1,243 @@
+{
+  "schema_version": "r-wp4-03-control-validation-receipt-v1",
+  "receipt_id": "R-WP4-03_CTLV_20260823T072722+0900",
+  "work_package": "R-WP4-03_CANONICAL_LINEAGE_AND_FULL_UNIVERSE",
+  "issued_at": "2026-08-23T07:27:22+09:00",
+  "issued_by": "AAA-CONTROL-VALIDATOR",
+  "validator_lane": "CTLV",
+  "verdict": "PASS",
+  "qualification": "CTLV_ONLY_EXACT_CONTROL_CONTRACT_ACCEPTANCE",
+  "iva_execution_participation": "NONE",
+  "independence": {
+    "validation_mode": "READ_ONLY",
+    "candidate_writes": false,
+    "git_writes": false,
+    "pmo_status_or_journal_writes": false,
+    "engv_receipt_writes": false,
+    "prior_evidence_writes": false,
+    "external_harness_rerun": false,
+    "independent_candidate_tests_run": true,
+    "independent_production_matrix_run": true,
+    "independent_remote_blob_checks_run": true
+  },
+  "control_basis": {
+    "design_packet_sha256": "6e58f878aeec28c6a472e048428af2eee5f7dbb5c62abf9d08c394b6acaacb4d",
+    "acceptance_and_stop_criteria_sha256": "f001a1187af6d5906d4b449b90b105f9554ade78303612830de4ab857ba67690",
+    "canonical_lineage_contract_sha256": "f6eab8c880c498c09c52aef1b1b30e37b94de7ada9e6fc00994b5b2e7df5b0b9",
+    "negative_regression_matrix_sha256": "2b65131ad866196bd403718386c1fcae6e302f2ffca08773e1eaa9821d1b2eb4",
+    "runtime_vs_evidence_blockers_sha256": "eac58c6390ac01024029053ea69ab6bb8fe54036241238f02aa52d8edb42a86a"
+  },
+  "remote_git_identity": {
+    "repository": "AofSpds/asset-agent-asa",
+    "branch": "aaa-m3top3-p0-canonical-lineage-full-universe-20260823",
+    "implementation_commit": "ea52bde2ed65c46f3e797f640b60dd9741aa8fe1",
+    "parent_commit": "495c070be37f978c8be536c0b469d2d07cf0c071",
+    "root_tree": "d068aa65b8c3bdacd062529ff9d35108812683d9",
+    "branch_binding_at_start": "IDENTICAL",
+    "branch_binding_at_end": "IDENTICAL",
+    "parent_delta": {
+      "ahead_by": 1,
+      "behind_by": 0,
+      "total_commits": 1,
+      "path_count": 23,
+      "modified": 17,
+      "added": 6,
+      "deleted": 0,
+      "unexpected_paths": 0
+    },
+    "remote_blob_verification": {
+      "checked_paths": 23,
+      "blob_sha_mismatches": 0,
+      "local_candidate_git_blob_mismatches": 0,
+      "status": "PASS"
+    },
+    "tree_binding_method": "Exact branch/commit identity plus 23-of-23 remote changed-blob identities, expected deterministic root-tree construction, and exact-SHA ENGV receipt binding",
+    "status": "PASS"
+  },
+  "frozen_candidate_binding": {
+    "candidate_root": "/workspace/scratch/577256efb437/remediation/r_wp4_03_final_candidate_v0_3",
+    "candidate_file_count": 30,
+    "source_tree_sha256": "1d7b256e961b6f04ad038738fd727a41b98b18db1786a4d21cdd13f78c80d3da",
+    "canonical_manifest_path": "/workspace/scratch/577256efb437/remediation/r_wp4_03_final_evidence_v0_3/R_WP4_03_V0_3_FINAL_CANONICAL_FREEZE_MANIFEST_v1.json",
+    "canonical_manifest_sha256": "0cc363f0c9eb65338747d9d8a47b35046ace881dec0bbf7db50d24ea4e004e17",
+    "pmo_integrated_gate_receipt_sha256": "93efc4024a7dde0974fd35ea5471ce51b28ed2c4e1bf1579042eba0f3747293c",
+    "engv_receipt_sha256": "5c450df3c7f47f0184bda89562828894f9c6ffedf6266f6210d85c4de83596e3",
+    "manifest_records_equal_live_files": true,
+    "all_manifest_file_hashes_and_sizes_match": true,
+    "manifest_is_canonical_json_plus_newline": true,
+    "all_candidate_files_mode_0444": true,
+    "all_candidate_directories_mode_0555": true,
+    "symlinks": 0,
+    "cache_or_bytecode_entries": 0,
+    "source_tree_before_and_after_validation_equal": true,
+    "manifest_before_and_after_validation_equal": true,
+    "status": "PASS"
+  },
+  "independent_execution_results": {
+    "compile": {
+      "status": "PASS",
+      "python_file_count": 27,
+      "syntax_failures": 0
+    },
+    "full_unittest_discovery": {
+      "status": "PASS",
+      "tests_run": 252,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "exit_code": 0
+    },
+    "control_focused_unittest": {
+      "status": "PASS",
+      "tests_run": 131,
+      "modules": [
+        "tools.m3top3.tests.test_r_wp4_03_matrix",
+        "tools.m3top3.tests.test_known_failures_lineage_universe",
+        "tools.m3top3.tests.test_r_wp4_03_ledger_v02",
+        "tools.m3top3.tests.test_r_wp4_03_v02_remediation",
+        "tools.m3top3.tests.test_r_wp4_03_mutation_isolation"
+      ],
+      "failures": 0,
+      "errors": 0,
+      "exit_code": 0
+    },
+    "production_matrix": {
+      "status": "PASS",
+      "requested": 75,
+      "passed": 75,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "raw_exceptions": 0,
+      "unique_case_ids": 75,
+      "matrix_id_delta": 0,
+      "production_path_cases": 75,
+      "stable_code_mismatches": 0,
+      "exit_mismatches": 0,
+      "scorer_call_mismatches": 0,
+      "write_invariant_mismatches": 0,
+      "temporary_report_sha256": "7598a4701c3da75373ed847d7b009062aca9cf7625735b2dfc226d5773d2c279"
+    }
+  },
+  "sealed_evidence_verification": {
+    "status": "PASS",
+    "evidence_file_count": 527,
+    "all_evidence_files_mode_0444": true,
+    "all_evidence_directories_mode_0555": true,
+    "evidence_symlinks": 0,
+    "pmo_static_report_sha256": "d381fa8efe30091a52f8060c3fa6f821227c753c49a2ae1622826631420c271b",
+    "production_matrix_report_sha256": "5006510f4b128c13cf9c6306cc7b3c8665b7278bd9587de23142ef1ffcd868fb",
+    "mutation_preflight_sha256": "22bd222d3dd4d9ba947b0c51c3888aa1a142ed5da67c4318315d3550e1b0620b",
+    "mutation_receipt_sha256": "e43f951141ab3798e320b4937840908bcfb10cf2596f89c19facd71761368f04",
+    "mutation_results": {
+      "registered": 50,
+      "r_wp4_02_preserved": 33,
+      "r_wp4_03_new": 17,
+      "baseline_green": 50,
+      "killed_red": 50,
+      "survivors": 0,
+      "harness_errors": 0,
+      "source_mutated": false,
+      "manifest_drift": false,
+      "transcript_streams_rehashed": 200,
+      "transcript_hash_or_size_problems": 0
+    },
+    "concurrency_manifest_sha256": "d01105b70f8c9d1c6dd8089f2133d36455ab23f97e830ace83e0b16d774bbf75",
+    "concurrency_receipt_sha256": "60c47232d5580442ca181c14fefd911b1f30c1bf35954a19efae13e2364724c0",
+    "concurrency_results": {
+      "snapshot": "100_OF_100_PASS",
+      "full_identical": "100_OF_100_PASS",
+      "full_conflicting": "100_OF_100_PASS",
+      "ledger": "100_OF_100_PASS",
+      "raw_exceptions": 0,
+      "manifest_artifacts_rehashed": 13,
+      "manifest_hash_or_size_problems": 0
+    },
+    "semantic_revalidation_sha256": "7f223911e0e580a649f7bc35a2c58fe1e0405e45459dd569d871dc43de5e5e7a",
+    "semantic_revalidation": "22_OF_22_PASS",
+    "governance_snapshot_sha256": "c4c0f226ee3e419a18a8679e14ddde66aea468d566a96cc3d6468e531075b1d6"
+  },
+  "control_gate_results": {
+    "A1_exact_scope_and_non_semantic_preservation": {
+      "verdict": "PASS",
+      "basis": "23-path allowlisted delta; core.py, model_interface.py, outcome.py, and pit_guard.py exact accepted hashes preserved; no Feature, weight, gate, score, tie, ranking, Top3, or outcome-formula promotion"
+    },
+    "A2_independent_release_and_exact_byte_admission": {
+      "verdict": "PASS",
+      "basis": "Eight exact release domains, live rehash before use, path-independent component digests, scorer/config exact identity, elevated-state rejection, and external U/D expectation separation are fail-closed"
+    },
+    "A3_full_universe_denominator_partition": {
+      "verdict": "PASS",
+      "basis": "U=D exact-set equality, unique identities, terminal E/I partition, count/digest/date/cutoff/revision coherence, and unresolved-state block are enforced"
+    },
+    "A4_row_lineage_and_snapshot_completeness": {
+      "verdict": "PASS",
+      "basis": "PIT/model/retrieval sets equal U; exact one-to-one dataset refs; duplicate, missing, outside-U, and release drift fail before scorer or downstream publication"
+    },
+    "A5_exact_diagnostic_scorer_identity": {
+      "verdict": "PASS",
+      "basis": "Scorer artifact/config/model/schema/feature identities are bound before load/invocation and enter validation-run identity"
+    },
+    "A6_full_score_rank_outcome_preservation": {
+      "verdict": "PASS",
+      "basis": "Scorer output equals U; ranking/prediction/outcome equal E; ranks are contiguous; Top3/Top10 are projections; metrics require exact eligible/outcome/valid/pending accounting"
+    },
+    "A7_immutable_concurrent_accounting": {
+      "verdict": "PASS",
+      "basis": "Create-only and manifest-last publication, live ledger reread, immutable collision classification, atomic full-E batches, no-work exit 2, and exact unit accounting are enforced"
+    }
+  },
+  "stop_rule_review": {
+    "rules_reviewed": 14,
+    "breaches": 0,
+    "status": "CLEAR",
+    "diagnostic_fixture_boundary_observation": "The contract intent is implemented under the more explicit SYNTHETIC_IN_MEMORY_DIAGNOSTIC tag, exact StaticUniverseProvider/InMemoryFeatureProvider class restriction, DIAGNOSTIC authority, RAW_IMMUTABLE price, release_eligible=false, and no CLI path; this does not open self-certification outside fixtures."
+  },
+  "historical_evidence_truth_limits_preserved": {
+    "u127_row_level_outcome_blind_proven": "0_OF_127",
+    "u127_allowed_claim": "WORKING_WINNER_ENRICHED_CHALLENGE_UNIVERSE_ONLY",
+    "u127_population_or_outcome_blind_claim": "PROHIBITED",
+    "w1_w8_exposure": "ALL_EXPOSED",
+    "w1_w8_role": "DEVELOPMENT_OR_DESCRIPTIVE_ONLY",
+    "combined_historical_eligibility_unresolved": "514_OF_1016",
+    "exact_named_2024_2026_price_bytes": "ABSENT",
+    "standalone_price_interface_manifest": "ABSENT",
+    "ca_completeness_axes_b_c": "OPEN",
+    "thin_pit_complete": "0_OF_1016",
+    "thin_pit_publication_at_null": "1016_OF_1016",
+    "annotation_access_sidecar": "ABSENT",
+    "exact_executable_pre_outcome_v1_identity": "UNRECOVERED",
+    "status": "UNCHANGED_AND_BLOCKING_OFFICIAL_USE"
+  },
+  "claim_ceiling_and_authority_locks": {
+    "maximum_ctlv_claim": "R-WP4-03_CONTROL_MECHANISM_EXACT_CANDIDATE_PASS_DIAGNOSTIC_ONLY",
+    "model_state": "S0_PRE_OUTCOME_BASELINE_CANDIDATE",
+    "official_execution": "BLOCKED",
+    "price_canonical": "BLOCKED",
+    "official_golden": "BLOCKED",
+    "full_replay": "BLOCKED",
+    "model_freeze_authority": "BLOCKED",
+    "promotion": "BLOCKED",
+    "release": "BLOCKED",
+    "production_authority": "NONE",
+    "merge": "NOT_AUTHORIZED",
+    "iva_execution_participation": "NONE"
+  },
+  "route_decision": {
+    "ctlv_lane": "PASS",
+    "opens_only": "AAA-MODEL-VALIDATOR",
+    "does_not_open": [
+      "AAA-PMO-VALIDATOR before active Core B PASS",
+      "IVA execution or evidence production",
+      "Official execution",
+      "PRICE_CANONICAL",
+      "Official Golden",
+      "Full Replay",
+      "Model Freeze, Promotion, or Release",
+      "Production",
+      "Merge"
+    ],
+    "runtime_mechanism_final_closure": "PENDING_ACTIVE_CORE_B_AND_PMOV",
+    "blockers": []
+  }
+}

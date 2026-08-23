@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "m3top3-historical-source-bundle-schema-v0.1",
+  "title": "M3Top3 Historical Source Bundle v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "bundle_id",
+    "window_id",
+    "company_id",
+    "revision",
+    "snapshot_cutoff_at",
+    "entry_at",
+    "identity",
+    "eligibility_envelope",
+    "sources",
+    "concealment",
+    "access_sidecar_ref",
+    "admission"
+  ],
+  "properties": {
+    "bundle_id": {"type": "string", "pattern": "^W[1-8]\\|KRX:[0-9A-Z]{6}\\|r[0-9]+$"},
+    "window_id": {"type": "string", "enum": ["W1", "W2", "W3", "W4", "W5", "W6", "W7", "W8"]},
+    "company_id": {"type": "string", "pattern": "^KRX:[0-9A-Z]{6}$"},
+    "revision": {"type": "integer", "minimum": 1},
+    "snapshot_cutoff_at": {"type": "string", "format": "date-time"},
+    "entry_at": {"type": "string", "format": "date-time"},
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["canonical_name", "KRX_code", "binding_status", "binding_source_sha256"],
+      "properties": {
+        "canonical_name": {"type": "string", "minLength": 1},
+        "KRX_code": {"type": "string", "pattern": "^[0-9A-Z]{6}$"},
+        "binding_status": {"type": "string", "enum": ["READY", "PARTIAL", "BLOCKED"]},
+        "binding_source_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    },
+    "eligibility_envelope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "decision_source_refs", "adjudication_state"],
+      "properties": {
+        "state": {"type": "string", "enum": ["ELIGIBLE", "INELIGIBLE", "UNRESOLVED", "UNRECOVERABLE"]},
+        "decision_source_refs": {"type": "array", "items": {"type": "string"}},
+        "adjudication_state": {"type": "string", "enum": ["NOT_REQUIRED", "PENDING", "CLOSED"]}
+      }
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_id",
+          "source_type",
+          "locator",
+          "content_sha256",
+          "retrieved_at",
+          "retrieval_actor_id",
+          "publication_at",
+          "publication_timezone",
+          "available_before_cutoff",
+          "pit_vintage_state"
+        ],
+        "properties": {
+          "source_id": {"type": "string", "minLength": 1},
+          "source_type": {"type": "string"},
+          "locator": {"type": "string", "minLength": 1},
+          "content_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "retrieved_at": {"type": "string", "format": "date-time"},
+          "retrieval_actor_id": {"type": "string", "minLength": 1},
+          "publication_at": {"type": "string", "format": "date-time"},
+          "publication_timezone": {"type": "string", "minLength": 1},
+          "available_before_cutoff": {"type": "boolean"},
+          "pit_vintage_state": {"type": "string", "enum": ["VERIFIED", "UNVERIFIED", "UNRECOVERABLE"]},
+          "notes": {"type": "string"}
+        }
+      }
+    },
+    "concealment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "future_price_excluded",
+        "winner_rank_return_excluded",
+        "current_success_state_excluded",
+        "concealment_receipt_sha256"
+      ],
+      "properties": {
+        "future_price_excluded": {"const": true},
+        "winner_rank_return_excluded": {"const": true},
+        "current_success_state_excluded": {"const": true},
+        "concealment_receipt_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    },
+    "access_sidecar_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    },
+    "annotation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "state": {"type": "string", "enum": ["NOT_STARTED", "INDEPENDENT_PRE_ADJUDICATION", "ADJUDICATED", "BLOCKED"]},
+        "annotator_ids": {"type": "array", "items": {"type": "string"}},
+        "prompt_or_protocol_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+        "model_build": {"type": ["string", "null"]},
+        "temperature": {"type": ["number", "null"]},
+        "tool_result_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+        "pre_adjudication_output_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"}
+      }
+    },
+    "admission": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["score", "rank", "outcome", "reason"],
+      "properties": {
+        "score": {"const": false},
+        "rank": {"const": false},
+        "outcome": {"const": false},
+        "reason": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

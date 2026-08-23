@@ -7,8 +7,22 @@ from datetime import date, datetime
 from pathlib import Path
 from typing import Any
 
-from .admission import EXIT_BLOCKED, M3Top3AdmissionError, _snapshot_manifest_identity_payload, verify_snapshot_artifacts
-from .core import aggregate_hash, atomic_write_json, atomic_write_text, deterministic_id, sha256_hex, snapshot_cutoff
+from .admission import (
+    EXIT_BLOCKED,
+    EXIT_INTEGRITY,
+    M3Top3AdmissionError,
+    _snapshot_manifest_identity_payload,
+    lineage_ref_map,
+    reverify_execution_lineage,
+    synthetic_fixture_lineage,
+    universe_member_identity,
+    verify_feature_release,
+    verify_lineage_temporal_compatibility,
+    verify_price_release,
+    verify_snapshot_artifacts,
+    verify_universe_release,
+)
+from .core import aggregate_hash, atomic_write_json, atomic_write_text, deterministic_id, hash_file, sha256_hex, snapshot_cutoff
 from .pit_guard import PITGuard, PITLeakageError
 from .providers import InMemoryFeatureProvider, JsonlFeatureProvider, PITFeatureProvider, PriceProvider, UniverseProvider, UniverseState
 
@@ -34,13 +48,15 @@ class BuiltSnapshot:
     retrieval_audits: list[dict[str, Any]]
     status: str
     blockers: list[str] = field(default_factory=list)
+    lineage: dict[str, Any] = field(default_factory=dict)
 
 
 class SnapshotBuilder:
-    def __init__(self, universe: UniverseProvider, features: PITFeatureProvider, price: PriceProvider, config: SnapshotBuildConfig, guard: PITGuard | None = None):
+    def __init__(self, universe: UniverseProvider, features: PITFeatureProvider, price: PriceProvider, config: SnapshotBuildConfig, guard: PITGuard | None = None, execution_lineage: dict[str,Any]|None=None):
         self.universe=universe; self.features=features; self.price=price; self.config=config; self.guard=guard or PITGuard()
+        self.execution_lineage=execution_lineage or synthetic_fixture_lineage(universe,features,price)
 
-    def _build_company(self, state: UniverseState, snapshot_date: date, cutoff_at: datetime):
+    def _build_company(self, state: UniverseState, snapshot_date: date, cutoff_at: datetime, lineage: dict[str, Any]):
         receipts_before=len(getattr(self.features,"retrieval_receipts",[])) if hasattr(self.features,"retrieval_receipts") else None
         raw_features=[dict(r) for r in self.features.records_at(state.company_id, cutoff_at)]; blockers=[]
         retrieval_receipt=self._require_retrieval_receipt(state.company_id,cutoff_at,raw_features,receipts_before)
@@ -69,26 +85,31 @@ class SnapshotBuilder:
             else: observation_refs.append({"domain":"SOURCE_DATASET_LOCATOR","reference_payload":{"source_id":self.price.dataset_id,"locator":f"row://{snapshot_date.isoformat()}/{state.security_code}"}})
             model_features.setdefault("price_close",str(price_row.close))
             if price_row.marcap is not None: model_features.setdefault("market_cap",str(price_row.marcap))
-        eligibility="UNRESOLVED"
-        if state.operational_member is False or state.tradable_eligible is False: eligibility="FALSE"
-        elif state.operational_member is True and state.tradable_eligible is True: eligibility="TRUE"
+        member_id=universe_member_identity(state)
+        eligibility_record=lineage["eligibility_records"][member_id]
+        decision_status=eligibility_record["eligibility_status"]
+        eligibility="TRUE" if decision_status=="ELIGIBLE" else "FALSE" if decision_status=="INELIGIBLE" else "UNRESOLVED"
         if eligibility=="UNRESOLVED": blockers.append("ELIGIBILITY_UNRESOLVED")
         f1_refs=[]
         for r in raw_features:
             ref=r.get("f1_f2_ref")
             if isinstance(ref,dict) and ref.get("domain") and ref.get("ref_id"): f1_refs.append({"domain":str(ref["domain"]),"ref_id":str(ref["ref_id"])})
-        semantic={"company_id":state.company_id,"snapshot_cutoff_at":cutoff_at.isoformat(),"snapshot_schema_version":self.config.snapshot_schema_version,"snapshot_revision":0,"f1_f2_effective_refs":f1_refs,"f3_observation_refs":observation_refs,"evidence_refs":sorted(set(evidence_refs)) or None,"dataset_refs":[{"domain":"SOURCE_DATASET","source_id":self.price.dataset_id,"content_hash":self.price.dataset_hash,"locator":None}],"universe_release_id":self.universe.release_id,"tradability_state_ref":{"domain":"TRADABILITY_HISTORY","ref_id":state.universe_record_id},"retrieval_receipt_id":retrieval_receipt["retrieval_receipt_id"],"retrieval_source_hash":retrieval_receipt["source_hash"]}
+        dataset_refs=[lineage["release_ref_map"][domain] for domain in ("UNIVERSE_RELEASE","DENOMINATOR_ELIGIBILITY_RELEASE","FEATURE_SOURCE_RELEASE","PRICE_RELEASE","TRADING_CALENDAR_RELEASE")]
+        semantic={"company_id":state.company_id,"snapshot_cutoff_at":cutoff_at.isoformat(),"snapshot_schema_version":self.config.snapshot_schema_version,"snapshot_revision":0,"f1_f2_effective_refs":f1_refs,"f3_observation_refs":observation_refs,"evidence_refs":sorted(set(evidence_refs)) or None,"dataset_refs":dataset_refs,"universe_lineage_manifest_hash":lineage["universe_lineage_manifest_hash"],"universe_authority_status":lineage["universe_authority_status"],"universe_release_id":self.universe.release_id,"universe_release_revision":lineage["universe_release_revision"],"universe_release_hash":lineage["universe_release_hash"],"universe_release_status":lineage["universe_release_status"],"denominator_release_id":lineage["denominator_release_id"],"denominator_release_revision":lineage["denominator_release_revision"],"denominator_release_hash":lineage["denominator_release_hash"],"denominator_release_status":lineage["denominator_release_status"],"denominator_member_id":member_id,"eligibility_record_id":eligibility_record["eligibility_record_id"],"eligibility_status":eligibility_record["eligibility_status"],"tradability_state_ref":{"domain":"TRADABILITY_HISTORY","ref_id":state.universe_record_id},"retrieval_receipt_id":retrieval_receipt["retrieval_receipt_id"],"retrieval_source_hash":retrieval_receipt["source_hash"]}
         pit_snapshot_id=deterministic_id("pit",semantic); capture_run_id=deterministic_id("capture",{"pit_snapshot_id":pit_snapshot_id,"generator_version":self.config.generator_version})
-        pit_row={"pit_snapshot_id":pit_snapshot_id,"company_id":state.company_id,"snapshot_cutoff_at":cutoff_at.isoformat(),"snapshot_date":snapshot_date.isoformat(),"snapshot_schema_version":self.config.snapshot_schema_version,"snapshot_revision":0,"supersedes_ref":None,"capture_run_id":capture_run_id,"generator_version":self.config.generator_version,"snapshot_frozen":False,"snapshot_frozen_at":None,"f1_f2_effective_refs":f1_refs,"f3_observation_refs":observation_refs,"evidence_refs":semantic["evidence_refs"],"dataset_refs":semantic["dataset_refs"],"universe_release_id":self.universe.release_id,"tradability_state_ref":semantic["tradability_state_ref"],"retrieval_receipt_id":retrieval_receipt["retrieval_receipt_id"],"retrieval_source_hash":retrieval_receipt["source_hash"],"schema_version":self.config.snapshot_schema_version}
-        model_input={"pit_snapshot_id":pit_snapshot_id,"snapshot_date":snapshot_date.isoformat(),"snapshot_cutoff_at":cutoff_at.isoformat(),"company_id":state.company_id,"security_code":str(state.security_code).zfill(6),"universe_member":state.operational_member,"entry_eligible":eligibility,"universe_authority_status":self.universe.authority_status,"price_dataset_id":self.price.dataset_id,"price_source_semantics":self.price.semantics,"retrieval_receipt_id":retrieval_receipt["retrieval_receipt_id"],"retrieval_source_hash":retrieval_receipt["source_hash"],"feature_values":model_features,"feature_trace":feature_trace,"model_input_schema_version":self.config.model_input_schema_version,"reconstruction_version":self.config.reconstruction_version}
+        pit_row={"pit_snapshot_id":pit_snapshot_id,"company_id":state.company_id,"security_code":str(state.security_code).zfill(6),"snapshot_cutoff_at":cutoff_at.isoformat(),"snapshot_date":snapshot_date.isoformat(),"snapshot_schema_version":self.config.snapshot_schema_version,"snapshot_revision":0,"supersedes_ref":None,"capture_run_id":capture_run_id,"generator_version":self.config.generator_version,"snapshot_frozen":False,"snapshot_frozen_at":None,"f1_f2_effective_refs":f1_refs,"f3_observation_refs":observation_refs,"evidence_refs":semantic["evidence_refs"],"dataset_refs":semantic["dataset_refs"],"universe_lineage_manifest_hash":lineage["universe_lineage_manifest_hash"],"universe_authority_status":lineage["universe_authority_status"],"universe_release_id":self.universe.release_id,"universe_release_revision":lineage["universe_release_revision"],"universe_release_hash":lineage["universe_release_hash"],"universe_release_status":lineage["universe_release_status"],"denominator_release_id":lineage["denominator_release_id"],"denominator_release_revision":lineage["denominator_release_revision"],"denominator_release_hash":lineage["denominator_release_hash"],"denominator_release_status":lineage["denominator_release_status"],"denominator_member_id":member_id,"eligibility_record_id":eligibility_record["eligibility_record_id"],"eligibility_status":eligibility_record["eligibility_status"],"tradability_state_ref":semantic["tradability_state_ref"],"retrieval_receipt_id":retrieval_receipt["retrieval_receipt_id"],"retrieval_source_hash":retrieval_receipt["source_hash"],"schema_version":self.config.snapshot_schema_version}
+        model_input={"pit_snapshot_id":pit_snapshot_id,"snapshot_date":snapshot_date.isoformat(),"snapshot_cutoff_at":cutoff_at.isoformat(),"company_id":state.company_id,"security_code":str(state.security_code).zfill(6),"universe_record_id":state.universe_record_id,"universe_valid_from":state.valid_from.isoformat() if state.valid_from else None,"universe_valid_to":state.valid_to.isoformat() if state.valid_to else None,"universe_member":state.operational_member,"tradable_eligible":state.tradable_eligible,"universe_member_status":state.status,"denominator_member_id":member_id,"eligibility_record_id":eligibility_record["eligibility_record_id"],"eligibility_status":eligibility_record["eligibility_status"],"entry_eligible":eligibility,"dataset_refs":semantic["dataset_refs"],"universe_authority_status":self.universe.authority_status,"universe_lineage_manifest_hash":lineage["universe_lineage_manifest_hash"],"universe_release_id":self.universe.release_id,"universe_release_revision":lineage["universe_release_revision"],"universe_release_hash":lineage["universe_release_hash"],"universe_release_status":lineage["universe_release_status"],"denominator_release_id":lineage["denominator_release_id"],"denominator_release_revision":lineage["denominator_release_revision"],"denominator_release_hash":lineage["denominator_release_hash"],"denominator_release_status":lineage["denominator_release_status"],"feature_source_version":self.features.source_version,"feature_source_hash":self.features.source_hash,"feature_source_status":self.features.source_status,"price_dataset_id":self.price.dataset_id,"price_dataset_hash":self.price.dataset_hash,"price_source_semantics":self.price.semantics,"price_release_status":self.price.release_status,"retrieval_receipt_id":retrieval_receipt["retrieval_receipt_id"],"retrieval_source_hash":retrieval_receipt["source_hash"],"feature_values":model_features,"feature_trace":feature_trace,"model_input_schema_version":self.config.model_input_schema_version,"reconstruction_version":self.config.reconstruction_version}
         self.guard.assert_model_inputs([model_input],cutoff_at)
-        return pit_row,model_input,blockers,dict(retrieval_receipt) if isinstance(retrieval_receipt,dict) else None
+        audit=dict(retrieval_receipt) if isinstance(retrieval_receipt,dict) else None
+        if audit is not None:
+            audit.update({"security_code_at_cutoff":str(state.security_code).zfill(6),"snapshot_date":snapshot_date.isoformat(),"snapshot_cutoff_at":cutoff_at.isoformat(),"pit_snapshot_id":pit_snapshot_id,"universe_release_id":self.universe.release_id,"universe_release_revision":lineage["universe_release_revision"],"denominator_release_id":lineage["denominator_release_id"],"denominator_release_revision":lineage["denominator_release_revision"],"eligibility_record_id":eligibility_record["eligibility_record_id"],"eligibility_status":eligibility_record["eligibility_status"],"entry_eligible":eligibility})
+        return pit_row,model_input,blockers,audit
 
     def _independent_retrieval_slice(self,company_id:str,cutoff_at:datetime)->tuple[list[dict[str,Any]],dict[str,Any]]:
         if type(self.features) is JsonlFeatureProvider:
-            shadow=JsonlFeatureProvider(self.features.path,self.features.source_version,self.features.cutoff_frozen_bundle)
+            shadow=JsonlFeatureProvider(self.features.path,self.features.source_version,self.features.cutoff_frozen_bundle,self.features.source_status)
         elif type(self.features) is InMemoryFeatureProvider:
-            shadow=InMemoryFeatureProvider(self.features._rows,self.features.source_version,self.features.cutoff_frozen_bundle)
+            shadow=InMemoryFeatureProvider(self.features._rows,self.features.source_version,self.features.cutoff_frozen_bundle,self.features.source_status)
         elif isinstance(self.features,(JsonlFeatureProvider,InMemoryFeatureProvider)):
             raise M3Top3AdmissionError(
                 "RETRIEVAL_RECEIPT_RECONCILIATION_FAILED",
@@ -113,8 +134,8 @@ class SnapshotBuilder:
         receipts=getattr(self.features,"retrieval_receipts",None); receipt=getattr(self.features,"last_retrieval_receipt",None)
         if not isinstance(receipts,list) or receipts_before is None or len(receipts)!=receipts_before+1 or not isinstance(receipt,dict) or receipts[-1] is not receipt:
             raise M3Top3AdmissionError("MISSING_DETERMINISTIC_RETRIEVAL_RECEIPT","feature provider must emit exactly one deterministic receipt per company/cutoff slice",{"company_id":company_id,"cutoff_at":cutoff_at.isoformat()},EXIT_BLOCKED)
-        required={"retrieval_receipt_id","company_id","cutoff_at","source_version","source_hash","source_matching_rows","selected_rows","excluded_rows","exclusions","cutoff_frozen_bundle"}
-        if required-set(receipt) or receipt.get("company_id")!=company_id or receipt.get("cutoff_at")!=cutoff_at.isoformat() or receipt.get("source_version")!=getattr(self.features,"source_version",None):
+        required={"retrieval_receipt_id","company_id","cutoff_at","source_version","source_status","source_hash","source_matching_rows","selected_rows","excluded_rows","exclusions","cutoff_frozen_bundle"}
+        if required-set(receipt) or receipt.get("company_id")!=company_id or receipt.get("cutoff_at")!=cutoff_at.isoformat() or receipt.get("source_version")!=getattr(self.features,"source_version",None) or receipt.get("source_status")!=getattr(self.features,"source_status",None):
             raise M3Top3AdmissionError("RETRIEVAL_RECEIPT_RECONCILIATION_FAILED","retrieval receipt identity does not match the consumed slice",{"company_id":company_id},EXIT_BLOCKED)
         source_hash=receipt.get("source_hash")
         counts=(receipt.get("source_matching_rows"),receipt.get("selected_rows"),receipt.get("excluded_rows"))
@@ -130,15 +151,55 @@ class SnapshotBuilder:
         return receipt
 
     def build(self,snapshot_date:date)->BuiltSnapshot:
-        cutoff_at=snapshot_cutoff(snapshot_date,self.config.cutoff_local_time,self.config.timezone); states=self.universe.states_at(snapshot_date); pit_rows=[]; model_inputs=[]; retrieval_audits=[]; blockers=[]
+        if not self.execution_lineage.get("synthetic_only"):
+            reverify_execution_lineage(self.execution_lineage)
+        verify_lineage_temporal_compatibility(self.execution_lineage,snapshot_date)
+        cutoff_at=snapshot_cutoff(snapshot_date,self.config.cutoff_local_time,self.config.timezone); states=list(self.universe.states_at(snapshot_date)); pit_rows=[]; model_inputs=[]; retrieval_audits=[]; blockers=[]
+        universe_lineage=verify_universe_release(self.universe,snapshot_date,states)
+        if universe_lineage.get("snapshot_cutoff_at")!=cutoff_at.isoformat():
+            raise M3Top3AdmissionError("DENOMINATOR_LINEAGE_MISMATCH","snapshot build cutoff differs from denominator release cutoff",exit_code=EXIT_INTEGRITY)
+        verify_price_release(self.price)
+        if self.config.price_source_semantics!=self.price.semantics:
+            raise M3Top3AdmissionError("PRICE_LINEAGE_MISMATCH","snapshot build config price semantics differs from the admitted provider",{"config":self.config.price_source_semantics,"provider":self.price.semantics},3)
+        release_refs=lineage_ref_map(self.execution_lineage)
+        feature_lineage=verify_feature_release(self.features) if not self.execution_lineage.get("synthetic_only") else None
+        if release_refs["UNIVERSE_RELEASE"]["release_id"]!=self.universe.release_id or release_refs["UNIVERSE_RELEASE"]["release_revision"]!=universe_lineage["universe_release_revision"] or release_refs["UNIVERSE_RELEASE"]["artifact_sha256"]!=universe_lineage["universe_release_hash"] or release_refs["DENOMINATOR_ELIGIBILITY_RELEASE"]["release_id"]!=universe_lineage["denominator_release_id"] or release_refs["DENOMINATOR_ELIGIBILITY_RELEASE"]["release_revision"]!=universe_lineage["denominator_release_revision"] or release_refs["DENOMINATOR_ELIGIBILITY_RELEASE"]["artifact_sha256"]!=universe_lineage["denominator_release_hash"]:
+            raise M3Top3AdmissionError("DATASET_REF_IDENTITY_MISMATCH","Universe/denominator providers differ from execution lineage",exit_code=3)
+        if feature_lineage is not None and (release_refs["FEATURE_SOURCE_RELEASE"]["release_id"]!=self.features.source_version or release_refs["FEATURE_SOURCE_RELEASE"]["artifact_sha256"]!=self.features.source_hash or release_refs["PRICE_RELEASE"]["release_id"]!=self.price.dataset_id):
+            raise M3Top3AdmissionError("DATASET_REF_IDENTITY_MISMATCH","feature/price providers differ from execution lineage",exit_code=3)
+        if not self.execution_lineage.get("synthetic_only"):
+            operational={release["domain"]:release for release in self.execution_lineage.get("releases",[])}
+            provider_components=getattr(self.price,"component_records",None)
+            if isinstance(provider_components,list) and provider_components:
+                consumed=sorted((row.get("artifact_sha256"),row.get("byte_size")) for row in provider_components)
+            else:
+                paths=getattr(self.price,"paths",None) or ([getattr(self.price,"path",None)] if getattr(self.price,"path",None) is not None else [])
+                try:
+                    consumed=sorted((hash_file(Path(path)),Path(path).stat().st_size) for path in paths)
+                except OSError as exc:
+                    raise M3Top3AdmissionError("PRICE_LINEAGE_MISMATCH","snapshot price/CA/calendar provider bytes are unavailable",exit_code=3) from exc
+            for domain in ("PRICE_RELEASE","CORPORATE_ACTION_RELEASE","TRADING_CALENDAR_RELEASE"):
+                release=operational.get(domain); registered=sorted((row.get("artifact_sha256"),row.get("byte_size")) for row in (release or {}).get("components",[]))
+                if not release or registered!=consumed:
+                    code="PRICE_LINEAGE_MISMATCH" if domain=="PRICE_RELEASE" else "OUTCOME_COMPONENT_LINEAGE_MISMATCH"
+                    raise M3Top3AdmissionError(code,f"snapshot provider bytes differ from exact {domain}",exit_code=3)
+            if getattr(self.price,"component_set_digest",None) is not None and release_refs["PRICE_RELEASE"].get("component_set_digest")!=self.price.component_set_digest:
+                raise M3Top3AdmissionError("PRICE_LINEAGE_MISMATCH","snapshot price semantic component identity differs from PRICE_RELEASE",exit_code=3)
+        lineage={**universe_lineage,"execution_lineage_bundle_hash":self.execution_lineage["bundle_sha256"],"execution_lineage_bundle_locator":self.execution_lineage.get("bundle_path"),"execution_lineage_identity_hash":self.execution_lineage["lineage_identity_hash"],"lineage_bundle_synthetic_only":self.execution_lineage.get("synthetic_only") is True,"lineage_releases":self.execution_lineage["portable_releases"],"release_ref_map":release_refs,"price_dataset_id":self.price.dataset_id,"price_dataset_hash":self.price.dataset_hash,"price_source_semantics":self.price.semantics,"price_release_status":self.price.release_status}
         for state in sorted(states,key=lambda x:(x.company_id,x.security_code)):
             try:
-                p,m,b,audit=self._build_company(state,snapshot_date,cutoff_at)
+                p,m,b,audit=self._build_company(state,snapshot_date,cutoff_at,lineage)
             except PITLeakageError as exc:
                 blockers.extend(f"{state.company_id}:{v.code}" for v in exc.violations)
                 continue
             pit_rows.append(p); model_inputs.append(m); blockers.extend(f"{state.company_id}:{x}" for x in b)
             if audit is not None: retrieval_audits.append(audit)
+        if feature_lineage is None:
+            feature_lineage=verify_feature_release(self.features)
+            if release_refs["FEATURE_SOURCE_RELEASE"]["release_id"]!=self.features.source_version or release_refs["FEATURE_SOURCE_RELEASE"]["artifact_sha256"]!=self.features.source_hash or release_refs["PRICE_RELEASE"]["release_id"]!=self.price.dataset_id:
+                raise M3Top3AdmissionError("DATASET_REF_IDENTITY_MISMATCH","feature/price providers differ from execution lineage",exit_code=3)
+        lineage.update(feature_lineage)
+        lineage.pop("release_ref_map",None)
         entry_hash=aggregate_hash([sha256_hex(p) for p in pit_rows]+[sha256_hex(m) for m in model_inputs]+[sha256_hex(a) for a in retrieval_audits])
         if not states: status="SNAPSHOT_BLOCKED"; blockers.append("NO_UNIVERSE_STATES")
         elif any(not blocker.endswith(":ELIGIBILITY_UNRESOLVED") for blocker in blockers):
@@ -146,7 +207,7 @@ class SnapshotBuilder:
             entry_hash=aggregate_hash([sha256_hex(p) for p in pit_rows]+[sha256_hex(a) for a in retrieval_audits])
         elif blockers: status="SNAPSHOT_PARTIAL"
         else: status="SNAPSHOT_READY"
-        return BuiltSnapshot(snapshot_date,cutoff_at,entry_hash,pit_rows,model_inputs,retrieval_audits,status,sorted(set(blockers)))
+        return BuiltSnapshot(snapshot_date,cutoff_at,entry_hash,pit_rows,model_inputs,retrieval_audits,status,sorted(set(blockers)),lineage)
 
 
 class SnapshotStore:
@@ -161,15 +222,15 @@ class SnapshotStore:
         return True
     def write(self,built:BuiltSnapshot,metadata:dict[str,Any])->dict[str,Any]:
         if built.status != "SNAPSHOT_READY" or built.blockers:
-            raise M3Top3AdmissionError("BLOCKED_SNAPSHOT_NOT_READY","only READY snapshots with zero blockers may enter the scoreable store",{"snapshot_status":built.status,"blockers":built.blockers},EXIT_BLOCKED)
+            raise M3Top3AdmissionError("BLOCKED_MANIFEST_STATE_CONTRADICTION_OR_BLOCKED_SNAPSHOT_NOT_READY","only READY snapshots with zero blockers may enter the scoreable store",{"snapshot_status":built.status,"blockers":built.blockers},EXIT_BLOCKED)
         d=self._dir(built.snapshot_date)
         pit_text="".join(json.dumps(r,ensure_ascii=False,sort_keys=True,separators=(",",":"))+"\n" for r in built.pit_rows); mi_text="".join(json.dumps(r,ensure_ascii=False,sort_keys=True,separators=(",",":"))+"\n" for r in built.model_inputs); audit_text="".join(json.dumps(r,ensure_ascii=False,sort_keys=True,separators=(",",":"))+"\n" for r in built.retrieval_audits)
         first_pit=built.pit_rows[0] if built.pit_rows else {}
         first_model=built.model_inputs[0] if built.model_inputs else {}
         first_audit=built.retrieval_audits[0] if built.retrieval_audits else {}
         dataset_refs=first_pit.get("dataset_refs") if isinstance(first_pit.get("dataset_refs"),list) else []
-        price_ref=next((ref for ref in dataset_refs if isinstance(ref,dict) and ref.get("source_id")==first_model.get("price_dataset_id")),{})
-        manifest={**metadata,"generator_version":first_pit.get("generator_version"),"universe_release_id":first_pit.get("universe_release_id"),"feature_source_version":first_audit.get("source_version"),"price_dataset_id":first_model.get("price_dataset_id"),"price_dataset_hash":price_ref.get("content_hash"),"price_source_semantics":first_model.get("price_source_semantics"),"reconstruction_version":first_model.get("reconstruction_version"),"snapshot_date":built.snapshot_date.isoformat(),"snapshot_cutoff_at":built.cutoff_at.isoformat(),"snapshot_content_hash":built.snapshot_set_entry_hash,"snapshot_status":built.status,"blockers":built.blockers,"pit_row_count":len(built.pit_rows),"model_input_row_count":len(built.model_inputs),"retrieval_audit_row_count":len(built.retrieval_audits),"pit_file_sha256":sha256_hex(pit_text),"model_input_file_sha256":sha256_hex(mi_text),"retrieval_audit_file_sha256":sha256_hex(audit_text),"retrieval_audit_content_hash":aggregate_hash([sha256_hex(a) for a in built.retrieval_audits]),"retrieval_receipt_ids":sorted(a["retrieval_receipt_id"] for a in built.retrieval_audits),"retrieval_source_hashes":sorted({a["source_hash"] for a in built.retrieval_audits})}
+        price_ref=next((ref for ref in dataset_refs if isinstance(ref,dict) and ref.get("domain")=="PRICE_RELEASE"),{})
+        manifest={**metadata,**built.lineage,"generator_version":first_pit.get("generator_version"),"universe_release_id":first_pit.get("universe_release_id"),"feature_source_version":first_audit.get("source_version"),"feature_source_hash":first_audit.get("source_hash"),"feature_source_status":first_audit.get("source_status"),"price_dataset_id":first_model.get("price_dataset_id"),"price_dataset_hash":first_model.get("price_dataset_hash") or price_ref.get("artifact_sha256"),"price_source_semantics":first_model.get("price_source_semantics"),"price_release_status":first_model.get("price_release_status"),"reconstruction_version":first_model.get("reconstruction_version"),"snapshot_date":built.snapshot_date.isoformat(),"snapshot_cutoff_at":built.cutoff_at.isoformat(),"snapshot_revision":first_pit.get("snapshot_revision",0),"snapshot_content_hash":built.snapshot_set_entry_hash,"snapshot_status":built.status,"blockers":built.blockers,"pit_row_count":len(built.pit_rows),"model_input_row_count":len(built.model_inputs),"retrieval_audit_row_count":len(built.retrieval_audits),"pit_file_sha256":sha256_hex(pit_text),"model_input_file_sha256":sha256_hex(mi_text),"retrieval_audit_file_sha256":sha256_hex(audit_text),"retrieval_audit_content_hash":aggregate_hash([sha256_hex(a) for a in built.retrieval_audits]),"retrieval_receipt_ids":sorted(a["retrieval_receipt_id"] for a in built.retrieval_audits),"retrieval_source_hashes":sorted({a["source_hash"] for a in built.retrieval_audits})}
         manifest["snapshot_manifest_identity_hash"]=sha256_hex(_snapshot_manifest_identity_payload(manifest))
         targets=(d/"pit_snapshot.jsonl",d/"model_input.jsonl",d/"retrieval_audit.jsonl",d/"manifest.json")
         if any(path.exists() for path in targets):

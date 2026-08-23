@@ -1,0 +1,605 @@
+{
+  "schema_version": "m3top3-baseline-identity-evidence-matrix-v0.1",
+  "audit_id": "M3TOP3-G1-LANE-A-BASELINE-IDENTITY-20260823",
+  "generated_at_kst": "2026-08-23T20:44:59+09:00",
+  "subject": "Original pre-outcome M3Top3 v1 baseline identity",
+  "execution_boundary": {
+    "executor": "AAA-PMO-ORCHESTRATOR / G1 Lane A",
+    "mode": "READ_ONLY_EXACT_EVIDENCE_AUDIT",
+    "iva_participation": "NONE",
+    "runtime_mutation": "NONE",
+    "git_mutation": "NONE",
+    "official_execution": "NONE",
+    "golden_execution": "NONE",
+    "replay_execution": "NONE"
+  },
+  "overall_verdict": {
+    "classification": "UNPROVEN",
+    "state": "S0_PRE_OUTCOME_BASELINE_CANDIDATE",
+    "transition_eligibility": "S0_TO_S1_NOT_ELIGIBLE",
+    "exact_recovered": false,
+    "semantically_reconstructed": false,
+    "approximate_original_identity": false,
+    "working_engineering_exists": true,
+    "reason": "The reviewed evidence does not close the original contract, official scorer, frozen config/environment, independent oracle, release manifest/readback, pre-outcome timestamp, complete outcome-access history, and continuous change history. Later working engineering is not the original identity."
+  },
+  "classification_rules": {
+    "EXACT_RECOVERED": "Original bytes and an unbroken provenance chain for contract, code, config, environment, tests/oracles, release manifest, hashes, timestamps, access and changes.",
+    "SEMANTICALLY_RECONSTRUCTED": "A separately named reconstruction with explicit gaps, fresh identity, independent review and Owner approval.",
+    "APPROXIMATE": "Partial or placeholder engineering that cannot claim original identity.",
+    "UNPROVEN": "Available evidence cannot establish either exact original identity or an approved semantic reconstruction."
+  },
+  "searched_surfaces": [
+    {
+      "surface": "workspace_uploads",
+      "paths": [
+        "upload/M3Top3_Owner_to_PMO_Direct_Dispatch_Packet_v1.0_2026-08-22(1).md",
+        "upload/M3Top3_PMO_Initial_Execution_Workplan_v1.0_2026-08-22(1).docx",
+        "upload/M3Top3_Planning_Design_Closure_Review_and_Owner_Decision_v1.0_2026-08-22(1).docx"
+      ]
+    },
+    {
+      "surface": "project_sources",
+      "path": "project_sources/",
+      "scope": "01 through 16"
+    },
+    {
+      "surface": "remediation",
+      "paths": [
+        "remediation/r_wp1_identity_recovery/",
+        "remediation/r_wp4_03_v04_authority/",
+        "remediation/r_coreb_validator/"
+      ]
+    },
+    {
+      "surface": "accessible_git_history",
+      "repository": "AofSpds/asset-agent-asa",
+      "refs_and_trees": [
+        "a02145cabf0c057591adf4098b630fca3a6453dc / 2b4fe09827329f96f6d71822c42b0f980b36d34c",
+        "654f0e97f5230c61101cd434905ca11070c6e5ed / a7873ba446fc5d3b94142fefa5121549cbaf9f73",
+        "fa7d1a8bd1d00d297c27a325801618b75c4e113e / 2521bfc8ed7ea23a7ad3abebe2bd1b6aeb8becac",
+        "1d6822736d97f8ddc76ae03e43d7cd594294b086 / 2e08038a8c8c887da4c421fb2adcc74b35e444f9"
+      ],
+      "tree_scan_note": "Referenced recursive tree reads were not truncated. Negative findings are bounded to the inspected trees and paths."
+    }
+  ],
+  "source_inventory": [
+    {
+      "path": "project_sources/01-Samsung_Semiconductor_Future_Technology_Platform_Map_v1.1_2026-08-09.docx",
+      "sha256": "b3d011c16cc3bd33ffd5235f2f2af93bbc7d4ed5affb407cbe5ec635ee32f087"
+    },
+    {
+      "path": "project_sources/02-Future_Semiconductor_System_Architecture_Memory_Manufacturing_Map_v1.0_2026-08-10.docx",
+      "sha256": "99e4a200921fa44cbc8792f64705efccf7ff2c79e7e91fc1f425d9bfc559395e"
+    },
+    {
+      "path": "project_sources/03-Korea_Semiconductor_Equipment_CAPEX_Early_Revenue_Response_Map_v1.0_2026-08-11.docx",
+      "sha256": "4871de83a6c6ce6bc0fdbf0e0779731e11225d3284505a1c7b7ea00d3d348909"
+    },
+    {
+      "path": "project_sources/04-SK_Hynix_CAPEX_Korea_Equipment_Ecosystem_Report_v0_2026-08-14.docx",
+      "sha256": "2d160445a9726d69e257299d67a699e4874e4e4d39d1acecfb36466cf6ac5e4b"
+    },
+    {
+      "path": "project_sources/05-Korea_Semiconductor_SupplyChain_TOP38_Master_Scorecard_v2.2_Detail_2026-08-14.docx",
+      "sha256": "e41b02dcb642f72b447c6c468c6d590e19aff468e6bc99413b7da5ef0cde6300"
+    },
+    {
+      "path": "project_sources/06-Semi_Eval_Core_v1.0_2026-08-14.docx",
+      "sha256": "3a8c70df26dee0b3c1430846cd9934aa237fd2075f322d78d899ed8cb81acc54"
+    },
+    {
+      "path": "project_sources/07-Semi_Data_Route_v1.1_2026-08-14.docx",
+      "sha256": "508f98e88c150ceb751db2227727db529eb04da467c53a6eed5278ca5e17aa02"
+    },
+    {
+      "path": "project_sources/08-Semi_Universe_v1.0_2026-08-14.docx",
+      "sha256": "eef313bc71bd0a5cb019f92e43e1bf38c2a63633bb847320d1cb4c8fe4ea9023"
+    },
+    {
+      "path": "project_sources/09-SEMI-PIT-LEDGER_v1.0.docx",
+      "sha256": "acde50e7090382e95cc585227c4dd52df6b3f342258b6debfa0aabb7db94006a"
+    },
+    {
+      "path": "project_sources/10-SEMI-PRICE-LEDGER_IMPORT-MANIFEST_v1.0.csv",
+      "sha256": "ca8f117a83cd3da800a2a2b5e0ebdca3c89ff658ff3fd21b5083e4aae9ab98ce"
+    },
+    {
+      "path": "project_sources/11-SEMI-SOURCE-INDEX_v1.0.docx",
+      "sha256": "2131ebe6724a8c2d235e7e6f06d4fdde2819ab460bd5c907e2f7ca32e02dac46"
+    },
+    {
+      "path": "project_sources/12-SEMI-COMPANY-MASTER_v0.1.docx",
+      "sha256": "03842717f3bb6815610541496b1f5dadfd44a0e277dc9364c5632cbfb5520cd6"
+    },
+    {
+      "path": "project_sources/13-SEMI-PRICE-LEDGER_v1.0_SCHEMA.csv",
+      "sha256": "67c8633579c3b624ffa2254bdf4173f205b1617b64ed960b9b1e200bc1e01c25"
+    },
+    {
+      "path": "project_sources/14-SEMI-FAB-MASTER_v1.0_2026-08-14.docx",
+      "sha256": "528d1a59ac5b6796b95f70605675f273d80ef744da8d6460da60204d3cff4159"
+    },
+    {
+      "path": "project_sources/15-SEMI-PRICE-LEDGER_v1.0_INGEST-AUDIT_BLOCKED_2026-08-14.csv",
+      "sha256": "6e8d0eabbd4cafaf8f3073528a3d75c7ec15713a4efa27ba5308a176776e0728"
+    },
+    {
+      "path": "project_sources/16-marcap-2025.parquet",
+      "sha256": "2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e"
+    }
+  ],
+  "evidence": [
+    {
+      "claim_id": "E01",
+      "claim": "The six-axis 3M weights, trigger states and NOT_FOUND semantic are preserved as source-design fragments.",
+      "artifact": "Semi_Eval_Core_v1.0_2026-08-14.docx",
+      "locator": {
+        "workspace_path": "project_sources/06-Semi_Eval_Core_v1.0_2026-08-14.docx"
+      },
+      "hash": {
+        "sha256": "3a8c70df26dee0b3c1430846cd9934aa237fd2075f322d78d899ed8cb81acc54",
+        "bytes": 48851
+      },
+      "status": "SUPPORTED_PARTIAL",
+      "authority": "SOURCE_DESIGN_EVIDENCE_ONLY",
+      "scope_limit": "Does not provide a complete executable F01-F09, gate, tie, missingness and release contract."
+    },
+    {
+      "claim_id": "E02",
+      "claim": "PIT, entry/exit, MFE and MAE routing semantics are preserved as source-design fragments.",
+      "artifact": "Semi_Data_Route_v1.1_2026-08-14.docx",
+      "locator": {
+        "workspace_path": "project_sources/07-Semi_Data_Route_v1.1_2026-08-14.docx"
+      },
+      "hash": {
+        "sha256": "508f98e88c150ceb751db2227727db529eb04da467c53a6eed5278ca5e17aa02",
+        "bytes": 49660
+      },
+      "status": "SUPPORTED_PARTIAL",
+      "authority": "SOURCE_DESIGN_EVIDENCE_ONLY",
+      "scope_limit": "Does not bind an official scorer or release identity."
+    },
+    {
+      "claim_id": "E03",
+      "claim": "The supplied universe document covers U46 and historical eligibility principles but does not close U127 genesis and authority.",
+      "artifact": "Semi_Universe_v1.0_2026-08-14.docx",
+      "locator": {
+        "workspace_path": "project_sources/08-Semi_Universe_v1.0_2026-08-14.docx"
+      },
+      "hash": {
+        "sha256": "eef313bc71bd0a5cb019f92e43e1bf38c2a63633bb847320d1cb4c8fe4ea9023",
+        "bytes": 42132
+      },
+      "status": "SUPPORTED_GAP",
+      "authority": "SOURCE_UNIVERSE_EVIDENCE_ONLY",
+      "scope_limit": "No inference is made about unreviewed U127 sources."
+    },
+    {
+      "claim_id": "E04",
+      "claim": "The PIT ledger preserves an append-only logical schema and validation fields.",
+      "artifact": "SEMI-PIT-LEDGER_v1.0.docx",
+      "locator": {
+        "workspace_path": "project_sources/09-SEMI-PIT-LEDGER_v1.0.docx"
+      },
+      "hash": {
+        "sha256": "acde50e7090382e95cc585227c4dd52df6b3f342258b6debfa0aabb7db94006a",
+        "bytes": 38985
+      },
+      "status": "SUPPORTED_PARTIAL",
+      "authority": "SOURCE_LEDGER_DESIGN_ONLY",
+      "scope_limit": "Logical schema is not evidence of a frozen original model package."
+    },
+    {
+      "claim_id": "E05",
+      "claim": "The reviewed project-source set does not itself close a complete executable M3Top3 v1 contract.",
+      "artifact": "Project source inventory 01-16",
+      "locator": {
+        "workspace_path": "project_sources/"
+      },
+      "hash": {
+        "inventory": "source_inventory"
+      },
+      "status": "NOT_PROVEN_IN_REVIEWED_SET",
+      "authority": "BOUNDED_AUDIT_OBSERVATION",
+      "scope_limit": "This is not a claim of global nonexistence."
+    },
+    {
+      "claim_id": "E06",
+      "claim": "The accessible pre-infrastructure repository tree contains no path with m3top3.",
+      "artifact": "Repository recursive tree",
+      "locator": {
+        "repository": "AofSpds/asset-agent-asa",
+        "commit": "a02145cabf0c057591adf4098b630fca3a6453dc",
+        "tree": "2b4fe09827329f96f6d71822c42b0f980b36d34c",
+        "commit_time": "2026-08-15T06:47:33+09:00"
+      },
+      "hash": {
+        "git_tree_sha1": "2b4fe09827329f96f6d71822c42b0f980b36d34c"
+      },
+      "status": "SUPPORTED",
+      "authority": "ACCESSIBLE_GIT_HISTORY",
+      "scope_limit": "Tree count 94 and truncated=false; this does not exclude artifacts outside the accessible repository history."
+    },
+    {
+      "claim_id": "E07",
+      "claim": "Later infrastructure explicitly records that the official frozen scorer/model definition was not supplied.",
+      "artifact": "M3Top3 infrastructure spec and implementation audit",
+      "locator": {
+        "repository": "AofSpds/asset-agent-asa",
+        "spec_path": "control/m3top3/v0.1/M3TOP3-INFRASTRUCTURE-SPEC_v0.1.yaml",
+        "spec_commit": "1cd98e5612d9f734c6215cc6ecee475534859d02",
+        "audit_path": "control/m3top3/v0.1/M3TOP3-INFRA-IMPLEMENTATION-AUDIT_v0.1.yaml"
+      },
+      "hash": {
+        "spec_git_blob_sha1": "15ff7344f3547a0dd62eb8d92179c47d1b611583",
+        "audit_git_blob_sha1": "37c10ebed350f4fb2221c47c148bcf3cf8d05a00"
+      },
+      "status": "SUPPORTED",
+      "authority": "WORKING_ENGINEERING_EVIDENCE",
+      "scope_limit": "The working spec/audit cannot themselves supply semantic authority."
+    },
+    {
+      "claim_id": "E08",
+      "claim": "The accessible deterministic scorer is explicitly test-only and is not an official model implementation.",
+      "artifact": "tools/m3top3/model_interface.py",
+      "locator": {
+        "repository": "AofSpds/asset-agent-asa",
+        "path": "tools/m3top3/model_interface.py",
+        "commit": "2615bc34747f147cbc7d4bbf7c23eed8c2c418de",
+        "commit_time": "2026-08-15T06:50:18+09:00"
+      },
+      "hash": {
+        "git_blob_sha1": "1bc359a70a399a1eb94ef33703e2e5487afa8006"
+      },
+      "status": "SUPPORTED",
+      "authority": "CODE_EVIDENCE",
+      "scope_limit": "Exact locator corrects a transcription error in the earlier R-WP1 report."
+    },
+    {
+      "claim_id": "E09",
+      "claim": "Snapshot and backtest example configs remain reconstruction/working placeholders with unresolved official controls.",
+      "artifact": "Example JSON configs",
+      "locator": {
+        "snapshot_path": "tools/m3top3/configs/snapshot.example.json",
+        "snapshot_commit": "dad9cc0d5dd07095910fca0dd9a31c40f08f456b",
+        "backtest_path": "tools/m3top3/configs/backtest.example.json",
+        "backtest_commit": "c5040082b8c20f22309fdf49eec29e2867ea47f7"
+      },
+      "hash": {
+        "snapshot_git_blob_sha1": "cb13d80be4ddb20bff73130e622c731153035b58",
+        "backtest_git_blob_sha1": "05d7b40a511406d2f1057a0fa92010c27c7da33f"
+      },
+      "status": "SUPPORTED",
+      "authority": "WORKING_CONFIG_ONLY",
+      "scope_limit": "Not a frozen original v1 configuration."
+    },
+    {
+      "claim_id": "E10",
+      "claim": "Infrastructure tests exist but do not constitute an original-v1 independent oracle.",
+      "artifact": "tools/m3top3/tests/test_infrastructure.py",
+      "locator": {
+        "repository": "AofSpds/asset-agent-asa",
+        "path": "tools/m3top3/tests/test_infrastructure.py",
+        "commit": "c7dfc55fe96fcfc0dd198ed1b50f18036704234c"
+      },
+      "hash": {
+        "git_blob_sha1": "354717bcd2f5bcc0b768ad76a674f25bd65b78d4"
+      },
+      "status": "SUPPORTED_SCOPE_LIMIT",
+      "authority": "SYNTHETIC_INFRASTRUCTURE_TEST_ONLY",
+      "scope_limit": "No concrete GF01-GF20 fixture-byte bundle plus independently authored expected-output hash was located."
+    },
+    {
+      "claim_id": "E11",
+      "claim": "Golden preparation remains working, has pending exact binding, and does not authorize official entry.",
+      "artifact": "M3TOP3-v1-GOLDEN-REPLAY-SCIENTIFIC-PREPARATION_v0.3_WORKING.yaml",
+      "locator": {
+        "repository": "AofSpds/asset-agent-asa",
+        "path": "control/core_b/M3TOP3-v1-GOLDEN-REPLAY-SCIENTIFIC-PREPARATION_v0.3_WORKING.yaml",
+        "created_label": "2026-08-17T08:54:00+09:00"
+      },
+      "hash": {
+        "git_blob_sha1": "315bffb3d0803da7b6f7da18268b8ab6b0e3ba4b"
+      },
+      "status": "SUPPORTED_PENDING",
+      "authority": "PREPARATION_ONLY",
+      "scope_limit": "Filename says v0.3 while internal version says v0.2_WORKING; model version is PENDING_EXACT_BINDING."
+    },
+    {
+      "claim_id": "E12",
+      "claim": "The exact research-package registration authorization records execution and readback as not executed.",
+      "artifact": "AAA_M3TOP3_GR_RESEARCH_v0.1_v0.2_EXACT_ZIP_REGISTRATION_AUTHORIZATION_v0.1.json",
+      "locator": {
+        "repository": "AofSpds/asset-agent-asa",
+        "path": "control/architecture/working-candidates/research-working-candidate-persistence/registration-authorization/v0.1/AAA_M3TOP3_GR_RESEARCH_v0.1_v0.2_EXACT_ZIP_REGISTRATION_AUTHORIZATION_v0.1.json",
+        "commit": "0940227893c9439a2f196586067c5ec2e3f31959",
+        "tree": "95faa861034589bfa0932b3d97f157317b31a94d",
+        "commit_time": "2026-08-19T05:26:18+09:00"
+      },
+      "hash": {
+        "sha256": "ada5267873ba9aa19a10e83f26f9490711a79f9df781bc80167b51e992d387da",
+        "git_blob_sha1": "2085322578ba779d7dbcddc69fb352ca137fb680",
+        "bytes": 15954
+      },
+      "status": "SUPPORTED_NOT_EXECUTED",
+      "authority": "REGISTRATION_AUTHORIZATION_RECORD",
+      "scope_limit": "Authorization is not execution, persistence or readback proof."
+    },
+    {
+      "claim_id": "E13",
+      "claim": "The two named exact research-package ZIPs are not present in the inspected recovery/current trees and direct readback at the recovery head returned not found.",
+      "artifact": "Expected M3Top3 research-package ZIPs",
+      "locator": {
+        "v0_1_path": "control/research/working-candidates/m3top3-gr-research-package/v0.1/AAA_M3TOP3_GR_RESEARCH_PACKAGE_v0.1_WORKING.zip",
+        "v0_2_path": "control/research/working-candidates/m3top3-gr-research-package/v0.2/AAA_M3TOP3_GR_RESEARCH_PACKAGE_v0.2_WORKING.zip",
+        "inspected_commit_trees": [
+          "654f0e97f5230c61101cd434905ca11070c6e5ed / a7873ba446fc5d3b94142fefa5121549cbaf9f73",
+          "fa7d1a8bd1d00d297c27a325801618b75c4e113e / 2521bfc8ed7ea23a7ad3abebe2bd1b6aeb8becac",
+          "1d6822736d97f8ddc76ae03e43d7cd594294b086 / 2e08038a8c8c887da4c421fb2adcc74b35e444f9"
+        ]
+      },
+      "hash": {
+        "v0_1_expected_sha256": "3aaee7c1de2bd6f97e5ffd808fba980bf73fea1b604fb3c3b79e2be005180002",
+        "v0_1_expected_bytes": 35775,
+        "v0_2_expected_sha256": "5bbe75a4c9966abcb9f10d2f1e84df983977c1cf76d69e7bda6dfe4f24e60836",
+        "v0_2_expected_bytes": 40210
+      },
+      "status": "NOT_FOUND_IN_INSPECTED_TREES",
+      "authority": "BOUNDED_GIT_READBACK",
+      "scope_limit": "This is not a claim of global nonexistence."
+    },
+    {
+      "claim_id": "E14",
+      "claim": "The reviewed key DOCX files do not provide a probative independent pre-outcome timestamp receipt.",
+      "artifact": "OOXML core properties for key source DOCX files",
+      "locator": {
+        "workspace_paths": [
+          "project_sources/06-Semi_Eval_Core_v1.0_2026-08-14.docx",
+          "project_sources/07-Semi_Data_Route_v1.1_2026-08-14.docx",
+          "project_sources/08-Semi_Universe_v1.0_2026-08-14.docx",
+          "project_sources/09-SEMI-PIT-LEDGER_v1.0.docx"
+        ]
+      },
+      "hash": {
+        "metadata_created": "2013-12-23T23:15:00Z",
+        "metadata_modified": "2013-12-23T23:15:00Z",
+        "creator": "python-docx"
+      },
+      "status": "NON_PROBATIVE_METADATA",
+      "authority": "OOXML_METADATA_OBSERVATION",
+      "scope_limit": "Filename/body dates are semantic labels; no claim is made that the source content was not authored on the labeled dates."
+    },
+    {
+      "claim_id": "E15",
+      "claim": "Outcome-bearing winner, MFE and full-rank data is present in the reviewed workspace.",
+      "artifact": "U127_Data_Expansion_Working_v0.8_2026-08-15.xlsx",
+      "locator": {
+        "workspace_path": "qa/wp2_sources/U127_Data_Expansion_Working_v0.8_2026-08-15.xlsx",
+        "sheets": [
+          "Baseline_Windows",
+          "Price_Full_Rank_Reval"
+        ]
+      },
+      "hash": {
+        "sha256": "44501584c9dc6224637e9193219c1e8c87507af77dc15dc3944a3d04af524cda",
+        "bytes": 563995
+      },
+      "status": "SUPPORTED_OUTCOME_EXPOSURE",
+      "authority": "WORKSPACE_DATA_EVIDENCE",
+      "scope_limit": "Workbook is labeled freeze-candidate/preliminary; ZIP timestamps are not treated as independent creation receipts."
+    },
+    {
+      "claim_id": "E16",
+      "claim": "A 2026-08-22 ASA run journal references U127 expansion/winner-readiness ledgers, proving a documented exposure floor but not a complete access history.",
+      "artifact": "0701_m3top3_deep_review_asa.md",
+      "locator": {
+        "repository": "AofSpds/asset-agent-asa",
+        "path": "control/persona-memory/v1.0/AAA-ASA/runs/2026-08-22/0701_m3top3_deep_review_asa.md",
+        "observed_tree": "537d7da7cd2ec7559c9587a94a422954e7f58d35",
+        "journal_start": "2026-08-22T07:01:00+09:00"
+      },
+      "hash": {
+        "git_blob_sha1": "309db6a9e019ded5b30b57464c168b3ef2d6a87d",
+        "bytes": 2403
+      },
+      "status": "SUPPORTED_PARTIAL_EXPOSURE",
+      "authority": "RUN_JOURNAL_EVIDENCE",
+      "scope_limit": "Does not establish who or which LLM accessed every outcome and when."
+    },
+    {
+      "claim_id": "E17",
+      "claim": "Owner approval authorizes execution of the approved plan but does not confer Model Semantic Authority or Official/Golden/Replay/Freeze/Release/Production authority.",
+      "artifact": "M3Top3 Owner-to-PMO Direct Dispatch Packet",
+      "locator": {
+        "workspace_path": "upload/M3Top3_Owner_to_PMO_Direct_Dispatch_Packet_v1.0_2026-08-22(1).md"
+      },
+      "hash": {
+        "sha256": "16688e3cc089f9d60524b3ea6ff7f34fa6ad59c0aa66bfc7b1940c54914d82cf",
+        "bytes": 2442
+      },
+      "status": "SUPPORTED",
+      "authority": "OWNER_EXECUTION_APPROVAL",
+      "scope_limit": "No semantic substitution or model-state advancement."
+    },
+    {
+      "claim_id": "E18",
+      "claim": "The prior R-WP1 recovery report reached a compatible non-recovery conclusion but needs an exact locator correction.",
+      "artifact": "R_WP1_01_EXACT_IDENTITY_RECOVERY_REPORT_v0.1.md",
+      "locator": {
+        "workspace_path": "remediation/r_wp1_identity_recovery/R_WP1_01_EXACT_IDENTITY_RECOVERY_REPORT_v0.1.md",
+        "incorrect_commit_recorded": "2615bc34747f147cbc7ed1992c1c752185638868",
+        "verified_commit": "2615bc34747f147cbc7d4bbf7c23eed8c2c418de"
+      },
+      "hash": {
+        "sha256": "ac8c3c98d48fd09bafea93a3ba4216d00a4ef529bae93eee67fdca36ff40f2ce"
+      },
+      "status": "SUPPORTED_WITH_LOCATOR_CORRECTION",
+      "authority": "PRIOR_INTERNAL_RECOVERY_REPORT",
+      "scope_limit": "Prior report is preserved and not overwritten."
+    },
+    {
+      "claim_id": "E19",
+      "claim": "Current v0.4 runtime-safety evidence leaves exact identity open and does not establish model validity or predictive power.",
+      "artifact": "R_WP4_03_V0_4_MASTER_STATUS_CHECKPOINT.json",
+      "locator": {
+        "workspace_path": "remediation/r_wp4_03_v04_authority/R_WP4_03_V0_4_MASTER_STATUS_CHECKPOINT.json"
+      },
+      "hash": {
+        "sha256": "710e57fdf2a829ccef4198b025fd8964ca035627e3fe74a4fe6ba10e074166bb"
+      },
+      "status": "SUPPORTED_SCOPE_LIMIT",
+      "authority": "RUNTIME_SAFETY_CHECKPOINT_ONLY",
+      "scope_limit": "Cannot prove original pre-outcome identity."
+    }
+  ],
+  "component_status": [
+    {
+      "component": "complete_semantic_contract",
+      "status": "PARTIAL_NOT_BOUND"
+    },
+    {
+      "component": "official_scorer_code",
+      "status": "MISSING_OFFICIAL"
+    },
+    {
+      "component": "frozen_configuration",
+      "status": "PLACEHOLDER_ONLY"
+    },
+    {
+      "component": "runtime_dependency_identity",
+      "status": "NOT_PROVEN"
+    },
+    {
+      "component": "independent_test_oracle",
+      "status": "NOT_PROVEN"
+    },
+    {
+      "component": "release_manifest_and_readback",
+      "status": "NOT_EXECUTED"
+    },
+    {
+      "component": "pre_outcome_timestamp_receipt",
+      "status": "NOT_PROVEN"
+    },
+    {
+      "component": "complete_outcome_access_history",
+      "status": "NOT_PROVEN"
+    },
+    {
+      "component": "continuous_change_history",
+      "status": "PARTIAL_NOT_LINKED"
+    },
+    {
+      "component": "owner_approved_reconstruction_identity",
+      "status": "ABSENT"
+    }
+  ],
+  "blockers": [
+    {
+      "id": "BID-01",
+      "blocker": "Original complete semantic/executable contract bytes are not bound to a release receipt."
+    },
+    {
+      "id": "BID-02",
+      "blocker": "Official scorer/code identity is missing; available deterministic scorer is explicitly test-only."
+    },
+    {
+      "id": "BID-03",
+      "blocker": "Original frozen config, tie policy, gate semantics, missingness policy and exact feature mapping are not closed."
+    },
+    {
+      "id": "BID-04",
+      "blocker": "Original dependency/runtime/build identity is not closed."
+    },
+    {
+      "id": "BID-05",
+      "blocker": "Concrete Golden fixtures and independent expected-output oracle hashes are not closed."
+    },
+    {
+      "id": "BID-06",
+      "blocker": "Expected v0.1/v0.2 exact package ZIPs were not found in inspected trees; registration/readback is recorded as not executed."
+    },
+    {
+      "id": "BID-07",
+      "blocker": "No independent pre-outcome timestamp receipt binds a complete package."
+    },
+    {
+      "id": "BID-08",
+      "blocker": "Complete human/LLM outcome-access history is not closed, while outcome-bearing evidence exists."
+    },
+    {
+      "id": "BID-09",
+      "blocker": "No continuous change ledger links an original frozen package to later infrastructure."
+    },
+    {
+      "id": "BID-10",
+      "blocker": "No Owner-approved separately named semantic reconstruction exists."
+    }
+  ],
+  "stop_rules": [
+    {
+      "id": "SR-01",
+      "rule": "Stop and quarantine any recovered artifact whose path, size, SHA-256, version or manifest does not match the authorized expectation."
+    },
+    {
+      "id": "SR-02",
+      "rule": "Do not re-zip, recreate, normalize or substitute equivalent bytes as original v1."
+    },
+    {
+      "id": "SR-03",
+      "rule": "Do not relabel working infrastructure, example configs or DiagnosticFixtureScorer as official v1."
+    },
+    {
+      "id": "SR-04",
+      "rule": "Do not use later runtime safety evidence to prove original pre-outcome identity."
+    },
+    {
+      "id": "SR-05",
+      "rule": "Do not claim PRE_OUTCOME or OUTCOME_BLIND without creation/freeze and access provenance."
+    },
+    {
+      "id": "SR-06",
+      "rule": "Do not advance S0 to S1, Freeze, Official Golden, Official Replay, Promotion, Release or Production while mandatory identity components remain open."
+    },
+    {
+      "id": "SR-07",
+      "rule": "If semantics must be inferred, stop original-v1 recovery and route a separately versioned reconstruction identity."
+    },
+    {
+      "id": "SR-08",
+      "rule": "Do not involve IVA in this execution lane."
+    }
+  ],
+  "owner_decision": {
+    "required_now": false,
+    "current_action": "NONE_CONTINUE_APPROVED_READ_ONLY_RECOVERY",
+    "triggers": [
+      "A source custodian confirms exact authorized package bytes are unavailable.",
+      "Recovered bytes mismatch expected path, size, SHA-256, version or manifest.",
+      "PMO proposes to close G1 without exact recovery.",
+      "Any semantic substitution, S0-to-S1/S2 transition, Freeze, Official Golden/Replay, Promotion, Release or Production is proposed."
+    ],
+    "choices_if_exact_recovery_fails": [
+      {
+        "choice": "S0_ARCHIVAL_BASELINE_IDENTITY_UNRESOLVED",
+        "effect": "Preserve historical value without Official Golden/Replay or original-identity claim."
+      },
+      {
+        "choice": "AUTHORIZE_V1R_SEMANTIC_RECONSTRUCTION",
+        "effect": "Create a separately named identity with explicit gaps, fresh hashes and independent review; never represent it as original v1."
+      }
+    ]
+  },
+  "claim_locks": {
+    "model_performance": "NOT_EVALUATED_BY_THIS_AUDIT",
+    "predictive_power": "NOT_ESTABLISHED",
+    "official_golden": "BLOCKED",
+    "official_replay": "BLOCKED",
+    "model_freeze": "BLOCKED",
+    "promotion": "BLOCKED",
+    "release": "BLOCKED",
+    "production": "BLOCKED",
+    "iva": "INDEPENDENT_AND_NOT_PARTICIPATING"
+  }
+}

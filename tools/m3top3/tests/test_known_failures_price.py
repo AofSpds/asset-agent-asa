@@ -6,7 +6,7 @@ from datetime import date
 from pathlib import Path
 from unittest.mock import patch
 
-from tools.m3top3.admission import M3Top3AdmissionError, price_dataset_identity_hash
+from tools.m3top3.admission import M3Top3AdmissionError, canonical_component_set_digest, price_dataset_identity_hash
 from tools.m3top3.core import hash_file
 from tools.m3top3.providers import CsvPriceProvider, DuckDBParquetPriceProvider
 from tools.m3top3.tests._known_failure_helpers import price_provider, standard_price_rows, write_price_csv
@@ -203,14 +203,15 @@ class KnownFailurePriceTests(unittest.TestCase):
         first=self.root/"part-a.parquet"; second=self.root/"part-b.parquet"
         first.write_bytes(b"component-a"); second.write_bytes(b"component-b")
         paths=[first,second]
-        component_hashes={str(path.resolve()):hash_file(path) for path in paths}
-        dataset_hash=price_dataset_identity_hash("P-MULTI",component_hashes)
+        components=[{"component_id":f"P-MULTI:{index}","logical_name":path.name,"semantic_role":f"PRICE_PARTITION_{index}","path":str(path.resolve()),"artifact_sha256":hash_file(path),"byte_size":path.stat().st_size} for index,path in enumerate(paths,1)]
+        dataset_hash=price_dataset_identity_hash("P-MULTI",components)
         manifest={
-            "manifest_version":"m3top3-price-components-v1",
+            "manifest_version":"m3top3-price-components-v2",
             "hash_algorithm":"SHA256",
             "dataset_id":"P-MULTI",
             "dataset_hash":dataset_hash,
-            "components":[{"path":path,"sha256":digest} for path,digest in sorted(component_hashes.items())],
+            "component_set_digest":canonical_component_set_digest(components),
+            "components":components,
         }
         columns=("date","code","open","high","low","close","corporate_action_flag","adjustment_factor","corporate_action_evidence_id")
         def handler(query,params):
@@ -235,10 +236,10 @@ class KnownFailurePriceTests(unittest.TestCase):
 
     def test_multi_component_price_manifest_tamper_is_hard_failure(self):
         paths,dataset_hash,manifest,duck=self._multi_component_fixture()
-        manifest["components"][0]["sha256"]="0"*64
+        manifest["components"][0]["artifact_sha256"]="0"*64
         with patch("tools.m3top3.providers.importlib.import_module",return_value=duck):
             self.assert_code(
-                "PRICE_COMPONENT_MANIFEST_MISMATCH",
+                "LINEAGE_COMPONENT_HASH_MISMATCH",
                 lambda: DuckDBParquetPriceProvider(paths,"P-MULTI",dataset_hash,component_manifest=manifest),
             )
 

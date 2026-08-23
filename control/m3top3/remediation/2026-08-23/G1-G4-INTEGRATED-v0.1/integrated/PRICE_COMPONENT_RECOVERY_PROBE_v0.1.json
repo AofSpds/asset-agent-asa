@@ -1,0 +1,53 @@
+{
+  "schema_version": "m3top3-g1-price-component-recovery-probe-v0.1",
+  "probe_id": "M3TOP3-G1-PRICE-COMPONENT-RECOVERY-20260823-01",
+  "observed_at_kst": "2026-08-23T20:52:42+09:00",
+  "issuer": "AAA-PMO-ORCHESTRATOR",
+  "execution_mode": "READ_ONLY_RECOVERY_PROBE",
+  "iva_execution_participation": "NONE",
+  "repository_probed": "AofSpds/asset-agent-asa",
+  "workbook_locator_source": {
+    "path": "qa/wp2_sources/U127_Data_Expansion_Working_v0.8_2026-08-15.xlsx",
+    "sha256": "44501584c9dc6224637e9193219c1e8c87507af77dc15dc3944a3d04af524cda",
+    "sheet": "Price_Manifest"
+  },
+  "component_probes": [
+    {
+      "component": "marcap-2024.parquet",
+      "expected_sha256": "b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb",
+      "expected_bytes": 24572111,
+      "workbook_git_blob_sha1": "b69c5222d015c81f19f90f581faabe4dd1a919b4",
+      "github_blob_readback": "404_NOT_FOUND",
+      "current_named_local_file": "NOT_FOUND",
+      "recovery_state": "NOT_RECOVERED"
+    },
+    {
+      "component": "marcap-2025.parquet",
+      "expected_sha256": "2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e",
+      "expected_bytes": 25153419,
+      "workbook_git_blob_sha1": "e817f0729b787fe03904982a37b1d84d26d70206",
+      "github_blob_readback": "404_NOT_FOUND",
+      "current_named_local_file": "project_sources/16-marcap-2025.parquet",
+      "current_named_local_sha256_match": true,
+      "recovery_state": "LOCAL_EXACT_COMPONENT_PRESENT"
+    },
+    {
+      "component": "marcap-2026.parquet",
+      "expected_sha256": "5da710a2fc56f8fe9b1f5126295cc30c3b15c0ee35d28ba808a505ec4a2243c1",
+      "expected_bytes": 16198533,
+      "workbook_git_blob_sha1": "47ebdc16026a527bd269a6d2f1c0c1a80c0d9c6f",
+      "github_blob_readback": "404_NOT_FOUND",
+      "current_named_local_file": "NOT_FOUND",
+      "recovery_state": "NOT_RECOVERED"
+    }
+  ],
+  "interpretation": {
+    "github_blob_locators_validated_in_named_repository": false,
+    "global_nonexistence_proven": false,
+    "s3_locator_access_tested": false,
+    "reason_s3_not_tested": "No authorized task-relevant S3 connector or credential is available on the current execution surface; PMO did not infer or repurpose credentials.",
+    "price_canonical": "BLOCKED",
+    "three_year_release": "BLOCKED"
+  },
+  "next_route": "Continue non-destructive source-custodian recovery using the exact filenames, expected sizes and SHA-256 values; do not substitute providers or regenerate missing years."
+}

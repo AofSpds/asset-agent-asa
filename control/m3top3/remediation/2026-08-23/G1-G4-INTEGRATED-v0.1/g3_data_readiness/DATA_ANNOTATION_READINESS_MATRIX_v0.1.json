@@ -1,0 +1,568 @@
+{
+  "audit_id": "M3TOP3-G3-LANEC-DATA-ANNOTATION-READINESS-20260823-01",
+  "version": "v0.1",
+  "observed_at_kst": "2026-08-23T20:44:27+09:00",
+  "execution_role": "INTERNAL_PMO_G3_LANE_C",
+  "iva_execution_participation": "NONE",
+  "mutation_scope": "READ_ONLY_AUDIT; NO_RUNTIME_OR_GIT_EDIT",
+  "status_vocabulary": [
+    "RECOVERABLE",
+    "PARTIAL",
+    "UNRECOVERABLE",
+    "PIT_VINTAGE_UNVERIFIED",
+    "ANNOTATION_REQUIRED",
+    "NOT_FOUND"
+  ],
+  "scope_guards": {
+    "official_execution": false,
+    "official_golden": false,
+    "full_replay": false,
+    "price_canonical": false,
+    "winner_release": false,
+    "production_authority": "NONE",
+    "w1_w8_role": "DEVELOPMENT_OR_DESCRIPTIVE_ONLY",
+    "u127_role": "WINNER_ENRICHED_WORKING_CHALLENGE_UNIVERSE"
+  },
+  "overall_verdict": {
+    "data_release_readiness_state": "PARTIAL",
+    "annotation_release_readiness_state": "NOT_FOUND",
+    "end_to_end_real_thin_slice_state": "ANNOTATION_REQUIRED",
+    "decision": "NO_GO_FOR_REAL_RELEASE_OR_SCOREABLE_REPLAY",
+    "bounded_permission": "2025_ONLY_READ_ONLY_PRICE_SCHEMA_AND_DATA_ASSEMBLY_PROBE; NO SCORING OR PERFORMANCE CLAIM"
+  },
+  "gate_map_v1_2": {
+    "G1": {
+      "scope": "EXACT_IDENTITY",
+      "state": "OPEN",
+      "relationship_to_lane_c": "UPSTREAM_DEPENDENCY"
+    },
+    "G2": {
+      "scope": "UNIVERSE_ELIGIBILITY_WINDOW_EXPOSURE",
+      "state": "OPEN",
+      "relationship_to_lane_c": "UPSTREAM_DEPENDENCY"
+    },
+    "G3": {
+      "scope": "HISTORICAL_PIT_DATA_ANNOTATION",
+      "state": "DEPENDENCY_BLOCKED_PARTIAL",
+      "relationship_to_lane_c": "THIS_AUDIT_VERDICT"
+    },
+    "G4": {
+      "scope": "RUNTIME",
+      "state": "MECHANISM_CLOSED_CANDIDATE",
+      "relationship_to_lane_c": "SEPARATE; DOES_NOT_CLOSE_OR_BYPASS_G3"
+    },
+    "precedence_note": "The exact v1.2 gate map controls. The older v0.4 merged-checkpoint wording is provenance only."
+  },
+  "parquet_count_reproducibility": {
+    "script_path": "remediation/g1_data_readiness/audit_marcap_2025.py",
+    "script_sha256": "23cfe60e2c2ae78b6437b93b029ded35e2314ae63d9f82354e65d8051e136862",
+    "receipt_path": "remediation/g1_data_readiness/MARCAP_2025_READONLY_AUDIT_RECEIPT_v0.1.json",
+    "receipt_sha256": "093a326b27453cb389fb206d73db8a577c7754672fa6c1ab81568f6bce6e4ac5",
+    "primary_runtime_pyarrow_state": "NOT_INSTALLED",
+    "isolated_toolchain": {"python": "3.12.13", "numpy": "2.5.2", "pyarrow": "17.0.0"},
+    "command": "M3TOP3_AUDIT_DEPS=\"$(mktemp -d /tmp/m3top3-g3-pyarrow.XXXXXX)\"; /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 -m pip install --disable-pip-version-check --only-binary=:all: --target \"$M3TOP3_AUDIT_DEPS\" \"numpy==2.5.2\" \"pyarrow==17.0.0\"; PYTHONPATH=\"$M3TOP3_AUDIT_DEPS\" /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 remediation/g1_data_readiness/audit_marcap_2025.py --parquet project_sources/16-marcap-2025.parquet --u127-csv remediation/r_wp23_data_closure/01_U127_WORKING_MEMBERSHIP_PROVENANCE_GAPS.csv --schema-csv project_sources/13-SEMI-PRICE-LEDGER_v1.0_SCHEMA.csv --expected-parquet-sha256 2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e --expected-u127-sha256 752138a1897cdacfcbb4762ac0caf5888007e49ac4605f88152576e544eeaa33 --expected-schema-sha256 67c8633579c3b624ffa2254bdf4173f205b1617b64ed960b9b1e200bc1e01c25",
+    "script_behavior": "READ_ONLY_INPUTS; JSON_STDOUT_ONLY; NONZERO_ON_HASH_MISMATCH_OR_MISSING_DEPENDENCY",
+    "execution_result": "PASS; COUNTS_MATCH_MATRIX_AND_RECEIPT"
+  },
+  "source_inventory": [
+    {
+      "path": "project_sources/01-Samsung_Semiconductor_Future_Technology_Platform_Map_v1.1_2026-08-09.docx",
+      "byte_size": 58716,
+      "sha256": "b3d011c16cc3bd33ffd5235f2f2af93bbc7d4ed5affb407cbe5ec635ee32f087",
+      "role": "CURRENT_CONTEXTUAL_TECHNOLOGY_MAP",
+      "readiness_state": "PIT_VINTAGE_UNVERIFIED"
+    },
+    {
+      "path": "project_sources/02-Future_Semiconductor_System_Architecture_Memory_Manufacturing_Map_v1.0_2026-08-10.docx",
+      "byte_size": 63244,
+      "sha256": "99e4a200921fa44cbc8792f64705efccf7ff2c79e7e91fc1f425d9bfc559395e",
+      "role": "CURRENT_CONTEXTUAL_SYSTEM_ARCHITECTURE_MAP",
+      "readiness_state": "PIT_VINTAGE_UNVERIFIED"
+    },
+    {
+      "path": "project_sources/03-Korea_Semiconductor_Equipment_CAPEX_Early_Revenue_Response_Map_v1.0_2026-08-11.docx",
+      "byte_size": 46162,
+      "sha256": "4871de83a6c6ce6bc0fdbf0e0779731e11225d3284505a1c7b7ea00d3d348909",
+      "role": "CURRENT_CONTEXTUAL_CAPEX_RESPONSE_MAP",
+      "readiness_state": "PIT_VINTAGE_UNVERIFIED"
+    },
+    {
+      "path": "project_sources/04-SK_Hynix_CAPEX_Korea_Equipment_Ecosystem_Report_v0_2026-08-14.docx",
+      "byte_size": 45329,
+      "sha256": "2d160445a9726d69e257299d67a699e4874e4e4d39d1acecfb36466cf6ac5e4b",
+      "role": "CURRENT_WORKING_CAPEX_REPORT_WITH_MODEL_ASSUMPTIONS",
+      "readiness_state": "PIT_VINTAGE_UNVERIFIED"
+    },
+    {
+      "path": "project_sources/05-Korea_Semiconductor_SupplyChain_TOP38_Master_Scorecard_v2.2_Detail_2026-08-14.docx",
+      "byte_size": 53141,
+      "sha256": "e41b02dcb642f72b447c6c468c6d590e19aff468e6bc99413b7da5ef0cde6300",
+      "role": "CURRENT_LEGACY_12M_SCORECARD_REFERENCE",
+      "readiness_state": "PIT_VINTAGE_UNVERIFIED"
+    },
+    {
+      "path": "project_sources/06-Semi_Eval_Core_v1.0_2026-08-14.docx",
+      "byte_size": 48851,
+      "sha256": "3a8c70df26dee0b3c1430846cd9934aa237fd2075f322d78d899ed8cb81acc54",
+      "role": "LEGACY_SEMANTIC_AND_STRUCTURAL_DEFINITION_REFERENCE",
+      "readiness_state": "PARTIAL"
+    },
+    {
+      "path": "project_sources/07-Semi_Data_Route_v1.1_2026-08-14.docx",
+      "byte_size": 49660,
+      "sha256": "508f98e88c150ceb751db2227727db529eb04da467c53a6eed5278ca5e17aa02",
+      "role": "PIT_SOURCE_ROUTING_AND_PRICE_PROTOCOL_REFERENCE",
+      "readiness_state": "RECOVERABLE"
+    },
+    {
+      "path": "project_sources/08-Semi_Universe_v1.0_2026-08-14.docx",
+      "byte_size": 42132,
+      "sha256": "eef313bc71bd0a5cb019f92e43e1bf38c2a63633bb847320d1cb4c8fe4ea9023",
+      "role": "PRIOR_U46_AND_HISTORICAL_ELIGIBILITY_RULE_REFERENCE",
+      "readiness_state": "PARTIAL"
+    },
+    {
+      "path": "project_sources/09-SEMI-PIT-LEDGER_v1.0.docx",
+      "byte_size": 38985,
+      "sha256": "acde50e7090382e95cc585227c4dd52df6b3f342258b6debfa0aabb7db94006a",
+      "role": "APPEND_ONLY_PIT_LEDGER_CONTRACT_REFERENCE",
+      "readiness_state": "RECOVERABLE"
+    },
+    {
+      "path": "project_sources/10-SEMI-PRICE-LEDGER_IMPORT-MANIFEST_v1.0.csv",
+      "byte_size": 763,
+      "sha256": "ca8f117a83cd3da800a2a2b5e0ebdca3c89ff658ff3fd21b5083e4aae9ab98ce",
+      "role": "LEGACY_PRICE_IMPORT_RULES; NOT THE REQUIRED STANDALONE COMPONENT MANIFEST",
+      "schema": {"rows": 9, "columns": 4},
+      "readiness_state": "PARTIAL"
+    },
+    {
+      "path": "project_sources/11-SEMI-SOURCE-INDEX_v1.0.docx",
+      "byte_size": 40850,
+      "sha256": "2131ebe6724a8c2d235e7e6f06d4fdde2819ab460bd5c907e2f7ca32e02dac46",
+      "role": "U46_SOURCE_ROUTING_INDEX; NOT SOURCE_BUNDLE_BYTES",
+      "schema": {"companies": 46, "official_locator_not_verified": 37},
+      "readiness_state": "PARTIAL"
+    },
+    {
+      "path": "project_sources/12-SEMI-COMPANY-MASTER_v0.1.docx",
+      "byte_size": 57619,
+      "sha256": "03842717f3bb6815610541496b1f5dadfd44a0e277dc9364c5632cbfb5520cd6",
+      "role": "U46_F1_STRUCTURAL_SEED",
+      "schema": {"companies": 46, "f1_seeded": 46, "dart_corp_id_not_found": 46, "listing_date_not_found": 46},
+      "readiness_state": "PARTIAL"
+    },
+    {
+      "path": "project_sources/13-SEMI-PRICE-LEDGER_v1.0_SCHEMA.csv",
+      "byte_size": 219,
+      "sha256": "67c8633579c3b624ffa2254bdf4173f205b1617b64ed960b9b1e200bc1e01c25",
+      "role": "HEADER_ONLY_CANONICAL_PRICE_ROW_SCHEMA_REFERENCE",
+      "schema": {"data_rows": 0, "columns": 20},
+      "readiness_state": "RECOVERABLE"
+    },
+    {
+      "path": "project_sources/14-SEMI-FAB-MASTER_v1.0_2026-08-14.docx",
+      "byte_size": 47640,
+      "sha256": "528d1a59ac5b6796b95f70605675f273d80ef744da8d6460da60204d3cff4159",
+      "role": "13_FAB_CONTEXT_RECORDS_WITH_PUBLICATION_DATE; REQUIRES WINDOW_LEVEL_REBINDING",
+      "schema": {"fab_records": 13},
+      "readiness_state": "PARTIAL"
+    },
+    {
+      "path": "project_sources/15-SEMI-PRICE-LEDGER_v1.0_INGEST-AUDIT_BLOCKED_2026-08-14.csv",
+      "byte_size": 20209,
+      "sha256": "6e8d0eabbd4cafaf8f3073528a3d75c7ec15713a4efa27ba5308a176776e0728",
+      "role": "46_ROW_HISTORICAL_BLOCKER_AUDIT; NOT A LEDGER",
+      "schema": {"rows": 46, "columns": 8},
+      "readiness_state": "PARTIAL"
+    },
+    {
+      "path": "project_sources/16-marcap-2025.parquet",
+      "byte_size": 25153419,
+      "sha256": "2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e",
+      "role": "LIVE_2025_RAW_PRICE_COMPONENT_BYTES",
+      "readiness_state": "RECOVERABLE"
+    },
+    {
+      "path": "qa/wp2_sources/U127_Data_Expansion_Working_v0.8_2026-08-15.xlsx",
+      "byte_size": 563995,
+      "sha256": "44501584c9dc6224637e9193219c1e8c87507af77dc15dc3944a3d04af524cda",
+      "role": "OUTCOME_EXPOSED_PRE_RESEARCH_WORKING_ARTIFACT",
+      "readiness_state": "PARTIAL"
+    },
+    {
+      "path": "remediation/r_wp23_data_closure/00_R_WP23_DISCOVERY_REPORT.md",
+      "byte_size": 10423,
+      "sha256": "451f2ccfa2c259af654fd040815306081af54b9834af4f8d703095c4ddea7e42",
+      "role": "CORRECTED_BOUNDED_DATA_DISCOVERY_SYNTHESIS",
+      "readiness_state": "RECOVERABLE"
+    },
+    {
+      "path": "remediation/r_wp23_data_closure/01_U127_WORKING_MEMBERSHIP_PROVENANCE_GAPS.csv",
+      "byte_size": 33524,
+      "sha256": "752138a1897cdacfcbb4762ac0caf5888007e49ac4605f88152576e544eeaa33",
+      "role": "127_ROW_WORKING_MEMBERSHIP_AND_PROVENANCE_GAP_PROJECTION",
+      "schema": {"rows": 127, "columns": 23},
+      "readiness_state": "PARTIAL"
+    },
+    {
+      "path": "remediation/r_wp23_data_closure/02_W1_W8_WINDOW_EXPOSURE_ROLE_MANIFEST.csv",
+      "byte_size": 2182,
+      "sha256": "f346e1227cf3828bde82117af951027e4387bb729f779e227ae6cb07f481bbd7",
+      "role": "8_ROW_WINDOW_AND_OUTCOME_EXPOSURE_ROLE_MANIFEST",
+      "schema": {"rows": 8, "columns": 14},
+      "readiness_state": "RECOVERABLE"
+    },
+    {
+      "path": "remediation/r_wp23_data_closure/03_DENOMINATOR_CLOSURE_QUEUE.csv",
+      "byte_size": 325454,
+      "sha256": "02bde437c04b1cc3d314b30e9bdd41bdb9a9164d0d2df4468728bdab8089eb62",
+      "role": "1534_ROW_OPEN_DENOMINATOR_DECISION_QUEUE",
+      "schema": {"rows": 1534, "columns": 12},
+      "readiness_state": "PARTIAL"
+    },
+    {
+      "path": "remediation/r_wp23_data_closure/04_PRICE_CA_CURRENT_BYTE_ADMISSION_QUEUE.csv",
+      "byte_size": 3255,
+      "sha256": "b7d07a1c3438c30bced3161ea5d287d53f34431c7ab3f5e040a761ea06548412",
+      "role": "11_ROW_PRICE_CA_ADMISSION_QUEUE",
+      "schema": {"rows": 11, "columns": 11},
+      "readiness_state": "PARTIAL"
+    },
+    {
+      "path": "remediation/r_wp23_data_closure/05_THIN_PIT_SOURCE_ANNOTATION_BUILD_MANIFEST.csv",
+      "byte_size": 7245,
+      "sha256": "5b78b6f0ea8cbdc2684e37724e3f0323ae8c50f1ae6dc1547e444d3e9c0eb7a1",
+      "role": "21_ROW_THIN_PIT_SOURCE_AND_ANNOTATION_BUILD_REQUIREMENT_MATRIX",
+      "schema": {"rows": 21, "columns": 10, "blocked_rows": 17, "candidate_only_rows": 2},
+      "readiness_state": "ANNOTATION_REQUIRED"
+    },
+    {
+      "path": "remediation/r_wp1_identity_recovery/R_WP1_01_EXACT_IDENTITY_RECOVERY_REPORT_v0.1.md",
+      "byte_size": 14611,
+      "sha256": "ac8c3c98d48fd09bafea93a3ba4216d00a4ef529bae93eee67fdca36ff40f2ce",
+      "role": "EXACT_IDENTITY_RECOVERY_REPORT; F01_F09_MAPPING_SEMANTIC_RECONSTRUCTION",
+      "readiness_state": "RECOVERABLE"
+    },
+    {
+      "path": "upload/M3Top3_Model_Deep_Review_and_Validation_Roadmap_v1.0_2026-08-22(1).docx",
+      "byte_size": 63228,
+      "sha256": "ea2a03f25cd85f2829e381b9b0b541a17d53769c7f081d0e0613e709648c9a07",
+      "role": "LATER_F01_F09_SEMANTIC_LABEL_REFERENCE; NOT EXACT_V1_CONTRACT",
+      "readiness_state": "PARTIAL"
+    },
+    {
+      "path": "remediation/r_wp4_03_v04_authority/R_WP4_03_V0_4_MASTER_STATUS_CHECKPOINT.json",
+      "sha256": "710e57fdf2a829ccef4198b025fd8964ca035627e3fe74a4fe6ba10e074166bb",
+      "role": "OLDER_V0_4_MERGED_CHECKPOINT_PROVENANCE; NOT_CONTROLLING_EXACT_V1_2_GATE_MAP",
+      "readiness_state": "RECOVERABLE"
+    },
+    {
+      "path": "remediation/g1_data_readiness/audit_marcap_2025.py",
+      "byte_size": 6529,
+      "sha256": "23cfe60e2c2ae78b6437b93b029ded35e2314ae63d9f82354e65d8051e136862",
+      "role": "READ_ONLY_PARQUET_COUNT_AND_SCHEMA_REPRODUCTION_SCRIPT",
+      "readiness_state": "RECOVERABLE"
+    },
+    {
+      "path": "remediation/g1_data_readiness/MARCAP_2025_READONLY_AUDIT_RECEIPT_v0.1.json",
+      "byte_size": 2485,
+      "sha256": "093a326b27453cb389fb206d73db8a577c7754672fa6c1ab81568f6bce6e4ac5",
+      "role": "HASH_BOUND_READ_ONLY_PARQUET_COUNT_RECEIPT",
+      "readiness_state": "RECOVERABLE"
+    }
+  ],
+  "exact_schema_and_count_observations": {
+    "u127_working_workbook": {
+      "sheets": 17,
+      "membership_rows": 127,
+      "u46": 46,
+      "u81": 81,
+      "thin_pit_rows": 1016,
+      "thin_pit_columns": 41,
+      "thin_pit_complete": 0,
+      "thin_pit_incomplete": 1016,
+      "thin_pit_evidence_not_researched": 1016,
+      "thin_pit_publication_at_null": 1016,
+      "f1_partial_cells": 520,
+      "f1_needs_research_cells": 496,
+      "u81_f1_ready": 0,
+      "u81_f1_partial": 19,
+      "u81_f1_needs_research": 62,
+      "ca_signal_rows": 24,
+      "ca_action_records": 11,
+      "outcome_rank_rows": 979,
+      "outcome_exposure": "KNOWN_EXPOSED"
+    },
+    "historical_denominator": {
+      "company_window_cells": 1016,
+      "eligible": 465,
+      "ineligible": 37,
+      "unresolved": 514,
+      "open_decision_records": 1534,
+      "business_priority_open": 551,
+      "listing_tradability_open": 469,
+      "combined_eligibility_open": 514,
+      "unresolved_by_window": {"W1": 62, "W2": 63, "W3": 64, "W4": 66, "W5": 66, "W6": 65, "W7": 66, "W8": 62}
+    },
+    "marcap_2025": {
+      "parquet_rows": 696524,
+      "row_groups": 1,
+      "columns": 18,
+      "distinct_security_codes": 2985,
+      "distinct_dates": 242,
+      "date_min": "2025-01-02",
+      "date_max": "2025-12-30",
+      "duplicate_date_code_rows": 0,
+      "u127_present_any_date": 125,
+      "u127_absent_any_date": 2,
+      "u127_absent_codes": ["0017J0", "153890"],
+      "u127_full_242_date_codes": 120,
+      "u127_partial_year_codes": {
+        "388210": 28,
+        "081180": 165,
+        "489500": 208,
+        "212710": 217,
+        "482630": 224
+      },
+      "all_market_zero_open_high_low_rows": 31692,
+      "u127_zero_open_high_low_rows": 29,
+      "u127_zero_open_high_low_by_code": {"025560": 17, "058470": 11, "030530": 1},
+      "canonical_schema_reference_columns": 20,
+      "canonical_schema_intersection_columns": 12,
+      "canonical_fields_missing_from_raw": [
+        "Corporate_Action_Flag",
+        "Adjustment_Factor",
+        "Trading_Status",
+        "Corporate_Action_Type",
+        "Action_Source",
+        "Action_Confidence",
+        "Raw_Provider",
+        "Universe_Eligible_Flag"
+      ],
+      "extra_raw_fields": ["Dept", "ChangeCode", "Changes", "ChangesRatio", "MarketId", "Rank"]
+    }
+  },
+  "readiness_matrix": [
+    {
+      "object_id": "PRICE-RAW-THREE-YEAR",
+      "readiness_state": "PARTIAL",
+      "evidence": "2025 exact named bytes present and hash-matched; 2024 and 2026 exact named bytes absent",
+      "release_blocker": "THREE_YEAR_COMPONENT_SET_INCOMPLETE"
+    },
+    {
+      "object_id": "PRICE-CANONICAL-CUTOVER",
+      "readiness_state": "NOT_FOUND",
+      "evidence": "required standalone component manifest hash 56d36d... is not materialized; legacy CSV manifest differs; canonical release absent",
+      "release_blocker": "NO_EXACT_COMPONENT_MANIFEST_OR_CANONICAL_RELEASE"
+    },
+    {
+      "object_id": "PRICE-2025-SCHEMA-MAPPING",
+      "readiness_state": "PARTIAL",
+      "evidence": "raw 18-column parquet shares 12 fields with 20-column canonical reference; eight governed CA/trading/eligibility fields are absent",
+      "release_blocker": "CANONICAL_ROW_SEMANTICS_NOT_MATERIALIZED"
+    },
+    {
+      "object_id": "CORPORATE-ACTIONS",
+      "readiness_state": "PARTIAL",
+      "evidence": "24/24 stock-count signals and 11 action records pass record-level audit; exhaustive OHLC and KRX omission sweeps remain open",
+      "release_blocker": "CA_COMPLETENESS_AXES_B_AND_C_OPEN"
+    },
+    {
+      "object_id": "TRADING-CALENDAR",
+      "readiness_state": "PARTIAL",
+      "evidence": "2025 raw prices expose 242 market dates and all W3-W6 named entry dates, but no exact standalone calendar release or 2024/2026 calendar bytes were found",
+      "release_blocker": "TRADING_CALENDAR_RELEASE_NOT_MATERIALIZED"
+    },
+    {
+      "object_id": "HISTORICAL-ELIGIBILITY",
+      "readiness_state": "PARTIAL",
+      "evidence": "502/1016 deterministic = 465 eligible + 37 ineligible; 514 unresolved",
+      "release_blocker": "FULL_U_E_I_PARTITION_AND_ZERO_UNRESOLVED_NOT_MET"
+    },
+    {
+      "object_id": "U127-MAPPING-AND-PROVENANCE",
+      "readiness_state": "PARTIAL",
+      "evidence": "127/127 company_id bindings; identity READY 0/127; row-level outcome-blind provenance 0/127; W1-W8 outcome exposed",
+      "release_blocker": "OUTER_UNIVERSE_PROVENANCE_AND_IDENTITY_NOT_CLOSED"
+    },
+    {
+      "object_id": "F1-STRUCTURAL-BASELINE",
+      "readiness_state": "PARTIAL",
+      "evidence": "U46 has 46 structural seeds but DART/listing identity remains NOT_FOUND 46/46; U81 F1 READY 0, PARTIAL 19, NEEDS_RESEARCH 62",
+      "release_blocker": "FULL_U127_F1_RELEASE_ABSENT"
+    },
+    {
+      "object_id": "SOURCE-BUNDLES",
+      "readiness_state": "NOT_FOUND",
+      "evidence": "0/1016 hashed outcome-concealed source bundles or retrieval receipt bytes were found",
+      "release_blocker": "FEATURE_CLAIMS_CANNOT_RESOLVE_TO_FROZEN_SOURCE_BYTES"
+    },
+    {
+      "object_id": "ANNOTATION-BLINDNESS-AND-LINEAGE",
+      "readiness_state": "NOT_FOUND",
+      "evidence": "0/1016 annotation/access sidecars; no independent dual coding, pre-adjudication outputs, prompt/model/build/temperature/tool-result hashes, or outcome-access flags",
+      "release_blocker": "HISTORICAL_INTERPRETATION_LEAKAGE_NOT_CONTROLLED"
+    },
+    {
+      "object_id": "F01-F09-EXACT-SEMANTIC-CONTRACT",
+      "readiness_state": "NOT_FOUND",
+      "evidence": "R-WP1 classifies F01-F09 mapping as SEMANTIC_RECONSTRUCTION and exact executable mapping as missing",
+      "release_blocker": "NO_OFFICIAL_V1_FEATURE_RELEASE_CAN_BE_DECLARED"
+    }
+  ],
+  "historical_feature_recoverability": [
+    {
+      "feature_id": "F01",
+      "semantic_label": "Commercial Conversion Momentum",
+      "source_recoverability_state": "RECOVERABLE",
+      "current_release_state": "ANNOTATION_REQUIRED",
+      "evidence_coverage": "PO, qualification, repeat-order and adoption fields 0/1016 researched",
+      "required_controls": ["cutoff-safe DART/KIND and official IR bundle", "stage taxonomy", "outcome-concealed dual coding"]
+    },
+    {
+      "feature_id": "F02",
+      "semantic_label": "Numeric Business Inflection",
+      "source_recoverability_state": "RECOVERABLE",
+      "current_release_state": "ANNOTATION_REQUIRED",
+      "evidence_coverage": "revenue, OP and margin fields 0/1016 researched",
+      "required_controls": ["filing-period and publication-time binding", "unit/restatement normalization", "exact transform contract recovery"]
+    },
+    {
+      "feature_id": "F03",
+      "semantic_label": "Forward Revision Momentum",
+      "source_recoverability_state": "PIT_VINTAGE_UNVERIFIED",
+      "current_release_state": "PIT_VINTAGE_UNVERIFIED",
+      "evidence_coverage": "Forward EPS/OP, revision, provider and observation_at 0/1016 researched",
+      "required_controls": ["single historical-vintage provider", "provider definition lock", "no current backfill"]
+    },
+    {
+      "feature_id": "F04",
+      "semantic_label": "Event Surprise vs Prior Expectation",
+      "source_recoverability_state": "PIT_VINTAGE_UNVERIFIED",
+      "current_release_state": "PIT_VINTAGE_UNVERIFIED",
+      "evidence_coverage": "prior-expectation baselines and guidance fields 0/1016 researched",
+      "required_controls": ["pre-event expectation source taxonomy", "explicit NO_BASELINE state", "no hindsight reconstruction"]
+    },
+    {
+      "feature_id": "F05",
+      "semantic_label": "Market Positioning Balance",
+      "source_recoverability_state": "PARTIAL",
+      "current_release_state": "PARTIAL",
+      "evidence_coverage": "2025 raw price/volume recoverable; 2024/2026 named bytes absent; zero-OHL/trading-status classification open",
+      "required_controls": ["three-year bytes", "calendar and CA release", "liquidity/overextension definition lock"]
+    },
+    {
+      "feature_id": "F06",
+      "semantic_label": "Conversion Runway",
+      "source_recoverability_state": "RECOVERABLE",
+      "current_release_state": "ANNOTATION_REQUIRED",
+      "evidence_coverage": "guidance, order, qualification and fab-stage fields 0/1016 researched",
+      "required_controls": ["milestone date and publication-time binding", "probability/materiality coding", "outcome concealment"]
+    },
+    {
+      "feature_id": "F07",
+      "semantic_label": "Beta Transmission Alignment",
+      "source_recoverability_state": "PARTIAL",
+      "current_release_state": "ANNOTATION_REQUIRED",
+      "evidence_coverage": "U46 structural seeds exist; U81 F1 READY 0/81; Fab Master has 13 reference records but no window-bound bundles",
+      "required_controls": ["full U127 F1 release", "window-specific fab-stage evidence", "lag/vendor-share provenance"]
+    },
+    {
+      "feature_id": "F08",
+      "semantic_label": "Evidence Reliability",
+      "source_recoverability_state": "NOT_FOUND",
+      "current_release_state": "ANNOTATION_REQUIRED",
+      "evidence_coverage": "evidence_status NOT_RESEARCHED 1016/1016; publication_at null 1016/1016; no source bundle hashes",
+      "required_controls": ["retrieval receipts", "coverage vectors", "fact/interpretation split", "missingness status"]
+    },
+    {
+      "feature_id": "F09",
+      "semantic_label": "Execution / Thesis Safety",
+      "source_recoverability_state": "ANNOTATION_REQUIRED",
+      "current_release_state": "ANNOTATION_REQUIRED",
+      "evidence_coverage": "no outcome-blind risk/thesis-break coding or gate lineage found",
+      "required_controls": ["ordinary risk vs hard thesis-break separation", "dual coding", "pre-adjudication preservation", "no duplicate gate penalty"]
+    }
+  ],
+  "thin_slice_assessment": {
+    "recommended_non_scoreable_pilot": {
+      "readiness_state": "ANNOTATION_REQUIRED",
+      "window": "W4",
+      "snapshot_cutoff_at": "2025-05-09",
+      "entry": "2025-05-12",
+      "last_trading_day": "2025-08-08",
+      "purpose": "DATA_ASSEMBLY_AND_FAIL_CLOSED_PATH_ONLY",
+      "companies": [
+        {"company": "케이씨텍", "code": "281820", "case": "normal eligible price path", "eligibility": "ELIGIBLE"},
+        {"company": "미래산업", "code": "025560", "case": "known CA plus zero-OHL stress path", "eligibility": "ELIGIBLE"},
+        {"company": "삼양엔씨켐", "code": "482630", "case": "unresolved denominator negative control", "eligibility": "UNRESOLVED"}
+      ],
+      "current_blockers": [
+        "all three rows evidence_status NOT_RESEARCHED",
+        "all three rows publication_at null",
+        "all three rows Thin-PIT INCOMPLETE",
+        "no source-bundle or annotation sidecar bytes",
+        "삼양엔씨켐 must remain blocked from scoring while unresolved"
+      ],
+      "permitted_output": "read-only assembly receipt and blocker proof only",
+      "prohibited_output": "score, rank, outcome performance, Golden, Replay or model claim"
+    },
+    "2025_price_only_probe": {
+      "readiness_state": "RECOVERABLE",
+      "scope": "schema/date/code/zero-OHL and selected W3-W5 mechanical extraction",
+      "claim_limit": "does not establish canonical price, CA completeness, eligibility, or feature readiness"
+    }
+  },
+  "stop_rules": [
+    {"id": "SR-01", "trigger": "2024 or 2026 named parquet bytes absent or hash mismatch", "action": "STOP three-year price release and any W1/W2/W6/W7/W8 outcome build"},
+    {"id": "SR-02", "trigger": "standalone component manifest absent or not exact-hash bound", "action": "STOP canonical cutover and multi-component provider admission"},
+    {"id": "SR-03", "trigger": "Trading_Status/CA fields cannot be evidence-backed, or zero-OHL rows remain unclassified", "action": "STOP canonical price/outcome release; preserve raw rows"},
+    {"id": "SR-04", "trigger": "CA completeness axis B or C remains open", "action": "STOP Price Canonical and official ground-truth release"},
+    {"id": "SR-05", "trigger": "any target slice has UNRESOLVED eligibility", "action": "STOP scoring/ranking; preserve full-U row as unresolved negative control"},
+    {"id": "SR-06", "trigger": "source bundle hash, timezone-aware publication_at, available-before-entry or retrieval receipt missing", "action": "STOP feature admission for that company-window-feature cell"},
+    {"id": "SR-07", "trigger": "interpretive feature lacks outcome-concealed independent coding and pre-adjudication records", "action": "STOP F01/F04/F06/F07/F08/F09 release"},
+    {"id": "SR-08", "trigger": "historical consensus vintage/provider definition unavailable", "action": "mark F03/F04 PIT_VINTAGE_UNVERIFIED or UNRECOVERABLE; prohibit current-value backfill"},
+    {"id": "SR-09", "trigger": "exact F01-F09 executable contract remains not found", "action": "STOP any claim that assembled features are official v1; use no scorer"},
+    {"id": "SR-10", "trigger": "U127 outcome-blind applicability provenance remains unproven", "action": "prohibit population-universe and generalized discovery-power claims"},
+    {"id": "SR-11", "trigger": "W1-W8 access ledgers remain absent", "action": "prohibit sealed-holdout or temporal-OOS claims"},
+    {"id": "SR-12", "trigger": "request would involve IVA in authoring, data construction or annotation", "action": "STOP and reroute to PMO; IVA participation remains NONE"}
+  ],
+  "owner_decision_surface": [
+    {
+      "decision_id": "OD-01",
+      "timing": "NOW_IF_SOURCE_CUSTODY_OR_EXTERNAL_ACCESS_IS_REQUIRED",
+      "decision": "authorize/provide exact marcap-2024 and marcap-2026 bytes plus standalone interface manifest",
+      "default_recommendation": "APPROVE_SOURCE_RECOVERY_ONLY; NO_CANONICAL_CUTOVER_YET"
+    },
+    {
+      "decision_id": "OD-02",
+      "timing": "BEFORE_F03_F04_COLLECTION",
+      "decision": "select and authorize one historical-vintage consensus provider, definition and access budget",
+      "default_recommendation": "DEFER F03/F04 IF NO AUDITABLE VINTAGE PROVIDER"
+    },
+    {
+      "decision_id": "OD-03",
+      "timing": "BEFORE_INTERPRETIVE_ANNOTATION_AT_SCALE",
+      "decision": "authorize blinded independent dual-coding resources and adjudication/access-sidecar protocol",
+      "default_recommendation": "APPROVE ONLY AFTER SOURCE-BUNDLE TEMPLATE AND BLINDNESS CONTROLS ARE DEMONSTRATED ON W4 PILOT"
+    },
+    {
+      "decision_id": "OD-04",
+      "timing": "DEFERRED_UNTIL_EXACT_SOURCE_RECOVERY_IS_EXHAUSTED",
+      "decision": "if exact v1 feature/scorer package remains unavailable, choose archival S0 or new v1r-semantic-reconstruction identity",
+      "default_recommendation": "NO DECISION NOW; COMPLETE FINAL SOURCE-BYTE RECOVERY FIRST"
+    }
+  ],
+  "claim_locks": {
+    "price_canonical_released": false,
+    "historical_denominator_closed": false,
+    "source_bundles_complete": false,
+    "annotation_blindness_proven": false,
+    "f01_f09_official_v1_mapping_recovered": false,
+    "u127_outcome_blind_population_universe": false,
+    "w1_w8_sealed_holdout": false,
+    "thin_slice_scoreable": false,
+    "official_golden_or_replay_authorized": false
+  }
+}

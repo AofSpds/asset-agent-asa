@@ -1,0 +1,238 @@
+{
+  "schema_version": "r-wp4-03-pmo-validation-receipt-v1",
+  "receipt_id": "R-WP4-03_PMOV_20260823T074547+0900",
+  "work_package": "R-WP4-03_CANONICAL_LINEAGE_AND_FULL_UNIVERSE",
+  "issued_at": "2026-08-23T07:45:47+09:00",
+  "issued_by": "AAA-PMO-VALIDATOR",
+  "validator_lane": "PMOV",
+  "verdict": "PASS",
+  "qualification": "PMOV_CONTROL_PLANE_COMPLETION_AND_TRACEABILITY_PASS",
+  "iva_execution_participation": "NONE",
+  "independence": {
+    "validation_mode": "READ_ONLY",
+    "domain_semantics_re_adjudicated": false,
+    "candidate_writes": false,
+    "git_writes": false,
+    "pmo_status_or_journal_writes": false,
+    "earlier_validator_receipt_writes": false,
+    "prior_evidence_writes": false,
+    "only_new_artifacts": "THIS_PMOV_JSON_AND_MARKDOWN_RECEIPT"
+  },
+  "owner_authority": {
+    "directive": "APPROVE_AND_CLOSE + PMO_DIRECT_DISPATCH=YES",
+    "proceed_confirmation": true,
+    "owner_action_required_for_post_receipt_integration": false,
+    "work_packet_path": "remediation/r_wp4_03_pmo/R_WP4_03_PMO_WORK_PACKET_v0.1.md",
+    "work_packet_sha256": "1e83c0ad7c7cfde3552a9fc91842f3611cca29271d6da8ccb480bcda6d984ef4",
+    "journal_owner_input_exact": true
+  },
+  "validation_scope": {
+    "included": [
+      "PMO authority and direct-dispatch traceability",
+      "mandatory sequential validator routing",
+      "exact remote commit, branch, tree, and parent binding",
+      "canonical frozen-candidate and final-evidence immutability",
+      "receipt hash, verdict, target, scope, and route consistency",
+      "claim ceiling and authority-lock preservation",
+      "deterministic post-receipt integration authorization"
+    ],
+    "excluded": [
+      "new engineering acceptance",
+      "new control-contract adjudication",
+      "new model-semantic adjudication",
+      "model validity or predictive-power establishment",
+      "Official execution or canonical-data approval",
+      "Golden or Full Replay approval",
+      "Model Freeze, Promotion, Release, Production, or merge approval",
+      "IVA execution, evidence production, or substitution for PMOV"
+    ]
+  },
+  "organization_and_role_separation": {
+    "organization_current_state_sha256": "5f7d9f4d25413ac74c74168ba58e87987708cc5a43d1910fe05cf7c85c51c836",
+    "active_routing_state_sha256": "b97a6f6f97164b2ef82d64278c6050a7ff1b128013c0307148688ca8cda8493a",
+    "pair_activation_state_sha256": "96bd6ee6af6a790e7dcac3831d70389a5125fb0a32541145bef8b1084c5fe7ba",
+    "pmo_pair": "AAA-PMO-ORCHESTRATOR <-> AAA-PMO-VALIDATOR",
+    "active_core_b_pair": "AAA-MODEL-ARCHITECT <-> AAA-MODEL-VALIDATOR",
+    "required_sequence": [
+      "AAA-ENGINEERING-VALIDATOR",
+      "AAA-CONTROL-VALIDATOR",
+      "AAA-MODEL-VALIDATOR",
+      "AAA-PMO-VALIDATOR"
+    ],
+    "observed_sequence": "ENGV_THEN_CTLV_THEN_ACTIVE_CORE_B_THEN_PMOV",
+    "independent_l2_route_invoked_for_this_packet": false,
+    "iva_role": "INDEPENDENT_INSTITUTION_OUTSIDE_EXECUTION",
+    "iva_execution_participation": "NONE",
+    "status": "PASS"
+  },
+  "remote_git_identity": {
+    "repository": "AofSpds/asset-agent-asa",
+    "branch": "aaa-m3top3-p0-canonical-lineage-full-universe-20260823",
+    "implementation_commit": "ea52bde2ed65c46f3e797f640b60dd9741aa8fe1",
+    "implementation_tree": "d068aa65b8c3bdacd062529ff9d35108812683d9",
+    "parent_commit": "495c070be37f978c8be536c0b469d2d07cf0c071",
+    "branch_equals_implementation_commit_at_pmov_check": true,
+    "branch_compare": {
+      "status": "identical",
+      "ahead_by": 0,
+      "behind_by": 0,
+      "total_commits": 0
+    },
+    "parent_delta": {
+      "status": "ahead",
+      "ahead_by": 1,
+      "behind_by": 0,
+      "total_commits": 1,
+      "path_count": 23,
+      "modified": 17,
+      "added": 6,
+      "deleted": 0
+    },
+    "tree_binding_basis": "PMO Git receipt plus exact ENGV, CTLV, and Core B receipts bind the same root tree and 23-of-23 changed blobs; PMOV independently reconfirmed the remote branch and parent delta",
+    "branch_update_method": "FAST_FORWARD",
+    "force_update": false,
+    "merge_authorized": false,
+    "status": "PASS"
+  },
+  "canonical_frozen_identity": {
+    "candidate_root": "/workspace/scratch/577256efb437/remediation/r_wp4_03_final_candidate_v0_3",
+    "candidate_file_count": 30,
+    "manifest_file_count": 30,
+    "extra_files": 0,
+    "missing_files": 0,
+    "hash_or_size_mismatches": 0,
+    "source_tree_sha256": "1d7b256e961b6f04ad038738fd727a41b98b18db1786a4d21cdd13f78c80d3da",
+    "canonical_manifest_path": "/workspace/scratch/577256efb437/remediation/r_wp4_03_final_evidence_v0_3/R_WP4_03_V0_3_FINAL_CANONICAL_FREEZE_MANIFEST_v1.json",
+    "canonical_manifest_sha256": "0cc363f0c9eb65338747d9d8a47b35046ace881dec0bbf7db50d24ea4e004e17",
+    "candidate_files_mode_0444": true,
+    "candidate_directories_mode_0555": true,
+    "candidate_symlinks": 0,
+    "candidate_cache_or_bytecode_entries": 0,
+    "status": "PASS"
+  },
+  "sealed_final_evidence": {
+    "root": "/workspace/scratch/577256efb437/remediation/r_wp4_03_final_evidence_v0_3",
+    "file_count": 527,
+    "files_mode_0444": true,
+    "directories_mode_0555": true,
+    "symlinks": 0,
+    "pre_integrated_receipt_file_count": 526,
+    "pre_integrated_receipt_inventory_fingerprint_sha256": "40fe6632d4eca8d289e54898378e805d21d4a637f3af2e6310d469e921801697",
+    "recomputed_fingerprint_matches": true,
+    "candidate_or_evidence_content_drift_observed": false,
+    "status": "PASS"
+  },
+  "pmo_prerequisite_receipts": {
+    "integrated_final_gate": {
+      "sha256": "93efc4024a7dde0974fd35ea5471ce51b28ed2c4e1bf1579042eba0f3747293c",
+      "status": "PMO_FINAL_GATE_PASS_GIT_IMPLEMENTATION_COMMIT_AUTHORIZED"
+    },
+    "git_implementation_commit": {
+      "sha256": "643e983da40fcc3af3cc1f0d3ef0feadf8e7e394820673e6f373982892e8252f",
+      "disposition": "IMPLEMENTATION_COMMIT_CREATED_VALIDATOR_ROUTE_OPEN",
+      "owner_authority": "APPROVE_AND_CLOSE_PLUS_PMO_DIRECT_DISPATCH_YES",
+      "force_update": false,
+      "iva_execution_participation": "NONE"
+    },
+    "status": "PASS"
+  },
+  "sequential_validator_receipts": {
+    "engv": {
+      "issued_at": "2026-08-23T07:17:01+09:00",
+      "issued_by": "AAA-ENGINEERING-VALIDATOR",
+      "verdict": "PASS",
+      "qualification": "ENGV_ONLY_EXACT_IMPLEMENTATION_ACCEPTANCE",
+      "json_sha256": "5c450df3c7f47f0184bda89562828894f9c6ffedf6266f6210d85c4de83596e3",
+      "markdown_sha256": "1bb40dcaa0f354cb4a5f1f7fd1f65d8cfe6f0a2ed7ea5022e79babaab5226e52",
+      "opens_only": "AAA-CONTROL-VALIDATOR",
+      "iva_execution_participation": "NONE"
+    },
+    "ctlv": {
+      "issued_at": "2026-08-23T07:27:22+09:00",
+      "issued_by": "AAA-CONTROL-VALIDATOR",
+      "verdict": "PASS",
+      "qualification": "CTLV_ONLY_EXACT_CONTROL_CONTRACT_ACCEPTANCE",
+      "json_sha256": "6f9254297322c2e90ce4ccdc853c7a4622ba6ed0ef87b591035a54940e8e65cf",
+      "markdown_sha256": "5dd9d9120d71de4b8ab0e0234e5ecbc7c2fb7bde1d5f7a6841d78a97e74db4c4",
+      "opens_only": "AAA-MODEL-VALIDATOR",
+      "iva_execution_participation": "NONE"
+    },
+    "core_b_model_validator": {
+      "issued_at": "2026-08-23T07:37:36+09:00",
+      "issued_by": "AAA-MODEL-VALIDATOR",
+      "active_core_b_pair": "AAA-MODEL-ARCHITECT <-> AAA-MODEL-VALIDATOR",
+      "verdict": "PASS",
+      "qualification": "ACTIVE_CORE_B_EXACT_TARGET_NON_SEMANTIC_PRESERVATION_PASS_DIAGNOSTIC_ONLY",
+      "json_sha256": "fc2151c70f776a3c8cab9ba3d318d93e60da39c960cebe8a6afb24f04ca74c14",
+      "markdown_sha256": "a2dd382780a24cb3176996052f14c25019cc22eed52f62d2e1970c4e5bb388d1",
+      "opens_only": "AAA-PMO-VALIDATOR",
+      "semantic_drift": "NONE",
+      "iva_execution_participation": "NONE"
+    },
+    "timestamp_order_strictly_increasing": true,
+    "same_exact_commit_and_tree_bound": true,
+    "scope_escalation_observed": false,
+    "status": "PASS"
+  },
+  "pre_pmov_control_plane_binding": {
+    "master_status_path": "remediation/r_wp4_03_pmo/R_WP4_03_MASTER_STATUS_v0.1.json",
+    "master_status_sha256": "4c2ddbb53511e59538fe18af67d922faffc0fbc740fa26fa912343503faae950",
+    "master_state": "ENGV_CTLV_CORE_B_PASS_PMOV_IN_PROGRESS",
+    "master_validation_state": "ENGV_PASS_CTLV_PASS_CORE_B_PASS_PMOV_IN_PROGRESS",
+    "master_active_lane": "SEQUENTIAL_VALIDATOR_ROUTING_PMOV",
+    "journal_path": "remediation/runtime_checkout/control/persona-memory/v1.0/AAA-PMO-ORCHESTRATOR/runs/2026-08-23/0320_m3top3-r-wp4-03-dispatch-root.md",
+    "journal_sha256": "8e6b056f1f9f32ee090283a063e3246f7c69d42a20c8f92f22471e15b6fbaa19",
+    "journal_time_end": "OPEN",
+    "pre_receipt_in_progress_fields_expected": true,
+    "post_receipt_status_and_journal_reconciliation_required": true,
+    "status": "PASS"
+  },
+  "authority_locks": {
+    "model_state": "S0_PRE_OUTCOME_BASELINE_CANDIDATE",
+    "model_validity": "NOT_ESTABLISHED",
+    "predictive_power": "NOT_ESTABLISHED",
+    "official_execution": "BLOCKED",
+    "price_canonical": "BLOCKED",
+    "official_golden": "BLOCKED",
+    "full_replay": "BLOCKED",
+    "model_freeze_authority": "BLOCKED",
+    "promotion": "BLOCKED",
+    "release": "BLOCKED",
+    "production_authority": "NONE",
+    "merge": "NOT_AUTHORIZED",
+    "iva_execution_participation": "NONE",
+    "status": "PRESERVED"
+  },
+  "completion_decision": {
+    "maximum_authorized_claim": "R-WP4-03_RUNTIME_MECHANISM=CLOSED_AT_EXACT_IMPLEMENTATION_SHA",
+    "exact_implementation_sha": "ea52bde2ed65c46f3e797f640b60dd9741aa8fe1",
+    "exact_implementation_tree": "d068aa65b8c3bdacd062529ff9d35108812683d9",
+    "work_package_runtime_mechanism": "CLOSED",
+    "wider_program": "OPEN",
+    "g1_through_g5": "OPEN_NOT_CLOSED_BY_THIS_RECEIPT",
+    "model_validity": "NOT_ESTABLISHED",
+    "predictive_power": "NOT_ESTABLISHED",
+    "official_or_production_authority_created": false
+  },
+  "authorized_post_receipt_integration": {
+    "status": "AUTHORIZED_DETERMINISTIC_ONLY",
+    "actions": [
+      "Update PMO master status to record PMOV PASS and exact-SHA runtime-mechanism closure",
+      "Close the PMO run journal with this receipt and preserve append-only history",
+      "Create one evidence-only descendant commit containing governed closeout records and no implementation-byte change",
+      "Open a new Draft PR with base aaa-m3top3-p0-runtime-failclosed-remediation-20260823 and head aaa-m3top3-p0-canonical-lineage-full-universe-20260823"
+    ],
+    "implementation_commit_must_remain_exact_ancestor": "ea52bde2ed65c46f3e797f640b60dd9741aa8fe1",
+    "implementation_tree_must_not_change": "d068aa65b8c3bdacd062529ff9d35108812683d9",
+    "force_update": false,
+    "draft_pr_required": true,
+    "merge_authorized": false,
+    "owner_action_required": false,
+    "iva_execution_participation": "NONE"
+  },
+  "nonblocking_post_receipt_items": [
+    "The pre-PMOV master status intentionally remains PMOV_IN_PROGRESS and the run journal TIME_END remains OPEN until PMO integrates this receipt; both must be reconciled before the evidence-only closeout commit.",
+    "The master status updated_at and verification-design summary must be currentized during deterministic closeout without altering preserved historical failure sections."
+  ],
+  "blockers": []
+}

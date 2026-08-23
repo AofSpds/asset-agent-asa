@@ -1,0 +1,71 @@
+{
+  "schema_version": "m3top3-bounded-packet-t0-input-freeze-v0.1",
+  "receipt_id": "M3TOP3-T0-INPUT-FREEZE-20260823-01",
+  "issued_at_kst": "2026-08-23T21:09:29+09:00",
+  "issuer": "AAA-PMO-ORCHESTRATOR",
+  "owner_authority": "APPROVE_AND_CLOSE_PLUS_PMO_DIRECT_DISPATCH_YES",
+  "owner_action_required": false,
+  "iva_execution_participation": "NONE",
+  "packet": {
+    "path": "remediation/next_bounded_execution/M3TOP3_PMO_BOUNDED_RECOVERY_AND_NONSCOREABLE_ASSEMBLY_PACKET_v0.1.md",
+    "sha256": "69845efc8354dbb9e579b02128ebf8ff25f9875a5ea1611738389c8751d88271"
+  },
+  "frozen_inputs": [
+    {
+      "path": "remediation/g1_baseline_identity/BASELINE_IDENTITY_EVIDENCE_MATRIX_v0.1.json",
+      "sha256": "528d0abd41991abbbe377508c6305f73368eb588193c90746ae3c029493709d0"
+    },
+    {
+      "path": "remediation/g1_universe_exposure/UNIVERSE_EXPOSURE_EVIDENCE_MATRIX_v0.1.json",
+      "sha256": "90104878d4bf6da92bc13f67180c3461c6fff71688f08b9c1b0b349238c1e51b"
+    },
+    {
+      "path": "remediation/g1_data_readiness/DATA_ANNOTATION_READINESS_MATRIX_v0.1.json",
+      "sha256": "7ad599f41313c8148cf205b6b80d71885b33b69414fdb32bff10490ec32821dc"
+    },
+    {
+      "path": "remediation/r_wp23_data_closure/01_U127_WORKING_MEMBERSHIP_PROVENANCE_GAPS.csv",
+      "sha256": "752138a1897cdacfcbb4762ac0caf5888007e49ac4605f88152576e544eeaa33"
+    },
+    {
+      "path": "remediation/r_wp23_data_closure/03_DENOMINATOR_CLOSURE_QUEUE.csv",
+      "sha256": "02bde437c04b1cc3d314b30e9bdd41bdb9a9164d0d2df4468728bdab8089eb62"
+    },
+    {
+      "path": "remediation/r_wp23_data_closure/04_PRICE_CA_CURRENT_BYTE_ADMISSION_QUEUE.csv",
+      "sha256": "b7d07a1c3438c30bced3161ea5d287d53f34431c7ab3f5e040a761ea06548412"
+    },
+    {
+      "path": "remediation/r_wp23_data_closure/05_THIN_PIT_SOURCE_ANNOTATION_BUILD_MANIFEST.csv",
+      "sha256": "5b78b6f0ea8cbdc2684e37724e3f0323ae8c50f1ae6dc1547e444d3e9c0eb7a1"
+    },
+    {
+      "path": "project_sources/16-marcap-2025.parquet",
+      "bytes": 25153419,
+      "sha256": "2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e"
+    },
+    {
+      "path": "project_sources/13-SEMI-PRICE-LEDGER_v1.0_SCHEMA.csv",
+      "sha256": "67c8633579c3b624ffa2254bdf4173f205b1617b64ed960b9b1e200bc1e01c25"
+    }
+  ],
+  "mutation_policy": "INPUTS_READ_ONLY; ANY_HASH_MISMATCH_STOPS_AFFECTED_LANE",
+  "permitted_outputs": [
+    "custody and exact-byte receipts",
+    "eligibility procedure sample and priority manifest",
+    "non-scoreable data-assembly contract and fail-closed receipts",
+    "G1/G2/G3 evidence-delta checkpoint"
+  ],
+  "prohibited_outputs": [
+    "score",
+    "rank",
+    "Top-K",
+    "return or outcome performance",
+    "Official Golden",
+    "Official Replay",
+    "Failure Atlas",
+    "Challenger evaluation",
+    "model-state transition"
+  ],
+  "status": "FROZEN_PASS"
+}

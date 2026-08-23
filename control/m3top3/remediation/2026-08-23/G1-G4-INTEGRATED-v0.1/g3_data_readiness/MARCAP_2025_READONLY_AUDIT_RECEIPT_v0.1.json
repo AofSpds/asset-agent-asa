@@ -1,0 +1,89 @@
+{
+  "receipt_id": "M3TOP3-G3-LANEC-MARCAP-2025-READONLY-20260823-01",
+  "audit_mode": "READ_ONLY_STDOUT_CAPTURE",
+  "script": {
+    "path": "remediation/g1_data_readiness/audit_marcap_2025.py",
+    "sha256": "23cfe60e2c2ae78b6437b93b029ded35e2314ae63d9f82354e65d8051e136862"
+  },
+  "toolchain": {
+    "python": "3.12.13",
+    "numpy": "2.5.2",
+    "pyarrow": "17.0.0"
+  },
+  "inputs": {
+    "parquet": {
+      "path": "project_sources/16-marcap-2025.parquet",
+      "bytes": 25153419,
+      "sha256": "2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e"
+    },
+    "u127_csv": {
+      "path": "remediation/r_wp23_data_closure/01_U127_WORKING_MEMBERSHIP_PROVENANCE_GAPS.csv",
+      "bytes": 33524,
+      "rows": 127,
+      "sha256": "752138a1897cdacfcbb4762ac0caf5888007e49ac4605f88152576e544eeaa33"
+    },
+    "canonical_schema_csv": {
+      "path": "project_sources/13-SEMI-PRICE-LEDGER_v1.0_SCHEMA.csv",
+      "bytes": 219,
+      "columns": 20,
+      "sha256": "67c8633579c3b624ffa2254bdf4173f205b1617b64ed960b9b1e200bc1e01c25"
+    }
+  },
+  "parquet": {
+    "rows": 696524,
+    "row_groups": 1,
+    "columns": 18,
+    "distinct_codes": 2985,
+    "distinct_dates": 242,
+    "date_min": "2025-01-02",
+    "date_max": "2025-12-30",
+    "duplicate_date_code_rows": 0
+  },
+  "u127_coverage": {
+    "membership_codes": 127,
+    "present_any_date": 125,
+    "absent_codes": ["0017J0", "153890"],
+    "full_date_codes": 120,
+    "partial_date_codes": {
+      "081180": 165,
+      "212710": 217,
+      "388210": 28,
+      "482630": 224,
+      "489500": 208
+    }
+  },
+  "zero_open_high_low": {
+    "all_market_rows": 31692,
+    "u127_rows": 29,
+    "u127_by_code": {
+      "025560": {"name": "미래산업", "rows": 17},
+      "030530": {"name": "원익홀딩스", "rows": 1},
+      "058470": {"name": "리노공업", "rows": 11}
+    }
+  },
+  "canonical_schema_comparison": {
+    "canonical_columns": 20,
+    "raw_columns": 18,
+    "intersection_columns": 12,
+    "canonical_fields_missing_from_raw": [
+      "Corporate_Action_Flag",
+      "Adjustment_Factor",
+      "Trading_Status",
+      "Corporate_Action_Type",
+      "Action_Source",
+      "Action_Confidence",
+      "Raw_Provider",
+      "Universe_Eligible_Flag"
+    ],
+    "extra_raw_fields": [
+      "Dept",
+      "ChangeCode",
+      "Changes",
+      "ChangesRatio",
+      "MarketId",
+      "Rank"
+    ]
+  },
+  "assertion": "COUNTS_MATCH_DATA_ANNOTATION_READINESS_MATRIX_v0.1",
+  "iva_execution_participation": "NONE"
+}

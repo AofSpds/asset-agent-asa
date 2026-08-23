@@ -1,0 +1,101 @@
+{
+  "schema_version": "m3top3-source-custody-recovery-probe-v0.1",
+  "probe_id": "M3TOP3-SOURCE-CUSTODY-RECOVERY-PROBE-20260823-01",
+  "observed_at_kst": "2026-08-23T21:01:44+09:00",
+  "execution_role": "AAA-PMO-ORCHESTRATOR",
+  "mode": "READ_ONLY_BOUNDED_SEARCH",
+  "iva_execution_participation": "NONE",
+  "search_surfaces": [
+    {
+      "surface": "CURRENT_WORKSPACE_ROOT",
+      "scope": "/workspace",
+      "method": "exact and wildcard filename search for ZIP, Parquet and standalone interface-manifest candidates",
+      "result": "NO_EXPECTED_2024_2026_OR_RESEARCH_ZIP_BYTES_FOUND",
+      "other_relevant_files": [
+        {
+          "path": "/workspace/scratch/577256efb437/project_sources/16-marcap-2025.parquet",
+          "bytes": 25153419,
+          "sha256": "2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e"
+        },
+        {
+          "path": "/workspace/scratch/577256efb437/deliverables/M3TOP3_G0_EXECUTION_BUNDLE_v1.0_2026-08-23.zip",
+          "bytes": 26521,
+          "sha256": "93ad6b368ec88527181e4fa697044b834abbd7dbeecfa8bc5b4b6f3400959c69"
+        }
+      ]
+    },
+    {
+      "surface": "GITHUB_REPOSITORY_CODE_SEARCH",
+      "scope": "AofSpds/asset-agent-asa",
+      "queries": [
+        "AAA_M3TOP3_GR_RESEARCH_PACKAGE_v0.1_WORKING.zip",
+        "AAA_M3TOP3_GR_RESEARCH_PACKAGE_v0.2_WORKING.zip",
+        "marcap-2024.parquet",
+        "marcap-2026.parquet",
+        "56d36d51e9f7b8870aa75cc41ee241603f6cf7446cb2386187c6ebcbb88b73c4"
+      ],
+      "result_count_by_query": [0, 0, 0, 0, 0]
+    },
+    {
+      "surface": "GITHUB_ORGANIZATION_CODE_SEARCH",
+      "scope": "AofSpds",
+      "queries": [
+        "AAA_M3TOP3_GR_RESEARCH_PACKAGE",
+        "marcap-2024",
+        "marcap-2026",
+        "SEMI-PRICE-MARCAP-KRX-2024-2026"
+      ],
+      "result_count_by_query": [0, 0, 0, 0]
+    },
+    {
+      "surface": "BOUNDED_GIT_BLOB_READBACK",
+      "scope": "AofSpds/asset-agent-asa recorded workbook blob identifiers",
+      "receipt_ref": "remediation/g1_integrated/PRICE_COMPONENT_RECOVERY_PROBE_v0.1.json",
+      "receipt_sha256": "1e12cb23646056a025d6ff2561a120da95c49e5203f6869d3e2cd9f86b781d4c",
+      "result": "RECORDED_2024_2025_2026_BLOB_IDS_RETURNED_NOT_FOUND; EXACT_LOCAL_2025_BYTES_EXIST_SEPARATELY"
+    }
+  ],
+  "expected_artifacts": [
+    {
+      "artifact": "AAA_M3TOP3_GR_RESEARCH_PACKAGE_v0.1_WORKING.zip",
+      "expected_path": "control/research/working-candidates/m3top3-gr-research-package/v0.1/AAA_M3TOP3_GR_RESEARCH_PACKAGE_v0.1_WORKING.zip",
+      "expected_bytes": 35775,
+      "expected_sha256": "3aaee7c1de2bd6f97e5ffd808fba980bf73fea1b604fb3c3b79e2be005180002",
+      "current_state": "NOT_FOUND_ON_SEARCHED_SURFACES"
+    },
+    {
+      "artifact": "AAA_M3TOP3_GR_RESEARCH_PACKAGE_v0.2_WORKING.zip",
+      "expected_path": "control/research/working-candidates/m3top3-gr-research-package/v0.2/AAA_M3TOP3_GR_RESEARCH_PACKAGE_v0.2_WORKING.zip",
+      "expected_bytes": 40210,
+      "expected_sha256": "5bbe75a4c9966abcb9f10d2f1e84df983977c1cf76d69e7bda6dfe4f24e60836",
+      "current_state": "NOT_FOUND_ON_SEARCHED_SURFACES"
+    },
+    {
+      "artifact": "marcap-2024.parquet",
+      "expected_bytes": 24572111,
+      "expected_sha256": "b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb",
+      "current_state": "NOT_FOUND_ON_SEARCHED_SURFACES"
+    },
+    {
+      "artifact": "marcap-2026.parquet",
+      "expected_bytes": 16198533,
+      "expected_sha256": "5da710a2fc56f8fe9b1f5126295cc30c3b15c0ee35d28ba808a505ec4a2243c1",
+      "current_state": "NOT_FOUND_ON_SEARCHED_SURFACES"
+    },
+    {
+      "artifact": "SEMI-PRICE-MARCAP-KRX-2024-2026 standalone interface manifest",
+      "expected_sha256": "56d36d51e9f7b8870aa75cc41ee241603f6cf7446cb2386187c6ebcbb88b73c4",
+      "current_state": "NOT_FOUND_ON_SEARCHED_SURFACES"
+    }
+  ],
+  "bounded_conclusion": "The expected artifacts were not found on the current workspace, the named repository code-search surface, the AofSpds organization code-search surface, or the previously recorded bounded blob-readback paths. This is not proof of global nonexistence and does not establish source-custodian unavailability.",
+  "next_route": "ISSUE_SOURCE_CUSTODIAN_RECOVERY_REQUEST_WITH_EXPECTED_PATH_SIZE_HASH; QUARANTINE_ANY_MISMATCH; DO_NOT_RECREATE_OR_SUBSTITUTE_BYTES",
+  "owner_action_required_now": false,
+  "claim_locks": {
+    "exact_v1_identity": "UNPROVEN",
+    "price_canonical": "BLOCKED",
+    "official_golden": "BLOCKED",
+    "official_replay": "BLOCKED",
+    "model_state": "S0_PRE_OUTCOME_BASELINE_CANDIDATE"
+  }
+}

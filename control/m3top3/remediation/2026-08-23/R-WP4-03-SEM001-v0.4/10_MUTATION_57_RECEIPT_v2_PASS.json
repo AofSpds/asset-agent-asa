@@ -1,0 +1,3215 @@
+{
+  "authority_state": "AUTHORITATIVE_CANDIDATE_BOUND",
+  "candidate_freeze_binding": {
+    "accepted_runtime_commit": "ea52bde2ed65c46f3e797f640b60dd9741aa8fe1",
+    "bound": true,
+    "configured_freeze_receipt_sha256": "e3a34016b8ca5c20582499716ddcdc807e8215e766d4f5fa6ec3eec40cd88636",
+    "evidence_parent_commit": "3d75dab93d31b20f2f4d42de38cbc6aae96a6ccd",
+    "freeze_receipt_path": "/workspace/scratch/577256efb437/remediation/r_wp4_03_v04_authority/R_WP4_03_V0_4_CANONICAL_FREEZE_MANIFEST_v1.json",
+    "freeze_receipt_sha256": "e3a34016b8ca5c20582499716ddcdc807e8215e766d4f5fa6ec3eec40cd88636",
+    "freeze_schema_version": "r-wp4-03-freeze-manifest-v1",
+    "freeze_state": "RUNTIME_CANDIDATE_V0_4_FROZEN",
+    "iva_execution_participation": "NONE",
+    "runtime_file_count": 31,
+    "runtime_files": {
+      "tools/m3top3/README.md": "07b22b876b27344d57e1f408a8f69950255d0bce12d5de199c3d9bc8638a6cc7",
+      "tools/m3top3/__init__.py": "c2f140091fe255ebe84cc10733e1b19f1af9642b69526b7a7c67ec7bc6e38fea",
+      "tools/m3top3/admission.py": "a9aa5aa6ba518121ce37a38b05c44c5b2b3026186b468adac130d4159d42d511",
+      "tools/m3top3/backtest.py": "0c1a888c10da1d944ef73f519f6db5b09ab09be540f9c566122c466797ffc195",
+      "tools/m3top3/cli_build_snapshots.py": "48cc01e58e2caff86fbe7f245dcf18e715548ea70e2b2fc070f116b510368119",
+      "tools/m3top3/cli_run_backtest.py": "d02bb6ecfe5509c15dea1ab932cd6a2ae71598911006e1d775e06b8b2775b8b9",
+      "tools/m3top3/configs/backtest.example.json": "08c191e0b53b8e56ccb0e931923cb31efeea83d7c303923bd484e984baeab535",
+      "tools/m3top3/configs/snapshot.example.json": "9336a3fe597d16c9f43e31b1017d17366f343893c655de7a77ab127288aea2ad",
+      "tools/m3top3/core.py": "4a91dd5733e3e90837f9bd2c6c606c3914af93cbfe15e601027ca4e76e7efcb2",
+      "tools/m3top3/ledger.py": "1a60cdc7c18a36be39769451fdfdfa574499ecc489a0ab6d1cdd5fcaae375d96",
+      "tools/m3top3/model_interface.py": "c3bcc7250de4519506a642d2e065424d7a28bcb843c19d0d96107822663c5a67",
+      "tools/m3top3/outcome.py": "0097cbab2373db885538d18083f554136dd347d2863b97aa3f26d728acd9331f",
+      "tools/m3top3/pit_guard.py": "5fa17bb958b852e808757b1636c593ae8fec6e8b9bcd9ec3b26e6822a863e366",
+      "tools/m3top3/providers.py": "347def841cd2a76fb9c67c7e72c86e46c301c3b012988105e9ab39648443af63",
+      "tools/m3top3/snapshot.py": "5976761527f39100b21b4cc28888f3f95b8018671c0685e1fb866aadd13f9c96",
+      "tools/m3top3/tests/_known_failure_helpers.py": "e1e2de2e90cf8d6aa689193d8ef6ec9710de725ef197c4a75fc5e82767a3ab57",
+      "tools/m3top3/tests/run_r_wp4_03_production_matrix.py": "84f31788815eccc33fb05406256b795f35426f32b7442dcd885b696804d3900d",
+      "tools/m3top3/tests/test_infrastructure.py": "01a20f75dea6486006cdb033c5fed4533c5b5a6c95cb3332a5d5d994d29f746e",
+      "tools/m3top3/tests/test_known_failures_cli.py": "2ae88cd1d209021b1e52a00ca5e4fcdfbcd1d2de0e5213f0edaf688c3fcd7ba1",
+      "tools/m3top3/tests/test_known_failures_immutability.py": "6cd38453ad678985aac237dfaef0f99c888741f5669107f3cb3e6534a3bd2e33",
+      "tools/m3top3/tests/test_known_failures_integrity.py": "2da394d7240bf7e384c3818711006ecbed2cb090c2101fb5b648328b06a961b7",
+      "tools/m3top3/tests/test_known_failures_lineage_universe.py": "346de27545dc2eb2efaad14b71678a7281a251aac32c02e343699829d6804fad",
+      "tools/m3top3/tests/test_known_failures_model_admission.py": "7bf31dccff324cef1450bf73b0bb72dbbae9eb909329fe14fa1930015f0af55f",
+      "tools/m3top3/tests/test_known_failures_pit.py": "e7935170b9183d0cbf8da23690565a342ea8ddb2cc517023092069cac0a89684",
+      "tools/m3top3/tests/test_known_failures_price.py": "e87568d098269a98414b5f7ee50e5ee34252293dc202e54c1a305b2db8fa16d3",
+      "tools/m3top3/tests/test_known_failures_snapshot.py": "2745d6088463e6942f3ab2c08debd92566aee64a7621db972ad55ee979212281",
+      "tools/m3top3/tests/test_r_wp4_03_ledger_v02.py": "e2de60a00a6bc81e80f425dde924e771867e418575e3823d93e387dbc117853c",
+      "tools/m3top3/tests/test_r_wp4_03_matrix.py": "7122671c052ed547a132a91020d7eb388fdcc6b27ff21ab5d0ae924738e1ccf0",
+      "tools/m3top3/tests/test_r_wp4_03_mutation_isolation.py": "cc7a3092f1bc48d7e8240527242ab99b44c2ea4634710090bc434e8612a61832",
+      "tools/m3top3/tests/test_r_wp4_03_semantic_preservation_v04.py": "afa0fc576c4045b11cb5bd0d9a00c49353312f581dd04a264ddcfaa5c04fc12b",
+      "tools/m3top3/tests/test_r_wp4_03_v02_remediation.py": "bd3a169179ad26ffa3bb27e0c155cee34382729aef9e95e187394426a2c11a0c"
+    },
+    "runtime_manifest_sha256": "37b10c54baee9aba7f33f1b59d524e0a24e4e1e1561483a030527a2bff566c73"
+  },
+  "candidate_git": {
+    "available": false,
+    "commit": null,
+    "dirty": null,
+    "tree": null
+  },
+  "claim_scope": "INTERNAL_ENGINEERING_NOT_IVA",
+  "external_registry_checks": {
+    "matrix_unique_id_count": 75,
+    "registry_order_match": true,
+    "registry_ordinal_sequence_match": true,
+    "registry_unique_id_count": 57
+  },
+  "harness_error": 0,
+  "harness_path": "/workspace/scratch/577256efb437/remediation/r_wp4_03_author/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+  "harness_sha256": "374fe72c26e8426fcab55d2e3a9dedda9f5cf77ed055ee381a7accfa0fb8dac8",
+  "killed_red": 57,
+  "legacy_mutations": 33,
+  "matrix_path": "/workspace/scratch/577256efb437/remediation/r_wp4_03_control/R_WP4_03_NEGATIVE_REGRESSION_MATRIX_v0.1.csv",
+  "matrix_sha256": "2b65131ad866196bd403718386c1fcae6e302f2ffca08773e1eaa9821d1b2eb4",
+  "new_mutations": 24,
+  "predecessor_design_contract": {
+    "exact_total": 50,
+    "legacy_preserved": 33,
+    "r_wp4_03_new": 17,
+    "registry_version": "v0.1",
+    "retroactively_modified": false
+  },
+  "registry_contract": "R_WP4_03_MUTATION_REGISTRY_v0.4.1_SUCCESSOR",
+  "registry_path": "/workspace/scratch/577256efb437/remediation/r_wp4_03_author/tools/m3top3/tests/R_WP4_03_MUTATION_REGISTRY_v0.4.1.csv",
+  "registry_sha256": "144106169ff3ae8f838b2879fa54a444e499c7cc6da82f355757915f3679c99c",
+  "requested_mutations": 57,
+  "results": [
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_known_failures_pit.KnownFailurePITTests.test_kf_pit_001_missing_publication_key",
+        "-v"
+      ],
+      "control_family": "PIT publication key",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-3tw4weif",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-3tw4weif/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-3tw4weif/tools/m3top3/pit_guard.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-PIT-MISSING-KEY",
+      "paired_tests": [
+        "tools.m3top3.tests.test_known_failures_pit.KnownFailurePITTests.test_kf_pit_001_missing_publication_key"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/pit_guard.py",
+      "target_sha256_after": "0122ec1d9fb340c0f4922d592f0899875f8017fd92ec561b4200263606197a2d",
+      "target_sha256_before": "5fa17bb958b852e808757b1636c593ae8fec6e8b9bcd9ec3b26e6822a863e366",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "62b12463cf3e4ace8585036b430dde65c1d87d88548e5d4122a51e6bd8f1f6ff",
+      "transcript_tail": [
+        "test_kf_pit_001_missing_publication_key (tools.m3top3.tests.test_known_failures_pit.KnownFailurePITTests.test_kf_pit_001_missing_publication_key) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_kf_pit_001_missing_publication_key (tools.m3top3.tests.test_known_failures_pit.KnownFailurePITTests.test_kf_pit_001_missing_publication_key)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-3tw4weif/tools/m3top3/tests/test_known_failures_pit.py\", line 23, in test_kf_pit_001_missing_publication_key",
+        "    self.assert_code(lambda: PITGuard().assert_model_inputs([{\"feature_id\": \"F01\"}], CUTOFF), \"MISSING_PUBLICATION_AT\")",
+        "  File \"/tmp/m3top3-r03-mutation-3tw4weif/tools/m3top3/tests/test_known_failures_pit.py\", line 18, in assert_code",
+        "    with self.assertRaises(PITLeakageError) as caught:",
+        "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "AssertionError: PITLeakageError not raised",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.000s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_known_failures_pit.KnownFailurePITTests.test_kf_pit_001_null_publication",
+        "-v"
+      ],
+      "control_family": "PIT null publication",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-t516jmib",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-t516jmib/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-t516jmib/tools/m3top3/pit_guard.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-PIT-NULL",
+      "paired_tests": [
+        "tools.m3top3.tests.test_known_failures_pit.KnownFailurePITTests.test_kf_pit_001_null_publication"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/pit_guard.py",
+      "target_sha256_after": "a1a46ab854adf1aea1e6bea9c600c7c43f0053479193a518d271d40dd42b7666",
+      "target_sha256_before": "5fa17bb958b852e808757b1636c593ae8fec6e8b9bcd9ec3b26e6822a863e366",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "db4911bc25d4ae596b64013e6381d636acc23245d3aeb6768b9d4a7444e8e194",
+      "transcript_tail": [
+        "test_kf_pit_001_null_publication (tools.m3top3.tests.test_known_failures_pit.KnownFailurePITTests.test_kf_pit_001_null_publication) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_kf_pit_001_null_publication (tools.m3top3.tests.test_known_failures_pit.KnownFailurePITTests.test_kf_pit_001_null_publication)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-t516jmib/tools/m3top3/tests/test_known_failures_pit.py\", line 26, in test_kf_pit_001_null_publication",
+        "    self.assert_code(lambda: PITGuard().assert_model_inputs([{\"feature_id\": \"F01\", \"publication_at\": None}], CUTOFF), \"MISSING_PUBLICATION_AT\")",
+        "  File \"/tmp/m3top3-r03-mutation-t516jmib/tools/m3top3/tests/test_known_failures_pit.py\", line 18, in assert_code",
+        "    with self.assertRaises(PITLeakageError) as caught:",
+        "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "AssertionError: PITLeakageError not raised",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.000s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_known_failures_pit.KnownFailurePITTests.test_kf_pit_002_naive_publication_string",
+        "-v"
+      ],
+      "control_family": "PIT timezone",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-lxzovgfu",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-lxzovgfu/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-lxzovgfu/tools/m3top3/pit_guard.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-PIT-NAIVE",
+      "paired_tests": [
+        "tools.m3top3.tests.test_known_failures_pit.KnownFailurePITTests.test_kf_pit_002_naive_publication_string"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/pit_guard.py",
+      "target_sha256_after": "53431884d40833ece771df9372b5e628118fe6d36eeb856658260f63b191cf89",
+      "target_sha256_before": "5fa17bb958b852e808757b1636c593ae8fec6e8b9bcd9ec3b26e6822a863e366",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "86b88e0cd1c9e3035b99219061269fc617ca12a85be9f77d9b40cec9d583cff6",
+      "transcript_tail": [
+        "test_kf_pit_002_naive_publication_string (tools.m3top3.tests.test_known_failures_pit.KnownFailurePITTests.test_kf_pit_002_naive_publication_string) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_kf_pit_002_naive_publication_string (tools.m3top3.tests.test_known_failures_pit.KnownFailurePITTests.test_kf_pit_002_naive_publication_string)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-lxzovgfu/tools/m3top3/tests/test_known_failures_pit.py\", line 29, in test_kf_pit_002_naive_publication_string",
+        "    self.assert_code(lambda: PITGuard().assert_model_inputs([{\"feature_id\": \"F01\", \"publication_at\": \"2025-01-02T12:00:00\"}], CUTOFF), \"INVALID_PUBLICATION_DATETIME\")",
+        "  File \"/tmp/m3top3-r03-mutation-lxzovgfu/tools/m3top3/tests/test_known_failures_pit.py\", line 18, in assert_code",
+        "    with self.assertRaises(PITLeakageError) as caught:",
+        "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "AssertionError: PITLeakageError not raised",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.000s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_known_failures_pit.KnownFailurePITTests.test_kf_pit_003_not_available_before_entry",
+        "-v"
+      ],
+      "control_family": "PIT availability",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-wbrsp34h",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-wbrsp34h/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-wbrsp34h/tools/m3top3/pit_guard.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-PIT-AVAILABLE",
+      "paired_tests": [
+        "tools.m3top3.tests.test_known_failures_pit.KnownFailurePITTests.test_kf_pit_003_not_available_before_entry"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/pit_guard.py",
+      "target_sha256_after": "ab7f6018390a094f83ca086d29e2b87b7c2ffab655d3d3c655adcdf487b454d9",
+      "target_sha256_before": "5fa17bb958b852e808757b1636c593ae8fec6e8b9bcd9ec3b26e6822a863e366",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "5b254f4f5d0300124c810f9658687352a9437e84a22622a0ec844b844676eb76",
+      "transcript_tail": [
+        "test_kf_pit_003_not_available_before_entry (tools.m3top3.tests.test_known_failures_pit.KnownFailurePITTests.test_kf_pit_003_not_available_before_entry) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_kf_pit_003_not_available_before_entry (tools.m3top3.tests.test_known_failures_pit.KnownFailurePITTests.test_kf_pit_003_not_available_before_entry)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-wbrsp34h/tools/m3top3/tests/test_known_failures_pit.py\", line 36, in test_kf_pit_003_not_available_before_entry",
+        "    self.assert_code(lambda: PITGuard().assert_model_inputs([row], CUTOFF), \"NOT_AVAILABLE_BEFORE_ENTRY\")",
+        "  File \"/tmp/m3top3-r03-mutation-wbrsp34h/tools/m3top3/tests/test_known_failures_pit.py\", line 18, in assert_code",
+        "    with self.assertRaises(PITLeakageError) as caught:",
+        "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "AssertionError: PITLeakageError not raised",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.000s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_known_failures_pit.KnownFailurePITTests.test_kf_pit_004_current_only",
+        "-v"
+      ],
+      "control_family": "PIT current-only",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-tt0h8k3a",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-tt0h8k3a/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-tt0h8k3a/tools/m3top3/pit_guard.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-PIT-CURRENT",
+      "paired_tests": [
+        "tools.m3top3.tests.test_known_failures_pit.KnownFailurePITTests.test_kf_pit_004_current_only"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/pit_guard.py",
+      "target_sha256_after": "f4fb89129e9df4aaaab356758288e0fd70b1550873b6ef8d6460774f26af68ae",
+      "target_sha256_before": "5fa17bb958b852e808757b1636c593ae8fec6e8b9bcd9ec3b26e6822a863e366",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "4b528a6ded9fbf83f892ef0ce101f00bc1fd98baf8cfb6655846a03f4e53130b",
+      "transcript_tail": [
+        "test_kf_pit_004_current_only (tools.m3top3.tests.test_known_failures_pit.KnownFailurePITTests.test_kf_pit_004_current_only) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_kf_pit_004_current_only (tools.m3top3.tests.test_known_failures_pit.KnownFailurePITTests.test_kf_pit_004_current_only)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-tt0h8k3a/tools/m3top3/tests/test_known_failures_pit.py\", line 40, in test_kf_pit_004_current_only",
+        "    self.assert_code(lambda: PITGuard().assert_model_inputs([row], CUTOFF), \"CURRENT_ONLY_FIELD_IN_HISTORY\")",
+        "  File \"/tmp/m3top3-r03-mutation-tt0h8k3a/tools/m3top3/tests/test_known_failures_pit.py\", line 18, in assert_code",
+        "    with self.assertRaises(PITLeakageError) as caught:",
+        "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "AssertionError: PITLeakageError not raised",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.000s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_known_failures_pit.KnownFailurePITTests.test_kf_pit_005_consumed_future_row_blocks",
+        "-v"
+      ],
+      "control_family": "PIT consumed publication",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-y5vz8wez",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-y5vz8wez/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-y5vz8wez/tools/m3top3/pit_guard.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-PIT-CONSUMED-PUB",
+      "paired_tests": [
+        "tools.m3top3.tests.test_known_failures_pit.KnownFailurePITTests.test_kf_pit_005_consumed_future_row_blocks"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/pit_guard.py",
+      "target_sha256_after": "6bf80656fe68c6831f116fa1a956eea83df8f54b12b084fefd76994895d4087a",
+      "target_sha256_before": "5fa17bb958b852e808757b1636c593ae8fec6e8b9bcd9ec3b26e6822a863e366",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "36d0605ad80d33cb294d387a719e61c1a8f77c051bc355a3ce553890b2cd8419",
+      "transcript_tail": [
+        "test_kf_pit_005_consumed_future_row_blocks (tools.m3top3.tests.test_known_failures_pit.KnownFailurePITTests.test_kf_pit_005_consumed_future_row_blocks) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_kf_pit_005_consumed_future_row_blocks (tools.m3top3.tests.test_known_failures_pit.KnownFailurePITTests.test_kf_pit_005_consumed_future_row_blocks)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-y5vz8wez/tools/m3top3/tests/test_known_failures_pit.py\", line 61, in test_kf_pit_005_consumed_future_row_blocks",
+        "    self.assert_code(lambda: PITGuard().assert_model_inputs([row],CUTOFF),\"PIT_PUBLICATION_AFTER_CUTOFF\")",
+        "  File \"/tmp/m3top3-r03-mutation-y5vz8wez/tools/m3top3/tests/test_known_failures_pit.py\", line 18, in assert_code",
+        "    with self.assertRaises(PITLeakageError) as caught:",
+        "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "AssertionError: PITLeakageError not raised",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.000s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_known_failures_pit.KnownFailurePITTests.test_kf_pit_006_consumed_effective_after_cutoff_blocks",
+        "-v"
+      ],
+      "control_family": "PIT consumed effective date",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-q9r7r_64",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-q9r7r_64/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-q9r7r_64/tools/m3top3/pit_guard.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-PIT-CONSUMED-EFFECTIVE",
+      "paired_tests": [
+        "tools.m3top3.tests.test_known_failures_pit.KnownFailurePITTests.test_kf_pit_006_consumed_effective_after_cutoff_blocks"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/pit_guard.py",
+      "target_sha256_after": "3f0abbaae4f483d447010fdaa75702d0343cee2de1b71ec6656095ba9251d314",
+      "target_sha256_before": "5fa17bb958b852e808757b1636c593ae8fec6e8b9bcd9ec3b26e6822a863e366",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "298b1bfdda243822936583e85e68b4a5318077d7317b59effdc3d09efe087449",
+      "transcript_tail": [
+        "test_kf_pit_006_consumed_effective_after_cutoff_blocks (tools.m3top3.tests.test_known_failures_pit.KnownFailurePITTests.test_kf_pit_006_consumed_effective_after_cutoff_blocks) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_kf_pit_006_consumed_effective_after_cutoff_blocks (tools.m3top3.tests.test_known_failures_pit.KnownFailurePITTests.test_kf_pit_006_consumed_effective_after_cutoff_blocks)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-q9r7r_64/tools/m3top3/tests/test_known_failures_pit.py\", line 75, in test_kf_pit_006_consumed_effective_after_cutoff_blocks",
+        "    self.assert_code(lambda: PITGuard().assert_model_inputs([row],CUTOFF),\"PIT_EFFECTIVE_AFTER_CUTOFF\")",
+        "  File \"/tmp/m3top3-r03-mutation-q9r7r_64/tools/m3top3/tests/test_known_failures_pit.py\", line 18, in assert_code",
+        "    with self.assertRaises(PITLeakageError) as caught:",
+        "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "AssertionError: PITLeakageError not raised",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.000s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_known_failures_snapshot.KnownFailureSnapshotTests.test_kf_snp_002_partial_manifest_blocked_before_scorer",
+        "-v"
+      ],
+      "control_family": "Snapshot READY status",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-j4bphfab",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-j4bphfab/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-j4bphfab/tools/m3top3/admission.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-SNAPSHOT-STATUS",
+      "paired_tests": [
+        "tools.m3top3.tests.test_known_failures_snapshot.KnownFailureSnapshotTests.test_kf_snp_002_partial_manifest_blocked_before_scorer"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/admission.py",
+      "target_sha256_after": "aeb0202cfa9ec2b350a1c5740f64d14c6dd4a0e67bffb0aef8dd0f08cef913f5",
+      "target_sha256_before": "a9aa5aa6ba518121ce37a38b05c44c5b2b3026186b468adac130d4159d42d511",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "7ac7ef1faedaf1bb499bb8e07e971902f07b004984ba55ace59b1574d2b164bc",
+      "transcript_tail": [
+        "test_kf_snp_002_partial_manifest_blocked_before_scorer (tools.m3top3.tests.test_known_failures_snapshot.KnownFailureSnapshotTests.test_kf_snp_002_partial_manifest_blocked_before_scorer) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_kf_snp_002_partial_manifest_blocked_before_scorer (tools.m3top3.tests.test_known_failures_snapshot.KnownFailureSnapshotTests.test_kf_snp_002_partial_manifest_blocked_before_scorer)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-j4bphfab/tools/m3top3/tests/test_known_failures_snapshot.py\", line 55, in test_kf_snp_002_partial_manifest_blocked_before_scorer",
+        "    self._assert_manifest_block(\"SNAPSHOT_PARTIAL\", [\"C1:ELIGIBILITY_UNRESOLVED\"], \"BLOCKED_MANIFEST_STATE_CONTRADICTION_OR_BLOCKED_SNAPSHOT_NOT_READY\")",
+        "  File \"/tmp/m3top3-r03-mutation-j4bphfab/tools/m3top3/tests/test_known_failures_snapshot.py\", line 48, in _assert_manifest_block",
+        "    with self.assertRaises(M3Top3AdmissionError) as caught:",
+        "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "AssertionError: M3Top3AdmissionError not raised",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.009s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_known_failures_snapshot.KnownFailureSnapshotTests.test_kf_snp_004_ready_with_blocker_is_contradiction",
+        "-v"
+      ],
+      "control_family": "Snapshot blocker contradiction",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-7tojrjq6",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-7tojrjq6/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-7tojrjq6/tools/m3top3/admission.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-SNAPSHOT-BLOCKERS",
+      "paired_tests": [
+        "tools.m3top3.tests.test_known_failures_snapshot.KnownFailureSnapshotTests.test_kf_snp_004_ready_with_blocker_is_contradiction"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/admission.py",
+      "target_sha256_after": "33a14656b517a53e1bed26fdd1933aaf2786ffcfa048a475425e4b8d1966f477",
+      "target_sha256_before": "a9aa5aa6ba518121ce37a38b05c44c5b2b3026186b468adac130d4159d42d511",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "33aa77e2c843f0db15e1b11e478eec7c6cf15bc010f57a260c313acc6ced6c19",
+      "transcript_tail": [
+        "test_kf_snp_004_ready_with_blocker_is_contradiction (tools.m3top3.tests.test_known_failures_snapshot.KnownFailureSnapshotTests.test_kf_snp_004_ready_with_blocker_is_contradiction) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_kf_snp_004_ready_with_blocker_is_contradiction (tools.m3top3.tests.test_known_failures_snapshot.KnownFailureSnapshotTests.test_kf_snp_004_ready_with_blocker_is_contradiction)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-7tojrjq6/tools/m3top3/tests/test_known_failures_snapshot.py\", line 61, in test_kf_snp_004_ready_with_blocker_is_contradiction",
+        "    self._assert_manifest_block(\"SNAPSHOT_READY\", [\"unexpected\"], \"BLOCKED_MANIFEST_STATE_CONTRADICTION_OR_BLOCKED_SNAPSHOT_NOT_READY\")",
+        "  File \"/tmp/m3top3-r03-mutation-7tojrjq6/tools/m3top3/tests/test_known_failures_snapshot.py\", line 48, in _assert_manifest_block",
+        "    with self.assertRaises(M3Top3AdmissionError) as caught:",
+        "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "AssertionError: M3Top3AdmissionError not raised",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.009s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_known_failures_integrity.KnownFailureIntegrityTests.test_kf_int_002_model_input_valid_json_mutation",
+        "-v"
+      ],
+      "control_family": "Model input byte hash",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-86_8kdmo",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-86_8kdmo/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-86_8kdmo/tools/m3top3/admission.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-MODEL-HASH",
+      "paired_tests": [
+        "tools.m3top3.tests.test_known_failures_integrity.KnownFailureIntegrityTests.test_kf_int_002_model_input_valid_json_mutation"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/admission.py",
+      "target_sha256_after": "9bcd632074cc9e358cf8b7ca80e35a4573c44592264a77f98a2d9ca228979e63",
+      "target_sha256_before": "a9aa5aa6ba518121ce37a38b05c44c5b2b3026186b468adac130d4159d42d511",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "4d10a5491931ac9ab864e63fbdd0d953d521e07d7d8231040779baa65afb996b",
+      "transcript_tail": [
+        "test_kf_int_002_model_input_valid_json_mutation (tools.m3top3.tests.test_known_failures_integrity.KnownFailureIntegrityTests.test_kf_int_002_model_input_valid_json_mutation) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_kf_int_002_model_input_valid_json_mutation (tools.m3top3.tests.test_known_failures_integrity.KnownFailureIntegrityTests.test_kf_int_002_model_input_valid_json_mutation)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-86_8kdmo/tools/m3top3/tests/test_known_failures_integrity.py\", line 119, in test_kf_int_002_model_input_valid_json_mutation",
+        "    self.assert_code(lambda: verify_snapshot_artifacts(self.snapshot_dir), \"MODEL_INPUT_FILE_HASH_MISMATCH\")",
+        "  File \"/tmp/m3top3-r03-mutation-86_8kdmo/tools/m3top3/tests/test_known_failures_integrity.py\", line 25, in assert_code",
+        "    self.assertEqual(caught.exception.code, code)",
+        "AssertionError: 'SNAPSHOT_CONTENT_HASH_MISMATCH' != 'MODEL_INPUT_FILE_HASH_MISMATCH'",
+        "- SNAPSHOT_CONTENT_HASH_MISMATCH",
+        "+ MODEL_INPUT_FILE_HASH_MISMATCH",
+        "",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.004s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_known_failures_integrity.KnownFailureIntegrityTests.test_retrieval_audit_valid_json_mutation_is_detected",
+        "-v"
+      ],
+      "control_family": "Retrieval audit byte hash",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-hdsthxqu",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-hdsthxqu/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-hdsthxqu/tools/m3top3/admission.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-RETRIEVAL-AUDIT-HASH",
+      "paired_tests": [
+        "tools.m3top3.tests.test_known_failures_integrity.KnownFailureIntegrityTests.test_retrieval_audit_valid_json_mutation_is_detected"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/admission.py",
+      "target_sha256_after": "49afc1c60aa341f12d38caa87e335827c069a9bdfb38863ac7380df0f292a658",
+      "target_sha256_before": "a9aa5aa6ba518121ce37a38b05c44c5b2b3026186b468adac130d4159d42d511",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "d52550993bb9f5c963a31d3a3a05adce81640af242193a8f9eba8935586cd36d",
+      "transcript_tail": [
+        "",
+        "======================================================================",
+        "FAIL: test_retrieval_audit_valid_json_mutation_is_detected (tools.m3top3.tests.test_known_failures_integrity.KnownFailureIntegrityTests.test_retrieval_audit_valid_json_mutation_is_detected)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-hdsthxqu/tools/m3top3/tests/test_known_failures_integrity.py\", line 133, in test_retrieval_audit_valid_json_mutation_is_detected",
+        "    self.assert_code(lambda: verify_snapshot_artifacts(self.snapshot_dir), \"RETRIEVAL_AUDIT_FILE_HASH_MISMATCH\")",
+        "  File \"/tmp/m3top3-r03-mutation-hdsthxqu/tools/m3top3/tests/test_known_failures_integrity.py\", line 25, in assert_code",
+        "    self.assertEqual(caught.exception.code, code)",
+        "AssertionError: 'RETRIEVAL_AUDIT_CONTENT_HASH_MISMATCH' != 'RETRIEVAL_AUDIT_FILE_HASH_MISMATCH'",
+        "- RETRIEVAL_AUDIT_CONTENT_HASH_MISMATCH",
+        "?                 ^^^^ --",
+        "+ RETRIEVAL_AUDIT_FILE_HASH_MISMATCH",
+        "?                 ^^^",
+        "",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.004s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_r_wp4_03_mutation_isolation.RWP403MutationIsolationTests.test_retrieval_count_reconciliation_guard",
+        "-v"
+      ],
+      "control_family": "Retrieval count reconciliation",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-cty4ugq_",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-cty4ugq_/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-cty4ugq_/tools/m3top3/admission.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-RETRIEVAL-AUDIT-RECONCILIATION",
+      "paired_tests": [
+        "tools.m3top3.tests.test_r_wp4_03_mutation_isolation.RWP403MutationIsolationTests.test_retrieval_count_reconciliation_guard"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/admission.py",
+      "target_sha256_after": "e4722d06548accf33241f58d46cdc0892b19723bd372edd70973b7eea242d73b",
+      "target_sha256_before": "a9aa5aa6ba518121ce37a38b05c44c5b2b3026186b468adac130d4159d42d511",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "204e16a8a1703b4a90c1c2118acc26eb6004967e9a8b5d4c42e7791f40362a64",
+      "transcript_tail": [
+        "test_retrieval_count_reconciliation_guard (tools.m3top3.tests.test_r_wp4_03_mutation_isolation.RWP403MutationIsolationTests.test_retrieval_count_reconciliation_guard) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_retrieval_count_reconciliation_guard (tools.m3top3.tests.test_r_wp4_03_mutation_isolation.RWP403MutationIsolationTests.test_retrieval_count_reconciliation_guard)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-cty4ugq_/tools/m3top3/tests/test_r_wp4_03_mutation_isolation.py\", line 116, in test_retrieval_count_reconciliation_guard",
+        "    with self.assertRaises(M3Top3AdmissionError) as caught:",
+        "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "AssertionError: M3Top3AdmissionError not raised",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.012s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_known_failures_price.KnownFailurePriceTests.test_post_construction_price_byte_mutation_is_rejected_before_read",
+        "-v"
+      ],
+      "control_family": "Price live-byte hash",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-4rfjxrkw",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-4rfjxrkw/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-4rfjxrkw/tools/m3top3/admission.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-PRICE-HASH",
+      "paired_tests": [
+        "tools.m3top3.tests.test_known_failures_price.KnownFailurePriceTests.test_post_construction_price_byte_mutation_is_rejected_before_read"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/admission.py",
+      "target_sha256_after": "971db2988b5996508dc32016a5c10bd65e5f199c11caecf4f1521159eb82de23",
+      "target_sha256_before": "a9aa5aa6ba518121ce37a38b05c44c5b2b3026186b468adac130d4159d42d511",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "d7fa71afe62f830b45b2b80d7b05268c04714b039820e090d36c88b639dbab55",
+      "transcript_tail": [
+        "test_post_construction_price_byte_mutation_is_rejected_before_read (tools.m3top3.tests.test_known_failures_price.KnownFailurePriceTests.test_post_construction_price_byte_mutation_is_rejected_before_read) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_post_construction_price_byte_mutation_is_rejected_before_read (tools.m3top3.tests.test_known_failures_price.KnownFailurePriceTests.test_post_construction_price_byte_mutation_is_rejected_before_read)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-4rfjxrkw/tools/m3top3/tests/test_known_failures_price.py\", line 52, in test_post_construction_price_byte_mutation_is_rejected_before_read",
+        "    self.assert_code(\"PRICE_COMPONENT_HASH_MISMATCH\",lambda:provider.trading_dates(date(2025,1,2),date(2025,1,31)))",
+        "  File \"/tmp/m3top3-r03-mutation-4rfjxrkw/tools/m3top3/tests/test_known_failures_price.py\", line 24, in assert_code",
+        "    with self.assertRaises(M3Top3AdmissionError) as caught:",
+        "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "AssertionError: M3Top3AdmissionError not raised",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.001s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_known_failures_price.KnownFailurePriceTests.test_kf_prc_004_high_below_open_or_close",
+        "-v"
+      ],
+      "control_family": "OHLC integrity",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-hr0n7f71",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-hr0n7f71/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-hr0n7f71/tools/m3top3/providers.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-OHLC",
+      "paired_tests": [
+        "tools.m3top3.tests.test_known_failures_price.KnownFailurePriceTests.test_kf_prc_004_high_below_open_or_close"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/providers.py",
+      "target_sha256_after": "341915797de52a025498b8d6e9c8443aeb5b9b9dfe44d8c3a60669c9bef89d82",
+      "target_sha256_before": "347def841cd2a76fb9c67c7e72c86e46c301c3b012988105e9ab39648443af63",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "7564fdb81e50272bd6cb691fb9c90453e256c26dc1b1a418c9bcda52026f592b",
+      "transcript_tail": [
+        "test_kf_prc_004_high_below_open_or_close (tools.m3top3.tests.test_known_failures_price.KnownFailurePriceTests.test_kf_prc_004_high_below_open_or_close) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_kf_prc_004_high_below_open_or_close (tools.m3top3.tests.test_known_failures_price.KnownFailurePriceTests.test_kf_prc_004_high_below_open_or_close)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-hr0n7f71/tools/m3top3/tests/test_known_failures_price.py\", line 84, in test_kf_prc_004_high_below_open_or_close",
+        "    self._assert_invalid_ohlc(open=100, high=99, low=97, close=98)",
+        "  File \"/tmp/m3top3-r03-mutation-hr0n7f71/tools/m3top3/tests/test_known_failures_price.py\", line 81, in _assert_invalid_ohlc",
+        "    self.assert_code(\"INVALID_OHLC\", lambda: price_provider(self.root, [row]))",
+        "  File \"/tmp/m3top3-r03-mutation-hr0n7f71/tools/m3top3/tests/test_known_failures_price.py\", line 24, in assert_code",
+        "    with self.assertRaises(M3Top3AdmissionError) as caught:",
+        "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "AssertionError: M3Top3AdmissionError not raised",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.001s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_r_wp4_03_mutation_isolation.RWP403MutationIsolationTests.test_immutable_json_artifact_store_rejects_different_payload",
+        "-v"
+      ],
+      "control_family": "Result byte immutability",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-rmguc8dx",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-rmguc8dx/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-rmguc8dx/tools/m3top3/ledger.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-RESULT-IMMUTABLE",
+      "paired_tests": [
+        "tools.m3top3.tests.test_r_wp4_03_mutation_isolation.RWP403MutationIsolationTests.test_immutable_json_artifact_store_rejects_different_payload"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/ledger.py",
+      "target_sha256_after": "8c78268c92f516a46b841bb84cdba5b266b3e0fb02b0352a51048393d3b08e67",
+      "target_sha256_before": "1a60cdc7c18a36be39769451fdfdfa574499ecc489a0ab6d1cdd5fcaae375d96",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "3f1522d575ce9d39a462bad5695483e1e53be4ee74f289554202e3edbceb1d85",
+      "transcript_tail": [
+        "test_immutable_json_artifact_store_rejects_different_payload (tools.m3top3.tests.test_r_wp4_03_mutation_isolation.RWP403MutationIsolationTests.test_immutable_json_artifact_store_rejects_different_payload) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_immutable_json_artifact_store_rejects_different_payload (tools.m3top3.tests.test_r_wp4_03_mutation_isolation.RWP403MutationIsolationTests.test_immutable_json_artifact_store_rejects_different_payload)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-rmguc8dx/tools/m3top3/tests/test_r_wp4_03_mutation_isolation.py\", line 138, in test_immutable_json_artifact_store_rejects_different_payload",
+        "    with self.assertRaises(M3Top3AdmissionError) as caught:",
+        "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "AssertionError: M3Top3AdmissionError not raised",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.001s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_known_failures_cli.KnownFailureCLITests.test_kf_cli_001_blocked_tie_returns_two_and_no_output",
+        "-v"
+      ],
+      "control_family": "CLI blocked exit",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-5yv1p9e9",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-5yv1p9e9/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-5yv1p9e9/tools/m3top3/cli_run_backtest.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-CLI-BLOCKED",
+      "paired_tests": [
+        "tools.m3top3.tests.test_known_failures_cli.KnownFailureCLITests.test_kf_cli_001_blocked_tie_returns_two_and_no_output"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/cli_run_backtest.py",
+      "target_sha256_after": "7ffa2718fbaa40ee45d2957ab684eb36fee66a036c516e731d9e71bd6de24ecf",
+      "target_sha256_before": "d02bb6ecfe5509c15dea1ab932cd6a2ae71598911006e1d775e06b8b2775b8b9",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "89450191033d60d6287e9c7884b3699545e28950a91529949665fc657a58c311",
+      "transcript_tail": [
+        "test_kf_cli_001_blocked_tie_returns_two_and_no_output (tools.m3top3.tests.test_known_failures_cli.KnownFailureCLITests.test_kf_cli_001_blocked_tie_returns_two_and_no_output) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_kf_cli_001_blocked_tie_returns_two_and_no_output (tools.m3top3.tests.test_known_failures_cli.KnownFailureCLITests.test_kf_cli_001_blocked_tie_returns_two_and_no_output)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-5yv1p9e9/tools/m3top3/tests/test_known_failures_cli.py\", line 74, in test_kf_cli_001_blocked_tie_returns_two_and_no_output",
+        "    self.assertEqual(status, 2)",
+        "AssertionError: 0 != 2",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.005s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_known_failures_model_admission.KnownFailureModelAdmissionTests.test_kf_mod_002_diagnostic_scorer_denied_in_official_mode",
+        "-v"
+      ],
+      "control_family": "Official global kill",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-hn5idhwl",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-hn5idhwl/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-hn5idhwl/tools/m3top3/admission.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-OFFICIAL-GLOBAL-KILL",
+      "paired_tests": [
+        "tools.m3top3.tests.test_known_failures_model_admission.KnownFailureModelAdmissionTests.test_kf_mod_002_diagnostic_scorer_denied_in_official_mode"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/admission.py",
+      "target_sha256_after": "59f8ad2414020ed099d453536fe970af9721a78efd2e1c706745820de6697fc6",
+      "target_sha256_before": "a9aa5aa6ba518121ce37a38b05c44c5b2b3026186b468adac130d4159d42d511",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "e5c96a1779b1a9494c5483ddfcab8e20b8f16cd4c9f3450bdde36f7406fb05b7",
+      "transcript_tail": [
+        "test_kf_mod_002_diagnostic_scorer_denied_in_official_mode (tools.m3top3.tests.test_known_failures_model_admission.KnownFailureModelAdmissionTests.test_kf_mod_002_diagnostic_scorer_denied_in_official_mode) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_kf_mod_002_diagnostic_scorer_denied_in_official_mode (tools.m3top3.tests.test_known_failures_model_admission.KnownFailureModelAdmissionTests.test_kf_mod_002_diagnostic_scorer_denied_in_official_mode)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-hn5idhwl/tools/m3top3/tests/test_known_failures_model_admission.py\", line 65, in test_kf_mod_002_diagnostic_scorer_denied_in_official_mode",
+        "    self.assert_code(lambda: verify_official_scorer(DiagnosticFixtureScorer(), self.config_bytes, self.receipt), \"OFFICIAL_MODE_GLOBALLY_BLOCKED\")",
+        "  File \"/tmp/m3top3-r03-mutation-hn5idhwl/tools/m3top3/tests/test_known_failures_model_admission.py\", line 52, in assert_code",
+        "    self.assertEqual(caught.exception.code, code)",
+        "AssertionError: 'OFFICIAL_SCORER_ADMISSION_DENIED' != 'OFFICIAL_MODE_GLOBALLY_BLOCKED'",
+        "- OFFICIAL_SCORER_ADMISSION_DENIED",
+        "+ OFFICIAL_MODE_GLOBALLY_BLOCKED",
+        "",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.001s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_multi_component_manifest_required",
+        "-v"
+      ],
+      "control_family": "Price component manifest",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-jztxry57",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-jztxry57/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-jztxry57/tools/m3top3/admission.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-PRICE-COMPONENT-MANIFEST",
+      "paired_tests": [
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_multi_component_manifest_required"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/admission.py",
+      "target_sha256_after": "b7b6c3dd72c88e5ed5e6e5fcd399c5fa04a2701fea7952dbad90c997d3590966",
+      "target_sha256_before": "a9aa5aa6ba518121ce37a38b05c44c5b2b3026186b468adac130d4159d42d511",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "7e833a171c63d0f939ea8c329eef38ac94cd46cd66c2acc58f727b2d8a7d99be",
+      "transcript_tail": [
+        "test_multi_component_manifest_required (tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_multi_component_manifest_required) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_multi_component_manifest_required (tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_multi_component_manifest_required)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-jztxry57/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py\", line 664, in test_multi_component_manifest_required",
+        "    self._assert_code(\"PRICE_COMPONENT_MANIFEST_REQUIRED\", lambda: verify_price_component_manifest(provider, None), 3)",
+        "  File \"/tmp/m3top3-r03-mutation-jztxry57/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py\", line 547, in _assert_code",
+        "    with self.assertRaises(M3Top3AdmissionError) as caught:",
+        "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "AssertionError: M3Top3AdmissionError not raised",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.003s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_known_failures_price.KnownFailurePriceTests.test_unrecognized_price_semantics_is_fail_closed_at_construction",
+        "-v"
+      ],
+      "control_family": "Price semantics allowlist",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-9mwsdufq",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-9mwsdufq/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-9mwsdufq/tools/m3top3/admission.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-PRICE-SEMANTICS-ALLOWLIST",
+      "paired_tests": [
+        "tools.m3top3.tests.test_known_failures_price.KnownFailurePriceTests.test_unrecognized_price_semantics_is_fail_closed_at_construction"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/admission.py",
+      "target_sha256_after": "8a6ce10f8f70a3be6645aeb3a75033abb98d8fe21921ceef3e754a842cfe464b",
+      "target_sha256_before": "a9aa5aa6ba518121ce37a38b05c44c5b2b3026186b468adac130d4159d42d511",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "be3bfa74272c1125075cb8ac075b6a7f8736c2f661a260955404e0b23e9c7884",
+      "transcript_tail": [
+        "test_unrecognized_price_semantics_is_fail_closed_at_construction (tools.m3top3.tests.test_known_failures_price.KnownFailurePriceTests.test_unrecognized_price_semantics_is_fail_closed_at_construction) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_unrecognized_price_semantics_is_fail_closed_at_construction (tools.m3top3.tests.test_known_failures_price.KnownFailurePriceTests.test_unrecognized_price_semantics_is_fail_closed_at_construction)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-9mwsdufq/tools/m3top3/tests/test_known_failures_price.py\", line 42, in test_unrecognized_price_semantics_is_fail_closed_at_construction",
+        "    self.assert_code(\"UNSUPPORTED_PRICE_SEMANTICS\",lambda:CsvPriceProvider(path,dataset_hash=hash_file(path),semantics=\"TYPO_CANONICALISH\"),4)",
+        "  File \"/tmp/m3top3-r03-mutation-9mwsdufq/tools/m3top3/tests/test_known_failures_price.py\", line 24, in assert_code",
+        "    with self.assertRaises(M3Top3AdmissionError) as caught:",
+        "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "AssertionError: M3Top3AdmissionError not raised",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.001s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_known_failures_integrity.KnownFailureIntegrityTests.test_hidden_staging_directory_is_not_externally_admissible",
+        "-v"
+      ],
+      "control_family": "Snapshot directory identity",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-sj8oc9cd",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-sj8oc9cd/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-sj8oc9cd/tools/m3top3/admission.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-SNAPSHOT-DIRECTORY-IDENTITY",
+      "paired_tests": [
+        "tools.m3top3.tests.test_known_failures_integrity.KnownFailureIntegrityTests.test_hidden_staging_directory_is_not_externally_admissible"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/admission.py",
+      "target_sha256_after": "bb4a548c689c59c08c35bc0690f9245951219365164f2e53b19e139db0b35108",
+      "target_sha256_before": "a9aa5aa6ba518121ce37a38b05c44c5b2b3026186b468adac130d4159d42d511",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "31be8c94d2570e9666415cd9d3d1695412a4d4f27e383d634b42783eb2f8687f",
+      "transcript_tail": [
+        "test_hidden_staging_directory_is_not_externally_admissible (tools.m3top3.tests.test_known_failures_integrity.KnownFailureIntegrityTests.test_hidden_staging_directory_is_not_externally_admissible) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_hidden_staging_directory_is_not_externally_admissible (tools.m3top3.tests.test_known_failures_integrity.KnownFailureIntegrityTests.test_hidden_staging_directory_is_not_externally_admissible)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-sj8oc9cd/tools/m3top3/tests/test_known_failures_integrity.py\", line 214, in test_hidden_staging_directory_is_not_externally_admissible",
+        "    self.assert_code(lambda:verify_snapshot_artifacts(staging),\"RETRIEVAL_AUDIT_SEMANTIC_MISMATCH\")",
+        "  File \"/tmp/m3top3-r03-mutation-sj8oc9cd/tools/m3top3/tests/test_known_failures_integrity.py\", line 23, in assert_code",
+        "    with self.assertRaises(M3Top3AdmissionError) as caught:",
+        "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "AssertionError: M3Top3AdmissionError not raised",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.004s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_known_failures_integrity.KnownFailureIntegrityTests.test_self_consistent_model_pit_identity_forgery_is_rejected",
+        "-v"
+      ],
+      "control_family": "PIT/model identity join",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-hto9sjua",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-hto9sjua/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-hto9sjua/tools/m3top3/admission.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-PIT-MODEL-LINEAGE",
+      "paired_tests": [
+        "tools.m3top3.tests.test_known_failures_integrity.KnownFailureIntegrityTests.test_self_consistent_model_pit_identity_forgery_is_rejected"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/admission.py",
+      "target_sha256_after": "9892549f82cdcde8d239f89d2514c7e4aea1c556f43a31fe914538139d3e0eaa",
+      "target_sha256_before": "a9aa5aa6ba518121ce37a38b05c44c5b2b3026186b468adac130d4159d42d511",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "f3a4830a4d82fe3979bcdc6b0d70d405c09c92a9f7d82b96ad653dd85cdeb7c6",
+      "transcript_tail": [
+        "test_self_consistent_model_pit_identity_forgery_is_rejected (tools.m3top3.tests.test_known_failures_integrity.KnownFailureIntegrityTests.test_self_consistent_model_pit_identity_forgery_is_rejected) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_self_consistent_model_pit_identity_forgery_is_rejected (tools.m3top3.tests.test_known_failures_integrity.KnownFailureIntegrityTests.test_self_consistent_model_pit_identity_forgery_is_rejected)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-hto9sjua/tools/m3top3/tests/test_known_failures_integrity.py\", line 208, in test_self_consistent_model_pit_identity_forgery_is_rejected",
+        "    self.assert_code(lambda:verify_snapshot_artifacts(self.snapshot_dir),\"RETRIEVAL_AUDIT_SEMANTIC_MISMATCH\")",
+        "  File \"/tmp/m3top3-r03-mutation-hto9sjua/tools/m3top3/tests/test_known_failures_integrity.py\", line 23, in assert_code",
+        "    with self.assertRaises(M3Top3AdmissionError) as caught:",
+        "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "AssertionError: M3Top3AdmissionError not raised",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.005s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_known_failures_snapshot.KnownFailureSnapshotTests.test_exact_provider_instance_method_forgery_is_independently_reconstructed",
+        "-v"
+      ],
+      "control_family": "Retrieval independent reconstruction",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-x690nekx",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-x690nekx/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-x690nekx/tools/m3top3/snapshot.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-RETRIEVAL-INDEPENDENT-RECONSTRUCTION",
+      "paired_tests": [
+        "tools.m3top3.tests.test_known_failures_snapshot.KnownFailureSnapshotTests.test_exact_provider_instance_method_forgery_is_independently_reconstructed"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/snapshot.py",
+      "target_sha256_after": "391ebb1a59d3bbd51e582612d848386c4c676529d0b21a107a9d4f7e7339bdde",
+      "target_sha256_before": "5976761527f39100b21b4cc28888f3f95b8018671c0685e1fb866aadd13f9c96",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "7c97f8257b92163356253e76590d620eff89d1e97ead649a37375c26c6f0763a",
+      "transcript_tail": [
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-x690nekx/tools/m3top3/tests/test_known_failures_snapshot.py\", line 145, in test_exact_provider_instance_method_forgery_is_independently_reconstructed",
+        "    self.assertEqual((result.blocked,result.generated),(1,0))",
+        "AssertionError: Tuples differ: (0, 0) != (1, 0)",
+        "",
+        "First differing element 0:",
+        "0",
+        "1",
+        "",
+        "- (0, 0)",
+        "?  ^",
+        "",
+        "+ (1, 0)",
+        "?  ^",
+        "",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.002s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_known_failures_snapshot.KnownFailureSnapshotTests.test_duplicate_company_slice_is_verified_before_publish",
+        "-v"
+      ],
+      "control_family": "Snapshot prepublish verification",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-xq00jvus",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-xq00jvus/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-xq00jvus/tools/m3top3/snapshot.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-SNAPSHOT-PREPUBLISH-VERIFY",
+      "paired_tests": [
+        "tools.m3top3.tests.test_known_failures_snapshot.KnownFailureSnapshotTests.test_duplicate_company_slice_is_verified_before_publish"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/snapshot.py",
+      "target_sha256_after": "fbcfed613537d8b405d04e40e530e0bd38ee75f921663f8d7225387f459506c0",
+      "target_sha256_before": "5976761527f39100b21b4cc28888f3f95b8018671c0685e1fb866aadd13f9c96",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "4d4d82824c2f5080d9d3384e264c8af464b705710f1d7c70d3178e1d62688d59",
+      "transcript_tail": [
+        "test_duplicate_company_slice_is_verified_before_publish (tools.m3top3.tests.test_known_failures_snapshot.KnownFailureSnapshotTests.test_duplicate_company_slice_is_verified_before_publish) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_duplicate_company_slice_is_verified_before_publish (tools.m3top3.tests.test_known_failures_snapshot.KnownFailureSnapshotTests.test_duplicate_company_slice_is_verified_before_publish)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-xq00jvus/tools/m3top3/tests/test_known_failures_snapshot.py\", line 157, in test_duplicate_company_slice_is_verified_before_publish",
+        "    with self.assertRaises(M3Top3AdmissionError) as caught:",
+        "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "AssertionError: M3Top3AdmissionError not raised",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.003s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_known_failures_immutability.KnownFailureImmutabilityTests.test_concurrent_different_payloads_cannot_both_append_or_overwrite",
+        "-v"
+      ],
+      "control_family": "Result exclusive create",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-rapx1l_l",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-rapx1l_l/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-rapx1l_l/tools/m3top3/ledger.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-RESULT-EXCLUSIVE-CREATE",
+      "paired_tests": [
+        "tools.m3top3.tests.test_known_failures_immutability.KnownFailureImmutabilityTests.test_concurrent_different_payloads_cannot_both_append_or_overwrite"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/ledger.py",
+      "target_sha256_after": "6b9d45f43541e7eeb1605a7486fef114023d2963162d83ea3c919f7d1cddfbbb",
+      "target_sha256_before": "1a60cdc7c18a36be39769451fdfdfa574499ecc489a0ab6d1cdd5fcaae375d96",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "df6a2a16b9c8e82f9e44d96bf3a7beaeff9d80a503c1cb1d5da0e4cb9ae34107",
+      "transcript_tail": [
+        "test_concurrent_different_payloads_cannot_both_append_or_overwrite (tools.m3top3.tests.test_known_failures_immutability.KnownFailureImmutabilityTests.test_concurrent_different_payloads_cannot_both_append_or_overwrite) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_concurrent_different_payloads_cannot_both_append_or_overwrite (tools.m3top3.tests.test_known_failures_immutability.KnownFailureImmutabilityTests.test_concurrent_different_payloads_cannot_both_append_or_overwrite)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-rapx1l_l/tools/m3top3/tests/test_known_failures_immutability.py\", line 145, in test_concurrent_different_payloads_cannot_both_append_or_overwrite",
+        "    self.assertEqual(results.count(\"APPENDED\"),1)",
+        "AssertionError: 2 != 1",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.004s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_known_failures_immutability.KnownFailureImmutabilityTests.test_two_ledger_instances_cannot_append_conflicting_same_identity",
+        "-v"
+      ],
+      "control_family": "Ledger locked live recheck",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-cn4ejfv0",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-cn4ejfv0/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-cn4ejfv0/tools/m3top3/ledger.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-LEDGER-LIVE-RECHECK",
+      "paired_tests": [
+        "tools.m3top3.tests.test_known_failures_immutability.KnownFailureImmutabilityTests.test_two_ledger_instances_cannot_append_conflicting_same_identity"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/ledger.py",
+      "target_sha256_after": "150d0dffe007855c75b2b2941e223d3e4aea08b3c92d241f72a268c9df7e35fc",
+      "target_sha256_before": "1a60cdc7c18a36be39769451fdfdfa574499ecc489a0ab6d1cdd5fcaae375d96",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "872b4f333b720eba51af3db1477db3eda88b2410ac6331342d0e437efbf974f3",
+      "transcript_tail": [
+        "test_two_ledger_instances_cannot_append_conflicting_same_identity (tools.m3top3.tests.test_known_failures_immutability.KnownFailureImmutabilityTests.test_two_ledger_instances_cannot_append_conflicting_same_identity) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_two_ledger_instances_cannot_append_conflicting_same_identity (tools.m3top3.tests.test_known_failures_immutability.KnownFailureImmutabilityTests.test_two_ledger_instances_cannot_append_conflicting_same_identity)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-cn4ejfv0/tools/m3top3/tests/test_known_failures_immutability.py\", line 153, in test_two_ledger_instances_cannot_append_conflicting_same_identity",
+        "    with self.assertRaises(M3Top3AdmissionError) as caught: second.append({\"id\":\"SAME\",\"value\":\"B\"})",
+        "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "AssertionError: M3Top3AdmissionError not raised",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.008s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_r_wp4_03_mutation_isolation.RWP403MutationIsolationTests.test_prediction_ledger_append_precedes_result_publish",
+        "-v"
+      ],
+      "control_family": "Ledger admission before result",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-b3ysqs4i",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-b3ysqs4i/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-b3ysqs4i/tools/m3top3/backtest.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-LEDGER-BEFORE-RESULT",
+      "paired_tests": [
+        "tools.m3top3.tests.test_r_wp4_03_mutation_isolation.RWP403MutationIsolationTests.test_prediction_ledger_append_precedes_result_publish"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/backtest.py",
+      "target_sha256_after": "1dbf5b33aa3f4287a598bb610f11a44118f9f3bf03f805ab5247e79f01f598ae",
+      "target_sha256_before": "0c1a888c10da1d944ef73f519f6db5b09ab09be540f9c566122c466797ffc195",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "f8ef6365da4d13e4dee9944e5d4f844b14ea02fc73fd06eee226486707fd3af1",
+      "transcript_tail": [
+        "test_prediction_ledger_append_precedes_result_publish (tools.m3top3.tests.test_r_wp4_03_mutation_isolation.RWP403MutationIsolationTests.test_prediction_ledger_append_precedes_result_publish) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_prediction_ledger_append_precedes_result_publish (tools.m3top3.tests.test_r_wp4_03_mutation_isolation.RWP403MutationIsolationTests.test_prediction_ledger_append_precedes_result_publish)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-b3ysqs4i/tools/m3top3/tests/test_r_wp4_03_mutation_isolation.py\", line 199, in test_prediction_ledger_append_precedes_result_publish",
+        "    self.assertFalse(output.exists())",
+        "AssertionError: True is not false",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.019s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_known_failures_cli.KnownFailureCLITests.test_hidden_staging_snapshot_directory_is_not_enumerated",
+        "-v"
+      ],
+      "control_family": "CLI staging exclusion",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-roxzj846",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-roxzj846/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-roxzj846/tools/m3top3/cli_run_backtest.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-STAGING-ENUMERATION",
+      "paired_tests": [
+        "tools.m3top3.tests.test_known_failures_cli.KnownFailureCLITests.test_hidden_staging_snapshot_directory_is_not_enumerated"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/cli_run_backtest.py",
+      "target_sha256_after": "5b97b5e5e3e838c07cc4dafadeaf238ff9d78795e6c907a7f8577cc3acecd2ca",
+      "target_sha256_before": "d02bb6ecfe5509c15dea1ab932cd6a2ae71598911006e1d775e06b8b2775b8b9",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "5a6afad9c3f1b99bc50c78bdab5b57c6897f1fc5ec8a6d450aba38793e9c9a5a",
+      "transcript_tail": [
+        "test_hidden_staging_snapshot_directory_is_not_enumerated (tools.m3top3.tests.test_known_failures_cli.KnownFailureCLITests.test_hidden_staging_snapshot_directory_is_not_enumerated) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_hidden_staging_snapshot_directory_is_not_enumerated (tools.m3top3.tests.test_known_failures_cli.KnownFailureCLITests.test_hidden_staging_snapshot_directory_is_not_enumerated)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-roxzj846/tools/m3top3/tests/test_known_failures_cli.py\", line 169, in test_hidden_staging_snapshot_directory_is_not_enumerated",
+        "    self.assertEqual(status,0)",
+        "AssertionError: 3 != 0",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.010s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_known_failures_integrity.KnownFailureIntegrityTests.test_snapshot_and_outcome_price_lineage_mismatch_is_rejected",
+        "-v"
+      ],
+      "control_family": "Snapshot/outcome price lineage",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-sftvtlu8",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-sftvtlu8/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-sftvtlu8/tools/m3top3/backtest.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-PRICE-LINEAGE",
+      "paired_tests": [
+        "tools.m3top3.tests.test_known_failures_integrity.KnownFailureIntegrityTests.test_snapshot_and_outcome_price_lineage_mismatch_is_rejected"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/backtest.py",
+      "target_sha256_after": "95bc6406c4c818a36de4073b9c23e9a3a614eafae90e095730e781839c2cc680",
+      "target_sha256_before": "0c1a888c10da1d944ef73f519f6db5b09ab09be540f9c566122c466797ffc195",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "60adc808da402241dfadacab4a6c89a22972419ae2e00243da11d07849dc4454",
+      "transcript_tail": [
+        "test_snapshot_and_outcome_price_lineage_mismatch_is_rejected (tools.m3top3.tests.test_known_failures_integrity.KnownFailureIntegrityTests.test_snapshot_and_outcome_price_lineage_mismatch_is_rejected) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_snapshot_and_outcome_price_lineage_mismatch_is_rejected (tools.m3top3.tests.test_known_failures_integrity.KnownFailureIntegrityTests.test_snapshot_and_outcome_price_lineage_mismatch_is_rejected)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-sftvtlu8/tools/m3top3/tests/test_known_failures_integrity.py\", line 220, in test_snapshot_and_outcome_price_lineage_mismatch_is_rejected",
+        "    self.assert_code(lambda:runner.run_snapshot(self.snapshot_dir,output),\"PRICE_LINEAGE_MISMATCH\")",
+        "  File \"/tmp/m3top3-r03-mutation-sftvtlu8/tools/m3top3/tests/test_known_failures_integrity.py\", line 25, in assert_code",
+        "    self.assertEqual(caught.exception.code, code)",
+        "AssertionError: 'FULL_RANKING_LEDGER_INCOMPLETE' != 'PRICE_LINEAGE_MISMATCH'",
+        "- FULL_RANKING_LEDGER_INCOMPLETE",
+        "+ PRICE_LINEAGE_MISMATCH",
+        "",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.005s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_known_failures_price.KnownFailurePriceTests.test_parquet_hash_mismatch_blocks_before_connect_or_query",
+        "-v"
+      ],
+      "control_family": "Parquet prequery admission",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-_k85vtqy",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-_k85vtqy/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-_k85vtqy/tools/m3top3/providers.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-PARQUET-PREQUERY-ADMISSION",
+      "paired_tests": [
+        "tools.m3top3.tests.test_known_failures_price.KnownFailurePriceTests.test_parquet_hash_mismatch_blocks_before_connect_or_query"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/providers.py",
+      "target_sha256_after": "c0b8b1cef34273173faa17a17902dd2e7be3947979388e45054e2839b0d1b0d7",
+      "target_sha256_before": "347def841cd2a76fb9c67c7e72c86e46c301c3b012988105e9ab39648443af63",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "8cab089c7a4a42e332414aa75243b0c45456213ffb992ad2f4003761cdcf9d70",
+      "transcript_tail": [
+        "",
+        "======================================================================",
+        "FAIL: test_parquet_hash_mismatch_blocks_before_connect_or_query (tools.m3top3.tests.test_known_failures_price.KnownFailurePriceTests.test_parquet_hash_mismatch_blocks_before_connect_or_query)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-_k85vtqy/tools/m3top3/tests/test_known_failures_price.py\", line 200, in test_parquet_hash_mismatch_blocks_before_connect_or_query",
+        "    self.assertEqual(calls,[])",
+        "AssertionError: Lists differ: ['connect'] != []",
+        "",
+        "First list contains 1 additional elements.",
+        "First extra element 0:",
+        "'connect'",
+        "",
+        "- ['connect']",
+        "+ []",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.002s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_pit_price_ref_identity_binding",
+        "-v"
+      ],
+      "control_family": "PIT price dataset binding",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-qme_iq_c",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-qme_iq_c/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-qme_iq_c/tools/m3top3/admission.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-PIT-PRICE-DATASET-BINDING",
+      "paired_tests": [
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_pit_price_ref_identity_binding"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/admission.py",
+      "target_sha256_after": "10b1577bd2b3eca61f8c6eb3cb3a0f77d1b3c2efd9949c2c5570d6322f116490",
+      "target_sha256_before": "a9aa5aa6ba518121ce37a38b05c44c5b2b3026186b468adac130d4159d42d511",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "9f0bcd1511773d79c4fd2cd195c514c5394f12442f61fbf244fe45107c6bc904",
+      "transcript_tail": [
+        "FAIL: test_pit_price_ref_identity_binding (tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_pit_price_ref_identity_binding)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-qme_iq_c/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py\", line 749, in test_pit_price_ref_identity_binding",
+        "    self._assert_code(\"DATASET_REF_DOMAIN_MISSING\", lambda: verify_snapshot_artifacts(snapshot), 3)",
+        "  File \"/tmp/m3top3-r03-mutation-qme_iq_c/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py\", line 549, in _assert_code",
+        "    self.assertEqual((caught.exception.code, caught.exception.exit_code), (code, exit_code))",
+        "AssertionError: Tuples differ: ('RETRIEVAL_AUDIT_SEMANTIC_MISMATCH', 3) != ('DATASET_REF_DOMAIN_MISSING', 3)",
+        "",
+        "First differing element 0:",
+        "'RETRIEVAL_AUDIT_SEMANTIC_MISMATCH'",
+        "'DATASET_REF_DOMAIN_MISSING'",
+        "",
+        "- ('RETRIEVAL_AUDIT_SEMANTIC_MISMATCH', 3)",
+        "+ ('DATASET_REF_DOMAIN_MISSING', 3)",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.043s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_known_failures_immutability.KnownFailureImmutabilityTests.test_empty_concurrent_snapshot_target_is_not_replaced",
+        "-v"
+      ],
+      "control_family": "Snapshot target create-only",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-hqpngm1m",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-hqpngm1m/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-hqpngm1m/tools/m3top3/snapshot.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-SNAPSHOT-TARGET-EXCLUSIVE",
+      "paired_tests": [
+        "tools.m3top3.tests.test_known_failures_immutability.KnownFailureImmutabilityTests.test_empty_concurrent_snapshot_target_is_not_replaced"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/snapshot.py",
+      "target_sha256_after": "1ca5c55e8b587eb18a4b29145b3c649e18d7a08d9d252b65c392e4b4a0dfed2e",
+      "target_sha256_before": "5976761527f39100b21b4cc28888f3f95b8018671c0685e1fb866aadd13f9c96",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "e4c197911b3920a0e3da53f74a4867c9cc887e91f90edf77597dd5a84bf9a993",
+      "transcript_tail": [
+        "test_empty_concurrent_snapshot_target_is_not_replaced (tools.m3top3.tests.test_known_failures_immutability.KnownFailureImmutabilityTests.test_empty_concurrent_snapshot_target_is_not_replaced) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_empty_concurrent_snapshot_target_is_not_replaced (tools.m3top3.tests.test_known_failures_immutability.KnownFailureImmutabilityTests.test_empty_concurrent_snapshot_target_is_not_replaced)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-hqpngm1m/tools/m3top3/tests/test_known_failures_immutability.py\", line 63, in test_empty_concurrent_snapshot_target_is_not_replaced",
+        "    with self.assertRaises(M3Top3AdmissionError) as caught:",
+        "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "AssertionError: M3Top3AdmissionError not raised",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.004s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_known_failures_immutability.KnownFailureImmutabilityTests.test_snapshot_manifest_is_published_last",
+        "-v"
+      ],
+      "control_family": "Snapshot manifest-last",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-qfpwvke1",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-qfpwvke1/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-qfpwvke1/tools/m3top3/snapshot.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-SNAPSHOT-MANIFEST-LAST",
+      "paired_tests": [
+        "tools.m3top3.tests.test_known_failures_immutability.KnownFailureImmutabilityTests.test_snapshot_manifest_is_published_last"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/snapshot.py",
+      "target_sha256_after": "30544e226c592a545804861994745e6389f9226bc859449c1769c46b946535db",
+      "target_sha256_before": "5976761527f39100b21b4cc28888f3f95b8018671c0685e1fb866aadd13f9c96",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "ffec145b7e6a9c3d98c82903c4fb7af585875823a52e733df8987dd93ae24171",
+      "transcript_tail": [
+        "test_snapshot_manifest_is_published_last (tools.m3top3.tests.test_known_failures_immutability.KnownFailureImmutabilityTests.test_snapshot_manifest_is_published_last) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_snapshot_manifest_is_published_last (tools.m3top3.tests.test_known_failures_immutability.KnownFailureImmutabilityTests.test_snapshot_manifest_is_published_last)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-qfpwvke1/tools/m3top3/tests/test_known_failures_immutability.py\", line 79, in test_snapshot_manifest_is_published_last",
+        "    self.assertTrue((target/\"pit_snapshot.jsonl\").exists())",
+        "AssertionError: False is not true",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.005s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_known_failures_immutability.KnownFailureImmutabilityTests.test_staging_mkdir_race_is_classified_integrity_collision",
+        "-v"
+      ],
+      "control_family": "Snapshot race classification",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-02-PRESERVED",
+      "import_root": "/tmp/m3top3-r03-mutation-n9u335ln",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-n9u335ln/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-n9u335ln/tools/m3top3/snapshot.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-STAGING-RACE-CLASSIFICATION",
+      "paired_tests": [
+        "tools.m3top3.tests.test_known_failures_immutability.KnownFailureImmutabilityTests.test_staging_mkdir_race_is_classified_integrity_collision"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/snapshot.py",
+      "target_sha256_after": "1600f6fd4a7eb17d0fc85af04b3a41530ce7f4499668ba1df9ad7c8a977c5a47",
+      "target_sha256_before": "5976761527f39100b21b4cc28888f3f95b8018671c0685e1fb866aadd13f9c96",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "6ed055a1a47a3467ce0e687ef70b525ace799068ca2229b622945720dc7e1e80",
+      "transcript_tail": [
+        "test_staging_mkdir_race_is_classified_integrity_collision (tools.m3top3.tests.test_known_failures_immutability.KnownFailureImmutabilityTests.test_staging_mkdir_race_is_classified_integrity_collision) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_staging_mkdir_race_is_classified_integrity_collision (tools.m3top3.tests.test_known_failures_immutability.KnownFailureImmutabilityTests.test_staging_mkdir_race_is_classified_integrity_collision)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-n9u335ln/tools/m3top3/tests/test_known_failures_immutability.py\", line 93, in test_staging_mkdir_race_is_classified_integrity_collision",
+        "    self.assertIsInstance(caught,M3Top3AdmissionError)",
+        "AssertionError: FileExistsError('injected staging race') is not an instance of <class 'tools.m3top3.admission.M3Top3AdmissionError'>",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.004s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_claim_locks",
+        "-v"
+      ],
+      "control_family": "Official/Golden/Replay claim locks",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-03-NEW",
+      "import_root": "/tmp/m3top3-r03-mutation-k93mrji5",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-k93mrji5/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-k93mrji5/tools/m3top3/admission.py"
+      },
+      "matrix_ids": [
+        "CLM-003",
+        "CLM-004",
+        "CLM-005"
+      ],
+      "mutation_id": "MUT-R03-OFFICIAL-GOLDEN-REPLAY-LOCK",
+      "paired_tests": [
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_claim_locks"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/admission.py",
+      "target_sha256_after": "6638f8d736a02e1f3530bca4b5eafd8e0664939cd596c0d44690e85c6b2356d1",
+      "target_sha256_before": "a9aa5aa6ba518121ce37a38b05c44c5b2b3026186b468adac130d4159d42d511",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "c22ba7a9a16991732a913c782fe4531fc2aeccb82a058201c327d4dd4fe3d746",
+      "transcript_tail": [
+        "test_claim_locks (tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_claim_locks) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_claim_locks (tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_claim_locks)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-k93mrji5/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py\", line 670, in test_claim_locks",
+        "    self._assert_code(\"OFFICIAL_REPLAY_GLOBALLY_BLOCKED\", lambda key=key: admit_claim_locks({key: True}), 4)",
+        "  File \"/tmp/m3top3-r03-mutation-k93mrji5/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py\", line 547, in _assert_code",
+        "    with self.assertRaises(M3Top3AdmissionError) as caught:",
+        "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "AssertionError: M3Top3AdmissionError not raised",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.005s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_known_failures_lineage_universe.KnownFailureCanonicalLineageAndUniverseTests.test_jsonl_manifest_live_byte_drift_is_rejected",
+        "-v"
+      ],
+      "control_family": "Universe live independent manifest",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-03-NEW",
+      "import_root": "/tmp/m3top3-r03-mutation-p1aghdji",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-p1aghdji/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-p1aghdji/tools/m3top3/admission.py"
+      },
+      "matrix_ids": [
+        "UNI-001",
+        "UNI-014",
+        "LIN-004",
+        "LIN-010"
+      ],
+      "mutation_id": "MUT-R03-UNIVERSE-LIVE-INDEPENDENT-MANIFEST",
+      "paired_tests": [
+        "tools.m3top3.tests.test_known_failures_lineage_universe.KnownFailureCanonicalLineageAndUniverseTests.test_jsonl_manifest_live_byte_drift_is_rejected"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/admission.py",
+      "target_sha256_after": "3505b1de3ce35c6dd7330d40af4530fe4730c80b8eb31365277d3aa3ac2f923b",
+      "target_sha256_before": "a9aa5aa6ba518121ce37a38b05c44c5b2b3026186b468adac130d4159d42d511",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "a0d18279f0fbacd0ec8c6eec5ceca265bd1ffdf4b4cd256656ea4780722ed3fa",
+      "transcript_tail": [
+        "test_jsonl_manifest_live_byte_drift_is_rejected (tools.m3top3.tests.test_known_failures_lineage_universe.KnownFailureCanonicalLineageAndUniverseTests.test_jsonl_manifest_live_byte_drift_is_rejected) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_jsonl_manifest_live_byte_drift_is_rejected (tools.m3top3.tests.test_known_failures_lineage_universe.KnownFailureCanonicalLineageAndUniverseTests.test_jsonl_manifest_live_byte_drift_is_rejected)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-p1aghdji/tools/m3top3/tests/test_known_failures_lineage_universe.py\", line 375, in test_jsonl_manifest_live_byte_drift_is_rejected",
+        "    self.assert_code(\"UNIVERSE_LINEAGE_MANIFEST_MISMATCH\", lambda: builder.build(self.dates[0]), 3)",
+        "  File \"/tmp/m3top3-r03-mutation-p1aghdji/tools/m3top3/tests/test_known_failures_lineage_universe.py\", line 59, in assert_code",
+        "    with self.assertRaises(M3Top3AdmissionError) as caught:",
+        "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "AssertionError: M3Top3AdmissionError not raised",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.004s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_component_digest_is_path_independent",
+        "-v"
+      ],
+      "control_family": "Path-independent component digest",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-03-NEW",
+      "import_root": "/tmp/m3top3-r03-mutation-ywlwsnq9",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-ywlwsnq9/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-ywlwsnq9/tools/m3top3/admission.py"
+      },
+      "matrix_ids": [
+        "LIN-007",
+        "LIN-009"
+      ],
+      "mutation_id": "MUT-R03-PATH-INDEPENDENT-COMPONENT-DIGEST",
+      "paired_tests": [
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_component_digest_is_path_independent"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/admission.py",
+      "target_sha256_after": "6d4593de9ed021880e9c525d6bca4009aac3ddd7c6ff9eea9095745b6e89a890",
+      "target_sha256_before": "a9aa5aa6ba518121ce37a38b05c44c5b2b3026186b468adac130d4159d42d511",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "dcd1eb76b05a7b8c578c91e79a6cf4996cab03705161b580a5a0f08c80133b02",
+      "transcript_tail": [
+        "test_component_digest_is_path_independent (tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_component_digest_is_path_independent) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_component_digest_is_path_independent (tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_component_digest_is_path_independent)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-ywlwsnq9/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py\", line 687, in test_component_digest_is_path_independent",
+        "    self.assertEqual(",
+        "AssertionError: '7455b9b0617f06c1fd5f76d56e8fccaeecbeacf4db5fdce656fb66eaa7568a6b' != '0c4bc63f571e4f5bb524b20dca758420be907a4650ddd0dcc4f22c8f0a3c8edd'",
+        "- 7455b9b0617f06c1fd5f76d56e8fccaeecbeacf4db5fdce656fb66eaa7568a6b",
+        "+ 0c4bc63f571e4f5bb524b20dca758420be907a4650ddd0dcc4f22c8f0a3c8edd",
+        "",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.004s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_universe_runtime_slice_exact",
+        "-v"
+      ],
+      "control_family": "Universe/denominator exact-set equality",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-03-NEW",
+      "import_root": "/tmp/m3top3-r03-mutation-rdqbuyn8",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-rdqbuyn8/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-rdqbuyn8/tools/m3top3/admission.py"
+      },
+      "matrix_ids": [
+        "UNI-006",
+        "UNI-007",
+        "UNI-008"
+      ],
+      "mutation_id": "MUT-R03-UNIVERSE-DENOMINATOR-SET",
+      "paired_tests": [
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_universe_runtime_slice_exact"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/admission.py",
+      "target_sha256_after": "20df2be69a532a134ccd2f8148929bd1445320ddf0d3168e1fd99d587385f480",
+      "target_sha256_before": "a9aa5aa6ba518121ce37a38b05c44c5b2b3026186b468adac130d4159d42d511",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "a206e642786a8472f5f0bb7c4722f48120f7f7f5a0d31a8c826cdcb9c4fba1bf",
+      "transcript_tail": [
+        "test_universe_runtime_slice_exact (tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_universe_runtime_slice_exact) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_universe_runtime_slice_exact (tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_universe_runtime_slice_exact)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-rdqbuyn8/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py\", line 700, in test_universe_runtime_slice_exact",
+        "    self._assert_code(",
+        "  File \"/tmp/m3top3-r03-mutation-rdqbuyn8/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py\", line 547, in _assert_code",
+        "    with self.assertRaises(M3Top3AdmissionError) as caught:",
+        "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "AssertionError: M3Top3AdmissionError not raised",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.014s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_r_wp4_03_mutation_isolation.RWP403MutationIsolationTests.test_partition_digest_guard_at_snapshot_level",
+        "-v"
+      ],
+      "control_family": "Eligible/ineligible/partition digests",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-03-NEW",
+      "import_root": "/tmp/m3top3-r03-mutation-kfqw5ezb",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-kfqw5ezb/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-kfqw5ezb/tools/m3top3/admission.py"
+      },
+      "matrix_ids": [
+        "UNI-010",
+        "UNI-011"
+      ],
+      "mutation_id": "MUT-R03-PARTITION-DIGESTS",
+      "paired_tests": [
+        "tools.m3top3.tests.test_r_wp4_03_mutation_isolation.RWP403MutationIsolationTests.test_partition_digest_guard_at_snapshot_level"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/admission.py",
+      "target_sha256_after": "a37fe8d8412f47def6695f7e1144d19b75fbfef5641f858777e658855fb5da7b",
+      "target_sha256_before": "a9aa5aa6ba518121ce37a38b05c44c5b2b3026186b468adac130d4159d42d511",
+      "test_summary": "FAILED (failures=3)",
+      "tests_collected": 1,
+      "transcript_sha256": "15f720b66171d16459f80ced6013f461737a2557ae65b8531f43329cb48f8b1e",
+      "transcript_tail": [
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-kfqw5ezb/tools/m3top3/tests/test_r_wp4_03_mutation_isolation.py\", line 217, in test_partition_digest_guard_at_snapshot_level",
+        "    with self.assertRaises(M3Top3AdmissionError) as caught:",
+        "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "AssertionError: M3Top3AdmissionError not raised",
+        "",
+        "======================================================================",
+        "FAIL: test_partition_digest_guard_at_snapshot_level (tools.m3top3.tests.test_r_wp4_03_mutation_isolation.RWP403MutationIsolationTests.test_partition_digest_guard_at_snapshot_level) (field='denominator_partition_digest')",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-kfqw5ezb/tools/m3top3/tests/test_r_wp4_03_mutation_isolation.py\", line 217, in test_partition_digest_guard_at_snapshot_level",
+        "    with self.assertRaises(M3Top3AdmissionError) as caught:",
+        "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "AssertionError: M3Top3AdmissionError not raised",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.012s",
+        "",
+        "FAILED (failures=3)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_dataset_refs_one_to_one",
+        "-v"
+      ],
+      "control_family": "Row-level dataset refs one-to-one",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-03-NEW",
+      "import_root": "/tmp/m3top3-r03-mutation-pbz12846",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-pbz12846/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-pbz12846/tools/m3top3/admission.py"
+      },
+      "matrix_ids": [
+        "REF-001",
+        "REF-002",
+        "REF-003",
+        "REF-004",
+        "REF-005",
+        "REF-006",
+        "REF-007",
+        "REF-008"
+      ],
+      "mutation_id": "MUT-R03-DATASET-REF-ONE-TO-ONE",
+      "paired_tests": [
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_dataset_refs_one_to_one"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/admission.py",
+      "target_sha256_after": "d67ef63e5450771ddfa771bcc2217a6ddbfd38937ac6aa1b11f1b324365d93ce",
+      "target_sha256_before": "a9aa5aa6ba518121ce37a38b05c44c5b2b3026186b468adac130d4159d42d511",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "c381256f6518305fc35012d31bc6cb7803177b79bdcb620b6ccb584065436dec",
+      "transcript_tail": [
+        "FAIL: test_dataset_refs_one_to_one (tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_dataset_refs_one_to_one)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-pbz12846/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py\", line 732, in test_dataset_refs_one_to_one",
+        "    self._assert_code(\"DATASET_REF_DOMAIN_MISSING\", lambda: verify_snapshot_artifacts(snapshot), 3)",
+        "  File \"/tmp/m3top3-r03-mutation-pbz12846/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py\", line 549, in _assert_code",
+        "    self.assertEqual((caught.exception.code, caught.exception.exit_code), (code, exit_code))",
+        "AssertionError: Tuples differ: ('RETRIEVAL_AUDIT_SEMANTIC_MISMATCH', 3) != ('DATASET_REF_DOMAIN_MISSING', 3)",
+        "",
+        "First differing element 0:",
+        "'RETRIEVAL_AUDIT_SEMANTIC_MISMATCH'",
+        "'DATASET_REF_DOMAIN_MISSING'",
+        "",
+        "- ('RETRIEVAL_AUDIT_SEMANTIC_MISMATCH', 3)",
+        "+ ('DATASET_REF_DOMAIN_MISSING', 3)",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.043s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_revision_tuple_coherence",
+        "-v"
+      ],
+      "control_family": "Status/date/revision coherence",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-03-NEW",
+      "import_root": "/tmp/m3top3-r03-mutation-_btsg0eb",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-_btsg0eb/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-_btsg0eb/tools/m3top3/admission.py"
+      },
+      "matrix_ids": [
+        "LIN-008",
+        "UNI-009",
+        "UNI-012",
+        "SNP-004",
+        "SNP-005B"
+      ],
+      "mutation_id": "MUT-R03-STATUS-DATE-REVISION-COHERENCE",
+      "paired_tests": [
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_revision_tuple_coherence"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/admission.py",
+      "target_sha256_after": "5938a64d50389c9d2c47bcb6ad940ebb1f3b1583697da1f0ed798796acbb956e",
+      "target_sha256_before": "a9aa5aa6ba518121ce37a38b05c44c5b2b3026186b468adac130d4159d42d511",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "15cb399c1909a43dc2d7bd3e8b76c2bfd9d5d34d9252ac37b0a0e818dde588f7",
+      "transcript_tail": [
+        "FAIL: test_revision_tuple_coherence (tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_revision_tuple_coherence)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-_btsg0eb/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py\", line 759, in test_revision_tuple_coherence",
+        "    self._assert_code(\"SNAPSHOT_REVISION_MISMATCH\", lambda: verify_snapshot_artifacts(snapshot), 3)",
+        "  File \"/tmp/m3top3-r03-mutation-_btsg0eb/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py\", line 549, in _assert_code",
+        "    self.assertEqual((caught.exception.code, caught.exception.exit_code), (code, exit_code))",
+        "AssertionError: Tuples differ: ('RETRIEVAL_AUDIT_SEMANTIC_MISMATCH', 3) != ('SNAPSHOT_REVISION_MISMATCH', 3)",
+        "",
+        "First differing element 0:",
+        "'RETRIEVAL_AUDIT_SEMANTIC_MISMATCH'",
+        "'SNAPSHOT_REVISION_MISMATCH'",
+        "",
+        "- ('RETRIEVAL_AUDIT_SEMANTIC_MISMATCH', 3)",
+        "+ ('SNAPSHOT_REVISION_MISMATCH', 3)",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.044s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_known_failures_lineage_universe.KnownFailureCanonicalLineageAndUniverseTests.test_self_consistent_subset_of_snapshot_rows_is_rejected",
+        "-v"
+      ],
+      "control_family": "Full applicable U snapshot sets",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-03-NEW",
+      "import_root": "/tmp/m3top3-r03-mutation-arm_lc3j",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-arm_lc3j/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-arm_lc3j/tools/m3top3/admission.py"
+      },
+      "matrix_ids": [
+        "SNP-001",
+        "SNP-002",
+        "SNP-002B",
+        "SNP-003"
+      ],
+      "mutation_id": "MUT-R03-FULL-U-SNAPSHOT-SETS",
+      "paired_tests": [
+        "tools.m3top3.tests.test_known_failures_lineage_universe.KnownFailureCanonicalLineageAndUniverseTests.test_self_consistent_subset_of_snapshot_rows_is_rejected"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/admission.py",
+      "target_sha256_after": "4ad92beb40decb02eed4f1a981abed85bcd7992d81d4531328c1b07a245e1a4f",
+      "target_sha256_before": "a9aa5aa6ba518121ce37a38b05c44c5b2b3026186b468adac130d4159d42d511",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "0f957850407cb7e9ee043164e1251b93378e9b01f51ad01a915b63a6cc83c9e7",
+      "transcript_tail": [
+        "test_self_consistent_subset_of_snapshot_rows_is_rejected (tools.m3top3.tests.test_known_failures_lineage_universe.KnownFailureCanonicalLineageAndUniverseTests.test_self_consistent_subset_of_snapshot_rows_is_rejected) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_self_consistent_subset_of_snapshot_rows_is_rejected (tools.m3top3.tests.test_known_failures_lineage_universe.KnownFailureCanonicalLineageAndUniverseTests.test_self_consistent_subset_of_snapshot_rows_is_rejected)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-arm_lc3j/tools/m3top3/tests/test_known_failures_lineage_universe.py\", line 193, in test_self_consistent_subset_of_snapshot_rows_is_rejected",
+        "    self.assert_code(\"SNAPSHOT_UNIVERSE_MEMBER_MISSING\", lambda: verify_snapshot_artifacts(snapshot_dir), 3)",
+        "  File \"/tmp/m3top3-r03-mutation-arm_lc3j/tools/m3top3/tests/test_known_failures_lineage_universe.py\", line 61, in assert_code",
+        "    self.assertEqual(caught.exception.code, expected)",
+        "AssertionError: 'UNIVERSE_SET_DIGEST_MISMATCH' != 'SNAPSHOT_UNIVERSE_MEMBER_MISSING'",
+        "- UNIVERSE_SET_DIGEST_MISMATCH",
+        "+ SNAPSHOT_UNIVERSE_MEMBER_MISSING",
+        "",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.007s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_diagnostic_scorer_config_exact",
+        "-v"
+      ],
+      "control_family": "Exact diagnostic scorer identity",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-03-NEW",
+      "import_root": "/tmp/m3top3-r03-mutation-4m0o7vyx",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-4m0o7vyx/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-4m0o7vyx/tools/m3top3/admission.py"
+      },
+      "matrix_ids": [
+        "SCR-001",
+        "SCR-002",
+        "SCR-003"
+      ],
+      "mutation_id": "MUT-R03-EXACT-DIAGNOSTIC-SCORER",
+      "paired_tests": [
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_diagnostic_scorer_config_exact"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/admission.py",
+      "target_sha256_after": "a8ffee680f71038e6d36fe453b56779a2a417627b5e0ed23cea188c782af07d4",
+      "target_sha256_before": "a9aa5aa6ba518121ce37a38b05c44c5b2b3026186b468adac130d4159d42d511",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "d8d58b0fe3bf83c0eb9dfb892bd8cdc2423ab3c1890faced96671f57bfb9144c",
+      "transcript_tail": [
+        "test_diagnostic_scorer_config_exact (tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_diagnostic_scorer_config_exact) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_diagnostic_scorer_config_exact (tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_diagnostic_scorer_config_exact)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-4m0o7vyx/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py\", line 777, in test_diagnostic_scorer_config_exact",
+        "    self._assert_code(\"SCORER_IDENTITY_MISMATCH\", lambda: preflight_diagnostic_scorer(receipt, config + b\" \"), 4)",
+        "  File \"/tmp/m3top3-r03-mutation-4m0o7vyx/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py\", line 547, in _assert_code",
+        "    with self.assertRaises(M3Top3AdmissionError) as caught:",
+        "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "AssertionError: M3Top3AdmissionError not raised",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.004s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_validation_run_id_binding",
+        "-v"
+      ],
+      "control_family": "Validation-run lineage identity",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-03-NEW",
+      "import_root": "/tmp/m3top3-r03-mutation-may4cl6y",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-may4cl6y/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-may4cl6y/tools/m3top3/backtest.py"
+      },
+      "matrix_ids": [
+        "SCR-005"
+      ],
+      "mutation_id": "MUT-R03-RUN-LINEAGE-IDENTITY",
+      "paired_tests": [
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_validation_run_id_binding"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/backtest.py",
+      "target_sha256_after": "247e6b9b0d315dfd47e3ad9297d28d59bc0133900ddd8cb628ab6de9b1ff7a29",
+      "target_sha256_before": "0c1a888c10da1d944ef73f519f6db5b09ab09be540f9c566122c466797ffc195",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "7c604a75cdce0abc3ddbaf9eb642ed7f4c6b93a8f64222bcbf7b148a4ad14bf3",
+      "transcript_tail": [
+        "test_validation_run_id_binding (tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_validation_run_id_binding) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_validation_run_id_binding (tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_validation_run_id_binding)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-may4cl6y/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py\", line 822, in test_validation_run_id_binding",
+        "    self._assert_code(",
+        "  File \"/tmp/m3top3-r03-mutation-may4cl6y/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py\", line 547, in _assert_code",
+        "    with self.assertRaises(M3Top3AdmissionError) as caught:",
+        "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "AssertionError: M3Top3AdmissionError not raised",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.014s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_scoring_full_u_missing_member",
+        "-v"
+      ],
+      "control_family": "Full scorer-output U completeness",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-03-NEW",
+      "import_root": "/tmp/m3top3-r03-mutation-and8r8jq",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-and8r8jq/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-and8r8jq/tools/m3top3/backtest.py"
+      },
+      "matrix_ids": [
+        "RNK-001",
+        "RNK-002",
+        "RNK-003",
+        "RNK-004"
+      ],
+      "mutation_id": "MUT-R03-FULL-U-SCORER-OUTPUT",
+      "paired_tests": [
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_scoring_full_u_missing_member"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/backtest.py",
+      "target_sha256_after": "168cf59122e4072831b057f5fb403c530863ec433a5f5a6aeda35e4835c223ab",
+      "target_sha256_before": "0c1a888c10da1d944ef73f519f6db5b09ab09be540f9c566122c466797ffc195",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "91596bd6241334c9579b95deaa1455777e57f96a9386a1839aa3ad2406e30063",
+      "transcript_tail": [
+        "    self._assert_code(\"FULL_SCORER_OUTPUT_SET_MEMBER_MISSING\", lambda: _verify_scoring_coverage(inputs, scores, scorer), 3)",
+        "  File \"/tmp/m3top3-r03-mutation-and8r8jq/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py\", line 549, in _assert_code",
+        "    self.assertEqual((caught.exception.code, caught.exception.exit_code), (code, exit_code))",
+        "AssertionError: Tuples differ: ('FULL_SCORER_OUTPUT_SET_MEMBER_EXTRA', 3) != ('FULL_SCORER_OUTPUT_SET_MEMBER_MISSING', 3)",
+        "",
+        "First differing element 0:",
+        "'FULL_SCORER_OUTPUT_SET_MEMBER_EXTRA'",
+        "'FULL_SCORER_OUTPUT_SET_MEMBER_MISSING'",
+        "",
+        "- ('FULL_SCORER_OUTPUT_SET_MEMBER_EXTRA', 3)",
+        "?                                 ^^^^^",
+        "",
+        "+ ('FULL_SCORER_OUTPUT_SET_MEMBER_MISSING', 3)",
+        "?                                 ^^^^^^^",
+        "",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.015s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_r_wp4_03_matrix.RWP403MatrixTests.test_matrix_rnk_006",
+        "-v"
+      ],
+      "control_family": "Full rank set/sequence/Top3",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-03-NEW",
+      "import_root": "/tmp/m3top3-r03-mutation-z5tikwxx",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-z5tikwxx/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-z5tikwxx/tools/m3top3/backtest.py"
+      },
+      "matrix_ids": [
+        "RNK-005",
+        "RNK-006",
+        "RNK-007"
+      ],
+      "mutation_id": "MUT-R03-RANK-SET-SEQUENCE-TOP3",
+      "paired_tests": [
+        "tools.m3top3.tests.test_r_wp4_03_matrix.RWP403MatrixTests.test_matrix_rnk_006"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/backtest.py",
+      "target_sha256_after": "c1c0b67dc740003bb3d6b789e3fe82c6a5a9f5b9239eca3983f7f08a7a61c5fa",
+      "target_sha256_before": "0c1a888c10da1d944ef73f519f6db5b09ab09be540f9c566122c466797ffc195",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "ba7996bb764ba7810efb30914853f7f16f17b4abac71f06997662d99c6a87e49",
+      "transcript_tail": [
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-z5tikwxx/tools/m3top3/tests/test_r_wp4_03_matrix.py\", line 656, in test",
+        "    def test(self,case_id=case_id): self._run_case(case_id)",
+        "                                    ^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/tmp/m3top3-r03-mutation-z5tikwxx/tools/m3top3/tests/test_r_wp4_03_matrix.py\", line 296, in _run_case",
+        "    self._assert_expected(case_id,lambda:self._action(case_id))",
+        "  File \"/tmp/m3top3-r03-mutation-z5tikwxx/tools/m3top3/tests/test_r_wp4_03_matrix.py\", line 233, in _assert_expected",
+        "    self.assertEqual(observation[\"actual\"],observation[\"expected\"],observation)",
+        "AssertionError: {'code': 'TOP3_PROJECTION_MISMATCH', 'exit_code': 3[33 chars]True} != {'code': 'RANK_SEQUENCE_INTEGRITY_FAILURE', 'exit_c[40 chars]True}",
+        "- {'code': 'TOP3_PROJECTION_MISMATCH',",
+        "+ {'code': 'RANK_SEQUENCE_INTEGRITY_FAILURE',",
+        "   'exit_code': 3,",
+        "   'no_write': True,",
+        "   'scorer_calls': 4} : {'case_id': 'RNK-006', 'expected': {'code': 'RANK_SEQUENCE_INTEGRITY_FAILURE', 'exit_code': 3, 'scorer_calls': 4, 'no_write': True}, 'actual': {'code': 'TOP3_PROJECTION_MISMATCH', 'exit_code': 3, 'scorer_calls': 4, 'no_write': True}, 'production_path': True, 'production_surface': 'backtest scoring/ranking verifier / ledger.verify_prediction_batch_coverage', 'fabricated_code': False, 'caught_and_relabelled': False, 'synthetic_summary_only': False, 'pre_fingerprint': '44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a', 'post_fingerprint': '44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a', 'raw_exception': None, 'verdict': 'FAIL'}",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.015s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_full_outcome_set_persistence",
+        "-v"
+      ],
+      "control_family": "Full outcome-set persistence",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-03-NEW",
+      "import_root": "/tmp/m3top3-r03-mutation-otsurge8",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-otsurge8/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-otsurge8/tools/m3top3/backtest.py"
+      },
+      "matrix_ids": [
+        "OUT-001",
+        "OUT-002",
+        "OUT-003",
+        "OUT-004",
+        "OUT-005"
+      ],
+      "mutation_id": "MUT-R03-FULL-OUTCOME-SET",
+      "paired_tests": [
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_full_outcome_set_persistence"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/backtest.py",
+      "target_sha256_after": "38589f3c6e69ada5613441632f1ae47f51570b7997218ad5f647076febc59eca",
+      "target_sha256_before": "0c1a888c10da1d944ef73f519f6db5b09ab09be540f9c566122c466797ffc195",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "c6e310b5c7899ca95014d8e674d660b16f6391b1876937c2c658249a36e538d2",
+      "transcript_tail": [
+        "    result = runner.run_snapshot(",
+        "             ^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/tmp/m3top3-r03-mutation-otsurge8/tools/m3top3/backtest.py\", line 378, in run_snapshot",
+        "    verify_full_run_result(result)",
+        "  File \"/tmp/m3top3-r03-mutation-otsurge8/tools/m3top3/backtest.py\", line 263, in verify_full_run_result",
+        "    if missing: raise M3Top3AdmissionError(\"FULL_OUTCOME_SET_MEMBER_MISSING\",\"full-E outcome view omits ranked members\",{\"missing\":missing},EXIT_INTEGRITY)",
+        "                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "tools.m3top3.admission.M3Top3AdmissionError: FULL_OUTCOME_SET_MEMBER_MISSING: full-E outcome view omits ranked members",
+        "",
+        "During handling of the above exception, another exception occurred:",
+        "",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-otsurge8/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py\", line 865, in test_full_outcome_set_persistence",
+        "    self.fail(f\"full outcome persistence guard rejected its own valid baseline: {exc.code}/{exc.exit_code}\")",
+        "AssertionError: full outcome persistence guard rejected its own valid baseline: FULL_OUTCOME_SET_MEMBER_MISSING/3",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.043s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_metric_denominator_integrity",
+        "-v"
+      ],
+      "control_family": "Metric denominator integrity",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-03-NEW",
+      "import_root": "/tmp/m3top3-r03-mutation-kssxen6z",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-kssxen6z/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-kssxen6z/tools/m3top3/backtest.py"
+      },
+      "matrix_ids": [
+        "OUT-006",
+        "OUT-007"
+      ],
+      "mutation_id": "MUT-R03-METRIC-DENOMINATOR",
+      "paired_tests": [
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_metric_denominator_integrity"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/backtest.py",
+      "target_sha256_after": "394546fff02114c35623467379a72f898e65532f95193e46285acdc5ff929daa",
+      "target_sha256_before": "0c1a888c10da1d944ef73f519f6db5b09ab09be540f9c566122c466797ffc195",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "1707ead672276f32fcca86c18d8447d06cb99fba4ec4b93dc0d06c9b0113a620",
+      "transcript_tail": [
+        "test_metric_denominator_integrity (tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_metric_denominator_integrity) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_metric_denominator_integrity (tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_metric_denominator_integrity)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-kssxen6z/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py\", line 836, in test_metric_denominator_integrity",
+        "    self._assert_code(\"METRIC_DENOMINATOR_INTEGRITY_FAILURE\", lambda: MetricsEngine().summarize([], 1), 3)",
+        "  File \"/tmp/m3top3-r03-mutation-kssxen6z/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py\", line 547, in _assert_code",
+        "    with self.assertRaises(M3Top3AdmissionError) as caught:",
+        "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "AssertionError: M3Top3AdmissionError not raised",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.019s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_full_ledger_ranked_count",
+        "-v"
+      ],
+      "control_family": "Full ranking/ledger completeness",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-03-NEW",
+      "import_root": "/tmp/m3top3-r03-mutation-iz3zoa24",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-iz3zoa24/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-iz3zoa24/tools/m3top3/ledger.py"
+      },
+      "matrix_ids": [
+        "RNK-008",
+        "OUT-001",
+        "IMM-002"
+      ],
+      "mutation_id": "MUT-R03-FULL-LEDGER-COMPLETENESS",
+      "paired_tests": [
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_full_ledger_ranked_count"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/ledger.py",
+      "target_sha256_after": "28492d71348a558fa2d79c20746b6782e69fda4b9aa68528bb79d978e1349cda",
+      "target_sha256_before": "1a60cdc7c18a36be39769451fdfdfa574499ecc489a0ab6d1cdd5fcaae375d96",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "c16eeca43c8dcaf925e17f9f9b9db6b03c2ee92bd59f5eb3a5f888255d3a107e",
+      "transcript_tail": [
+        "test_full_ledger_ranked_count (tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_full_ledger_ranked_count) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_full_ledger_ranked_count (tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_full_ledger_ranked_count)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-iz3zoa24/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py\", line 883, in test_full_ledger_ranked_count",
+        "    self._assert_code(\"INCOMPLETE_RESULT_PUBLICATION\", lambda: store._payloads(result), 3)",
+        "  File \"/tmp/m3top3-r03-mutation-iz3zoa24/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py\", line 547, in _assert_code",
+        "    with self.assertRaises(M3Top3AdmissionError) as caught:",
+        "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "AssertionError: M3Top3AdmissionError not raised",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.011s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_known_failures_cli.KnownFailureCLITests.test_backtest_zero_snapshot_directories_is_blocked_not_success",
+        "-v"
+      ],
+      "control_family": "Zero-work/nonzero-exit accounting",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-03-NEW",
+      "import_root": "/tmp/m3top3-r03-mutation-pq8u521g",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-pq8u521g/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-pq8u521g/tools/m3top3/admission.py"
+      },
+      "matrix_ids": [
+        "UNI-013",
+        "CLI-001",
+        "CLI-002",
+        "CLI-003"
+      ],
+      "mutation_id": "MUT-R03-ZERO-WORK-ACCOUNTING",
+      "paired_tests": [
+        "tools.m3top3.tests.test_known_failures_cli.KnownFailureCLITests.test_backtest_zero_snapshot_directories_is_blocked_not_success"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/admission.py",
+      "target_sha256_after": "aa3e24afbeb321ded08f45abea0ae053a77267409a258c376d62dc99f297a22b",
+      "target_sha256_before": "a9aa5aa6ba518121ce37a38b05c44c5b2b3026186b468adac130d4159d42d511",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "663052064108807553258813f2f4a30f789dbafbf4dcb963c60b6b8c4b9d5754",
+      "transcript_tail": [
+        "test_backtest_zero_snapshot_directories_is_blocked_not_success (tools.m3top3.tests.test_known_failures_cli.KnownFailureCLITests.test_backtest_zero_snapshot_directories_is_blocked_not_success) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_backtest_zero_snapshot_directories_is_blocked_not_success (tools.m3top3.tests.test_known_failures_cli.KnownFailureCLITests.test_backtest_zero_snapshot_directories_is_blocked_not_success)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-pq8u521g/tools/m3top3/tests/test_known_failures_cli.py\", line 181, in test_backtest_zero_snapshot_directories_is_blocked_not_success",
+        "    self.assertEqual(status,2)",
+        "AssertionError: 0 != 2",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.003s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_r_wp4_03_ledger_v02.FullRunArtifactStoreV02Tests.test_commit_manifest_is_admitted_last",
+        "-v"
+      ],
+      "control_family": "Full-result immutable manifest-last",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-03-NEW",
+      "import_root": "/tmp/m3top3-r03-mutation-dl68bo9w",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-dl68bo9w/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-dl68bo9w/tools/m3top3/ledger.py"
+      },
+      "matrix_ids": [
+        "IMM-001",
+        "IMM-003",
+        "IMM-004",
+        "IMM-005"
+      ],
+      "mutation_id": "MUT-R03-FULL-RESULT-IMMUTABLE-MANIFEST-LAST",
+      "paired_tests": [
+        "tools.m3top3.tests.test_r_wp4_03_ledger_v02.FullRunArtifactStoreV02Tests.test_commit_manifest_is_admitted_last"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/ledger.py",
+      "target_sha256_after": "2101d1d4fd73f2b273594cb57c25897b7b3f476ab83163d375077867567f30e9",
+      "target_sha256_before": "1a60cdc7c18a36be39769451fdfdfa574499ecc489a0ab6d1cdd5fcaae375d96",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "501b92b51050cc339a94d713ef1fba005b7f6ecd6b3725635daaeed6190368b4",
+      "transcript_tail": [
+        "test_commit_manifest_is_admitted_last (tools.m3top3.tests.test_r_wp4_03_ledger_v02.FullRunArtifactStoreV02Tests.test_commit_manifest_is_admitted_last) ... FAIL",
+        "",
+        "======================================================================",
+        "FAIL: test_commit_manifest_is_admitted_last (tools.m3top3.tests.test_r_wp4_03_ledger_v02.FullRunArtifactStoreV02Tests.test_commit_manifest_is_admitted_last)",
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-dl68bo9w/tools/m3top3/tests/test_r_wp4_03_ledger_v02.py\", line 225, in test_commit_manifest_is_admitted_last",
+        "    self.assertEqual(calls[-1], store.manifest_path)",
+        "AssertionError: PosixPath('/tmp/tmp7jmnjm8s/runs/R1.json') != PosixPath('/tmp/tmp7jmnjm8s/runs/R1.manifest.json')",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.001s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_r_wp4_03_matrix.RWP403MatrixTests.test_matrix_lin_006",
+        "-v"
+      ],
+      "control_family": "Manifest-only extra lineage component",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-03-NEW",
+      "import_root": "/tmp/m3top3-r03-mutation-iihfnjgf",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-iihfnjgf/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-iihfnjgf/tools/m3top3/admission.py"
+      },
+      "matrix_ids": [
+        "LIN-006"
+      ],
+      "mutation_id": "MUT-R03-EXTRA-LINEAGE-COMPONENT",
+      "paired_tests": [
+        "tools.m3top3.tests.test_r_wp4_03_matrix.RWP403MatrixTests.test_matrix_lin_006"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/admission.py",
+      "target_sha256_after": "f837bd4b5afdfa5f0fee20227a09c7f6c2b67bc6067948ca034c29ba0398d71a",
+      "target_sha256_before": "a9aa5aa6ba518121ce37a38b05c44c5b2b3026186b468adac130d4159d42d511",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "1fe5b6905dfdb1186050bd92913547d1c9db83b716989d97cbbe90079d66ff53",
+      "transcript_tail": [
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-iihfnjgf/tools/m3top3/tests/test_r_wp4_03_matrix.py\", line 656, in test",
+        "    def test(self,case_id=case_id): self._run_case(case_id)",
+        "                                    ^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/tmp/m3top3-r03-mutation-iihfnjgf/tools/m3top3/tests/test_r_wp4_03_matrix.py\", line 296, in _run_case",
+        "    self._assert_expected(case_id,lambda:self._action(case_id))",
+        "  File \"/tmp/m3top3-r03-mutation-iihfnjgf/tools/m3top3/tests/test_r_wp4_03_matrix.py\", line 233, in _assert_expected",
+        "    self.assertEqual(observation[\"actual\"],observation[\"expected\"],observation)",
+        "AssertionError: {'code': 'LINEAGE_COMPONENT_HASH_MISMATCH', 'exit_c[40 chars]True} != {'code': 'EXTRA_LINEAGE_COMPONENT', 'exit_code': 3,[32 chars]True}",
+        "- {'code': 'LINEAGE_COMPONENT_HASH_MISMATCH',",
+        "+ {'code': 'EXTRA_LINEAGE_COMPONENT',",
+        "   'exit_code': 3,",
+        "   'no_write': True,",
+        "   'scorer_calls': 0} : {'case_id': 'LIN-006', 'expected': {'code': 'EXTRA_LINEAGE_COMPONENT', 'exit_code': 3, 'scorer_calls': 0, 'no_write': True}, 'actual': {'code': 'LINEAGE_COMPONENT_HASH_MISMATCH', 'exit_code': 3, 'scorer_calls': 0, 'no_write': True}, 'production_path': True, 'production_surface': 'admission.admit_execution_lineage_bundle / admission.reverify_execution_lineage', 'fabricated_code': False, 'caught_and_relabelled': False, 'synthetic_summary_only': False, 'pre_fingerprint': '44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a', 'post_fingerprint': '44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a', 'raw_exception': None, 'verdict': 'FAIL'}",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.005s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_r_wp4_03_matrix.RWP403MatrixTests.test_matrix_uni_009",
+        "-v"
+      ],
+      "control_family": "Terminal eligibility release admission",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-03-NEW",
+      "import_root": "/tmp/m3top3-r03-mutation-0ccs616a",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-0ccs616a/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-0ccs616a/tools/m3top3/admission.py"
+      },
+      "matrix_ids": [
+        "UNI-009"
+      ],
+      "mutation_id": "MUT-R03-ELIGIBILITY-RELEASE-COMPLETE",
+      "paired_tests": [
+        "tools.m3top3.tests.test_r_wp4_03_matrix.RWP403MatrixTests.test_matrix_uni_009"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/admission.py",
+      "target_sha256_after": "8122581156e20911bba5912db76d36d5be29ede94e8a00ae188337c35054204e",
+      "target_sha256_before": "a9aa5aa6ba518121ce37a38b05c44c5b2b3026186b468adac130d4159d42d511",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "dda68c2b3355bd81943d55a136d16fd4478dd7fbf536a265a308ac3ad8496f6c",
+      "transcript_tail": [
+        "  File \"/tmp/m3top3-r03-mutation-0ccs616a/tools/m3top3/tests/test_r_wp4_03_matrix.py\", line 296, in _run_case",
+        "    self._assert_expected(case_id,lambda:self._action(case_id))",
+        "  File \"/tmp/m3top3-r03-mutation-0ccs616a/tools/m3top3/tests/test_r_wp4_03_matrix.py\", line 233, in _assert_expected",
+        "    self.assertEqual(observation[\"actual\"],observation[\"expected\"],observation)",
+        "AssertionError: {'code': 'DENOMINATOR_COUNT_MISMATCH', 'exit_code':[35 chars]True} != {'code': 'ELIGIBILITY_RELEASE_NOT_COMPLETE', 'exit_[41 chars]True}",
+        "- {'code': 'DENOMINATOR_COUNT_MISMATCH',",
+        "+ {'code': 'ELIGIBILITY_RELEASE_NOT_COMPLETE',",
+        "-  'exit_code': 3,",
+        "?               ^",
+        "",
+        "+  'exit_code': 2,",
+        "?               ^",
+        "",
+        "   'no_write': True,",
+        "   'scorer_calls': 0} : {'case_id': 'UNI-009', 'expected': {'code': 'ELIGIBILITY_RELEASE_NOT_COMPLETE', 'exit_code': 2, 'scorer_calls': 0, 'no_write': True}, 'actual': {'code': 'DENOMINATOR_COUNT_MISMATCH', 'exit_code': 3, 'scorer_calls': 0, 'no_write': True}, 'production_path': True, 'production_surface': 'providers UniverseProvider / admission.verify_universe_release / ValidationRunner.run_snapshot', 'fabricated_code': False, 'caught_and_relabelled': False, 'synthetic_summary_only': False, 'pre_fingerprint': '44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a', 'post_fingerprint': '44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a', 'raw_exception': None, 'verdict': 'FAIL'}",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.014s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_r_wp4_03_matrix.RWP403MatrixTests.test_matrix_ref_007",
+        "-v"
+      ],
+      "control_family": "Independent outcome component lineage",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-03-NEW",
+      "import_root": "/tmp/m3top3-r03-mutation-ukfi20bt",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-ukfi20bt/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-ukfi20bt/tools/m3top3/backtest.py"
+      },
+      "matrix_ids": [
+        "REF-007"
+      ],
+      "mutation_id": "MUT-R03-OUTCOME-COMPONENT-LINEAGE",
+      "paired_tests": [
+        "tools.m3top3.tests.test_r_wp4_03_matrix.RWP403MatrixTests.test_matrix_ref_007"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/backtest.py",
+      "target_sha256_after": "80c638aed3d0af1677ff326f2373452e8d30cffb2560f1e147caa6d78259bd01",
+      "target_sha256_before": "0c1a888c10da1d944ef73f519f6db5b09ab09be540f9c566122c466797ffc195",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "fdbe0696fa890960c872f5add827b24874c1ab85068130ed9513f4f52bd8d50a",
+      "transcript_tail": [
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-ukfi20bt/tools/m3top3/tests/test_r_wp4_03_matrix.py\", line 656, in test",
+        "    def test(self,case_id=case_id): self._run_case(case_id)",
+        "                                    ^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/tmp/m3top3-r03-mutation-ukfi20bt/tools/m3top3/tests/test_r_wp4_03_matrix.py\", line 296, in _run_case",
+        "    self._assert_expected(case_id,lambda:self._action(case_id))",
+        "  File \"/tmp/m3top3-r03-mutation-ukfi20bt/tools/m3top3/tests/test_r_wp4_03_matrix.py\", line 233, in _assert_expected",
+        "    self.assertEqual(observation[\"actual\"],observation[\"expected\"],observation)",
+        "AssertionError: {'code': 'FULL_RANKING_LEDGER_INCOMPLETE', 'exit_co[39 chars]True} != {'code': 'OUTCOME_COMPONENT_LINEAGE_MISMATCH', 'exi[43 chars]True}",
+        "- {'code': 'FULL_RANKING_LEDGER_INCOMPLETE',",
+        "+ {'code': 'OUTCOME_COMPONENT_LINEAGE_MISMATCH',",
+        "   'exit_code': 3,",
+        "   'no_write': True,",
+        "   'scorer_calls': 0} : {'case_id': 'REF-007', 'expected': {'code': 'OUTCOME_COMPONENT_LINEAGE_MISMATCH', 'exit_code': 3, 'scorer_calls': 0, 'no_write': True}, 'actual': {'code': 'FULL_RANKING_LEDGER_INCOMPLETE', 'exit_code': 3, 'scorer_calls': 0, 'no_write': True}, 'production_path': True, 'production_surface': 'admission.verify_snapshot_artifacts / ValidationRunner.run_snapshot', 'fabricated_code': False, 'caught_and_relabelled': False, 'synthetic_summary_only': False, 'pre_fingerprint': '44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a', 'post_fingerprint': '44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a', 'raw_exception': None, 'verdict': 'FAIL'}",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.018s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.test_r_wp4_03_matrix.RWP403MatrixTests.test_matrix_imm_001",
+        "-v"
+      ],
+      "control_family": "Persistent release identity immutability",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-03-NEW",
+      "import_root": "/tmp/m3top3-r03-mutation-8hn_24m1",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-8hn_24m1/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-8hn_24m1/tools/m3top3/ledger.py"
+      },
+      "matrix_ids": [
+        "IMM-001"
+      ],
+      "mutation_id": "MUT-R03-IMMUTABLE-RELEASE-COLLISION",
+      "paired_tests": [
+        "tools.m3top3.tests.test_r_wp4_03_matrix.RWP403MatrixTests.test_matrix_imm_001"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/ledger.py",
+      "target_sha256_after": "886664959028d96bd71f4cd99fb94d7a5e9fd3ea4a50fd28f45df4dcb60a4cc5",
+      "target_sha256_before": "1a60cdc7c18a36be39769451fdfdfa574499ecc489a0ab6d1cdd5fcaae375d96",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "982c9b0693b3aa09e0aecb2a9b6baa6683a7b0d5facf8ae6106992800d8b9db8",
+      "transcript_tail": [
+        "----------------------------------------------------------------------",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-8hn_24m1/tools/m3top3/tests/test_r_wp4_03_matrix.py\", line 656, in test",
+        "    def test(self,case_id=case_id): self._run_case(case_id)",
+        "                                    ^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/tmp/m3top3-r03-mutation-8hn_24m1/tools/m3top3/tests/test_r_wp4_03_matrix.py\", line 296, in _run_case",
+        "    self._assert_expected(case_id,lambda:self._action(case_id))",
+        "  File \"/tmp/m3top3-r03-mutation-8hn_24m1/tools/m3top3/tests/test_r_wp4_03_matrix.py\", line 233, in _assert_expected",
+        "    self.assertEqual(observation[\"actual\"],observation[\"expected\"],observation)",
+        "AssertionError: {'code': 'REUSED', 'exit_code': 0, 'scorer_calls': [15 chars]True} != {'code': 'IMMUTABLE_RELEASE_COLLISION', 'exit_code'[36 chars]True}",
+        "- {'code': 'REUSED', 'exit_code': 0, 'no_write': True, 'scorer_calls': 0}",
+        "+ {'code': 'IMMUTABLE_RELEASE_COLLISION',",
+        "+  'exit_code': 3,",
+        "+  'no_write': True,",
+        "+  'scorer_calls': 0} : {'case_id': 'IMM-001', 'expected': {'code': 'IMMUTABLE_RELEASE_COLLISION', 'exit_code': 3, 'scorer_calls': 0, 'no_write': True}, 'actual': {'code': 'REUSED', 'exit_code': 0, 'scorer_calls': 0, 'no_write': True}, 'production_path': True, 'production_surface': 'ledger immutable stores / ValidationRunner.run_snapshot', 'fabricated_code': False, 'caught_and_relabelled': False, 'synthetic_summary_only': False, 'pre_fingerprint': '44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a', 'post_fingerprint': '44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a', 'raw_exception': None, 'verdict': 'FAIL'}",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.001s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_sem001_top3_outcome_view",
+        "-v"
+      ],
+      "control_family": "Legacy Top3 outcome view",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-03-V04-SEM001",
+      "import_root": "/tmp/m3top3-r03-mutation-amgb4a5l",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-amgb4a5l/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-amgb4a5l/tools/m3top3/backtest.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-R03-TOP3-OUTCOME-VIEW",
+      "paired_tests": [
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_sem001_top3_outcome_view"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/backtest.py",
+      "target_sha256_after": "b1df1995ee811866638f592ffe3076420207de57674b2e01ecbedf9952bb38fc",
+      "target_sha256_before": "0c1a888c10da1d944ef73f519f6db5b09ab09be540f9c566122c466797ffc195",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "8d7246149aec60f7f3d51ce5fd962c844424d8e180ad6449789b461046ad5584",
+      "transcript_tail": [
+        "  File \"/tmp/m3top3-r03-mutation-amgb4a5l/tools/m3top3/backtest.py\", line 378, in run_snapshot",
+        "    verify_full_run_result(result)",
+        "  File \"/tmp/m3top3-r03-mutation-amgb4a5l/tools/m3top3/backtest.py\", line 257, in verify_full_run_result",
+        "    raise M3Top3AdmissionError(\"TOP3_PROJECTION_MISMATCH\",\"legacy outcomes/metrics population is not the exact selected Top3 projection\",exit_code=EXIT_INTEGRITY)",
+        "tools.m3top3.admission.M3Top3AdmissionError: TOP3_PROJECTION_MISMATCH: legacy outcomes/metrics population is not the exact selected Top3 projection",
+        "",
+        "During handling of the above exception, another exception occurred:",
+        "",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-amgb4a5l/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py\", line 1058, in test_sem001_top3_outcome_view",
+        "    result=self._sem001_four_member_result()",
+        "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/tmp/m3top3-r03-mutation-amgb4a5l/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py\", line 1055, in _sem001_four_member_result",
+        "    self.fail(f\"valid SEM-001 four-member execution failed closed: {type(exc).__name__}: {exc}\")",
+        "AssertionError: valid SEM-001 four-member execution failed closed: M3Top3AdmissionError: TOP3_PROJECTION_MISMATCH: legacy outcomes/metrics population is not the exact selected Top3 projection",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.033s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_sem001_top3_metric_population",
+        "-v"
+      ],
+      "control_family": "Legacy Top3 metric population",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-03-V04-SEM001",
+      "import_root": "/tmp/m3top3-r03-mutation-bwxwz7dn",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-bwxwz7dn/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-bwxwz7dn/tools/m3top3/backtest.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-R03-TOP3-METRIC-POPULATION",
+      "paired_tests": [
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_sem001_top3_metric_population"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/backtest.py",
+      "target_sha256_after": "22e85e9464ee51e01b7fbfa2aeb3afde15bb99eebf395ac08550e16f93f62286",
+      "target_sha256_before": "0c1a888c10da1d944ef73f519f6db5b09ab09be540f9c566122c466797ffc195",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "9ff8376c908f69669250cb214c5620f985177dbb81b6389b1be83c08c326186e",
+      "transcript_tail": [
+        "  File \"/tmp/m3top3-r03-mutation-bwxwz7dn/tools/m3top3/backtest.py\", line 378, in run_snapshot",
+        "    verify_full_run_result(result)",
+        "  File \"/tmp/m3top3-r03-mutation-bwxwz7dn/tools/m3top3/backtest.py\", line 270, in verify_full_run_result",
+        "    raise M3Top3AdmissionError(\"METRIC_DENOMINATOR_INTEGRITY_FAILURE\",\"published Top3/full-E metrics are not exact governed recomputations\",exit_code=EXIT_INTEGRITY)",
+        "tools.m3top3.admission.M3Top3AdmissionError: METRIC_DENOMINATOR_INTEGRITY_FAILURE: published Top3/full-E metrics are not exact governed recomputations",
+        "",
+        "During handling of the above exception, another exception occurred:",
+        "",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-bwxwz7dn/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py\", line 1066, in test_sem001_top3_metric_population",
+        "    result=self._sem001_four_member_result()",
+        "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/tmp/m3top3-r03-mutation-bwxwz7dn/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py\", line 1055, in _sem001_four_member_result",
+        "    self.fail(f\"valid SEM-001 four-member execution failed closed: {type(exc).__name__}: {exc}\")",
+        "AssertionError: valid SEM-001 four-member execution failed closed: M3Top3AdmissionError: METRIC_DENOMINATOR_INTEGRITY_FAILURE: published Top3/full-E metrics are not exact governed recomputations",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.033s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_sem001_result_view_version_identity",
+        "-v"
+      ],
+      "control_family": "Result/view version run identity",
+      "failure_class": "ASSERTION_FAILURE",
+      "generation": "R-WP4-03-V04-SEM001",
+      "import_root": "/tmp/m3top3-r03-mutation-72qms2mh",
+      "imported_module_paths": {
+        "harness": "/tmp/m3top3-r03-mutation-72qms2mh/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py",
+        "target": "/tmp/m3top3-r03-mutation-72qms2mh/tools/m3top3/backtest.py"
+      },
+      "matrix_ids": [],
+      "mutation_id": "MUT-R03-RESULT-VIEW-VERSION-IDENTITY",
+      "paired_tests": [
+        "tools.m3top3.tests.run_r_wp4_03_mutation_checks.MutationSemanticProbeTests.test_sem001_result_view_version_identity"
+      ],
+      "replacement_count": 1,
+      "return_code": 1,
+      "status": "KILLED_RED",
+      "target_path": "tools/m3top3/backtest.py",
+      "target_sha256_after": "b19bc046de1e33e74c3f841c986ca7347c3ebc1abb8917d5686f8d101461c920",
+      "target_sha256_before": "0c1a888c10da1d944ef73f519f6db5b09ab09be540f9c566122c466797ffc195",
+      "test_summary": "FAILED (failures=1)",
+      "tests_collected": 1,
+      "transcript_sha256": "92522f4646e9fbbeb86f6731406495a9e7c37cc3ccc7ef544901b9dc3060e377",
+      "transcript_tail": [
+        "  File \"/tmp/m3top3-r03-mutation-72qms2mh/tools/m3top3/backtest.py\", line 234, in verify_full_run_result",
+        "    verify_validation_run_identity(result)",
+        "  File \"/tmp/m3top3-r03-mutation-72qms2mh/tools/m3top3/backtest.py\", line 140, in verify_validation_run_identity",
+        "    raise M3Top3AdmissionError(\"RUN_ID_LINEAGE_MISMATCH\",\"validation run identity omits required exact lineage inputs\",exit_code=EXIT_INTEGRITY)",
+        "tools.m3top3.admission.M3Top3AdmissionError: RUN_ID_LINEAGE_MISMATCH: validation run identity omits required exact lineage inputs",
+        "",
+        "During handling of the above exception, another exception occurred:",
+        "",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/m3top3-r03-mutation-72qms2mh/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py\", line 1076, in test_sem001_result_view_version_identity",
+        "    result=self._sem001_four_member_result()",
+        "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/tmp/m3top3-r03-mutation-72qms2mh/tools/m3top3/tests/run_r_wp4_03_mutation_checks.py\", line 1055, in _sem001_four_member_result",
+        "    self.fail(f\"valid SEM-001 four-member execution failed closed: {type(exc).__name__}: {exc}\")",
+        "AssertionError: valid SEM-001 four-member execution failed closed: M3Top3AdmissionError: RUN_ID_LINEAGE_MISMATCH: validation run identity omits required exact lineage inputs",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.035s",
+        "",
+        "FAILED (failures=1)"
+      ]
+    }
+  ],
+  "schema_version": "m3top3-r-wp4-03-mutation-receipt-v3",
+  "skipped": 0,
+  "source_manifest": {
+    "tools/m3top3/README.md": {
+      "byte_size": 3228,
+      "sha256": "07b22b876b27344d57e1f408a8f69950255d0bce12d5de199c3d9bc8638a6cc7"
+    },
+    "tools/m3top3/__init__.py": {
+      "byte_size": 93,
+      "sha256": "c2f140091fe255ebe84cc10733e1b19f1af9642b69526b7a7c67ec7bc6e38fea"
+    },
+    "tools/m3top3/admission.py": {
+      "byte_size": 160314,
+      "sha256": "a9aa5aa6ba518121ce37a38b05c44c5b2b3026186b468adac130d4159d42d511"
+    },
+    "tools/m3top3/backtest.py": {
+      "byte_size": 39444,
+      "sha256": "0c1a888c10da1d944ef73f519f6db5b09ab09be540f9c566122c466797ffc195"
+    },
+    "tools/m3top3/cli_build_snapshots.py": {
+      "byte_size": 5801,
+      "sha256": "48cc01e58e2caff86fbe7f245dcf18e715548ea70e2b2fc070f116b510368119"
+    },
+    "tools/m3top3/cli_run_backtest.py": {
+      "byte_size": 6893,
+      "sha256": "d02bb6ecfe5509c15dea1ab932cd6a2ae71598911006e1d775e06b8b2775b8b9"
+    },
+    "tools/m3top3/configs/backtest.example.json": {
+      "byte_size": 998,
+      "sha256": "08c191e0b53b8e56ccb0e931923cb31efeea83d7c303923bd484e984baeab535"
+    },
+    "tools/m3top3/configs/snapshot.example.json": {
+      "byte_size": 1939,
+      "sha256": "9336a3fe597d16c9f43e31b1017d17366f343893c655de7a77ab127288aea2ad"
+    },
+    "tools/m3top3/core.py": {
+      "byte_size": 2758,
+      "sha256": "4a91dd5733e3e90837f9bd2c6c606c3914af93cbfe15e601027ca4e76e7efcb2"
+    },
+    "tools/m3top3/ledger.py": {
+      "byte_size": 31928,
+      "sha256": "1a60cdc7c18a36be39769451fdfdfa574499ecc489a0ab6d1cdd5fcaae375d96"
+    },
+    "tools/m3top3/model_interface.py": {
+      "byte_size": 3581,
+      "sha256": "c3bcc7250de4519506a642d2e065424d7a28bcb843c19d0d96107822663c5a67"
+    },
+    "tools/m3top3/outcome.py": {
+      "byte_size": 4660,
+      "sha256": "0097cbab2373db885538d18083f554136dd347d2863b97aa3f26d728acd9331f"
+    },
+    "tools/m3top3/pit_guard.py": {
+      "byte_size": 5466,
+      "sha256": "5fa17bb958b852e808757b1636c593ae8fec6e8b9bcd9ec3b26e6822a863e366"
+    },
+    "tools/m3top3/providers.py": {
+      "byte_size": 43276,
+      "sha256": "347def841cd2a76fb9c67c7e72c86e46c301c3b012988105e9ab39648443af63"
+    },
+    "tools/m3top3/snapshot.py": {
+      "byte_size": 31670,
+      "sha256": "5976761527f39100b21b4cc28888f3f95b8018671c0685e1fb866aadd13f9c96"
+    },
+    "tools/m3top3/tests/_known_failure_helpers.py": {
+      "byte_size": 28659,
+      "sha256": "e1e2de2e90cf8d6aa689193d8ef6ec9710de725ef197c4a75fc5e82767a3ab57"
+    },
+    "tools/m3top3/tests/run_r_wp4_03_production_matrix.py": {
+      "byte_size": 10490,
+      "sha256": "84f31788815eccc33fb05406256b795f35426f32b7442dcd885b696804d3900d"
+    },
+    "tools/m3top3/tests/test_infrastructure.py": {
+      "byte_size": 11948,
+      "sha256": "01a20f75dea6486006cdb033c5fed4533c5b5a6c95cb3332a5d5d994d29f746e"
+    },
+    "tools/m3top3/tests/test_known_failures_cli.py": {
+      "byte_size": 14604,
+      "sha256": "2ae88cd1d209021b1e52a00ca5e4fcdfbcd1d2de0e5213f0edaf688c3fcd7ba1"
+    },
+    "tools/m3top3/tests/test_known_failures_immutability.py": {
+      "byte_size": 9655,
+      "sha256": "6cd38453ad678985aac237dfaef0f99c888741f5669107f3cb3e6534a3bd2e33"
+    },
+    "tools/m3top3/tests/test_known_failures_integrity.py": {
+      "byte_size": 16343,
+      "sha256": "2da394d7240bf7e384c3818711006ecbed2cb090c2101fb5b648328b06a961b7"
+    },
+    "tools/m3top3/tests/test_known_failures_lineage_universe.py": {
+      "byte_size": 18343,
+      "sha256": "346de27545dc2eb2efaad14b71678a7281a251aac32c02e343699829d6804fad"
+    },
+    "tools/m3top3/tests/test_known_failures_model_admission.py": {
+      "byte_size": 3852,
+      "sha256": "7bf31dccff324cef1450bf73b0bb72dbbae9eb909329fe14fa1930015f0af55f"
+    },
+    "tools/m3top3/tests/test_known_failures_pit.py": {
+      "byte_size": 4957,
+      "sha256": "e7935170b9183d0cbf8da23690565a342ea8ddb2cc517023092069cac0a89684"
+    },
+    "tools/m3top3/tests/test_known_failures_price.py": {
+      "byte_size": 14783,
+      "sha256": "e87568d098269a98414b5f7ee50e5ee34252293dc202e54c1a305b2db8fa16d3"
+    },
+    "tools/m3top3/tests/test_known_failures_snapshot.py": {
+      "byte_size": 9656,
+      "sha256": "2745d6088463e6942f3ab2c08debd92566aee64a7621db972ad55ee979212281"
+    },
+    "tools/m3top3/tests/test_r_wp4_03_ledger_v02.py": {
+      "byte_size": 11613,
+      "sha256": "e2de60a00a6bc81e80f425dde924e771867e418575e3823d93e387dbc117853c"
+    },
+    "tools/m3top3/tests/test_r_wp4_03_matrix.py": {
+      "byte_size": 42873,
+      "sha256": "7122671c052ed547a132a91020d7eb388fdcc6b27ff21ab5d0ae924738e1ccf0"
+    },
+    "tools/m3top3/tests/test_r_wp4_03_mutation_isolation.py": {
+      "byte_size": 10721,
+      "sha256": "cc7a3092f1bc48d7e8240527242ab99b44c2ea4634710090bc434e8612a61832"
+    },
+    "tools/m3top3/tests/test_r_wp4_03_semantic_preservation_v04.py": {
+      "byte_size": 6243,
+      "sha256": "afa0fc576c4045b11cb5bd0d9a00c49353312f581dd04a264ddcfaa5c04fc12b"
+    },
+    "tools/m3top3/tests/test_r_wp4_03_v02_remediation.py": {
+      "byte_size": 28111,
+      "sha256": "bd3a169179ad26ffa3bb27e0c155cee34382729aef9e95e187394426a2c11a0c"
+    }
+  },
+  "source_manifest_after_sha256": "fccf1523e621882ca6ed006c2448928659c5d1b76e32d9a0cec029b41e1e7330",
+  "source_manifest_before_sha256": "fccf1523e621882ca6ed006c2448928659c5d1b76e32d9a0cec029b41e1e7330",
+  "source_manifest_file_count": 31,
+  "source_mutated": false,
+  "source_root": "/workspace/scratch/577256efb437/remediation/r_wp4_03_final_candidate_v0_4",
+  "status": "PASS",
+  "successor_design_delta": {
+    "added_controls": [
+      {
+        "matrix_id": "LIN-006",
+        "stable_code": "EXTRA_LINEAGE_COMPONENT"
+      },
+      {
+        "matrix_id": "UNI-009",
+        "stable_code": "ELIGIBILITY_RELEASE_NOT_COMPLETE"
+      },
+      {
+        "matrix_id": "REF-007",
+        "stable_code": "OUTCOME_COMPONENT_LINEAGE_MISMATCH"
+      },
+      {
+        "matrix_id": "IMM-001",
+        "stable_code": "IMMUTABLE_RELEASE_COLLISION"
+      },
+      {
+        "control": "LEGACY_TOP3_OUTCOME_VIEW",
+        "mutation_id": "MUT-R03-TOP3-OUTCOME-VIEW"
+      },
+      {
+        "control": "LEGACY_TOP3_METRIC_POPULATION",
+        "mutation_id": "MUT-R03-TOP3-METRIC-POPULATION"
+      },
+      {
+        "control": "RESULT_VIEW_VERSION_IDENTITY",
+        "mutation_id": "MUT-R03-RESULT-VIEW-VERSION-IDENTITY"
+      }
+    ],
+    "added_count": 7,
+    "reason": "four v0.2 control seams plus three v0.4 SEM-001 semantic-preservation controls"
+  },
+  "survived_or_error": 0,
+  "timeout": 0
+}
