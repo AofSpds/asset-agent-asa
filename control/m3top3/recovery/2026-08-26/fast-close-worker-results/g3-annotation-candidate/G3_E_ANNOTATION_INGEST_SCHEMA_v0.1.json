@@ -1,0 +1,804 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "AAA-M3TOP3-G3E-ANNOTATION-INGEST-SCHEMA-v0.1",
+  "title": "G3-E fail-closed annotation ingest queue row",
+  "description": "Non-admitted authoring queue; null values are intentional and must not be coerced to zero/false.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "queue_id",
+    "row_key",
+    "source_workbook_row",
+    "window_id",
+    "company_no",
+    "company_id",
+    "canonical_name",
+    "krx_code",
+    "snapshot_cutoff_at",
+    "entry_date",
+    "historical_eligibility_status",
+    "source_bundle_plan_state",
+    "annotation_sidecar_state",
+    "outcome_access_flag",
+    "row_ingest_state",
+    "field_registry_id",
+    "field_slots"
+  ],
+  "properties": {
+    "queue_id": {
+      "const": "AAA-M3TOP3-G3E-ANNOTATION-INGEST-QUEUE-v0.1"
+    },
+    "row_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_workbook_row": {
+      "type": "integer",
+      "minimum": 2,
+      "maximum": 1017
+    },
+    "window_id": {
+      "enum": [
+        "W1",
+        "W2",
+        "W3",
+        "W4",
+        "W5",
+        "W6",
+        "W7",
+        "W8"
+      ]
+    },
+    "company_no": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 127
+    },
+    "company_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "canonical_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "krx_code": {
+      "type": "string",
+      "minLength": 1
+    },
+    "snapshot_cutoff_at": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "entry_date": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "historical_eligibility_status": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_bundle_plan_state": {
+      "const": "UNFROZEN"
+    },
+    "annotation_sidecar_state": {
+      "const": "ABSENT"
+    },
+    "outcome_access_flag": {
+      "type": "null"
+    },
+    "row_ingest_state": {
+      "const": "QUEUE_ONLY_NOT_ADMITTED"
+    },
+    "field_registry_id": {
+      "const": "AAA-M3TOP3-G3E-ANNOTATION-FIELD-REGISTRY-v0.1"
+    },
+    "field_slots": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "valuation_observation_status",
+        "latest_revenue",
+        "latest_OP",
+        "latest_margin",
+        "Forward_EPS",
+        "Forward_OP",
+        "EPS_OP_revision",
+        "consensus_provider",
+        "observation_at",
+        "guidance",
+        "PO_order_status",
+        "backlog_status",
+        "qualification_status",
+        "volume_repeat_order_status",
+        "design_win_customer_adoption_status",
+        "fab_capex_state_status",
+        "latest_material_earnings_guidance_refs"
+      ],
+      "properties": {
+        "valuation_observation_status": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source_sheet_state",
+            "value",
+            "collection_state",
+            "local_recovery_state",
+            "source_evidence_ref",
+            "publication_at",
+            "available_before_cutoff",
+            "admission_state"
+          ],
+          "properties": {
+            "source_sheet_state": {
+              "const": "NEEDS_RESEARCH"
+            },
+            "value": {
+              "type": "null"
+            },
+            "collection_state": {
+              "const": "NOT_COLLECTED"
+            },
+            "local_recovery_state": {
+              "const": "BLOCKED_EXTERNAL_HISTORICAL_RETRIEVAL_REQUIRED"
+            },
+            "source_evidence_ref": {
+              "type": "null"
+            },
+            "publication_at": {
+              "type": "null"
+            },
+            "available_before_cutoff": {
+              "type": "null"
+            },
+            "admission_state": {
+              "const": "BLOCKED_NO_LOCAL_CUTOFF_SAFE_EVIDENCE"
+            }
+          }
+        },
+        "latest_revenue": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source_sheet_state",
+            "value",
+            "collection_state",
+            "local_recovery_state",
+            "source_evidence_ref",
+            "publication_at",
+            "available_before_cutoff",
+            "admission_state"
+          ],
+          "properties": {
+            "source_sheet_state": {
+              "const": "NEEDS_RESEARCH"
+            },
+            "value": {
+              "type": "null"
+            },
+            "collection_state": {
+              "const": "NOT_COLLECTED"
+            },
+            "local_recovery_state": {
+              "const": "BLOCKED_EXTERNAL_HISTORICAL_RETRIEVAL_REQUIRED"
+            },
+            "source_evidence_ref": {
+              "type": "null"
+            },
+            "publication_at": {
+              "type": "null"
+            },
+            "available_before_cutoff": {
+              "type": "null"
+            },
+            "admission_state": {
+              "const": "BLOCKED_NO_LOCAL_CUTOFF_SAFE_EVIDENCE"
+            }
+          }
+        },
+        "latest_OP": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source_sheet_state",
+            "value",
+            "collection_state",
+            "local_recovery_state",
+            "source_evidence_ref",
+            "publication_at",
+            "available_before_cutoff",
+            "admission_state"
+          ],
+          "properties": {
+            "source_sheet_state": {
+              "const": "NEEDS_RESEARCH"
+            },
+            "value": {
+              "type": "null"
+            },
+            "collection_state": {
+              "const": "NOT_COLLECTED"
+            },
+            "local_recovery_state": {
+              "const": "BLOCKED_EXTERNAL_HISTORICAL_RETRIEVAL_REQUIRED"
+            },
+            "source_evidence_ref": {
+              "type": "null"
+            },
+            "publication_at": {
+              "type": "null"
+            },
+            "available_before_cutoff": {
+              "type": "null"
+            },
+            "admission_state": {
+              "const": "BLOCKED_NO_LOCAL_CUTOFF_SAFE_EVIDENCE"
+            }
+          }
+        },
+        "latest_margin": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source_sheet_state",
+            "value",
+            "collection_state",
+            "local_recovery_state",
+            "source_evidence_ref",
+            "publication_at",
+            "available_before_cutoff",
+            "admission_state"
+          ],
+          "properties": {
+            "source_sheet_state": {
+              "const": "NEEDS_RESEARCH"
+            },
+            "value": {
+              "type": "null"
+            },
+            "collection_state": {
+              "const": "NOT_COLLECTED"
+            },
+            "local_recovery_state": {
+              "const": "BLOCKED_EXTERNAL_HISTORICAL_RETRIEVAL_REQUIRED"
+            },
+            "source_evidence_ref": {
+              "type": "null"
+            },
+            "publication_at": {
+              "type": "null"
+            },
+            "available_before_cutoff": {
+              "type": "null"
+            },
+            "admission_state": {
+              "const": "BLOCKED_NO_LOCAL_CUTOFF_SAFE_EVIDENCE"
+            }
+          }
+        },
+        "Forward_EPS": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source_sheet_state",
+            "value",
+            "collection_state",
+            "local_recovery_state",
+            "source_evidence_ref",
+            "publication_at",
+            "available_before_cutoff",
+            "admission_state"
+          ],
+          "properties": {
+            "source_sheet_state": {
+              "const": "NEEDS_RESEARCH"
+            },
+            "value": {
+              "type": "null"
+            },
+            "collection_state": {
+              "const": "NOT_COLLECTED"
+            },
+            "local_recovery_state": {
+              "const": "BLOCKED_EXTERNAL_HISTORICAL_RETRIEVAL_REQUIRED"
+            },
+            "source_evidence_ref": {
+              "type": "null"
+            },
+            "publication_at": {
+              "type": "null"
+            },
+            "available_before_cutoff": {
+              "type": "null"
+            },
+            "admission_state": {
+              "const": "BLOCKED_NO_LOCAL_CUTOFF_SAFE_EVIDENCE"
+            }
+          }
+        },
+        "Forward_OP": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source_sheet_state",
+            "value",
+            "collection_state",
+            "local_recovery_state",
+            "source_evidence_ref",
+            "publication_at",
+            "available_before_cutoff",
+            "admission_state"
+          ],
+          "properties": {
+            "source_sheet_state": {
+              "const": "NEEDS_RESEARCH"
+            },
+            "value": {
+              "type": "null"
+            },
+            "collection_state": {
+              "const": "NOT_COLLECTED"
+            },
+            "local_recovery_state": {
+              "const": "BLOCKED_EXTERNAL_HISTORICAL_RETRIEVAL_REQUIRED"
+            },
+            "source_evidence_ref": {
+              "type": "null"
+            },
+            "publication_at": {
+              "type": "null"
+            },
+            "available_before_cutoff": {
+              "type": "null"
+            },
+            "admission_state": {
+              "const": "BLOCKED_NO_LOCAL_CUTOFF_SAFE_EVIDENCE"
+            }
+          }
+        },
+        "EPS_OP_revision": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source_sheet_state",
+            "value",
+            "collection_state",
+            "local_recovery_state",
+            "source_evidence_ref",
+            "publication_at",
+            "available_before_cutoff",
+            "admission_state"
+          ],
+          "properties": {
+            "source_sheet_state": {
+              "const": "NEEDS_RESEARCH"
+            },
+            "value": {
+              "type": "null"
+            },
+            "collection_state": {
+              "const": "NOT_COLLECTED"
+            },
+            "local_recovery_state": {
+              "const": "BLOCKED_EXTERNAL_HISTORICAL_RETRIEVAL_REQUIRED"
+            },
+            "source_evidence_ref": {
+              "type": "null"
+            },
+            "publication_at": {
+              "type": "null"
+            },
+            "available_before_cutoff": {
+              "type": "null"
+            },
+            "admission_state": {
+              "const": "BLOCKED_NO_LOCAL_CUTOFF_SAFE_EVIDENCE"
+            }
+          }
+        },
+        "consensus_provider": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source_sheet_state",
+            "value",
+            "collection_state",
+            "local_recovery_state",
+            "source_evidence_ref",
+            "publication_at",
+            "available_before_cutoff",
+            "admission_state"
+          ],
+          "properties": {
+            "source_sheet_state": {
+              "const": "NEEDS_RESEARCH"
+            },
+            "value": {
+              "type": "null"
+            },
+            "collection_state": {
+              "const": "NOT_COLLECTED"
+            },
+            "local_recovery_state": {
+              "const": "BLOCKED_EXTERNAL_HISTORICAL_RETRIEVAL_REQUIRED"
+            },
+            "source_evidence_ref": {
+              "type": "null"
+            },
+            "publication_at": {
+              "type": "null"
+            },
+            "available_before_cutoff": {
+              "type": "null"
+            },
+            "admission_state": {
+              "const": "BLOCKED_NO_LOCAL_CUTOFF_SAFE_EVIDENCE"
+            }
+          }
+        },
+        "observation_at": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source_sheet_state",
+            "value",
+            "collection_state",
+            "local_recovery_state",
+            "source_evidence_ref",
+            "publication_at",
+            "available_before_cutoff",
+            "admission_state"
+          ],
+          "properties": {
+            "source_sheet_state": {
+              "const": "NEEDS_RESEARCH"
+            },
+            "value": {
+              "type": "null"
+            },
+            "collection_state": {
+              "const": "NOT_COLLECTED"
+            },
+            "local_recovery_state": {
+              "const": "BLOCKED_EXTERNAL_HISTORICAL_RETRIEVAL_REQUIRED"
+            },
+            "source_evidence_ref": {
+              "type": "null"
+            },
+            "publication_at": {
+              "type": "null"
+            },
+            "available_before_cutoff": {
+              "type": "null"
+            },
+            "admission_state": {
+              "const": "BLOCKED_NO_LOCAL_CUTOFF_SAFE_EVIDENCE"
+            }
+          }
+        },
+        "guidance": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source_sheet_state",
+            "value",
+            "collection_state",
+            "local_recovery_state",
+            "source_evidence_ref",
+            "publication_at",
+            "available_before_cutoff",
+            "admission_state"
+          ],
+          "properties": {
+            "source_sheet_state": {
+              "const": "NEEDS_RESEARCH"
+            },
+            "value": {
+              "type": "null"
+            },
+            "collection_state": {
+              "const": "NOT_COLLECTED"
+            },
+            "local_recovery_state": {
+              "const": "BLOCKED_EXTERNAL_HISTORICAL_RETRIEVAL_REQUIRED"
+            },
+            "source_evidence_ref": {
+              "type": "null"
+            },
+            "publication_at": {
+              "type": "null"
+            },
+            "available_before_cutoff": {
+              "type": "null"
+            },
+            "admission_state": {
+              "const": "BLOCKED_NO_LOCAL_CUTOFF_SAFE_EVIDENCE"
+            }
+          }
+        },
+        "PO_order_status": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source_sheet_state",
+            "value",
+            "collection_state",
+            "local_recovery_state",
+            "source_evidence_ref",
+            "publication_at",
+            "available_before_cutoff",
+            "admission_state"
+          ],
+          "properties": {
+            "source_sheet_state": {
+              "const": "NEEDS_RESEARCH"
+            },
+            "value": {
+              "type": "null"
+            },
+            "collection_state": {
+              "const": "NOT_COLLECTED"
+            },
+            "local_recovery_state": {
+              "const": "BLOCKED_EXTERNAL_HISTORICAL_RETRIEVAL_REQUIRED"
+            },
+            "source_evidence_ref": {
+              "type": "null"
+            },
+            "publication_at": {
+              "type": "null"
+            },
+            "available_before_cutoff": {
+              "type": "null"
+            },
+            "admission_state": {
+              "const": "BLOCKED_NO_LOCAL_CUTOFF_SAFE_EVIDENCE"
+            }
+          }
+        },
+        "backlog_status": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source_sheet_state",
+            "value",
+            "collection_state",
+            "local_recovery_state",
+            "source_evidence_ref",
+            "publication_at",
+            "available_before_cutoff",
+            "admission_state"
+          ],
+          "properties": {
+            "source_sheet_state": {
+              "const": "NEEDS_RESEARCH"
+            },
+            "value": {
+              "type": "null"
+            },
+            "collection_state": {
+              "const": "NOT_COLLECTED"
+            },
+            "local_recovery_state": {
+              "const": "BLOCKED_EXTERNAL_HISTORICAL_RETRIEVAL_REQUIRED"
+            },
+            "source_evidence_ref": {
+              "type": "null"
+            },
+            "publication_at": {
+              "type": "null"
+            },
+            "available_before_cutoff": {
+              "type": "null"
+            },
+            "admission_state": {
+              "const": "BLOCKED_NO_LOCAL_CUTOFF_SAFE_EVIDENCE"
+            }
+          }
+        },
+        "qualification_status": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source_sheet_state",
+            "value",
+            "collection_state",
+            "local_recovery_state",
+            "source_evidence_ref",
+            "publication_at",
+            "available_before_cutoff",
+            "admission_state"
+          ],
+          "properties": {
+            "source_sheet_state": {
+              "const": "NEEDS_RESEARCH"
+            },
+            "value": {
+              "type": "null"
+            },
+            "collection_state": {
+              "const": "NOT_COLLECTED"
+            },
+            "local_recovery_state": {
+              "const": "BLOCKED_EXTERNAL_HISTORICAL_RETRIEVAL_REQUIRED"
+            },
+            "source_evidence_ref": {
+              "type": "null"
+            },
+            "publication_at": {
+              "type": "null"
+            },
+            "available_before_cutoff": {
+              "type": "null"
+            },
+            "admission_state": {
+              "const": "BLOCKED_NO_LOCAL_CUTOFF_SAFE_EVIDENCE"
+            }
+          }
+        },
+        "volume_repeat_order_status": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source_sheet_state",
+            "value",
+            "collection_state",
+            "local_recovery_state",
+            "source_evidence_ref",
+            "publication_at",
+            "available_before_cutoff",
+            "admission_state"
+          ],
+          "properties": {
+            "source_sheet_state": {
+              "const": "NEEDS_RESEARCH"
+            },
+            "value": {
+              "type": "null"
+            },
+            "collection_state": {
+              "const": "NOT_COLLECTED"
+            },
+            "local_recovery_state": {
+              "const": "BLOCKED_EXTERNAL_HISTORICAL_RETRIEVAL_REQUIRED"
+            },
+            "source_evidence_ref": {
+              "type": "null"
+            },
+            "publication_at": {
+              "type": "null"
+            },
+            "available_before_cutoff": {
+              "type": "null"
+            },
+            "admission_state": {
+              "const": "BLOCKED_NO_LOCAL_CUTOFF_SAFE_EVIDENCE"
+            }
+          }
+        },
+        "design_win_customer_adoption_status": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source_sheet_state",
+            "value",
+            "collection_state",
+            "local_recovery_state",
+            "source_evidence_ref",
+            "publication_at",
+            "available_before_cutoff",
+            "admission_state"
+          ],
+          "properties": {
+            "source_sheet_state": {
+              "const": "NEEDS_RESEARCH"
+            },
+            "value": {
+              "type": "null"
+            },
+            "collection_state": {
+              "const": "NOT_COLLECTED"
+            },
+            "local_recovery_state": {
+              "const": "BLOCKED_EXTERNAL_HISTORICAL_RETRIEVAL_REQUIRED"
+            },
+            "source_evidence_ref": {
+              "type": "null"
+            },
+            "publication_at": {
+              "type": "null"
+            },
+            "available_before_cutoff": {
+              "type": "null"
+            },
+            "admission_state": {
+              "const": "BLOCKED_NO_LOCAL_CUTOFF_SAFE_EVIDENCE"
+            }
+          }
+        },
+        "fab_capex_state_status": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source_sheet_state",
+            "value",
+            "collection_state",
+            "local_recovery_state",
+            "source_evidence_ref",
+            "publication_at",
+            "available_before_cutoff",
+            "admission_state"
+          ],
+          "properties": {
+            "source_sheet_state": {
+              "const": "NEEDS_RESEARCH"
+            },
+            "value": {
+              "type": "null"
+            },
+            "collection_state": {
+              "const": "NOT_COLLECTED"
+            },
+            "local_recovery_state": {
+              "const": "BLOCKED_EXTERNAL_HISTORICAL_RETRIEVAL_REQUIRED"
+            },
+            "source_evidence_ref": {
+              "type": "null"
+            },
+            "publication_at": {
+              "type": "null"
+            },
+            "available_before_cutoff": {
+              "type": "null"
+            },
+            "admission_state": {
+              "const": "BLOCKED_NO_LOCAL_CUTOFF_SAFE_EVIDENCE"
+            }
+          }
+        },
+        "latest_material_earnings_guidance_refs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source_sheet_state",
+            "value",
+            "collection_state",
+            "local_recovery_state",
+            "source_evidence_ref",
+            "publication_at",
+            "available_before_cutoff",
+            "admission_state"
+          ],
+          "properties": {
+            "source_sheet_state": {
+              "const": "NEEDS_RESEARCH"
+            },
+            "value": {
+              "type": "null"
+            },
+            "collection_state": {
+              "const": "NOT_COLLECTED"
+            },
+            "local_recovery_state": {
+              "const": "BLOCKED_EXTERNAL_HISTORICAL_RETRIEVAL_REQUIRED"
+            },
+            "source_evidence_ref": {
+              "type": "null"
+            },
+            "publication_at": {
+              "type": "null"
+            },
+            "available_before_cutoff": {
+              "type": "null"
+            },
+            "admission_state": {
+              "const": "BLOCKED_NO_LOCAL_CUTOFF_SAFE_EVIDENCE"
+            }
+          }
+        }
+      }
+    }
+  }
+}
