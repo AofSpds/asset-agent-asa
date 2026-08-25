@@ -1,0 +1,74 @@
+{
+  "artifact_id": "M3TOP3-FC1-G3-B-C-DETERMINISTIC-CLOSURE-ASSESSMENT-20260826",
+  "issued_at_kst": "2026-08-26T01:05:44+09:00",
+  "role": "AAA-PMO-ORCHESTRATOR_DELEGATED_NON_VALIDATOR_WORKER",
+  "validator_hold": true,
+  "iva_execution_participation": "NONE",
+  "git_or_issue_mutation": false,
+  "price_byte_recovery_repeated": false,
+  "sealed_receipt_replay_run": false,
+  "verdict": "DETERMINISTIC_GATE_CLOSURE_NOT_CURRENTLY_EXECUTABLE",
+  "axis_b": {
+    "state": "OPEN",
+    "target_population": "ALL_ROWS_IN_THREE_EXACT_YEARLY_COMPONENTS",
+    "target_row_count": 1822019,
+    "missing": [
+      "GOVERNED_COMPARISON_FORMULA",
+      "NUMERIC_MATERIALITY_THRESHOLD",
+      "BOUNDARY_AND_TOLERANCE_RULE",
+      "EDGE_CASE_AND_CROSS_YEAR_RULE",
+      "ADJUDICATION_ACCEPTANCE_RULE"
+    ],
+    "scan_executed": false
+  },
+  "axis_c": {
+    "state": "OPEN",
+    "existing_action_rows": 11,
+    "existing_action_unique_codes": 10,
+    "missing": [
+      "INDEPENDENTLY_FROZEN_KRX_EVENT_ARTIFACT",
+      "EXACT_REFERENCE_SET_DIGEST",
+      "MARKET_AND_EVENT_TAXONOMY_SCOPE",
+      "EFFECTIVE_DATE_AND_FACTOR_RULES",
+      "OMISSION_AND_EXHAUSTION_CRITERIA"
+    ],
+    "scan_executed": false
+  },
+  "governed_calendar": {
+    "state": "OPEN",
+    "raw_file_calendar": {
+      "year_partitioned_distinct_date_count": 638,
+      "2024": {"count": 244, "min": "2024-01-02", "max": "2024-12-30"},
+      "2025": {"count": 242, "min": "2025-01-02", "max": "2025-12-30"},
+      "2026_through_08_14": {"count": 152, "min": "2026-01-02", "max": "2026-08-14"}
+    },
+    "missing": [
+      "NORMATIVE_CALENDAR_SOURCE_OR_DERIVATION_PROFILE",
+      "MARKET_SESSION_SCOPE",
+      "CANONICAL_OUTPUT_AND_DIGEST_PROFILE",
+      "INDEPENDENT_EXPECTATION_MANIFEST",
+      "AUTHORITY_RECEIPT",
+      "W1_W8_UPSTREAM_TUPLE_AUTHORITY_PROVENANCE"
+    ],
+    "release_created": false
+  },
+  "timing_without_validator": {
+    "assessment_actual_hours": 0.35,
+    "assessment_cru": 4,
+    "conditional_worker_candidate_p50_hours": 2.25,
+    "conditional_worker_candidate_p90_hours": 5.0,
+    "conditional_worker_candidate_cru_range": [25, 40],
+    "external_source_or_authority_wait_excluded": true,
+    "current_eta": "BLOCKED_PENDING_OWNER_OR_GOVERNANCE_DECISIONS_AND_AXIS_C_SOURCE"
+  },
+  "gate_effect": "NONE",
+  "validation_closure_percent": 0,
+  "claim_ceiling": [
+    "NO_CA_COMPLETENESS_CLAIM",
+    "NO_GOVERNED_CALENDAR_CLAIM",
+    "NO_PRICE_CANONICAL_CLAIM",
+    "NO_G3_OR_INTEGRATED_CLOSURE_CLAIM",
+    "NO_EOPT_G0_EFFECT",
+    "NO_GOLDEN_REPLAY_FREEZE_PROMOTION_RELEASE_PRODUCTION_CLAIM"
+  ]
+}
