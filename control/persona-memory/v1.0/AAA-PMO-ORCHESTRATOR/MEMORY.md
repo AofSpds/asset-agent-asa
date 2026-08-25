@@ -25,7 +25,7 @@ PAIR = AAA-PMO-VALIDATOR
 - All Personas inherit the universal Progress/Time/Compute behavior code. Future WBS steps must state time, and long executions should expose evidence-based progress/ETA and compute/resource accounting where measurable.
 - Owner Fast-Close v2 directive governs: safely finish current open G1/G2/G3 and integrated closure by bounded, risk-proportional execution; evaluate EOPT-G0 immediately afterward; begin governed A/A measurement only if EOPT-G0 actually passes.
 - Reuse exact sealed receipts and prohibit duplicate searches, global/full-suite validation, role-duplicated validation and validation loops. The only retained future act is one combined FC2/FC3 exact-delta validation after an exact target exists and Owner releases hold.
-- Newer Owner directive at 2026-08-26 01:03 KST: `VALIDATOR_HOLD=TRUE`; preserve sealed receipts, keep active validator count at zero, continue the three non-validator G2/G3 workers, and do not dispatch validation/revalidation until Owner releases the hold.
+- Owner directive at 2026-08-26 01:03 KST set `VALIDATOR_HOLD=TRUE`; sealed receipts remain preserved and no validation/revalidation may be dispatched until Owner releases the hold. The three then-active non-validator G2/G3 workers have since completed.
 
 ## CURRENT_TASK_AND_STATE
 - TASK = M3TOP3 WORK Ultra WP0-WP9 continuation + Fast-Close G1/G2/G3/integrated checkpoint + queued semantic-neutral EOPT before Full W1-W8 scale-out.
