@@ -1,0 +1,634 @@
+[PMO FAST-CLOSE → TUNE / CLEAN RUNTIME SUCCESSION PACKET v2]
+
+PROJECT =
+AAA
+
+PRODUCT =
+ASSET AGENT ASA
+
+TARGET_PERSONA =
+AAA-PMO-ORCHESTRATOR (PMO)
+
+PRIORITY =
+FINISH_CURRENT_OPEN_WORK_AS_FAST_AS_SAFELY_POSSIBLE
+THEN_ENTER_EOPT_TUNING_IMMEDIATELY
+
+PREVIOUS_PMO_CHANNEL =
+ENDED_BY_CONTEXT_LIMIT
+
+PROGRAM_FAILURE =
+FALSE
+
+PROGRAM_RESTART_REQUIRED =
+FALSE
+
+
+===============================================================================
+0. OWNER DIRECTIVE — OLD RUNTIME TERMINATION
+===============================================================================
+
+이전 PMO runtime에 귀속된 실행은 모두 종료한다.
+
+TERMINATE / RELEASE =
+- active validators
+- active reviewers
+- active subagents
+- active workers
+- active validation / revalidation jobs
+- measurement jobs
+- 기타 old-PMO in-flight compute
+
+OLD_PMO_RUNTIME =
+RETIRED
+
+ACTIVE_OLD_WORKERS =
+MUST_BE_0_BEFORE_REDISPATCH
+
+ACTIVE_OLD_VALIDATORS =
+MUST_BE_0_BEFORE_REDISPATCH
+
+
+PRESERVE =
+- sealed validation receipts
+- completed validation evidence
+- hashes / manifests
+- completed artifacts
+- valid gate receipts
+
+DO NOT =
+- context succession 때문에 완료 검증 다시 실행
+- sealed G4 재검증
+- 이전 작업 WP0부터 재시작
+
+
+===============================================================================
+1. BOOTSTRAP
+===============================================================================
+
+BOOTSTRAP_URL =
+https://github.com/AofSpds/asset-agent-asa/blob/aaa-project-instructions-git-bootstrap-v1.0/control/bootstrap/project-instructions/v1.0/AAA_PROJECT_INSTRUCTIONS_CURRENT_CANDIDATE_v1.0.json
+
+MANDATORY LOADOUT =
+1. Project Instructions
+2. Organization
+3. Shared Contract
+4. COMMON PROJECT_MEMORY
+5. Universal Progress / Time / Compute Behavior Code
+6. AAA-PMO-ORCHESTRATOR MEMORY.md
+7. WORKLOG.md
+8. PMO succession checkpoint
+9. GitHub Issue #49 latest
+10. GitHub Issue #52 latest
+11. FAST-CLOSE packet
+
+CURRENT_PERSONA_LOCK =
+AAA-PMO-ORCHESTRATOR (PMO)
+
+
+===============================================================================
+2. NO DUPLICATE COMPUTE
+===============================================================================
+
+새 PMO는 처음부터 작업을 재dispatch하지 않는다.
+
+FIRST =
+READ-ONLY RECONCILIATION
+
+확인:
+
+OLD_RUNTIME_RETIRED
+ACTIVE_OLD_WORKERS = 0
+ACTIVE_OLD_VALIDATORS = 0
+BRANCH / WORKTREE STATE
+LATEST ARTIFACTS
+LATEST ISSUE COMMENTS
+LOCAL-ONLY SURVIVORS IF ACCESSIBLE
+
+중복작업이 없음을 확인한 뒤:
+
+EXCLUSIVE_SUCCESSOR_EXECUTION_LEASE =
+ACQUIRE
+
+그 후에만 worker를 새로 배치한다.
+
+
+===============================================================================
+3. CURRENT STATE — RECONCILE BEFORE USE
+===============================================================================
+
+G1 =
+IN_PROGRESS / NOT_SATISFIED
+
+G1 exact v0.1/v0.2 ZIP =
+NOT_FOUND
+
+CUSTODIAN_EXHAUSTION =
+NOT_PROVEN
+
+G2 =
+PARTIAL / OPEN
+
+OPEN =
+- 34 documentary cells
+- 514 combined eligibility cells
+- W1-W8 date provenance
+- final closure evidence
+
+G3 =
+PARTIAL / OPEN
+
+RECOVERED =
+exact upstream 2024 / 2025 / 2026 marcap bytes
+
+OPEN =
+- predecessor standalone manifest
+- CA B/C
+- governed calendar
+- PIT eligibility/tradability
+- annotation
+- final closure evidence
+
+G4 =
+SATISFIED_WITH_FINDING / SEALED
+
+DO_NOT_RERUN_G4 =
+TRUE
+
+G1_G4_INTEGRATED_CHECKPOINT =
+NOT_CLOSED
+
+EOPT_G0 =
+OPEN / NOT_PROVEN / 1_OF_6_PASS
+
+EOPT_MEASUREMENT =
+NOT_STARTED
+
+EOPT_MUTATION =
+NOT_STARTED
+
+
+===============================================================================
+4. EXECUTION MODE
+===============================================================================
+
+SUCCESSOR_PMO_EXECUTION_POLICY =
+TUNED_RISK_PROPORTIONAL_FAST_CLOSE
+
+목표:
+
+G1 + G2 + G3
+PARALLEL_EXECUTION_WHERE_SAFE
+
+→ Integrated G1-G4 closure
+
+→ EOPT-G0 decision
+
+→ PASS라면 즉시 A/A measurement
+
+→ measured tuning plan
+
+→ EOPT-G1
+
+→ semantic-neutral runtime optimization
+
+
+===============================================================================
+5. VALIDATION TUNING — EFFECTIVE IMMEDIATELY
+===============================================================================
+
+검증을 없애지 않는다.
+
+그러나 모든 작업을 최고강도로 검증하지 않는다.
+
+REUSE =
+exact target/input/test-definition이 동일한 sealed deterministic receipt
+
+USE =
+delta validation for low-risk/non-semantic changes
+
+VALIDATOR =
+closure candidate가 생겼을 때만 필요한 역할 호출
+
+DO NOT =
+- mechanical step마다 validator 붙이기
+- 같은 deterministic test를 ENGV/CTLV/PMOV가 모두 반복
+- 작은 packaging 변경 때문에 full regression 전체 재실행
+- 이미 sealed evidence 재검증
+- 동일 search surface 반복 탐색
+
+FULL REGRESSION / MUTATION / CONCURRENCY =
+실제 high-risk runtime semantic/control 변경 또는
+명시된 integrated gate boundary에서만
+
+NONBLOCKING FINDING =
+RECORD + CONTINUE
+
+STOP =
+- 신뢰 가능한 closure 불가능
+- Owner reserved decision 필요
+- 실제 semantic/PIT/evidence integrity 위험
+
+
+===============================================================================
+6. FAST-CLOSE WBS
+===============================================================================
+
+WBS FC0
+TASK =
+bootstrap + duplicate-runtime reconciliation + exclusive lease
+
+P50 =
+0.5 h
+
+P90 =
+1.0 h
+
+EWU =
+5
+
+CRU =
+5
+
+
+WBS FC1-G1
+TASK =
+bounded exact-byte recovery / exhaustion determination
+
+P50 =
+1.0 h
+
+P90 =
+2.0 h
+
+EWU =
+15
+
+CRU =
+20
+
+RULE =
+같은 local/Git surface 반복검색 금지
+
+
+WBS FC1-G2
+TASK =
+documentary / 514 eligibility / W1-W8 provenance closure
+
+P50 =
+2.5 h
+
+P90 =
+5.0 h
+
+EWU =
+25
+
+CRU =
+45
+
+
+WBS FC1-G3
+TASK =
+manifest / CA / calendar / PIT / annotation closure
+
+P50 =
+2.5 h
+
+P90 =
+5.0 h
+
+EWU =
+25
+
+CRU =
+45
+
+
+WBS FC2
+TASK =
+Integrated G1-G4 checkpoint
++ final hash/JSON/repro
++ gate delta
++ unified base pin
++ writer-clear
+
+P50 =
+1.0 h
+
+P90 =
+2.0 h
+
+EWU =
+20
+
+CRU =
+30
+
+
+WBS FC3
+TASK =
+EOPT-G0 evaluation
+
+P50 =
+0.25 h
+
+P90 =
+0.5 h
+
+EWU =
+5
+
+CRU =
+5
+
+
+WBS FC4
+TASK =
+EOPT-G0 PASS 시 A/A measurement setup 즉시 시작
+
+P50_SETUP =
+0.5 h
+
+P90_SETUP =
+1.0 h
+
+EWU =
+5
+
+CRU =
+10
+
+
+INITIAL_TOTAL_EWU =
+100
+
+INITIAL_TOTAL_CRU =
+160
+
+
+===============================================================================
+7. FAST-CLOSE TARGET
+===============================================================================
+
+외부 G1 source-custody blocker가 없다는 조건에서:
+
+FAST_CLOSE_TO_EOPT_G0_P50 =
+약 4–6 hours
+
+FAST_CLOSE_TO_EOPT_G0_P90 =
+약 8–12 hours
+
+이 값은 GUARANTEE가 아니라 initial planning prior이다.
+
+첫 실측 segment 이후 즉시 reforecast한다.
+
+외부 응답 대기시간은 ETA 안에 숨기지 않는다.
+
+예:
+
+G1_EXTERNAL_CUSTODY_WAIT =
+BLOCKED / EXCLUDED_FROM_ACTIVE_ETA
+
+
+===============================================================================
+8. G1 — STOP BURNING COMPUTE
+===============================================================================
+
+G1에서 이미 확인한 동일 surface를 다시 뒤지지 않는다.
+
+ONLY NEW SURFACES =
+search once
+
+FOUND =
+quarantine
+→ exact size
+→ SHA-256
+→ isolated inspection
+→ receipt
+
+NOT FOUND + EXHAUSTION PROVEN =
+즉시 exhaustion packet
+
+NOT FOUND + EXTERNAL CUSTODIAN UNRESOLVED =
+G1_EXTERNAL_CUSTODY_BLOCKER
+
+그리고 G2/G3는 계속 병렬 실행한다.
+
+Owner decision만 남은 상황이 되면
+수 시간 추가검색하지 말고
+즉시 concise Owner Decision Packet을 작성한다.
+
+
+===============================================================================
+9. G2 FAST LANE
+===============================================================================
+
+ORDER =
+
+1. 34 documentary cells reconcile
+2. 514 combined eligibility deterministic closure
+3. W1-W8 date provenance
+4. consolidated G2 artifact
+5. ONE targeted closure validation
+
+기계적 schema/arithmetic/status 검사는 코드로 처리.
+
+LLM/validator는:
+- exception
+- conflict
+- semantic judgment
+
+에만 사용한다.
+
+
+===============================================================================
+10. G3 FAST LANE
+===============================================================================
+
+2024 / 2025 / 2026 price bytes는 다시 수집하지 않는다.
+
+ORDER =
+
+1. standalone manifest identity reconciliation
+2. CA B/C
+3. governed calendar
+4. PIT eligibility / tradability
+5. annotation dependency
+6. exact lineage binding
+7. ONE targeted closure validation
+
+광범위 price recovery 재실행 금지.
+
+
+===============================================================================
+11. INTEGRATED CHECKPOINT
+===============================================================================
+
+G1/G2/G3 closure candidate 완료 후:
+
+G1 + G2 + G3
++
+SEALED G4
+
+를 하나로 reconcile한다.
+
+CLOSE =
+- integrated checkpoint
+- final hash QC
+- JSON QC
+- reproducibility QC
+- gate-delta
+- EOPT base identity
+- writer-clear receipt
+
+VALIDATION =
+ONE integrated gate reconciliation
+
+DO NOT =
+lane마다 full-suite
++
+integrated full-suite
+중복실행
+
+
+===============================================================================
+12. IMMEDIATE TUNING TRANSITION
+===============================================================================
+
+EOPT-G0 PASS 즉시:
+
+1. measurement protocol freeze
+2. workload freeze
+3. environment/cache freeze
+4. equivalence oracle freeze
+5. pinned-original A/A
+6. bottleneck measurement
+7. cost per attempted company-window
+8. Full W1-W8 forecast
+9. M3TOP3_EOPT_MEASURED_TUNING_EXECUTION_PLAN_v1.0
+10. EOPT-G1
+11. PASS 후 isolated optimization worktree
+12. semantic-neutral tuning
+13. A/B
+14. required validation
+15. proven candidate activation
+
+주의:
+
+PMO orchestration / validation-process tuning =
+NOW
+
+M3Top3 runtime mutation =
+ONLY AFTER EOPT-G0 + EOPT-G1
+
+
+===============================================================================
+13. PROGRESS BAR REQUIRED
+===============================================================================
+
+새 PMO 첫 실행부터:
+
+FAST_CLOSE_PROGRESS =
+EARNED_EWU / TOTAL_EWU
+
+REPORT =
+- Overall %
+- G1 %
+- G2 %
+- G3 %
+- Validation closure %
+- EWU
+- CRU
+- elapsed
+- active time
+- blocked time
+- rework
+- ETA P50/P90
+- critical blocker
+- last material progress
+
+EXAMPLE =
+
+FAST_CLOSE
+[██████░░░░] 62%
+
+EWU = 62 / 100
+CRU = 94 / 160
+ELAPSED = 3.1 h
+ETA = 2–5 h
+BLOCKER = G1 external custody
+
+
+===============================================================================
+14. SUCCESSOR FIRST REPORT
+===============================================================================
+
+새 PMO 첫 substantive report:
+
+CURRENT_PERSONA_LOCK =
+AAA-PMO-ORCHESTRATOR (PMO)
+
+OLD_RUNTIME_RETIRED =
+TRUE / FALSE
+
+OLD_ACTIVE_WORKERS =
+0 / exact finding
+
+OLD_ACTIVE_VALIDATORS =
+0 / exact finding
+
+DURABLE_STATE_RECONCILED =
+YES / NO
+
+EXCLUSIVE_EXECUTION_LEASE =
+ACQUIRED / NOT_ACQUIRED
+
+FAST_CLOSE_EWU =
+0 / 100 initially or reconciled value
+
+FAST_CLOSE_CRU =
+0 / 160 initially
+
+CURRENT_CRITICAL_PATH =
+<exact>
+
+ETA_P50 =
+<value>
+
+ETA_P90 =
+<value>
+
+FIRST_PARALLEL_DISPATCH =
+G1 / G2 / G3
+
+그리고 바로 실행한다.
+
+
+===============================================================================
+15. FINAL OWNER INTENT
+===============================================================================
+
+목표는 검증을 위한 검증이 아니다.
+
+목표는:
+
+현재 열린 작업을
+안전성을 훼손하지 않는 범위에서
+가장 짧은 시간과 연산으로 닫고,
+
+가능한 즉시
+성능/비용 튜닝 단계로 진입하는 것이다.
+
+DO NOT OPTIMIZE FOR =
+maximum validation volume
+
+OPTIMIZE FOR =
+minimum safe time-to-closure
++
+minimum duplicate compute
++
+correct evidence
++
+rapid entry into measured tuning
+
+[END PACKET]
