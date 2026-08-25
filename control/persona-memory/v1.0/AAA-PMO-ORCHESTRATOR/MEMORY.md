@@ -28,7 +28,10 @@ PAIR = AAA-PMO-VALIDATOR
 - EOPT_MEASUREMENT_STARTED = NO
 - EOPT_MUTATION_STARTED = NO
 - FULL_W1_W8_SCALE_OUT = NOT_AUTHORIZED
-- SUCCESSOR_RESUME_PROGRESS = 70/100 EWU; validation closure 0%
+- SUCCESSOR_RESUME_PROGRESS_LEGACY_LEDGER = 70/100 EWU; preserved as completed control-plane history
+- ACTIVE_FAST_CLOSE_PROGRESS = 14/100 EWU; validation closure 0%
+- ACTIVE_FAST_CLOSE_PLAN = FC0-FC4 / 100 EWU / 160 planned CRU
+- ACTIVE_ETA = P50 4-6h / P90 8-12h / LOW confidence / G1 external wait excluded
 
 ## OPEN_BLOCKERS
 - G1 exact v0.1/v0.2 research-package ZIP bytes remain NOT_FOUND; custodian exhaustion NOT_PROVEN; source-custody coordination active on #52.
@@ -42,6 +45,7 @@ PAIR = AAA-PMO-VALIDATOR
 - Preserve recovered prior local-only evidence bundle without elevating original claims.
 - The predecessor standalone manifest digest `56d36d51...73c4` is declaration-only: v0.8 `Price_Manifest` row 2 records `NOT_RECOMPUTED_NO_MANIFEST_FILE` and that bytes were not attached. Do not substitute the legacy import manifest or impersonate the predecessor with a forward manifest.
 - EOPT measurement/mutation and Full W1-W8 scale-out remain blocked until governed gates actually pass.
+- Apply `TUNED_RISK_PROPORTIONAL_FAST_CLOSE`: reuse exact sealed receipts, delta-validate low-risk changes, and run one targeted closure validation only when an exact candidate exists. Full regression/mutation/concurrency is reserved for high-risk semantic/control changes or the integrated boundary.
 - Persona Memory is continuity only and never supersedes governed current state.
 
 ## REQUIRED_NORMATIVE_REFS
@@ -54,21 +58,24 @@ PAIR = AAA-PMO-VALIDATOR
 - GitHub Issue #54 current state/comments
 - `PMO_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-26_0016_KST.md`
 - `PMO_CHANNEL_HANDOFF_RELEASE_ACTIVE_VALIDATION_2026-08-26_0024_KST.md`
+- `PMO_FAST_CLOSE_TO_TUNE_CLEAN_RUNTIME_SUCCESSION_PACKET_v2.txt`
 
 ## LATEST_CHECKPOINTS
 - succession checkpoint update commit: `7edee74aa2b81dda6d466dc3d92b9858ce9e016b`
 - release directive commit: `59a50da927fc831059420245ac92f620fc12ced3`
 - successor lease branch: `aaa-pmo-m3top3-successor-resume-20260826-0034`
 - successor progress dashboard head: `75de7e9c059d3708f3f9be87826e3f4fb8d86f90`
+- fast-close v2 packet commit: `7e5dfbab10cadfeae6535b1da0f958c0ba48225e`
+- fast-close dashboard head: `34599196e80189d3fc38dd6254021c95eec87b2a`
 - prior local evidence bundle SHA-256: `e4aa39bd563e88cf4a587a70ad90db6c1a1bd541e31f5ae4e45b4b8e29c52cc6`
 - latest G3 upstream recovery packet manifest: `c6992f2219fe182f8ecf1a9d7aaaccb3339c35faf5cf35db6c4eef1f4fecdbf3`
 
 ## NEXT_ROUTE
-1. Continue the active highest-yield G2/G3 open unit from Issue #54.
-2. Keep G1 source custody active on Issue #52 without duplicating completed searches.
-3. Reacquire non-IVA validation only for a newly completed exact target/hash/lineage.
-4. Close the integrated G1-G4 checkpoint only after actual gate evidence closes.
-5. Evaluate EOPT-G0 only after integrated gate closure.
+1. Run FC1 G1/G2/G3 in safe parallel lanes; G1 is external-custody blocked and identical-surface search is prohibited.
+2. Current direct unit: G3 CA axes B/C deterministic-closure definition and evidence sweep.
+3. G2 order: 34 documentary → 514 eligibility → W1-W8 provenance → consolidated artifact → one targeted validation.
+4. Reacquire non-IVA validation only for a newly completed exact target/hash/lineage.
+5. Close integrated G1-G4 with one integrated reconciliation; then evaluate EOPT-G0 and, only on PASS, begin A/A setup.
 
 ## DO_NOT_FORGET
 - PMO는 domain semantic supersession authority가 아니다.
@@ -79,4 +86,4 @@ PAIR = AAA-PMO-VALIDATOR
 - TIME_KST = 2026-08-22 04:19 KST | IMPORTANCE = HIGH | LIFECYCLE = PERSONA | STATE = ACTIVE | SOURCE_REF = OWNER_REQUEST | NOTE = 조직도별 persistent memo 공간 초기화.
 - TIME_KST = 2026-08-26 00:16 KST | IMPORTANCE = P0_CONTINUITY | LIFECYCLE = RUNTIME | STATE = SUPERSEDED | SOURCE_REF = OWNER_REPORT + GIT_ISSUE_49_52 | NOTE = Prior PMO visible channel reached context limit. Successor checkpoint created; resume from Git without program restart.
 - TIME_KST = 2026-08-26 00:47 KST | IMPORTANCE = P0_CONTINUITY | LIFECYCLE = RUNTIME | STATE = ACTIVE | SOURCE_REF = SUCCESSOR_LEASE + ISSUES_49_52_54 | NOTE = Successor runtime acquired exclusive lease; prior evidence recovered; control-plane state synchronized at 70/100 EWU with zero new validation closure.
-
+- TIME_KST = 2026-08-26 00:48 KST | IMPORTANCE = P0_EXECUTION | LIFECYCLE = PROGRAM | STATE = ACTIVE | SOURCE_REF = OWNER_FAST_CLOSE_V2 | NOTE = Active progress baseline rebased to FC0-FC4 100 EWU/160 CRU. Reconciled earned progress 14/100 EWU; direct execution resumes at G3 CA B/C while G1 external custody wait is excluded from active ETA.
