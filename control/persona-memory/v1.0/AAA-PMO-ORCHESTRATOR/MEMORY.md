@@ -11,6 +11,9 @@ PAIR = AAA-PMO-VALIDATOR
 - LEASE_ID = `PMO-SUCCESSOR-20260826-0034-KST`
 - OLD_ACCESSIBLE_WORKERS = 0
 - OLD_ACCESSIBLE_VALIDATORS = 0
+- ACTIVE_SUCCESSOR_NON_VALIDATOR_WORKERS = 3 (`G2_FAST_LANE`, `G3_CA_CALENDAR`, `G3_PIT_ANNOTATION`)
+- ACTIVE_SUCCESSOR_VALIDATORS = 0
+- OWNER_VALIDATOR_HOLD = TRUE
 - COMPETING_M3TOP3_MATERIAL_LEASE = NOT_FOUND
 - LATE_COMPLETED_PREDECESSOR_BRANCH_SEQUENCE = RECONCILED_THROUGH_COMMIT `5f18bfe0b5e8fe0c820951dc8d8024586ef01c51`
 - DUPLICATE_MATERIAL_EXECUTION = FALSE
@@ -22,10 +25,11 @@ PAIR = AAA-PMO-VALIDATOR
 - All Personas inherit the universal Progress/Time/Compute behavior code. Future WBS steps must state time, and long executions should expose evidence-based progress/ETA and compute/resource accounting where measurable.
 - Owner Fast-Close v2 directive governs: safely finish current open G1/G2/G3 and integrated closure by bounded, risk-proportional execution; evaluate EOPT-G0 immediately afterward; begin governed A/A measurement only if EOPT-G0 actually passes.
 - Reuse exact sealed receipts, prohibit duplicate searches/full-suite validation, and reacquire validators only for actual closure candidates or material high-risk findings.
+- Newer Owner directive at 2026-08-26 01:03 KST: `VALIDATOR_HOLD=TRUE`; preserve sealed receipts, keep active validator count at zero, continue the three non-validator G2/G3 workers, and do not dispatch validation/revalidation until Owner releases the hold.
 
 ## CURRENT_TASK_AND_STATE
 - TASK = M3TOP3 WORK Ultra WP0-WP9 continuation + Fast-Close G1/G2/G3/integrated checkpoint + queued semantic-neutral EOPT before Full W1-W8 scale-out.
-- STATE = PROGRAM_IN_PROGRESS / SUCCESSOR_RUNTIME_ACTIVE / OPEN_GATE_EXECUTION
+- STATE = PROGRAM_IN_PROGRESS / SUCCESSOR_RUNTIME_ACTIVE / NON_VALIDATOR_OPEN_GATE_EXECUTION / VALIDATOR_HOLD
 - DURABLE_PARENT_QUEUE = GitHub Issue #49
 - G1_SOURCE_CUSTODY = GitHub Issue #52
 - G2_EXECUTION_QUEUE = GitHub Issue #53
@@ -39,21 +43,25 @@ PAIR = AAA-PMO-VALIDATOR
 - ACTIVE_FAST_CLOSE_PROGRESS = 14/100 EWU; validation closure 0%
 - ACTIVE_FAST_CLOSE_PLAN = FC0-FC4 / 100 EWU / 160 planned CRU
 - ACTIVE_CRU = 1.5 sealed wall-time proxy; bounded reconciliation control-plane CRU not instrumented
-- ACTIVE_ETA = P50 4-6h / P90 8-12h / LOW confidence / G1 external wait excluded
+- PRE_VALIDATION_CANDIDATE_ETA = P50 3-4.5h / P90 6-8h / LOW confidence / G1 external wait excluded
+- SEALED_EOPT_G0_ETA = UNAVAILABLE_UNTIL_VALIDATOR_HOLD_RELEASED
+- POST_HOLD_VALIDATION_INCREMENT = P50 0.5-1.5h / P90 1-3h
 - REWORK = 1 bounded orchestration-reconciliation incident; REOPENED_UNITS = 0
 
 ## OPEN_BLOCKERS
 - G1 exact v0.1/v0.2 research-package ZIP bytes remain NOT_FOUND; named custodian/archive locator not observed; custodian exhaustion NOT_PROVEN; source-custody coordination active on #52. No duplicate internal search.
-- G2: 34 documentary cells, 514 combined eligibility cells, W1-W8 date provenance remain open. Lane is queued under the single lease; no duplicate actor was spawned.
-- G3: predecessor standalone-manifest expected identity was recovered as a workbook declaration, but exact manifest bytes remain NOT_FOUND and byte identity NOT_PROVEN. CA B/C, governed calendar, PIT eligibility/tradability, annotation remain open. Exact upstream 2024/2025/2026 range-complete marcap Parquet bytes are recovered/pinned and must not be re-recovered.
+- G2: 34 documentary cells, 514 combined eligibility cells, W1-W8 date provenance remain open. One non-validator Fast-Close worker is active under the single successor lease.
+- G3: predecessor standalone-manifest expected identity was recovered as a workbook declaration, but exact manifest bytes remain NOT_FOUND and byte identity NOT_PROVEN. CA B/C, governed calendar, PIT eligibility/tradability, annotation remain open. Exact upstream 2024/2025/2026 range-complete marcap Parquet bytes are recovered/pinned and must not be re-recovered. Two non-validator workers are active: CA/calendar and PIT/annotation.
 - Integrated G1-G4 checkpoint remains open; EOPT-G0 cannot close until actual preconditions pass.
+- Validation/revalidation is Owner-held. Exact closure candidates may be prepared, but validation closure and sealed EOPT-G0 disposition cannot occur until release.
 
 ## ACTIVE_FAST_CLOSE_LANES
 - FC0 = DONE / 5 of 5 EWU.
 - FC1-G1 = 5 of 15 EWU / external custody blocker / active only on genuinely new custodian evidence.
-- FC1-G2 = 0 of 25 EWU / queued / order: 34 documentary → 514 eligibility → W1-W8 provenance → consolidated candidate → one targeted validation.
-- FC1-G3 = 4 of 25 EWU / current direct unit: CA axes B/C deterministic-closure definition and evidence sweep.
+- FC1-G2 = 0 of 25 EWU / one non-validator worker active / order: 34 documentary → 514 eligibility → W1-W8 provenance → consolidated candidate.
+- FC1-G3 = 4 of 25 EWU / two non-validator workers active: CA/calendar and PIT/annotation.
 - G4 = 100% within sealed original scope / SATISFIED_WITH_FINDING / no succession rerun.
+- VALIDATION = HOLD / active count 0 / sealed receipts preserved.
 
 ## IMPORTANT_DECISIONS_TO_REMEMBER
 - Do not restart WP0-WP9 because the visible conversation ended.
@@ -61,7 +69,7 @@ PAIR = AAA-PMO-VALIDATOR
 - Preserve recovered prior local-only evidence bundle without elevating original claims.
 - The predecessor standalone manifest digest `56d36d51...73c4` is declaration-only: v0.8 `Price_Manifest` row 2 records `NOT_RECOMPUTED_NO_MANIFEST_FILE` and that bytes were not attached. Do not substitute the legacy import manifest or impersonate the predecessor with a forward manifest.
 - EOPT measurement/mutation and Full W1-W8 scale-out remain blocked until governed gates actually pass.
-- Apply `TUNED_RISK_PROPORTIONAL_FAST_CLOSE`: reuse exact sealed receipts, delta-validate low-risk changes, and run one targeted closure validation only when an exact candidate exists. Full regression/mutation/concurrency is reserved for high-risk semantic/control changes or the integrated boundary.
+- Apply `TUNED_RISK_PROPORTIONAL_FAST_CLOSE`: reuse exact sealed receipts and delta-validate low-risk changes. While the Owner hold is active, prepare exact closure candidates but do not dispatch any validator/revalidator.
 - The 00:59 reconciliation created no duplicate worker, validator, search, price recovery, gate execution, PASS or claim. The stale 5/100 snapshot is superseded; the active baseline remains 14/100.
 - Persona Memory is continuity only and never supersedes governed current state.
 
@@ -79,22 +87,24 @@ PAIR = AAA-PMO-VALIDATOR
 - succession checkpoint update commit: `7edee74aa2b81dda6d466dc3d92b9858ce9e016b`
 - release directive commit: `59a50da927fc831059420245ac92f620fc12ced3`
 - successor lease branch: `aaa-pmo-m3top3-successor-resume-20260826-0034`
-- successor progress dashboard head: `75de7e9c059d3708f3f9be87826e3f4fb8d86f90`
 - fast-close v2 packet commit: `7e5dfbab10cadfeae6535b1da0f958c0ba48225e`
-- active fast-close event correction commit: `d6f161dbbde19127a0359cceedc9bd72ecb1932d`
-- active fast-close dashboard currentization commit: `3845c889e6fbb864d09a407d16be59dd567f007f`
+- late-branch reconciliation event commit: `d6f161dbbde19127a0359cceedc9bd72ecb1932d`
 - stale 5/100 snapshot supersession commit: `0c3599c775452477a6f1995f9d0af700cd5e6584`
 - issue status-sync correction comments: `5413043764`, `5413047250`, `5413050355`
+- owner validator-hold issue comment: `5413181123`
+- validator-hold active-progress commit: `966503993b7709a6871ae9248cccd2711269a637`
+- validator-hold event commit: `1d977895ccbc86734a7bf57dc0eaed804c5d4f46`
+- validator-hold dashboard commit: `8b4845e8d72ef01788f7fadd0dad9b8a8f1aa058`
 - prior local evidence bundle SHA-256: `e4aa39bd563e88cf4a587a70ad90db6c1a1bd541e31f5ae4e45b4b8e29c52cc6`
 - latest G3 upstream recovery packet manifest: `c6992f2219fe182f8ecf1a9d7aaaccb3339c35faf5cf35db6c4eef1f4fecdbf3`
 
 ## NEXT_ROUTE
-1. Recheck branch stability and retain the single successor material-execution lease.
-2. Continue FC1-G1 only on new source-custody evidence; otherwise expose the external blocker and spend no duplicate compute.
-3. Current direct unit: G3 CA axes B/C deterministic-closure definition and evidence sweep; then governed calendar and PIT/annotation dependencies.
-4. G2 order: 34 documentary → 514 eligibility → W1-W8 provenance → consolidated artifact → one targeted validation.
-5. Reacquire non-IVA validation only for a newly completed exact target/hash/lineage.
-6. Close integrated G1-G4 with one non-duplicative reconciliation; then evaluate EOPT-G0 and, only on PASS, begin A/A setup.
+1. Continue FC1-G1 only on new source-custody evidence; otherwise expose the external blocker and spend no duplicate compute.
+2. Continue the active G2 non-validator lane through documentary/eligibility/date-provenance closure-candidate construction.
+3. Continue the two active G3 non-validator lanes: CA/calendar and PIT/annotation, reusing recovered exact price bytes.
+4. Do not reacquire or dispatch any validator/revalidator while `OWNER_VALIDATOR_HOLD=TRUE`.
+5. On Owner release, validate only newly completed exact targets/hash/lineage, close integrated G1-G4 non-duplicatively, then evaluate EOPT-G0.
+6. Only on actual EOPT-G0 PASS, begin governed A/A setup; no mutation before EOPT-G1.
 
 ## DO_NOT_FORGET
 - PMO는 domain semantic supersession authority가 아니다.
@@ -107,3 +117,4 @@ PAIR = AAA-PMO-VALIDATOR
 - TIME_KST = 2026-08-26 00:47 KST | IMPORTANCE = P0_CONTINUITY | LIFECYCLE = RUNTIME | STATE = ACTIVE | SOURCE_REF = SUCCESSOR_LEASE + ISSUES_49_52_54 | NOTE = Successor runtime acquired exclusive lease; prior evidence recovered; control-plane state synchronized at 70/100 EWU with zero new validation closure.
 - TIME_KST = 2026-08-26 00:48 KST | IMPORTANCE = P0_EXECUTION | LIFECYCLE = PROGRAM | STATE = ACTIVE | SOURCE_REF = OWNER_FAST_CLOSE_V2 | NOTE = Active progress baseline rebased to FC0-FC4 100 EWU/160 CRU. Reconciled earned progress 14/100 EWU; direct execution resumes at G3 CA B/C while G1 external custody wait is excluded from active ETA.
 - TIME_KST = 2026-08-26 00:59 KST | IMPORTANCE = P0_CONTINUITY | LIFECYCLE = RUNTIME | STATE = RECONCILED | SOURCE_REF = commits `0c3599c775452477a6f1995f9d0af700cd5e6584` / `d6f161dbbde19127a0359cceedc9bd72ecb1932d` / `3845c889e6fbb864d09a407d16be59dd567f007f` | NOTE = Late completed predecessor branch sequence detected and reconciled before any duplicate material execution; active Fast-Close v2 baseline remains 14/100 EWU.
+- TIME_KST = 2026-08-26 01:03 KST | IMPORTANCE = P0_OWNER_DIRECTIVE | LIFECYCLE = PROGRAM | STATE = ACTIVE | SOURCE_REF = Issue #49 comment `5413181123` + commits `966503993b7709a6871ae9248cccd2711269a637` / `1d977895ccbc86734a7bf57dc0eaed804c5d4f46` / `8b4845e8d72ef01788f7fadd0dad9b8a8f1aa058` | NOTE = Validator hold active; validators remain zero; three non-validator G2/G3 workers continue; sealed receipts preserved; sealed EOPT-G0 disposition waits for release.
