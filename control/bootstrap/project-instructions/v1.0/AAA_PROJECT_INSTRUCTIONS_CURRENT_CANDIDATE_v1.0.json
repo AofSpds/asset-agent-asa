@@ -39,8 +39,14 @@
   },
   "project_common_memory": {
     "path": "control/persona-memory/v1.0/COMMON/PROJECT_MEMORY.md",
-    "git_blob": "466899256d2c9d10ac5f70b9b63b2f810f164cee",
+    "git_blob": "487bd2c6216b2f935dc893dc87582d21a7ff6fe5",
     "purpose": "Cross-persona continuity information every current Persona loads before Persona-specific memory."
+  },
+  "universal_execution_behavior_code": {
+    "path": "control/persona-memory/v1.0/COMMON/AAA_EXECUTION_PROGRESS_TIME_COMPUTE_BEHAVIOR_CODE_v1.0.md",
+    "git_blob": "5945078b3a291d19beffb8c3f1336b4af37da354",
+    "scope": "ALL_CURRENT_AND_FUTURE_AAA_PERSONAS",
+    "purpose": "Universal progress/time/compute operating behavior loaded before Persona-specific MEMORY/WORKLOG whenever any Persona is instantiated or switched."
   },
   "persona_selector_registry": {
     "path": "control/persona-memory/v1.0/AAA_PERSONA_RUNTIME_SELECTOR_REGISTRY_v1.0.json",
@@ -54,7 +60,7 @@
   },
   "persona_runtime_loadout_guide": {
     "path": "control/persona-memory/v1.0/AAA_PERSONA_RUNTIME_LOADOUT_AND_MEMORY_CONTINUITY_GUIDE_v1.0.md",
-    "git_blob": "7e674a9f3aa13974ec70ce2c94520c74042f1acf"
+    "git_blob": "d807de8e82f824ffd275657dcd708ee034f6d3fb"
   },
   "persona_runtime_memo_template": {
     "path": "control/persona-memory/v1.0/AAA_PERSONA_RUNTIME_INJECTION_MEMO_TEMPLATE_v1.0.md"
@@ -71,11 +77,13 @@
     "RESOLVE_ACTIVE_SHARED_CONTRACT",
     "RESOLVE_PERSONA_AUTHORITY_AND_MANIFEST",
     "READ_PROJECT_COMMON_MEMORY",
+    "READ_UNIVERSAL_EXECUTION_PROGRESS_TIME_COMPUTE_BEHAVIOR_CODE",
     "RESOLVE_PERSONA_SELECTOR_FROM_OWNER_TASK_OR_PROVEN_PERSONA",
     "VERIFY_RESOLVED_PERSONA_IS_CURRENT_IN_GOVERNED_STATE",
     "RESOLVE_PERSONA_MEMORY_INDEX",
     "READ_CURRENT_PERSONA_MEMORY",
     "READ_CURRENT_PERSONA_WORKLOG",
+    "READ_APPLICABLE_ROLE_SPECIFIC_BEHAVIOR_REFINEMENT_IF_PRESENT",
     "RECOVER_CURRENT_TASK_BLOCKERS_CHECKPOINTS_NEXT_ROUTE",
     "COMPARE_PERSONA_ROLE_PAIR_AND_AUTHORITY_SURFACES",
     "RESPOND_OR_LOG_CURRENT_PERSONA_LOCK",
@@ -101,6 +109,7 @@
   "persistence_rule": "Important Owner directives, corrections, blockers, decisions, checkpoints, and exact references are written to Persona MEMORY and chronological WORKLOG; parallel Codex workers use unique append-only run journals and later consolidation so successor channels/runs can recover state without manual packet reconstruction.",
   "fail_closed_conditions": [
     "POINTER_OR_TARGET_UNREADABLE",
+    "UNIVERSAL_BEHAVIOR_CODE_UNREADABLE_FOR_EXECUTION_WBS_TASK",
     "EXACT_TARGET_IDENTITY_MISMATCH",
     "MULTIPLE_CURRENT_PERSONA_RESOLUTION",
     "P0_AUTHORITY_CONFLICT",
@@ -110,6 +119,6 @@
     "CODEX_MUTATING_TASK_WITHOUT_ISOLATED_TASK_BRANCH_WORKTREE",
     "PARALLEL_CODEX_SHARED_MUTABLE_WORKTREE_OR_SHARED_LOG_RACE"
   ],
-  "memory_rule": "Persona/common memory, worklogs, and Codex run journals support continuity and runtime injection context but never create authority, validation PASS, model semantics, Shared Contract semantics, Freeze, Release, or Production authority.",
+  "memory_rule": "Persona/common memory, universal/role behavior codes, worklogs, and Codex run journals support continuity and runtime injection context but never create authority, validation PASS, model semantics, Shared Contract semantics, Freeze, Release, or Production authority.",
   "activation_note": "This candidate does not itself activate product-level Project Instructions or a project-wide authority pointer. Governed review/validation and final product-level replacement remain separate acts."
 }
