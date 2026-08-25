@@ -1,0 +1,23 @@
+{
+  "artifact_id": "AAA-M3TOP3-G3E-QUEUE-GZIP-STORAGE-RECEIPT-20260826",
+  "source": {
+    "path": "G3_E_ANNOTATION_INGEST_QUEUE_v0.1.jsonl",
+    "bytes": 6080457,
+    "sha256": "e5f9d9ff2a10bb47ab92826646b53c6754a84f4942c866cdd510a8828b338b7f"
+  },
+  "stored": {
+    "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/g3-annotation-candidate/G3_E_ANNOTATION_INGEST_QUEUE_v0.1.jsonl.gz",
+    "codec": "gzip -9",
+    "bytes": 73327,
+    "sha256": "8b3671d662457aef8c1a5595b33a85a27e08aaee56238e7218f1df0b4df78353",
+    "git_blob_sha": "4b3cfbfa9969abe2bd6dff5fdbfeb2db9d31cdae",
+    "git_commit": "69a1e7b7971d38bf23694ed63a914ff796386b78"
+  },
+  "readback": {
+    "remote_base64_exact_match": true,
+    "gzip_integrity": "PASS",
+    "decompressed_sha256": "e5f9d9ff2a10bb47ab92826646b53c6754a84f4942c866cdd510a8828b338b7f"
+  },
+  "restore": "gzip -dc G3_E_ANNOTATION_INGEST_QUEUE_v0.1.jsonl.gz > G3_E_ANNOTATION_INGEST_QUEUE_v0.1.jsonl",
+  "claim_boundary": "STORAGE_READBACK_ONLY_NOT_VALIDATION_OR_GATE_EVIDENCE"
+}
