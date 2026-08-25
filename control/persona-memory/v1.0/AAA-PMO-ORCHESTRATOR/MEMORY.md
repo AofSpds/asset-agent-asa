@@ -5,7 +5,7 @@ PERSONA_CLASS = PROGRAM_EXECUTION_ORCHESTRATION
 PAIR = AAA-PMO-VALIDATOR
 
 ## CURRENT_RUNTIME_MEMO
-- STATE = SUCCESSOR_RUNTIME_ACTIVE / FOUR_G3_DECISIONS_BOUND / AXIS_B_SIGNAL_ONLY_COMPLETE / AXIS_C_CALENDAR_SOURCE_BLOCKED
+- STATE = SUCCESSOR_RUNTIME_ACTIVE / AXIS_B_SIGNAL_ONLY_COMPLETE / KRX_CUSTODY_BOUNDED_PASSES_COMPLETE / AXIS_C_CREDENTIAL_BLOCKED / CALENDAR_PARTIAL_AUTHORITY
 - NOTE = The prior visible PMO channel ended by context limit and is retired. The successor acquired the single material-execution lease after Git/bootstrap, issue, process, branch and local-surface reconciliation.
 - SUCCESSOR_BRANCH = `aaa-pmo-m3top3-successor-resume-20260826-0034`
 - LEASE_ID = `PMO-SUCCESSOR-20260826-0034-KST`
@@ -17,7 +17,7 @@ PAIR = AAA-PMO-VALIDATOR
 - COMPETING_M3TOP3_MATERIAL_LEASE = NOT_FOUND
 - LATE_COMPLETED_PREDECESSOR_BRANCH_SEQUENCE = RECONCILED_THROUGH_COMMIT `5f18bfe0b5e8fe0c820951dc8d8024586ef01c51`
 - DUPLICATE_MATERIAL_EXECUTION = FALSE
-- REWORK = 4 events / approximately 7.321 minutes: one bounded orchestration reconciliation plus three Axis-B forward fixes; includes one superseded materialization; no loop
+- REWORK = 5 events / known lower-bound approximately 7.321 minutes plus one not-instrumented Axis-C client-compatibility forward attempt; no validation or retry loop
 
 ## OWNER_INTENT_AND_DIRECTIVES
 - PMO is the execution commander; ASA is supervisory control. Owner is not a manual relay between execution personas/channels.
@@ -29,7 +29,7 @@ PAIR = AAA-PMO-VALIDATOR
 
 ## CURRENT_TASK_AND_STATE
 - TASK = M3TOP3 WORK Ultra WP0-WP9 continuation + Fast-Close G1/G2/G3/integrated checkpoint + queued semantic-neutral EOPT before Full W1-W8 scale-out.
-- STATE = PROGRAM_IN_PROGRESS / SUCCESSOR_RUNTIME_ACTIVE / POST_OWNER_AXIS_B_COMPLETE_SOURCE_BLOCKED / VALIDATOR_HOLD
+- STATE = PROGRAM_IN_PROGRESS / SUCCESSOR_RUNTIME_ACTIVE / POST_OWNER_AXIS_B_COMPLETE_KRX_CUSTODY_BLOCKED / VALIDATOR_HOLD
 - DURABLE_PARENT_QUEUE = GitHub Issue #49
 - G1_SOURCE_CUSTODY = GitHub Issue #52
 - G2_EXECUTION_QUEUE = GitHub Issue #53
@@ -42,16 +42,16 @@ PAIR = AAA-PMO-VALIDATOR
 - SUCCESSOR_RESUME_PROGRESS_LEGACY_LEDGER = 70/100 EWU; preserved as completed control-plane history
 - ACTIVE_FAST_CLOSE_PROGRESS = 21/100 EWU; validation closure 0%
 - ACTIVE_FAST_CLOSE_PLAN = FC0-FC4 / 100 EWU / 142 replanned CRU (160 original)
-- ACTIVE_CRU = NOT_INSTRUMENTED; prior bounded batches approximately 32 aggregate worker-minutes plus Axis-B 75.043 seconds main path and 79.269 seconds rework plus PMO integration
+- ACTIVE_CRU = NOT_INSTRUMENTED; prior bounded batches approximately 32 aggregate worker-minutes plus Axis-B 75.043 seconds main path and 79.269 seconds rework plus KRX Axis-C 134.44-second capture span and calendar 28-second material span plus PMO integration
 - PRE_VALIDATION_CANDIDATE_ETA = UNMEASURABLE until Owner/source inputs resolve; lane-conditional estimates exclude external wait
 - SEALED_EOPT_G0_ETA = UNAVAILABLE_UNTIL_VALIDATOR_HOLD_RELEASED
 - POST_HOLD_VALIDATION_INCREMENT = P50 0.25-0.5h / P90 0.75-1h / hard stop 1h / one combined exact-delta act only
-- REWORK = 4 events / approximately 7.321 minutes; REOPENED_UNITS = 0; Axis-B automatic loop = FALSE
+- REWORK = 5 events / known lower-bound approximately 7.321 minutes plus one not-instrumented source-custody attempt; REOPENED_UNITS = 0; validation/retry loops = FALSE
 
 ## OPEN_BLOCKERS
 - G1 exact v0.1/v0.2 research-package ZIP bytes remain NOT_FOUND; named custodian/archive locator not observed; custodian exhaustion NOT_PROVEN; source-custody coordination active on #52. No duplicate internal search.
 - G2: 34 advertised documentary cells plus separate technical `PX-004-L`, 514 combined eligibility rows, 469 listing-provenance rows and eight W1-W8 authority rows remain open. The bounded source pass recovered zero new historical authority; no worker is active.
-- G3: all four Owner semantic decisions are bound. Protocol, fail-closed 1,016-row/17,272-slot annotation queue, exact eight-domain blocked-lineage envelope and C/calendar/window post-decision bindings are committed. Axis-B exact 2024/2025/2026 inputs match 3/3; all 1,822,019 rows have a sealed disposition and 2,406 material signals remain pending Axis-C. Independent KRX CA/calendar bytes, historical annotation evidence, governed price release, exact scorer and all eight admitted release references remain open.
+- G3: all four Owner semantic decisions are bound. Axis-B exact inputs match 3/3; all 1,822,019 rows have a sealed disposition and 2,406 material signals remain pending Axis-C. Official KRX source custody found the Axis-C locator credential/admin-approval gated, so conforming CA-universe bytes remain absent. Exact official 2024/2025/2026 closure responses were recovered 3/3 with 54 rows, but they do not enumerate market/session open dates and cannot release the governed calendar. Historical annotation evidence, governed price release, exact scorer and all eight admitted release references remain open.
 - Integrated G1-G4 checkpoint remains open; EOPT-G0 cannot close until actual preconditions pass.
 - Validation/revalidation is Owner-held. Exact closure candidates may be prepared, but validation closure and sealed EOPT-G0 disposition cannot occur until release.
 
@@ -59,7 +59,7 @@ PAIR = AAA-PMO-VALIDATOR
 - FC0 = DONE / 5 of 5 EWU.
 - FC1-G1 = 5 of 15 EWU / external custody blocker / active only on genuinely new custodian evidence.
 - FC1-G2 = 7 of 25 EWU / source-provenance blocker envelope complete / 514 eligibility + 469 listing + eight W1-W8 authority rows remain source-blocked.
-- FC1-G3 = 4 of 25 EWU / Axis-B execution complete signal-only / combined G3-B remains 0 of 7 EWU because 2,406 signals await Axis-C / Axis-C and calendar exact-source blocked.
+- FC1-G3 = 4 of 25 EWU / Axis-B complete signal-only / combined G3-B remains 0 of 7 because 2,406 signals await Axis-C / Axis-C credential-admin blocked / calendar closure bytes partial, open-session authority blocked.
 - G4 = 100% within sealed original scope / SATISFIED_WITH_FINDING / no succession rerun.
 - VALIDATION = HOLD / active count 0 / sealed receipts preserved.
 
@@ -68,6 +68,8 @@ PAIR = AAA-PMO-VALIDATOR
 - Do not rerun sealed G4 solely for channel succession. G4 = SATISFIED_WITH_FINDING.
 - Preserve recovered prior local-only evidence bundle without elevating original claims.
 - The predecessor standalone manifest digest `56d36d51...73c4` is declaration-only: v0.8 `Price_Manifest` row 2 records `NOT_RECOMPUTED_NO_MANIFEST_FILE` and that bytes were not attached. Do not substitute the legacy import manifest or impersonate the predecessor with a forward manifest.
+- Official KRX Axis-C route `MDC04020503/MDCHARD048` requires login/membership; Open API auth key and service use require administrator approval and the captured 31-service catalog lacks a conforming CA-universe endpoint. Do not bypass or substitute.
+- Official KRX closure bytes for 2024-2026 are exact partial custody only. They do not self-authorize complete open-session or common-equity-market calendar construction.
 - EOPT measurement/mutation and Full W1-W8 scale-out remain blocked until governed gates actually pass.
 - Apply `TUNED_RISK_PROPORTIONAL_FAST_CLOSE`: reuse exact sealed receipts and delta-validate low-risk changes. While the Owner hold is active, prepare exact closure candidates but do not dispatch any validator/revalidator.
 - The 00:59 reconciliation created no duplicate worker, validator, search, price recovery, gate execution, PASS or claim. The stale 5/100 snapshot is superseded; the baseline at that reconciliation was 14/100 and the current evidence-closed baseline is 21/100.
@@ -106,10 +108,11 @@ PAIR = AAA-PMO-VALIDATOR
 - C/calendar/window post-decision binding commits: `b7b01746613d4d9505a3fbbdb7756152cb05c655` / `e59ed048d6da76edcad82c9a58b0d083c6452471`
 - active Axis-B progress/dashboard commits: `78ed9106661d45c36a6a2f99c058c12ff6f4d1c7` / `506e4b31563dd1e680d01100a4e5b90f1d7beb9b`
 - sealed Axis-B artifact commit/tree: `3c0bedd4941b629b96a8fb9f830806eb817ccd26` / `07a4d0923b153866fa9176324c5d840972575643`
+- sealed official KRX source-custody commit/tree: `e9bd65fea88939b8ee79c84163f864355f8ffb4f` / `041cf5fff3aa245a47707cce85cc756152acc072`
 
 ## NEXT_ROUTE
-1. Axis-B signal-only derivation is complete and must not be rerun. Resume G3-B only when exact independent KRX Axis-C event bytes/receipt exist; terminally reconcile all 2,406 signals without inference.
-2. Keep Axis-C and calendar held until exact independent KRX bytes and receipts arrive; W1-W8 remains outcome-exposed development-only.
+1. Axis-B is complete and must not be rerun. Resume G3-B only after an authorized exact KRX/custodian CA-universe export with receipt; terminally reconcile all 2,406 signals without inference.
+2. Keep Axis-C held at the credential/admin-approval boundary. Keep calendar release held until exact open-session authority or an explicitly governed authority-equivalent binding exists; the 54 closure rows remain partial custody only. W1-W8 remains outcome-exposed development-only.
 3. Resume G1/G2/G3 only on an exact trigger listed in the integrated prevalidation matrix; no restatement workers or duplicate scans.
 4. Do not reacquire or dispatch any validator/revalidator while `OWNER_VALIDATOR_HOLD=TRUE`; no validation target currently exists.
 5. When all exact G1-G3 candidates and unchanged G4 scope coexist on one pinned base, assemble final FC2 closure candidate without marking it closed.
@@ -130,3 +133,4 @@ PAIR = AAA-PMO-VALIDATOR
 - TIME_KST = 2026-08-26 01:46 KST | IMPORTANCE = P0_EXECUTION | LIFECYCLE = PROGRAM | STATE = OWNER_AND_SOURCE_BLOCKED | SOURCE_REF = commits `be081053fa190d4e0a1a5ab64508190aa3090180` / `a6bb5170c75693165a17db6102b67b6badf6eeda` / `f9fd8e38f01b931808cb755c6f03f25db114cc83` | NOTE = Final source-independent local integration complete; workers/validators 0/0; EWU remains 21/100; no integrated closure candidate or validation target; next material trigger is explicit Owner decisions or exact source/custodian evidence.
 - TIME_KST = 2026-08-26 02:09 KST | IMPORTANCE = P0_OWNER_DECISION | LIFECYCLE = PROGRAM | STATE = AXIS_B_ACTIVE | SOURCE_REF = decisions receipt commits `c04f783496263e961023ec2e4b1cf90120c29064` / `42651513f7dcef22dd310ca25ee5e9d84afc0625`; Issue comments `5413936155` / `5413936324` | NOTE = Owner's proceed instruction bound all four recommended G3 decisions; exact Axis-B inputs match 3/3 across 1,822,019 rows; one non-validator Axis-B worker active; validators/global validation/loops remain zero.
 - TIME_KST = 2026-08-26 02:23 KST | IMPORTANCE = P0_EXECUTION | LIFECYCLE = PROGRAM | STATE = AXIS_B_COMPLETE_SOURCE_BLOCKED | SOURCE_REF = artifact commit `3c0bedd4941b629b96a8fb9f830806eb817ccd26` / tree `07a4d0923b153866fa9176324c5d840972575643` | NOTE = Axis-B assigned one disposition to all 1,822,019 rows; 2,406 signals remain pending exact independent KRX Axis-C reconciliation; workers/validators 0/0; EWU remains 21/100; no validation/global/full/loop.
+- TIME_KST = 2026-08-26 02:36 KST | IMPORTANCE = P0_SOURCE_CUSTODY | LIFECYCLE = PROGRAM | STATE = KRX_CUSTODY_COMPLETE_SOURCE_BLOCKED | SOURCE_REF = commit `e9bd65fea88939b8ee79c84163f864355f8ffb4f` / tree `041cf5fff3aa245a47707cce85cc756152acc072` | NOTE = Axis-C official locator is credential/admin-approval gated; exact official closure bytes recovered 3/3 with 54 rows but open-session/common-market authority not proven; workers/validators 0/0; EWU remains 21/100.
