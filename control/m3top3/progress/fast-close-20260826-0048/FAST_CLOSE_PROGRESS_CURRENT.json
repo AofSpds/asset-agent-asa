@@ -1,12 +1,12 @@
 {
-  "as_of": "2026-08-26T01:46:16+09:00",
+  "as_of": "2026-08-26T02:05:00+09:00",
   "fast_close_progress_percent": 21,
   "earned_ewu": 21,
   "total_ewu": 100,
   "actual_cru": "NOT_INSTRUMENTED; TWO_NONVALIDATOR_BATCHES_APPROX_32_AGGREGATE_WORKER_MINUTES_PLUS_PMO_INTEGRATION",
   "planned_cru_original": 160,
   "planned_cru": 142,
-  "elapsed": "APPROXIMATELY_73_MINUTES_SINCE_SUCCESSOR_BASELINE",
+  "elapsed": "APPROXIMATELY_92_MINUTES_SINCE_SUCCESSOR_BASELINE",
   "active_time": "APPROXIMATELY_18_MINUTES_WORKER_WALL_ACROSS_TWO_BOUNDED_BATCHES; PMO_TIME_NOT_INSTRUMENTED_SEPARATELY",
   "blocked_time": "G1_EXTERNAL_CUSTODY_WAIT_ACTIVE_BUT_EXCLUDED_FROM_ACTIVE_ETA",
   "rework": 1,
@@ -14,13 +14,19 @@
   "rework_material_compute_duplication": false,
   "validator_hold": true,
   "active_validator_count": 0,
-  "active_non_validator_worker_count": 0,
-  "active_work_units": [],
+  "active_non_validator_worker_count": 3,
+  "active_work_units": [
+    {"id":"OWNER-DECISION-BINDING","scope":"bind four approved G3 semantic decisions","p50_hours":0.1,"p90_hours":0.25,"validation":false},
+    {"id":"G3-AXIS-B-DERIVATION","scope":"exact 2024-2026 inclusive >=20 percent signal-only derivation","p50_hours":0.75,"p90_hours":1.5,"validation":false},
+    {"id":"G3-C-CAL-WIN-BINDINGS","scope":"post-decision governance bindings without source substitution","p50_hours":0.25,"p90_hours":0.5,"validation":false}
+  ],
   "completed_bounded_blocker_resolution_units": 3,
   "bounded_blocker_resolution_phase_percent": 100,
   "completed_local_integration_units": 3,
   "current_local_integration_phase_percent": 100,
-  "source_independent_material_work_remaining": "NONE_IDENTIFIED",
+  "source_independent_material_work_remaining": "AXIS_B_DERIVATION_ACTIVE_AFTER_OWNER_DECISIONS",
+  "owner_decisions":{"OD-G3-B-01":"YES","OD-G3-C-01":"YES","OD-G3-CAL-01":"YES","OD-G3-WIN-01":"YES","basis":"OWNER_SAID_PROCEED_IMMEDIATELY_AFTER_EXPLICIT_FOUR_DECISION_REQUEST"},
+  "post_owner_decision_execution_phase_percent": 0,
   "eta_prevalidation_candidate_p50_hours": null,
   "eta_prevalidation_candidate_p90_hours": null,
   "eta_prevalidation_candidate_status": "UNMEASURABLE_UNTIL_EXTERNAL_SOURCE_AND_OWNER_INPUTS",
@@ -40,13 +46,13 @@
   "gates": {
     "G1":{"progress_percent":33,"state":"EXTERNAL_CUSTODY_BLOCKED_NOT_SATISFIED"},
     "G2":{"progress_percent":28,"state":"DOCUMENTARY_RECONCILIATION_DONE_WITH_SOURCE_CUSTODY_BLOCKER_514_AND_DATE_PROVENANCE_OPEN"},
-    "G3":{"progress_percent":16,"state":"PROTOCOL_ANNOTATION_AND_EIGHT_DOMAIN_BLOCKED_LINEAGE_CANDIDATES_COMMITTED_OWNER_AND_SOURCE_BLOCKED"},
+    "G3":{"progress_percent":16,"state":"FOUR_SEMANTIC_DECISIONS_APPROVED_AXIS_B_DERIVATION_ACTIVE_C_CALENDAR_SOURCE_BLOCKED"},
     "G4":{"progress_percent":100,"state":"SATISFIED_WITH_FINDING_SEALED"},
     "validation_closure_percent":0,
     "integrated":"NOT_CLOSED",
     "EOPT_G0":"OPEN_NOT_PROVEN_1_OF_6"
   },
-  "current_critical_path":"Owner records four G3 semantic decisions; thereafter only exact source/custodian inputs unlock bounded delta execution",
+  "current_critical_path":"Execute exact bounded Axis-B derivation; Axis-C/calendar remain blocked on independent KRX bytes",
   "first_parallel_dispatch":"G1 / G2 / G3",
-  "last_material_progress":"Final source-independent local integration completed: Owner decision packet, G3 eight-domain blocked lineage envelope, and FC2 integrated prevalidation blocker matrix committed and exact-read back; no gate or EWU inflation."
+  "last_material_progress":"Owner instructed proceed immediately after the four-decision request; all four recommended G3 semantic decisions are being bound and the sole Axis-B execution lease is active."
 }
