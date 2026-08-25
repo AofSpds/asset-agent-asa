@@ -5,6 +5,7 @@ PRODUCT = ASSET AGENT ASA
 PERSONA = AAA-PMO-ORCHESTRATOR (PMO)
 CHECKPOINT_CLASS = CHANNEL_SUCCESSION_CONTINUITY_NOT_AUTHORITY_SOT
 RECORDED_AT = 2026-08-26 00:16 KST
+UPDATED_AT = 2026-08-26 00:24 KST
 TRIGGER = PMO_VISIBLE_CONVERSATION_CONTEXT_LIMIT_REACHED
 PROGRAM_FAILURE = FALSE
 PROGRAM_RESTART_REQUIRED = FALSE
@@ -15,9 +16,23 @@ OWNER_ACTION_REQUIRED = FALSE
 The prior PMO conversation/channel reached its context-length limit and can no longer continue normally. Treat this as a runtime/channel-capacity stop, not as scientific/program failure and not as authorization to restart the M3Top3 program from the beginning.
 
 Required successor mode:
-`NEW_PMO_CHANNEL -> GIT_BOOTSTRAP -> RECOVER_DURABLE_STATE -> RECONCILE_ANY_POSTED/UNPOSTED_LAST_WORK -> RESUME_FROM_LATEST_OPEN_UNIT`
+`OLD PMO RUNTIME + ACTIVE VALIDATORS/WORKERS STOP -> NEW PMO CHANNEL -> GIT_BOOTSTRAP -> RECOVER_DURABLE_STATE -> RECONCILE -> EXCLUSIVE LEASE -> RESUME_FROM_LATEST_OPEN_UNIT`
 
 Do not rerun or overwrite sealed work merely because the visible channel ended.
+
+## OWNER RUNTIME RELEASE DIRECTIVE — 2026-08-26 00:24 KST
+
+Before successor PMO material work begins:
+
+- release/terminate all active validation, reviewer, subagent, worker, measurement and other in-flight compute associated with the prior PMO runtime;
+- preserve every completed/sealed validation receipt and evidence artifact exactly as durable history;
+- do not invalidate or reopen completed validation merely because the worker/process is released;
+- any partial validation that was not durably sealed is `UNSEALED_PARTIAL_EVIDENCE`, not PASS;
+- no new validation/execution dispatch until successor PMO finishes read-only reconciliation and proves no old execution/validator lease remains active;
+- successor PMO reacquires validators only for still-open validation units that actually require continuation.
+
+Exact continuity directive:
+`control/persona-memory/v1.0/AAA-PMO-ORCHESTRATOR/PMO_CHANNEL_HANDOFF_RELEASE_ACTIVE_VALIDATION_2026-08-26_0024_KST.md`
 
 ## LAST DURABLE PROGRAM STATE OBSERVED
 
@@ -55,13 +70,16 @@ Latest G1 source-custody state from #52:
 
 1. Resolve runtime Persona to `AAA-PMO-ORCHESTRATOR (PMO)` through Git bootstrap.
 2. Load COMMON Project Memory and universal Progress/Time/Compute behavior code.
-3. Load PMO MEMORY.md / WORKLOG.md and this checkpoint.
+3. Load PMO MEMORY.md / WORKLOG.md, this checkpoint, and the runtime-release directive.
 4. Read latest Issue #49 and #52 state/comments before issuing any new work.
-5. Reconcile the exact repository/task-branch/worktree head(s) and all durable artifacts produced after the latest issue comments. Detect and preserve any local-only/unpushed work if the runtime surface still exposes it; do not infer that it was preserved.
-6. Reconstruct the currently open WBS/gate units from durable evidence. Do not restart WP0-WP9 and do not rerun sealed G4 solely because the previous chat ended.
-7. Resume only from the latest still-open unit(s): G1/G2/G3 integration and current exact checkpoint closure. EOPT measurement/mutation remain blocked until actual gates pass.
-8. Create/update machine-readable progress state for the successor run, marking this event as `CHANNEL_SUCCESSION`, not `REWORK` unless actual repeated work is required.
-9. If durable Git state conflicts with this checkpoint, governed/current Git state wins and the successor must report the conflict before material execution.
+5. Perform `OLD_RUNTIME_RETIRED / ACTIVE_WORKER_NONE / ACTIVE_VALIDATOR_NONE` reconciliation. If any old worker remains active, do not start successor compute until it is stopped or clearly governed outside the retired PMO runtime.
+6. Reconcile exact repository/task-branch/worktree heads and durable artifacts produced after the latest issue comments. Detect and preserve any local-only/unpushed work if the runtime surface still exposes it; do not infer that it was preserved.
+7. Reconstruct currently open WBS/gate units from durable evidence. Do not restart WP0-WP9 and do not rerun sealed G4 solely because the previous chat ended.
+8. Establish one successor `EXCLUSIVE_EXECUTION_LEASE` before material dispatch.
+9. Reacquire validator/reviewer execution only for open units that require it. Completed receipts remain valid historical evidence subject to their original scope/claim ceiling.
+10. Resume only from the latest still-open unit(s): G1/G2/G3 integration and current exact checkpoint closure. EOPT measurement/mutation remain blocked until actual gates pass.
+11. Create/update machine-readable progress state for the successor run, marking this event as `CHANNEL_SUCCESSION`, not `REWORK` unless actual repeated work is required.
+12. If durable Git state conflicts with this checkpoint, governed/current Git state wins and the successor must report the conflict before material execution.
 
 ## SAFETY / CLAIM CEILING
 
