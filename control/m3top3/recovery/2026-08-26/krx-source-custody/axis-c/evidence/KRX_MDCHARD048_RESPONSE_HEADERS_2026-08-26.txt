@@ -1,0 +1,13 @@
+HTTP/1.1 200 OK
+date: Tue, 25 Aug 2026 17:27:51 GMT
+
+HTTP/2 200
+content-type: text/html;charset=utf-8
+content-length: 407
+expires: Tue, 25 Aug 2026 17:27:53 GMT
+cache-control: max-age=0, no-cache, no-store
+pragma: no-cache
+date: Tue, 25 Aug 2026 17:27:53 GMT
+
+[Set-Cookie headers intentionally omitted; no authenticated session was used.]
+

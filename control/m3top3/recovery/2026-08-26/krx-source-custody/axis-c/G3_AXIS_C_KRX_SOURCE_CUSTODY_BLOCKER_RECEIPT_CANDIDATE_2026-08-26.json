@@ -1,0 +1,123 @@
+{
+  "artifact_class": "G3_AXIS_C_KRX_SOURCE_CUSTODY_BLOCKER_RECEIPT_CANDIDATE",
+  "date_kst": "2026-08-26",
+  "parent_wbs_id": "FC1-G3-AXIS-C",
+  "task_class": "NON_VALIDATOR_BOUNDED_SOURCE_CUSTODY",
+  "source_policy": "OFFICIAL_KRX_PRIMARY_SOURCES_ONLY",
+  "acquisition_pass_count": 1,
+  "retry_loop": false,
+  "global_validation": false,
+  "validator_count": 0,
+  "git_or_issue_mutation": false,
+  "disposition": "SOURCE_BLOCKED_CREDENTIAL_AND_ADMIN_APPROVAL_REQUIRED",
+  "requested_target": {
+    "logical_identity": "KRX_CA_EVENT_UNIVERSE",
+    "effective_date_start": "2024-01-01",
+    "effective_date_end": "2026-08-14",
+    "security_scope": "UNION_OF_CODES_IN_THREE_PINNED_MARCAP_COMPONENTS",
+    "required_fields": [
+      "source_event_id",
+      "issue_or_security_identity",
+      "publication_time",
+      "exact_official_effective_or_basis_date",
+      "source_event_type",
+      "comparable_price_impact",
+      "supported_factor",
+      "correction_or_supersession_reference",
+      "evidence_reference"
+    ],
+    "exact_bytes": "NOT_OBTAINED",
+    "row_count": "NOT_OBTAINED",
+    "publication_cutoff": "NOT_OBTAINED",
+    "custodian_or_authority_receipt": "NOT_OBTAINED"
+  },
+  "authoritative_locator": {
+    "menu_name": "기업 주요 변동사항",
+    "menu_id": "MDC04020503",
+    "url": "https://data.krx.co.kr/contents/MDC/HARD/hardController/MDCHARD048.cmd",
+    "method": "GET",
+    "query_parameters": "NONE",
+    "captured_at_kst": "2026-08-26T02:27:53+09:00",
+    "http_status": 200,
+    "content_type": "text/html;charset=utf-8",
+    "response_bytes": 407,
+    "response_sha256": "72926595b930be2a12498c726a786c3e4459e512dd9ba99d582ddf0d8d53a809",
+    "access_statement": "로그인 또는 회원가입이 필요합니다.",
+    "classification": "BLOCKER_EVIDENCE_ONLY_NOT_CA_SOURCE_BYTES"
+  },
+  "open_api": {
+    "usage_url": "https://openapi.krx.co.kr/contents/OPP/INFO/OPPINFO003.jsp",
+    "catalog_url": "https://openapi.krx.co.kr/contents/OPP/INFO/service/OPPINFO004.cmd",
+    "requirements": [
+      "DATA_MARKETPLACE_MEMBERSHIP_AND_LOGIN",
+      "AUTH_KEY_APPLICATION_AND_ADMIN_APPROVAL",
+      "PER_SERVICE_USE_APPLICATION_AND_ADMIN_APPROVAL",
+      "SERVICE_USE_AFTER_APPROVAL"
+    ],
+    "captured_catalog_service_count": 31,
+    "conforming_corporate_action_universe_service_listed": false,
+    "catalog_finding_ceiling": "CURRENT_CAPTURED_PUBLIC_CATALOG_ONLY"
+  },
+  "evidence": [
+    {
+      "path": "evidence/KRX_MDCHARD048_LOGIN_REQUIRED_2026-08-26.html",
+      "bytes": 407,
+      "sha256": "72926595b930be2a12498c726a786c3e4459e512dd9ba99d582ddf0d8d53a809"
+    },
+    {
+      "path": "evidence/KRX_MDCHARD048_RESPONSE_HEADERS_2026-08-26.txt",
+      "bytes": 341,
+      "sha256": "6d9c6fc637c3c6e1931a013fb05317b11e486628be06cac02f7fd4714d591f50",
+      "note": "SET_COOKIE_HEADERS_OMITTED_NO_AUTHENTICATED_SESSION_USED"
+    },
+    {
+      "path": "evidence/KRX_DATA_MARKETPLACE_MAIN_2026-08-26.html",
+      "bytes": 588359,
+      "sha256": "37536ca24fcd5dcb4d102ae2f0870b15b1be54fe32e0cedadcfb4c6283f2e2fe"
+    },
+    {
+      "path": "evidence/KRX_DATA_MARKETPLACE_MENU_2026-08-26.xls",
+      "bytes": 78848,
+      "sha256": "de83c4b9e1aa7fb1bc03b5cc7668d5bd82e01d498fbbb8f2681f03c16a96b452"
+    },
+    {
+      "path": "evidence/KRX_OPENAPI_USAGE_2026-08-26.html",
+      "bytes": 18972,
+      "sha256": "83a5ef28fcdfc72075763980a6b292f4562c35d1d00c8baa43d14ec28e03a281"
+    },
+    {
+      "path": "evidence/KRX_OPENAPI_CATALOG_2026-08-26.html",
+      "bytes": 28569,
+      "sha256": "d28db84d5fe9189868dbcca82018a93e35c1ccdf644d25efcc5e85a7b981626e"
+    }
+  ],
+  "telemetry": {
+    "first_exact_retrieval_timestamp_kst": "2026-08-26T02:27:53+09:00",
+    "capture_completion_timestamp_kst": "2026-08-26T02:30:08+09:00",
+    "capture_span_seconds": 134.44,
+    "direct_krx_http_request_count": 6,
+    "target_locator_attempt_count": 2,
+    "target_locator_first_attempt": "HTTP_403_WITH_DEFAULT_CLIENT",
+    "target_locator_final_attempt": "HTTP_200_LOGIN_REQUIRED_PAGE_WITH_BROWSER_USER_AGENT",
+    "retry_loop": false,
+    "active_retrieval_time": "NOT_INSTRUMENTED",
+    "queue_wait_time": "NOT_INSTRUMENTED",
+    "dependency_wait_time": "NOT_INSTRUMENTED",
+    "retry_backoff_time": "NOT_APPLICABLE",
+    "rework_time": "NOT_INSTRUMENTED",
+    "full_suite_used": false
+  },
+  "blocker": {
+    "class": "CREDENTIAL_OR_MANUAL_AUTHORITY",
+    "exact": "OFFICIAL_KRX_MDCHARD048_REQUIRES_LOGIN_OR_MEMBERSHIP",
+    "additional_api_boundary": "AUTH_KEY_AND_SERVICE_USE_REQUIRE_ADMIN_APPROVAL",
+    "owner_action_if_pursued": "AUTHORIZED_KRX_ACCOUNT_LOGIN_OR_CUSTODIAN_EXPORT",
+    "resume_trigger": "EXACT_CONFORMING_KRX_CA_EVENT_UNIVERSE_BYTES_AND_AUTHORITY_RECEIPT_ARRIVE"
+  },
+  "claim_ceiling": [
+    "NO_EVENT_COMPLETENESS_OR_SOURCE_EXHAUSTION_CLAIM",
+    "NO_AXIS_C_RECONCILIATION_OR_CA_FACTOR_CLAIM",
+    "NO_G3_OR_INTEGRATED_GATE_CLOSURE",
+    "NO_VALIDATION_READINESS_OR_PASS"
+  ]
+}

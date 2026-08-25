@@ -1,0 +1,118 @@
+{
+  "artifact_id": "AAA-M3TOP3-FC1-G3C-KRX-CALENDAR-SOURCE-CUSTODY-20260826-0232",
+  "parent_wbs_id": "FC1-G3/G3-C",
+  "execution_role": "NON_VALIDATOR_BOUNDED_SOURCE_CUSTODY",
+  "result": "PARTIAL_AUTHORITY_SOURCE_CUSTODY",
+  "governed_calendar_release": "NOT_CREATED",
+  "official_ui_locator": "https://open.krx.co.kr/contents/MKD/01/0110/01100305/MKD01100305.jsp",
+  "request_profile": {
+    "otp": {
+      "method": "GET",
+      "url": "https://open.krx.co.kr/contents/COM/GenerateOTP.jspx",
+      "parameters": {
+        "bld": "MKD/01/0110/01100305/mkd01100305_01",
+        "name": "form"
+      },
+      "referer": "https://open.krx.co.kr/contents/MKD/01/0110/01100305/MKD01100305.jsp"
+    },
+    "data": {
+      "method": "POST",
+      "url": "https://open.krx.co.kr/contents/OPN/99/OPN99000001.jspx",
+      "parameters": {
+        "search_bas_yy": ["2024", "2025", "2026"],
+        "gridTp": "KRX",
+        "pagePath": "/contents/MKD/01/0110/01100305/MKD01100305.jsp",
+        "code": "ONE_TIME_KRX_OTP_NOT_RETAINED",
+        "pageFirstCall": "Y"
+      }
+    }
+  },
+  "sources": [
+    {
+      "year": 2024,
+      "path": "raw/KRX_CLOSURE_2024.json",
+      "acquired_at_kst": "2026-08-26T02:30:21+09:00",
+      "http_status": 200,
+      "content_type": "text/html;charset=UTF-8",
+      "bytes": 2143,
+      "rows": 18,
+      "min_response_date": "2024-01-01",
+      "max_response_date": "2024-12-31",
+      "sha256": "d5961ae5998036cc1710fe28e22d324db0233b570dd5c417b088fba1408f857f"
+    },
+    {
+      "year": 2025,
+      "path": "raw/KRX_CLOSURE_2025.json",
+      "acquired_at_kst": "2026-08-26T02:30:45+09:00",
+      "http_status": 200,
+      "content_type": "text/html;charset=UTF-8",
+      "bytes": 2270,
+      "rows": 19,
+      "min_response_date": "2025-01-01",
+      "max_response_date": "2025-12-31",
+      "sha256": "c90dcd0f9fd59498f239bbed32f63a300d64f25f9e03020f26a15c40cf017fa8"
+    },
+    {
+      "year": 2026,
+      "path": "raw/KRX_CLOSURE_2026.json",
+      "acquired_at_kst": "2026-08-26T02:30:49+09:00",
+      "http_status": 200,
+      "content_type": "text/html;charset=UTF-8",
+      "bytes": 2049,
+      "rows": 17,
+      "min_response_date": "2026-01-01",
+      "max_response_date": "2026-12-31",
+      "sha256": "89ccce131de8d0c4baa6a30d62b7d2e8e3bdc872c71a21d7d81d4b667330d384"
+    }
+  ],
+  "total_closure_rows": 54,
+  "exact_response_schema": [
+    "calnd_dd",
+    "dy_tp_cd",
+    "calnd_dd_dy",
+    "kr_dy_tp",
+    "holdy_nm"
+  ],
+  "scope": {
+    "required_outer_range_covered_by_annual_closure_responses": true,
+    "exchange_selector": "KRX",
+    "open_session_rows_present": false,
+    "per_row_market_id_present": false,
+    "regular_session_open_flag_present": false,
+    "session_hours_or_half_day_marker_present": false,
+    "common_calendar_across_all_represented_equity_markets_proven": false
+  },
+  "authority_disposition": {
+    "exact_official_krx_closure_bytes": "OBTAINED_3_OF_3",
+    "exact_official_krx_open_session_bytes": "NOT_OBTAINED",
+    "market_common_calendar": "NOT_PROVEN",
+    "authority_receipt_candidate": "PARTIAL_AUTHORITY_SOURCE_CUSTODY",
+    "g3_c_ewu": "0_OF_4_UNCHANGED",
+    "g3_c_state": "SOURCE_BLOCKED"
+  },
+  "remaining_trigger": [
+    "EXACT_OFFICIAL_KRX_OPEN_SESSION_BYTES_WITH_MARKET_AND_SESSION_IDENTITY",
+    "EXPLICITLY_GOVERNED_AUTHORITY_EQUIVALENT_BINDING_THE_EXACT_CLOSURE_BYTES_TO_OFFICIAL_KRX_OPEN_DATE_RULES_AND_COMMON_EQUITY_MARKET_SCOPE"
+  ],
+  "execution": {
+    "planned_annual_requests": 3,
+    "successful_annual_requests": 3,
+    "retry_count": 0,
+    "validator_count": 0,
+    "global_validation": false,
+    "full_validation": false,
+    "validation_loops": 0,
+    "first_material_byte_kst": "2026-08-26T02:30:21+09:00",
+    "last_material_byte_kst": "2026-08-26T02:30:49+09:00",
+    "material_acquisition_span_seconds": 28,
+    "token_or_cru": "NOT_INSTRUMENTED"
+  },
+  "claim_ceiling": [
+    "NO_TRADING_CALENDAR_RELEASE",
+    "NO_G3_C_PASS",
+    "NO_GATE_ADVANCE",
+    "NO_PRICE_DATE_PROMOTION",
+    "NO_SECONDARY_SOURCE_INFERENCE"
+  ]
+}
+

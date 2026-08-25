@@ -1,0 +1,73 @@
+{
+  "artifact_id": "AAA-M3TOP3-G3-KRX-SOURCE-CUSTODY-PMO-INTEGRATION-20260826-0235",
+  "issued_at_kst": "2026-08-26T02:35:00+09:00",
+  "persona": "AAA-PMO-ORCHESTRATOR (PMO)",
+  "execution_class": "TWO_NONVALIDATOR_BOUNDED_OFFICIAL_KRX_SOURCE_CUSTODY_PASSES",
+  "source_policy": "OFFICIAL_KRX_PRIMARY_SOURCES_ONLY",
+  "axis_c": {
+    "disposition": "SOURCE_BLOCKED_CREDENTIAL_AND_ADMIN_APPROVAL_REQUIRED",
+    "menu_id": "MDC04020503",
+    "locator": "https://data.krx.co.kr/contents/MDC/HARD/hardController/MDCHARD048.cmd",
+    "access_response_bytes": 407,
+    "access_response_sha256": "72926595b930be2a12498c726a786c3e4459e512dd9ba99d582ddf0d8d53a809",
+    "access_statement": "로그인 또는 회원가입이 필요합니다.",
+    "ca_universe_bytes": "NOT_OBTAINED",
+    "ca_universe_rows": "NOT_OBTAINED",
+    "authority_receipt": "NOT_OBTAINED",
+    "resume_trigger": "AUTHORIZED_KRX_OR_CUSTODIAN_CONFORMING_CA_UNIVERSE_EXPORT_WITH_EXACT_METADATA_AND_RECEIPT"
+  },
+  "calendar": {
+    "disposition": "PARTIAL_AUTHORITY_SOURCE_CUSTODY",
+    "official_closure_bytes": "OBTAINED_3_OF_3",
+    "total_closure_rows": 54,
+    "sources": [
+      {"year": 2024, "bytes": 2143, "rows": 18, "sha256": "d5961ae5998036cc1710fe28e22d324db0233b570dd5c417b088fba1408f857f"},
+      {"year": 2025, "bytes": 2270, "rows": 19, "sha256": "c90dcd0f9fd59498f239bbed32f63a300d64f25f9e03020f26a15c40cf017fa8"},
+      {"year": 2026, "bytes": 2049, "rows": 17, "sha256": "89ccce131de8d0c4baa6a30d62b7d2e8e3bdc872c71a21d7d81d4b667330d384"}
+    ],
+    "official_open_session_bytes": "NOT_OBTAINED",
+    "per_row_market_id": "ABSENT",
+    "regular_session_open_flag": "ABSENT",
+    "session_hours_or_half_day_marker": "ABSENT",
+    "common_equity_market_calendar": "NOT_PROVEN",
+    "trading_calendar_release": "NOT_CREATED"
+  },
+  "telemetry": {
+    "axis_c_capture_span_seconds": 134.44,
+    "axis_c_direct_krx_http_request_count": 6,
+    "axis_c_target_locator_attempt_count": 2,
+    "axis_c_retry_loop": false,
+    "calendar_planned_annual_requests": 3,
+    "calendar_successful_annual_requests": 3,
+    "calendar_retry_count": 0,
+    "calendar_material_span_seconds": 28,
+    "active_retrieval_time": "NOT_INSTRUMENTED",
+    "queue_wait_time": "NOT_INSTRUMENTED",
+    "dependency_wait_time": "NOT_INSTRUMENTED",
+    "token_or_cru": "NOT_INSTRUMENTED"
+  },
+  "progress": {
+    "active_workers": 0,
+    "active_validators": 0,
+    "earned_ewu_delta": 0,
+    "fast_close_earned_ewu": 21,
+    "fast_close_total_ewu": 100,
+    "g3_earned_ewu": 4,
+    "g3_total_ewu": 25,
+    "g3_b_combined_axis_b_c_earned_ewu": 0,
+    "g3_b_combined_axis_b_c_total_ewu": 7,
+    "validation_closure_percent": 0
+  },
+  "validation": {
+    "acts": 0,
+    "global_validation": false,
+    "full_regression": false,
+    "validation_loop": false,
+    "claim": "NONE"
+  },
+  "gate_state": {
+    "g3": "NOT_CLOSED",
+    "integrated_g1_g4": "NOT_CLOSED",
+    "eopt_g0": "OPEN_NOT_PROVEN_1_OF_6"
+  }
+}
