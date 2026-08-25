@@ -1,0 +1,523 @@
+{
+  "schema": "AAA_FC2_INTEGRATED_G1_G4_PREVALIDATION_BLOCKER_MATRIX_v1",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "persona": "AAA-PMO-ORCHESTRATOR (PMO)",
+  "report_class": "READ_ONLY_NON_VALIDATOR_PREVALIDATION",
+  "observed_at": "2026-08-26T01:42:27+09:00",
+  "observation_pin": {
+    "branch": "aaa-pmo-m3top3-successor-resume-20260826-0034",
+    "commit": "a6bb5170c75693165a17db6102b67b6badf6eeda",
+    "tree": "dce7e9be782b16b89355b2e6acb2bbc350f183c0",
+    "use_ceiling": "OBSERVATION_ONLY_NOT_UNIFIED_EOPT_BASE"
+  },
+  "prohibited_actions_observed": {
+    "validation_executed": false,
+    "global_or_full_regression_executed": false,
+    "validation_loop_executed": false,
+    "price_recovery_executed": false,
+    "git_or_issue_mutation_performed": false
+  },
+  "gate_effect": "NONE",
+  "earned_work_delta_ewu": 0,
+  "progress": {
+    "ewu_closed": 21,
+    "ewu_total": 100,
+    "overall_percent": 21,
+    "note": "No delta from this prevalidation report"
+  },
+  "integrated_checkpoint": {
+    "state": "NOT_CLOSED",
+    "prevalidation_shell_assemblable": true,
+    "closure_candidate_assemblable": false,
+    "validation_target_exists": false,
+    "validation_hold": true
+  },
+  "gate_state": {
+    "G1": {
+      "state": "IN_PROGRESS_NOT_SATISFIED",
+      "progress_percent": 33,
+      "expected_targets": [
+        {
+          "version": "v0.1",
+          "bytes": 35775,
+          "sha256": "3aaee7c1de2bd6f97e5ffd808fba980bf73fea1b604fb3c3b79e2be005180002",
+          "object_state": "NOT_FOUND"
+        },
+        {
+          "version": "v0.2",
+          "bytes": 40210,
+          "sha256": "5bbe75a4c9966abcb9f10d2f1e84df983977c1cf76d69e7bda6dfe4f24e60836",
+          "object_state": "NOT_FOUND"
+        }
+      ],
+      "custodian_exhaustion": "NOT_PROVEN",
+      "blocked_fields": [
+        "EXACT_SOURCE_ZIP_BYTES",
+        "ORIGINAL_EXECUTABLE_LINEAGE",
+        "EXACT_SCORING_RELEASE"
+      ]
+    },
+    "G2": {
+      "state": "OPEN_PARTIAL_PROGRESS",
+      "progress_percent": 28,
+      "current_ewu": 7,
+      "target_ewu": 25,
+      "row_count": 1016,
+      "combined_eligibility_open": 514,
+      "business_participation": {
+        "needs_research": 500,
+        "partial": 14,
+        "unresolved_total": 514
+      },
+      "listing_provenance_open": 469,
+      "w1_w8_authority_rows_open": 8,
+      "w1_w8_candidate": {
+        "rows": 8,
+        "bytes": 414,
+        "sha256": "96d63cc98a01b6332cf9486440e7f3fdaa0ec5a2d605f21bc14a4025b46e69fe",
+        "local_concordance": "8_OF_8",
+        "authority": "ABSENT",
+        "release_admitted": false
+      },
+      "blocked_fields": [
+        "HISTORICAL_BP_INTERVAL_AUTHORITY",
+        "LISTING_RELISTING_DELISTING_AUTHORITY",
+        "AUTHORITATIVE_W1_W8_BINDING",
+        "FINAL_G2_RELEASE_MANIFEST",
+        "FINAL_G2_RECEIPT"
+      ],
+      "package_hashes": {
+        "report_md": {
+          "sha256": "fc30acb5b556dcc7e4b9a591cc0f541a1dea97d5e5969fc966887d3a4dd00ace",
+          "git_blob": "9710e566c622ae18d2815dbd5304933e1f62fef5"
+        },
+        "machine_state_json": {
+          "sha256": "e248f9f2a05f98809e3266995f5f0badf431da3b42aea538a0a72f27156ce87b",
+          "git_blob": "f6cf318c72aecd8cafda0d1289f52bd93afc03f1"
+        }
+      }
+    },
+    "G3": {
+      "state": "OPEN_PARTIAL_PROGRESS",
+      "progress_percent": 16,
+      "price_custody": {
+        "upstream_commit": "5e8e4e57f3fcb129a6ff20751f643f67d3592c82",
+        "components": [
+          {
+            "year": 2024,
+            "git_blob": "b69c5222d015c81f19f90f581faabe4dd1a919b4",
+            "bytes": 24572111,
+            "sha256": "b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb"
+          },
+          {
+            "year": 2025,
+            "git_blob": "e817f0729b787fe03904982a37b1d84d26d70206",
+            "bytes": 25153419,
+            "sha256": "2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e"
+          },
+          {
+            "year": 2026,
+            "git_blob": "3921c090c0c9336e2ab8d068a4546aec26595665",
+            "bytes": 16297737,
+            "sha256": "b6f3f8ea110326b21d23b5344e6abe159f8ea7f7a345262155b929c08886fc9d"
+          }
+        ],
+        "forward_recovery_evidence_sha256": "4bbcd2b6e580fffeda32483048c1a43c6cdd16d736c59c6bda1609a8e14ecbdd",
+        "source_recovery_manifest_sha256": "c6992f2219fe182f8ecf1a9d7aaaccb3339c35faf5cf35db6c4eef1f4fecdbf3",
+        "release_admitted": false,
+        "predecessor_manifest": {
+          "expected_sha256": "56d36d51e9f7b8870aa75cc41ee241603f6cf7446cb2386187c6ebcbb88b73c4",
+          "bytes_state": "NOT_FOUND",
+          "legacy_mismatch_is_substitute": false
+        }
+      },
+      "entry_tradability_projection": {
+        "sha256": "14906157e5071aec2d2e333ffd1f6a31d5c90092f4577494e90f7fc780dce289",
+        "rows": 1016,
+        "entry_open_true": 979,
+        "entry_open_false": 37,
+        "mismatch": 0,
+        "historical_eligible": 465,
+        "ineligible_by_tradability": 37,
+        "unresolved": 514,
+        "use_ceiling": "MECHANICAL_INPUT_ONLY"
+      },
+      "owner_decision_candidates": [
+        {
+          "id": "OD-G3-B-01",
+          "recommended_decision": "YES",
+          "actual_decision": "NOT_RECORDED",
+          "effect_if_yes": "Bind inclusive >=20 percent Open-vs-prior-observed-Close exact no-rounding signal-only rule"
+        },
+        {
+          "id": "OD-G3-C-01",
+          "recommended_decision": "YES",
+          "actual_decision": "NOT_RECORDED",
+          "effect_if_yes": "Bind KRX CA taxonomy exact-date corrections and zero-unresolved exhaustion rule"
+        },
+        {
+          "id": "OD-G3-CAL-01",
+          "recommended_decision": "YES",
+          "actual_decision": "NOT_RECORDED",
+          "effect_if_yes": "Bind official KRX regular-session bytes as normative calendar"
+        },
+        {
+          "id": "OD-G3-WIN-01",
+          "recommended_decision": "YES",
+          "actual_decision": "NOT_RECORDED",
+          "effect_if_yes": "Ratify exact 8-row development-only registry and authorize outcome-free binding"
+        }
+      ],
+      "annotation": {
+        "rows": 1016,
+        "fields": 17,
+        "slots": 17272,
+        "locally_recoverable_content": 0,
+        "publication_timestamps": 0,
+        "admitted_rows": 0,
+        "registry_sha256": "3ee7db8fe7ad265e9909821b608829d05c02edf88bfa8937d3c5f91f74278612",
+        "schema_sha256": "cea40640ba9258116d82ce957cf9f3cb1d3b6b79373f95cdcec1a5d72265e836",
+        "raw_queue_sha256": "e5f9d9ff2a10bb47ab92826646b53c6754a84f4942c866cdd510a8828b338b7f",
+        "compressed_queue_sha256": "8b3671d662457aef8c1a5595b33a85a27e08aaee56238e7218f1df0b4df78353",
+        "compressed_queue_git_blob": "4b3cfbfa9969abe2bd6dff5fdbfeb2db9d31cdae",
+        "completion_eta": "UNMEASURABLE",
+        "reuse_instruction": "DELTA_INGEST_ONLY_DO_NOT_RESCAN"
+      },
+      "lineage_envelope": {
+        "domain_count": 8,
+        "each_domain_present_exactly_once": true,
+        "all_release_admitted": false,
+        "domains": [
+          "UNIVERSE_RELEASE_CANDIDATE_NOT_FINAL",
+          "DENOMINATOR_RELEASE_MISSING_514_UNRESOLVED",
+          "FEATURE_RELEASE_MISSING_QUEUE_ONLY",
+          "PRICE_BYTES_EXACT_RELEASE_IDENTITY_UNBOUND",
+          "CA_PROTOCOL_CANDIDATE_B_C_OPEN",
+          "GOVERNED_CALENDAR_ABSENT",
+          "WINDOW_CANDIDATE_EXACT_DATE_PROVENANCE_OPEN",
+          "EXACT_SCORER_RELEASE_ABSENT_G1_BLOCKED"
+        ],
+        "missing_bundle_fields": [
+          "EIGHT_ADMITTED_RELEASE_REFERENCES",
+          "EXACT_U_E_I_SET_AND_PARTITION_DIGESTS",
+          "EXPECTATION_MANIFESTS",
+          "ROW_DATASET_REFERENCES",
+          "DATE_AND_REVISION_COHERENCE",
+          "EXACT_SCORER_AND_CONFIG_IDENTITY",
+          "EXTERNAL_BUNDLE_HASH",
+          "FINAL_AUTHORITY_AND_VALIDATION"
+        ],
+        "report_md": {
+          "sha256": "e3aaef8fa74d565ae539d5e41154ea5e517541cb3574267ffe56fe25c093981e",
+          "git_blob": "f794a095fe026bf6ce506474888c9c46aca5ec42"
+        },
+        "machine_state_json": {
+          "sha256": "2e937200ee9970a95378f82e720f2588587bafc4f6b47489d03456dda66b8864",
+          "git_blob": "f549c20aebb34d852a64199e7c65eb44b6dd7305"
+        }
+      },
+      "package_hashes": {
+        "governance_report_md": {
+          "sha256": "6872cd98c78490fe226474b5c45c1ca13b2a20f1c5db45a08adeaa7099caed42",
+          "git_blob": "324dc8b09cb929880d38c285239f8dabe511d936"
+        },
+        "governance_json": {
+          "sha256": "42c60cdafbc1b504a3113512c5a2ac9ad8e728a18e5173853fec3ad2ba923250",
+          "git_blob": "ae02c908ebd40867a3835d2019c6b48bd80c58c5"
+        },
+        "annotation_report": {
+          "sha256": "89e695a48473791d72f378530d2d58b82e39fd3f68efb78766eb618e1abb31b9",
+          "git_blob": "084ffeadcf16d12518c114717779cd3bcfb1af91"
+        },
+        "annotation_summary": {
+          "sha256": "69137aeccea4170e8a714e0dcf4dc0a6f755daa60d70e026dbfacc5156a0163f",
+          "git_blob": "fc6cb48c041b9de3af9a33e15a8bfc2d826d1ba5"
+        },
+        "owner_decision_packet_md": {
+          "sha256": "a6fd50cd491025615edf31b6a3e539534c953b2aded1a5418cd5d50650215b1d",
+          "git_blob": "337ce540c12f52365daa5ddc3218e6ee01e4e27f"
+        },
+        "owner_decision_packet_json": {
+          "sha256": "3bb8667cbd43c79c1b99925ec339fd0598c8185a2488bf8b36c5625ac0a98f6d",
+          "git_blob": "7311c73148b8d8d834f543b5c00ba17d7ac63aa6"
+        }
+      },
+      "blocked_fields": [
+        "GOVERNED_PRICE_RELEASE",
+        "INDEPENDENT_KRX_CA_UNIVERSE_AND_RECEIPT",
+        "GOVERNED_KRX_CALENDAR_AND_RECEIPT",
+        "ANNOTATION_SOURCE_AND_PUBLICATION_AUTHORITY",
+        "MATERIALIZED_OUTCOME_FREE_WINDOW_AUTHORITY",
+        "EXACT_SCORER_RELEASE",
+        "ALL_EIGHT_ADMITTED_RELEASE_REFERENCES",
+        "FINAL_G3_RELEASE_BUNDLE_AND_RECEIPT"
+      ]
+    },
+    "G4": {
+      "state": "SATISFIED_WITH_FINDING_SEALED",
+      "progress_percent": 100,
+      "rerun_required": false,
+      "reuse_scope": "EXACT_ORIGINAL_TARGET_ONLY",
+      "exact_target": {
+        "implementation_commit": "6bea55409588209529dc4c94d03694875a2c7c69",
+        "implementation_tree": "5bebddb0fb2ffbc1c85828b54f5bbf44f0a5c687",
+        "source_tree_sha256": "37b10c54baee9aba7f33f1b59d524e0a24e4e1e1561483a030527a2bff566c73",
+        "evidence_commit": "1d6822736d97f8ddc76ae03e43d7cd594294b086",
+        "evidence_tree": "2e08038a8c8c887da4c421fb2adcc74b35e444f9",
+        "formal_request_sha256": "9afb57f21166beadf21d0ce22d285e1033659322a2d483454f437b2682e9a097"
+      },
+      "sealed_receipts": [
+        {
+          "role": "ENGINEERING_VALIDATOR",
+          "sha256": "4448e4b64ebaa178e64f222baf11f027372d2c5345fd683b7abf3068b3854342",
+          "verdict": "PASS_ENGINEERING_EXACT_TARGET_WITH_NONBLOCKING_PACKAGING_FINDING"
+        },
+        {
+          "role": "CONTROLS_VALIDATOR",
+          "sha256": "71dc9680387511621f5c79b2e728bcff2698cb87ac94fc32b38e564bf2462553",
+          "verdict": "PASS_WITH_NONBLOCKING_FINDING"
+        },
+        {
+          "role": "PMO_CLAIM_AUDIT",
+          "sha256": "280de0bf68407b23001737d37267684b0284073ab772f47ee2abeafd3a56bb2f",
+          "verdict": "PASS_CLAIM_AUDIT_WITH_NONBLOCKING_PACKAGING_FINDING"
+        }
+      ],
+      "gate_delta_json_sha256": "fdb08c9cc15a55a1ed4a21f15af6aefed211a670ab4f34109b359ee80b1dfd0f",
+      "reconciliation_md_sha256": "240a503517a063e76b1ccee869458a1a9aac48912bff9b6d945c197b706a68f4",
+      "finding": "PORTABLE_MUTATION_ARCHIVE_INCOMPLETE_NONBLOCKING_FOR_CURRENT_EXACT_TARGET",
+      "future_reuse_limit": "ARCHIVED_57_OF_57_MUTATION_RECEIPT_BLOCKED_UNTIL_ADDENDUM"
+    }
+  },
+  "field_assembly_summary": {
+    "assemblable_now": [
+      "PROGRAM_PERSONA_AUTHORITY_AND_CLAIM_CEILINGS",
+      "OBSERVED_SUCCESSOR_BRANCH_HEAD_TREE_AS_OBSERVATION_ONLY",
+      "CURRENT_GATE_STATES_AND_BLOCKER_COUNTS",
+      "G1_EXPECTED_TARGET_IDENTITIES_AND_ABSENCE_STATE",
+      "G2_STABLE_CANDIDATE_COUNTS_HASHES_AND_BLOCKER_ENVELOPE",
+      "G3_EXACT_COMPONENT_CUSTODY",
+      "G3_ENTRY_TRADABILITY_MECHANICAL_PROJECTION",
+      "G3_ANNOTATION_FAIL_CLOSED_QUEUE",
+      "G3_PROTOCOL_CANDIDATES_AND_OWNER_DECISION_PACKET",
+      "G3_EIGHT_DOMAIN_BLOCKED_LINEAGE_ENVELOPE",
+      "G4_SEALED_EXACT_TARGET_AND_RECEIPT_BINDINGS",
+      "EOPT_G0_ONE_OF_SIX_CONDITION_MATRIX",
+      "MINIMUM_VALIDATION_HOLD_POLICY"
+    ],
+    "blocked": [
+      "G1_EXACT_ZIP_BYTES_AND_EXECUTABLE_CHAIN",
+      "G2_TERMINAL_DENOMINATOR_AND_AUTHORITY_RELEASE",
+      "G3_ALL_EIGHT_ADMITTED_RELEASE_REFERENCES_AND_FINAL_BUNDLE",
+      "INTEGRATED_CLOSED_TRUE",
+      "FINAL_POST_RUN_HASH_JSON_REPRO_QC",
+      "INTEGRATED_CLOSURE_GATE_DELTA",
+      "UNIFIED_EOPT_BASE_PIN",
+      "IMMEDIATE_PRE_MUTATION_WRITER_CLEAR",
+      "FINAL_COMBINED_EXACT_DELTA_VALIDATOR_RECEIPT"
+    ]
+  },
+  "remaining_non_validator_local_work": {
+    "g3_lineage_envelope_committed": true,
+    "owner_decision_packet_committed": true,
+    "this_preflight_is_last_distinct_source_independent_integration_artifact": true,
+    "after_pmo_packaging": "NONE_IDENTIFIED",
+    "pmo_packaging_is_gate_evidence": false,
+    "do_not_dispatch_restatement_workers": true
+  },
+  "resume_triggers": [
+    {
+      "trigger": "OWNER_RECORDS_ALL_FOUR_G3_DECISIONS_YES",
+      "bounded_action": "BIND_APPROVED_PROTOCOLS_AND_EXECUTE_AXIS_B_ONLY_WHERE_REQUIRED_INPUTS_EXIST",
+      "prohibition": "DO_NOT_TREAT_RECOMMENDATIONS_AS_DECISIONS"
+    },
+    {
+      "trigger": "EXACT_G1_ZIP_BYTES_MATCH_SIZE_AND_HASH",
+      "bounded_action": "INSPECT_EXACT_IDENTITY_AND_RECONSTRUCT_ONLY_CORRESPONDING_LINEAGE",
+      "prohibition": "NO_NEAR_MATCH_OR_RECREATED_BYTES"
+    },
+    {
+      "trigger": "G1_CUSTODIAN_EXHAUSTION_PROVEN",
+      "bounded_action": "PRESENT_SEPARATE_OWNER_RESERVED_DISPOSITION",
+      "prohibition": "NO_AUTOMATIC_PASS"
+    },
+    {
+      "trigger": "ADMISSIBLE_BP_INTERVAL_AUTHORITY",
+      "bounded_action": "RECOMPUTE_ONLY_AFFECTED_G2_B_CELLS",
+      "prohibition": "NO_RESCAN_OF_SETTLED_CELLS"
+    },
+    {
+      "trigger": "ADMISSIBLE_LISTING_LIFECYCLE_AUTHORITY",
+      "bounded_action": "UPDATE_ONLY_AFFECTED_BP_TRUE_G2_C_ROWS",
+      "prohibition": "NO_UNRELATED_REBUILD"
+    },
+    {
+      "trigger": "AUTHORITATIVE_EXACT_EIGHT_ROW_W1_W8_BINDING",
+      "bounded_action": "BIND_EXISTING_CANDIDATE_AND_CLOSE_ONLY_DATE_PROVENANCE_LANE_IF_CONCORDANT",
+      "prohibition": "NO_AUTHORITY_INFERENCE_FROM_LOCAL_CONCORDANCE"
+    },
+    {
+      "trigger": "EXACT_INDEPENDENT_KRX_CA_BYTES_AND_RECEIPT",
+      "bounded_action": "EXECUTE_APPROVED_AXIS_C_PROTOCOL",
+      "prohibition": "NO_PRICE_BEHAVIOR_SUBSTITUTION"
+    },
+    {
+      "trigger": "EXACT_OFFICIAL_KRX_CALENDAR_BYTES_AND_RECEIPT",
+      "bounded_action": "BUILD_GOVERNED_CALENDAR_RELEASE",
+      "prohibition": "NO_DIAGNOSTIC_PRICE_DATE_PROMOTION"
+    },
+    {
+      "trigger": "ADMISSIBLE_ANNOTATION_SOURCES_PUBLICATION_TIMESTAMPS_OR_SIDECARS",
+      "bounded_action": "DELTA_INGEST_ONLY_NEW_SUPPORTED_CELLS",
+      "prohibition": "NO_SOURCE_INDEPENDENT_QUEUE_RESCAN"
+    },
+    {
+      "trigger": "EXACT_PREDECESSOR_PRICE_MANIFEST_OR_OWNER_GOVERNED_FORWARD_CUTOVER",
+      "bounded_action": "BIND_GOVERNED_PRICE_RELEASE_WITH_EXACT_IDENTITIES",
+      "prohibition": "NO_LEGACY_MISMATCH_SUBSTITUTION_OR_ASSUMED_CUTOVER"
+    },
+    {
+      "trigger": "ALL_G1_G3_CLOSURE_CANDIDATES_AND_UNCHANGED_G4_SCOPE_ON_ONE_PINNED_BASE",
+      "bounded_action": "ASSEMBLE_FINAL_NON_VALIDATOR_FC2_CLOSURE_CANDIDATE_HASHES_REPRO_PIN_AND_GATE_DELTA",
+      "prohibition": "DO_NOT_MARK_CLOSED_AND_KEEP_VALIDATION_HOLD"
+    },
+    {
+      "trigger": "OWNER_RELEASES_VALIDATION_HOLD_AFTER_EXACT_TARGET_EXISTS",
+      "bounded_action": "REACQUIRE_ONE_COMBINED_EXACT_DELTA_FC2_FC3_VALIDATION_ACT_AND_REUSE_G4_BY_EXACT_SCOPE",
+      "prohibition": "NO_GLOBAL_OR_FULL_SUITE_NO_DUPLICATE_VALIDATOR_NO_AUTO_RETRY_OR_LOOP_MAX_ONE_FAILED_CHECK_RERUN_AFTER_EXACT_FIX"
+    }
+  ],
+  "timing": {
+    "source_wait_included": false,
+    "true_wall_clock_to_integrated_closure": "UNMEASURABLE",
+    "items": [
+      {
+        "work_unit": "READ_ONLY_PREVALIDATION_ASSEMBLY",
+        "state": "COMPLETING_NOW",
+        "p50_hours": 0.25,
+        "p90_hours": 0.75,
+        "confidence": "HIGH"
+      },
+      {
+        "work_unit": "PMO_PACKAGING_READBACK_CURRENTIZATION",
+        "state": "CURRENT_LOCAL_REMAINDER",
+        "p50_hours_range": [0.25, 0.5],
+        "p90_hours_range": [0.75, 1.0],
+        "confidence": "MEDIUM"
+      },
+      {
+        "work_unit": "G1_RECONSTRUCTION_AFTER_EXACT_BYTES",
+        "state": "CONDITIONAL",
+        "p50_hours": 1.0,
+        "p90_hours": 2.0,
+        "confidence": "LOW_MEDIUM"
+      },
+      {
+        "work_unit": "G2_AFTER_ALL_THREE_AUTHORITY_CLASSES",
+        "state": "CONDITIONAL",
+        "p50_hours_range": [1.5, 2.5],
+        "p90_hours_range": [4.0, 5.0],
+        "confidence": "MEDIUM"
+      },
+      {
+        "work_unit": "G3_B_C_CALENDAR_AFTER_DECISIONS_AND_BYTES",
+        "state": "CONDITIONAL",
+        "p50_hours": 2.25,
+        "p90_hours": 5.0,
+        "cru_range": [25, 40],
+        "confidence": "MEDIUM"
+      },
+      {
+        "work_unit": "G3_ANNOTATION_COMPLETION",
+        "state": "BLOCKED",
+        "p50_hours": null,
+        "p90_hours": null,
+        "eta": "UNMEASURABLE",
+        "floor_note": "16.9 hours at one minute per company-window is a floor, not an ETA",
+        "confidence": "LOW"
+      },
+      {
+        "work_unit": "FINAL_FC2_NON_VALIDATOR_ASSEMBLY_AFTER_EXACT_CANDIDATES",
+        "state": "CONDITIONAL",
+        "p50_hours_range": [0.25, 0.5],
+        "p90_hours_range": [0.75, 1.0],
+        "confidence": "MEDIUM"
+      },
+      {
+        "work_unit": "ONE_POST_HOLD_EXACT_DELTA_VALIDATION_ACT",
+        "state": "CONDITIONAL_NOT_AUTHORIZED_NOW",
+        "p50_hours_range": [0.25, 0.5],
+        "p90_hours_range": [0.75, 1.0],
+        "hard_stop_hours": 1.0,
+        "confidence": "MEDIUM"
+      }
+    ]
+  },
+  "compute": {
+    "planned_program_cru": 142,
+    "material_cru_added_by_this_report": 0,
+    "rework_added_by_channel_succession": 0
+  },
+  "minimum_validation_policy": {
+    "current_state": "HOLD",
+    "eventual_act_count": 1,
+    "scope": "COMBINED_EXACT_DELTA_FC2_FC3_AFTER_EXACT_G1_G3_CANDIDATES_PLUS_UNCHANGED_SEALED_G4_ON_ONE_BASE",
+    "g4_receipt_reuse": "EXACT_ORIGINAL_SCOPE_ONLY",
+    "global_validation": false,
+    "full_suite": false,
+    "automatic_retry": false,
+    "validation_loop": false,
+    "max_failed_check_reruns_after_exact_fix": 1,
+    "p50_minutes_range": [15, 30],
+    "p90_minutes_range": [45, 60],
+    "hard_stop_minutes": 60
+  },
+  "eopt_g0": {
+    "status": "OPEN_NOT_PROVEN_1_OF_6",
+    "advance_authorized": false,
+    "conditions": [
+      {
+        "id": 1,
+        "name": "INTEGRATED_G1_G4_CLOSED",
+        "state": "NOT_PROVEN"
+      },
+      {
+        "id": 2,
+        "name": "BOUNDED_W4X3_PILOT_CLOSED",
+        "state": "PASS_WITH_SCOPE_QUALIFICATION"
+      },
+      {
+        "id": 3,
+        "name": "FINAL_HASH_JSON_REPRO_QC",
+        "state": "NOT_PROVEN"
+      },
+      {
+        "id": 4,
+        "name": "FINAL_GATE_DELTA_REPORT",
+        "state": "NOT_PROVEN"
+      },
+      {
+        "id": 5,
+        "name": "EXACT_BASE_RUNTIME_CONFIG_INPUT_ENV_COMMAND_PIN",
+        "state": "NOT_PROVEN"
+      },
+      {
+        "id": 6,
+        "name": "NO_ACTIVE_WRITER_ON_OPTIMIZATION_TARGETS",
+        "state": "NOT_PROVEN_DEFERRED_TO_IMMEDIATE_PRE_MUTATION_CHECK"
+      }
+    ]
+  },
+  "final_disposition": {
+    "prevalidation_shell_assemblable": true,
+    "integrated_closure_candidate_assemblable": false,
+    "remaining_source_independent_material_work_after_pmo_packaging": "NONE_IDENTIFIED",
+    "validation_target_exists": false,
+    "validation_hold": true,
+    "g4_rerun_required": false,
+    "integrated_checkpoint": "NOT_CLOSED",
+    "eopt_g0": "OPEN_NOT_PROVEN_1_OF_6",
+    "gate_effect": "NONE"
+  }
+}
