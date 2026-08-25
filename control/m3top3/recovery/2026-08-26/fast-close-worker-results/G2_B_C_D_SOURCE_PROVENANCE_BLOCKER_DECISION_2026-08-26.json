@@ -1,0 +1,234 @@
+{
+  "artifact_id": "AAA-M3TOP3-FC1-G2-B-C-D-SOURCE-PROVENANCE-BLOCKER-DECISION-20260826-0126-KST",
+  "project": "AAA / ASSET AGENT ASA",
+  "lane": "FC1-G2",
+  "execution_role": "NON_VALIDATOR_BOUNDED_WORKER",
+  "observed_at_kst": "2026-08-26T01:26:29+09:00",
+  "controls": {
+    "validator_or_reviewer_execution": "NONE",
+    "global_or_full_suite_validation": "NONE",
+    "regression_or_validation_loop": "NONE",
+    "git_or_issue_mutation": "NONE",
+    "external_search_or_source_retrieval": "NONE",
+    "source_mutation": "NONE"
+  },
+  "decision": {
+    "state": "BLOCKED_NO_ADMISSIBLE_HISTORICAL_BP_LISTING_OR_WINDOW_AUTHORITY_IN_CURRENT_BYTES",
+    "g2_gate_effect": "NONE",
+    "new_eligibility_decisions": 0,
+    "new_listing_decisions": 0,
+    "new_window_authority_bindings": 0,
+    "new_combined_cells_closed": 0,
+    "reason": "The supplied bytes contain current structural seeds, routing rules and exact price bytes, but no cutoff-safe historical business-priority validity intervals, no authoritative listing dates, and no tuple-level W1-W8 authority binding."
+  },
+  "exact_source_inventory": [
+    {
+      "artifact": "Korea_Semiconductor_SupplyChain_TOP38_Master_Scorecard_v2.2_Detail_2026-08-14.docx",
+      "bytes": 53141,
+      "sha256": "e41b02dcb642f72b447c6c468c6d590e19aff468e6bc99413b7da5ef0cde6300",
+      "recoverable_fact": "38 companies characterized as current Korean listed semiconductor materials/equipment companies at base date 2026-08-14",
+      "admission": "CURRENT_STRUCTURAL_CONTEXT_ONLY_NOT_HISTORICAL_PIT"
+    },
+    {
+      "artifact": "Semi_Data_Route_v1.1_2026-08-14.docx",
+      "bytes": 49660,
+      "sha256": "508f98e88c150ceb751db2227727db529eb04da467c53a6eed5278ca5e17aa02",
+      "recoverable_fact": "source-tier, cutoff, missingness and Entry/Exit routing rules",
+      "admission": "RULE_ONLY_NO_ROW_EVIDENCE"
+    },
+    {
+      "artifact": "Semi_Universe_v1.0_2026-08-14.docx",
+      "bytes": 42132,
+      "sha256": "eef313bc71bd0a5cb019f92e43e1bf38c2a63633bb847320d1cb4c8fe4ea9023",
+      "recoverable_fact": "46-current-company universe and historical eligibility rule",
+      "admission": "CURRENT_MEMBERSHIP_AND_RULE_ONLY"
+    },
+    {
+      "artifact": "SEMI-PIT-LEDGER_v1.0.docx",
+      "bytes": 38985,
+      "sha256": "acde50e7090382e95cc585227c4dd52df6b3f342258b6debfa0aabb7db94006a",
+      "recoverable_fact": "append-only PIT contract requiring listing plus actual Entry-day tradability",
+      "admission": "SCHEMA_CONTRACT_ONLY"
+    },
+    {
+      "artifact": "SEMI-PRICE-LEDGER_IMPORT-MANIFEST_v1.0.csv",
+      "bytes": 763,
+      "sha256": "ca8f117a83cd3da800a2a2b5e0ebdca3c89ff658ff3fd21b5083e4aae9ab98ce",
+      "recoverable_fact": "declared 2024-01-01 through 2026-08-14 range, provider and Entry rule",
+      "admission": "LEGACY_CONFIGURATION_NOT_EXACT_COMPONENT_RELEASE"
+    },
+    {
+      "artifact": "SEMI-SOURCE-INDEX_v1.0.docx",
+      "bytes": 40850,
+      "sha256": "2131ebe6724a8c2d235e7e6f06d4fdde2819ab460bd5c907e2f7ca32e02dac46",
+      "recoverable_fact": "46 DART/KIND locators; 9 official URLs present and 37 official URL fields NOT_VERIFIED",
+      "admission": "ROUTE_SEEDS_ONLY_NO_HISTORICAL_FACT"
+    },
+    {
+      "artifact": "SEMI-COMPANY-MASTER_v0.1.docx",
+      "bytes": 57619,
+      "sha256": "03842717f3bb6815610541496b1f5dadfd44a0e277dc9364c5632cbfb5520cd6",
+      "recoverable_fact": "46 KRX-code/market and business structural seeds; all 46 FACT rows last_verified 2026-08-14",
+      "admission": "CURRENT_STRUCTURAL_SEED_ONLY"
+    },
+    {
+      "artifact": "SEMI-PRICE-LEDGER_v1.0_SCHEMA.csv",
+      "bytes": 219,
+      "sha256": "67c8633579c3b624ffa2254bdf4173f205b1617b64ed960b9b1e200bc1e01c25",
+      "recoverable_fact": "20-column schema including trading status and universe eligible flag",
+      "admission": "SCHEMA_ONLY"
+    },
+    {
+      "artifact": "SEMI-PRICE-LEDGER_v1.0_INGEST-AUDIT_BLOCKED_2026-08-14.csv",
+      "bytes": 20209,
+      "sha256": "6e8d0eabbd4cafaf8f3073528a3d75c7ec15713a4efa27ba5308a176776e0728",
+      "recoverable_fact": "46 historical audit rows explicitly NOT_CREATED at the prior blocked state",
+      "admission": "BLOCKER_HISTORY_ONLY"
+    },
+    {
+      "artifact": "marcap-2025.parquet",
+      "bytes": 25153419,
+      "sha256": "2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e",
+      "recoverable_fact": "byte-identical to the exact pinned 2025 component used by the prior bounded row reproduction",
+      "admission": "PRICE_SIDE_MECHANICAL_INPUT_ONLY_NOT_LISTING_AUTHORITY"
+    }
+  ],
+  "prior_artifact_bindings": [
+    {
+      "artifact": "agent_g2_fast_lane/FC1_G2_READ_ONLY_RECONCILIATION_2026-08-26.md",
+      "sha256": "456e6f85e8203bef8bba9a842c5212bc6590753ac0414765af5a9228a843ef45",
+      "role": "exact G2 queue and source-custody reconciliation"
+    },
+    {
+      "artifact": "agent_g3_pit_annotation/G3_D_ENTRY_TRADABILITY_SUMMARY.json",
+      "sha256": "14906157e5071aec2d2e333ffd1f6a31d5c90092f4577494e90f7fc780dce289",
+      "role": "non-validator mechanical Entry-Open projection; not listing or eligibility authority"
+    }
+  ],
+  "mechanical_source_findings": {
+    "current_business_structural_seed": {
+      "universe_rows": 46,
+      "company_master_business_type_rows": 46,
+      "company_master_fact_rows": 46,
+      "fact_confidence_high": 6,
+      "fact_confidence_medium": 40,
+      "fact_last_verified_2026_08_14": 46,
+      "explicit_historical_effective_interval_rows": 0,
+      "cutoff_safe_w1_w8_business_priority_decisions": 0,
+      "limitation": "All seeds are current-state registrations dated after every W1-W8 Entry date; no publication_at/effective_from/effective_to history is supplied."
+    },
+    "identity_and_listing": {
+      "company_master_krx_code_market_seeded": 46,
+      "company_master_dart_corp_id_not_found": 46,
+      "company_master_listing_date_not_found": 46,
+      "source_index_dart_kind_locator_rows": 46,
+      "source_index_official_url_present": 9,
+      "source_index_official_url_not_verified": 37,
+      "new_listed_at_entry_authority_rows": 0,
+      "limitation": "Locator strings and positive Entry Open observations do not independently establish listed_at_entry or listing/relisting history."
+    },
+    "price_side_reuse": {
+      "full_projection_rows_from_prior_non_validator_artifact": 1016,
+      "entry_open_true": 979,
+      "entry_open_false": 37,
+      "workbook_mismatches": 0,
+      "combined_tradable_eligible_true": 510,
+      "combined_tradable_eligible_false": 37,
+      "combined_tradable_eligible_unresolved": 469,
+      "limitation": "Price-side facts cannot self-authorize listing, corporate-action, calendar or release lineage."
+    },
+    "denominator": {
+      "open_axis_records": 1534,
+      "business_priority_open": 551,
+      "listing_tradability_open": 469,
+      "combined_historical_eligibility_open": 514,
+      "combined_state_unresolved_unresolved": 469,
+      "combined_state_unresolved_true": 45,
+      "combined_business_priority_needs_research": 500,
+      "combined_business_priority_partial": 14,
+      "combined_unique_companies": 67,
+      "new_combined_closures": 0
+    },
+    "window_authority": {
+      "candidate_registry_sha256": "96d63cc98a01b6332cf9486440e7f3fdaa0ec5a2d605f21bc14a4025b46e69fe",
+      "candidate_rows": 8,
+      "candidate_local_concordance": "8_OF_8",
+      "authoritative_tuple_binding_rows_in_supplied_sources": 0,
+      "authority_state": "PROVENANCE_OPEN",
+      "tuples": [
+        {"window": "W1", "snapshot_cutoff": "2024-08-09", "entry": "2024-08-12", "last_trading_day": "2024-11-08"},
+        {"window": "W2", "snapshot_cutoff": "2024-11-08", "entry": "2024-11-11", "last_trading_day": "2025-02-10"},
+        {"window": "W3", "snapshot_cutoff": "2025-02-10", "entry": "2025-02-11", "last_trading_day": "2025-05-09"},
+        {"window": "W4", "snapshot_cutoff": "2025-05-09", "entry": "2025-05-12", "last_trading_day": "2025-08-08"},
+        {"window": "W5", "snapshot_cutoff": "2025-08-08", "entry": "2025-08-11", "last_trading_day": "2025-11-10"},
+        {"window": "W6", "snapshot_cutoff": "2025-11-10", "entry": "2025-11-11", "last_trading_day": "2026-02-10"},
+        {"window": "W7", "snapshot_cutoff": "2026-02-10", "entry": "2026-02-11", "last_trading_day": "2026-05-08"},
+        {"window": "W8", "snapshot_cutoff": "2026-05-08", "entry": "2026-05-11", "last_trading_day": "2026-08-10"}
+      ]
+    }
+  },
+  "closure_matrix": [
+    {
+      "wbs_id": "G2-B",
+      "status": "BLOCKED",
+      "open_count": 514,
+      "required_next_input": "cutoff-safe business-priority source/decision validity intervals for the 67-company queue; listing authority only where BP resolves TRUE",
+      "deterministic_short_circuit": "BP FALSE closes combined status without further positive listing work; BP TRUE requires admitted listing/Entry tradability lineage."
+    },
+    {
+      "wbs_id": "G2-C",
+      "status": "BLOCKED",
+      "open_count": 8,
+      "required_next_input": "outcome-free W1_W8_DATE_PROVENANCE_BINDING with upstream authority, exact artifact hash, row/cell locator, effective version and custodian attestation"
+    },
+    {
+      "wbs_id": "G2-D",
+      "status": "BLOCKER_ENVELOPE_COMPLETE_RELEASE_CANDIDATE_NOT_BUILDABLE",
+      "open_count": null,
+      "required_next_input": "G2-B unresolved=0 and G2-C authoritative rows=8 before exact candidate materialization"
+    }
+  ],
+  "minimum_decision_packet": {
+    "owner_policy_decisions_required_now": 0,
+    "custodian_or_source_inputs_required": [
+      "historical BP fact validity/source sidecar for the 514 combined-open cells, preferably expressed as reusable company validity intervals",
+      "authoritative listing/relisting/delisting dates for the BP-TRUE subset of the 469 listing-open rows",
+      "one authoritative eight-row W1-W8 date provenance binding"
+    ],
+    "do_not_repeat": [
+      "current source-document search",
+      "2025 byte hashing",
+      "1,016-row Entry-Open projection",
+      "sealed v0.2 documentary validation",
+      "global or full-suite validation"
+    ],
+    "worker_resume_trigger": "Any one of the three missing source/authority inputs becomes available with exact byte/hash identity."
+  },
+  "progress_recommendation": {
+    "current_g2_ewu": 7,
+    "g2_total_ewu": 25,
+    "new_earned_ewu_recommended": 0,
+    "recommended_g2_ewu_after_packet": 7,
+    "reason": "This packet proves the exact blocker and prevents duplicate work but closes no G2-B eligibility cell, no G2-C authority row and no releasable G2-D artifact."
+  },
+  "worker_only_forecast": {
+    "current_input_state_true_gate_closure_eta": "NOT_MEASURABLE",
+    "external_source_or_custodian_wait": "EXCLUDED_AND_UNMEASURABLE",
+    "after_all_three_inputs_are_admitted": {
+      "p50_hours": "1.5-2.5",
+      "p90_hours": "4.0-5.0",
+      "scope": "interval expansion, 514-cell deterministic recompute, 469-cell conditional listing join, eight-row provenance bind, exact candidate assembly and local mechanical QC only"
+    },
+    "timing_confidence": "LOW"
+  },
+  "claim_ceiling": [
+    "NO_NEW_DOCUMENTARY_PROOF",
+    "NO_HISTORICAL_BUSINESS_PRIORITY_DECISION",
+    "NO_LISTED_AT_ENTRY_DECISION",
+    "NO_W1_W8_AUTHORITY_RELEASE",
+    "NO_DENOMINATOR_RELEASE",
+    "NO_G2_PASS",
+    "NO_INTEGRATED_PASS",
+    "NO_EOPT_G0_PASS"
+  ]
+}
