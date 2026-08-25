@@ -1,0 +1,74 @@
+{
+  "artifact_id": "AAA-M3TOP3-G3-AXIS-B-TARGETED-STRUCTURAL-REPRO-CHECK-v0.1",
+  "checks": [
+    "PINNED_SOURCE_COMMIT_SIZE_SHA256_GIT_BLOB_EXACT",
+    "MANIFEST_OUTPUT_SIZE_SHA256_EXACT",
+    "DETERMINISTIC_GZIP_MTIME_ZERO_AND_EACH_OBJECT_LT_100MB",
+    "FULL_ROW_CONSERVATION_ORDER_AND_DISPOSITION_COUNTS",
+    "EMITTED_SIGNAL_SUBSET_EXACT_INEQUALITY_AND_LINKAGE",
+    "QUARANTINE_SUBSET_COUNT_AND_ALLOWED_DISPOSITIONS",
+    "SUMMARY_CONSERVATION_BOUNDARY_DIRECTION_AND_ZERO_UNRESOLVED"
+  ],
+  "claim_ceiling": "MECHANICAL_WORKER_CHECK_ONLY_NO_VALIDATION_PASS_NO_GATE_EFFECT",
+  "execution_class": "ONE_WORKER_TARGETED_STRUCTURAL_REPRO_CHECK",
+  "full_regression": false,
+  "global_validation": false,
+  "gzip_mtime": {
+    "G3_AXIS_B_FULL_ROW_DISPOSITION_LEDGER_v0.1.csv.gz": 0,
+    "G3_AXIS_B_MATERIAL_SIGNAL_ROWS_v0.1.csv.gz": 0,
+    "G3_AXIS_B_QUARANTINE_ROWS_v0.1.csv.gz": 0
+  },
+  "issued_at_kst": "2026-08-26T02:15:58+09:00",
+  "ledger": {
+    "disposition_counts": {
+      "FIRST_OBSERVATION_NO_COMPARISON": 2972,
+      "MATERIAL_SIGNAL_PENDING_AXIS_C": 2406,
+      "NOT_EVALUABLE_PRICE_DOMAIN": 84272,
+      "NO_MATERIAL_SIGNAL_AXIS_B_TERMINAL": 1732369
+    },
+    "order_violations": 0,
+    "rows": 1822019,
+    "seam_rows": {
+      "2024->2025": 2866,
+      "2025->2026": 2903
+    },
+    "source_identity_duplicates": 0,
+    "source_identity_missing": {
+      "2024": 0,
+      "2025": 0,
+      "2026": 0
+    }
+  },
+  "quarantine": {
+    "disposition_counts": {
+      "NOT_EVALUABLE_PRICE_DOMAIN": 84272
+    },
+    "rows": 84272,
+    "unexpected_rows": 0
+  },
+  "rederives_full_signal_classification": false,
+  "signals": {
+    "directions": {
+      "DOWN": 614,
+      "FLAT": 0,
+      "UP": 1792
+    },
+    "disposition_failures": 0,
+    "exact_boundary_rows": 14,
+    "exact_predicate_failures": 0,
+    "linkage_failures": 0,
+    "rows": 2406,
+    "seam_signals": {
+      "2024->2025": 4,
+      "2025->2026": 6
+    }
+  },
+  "status": "WORKER_TARGETED_CHECK_OK",
+  "timing": {
+    "cpu_system_seconds": 0.094379,
+    "cpu_user_seconds": 8.499454,
+    "cru": "NOT_INSTRUMENTED",
+    "wall_seconds": 8.606136
+  },
+  "validator_act": false
+}

@@ -1,0 +1,159 @@
+{
+  "artifact_id": "AAA-M3TOP3-G3-AXIS-B-DERIVATION-SUMMARY-v0.1",
+  "artifact_role": "NON_VALIDATOR_BOUNDED_MECHANICAL_SIGNAL_DERIVATION",
+  "claim_ceiling": "SIGNAL_ONLY_NO_CA_OR_ADJUSTMENT_INFERENCE_NO_GATE_PASS",
+  "data_quality": {
+    "all_finite_open_close_integral": true,
+    "comparison_rows_with_nonpositive_previous_close": 0,
+    "duplicate_date_code_rows": 0,
+    "missing_date_rows": 0,
+    "missing_or_blank_code_rows": 0,
+    "missing_or_nonfinite_close_rows": 0,
+    "missing_or_nonfinite_open_rows": 0,
+    "nonpositive_close_source_rows": 0,
+    "nonpositive_open_rows": 84272,
+    "not_evaluable_key_domain_rows": 0,
+    "not_evaluable_price_domain_rows": 84272,
+    "rows_blocked_by_current_or_previous_duplicate_key": 0,
+    "silent_drops": 0,
+    "unresolved_rows": 0
+  },
+  "deterministic_outputs": [
+    "G3_AXIS_B_FULL_ROW_DISPOSITION_LEDGER_v0.1.csv.gz",
+    "G3_AXIS_B_MATERIAL_SIGNAL_ROWS_v0.1.csv.gz",
+    "G3_AXIS_B_QUARANTINE_ROWS_v0.1.csv.gz"
+  ],
+  "open_dependencies": {
+    "adjustment_factor_inference": "NOT_PERFORMED",
+    "axis_c_reconciliation_for_every_material_signal": "PENDING_EXACT_INDEPENDENT_KRX_CA_UNIVERSE",
+    "corporate_action_inference": "NOT_PERFORMED",
+    "g3_gate": "NOT_CLOSED"
+  },
+  "owner_decision": "OD-G3-B-01=YES",
+  "population": {
+    "distinct_codes": 3088,
+    "distinct_dates": 638,
+    "per_source": {
+      "2024": {
+        "date_arrow_type_original": "timestamp[ns]",
+        "distinct_codes": 2928,
+        "distinct_dates": 244,
+        "max_date": "2024-12-30",
+        "min_date": "2024-01-02",
+        "rows": 687708
+      },
+      "2025": {
+        "date_arrow_type_original": "timestamp[ns]",
+        "distinct_codes": 2985,
+        "distinct_dates": 242,
+        "max_date": "2025-12-30",
+        "min_date": "2025-01-02",
+        "rows": 696524
+      },
+      "2026": {
+        "date_arrow_type_original": "timestamp[us]",
+        "distinct_codes": 2944,
+        "distinct_dates": 152,
+        "max_date": "2026-08-14",
+        "min_date": "2026-01-02",
+        "rows": 437787
+      }
+    },
+    "rows": 1822019
+  },
+  "protocol": {
+    "classification_equation": "5*abs(Open-PreviousClose)>=PreviousClose",
+    "code_change_mapping": "NONE_NEW_CODE_STARTS_FIRST_OBSERVATION",
+    "comparison": "CURRENT_OPEN_VS_IMMEDIATELY_PREVIOUS_OBSERVED_SAME_CODE_CLOSE",
+    "group": "EXACT_CODE",
+    "input_price_domain": "FINITE_INTEGRAL_PARQUET_DOUBLE_VERIFIED_BEFORE_CAST",
+    "order": [
+      "DATE_ASC",
+      "SOURCE_YEAR_ASC_TIE_BREAK",
+      "SOURCE_ROW_INDEX_ASC_TIE_BREAK"
+    ],
+    "population": "EVERY_ROW_OF_EXACT_PINNED_2024_2025_2026_COMPONENTS",
+    "rounding": "NONE",
+    "threshold": {
+      "denominator": 5,
+      "inclusive": true,
+      "numerator": 1
+    },
+    "year_boundaries": "STITCHED"
+  },
+  "results": {
+    "evaluable_rows": 1734775,
+    "exact_20_percent_boundary_rows": 14,
+    "first_observation_rows": 3088,
+    "material_signal_rows": 2406,
+    "non_signal_evaluable_rows": 1732369,
+    "row_disposition_counts": {
+      "FIRST_OBSERVATION_NO_COMPARISON": 2972,
+      "MATERIAL_SIGNAL_PENDING_AXIS_C": 2406,
+      "NOT_EVALUABLE_PRICE_DOMAIN": 84272,
+      "NO_MATERIAL_SIGNAL_AXIS_B_TERMINAL": 1732369
+    },
+    "signal_directions": {
+      "DOWN": 614,
+      "FLAT": 0,
+      "UP": 1792
+    },
+    "year_seam_rows": 5769,
+    "year_seams": {
+      "2024->2025": {
+        "evaluable": 2741,
+        "quarantined": 125,
+        "rows": 2866,
+        "signals": 4
+      },
+      "2024->2026": {
+        "evaluable": 0,
+        "quarantined": 0,
+        "rows": 0,
+        "signals": 0
+      },
+      "2025->2026": {
+        "evaluable": 2778,
+        "quarantined": 125,
+        "rows": 2903,
+        "signals": 6
+      }
+    }
+  },
+  "source_commit": "5e8e4e57f3fcb129a6ff20751f643f67d3592c82",
+  "source_files": [
+    {
+      "bytes": 24572111,
+      "git_blob": "b69c5222d015c81f19f90f581faabe4dd1a919b4",
+      "observed_bytes": 24572111,
+      "observed_git_blob": "b69c5222d015c81f19f90f581faabe4dd1a919b4",
+      "observed_sha256": "b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb",
+      "path": "data/marcap-2024.parquet",
+      "rows": 687708,
+      "sha256": "b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb",
+      "year": 2024
+    },
+    {
+      "bytes": 25153419,
+      "git_blob": "e817f0729b787fe03904982a37b1d84d26d70206",
+      "observed_bytes": 25153419,
+      "observed_git_blob": "e817f0729b787fe03904982a37b1d84d26d70206",
+      "observed_sha256": "2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e",
+      "path": "data/marcap-2025.parquet",
+      "rows": 696524,
+      "sha256": "2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e",
+      "year": 2025
+    },
+    {
+      "bytes": 16297737,
+      "git_blob": "3921c090c0c9336e2ab8d068a4546aec26595665",
+      "observed_bytes": 16297737,
+      "observed_git_blob": "3921c090c0c9336e2ab8d068a4546aec26595665",
+      "observed_sha256": "b6f3f8ea110326b21d23b5344e6abe159f8ea7f7a345262155b929c08886fc9d",
+      "path": "data/marcap-2026.parquet",
+      "rows": 437787,
+      "sha256": "b6f3f8ea110326b21d23b5344e6abe159f8ea7f7a345262155b929c08886fc9d",
+      "year": 2026
+    }
+  ]
+}

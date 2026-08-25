@@ -1,0 +1,75 @@
+{
+  "artifact_id": "AAA-M3TOP3-G3-AXIS-B-PMO-INTEGRATION-RECEIPT-2026-08-26",
+  "issued_at_kst": "2026-08-26T02:18:00+09:00",
+  "persona": "AAA-PMO-ORCHESTRATOR (PMO)",
+  "execution_class": "PMO_SINGLE_INTEGRATION_READBACK",
+  "owner_decision": "OD-G3-B-01=YES",
+  "source_commit": "5e8e4e57f3fcb129a6ff20751f643f67d3592c82",
+  "integration_readback": "OK",
+  "claim_ceiling": "SIGNAL_ONLY_NO_CA_OR_ADJUSTMENT_INFERENCE_NO_GATE_PASS",
+  "population": {
+    "rows": 1822019,
+    "evaluable_rows": 1734775,
+    "raw_first_observation_rows": 3088,
+    "raw_first_observation_nonpositive_open_overlap": 116
+  },
+  "terminal_dispositions": {
+    "FIRST_OBSERVATION_NO_COMPARISON": 2972,
+    "MATERIAL_SIGNAL_PENDING_AXIS_C": 2406,
+    "NOT_EVALUABLE_PRICE_DOMAIN": 84272,
+    "NO_MATERIAL_SIGNAL_AXIS_B_TERMINAL": 1732369,
+    "conservation_rows": 1822019
+  },
+  "signals": {
+    "total": 2406,
+    "up": 1792,
+    "down": 614,
+    "flat": 0,
+    "exact_20_percent_boundary": 14
+  },
+  "quality": {
+    "duplicate_date_code_rows": 0,
+    "missing_key_rows": 0,
+    "unresolved_rows": 0,
+    "silent_drops": 0,
+    "worker_targeted_check": "WORKER_TARGETED_CHECK_OK"
+  },
+  "telemetry_seconds": {
+    "source_recovery_and_identity": 27.537,
+    "final_derivation": 38.899703,
+    "single_targeted_worker_check": 8.606136,
+    "main_path_observed": 75.042839,
+    "pre_final_rework": 79.268674,
+    "total_observed_including_rework": 154.311513
+  },
+  "resource": {
+    "final_derivation_cpu_user_seconds": 36.269745,
+    "final_derivation_cpu_system_seconds": 2.601303,
+    "peak_rss_kib": 881240,
+    "cru": "NOT_INSTRUMENTED"
+  },
+  "validation": {
+    "validator_acts": 0,
+    "global_validation": false,
+    "full_regression": false,
+    "validation_loop": false,
+    "claim": "NONE"
+  },
+  "progress": {
+    "earned_ewu_delta": 0,
+    "fast_close_earned_ewu": 21,
+    "fast_close_total_ewu": 100,
+    "g3_earned_ewu": 4,
+    "g3_total_ewu": 25,
+    "axis_b_execution_percent": 100,
+    "g3_b_combined_axis_b_c_earned_ewu": 0,
+    "g3_b_combined_axis_b_c_total_ewu": 7
+  },
+  "gate_state": {
+    "g3": "NOT_CLOSED",
+    "integrated_g1_g4": "NOT_CLOSED",
+    "g4": "SATISFIED_WITH_FINDING_SEALED",
+    "eopt_g0": "OPEN_NOT_PROVEN_1_OF_6"
+  },
+  "next_trigger": "EXACT_INDEPENDENT_KRX_AXIS_C_EVENT_BYTES_AND_TERMINAL_RECONCILIATION_FOR_2406_SIGNALS"
+}

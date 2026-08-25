@@ -1,0 +1,27 @@
+{
+  "active_compute_wall_seconds": 38.899703,
+  "artifact_id": "AAA-M3TOP3-G3-AXIS-B-RUN-TELEMETRY-v0.1",
+  "cpu_system_seconds": 2.601303,
+  "cpu_user_seconds": 36.269745,
+  "cru": "NOT_INSTRUMENTED",
+  "dependency_wait_seconds": 0,
+  "end_timestamp_kst": "2026-08-26T02:15:16+09:00",
+  "full_regression": false,
+  "global_validation": false,
+  "max_rss_kib": 881240,
+  "pyarrow": "17.0.0",
+  "python": "3.12.13",
+  "queue_wait_seconds": 0,
+  "retry_characterization": [
+    "ONE_FORWARD_CODE_FIX_AFTER_UNSUPPORTED_ARROW_DURATION_CAST",
+    "ONE_FORWARD_DISPOSITION_PRECEDENCE_FIX_OPEN_LE_ZERO_OVER_FIRST_OBSERVATION",
+    "ONE_NULL_SAFE_BOOLEAN_MASK_FIX_AFTER_ARROW_NULL_PROPAGATION",
+    "NO_LOOP"
+  ],
+  "retry_count": 3,
+  "rework_seconds": 79.268674,
+  "source_recovery_wall_seconds_prior_observed": 27.537,
+  "start_timestamp_kst": "2026-08-26T02:14:37+09:00",
+  "total_wall_seconds": 38.899703,
+  "validator_count": 0
+}

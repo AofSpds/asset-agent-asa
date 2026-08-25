@@ -1,0 +1,77 @@
+{
+  "artifact_id": "AAA-M3TOP3-G3-AXIS-B-SOURCE-AND-OUTPUT-MANIFEST-v0.1",
+  "determinism": {
+    "csv_lineterminator": "LF",
+    "gzip_mtime": 0,
+    "pyarrow": "17.0.0",
+    "row_order": "CODE_DATE_SOURCE_YEAR_SOURCE_ROW_INDEX",
+    "runtime_telemetry_and_report_are_run_specific": true
+  },
+  "outputs": {
+    "G3_AXIS_B_DERIVATION_REPORT_2026-08-26.md": {
+      "bytes": 2389,
+      "sha256": "19c5bd14a4c3f8d5a7fac1edc62963e64c1fd901037fa91c5af19bf5883eaabe"
+    },
+    "G3_AXIS_B_DERIVATION_SUMMARY_v0.1.json": {
+      "bytes": 5232,
+      "sha256": "783d9046d67c051396f32a71b48adeca0d42e5a2afe4826eb6b47cd771c2276e"
+    },
+    "G3_AXIS_B_FULL_ROW_DISPOSITION_LEDGER_v0.1.csv.gz": {
+      "bytes": 38684591,
+      "sha256": "98c0deef0c558f2f1d7016d688fd07ea0ea32eadb1866a8ed245dd18260e8baf"
+    },
+    "G3_AXIS_B_MATERIAL_SIGNAL_ROWS_v0.1.csv.gz": {
+      "bytes": 67700,
+      "sha256": "822e3a0eb935e05979956ec69680d0a44a0b2489112b116bafc2cf2fcfc03e56"
+    },
+    "G3_AXIS_B_QUARANTINE_ROWS_v0.1.csv.gz": {
+      "bytes": 934247,
+      "sha256": "c3d4e61321c54ec125ddfaed8acf74402b8ab8ec37997ca4ddaec4d1e70c18af"
+    },
+    "G3_AXIS_B_RUN_TELEMETRY_v0.1.json": {
+      "bytes": 928,
+      "sha256": "ed0ce04073a1710184aa949b9afa73f0f8c156a6c361f8a085cc0768d0159b4a"
+    },
+    "derive_g3_axis_b.py": {
+      "bytes": 27801,
+      "sha256": "fabcbd21a7251527907c6376398fff820461ff87b88d71eafb775ab5e5887505"
+    }
+  },
+  "source_commit": "5e8e4e57f3fcb129a6ff20751f643f67d3592c82",
+  "source_files": [
+    {
+      "bytes": 24572111,
+      "git_blob": "b69c5222d015c81f19f90f581faabe4dd1a919b4",
+      "observed_bytes": 24572111,
+      "observed_git_blob": "b69c5222d015c81f19f90f581faabe4dd1a919b4",
+      "observed_sha256": "b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb",
+      "path": "data/marcap-2024.parquet",
+      "rows": 687708,
+      "sha256": "b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb",
+      "year": 2024
+    },
+    {
+      "bytes": 25153419,
+      "git_blob": "e817f0729b787fe03904982a37b1d84d26d70206",
+      "observed_bytes": 25153419,
+      "observed_git_blob": "e817f0729b787fe03904982a37b1d84d26d70206",
+      "observed_sha256": "2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e",
+      "path": "data/marcap-2025.parquet",
+      "rows": 696524,
+      "sha256": "2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e",
+      "year": 2025
+    },
+    {
+      "bytes": 16297737,
+      "git_blob": "3921c090c0c9336e2ab8d068a4546aec26595665",
+      "observed_bytes": 16297737,
+      "observed_git_blob": "3921c090c0c9336e2ab8d068a4546aec26595665",
+      "observed_sha256": "b6f3f8ea110326b21d23b5344e6abe159f8ea7f7a345262155b929c08886fc9d",
+      "path": "data/marcap-2026.parquet",
+      "rows": 437787,
+      "sha256": "b6f3f8ea110326b21d23b5344e6abe159f8ea7f7a345262155b929c08886fc9d",
+      "year": 2026
+    }
+  ],
+  "validation_claim": "NONE"
+}
