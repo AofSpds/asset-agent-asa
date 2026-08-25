@@ -1,0 +1,11 @@
+{
+  "artifact_id": "AAA-M3TOP3-PMO-SUCCESSOR-PROGRESS-WEIGHT-CALIBRATION-20260826-0034",
+  "frozen_at": "2026-08-26T00:34:18+09:00",
+  "method": "PROVISIONAL_EVIDENCE_CLOSURE_WEIGHTING_FROM_OPEN_UNIT_SCOPE",
+  "prior_quality": "LOW_CONFIDENCE_FIRST_SUCCESSOR_CYCLE",
+  "weights": {"R1":15,"R2":10,"R3":15,"R4":15,"R5":30,"R6":15},
+  "done_credit_rule": "EWU is earned only after the predeclared completion evidence is durably persisted and read back.",
+  "reopen_rule": "A reopened unit may deduct previously earned EWU; any denominator change requires PROGRESS_REBASE.",
+  "calibration_inputs": ["Universal Progress/Time/Compute Behavior Code v1.0","PMO role refinement v1.0","Issue #49/#52 open-unit scope","accessible prior PMO artifact inventory"],
+  "native_resource_telemetry": "NOT_INSTRUMENTED"
+}
