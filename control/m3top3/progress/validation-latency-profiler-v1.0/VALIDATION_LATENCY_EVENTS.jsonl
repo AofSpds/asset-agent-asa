@@ -1,0 +1,1 @@
+{"time":"2026-08-26T01:03:45+09:00","event":"NON_BLOCKING_VALIDATION_LATENCY_PROFILER_ACTIVATED","parent_wbs_id":"FC1","validation_act":false,"validator_created":false,"gate_created":false,"active_validator_count":0,"validator_hold":true,"measurement_state":"NOT_ENOUGH_DATA","target_profiler_overhead_ratio_max":0.02,"fast_close_blocked":false}
