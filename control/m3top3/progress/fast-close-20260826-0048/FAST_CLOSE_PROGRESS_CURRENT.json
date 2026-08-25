@@ -1,0 +1,28 @@
+{
+  "as_of": "2026-08-26T00:48:48+09:00",
+  "fast_close_progress_percent": 14,
+  "earned_ewu": 14,
+  "total_ewu": 100,
+  "actual_cru": "1.5_WALL_PROXY_SINCE_SUCCESSOR_START",
+  "planned_cru": 160,
+  "elapsed": "14_MINUTES_SINCE_SUCCESSOR_BASELINE",
+  "active_time": "NOT_INSTRUMENTED_SEPARATELY",
+  "blocked_time": "G1_EXTERNAL_CUSTODY_WAIT_ACTIVE_BUT_EXCLUDED_FROM_ACTIVE_ETA",
+  "rework": 0,
+  "eta_p50_hours": [4, 6],
+  "eta_p90_hours": [8, 12],
+  "eta_confidence": "LOW_FIRST_EXECUTION_SEGMENT_NOT_YET_MEASURED",
+  "gates": {
+    "G1":{"progress_percent":33,"state":"EXTERNAL_CUSTODY_BLOCKED_NOT_SATISFIED"},
+    "G2":{"progress_percent":0,"state":"OPEN_PARTIAL_DURABLE_INPUT_RECONCILED"},
+    "G3":{"progress_percent":16,"state":"IN_PROGRESS_MANIFEST_RECONCILED_CA_B_C_ACTIVE"},
+    "G4":{"progress_percent":100,"state":"SATISFIED_WITH_FINDING_SEALED"},
+    "validation_closure_percent":0,
+    "integrated":"NOT_CLOSED",
+    "EOPT_G0":"OPEN_NOT_PROVEN_1_OF_6"
+  },
+  "current_critical_path":"G1 external custodian response/exhaustion plus active G3 CA B/C deterministic-closure definition",
+  "first_parallel_dispatch":"G1 / G2 / G3",
+  "last_material_progress":"Owner fast-close v2 adopted; FC0 reconciled; G3 predecessor manifest identity declaration recovered while exact bytes remain not found."
+}
+
