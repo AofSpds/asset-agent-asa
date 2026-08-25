@@ -1,0 +1,80 @@
+{
+  "artifact_id": "AAA-M3TOP3-PMO-FAST-CLOSE-PROGRESS-CURRENT-20260826-0044",
+  "as_of": "2026-08-26T00:52:35+09:00",
+  "persona": "AAA-PMO-ORCHESTRATOR",
+  "directive_ref": {
+    "path": "control/persona-memory/v1.0/AAA-PMO-ORCHESTRATOR/PMO_FAST_CLOSE_THEN_TUNE_RESUME_PACKET_2026-08-26_0044_KST.md",
+    "commit": "7366cb7af8803d6317d1a20ce5aae8df3f1670c7",
+    "issue_49_comment_id": 5412966325
+  },
+  "execution_lease": {
+    "lease_id": "PMO-SUCCESSOR-20260826-0034-KST",
+    "state": "ACQUIRED",
+    "branch": "aaa-pmo-m3top3-successor-resume-20260826-0034",
+    "duplicate_execution_detected": false
+  },
+  "takeover_reconciliation": {
+    "old_runtime": "RETIRED",
+    "old_active_workers": 0,
+    "old_active_validators": 0,
+    "count_scope": "CURRENT_RUNTIME_AND_OBSERVABLE_GITHUB_ACTION_SURFACES",
+    "sealed_evidence_preserved": true,
+    "g4_rerun_due_to_succession": false
+  },
+  "progress_rebase": {
+    "reason": "NEW_OWNER_FAST_CLOSE_WBS_AND_DENOMINATOR",
+    "successor_control_plane_axis": {
+      "earned_ewu": 70,
+      "total_ewu": 100,
+      "state": "TAKEOVER_LEASE_RECOVERY_AND_ISSUE_SYNC_EVIDENCE_CLOSED",
+      "not_program_gate_closure_progress": true
+    },
+    "fast_close_axis": {
+      "earned_ewu": 5,
+      "total_ewu": 100,
+      "progress_percent": 5,
+      "basis": "FC0_BOOTSTRAP_RECONCILIATION_AND_EXCLUSIVE_LEASE_EVIDENCE_CLOSED"
+    },
+    "validation_closure_percent": 0,
+    "rework_revalidation_time": 0,
+    "reopened_unit_count": 0
+  },
+  "wbs": {
+    "FC0": {"state": "DONE", "earned_ewu": 5, "total_ewu": 5, "p50_hours": 0.5, "p90_hours": 1.0},
+    "FC1_G1": {"state": "ACTIVE_EXTERNAL_CUSTODY_BLOCKER", "earned_ewu": 0, "total_ewu": 15, "p50_active_hours": 1.0, "p90_active_hours": 2.0, "external_wait_excluded": true, "issue": 52, "dispatch_comment_id": 5413043764},
+    "FC1_G2": {"state": "ACTIVE_CONSOLIDATED_CLOSURE_ROUTE", "earned_ewu": 0, "total_ewu": 25, "p50_hours": 2.5, "p90_hours": 5.0, "issue": 53, "dispatch_comment_id": 5413047250},
+    "FC1_G3": {"state": "ACTIVE_REMAINING_CONTROL_CLOSURE_ROUTE", "earned_ewu": 0, "total_ewu": 25, "p50_hours": 2.5, "p90_hours": 5.0, "issue": 54, "dispatch_comment_id": 5413050355},
+    "FC2": {"state": "HOLD_PENDING_G1_G2_G3_CLOSURE_CANDIDATES", "earned_ewu": 0, "total_ewu": 20, "p50_hours": 1.0, "p90_hours": 2.0},
+    "FC3": {"state": "HOLD_PENDING_INTEGRATED_CLOSURE", "earned_ewu": 0, "total_ewu": 5, "p50_hours": 0.25, "p90_hours": 0.5},
+    "FC4": {"state": "CONDITIONAL_ON_EOPT_G0_PASS", "earned_ewu": 0, "total_ewu": 5, "p50_setup_hours": 0.5, "p90_setup_hours": 1.0}
+  },
+  "gate_state": {
+    "G1": "IN_PROGRESS_NOT_SATISFIED",
+    "G2": "OPEN_PARTIAL",
+    "G3": "DEPENDENCY_BLOCKED_NOT_CLOSED",
+    "G4": "SATISFIED_WITH_FINDING_SEALED",
+    "G1_G4_INTEGRATED": "NOT_CLOSED",
+    "EOPT_G0": "OPEN_NOT_PROVEN_1_OF_6",
+    "EOPT_MEASUREMENT": "NOT_STARTED",
+    "EOPT_MUTATION": "NOT_STARTED",
+    "FULL_W1_W8": "NOT_AUTHORIZED"
+  },
+  "time_compute": {
+    "fast_close_started_at": "2026-08-26T00:44:00+09:00",
+    "elapsed_wall_minutes": 8.6,
+    "critical_path_eta_p50_hours": [4, 6],
+    "critical_path_eta_p90_hours": [8, 12],
+    "eta_confidence": "LOW",
+    "eta_excludes_unbounded_external_g1_custodian_wait": true,
+    "planned_total_cru": 160,
+    "actual_fast_close_cru": "NOT_INSTRUMENTED",
+    "prior_successor_control_plane_wall_proxy_cru": 1.3
+  },
+  "blockers": [
+    "G1_EXTERNAL_SOURCE_CUSTODY_NO_NAMED_RESPONSE_OR_ARCHIVE_LOCATOR",
+    "G2_34_DOCUMENTARY_514_ELIGIBILITY_AND_W1_W8_DATE_PROVENANCE_OPEN",
+    "G3_PREDECESSOR_MANIFEST_BYTES_CA_B_C_GOVERNED_CALENDAR_PIT_AND_ANNOTATION_OPEN"
+  ],
+  "last_material_progress_event": "FC1-G1_FC1-G2_FC1-G3_FAST_CLOSE_LANES_DISPATCHED_TO_ISSUES_52_53_54",
+  "claim_ceiling": "NO_NEW_VALIDATION_PASS_OR_PREDICTIVE_GOLDEN_REPLAY_FREEZE_PROMOTION_RELEASE_PRODUCTION_OPTIMIZATION_EFFECTIVENESS_CLAIM"
+}
