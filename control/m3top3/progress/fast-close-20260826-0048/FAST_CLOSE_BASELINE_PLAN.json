@@ -7,7 +7,9 @@
     "effective_at": "2026-08-26T00:48:48+09:00"
   },
   "total_ewu": 100,
-  "total_planned_cru": 160,
+  "total_planned_cru_original": 160,
+  "total_planned_cru": 142,
+  "validation_policy": "MINIMUM_NECESSARY_VALIDATION_POLICY_v1.0",
   "validator_hold": true,
   "validator_hold_effective_at": "2026-08-26T01:00:57+09:00",
   "validator_hold_scope": "ALL_NEW_VALIDATOR_AND_REVALIDATION_EXECUTION; SEALED_RECEIPTS_PRESERVED",
@@ -16,10 +18,10 @@
   "wbs": [
     {"id":"FC0","step":"bootstrap + duplicate-runtime reconciliation + exclusive lease","p50_hours":0.5,"p90_hours":1.0,"ewu":5,"cru":5,"status":"DONE","earned_ewu":5},
     {"id":"FC1-G1","step":"bounded exact-byte recovery / exhaustion determination","p50_hours":1.0,"p90_hours":2.0,"ewu":15,"cru":20,"status":"BLOCKED_EXTERNAL_CUSTODIAN","earned_ewu":5,"subunits":[{"id":"G1-A","step":"reconcile completed internal search and prohibit duplicate surfaces","ewu":5,"status":"DONE"},{"id":"G1-B","step":"new-surface custodian response or proven exhaustion","ewu":10,"status":"BLOCKED_EXTERNAL_CUSTODIAN"}]},
-    {"id":"FC1-G2","step":"documentary / 514 eligibility / W1-W8 provenance closure","p50_hours":2.5,"p90_hours":5.0,"ewu":25,"cru":45,"status":"IN_PROGRESS_NON_VALIDATOR","earned_ewu":0,"subunits":[{"id":"G2-A","step":"34 documentary cells","ewu":7,"status":"IN_PROGRESS"},{"id":"G2-B","step":"514 combined eligibility cells","ewu":10,"status":"NOT_STARTED"},{"id":"G2-C","step":"W1-W8 date provenance","ewu":4,"status":"NOT_STARTED"},{"id":"G2-D","step":"consolidated G2 artifact","ewu":2,"status":"NOT_STARTED"},{"id":"G2-V","step":"one targeted closure validation","ewu":2,"status":"HOLD_BY_OWNER"}]},
-    {"id":"FC1-G3","step":"manifest / CA / calendar / PIT / annotation closure","p50_hours":2.5,"p90_hours":5.0,"ewu":25,"cru":45,"status":"IN_PROGRESS_NON_VALIDATOR","earned_ewu":4,"subunits":[{"id":"G3-A","step":"standalone manifest identity reconciliation","ewu":4,"status":"DONE_WITH_BLOCKER_BYTES_NOT_FOUND"},{"id":"G3-B","step":"CA axes B/C","ewu":7,"status":"IN_PROGRESS"},{"id":"G3-C","step":"governed calendar","ewu":4,"status":"IN_PROGRESS"},{"id":"G3-D","step":"PIT eligibility / tradability","ewu":4,"status":"IN_PROGRESS"},{"id":"G3-E","step":"annotation dependency","ewu":2,"status":"IN_PROGRESS"},{"id":"G3-F","step":"exact lineage binding","ewu":2,"status":"IN_PROGRESS"},{"id":"G3-V","step":"one targeted closure validation","ewu":2,"status":"HOLD_BY_OWNER"}]},
-    {"id":"FC2","step":"integrated G1-G4 checkpoint + hash/JSON/repro/gate-delta/base-pin/writer-clear","p50_hours":1.0,"p90_hours":2.0,"ewu":20,"cru":30,"status":"PREVALIDATION_CANDIDATE_ONLY_UNTIL_HOLD_RELEASED","earned_ewu":0},
-    {"id":"FC3","step":"EOPT-G0 evaluation","p50_hours":0.25,"p90_hours":0.5,"ewu":5,"cru":5,"status":"FINAL_DISPOSITION_BLOCKED_PENDING_VALIDATOR_RELEASE","earned_ewu":0},
+    {"id":"FC1-G2","step":"documentary / 514 eligibility / W1-W8 provenance closure","p50_hours":2.5,"p90_hours":5.0,"ewu":25,"cru":37,"status":"IN_PROGRESS_NON_VALIDATOR","earned_ewu":7,"subunits":[{"id":"G2-A","step":"34 documentary cells","ewu":7,"status":"DONE_WITH_SOURCE_CUSTODY_BLOCKER"},{"id":"G2-B","step":"514 combined eligibility cells","ewu":10,"status":"IN_PROGRESS"},{"id":"G2-C","step":"W1-W8 date provenance","ewu":4,"status":"IN_PROGRESS"},{"id":"G2-D","step":"consolidated exact G2 artifact and mechanical QC","ewu":4,"status":"NOT_STARTED"},{"id":"G2-V","step":"separate G2 lane validation","ewu":0,"status":"REMOVED_BY_OWNER_MINIMUM_NECESSARY_POLICY"}]},
+    {"id":"FC1-G3","step":"manifest / CA / calendar / PIT / annotation closure","p50_hours":2.5,"p90_hours":5.0,"ewu":25,"cru":37,"status":"IN_PROGRESS_NON_VALIDATOR","earned_ewu":4,"subunits":[{"id":"G3-A","step":"standalone manifest identity reconciliation","ewu":4,"status":"DONE_WITH_BLOCKER_BYTES_NOT_FOUND"},{"id":"G3-B","step":"CA axes B/C","ewu":7,"status":"IN_PROGRESS"},{"id":"G3-C","step":"governed calendar","ewu":4,"status":"IN_PROGRESS"},{"id":"G3-D","step":"PIT eligibility / tradability","ewu":4,"status":"IN_PROGRESS"},{"id":"G3-E","step":"annotation dependency","ewu":2,"status":"IN_PROGRESS"},{"id":"G3-F","step":"exact lineage binding and mechanical QC","ewu":4,"status":"IN_PROGRESS"},{"id":"G3-V","step":"separate G3 lane validation","ewu":0,"status":"REMOVED_BY_OWNER_MINIMUM_NECESSARY_POLICY"}]},
+    {"id":"FC2","step":"integrated G1-G4 checkpoint + hash/JSON/repro/gate-delta/base-pin/writer-clear + single minimum integrated validation","p50_hours":0.75,"p90_hours":1.5,"ewu":20,"cru":30,"status":"PREVALIDATION_CANDIDATE_ONLY_UNTIL_HOLD_RELEASED","earned_ewu":0},
+    {"id":"FC3","step":"EOPT-G0 evaluation combined with FC2 single validation act","p50_hours":0.15,"p90_hours":0.35,"ewu":5,"cru":3,"status":"FINAL_DISPOSITION_BLOCKED_PENDING_VALIDATOR_RELEASE","earned_ewu":0},
     {"id":"FC4","step":"EOPT-G0 PASS only: immediate A/A measurement setup","p50_hours":0.5,"p90_hours":1.0,"ewu":5,"cru":10,"status":"NOT_STARTED_CONDITIONAL","earned_ewu":0}
   ]
 }
