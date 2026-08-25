@@ -1,0 +1,79 @@
+{
+  "artifact_id": "AAA-M3TOP3-VALIDATION-LATENCY-PROFILER-v1.0",
+  "parent_packet": "PMO_FAST_CLOSE_TO_TUNE_CLEAN_RUNTIME_SUCCESSION_PACKET_v2",
+  "addendum_class": "NON_BLOCKING_EXECUTION_TELEMETRY",
+  "effective_at": "2026-08-26T01:03:45+09:00",
+  "execution_policy": {
+    "creates_gate": false,
+    "creates_validator": false,
+    "expands_validation_scope": false,
+    "adds_full_regression": false,
+    "blocks_fast_close": false,
+    "target_profiler_overhead_ratio_max": 0.02,
+    "degrade_detail_if_material_delay": true
+  },
+  "current_runtime": {
+    "validator_hold": true,
+    "active_validator_count": 0,
+    "validation_act_count_since_profiler_activation": 0,
+    "current_measurement_state": "NOT_ENOUGH_DATA"
+  },
+  "required_span_fields": [
+    "validation_act_id",
+    "parent_wbs_id",
+    "validator_persona",
+    "risk_tier",
+    "trigger_reason",
+    "start_timestamp",
+    "end_timestamp",
+    "total_wall_time",
+    "active_validation_time",
+    "queue_wait_time",
+    "dependency_wait_time",
+    "test_execution_time",
+    "llm_reasoning_time",
+    "retrieval_time",
+    "receipt_report_time",
+    "retry_backoff_time",
+    "rework_time",
+    "test_count",
+    "full_suite_used",
+    "full_suite_reason",
+    "reused_sealed_receipt",
+    "reused_test_evidence",
+    "revalidation_count",
+    "finding_count",
+    "token_or_cru_if_available"
+  ],
+  "unknown_policy": "UNKNOWN_OR_NOT_INSTRUMENTED_MUST_NOT_BE_RECORDED_AS_ZERO",
+  "metrics": {
+    "validation_overhead_ratio": "validation_wall_time / primary_work_wall_time",
+    "validation_compute_ratio": "validation_cru / primary_work_cru",
+    "wait_ratio": "validation_wait_time / validation_wall_time",
+    "revalidation_multiplier": "total_validation_acts / unique_validation_targets",
+    "receipt_reuse_rate": "reused_eligible_receipts / reusable_receipts",
+    "full_suite_rate": "full_suite_runs / validation_acts",
+    "duplicate_test_ratio": "repeated_identical_deterministic_test_work / total_test_work"
+  },
+  "overhead_alerts": [
+    {"threshold_gt":2,"class":"WARNING"},
+    {"threshold_gt":5,"class":"HIGH"},
+    {"threshold_gt":10,"class":"SEVERE"},
+    {"threshold_gt":20,"class":"CRITICAL_VALIDATION_AMPLIFICATION"}
+  ],
+  "cost_driver_classes": [
+    "QUEUE_WAIT",
+    "DUPLICATE_TEST",
+    "FULL_REGRESSION",
+    "VALIDATOR_DUPLICATION",
+    "REVALIDATION_LOOP",
+    "EXACT_TARGET_CHURN",
+    "RECEIPT_PACKAGING",
+    "RETRIEVAL",
+    "RETRY_BACKOFF",
+    "DEPENDENCY_WAIT",
+    "OTHER"
+  ],
+  "first_summary_trigger": "FAST_CLOSE_COMPLETE_OR_EOPT_G0_ENTRY"
+}
+
