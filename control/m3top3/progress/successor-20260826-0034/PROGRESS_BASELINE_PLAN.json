@@ -7,13 +7,12 @@
   "total_frozen_ewu": 100,
   "wbs": [
     {"id":"R1","step":"Git bootstrap, issue, branch, PR, worker and local-surface reconciliation","planned_wall_p50_minutes":20,"planned_wall_p90_minutes":40,"planned_cru_p50":2,"planned_cru_p90":4,"step_ewu_weight":15,"status":"DONE","completion_evidence":"lease receipt reconciliation section"},
-    {"id":"R2","step":"Successor lease and progress-state persistence","planned_wall_p50_minutes":15,"planned_wall_p90_minutes":30,"planned_cru_p50":1.5,"planned_cru_p90":3,"step_ewu_weight":10,"status":"IN_PROGRESS","completion_evidence":"Git readback of lease plus five progress artifacts"},
-    {"id":"R3","step":"Recover and persist prior local-only PMO evidence without changing its claims","planned_wall_p50_minutes":25,"planned_wall_p90_minutes":50,"planned_cru_p50":2.5,"planned_cru_p90":5,"step_ewu_weight":15,"status":"NOT_STARTED","completion_evidence":"content-addressed recovery bundle, inventory and Git readback"},
+    {"id":"R2","step":"Successor lease and progress-state persistence","planned_wall_p50_minutes":15,"planned_wall_p90_minutes":30,"planned_cru_p50":1.5,"planned_cru_p90":3,"step_ewu_weight":10,"status":"DONE","completion_evidence":"Git readback of lease plus five progress artifacts"},
+    {"id":"R3","step":"Recover and persist prior local-only PMO evidence without changing its claims","planned_wall_p50_minutes":25,"planned_wall_p90_minutes":50,"planned_cru_p50":2.5,"planned_cru_p90":5,"step_ewu_weight":15,"status":"DONE","completion_evidence":"content-addressed recovery bundle, inventory and Git readback"},
     {"id":"R4","step":"Resume G1 named source-custody coordination without duplicating prior search","planned_wall_p50_minutes":30,"planned_wall_p90_minutes":60,"planned_cru_p50":3,"planned_cru_p90":6,"step_ewu_weight":15,"status":"NOT_STARTED","completion_evidence":"forward-only custodian status/dispatch update on Issue #52"},
-    {"id":"R5","step":"Execute highest-yield currently feasible G2/G3 closure unit","planned_wall_p50_minutes":90,"planned_wall_p90_minutes":180,"planned_cru_p50":9,"planned_cru_p90":18,"step_ewu_weight":30,"status":"NOT_STARTED","completion_evidence":"bounded evidence artifact and gate delta with exact hashes"},
+    {"id":"R5","step":"Execute highest-yield currently feasible G2/G3 closure unit","planned_wall_p50_minutes":90,"planned_wall_p90_minutes":180,"planned_cru_p50":9,"planned_cru_p90":18,"step_ewu_weight":30,"status":"IN_PROGRESS","completion_evidence":"bounded evidence artifact and gate delta with exact hashes"},
     {"id":"R6","step":"Validate successor outputs and synchronize Issue #49/#52","planned_wall_p50_minutes":30,"planned_wall_p90_minutes":60,"planned_cru_p50":3,"planned_cru_p90":6,"step_ewu_weight":15,"status":"NOT_STARTED","completion_evidence":"readback, hash verification and issue comments"}
   ],
   "forecast": {"wall_p50_minutes":210,"wall_p90_minutes":420,"eta_confidence":"LOW","actual_cru_to_date":"NOT_INSTRUMENTED","forecast_cru_p50":21,"forecast_cru_p90":42},
   "rebase_history": []
 }
-
