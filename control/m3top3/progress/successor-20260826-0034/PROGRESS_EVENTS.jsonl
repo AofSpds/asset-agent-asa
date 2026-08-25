@@ -1,0 +1,3 @@
+{"time":"2026-08-26T00:34:18+09:00","event":"CHANNEL_SUCCESSION_RECONCILIATION_CLOSED","wbs":"R1","earned_ewu_delta":15,"rework":false,"evidence":["Issue #49/#52 latest comments","release directive 59a50da","checkpoint 7edee74a","accessible process and workspace scan"],"note":"Channel succession is not rework."}
+{"time":"2026-08-26T00:34:18+09:00","event":"EXCLUSIVE_SUCCESSOR_LEASE_ACQUISITION_STARTED","wbs":"R2","earned_ewu_delta":0,"rework":false,"note":"Pending Git persistence and readback."}
+
