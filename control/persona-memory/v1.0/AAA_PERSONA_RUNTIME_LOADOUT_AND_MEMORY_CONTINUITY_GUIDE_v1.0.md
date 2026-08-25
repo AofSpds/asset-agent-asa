@@ -5,13 +5,13 @@ PRODUCT = ASSET AGENT ASA
 STATE = WORKING_CANDIDATE_NOT_ACTIVE_AUTHORITY
 
 ## 0. 목적
-새 채널/후계 인스턴스가 단순 prompt skin으로 시작하지 않고, Git에서 공통 프로젝트 상태와 자기 Persona의 기억/작업상태를 찾아 "장비를 챙기듯" runtime loadout한 뒤 작업을 이어가게 한다.
+새 채널/후계 인스턴스가 단순 prompt skin으로 시작하지 않고, Git에서 공통 프로젝트 상태와 공통 행동강령 및 자기 Persona의 기억/작업상태를 찾아 "장비를 챙기듯" runtime loadout한 뒤 작업을 이어가게 한다.
 
 핵심 흐름:
 
-`BOOTSTRAP → COMMON LOADOUT → PERSONA SELECT → PERSONA LOADOUT → PERSONA LOCK → WORK → MEMORY/WORKLOG UPDATE`
+`BOOTSTRAP → COMMON LOADOUT → UNIVERSAL BEHAVIOR LOADOUT → PERSONA SELECT → PERSONA LOADOUT → ROLE REFINEMENT → PERSONA LOCK → WORK → MEMORY/WORKLOG UPDATE`
 
-Memory/Worklog는 continuity source이고 authority SoT가 아니다. Authority 충돌은 memory로 덮지 않는다.
+Memory/Worklog와 behavior code는 continuity/operating guidance이고 authority SoT가 아니다. Authority 충돌은 memory나 behavior code로 덮지 않는다.
 
 ### 0.1 Runtime Adapter 원칙
 Persistent Persona system은 하나만 유지하고 실행환경별 bootstrap 입구만 분리한다.
@@ -35,6 +35,7 @@ Codex 상세 adapter:
 6. Persona Authority / Persona Manifest
 7. Persona Memory Index
 8. `COMMON/PROJECT_MEMORY.md`
+9. `COMMON/AAA_EXECUTION_PROGRESS_TIME_COMPUTE_BEHAVIOR_CODE_v1.0.md` — 모든 현재/미래 Persona 필수
 
 공통 loadout에서 최소 복구할 내용:
 - 프로젝트/제품 identity
@@ -44,6 +45,16 @@ Codex 상세 adapter:
 - global blockers/P0 hold
 - 공통 operating intent
 - current bootstrap/authority conflicts
+- universal execution progress/time/compute behavior: WBS time, CRU, EWU, evidence-closed progress, reopen/rebase, ETA/telemetry discipline
+
+### 1.1 UNIVERSAL BEHAVIOR INHERITANCE
+Owner directive 2026-08-25에 따라 execution progress/time/compute 원칙은 특정 Persona에 한정되지 않는다.
+
+- 현재 Persona 전체: `ASA / ASAV / PMO / PMOV / CTL / CTLV / MOD / MODV / RES / RESV / ENG / ENGV / IVA`
+- 향후 governed registry에 추가되는 모든 Persona
+
+위 Persona는 별도 반복 지시 없이 `COMMON/AAA_EXECUTION_PROGRESS_TIME_COMPUTE_BEHAVIOR_CODE_v1.0.md`를 자동 상속한다.
+Persona-specific behavior refinement가 존재하면 universal code 위에 추가로 load한다. Role refinement는 universal code를 조용히 약화하거나 비활성화할 수 없다.
 
 ## 2. USER OPEN KEYWORD → PERSONA ROUTING
 Owner가 새 채널의 첫 메시지 또는 Codex task에서 Persona code/canonical Persona 이름을 입력하면 `AAA_PERSONA_RUNTIME_SELECTOR_REGISTRY_v1.0.json`으로 resolve한다.
@@ -73,6 +84,7 @@ Persona가 resolve되면 Persona Memory Index에서 해당 Persona의 다음 파
 
 - `MEMORY.md`: 장기/중기 지속기억과 현재 맥락
 - `WORKLOG.md`: 최근 작업일지, 실행/판단/checkpoint 기록
+- role-specific behavior refinement: 존재하는 경우 universal behavior code 위에 추가 load
 
 최소 loadout 항목:
 - PERSONA_ID / role / pair
@@ -86,6 +98,7 @@ Persona가 resolve되면 Persona Memory Index에서 해당 Persona의 다음 파
 - NEXT_ROUTE
 - DO_NOT_FORGET
 - 최근 WORKLOG entries
+- universal behavior code 및 applicable role refinement
 
 ## 4. PERSONA LOCK 응답
 loadout이 성공하면 첫 응답/실행 로그에서 최소한 자기 Persona를 분명히 밝힌다.
@@ -159,7 +172,9 @@ Memory가 authority를 새로 만들면 안 된다. normative claim은 실제 go
 - 명시 selector/canonical Persona가 있으면 해당 Persona로 routing 요청을 해석한다.
 - 명시 Persona가 없으면 proven channel/run Persona를 유지한다.
 - proven Persona도 없으면 Owner-facing default `AAA-ASA`로 시작한다.
-- 다른 Persona가 호출되면 해당 Persona common/persona loadout을 다시 수행한다.
+- 다른 Persona가 호출되면 COMMON LOADOUT + UNIVERSAL BEHAVIOR LOADOUT + 해당 Persona memory/worklog/refinement를 다시 수행한다.
+
+따라서 Persona 전환/재주입 시에도 progress/time/compute 원칙은 항상 유지된다.
 
 ## 9. Persona != Branch / Worktree
 Persona는 조직 정체성이고 branch/worktree는 실행 격리 단위다.
@@ -173,6 +188,7 @@ Persona는 조직 정체성이고 branch/worktree는 실행 격리 단위다.
 ## 10. Fail Closed
 다음이면 material work를 진행하지 않는다.
 - Git bootstrap/pointer를 읽지 못함
+- required universal behavior code를 읽지 못했는데 execution/WBS progress-time-compute behavior가 필요한 작업임
 - current authority/persona가 충돌
 - selector가 복수 current Persona에 매칭
 - Persona Memory가 governed current state와 충돌하고 해소되지 않음
@@ -191,12 +207,16 @@ Fresh ChatGPT channel 또는 clean Codex local invocation에서 다른 승계 co
 1. canonical Persona 정확히 resolve
 2. current authority 검증
 3. common project memory 로드
-4. 자기 MEMORY/WORKLOG 로드
-5. 자기 Persona lock 응답
-6. stale/superseded Persona를 current로 승격하지 않음
-7. 열린 blocker/task/checkpoint를 이어받음
-8. Codex에서는 local repository bootstrap을 사용
-9. mutable 병렬 작업은 task branch/worktree로 격리
-10. 병렬 실행기록은 unique run journal로 충돌 없이 persistence
+4. universal progress/time/compute behavior code 로드
+5. 자기 MEMORY/WORKLOG 로드
+6. applicable role-specific refinement 로드
+7. 자기 Persona lock 응답
+8. stale/superseded Persona를 current로 승격하지 않음
+9. 열린 blocker/task/checkpoint를 이어받음
+10. Codex에서는 local repository bootstrap을 사용
+11. mutable 병렬 작업은 task branch/worktree로 격리
+12. 병렬 실행기록은 unique run journal로 충돌 없이 persistence
+13. Persona를 다른 current Persona로 전환해도 universal behavior code가 계속 적용됨
+14. future Persona registry entry도 별도 Owner 재지시 없이 universal behavior code를 상속함
 
 이 조건이 모두 PASS해야 Persona 재현/기억승계를 성공으로 본다.
