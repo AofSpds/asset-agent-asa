@@ -1,0 +1,375 @@
+{
+  "artifact_id": "AAA-M3TOP3-G3-C-CALENDAR-W1-W8-POST-DECISION-GOVERNANCE-BINDING-CANDIDATE-20260826-0205",
+  "version": "0.1",
+  "issued_at_kst": "2026-08-26T02:05:03+09:00",
+  "role": "AAA_PMO_ORCHESTRATOR_DELEGATED_NON_VALIDATOR_WORKER",
+  "work_unit": "FC1_G3_POST_DECISION_GOVERNANCE_BINDINGS",
+  "status": "RULE_BINDINGS_MATERIALIZED_SOURCE_DEPENDENCIES_OPEN",
+  "execution_boundary": {
+    "axis_b_compute_executed": false,
+    "validator_or_reviewer_used": false,
+    "global_or_full_validation_run": false,
+    "validation_loop_run": false,
+    "git_or_issue_mutation": false,
+    "gate_effect": "NONE",
+    "validation_closure_delta": 0
+  },
+  "governing_anchors": [
+    {
+      "artifact": "G3_B_C_CALENDAR_MINIMAL_GOVERNED_PROTOCOL_CANDIDATE_2026-08-26.md",
+      "sha256": "6872cd98c78490fe226474b5c45c1ca13b2a20f1c5db45a08adeaa7099caed42"
+    },
+    {
+      "artifact": "G3_B_C_CALENDAR_MINIMAL_GOVERNED_PROTOCOL_CANDIDATE_2026-08-26.json",
+      "sha256": "42c60cdafbc1b504a3113512c5a2ac9ad8e728a18e5173853fec3ad2ba923250"
+    },
+    {
+      "artifact": "M3TOP3_FAST_CLOSE_OWNER_DECISION_PACKET_2026-08-26.md",
+      "sha256": "a6fd50cd491025615edf31b6a3e539534c953b2aded1a5418cd5d50650215b1d"
+    },
+    {
+      "artifact": "M3TOP3_FAST_CLOSE_OWNER_DECISION_PACKET_2026-08-26.json",
+      "sha256": "3bb8667cbd43c79c1b99925ec339fd0598c8185a2488bf8b36c5625ac0a98f6d"
+    }
+  ],
+  "decision_observation": {
+    "owner_instruction": "PROCEED_AFTER_EXPLICIT_FOUR_LINE_DECISION_REQUEST",
+    "parent_pmo_supplied_approved_decisions": [
+      "OD-G3-C-01=YES",
+      "OD-G3-CAL-01=YES",
+      "OD-G3-WIN-01=YES"
+    ],
+    "durable_git_or_issue_decision_receipt_in_this_worker_scope": "PENDING_PMO_PACKAGING",
+    "worker_may_manufacture_receipt": false
+  },
+  "authority_state": {
+    "axis_c": {
+      "rules": "GOVERNED_FROZEN_BY_OD_G3_C_01",
+      "exact_source": "MISSING",
+      "execution": "SOURCE_BLOCKED",
+      "release_admitted": false
+    },
+    "calendar": {
+      "rules": "GOVERNED_FROZEN_BY_OD_G3_CAL_01",
+      "exact_source": "MISSING",
+      "execution": "SOURCE_BLOCKED",
+      "release_admitted": false
+    },
+    "w1_w8": {
+      "registry": "OWNER_RATIFIED_OUTCOME_EXPOSED_DEVELOPMENT_ONLY",
+      "outcome_free_binding_evidence": "NOT_PROVEN",
+      "upstream_tuple_provenance": "OPEN",
+      "clean_holdout": false,
+      "oos": false,
+      "release_admitted": false
+    }
+  },
+  "axis_c_binding": {
+    "decision_id": "OD-G3-C-01",
+    "decision": "YES",
+    "semantic_state": "GOVERNED",
+    "independent_source_role": "KRX_CA_EVENT_UNIVERSE",
+    "must_be_independent_of": [
+      "CURRENT_CA_ROWS",
+      "AXIS_A_STOCK_COUNT_SIGNALS",
+      "AXIS_B_PRICE_SIGNALS",
+      "WORKBOOK_INTERNAL_CA_ROWS"
+    ],
+    "effective_date_scope": [
+      "2024-01-01",
+      "2026-08-14"
+    ],
+    "security_scope": "UNION_OF_SECURITY_CODES_IN_THREE_EXACT_PRICE_COMPONENTS_WITH_OFFICIAL_CODE_CONTINUITY_ONLY",
+    "event_taxonomy": [
+      "STOCK_SPLIT",
+      "REVERSE_SPLIT_OR_CONSOLIDATION",
+      "BONUS_OR_FREE_ISSUE",
+      "CAPITAL_REDUCTION_WITH_UNIT_OR_BASIS_IMPACT",
+      "RIGHTS_OR_EX_RIGHTS_WITH_OFFICIAL_BASIS_PRICE_IMPACT",
+      "MERGER_OR_STOCK_EXCHANGE_WITH_UNIT_OR_BASIS_IMPACT",
+      "SPIN_OFF_OR_DEMERGER_WITH_UNIT_OR_BASIS_IMPACT",
+      "OTHER_OFFICIAL_KRX_EVENT_WITH_EXPLICIT_COMPARABLE_PRICE_OR_UNIT_IMPACT",
+      "CORRECTION_CANCELLATION_OR_SUPERSESSION_OF_IN_SCOPE_EVENT"
+    ],
+    "observe_never_auto_adjust": [
+      "PAID_IN_SHARE_ISSUANCE_WITHOUT_EXPLICIT_COMPARABLE_PRICE_IMPACT",
+      "CB_OR_BW_CONVERSION_WITHOUT_UNIT_CHANGE",
+      "MERGER_SHARE_ISSUANCE_WITHOUT_UNIT_OR_BASIS_CHANGE",
+      "NAME_CHANGE",
+      "CASH_DIVIDEND",
+      "LISTING_OR_SUSPENSION_WITHOUT_COMPARABLE_PRICE_IMPACT"
+    ],
+    "matching": {
+      "primary": "SECURITY_CODE_PLUS_EXACT_OFFICIAL_EFFECTIVE_OR_BASIS_DATE",
+      "fuzzy_date": "PROHIBITED",
+      "code_continuity": "EXPLICIT_OFFICIAL_OLD_NEW_MAPPING_ONLY",
+      "effective_interval": "SOURCE_EXPLICIT_ONLY",
+      "multi_security_event": "DETERMINISTIC_LEGS_WITH_PARENT_EVENT_ID_PRESERVED",
+      "duplicate": "COLLAPSE_IDENTICAL_ONLY_CONFLICTS_UNRESOLVED",
+      "correction": "LATEST_EXPLICIT_NON_CANCELLED_BY_FROZEN_PUBLICATION_CUTOFF_PRESERVE_LINEAGE",
+      "factor": "EXPLICIT_OFFICIAL_OR_ALREADY_GOVERNED_BONUS_ISSUE_FORMULA_ONLY"
+    },
+    "terminal_dispositions": [
+      "MATCHED_EXISTING_EVIDENCED_CA_ROW",
+      "ADD_EVIDENCED_CA_ROW",
+      "NO_ADJUSTMENT_EVIDENCED",
+      "NOT_APPLICABLE_OUTSIDE_DECLARED_SCOPE",
+      "SUPERSEDED_OR_CANCELLED_WITH_EXPLICIT_LINEAGE",
+      "UNRESOLVED"
+    ],
+    "exhaustion_requires": [
+      "BYTE_BOUND_CUSTODIAN_ATTESTED_SOURCE_EXPORT_QUERY_AND_SCOPE",
+      "EXACTLY_ONE_TERMINAL_DISPOSITION_PER_IN_SCOPE_SOURCE_EVENT",
+      "TERMINAL_RECONCILIATION_FOR_EVERY_EXISTING_CA_ROW_AND_AXIS_A_OR_AXIS_B_SIGNAL",
+      "ZERO_LIVE_DUPLICATE_EVENT_IDENTITIES",
+      "ZERO_MISSING_REQUIRED_FIELDS",
+      "ZERO_UNRESOLVED_EVENTS",
+      "EXACT_OUTPUT_MANIFEST_COUNT_AND_DIGEST_RECONCILIATION"
+    ],
+    "missing_input": {
+      "state": "NOT_FOUND_OR_NOT_PROVIDED",
+      "required": [
+        "EXACT_BYTES",
+        "SHA256",
+        "SOURCE_LOCATOR",
+        "QUERY_OR_EXPORT_PARAMETERS",
+        "ACQUIRED_AT",
+        "PUBLICATION_CUTOFF",
+        "EFFECTIVE_DATE_SCOPE",
+        "SECURITY_SCOPE",
+        "SOURCE_ROW_COUNT",
+        "REQUIRED_EVENT_FIELDS",
+        "CUSTODIAN_OR_AUTHORITY_RECEIPT"
+      ]
+    },
+    "resume_trigger": {
+      "trigger": "EXACT_INDEPENDENT_KRX_CA_EVENT_UNIVERSE_BYTES_AND_CUSTODIAN_RECEIPT_ARRIVE",
+      "action": "HASH_AND_SCOPE_BIND_THEN_EXECUTE_ONLY_AXIS_C_NORMALIZATION_RECONCILIATION_AND_EXHAUSTION_CANDIDATE",
+      "fail_closed_if": "BYTE_IDENTITY_SCOPE_PUBLICATION_CUTOFF_OR_RECEIPT_MISSING_OR_MISMATCHED",
+      "do_not": "SUBSTITUTE_PRICE_SIGNALS_OR_RESCAN_UNRELATED_LANES"
+    },
+    "conditional_worker_time_after_source": {
+      "p50_hours": 1.0,
+      "p90_hours": 2.5,
+      "external_wait_included": false
+    },
+    "release_admitted": false
+  },
+  "calendar_binding": {
+    "decision_id": "OD-G3-CAL-01",
+    "decision": "YES",
+    "semantic_state": "GOVERNED",
+    "normative_source_class": "EXACT_OFFICIAL_KRX_EQUITY_REGULAR_SESSION_ARTIFACT_OR_EXPLICIT_OWNER_DESIGNATED_EQUIVALENT",
+    "date_scope": [
+      "2024-01-01",
+      "AT_LEAST_2026-08-14"
+    ],
+    "market_scope": "EVERY_MARKET_IN_THREE_EXACT_PRICE_COMPONENTS",
+    "canonical_grain": "MARKET_ID_PLUS_TRADE_DATE_UNLESS_AUTHORITY_PROVES_ONE_COMMON_KRX_EQUITY_CALENDAR",
+    "membership": {
+      "half_day": "INCLUDE_ONLY_IF_AUTHORITY_MARKS_OPEN_REGULAR_EQUITY_SESSION",
+      "exceptional_closure": "EXCLUDE_IF_AUTHORITY_MARKS_CLOSED",
+      "missing_security_price": "PRICE_COVERAGE_OR_TRADABILITY_ISSUE_NOT_CALENDAR_CLOSURE"
+    },
+    "price_date_union": {
+      "role": "DIAGNOSTIC_ONLY",
+      "observed_distinct_dates": 638,
+      "may_self_certify_calendar": false
+    },
+    "window_mechanics": {
+      "snapshot": "EXACT_DATE_FROM_SEPARATELY_GOVERNED_WINDOW_REGISTRY",
+      "entry": "FIRST_GOVERNED_TRADE_DATE_STRICTLY_AFTER_SNAPSHOT",
+      "holding_dates": "GOVERNED_DATES_FROM_ENTRY_THROUGH_WINDOW_END_INCLUSIVE",
+      "exit": "FIRST_GOVERNED_TRADE_DATE_STRICTLY_AFTER_WINDOW_END"
+    },
+    "diagnostic_reconciliation": {
+      "official_only_date": "PRICE_SOURCE_COVERAGE_FINDING_NO_AUTOMATIC_CALENDAR_REMOVAL",
+      "price_only_date": "CALENDAR_OR_SOURCE_CONFLICT_REQUIRES_EXPLICIT_ADJUDICATION",
+      "release_condition": "ZERO_UNRESOLVED_CONFLICTS_AND_EXACT_MANIFEST_DIGEST_AUTHORITY_BINDING"
+    },
+    "missing_input": {
+      "state": "NOT_FOUND_OR_NOT_PROVIDED",
+      "required": [
+        "EXACT_BYTES",
+        "SHA256",
+        "SOURCE_LOCATOR",
+        "ACQUIRED_AT",
+        "MARKET_DATE_AND_SESSION_SCOPE",
+        "SOURCE_ROW_COUNT",
+        "AUTHORITY_RECEIPT"
+      ]
+    },
+    "resume_trigger": {
+      "trigger": "EXACT_NORMATIVE_KRX_EQUITY_REGULAR_SESSION_BYTES_AND_AUTHORITY_RECEIPT_ARRIVE",
+      "action": "HASH_AND_SCOPE_BIND_THEN_BUILD_ONLY_GOVERNED_CALENDAR_AND_W1_W8_DATE_MECHANICS_RECONCILIATION_CANDIDATE",
+      "fail_closed_if": "AUTHORITY_SCOPE_MARKET_SESSION_IDENTITY_OR_BYTE_DIGEST_MISSING_OR_MISMATCHED",
+      "do_not": "PROMOTE_PRICE_DATES_OR_REBUILD_UNRELATED_PRICE_CA_ANNOTATION_LANES"
+    },
+    "conditional_worker_time_after_source": {
+      "p50_hours": 0.5,
+      "p90_hours": 1.0,
+      "external_wait_included": false
+    },
+    "release_admitted": false
+  },
+  "w1_w8_development_binding": {
+    "decision_id": "OD-G3-WIN-01",
+    "decision": "YES",
+    "artifact": "W1_W8_WINDOW_REGISTRY_RELEASE_CANDIDATE_v0.1.csv",
+    "bytes": 414,
+    "sha256": "96d63cc98a01b6332cf9486440e7f3fdaa0ec5a2d605f21bc14a4025b46e69fe",
+    "local_concordance": "8_OF_8",
+    "authority_class": "OWNER_RATIFIED_OUTCOME_EXPOSED_DEVELOPMENT_ONLY",
+    "rows": [
+      {
+        "window_id": "W1",
+        "snapshot": "2024-08-09",
+        "entry": "2024-08-12",
+        "window_end": "2024-11-08"
+      },
+      {
+        "window_id": "W2",
+        "snapshot": "2024-11-08",
+        "entry": "2024-11-11",
+        "window_end": "2025-02-10"
+      },
+      {
+        "window_id": "W3",
+        "snapshot": "2025-02-10",
+        "entry": "2025-02-11",
+        "window_end": "2025-05-09"
+      },
+      {
+        "window_id": "W4",
+        "snapshot": "2025-05-09",
+        "entry": "2025-05-12",
+        "window_end": "2025-08-08"
+      },
+      {
+        "window_id": "W5",
+        "snapshot": "2025-08-08",
+        "entry": "2025-08-11",
+        "window_end": "2025-11-10"
+      },
+      {
+        "window_id": "W6",
+        "snapshot": "2025-11-10",
+        "entry": "2025-11-11",
+        "window_end": "2026-02-10"
+      },
+      {
+        "window_id": "W7",
+        "snapshot": "2026-02-10",
+        "entry": "2026-02-11",
+        "window_end": "2026-05-08"
+      },
+      {
+        "window_id": "W8",
+        "snapshot": "2026-05-08",
+        "entry": "2026-05-11",
+        "window_end": "2026-08-10"
+      }
+    ],
+    "mandatory_consumer_labels": {
+      "window_authority_class": "OWNER_RATIFIED_OUTCOME_EXPOSED_DEVELOPMENT_ONLY",
+      "clean_holdout": false,
+      "oos": false,
+      "release_admitted": false,
+      "outcome_free_binding_evidence": "NOT_PROVEN",
+      "upstream_tuple_provenance": "OPEN"
+    },
+    "calendar_can_establish": [
+      "DATE_MEMBERSHIP",
+      "ENTRY_IS_NEXT_GOVERNED_DATE",
+      "EXIT_IS_NEXT_GOVERNED_DATE_AFTER_WINDOW_END"
+    ],
+    "calendar_cannot_establish": [
+      "WHY_THE_WINDOWS_WERE_SELECTED",
+      "PRE_OUTCOME_COMMITMENT",
+      "UPSTREAM_TUPLE_AUTHORITY",
+      "CLEAN_HOLDOUT_OR_OOS_STATUS"
+    ],
+    "outcome_free_evidence_required": [
+      "INDEPENDENT_TIMESTAMPED_SELECTION_RULE",
+      "TUPLE_COMMITMENT_BEFORE_RELEVANT_OUTCOMES",
+      "OR_NEW_PROSPECTIVE_WINDOW_REGISTRY_COMMITTED_BEFORE_OUTCOMES",
+      "EXACT_SELECTION_AND_TUPLE_LINEAGE"
+    ],
+    "resume_trigger": {
+      "trigger": "EXACT_PRE_OUTCOME_SELECTION_RULE_AND_COMMITMENT_EVIDENCE_OR_NEW_PROSPECTIVE_WINDOW_REGISTRY_ARRIVES",
+      "action": "BIND_ONLY_EVIDENCED_WINDOW_AUTHORITY_CLASS_AND_PRESERVE_DEVELOPMENT_REGISTRY_LINEAGE",
+      "fail_closed_if": "TIMESTAMP_SELECTION_RULE_OR_TUPLE_IDENTITY_NOT_PROVEN",
+      "do_not": "RETROACTIVELY_LABEL_CURRENT_EIGHT_ROWS_CLEAN_HOLDOUT_OR_OOS"
+    }
+  },
+  "resume_routing": [
+    {
+      "trigger": "EXACT_KRX_CA_PACKAGE_AND_RECEIPT",
+      "resume_only": "AXIS_C_SOURCE_BINDING_AND_BOUNDED_RECONCILIATION_CANDIDATE",
+      "held": [
+        "CALENDAR",
+        "WINDOW_OUTCOME_FREE_AUTHORITY",
+        "VALIDATION"
+      ]
+    },
+    {
+      "trigger": "EXACT_KRX_CALENDAR_PACKAGE_AND_RECEIPT",
+      "resume_only": "CALENDAR_SOURCE_BINDING_AND_W1_W8_DATE_MECHANICS_CANDIDATE",
+      "held": [
+        "AXIS_C",
+        "WINDOW_SELECTION_AUTHORITY",
+        "VALIDATION"
+      ]
+    },
+    {
+      "trigger": "EXACT_PRE_OUTCOME_OR_NEW_FUTURE_WINDOW_EVIDENCE",
+      "resume_only": "CORRESPONDING_WINDOW_AUTHORITY_BINDING",
+      "held": [
+        "UNRELATED_G3_LANES",
+        "VALIDATION"
+      ]
+    }
+  ],
+  "no_duplicate_boundary": {
+    "precondition": "COMPARE_EXACT_TRIGGER_IDENTITY_AND_CONFIRM_NO_CONCURRENT_WORKER_OWNS_SAME_LANE",
+    "near_match_or_recreated_artifact_accepted": false,
+    "local_concordance_is_authority": false
+  },
+  "validation_boundary": {
+    "validator_hold": true,
+    "owner_decisions_trigger_validation": false,
+    "source_arrival_triggers_validation": false,
+    "global_validation": "PROHIBITED",
+    "full_regression": "PROHIBITED",
+    "automatic_revalidation_loop": "PROHIBITED",
+    "sealed_g4": "PRESERVE_WITHIN_EXACT_ORIGINAL_SCOPE_NO_RERUN"
+  },
+  "claim_ceiling": [
+    "NO_AXIS_C_SOURCE_EXHAUSTION_OR_COMPLETENESS_CLAIM",
+    "NO_CORPORATE_ACTION_RELEASE_CLAIM",
+    "NO_GOVERNED_CALENDAR_RELEASE_CLAIM",
+    "NO_OUTCOME_FREE_W1_W8_AUTHORITY_CLAIM",
+    "NO_CLEAN_HOLDOUT_OR_OOS_CLAIM",
+    "NO_PRICE_CANONICAL_OR_PIT_ELIGIBILITY_OR_TRADABILITY_CLAIM",
+    "NO_G3_OR_INTEGRATED_G1_G4_PASS",
+    "NO_EOPT_G0_OR_A_A_OR_PREDICTIVE_POWER_CLAIM",
+    "NO_GOLDEN_REPLAY_FREEZE_CHAMPION_PROMOTION_RELEASE_PRODUCTION_OR_OPTIMIZATION_EFFECTIVENESS_CLAIM"
+  ],
+  "final_state": {
+    "axis_c_rules": "GOVERNED",
+    "axis_c_release": "SOURCE_BLOCKED_NOT_ADMITTED",
+    "calendar_rules": "GOVERNED",
+    "calendar_release": "SOURCE_BLOCKED_NOT_ADMITTED",
+    "w1_w8_development_authority": "OWNER_RATIFIED_OUTCOME_EXPOSED_ONLY",
+    "w1_w8_outcome_free_authority": "NOT_PROVEN",
+    "g3_gate": "OPEN_PARTIAL",
+    "integrated_g1_g4": "NOT_CLOSED",
+    "eopt_g0": "OPEN_NOT_PROVEN_1_OF_6",
+    "gate_effect": "NONE"
+  },
+  "targeted_qc_plan": {
+    "check_count": 1,
+    "scope": "JSON_PARSE_REQUIRED_KEYS_EXACT_DECISION_AND_WINDOW_HASH_PLUS_SHA256_OF_MD_AND_JSON",
+    "not_validation": true
+  }
+}
