@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-08-26T01:14:00+09:00",
+  "as_of": "2026-08-26T01:21:16+09:00",
   "fast_close_progress_percent": 21,
   "earned_ewu": 21,
   "total_ewu": 100,
@@ -14,7 +14,12 @@
   "rework_material_compute_duplication": false,
   "validator_hold": true,
   "active_validator_count": 0,
-  "active_non_validator_worker_count": 0,
+  "active_non_validator_worker_count": 3,
+  "active_work_units": [
+    {"id":"G2-SOURCE-PROVENANCE","scope":"514 eligibility plus W1-W8 authority recovery from existing supplied sources","p50_hours":0.75,"p90_hours":1.5,"validation":false},
+    {"id":"G3-GOVERNANCE-RULES","scope":"minimal Axis B/C and governed-calendar protocol candidate","p50_hours":0.5,"p90_hours":1.25,"validation":false},
+    {"id":"G3-ANNOTATION-CANDIDATE","scope":"local deterministic annotation and lineage ingest candidate","p50_hours":0.75,"p90_hours":2.0,"validation":false}
+  ],
   "eta_prevalidation_candidate_p50_hours": [3, 4.5],
   "eta_prevalidation_candidate_p90_hours": [6, 8],
   "eta_sealed_eopt_g0":"UNAVAILABLE_UNTIL_VALIDATOR_HOLD_RELEASED",
@@ -32,7 +37,7 @@
     "integrated":"NOT_CLOSED",
     "EOPT_G0":"OPEN_NOT_PROVEN_1_OF_6"
   },
-  "current_critical_path":"G1 exact-byte custody; G2 BP/listing/date provenance; G3 CA threshold, independent KRX event universe, governed calendar, and annotation inputs; validation is not the current execution path",
+  "current_critical_path":"Three bounded non-validator recovery/design units are active for G2/G3; G1 remains external-custody wait; validation is not the current execution path",
   "first_parallel_dispatch":"G1 / G2 / G3",
-  "last_material_progress":"All three non-validator workers completed and their exact reports were committed; global validation, full regression, automatic revalidation, and validation loops remain prohibited."
+  "last_material_progress":"Owner continuation directive accepted; three new non-overlapping non-validator units dispatched for G2 provenance, G3 governance rules, and G3 annotation ingest."
 }
