@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-08-26T00:48:48+09:00",
+  "as_of": "2026-08-26T01:00:57+09:00",
   "fast_close_progress_percent": 14,
   "earned_ewu": 14,
   "total_ewu": 100,
@@ -9,8 +9,14 @@
   "active_time": "NOT_INSTRUMENTED_SEPARATELY",
   "blocked_time": "G1_EXTERNAL_CUSTODY_WAIT_ACTIVE_BUT_EXCLUDED_FROM_ACTIVE_ETA",
   "rework": 0,
-  "eta_p50_hours": [4, 6],
-  "eta_p90_hours": [8, 12],
+  "validator_hold": true,
+  "active_validator_count": 0,
+  "active_non_validator_worker_count": 3,
+  "eta_prevalidation_candidate_p50_hours": [3, 4.5],
+  "eta_prevalidation_candidate_p90_hours": [6, 8],
+  "eta_sealed_eopt_g0":"UNAVAILABLE_UNTIL_VALIDATOR_HOLD_RELEASED",
+  "post_hold_validation_increment_p50_hours":[0.5,1.5],
+  "post_hold_validation_increment_p90_hours":[1,3],
   "eta_confidence": "LOW_FIRST_EXECUTION_SEGMENT_NOT_YET_MEASURED",
   "gates": {
     "G1":{"progress_percent":33,"state":"EXTERNAL_CUSTODY_BLOCKED_NOT_SATISFIED"},
@@ -21,8 +27,7 @@
     "integrated":"NOT_CLOSED",
     "EOPT_G0":"OPEN_NOT_PROVEN_1_OF_6"
   },
-  "current_critical_path":"G1 external custodian response/exhaustion plus active G3 CA B/C deterministic-closure definition",
+  "current_critical_path":"G2/G3 non-validator closure candidates; G1 external custody and final validator disposition remain explicit blockers",
   "first_parallel_dispatch":"G1 / G2 / G3",
   "last_material_progress":"Owner fast-close v2 adopted; FC0 reconciled; G3 predecessor manifest identity declaration recovered while exact bytes remain not found."
 }
-
