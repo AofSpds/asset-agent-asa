@@ -1,0 +1,90 @@
+{
+  "artifact_id": "AAA-M3TOP3-G3-D-E-F-NONVALIDATOR-CLOSURE-QUEUE-20260826-0108",
+  "observed_at_kst": "2026-08-26T01:08:18+09:00",
+  "validator_hold": true,
+  "iva_execution_participation": "NONE",
+  "git_issue_mutation": false,
+  "source_mutation": false,
+  "gate_effect": "NONE",
+  "g3_d": {
+    "rows": 1016,
+    "entry_open_true": 979,
+    "entry_open_false": 37,
+    "workbook_mismatches": 0,
+    "old_new_2026_applicable_rows": 254,
+    "old_new_2026_exact_open_matches": 254,
+    "historical_eligibility": {
+      "eligible": 465,
+      "ineligible_by_tradability": 37,
+      "unresolved": 514,
+      "unresolved_by_window": {"W1": 62, "W2": 63, "W3": 64, "W4": 66, "W5": 66, "W6": 65, "W7": 66, "W8": 62}
+    },
+    "unresolved_cross_tab": {
+      "operational_unresolved_tradable_true": 45,
+      "operational_unresolved_tradable_unresolved": 469
+    },
+    "remaining_dependencies": ["G3_B_CA_B_C", "G3_C_GOVERNED_CALENDAR", "G2_BP_AND_LISTING_PROVENANCE", "G3_F_EXACT_LINEAGE"]
+  },
+  "g3_e": {
+    "thin_pit_rows": 1016,
+    "complete": 0,
+    "incomplete": 1016,
+    "not_researched": 1016,
+    "publication_at_null": 1016,
+    "source_evidence_ref_null": 1016,
+    "freshness_unknown": 1016,
+    "annotation_access_sidecar_present": 0,
+    "research_content_reference_columns": 17,
+    "unresearched_field_slots": 17272,
+    "f1_ready": 0,
+    "f1_partial": 520,
+    "f1_needs_research": 496,
+    "required_controls": [
+      "SOURCE_HASH_AND_EXACT_BYTES_OR_STABLE_OBJECT_ID",
+      "TIMEZONE_AWARE_PUBLICATION_AT",
+      "FROZEN_CUTOFF_AND_AVAILABLE_BEFORE_ENTRY",
+      "OUTCOME_CONCEALED_SOURCE_BUNDLE",
+      "RETRIEVER_ANNOTATOR_A_ANNOTATOR_B_ADJUDICATOR_SEPARATION",
+      "TWO_INDEPENDENT_PRE_ADJUDICATION_OUTPUTS_OR_MECHANICAL_FLAG",
+      "ACCESS_CONCEALMENT_SIDECAR",
+      "PROMPT_MODEL_BUILD_CONFIG_TOOL_RESULT_HASHES",
+      "MISSINGNESS_CLASSES_PRESERVED",
+      "NO_HINDSIGHT_OR_CURRENT_BACKFILL"
+    ]
+  },
+  "g3_f": {
+    "required_release_domains": 8,
+    "domains": {
+      "UNIVERSE_RELEASE": "EXACT_CANDIDATE_NOT_FINAL",
+      "DENOMINATOR_ELIGIBILITY_RELEASE": "BLOCKED_514_UNRESOLVED",
+      "FEATURE_SOURCE_RELEASE": "ABSENT_0_OF_1016_COMPLETE",
+      "PRICE_RELEASE": "FORWARD_EXACT_BYTES_RECOVERED_PREDECESSOR_MANIFEST_ABSENT",
+      "CORPORATE_ACTION_RELEASE": "RECORD_LEVEL_SUBGATES_ONLY_B_C_OPEN",
+      "TRADING_CALENDAR_RELEASE": "ABSENT",
+      "WINDOW_REGISTRY_RELEASE": "EXACT_CANDIDATE_DATE_PROVENANCE_FINDING_OPEN",
+      "SCORER_RELEASE": "ABSENT_EXACT_V1_G1_BLOCKED"
+    },
+    "closeable_now": "BLOCKED_LINEAGE_ENVELOPE_ONLY",
+    "exact_release_binding_closeable_now": false
+  },
+  "timing": {
+    "bounded_prevalidation_blocker_candidate_p50_hours": [1.25, 2.25],
+    "bounded_prevalidation_blocker_candidate_p90_hours": [3.25, 4.25],
+    "cru_proxy_range": [11, 22],
+    "true_scoreable_g3_release_eta": "NOT_MEASURABLE_FROM_CURRENT_INPUTS",
+    "sealed_g3_or_eopt_g0_eta_with_validator_hold": "UNAVAILABLE"
+  },
+  "claim_ceiling": [
+    "NONVALIDATOR_MECHANICAL_ENTRY_OPEN_EQUIVALENCE",
+    "DEPENDENCY_AND_BLOCKER_QUEUE_SIZING",
+    "NO_NEW_PASS",
+    "NO_G3_GATE_CLOSURE",
+    "NO_ELIGIBILITY_OR_ANNOTATION_TRUTH_CLAIM",
+    "NO_CANONICAL_RELEASE_GOLDEN_REPLAY_OR_EOPT_CLAIM"
+  ],
+  "outputs": {
+    "entry_summary": "G3_D_ENTRY_TRADABILITY_SUMMARY.json",
+    "entry_projection": "G3_D_ENTRY_TRADABILITY_PROJECTION.csv",
+    "component_equivalence": "G3_D_2026_COMPONENT_ENTRY_EQUIVALENCE.csv"
+  }
+}
