@@ -1,0 +1,105 @@
+{
+  "artifact_id": "AAA-M3TOP3-OWNER-DECISION-BINDING-RECEIPT-20260826-0204",
+  "project": "AAA / ASSET AGENT ASA",
+  "persona": "AAA-PMO-ORCHESTRATOR",
+  "class": "NON_VALIDATOR_OWNER_SEMANTIC_DECISION_BINDING",
+  "created_at_kst": "2026-08-26T02:04:18+09:00",
+  "owner_reply_timestamp": "NOT_INSTRUMENTED",
+  "decision_effect": "BOUND",
+  "conversation_basis": {
+    "immediately_preceding_pmo_request": "APPROVE_THE_FOUR_RECOMMENDED_DECISIONS_WITH_4_ALL_YES_ACCEPTED_AS_A_REPLY",
+    "owner_reply_exact": "진행하세요.",
+    "owner_reply_position": "IMMEDIATELY_FOLLOWING_THE_FOUR_DECISION_APPROVAL_REQUEST",
+    "contrary_or_qualified_value_present": false,
+    "binding_interpretation": "APPROVE_ALL_FOUR_IMMEDIATELY_PRECEDING_RECOMMENDED_DECISIONS",
+    "scope_limit": "ONLY_THE_FOUR_LISTED_DECISION_IDS",
+    "canonical_basis_sha256": "e102bc2e8aba191567b693593c2ac6586fcf82cb1caa069482cad7f26ed150f3"
+  },
+  "parent_packet": {
+    "md_path": "agent_owner_decision_packet/M3TOP3_FAST_CLOSE_OWNER_DECISION_PACKET_2026-08-26.md",
+    "md_sha256": "a6fd50cd491025615edf31b6a3e539534c953b2aded1a5418cd5d50650215b1d",
+    "json_path": "agent_owner_decision_packet/M3TOP3_FAST_CLOSE_OWNER_DECISION_PACKET_2026-08-26.json",
+    "json_sha256": "3bb8667cbd43c79c1b99925ec339fd0598c8185a2488bf8b36c5625ac0a98f6d"
+  },
+  "canonical_decision_set": {
+    "utf8_text_with_final_newline": "OD-G3-B-01=YES\nOD-G3-C-01=YES\nOD-G3-CAL-01=YES\nOD-G3-WIN-01=YES\n",
+    "sha256": "79ca7f7723a11dad407b777b49719b7ebaf529d4c1fdd174ca4507cefb1ffe2d"
+  },
+  "bound_decisions": [
+    {
+      "id": "OD-G3-B-01",
+      "value": "YES",
+      "yes_freezes": "ABS_CURRENT_OPEN_VS_IMMEDIATELY_PRIOR_OBSERVED_CLOSE_GTE_20_PERCENT_INCLUSIVE_EXACT_NO_ROUNDING_SIGNAL_ONLY",
+      "yes_next_execution": "BOUNDED_AXIS_B_SCAN_OVER_1822019_ROWS",
+      "yes_claim_effect": "NONE"
+    },
+    {
+      "id": "OD-G3-C-01",
+      "value": "YES",
+      "yes_freezes": "LISTED_KRX_CA_TAXONOMY_EXACT_DATE_MATCH_CORRECTION_LINEAGE_ZERO_UNRESOLVED_EXHAUSTION",
+      "yes_next_execution": "WAIT_FOR_EXACT_INDEPENDENT_KRX_CA_BYTES_THEN_RUN_AXIS_C_RECONCILIATION",
+      "yes_claim_effect": "NONE"
+    },
+    {
+      "id": "OD-G3-CAL-01",
+      "value": "YES",
+      "yes_freezes": "EXACT_OFFICIAL_KRX_EQUITY_REGULAR_SESSION_ARTIFACT_OR_EXPLICIT_EQUIVALENT_IS_NORMATIVE_PRICE_DATE_UNION_DIAGNOSTIC_ONLY",
+      "yes_next_execution": "WAIT_FOR_EXACT_CALENDAR_BYTES_THEN_RUN_CALENDAR_AND_WINDOW_RECONCILIATION",
+      "yes_claim_effect": "NONE"
+    },
+    {
+      "id": "OD-G3-WIN-01",
+      "value": "YES",
+      "candidate_sha256": "96d63cc98a01b6332cf9486440e7f3fdaa0ec5a2d605f21bc14a4025b46e69fe",
+      "yes_freezes": "EIGHT_ROWS_AS_OUTCOME_EXPOSED_DEVELOPMENT_REGISTRY_ONLY_AND_AUTHORIZES_SEPARATE_AUTHORITY_BINDING",
+      "yes_next_execution": "MATERIALIZE_OWNER_AUTHORITY_BINDING_CANDIDATE",
+      "yes_does_not_create": [
+        "RETROACTIVE_CLEAN_HOLDOUT",
+        "OOS_STATUS",
+        "WINDOW_RELEASE"
+      ],
+      "yes_claim_effect": "NONE"
+    }
+  ],
+  "unchanged_decision": {
+    "id": "OD-MAJOR-REBASE-01",
+    "value": "NO",
+    "basis": "NOT_INCLUDED_IN_THE_FOUR_DECISION_APPROVAL_REQUEST"
+  },
+  "immediate_execution_authority": {
+    "axis_b_bounded_scan": true,
+    "axis_c_before_exact_independent_krx_ca_bytes": false,
+    "calendar_reconciliation_before_exact_authority_bytes": false,
+    "owner_authority_binding_candidate": true,
+    "validation": false,
+    "global_or_full_suite": false,
+    "revalidation_loop": false
+  },
+  "non_creation_boundary": {
+    "source_bytes": false,
+    "historical_facts": false,
+    "annotation_values": false,
+    "custodian_exhaustion": false,
+    "validation_receipt": false,
+    "gate_evidence": false,
+    "pass": false
+  },
+  "claim_ceiling": [
+    "NO_G1_G2_G3_OR_INTEGRATED_G1_G4_PASS",
+    "NO_EOPT_G0_PASS",
+    "NO_A_A_OR_PREDICTIVE_POWER_CLAIM",
+    "NO_GOLDEN_REPLAY_FREEZE_CHAMPION_PROMOTION_RELEASE_OR_PRODUCTION_CLAIM",
+    "NO_OPTIMIZATION_EFFECTIVENESS_CLAIM",
+    "SEALED_G4_RECEIPTS_PRESERVED_ONLY_IN_ORIGINAL_SCOPE"
+  ],
+  "execution_boundary": {
+    "validator_hold": true,
+    "validation_triggered": false,
+    "global_validation_prohibited": true,
+    "full_regression_prohibited": true,
+    "validation_loop_prohibited": true,
+    "automatic_retry_authorized": false,
+    "gate_effect": "NONE",
+    "pass_effect": "NONE"
+  }
+}
