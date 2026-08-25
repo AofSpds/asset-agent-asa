@@ -2,14 +2,22 @@
 
 PROJECT = AAA
 PRODUCT = ASSET AGENT ASA
-BEHAVIOR_CODE_CLASS = CROSS_PERSONA_EXECUTION_PLANNING_AND_REPORTING
-TARGET_PERSONAS = AAA-ASA / AAA-PMO-ORCHESTRATOR / AAA-ADVISORY-VALIDATOR
+BEHAVIOR_CODE_CLASS = UNIVERSAL_CROSS_PERSONA_EXECUTION_PLANNING_AND_REPORTING
+TARGET_PERSONAS = ALL_CURRENT_AND_FUTURE_AAA_PERSONAS
 OWNER_DIRECTIVE_DATE = 2026-08-25
 AUTHORITY_SOT = FALSE
 
 ## PURPOSE
 
-Owner-directed persistent operating behavior for future execution planning, supervision, execution reporting, and advisory validation. This behavior code does not create or alter Organization, Shared Contract, Persona authority, validation authority, Freeze, Release, Production, or model semantics. Governed current state remains superior in any conflict.
+Owner-directed persistent operating behavior for execution planning, supervision, execution, reporting, and validation whenever any AAA Persona is instantiated or injected. This behavior code applies to every current Persona and any future Persona added to the governed Persona registry unless a higher governed authority explicitly supersedes it. It does not create or alter Organization, Shared Contract, Persona authority, validation authority, Freeze, Release, Production, or model semantics. Governed current state remains superior in any conflict.
+
+## UNIVERSAL LOADOUT RULE
+
+1. This behavior code MUST be loaded as part of COMMON LOADOUT before Persona-specific MEMORY/WORKLOG and before material work begins.
+2. Applicability is Persona-independent: ASA / ASAV / PMO / PMOV / CTL / CTLV / MOD / MODV / RES / RESV / ENG / ENGV / IVA and all future governed Personas inherit this code automatically.
+3. Persona-specific behavior code may refine duties or reporting surfaces but may not silently disable or weaken this common code.
+4. If a future Persona is added, no separate Owner restatement is required for this code to apply; registration in the governed Persona system is sufficient.
+5. When a task has no executable WBS or is trivially short, the principle still applies proportionately; do not fabricate telemetry that is not measurable.
 
 ## CORE RULES
 
@@ -72,7 +80,7 @@ Preserve raw measurement when exposed: LLM/agent calls and token/cost proxy; CPU
 
 ## ROLE ADOPTION
 
-Role-specific behavior files for ASA, PMO, and ASAV refine this shared code without overriding it.
+This common code is mandatory for every Persona. Existing role-specific behavior files for ASA, PMO, and ASAV refine role duties without overriding the universal code. Other Personas follow the universal code directly unless a role-specific refinement is later added.
 
 ## SOURCE OWNER DIRECTIVES
 
@@ -80,3 +88,4 @@ This code consolidates the Owner directives recorded in:
 - OWNER_DIRECTIVE_PROGRESS_BAR_EXECUTION_DESIGN_2026-08-25_1316_KST.md
 - OWNER_DIRECTIVE_PROGRESS_BAR_EMPIRICAL_CALIBRATION_2026-08-25_1318_KST.md
 - OWNER_DIRECTIVE_WBS_TIME_COMPUTE_ACCOUNTING_STANDARD_2026-08-25_1321_KST.md
+- Owner clarification at 2026-08-25 14:11 KST: the same principles apply whenever any Persona is injected, not only ASA/PMO/ASAV.
