@@ -1,0 +1,199 @@
+{
+  "artifact_role": "NON_VALIDATOR_READ_ONLY_MECHANICAL_G3_D_PROJECTION",
+  "claim_ceiling": "ENTRY_OPEN_ROW_EQUIVALENCE_AND_QUEUE_SIZING_ONLY",
+  "counts": {
+    "listing_tradability_rows": 1016,
+    "mechanical_positive_entry_open_false": 37,
+    "mechanical_positive_entry_open_true": 979,
+    "old_new_2026_applicable_rows": 254,
+    "old_new_2026_exact_open_matches": 254,
+    "old_new_2026_exact_open_mismatches": 0,
+    "thin_pit_rows": 1016,
+    "workbook_tradable_at_entry_mismatches": 0,
+    "workbook_valid_entry_open_mismatches": 0
+  },
+  "decoder": {
+    "path": "/workspace/scratch/577256efb437/remediation/g3_price_qc_followup_20260824/g3_parquet_readonly_decoder.py",
+    "sha256": "3ac6dd18453184f7dc27ae6b49778316eac327744d1343285490b491a8c8e778"
+  },
+  "gate_effect": "NONE",
+  "old_2026_source": {
+    "byte_size": 16198533,
+    "duplicate_date_code_beyond_first": 0,
+    "leaf_columns": 18,
+    "path": "/workspace/scratch/577256efb437/remediation/g3_price_source_recovery_20260825/upstream_repo_20260814/data/marcap-2026.parquet",
+    "row_count": 434915,
+    "sha256": "5da710a2fc56f8fe9b1f5126295cc30c3b15c0ee35d28ba808a505ec4a2243c1"
+  },
+  "per_window": {
+    "W1": {
+      "mechanical_FALSE": 8,
+      "mechanical_TRUE": 119,
+      "workbook_tradable_FALSE": 8,
+      "workbook_tradable_TRUE": 119,
+      "workbook_valid_open_FALSE": 8,
+      "workbook_valid_open_TRUE": 119
+    },
+    "W2": {
+      "mechanical_FALSE": 7,
+      "mechanical_TRUE": 120,
+      "workbook_tradable_FALSE": 7,
+      "workbook_tradable_TRUE": 120,
+      "workbook_valid_open_FALSE": 7,
+      "workbook_valid_open_TRUE": 120
+    },
+    "W3": {
+      "mechanical_FALSE": 6,
+      "mechanical_TRUE": 121,
+      "workbook_tradable_FALSE": 6,
+      "workbook_tradable_TRUE": 121,
+      "workbook_valid_open_FALSE": 6,
+      "workbook_valid_open_TRUE": 121
+    },
+    "W4": {
+      "mechanical_FALSE": 3,
+      "mechanical_TRUE": 124,
+      "workbook_tradable_FALSE": 3,
+      "workbook_tradable_TRUE": 124,
+      "workbook_valid_open_FALSE": 3,
+      "workbook_valid_open_TRUE": 124
+    },
+    "W5": {
+      "mechanical_FALSE": 3,
+      "mechanical_TRUE": 124,
+      "workbook_tradable_FALSE": 3,
+      "workbook_tradable_TRUE": 124,
+      "workbook_valid_open_FALSE": 3,
+      "workbook_valid_open_TRUE": 124
+    },
+    "W6": {
+      "mechanical_FALSE": 3,
+      "mechanical_TRUE": 124,
+      "workbook_tradable_FALSE": 3,
+      "workbook_tradable_TRUE": 124,
+      "workbook_valid_open_FALSE": 3,
+      "workbook_valid_open_TRUE": 124
+    },
+    "W7": {
+      "mechanical_FALSE": 2,
+      "mechanical_TRUE": 125,
+      "workbook_tradable_FALSE": 2,
+      "workbook_tradable_TRUE": 125,
+      "workbook_valid_open_FALSE": 2,
+      "workbook_valid_open_TRUE": 125
+    },
+    "W8": {
+      "mechanical_FALSE": 5,
+      "mechanical_TRUE": 122,
+      "workbook_tradable_FALSE": 5,
+      "workbook_tradable_TRUE": 122,
+      "workbook_valid_open_FALSE": 5,
+      "workbook_valid_open_TRUE": 122
+    }
+  },
+  "remaining_dependencies": [
+    "G3-B_CA_B_C",
+    "G3-C_GOVERNED_CALENDAR",
+    "G2_HISTORICAL_BP_AND_LISTING_PROVENANCE",
+    "G3-F_EXACT_RELEASE_LINEAGE"
+  ],
+  "selected_sources": {
+    "2024": {
+      "byte_size": 24572111,
+      "duplicate_date_code_beyond_first": 0,
+      "leaf_columns": 18,
+      "path": "/workspace/scratch/577256efb437/remediation/g3_price_source_recovery_20260825/upstream_repo_range_complete_20260817/data/marcap-2024.parquet",
+      "row_count": 687708,
+      "sha256": "b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb"
+    },
+    "2025": {
+      "byte_size": 25153419,
+      "duplicate_date_code_beyond_first": 0,
+      "leaf_columns": 18,
+      "path": "/workspace/scratch/577256efb437/remediation/g3_price_source_recovery_20260825/upstream_repo_range_complete_20260817/data/marcap-2025.parquet",
+      "row_count": 696524,
+      "sha256": "2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e"
+    },
+    "2026": {
+      "byte_size": 16297737,
+      "duplicate_date_code_beyond_first": 0,
+      "leaf_columns": 18,
+      "path": "/workspace/scratch/577256efb437/remediation/g3_price_source_recovery_20260825/upstream_repo_range_complete_20260817/data/marcap-2026.parquet",
+      "row_count": 437787,
+      "sha256": "b6f3f8ea110326b21d23b5344e6abe159f8ea7f7a345262155b929c08886fc9d"
+    }
+  },
+  "source_workbook": {
+    "byte_size": 563995,
+    "path": "/workspace/scratch/577256efb437/qa/wp2_sources/U127_Data_Expansion_Working_v0.8_2026-08-15.xlsx",
+    "sha256": "44501584c9dc6224637e9193219c1e8c87507af77dc15dc3944a3d04af524cda"
+  },
+  "thin_pit_historical_cross_tab": [
+    {
+      "count": 465,
+      "historical_eligibility_status": "ELIGIBLE",
+      "operational_membership": "INCLUDE",
+      "tradable_eligible": "TRUE"
+    },
+    {
+      "count": 37,
+      "historical_eligibility_status": "INELIGIBLE_BY_TRADABILITY",
+      "operational_membership": "UNRESOLVED",
+      "tradable_eligible": "FALSE"
+    },
+    {
+      "count": 45,
+      "historical_eligibility_status": "UNRESOLVED",
+      "operational_membership": "UNRESOLVED",
+      "tradable_eligible": "TRUE"
+    },
+    {
+      "count": 469,
+      "historical_eligibility_status": "UNRESOLVED",
+      "operational_membership": "UNRESOLVED",
+      "tradable_eligible": "UNRESOLVED"
+    }
+  ],
+  "thin_pit_historical_status_by_window": {
+    "W1": {
+      "ELIGIBLE": 57,
+      "INELIGIBLE_BY_TRADABILITY": 8,
+      "UNRESOLVED": 62
+    },
+    "W2": {
+      "ELIGIBLE": 57,
+      "INELIGIBLE_BY_TRADABILITY": 7,
+      "UNRESOLVED": 63
+    },
+    "W3": {
+      "ELIGIBLE": 57,
+      "INELIGIBLE_BY_TRADABILITY": 6,
+      "UNRESOLVED": 64
+    },
+    "W4": {
+      "ELIGIBLE": 58,
+      "INELIGIBLE_BY_TRADABILITY": 3,
+      "UNRESOLVED": 66
+    },
+    "W5": {
+      "ELIGIBLE": 58,
+      "INELIGIBLE_BY_TRADABILITY": 3,
+      "UNRESOLVED": 66
+    },
+    "W6": {
+      "ELIGIBLE": 59,
+      "INELIGIBLE_BY_TRADABILITY": 3,
+      "UNRESOLVED": 65
+    },
+    "W7": {
+      "ELIGIBLE": 59,
+      "INELIGIBLE_BY_TRADABILITY": 2,
+      "UNRESOLVED": 66
+    },
+    "W8": {
+      "ELIGIBLE": 60,
+      "INELIGIBLE_BY_TRADABILITY": 5,
+      "UNRESOLVED": 62
+    }
+  }
+}
