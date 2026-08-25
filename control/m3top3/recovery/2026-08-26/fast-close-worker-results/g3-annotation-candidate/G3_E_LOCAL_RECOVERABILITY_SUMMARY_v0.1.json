@@ -1,0 +1,278 @@
+{
+  "artifact_id": "AAA-M3TOP3-G3E-LOCAL-RECOVERABILITY-20260826-0125",
+  "observed_at_kst": "2026-08-26T01:25:20+09:00",
+  "execution_role": "NON_VALIDATOR_WORKER",
+  "validator_hold": true,
+  "global_validation": false,
+  "validation_loop": false,
+  "source_mutation": false,
+  "git_issue_mutation": false,
+  "gate_effect": "NONE",
+  "decision": "NO_ANNOTATION_CONTENT_VALUE_IS_DETERMINISTICALLY_RECOVERABLE_FROM_LOCAL_INPUTS",
+  "counts": {
+    "thin_pit_rows": 1016,
+    "unique_company_window_keys": 1016,
+    "companies": 127,
+    "windows": 8,
+    "annotation_fields": 17,
+    "annotation_field_slots": 17272,
+    "queue_rows_recoverable": 1016,
+    "queue_slots_recoverable": 17272,
+    "content_values_recoverable": 0,
+    "publication_at_recoverable_for_annotation": 0,
+    "source_evidence_ref_recoverable_for_annotation": 0,
+    "available_before_cutoff_determinable": 0,
+    "admitted_annotation_rows": 0,
+    "annotation_sidecar_rows": 0
+  },
+  "window_counts": {
+    "W1": 127,
+    "W2": 127,
+    "W3": 127,
+    "W4": 127,
+    "W5": 127,
+    "W6": 127,
+    "W7": 127,
+    "W8": 127
+  },
+  "feature_state_counts": {
+    "valuation_observation_status": {
+      "NEEDS_RESEARCH": 1016
+    },
+    "latest_revenue": {
+      "NEEDS_RESEARCH": 1016
+    },
+    "latest_OP": {
+      "NEEDS_RESEARCH": 1016
+    },
+    "latest_margin": {
+      "NEEDS_RESEARCH": 1016
+    },
+    "Forward_EPS": {
+      "NEEDS_RESEARCH": 1016
+    },
+    "Forward_OP": {
+      "NEEDS_RESEARCH": 1016
+    },
+    "EPS_OP_revision": {
+      "NEEDS_RESEARCH": 1016
+    },
+    "consensus_provider": {
+      "NEEDS_RESEARCH": 1016
+    },
+    "observation_at": {
+      "NEEDS_RESEARCH": 1016
+    },
+    "guidance": {
+      "NEEDS_RESEARCH": 1016
+    },
+    "PO_order_status": {
+      "NEEDS_RESEARCH": 1016
+    },
+    "backlog_status": {
+      "NEEDS_RESEARCH": 1016
+    },
+    "qualification_status": {
+      "NEEDS_RESEARCH": 1016
+    },
+    "volume_repeat_order_status": {
+      "NEEDS_RESEARCH": 1016
+    },
+    "design_win_customer_adoption_status": {
+      "NEEDS_RESEARCH": 1016
+    },
+    "fab_capex_state_status": {
+      "NEEDS_RESEARCH": 1016
+    },
+    "latest_material_earnings_guidance_refs": {
+      "NEEDS_RESEARCH": 1016
+    }
+  },
+  "cross_domain_publication_metadata": {
+    "counts": {
+      "Identity_Ledger.publication_at": 53,
+      "U81_F1.publication_at": 19,
+      "Historical_BP.publication_at": 481,
+      "Corporate_Actions.evidence_publication_at": 11
+    },
+    "annotation_admissibility": "ZERO; dates are bound to identity/F1/eligibility/CA records, not to the 17 dynamic feature slots"
+  },
+  "mechanically_recoverable": [
+    "1016 exact company-window row keys",
+    "127-by-8 coverage and source workbook row numbers",
+    "snapshot cutoffs and candidate entry-date joins",
+    "17-field source-route/control registry",
+    "17272 fail-closed NOT_COLLECTED queue slots",
+    "exact ingest JSON Schema"
+  ],
+  "blocked": [
+    "historical evidence retrieval",
+    "one-to-one source object identity and source hash",
+    "feature-level publication_at and observation period",
+    "available-before-cutoff determination",
+    "frozen outcome-concealed source bundle",
+    "annotation/access sidecar and independent interpretation lineage",
+    "exact-v1 feature admission semantics while G1 identity remains unresolved"
+  ],
+  "input_manifest": [
+    {
+      "path": "/workspace/scratch/577256efb437/qa/wp2_sources/U127_Data_Expansion_Working_v0.8_2026-08-15.xlsx",
+      "bytes": 563995,
+      "sha256": "44501584c9dc6224637e9193219c1e8c87507af77dc15dc3944a3d04af524cda"
+    },
+    {
+      "path": "/workspace/scratch/577256efb437/remediation/r_wp23_data_closure/05_THIN_PIT_SOURCE_ANNOTATION_BUILD_MANIFEST.csv",
+      "bytes": 7245,
+      "sha256": "5b78b6f0ea8cbdc2684e37724e3f0323ae8c50f1ae6dc1547e444d3e9c0eb7a1"
+    },
+    {
+      "path": "/workspace/scratch/577256efb437/remediation/g2_release_candidate_20260824/W1_W8_WINDOW_REGISTRY_RELEASE_CANDIDATE_v0.1.csv",
+      "bytes": 414,
+      "sha256": "96d63cc98a01b6332cf9486440e7f3fdaa0ec5a2d605f21bc14a4025b46e69fe"
+    },
+    {
+      "path": "/workspace/scratch/577256efb437/remediation/r_wp23_data_closure/03_DENOMINATOR_CLOSURE_QUEUE.csv",
+      "bytes": 325454,
+      "sha256": "02bde437c04b1cc3d314b30e9bdd41bdb9a9164d0d2df4468728bdab8089eb62"
+    },
+    {
+      "path": "/workspace/scratch/577256efb437/remediation/g2_release_candidate_20260824/U127_WORKING_MEMBERSHIP_RELEASE_CANDIDATE_v0.1.csv",
+      "bytes": 14667,
+      "sha256": "6a7c40b2a8bd52353a944f108dd556bf1dc05a520926aebb6d1bca4ae3b48f7c"
+    },
+    {
+      "path": "/workspace/scratch/f56b716343a6/project_sources/01-Samsung_Semiconductor_Future_Technology_Platform_Map_v1.1_2026-08-09.docx",
+      "bytes": 58716,
+      "sha256": "b3d011c16cc3bd33ffd5235f2f2af93bbc7d4ed5affb407cbe5ec635ee32f087"
+    },
+    {
+      "path": "/workspace/scratch/f56b716343a6/project_sources/02-Future_Semiconductor_System_Architecture_Memory_Manufacturing_Map_v1.0_2026-08-10.docx",
+      "bytes": 63244,
+      "sha256": "99e4a200921fa44cbc8792f64705efccf7ff2c79e7e91fc1f425d9bfc559395e"
+    },
+    {
+      "path": "/workspace/scratch/f56b716343a6/project_sources/03-Korea_Semiconductor_Equipment_CAPEX_Early_Revenue_Response_Map_v1.0_2026-08-11.docx",
+      "bytes": 46162,
+      "sha256": "4871de83a6c6ce6bc0fdbf0e0779731e11225d3284505a1c7b7ea00d3d348909"
+    },
+    {
+      "path": "/workspace/scratch/f56b716343a6/project_sources/04-SK_Hynix_CAPEX_Korea_Equipment_Ecosystem_Report_v0_2026-08-14.docx",
+      "bytes": 45329,
+      "sha256": "2d160445a9726d69e257299d67a699e4874e4e4d39d1acecfb36466cf6ac5e4b"
+    },
+    {
+      "path": "/workspace/scratch/f56b716343a6/project_sources/05-Korea_Semiconductor_SupplyChain_TOP38_Master_Scorecard_v2.2_Detail_2026-08-14.docx",
+      "bytes": 53141,
+      "sha256": "e41b02dcb642f72b447c6c468c6d590e19aff468e6bc99413b7da5ef0cde6300"
+    },
+    {
+      "path": "/workspace/scratch/f56b716343a6/project_sources/06-Semi_Eval_Core_v1.0_2026-08-14.docx",
+      "bytes": 48851,
+      "sha256": "3a8c70df26dee0b3c1430846cd9934aa237fd2075f322d78d899ed8cb81acc54"
+    },
+    {
+      "path": "/workspace/scratch/f56b716343a6/project_sources/07-Semi_Data_Route_v1.1_2026-08-14.docx",
+      "bytes": 49660,
+      "sha256": "508f98e88c150ceb751db2227727db529eb04da467c53a6eed5278ca5e17aa02"
+    },
+    {
+      "path": "/workspace/scratch/f56b716343a6/project_sources/08-Semi_Universe_v1.0_2026-08-14.docx",
+      "bytes": 42132,
+      "sha256": "eef313bc71bd0a5cb019f92e43e1bf38c2a63633bb847320d1cb4c8fe4ea9023"
+    },
+    {
+      "path": "/workspace/scratch/f56b716343a6/project_sources/09-SEMI-PIT-LEDGER_v1.0.docx",
+      "bytes": 38985,
+      "sha256": "acde50e7090382e95cc585227c4dd52df6b3f342258b6debfa0aabb7db94006a"
+    },
+    {
+      "path": "/workspace/scratch/f56b716343a6/project_sources/11-SEMI-SOURCE-INDEX_v1.0.docx",
+      "bytes": 40850,
+      "sha256": "2131ebe6724a8c2d235e7e6f06d4fdde2819ab460bd5c907e2f7ca32e02dac46"
+    },
+    {
+      "path": "/workspace/scratch/f56b716343a6/project_sources/12-SEMI-COMPANY-MASTER_v0.1.docx",
+      "bytes": 57619,
+      "sha256": "03842717f3bb6815610541496b1f5dadfd44a0e277dc9364c5632cbfb5520cd6"
+    },
+    {
+      "path": "/workspace/scratch/f56b716343a6/project_sources/14-SEMI-FAB-MASTER_v1.0_2026-08-14.docx",
+      "bytes": 47640,
+      "sha256": "528d1a59ac5b6796b95f70605675f273d80ef744da8d6460da60204d3cff4159"
+    },
+    {
+      "path": "/workspace/scratch/f56b716343a6/project_sources/10-SEMI-PRICE-LEDGER_IMPORT-MANIFEST_v1.0.csv",
+      "bytes": 763,
+      "sha256": "ca8f117a83cd3da800a2a2b5e0ebdca3c89ff658ff3fd21b5083e4aae9ab98ce"
+    },
+    {
+      "path": "/workspace/scratch/f56b716343a6/project_sources/13-SEMI-PRICE-LEDGER_v1.0_SCHEMA.csv",
+      "bytes": 219,
+      "sha256": "67c8633579c3b624ffa2254bdf4173f205b1617b64ed960b9b1e200bc1e01c25"
+    },
+    {
+      "path": "/workspace/scratch/f56b716343a6/project_sources/15-SEMI-PRICE-LEDGER_v1.0_INGEST-AUDIT_BLOCKED_2026-08-14.csv",
+      "bytes": 20209,
+      "sha256": "6e8d0eabbd4cafaf8f3073528a3d75c7ec15713a4efa27ba5308a176776e0728"
+    },
+    {
+      "path": "/workspace/scratch/f56b716343a6/project_sources/16-marcap-2025.parquet",
+      "bytes": 25153419,
+      "sha256": "2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e"
+    }
+  ],
+  "output_manifest": [
+    {
+      "path": "G3_E_ANNOTATION_INGEST_FIELD_REGISTRY_v0.1.json",
+      "bytes": 16035,
+      "sha256": "3ee7db8fe7ad265e9909821b608829d05c02edf88bfa8937d3c5f91f74278612"
+    },
+    {
+      "path": "G3_E_ANNOTATION_INGEST_SCHEMA_v0.1.json",
+      "bytes": 22683,
+      "sha256": "cea40640ba9258116d82ce957cf9f3cb1d3b6b79373f95cdcec1a5d72265e836"
+    },
+    {
+      "path": "G3_E_ANNOTATION_INGEST_QUEUE_v0.1.jsonl",
+      "bytes": 6080457,
+      "sha256": "e5f9d9ff2a10bb47ab92826646b53c6754a84f4942c866cdd510a8828b338b7f"
+    }
+  ],
+  "targeted_mechanical_checks": {
+    "input_hash_bindings": "PASS_5_EXACT",
+    "thin_pit_row_count": "PASS_1016",
+    "row_key_uniqueness": "PASS_1016_OF_1016",
+    "window_balance": "PASS_127_EACH_W1_W8",
+    "feature_field_count": "PASS_17",
+    "feature_source_state": "PASS_ALL_17272_NEEDS_RESEARCH",
+    "evidence_status": "PASS_ALL_1016_NOT_RESEARCHED",
+    "publication_and_source_refs": "PASS_ALL_1016_NULL",
+    "queue_state": "PASS_FAIL_CLOSED_NO_VALUE_INVENTED"
+  },
+  "ewu_recommendation": {
+    "unit": "G3-E annotation dependency",
+    "earned_ewu": 1,
+    "basis": "Executable fail-closed schema/registry/1016-row queue produced; no content evidence or gate closure",
+    "ceiling": "Do not award the remaining G3-E content-closure EWU"
+  },
+  "remaining_worker_only_timing": {
+    "package_and_readback_p50_hours": [
+      0.25,
+      0.5
+    ],
+    "package_and_readback_p90_hours": [
+      0.75,
+      1.0
+    ],
+    "true_annotation_retrieval_and_dual_coding_eta": "NOT_MEASURABLE_FROM_CURRENT_LOCAL_INPUTS",
+    "workload_floor_at_one_minute_per_company_window_hours": 16.9
+  },
+  "claim_ceiling": [
+    "NO_NEW_PASS",
+    "NO_G3_GATE_CLOSURE",
+    "NO_ANNOTATION_TRUTH_CLAIM",
+    "NO_PUBLICATION_DATE_INVENTION",
+    "NO_CURRENT_OR_POST_CUTOFF_BACKFILL",
+    "NO_SCORE_GOLDEN_REPLAY_EOPT_OR_PRODUCTION_CLAIM"
+  ]
+}
