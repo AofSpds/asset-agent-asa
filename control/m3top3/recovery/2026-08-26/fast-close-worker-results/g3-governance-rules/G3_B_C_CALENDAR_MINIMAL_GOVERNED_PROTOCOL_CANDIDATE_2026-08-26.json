@@ -1,0 +1,449 @@
+{
+  "artifact_id": "M3TOP3-FC1-G3-B-C-CALENDAR-MINIMAL-GOVERNED-PROTOCOL-CANDIDATE-20260826",
+  "version": "0.1-candidate",
+  "issued_at_kst": "2026-08-26T01:29:17+09:00",
+  "role": "AAA-PMO-ORCHESTRATOR_DELEGATED_NON_VALIDATOR_WORKER",
+  "work_unit": "FC1-G3_B_C_CALENDAR",
+  "status": "READY_FOR_OWNER_SEMANTIC_DECISIONS_AND_SOURCE_CUSTODY",
+  "validator_hold": true,
+  "validator_or_reviewer_used": false,
+  "global_validation_or_regression_run": false,
+  "validation_loop_run": false,
+  "git_or_issue_mutation": false,
+  "mechanical_axis_b_or_c_scan_executed": false,
+  "gate_pass_created": false,
+  "evidence_anchors": [
+    {
+      "artifact": "G3_B_C_CALENDAR_DETERMINISTIC_CLOSURE_ASSESSMENT_2026-08-26.md",
+      "sha256": "d0d355d3727e6cb0d8fdcad34aefe835c0ce0edc7eed8df6287a8e47cd066808"
+    },
+    {
+      "artifact": "U127_Data_Expansion_Working_v0.8_2026-08-15.xlsx",
+      "bytes": 563995,
+      "sha256": "44501584c9dc6224637e9193219c1e8c87507af77dc15dc3944a3d04af524cda",
+      "locators": [
+        "Protocol_Registry!A42:D44",
+        "Execution_Coverage!A79:H79",
+        "CA_Audit_Signals!A1:S25",
+        "Corporate_Actions!A1:R12"
+      ]
+    },
+    {
+      "artifact": "SEMI-PRICE-LEDGER_IMPORT-MANIFEST_v1.0.csv",
+      "sha256": "ca8f117a83cd3da800a2a2b5e0ebdca3c89ff658ff3fd21b5083e4aae9ab98ce",
+      "locators": ["row 8", "row 9", "row 10"]
+    },
+    {
+      "artifact": "Semi_Data_Route_v1.1_2026-08-14.docx",
+      "sha256": "508f98e88c150ceb751db2227727db529eb04da467c53a6eed5278ca5e17aa02"
+    },
+    {
+      "artifact": "SEMI-PIT-LEDGER_v1.0.docx",
+      "sha256": "acde50e7090382e95cc585227c4dd52df6b3f342258b6debfa0aabb7db94006a"
+    },
+    {
+      "artifact": "04_PRICE_CA_CURRENT_BYTE_ADMISSION_QUEUE.csv",
+      "sha256": "b7d07a1c3438c30bced3161ea5d287d53f34431c7ab3f5e040a761ea06548412"
+    },
+    {
+      "artifact": "R_WP4_03_CANONICAL_LINEAGE_FULL_UNIVERSE_CONTRACT_v0.1.md",
+      "sha256": "f6eab8c880c498c09c52aef1b1b30e37b94de7ada9e6fc00994b5b2e7df5b0b9"
+    },
+    {
+      "artifact": "R_WP4_03_ACCEPTANCE_AND_STOP_CRITERIA_v0.1.md",
+      "sha256": "f001a1187af6d5906d4b449b90b105f9554ade78303612830de4ab857ba67690"
+    }
+  ],
+  "exact_price_components": [
+    {
+      "year": 2024,
+      "bytes": 24572111,
+      "rows": 687708,
+      "distinct_dates": 244,
+      "min_date": "2024-01-02",
+      "max_date": "2024-12-30",
+      "sha256": "b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb"
+    },
+    {
+      "year": 2025,
+      "bytes": 25153419,
+      "rows": 696524,
+      "distinct_dates": 242,
+      "min_date": "2025-01-02",
+      "max_date": "2025-12-30",
+      "sha256": "2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e"
+    },
+    {
+      "year": 2026,
+      "bytes": 16297737,
+      "rows": 437787,
+      "distinct_dates": 152,
+      "min_date": "2026-01-02",
+      "max_date": "2026-08-14",
+      "sha256": "b6f3f8ea110326b21d23b5344e6abe159f8ea7f7a345262155b929c08886fc9d"
+    }
+  ],
+  "rules_already_inferable_from_governed_text": {
+    "axis_b": [
+      "POPULATION_IS_ALL_1822019_ROWS_IN_THE_THREE_EXACT_COMPONENTS",
+      "CURRENT_OPEN_AND_IMMEDIATELY_PRIOR_OBSERVED_CLOSE_ARE_THE_EXISTING_AUDIT_FIELDS",
+      "STOCK_COUNT_OR_OHLC_DISCONTINUITY_IS_SIGNAL_ONLY",
+      "NO_ACTION_TYPE_FACTOR_STATUS_OR_ADJUSTMENT_MAY_BE_INFERRED_FROM_THE_SIGNAL_ALONE",
+      "ADJUSTMENT_REQUIRES_EVIDENCE",
+      "PROVIDER_MIXING_IS_PROHIBITED",
+      "ROWS_ARE_PRESERVED_AND_UNRESOLVED_CASES_ARE_NOT_SILENTLY_DROPPED"
+    ],
+    "axis_c": [
+      "EXISTING_AXIS_A_AND_11_EVIDENCED_CA_ROWS_ARE_PRESERVED",
+      "INDEPENDENT_KRX_EVENT_EVIDENCE_IS_REQUIRED_TO_PROVE_OMISSION_EXHAUSTION",
+      "EVENT_DATE_TYPE_FACTOR_AND_EVIDENCE_LINEAGE_MUST_BE_EXPLICIT",
+      "PRICE_OR_STOCK_COUNT_SIGNALS_NEVER_SELF_CERTIFY_THE_EVENT_UNIVERSE"
+    ],
+    "calendar": [
+      "SNAPSHOT_IS_T_EOD",
+      "ENTRY_IS_THE_FIRST_GOVERNED_TRADING_DATE_STRICTLY_AFTER_SNAPSHOT",
+      "THE_HOLDING_WINDOW_INCLUDES_ENTRY_THROUGH_WINDOW_END",
+      "EXIT_IS_THE_FIRST_GOVERNED_TRADING_DATE_STRICTLY_AFTER_WINDOW_END",
+      "RAW_PRICE_DATES_ARE_DIAGNOSTIC_NOT_NORMATIVE_CALENDAR_AUTHORITY",
+      "WINDOW_DATE_TUPLES_REQUIRE_A_SEPARATE_WINDOW_REGISTRY_AUTHORITY_BINDING"
+    ]
+  },
+  "axis_b_protocol_candidate": {
+    "candidate_semantic_state": "PENDING_OWNER_DECISION_OD_G3_B_01",
+    "population": {
+      "row_count": 1822019,
+      "component_sha256s": [
+        "b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb",
+        "2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e",
+        "b6f3f8ea110326b21d23b5344e6abe159f8ea7f7a345262155b929c08886fc9d"
+      ]
+    },
+    "sort_and_stitch": "GROUP_BY_SECURITY_CODE_SORT_BY_DATE_ASCENDING_ACROSS_YEAR_BOUNDARIES",
+    "comparison_pair": {
+      "current": "OPEN_ON_ROW_T",
+      "previous": "CLOSE_ON_IMMEDIATELY_PREVIOUS_OBSERVED_ROW_FOR_SAME_SECURITY_CODE",
+      "ratio": "OPEN_T_DIV_PREVIOUS_CLOSE",
+      "signed_change": "OPEN_T_DIV_PREVIOUS_CLOSE_MINUS_1",
+      "absolute_change": "ABS_OPEN_T_MINUS_PREVIOUS_CLOSE_DIV_PREVIOUS_CLOSE"
+    },
+    "proposed_materiality": {
+      "threshold_bps": 2000,
+      "threshold_decimal": "0.20",
+      "boundary": "INCLUSIVE",
+      "exact_integer_test": "ABS_OPEN_MINUS_PREVIOUS_CLOSE_TIMES_10000_GTE_2000_TIMES_PREVIOUS_CLOSE",
+      "rounding": "NONE_BEFORE_COMPARISON",
+      "authority_status": "NOT_CURRENTLY_GOVERNED_OWNER_RATIFICATION_REQUIRED",
+      "candidate_rationale": "ONLY_EXISTING_EXPLICIT_MATERIALITY_CONSTANT_IS_20_PERCENT_ON_AXIS_A_STOCK_COUNT_SIGNALS_AND_USING_IT_HERE_IS_A_CONSERVATIVE_SIGNAL_SCREEN_NOT_AN_ADJUSTMENT_RULE"
+    },
+    "edge_handling": {
+      "first_observation_or_no_prior_same_code": "FIRST_OBSERVATION_NO_COMPARISON",
+      "cross_year_prior_row": "USE_IF_SAME_SECURITY_CODE",
+      "duplicate_same_code_same_date": "DATA_INTEGRITY_BLOCKER_NO_ARBITRARY_SELECTION",
+      "missing_or_non_numeric_price": "NOT_EVALUABLE_PRICE_DOMAIN_RETAIN_ROW",
+      "current_open_lte_zero_or_previous_close_lte_zero": "NOT_EVALUABLE_PRICE_DOMAIN_AND_ROUTE_TO_TECHNICAL_OHLC_CLASSIFICATION_NO_CA_INFERENCE",
+      "long_date_gap_or_reopening": "COMPARE_IF_BOTH_PRICES_POSITIVE_RECORD_GAP_DAYS_SIGNAL_ONLY",
+      "listing_relisting_or_code_change": "NO_GUESS_FIRST_OBSERVATION_UNLESS_OFFICIAL_IDENTITY_MAPPING_EXISTS",
+      "no_trade_suspension": "DO_NOT_INFER_FROM_ZERO_OHL_OR_DATE_ABSENCE"
+    },
+    "required_output_fields": [
+      "component_sha256",
+      "row_ordinal_or_stable_row_id",
+      "security_code",
+      "current_date",
+      "previous_observed_date",
+      "current_open",
+      "previous_close",
+      "signed_change",
+      "absolute_change",
+      "threshold_bps",
+      "boundary",
+      "gap_days",
+      "technical_disposition",
+      "material_signal",
+      "axis_c_event_id_or_no_match",
+      "evidence_refs",
+      "terminal_disposition"
+    ],
+    "terminal_dispositions": [
+      "BELOW_THRESHOLD",
+      "MATERIAL_SIGNAL_MATCHED_EVIDENCED_EVENT",
+      "MATERIAL_SIGNAL_NO_KRX_EVENT_MATCH_SIGNAL_ONLY_NO_ADJUSTMENT",
+      "FIRST_OBSERVATION_NO_COMPARISON",
+      "NOT_EVALUABLE_PRICE_DOMAIN",
+      "DATA_INTEGRITY_BLOCKER",
+      "UNRESOLVED"
+    ],
+    "closure_condition": "EVERY_POPULATION_ROW_HAS_EXACTLY_ONE_TERMINAL_DISPOSITION_ZERO_DATA_INTEGRITY_BLOCKER_ZERO_UNRESOLVED_AND_EVERY_MATERIAL_SIGNAL_IS_RECONCILED_AGAINST_THE_INDEPENDENT_AXIS_C_UNIVERSE",
+    "signal_does_not_authorize": [
+      "CORPORATE_ACTION_TYPE",
+      "ADJUSTMENT_FACTOR",
+      "TRADING_STATUS",
+      "SUSPENSION",
+      "ROW_DROP"
+    ]
+  },
+  "axis_c_protocol_candidate": {
+    "candidate_semantic_state": "PENDING_OWNER_DECISION_OD_G3_C_01_AND_EXACT_SOURCE_ARTIFACT",
+    "independent_input_required": {
+      "artifact_role": "KRX_CA_EVENT_UNIVERSE",
+      "must_be_independent_of": [
+        "CURRENT_CA_ROWS",
+        "AXIS_A_STOCK_COUNT_SIGNALS",
+        "AXIS_B_PRICE_SIGNALS"
+      ],
+      "required_identity": [
+        "EXACT_BYTES",
+        "SHA256",
+        "SOURCE_LOCATOR",
+        "QUERY_OR_EXPORT_PARAMETERS",
+        "ACQUIRED_AT",
+        "PUBLICATION_CUTOFF",
+        "EFFECTIVE_DATE_SCOPE",
+        "SECURITY_SCOPE",
+        "SOURCE_ROW_COUNT",
+        "CUSTODIAN_OR_AUTHORITY_RECEIPT"
+      ],
+      "effective_date_scope": ["2024-01-01", "2026-08-14"],
+      "security_scope": "UNION_OF_ALL_SECURITY_CODES_PRESENT_IN_THE_THREE_EXACT_PRICE_COMPONENTS_WITH_EXPLICIT_OFFICIAL_CODE_CONTINUITY_MAPPING_WHERE_APPLICABLE"
+    },
+    "in_scope_event_taxonomy": [
+      "STOCK_SPLIT",
+      "REVERSE_SPLIT_OR_CONSOLIDATION",
+      "BONUS_OR_FREE_ISSUE",
+      "CAPITAL_REDUCTION_WITH_UNIT_OR_BASIS_IMPACT",
+      "RIGHTS_OR_EX_RIGHTS_EVENT_WITH_OFFICIAL_BASIS_PRICE_IMPACT",
+      "MERGER_OR_STOCK_EXCHANGE_WITH_UNIT_OR_BASIS_IMPACT",
+      "SPIN_OFF_OR_DEMERGER_WITH_UNIT_OR_BASIS_IMPACT",
+      "OTHER_OFFICIAL_KRX_EVENT_WITH_EXPLICIT_COMPARABLE_PRICE_OR_UNIT_IMPACT",
+      "CORRECTION_CANCELLATION_OR_SUPERSESSION_OF_AN_IN_SCOPE_EVENT"
+    ],
+    "observe_but_do_not_auto_adjust": [
+      "PAID_IN_SHARE_ISSUE_WITHOUT_OFFICIAL_COMPARABLE_PRICE_IMPACT",
+      "CONVERTIBLE_OR_WARRANT_CONVERSION_WITHOUT_UNIT_CHANGE",
+      "MERGER_SHARE_ISSUANCE_WITHOUT_UNIT_OR_BASIS_CHANGE",
+      "NAME_CHANGE",
+      "CASH_DIVIDEND",
+      "LISTING_STATUS_OR_SUSPENSION_EVENT_WITHOUT_COMPARABLE_PRICE_IMPACT"
+    ],
+    "event_class_never_implies_adjustment_by_itself": true,
+    "minimum_source_fields": [
+      "source_event_id",
+      "security_code",
+      "official_company_or_issue_identity",
+      "publication_at",
+      "effective_at_or_official_basis_date",
+      "source_event_type",
+      "comparable_price_impact",
+      "adjustment_required_if_explicit",
+      "adjustment_factor_if_explicit",
+      "correction_or_supersession_ref",
+      "evidence_ref"
+    ],
+    "normalization_and_matching": {
+      "primary_match": "SECURITY_CODE_PLUS_EXACT_OFFICIAL_EFFECTIVE_OR_BASIS_DATE",
+      "code_change": "USE_ONLY_EXPLICIT_OFFICIAL_OLD_NEW_IDENTITY_MAPPING",
+      "fuzzy_date_matching": "PROHIBITED",
+      "effective_interval": "ALLOWED_ONLY_IF_THE_SOURCE_EXPLICITLY_SUPPLIES_THE_INTERVAL",
+      "multi_security_event": "EXPAND_TO_DETERMINISTIC_SECURITY_LEGS_AND_PRESERVE_PARENT_EVENT_ID",
+      "duplicate_source_event_id": "COLLAPSE_ONLY_BYTE_OR_FIELD_IDENTICAL_DUPLICATES_OTHERWISE_UNRESOLVED",
+      "correction": "EXPLICIT_LATEST_NON_CANCELLED_RECORD_BY_THE_FROZEN_PUBLICATION_CUTOFF_SUPERSEDES_AND_PRESERVES_LINEAGE",
+      "factor": "USE_EXPLICIT_OFFICIAL_FACTOR_OR_ALREADY_GOVERNED_BONUS_ISSUE_FORMULA_ONLY_OTHERWISE_UNRESOLVED",
+      "bonus_issue_formula": "POST_RIGHTS_DATE_PRICE_TIMES_1_PLUS_NEW_SHARES_PER_OLD_SHARE"
+    },
+    "terminal_dispositions": [
+      "MATCHED_EXISTING_EVIDENCED_CA_ROW",
+      "ADD_EVIDENCED_CA_ROW",
+      "NO_ADJUSTMENT_EVIDENCED",
+      "NOT_APPLICABLE_OUTSIDE_DECLARED_SCOPE",
+      "SUPERSEDED_OR_CANCELLED_WITH_EXPLICIT_LINEAGE",
+      "UNRESOLVED"
+    ],
+    "exhaustion_condition": [
+      "THE_INDEPENDENT_SOURCE_EXPORT_QUERY_AND_SCOPE_ARE_BYTE_BOUND_AND_CUSTODIAN_ATTESTED",
+      "EVERY_IN_SCOPE_SOURCE_EVENT_HAS_EXACTLY_ONE_TERMINAL_DISPOSITION",
+      "EVERY_EXISTING_CA_ROW_AND_EVERY_AXIS_A_OR_AXIS_B_SIGNAL_HAS_A_TERMINAL_RECONCILIATION",
+      "ZERO_LIVE_DUPLICATE_EVENT_IDENTITIES",
+      "ZERO_MISSING_REQUIRED_IDENTITY_DATE_TYPE_OR_EVIDENCE_FIELDS",
+      "ZERO_UNRESOLVED_EVENTS",
+      "OUTPUT_MANIFEST_COUNTS_AND_DIGESTS_RECONCILE"
+    ]
+  },
+  "calendar_protocol_candidate": {
+    "candidate_semantic_state": "PENDING_OWNER_DECISION_OD_G3_CAL_01_AND_EXACT_SOURCE_ARTIFACT",
+    "normative_input_required": {
+      "artifact_role": "TRADING_CALENDAR_RELEASE_SOURCE",
+      "preferred_source": "EXACT_OFFICIAL_KRX_EQUITY_REGULAR_SESSION_CALENDAR_OR_OWNER_DESIGNATED_AUTHORITY_EQUIVALENT",
+      "required_identity": [
+        "EXACT_BYTES",
+        "SHA256",
+        "SOURCE_LOCATOR",
+        "ACQUIRED_AT",
+        "DATE_AND_MARKET_SCOPE",
+        "SOURCE_ROW_COUNT",
+        "CUSTODIAN_OR_AUTHORITY_RECEIPT"
+      ],
+      "date_scope": ["2024-01-01", "2026-08-14"],
+      "market_scope": "ALL_MARKETS_REPRESENTED_BY_SECURITIES_IN_THE_THREE_EXACT_COMPONENTS",
+      "granularity": "MARKET_ID_PLUS_TRADE_DATE_UNLESS_THE_AUTHORITY_SOURCE_PROVES_ONE_COMMON_KRX_EQUITY_CALENDAR"
+    },
+    "canonical_fields": [
+      "market_id",
+      "trade_date",
+      "is_regular_equity_session",
+      "session_variant_if_supplied",
+      "source_record_id",
+      "source_artifact_sha256"
+    ],
+    "date_membership": "INCLUDE_A_DATE_ONLY_WHEN_THE_NORMATIVE_SOURCE_EXPLICITLY_IDENTIFIES_AN_IN_SCOPE_EQUITY_SESSION",
+    "half_day": "INCLUDE_AS_A_TRADING_DATE_IF_THE_NORMATIVE_SOURCE_IDENTIFIES_IT_AS_AN_OPEN_IN_SCOPE_EQUITY_SESSION",
+    "exceptional_closure": "EXCLUDE_IF_THE_NORMATIVE_SOURCE_IDENTIFIES_IT_AS_CLOSED",
+    "raw_price_date_union": {
+      "role": "DIAGNOSTIC_ONLY",
+      "year_partitioned_distinct_date_count": 638,
+      "may_not_self_certify_calendar": true
+    },
+    "derivation_rules": {
+      "snapshot": "EXACT_DATE_FROM_SEPARATE_WINDOW_REGISTRY_AND_MEMBER_OF_THE_APPLICABLE_GOVERNED_CALENDAR",
+      "entry": "MIN_GOVERNED_TRADE_DATE_STRICTLY_GREATER_THAN_SNAPSHOT",
+      "window_end": "EXACT_DATE_FROM_SEPARATE_WINDOW_REGISTRY_AND_MEMBER_OF_THE_APPLICABLE_GOVERNED_CALENDAR",
+      "holding_dates": "GOVERNED_TRADE_DATES_FROM_ENTRY_THROUGH_WINDOW_END_INCLUSIVE",
+      "exit": "MIN_GOVERNED_TRADE_DATE_STRICTLY_GREATER_THAN_WINDOW_END",
+      "missing_security_price_row": "PRICE_COVERAGE_OR_TRADABILITY_ISSUE_NOT_A_CALENDAR_CLOSURE",
+      "market_calendar_conflict": "UNRESOLVED_NO_GLOBAL_CALENDAR_INFERENCE"
+    },
+    "diagnostic_reconciliation": {
+      "official_only_date": "PRICE_SOURCE_COVERAGE_FINDING_NO_AUTOMATIC_CALENDAR_REMOVAL",
+      "price_only_date": "CALENDAR_OR_SOURCE_CONFLICT_REQUIRES_EXPLICIT_ADJUDICATION",
+      "release_condition": "ZERO_UNRESOLVED_CALENDAR_SOURCE_CONFLICTS_AND_EXACT_MANIFEST_DIGEST_AUTHORITY_BINDING"
+    }
+  },
+  "w1_w8_window_registry_candidate": {
+    "artifact": "W1_W8_WINDOW_REGISTRY_RELEASE_CANDIDATE_v0.1.csv",
+    "bytes": 414,
+    "sha256": "96d63cc98a01b6332cf9486440e7f3fdaa0ec5a2d605f21bc14a4025b46e69fe",
+    "local_concordance": "8_OF_8",
+    "authority_status": "PROVENANCE_OPEN_NOT_A_RELEASE",
+    "role_if_owner_ratified": "OUTCOME_EXPOSED_DEVELOPMENT_OR_DESCRIPTIVE_ONLY",
+    "sealed_holdout_claim": "PROHIBITED",
+    "rows": [
+      {"window_id": "W1", "snapshot_cutoff": "2024-08-09", "entry_date": "2024-08-12", "window_end": "2024-11-08"},
+      {"window_id": "W2", "snapshot_cutoff": "2024-11-08", "entry_date": "2024-11-11", "window_end": "2025-02-10"},
+      {"window_id": "W3", "snapshot_cutoff": "2025-02-10", "entry_date": "2025-02-11", "window_end": "2025-05-09"},
+      {"window_id": "W4", "snapshot_cutoff": "2025-05-09", "entry_date": "2025-05-12", "window_end": "2025-08-08"},
+      {"window_id": "W5", "snapshot_cutoff": "2025-08-08", "entry_date": "2025-08-11", "window_end": "2025-11-10"},
+      {"window_id": "W6", "snapshot_cutoff": "2025-11-10", "entry_date": "2025-11-11", "window_end": "2026-02-10"},
+      {"window_id": "W7", "snapshot_cutoff": "2026-02-10", "entry_date": "2026-02-11", "window_end": "2026-05-08"},
+      {"window_id": "W8", "snapshot_cutoff": "2026-05-08", "entry_date": "2026-05-11", "window_end": "2026-08-10"}
+    ],
+    "calendar_can_establish": [
+      "DATE_MEMBERSHIP",
+      "ENTRY_IS_NEXT_GOVERNED_DATE",
+      "EXIT_IS_NEXT_GOVERNED_DATE_AFTER_WINDOW_END"
+    ],
+    "calendar_cannot_establish": [
+      "WHY_THE_EIGHT_SNAPSHOT_DATES_WERE_CHOSEN",
+      "UPSTREAM_TUPLE_AUTHORITY",
+      "CLEAN_HOLDOUT_OR_OOS_STATUS"
+    ]
+  },
+  "owner_decision_packet": [
+    {
+      "decision_id": "OD-G3-B-01",
+      "question": "Approve the Axis B default of absolute current-Open versus immediately-prior-observed-Close change at 20 percent or more, inclusive, exact no-rounding comparison, signal-only?",
+      "recommended_default": "YES",
+      "yes_effect": "FREEZE_THRESHOLD_BPS_2000_INCLUSIVE_AND_ENABLE_WORKER_SCAN_AFTER_PROTOCOL_ARTIFACT_IS_BOUND",
+      "no_required_input": ["THRESHOLD_BPS", "INCLUSIVE_OR_EXCLUSIVE_BOUNDARY"],
+      "no_effect": "AXIS_B_REMAINS_BLOCKED",
+      "authority_note": "THE_20_PERCENT_VALUE_IS_A_PROPOSED CROSS_AXIS MATERIALITY DEFAULT_NOT_AN_ALREADY_GOVERNED_OHLC_RULE"
+    },
+    {
+      "decision_id": "OD-G3-C-01",
+      "question": "Approve the listed Axis C scope, event taxonomy, exact-date matching, correction handling, and zero-unresolved exhaustion rule?",
+      "recommended_default": "YES",
+      "yes_effect": "FREEZE_AXIS_C_NORMALIZATION_AND_EXHAUSTION_SEMANTICS_BUT_DOES_NOT_CREATE_THE_MISSING_SOURCE_BYTES",
+      "no_required_input": ["EXACT_TAXONOMY_DELTA", "SCOPE_DELTA", "MATCH_OR_EXHAUSTION_DELTA"],
+      "no_effect": "AXIS_C_REMAINS_BLOCKED"
+    },
+    {
+      "decision_id": "OD-G3-CAL-01",
+      "question": "Approve an exact official KRX equity regular-session artifact, or an explicitly Owner-designated authority equivalent, as normative and keep the price-date union diagnostic-only?",
+      "recommended_default": "YES",
+      "yes_effect": "FREEZE_CALENDAR_AUTHORITY_CLASS_BUT_DOES_NOT_CREATE_THE_MISSING_SOURCE_BYTES_OR_RECEIPT",
+      "no_required_input": ["ALTERNATIVE_NORMATIVE_SOURCE", "MARKET_SESSION_SCOPE"],
+      "no_effect": "GOVERNED_CALENDAR_REMAINS_BLOCKED"
+    },
+    {
+      "decision_id": "OD-G3-WIN-01",
+      "question": "Ratify the exact 8-row candidate at SHA-256 96d63cc98a01b6332cf9486440e7f3fdaa0ec5a2d605f21bc14a4025b46e69fe as the outcome-exposed development-only W1-W8 registry and authorize an outcome-free authority binding?",
+      "recommended_default": "YES",
+      "yes_effect": "AUTHORIZE_MATERIALIZATION_OF_A_SEPARATE_OWNER_AUTHORITY_BINDING_NO_HOLDOUT_OR_RELEASE_CLAIM",
+      "no_required_input": ["AUTHORITATIVE_REPLACEMENT_TUPLES_OR_UPSTREAM_SOURCE_AND_LOCATORS"],
+      "no_effect": "W1_W8_DATE_PROVENANCE_REMAINS_BLOCKED"
+    }
+  ],
+  "non_decision_source_dependencies": [
+    "EXACT_INDEPENDENT_KRX_CA_EVENT_UNIVERSE_BYTES_AND_CUSTODIAN_RECEIPT",
+    "EXACT_NORMATIVE_KRX_CALENDAR_BYTES_AND_CUSTODIAN_OR_AUTHORITY_RECEIPT",
+    "MATERIALIZED_OUTCOME_FREE_W1_W8_AUTHORITY_BINDING_IF_OD_G3_WIN_01_IS_YES"
+  ],
+  "risk_register": [
+    {
+      "risk": "20_PERCENT_THRESHOLD_IS_NOT_YET_GOVERNED_FOR_OHLC",
+      "mitigation": "OWNER_RATIFICATION_AND_SIGNAL_ONLY_NO_AUTO_ADJUSTMENT"
+    },
+    {
+      "risk": "HIGH_THRESHOLD_FALSE_NEGATIVES",
+      "mitigation": "INDEPENDENT_AXIS_C_EVENT_UNIVERSE_MUST_RECONCILE_ALL_OFFICIAL_IN_SCOPE_EVENTS"
+    },
+    {
+      "risk": "PRICE_DATE_UNION_SELF_CERTIFIES_CALENDAR",
+      "mitigation": "DIAGNOSTIC_ONLY_AND_INDEPENDENT_AUTHORITY_ARTIFACT_REQUIRED"
+    },
+    {
+      "risk": "CODE_CHANGE_OR_EVENT_CORRECTION_CHURN",
+      "mitigation": "EXPLICIT_OFFICIAL_MAPPING_AND_SUPERSESSION_LINEAGE_ONLY"
+    },
+    {
+      "risk": "OWNER_RATIFICATION_IS_MISTAKEN_FOR_VALIDATION_OR_RELEASE",
+      "mitigation": "SEPARATE_AUTHORITY_BINDING_AND_PRESERVED_CLAIM_CEILING"
+    }
+  ],
+  "conditional_worker_only_timing": {
+    "protocol_adoption_and_artifact_binding_after_owner_response": {
+      "p50_hours": 0.25,
+      "p90_hours": 0.75
+    },
+    "axis_b_after_od_g3_b_01": {
+      "p50_hours": 0.75,
+      "p90_hours": 1.5
+    },
+    "axis_c_after_od_g3_c_01_and_exact_source": {
+      "p50_hours": 1.0,
+      "p90_hours": 2.5
+    },
+    "calendar_after_od_g3_cal_01_and_exact_source": {
+      "p50_hours": 0.5,
+      "p90_hours": 1.0
+    },
+    "combined_candidate_after_all_decisions_and_sources": {
+      "p50_hours": 2.25,
+      "p90_hours": 5.0,
+      "cru_range": [25, 40]
+    },
+    "external_source_or_authority_wait_excluded": true,
+    "validator_time_excluded": true,
+    "timing_confidence": "MEDIUM_FOR_WORKER_ACTIVE_TIME_LOW_FOR_WALL_CLOCK_BECAUSE_SOURCE_WAIT_IS_UNBOUNDED"
+  },
+  "gate_effect": "NONE",
+  "validation_closure_delta": 0,
+  "claim_ceiling": [
+    "NO_AXIS_B_OR_AXIS_C_EXHAUSTION_CLAIM",
+    "NO_CA_COMPLETENESS_OR_CORPORATE_ACTION_RELEASE_CLAIM",
+    "NO_GOVERNED_TRADING_CALENDAR_RELEASE_CLAIM",
+    "NO_W1_W8_AUTHORITY_RELEASE_OR_CLEAN_HOLDOUT_CLAIM",
+    "NO_PIT_ELIGIBILITY_OR_TRADABILITY_CLAIM",
+    "NO_PRICE_CANONICAL_CLAIM",
+    "NO_G3_OR_INTEGRATED_G1_G4_PASS",
+    "NO_EOPT_G0_AA_GOLDEN_REPLAY_FREEZE_PROMOTION_RELEASE_OR_PRODUCTION_CLAIM"
+  ]
+}
