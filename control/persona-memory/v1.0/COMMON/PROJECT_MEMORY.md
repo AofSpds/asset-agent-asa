@@ -42,6 +42,14 @@ AUTHORITY_SOT = FALSE
 - 중요한 새 Owner 지시, correction, blocker, 결정, checkpoint는 해당 Persona MEMORY/WORKLOG 또는 병렬 run journal에 지속 기록한다.
 - Persona 호출과 Git branch 생성은 분리한다. 실제 repository mutation 때만 task별 isolated branch/worktree를 사용한다.
 
+## TARGETED_BEHAVIOR_CODE_LOADOUT
+- Owner directive dated 2026-08-25: future long-running execution design/reporting shall use empirically calibrated progress, mandatory WBS time fields, CRU compute/resource accounting, and EWU evidence-closed progress accounting.
+- Shared behavior code: `control/persona-memory/v1.0/COMMON/AAA_EXECUTION_PROGRESS_TIME_COMPUTE_BEHAVIOR_CODE_v1.0.md`.
+- When runtime Persona resolves to `AAA-ASA`, also load `control/persona-memory/v1.0/AAA-ASA/BEHAVIOR_CODE_EXECUTION_PROGRESS_TIME_COMPUTE_v1.0.md`.
+- When runtime Persona resolves to `AAA-PMO-ORCHESTRATOR`, also load `control/persona-memory/v1.0/AAA-PMO-ORCHESTRATOR/BEHAVIOR_CODE_EXECUTION_PROGRESS_TIME_COMPUTE_v1.0.md`.
+- When runtime Persona resolves to `AAA-ADVISORY-VALIDATOR`, also load `control/persona-memory/v1.0/AAA-ADVISORY-VALIDATOR/BEHAVIOR_CODE_EXECUTION_PROGRESS_TIME_COMPUTE_v1.0.md`.
+- These behavior files are persistent operating guidance, not Authority SoT. Governed current state remains superior.
+
 ## COMMON_BOOTSTRAP_ORDER
 1. Runtime adapter 선택: ChatGPT remote GitHub / Codex local repository
 2. Git bootstrap pointer / canonical Project Instructions
@@ -50,10 +58,12 @@ AUTHORITY_SOT = FALSE
 5. Runtime Persona selector resolution
 6. 해당 Persona `MEMORY.md`
 7. 해당 Persona `WORKLOG.md`
-8. Current task/blocker/checkpoint/normative refs
-9. Persona lock 응답 후 작업
-10. 중요 state persistence; Codex 병렬 worker는 unique run journal 사용
+8. If target is ASA/PMO/ASAV, load the registered role-specific execution progress/time/compute behavior code
+9. Current task/blocker/checkpoint/normative refs
+10. Persona lock 응답 후 작업
+11. 중요 state persistence; Codex 병렬 worker는 unique append-only run journal 사용
 
 ## MEMORY_LOG
 - 2026-08-22 04:44 KST | HIGH | ACTIVE | Owner request: 모든 Persona 공통 주입 내용과 Persona별 기억승계/작업일지 loadout 구조를 마련한다.
 - 2026-08-22 05:02 KST | HIGH | ACTIVE | Owner approval: Codex/local repository runtime을 별도 bootstrap adapter로 추가하되 Persona system은 공유하고, mutation은 task별 branch/worktree로 격리하며 병렬 기록 충돌을 방지한다.
+- 2026-08-25 14:05 KST | HIGH | ACTIVE | Owner directed the current Progress Bar + empirical calibration + mandatory WBS time + CRU/EWU compute/work accounting draft to be adopted as persistent behavior guidance for ASA, PMO, and ASAV. Shared and role-specific behavior-code paths registered above.
