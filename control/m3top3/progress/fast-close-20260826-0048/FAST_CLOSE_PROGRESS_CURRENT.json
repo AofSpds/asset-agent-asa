@@ -1,12 +1,12 @@
 {
-  "as_of": "2026-08-26T02:05:00+09:00",
+  "as_of": "2026-08-26T02:09:00+09:00",
   "fast_close_progress_percent": 21,
   "earned_ewu": 21,
   "total_ewu": 100,
   "actual_cru": "NOT_INSTRUMENTED; TWO_NONVALIDATOR_BATCHES_APPROX_32_AGGREGATE_WORKER_MINUTES_PLUS_PMO_INTEGRATION",
   "planned_cru_original": 160,
   "planned_cru": 142,
-  "elapsed": "APPROXIMATELY_92_MINUTES_SINCE_SUCCESSOR_BASELINE",
+  "elapsed": "APPROXIMATELY_96_MINUTES_SINCE_SUCCESSOR_BASELINE",
   "active_time": "APPROXIMATELY_18_MINUTES_WORKER_WALL_ACROSS_TWO_BOUNDED_BATCHES; PMO_TIME_NOT_INSTRUMENTED_SEPARATELY",
   "blocked_time": "G1_EXTERNAL_CUSTODY_WAIT_ACTIVE_BUT_EXCLUDED_FROM_ACTIVE_ETA",
   "rework": 1,
@@ -14,11 +14,9 @@
   "rework_material_compute_duplication": false,
   "validator_hold": true,
   "active_validator_count": 0,
-  "active_non_validator_worker_count": 3,
+  "active_non_validator_worker_count": 1,
   "active_work_units": [
-    {"id":"OWNER-DECISION-BINDING","scope":"bind four approved G3 semantic decisions","p50_hours":0.1,"p90_hours":0.25,"validation":false},
-    {"id":"G3-AXIS-B-DERIVATION","scope":"exact 2024-2026 inclusive >=20 percent signal-only derivation","p50_hours":0.75,"p90_hours":1.5,"validation":false},
-    {"id":"G3-C-CAL-WIN-BINDINGS","scope":"post-decision governance bindings without source substitution","p50_hours":0.25,"p90_hours":0.5,"validation":false}
+    {"id":"G3-AXIS-B-DERIVATION","scope":"exact 2024-2026 inclusive >=20 percent signal-only derivation","progress_percent":30,"p50_remaining_minutes":[20,30],"p90_remaining_minutes":45,"validation":false}
   ],
   "completed_bounded_blocker_resolution_units": 3,
   "bounded_blocker_resolution_phase_percent": 100,
@@ -26,7 +24,8 @@
   "current_local_integration_phase_percent": 100,
   "source_independent_material_work_remaining": "AXIS_B_DERIVATION_ACTIVE_AFTER_OWNER_DECISIONS",
   "owner_decisions":{"OD-G3-B-01":"YES","OD-G3-C-01":"YES","OD-G3-CAL-01":"YES","OD-G3-WIN-01":"YES","basis":"OWNER_SAID_PROCEED_IMMEDIATELY_AFTER_EXPLICIT_FOUR_DECISION_REQUEST"},
-  "post_owner_decision_execution_phase_percent": 0,
+  "post_owner_decision_execution_phase_percent": 45,
+  "axis_b_exact_inputs":{"state":"PINNED_3_OF_3_HASH_MATCH","rows":1822019,"2024_sha256":"b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb","2025_sha256":"2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e","2026_sha256":"b6f3f8ea110326b21d23b5344e6abe159f8ea7f7a345262155b929c08886fc9d"},
   "eta_prevalidation_candidate_p50_hours": null,
   "eta_prevalidation_candidate_p90_hours": null,
   "eta_prevalidation_candidate_status": "UNMEASURABLE_UNTIL_EXTERNAL_SOURCE_AND_OWNER_INPUTS",
@@ -54,5 +53,5 @@
   },
   "current_critical_path":"Execute exact bounded Axis-B derivation; Axis-C/calendar remain blocked on independent KRX bytes",
   "first_parallel_dispatch":"G1 / G2 / G3",
-  "last_material_progress":"Owner instructed proceed immediately after the four-decision request; all four recommended G3 semantic decisions are being bound and the sole Axis-B execution lease is active."
+  "last_material_progress":"Owner decisions and C/calendar/window rule bindings are committed; Axis-B recovered all three exact pinned price files with 3/3 byte/hash match and is authoring the deterministic disposition scan."
 }
