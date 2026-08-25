@@ -1,12 +1,12 @@
 {
-  "as_of": "2026-08-26T01:21:16+09:00",
+  "as_of": "2026-08-26T01:35:19+09:00",
   "fast_close_progress_percent": 21,
   "earned_ewu": 21,
   "total_ewu": 100,
-  "actual_cru": "1.5_WALL_PROXY_SINCE_SUCCESSOR_START",
+  "actual_cru": "NOT_INSTRUMENTED; FIRST_NONVALIDATOR_BATCH_APPROX_17_WORKER_MINUTES_PLUS_PMO_INTEGRATION",
   "planned_cru_original": 160,
   "planned_cru": 142,
-  "elapsed": "APPROXIMATELY_41_MINUTES_SINCE_SUCCESSOR_BASELINE",
+  "elapsed": "APPROXIMATELY_62_MINUTES_SINCE_SUCCESSOR_BASELINE",
   "active_time": "NOT_INSTRUMENTED_SEPARATELY",
   "blocked_time": "G1_EXTERNAL_CUSTODY_WAIT_ACTIVE_BUT_EXCLUDED_FROM_ACTIVE_ETA",
   "rework": 1,
@@ -16,10 +16,13 @@
   "active_validator_count": 0,
   "active_non_validator_worker_count": 3,
   "active_work_units": [
-    {"id":"G2-SOURCE-PROVENANCE","scope":"514 eligibility plus W1-W8 authority recovery from existing supplied sources","p50_hours":0.75,"p90_hours":1.5,"validation":false},
-    {"id":"G3-GOVERNANCE-RULES","scope":"minimal Axis B/C and governed-calendar protocol candidate","p50_hours":0.5,"p90_hours":1.25,"validation":false},
-    {"id":"G3-ANNOTATION-CANDIDATE","scope":"local deterministic annotation and lineage ingest candidate","p50_hours":0.75,"p90_hours":2.0,"validation":false}
+    {"id":"G3-LINEAGE-ENVELOPE","scope":"exact fail-closed eight-domain G3-F lineage envelope","p50_hours":0.25,"p90_hours":0.5,"validation":false},
+    {"id":"FC2-INTEGRATED-PREFLIGHT","scope":"read-only integrated G1-G4 blocker matrix and resume triggers","p50_hours":0.25,"p90_hours":0.75,"validation":false},
+    {"id":"OWNER-DECISION-PACKET","scope":"concise defaulted semantic decisions and non-decision source dependencies","p50_hours":0.25,"p90_hours":0.5,"validation":false}
   ],
+  "completed_bounded_blocker_resolution_units": 3,
+  "bounded_blocker_resolution_phase_percent": 100,
+  "current_local_integration_phase_percent": 0,
   "eta_prevalidation_candidate_p50_hours": [3, 4.5],
   "eta_prevalidation_candidate_p90_hours": [6, 8],
   "eta_sealed_eopt_g0":"UNAVAILABLE_UNTIL_VALIDATOR_HOLD_RELEASED",
@@ -31,13 +34,13 @@
   "gates": {
     "G1":{"progress_percent":33,"state":"EXTERNAL_CUSTODY_BLOCKED_NOT_SATISFIED"},
     "G2":{"progress_percent":28,"state":"DOCUMENTARY_RECONCILIATION_DONE_WITH_SOURCE_CUSTODY_BLOCKER_514_AND_DATE_PROVENANCE_OPEN"},
-    "G3":{"progress_percent":16,"state":"NONVALIDATOR_ASSESSMENT_COMPLETE_CA_CALENDAR_ANNOTATION_INPUTS_BLOCKED"},
+    "G3":{"progress_percent":16,"state":"PROTOCOL_AND_FAIL_CLOSED_ANNOTATION_CANDIDATES_COMMITTED_LINEAGE_ENVELOPE_ACTIVE"},
     "G4":{"progress_percent":100,"state":"SATISFIED_WITH_FINDING_SEALED"},
     "validation_closure_percent":0,
     "integrated":"NOT_CLOSED",
     "EOPT_G0":"OPEN_NOT_PROVEN_1_OF_6"
   },
-  "current_critical_path":"Three bounded non-validator recovery/design units are active for G2/G3; G1 remains external-custody wait; validation is not the current execution path",
+  "current_critical_path":"Final local G3-F lineage and FC2 preflight assembly; afterward Owner semantic decisions and exact source/custodian inputs become the only execution triggers",
   "first_parallel_dispatch":"G1 / G2 / G3",
-  "last_material_progress":"Owner continuation directive accepted; three new non-overlapping non-validator units dispatched for G2 provenance, G3 governance rules, and G3 annotation ingest."
+  "last_material_progress":"First bounded non-validator batch completed: G2 found zero new historical authority, G3 protocol candidate isolated four Owner decisions, and G3-E produced a 1,016-row fail-closed queue with zero invented values; no EWU inflation."
 }
