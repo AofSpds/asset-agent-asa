@@ -1,0 +1,361 @@
+{
+  "artifact_id": "AAA-ORGANIZATION-v1.4-ROLLBACK-MANIFEST-v1.2",
+  "artifact_kind": "GOVERNED_FORWARD_ONLY_RECOVERY_SUCCESSOR_MANIFEST_NOT_EXECUTED_ROLLBACK",
+  "version": "v1.2",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-CONTROL-ARCHITECT",
+  "state": "D3_FORWARD_CORRECTION_AUTHORED_PENDING_PMO_PERSISTENCE_FREEZE_AND_FRESH_P0_VALIDATION",
+  "successor_of": {
+    "artifact_id": "AAA-ORGANIZATION-v1.4-ROLLBACK-MANIFEST-v1.1",
+    "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_ROLLBACK_MANIFEST_v1.1.json",
+    "d2_commit": "48f37d91f2b52a2909a973a1c8bc38b284229c9e",
+    "d2_tree": "4aba5189dece01a017b3c59f6cdb36303a9d9026",
+    "d2_sole_parent": "a1c65d0e500c34fe849badf452f84907f6d53554",
+    "git_blob": "303c78194e5786baa1c8fb2d40d54f05f67bddfd",
+    "sha256": "57ff7475c7240a674baf6fa5e8370a94f2c44caf22834ec119bdcc9ba5444dd2",
+    "byte_size": 12362,
+    "disposition": "IMMUTABLE_D2_BLOCKED_EVIDENCE_PRESERVED_NOT_OVERWRITTEN"
+  },
+  "correction_binding": {
+    "finding_id": "F-P0-IVA-D2-FP-001",
+    "finding_class": "PRIMARY_CAS_FAILURE_ACTIVE_STATE_OVERCLAIM_CONFLICT",
+    "source_receipt": {
+      "artifact_id": "AAA-CORE-B-AUTHORITY-COHERENCE-D2-IVA-INDEPENDENT-FIRST-PASS-v1.0",
+      "local_evidence_path": "work/core_b_remediation/d2_validation/iva/AAA_CORE_B_AUTHORITY_COHERENCE_D2_IVA_INDEPENDENT_FIRST_PASS_v1.0.json",
+      "git_blob": "40e02495bb22b1fba4a2e0b2d5cfaa60a0912efd",
+      "sha256": "3d26e2eb03fccf2a766818dfb9a694e18d15e3934a8f81610d0a7aa5e4076d0a",
+      "byte_size": 19145
+    },
+    "exact_conflict_closed": "THIS_MANIFEST_NO_LONGER_ASSERTS_v1.3_OR_NO_GLOBAL_AUTHORITY_CHANGE_FROM_PRIMARY_CAS_FAILURE_ALONE; IT_DISTINGUISHES_SERVER_CONFIRMED_ZERO_UPDATE_FROM_AMBIGUOUS_NONRETURN_AND_REQUIRES_PINNED_REF_COMMIT_TREE_AND_BLOB_READBACK_BEFORE_ANY_EFFECTIVE_RELEASE_STATEMENT",
+    "waiver_allowed": false
+  },
+  "paired_successor_transition_plan": {
+    "artifact_id": "AAA-ORGANIZATION-v1.4-CURRENT-POINTER-TRANSITION-PLAN-v1.3",
+    "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_CURRENT_POINTER_TRANSITION_PLAN_v1.3.json",
+    "version": "v1.3",
+    "required_in_same_exact_d3_frozen_target": true,
+    "joint_normative_rule": "A_SERVER_CONFIRMED_EXPECTED_OLD_MISMATCH_PROVES_ONLY_THIS_ACT_DID_NOT_UPDATE_PRIMARY; AN_AMBIGUOUS_NONRETURN_LEAVES_WRITE_ATTRIBUTION_UNKNOWN; NO_EFFECTIVE_RELEASE_STATEMENT_PRECEDES_PINNED_READBACK",
+    "exact_identity_binding_source": "EXTERNAL_D3_FROZEN_TARGET_RECEIPT_TO_AVOID_CIRCULAR_SELF_REFERENCE"
+  },
+  "d2_base_and_d3_frozen_target_binding": {
+    "exact_d2_base": {
+      "commit": "48f37d91f2b52a2909a973a1c8bc38b284229c9e",
+      "tree": "4aba5189dece01a017b3c59f6cdb36303a9d9026",
+      "sole_parent": "a1c65d0e500c34fe849badf452f84907f6d53554",
+      "d1_ancestor": "a1c65d0e500c34fe849badf452f84907f6d53554"
+    },
+    "required_d3_direct_parent": "48f37d91f2b52a2909a973a1c8bc38b284229c9e",
+    "required_external_source": "AAA_CORE_B_AUTHORITY_COHERENCE_D3_FROZEN_TARGET_RECEIPT",
+    "d3_diff_from_d2": {
+      "added": [
+        "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_CURRENT_POINTER_TRANSITION_PLAN_v1.3.json",
+        "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_ROLLBACK_MANIFEST_v1.2.json"
+      ],
+      "modified": [],
+      "removed": [],
+      "all_d0_d1_d2_target_paths_and_bytes_unchanged": true
+    },
+    "activation_commit_parent_must_equal": "EXACT_D3_FROZEN_TARGET_COMMIT",
+    "activation_parent_tree_must_equal": "EXACT_D3_FROZEN_TARGET_TREE"
+  },
+  "rollback_principle": "NO_HISTORY_REWRITE_NO_BRANCH_REWIND_NO_REF_DELETE_NO_FORCE_UPDATE_NO_SILENT_REVERSION_NO_SAME_ACT_PRIMARY_RETRY; ANY_RECOVERY_AFTER_A_VISIBLE_OR_AMBIGUOUS_REF_WRITE_USES_EXACT_PINNED_READBACK_AND_WHEN_NOT_FULLY_RESOLVED_A_NEW_EXPLICITLY_AUTHORIZED_FORWARD_ONLY_GOVERNED_SUCCESSOR",
+  "authority_and_nonexpansion_invariants": {
+    "core_b_before_pair": [
+      "AAA-MODEL-ARCHITECT",
+      "AAA-MODEL-VALIDATOR"
+    ],
+    "core_b_after_pair": [
+      "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+      "AAA-MODEL-DESIGN-VALIDATOR"
+    ],
+    "core_b_after_pair_id": "AAA-PAIR-MOD-MODV-v1.2",
+    "exact_pair_change_only": true,
+    "preserved_non_core_pair_count": 5,
+    "preserved_route_count": 6,
+    "shared_contract_change": false,
+    "model_semantic_change": false,
+    "pit_semantic_change": false,
+    "other_authority_change": false
+  },
+  "governed_refs": {
+    "primary_authority_ref": {
+      "ref": "refs/heads/aaa-persistent-locator-active-v0.3",
+      "expected_old_sha": "5b2dd5c5ea5bf96eb22163a0598d6879fffada9e",
+      "only_effective_cutover_operation": "TRUE_ATOMIC_EXPECTED_OLD_SHA_TO_EXACT_ACTIVATION_COMMIT_CAS_WITH_SERVER_CONFIRMED_RESULT"
+    },
+    "preserved_predecessor_ref": {
+      "ref": "refs/heads/aaa-organization-active-v1.3",
+      "exact_sha": "d7c490c373f2df356f31e4459c345328616b4eb3",
+      "disposition": "IMMUTABLE_NO_UPDATE_NO_DELETE_NO_REWIND"
+    },
+    "staged_successor_ref": {
+      "ref": "refs/heads/aaa-organization-active-v1.4",
+      "required_prewrite_state": "ABSENT",
+      "create_operation": "ATOMIC_CREATE_IF_ABSENT_TO_EXACT_ACTIVATION_COMMIT",
+      "standalone_ref_confers_effective_authority": false,
+      "server_confirmed_primary_mismatch_disposition": "RETAIN_INERT_NO_DELETE_SURFACE_BLOCKER_PROHIBIT_PRIMARY_RETRY",
+      "ambiguous_primary_result_disposition": "RETAIN_UNCHANGED_PENDING_PINNED_READBACK_NO_DELETE_NO_RETRY"
+    },
+    "multi_ref_atomicity_available": false,
+    "multi_ref_atomicity_claimed": false
+  },
+  "required_atomic_primitive_policy": {
+    "successor_ref_create": "ATOMIC_CREATE_IF_ABSENT_MUST_FAIL_WITH_ZERO_SUCCESSOR_UPDATE_IF_REF_EXISTS",
+    "primary_ref_update": "ATOMIC_EXPECTED_OLD_SHA_TO_NEW_SHA_COMPARE_AND_SWAP_WITH_UNAMBIGUOUS_SERVER_RESULT",
+    "insufficient": [
+      "READ_THEN_UPDATE",
+      "FORCE_FALSE_ONLY_WITHOUT_EXPECTED_OLD",
+      "DELETE_AND_RECREATE",
+      "FORCE_PUSH_OR_FORCE_UPDATE"
+    ],
+    "unsupported_required_primitive": "ABORT_BEFORE_ANY_REF_WRITE_AND_DO_NOT_EMULATE",
+    "availability_check_timing": "BEFORE_ANY_GIT_OBJECT_OR_REF_WRITE"
+  },
+  "exact_predecessor_active_bytes": [
+    {
+      "path": "control/authority/organization/active/AAA_ORGANIZATION_CURRENT_ACTIVE_STATE_v1.0.json",
+      "byte_size": 4038,
+      "sha256": "58829377179a69ca93ba9822a0fbf5f3d66c91d7f9414b8279444c2d26635218",
+      "git_blob": "cad42e60efea2eb67bb663b5ff889277c028e66c"
+    },
+    {
+      "path": "control/authority/organization/active/AAA_ORGANIZATION_ACTIVE_ROUTING_STATE_v1.0.json",
+      "byte_size": 1371,
+      "sha256": "4477007a7990d22684a1b07aa26dff3682bc2fb6573d5e57c3c9c9e3109d04bf",
+      "git_blob": "ca48540479b3c25ef4c8573a457d12a53e576246"
+    },
+    {
+      "path": "control/authority/organization/active/AAA_ORGANIZATION_PAIR_ACTIVATION_STATE_v1.0.json",
+      "byte_size": 2482,
+      "sha256": "e143a55b89b909a629b9d04b5b772b8e5989be971f841e990861693f4e82f26e",
+      "git_blob": "3579860fd20e497161e13a9ccc8fa0c7fac0db61"
+    },
+    {
+      "path": "control/authority/organization/active/AAA_ACTIVE_ORGANIZATION_POINTER_v1.0.json",
+      "byte_size": 3410,
+      "sha256": "343276d1ac5429d5917287a0d45fe662ea26981e7366d06b9df837f0956c339a",
+      "git_blob": "30cbecc2a961d5fd92b28e00be419f5a590110c1"
+    }
+  ],
+  "exact_candidate_active_bytes": [
+    {
+      "path": "control/authority/organization/active/AAA_ORGANIZATION_CURRENT_ACTIVE_STATE_v1.0.json",
+      "byte_size": 4567,
+      "sha256": "f45b39e7652900dc8dc5c11480496993a1995d76a559789fff34dd1e4d1176d0",
+      "git_blob": "e17749646a379e36e0613c6864d67a4a1b1a07ec"
+    },
+    {
+      "path": "control/authority/organization/active/AAA_ORGANIZATION_ACTIVE_ROUTING_STATE_v1.0.json",
+      "byte_size": 2306,
+      "sha256": "047a9872316a6a5a1dda80c7a75949c7e04806619207ddeb2552e3176c556561",
+      "git_blob": "7b1cf5cf3f82067c1f72ae5a8a51bdf5a1b60b34"
+    },
+    {
+      "path": "control/authority/organization/active/AAA_ORGANIZATION_PAIR_ACTIVATION_STATE_v1.0.json",
+      "byte_size": 3543,
+      "sha256": "5551a036c4a915d6db05075d47e83e96f3f6d77a3fc3ee783f8f5aeefda9e645",
+      "git_blob": "c7d44e071dba5fca54f069ffce1ab5b11feb2a66"
+    },
+    {
+      "path": "control/authority/organization/active/AAA_ACTIVE_ORGANIZATION_POINTER_v1.0.json",
+      "byte_size": 3719,
+      "sha256": "e34348d0a49fbba80eded518e80037846242edcc8648117ba0c0e0bb9445e62c",
+      "git_blob": "16bf7e0256b5eb33e14fbcc775cb2d5c9fb48f50"
+    }
+  ],
+  "pre_activation_recovery": {
+    "trigger": "ANY_IDENTITY_ANCESTRY_L1_L2_OWNER_PRIMITIVE_REF_OR_BLOB_PREFLIGHT_GATE_NOT_PASS",
+    "action": "ABORT_WITH_ZERO_OBJECT_WRITES_ZERO_REF_WRITES_ZERO_ACTIVE_PATH_WRITES",
+    "writes_required": 0,
+    "current_v1_3_effective_statement_basis": "EXACT_PREFLIGHT_PRIMARY_REF_5b2dd5c5_PLUS_THE_FOUR_BOUND_OLD_BLOBS_ONLY",
+    "primary_retry_in_same_act": false
+  },
+  "activation_commit_only_recovery": {
+    "trigger": "EXACT_ACTIVATION_COMMIT_CREATED_BUT_SUCCESSOR_REF_NOT_CREATED",
+    "effective_authority_changed": false,
+    "action": "LEAVE_UNREFERENCED_GIT_OBJECT_SURFACE_BLOCKER_TERMINATE_ACT",
+    "ref_delete": false,
+    "primary_ref_update": false,
+    "retry_in_same_act": false
+  },
+  "server_confirmed_mismatch_after_successor_staging": {
+    "trigger": "SUCCESSOR_v1.4_REF_WAS_ATOMICALLY_CREATED_AT_EXACT_ACTIVATION_COMMIT_AND_SERVER_CONFIRMED_PRIMARY_EXPECTED_OLD_CAS_REJECTION_WITH_ZERO_PRIMARY_UPDATE",
+    "this_cutover_act_updated_primary": false,
+    "exact_allowed_attribution_statement": "THIS_CUTOVER_ACT_DID_NOT_UPDATE_PRIMARY",
+    "effective_active_release_before_pinned_readback": "UNKNOWN_UNTIL_PINNED_READBACK",
+    "effective_authority_changed_global_claim": "PROHIBITED_UNTIL_PINNED_READBACK",
+    "successor_ref_state": "PRESENT_AT_EXACT_ACTIVATION_COMMIT_BUT_INERT_AS_A_STANDALONE_REF",
+    "required_actions_in_order": [
+      "DO_NOT_DELETE_THE_SUCCESSOR_REF",
+      "DO_NOT_REWIND_FORCE_UPDATE_OR_REWRITE_ANY_REF",
+      "DO_NOT_RETRY_THE_PRIMARY_CAS",
+      "PIN_PRIMARY_SUCCESSOR_AND_PREDECESSOR_REFS",
+      "PIN_AND_READ_PRIMARY_COMMIT_TREE_AND_FOUR_ACTIVE_PATH_BLOBS",
+      "APPLY_THE_EXACT_RELEASE_RESOLUTION_RULE",
+      "PERSIST_AN_IMMUTABLE_BLOCKER_OR_RESOLVED_v1.3_RECEIPT_WITH_EXACT_RESULTS",
+      "KEEP_OWNER_ROUTING_HOLD_AND_CORE_B_CUTOVER_BLOCKED",
+      "TERMINATE_THIS_CUTOVER_ACT"
+    ],
+    "primary_retry_prohibited": true,
+    "ref_delete_prohibited": true
+  },
+  "ambiguous_nonreturn_after_successor_staging": {
+    "trigger": "PRIMARY_EXPECTED_OLD_CAS_WAS_SUBMITTED_BUT_TRANSPORT_OR_TOOL_RETURNED_NO_UNAMBIGUOUS_SERVER_RESULT",
+    "this_cutover_act_updated_primary": "UNKNOWN_NO_ATTRIBUTION_CLAIM_ALLOWED",
+    "this_cutover_act_did_not_update_primary_claim": "PROHIBITED",
+    "effective_active_release_before_pinned_readback": "UNKNOWN_UNTIL_PINNED_READBACK",
+    "effective_authority_changed_global_claim": "PROHIBITED_UNTIL_PINNED_READBACK",
+    "successor_ref_disposition": "RETAIN_UNCHANGED_PENDING_READBACK_NO_DELETE_NO_REWIND_NO_FORCE_UPDATE",
+    "required_actions_in_order": [
+      "DO_NOT_DELETE_THE_SUCCESSOR_REF",
+      "DO_NOT_REWIND_FORCE_UPDATE_OR_REWRITE_ANY_REF",
+      "DO_NOT_RETRY_THE_PRIMARY_CAS",
+      "PIN_PRIMARY_SUCCESSOR_AND_PREDECESSOR_REFS",
+      "PIN_AND_READ_PRIMARY_COMMIT_TREE_AND_FOUR_ACTIVE_PATH_BLOBS",
+      "APPLY_THE_EXACT_AMBIGUOUS_OUTCOME_RESOLUTION_RULE",
+      "PERSIST_AN_IMMUTABLE_AMBIGUOUS_OUTCOME_OR_POSTWRITE_ACTIVATION_RECEIPT",
+      "KEEP_OWNER_ROUTING_HOLD_UNLESS_AND_UNTIL_ALL_ACTIVATION_AND_BOOTSTRAP_GATES_PASS",
+      "TERMINATE_WRITES_IN_THIS_CUTOVER_ACT"
+    ],
+    "primary_retry_prohibited": true,
+    "ref_delete_prohibited": true,
+    "unresolved_disposition": "FAIL_CLOSED_SURFACE_P0_AMBIGUOUS_CAS_OUTCOME_BLOCKER"
+  },
+  "mandatory_pinned_readback_and_release_resolution": {
+    "hard_rule": "NO_EFFECTIVE_RELEASE_STATEMENT_AFTER_PRIMARY_CAS_SUBMISSION_UNTIL_EXACT_PRIMARY_SUCCESSOR_AND_PREDECESSOR_REF_READBACK_PLUS_PINNED_PRIMARY_COMMIT_TREE_AND_FOUR_ACTIVE_BLOB_READBACK_COMPLETES",
+    "required_readback": [
+      "PINNED_PRIMARY_REF_SHA_OR_EXACT_READ_FAILURE",
+      "PINNED_SUCCESSOR_REF_SHA_OR_EXACT_ABSENT_STATE",
+      "PINNED_PREDECESSOR_REF_SHA_OR_EXACT_READ_FAILURE",
+      "PINNED_PRIMARY_COMMIT_OR_EXACT_READ_FAILURE",
+      "PINNED_PRIMARY_TREE_OR_EXACT_READ_FAILURE",
+      "FOUR_ACTIVE_PATH_BLOBS_FROM_THE_PINNED_PRIMARY_TREE_OR_EXACT_READ_FAILURES",
+      "PINNED_SUCCESSOR_COMMIT_AND_TREE_OR_EXACT_READ_FAILURE",
+      "PINNED_PREDECESSOR_COMMIT_AND_TREE_OR_EXACT_READ_FAILURE"
+    ],
+    "v1_3_assertion_only_if": {
+      "primary_ref": "5b2dd5c5ea5bf96eb22163a0598d6879fffada9e",
+      "four_active_blobs_in_bound_path_order": [
+        "cad42e60efea2eb67bb663b5ff889277c028e66c",
+        "ca48540479b3c25ef4c8573a457d12a53e576246",
+        "3579860fd20e497161e13a9ccc8fa0c7fac0db61",
+        "30cbecc2a961d5fd92b28e00be419f5a590110c1"
+      ],
+      "allowed_statement": "AAA-ORGANIZATION-RELEASE-v1.3_IS_EFFECTIVE_AT_THE_PINNED_READBACK_STATE",
+      "ambiguous_nonreturn_qualification": "THIS_RELEASE_STATEMENT_DOES_NOT_RESOLVE_OR_AUTHORIZE_ANY_HISTORICAL_WRITE_ATTRIBUTION_CLAIM"
+    },
+    "server_confirmed_mismatch_other_state": {
+      "required_record": "EXACT_CONCURRENT_PRIMARY_HEAD_COMMIT_TREE_AND_FOUR_ACTIVE_BLOB_STATE_OR_EXACT_READ_FAILURES",
+      "release_inference": "PROHIBITED",
+      "blocker": "P0_CONCURRENT_PRIMARY_CHANGE",
+      "staged_v1_4_disposition": "KEEP_INERT_NO_DELETE_NO_REWIND_NO_FORCE_UPDATE",
+      "same_act_retry": false,
+      "terminate": true
+    },
+    "ambiguous_nonreturn_exact_activation_state": {
+      "required_all": [
+        "PINNED_PRIMARY_REF_EQUALS_EXACT_ACTIVATION_COMMIT",
+        "PINNED_SUCCESSOR_REF_EQUALS_SAME_EXACT_ACTIVATION_COMMIT",
+        "PINNED_PREDECESSOR_REF_EQUALS_d7c490c373f2df356f31e4459c345328616b4eb3",
+        "ACTIVATION_COMMIT_SOLE_PARENT_EQUALS_EXACT_D3_TARGET_COMMIT",
+        "ACTIVATION_TREE_EQUALS_PRECOMPUTED_ACTIVATION_TREE",
+        "FOUR_ACTIVE_BLOBS_EQUAL_e1774964_7b1cf5cf_c7d44e07_16bf7e02_IN_BOUND_PATH_ORDER",
+        "NO_OTHER_TREE_ENTRY_CHANGED_FROM_EXACT_D3_TARGET_TREE"
+      ],
+      "resolution": "THE_EXACT_VALIDATED_ACTIVATION_STATE_IS_OBSERVED_EFFECTIVE_WHILE_THIS_CUTOVER_ACTS_WRITE_ATTRIBUTION_REMAINS_UNKNOWN; DO_NOT_RETRY; COMPLETE_ONLY_FULL_POSTWRITE_ASSERTIONS_AND_AN_IMMUTABLE_AMBIGUOUS_OUTCOME_PINNED_ACTIVATION_STATE_RECEIPT",
+      "this_cutover_act_write_attribution_after_full_match": "UNKNOWN_NOT_INFERRED_FROM_STATE_READBACK",
+      "active_declaration_before_receipt": false,
+      "partial_match": "UNRESOLVED_FAIL_CLOSED_NO_RELEASE_INFERENCE"
+    },
+    "ambiguous_nonreturn_other_state": {
+      "required_record": "EXACT_PRIMARY_HEAD_COMMIT_TREE_AND_FOUR_ACTIVE_BLOB_STATE_OR_EXACT_READ_FAILURES",
+      "release_inference": "PROHIBITED",
+      "blocker": "P0_AMBIGUOUS_CAS_OUTCOME_OR_CONCURRENT_PRIMARY_CHANGE",
+      "same_act_retry": false,
+      "terminate": true
+    },
+    "future_recovery_authority_for_blocked_state": [
+      "AFFECTED_DELTA_REVIEW",
+      "NEW_BOUNDED_FORWARD_ONLY_FROZEN_TARGET",
+      "FRESH_P0_PAIRED_CTLV_L1",
+      "FRESH_P0_INDEPENDENT_AAA_VALIDATION_AUDITOR_IVA_L2",
+      "NEW_EXPLICIT_HUMAN_PROJECT_OWNER_DECISION"
+    ]
+  },
+  "post_primary_cas_recovery": {
+    "trigger": "PRIMARY_EXPECTED_OLD_CAS_IS_SERVER_CONFIRMED_SUCCESS_OR_AN_AMBIGUOUS_NONRETURN_IS_FULLY_RESOLVED_TO_THE_EXACT_ACTIVATION_STATE_BUT_ANY_POSTWRITE_ASSERTION_OR_ACTIVATION_RECEIPT_READBACK_FAILS",
+    "action": "FAIL_CLOSED_DO_NOT_DECLARE_ACTIVE_KEEP_OWNER_ROUTING_HOLD_SURFACE_P0_AND_AUTHOR_SEPARATELY_AUTHORIZED_FORWARD_ONLY_RECOVERY_SUCCESSOR",
+    "direct_primary_ref_rewind": false,
+    "successor_ref_delete": false,
+    "force_push": false,
+    "history_rewrite": false,
+    "silent_pointer_reversion": false,
+    "same_act_primary_retry": false,
+    "new_recovery_validation_required": true,
+    "new_owner_decision_required": true
+  },
+  "postwrite_success_gates": {
+    "exact_activation_assertions": [
+      "PRIMARY_REF_EQUALS_EXACT_ACTIVATION_COMMIT",
+      "SUCCESSOR_v1.4_REF_EQUALS_SAME_EXACT_ACTIVATION_COMMIT",
+      "PREDECESSOR_v1.3_REF_EQUALS_d7c490c373f2df356f31e4459c345328616b4eb3",
+      "ACTIVATION_COMMIT_SOLE_PARENT_EQUALS_EXACT_D3_TARGET_COMMIT",
+      "ACTIVATION_TREE_EQUALS_PRECOMPUTED_ACTIVATION_TREE",
+      "FOUR_ACTIVE_PATH_BLOBS_EQUAL_FROZEN_CANDIDATE_BLOBS",
+      "FOUR_CANDIDATE_PATH_BLOBS_REMAIN_FROZEN",
+      "NO_OTHER_TREE_ENTRY_CHANGED_FROM_EXACT_D3_TARGET_TREE"
+    ],
+    "immutable_server_success_activation_or_ambiguous_outcome_pinned_activation_state_receipt_required": true,
+    "declare_active_only_after_receipt_persisted_and_read_back": true,
+    "fresh_bootstrap_regression_required_after_activation_receipt": true,
+    "owner_routing_hold_release_only_after_bootstrap_regression_pass": true
+  },
+  "validation_and_owner_authority": {
+    "fresh_l1": {
+      "governed_persona_id": "AAA-CONTROL-VALIDATOR",
+      "official_code": "CTLV",
+      "target": "EXACT_D3_FROZEN_TARGET",
+      "required_verdict": "PASS"
+    },
+    "fresh_l2": {
+      "governed_persona_id": "AAA-VALIDATION-AUDITOR",
+      "official_code": "IVA",
+      "target": "SAME_EXACT_D3_FROZEN_TARGET",
+      "required_verdict": "PASS",
+      "final_disposition_requires_exact_l1_pass_receipt": true
+    },
+    "owner_gate": {
+      "timing": "AFTER_EXACT_D3_L1_AND_D3_L2_PASS",
+      "exact_decision_key": "APPROVE_CORE_B_SUCCESSOR_CUTOVER",
+      "required_value": "YES",
+      "inference_prohibited": true
+    }
+  },
+  "prohibited_recovery_actions": [
+    "GIT_RESET_HARD",
+    "FORCE_PUSH_OR_FORCE_UPDATE",
+    "REF_OR_BRANCH_REWIND",
+    "DELETE_v1.4",
+    "DELETE_OR_RECREATE_PRIMARY_REF",
+    "OVERWRITE_v1.3_HISTORY",
+    "SILENT_POINTER_REVERSION",
+    "PRIMARY_CAS_RETRY_AFTER_SERVER_CONFIRMED_FAILURE_IN_THE_SAME_ACT",
+    "PRIMARY_CAS_RETRY_AFTER_AMBIGUOUS_NONRETURN_IN_THE_SAME_ACT",
+    "READ_THEN_UPDATE_CAS_EMULATION",
+    "GLOBAL_v1.3_EFFECTIVE_INFERENCE_FROM_CAS_FAILURE_ALONE",
+    "THIS_ACT_DID_NOT_UPDATE_PRIMARY_INFERENCE_FROM_TRANSPORT_OR_TOOL_NONRETURN",
+    "PASS_TRANSFER",
+    "OWNER_DECISION_INFERENCE"
+  ],
+  "current_execution_effect": {
+    "rollback_performed": false,
+    "active_files_changed": 0,
+    "git_objects_written": 0,
+    "refs_created": 0,
+    "refs_moved": 0,
+    "refs_deleted": 0,
+    "github_writes": 0
+  },
+  "claim_ceiling": "D3_FAILURE_AND_AMBIGUOUS_OUTCOME_ROLLBACK_CONTRACT_CORRECTION_ONLY_NO_RECOVERY_VALIDATION_OWNER_OR_ACTIVATION_AUTHORITY_CREATED"
+}

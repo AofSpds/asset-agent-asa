@@ -1,0 +1,533 @@
+{
+  "artifact_id": "AAA-ORGANIZATION-v1.4-CURRENT-POINTER-TRANSITION-PLAN-v1.3",
+  "artifact_kind": "EXECUTABLE_GOVERNED_POINTER_TRANSITION_CAS_CONTRACT_NOT_EXECUTED",
+  "version": "v1.3",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-CONTROL-ARCHITECT",
+  "state": "D3_FORWARD_CORRECTION_AUTHORED_PENDING_PMO_PERSISTENCE_FREEZE_AND_FRESH_P0_VALIDATION",
+  "successor_of": {
+    "artifact_id": "AAA-ORGANIZATION-v1.4-CURRENT-POINTER-TRANSITION-PLAN-v1.2",
+    "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_CURRENT_POINTER_TRANSITION_PLAN_v1.2.json",
+    "d2_commit": "48f37d91f2b52a2909a973a1c8bc38b284229c9e",
+    "d2_tree": "4aba5189dece01a017b3c59f6cdb36303a9d9026",
+    "d2_sole_parent": "a1c65d0e500c34fe849badf452f84907f6d53554",
+    "git_blob": "a5542a2cec61d52816fdb642a50bd7c6734bd802",
+    "sha256": "56545375a4024b43bbf5ba8d4257fa7879c9ec9002820ba9235bb227676d528b",
+    "byte_size": 19230,
+    "disposition": "IMMUTABLE_D2_BLOCKED_EVIDENCE_PRESERVED_NOT_OVERWRITTEN"
+  },
+  "correction_binding": {
+    "finding_id": "F-P0-IVA-D2-FP-001",
+    "finding_class": "PRIMARY_CAS_FAILURE_ACTIVE_STATE_OVERCLAIM_CONFLICT",
+    "source_receipt": {
+      "artifact_id": "AAA-CORE-B-AUTHORITY-COHERENCE-D2-IVA-INDEPENDENT-FIRST-PASS-v1.0",
+      "local_evidence_path": "work/core_b_remediation/d2_validation/iva/AAA_CORE_B_AUTHORITY_COHERENCE_D2_IVA_INDEPENDENT_FIRST_PASS_v1.0.json",
+      "git_blob": "40e02495bb22b1fba4a2e0b2d5cfaa60a0912efd",
+      "sha256": "3d26e2eb03fccf2a766818dfb9a694e18d15e3934a8f81610d0a7aa5e4076d0a",
+      "byte_size": 19145,
+      "provisional_verdict": "BLOCKED_WITH_EXACT_REASON"
+    },
+    "exact_defect": "D2_INCORRECTLY_INFERRED_GLOBAL_v1_3_EFFECTIVE_AUTHORITY_FROM_A_FAILED_EXPECTED_OLD_CAS_EVEN_THOUGH_A_CONCURRENT_PRIMARY_REF_CHANGE_CAN_CAUSE_THAT_FAILURE",
+    "scope": "REPLACE_ONLY_THE_FAILURE_OUTCOME_AND_PINNED_READBACK_SEMANTICS_IN_ONE_FORWARD_ONLY_PLAN_AND_ONE_PAIRED_ROLLBACK_SUCCESSOR",
+    "waiver_allowed": false
+  },
+  "paired_successor_rollback_manifest": {
+    "artifact_id": "AAA-ORGANIZATION-v1.4-ROLLBACK-MANIFEST-v1.2",
+    "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_ROLLBACK_MANIFEST_v1.2.json",
+    "version": "v1.2",
+    "required_in_same_exact_d3_frozen_target": true,
+    "joint_normative_rule": "A_SERVER_CONFIRMED_EXPECTED_OLD_MISMATCH_PROVES_ONLY_THAT_THIS_CUTOVER_ACT_DID_NOT_UPDATE_PRIMARY; AN_AMBIGUOUS_TRANSPORT_OR_TOOL_NONRETURN_PROVES_NOTHING_ABOUT_WRITE_ATTRIBUTION; BOTH_REQUIRE_PINNED_REF_COMMIT_TREE_AND_BLOB_READBACK_BEFORE_ANY_EFFECTIVE_RELEASE_STATEMENT",
+    "exact_identity_binding_source": "EXTERNAL_D3_FROZEN_TARGET_RECEIPT_TO_AVOID_CIRCULAR_SELF_REFERENCE"
+  },
+  "exact_d2_base_and_d3_frozen_target_contract": {
+    "exact_d2_base": {
+      "commit": "48f37d91f2b52a2909a973a1c8bc38b284229c9e",
+      "tree": "4aba5189dece01a017b3c59f6cdb36303a9d9026",
+      "sole_parent": "a1c65d0e500c34fe849badf452f84907f6d53554",
+      "d1_ancestor": "a1c65d0e500c34fe849badf452f84907f6d53554",
+      "disposition": "IMMUTABLE_D2_BLOCKED_EVIDENCE"
+    },
+    "required_d3_direct_parent": "48f37d91f2b52a2909a973a1c8bc38b284229c9e",
+    "required_d3_diff_from_d2": {
+      "added": [
+        "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_CURRENT_POINTER_TRANSITION_PLAN_v1.3.json",
+        "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_ROLLBACK_MANIFEST_v1.2.json"
+      ],
+      "modified": [],
+      "removed": [],
+      "all_d0_d1_d2_target_paths_and_bytes_unchanged": true
+    },
+    "self_reference_prohibition": "D3_ARTIFACTS_CANNOT_EMBED_THE_COMMIT_OR_TREE_THAT_FIRST_PERSISTS_THEIR_OWN_BYTES",
+    "required_external_source": "AAA_CORE_B_AUTHORITY_COHERENCE_D3_FROZEN_TARGET_RECEIPT",
+    "required_external_fields": [
+      "d3_target_commit",
+      "d3_target_tree",
+      "d3_target_parent",
+      "d3_plan_path",
+      "d3_plan_git_blob",
+      "d3_plan_sha256",
+      "d3_plan_byte_size",
+      "d3_rollback_manifest_path",
+      "d3_rollback_manifest_git_blob",
+      "d3_rollback_manifest_sha256",
+      "d3_rollback_manifest_byte_size"
+    ],
+    "activation_commit_parent_must_equal": "EXACT_D3_FROZEN_TARGET_COMMIT",
+    "activation_parent_tree_must_equal": "EXACT_D3_FROZEN_TARGET_TREE",
+    "required_ancestry": [
+      "5b2dd5c5ea5bf96eb22163a0598d6879fffada9e_IS_ANCESTOR_OF_D3_TARGET",
+      "a5a41edd27497f74e6539b151c914667f27bf680_IS_ANCESTOR_OF_D3_TARGET",
+      "a1c65d0e500c34fe849badf452f84907f6d53554_IS_ANCESTOR_OF_D3_TARGET",
+      "48f37d91f2b52a2909a973a1c8bc38b284229c9e_IS_DIRECT_PARENT_OF_D3_TARGET",
+      "D3_TARGET_IS_SOLE_PARENT_OF_ACTIVATION_COMMIT"
+    ]
+  },
+  "authority_and_nonexpansion_invariants": {
+    "core_b_before_pair": [
+      "AAA-MODEL-ARCHITECT",
+      "AAA-MODEL-VALIDATOR"
+    ],
+    "core_b_after_pair": [
+      "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+      "AAA-MODEL-DESIGN-VALIDATOR"
+    ],
+    "core_b_after_pair_id": "AAA-PAIR-MOD-MODV-v1.2",
+    "exact_pair_change_only": true,
+    "preserved_persona_count": 11,
+    "before_persona_count": 13,
+    "after_persona_count": 13,
+    "preserved_non_core_pair_count": 5,
+    "preserved_route_count": 6,
+    "shared_contract_change": false,
+    "model_semantic_change": false,
+    "pit_semantic_change": false,
+    "other_authority_change": false
+  },
+  "governed_ref_resolution": {
+    "primary_authority_ref": {
+      "ref": "refs/heads/aaa-persistent-locator-active-v0.3",
+      "expected_old_sha": "5b2dd5c5ea5bf96eb22163a0598d6879fffada9e",
+      "role": "PRIMARY_EFFECTIVE_ACTIVE_LOCATOR_REF",
+      "effective_cutover_only_on_successful_atomic_expected_old_cas": true
+    },
+    "preserved_predecessor_organization_ref": {
+      "ref": "refs/heads/aaa-organization-active-v1.3",
+      "exact_sha": "d7c490c373f2df356f31e4459c345328616b4eb3",
+      "disposition": "PRESERVE_IMMUTABLY_NO_UPDATE_NO_REWIND_NO_DELETE"
+    },
+    "successor_organization_ref": {
+      "ref": "refs/heads/aaa-organization-active-v1.4",
+      "expected_old_state": "ABSENT",
+      "operation": "ATOMIC_CREATE_IF_ABSENT",
+      "new_sha": "EXACT_ACTIVATION_COMMIT",
+      "force": false,
+      "standalone_ref_confers_effective_authority": false,
+      "on_primary_server_confirmed_mismatch": "RETAIN_AS_STAGED_INERT_STANDALONE_REF_NO_DELETE_NO_RETRY",
+      "on_primary_ambiguous_nonreturn": "RETAIN_UNCHANGED_PENDING_PINNED_READBACK_NO_DELETE_NO_RETRY"
+    },
+    "architecture_decision": "STAGE_THE_SUCCESSOR_REF_FIRST_SO_THE_NEW_POINTER_CANNOT_RESOLVE_TO_A_MISSING_REF; ONLY_THE_PRIMARY_TRUE_EXPECTED_OLD_CAS_CAN_PERFORM_THIS_CUTOVER_ACTS_EFFECTIVE_AUTHORITY_CHANGE",
+    "multi_ref_atomicity_available": false,
+    "multi_ref_atomicity_claimed": false
+  },
+  "exact_prewrite_state": {
+    "primary_ref_expected_old_sha": "5b2dd5c5ea5bf96eb22163a0598d6879fffada9e",
+    "predecessor_ref_required_sha": "d7c490c373f2df356f31e4459c345328616b4eb3",
+    "successor_ref_required_state": "ABSENT",
+    "active_objects": [
+      {
+        "object": "CURRENT_ACTIVE_STATE",
+        "path": "control/authority/organization/active/AAA_ORGANIZATION_CURRENT_ACTIVE_STATE_v1.0.json",
+        "byte_size": 4038,
+        "sha256": "58829377179a69ca93ba9822a0fbf5f3d66c91d7f9414b8279444c2d26635218",
+        "git_blob": "cad42e60efea2eb67bb663b5ff889277c028e66c"
+      },
+      {
+        "object": "ACTIVE_ROUTING_STATE",
+        "path": "control/authority/organization/active/AAA_ORGANIZATION_ACTIVE_ROUTING_STATE_v1.0.json",
+        "byte_size": 1371,
+        "sha256": "4477007a7990d22684a1b07aa26dff3682bc2fb6573d5e57c3c9c9e3109d04bf",
+        "git_blob": "ca48540479b3c25ef4c8573a457d12a53e576246"
+      },
+      {
+        "object": "PAIR_ACTIVATION_STATE",
+        "path": "control/authority/organization/active/AAA_ORGANIZATION_PAIR_ACTIVATION_STATE_v1.0.json",
+        "byte_size": 2482,
+        "sha256": "e143a55b89b909a629b9d04b5b772b8e5989be971f841e990861693f4e82f26e",
+        "git_blob": "3579860fd20e497161e13a9ccc8fa0c7fac0db61"
+      },
+      {
+        "object": "ACTIVE_ORGANIZATION_POINTER",
+        "path": "control/authority/organization/active/AAA_ACTIVE_ORGANIZATION_POINTER_v1.0.json",
+        "byte_size": 3410,
+        "sha256": "343276d1ac5429d5917287a0d45fe662ea26981e7366d06b9df837f0956c339a",
+        "git_blob": "30cbecc2a961d5fd92b28e00be419f5a590110c1"
+      }
+    ]
+  },
+  "exact_promotion_set": [
+    {
+      "object": "CURRENT_ACTIVE_STATE",
+      "candidate_path": "control/organization/cutover/v1.4/phase-a/candidates/AAA_ORGANIZATION_CURRENT_ACTIVE_STATE_v1.0.json",
+      "target_path": "control/authority/organization/active/AAA_ORGANIZATION_CURRENT_ACTIVE_STATE_v1.0.json",
+      "byte_size": 4567,
+      "sha256": "f45b39e7652900dc8dc5c11480496993a1995d76a559789fff34dd1e4d1176d0",
+      "git_blob": "e17749646a379e36e0613c6864d67a4a1b1a07ec"
+    },
+    {
+      "object": "ACTIVE_ROUTING_STATE",
+      "candidate_path": "control/organization/cutover/v1.4/phase-a/candidates/AAA_ORGANIZATION_ACTIVE_ROUTING_STATE_v1.0.json",
+      "target_path": "control/authority/organization/active/AAA_ORGANIZATION_ACTIVE_ROUTING_STATE_v1.0.json",
+      "byte_size": 2306,
+      "sha256": "047a9872316a6a5a1dda80c7a75949c7e04806619207ddeb2552e3176c556561",
+      "git_blob": "7b1cf5cf3f82067c1f72ae5a8a51bdf5a1b60b34"
+    },
+    {
+      "object": "PAIR_ACTIVATION_STATE",
+      "candidate_path": "control/organization/cutover/v1.4/phase-a/candidates/AAA_ORGANIZATION_PAIR_ACTIVATION_STATE_v1.0.json",
+      "target_path": "control/authority/organization/active/AAA_ORGANIZATION_PAIR_ACTIVATION_STATE_v1.0.json",
+      "byte_size": 3543,
+      "sha256": "5551a036c4a915d6db05075d47e83e96f3f6d77a3fc3ee783f8f5aeefda9e645",
+      "git_blob": "c7d44e071dba5fca54f069ffce1ab5b11feb2a66"
+    },
+    {
+      "object": "ACTIVE_ORGANIZATION_POINTER",
+      "candidate_path": "control/organization/cutover/v1.4/phase-a/candidates/AAA_ACTIVE_ORGANIZATION_POINTER_v1.0.json",
+      "target_path": "control/authority/organization/active/AAA_ACTIVE_ORGANIZATION_POINTER_v1.0.json",
+      "byte_size": 3719,
+      "sha256": "e34348d0a49fbba80eded518e80037846242edcc8648117ba0c0e0bb9445e62c",
+      "git_blob": "16bf7e0256b5eb33e14fbcc775cb2d5c9fb48f50"
+    }
+  ],
+  "mandatory_gates": {
+    "fresh_affected_l1": {
+      "governed_persona_id": "AAA-CONTROL-VALIDATOR",
+      "official_code": "CTLV",
+      "target": "EXACT_D3_FROZEN_TARGET",
+      "required_verdict": "PASS",
+      "pass_transfer": false
+    },
+    "fresh_independent_l2": {
+      "governed_persona_id": "AAA-VALIDATION-AUDITOR",
+      "official_code": "IVA",
+      "target": "SAME_EXACT_D3_FROZEN_TARGET",
+      "required_verdict": "PASS",
+      "final_disposition_only_after_l1_pass": true,
+      "pass_transfer": false
+    },
+    "owner_yes": {
+      "authority_principal": "HUMAN PROJECT OWNER",
+      "required": true,
+      "timing": "AFTER_D3_L1_AND_D3_L2_PASS",
+      "exact_decision_key": "APPROVE_CORE_B_SUCCESSOR_CUTOVER",
+      "required_value": "YES",
+      "target_binding": "EXACT_D3_TARGET_COMMIT_TREE_PLAN_AND_ROLLBACK_BLOBS_FOUR_CANDIDATE_BLOBS_AND_D3_L1_L2_RECEIPTS",
+      "absence_no_or_ambiguity": "FAIL_CLOSED_NO_WRITE",
+      "inference_prohibited": true
+    }
+  },
+  "atomic_capability_and_prewrite_contract": {
+    "execution_order": [
+      "READ_D3_FREEZE_RECEIPT_AND_BIND_EXACT_D3_COMMIT_TREE_PARENT_PLAN_AND_ROLLBACK_IDENTITIES",
+      "VERIFY_D3_TARGET_PARENT_EQUALS_EXACT_D2_COMMIT_AND_D3_DIFF_IS_EXACTLY_TWO_ADDS_NO_MODIFY_NO_REMOVE",
+      "VERIFY_ALL_D0_D1_D2_TARGET_ARTIFACT_BYTES_REMAIN_EXACT_UNCHANGED",
+      "VERIFY_FRESH_D3_CTLV_L1_PASS_BINDS_EXACT_D3_TARGET",
+      "VERIFY_FRESH_D3_IVA_L2_PASS_BINDS_SAME_EXACT_D3_TARGET_AND_READS_EXACT_L1_RECEIPT",
+      "VERIFY_EXPLICIT_OWNER_APPROVE_CORE_B_SUCCESSOR_CUTOVER_YES_BINDS_EXACT_D3_TARGET_AND_VALIDATION_RECEIPTS",
+      "VERIFY_ATOMIC_CREATE_IF_ABSENT_FOR_SUCCESSOR_REF_IS_AVAILABLE",
+      "VERIFY_TRUE_ATOMIC_EXPECTED_OLD_SHA_TO_NEW_SHA_CAS_FOR_PRIMARY_REF_IS_AVAILABLE",
+      "REJECT_READ_THEN_UPDATE_AND_FORCE_FALSE_ONLY_APIS_AS_INSUFFICIENT",
+      "READ_PRIMARY_REF_AND_REQUIRE_EXACT_5b2dd5c5",
+      "READ_PRESERVED_v1.3_REF_AND_REQUIRE_EXACT_d7c490c3",
+      "READ_SUCCESSOR_v1.4_REF_AND_REQUIRE_ABSENT",
+      "READ_PRIMARY_EXPECTED_OLD_TREE_AND_REQUIRE_ALL_FOUR_OLD_ACTIVE_BLOBS",
+      "READ_D3_TARGET_TREE_AND_REQUIRE_ALL_FOUR_CANDIDATE_BLOBS_AT_CANDIDATE_PATHS",
+      "COMPUTE_PROPOSED_ACTIVATION_TREE_AND_REQUIRE_EXACTLY_FOUR_ACTIVE_PATH_REPLACEMENTS",
+      "ONLY_AFTER_ALL_CHECKS_PASS_MAY_ANY_GIT_OBJECT_OR_REF_WRITE_BEGIN"
+    ],
+    "successor_create_primitive_requirement": "ATOMIC_CREATE_IF_ABSENT_MUST_FAIL_WITH_ZERO_SUCCESSOR_UPDATE_IF_REF_EXISTS",
+    "primary_cas_primitive_requirement": "REF_UPDATE_MUST_ATOMICALLY_ACCEPT_EXPECTED_OLD_SHA_AND_NEW_SHA_AND_RETURN_A_SERVER_CONFIRMED_RESULT",
+    "insufficient_apis": [
+      "NONATOMIC_READ_THEN_UPDATE",
+      "FORCE_FALSE_ONLY_WITHOUT_EXPECTED_OLD",
+      "DELETE_AND_RECREATE",
+      "FORCE_UPDATE"
+    ],
+    "unsupported_required_primitive": "ABORT_BEFORE_ANY_REF_WRITE_AND_PREFER_ZERO_OBJECT_WRITES",
+    "prewrite_mismatch_or_unsupported_primitive_rule": "ABORT_WITH_ZERO_OBJECT_WRITES_ZERO_REF_WRITES_ZERO_ACTIVE_PATH_WRITES",
+    "ref_reread_is_authoritative_at_execution": true
+  },
+  "activation_tree_commit": {
+    "create_exactly_one_commit": true,
+    "sole_parent": "EXACT_D3_FROZEN_TARGET_COMMIT",
+    "base_tree": "EXACT_D3_FROZEN_TARGET_TREE",
+    "tree_operation": "REPLACE_EXACTLY_FOUR_CONTROL_AUTHORITY_ORGANIZATION_ACTIVE_PATH_ENTRIES_WITH_FROZEN_CANDIDATE_GIT_BLOBS",
+    "added_paths": [],
+    "removed_paths": [],
+    "other_modified_paths": [],
+    "exact_replacements": [
+      {
+        "path": "control/authority/organization/active/AAA_ORGANIZATION_CURRENT_ACTIVE_STATE_v1.0.json",
+        "old_git_blob": "cad42e60efea2eb67bb663b5ff889277c028e66c",
+        "new_git_blob": "e17749646a379e36e0613c6864d67a4a1b1a07ec"
+      },
+      {
+        "path": "control/authority/organization/active/AAA_ORGANIZATION_ACTIVE_ROUTING_STATE_v1.0.json",
+        "old_git_blob": "ca48540479b3c25ef4c8573a457d12a53e576246",
+        "new_git_blob": "7b1cf5cf3f82067c1f72ae5a8a51bdf5a1b60b34"
+      },
+      {
+        "path": "control/authority/organization/active/AAA_ORGANIZATION_PAIR_ACTIVATION_STATE_v1.0.json",
+        "old_git_blob": "3579860fd20e497161e13a9ccc8fa0c7fac0db61",
+        "new_git_blob": "c7d44e071dba5fca54f069ffce1ab5b11feb2a66"
+      },
+      {
+        "path": "control/authority/organization/active/AAA_ACTIVE_ORGANIZATION_POINTER_v1.0.json",
+        "old_git_blob": "30cbecc2a961d5fd92b28e00be419f5a590110c1",
+        "new_git_blob": "16bf7e0256b5eb33e14fbcc775cb2d5c9fb48f50"
+      }
+    ],
+    "candidate_paths_preserved": true,
+    "commit_message": "CTL: atomically activate Organization v1.4 Core-B authority coherence D3 successor",
+    "commit_identity": "COMPUTED_ONCE_THEN_REUSED_BY_SUCCESSOR_REF_CREATE_AND_PRIMARY_REF_CAS",
+    "content_mutation_after_d3_validation": "PROHIBITED"
+  },
+  "ref_write_sequence_without_multi_ref_atomicity_claim": {
+    "ordered_steps": [
+      {
+        "n": 1,
+        "op": "CREATE_ACTIVATION_TREE_AND_SINGLE_COMMIT",
+        "precondition": "ALL_PREWRITE_CHECKS_PASS_INCLUDING_BOTH_REQUIRED_ATOMIC_REF_PRIMITIVES",
+        "visible_ref_effect": "NONE"
+      },
+      {
+        "n": 2,
+        "op": "ATOMIC_CREATE_REF_IF_ABSENT",
+        "ref": "refs/heads/aaa-organization-active-v1.4",
+        "expected_old": "ABSENT",
+        "new_sha": "EXACT_ACTIVATION_COMMIT",
+        "force": false,
+        "effective_activation": false,
+        "on_failure": "ABORT_NO_PRIMARY_CAS_SURFACE_BLOCKER_NO_RETRY"
+      },
+      {
+        "n": 3,
+        "op": "ATOMIC_COMPARE_AND_SWAP_REF",
+        "ref": "refs/heads/aaa-persistent-locator-active-v0.3",
+        "expected_old": "5b2dd5c5ea5bf96eb22163a0598d6879fffada9e",
+        "new_sha": "EXACT_ACTIVATION_COMMIT",
+        "force": false,
+        "effective_activation": true,
+        "on_server_confirmed_success": "ENTER_FULL_POSTWRITE_PINNED_READBACK_AND_RECEIPT_GATE",
+        "on_server_confirmed_expected_old_mismatch": "ENTER_CONFIRMED_MISMATCH_STATE_NO_PRIMARY_RETRY_NO_DELETE_NO_REWIND",
+        "on_transport_or_tool_nonreturn": "ENTER_AMBIGUOUS_OUTCOME_STATE_NO_PRIMARY_RETRY_NO_DELETE_NO_REWIND"
+      },
+      {
+        "n": 4,
+        "op": "MANDATORY_PINNED_READBACK",
+        "refs": [
+          "refs/heads/aaa-persistent-locator-active-v0.3",
+          "refs/heads/aaa-organization-active-v1.4",
+          "refs/heads/aaa-organization-active-v1.3"
+        ],
+        "objects": [
+          "PINNED_PRIMARY_COMMIT",
+          "PINNED_PRIMARY_TREE",
+          "FOUR_ACTIVE_PATH_BLOBS_FROM_PINNED_PRIMARY_TREE",
+          "PINNED_SUCCESSOR_COMMIT_AND_TREE",
+          "PINNED_PREDECESSOR_COMMIT_AND_TREE"
+        ]
+      }
+    ],
+    "no_primary_retry_rule": "ANY_SERVER_CONFIRMED_FAILURE_OR_AMBIGUOUS_NONRETURN_AFTER_PRIMARY_CAS_SUBMISSION_TERMINATES_FURTHER_PRIMARY_WRITE_ATTEMPTS_IN_THIS_CUTOVER_ACT",
+    "no_cleanup_write_rule": "DO_NOT_DELETE_REWIND_FORCE_UPDATE_OR_REWRITE_ANY_REF",
+    "safety_reason": "A_STAGED_SUCCESSOR_REF_ALONE_CONFERS_NO_EFFECTIVE_AUTHORITY_AND_WRITE_OUTCOME_ATTRIBUTION_MUST_NOT_BE_INFERRED_FROM_A_MISSING_CLIENT_RESPONSE"
+  },
+  "primary_cas_outcome_taxonomy": {
+    "server_confirmed_success": {
+      "server_result_required": "ATOMIC_EXPECTED_OLD_CAS_ACCEPTED_AND_PRIMARY_UPDATED_TO_EXACT_ACTIVATION_COMMIT",
+      "this_cutover_act_updated_primary": true,
+      "effective_release_before_pinned_readback": "UNKNOWN_UNTIL_PINNED_READBACK",
+      "next": "FULL_POSTWRITE_ASSERTIONS_AND_IMMUTABLE_ACTIVATION_RECEIPT",
+      "active_declaration_allowed_immediately": false
+    },
+    "server_confirmed_expected_old_mismatch": {
+      "server_result_required": "ATOMIC_CAS_REJECTED_BECAUSE_PRIMARY_NO_LONGER_EQUALLED_EXPECTED_OLD_AND_SERVER_CONFIRMED_ZERO_PRIMARY_UPDATE",
+      "this_cutover_act_updated_primary": false,
+      "exact_allowed_attribution_statement": "THIS_CUTOVER_ACT_DID_NOT_UPDATE_PRIMARY",
+      "global_effective_authority_before_pinned_readback": "UNKNOWN_UNTIL_PINNED_READBACK",
+      "global_v1_3_unchanged_claim_allowed_before_pinned_readback": false,
+      "staged_successor_ref": "RETAIN_AT_EXACT_ACTIVATION_COMMIT_AS_AN_INERT_STANDALONE_REF",
+      "primary_retry_in_same_act": false,
+      "terminate_after_readback_and_blocker_receipt": true
+    },
+    "ambiguous_transport_or_tool_nonreturn_after_submission": {
+      "trigger": "CAS_REQUEST_MAY_HAVE_REACHED_SERVER_BUT_NO_UNAMBIGUOUS_SERVER_RESULT_WAS_RETURNED",
+      "this_cutover_act_updated_primary": "UNKNOWN_NO_ATTRIBUTION_CLAIM_ALLOWED",
+      "global_effective_authority_before_pinned_readback": "UNKNOWN_UNTIL_PINNED_READBACK",
+      "global_v1_3_unchanged_claim_allowed": false,
+      "this_cutover_act_did_not_update_primary_claim_allowed": false,
+      "staged_successor_ref": "RETAIN_UNCHANGED_NO_DELETE_NO_REWIND_NO_FORCE_UPDATE",
+      "primary_retry_in_same_act": false,
+      "failure_mode": "FAIL_CLOSED_PENDING_PINNED_READBACK_THEN_TERMINATE_OR_COMPLETE_ONLY_THE_ALREADY_SUCCESSFUL_POSTWRITE_RECEIPT_PATH_AS_EXACTLY_RESOLVED",
+      "unresolved_readback": "SURFACE_P0_AMBIGUOUS_CAS_OUTCOME_BLOCKER"
+    }
+  },
+  "mandatory_pinned_readback_and_release_resolution": {
+    "hard_rule": "NO_EFFECTIVE_RELEASE_STATEMENT_MAY_BE_MADE_AFTER_PRIMARY_CAS_SUBMISSION_UNTIL_PRIMARY_SUCCESSOR_AND_PREDECESSOR_REFS_PLUS_THE_PINNED_PRIMARY_COMMIT_TREE_AND_FOUR_ACTIVE_BLOBS_HAVE_BEEN_READ_BACK",
+    "readback_order": [
+      "PIN_PRIMARY_REF_TO_ONE_EXACT_SHA",
+      "PIN_SUCCESSOR_REF_TO_ONE_EXACT_SHA_OR_EXACT_ABSENT_STATE",
+      "PIN_PREDECESSOR_REF_TO_ONE_EXACT_SHA",
+      "FETCH_PRIMARY_COMMIT_AT_PINNED_PRIMARY_SHA",
+      "FETCH_PRIMARY_TREE_FROM_THAT_COMMIT",
+      "READ_THE_FOUR_ACTIVE_PATH_BLOBS_FROM_THAT_PINNED_TREE",
+      "FETCH_SUCCESSOR_COMMIT_AND_TREE_IF_PRESENT",
+      "FETCH_PREDECESSOR_COMMIT_AND_TREE",
+      "PERSIST_ALL_EXACT_RESULTS_OR_EXACT_READ_FAILURES"
+    ],
+    "v1_3_effective_release_assertion": {
+      "allowed_only_if_all": [
+        "PINNED_PRIMARY_REF_EQUALS_5b2dd5c5ea5bf96eb22163a0598d6879fffada9e",
+        "PINNED_PRIMARY_TREE_FOUR_ACTIVE_PATH_BLOBS_EQUAL_cad42e60_ca485404_3579860f_30cbecc2_IN_THE_BOUND_PATH_ORDER"
+      ],
+      "allowed_statement": "AAA-ORGANIZATION-RELEASE-v1.3_IS_EFFECTIVE_AT_THE_PINNED_READBACK_STATE",
+      "does_not_prove_write_attribution_after_ambiguous_nonreturn": true
+    },
+    "server_confirmed_mismatch_resolution": {
+      "if_exact_v1_3_condition_passes": "STATE_v1.3_EFFECTIVE_AT_PINNED_READBACK_AND_THIS_ACT_DID_NOT_UPDATE_PRIMARY",
+      "otherwise": "RECORD_EXACT_CONCURRENT_PRIMARY_HEAD_COMMIT_TREE_AND_FOUR_ACTIVE_BLOB_RESULTS_INFER_NO_RELEASE_SURFACE_P0_CONCURRENT_PRIMARY_CHANGE_BLOCKER_KEEP_STAGED_v1.4_REF_INERT_TERMINATE",
+      "new_work_required_on_other_state": [
+        "AFFECTED_DELTA_REVIEW",
+        "NEW_FORWARD_ONLY_FROZEN_TARGET",
+        "FRESH_P0_L1_AND_L2",
+        "NEW_EXPLICIT_HUMAN_OWNER_DECISION"
+      ]
+    },
+    "ambiguous_nonreturn_resolution": {
+      "if_exact_v1_3_condition_passes": "STATE_v1.3_EFFECTIVE_AT_PINNED_READBACK_BUT_KEEP_THIS_ACT_WRITE_ATTRIBUTION_UNKNOWN_AND_TERMINATE_WITH_IMMUTABLE_AMBIGUOUS_OUTCOME_RECEIPT",
+      "if_exact_activation_success_state_passes": "THE_EXACT_VALIDATED_ACTIVATION_STATE_IS_OBSERVED_EFFECTIVE_WHILE_THIS_CUTOVER_ACTS_WRITE_ATTRIBUTION_REMAINS_UNKNOWN; DO_NOT_RETRY; COMPLETE_ONLY_FULL_POSTWRITE_ASSERTIONS_AND_AN_IMMUTABLE_AMBIGUOUS_OUTCOME_PINNED_ACTIVATION_STATE_RECEIPT_BEFORE_ANY_ACTIVE_DECLARATION",
+      "otherwise": "RECORD_EXACT_PRIMARY_HEAD_COMMIT_TREE_AND_FOUR_ACTIVE_BLOB_RESULTS_INFER_NO_RELEASE_SURFACE_P0_AMBIGUOUS_OR_CONCURRENT_CHANGE_BLOCKER_TERMINATE",
+      "new_work_required_on_unresolved_or_other_state": [
+        "AFFECTED_DELTA_REVIEW",
+        "NEW_FORWARD_ONLY_FROZEN_TARGET",
+        "FRESH_P0_L1_AND_L2",
+        "NEW_EXPLICIT_HUMAN_OWNER_DECISION"
+      ]
+    },
+    "exact_activation_success_state": {
+      "required_all": [
+        "PINNED_PRIMARY_REF_EQUALS_EXACT_ACTIVATION_COMMIT",
+        "PINNED_SUCCESSOR_REF_EQUALS_SAME_EXACT_ACTIVATION_COMMIT",
+        "PINNED_PREDECESSOR_REF_EQUALS_d7c490c373f2df356f31e4459c345328616b4eb3",
+        "ACTIVATION_COMMIT_SOLE_PARENT_EQUALS_EXACT_D3_TARGET_COMMIT",
+        "ACTIVATION_TREE_EQUALS_PRECOMPUTED_ACTIVATION_TREE",
+        "FOUR_ACTIVE_PATH_BLOBS_EQUAL_e1774964_7b1cf5cf_c7d44e07_16bf7e02_IN_THE_BOUND_PATH_ORDER",
+        "NO_OTHER_TREE_ENTRY_CHANGED_FROM_EXACT_D3_TARGET_TREE"
+      ],
+      "this_cutover_act_write_attribution_after_full_match": "UNKNOWN_NOT_INFERRED_FROM_STATE_READBACK",
+      "partial_match": "NOT_RESOLVED_FAIL_CLOSED_NO_RELEASE_INFERENCE"
+    },
+    "mandatory_blocker_receipt_fields": [
+      "cas_submission_id_or_exact_available_request_identity",
+      "server_result_class",
+      "client_transport_or_tool_result",
+      "this_cutover_act_primary_update_attribution",
+      "pinned_primary_ref_sha_or_exact_read_failure",
+      "pinned_primary_commit_or_exact_read_failure",
+      "pinned_primary_tree_or_exact_read_failure",
+      "four_active_paths_and_exact_blob_ids_or_exact_read_failures",
+      "pinned_successor_ref_sha_or_exact_state",
+      "pinned_predecessor_ref_sha_or_exact_state",
+      "effective_release_statement_or_NO_RELEASE_INFERENCE",
+      "staged_successor_disposition",
+      "no_retry_no_delete_no_rewind_no_force_confirmation",
+      "time_kst"
+    ]
+  },
+  "postwrite_readback_and_activation_receipt": {
+    "required_assertions": [
+      "PRIMARY_REF_EQUALS_EXACT_ACTIVATION_COMMIT",
+      "SUCCESSOR_v1.4_REF_EQUALS_SAME_EXACT_ACTIVATION_COMMIT",
+      "PREDECESSOR_v1.3_REF_STILL_EQUALS_d7c490c373f2df356f31e4459c345328616b4eb3",
+      "ACTIVATION_COMMIT_HAS_ONE_PARENT_EQUAL_EXACT_D3_TARGET_COMMIT",
+      "ACTIVATION_COMMIT_TREE_EQUALS_PRECOMPUTED_ACTIVATION_TREE",
+      "ALL_FOUR_ACTIVE_PATH_BLOBS_EQUAL_FROZEN_CANDIDATE_BLOBS",
+      "ALL_FOUR_CANDIDATE_PATH_BLOBS_REMAIN_FROZEN",
+      "NO_OTHER_TREE_ENTRY_CHANGED_FROM_D3_TARGET_TREE"
+    ],
+    "receipt_required": true,
+    "receipt_kind_by_primary_cas_result": {
+      "server_confirmed_success": "IMMUTABLE_ORGANIZATION_v1.4_D3_CAS_ACTIVATION_RECEIPT",
+      "ambiguous_nonreturn_exact_activation_state": "IMMUTABLE_ORGANIZATION_v1.4_D3_AMBIGUOUS_OUTCOME_PINNED_ACTIVATION_STATE_RECEIPT_WITH_WRITE_ATTRIBUTION_UNKNOWN"
+    },
+    "receipt_fields": [
+      "d3_target_commit",
+      "d3_target_tree",
+      "d3_plan_blob",
+      "d3_rollback_manifest_blob",
+      "d3_l1_receipt_identity",
+      "d3_l2_receipt_identity",
+      "owner_yes_receipt_identity",
+      "primary_ref_before",
+      "primary_ref_after",
+      "successor_ref_before",
+      "successor_ref_after",
+      "predecessor_ref_after",
+      "activation_commit",
+      "activation_tree",
+      "activation_parent",
+      "four_old_blobs",
+      "four_candidate_blobs",
+      "four_postwrite_active_blobs",
+      "force_false",
+      "expected_old_cas_server_result",
+      "transport_or_tool_result_class",
+      "postwrite_readback_result",
+      "time_kst"
+    ],
+    "declare_active_only_after": "ALL_POSTWRITE_ASSERTIONS_PASS_AND_ACTIVATION_RECEIPT_IS_PERSISTED_AND_READ_BACK",
+    "fresh_bootstrap_regression_after_activation_receipt": true,
+    "owner_routing_hold_release_only_after_bootstrap_regression_pass": true
+  },
+  "rollback_and_failure_recovery": {
+    "normative_manifest": "AAA-ORGANIZATION-v1.4-ROLLBACK-MANIFEST-v1.2",
+    "before_any_write": "NO_ACTION_PRIMARY_v1.3_STATE_REMAINS_EFFECTIVE_ONLY_BECAUSE_EXACT_PREFLIGHT_OLD_REF_AND_FOUR_OLD_BLOBS_WERE_READ",
+    "activation_commit_created_but_no_ref_created": "LEAVE_UNREFERENCED_OBJECT_NO_AUTHORITY_EFFECT",
+    "successor_ref_created_but_server_confirmed_primary_mismatch": "THIS_ACT_DID_NOT_UPDATE_PRIMARY_RETAIN_STAGED_SUCCESSOR_INERT_PINNED_READBACK_NO_RELEASE_INFERENCE_UNTIL_RESOLVED_NO_RETRY_NO_DELETE_NO_REWIND",
+    "successor_ref_created_but_primary_result_ambiguous": "THIS_ACT_UPDATE_ATTRIBUTION_AND_GLOBAL_EFFECTIVE_STATE_UNKNOWN_UNTIL_PINNED_READBACK_FAIL_CLOSED_NO_RETRY_NO_DELETE_NO_REWIND",
+    "primary_cas_succeeded_but_postwrite_failed": "FAIL_CLOSED_KEEP_OWNER_ROUTING_HOLD_SURFACE_P0_AND_AUTHOR_SEPARATELY_AUTHORIZED_FORWARD_ONLY_RECOVERY_SUCCESSOR",
+    "direct_ref_rewind": false,
+    "ref_delete": false,
+    "force_push": false,
+    "history_rewrite": false,
+    "same_act_primary_retry": false
+  },
+  "current_execution_effect": {
+    "d3_frozen": false,
+    "validation_performed": false,
+    "owner_yes_issued": false,
+    "git_objects_written": 0,
+    "refs_created": 0,
+    "refs_updated": 0,
+    "github_writes": 0,
+    "active_paths_mutated": 0
+  },
+  "explicit_exclusions": [
+    "NO_CHANGE_TO_ANY_D0_D1_OR_D2_TARGET_FILE",
+    "NO_OVERWRITE_OF_v1.0_v1.1_OR_v1.2_TRANSITION_PLAN",
+    "NO_OVERWRITE_OF_v1.0_OR_v1.1_ROLLBACK_MANIFEST",
+    "NO_SHARED_CONTRACT_CHANGE",
+    "NO_MODEL_OR_PIT_CHANGE",
+    "NO_ORGANIZATION_PAIR_OR_ROUTE_CHANGE",
+    "NO_OTHER_AUTHORITY_CHANGE",
+    "NO_ACTIVE_REF_MOVE",
+    "NO_REF_DELETE_REWIND_OR_FORCE_UPDATE",
+    "NO_PRIMARY_CAS_RETRY_AFTER_FAILURE_OR_AMBIGUOUS_NONRETURN",
+    "NO_OWNER_DECISION_INFERENCE",
+    "NO_VALIDATION_CLAIM",
+    "NO_MULTI_REF_ATOMICITY_CLAIM",
+    "NO_EFFECTIVE_RELEASE_INFERENCE_BEFORE_PINNED_READBACK"
+  ],
+  "claim_ceiling": "D3_PRIMARY_CAS_FAILURE_AND_AMBIGUOUS_OUTCOME_STATE_CORRECTION_ONLY_NOT_PERSISTED_NOT_FROZEN_NOT_VALIDATED_NOT_ACTIVATED"
+}
