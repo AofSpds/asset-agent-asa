@@ -4,8 +4,8 @@
   "version": "v1.0",
   "project": "AAA",
   "product": "ASSET AGENT ASA",
-  "state": "D1_CORRECTED_SHADOW_POINTER_PENDING_AFFECTED_AND_VALIDATOR_RECHECK_NOT_ACTIVE",
-  "mode": "SHADOW",
+  "state": "A5_ISOLATED_ENFORCED_ROLLBACK_DEMO_ONLY_NOT_ACTIVE_PRODUCT",
+  "mode": "ENFORCED",
   "semantic_sot": false,
   "target": {
     "artifact_id": "AAA-COMMON-PERSONA-EXECUTION-VALIDATION-GUARD-v1.1",
@@ -38,7 +38,7 @@
     "shared_contract_effect": false,
     "model_pit_gt_effect": false,
     "freeze_release_or_production_effect": false,
-    "enforced_routing_effect": false
+    "enforced_routing_effect": true
   },
   "superior_rule": {
     "pointer_path": "control/organization/current-state/v1.0/AAA_GLOBAL_PACKET_DISPLAY_RULE_CURRENT.json",
@@ -51,16 +51,25 @@
     "single_pointer_route_required": true,
     "normative_guard_rule_copy_allowed": false
   },
+  "a4_validation_bindings": {
+    "completion_checkpoint_commit": "db678b5bd80ff4412c289ae0cd41a3c62cce5e33",
+    "completion_checkpoint_blob": "e04dd40961d0bd4668d2c8a4fb7170ab3970a559",
+    "ctlv_receipt_blob": "86020c5fc460c052607b11d2a7dea721ee22612c",
+    "pmov_receipt_blob": "aeaad19ca1870cd6e4df87b29aa2099e2babdb3a",
+    "iva_receipt_blob": "d16b1ab41262b1b28d60634b0709e83d7c85151d",
+    "aggregate_verdict": "PASS"
+  },
   "activation_gate": {
-    "state": "CLOSED",
-    "enforced_activation_allowed": false,
+    "state": "OPEN_FOR_ISOLATED_ROLLBACK_DEMONSTRATION_ONLY",
+    "scope": "ISOLATED_COMMON_GUARD_BRANCH_NOT_MAIN_NOT_ACTIVE_BOOTSTRAP",
+    "enforced_activation_allowed": true,
+    "active_product_effect": false,
     "completed": [
       "A2_EXACT_POINTER_INJECTION_AND_ALL_PERSONA_STATIC_COVERAGE",
-      "A3_T0_THROUGH_T10_PASS_11_OF_11"
+      "A3_T0_THROUGH_T10_PASS_11_OF_11",
+      "A4_EXACT_D1_ROLE_SCOPED_VALIDATION_PASS"
     ],
     "remaining": [
-      "A4_D1_AFFECTED_TEST_RECHECK_PASS",
-      "A4_D1_TARGETED_FROZEN_CANDIDATE_VALIDATOR_RECHECK_PASS",
       "A5_ROLLBACK_DEMONSTRATION_PASS",
       "A5_PRE_MERGE_COMPARE_AND_SWAP_PASS",
       "A5_POST_MERGE_AND_POST_POINTER_READBACK_PASS"
@@ -68,9 +77,12 @@
   },
   "operational_rollback": {
     "transition": "ENFORCED_TO_THIS_EXACT_SHADOW_POINTER",
-    "shadow_pointer_blob": "PIN_BY_LATEST_PRE_ACTIVATION_D1_FREEZE_CHECKPOINT",
-    "method": "FORWARD_ONLY_NON_FORCE_COMPARE_AND_SWAP_POINTER_SUCCESSOR"
+    "shadow_pointer_blob": "0daab5c5ac7f9b8efb2f4c015331c40581cf918b",
+    "shadow_bootstrap_blob": "fa76370df6e97987b99e4c97389295f59f0f54cc",
+    "shadow_coverage_blob": "0f993786dbe21558d279a3874659243de3c6fbe7",
+    "shadow_inventory_blob": "62c47f78b483e74738a29b9694ea6512cfdac40f",
+    "method": "FORWARD_ONLY_NON_FORCE_COMPARE_AND_SWAP_ATOMIC_DERIVED_BINDING_SUCCESSOR"
   },
   "pointer_semantic_role": "NON_SEMANTIC_CURRENT_STATE_RESOLUTION",
-  "claim_ceiling": "D1_AUTHOR_CORRECTED_SHADOW_POINTER_PENDING_AFFECTED_AND_VALIDATOR_RECHECK_NO_ACTIVE_OR_ENFORCED_EFFECT"
+  "claim_ceiling": "A5_ISOLATED_ENFORCED_ROLLBACK_DEMONSTRATION_FIXTURE_ONLY_NO_MAIN_OR_ACTIVE_BOOTSTRAP_EFFECT_NO_PRODUCT_ACTIVATION"
 }

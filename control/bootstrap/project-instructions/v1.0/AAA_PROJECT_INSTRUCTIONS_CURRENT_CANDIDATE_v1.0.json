@@ -4,7 +4,7 @@
   "version": "v1.0",
   "project": "AAA",
   "product": "ASSET AGENT ASA",
-  "state": "WORKING_CANDIDATE_D1_CORRECTED_SHADOW_GUARD_WIRED_PENDING_A4_RECHECK_NOT_ACTIVE_AUTHORITY",
+  "state": "A5_ISOLATED_ENFORCED_ROLLBACK_DEMO_BOOTSTRAP_NOT_ACTIVE_PRODUCT_AUTHORITY",
   "semantic_sot": false,
   "target_commit": "cfc6347eb667f72f1bac0f6c0bbfdbf2a4393c84",
   "canonical_project_instructions": {
@@ -57,13 +57,13 @@
   },
   "common_persona_execution_validation_guard_current": {
     "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_CURRENT.json",
-    "git_blob": "0daab5c5ac7f9b8efb2f4c015331c40581cf918b",
-    "mode": "SHADOW",
+    "git_blob": "46e41f3d9704035cbab22cd2221c5e5ff31df0a0",
+    "mode": "ENFORCED",
     "target_path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_v1.1.json",
     "target_git_blob": "2bff1b6e8431bc36064d3dfd31bc245a4cf4829f",
     "composition_path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_COMPOSITION_v1.0.md",
     "composition_git_blob": "3f2d413c0796100581b8400a76a9b94ff802916d",
-    "purpose": "One project-common pointer route for all current and future governed Personas; current D1 mode is SHADOW and later ENFORCED mode requires every activation gate to close."
+    "purpose": "Isolated A5 ENFORCED rollback-demonstration generation only; this branch is not main or the active bootstrap ref."
   },
   "persona_selector_registry": {
     "path": "control/persona-memory/v1.0/AAA_PERSONA_RUNTIME_SELECTOR_REGISTRY_v1.0.json",
@@ -142,14 +142,21 @@
     "PARALLEL_CODEX_SHARED_MUTABLE_WORKTREE_OR_SHARED_LOG_RACE"
   ],
   "memory_rule": "Persona/common memory, universal/role behavior codes, worklogs, and Codex run journals support continuity and runtime injection context but never create authority, validation PASS, model semantics, Shared Contract semantics, Freeze, Release, or Production authority.",
-  "activation_note": "This candidate does not itself activate product-level Project Instructions or a project-wide authority pointer. Governed review/validation and final product-level replacement remain separate acts.",
+  "activation_note": "This ENFORCED generation is an isolated rollback fixture. It has no product effect unless a separately guarded merge and active-bootstrap ref switch occur, which are prohibited for this demo generation.",
   "d1_shadow_guard_wiring": {
     "base_commit": "3408e1dbb27e92bdc0f2c34016391d98d3af5b54",
     "single_sot": true,
     "persona_local_guard_rule_copy": false,
     "enforced_activation": false,
     "representative_tests": "PASS_A3_T0_THROUGH_T10_11_OF_11",
-    "targeted_validation": "D1_AFFECTED_RECHECK_AND_VALIDATOR_RECHECK_PENDING"
+    "targeted_validation": "PASS_A4_EXACT_D1_ROLE_SCOPED_RECEIPTS_AT_DB678B5B"
+  },
+  "a5_transition": {
+    "generation": "DEMO_ENFORCED",
+    "scope": "ISOLATED_ROLLBACK_DEMONSTRATION_ONLY",
+    "main_effect": false,
+    "active_bootstrap_effect": false,
+    "expected_forward_rollback_pointer_blob": "0daab5c5ac7f9b8efb2f4c015331c40581cf918b"
   },
   "currentization_base_commit": "6083d892ac52fc4654f809fe265b5e59ef6aa9c5",
   "common_guard_resume_branch": "aaa-common-persona-validation-execution-guard-v1.1-r2-20260826",
