@@ -1,0 +1,763 @@
+{
+  "artifact_id": "AAA-CORE-B-AUTHORITY-COHERENCE-D4-P0-CTLV-L1-RECEIPT-v1.0",
+  "artifact_kind": "FRESH_BOUNDED_AFFECTED_SCOPE_P0_PAIRED_CONTROL_L1_RECEIPT",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "wbs_id": "R4-D4",
+  "governed_persona_id": "AAA-CONTROL-VALIDATOR",
+  "official_code": "CTLV",
+  "validation_class": "P0_PAIRED_CONTROL_L1",
+  "validation_time_kst": "2026-08-26 14:36:40 KST",
+  "state": "D4_FRESH_P0_L1_PASS_READY_FOR_INDEPENDENT_P0_L2",
+  "independence_and_scope_boundary": {
+    "scope": "ONE_FRESH_BOUNDED_AFFECTED_SCOPE_P0_L1_ON_EXACT_D4_FROZEN_TARGET_ONLY",
+    "d4_iva_artifact_read": false,
+    "d4_iva_finding_read": false,
+    "d4_iva_contacted": false,
+    "d3_iva_blocked_evidence_read": true,
+    "candidate_mutated": false,
+    "github_write_performed": false,
+    "global_or_repository_wide_validation_performed": false,
+    "activation_performed": false,
+    "pass_transfer": false
+  },
+  "exact_validation_target": {
+    "repository": "AofSpds/asset-agent-asa",
+    "authoring_branch": "aaa-core-b-authority-coherence-successor-d4-final-v1.0-20260826",
+    "branch_head_readback": "a044afe7c90f2b78f7d077ffc8e6dde9fd561992",
+    "branch_head_result": "PASS_EXACT_PINNED",
+    "commit": "a044afe7c90f2b78f7d077ffc8e6dde9fd561992",
+    "tree": "7aa93e6420cd010a8d966318826ca3f5ba2e4f0e",
+    "sole_parent": "30362647fadf487870ca176a70e5f2eda6d1df1c",
+    "parent_count": 1,
+    "d3_parent_tree": "3e0af33779ce565c786b3ef4e484840dd59b1d9b",
+    "commit_api_readback": "PASS_EXACT",
+    "recursive_tree_entry_count": 407,
+    "recursive_tree_truncated": false,
+    "target_mutated_by_ctlv": false,
+    "activation_commit_required_sole_parent": "a044afe7c90f2b78f7d077ffc8e6dde9fd561992",
+    "activation_commit_required_base_tree": "7aa93e6420cd010a8d966318826ca3f5ba2e4f0e"
+  },
+  "pmo_d4_freeze_receipt_binding": {
+    "artifact_id": "AAA-CORE-B-AUTHORITY-COHERENCE-D4-FROZEN-TARGET-RECEIPT-v1.0",
+    "local_path": "work/core_b_remediation/d4/AAA_CORE_B_AUTHORITY_COHERENCE_D4_FROZEN_TARGET_RECEIPT_v1.0.json",
+    "receipt_branch": "aaa-core-b-authority-coherence-d4-validation-receipts-20260826",
+    "repository_path": "control/organization/authority-conflicts/v1.0/remediation/core-b-authority-coherence-successor-v1.0/AAA_CORE_B_AUTHORITY_COHERENCE_D4_FROZEN_TARGET_RECEIPT_v1.0.json",
+    "evidence_commit": "99f05e4760232156e87cf4281814f1002e4cf39c",
+    "evidence_tree": "3fd16029f3c504787474e3f02f9da99713fa6674",
+    "evidence_commit_sole_parent": "a044afe7c90f2b78f7d077ffc8e6dde9fd561992",
+    "git_blob": "b9694bccc38ad1b9eb90f0c0596c1d7b3cfd804a",
+    "sha256": "da52cbc06dca24b8e7dfbe38adcaec10b47ac31cbe314d2c04c4cdd7f6e4ec58",
+    "byte_size": 12124,
+    "json_valid": true,
+    "local_identity_recomputed": "PASS_EXACT",
+    "remote_tree_identity_readback": "PASS_EXACT",
+    "freeze_verdict_read": "PASS_D4_TARGET_FROZEN_ROUTE_TO_FRESH_AFFECTED_P0_L1_AND_INDEPENDENT_P0_L2"
+  },
+  "exact_d3_to_d4_diff": {
+    "base": "30362647fadf487870ca176a70e5f2eda6d1df1c",
+    "head": "a044afe7c90f2b78f7d077ffc8e6dde9fd561992",
+    "merge_base": "30362647fadf487870ca176a70e5f2eda6d1df1c",
+    "status": "ahead",
+    "ahead_by": 1,
+    "behind_by": 0,
+    "total_commits": 1,
+    "added": [
+      "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_CURRENT_POINTER_TRANSITION_PLAN_v1.4.json",
+      "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_ROLLBACK_MANIFEST_v1.3.json"
+    ],
+    "modified": [],
+    "removed": [],
+    "all_sixteen_prior_target_bytes_unchanged": true,
+    "result": "PASS_EXACT_TWO_ADDS_NO_MODIFY_NO_DELETE"
+  },
+  "exact_target_artifact_identities": [
+    {
+      "n": 1,
+      "scope": "PRESERVED_D0_TARGET",
+      "path": "control/organization/releases/v1.4/AAA_ORGANIZATION_CORE_B_AUTHORITY_PAIRING_SUCCESSOR_v1.4.json",
+      "git_blob": "88279ebb6895da6813502c4930b6739fe9a79f2b",
+      "sha256": "3e259c49c4bd0edc29dbe57ecfe9220f7a9f2b4bd7cd17608754f22ae9399c33",
+      "byte_size": 17896,
+      "remote_tree_readback": "PASS_EXACT",
+      "local_identity_recomputed": "PASS_EXACT"
+    },
+    {
+      "n": 2,
+      "scope": "PRESERVED_D0_TARGET",
+      "path": "control/organization/releases/v1.4/AAA_ORGANIZATION_TOPOLOGY_CONTRACT_v1.4.json",
+      "git_blob": "6bc1303960cce53e3936e3cabe2ac3b36db42d78",
+      "sha256": "a80523bb2742aacb1519af6455ca09668f564e6e536588bc7ed786a899ce18e8",
+      "byte_size": 26705,
+      "remote_tree_readback": "PASS_EXACT",
+      "local_identity_recomputed": "PASS_EXACT"
+    },
+    {
+      "n": 3,
+      "scope": "PRESERVED_D0_TARGET",
+      "path": "control/organization/releases/v1.4/AAA_ORGANIZATION_RELEASE_MANIFEST_v1.4.json",
+      "git_blob": "97fa121e5d5c8d2dbb929f30df25aff0e2f731cc",
+      "sha256": "8b01f2b5e938ff64073e0058ba8e2738a406d125f26262c5ccc7b9d70d645924",
+      "byte_size": 12221,
+      "remote_tree_readback": "PASS_EXACT",
+      "local_identity_recomputed": "PASS_EXACT"
+    },
+    {
+      "n": 4,
+      "scope": "PRESERVED_D0_CANDIDATE",
+      "path": "control/organization/cutover/v1.4/phase-a/candidates/AAA_ORGANIZATION_CURRENT_ACTIVE_STATE_v1.0.json",
+      "git_blob": "e17749646a379e36e0613c6864d67a4a1b1a07ec",
+      "sha256": "f45b39e7652900dc8dc5c11480496993a1995d76a559789fff34dd1e4d1176d0",
+      "byte_size": 4567,
+      "remote_tree_readback": "PASS_EXACT",
+      "local_identity_recomputed": "PASS_EXACT"
+    },
+    {
+      "n": 5,
+      "scope": "PRESERVED_D0_CANDIDATE",
+      "path": "control/organization/cutover/v1.4/phase-a/candidates/AAA_ORGANIZATION_ACTIVE_ROUTING_STATE_v1.0.json",
+      "git_blob": "7b1cf5cf3f82067c1f72ae5a8a51bdf5a1b60b34",
+      "sha256": "047a9872316a6a5a1dda80c7a75949c7e04806619207ddeb2552e3176c556561",
+      "byte_size": 2306,
+      "remote_tree_readback": "PASS_EXACT",
+      "local_identity_recomputed": "PASS_EXACT"
+    },
+    {
+      "n": 6,
+      "scope": "PRESERVED_D0_CANDIDATE",
+      "path": "control/organization/cutover/v1.4/phase-a/candidates/AAA_ORGANIZATION_PAIR_ACTIVATION_STATE_v1.0.json",
+      "git_blob": "c7d44e071dba5fca54f069ffce1ab5b11feb2a66",
+      "sha256": "5551a036c4a915d6db05075d47e83e96f3f6d77a3fc3ee783f8f5aeefda9e645",
+      "byte_size": 3543,
+      "remote_tree_readback": "PASS_EXACT",
+      "local_identity_recomputed": "PASS_EXACT"
+    },
+    {
+      "n": 7,
+      "scope": "PRESERVED_D0_CANDIDATE",
+      "path": "control/organization/cutover/v1.4/phase-a/candidates/AAA_ACTIVE_ORGANIZATION_POINTER_v1.0.json",
+      "git_blob": "16bf7e0256b5eb33e14fbcc775cb2d5c9fb48f50",
+      "sha256": "e34348d0a49fbba80eded518e80037846242edcc8648117ba0c0e0bb9445e62c",
+      "byte_size": 3719,
+      "remote_tree_readback": "PASS_EXACT",
+      "local_identity_recomputed": "PASS_EXACT"
+    },
+    {
+      "n": 8,
+      "scope": "IMMUTABLE_D0_BLOCKED_EVIDENCE",
+      "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_CURRENT_POINTER_TRANSITION_PLAN_v1.0.json",
+      "git_blob": "d81aa014414787106befdbaf4b4eadfecb1428b1",
+      "sha256": "eb438038a2b9dd8d0fb96ddc1bcb6e0b5acb1a8dd486b6894cc4e2329fa2283f",
+      "byte_size": 5261,
+      "remote_tree_readback": "PASS_EXACT",
+      "local_identity_recomputed": "PASS_EXACT"
+    },
+    {
+      "n": 9,
+      "scope": "IMMUTABLE_D1_BLOCKED_EVIDENCE",
+      "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_CURRENT_POINTER_TRANSITION_PLAN_v1.1.json",
+      "git_blob": "77b81bb023e54bd22ca47661f41da9d0d39208a7",
+      "sha256": "7c4268aa9f3668033f54a7cc284ac935acc28330a5b6f0aeffa76d88e3389254",
+      "byte_size": 20887,
+      "remote_tree_readback": "PASS_EXACT",
+      "local_identity_recomputed": "PASS_EXACT"
+    },
+    {
+      "n": 10,
+      "scope": "IMMUTABLE_D2_BLOCKED_EVIDENCE",
+      "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_CURRENT_POINTER_TRANSITION_PLAN_v1.2.json",
+      "git_blob": "a5542a2cec61d52816fdb642a50bd7c6734bd802",
+      "sha256": "56545375a4024b43bbf5ba8d4257fa7879c9ec9002820ba9235bb227676d528b",
+      "byte_size": 19230,
+      "remote_tree_readback": "PASS_EXACT",
+      "local_identity_recomputed": "PASS_EXACT"
+    },
+    {
+      "n": 11,
+      "scope": "PRESERVED_D0_TARGET",
+      "path": "control/organization/releases/v1.4/AAA_ORGANIZATION_v1.3_TO_v1.4_DETERMINISTIC_OBJECT_DIFF_v1.0.json",
+      "git_blob": "377c59c3da47c02443693b544d48fbb9be4e29aa",
+      "sha256": "00d93e32c69392236502789498e39a1286806f07d90b7ff0aed4ce4a979f4a05",
+      "byte_size": 7407,
+      "remote_tree_readback": "PASS_EXACT",
+      "local_identity_recomputed": "PASS_EXACT"
+    },
+    {
+      "n": 12,
+      "scope": "IMMUTABLE_D0_D1_BLOCKED_EVIDENCE",
+      "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_ROLLBACK_MANIFEST_v1.0.json",
+      "git_blob": "0dbb63bd742b1e0938c23a6cecea5b1c80ae4e77",
+      "sha256": "2fa3868bec3e41a3987e956ecd9281cf3c8e767c3232065c3a3f6e8090f40743",
+      "byte_size": 4174,
+      "remote_tree_readback": "PASS_EXACT",
+      "local_identity_recomputed": "PASS_EXACT"
+    },
+    {
+      "n": 13,
+      "scope": "IMMUTABLE_D2_BLOCKED_EVIDENCE",
+      "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_ROLLBACK_MANIFEST_v1.1.json",
+      "git_blob": "303c78194e5786baa1c8fb2d40d54f05f67bddfd",
+      "sha256": "57ff7475c7240a674baf6fa5e8370a94f2c44caf22834ec119bdcc9ba5444dd2",
+      "byte_size": 12362,
+      "remote_tree_readback": "PASS_EXACT",
+      "local_identity_recomputed": "PASS_EXACT"
+    },
+    {
+      "n": 14,
+      "scope": "PRESERVED_D0_TARGET",
+      "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_FRESH_BOOTSTRAP_REGRESSION_TEST_PLAN_v1.0.json",
+      "git_blob": "c36b581d285b26d2d9de4eca93f6d82fa1677a43",
+      "sha256": "8488bc679bc5d62b0d50f126ec3946c89199903dcec376a7e0ee149c165f064c",
+      "byte_size": 7039,
+      "remote_tree_readback": "PASS_EXACT",
+      "local_identity_recomputed": "PASS_EXACT"
+    },
+    {
+      "n": 15,
+      "scope": "IMMUTABLE_D3_BLOCKED_EVIDENCE",
+      "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_CURRENT_POINTER_TRANSITION_PLAN_v1.3.json",
+      "git_blob": "378a4b2716123fa67f07aff5369ed55c70273ac0",
+      "sha256": "ae53aad887f34ade655b6b2b9a1370509e7fe04db80ed491b327bec1958dde8b",
+      "byte_size": 27599,
+      "remote_tree_readback": "PASS_EXACT",
+      "local_identity_recomputed": "PASS_EXACT"
+    },
+    {
+      "n": 16,
+      "scope": "IMMUTABLE_D3_BLOCKED_EVIDENCE",
+      "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_ROLLBACK_MANIFEST_v1.2.json",
+      "git_blob": "1a327f8ddbaa398aa062c6cdafc54f61b563b89d",
+      "sha256": "9814b3086e3f0277c4c245f6dec7b85e46f70f2e1bdfc7dab6169229c2a407cb",
+      "byte_size": 18644,
+      "remote_tree_readback": "PASS_EXACT",
+      "local_identity_recomputed": "PASS_EXACT"
+    },
+    {
+      "n": 17,
+      "scope": "D4_AFFECTED_ARTIFACT",
+      "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_CURRENT_POINTER_TRANSITION_PLAN_v1.4.json",
+      "git_blob": "47e15ae14cfae5fba46ae4d464539215f6497e0f",
+      "sha256": "0aed76d0c9f69706af49b3a4a85de7659027f3aa02934d7cf4b83d938875ee00",
+      "byte_size": 24946,
+      "remote_tree_readback": "PASS_EXACT",
+      "local_identity_recomputed": "PASS_EXACT"
+    },
+    {
+      "n": 18,
+      "scope": "D4_AFFECTED_ARTIFACT",
+      "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_ROLLBACK_MANIFEST_v1.3.json",
+      "git_blob": "d0697102c7737832f8d5f96af6a6bce86cba1f22",
+      "sha256": "27c953369cf3921ca9998802ed3756eb286cbba9ddc647b7d1f2bea6b9b6d755",
+      "byte_size": 17265,
+      "remote_tree_readback": "PASS_EXACT",
+      "local_identity_recomputed": "PASS_EXACT"
+    }
+  ],
+  "prior_identity_preservation_summary": {
+    "required_prior_identity_count": 16,
+    "prior_identity_count_observed": 16,
+    "prior_identity_remote_mismatch_count": 0,
+    "prior_identity_local_mismatch_count": 0,
+    "d4_affected_identity_count": 2,
+    "total_bound_identity_count": 18,
+    "result": "PASS_ALL_SIXTEEN_PRIOR_IDENTITIES_PRESERVED_AND_TWO_D4_IDENTITIES_EXACT"
+  },
+  "d3_blocked_finding_evidence": {
+    "artifact_id": "AAA-CORE-B-AUTHORITY-COHERENCE-D3-IVA-INDEPENDENT-FIRST-PASS-v1.0",
+    "local_path": "work/core_b_remediation/d3_validation/iva/AAA_CORE_B_AUTHORITY_COHERENCE_D3_IVA_INDEPENDENT_FIRST_PASS_v1.0.json",
+    "git_blob": "e3acb40f1e6a408bb7ec2ae738eb094c4304a1a8",
+    "sha256": "254a0916a7d73e8cf7d883a63eaca559e71049cdbb53ab8b085b99a34d7747ae",
+    "byte_size": 27139,
+    "json_valid": true,
+    "identity_recomputed": "PASS_EXACT",
+    "provisional_verdict": "BLOCKED_WITH_EXACT_REASON",
+    "finding_ids": [
+      "F-P0-IVA-D3-FP-001",
+      "F-P0-IVA-D3-FP-002"
+    ]
+  },
+  "all_normative_field_audit": {
+    "method": "FLATTEN_EVERY_JSON_SCALAR_PATH_THEN_AUDIT_EVERY_RELEASE_EFFECTIVENESS_AUTHORITY_v1_3_THIS_ACT_REF_UPDATE_GLOBAL_STATE_AND_NO_EFFECT_STATEMENT_PLUS_EXACT_TRUTH_TABLE_ASSERTIONS",
+    "plan": {
+      "scalar_path_count": 306,
+      "string_scalar_count": 262,
+      "normative_relevant_statement_count": 60,
+      "all_relevant_statements_audited": true
+    },
+    "rollback": {
+      "scalar_path_count": 220,
+      "string_scalar_count": 192,
+      "normative_relevant_statement_count": 52,
+      "all_relevant_statements_audited": true
+    },
+    "total_normative_relevant_statement_count": 112,
+    "forbidden_patterns": [
+      "effective_authority_changed",
+      "PRIMARY_v1.3_STATE_REMAINS_EFFECTIVE",
+      "FOUR_BOUND_OLD_BLOBS_ONLY",
+      "current_v1_3_effective_statement_basis"
+    ],
+    "forbidden_match_count": 0,
+    "unqualified_v1_3_effective_statement_count": 0,
+    "unqualified_global_no_authority_effect_statement_count": 0,
+    "scoped_unreferenced_object_no_effect_statement_count": 2,
+    "scoped_statement_exact_text": "THE_UNREFERENCED_COMMIT_OBJECT_CREATED_BY_THIS_ACT_HAS_NO_AUTHORITY_EFFECT_BY_ITSELF",
+    "all_v1_3_operational_statements_route_to_exact_pinned_conjunction": true,
+    "all_global_state_statements_before_complete_readback_are_unknown_or_no_inference": true,
+    "json_parse_result": "PASS_BOTH",
+    "result": "PASS_ALL_NORMATIVE_FIELDS_NOT_SUMMARY_ONLY"
+  },
+  "exact_release_resolution_contract": {
+    "global_state_before_complete_pinned_readback": "UNKNOWN",
+    "required_primary_ref": "5b2dd5c5ea5bf96eb22163a0598d6879fffada9e",
+    "required_predecessor_ref": "d7c490c373f2df356f31e4459c345328616b4eb3",
+    "required_primary_commit_and_tree_readback": "EXACT_UNAMBIGUOUS",
+    "required_four_old_blobs_in_bound_path_order": [
+      "cad42e60efea2eb67bb663b5ff889277c028e66c",
+      "ca48540479b3c25ef4c8573a457d12a53e576246",
+      "3579860fd20e497161e13a9ccc8fa0c7fac0db61",
+      "30cbecc2a961d5fd92b28e00be419f5a590110c1"
+    ],
+    "allowed_statement_only_after_all_match": "AAA-ORGANIZATION-RELEASE-v1.3_IS_EFFECTIVE_AT_THE_EXACT_PINNED_READBACK_STATE",
+    "allowed_statement_scope": "CURRENT_PINNED_STATE_ONLY_NOT_THIS_ACT_ATTRIBUTION_OR_CONTINUITY",
+    "otherwise": "NO_RELEASE_OR_EFFECTIVENESS_INFERENCE_RECORD_EXACT_STATE_OR_FAILURES_SURFACE_P0_BLOCKER",
+    "plan_result": "PASS_EXACT",
+    "rollback_result": "PASS_EXACT"
+  },
+  "six_outcome_truth_table_audit": [
+    {
+      "path_id": "D4-TT-01-PREWRITE-ABORT",
+      "plan_this_act": "ZERO_OBJECTS_CREATED_AND_ZERO_REFS_UPDATED_BY_THIS_ACT",
+      "rollback_this_act": "ZERO_OBJECTS_CREATED_ZERO_REFS_UPDATED_ZERO_ACTIVE_PATHS_WRITTEN_BY_THIS_ACT",
+      "global_state": "UNKNOWN_UNTIL_PINNED_GLOBAL_STATE_RESOLUTION_CONTRACT_COMPLETES",
+      "v1_3_or_release_rule": "EXACT_PRIMARY_5b2_PREDECESSOR_d7c_PRIMARY_COMMIT_TREE_AND_FOUR_OLD_BLOBS_ONLY_OTHERWISE_NO_INFERENCE",
+      "terminal_safety": "PERSIST_EXACT_ABORT_AND_READBACK_RECEIPT_TERMINATE",
+      "result": "PASS"
+    },
+    {
+      "path_id": "D4-TT-02-ACTIVATION-COMMIT-CREATED-ONLY",
+      "plan_this_act": "ONE_ACTIVATION_COMMIT_OBJECT_CREATED_AND_ZERO_REFS_UPDATED_BY_THIS_ACT",
+      "rollback_this_act": "ONE_UNREFERENCED_COMMIT_OBJECT_CREATED_AND_ZERO_REFS_UPDATED_BY_THIS_ACT",
+      "scoped_object_fact": "UNREFERENCED_COMMIT_CREATED_BY_THIS_ACT_HAS_NO_AUTHORITY_EFFECT_BY_ITSELF",
+      "global_state": "UNKNOWN_UNTIL_PINNED_GLOBAL_STATE_RESOLUTION_CONTRACT_COMPLETES",
+      "v1_3_or_release_rule": "EXACT_PRIMARY_5b2_PREDECESSOR_d7c_PRIMARY_COMMIT_TREE_AND_FOUR_OLD_BLOBS_ONLY_OTHERWISE_NO_INFERENCE",
+      "terminal_safety": "LEAVE_UNREFERENCED_OBJECT_NO_RETRY_PERSIST_EXACT_RECEIPT_TERMINATE",
+      "result": "PASS"
+    },
+    {
+      "path_id": "D4-TT-03-SUCCESSOR-CREATE-FAILURE",
+      "server_confirmed_failure_this_act": "SUCCESSOR_NOT_UPDATED_AND_PRIMARY_CAS_NOT_SUBMITTED",
+      "ambiguous_create_nonreturn_this_act": "SUCCESSOR_UPDATE_ATTRIBUTION_UNKNOWN_AND_PRIMARY_CAS_NOT_SUBMITTED",
+      "global_state": "UNKNOWN_UNTIL_PINNED_GLOBAL_STATE_RESOLUTION_CONTRACT_COMPLETES",
+      "v1_3_or_release_rule": "EXACT_PRIMARY_5b2_PREDECESSOR_d7c_PRIMARY_COMMIT_TREE_AND_FOUR_OLD_BLOBS_ONLY_OTHERWISE_NO_INFERENCE",
+      "terminal_safety": "NO_PRIMARY_CAS_NO_DELETE_NO_RETRY_PERSIST_EXACT_RECEIPT_TERMINATE",
+      "result": "PASS"
+    },
+    {
+      "path_id": "D4-TT-04-SERVER-CONFIRMED-PRIMARY-EXPECTED-OLD-MISMATCH",
+      "this_act_successor_update": true,
+      "this_act_primary_update": false,
+      "exact_attribution": "THIS_CUTOVER_ACT_DID_NOT_UPDATE_PRIMARY",
+      "global_state": "UNKNOWN_UNTIL_PINNED_GLOBAL_STATE_RESOLUTION_CONTRACT_COMPLETES",
+      "v1_3_or_release_rule": "v1.3_ONLY_ON_EXACT_PRIMARY_5b2_PREDECESSOR_d7c_PRIMARY_COMMIT_TREE_AND_FOUR_OLD_BLOBS_OTHERWISE_NO_RELEASE_P0_CONCURRENT_CHANGE",
+      "terminal_safety": "KEEP_STAGED_SUCCESSOR_NO_DELETE_NO_RETRY_PERSIST_BLOCKER_TERMINATE",
+      "result": "PASS"
+    },
+    {
+      "path_id": "D4-TT-05-AMBIGUOUS-PRIMARY-CAS-NONRETURN",
+      "this_act_successor_update": true,
+      "this_act_primary_update": "UNKNOWN_NO_ATTRIBUTION_INFERENCE_ALLOWED",
+      "this_act_did_not_update_primary_statement": "PROHIBITED",
+      "global_state": "UNKNOWN_UNTIL_PINNED_GLOBAL_STATE_RESOLUTION_CONTRACT_COMPLETES",
+      "v1_3_or_release_rule": "EXACT_v1.3_CONJUNCTION_DESCRIBES_ONLY_CURRENT_PINNED_STATE_WITH_ATTRIBUTION_UNKNOWN_EXACT_D4_MATCH_USES_AMBIGUOUS_OUTCOME_RECEIPT_OTHERWISE_NO_INFERENCE_P0",
+      "terminal_safety": "NO_DELETE_NO_RETRY_COMPLETE_ONLY_MATCHING_READBACK_AND_RECEIPT_PATH_TERMINATE_WRITES",
+      "result": "PASS"
+    },
+    {
+      "path_id": "D4-TT-06-SERVER-CONFIRMED-CAS-SUCCESS-POSTWRITE-MISMATCH",
+      "this_act_successor_update": true,
+      "this_act_primary_update_at_server_confirmation": true,
+      "global_state_after_mismatch": "UNKNOWN_UNTIL_PINNED_GLOBAL_STATE_RESOLUTION_CONTRACT_COMPLETES",
+      "active_release_declaration": "PROHIBITED",
+      "v1_3_or_release_rule": "RECORD_EXACT_READBACK_OR_FAILURES_SURFACE_P0_POSTWRITE_DIVERGENCE_DO_NOT_COMPLETE_THIS_ACT",
+      "terminal_safety": "OWNER_HOLD_NO_DELETE_NO_REWIND_NO_FORCE_NO_RETRY_NEW_FORWARD_ONLY_RECOVERY_VALIDATION_AND_OWNER_DECISION",
+      "result": "PASS"
+    }
+  ],
+  "truth_table_cross_artifact_summary": {
+    "required_row_count": 6,
+    "plan_row_count": 6,
+    "rollback_row_count": 6,
+    "plan_unique_required_rows": true,
+    "rollback_unique_required_rows": true,
+    "all_rows_separate_this_act_attribution_from_global_state": true,
+    "all_rows_global_state_unknown_before_complete_readback": true,
+    "server_confirmed_mismatch_and_ambiguous_nonreturn_distinct": true,
+    "row_mismatch_count": 0,
+    "result": "PASS_ALL_SIX_ROWS_EVERY_FIELD"
+  },
+  "finding_closure_adjudication": [
+    {
+      "finding_id": "F-P0-IVA-D3-FP-001",
+      "class": "PREWRITE_ABORT_v1_3_RELEASE_BASIS_OMITS_REQUIRED_PREDECESSOR_REF",
+      "d3_status": "CONFIRMED_BLOCKING",
+      "d4_status": "CLOSED_ON_EXACT_D4_TARGET_AT_L1",
+      "closure_evidence": [
+        "PLAN_PINNED_GLOBAL_STATE_RESOLUTION_REQUIRES_PRIMARY_5b2_PREDECESSOR_d7c_PRIMARY_COMMIT_TREE_AND_FOUR_OLD_BLOBS",
+        "ROLLBACK_PINNED_GLOBAL_STATE_RESOLUTION_REQUIRES_THE_SAME_EXACT_CONJUNCTION",
+        "PREWRITE_ABORT_ROW_IN_BOTH_ARTIFACTS_SETS_GLOBAL_STATE_UNKNOWN_AND_OTHERWISE_INFER_NO_RELEASE",
+        "ACTIVATION_COMMIT_ONLY_AND_SUCCESSOR_CREATE_FAILURE_ROWS_USE_THE_SAME_CONJUNCTION",
+        "EVERY_OTHER_v1.3_OPERATIONAL_STATEMENT_ROUTES_TO_THE_CENTRAL_EXACT_CONJUNCTION",
+        "FORBIDDEN_PRIMARY_PLUS_FOUR_ONLY_BASIS_ABSENT"
+      ],
+      "unqualified_v1_3_claim_count": 0,
+      "waiver_used": false,
+      "result": "PASS_CLOSED"
+    },
+    {
+      "finding_id": "F-P0-IVA-D3-FP-002",
+      "class": "ACTIVATION_COMMIT_ONLY_GLOBAL_AUTHORITY_ATTRIBUTION_OVERCLAIM",
+      "d3_status": "CONFIRMED_BLOCKING",
+      "d4_status": "CLOSED_ON_EXACT_D4_TARGET_AT_L1",
+      "closure_evidence": [
+        "ACTIVATION_COMMIT_ONLY_ROW_RECORDS_ONE_OBJECT_AND_ZERO_REF_UPDATES_BY_THIS_ACT",
+        "NO_EFFECT_FACT_IS_SCOPED_TO_THE_UNREFERENCED_OBJECT_CREATED_BY_THIS_ACT_AND_BY_ITSELF",
+        "GLOBAL_AUTHORITY_REMAINS_UNKNOWN_UNTIL_COMPLETE_PINNED_READBACK",
+        "UNQUALIFIED_effective_authority_changed_FIELD_ABSENT",
+        "NO_DELETE_REWIND_FORCE_OR_SAME_ACT_RETRY",
+        "ALL_SIX_ROWS_SEPARATE_THIS_ACT_FACTS_FROM_GLOBAL_STATE"
+      ],
+      "unqualified_global_no_effect_claim_count": 0,
+      "waiver_used": false,
+      "result": "PASS_CLOSED"
+    }
+  ],
+  "cutover_contract_checks": {
+    "primary_authority_ref": "refs/heads/aaa-persistent-locator-active-v0.3",
+    "primary_expected_old_sha": "5b2dd5c5ea5bf96eb22163a0598d6879fffada9e",
+    "successor_ref": "refs/heads/aaa-organization-active-v1.4",
+    "successor_required_prewrite_state": "ABSENT",
+    "successor_operation": "ATOMIC_CREATE_IF_ABSENT",
+    "predecessor_ref": "refs/heads/aaa-organization-active-v1.3",
+    "predecessor_sha": "d7c490c373f2df356f31e4459c345328616b4eb3",
+    "true_expected_old_atomic_cas_required": true,
+    "read_then_update_sufficient": false,
+    "force_false_only_without_expected_old_sufficient": false,
+    "unsupported_or_prewrite_mismatch_disposition": "ABORT_BEFORE_ANY_OBJECT_OR_REF_WRITE_ZERO_OBJECT_ZERO_REF_ZERO_ACTIVE_PATH_WRITES_DO_NOT_EMULATE",
+    "activation_commit_count": 1,
+    "active_path_replacement_count": 4,
+    "multi_ref_atomicity_claimed": false,
+    "successor_delete_allowed": false,
+    "ref_rewind_allowed": false,
+    "force_update_allowed": false,
+    "same_act_primary_retry_allowed": false,
+    "result": "PASS_COHERENT_TRUE_CAS_FORWARD_ONLY_CONTRACT"
+  },
+  "live_readback_validation_context": {
+    "readback_time_kst": "2026-08-26 14:35 KST",
+    "future_execution_authoritative": false,
+    "mandatory_execution_time_reread": true,
+    "primary_ref": {
+      "ref": "refs/heads/aaa-persistent-locator-active-v0.3",
+      "observed_sha": "5b2dd5c5ea5bf96eb22163a0598d6879fffada9e",
+      "result": "PASS_EXPECTED_OLD_CURRENTLY_OBSERVED"
+    },
+    "predecessor_ref": {
+      "ref": "refs/heads/aaa-organization-active-v1.3",
+      "observed_sha": "d7c490c373f2df356f31e4459c345328616b4eb3",
+      "result": "PASS_EXACT_CURRENTLY_OBSERVED"
+    },
+    "successor_ref": {
+      "ref": "refs/heads/aaa-organization-active-v1.4",
+      "api_result": "404_NOT_FOUND",
+      "interpreted_state": "ABSENT",
+      "result": "PASS_REQUIRED_PREWRITE_STATE_CURRENTLY_OBSERVED"
+    },
+    "primary_tree": "d5c022fc978d28931517242020f64bbb0bb8cec2",
+    "four_old_active_blobs": [
+      "cad42e60efea2eb67bb663b5ff889277c028e66c",
+      "ca48540479b3c25ef4c8573a457d12a53e576246",
+      "3579860fd20e497161e13a9ccc8fa0c7fac0db61",
+      "30cbecc2a961d5fd92b28e00be419f5a590110c1"
+    ],
+    "four_old_active_blob_readback": "PASS_EXACT",
+    "note": "CURRENT_READBACK_SUPPORTS_VALIDATION_CONTEXT_ONLY_AND_CANNOT_REPLACE_EXECUTION_TIME_ATOMIC_PREFLIGHT_OR_PINNED_OUTCOME_READBACK"
+  },
+  "authority_and_scope_invariants": {
+    "only_material_authority_change": "CORE_B_SHORT_PAIR_TO_EXACT_LONG_NAME_PAIR",
+    "before_pair": [
+      "AAA-MODEL-ARCHITECT",
+      "AAA-MODEL-VALIDATOR"
+    ],
+    "after_pair": [
+      "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+      "AAA-MODEL-DESIGN-VALIDATOR"
+    ],
+    "after_pair_id": "AAA-PAIR-MOD-MODV-v1.2",
+    "preserved_persona_count": 11,
+    "before_total": 13,
+    "after_total": 13,
+    "unchanged_non_core_pair_count": 5,
+    "unchanged_route_count": 6,
+    "d3_to_d4_authority_pair_change": false,
+    "d3_to_d4_route_change": false,
+    "shared_contract_mutation": false,
+    "project_instructions_mutation": false,
+    "selector_or_memory_pair_mutation": false,
+    "model_semantic_mutation": false,
+    "pit_or_ground_truth_mutation": false,
+    "m3top3_mutation": false,
+    "active_ref_or_active_path_mutation": false,
+    "authority_expansion": false,
+    "result": "PASS_NO_AUTHORITY_EXPANSION"
+  },
+  "owner_validation_and_postwrite_gates": {
+    "fresh_d4_l1_required": true,
+    "fresh_d4_l1_result": "PASS_THIS_RECEIPT",
+    "fresh_independent_d4_l2_required": true,
+    "fresh_independent_d4_l2_result": "NOT_YET_ISSUED",
+    "l2_governed_persona_id": "AAA-VALIDATION-AUDITOR",
+    "l2_official_code": "IVA",
+    "owner_gate_timing": "ONLY_AFTER_EXACT_D4_L1_AND_D4_L2_PASS",
+    "exact_owner_decision_key": "APPROVE_CORE_B_SUCCESSOR_CUTOVER",
+    "required_owner_value": "YES",
+    "owner_decision_inference": "PROHIBITED",
+    "owner_yes_observed": false,
+    "cutover_authorized_by_this_receipt": false,
+    "postwrite_pinned_readback_required": true,
+    "immutable_result_class_appropriate_receipt_required": true,
+    "fresh_bootstrap_regression_required": true,
+    "owner_routing_hold_release_only_after_bootstrap_regression_pass": true,
+    "result": "PASS_GATES_PRESERVED_OWNER_ROUTE_REMAINS_HELD"
+  },
+  "execution_capability_blocker": {
+    "risk_id": "RISK-CAS-PRIMITIVE-AVAILABILITY-001",
+    "observed_available_ref_update_surface": "github_update_ref(branch_name,sha,force)_WITHOUT_EXPECTED_OLD_ARGUMENT",
+    "required_primitive": "TRUE_ATOMIC_REF_COMPARE_AND_SWAP_ACCEPTING_EXPECTED_OLD_SHA_AND_NEW_SHA_WITH_UNAMBIGUOUS_SERVER_RESULT",
+    "available_surface_satisfies_required_primitive": false,
+    "successor_atomic_create_if_absent_capability": "MUST_BE_PROVEN_AT_EXECUTION_BEFORE_ANY_OBJECT_OR_REF_WRITE",
+    "d4_contract_rejects_emulation": true,
+    "classification": "POST_VALIDATION_CUTOVER_EXECUTION_CAPABILITY_BLOCKER_NOT_D4_TARGET_DEFECT",
+    "waiver_or_read_then_update_emulation": "PROHIBITED",
+    "required_disposition": "PROVE_BOTH_REQUIRED_ATOMIC_PRIMITIVES_BEFORE_ANY_OBJECT_OR_REF_WRITE_OR_ABORT_WITH_ZERO_WRITES",
+    "cutover_effect": "CUTOVER_REMAINS_BLOCKED_EVEN_AFTER_VALIDATION_AND_OWNER_YES_UNLESS_REQUIRED_CAPABILITIES_ARE_PROVEN"
+  },
+  "program_isolation": {
+    "m3top3_branch": "aaa-pmo-m3top3-successor-resume-20260826-0034",
+    "m3top3_live_head_readback": "0f3b7b0cc0864d9939c670129991fdabca14a90c",
+    "m3top3_expected_head": "0f3b7b0cc0864d9939c670129991fdabca14a90c",
+    "m3top3_state": "SOURCE_BLOCKED_UNTOUCHED",
+    "m3top3_write_by_ctlv": false,
+    "axis_b_recompute": false,
+    "owner_decision_rebind": false,
+    "common_guard_progress": "10 / 100 EWU PRESERVED",
+    "common_guard_write_by_ctlv": false,
+    "result": "PASS_ISOLATED"
+  },
+  "acceptance_checks": [
+    {
+      "id": "D4-L1-AC-01",
+      "criterion": "EXACT_D4_BRANCH_COMMIT_TREE_AND_SOLE_D3_PARENT_READ_BACK",
+      "result": "PASS"
+    },
+    {
+      "id": "D4-L1-AC-02",
+      "criterion": "PMO_D4_FREEZE_RECEIPT_LOCAL_AND_REMOTE_IDENTITIES_MATCH",
+      "result": "PASS"
+    },
+    {
+      "id": "D4-L1-AC-03",
+      "criterion": "D3_TO_D4_DIFF_IS_EXACTLY_TWO_ADDS_NO_MODIFY_NO_DELETE",
+      "result": "PASS"
+    },
+    {
+      "id": "D4-L1-AC-04",
+      "criterion": "ALL_16_PRIOR_IDENTITIES_PRESERVED_AND_BOTH_D4_IDENTITIES_BOUND",
+      "result": "PASS"
+    },
+    {
+      "id": "D4-L1-AC-05",
+      "criterion": "D3_IVA_SOURCE_RECEIPT_AND_BOTH_EXACT_FINDINGS_READ_WITH_IDENTITY_MATCH",
+      "result": "PASS"
+    },
+    {
+      "id": "D4-L1-AC-06",
+      "criterion": "ALL_112_NORMATIVE_RELEVANT_STATEMENTS_AUDITED_NOT_SUMMARY_ONLY",
+      "result": "PASS"
+    },
+    {
+      "id": "D4-L1-AC-07",
+      "criterion": "F_P0_IVA_D3_FP_001_CLOSED_IN_EVERY_PREWRITE_NO_WRITE_AND_v1_3_FIELD",
+      "result": "PASS"
+    },
+    {
+      "id": "D4-L1-AC-08",
+      "criterion": "F_P0_IVA_D3_FP_002_CLOSED_BY_SCOPED_THIS_ACT_AND_UNREFERENCED_OBJECT_FACTS_WITH_GLOBAL_UNKNOWN",
+      "result": "PASS"
+    },
+    {
+      "id": "D4-L1-AC-09",
+      "criterion": "EXACT_v1_3_ASSERTION_REQUIRES_PRIMARY_5b2_PREDECESSOR_d7c_PRIMARY_COMMIT_TREE_AND_FOUR_OLD_BLOBS",
+      "result": "PASS"
+    },
+    {
+      "id": "D4-L1-AC-10",
+      "criterion": "ALL_OTHER_STATES_INFER_NO_RELEASE_OR_EFFECTIVENESS_AND_SURFACE_P0",
+      "result": "PASS"
+    },
+    {
+      "id": "D4-L1-AC-11",
+      "criterion": "SIX_REQUIRED_TRUTH_TABLE_ROWS_PRESENT_EXACTLY_ONCE_IN_BOTH_ARTIFACTS",
+      "result": "PASS"
+    },
+    {
+      "id": "D4-L1-AC-12",
+      "criterion": "EVERY_TRUTH_TABLE_FIELD_SEPARATES_THIS_ACT_ATTRIBUTION_FROM_GLOBAL_STATE",
+      "result": "PASS"
+    },
+    {
+      "id": "D4-L1-AC-13",
+      "criterion": "PREWRITE_ABORT_ZERO_WRITE_AND_GLOBAL_UNKNOWN_FIELDS_MATCH",
+      "result": "PASS"
+    },
+    {
+      "id": "D4-L1-AC-14",
+      "criterion": "ACTIVATION_COMMIT_ONLY_ZERO_REF_UPDATE_AND_SCOPED_NO_EFFECT_FIELDS_MATCH",
+      "result": "PASS"
+    },
+    {
+      "id": "D4-L1-AC-15",
+      "criterion": "SUCCESSOR_CREATE_SERVER_FAILURE_AND_AMBIGUOUS_NONRETURN_SUBCASES_SEPARATED_WITH_NO_PRIMARY_CAS",
+      "result": "PASS"
+    },
+    {
+      "id": "D4-L1-AC-16",
+      "criterion": "SERVER_CONFIRMED_PRIMARY_MISMATCH_PROVES_ONLY_THIS_ACT_DID_NOT_UPDATE_PRIMARY",
+      "result": "PASS"
+    },
+    {
+      "id": "D4-L1-AC-17",
+      "criterion": "AMBIGUOUS_PRIMARY_NONRETURN_PROHIBITS_DID_OR_DID_NOT_PRIMARY_UPDATE_INFERENCE",
+      "result": "PASS"
+    },
+    {
+      "id": "D4-L1-AC-18",
+      "criterion": "SERVER_CONFIRMED_SUCCESS_POSTWRITE_MISMATCH_PROHIBITS_ACTIVE_DECLARATION_AND_SURFACES_P0",
+      "result": "PASS"
+    },
+    {
+      "id": "D4-L1-AC-19",
+      "criterion": "NO_DELETE_REWIND_FORCE_HISTORY_REWRITE_OR_SAME_ACT_PRIMARY_RETRY",
+      "result": "PASS"
+    },
+    {
+      "id": "D4-L1-AC-20",
+      "criterion": "TRUE_EXPECTED_OLD_ATOMIC_CAS_AND_ATOMIC_SUCCESSOR_CREATE_IF_ABSENT_REQUIRED_WITH_ZERO_WRITE_ABORT",
+      "result": "PASS"
+    },
+    {
+      "id": "D4-L1-AC-21",
+      "criterion": "ONE_ACTIVATION_COMMIT_HAS_EXACT_D4_AS_SOLE_PARENT_AND_REPLACES_EXACTLY_FOUR_ACTIVE_PATHS",
+      "result": "PASS"
+    },
+    {
+      "id": "D4-L1-AC-22",
+      "criterion": "EXACT_FOUR_PREDECESSOR_AND_FOUR_CANDIDATE_BLOBS_BOUND",
+      "result": "PASS"
+    },
+    {
+      "id": "D4-L1-AC-23",
+      "criterion": "EXACT_LONG_NAME_CORE_B_PAIR_AND_PAIR_ID_PRESERVED",
+      "result": "PASS"
+    },
+    {
+      "id": "D4-L1-AC-24",
+      "criterion": "CANONICAL_AAA_VALIDATION_AUDITOR_IVA_ROUTE_PRESERVED",
+      "result": "PASS"
+    },
+    {
+      "id": "D4-L1-AC-25",
+      "criterion": "EXPLICIT_HUMAN_OWNER_YES_ONLY_AFTER_SAME_TARGET_D4_L1_AND_D4_L2_PASS",
+      "result": "PASS"
+    },
+    {
+      "id": "D4-L1-AC-26",
+      "criterion": "POSTWRITE_PINNED_READBACK_RESULT_RECEIPT_BOOTSTRAP_AND_ROUTING_HOLD_GATES_PRESERVED",
+      "result": "PASS"
+    },
+    {
+      "id": "D4-L1-AC-27",
+      "criterion": "NO_AUTHORITY_ROUTE_SHARED_CONTRACT_MODEL_PIT_OR_ACTIVE_STATE_EXPANSION",
+      "result": "PASS"
+    },
+    {
+      "id": "D4-L1-AC-28",
+      "criterion": "M3TOP3_HEAD_AND_SOURCE_BLOCKED_STATE_UNTOUCHED_COMMON_GUARD_10_OF_100_PRESERVED",
+      "result": "PASS"
+    },
+    {
+      "id": "D4-L1-AC-29",
+      "criterion": "MISSING_EXPECTED_OLD_TOOL_SURFACE_CLASSIFIED_AS_EXECUTION_BLOCKER_WITH_D4_EMULATION_REJECTION",
+      "result": "PASS"
+    },
+    {
+      "id": "D4-L1-AC-30",
+      "criterion": "NO_D4_IVA_READ_OR_CONTACT_PASS_TRANSFER_TARGET_MUTATION_GITHUB_WRITE_OWNER_INFERENCE_OR_ACTIVATION_BY_CTLV",
+      "result": "PASS"
+    }
+  ],
+  "findings": [],
+  "p0_finding_count": 0,
+  "p1_finding_count": 0,
+  "nonblocking_for_target_validation_but_blocking_for_execution": [
+    {
+      "note_id": "N-D4-L1-EXEC-CAS-001",
+      "class": "POST_VALIDATION_EXECUTION_CAPABILITY_BLOCKER",
+      "note": "The observed ref-update surface lacks an expected-old argument. D4 explicitly rejects read-then-update and force-false-only emulation and requires abort-before-write, so this is not a D4 target-contract defect. Cutover remains prohibited until true atomic expected-old CAS and atomic successor create-if-absent are proven before any object or ref write."
+    }
+  ],
+  "verdict": "PASS",
+  "verdict_scope": "ONE_FRESH_BOUNDED_AFFECTED_SCOPE_P0_PAIRED_CONTROL_L1_ON_EXACT_D4_ONLY_WITH_ALL_16_PRIOR_AND_2_D4_IDENTITIES_BOUND_AND_ALL_NORMATIVE_FIELDS_AUDITED",
+  "verdict_reason": "The exact D4 target is pinned and differs from D3 only by plan v1.4 and rollback v1.3. Across all 112 release, effectiveness, authority, v1.3, this-act, ref-update, global-state, and no-effect statements and all fields in both six-row truth tables, D4 requires primary 5b2, predecessor d7c, exact primary commit/tree, and four old blobs before a current-state-only v1.3 statement; otherwise global state remains unknown and no release is inferred. The activation-commit-only path now records only this-act zero-ref and unreferenced-object-by-itself facts while global authority remains unknown. D4 preserves mismatch versus ambiguous nonreturn, true CAS and create-if-absent zero-write gates, forward-only prohibitions, exact long pair, canonical IVA, Owner/postwrite/bootstrap gates, all sixteen prior identities, M3 isolation, and Common Guard 10/100.",
+  "next_route": {
+    "route_to_governed_persona_id": "AAA-VALIDATION-AUDITOR",
+    "official_code": "IVA",
+    "action": "RUN_ONE_FRESH_INDEPENDENT_P0_L2_FIRST_PASS_ON_THE_SAME_EXACT_D4_TARGET_THEN_READ_THIS_EXACT_PERSISTED_L1_RECEIPT_FOR_FINAL_DISPOSITION",
+    "pass_transfer": false,
+    "owner_packet_before_l2_pass": "PROHIBITED",
+    "cutover_before_EXPLICIT_OWNER_YES": "PROHIBITED",
+    "cutover_before_true_atomic_capabilities_proven": "PROHIBITED"
+  },
+  "execution_effect": {
+    "local_receipt_files_written": 1,
+    "target_files_mutated": 0,
+    "github_writes": 0,
+    "git_objects_written_to_remote": 0,
+    "refs_created": 0,
+    "refs_updated": 0,
+    "refs_deleted": 0,
+    "active_paths_mutated": 0,
+    "owner_decision_created": false,
+    "l2_pass_created": false
+  },
+  "receipt_identity": {
+    "local_path": "/workspace/scratch/849bcf450445/work/core_b_remediation/d4_validation/ctlv/AAA_CORE_B_AUTHORITY_COHERENCE_D4_P0_CTLV_L1_RECEIPT_v1.0.json",
+    "self_hash_not_embedded": true,
+    "reason": "AVOID_SELF_REFERENTIAL_IDENTITY_CLAIM"
+  },
+  "claim_ceiling": {
+    "claim": "EXACT_D4_FRESH_AFFECTED_SCOPE_P0_CTLV_L1_PASS_ONLY",
+    "d3_iva_findings_closed_at_l1": true,
+    "independent_l2_pass": false,
+    "overall_d4_validation_pass": false,
+    "owner_cutover_approved": false,
+    "owner_packet_eligible": false,
+    "active_pointer_moved": false,
+    "organization_v1_4_activated": false,
+    "routing_hold_released": false,
+    "bootstrap_regression_pass": false,
+    "shared_contract_model_or_pit_semantic_approval": false,
+    "freeze_release_or_production_authority": false
+  }
+}
