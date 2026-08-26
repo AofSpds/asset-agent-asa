@@ -1,0 +1,264 @@
+{
+  "artifact_id": "AAA-ORGANIZATION-RELEASE-MANIFEST-v1.4",
+  "artifact_kind": "NON_SEMANTIC_RELEASE_IDENTITY_STATE_AND_EXACT_BINDING_MANIFEST",
+  "version": "v1.4",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "organization_release_id": "AAA-ORGANIZATION-RELEASE-v1.4",
+  "semantic_successor_of": "AAA-ORGANIZATION-RELEASE-v1.3",
+  "authoring": {
+    "AC01_AC40": "SATISFIED_SELF_CHECK",
+    "author_self_issued_paired_pass": false,
+    "ready_for_fresh_control_l1": true,
+    "scope": "BOUNDED_CORE_B_AUTHORITY_COHERENCE_SUCCESSOR_ONLY"
+  },
+  "active_predecessor": {
+    "release_id": "AAA-ORGANIZATION-RELEASE-v1.3",
+    "disposition": "IMMUTABLE_ACTIVE_PREDECESSOR_SUPERSEDED_ONLY_AFTER_GOVERNED_CUTOVER",
+    "release_set_digest": "63e0b8ca07a7c68181a1624972811271406beff173985fb15e8fe7a3ccf6abaa",
+    "root": {
+      "artifact_id": "AAA-ORGANIZATION-TOPOLOGY-CONTRACT-v1.3",
+      "commit": "9d0e1198f317385e0342442332e8a1136da9d23c",
+      "tree": "66a3d0d9d043cb02abdec6308c5a6943f19a8ee2",
+      "git_blob": "1e994241becdfb214e520de44e684d457b5334b4",
+      "path": "control/organization/releases/v1.3/AAA_ORGANIZATION_TOPOLOGY_CONTRACT_v1.3.json",
+      "sha256": "e92c1d241194e8825df94e4e637b772041b5371fb553984e4e8806a2d4682c02",
+      "byte_size": 17769
+    },
+    "manifest": {
+      "artifact_id": "AAA-ORGANIZATION-RELEASE-MANIFEST-v1.3",
+      "commit": "3606f9609872f1da80864dc0fe4f999c76e1189f",
+      "tree": "d4defcc00db9d085e0721549f9d1573d6d22fae4",
+      "git_blob": "2afa73e6ac6c95dbfd7758628bd25ebdd5067576",
+      "path": "control/organization/releases/v1.3/AAA_ORGANIZATION_RELEASE_MANIFEST_v1.3.json",
+      "sha256": "c62053fa236c12299bb5f4997c09453f8f9b3f1da582a2c1d2f600b4fd5552ca",
+      "byte_size": 8241
+    }
+  },
+  "exact_authority_basis": {
+    "owner_remediation_directive": {
+      "artifact_id": "AAA-OWNER-CORE-B-AUTHORITY-COHERENCE-REMEDIATION-DIRECTIVE-v1.0",
+      "commit": "5256da49b621732cae2e69f5f1563c5ba2fae886",
+      "git_blob": "4928b3d12e9ad5587a689ea19ac89c3225203510",
+      "path": "control/decisions/organization/v1.0/AAA_OWNER_CORE_B_AUTHORITY_COHERENCE_REMEDIATION_DIRECTIVE_v1.0.json"
+    },
+    "r1_asav_receipt": {
+      "artifact_id": "AAA-ASAV-CORE-B-AUTHORITY-COHERENCE-REMEDIATION-ADVISORY-CLOSURE-RECEIPT-v1.0",
+      "commit": "d49f0507f4311168828faffae8e3a6234f86f9cc",
+      "git_blob": "c94aebd461dc4d78c4e5237636cf8bdd777e6af5",
+      "verdict": "PASS_ROUTE_TO_AAA_CONTROL_ARCHITECT"
+    }
+  },
+  "complete_effective_semantic_binding": {
+    "authoring_self_check": "PASS",
+    "floating_branch_dependency": false,
+    "manifest_binds_root_identity": true,
+    "manifest_binds_transitive_normative_dependencies": true,
+    "root_binds_26_operation_contract": true,
+    "root_binds_exact_base_identity": true,
+    "root_binds_exact_restore_identity": true,
+    "root_binds_exact_pairing_successor_identity": true,
+    "second_semantic_sot": false
+  },
+  "digest_contract_binding": {
+    "author_scope_digest_algorithm": "SHA256_UTF8_CANONICAL_JSON_EXACT_ARRAY_ORDER_PRESERVED",
+    "existing_digest_recomputation": "18_OF_18_MATCH_SUCCESSOR_VALUES",
+    "pair_contract_digest_algorithm": "SHA256_UTF8_CANONICAL_JSON_COMPLETE_PAIR_OBJECT_EXCLUDING_TOP_LEVEL_PAIR_CONTRACT_DIGEST",
+    "pair_digest_self_field_exclusion": "TOP_LEVEL_FIELD_PAIR_CONTRACT_DIGEST_ONLY",
+    "profile": "AAA-ORG-CANON-JSON-1",
+    "validator_scope_digest_algorithm": "SHA256_UTF8_CANONICAL_JSON_OVER_AUTHOR_SCOPE_CONCAT_VALIDATOR_DUTIES_ARRAY"
+  },
+  "effective_semantic_identity": {
+    "byte_size": 29677,
+    "canonicalization_profile": "AAA-ORG-CANON-JSON-1",
+    "identity_gate_bypass_used": false,
+    "authoring_reconstruction": "PASS",
+    "fresh_l1_independent_reconstruction": "PENDING",
+    "fresh_l2_independent_review": "PENDING",
+    "sha256": "366f703fcd4a5c903852d7edebeda0d93d5df994eae8628e89926c51a9767858"
+  },
+  "normative_module_list": [
+    {
+      "artifact_id": "AAA-ORGANIZATION-TOPOLOGY-CONTRACT-v1.4",
+      "version": "v1.4",
+      "commit": "TO_BE_BOUND_BY_R2_FROZEN_TARGET_COMMIT",
+      "tree": "TO_BE_BOUND_BY_R2_FROZEN_TARGET_COMMIT",
+      "git_blob": "6bc1303960cce53e3936e3cabe2ac3b36db42d78",
+      "path": "control/organization/releases/v1.4/AAA_ORGANIZATION_TOPOLOGY_CONTRACT_v1.4.json",
+      "sha256": "a80523bb2742aacb1519af6455ca09668f564e6e536588bc7ed786a899ce18e8",
+      "byte_size": 26705
+    },
+    {
+      "artifact_id": "AAA-ORGANIZATION-CORE-B-AUTHORITY-PAIRING-SUCCESSOR-v1.4",
+      "version": "v1.4",
+      "commit": "TO_BE_BOUND_BY_R2_FROZEN_TARGET_COMMIT",
+      "tree": "TO_BE_BOUND_BY_R2_FROZEN_TARGET_COMMIT",
+      "git_blob": "88279ebb6895da6813502c4930b6739fe9a79f2b",
+      "path": "control/organization/releases/v1.4/AAA_ORGANIZATION_CORE_B_AUTHORITY_PAIRING_SUCCESSOR_v1.4.json",
+      "sha256": "3e259c49c4bd0edc29dbe57ecfe9220f7a9f2b4bd7cd17608754f22ae9399c33",
+      "byte_size": 17896
+    }
+  ],
+  "transitive_dependency_list": [
+    {
+      "artifact_id": "AAA-ORGANIZATION-TOPOLOGY-CONTRACT-v1.0",
+      "commit": "2bd0aedd7b9f90bbe772e70981e40ae3fb11397d",
+      "tree": "8640032fb68e687d92fa851b3aa849f2670b1518",
+      "git_blob": "3adf7660ea273876fdf51cf228b36d1c0e8ccda9",
+      "path": "control/organization/releases/v1.0/AAA_ORGANIZATION_TOPOLOGY_CONTRACT_v1.0.json",
+      "sha256": "970494253e8ffba11ea49471f12a6867f17737a8cdd167960a9a4b89a91d9a67",
+      "byte_size": 24161
+    },
+    {
+      "artifact_id": "AAA-ORGANIZATION-TOPOLOGY-CONTRACT-v1.1",
+      "classification": "PINNED_RESTORATION_SOURCE_CONTENT",
+      "commit": "7a13c42f646bb9d7ad798ea240b7249d9a3557b5",
+      "tree": "2cf3e56371f2660226b3ba4201d17a337f5e0568",
+      "git_blob": "942ece9458acdb2edc56318a0e3e48cb8bad5caf",
+      "path": "control/organization/releases/v1.1/AAA_ORGANIZATION_TOPOLOGY_CONTRACT_v1.1.json",
+      "sha256": "497ecfc3ef083173b068fb9abac1413adba7a004aacd6d26e495a22df3709a44",
+      "byte_size": 15973
+    },
+    {
+      "artifact_id": "AAA-ORGANIZATION-CORE-B-AUTHORITY-PAIRING-SUCCESSOR-v1.4",
+      "version": "v1.4",
+      "commit": "TO_BE_BOUND_BY_R2_FROZEN_TARGET_COMMIT",
+      "tree": "TO_BE_BOUND_BY_R2_FROZEN_TARGET_COMMIT",
+      "git_blob": "88279ebb6895da6813502c4930b6739fe9a79f2b",
+      "path": "control/organization/releases/v1.4/AAA_ORGANIZATION_CORE_B_AUTHORITY_PAIRING_SUCCESSOR_v1.4.json",
+      "sha256": "3e259c49c4bd0edc29dbe57ecfe9220f7a9f2b4bd7cd17608754f22ae9399c33",
+      "byte_size": 17896,
+      "classification": "PINNED_SUCCESSOR_AUTHORITY_PAIRING_CONTENT"
+    }
+  ],
+  "preservation": {
+    "historical_v1_3_rewritten": false,
+    "active_persona_identity_preserved_count": 11,
+    "unchanged_pair_object_count": 5,
+    "model_semantic_change": false,
+    "shared_contract_semantic_change": false,
+    "project_instructions_change": false,
+    "selector_registry_change": false,
+    "persona_memory_index_change": false,
+    "all_prior_receipts_preserved": true
+  },
+  "firewall": {
+    "active_organization_pointer_changed": false,
+    "current_core_b_authority_resolved_in_candidate": true,
+    "current_core_b_authority_status": "SUCCESSOR_CANDIDATE_PENDING_FRESH_P0_L1_L2_AND_OWNER_CUTOVER",
+    "current_routing_changed_in_candidate": true,
+    "freeze": false,
+    "gt_pit_semantic_change": false,
+    "model_semantic_change": false,
+    "organization": "PRE_CUTOVER",
+    "organization_cutover": false,
+    "post_cutover_personas_active": false,
+    "production": false,
+    "shared_contract_semantic_change": false,
+    "strong_pairs_active": false
+  },
+  "implementation_class": "DETERMINISTIC_COMPOSITION",
+  "release_set_digest_contract": {
+    "algorithm": "SHA256_OVER_CANONICAL_JSON_RELEASE_DIGEST_BASIS",
+    "authoring_recomputation": "PASS",
+    "basis": {
+      "canonicalization_profile": "AAA-ORG-CANON-JSON-1",
+      "implementation_class": "DETERMINISTIC_COMPOSITION",
+      "organization_release_id": "AAA-ORGANIZATION-RELEASE-v1.4",
+      "semantic_root": {
+        "artifact_id": "AAA-ORGANIZATION-TOPOLOGY-CONTRACT-v1.4",
+        "version": "v1.4",
+        "commit": "TO_BE_BOUND_BY_R2_FROZEN_TARGET_COMMIT",
+        "tree": "TO_BE_BOUND_BY_R2_FROZEN_TARGET_COMMIT",
+        "git_blob": "6bc1303960cce53e3936e3cabe2ac3b36db42d78",
+        "path": "control/organization/releases/v1.4/AAA_ORGANIZATION_TOPOLOGY_CONTRACT_v1.4.json",
+        "sha256": "a80523bb2742aacb1519af6455ca09668f564e6e536588bc7ed786a899ce18e8",
+        "byte_size": 26705
+      },
+      "normative_modules": [
+        {
+          "artifact_id": "AAA-ORGANIZATION-CORE-B-AUTHORITY-PAIRING-SUCCESSOR-v1.4",
+          "version": "v1.4",
+          "commit": "TO_BE_BOUND_BY_R2_FROZEN_TARGET_COMMIT",
+          "tree": "TO_BE_BOUND_BY_R2_FROZEN_TARGET_COMMIT",
+          "git_blob": "88279ebb6895da6813502c4930b6739fe9a79f2b",
+          "path": "control/organization/releases/v1.4/AAA_ORGANIZATION_CORE_B_AUTHORITY_PAIRING_SUCCESSOR_v1.4.json",
+          "sha256": "3e259c49c4bd0edc29dbe57ecfe9220f7a9f2b4bd7cd17608754f22ae9399c33",
+          "byte_size": 17896
+        }
+      ],
+      "transitive_normative_dependencies": [
+        {
+          "artifact_id": "AAA-ORGANIZATION-TOPOLOGY-CONTRACT-v1.0",
+          "commit": "2bd0aedd7b9f90bbe772e70981e40ae3fb11397d",
+          "tree": "8640032fb68e687d92fa851b3aa849f2670b1518",
+          "git_blob": "3adf7660ea273876fdf51cf228b36d1c0e8ccda9",
+          "path": "control/organization/releases/v1.0/AAA_ORGANIZATION_TOPOLOGY_CONTRACT_v1.0.json",
+          "sha256": "970494253e8ffba11ea49471f12a6867f17737a8cdd167960a9a4b89a91d9a67",
+          "byte_size": 24161
+        },
+        {
+          "artifact_id": "AAA-ORGANIZATION-TOPOLOGY-CONTRACT-v1.1",
+          "classification": "PINNED_RESTORATION_SOURCE_CONTENT",
+          "commit": "7a13c42f646bb9d7ad798ea240b7249d9a3557b5",
+          "tree": "2cf3e56371f2660226b3ba4201d17a337f5e0568",
+          "git_blob": "942ece9458acdb2edc56318a0e3e48cb8bad5caf",
+          "path": "control/organization/releases/v1.1/AAA_ORGANIZATION_TOPOLOGY_CONTRACT_v1.1.json",
+          "sha256": "497ecfc3ef083173b068fb9abac1413adba7a004aacd6d26e495a22df3709a44",
+          "byte_size": 15973
+        },
+        {
+          "artifact_id": "AAA-ORGANIZATION-CORE-B-AUTHORITY-PAIRING-SUCCESSOR-v1.4",
+          "version": "v1.4",
+          "commit": "TO_BE_BOUND_BY_R2_FROZEN_TARGET_COMMIT",
+          "tree": "TO_BE_BOUND_BY_R2_FROZEN_TARGET_COMMIT",
+          "git_blob": "88279ebb6895da6813502c4930b6739fe9a79f2b",
+          "path": "control/organization/releases/v1.4/AAA_ORGANIZATION_CORE_B_AUTHORITY_PAIRING_SUCCESSOR_v1.4.json",
+          "sha256": "3e259c49c4bd0edc29dbe57ecfe9220f7a9f2b4bd7cd17608754f22ae9399c33",
+          "byte_size": 17896,
+          "classification": "PINNED_SUCCESSOR_AUTHORITY_PAIRING_CONTENT"
+        }
+      ],
+      "version": "v1.4"
+    },
+    "canonicalization_profile": {
+      "allow_nan": false,
+      "array_order": "PRESERVE",
+      "encoding": "UTF-8",
+      "extra_whitespace": "NONE",
+      "implementation_equivalent": "Python json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(',',':'), allow_nan=False)",
+      "json_ensure_ascii": false,
+      "object_key_order": "LEXICOGRAPHIC_ASCENDING_BY_UNICODE_CODEPOINT",
+      "profile_id": "AAA-ORG-CANON-JSON-1",
+      "self_normalization": "NONE",
+      "separators": [
+        ",",
+        ":"
+      ],
+      "sort_keys": true,
+      "trailing_newline": false
+    },
+    "manifest_self_reference": "PROHIBITED",
+    "release_set_digest": "f73ba38193a6be35dbe032cba6f41ec65940a2dc6fd9532b92c7bbe631c50586"
+  },
+  "state": {
+    "active": false,
+    "authoring": "IMPLEMENTATION_TARGET",
+    "independent_validation": "PENDING_FRESH_P0_L2",
+    "owner_cutover": "NOT_YET",
+    "paired_validation": "PENDING_FRESH_P0_L1",
+    "release": "PRE_ACTIVATION"
+  },
+  "persistence": {
+    "create_once": true,
+    "delete": false,
+    "overwrite": false,
+    "preserve_all_others": true
+  },
+  "traceability": {
+    "owner_directive": "AAA-OWNER-CORE-B-AUTHORITY-COHERENCE-REMEDIATION-DIRECTIVE-v1.0",
+    "r1_asav_receipt": "AAA-ASAV-CORE-B-AUTHORITY-COHERENCE-REMEDIATION-ADVISORY-CLOSURE-RECEIPT-v1.0",
+    "owner_cutover_inferred": false,
+    "fabricated": false
+  }
+}

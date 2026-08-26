@@ -1,0 +1,426 @@
+{
+  "artifact_id": "AAA-ORGANIZATION-CORE-B-AUTHORITY-PAIRING-SUCCESSOR-v1.4",
+  "artifact_kind": "NORMATIVE_ORGANIZATION_PERSONA_AUTHORITY_PAIRING_SUCCESSOR_MODULE",
+  "version": "v1.4",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "organization_release_id": "AAA-ORGANIZATION-RELEASE-v1.4",
+  "authoring_persona": "AAA-CONTROL-ARCHITECT",
+  "state": "IMPLEMENTATION_TARGET_PRE_ACTIVATION_PENDING_FRESH_P0_L1",
+  "authority": {
+    "ambiguity": "COMPETING_NORMATIVE_AUTHORITY_LISTS_PROHIBITED",
+    "canonical": {
+      "AAA-ASA": [
+        "owner_bound_interface",
+        "network_console",
+        "owner_intent_interface",
+        "owner_decision_surface",
+        "owner_bound_advisory",
+        "cross_track_orchestration_interface"
+      ],
+      "AAA-CONTROL-ARCHITECT": [
+        "data_governance",
+        "ground_truth_control",
+        "pit_control",
+        "artifact_control",
+        "authority_control",
+        "control_architecture",
+        "continuity",
+        "requirements_design_control",
+        "stable_identity_lineage",
+        "change_detection_change_control",
+        "validation_state_mechanics",
+        "baseline_freeze_mechanics",
+        "shared_contract_control",
+        "persistent_context_current_state_mechanics"
+      ],
+      "AAA-ENGINEERING-ORCHESTRATOR": [
+        "implementation",
+        "runtime",
+        "automation",
+        "tooling",
+        "repository_operations",
+        "resource_technical_resource_orchestration",
+        "harness_implementation",
+        "deterministic_execution",
+        "raw_result_materialization",
+        "reproducibility",
+        "recovery_infrastructure",
+        "rollback_infrastructure",
+        "implementation_change",
+        "test_execution",
+        "deployment_preparation"
+      ],
+      "AAA-PMO-ORCHESTRATOR": [
+        "planning",
+        "sequencing",
+        "routing",
+        "coordination",
+        "execution_integration",
+        "blocker_surface"
+      ],
+      "AAA-RESEARCH-ORCHESTRATOR": [
+        "research_orchestration",
+        "source_retrieval",
+        "evidence_preparation",
+        "discovery_cognition",
+        "source_diversity",
+        "pit_safe_investigation",
+        "disconfirming_evidence_search",
+        "conflict_discovery",
+        "gap_discovery",
+        "alternative_mechanism_discovery",
+        "evidence_conflict_surfacing",
+        "research_package_authoring"
+      ],
+      "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT": [
+        "model_semantics",
+        "feature_semantics",
+        "missingness",
+        "imputation",
+        "scorer",
+        "weight",
+        "ranking",
+        "replay_scientific_protocol",
+        "performance_evaluation",
+        "failure_analysis",
+        "model_scientific_validation_methodology",
+        "successor_tuning_successor_model_design"
+      ]
+    },
+    "canonical_digests": {
+      "AAA-ASA": "a61f6e99c902d5bd3e4a05ac951bc60373cc51405257dcd0f035bfee72f9865f",
+      "AAA-CONTROL-ARCHITECT": "26f87ad0547c87432135cc96dac8fb7a92a8631154c963dc1646d81424c8f45d",
+      "AAA-ENGINEERING-ORCHESTRATOR": "be323f61ad94393a6860a552467e503b1311c2483f6a658e4bc17c091fc714e8",
+      "AAA-PMO-ORCHESTRATOR": "ca66dc5d7fc71365792f83c85298a083663d0fdbcb795efe84a97f43ebd5dab6",
+      "AAA-RESEARCH-ORCHESTRATOR": "49eeb42ae7a4d34641ba43a6354c7aa83db63f4cbf753349e6b1ecfbec35e4bb",
+      "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT": "aae90eebe8d876f78da3646d85d4fbe02daa9aa0794502ac930f22bc2da0fed3"
+    },
+    "pair_author_scope": "GENERATED_EXACT_COPY_FROM_CANONICAL",
+    "positive_matrix": "GENERATED_EXACT_COPY_FROM_CANONICAL_NOT_SECOND_NORMATIVE_SOURCE",
+    "validator_duties": {
+      "AAA-ADVISORY-VALIDATOR": [
+        "advisory_authority_boundary_validation",
+        "owner_substitution_guard",
+        "routing_integrity_validation",
+        "governance_violation_detection",
+        "semantic_preservation_challenge",
+        "authority_conflict_detection",
+        "undeclared_semantic_mutation_detection",
+        "preservation_failure_detection"
+      ],
+      "AAA-CONTROL-VALIDATOR": [
+        "unauthorized_semantic_mutation_detection",
+        "authority_conflict_detection",
+        "stale_governing_projection_detection",
+        "pit_leakage_detection",
+        "gt_contamination_detection",
+        "undeclared_semantic_touch_detection",
+        "persona_identity_validation",
+        "pair_contract_mismatch_detection",
+        "post_outcome_acceptance_criteria_mutation_detection",
+        "validation_state_manipulation_detection",
+        "preservation_failure_detection",
+        "semantic_preservation_challenge",
+        "evidence_conflict_challenge",
+        "counterexample_disconfirming_evidence_challenge"
+      ],
+      "AAA-ENGINEERING-VALIDATOR": [
+        "implementation_scope_validation",
+        "vcs_touch_validation",
+        "deterministic_regression_validation",
+        "authority_boundary_validation",
+        "undeclared_semantic_touch_detection",
+        "governance_violation_detection",
+        "semantic_preservation_challenge",
+        "evidence_conflict_challenge",
+        "counterexample_disconfirming_evidence_challenge"
+      ],
+      "AAA-PMO-VALIDATOR": [
+        "pmo_authority_firewall_validation",
+        "routing_integrity_validation",
+        "blocker_suppression_detection",
+        "governance_violation_detection",
+        "semantic_preservation_challenge",
+        "authority_conflict_detection",
+        "undeclared_semantic_mutation_detection",
+        "preservation_failure_detection"
+      ],
+      "AAA-RESEARCH-VALIDATOR": [
+        "source_quality_validation",
+        "evidence_integrity_validation",
+        "pit_availability_validation",
+        "fact_interpretation_separation_validation",
+        "authority_conflict_detection",
+        "governance_violation_detection",
+        "semantic_preservation_challenge",
+        "evidence_conflict_challenge",
+        "counterexample_disconfirming_evidence_challenge"
+      ],
+      "AAA-MODEL-DESIGN-VALIDATOR": [
+        "scientific_integrity_validation",
+        "pit_leakage_detection",
+        "outcome_leakage_detection",
+        "undeclared_semantic_touch_detection",
+        "authority_conflict_detection",
+        "stale_governing_projection_detection",
+        "governance_violation_detection",
+        "semantic_preservation_challenge",
+        "evidence_conflict_challenge",
+        "counterexample_disconfirming_evidence_challenge"
+      ]
+    },
+    "validator_scope": "CANONICAL_AUTHOR_SCOPE_UNION_VALIDATOR_DUTIES_NO_AUTHOR_AUTHORITY_EXPANSION"
+  },
+  "pairs": [
+    {
+      "ALTERNATE_L1_ROUTE": "QUALIFIED_TARGET_DOMAIN_BOUND_ADHOC_PAIRED_VALIDATOR_FUNCTION",
+      "AUTHOR_CODE": "ASA",
+      "AUTHOR_DOMAIN_SCOPE": {
+        "digest": "a61f6e99c902d5bd3e4a05ac951bc60373cc51405257dcd0f035bfee72f9865f",
+        "ref": "#/authority/canonical/AAA-ASA",
+        "semantics": "EXACT_COPY"
+      },
+      "AUTHOR_PERSONA_ID": "AAA-ASA",
+      "PAIRED_VALIDATOR_ID": "AAA-ADVISORY-VALIDATOR",
+      "PAIR_CONTRACT_DIGEST": "3779dffef9d073e393003506ba29fd01d5ca208b2c9e5f2b52c94cc594729061",
+      "PAIR_CONTRACT_VERSION": "v1.1",
+      "PAIR_ID": "AAA-PAIR-ASA-ASAV-v1.1",
+      "PAIR_STATE": "PRE_ACTIVATION",
+      "RECUSAL_RULE": "MATERIAL_COAUTHORSHIP=>SAME_TARGET_PASS_PROHIBITED",
+      "SUCCESSION_RULE": "MATERIAL_SCOPE_CHANGE=>PAIR_REVIEW+SCOPE_REVALIDATION",
+      "VALIDATION_CLASSES": [
+        "P0_SUBSTANTIVE",
+        "P1_SUBSTANTIVE",
+        "IMPACT_TARGETED"
+      ],
+      "VALIDATOR_CODE": "ASAV",
+      "VALIDATOR_VALIDATION_SCOPE": {
+        "author_ref": "#/authority/canonical/AAA-ASA",
+        "composition": "UNION",
+        "digest": "1adcfdde3dd250bc1b50ebebc7dbc8d5cb13a38dc4731faef48cf670171eb44e",
+        "duties_ref": "#/authority/validator_duties/AAA-ADVISORY-VALIDATOR"
+      }
+    },
+    {
+      "ALTERNATE_L1_ROUTE": "QUALIFIED_TARGET_DOMAIN_BOUND_ADHOC_PAIRED_VALIDATOR_FUNCTION",
+      "AUTHOR_CODE": "PMO",
+      "AUTHOR_DOMAIN_SCOPE": {
+        "digest": "ca66dc5d7fc71365792f83c85298a083663d0fdbcb795efe84a97f43ebd5dab6",
+        "ref": "#/authority/canonical/AAA-PMO-ORCHESTRATOR",
+        "semantics": "EXACT_COPY"
+      },
+      "AUTHOR_PERSONA_ID": "AAA-PMO-ORCHESTRATOR",
+      "PAIRED_VALIDATOR_ID": "AAA-PMO-VALIDATOR",
+      "PAIR_CONTRACT_DIGEST": "f0b76dc42a2e25d843fa2bbb03b8bbdd620f2bd46b5c37597549ac4557192d35",
+      "PAIR_CONTRACT_VERSION": "v1.1",
+      "PAIR_ID": "AAA-PAIR-PMO-PMOV-v1.1",
+      "PAIR_STATE": "PRE_ACTIVATION",
+      "RECUSAL_RULE": "MATERIAL_COAUTHORSHIP=>SAME_TARGET_PASS_PROHIBITED",
+      "SUCCESSION_RULE": "MATERIAL_SCOPE_CHANGE=>PAIR_REVIEW+SCOPE_REVALIDATION",
+      "VALIDATION_CLASSES": [
+        "P0_SUBSTANTIVE",
+        "P1_SUBSTANTIVE",
+        "IMPACT_TARGETED"
+      ],
+      "VALIDATOR_CODE": "PMOV",
+      "VALIDATOR_VALIDATION_SCOPE": {
+        "author_ref": "#/authority/canonical/AAA-PMO-ORCHESTRATOR",
+        "composition": "UNION",
+        "digest": "4749861c836b81f837953b3a27e68837f82fc601f7f412f26293183cd38cc094",
+        "duties_ref": "#/authority/validator_duties/AAA-PMO-VALIDATOR"
+      }
+    },
+    {
+      "ALTERNATE_L1_ROUTE": "QUALIFIED_TARGET_DOMAIN_BOUND_ADHOC_PAIRED_VALIDATOR_FUNCTION",
+      "AUTHOR_CODE": "CTL",
+      "AUTHOR_DOMAIN_SCOPE": {
+        "digest": "26f87ad0547c87432135cc96dac8fb7a92a8631154c963dc1646d81424c8f45d",
+        "ref": "#/authority/canonical/AAA-CONTROL-ARCHITECT",
+        "semantics": "EXACT_COPY"
+      },
+      "AUTHOR_PERSONA_ID": "AAA-CONTROL-ARCHITECT",
+      "PAIRED_VALIDATOR_ID": "AAA-CONTROL-VALIDATOR",
+      "PAIR_CONTRACT_DIGEST": "ab463a68e386bf22bd79b71f555dbdcb2fa7bd8408f24597f098c30072205208",
+      "PAIR_CONTRACT_VERSION": "v1.1",
+      "PAIR_ID": "AAA-PAIR-CTL-CTLV-v1.1",
+      "PAIR_STATE": "PRE_ACTIVATION",
+      "RECUSAL_RULE": "MATERIAL_COAUTHORSHIP=>SAME_TARGET_PASS_PROHIBITED",
+      "SUCCESSION_RULE": "MATERIAL_SCOPE_CHANGE=>PAIR_REVIEW+SCOPE_REVALIDATION",
+      "VALIDATION_CLASSES": [
+        "P0_SUBSTANTIVE",
+        "P1_SUBSTANTIVE",
+        "IMPACT_TARGETED"
+      ],
+      "VALIDATOR_CODE": "CTLV",
+      "VALIDATOR_VALIDATION_SCOPE": {
+        "author_ref": "#/authority/canonical/AAA-CONTROL-ARCHITECT",
+        "composition": "UNION",
+        "digest": "4b4e34571e51693d0738b3d56b2939573c7181126353c1e7b7d1e1b5ba66bfc1",
+        "duties_ref": "#/authority/validator_duties/AAA-CONTROL-VALIDATOR"
+      }
+    },
+    {
+      "ALTERNATE_L1_ROUTE": "QUALIFIED_TARGET_DOMAIN_BOUND_ADHOC_PAIRED_VALIDATOR_FUNCTION",
+      "AUTHOR_CODE": "MOD",
+      "AUTHOR_DOMAIN_SCOPE": {
+        "digest": "aae90eebe8d876f78da3646d85d4fbe02daa9aa0794502ac930f22bc2da0fed3",
+        "ref": "#/authority/canonical/AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+        "semantics": "EXACT_COPY"
+      },
+      "AUTHOR_PERSONA_ID": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+      "PAIRED_VALIDATOR_ID": "AAA-MODEL-DESIGN-VALIDATOR",
+      "PAIR_CONTRACT_DIGEST": "f8f9406d6f8dab7094654aa0e53cb56535bf5c58b7439cd6df232bd549e7be8f",
+      "PAIR_CONTRACT_VERSION": "v1.2",
+      "PAIR_ID": "AAA-PAIR-MOD-MODV-v1.2",
+      "PAIR_STATE": "PRE_ACTIVATION",
+      "RECUSAL_RULE": "MATERIAL_COAUTHORSHIP=>SAME_TARGET_PASS_PROHIBITED",
+      "SUCCESSION_RULE": "MATERIAL_SCOPE_CHANGE=>PAIR_REVIEW+SCOPE_REVALIDATION",
+      "VALIDATION_CLASSES": [
+        "P0_SUBSTANTIVE",
+        "P1_SUBSTANTIVE",
+        "IMPACT_TARGETED"
+      ],
+      "VALIDATOR_CODE": "MODV",
+      "VALIDATOR_VALIDATION_SCOPE": {
+        "author_ref": "#/authority/canonical/AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+        "composition": "UNION",
+        "digest": "68489e2c3d97b84152b2eaa5f1e8300817988e59856978733502bb1d66d7c265",
+        "duties_ref": "#/authority/validator_duties/AAA-MODEL-DESIGN-VALIDATOR"
+      }
+    },
+    {
+      "ALTERNATE_L1_ROUTE": "QUALIFIED_TARGET_DOMAIN_BOUND_ADHOC_PAIRED_VALIDATOR_FUNCTION",
+      "AUTHOR_CODE": "RES",
+      "AUTHOR_DOMAIN_SCOPE": {
+        "digest": "49eeb42ae7a4d34641ba43a6354c7aa83db63f4cbf753349e6b1ecfbec35e4bb",
+        "ref": "#/authority/canonical/AAA-RESEARCH-ORCHESTRATOR",
+        "semantics": "EXACT_COPY"
+      },
+      "AUTHOR_PERSONA_ID": "AAA-RESEARCH-ORCHESTRATOR",
+      "PAIRED_VALIDATOR_ID": "AAA-RESEARCH-VALIDATOR",
+      "PAIR_CONTRACT_DIGEST": "5881b76d8a9a1b436cb2151b017ee9a8ff20dab3d8976f7bbc685acd579f6810",
+      "PAIR_CONTRACT_VERSION": "v1.1",
+      "PAIR_ID": "AAA-PAIR-RES-RESV-v1.1",
+      "PAIR_STATE": "PRE_ACTIVATION",
+      "RECUSAL_RULE": "MATERIAL_COAUTHORSHIP=>SAME_TARGET_PASS_PROHIBITED",
+      "SUCCESSION_RULE": "MATERIAL_SCOPE_CHANGE=>PAIR_REVIEW+SCOPE_REVALIDATION",
+      "VALIDATION_CLASSES": [
+        "P0_SUBSTANTIVE",
+        "P1_SUBSTANTIVE",
+        "IMPACT_TARGETED"
+      ],
+      "VALIDATOR_CODE": "RESV",
+      "VALIDATOR_VALIDATION_SCOPE": {
+        "author_ref": "#/authority/canonical/AAA-RESEARCH-ORCHESTRATOR",
+        "composition": "UNION",
+        "digest": "aafbe1c1fe17313fe38a3ee449fa2f63aa3340c5a0f5aaedfbc8ffffa2981fcc",
+        "duties_ref": "#/authority/validator_duties/AAA-RESEARCH-VALIDATOR"
+      }
+    },
+    {
+      "ALTERNATE_L1_ROUTE": "QUALIFIED_TARGET_DOMAIN_BOUND_ADHOC_PAIRED_VALIDATOR_FUNCTION",
+      "AUTHOR_CODE": "ENG",
+      "AUTHOR_DOMAIN_SCOPE": {
+        "digest": "be323f61ad94393a6860a552467e503b1311c2483f6a658e4bc17c091fc714e8",
+        "ref": "#/authority/canonical/AAA-ENGINEERING-ORCHESTRATOR",
+        "semantics": "EXACT_COPY"
+      },
+      "AUTHOR_PERSONA_ID": "AAA-ENGINEERING-ORCHESTRATOR",
+      "PAIRED_VALIDATOR_ID": "AAA-ENGINEERING-VALIDATOR",
+      "PAIR_CONTRACT_DIGEST": "5249b0b25b3fb97856038851eab893a5bbea0b4a8d3c66120ee13d226428ec92",
+      "PAIR_CONTRACT_VERSION": "v1.1",
+      "PAIR_ID": "AAA-PAIR-ENG-ENGV-v1.1",
+      "PAIR_STATE": "PRE_ACTIVATION",
+      "RECUSAL_RULE": "MATERIAL_COAUTHORSHIP=>SAME_TARGET_PASS_PROHIBITED",
+      "SUCCESSION_RULE": "MATERIAL_SCOPE_CHANGE=>PAIR_REVIEW+SCOPE_REVALIDATION",
+      "VALIDATION_CLASSES": [
+        "P0_SUBSTANTIVE",
+        "P1_SUBSTANTIVE",
+        "IMPACT_TARGETED"
+      ],
+      "VALIDATOR_CODE": "ENGV",
+      "VALIDATOR_VALIDATION_SCOPE": {
+        "author_ref": "#/authority/canonical/AAA-ENGINEERING-ORCHESTRATOR",
+        "composition": "UNION",
+        "digest": "d29d167befeb5aee3f78261a48768e7946a4ef8ea9c958067b376a93737524a5",
+        "duties_ref": "#/authority/validator_duties/AAA-ENGINEERING-VALIDATOR"
+      }
+    }
+  ],
+  "core_b_successor": {
+    "change_class": "P0_AUTHORITY_CURRENT_STATE_COHERENCE_ONLY",
+    "before": {
+      "authoring_persona": "AAA-MODEL-ARCHITECT",
+      "paired_validator": "AAA-MODEL-VALIDATOR",
+      "pair_id": "AAA-PAIR-MOD-MODV-v1.1"
+    },
+    "after": {
+      "authoring_persona": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+      "paired_validator": "AAA-MODEL-DESIGN-VALIDATOR",
+      "pair_id": "AAA-PAIR-MOD-MODV-v1.2"
+    },
+    "official_codes_preserved": {
+      "author": "MOD",
+      "validator": "MODV"
+    },
+    "author_scope_array_preserved_exactly": true,
+    "validator_duties_array_preserved_exactly": true,
+    "model_semantic_change": false,
+    "shared_contract_semantic_change": false,
+    "project_instructions_change": false,
+    "selector_registry_change": false,
+    "persona_memory_index_change": false
+  },
+  "exact_authority_basis": {
+    "owner_directive": {
+      "artifact_id": "AAA-OWNER-CORE-B-AUTHORITY-COHERENCE-REMEDIATION-DIRECTIVE-v1.0",
+      "commit": "5256da49b621732cae2e69f5f1563c5ba2fae886",
+      "git_blob": "4928b3d12e9ad5587a689ea19ac89c3225203510",
+      "path": "control/decisions/organization/v1.0/AAA_OWNER_CORE_B_AUTHORITY_COHERENCE_REMEDIATION_DIRECTIVE_v1.0.json"
+    },
+    "validated_reconciliation": {
+      "artifact_id": "AAA-CORE-B-PERSONA-AUTHORITY-RECONCILIATION-P0-INDEPENDENT-VALIDATION-RECEIPT",
+      "commit": "e140c2ef185717770ea27778f3ea4d34c77adc57",
+      "git_blob": "0d1d033d9dd520ab49da31fe81041b72ce9cac34",
+      "path": "control/validation/persona-authority/v1.0/auditor/aaa-validation-auditor/AAA_CORE_B_PERSONA_AUTHORITY_RECONCILIATION_P0_INDEPENDENT_VALIDATION_RECEIPT_v1.0.json"
+    },
+    "reconciled_target_commit": "9c7a993b7d1685378066c5871436dbaad03c5e79",
+    "reconciled_target_tree": "76cdbf4b70a6405eae065bbfee34e08c6748ca41"
+  },
+  "predecessor_binding": {
+    "artifact_id": "AAA-ORGANIZATION-TOPOLOGY-CONTRACT-v1.1",
+    "classification": "PINNED_AUTHORITY_PAIRING_SOURCE_CONTENT",
+    "commit": "7a13c42f646bb9d7ad798ea240b7249d9a3557b5",
+    "tree": "2cf3e56371f2660226b3ba4201d17a337f5e0568",
+    "path": "control/organization/releases/v1.1/AAA_ORGANIZATION_TOPOLOGY_CONTRACT_v1.1.json",
+    "git_blob": "942ece9458acdb2edc56318a0e3e48cb8bad5caf",
+    "sha256": "497ecfc3ef083173b068fb9abac1413adba7a004aacd6d26e495a22df3709a44",
+    "byte_size": 15973
+  },
+  "preservation_contract": {
+    "historical_v1_3_immutable": true,
+    "unchanged_author_persona_count": 5,
+    "unchanged_validator_persona_count": 5,
+    "unchanged_pair_object_count": 5,
+    "active_persona_identity_preserved_count": 11,
+    "removal_of_historical_personas": false,
+    "every_non_core_b_authority_scope_preserved_exactly": true,
+    "every_non_core_b_validator_duty_preserved_exactly": true,
+    "every_non_core_b_pair_preserved_exactly": true
+  },
+  "digest_contract": {
+    "canonicalization_profile": "AAA-ORG-CANON-JSON-1",
+    "author_scope_digest": "SHA256_UTF8_CANONICAL_JSON_EXACT_ARRAY_ORDER_PRESERVED",
+    "validator_scope_digest": "SHA256_UTF8_CANONICAL_JSON_AUTHOR_SCOPE_CONCAT_VALIDATOR_DUTIES",
+    "pair_contract_digest": "SHA256_UTF8_CANONICAL_JSON_COMPLETE_PAIR_OBJECT_EXCLUDING_TOP_LEVEL_PAIR_CONTRACT_DIGEST",
+    "core_b_pair_digest_recomputed": true
+  },
+  "persistence": {
+    "create_once": true,
+    "overwrite": false,
+    "delete": false,
+    "preserve_all_others": true
+  },
+  "claim_ceiling": "AUTHORED_SUCCESSOR_MODULE_NOT_VALIDATED_NOT_ACTIVE_NO_OWNER_CUTOVER_INFERRED"
+}

@@ -1,0 +1,69 @@
+{
+  "artifact_id": "AAA-ORGANIZATION-ACTIVE-ROUTING-STATE-v1.0",
+  "artifact_kind": "POST_CUTOVER_DETERMINISTIC_ROUTING_CONTROL_STATE_CANDIDATE_BYTES",
+  "cross_domain_material_issue": "SURFACE_AND_ROUTE",
+  "effective_gate": {
+    "candidate_bytes_must_be_byte_exact": true,
+    "effective_only_after_phase_b_atomic_commit": true,
+    "owner_cutover_receipt_required": "EXACT_POST_VALIDATION_DECISION_BOUND_TO_FROZEN_TARGET",
+    "phase_a_l1_required": "FRESH_PASS_CLASS_SAME_EXACT_TARGET",
+    "phase_a_l2_required": "FRESH_PASS_CLASS_SAME_EXACT_TARGET"
+  },
+  "foreign_domain_semantic_adjudication": "PROHIBITED",
+  "independent_l2_route": "AAA-VALIDATION-AUDITOR",
+  "owner_route": [
+    "HUMAN PROJECT OWNER",
+    "AAA-ASA",
+    "AAA-PMO-ORCHESTRATOR"
+  ],
+  "paired_routes": [
+    [
+      "AAA-ASA",
+      "AAA-ADVISORY-VALIDATOR"
+    ],
+    [
+      "AAA-PMO-ORCHESTRATOR",
+      "AAA-PMO-VALIDATOR"
+    ],
+    [
+      "AAA-CONTROL-ARCHITECT",
+      "AAA-CONTROL-VALIDATOR"
+    ],
+    [
+      "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+      "AAA-MODEL-DESIGN-VALIDATOR"
+    ],
+    [
+      "AAA-RESEARCH-ORCHESTRATOR",
+      "AAA-RESEARCH-VALIDATOR"
+    ],
+    [
+      "AAA-ENGINEERING-ORCHESTRATOR",
+      "AAA-ENGINEERING-VALIDATOR"
+    ]
+  ],
+  "phase_b_target_path": "control/authority/organization/active/AAA_ORGANIZATION_ACTIVE_ROUTING_STATE_v1.0.json",
+  "pmo_domain_routes": [
+    "AAA-CONTROL-ARCHITECT",
+    "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+    "AAA-RESEARCH-ORCHESTRATOR",
+    "AAA-ENGINEERING-ORCHESTRATOR"
+  ],
+  "product": "ASSET AGENT ASA",
+  "project": "AAA",
+  "release_id": "AAA-ORGANIZATION-RELEASE-v1.4",
+  "release_set_digest": "f73ba38193a6be35dbe032cba6f41ec65940a2dc6fd9532b92c7bbe631c50586",
+  "routing_state": "POST_CUTOVER_ACTIVE_IF_AND_ONLY_IF_BYTE_EXACT_PHASE_B_ATOMIC_COMMIT_COMPLETES",
+  "semantic_sot": false,
+  "version": "v1.0",
+  "candidate_context": {
+    "authoring_path_is_non_authoritative": true,
+    "active_pointer_move_performed": false,
+    "activation_claim": false,
+    "phase_a_path_prefix": "control/organization/cutover/v1.4/phase-a/candidates",
+    "phase_b_atomic_promotion_required": true,
+    "fresh_p0_l1_required": true,
+    "fresh_p0_l2_same_exact_target_required": true,
+    "owner_post_validation_cutover_decision_required": true
+  }
+}

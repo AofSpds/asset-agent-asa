@@ -1,0 +1,83 @@
+{
+  "activation_target_branch": "aaa-organization-active-v1.4",
+  "artifact_id": "AAA-ACTIVE-ORGANIZATION-POINTER-v1.0",
+  "artifact_kind": "P0_ACTIVE_ORGANIZATION_AUTHORITY_POINTER_CANDIDATE_BYTES",
+  "effective_gate": {
+    "candidate_bytes_must_be_byte_exact": true,
+    "effective_only_after_phase_b_atomic_commit": true,
+    "owner_cutover_receipt_required": "EXACT_POST_VALIDATION_DECISION_BOUND_TO_FROZEN_TARGET",
+    "phase_a_l1_required": "FRESH_PASS_CLASS_SAME_EXACT_TARGET",
+    "phase_a_l2_required": "FRESH_PASS_CLASS_SAME_EXACT_TARGET"
+  },
+  "no_model_freeze_authority": true,
+  "no_production_authority": true,
+  "owner_cutover_receipt": {
+    "state": "NOT_YET_ISSUED",
+    "required_after": "FRESH_L1_AND_FRESH_L2_PASS_ON_FROZEN_SUCCESSOR_TARGET",
+    "inference_prohibited": true,
+    "binding_mode": "EXTERNAL_IMMUTABLE_OWNER_DECISION_BINDS_EXACT_TARGET_COMMIT_TREE_AND_ARTIFACT_IDENTITIES"
+  },
+  "phase_b_target_path": "control/authority/organization/active/AAA_ACTIVE_ORGANIZATION_POINTER_v1.0.json",
+  "pointer_state": "ACTIVE_IF_AND_ONLY_IF_BYTE_EXACT_PHASE_B_ATOMIC_COMMIT_COMPLETES",
+  "pointer_target": {
+    "release_id": "AAA-ORGANIZATION-RELEASE-v1.4",
+    "release_set_digest": "f73ba38193a6be35dbe032cba6f41ec65940a2dc6fd9532b92c7bbe631c50586",
+    "effective_semantic_identity": {
+      "byte_size": 29677,
+      "sha256": "366f703fcd4a5c903852d7edebeda0d93d5df994eae8628e89926c51a9767858"
+    },
+    "root": {
+      "artifact_id": "AAA-ORGANIZATION-TOPOLOGY-CONTRACT-v1.4",
+      "byte_size": 26705,
+      "commit": "TO_BE_BOUND_BY_R2_FROZEN_TARGET_COMMIT",
+      "git_blob": "6bc1303960cce53e3936e3cabe2ac3b36db42d78",
+      "path": "control/organization/releases/v1.4/AAA_ORGANIZATION_TOPOLOGY_CONTRACT_v1.4.json",
+      "sha256": "a80523bb2742aacb1519af6455ca09668f564e6e536588bc7ed786a899ce18e8",
+      "tree": "TO_BE_BOUND_BY_R2_FROZEN_TARGET_COMMIT"
+    },
+    "manifest": {
+      "artifact_id": "AAA-ORGANIZATION-RELEASE-MANIFEST-v1.4",
+      "byte_size": 12221,
+      "commit": "TO_BE_BOUND_BY_R2_FROZEN_TARGET_COMMIT",
+      "git_blob": "97fa121e5d5c8d2dbb929f30df25aff0e2f731cc",
+      "path": "control/organization/releases/v1.4/AAA_ORGANIZATION_RELEASE_MANIFEST_v1.4.json",
+      "sha256": "8b01f2b5e938ff64073e0058ba8e2738a406d125f26262c5ccc7b9d70d645924",
+      "tree": "TO_BE_BOUND_BY_R2_FROZEN_TARGET_COMMIT"
+    },
+    "core_b_pairing_module": {
+      "artifact_id": "AAA-ORGANIZATION-CORE-B-AUTHORITY-PAIRING-SUCCESSOR-v1.4",
+      "byte_size": 17896,
+      "commit": "TO_BE_BOUND_BY_R2_FROZEN_TARGET_COMMIT",
+      "git_blob": "88279ebb6895da6813502c4930b6739fe9a79f2b",
+      "path": "control/organization/releases/v1.4/AAA_ORGANIZATION_CORE_B_AUTHORITY_PAIRING_SUCCESSOR_v1.4.json",
+      "sha256": "3e259c49c4bd0edc29dbe57ecfe9220f7a9f2b4bd7cd17608754f22ae9399c33",
+      "tree": "TO_BE_BOUND_BY_R2_FROZEN_TARGET_COMMIT"
+    }
+  },
+  "product": "ASSET AGENT ASA",
+  "project": "AAA",
+  "release_validation": {
+    "paired_l1": {
+      "state": "PENDING_FRESH_P0_L1",
+      "receipt": "NOT_YET"
+    },
+    "independent_l2": {
+      "state": "PENDING_FRESH_P0_L2_AFTER_L1",
+      "receipt": "NOT_YET"
+    },
+    "pass_transfer": false,
+    "same_exact_frozen_target_required": true
+  },
+  "semantic_sot": false,
+  "version": "v1.0",
+  "candidate_context": {
+    "authoring_path_is_non_authoritative": true,
+    "active_pointer_move_performed": false,
+    "activation_claim": false,
+    "phase_a_path_prefix": "control/organization/cutover/v1.4/phase-a/candidates",
+    "phase_b_atomic_promotion_required": true,
+    "fresh_p0_l1_required": true,
+    "fresh_p0_l2_same_exact_target_required": true,
+    "owner_post_validation_cutover_decision_required": true
+  }
+}

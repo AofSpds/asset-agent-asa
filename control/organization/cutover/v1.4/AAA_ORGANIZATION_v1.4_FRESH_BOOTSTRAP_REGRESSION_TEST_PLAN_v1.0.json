@@ -1,0 +1,153 @@
+{
+  "artifact_id": "AAA-ORGANIZATION-v1.4-FRESH-BOOTSTRAP-REGRESSION-TEST-PLAN-v1.0",
+  "artifact_kind": "POST_ACTIVATION_NEW_CHANNEL_BOOTSTRAP_REGRESSION_PLAN_NOT_EXECUTED_TEST_RESULT",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-CONTROL-ARCHITECT",
+  "execution_state": "NOT_EXECUTED_REQUIRES_AUTHORIZED_ACTIVATION_FIRST",
+  "preconditions": [
+    "FRESH_P0_PAIRED_CONTROL_L1_PASS_ON_EXACT_FROZEN_TARGET",
+    "FRESH_P0_INDEPENDENT_L2_PASS_ON_SAME_EXACT_FROZEN_TARGET",
+    "HUMAN_PROJECT_OWNER_POST_VALIDATION_CUTOVER_DECISION",
+    "BYTE_EXACT_ATOMIC_PHASE_B_PROMOTION_COMMITTED",
+    "PINNED_POSTWRITE_READBACK_PASS",
+    "NEW_RUNTIME_CHANNEL_WITH_NO_STATE_INHERITED_FROM_AUTHORING_CHANNEL"
+  ],
+  "execution_persona": "AAA-PMO-ORCHESTRATOR",
+  "persona_injection_rule": "GIT_BOOTSTRAP_FIRST_THEN_RESOLVE_PMO_FROM_GOVERNED_SELECTOR_AND_MEMORY",
+  "scan_scope": "BOUNDED_EXACT_PATHS_LISTED_BY_TESTS_NO_REPOSITORY_WIDE_SEARCH",
+  "tests": [
+    {
+      "id": "BR-01",
+      "name": "ACTIVE_PERSISTENT_LOCATOR_HEAD",
+      "procedure": "Resolve aaa-persistent-locator-active-v0.3 at the post-cutover head supplied by immutable activation receipt.",
+      "expected": "Head equals receipt; no floating fallback.",
+      "risk": "P0"
+    },
+    {
+      "id": "BR-02",
+      "name": "ORGANIZATION_POINTER_BYTES",
+      "procedure": "Read control/authority/organization/active/AAA_ACTIVE_ORGANIZATION_POINTER_v1.0.json.",
+      "expected": "SHA256=e34348d0a49fbba80eded518e80037846242edcc8648117ba0c0e0bb9445e62c and Git blob=16bf7e0256b5eb33e14fbcc775cb2d5c9fb48f50.",
+      "risk": "P0"
+    },
+    {
+      "id": "BR-03",
+      "name": "ORGANIZATION_CURRENT_STATE_BYTES",
+      "procedure": "Read control/authority/organization/active/AAA_ORGANIZATION_CURRENT_ACTIVE_STATE_v1.0.json.",
+      "expected": "SHA256=f45b39e7652900dc8dc5c11480496993a1995d76a559789fff34dd1e4d1176d0 and exact Core-B pair is long-name pair.",
+      "risk": "P0"
+    },
+    {
+      "id": "BR-04",
+      "name": "ORGANIZATION_ROUTING_BYTES",
+      "procedure": "Read control/authority/organization/active/AAA_ORGANIZATION_ACTIVE_ROUTING_STATE_v1.0.json.",
+      "expected": "SHA256=047a9872316a6a5a1dda80c7a75949c7e04806619207ddeb2552e3176c556561; exactly one Core-B route to AAA-MODEL-DESIGN-VALIDATOR.",
+      "risk": "P0"
+    },
+    {
+      "id": "BR-05",
+      "name": "PAIR_ACTIVATION_BYTES",
+      "procedure": "Read control/authority/organization/active/AAA_ORGANIZATION_PAIR_ACTIVATION_STATE_v1.0.json.",
+      "expected": "SHA256=5551a036c4a915d6db05075d47e83e96f3f6d77a3fc3ee783f8f5aeefda9e645; six pairs; new Core-B pair active; old pair absent from current projection.",
+      "risk": "P0"
+    },
+    {
+      "id": "BR-06",
+      "name": "RELEASE_TARGET_BINDING",
+      "procedure": "Resolve root, module and manifest from pointer target.",
+      "expected": "Git blobs 6bc1303960cce53e3936e3cabe2ac3b36db42d78, 88279ebb6895da6813502c4930b6739fe9a79f2b, 97fa121e5d5c8d2dbb929f30df25aff0e2f731cc and release digest f73ba38193a6be35dbe032cba6f41ec65940a2dc6fd9532b92c7bbe631c50586.",
+      "risk": "P0"
+    },
+    {
+      "id": "BR-07",
+      "name": "SELECTOR_REGISTRY_PRESERVATION",
+      "procedure": "Read control/persona-memory/v1.0/AAA_PERSONA_RUNTIME_SELECTOR_REGISTRY_v1.0.json.",
+      "expected": "Git blob remains 307b878ef133638eafc7e257b0cc8e22924ee947; MOD and MODV resolve to long-name pair.",
+      "risk": "P0"
+    },
+    {
+      "id": "BR-08",
+      "name": "MEMORY_INDEX_PRESERVATION",
+      "procedure": "Read control/persona-memory/v1.0/AAA_PERSONA_MEMORY_INDEX_v1.0.json.",
+      "expected": "Git blob remains d84e735b1bd7c03d16119bcfc901669c264ce43c; long-name pair is reciprocal.",
+      "risk": "P0"
+    },
+    {
+      "id": "BR-09",
+      "name": "SHARED_CONTRACT_PRESERVATION",
+      "procedure": "Read control/authority/shared-contract/active/AAA_SHARED_CONTRACT_CURRENT_ACTIVE_STATE_v1.0.json and its pinned target.",
+      "expected": "Current-state Git blob remains 9463e3802abd09d41c20675239c2df7739ac2751; target blob remains d7702c1491bded7b2b90e857007599c36bc58b7d; Core-B author is long-name persona.",
+      "risk": "P0"
+    },
+    {
+      "id": "BR-10",
+      "name": "PROJECT_INSTRUCTIONS_PRESERVATION",
+      "procedure": "Read control/bootstrap/project-instructions/v1.0/AAA_PROJECT_INSTRUCTIONS_CURRENT_CANDIDATE_v1.0.json.",
+      "expected": "Git blob remains d5159b9867c212b94748ffadb2abfdcf6a070e60; no project-instruction mutation by R2.",
+      "risk": "P0"
+    },
+    {
+      "id": "BR-11",
+      "name": "SINGLE_CURRENT_CORE_B_PAIR",
+      "procedure": "Union current Organization, selector and memory projections.",
+      "expected": "Exactly one current Core-B author and one paired validator; no competing active short-name projection.",
+      "risk": "P0"
+    },
+    {
+      "id": "BR-12",
+      "name": "PERSONA_INVENTORY_CARDINALITY",
+      "procedure": "Enumerate exact governed current Persona IDs from the bounded surfaces only.",
+      "expected": "13 current IDs, 13 unique, 11 preserved from v1.3, 2 successor Core-B IDs.",
+      "risk": "P0"
+    },
+    {
+      "id": "BR-13",
+      "name": "NEGATIVE_SEMANTIC_TOUCH",
+      "procedure": "Compare frozen target file list and zero-touch declarations.",
+      "expected": "No Shared Contract, Project Instructions, selector, memory, model, feature, missingness, imputation, scorer, weight, ranking, PIT/GT, production or M3TOP3 mutation.",
+      "risk": "P0"
+    },
+    {
+      "id": "BR-14",
+      "name": "OWNER_HOLD_RELEASE_GATE",
+      "procedure": "Read activation receipt, Owner cutover decision and all BR results.",
+      "expected": "Hold may close only when all BR-01..BR-13 PASS; otherwise hold remains ACTIVE.",
+      "risk": "P0"
+    }
+  ],
+  "pass_rule": "ALL_BR_01_THROUGH_BR_14_PASS_WITH_EXACT_IDENTITY_MATCH",
+  "fail_rule": "ANY_MISMATCH_OR_MISSING_OBJECT=>FAIL_CLOSED_KEEP_ACTIVE_OWNER_DIRECTIVE_HOLD_AND_REPORT_EXACT_PATH_EXPECTED_ACTUAL",
+  "rerun_rule": "ONE_FRESH_RUN_PER_NEW_ACTIVATION_TARGET; NO_LOOPING_VALIDATION_OR_SILENT_RETRY",
+  "evidence_output": {
+    "required_artifact_id": "AAA-ORGANIZATION-v1.4-FRESH-BOOTSTRAP-REGRESSION-RECEIPT",
+    "required_fields": [
+      "activation_commit",
+      "activation_tree",
+      "active_pointer_blob",
+      "current_state_blob",
+      "routing_blob",
+      "pair_activation_blob",
+      "selector_blob",
+      "memory_index_blob",
+      "shared_contract_blob",
+      "project_instructions_blob",
+      "test_results",
+      "verdict",
+      "time_kst"
+    ],
+    "claim_ceiling": "BOOTSTRAP_REGRESSION_ONLY_NOT_MODEL_OR_SHARED_CONTRACT_VALIDATION"
+  },
+  "routing_hold": {
+    "current_state": "ACTIVE_OWNER_DIRECTIVE_HOLD",
+    "close_condition": "AUTHORIZED_v1.4_ACTIVATION_AND_ALL_BOOTSTRAP_REGRESSION_TESTS_PASS",
+    "automatic_close_before_condition": false
+  },
+  "current_execution_effect": {
+    "tests_run": 0,
+    "pass_claimed": false,
+    "hold_changed": false,
+    "active_pointer_moved": false
+  }
+}
