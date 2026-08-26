@@ -1,0 +1,76 @@
+{
+  "artifact_id": "AAA-CORE-B-AUTHORITY-COHERENCE-R6-OWNER-DECISION-REQUIRED-CHECKPOINT-v1.0",
+  "artifact_kind": "PMO_TERMINAL_OWNER_WAIT_CHECKPOINT",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-PMO-ORCHESTRATOR",
+  "wbs_id": "R6",
+  "checkpoint_time_kst": "2026-08-26T14:47:27+09:00",
+  "state": "OWNER_DECISION_REQUIRED_AND_RUNTIME_TERMINATED",
+  "exact_validated_target": {
+    "branch": "aaa-core-b-authority-coherence-successor-d4-final-v1.0-20260826",
+    "commit": "a044afe7c90f2b78f7d077ffc8e6dde9fd561992",
+    "tree": "7aa93e6420cd010a8d966318826ca3f5ba2e4f0e",
+    "sole_parent": "30362647fadf487870ca176a70e5f2eda6d1df1c",
+    "ctlv_l1": "PASS_0_FINDINGS",
+    "iva_l2": "PASS_0_FINDINGS"
+  },
+  "owner_packet": {
+    "commit": "c3aa92882afe7ea51bf6234ae153d5f53586e1fa",
+    "tree": "4bafeb0df4a4dc5e931555a7cf48f05d259a4393",
+    "sole_parent": "c1d5a50549d4ed636a90be4e7771c5c6fee41567",
+    "path": "control/decisions/organization/v1.0/AAA_CORE_B_AUTHORITY_COHERENCE_D4_OWNER_CUTOVER_DECISION_PACKET_v1.0.json",
+    "git_blob": "6fb2b80c56931fcc7770cea2bf400652a50133a8",
+    "sha256": "84ba9f8e1550b3b363e6b37f3cdc452083cbac3f66ac06e831bfd5e4ce923114",
+    "byte_size": 21042,
+    "readback": "PASS_EXACT"
+  },
+  "runtime_terminal_state": {
+    "active_workers": 0,
+    "active_validators": 0,
+    "active_work_units": [],
+    "validation": "COMPLETE_EXACT_D4_ONLY",
+    "owner_decision_observed": false,
+    "owner_approval_inferred": false,
+    "active_pointer_moved": false,
+    "activation_commit_created": false,
+    "cutover_executed": false,
+    "current_runtime_action": "TERMINATE_AFTER_OWNER_REPORT",
+    "silent_continuation": "PROHIBITED"
+  },
+  "exact_owner_response_required": [
+    "APPROVE_CORE_B_SUCCESSOR_CUTOVER = YES",
+    "APPROVE_CORE_B_SUCCESSOR_CUTOVER = NO"
+  ],
+  "execution_capability_hold": {
+    "risk_id": "RISK-CAS-PRIMITIVE-AVAILABILITY-001",
+    "true_expected_old_primary_cas_proven_available": false,
+    "atomic_successor_create_if_absent_proven_available": false,
+    "owner_yes_waives_hold": false,
+    "read_then_update_or_force_false_emulation": "PROHIBITED",
+    "next_runtime_if_owner_yes": "PROVE_REQUIRED_ATOMIC_PRIMITIVES_BEFORE_ANY_OBJECT_OR_REF_WRITE_OR_ABORT_ZERO_WRITES"
+  },
+  "active_state_readback": {
+    "primary_ref": "aaa-persistent-locator-active-v0.3@5b2dd5c5ea5bf96eb22163a0598d6879fffada9e",
+    "predecessor_ref": "aaa-organization-active-v1.3@d7c490c373f2df356f31e4459c345328616b4eb3",
+    "successor_ref": "aaa-organization-active-v1.4@ABSENT",
+    "routing_hold": "ACTIVE_OWNER_DIRECTIVE_HOLD",
+    "common_guard": "aaa-common-persona-validation-execution-guard-v1.1-20260826@e782984a968b20c1913b3bdbb398a00c1ab533c4 / 10_OF_100_EWU / HOLD",
+    "m3top3": "aaa-pmo-m3top3-successor-resume-20260826-0034@0f3b7b0cc0864d9939c670129991fdabca14a90c / SOURCE_BLOCKED_UNTOUCHED"
+  },
+  "progress": {
+    "pre_cutover_remediation_preparation": "60 / 60 EWU",
+    "r7": "NOT_STARTED",
+    "r8": "NOT_STARTED",
+    "r9": "NOT_STARTED",
+    "common_guard": "10 / 100 EWU PRESERVED"
+  },
+  "next_route": {
+    "owner_yes": "NEW_BOUNDED_R7_RUNTIME_AFTER_EXACT_DECISION_RECEIPT_AND_ATOMIC_CAPABILITY_PROOF",
+    "owner_no": "PERSIST_NO_KEEP_ACTIVE_REFS_AND_ROUTING_HOLD_UNCHANGED",
+    "no_response": "NO_WORK_RUNTIME_REMAINS_TERMINATED"
+  },
+  "claim_ceiling": "OWNER_PACKET_READY_D4_L1_L2_PASS_ONLY_NO_OWNER_APPROVAL_NO_CUTOVER_NO_ACTIVATION_NO_BOOTSTRAP_PASS_NO_ROUTING_HOLD_RELEASE_NO_PRODUCTION"
+}
+
