@@ -4,8 +4,8 @@
   "version": "v1.0",
   "project": "AAA",
   "product": "ASSET AGENT ASA",
-  "state": "D1_CORRECTED_SHADOW_POINTER_PENDING_AFFECTED_AND_VALIDATOR_RECHECK_NOT_ACTIVE",
-  "mode": "SHADOW",
+  "state": "A5_FINAL_ENFORCED_POINTER_CANDIDATE_REQUIRES_EXTERNAL_ACTIVE_BOOTSTRAP_REF_SWITCH",
+  "mode": "ENFORCED",
   "semantic_sot": false,
   "target": {
     "artifact_id": "AAA-COMMON-PERSONA-EXECUTION-VALIDATION-GUARD-v1.1",
@@ -38,7 +38,7 @@
     "shared_contract_effect": false,
     "model_pit_gt_effect": false,
     "freeze_release_or_production_effect": false,
-    "enforced_routing_effect": false
+    "enforced_routing_effect": true
   },
   "superior_rule": {
     "pointer_path": "control/organization/current-state/v1.0/AAA_GLOBAL_PACKET_DISPLAY_RULE_CURRENT.json",
@@ -47,30 +47,61 @@
     "target_blob": "dff467a971f9519ba6598f535fc47623197e4bcb"
   },
   "bootstrap_injection": {
-    "stage": "A2_COMPLETE_STATIC_ROUTING_READBACK_PASS",
+    "stage": "A4_VALIDATED_A5_ROLLBACK_DEMO_PASS_FINAL_CUTOVER_CANDIDATE",
     "single_pointer_route_required": true,
     "normative_guard_rule_copy_allowed": false
   },
   "activation_gate": {
-    "state": "CLOSED",
-    "enforced_activation_allowed": false,
+    "state": "CUTOVER_ELIGIBLE_AWAITING_PR_CAS_MERGE_AND_ACTIVE_BOOTSTRAP_REF_SWITCH",
+    "enforced_activation_allowed": true,
     "completed": [
       "A2_EXACT_POINTER_INJECTION_AND_ALL_PERSONA_STATIC_COVERAGE",
-      "A3_T0_THROUGH_T10_PASS_11_OF_11"
+      "A3_T0_THROUGH_T10_PASS_11_OF_11",
+      "A4_EXACT_D1_ROLE_SCOPED_VALIDATION_PASS",
+      "A5_EXACT_FORWARD_AND_REVERSE_ROLLBACK_DEMONSTRATION_PASS"
     ],
     "remaining": [
-      "A4_D1_AFFECTED_TEST_RECHECK_PASS",
-      "A4_D1_TARGETED_FROZEN_CANDIDATE_VALIDATOR_RECHECK_PASS",
-      "A5_ROLLBACK_DEMONSTRATION_PASS",
       "A5_PRE_MERGE_COMPARE_AND_SWAP_PASS",
-      "A5_POST_MERGE_AND_POST_POINTER_READBACK_PASS"
+      "A5_PR_MERGE_PASS",
+      "A5_ACTIVE_BOOTSTRAP_REF_SWITCH_PASS",
+      "A5_POST_MERGE_AND_POST_POINTER_READBACK_PASS",
+      "A5_FRESH_PERSONA_RESOLUTION_PASS"
     ]
   },
   "operational_rollback": {
     "transition": "ENFORCED_TO_THIS_EXACT_SHADOW_POINTER",
-    "shadow_pointer_blob": "PIN_BY_LATEST_PRE_ACTIVATION_D1_FREEZE_CHECKPOINT",
-    "method": "FORWARD_ONLY_NON_FORCE_COMPARE_AND_SWAP_POINTER_SUCCESSOR"
+    "shadow_pointer_blob": "0daab5c5ac7f9b8efb2f4c015331c40581cf918b",
+    "shadow_bootstrap_blob": "fa76370df6e97987b99e4c97389295f59f0f54cc",
+    "shadow_coverage_blob": "0f993786dbe21558d279a3874659243de3c6fbe7",
+    "shadow_inventory_blob": "62c47f78b483e74738a29b9694ea6512cfdac40f",
+    "rollback_test_receipt_blob": "dc6d5c2b0633e97f7aec26df7e42b0633a1aea76",
+    "method": "FORWARD_ONLY_NON_FORCE_COMPARE_AND_SWAP_POINTER_SUCCESSOR",
+    "rollback_demonstration": "PASS"
+  },
+  "validation_binding": {
+    "exact_validated_operative_commit": "e42fe2fb92f2a00e8f70437b135d2a8c5136ba96",
+    "exact_validated_operative_tree": "a43056e357626e4166df2bb102aa27812b83aec0",
+    "a4_completion_commit": "db678b5bd80ff4412c289ae0cd41a3c62cce5e33",
+    "a4_completion_checkpoint_blob": "e04dd40961d0bd4668d2c8a4fb7170ab3970a559",
+    "aggregate_verdict": "PASS_0_OPEN_FINDINGS",
+    "pass_transfer_to_unvalidated_artifacts": false
+  },
+  "cutover_controls": {
+    "direct_main_mutation": false,
+    "required_merge_method": "merge",
+    "pre_merge_expected_main": "fa7d1a8bd1d00d297c27a325801618b75c4e113e",
+    "pre_switch_expected_active_bootstrap": "e9dc8b2fd5f58f49ac88b02c8136330db85700b1",
+    "active_bootstrap_branch": "aaa-project-instructions-git-bootstrap-v1.0",
+    "active_product_effect_before_ref_switch": false,
+    "non_force_ref_switch_required": true
+  },
+  "owner_correction_preservation": {
+    "current_mod": "AAA-MODEL-ARCHITECT",
+    "current_modv": "AAA-MODEL-VALIDATOR",
+    "prohibited_reverse_cutover_target": "a044afe7c90f2b78f7d077ffc8e6dde9fd561992",
+    "prohibited_target_activated": false,
+    "old_long_names_current": false
   },
   "pointer_semantic_role": "NON_SEMANTIC_CURRENT_STATE_RESOLUTION",
-  "claim_ceiling": "D1_AUTHOR_CORRECTED_SHADOW_POINTER_PENDING_AFFECTED_AND_VALIDATOR_RECHECK_NO_ACTIVE_OR_ENFORCED_EFFECT"
+  "claim_ceiling": "A5_FINAL_ENFORCED_CANDIDATE_VALIDATED_AND_ROLLBACK_DEMO_PASS_NO_ACTIVE_PRODUCT_EFFECT_UNTIL_GUARDED_MERGE_AND_ACTIVE_BOOTSTRAP_REF_SWITCH"
 }

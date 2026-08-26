@@ -4,7 +4,7 @@
   "version": "v1.0",
   "project": "AAA",
   "product": "ASSET AGENT ASA",
-  "state": "WORKING_CANDIDATE_D1_CORRECTED_SHADOW_GUARD_WIRED_PENDING_A4_RECHECK_NOT_ACTIVE_AUTHORITY",
+  "state": "A5_FINAL_ENFORCED_CUTOVER_CANDIDATE_REQUIRES_GUARDED_MERGE_AND_ACTIVE_BOOTSTRAP_REF_SWITCH",
   "semantic_sot": false,
   "target_commit": "cfc6347eb667f72f1bac0f6c0bbfdbf2a4393c84",
   "canonical_project_instructions": {
@@ -57,13 +57,13 @@
   },
   "common_persona_execution_validation_guard_current": {
     "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_CURRENT.json",
-    "git_blob": "0daab5c5ac7f9b8efb2f4c015331c40581cf918b",
-    "mode": "SHADOW",
+    "git_blob": "6e9ad6aa6ae57d292944b104584db7ce4673431f",
+    "mode": "ENFORCED",
     "target_path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_v1.1.json",
     "target_git_blob": "2bff1b6e8431bc36064d3dfd31bc245a4cf4829f",
     "composition_path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_COMPOSITION_v1.0.md",
     "composition_git_blob": "3f2d413c0796100581b8400a76a9b94ff802916d",
-    "purpose": "One project-common pointer route for all current and future governed Personas; current D1 mode is SHADOW and later ENFORCED mode requires every activation gate to close."
+    "purpose": "One project-common pointer route for all current and future governed Personas; A4 validation and the A5 rollback demonstration are complete, while product effect still requires guarded merge and the non-force active bootstrap ref switch."
   },
   "persona_selector_registry": {
     "path": "control/persona-memory/v1.0/AAA_PERSONA_RUNTIME_SELECTOR_REGISTRY_v1.0.json",
@@ -142,14 +142,26 @@
     "PARALLEL_CODEX_SHARED_MUTABLE_WORKTREE_OR_SHARED_LOG_RACE"
   ],
   "memory_rule": "Persona/common memory, universal/role behavior codes, worklogs, and Codex run journals support continuity and runtime injection context but never create authority, validation PASS, model semantics, Shared Contract semantics, Freeze, Release, or Production authority.",
-  "activation_note": "This candidate does not itself activate product-level Project Instructions or a project-wide authority pointer. Governed review/validation and final product-level replacement remain separate acts.",
-  "d1_shadow_guard_wiring": {
+  "activation_note": "This candidate has no active product effect until it is merged through the bounded A5 PR and the active bootstrap branch is moved non-force to the merge commit after exact compare-and-swap readback. It creates no authority or Shared Contract semantics.",
+  "final_enforced_guard_wiring": {
     "base_commit": "3408e1dbb27e92bdc0f2c34016391d98d3af5b54",
     "single_sot": true,
     "persona_local_guard_rule_copy": false,
-    "enforced_activation": false,
+    "enforced_activation": true,
     "representative_tests": "PASS_A3_T0_THROUGH_T10_11_OF_11",
-    "targeted_validation": "D1_AFFECTED_RECHECK_AND_VALIDATOR_RECHECK_PENDING"
+    "targeted_validation": "A4_PASS_EXACT_D1_TARGET_0_OPEN_FINDINGS",
+    "rollback_demonstration": "A5_PASS_EXACT_FORWARD_AND_REVERSE_TRANSITIONS",
+    "rollback_test_receipt_blob": "dc6d5c2b0633e97f7aec26df7e42b0633a1aea76",
+    "active_product_effect_before_external_ref_switch": false
+  },
+  "a5_cutover_binding": {
+    "a4_completion_commit": "db678b5bd80ff4412c289ae0cd41a3c62cce5e33",
+    "a4_completion_checkpoint_blob": "e04dd40961d0bd4668d2c8a4fb7170ab3970a559",
+    "expected_pre_merge_main": "fa7d1a8bd1d00d297c27a325801618b75c4e113e",
+    "expected_pre_switch_active_bootstrap": "e9dc8b2fd5f58f49ac88b02c8136330db85700b1",
+    "required_merge_method": "merge",
+    "required_ref_update": "NON_FORCE",
+    "rollback_ready": true
   },
   "currentization_base_commit": "6083d892ac52fc4654f809fe265b5e59ef6aa9c5",
   "common_guard_resume_branch": "aaa-common-persona-validation-execution-guard-v1.1-r2-20260826",
