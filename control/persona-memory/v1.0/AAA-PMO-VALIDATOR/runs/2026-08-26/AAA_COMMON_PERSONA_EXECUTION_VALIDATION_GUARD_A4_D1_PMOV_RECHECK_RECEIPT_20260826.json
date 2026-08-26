@@ -1,0 +1,144 @@
+{
+  "artifact_id": "AAA-COMMON-PERSONA-EXECUTION-VALIDATION-GUARD-A4-D1-PMOV-RECHECK-RECEIPT-20260826",
+  "artifact_kind": "AAA_PMO_VALIDATOR_D1_BOUNDED_FINDING_CLOSURE_RECHECK_RECEIPT",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "validator_persona": "AAA-PMO-VALIDATOR",
+  "state": "PASS_FROZEN_FINDING_CLOSURE_LOCAL_RECEIPT",
+  "verdict": "PASS",
+  "persistence_state": "LOCAL_ONLY_NOT_GIT_PERSISTED",
+  "operative_target": {
+    "branch": "aaa-common-persona-validation-execution-guard-v1.1-r2-20260826",
+    "commit": "e42fe2fb92f2a00e8f70437b135d2a8c5136ba96",
+    "tree": "a43056e357626e4166df2bb102aa27812b83aec0",
+    "checkpoint_blob": "07b2be7ad9f5b73c24fdb13af7ed5e0835f7edcf"
+  },
+  "evidence_addendum": {
+    "commit": "ba188b5dbe1561251ae8f20064543539558173fc",
+    "tree": "2cc52e9b58f7de3534e59c55c31ebd319e644384",
+    "sole_parent": "e42fe2fb92f2a00e8f70437b135d2a8c5136ba96",
+    "blob": "239f40dfa337840a73f93bceeb071f9ef94efff0",
+    "compare_from_operative_target": {
+      "ahead_by": 1,
+      "behind_by": 0,
+      "total_commits": 1,
+      "changed_paths": 1,
+      "change": "ADD_ONE_EVIDENCE_ONLY_RECEIPT",
+      "operative_artifact_changes": 0
+    }
+  },
+  "finding_closure": [
+    {
+      "finding_id": "F-A4-PMOV-D1-001",
+      "classification": "BLOCKING_AT_PRIOR_D1_RECHECK",
+      "closure_state": "CLOSED_PASS",
+      "closure": "CANONICAL_T2_FIELD_LEVEL_CLOSURE_AND_EXACT_D1_REBINDING",
+      "evidence": {
+        "canonical_matrix_blob": "354d7c5b107489e94e817598552ec99d7426a405",
+        "canonical_test_id": "T2",
+        "d0_guard_blob": "d803945e7e709dc96daf460ef2f6fd5cedec6e4b",
+        "d1_guard_blob": "2bff1b6e8431bc36064d3dfd31bc245a4cf4829f",
+        "equal_field_level_subtrees": [
+          "G_01_action_risk_classification",
+          "G_06_exact_validator_target",
+          "G_07_parallel_role_scoped_validation",
+          "G_09_correction_and_recheck"
+        ],
+        "subtrees_byte_value_equal": true,
+        "canonical_t2_result": "PASS_REUSED_AFTER_EXPLICIT_FIELD_LEVEL_UNCHANGED_IMPACT_CLASSIFICATION_AND_REBOUND_TO_D1",
+        "prior_receipt_label_disposition": "ORIGINAL_T2_LABEL_RECLASSIFIED_AS_RC_02_CURRENT_STATE_SOURCE_ROLE_CLOSURE_WITHOUT_REWRITING_RECEIPT_BYTES"
+      }
+    },
+    {
+      "finding_id": "F-A4-PMOV-D1-002",
+      "classification": "BLOCKING_AT_PRIOR_D1_RECHECK",
+      "closure_state": "CLOSED_PASS",
+      "closure": "THIRTY_ENTRY_PER_ACCEPTANCE_CRITERION_D0_TO_D1_IMPACT_AND_REUSE_LEDGER",
+      "evidence": {
+        "acceptance_criterion_count": 30,
+        "unique_count": 30,
+        "missing": [],
+        "duplicates": [],
+        "extras": [],
+        "blank_evidence_entries": [],
+        "deferred_to_A5": [
+          "AC-26",
+          "AC-29",
+          "AC-30"
+        ],
+        "unchanged_ac_reuse_classification": "PASS"
+      }
+    }
+  ],
+  "acceptance_criteria": {
+    "AC-21": {
+      "result": "PASS",
+      "basis": "AUTHORING_VALIDATION_AND_PERSISTENCE_STATES_REMAIN_SEPARATED",
+      "interpretation_guard": "THE_AC_21_LEDGER_TOKEN_IS_A_PER_CRITERION_RESULT_NOT_AN_OVERALL_PMOV_OR_A4_PASS"
+    },
+    "AC-25": {
+      "result": "PASS",
+      "basis": "FRESH_T0_T3_T5_T8_AND_RC_02_CLOSURE_PLUS_CANONICAL_T2_D1_REBINDING_PLUS_EXPLICIT_REUSE_OF_UNCHANGED_T1_T4_T6_T7_T9_T10"
+    }
+  },
+  "finding_counts": {
+    "blocking": 0,
+    "advisory": 0,
+    "new_scope": 0,
+    "remaining_total": 0
+  },
+  "safety_and_progress": {
+    "operative_artifact_change": false,
+    "second_author_correction_batch": false,
+    "automatic_validation_loop": false,
+    "d0_pass_auto_transfer": false,
+    "a4_ewu_earned": 0,
+    "program_ewu": "75/100",
+    "a4_progress": "0/15",
+    "premature_overall_pmov_or_a4_pass": false,
+    "a5_started": false,
+    "merge_started": false,
+    "activation_started": false,
+    "github_writes_by_validator": 0,
+    "other_validator_outputs_read": 0
+  },
+  "telemetry": {
+    "validation_act_id": "A4-PMOV-D1-FINDING-CLOSURE-ba188b5d",
+    "parent_wbs": "A4_TARGETED_VALIDATION_D1_FINDING_CLOSURE",
+    "risk_tier": "P1_GLOBAL_OPERATING_CONTROL_ROLE_SCOPED_RECHECK",
+    "trigger_reason": "CLOSE_F_A4_PMOV_D1_001_AND_002_ON_ONE_EVIDENCE_ONLY_ADDENDUM",
+    "target_sha": "e42fe2fb92f2a00e8f70437b135d2a8c5136ba96",
+    "evidence_sha": "ba188b5dbe1561251ae8f20064543539558173fc",
+    "start": "NOT_INSTRUMENTED",
+    "end": "2026-08-26T21:32:42.834+09:00",
+    "total_wall": "LESS_THAN_OR_EQUAL_TO_3_MINUTES_16_SECONDS_FROM_ADDENDUM_TIMESTAMP",
+    "active_review": "NOT_INSTRUMENTED",
+    "queue_wait": "NOT_INSTRUMENTED",
+    "dependency_wait": "NOT_INSTRUMENTED",
+    "context_load": "NOT_INSTRUMENTED",
+    "direct_review": "NOT_INSTRUMENTED",
+    "test_time": "NOT_INSTRUMENTED",
+    "retrieval_time": "APPROXIMATELY_3_POINT_4_SECONDS_SUMMED_TOOL_WALL",
+    "finding_integration": "TWO_PRIOR_BLOCKING_FINDINGS_CLOSED",
+    "correction_time": "NOT_APPLICABLE_VALIDATOR_DID_NOT_AUTHOR",
+    "recheck_time": "NOT_INSTRUMENTED",
+    "retry_time": "NOT_APPLICABLE_NO_RETRY",
+    "files_or_sections_read": [
+      "EVIDENCE_ADDENDUM_BLOB_239F40DFA337840A73F93BCEEB071F9EF94EFFF0",
+      "E42FE2FB_TO_BA188B5D_ONE_FILE_COMPARE_METADATA",
+      "CACHED_EXACT_D0_AND_D1_CANONICAL_T2_FIELD_LEVEL_SUBTREES"
+    ],
+    "git_calls": 5,
+    "git_retries": 0,
+    "git_failures": 0,
+    "full_scan_flag": false,
+    "repeated_whole_read_flag": false,
+    "reused_receipt": "D1_AFFECTED_RECHECK_AND_EVIDENCE_ADDENDUM_ONLY",
+    "reused_test_evidence": "EXPLICITLY_CLASSIFIED_CANONICAL_D0_T2_AND_UNCHANGED_T1_T4_T6_T7_T9_T10",
+    "finding_closure_recheck_count": 1,
+    "finding_count": 0,
+    "token_or_cru_if_available": "NOT_INSTRUMENTED"
+  },
+  "claim_ceiling": "PMOV_D1_FINDING_CLOSURE_PASS_2_OF_2_FOR_OPERATIVE_E42FE2FB_PLUS_EVIDENCE_ADDENDUM_BA188B5D_ONLY_NO_COMBINED_A4_PASS_NO_A4_EWU_NO_A5_NO_MERGE_NO_ACTIVATION"
+}
