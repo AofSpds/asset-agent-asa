@@ -1,0 +1,73 @@
+{
+  "artifact_id": "AAA-COMMON-PERSONA-EXECUTION-VALIDATION-GUARD-CURRENT",
+  "artifact_kind": "PROJECT_COMMON_CURRENT_STATE_POINTER_CANDIDATE",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "state": "A1_SHADOW_CANDIDATE_POINTER_NOT_ACTIVE",
+  "mode": "SHADOW",
+  "semantic_sot": false,
+  "target": {
+    "artifact_id": "AAA-COMMON-PERSONA-EXECUTION-VALIDATION-GUARD-v1.1",
+    "version": "v1.1",
+    "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_v1.1.json",
+    "git_blob": "772e0d149e64d58a6d516df122aa29fa5e0c1b9e"
+  },
+  "composition_contract": {
+    "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_COMPOSITION_v1.0.md",
+    "git_blob": "03ed1a50a1f503e464c418c9d3beddc49fbbc688"
+  },
+  "rollback_design": {
+    "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_ROLLBACK_DESIGN_v1.0.json",
+    "git_blob": "44eea6d4ed6ca6455455030d6268461afbc3b407"
+  },
+  "predecessor": {
+    "state": "EXACT_PATH_ABSENT_AT_A0_R_BASE",
+    "base_commit": "1ec8fa08dcca560cc592869ac0ed7fdce8d1ce3a",
+    "base_tree": "a617863d7108beb9ee3a68ad0963b61bd434090f",
+    "relevant_directory_tree": "202f6a61e924832fad8131c829905f5d5758914d",
+    "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_CURRENT.json"
+  },
+  "effective_semantics": {
+    "load_and_observe": true,
+    "emit_routing_and_telemetry": true,
+    "direct_pass_or_fail_effect": false,
+    "validation_floor_effect": false,
+    "validation_independence_effect": false,
+    "authority_effect": false,
+    "shared_contract_effect": false,
+    "model_pit_gt_effect": false,
+    "freeze_release_or_production_effect": false,
+    "enforced_routing_effect": false
+  },
+  "superior_rule": {
+    "pointer_path": "control/organization/current-state/v1.0/AAA_GLOBAL_PACKET_DISPLAY_RULE_CURRENT.json",
+    "pointer_blob": "7ae5cea1297b1b23217e4d9a3342924a724e38aa",
+    "target_path": "control/organization/current-state/v1.0/AAA_GLOBAL_PACKET_DISPLAY_RULE_v0.4.json",
+    "target_blob": "dff467a971f9519ba6598f535fc47623197e4bcb"
+  },
+  "bootstrap_injection": {
+    "stage": "PENDING_A2",
+    "single_pointer_route_required": true,
+    "normative_guard_rule_copy_allowed": false
+  },
+  "activation_gate": {
+    "state": "CLOSED",
+    "enforced_activation_allowed": false,
+    "opens_only_after": [
+      "A2_EXACT_POINTER_INJECTION_AND_ALL_PERSONA_COVERAGE",
+      "A3_T0_THROUGH_T10_PASS",
+      "A4_TARGETED_FROZEN_CANDIDATE_VALIDATION_PASS",
+      "A5_ROLLBACK_DEMONSTRATION_PASS",
+      "A5_PRE_MERGE_COMPARE_AND_SWAP_PASS",
+      "A5_POST_MERGE_AND_POST_POINTER_READBACK_PASS"
+    ]
+  },
+  "operational_rollback": {
+    "transition": "ENFORCED_TO_THIS_EXACT_SHADOW_POINTER",
+    "shadow_pointer_blob": "PIN_BY_A1_FREEZE_CHECKPOINT",
+    "method": "FORWARD_ONLY_NON_FORCE_COMPARE_AND_SWAP_POINTER_SUCCESSOR"
+  },
+  "pointer_semantic_role": "NON_SEMANTIC_CURRENT_STATE_RESOLUTION",
+  "claim_ceiling": "UNMERGED_A1_SHADOW_POINTER_CANDIDATE_NO_ACTIVE_OR_ENFORCED_EFFECT"
+}

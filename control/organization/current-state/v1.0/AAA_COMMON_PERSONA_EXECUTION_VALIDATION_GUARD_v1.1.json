@@ -1,0 +1,408 @@
+{
+  "artifact_id": "AAA-COMMON-PERSONA-EXECUTION-VALIDATION-GUARD-v1.1",
+  "object_id": "AAA-COMMON-PERSONA-EXECUTION-VALIDATION-GUARD",
+  "artifact_kind": "PROJECT_COMMON_NON_SEMANTIC_EXECUTION_VALIDATION_ORCHESTRATION_GUARD",
+  "version": "v1.1",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-PMO-ORCHESTRATOR",
+  "task_class": "P1_GLOBAL_OPERATING_CONTROL",
+  "state": "FROZEN_A1_SHADOW_DESIGN_CANDIDATE_NOT_ENFORCED",
+  "semantic_sot": true,
+  "effective_mode": "SHADOW",
+  "owner_authorization": {
+    "packet_id": "AAA-COMMON-PERSONA-VALIDATION-EXECUTION-TUNING-ROLLOUT-v1.1",
+    "source_packet": "AAA-PERSONA-COMMON-VALIDATION-TUNING-REQUEST-v1.0",
+    "transport_sha256": "812dfe9f032b82a9dcfc9e1898fdddbd9160e6d87c9587d3d06430fe2bd05794",
+    "authorization": "EXECUTE_A0_THROUGH_A5_CREATE_PR_MERGE_AND_ACTIVATE_ONLY_IF_ALL_REQUIRED_ACCEPTANCE_CRITERIA_PASS"
+  },
+  "exact_current_state_binding": {
+    "a0_r_branch": "aaa-common-persona-validation-execution-guard-v1.1-r2-20260826",
+    "a0_r_commit": "1ec8fa08dcca560cc592869ac0ed7fdce8d1ce3a",
+    "a0_r_tree": "a617863d7108beb9ee3a68ad0963b61bd434090f",
+    "a0_r_checkpoint_path": "control/persona-memory/v1.0/AAA-PMO-ORCHESTRATOR/runs/2026-08-26/AAA_COMMON_VALIDATION_TUNING_A0_CURRENTIZATION_CHECKPOINT_20260826.json",
+    "a0_r_checkpoint_blob": "c6df1d96208a6fbc39585de5b0ae56c39dfab5b4",
+    "active_persistent_locator": "aaa-persistent-locator-active-v0.3@5b2dd5c5ea5bf96eb22163a0598d6879fffada9e",
+    "active_organization": "aaa-organization-active-v1.3@d7c490c373f2df356f31e4459c345328616b4eb3",
+    "active_persona_count": 13,
+    "active_persona_inventory_blob": "e1bfc77b96c4a5fbf1b7bf43c8bf5f0683c64be6",
+    "m3top3_preserved": "aaa-pmo-m3top3-successor-resume-20260826-0034@0f3b7b0cc0864d9939c670129991fdabca14a90c"
+  },
+  "superior_current_rule_binding": {
+    "pointer_path": "control/organization/current-state/v1.0/AAA_GLOBAL_PACKET_DISPLAY_RULE_CURRENT.json",
+    "pointer_blob": "7ae5cea1297b1b23217e4d9a3342924a724e38aa",
+    "target_path": "control/organization/current-state/v1.0/AAA_GLOBAL_PACKET_DISPLAY_RULE_v0.4.json",
+    "target_commit": "57cd7b37b7efb7ee97527e11defce7dc59e4bb5f",
+    "target_blob": "dff467a971f9519ba6598f535fc47623197e4bcb",
+    "preservation_rule": "QUALITY_VALIDATION_RELIABILITY_COMPLETENESS_COMPUTE_EFFICIENCY_SPEED_ORDER_PRESERVED",
+    "conflict_rule": "v0.4_AND_HIGHER_AUTHORITY_WIN_FAIL_CLOSED_ON_UNRESOLVED_CONFLICT"
+  },
+  "composition": {
+    "order": [
+      "ACTIVE_AUTHORITY_AND_SHARED_CONTRACT",
+      "AAA_GLOBAL_PACKET_DISPLAY_RULE_v0.4",
+      "AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_v1.1",
+      "ROLE_SPECIFIC_PERSONA_RUNTIME",
+      "TASK_SPECIFIC_PACKET"
+    ],
+    "precedence": {
+      "higher_governed_authority": "ALWAYS_WINS",
+      "task_specific_high_impact_gate": "MAY_STRENGTHEN_NEVER_WEAKEN",
+      "role_specific_runtime": "MAY_REFINE_DUTIES_NEVER_DISABLE_COMMON_GUARD",
+      "common_guard": "MAY_ROUTE_AND_OBSERVE_NEVER_CREATE_AUTHORITY_OR_PASS"
+    },
+    "single_sot_rule": "BOOTSTRAP_AND_PERSONA_MEMORY_REFERENCE_ONLY_THE_COMMON_CURRENT_POINTER_AND_DO_NOT_COPY_NORMATIVE_GUARD_RULES",
+    "future_persona_rule": "EVERY_FUTURE_GOVERNED_CURRENT_PERSONA_INHERITS_THE_COMMON_POINTER_WITHOUT_RULE_DUPLICATION"
+  },
+  "authority_and_validation_firewall": {
+    "authority_change": false,
+    "shared_contract_change": false,
+    "model_semantic_change": false,
+    "pit_or_gt_change": false,
+    "validation_floor_change": false,
+    "paired_validator_independence_change": false,
+    "iva_independence_change": false,
+    "freeze_release_or_production_authority": false,
+    "guard_creates_pass_or_fail": false,
+    "guard_may_bypass_existing_gate": false,
+    "outcome_validation_schema_path": "control/schemas/v0.1/validation.schema.yaml",
+    "outcome_validation_schema_disposition": "DO_NOT_MODIFY"
+  },
+  "G_01_action_risk_classification": {
+    "classifier": "CURRENT_ACTION_PLUS_MATERIAL_RISK",
+    "non_triggers": [
+      "HIGH_RISK_WORD_PRESENT_IN_DOCUMENT",
+      "FILE_LENGTH",
+      "PERSONA_COUNT",
+      "WORKER_COUNT",
+      "EXPECTED_RUNTIME_LENGTH"
+    ],
+    "routes": [
+      {
+        "when": "PLAN_OR_DOCUMENT_REVIEW_AND_NO_MUTATION",
+        "route": "FAST_BOUNDED_REVIEW"
+      },
+      {
+        "when": "LOW_RISK_NON_SEMANTIC_CHANGE",
+        "route": "TARGETED_DETERMINISTIC_CHECK"
+      },
+      {
+        "when": "NORMAL_IMPLEMENTATION_CHANGE",
+        "route": "AFFECTED_REGRESSION_PLUS_ONE_RELEVANT_VALIDATOR_IF_REQUIRED"
+      },
+      {
+        "when": "PIT_OR_GT_OR_AUTHORITY_OR_FAIL_CLOSED_OR_IMMUTABLE_LINEAGE",
+        "route": "EXISTING_HIGH_RISK_VALIDATION_FLOOR"
+      },
+      {
+        "when": "FREEZE_OR_GOLDEN_OR_REPLAY_OR_RELEASE_OR_PRODUCTION",
+        "route": "EXISTING_FULL_HIGH_IMPACT_GATES"
+      }
+    ]
+  },
+  "G_02_task_opening_plan": {
+    "freeze_before_substantive_work": [
+      "TASK_CLASS",
+      "CURRENT_ACTION",
+      "AUTHORIZED_SCOPE",
+      "ACCEPTANCE_CRITERIA",
+      "STAGES",
+      "PLANNED_WALL_P50",
+      "PLANNED_WALL_P90_OR_RANGE",
+      "TIMING_CONFIDENCE",
+      "PLANNED_CRU",
+      "STEP_EWU",
+      "PLANNED_GIT_READ",
+      "PLANNED_WORKERS",
+      "PLANNED_VALIDATORS",
+      "PARALLELISM",
+      "CORRECTION_EXPECTATION",
+      "OWNER_CHECK_LIMIT",
+      "TERMINAL_CONDITION"
+    ],
+    "fixed_universal_task_duration": false
+  },
+  "G_03_progress_and_accounting": {
+    "universal_behavior_code_path": "control/persona-memory/v1.0/COMMON/AAA_EXECUTION_PROGRESS_TIME_COMPUTE_BEHAVIOR_CODE_v1.0.md",
+    "universal_behavior_code_blob": "5945078b3a291d19beffb8c3f1336b4af37da354",
+    "integration": "REFERENCE_NOT_DUPLICATE_SOT",
+    "progress_denominator": "PRE_FROZEN_EVIDENCE_WEIGHTED_WORK_UNITS",
+    "ewu_rule": "EARN_ONLY_WHEN_PREDECLARED_EVIDENCE_CLOSES",
+    "cru_rule": "NORMALIZED_COMPUTE_OR_RESOURCE_BURN_SEPARATE_FROM_EWU",
+    "missing_telemetry": "NOT_INSTRUMENTED_NEVER_ZERO",
+    "required_report_fields": [
+      "OVERALL_PROGRESS",
+      "CURRENT_STAGE_PROGRESS",
+      "VALIDATION_CLOSURE_PROGRESS",
+      "EWU",
+      "CRU",
+      "ACTUAL_ELAPSED",
+      "ACTIVE_TIME",
+      "WAIT_TIME",
+      "REWORK_TIME",
+      "BLOCKED_TIME",
+      "ACTIVE_WORKERS",
+      "ACTIVE_VALIDATORS",
+      "ETA_P50",
+      "ETA_P90",
+      "LAST_MATERIAL_PROGRESS",
+      "NEXT_TERMINAL_EVENT"
+    ]
+  },
+  "G_04_narrow_first_read": {
+    "order": [
+      "EXACT_POINTER_OR_FILE",
+      "RELEVANT_SECTION_OR_DIFF",
+      "CHANGED_PATH",
+      "DEPENDENCY_NEIGHBORHOOD",
+      "BOUNDED_HISTORY_OR_TREE",
+      "REPOSITORY_WIDE_ONLY_AFTER_EXPLICIT_SCOPE_REVIEW"
+    ],
+    "every_read_requires": "ACCEPTANCE_CRITERION_OR_TASK_NEED_LINK",
+    "full_repository_scan_default": "PROHIBITED"
+  },
+  "G_05_current_state_readback": {
+    "required_events": [
+      "PRE_D0_FREEZE",
+      "PRE_COMPLETION",
+      "PRE_MERGE_COMPARE_AND_SWAP",
+      "POST_MERGE",
+      "POST_POINTER_SWITCH"
+    ],
+    "required_fields": [
+      "BASE_MAIN_SHA",
+      "CURRENT_MAIN_SHA",
+      "CHANGED_CURRENT_POINTERS",
+      "CHANGED_PERSONA_RUNTIME_OR_MEMORY",
+      "SEMANTIC_IMPACT",
+      "DELTA_DISPOSITION"
+    ],
+    "material_delta_behavior": "AFFECTED_IMPACT_REVIEW_BEFORE_ANY_RERUN",
+    "automatic_full_rerun": false
+  },
+  "G_06_exact_validator_target": {
+    "required_input": [
+      "FROZEN_TARGET",
+      "TARGET_SHA",
+      "TARGET_TREE_OR_BLOB_SET",
+      "ACCEPTANCE_CRITERIA",
+      "REQUIRED_SOURCE_REFS",
+      "ROLE_SCOPED_CONTEXT",
+      "EXPLICIT_EXCLUSIONS"
+    ],
+    "whole_repository_preload_default": false
+  },
+  "G_07_parallel_role_scoped_validation": {
+    "same_frozen_target_required": true,
+    "independent_first_pass_required": true,
+    "role_scoped_slices_required": true,
+    "parallel_where_useful": true,
+    "finding_freeze_after_all_first_passes": true,
+    "cross_validator_finding_visibility_before_freeze": false
+  },
+  "G_08_finding_discipline": {
+    "BLOCKING": "CURRENT_ACCEPTANCE_CRITERION_OR_CONTRACT_VIOLATION",
+    "ADVISORY": "IMPROVEMENT_PROPOSAL_NOT_A_BLOCKER",
+    "NEW_SCOPE": "OWNER_OR_GOVERNED_AUTHORITY_APPROVAL_REQUIRED",
+    "routine_validator_coauthoring": false
+  },
+  "G_09_correction_and_recheck": {
+    "default_planning_unit": "ONE_CONSOLIDATED_CORRECTION_BATCH",
+    "maximum_validation_depth": "NOT_SET_BY_BATCH_DEFAULT",
+    "flow": [
+      "D0_FREEZE",
+      "INDEPENDENT_FIRST_PASSES",
+      "FINDING_FREEZE",
+      "ONE_CONSOLIDATED_CORRECTION_BATCH",
+      "D1_FREEZE",
+      "AFFECTED_DIFF_RECHECK"
+    ],
+    "affected_diff_conditions": [
+      "CHANGED_OBJECTS_DETERMINISTICALLY_IDENTIFIED",
+      "DEPENDENCY_AND_IMPACT_CLOSURE_PROVEN",
+      "ALL_ORIGINAL_FINDINGS_COVERED",
+      "NO_HIDDEN_AUTHORITY_FLOOR_PIT_OR_MODEL_SEMANTIC_IMPACT",
+      "VALIDATOR_CONFIRMS_BOUNDED_SCOPE"
+    ],
+    "unbounded_impact_route": "FULL_APPLICABLE_SCOPE_NOT_GLOBAL_REPOSITORY_BY_DEFAULT",
+    "automatic_validation_retry_loop": false
+  },
+  "G_10_sha_and_receipt_reuse": {
+    "new_sha_means": "NEW_EXACT_BYTE_IDENTITY",
+    "validation_pass_binding": "EXACT_TARGET_SHA_ONLY",
+    "pass_auto_transfer_to_new_sha": false,
+    "unaltered_evidence_reuse": "ALLOWED_AFTER_IMPACT_CLASSIFICATION",
+    "sealed_receipt_reuse": "EXACT_ORIGINAL_APPLICABILITY_ONLY",
+    "packaging_or_report_only_full_regression": false
+  },
+  "G_11_iva_independence_firewall": {
+    "bounded_scope": [
+      "EXACT_TARGET_PACKAGING",
+      "READ_SCOPE_TELEMETRY",
+      "TIMING_AND_PROGRESS_VISIBILITY",
+      "PERSISTENCE_CLOSURE",
+      "INDEPENDENCE_AND_READBACK_AUDIT"
+    ],
+    "independent_first_pass": true,
+    "pmo_directed_verdict": false,
+    "shared_finding_contamination_before_freeze": false,
+    "validation_depth_reduction": false,
+    "same_act_target_authoring_or_correction": false,
+    "execution_worker_role": false
+  },
+  "G_12_owner_check": {
+    "default": "REPORT_AND_CONTINUE_WITHIN_EXISTING_AUTHORIZED_SCOPE",
+    "response_required_only_if": [
+      "OWNER_RESERVED_SEMANTIC_DECISION",
+      "MATERIAL_SCOPE_EXPANSION",
+      "NEW_PAID_PROVIDER_CREDENTIAL_OR_BUDGET",
+      "AUTHORITY_OR_VALIDATION_FLOOR_IMPACT",
+      "DESTRUCTIVE_PUBLIC_RELEASE_OR_PRODUCTION_ACTION",
+      "CONFLICT_NOT_RESOLVABLE_FROM_GOVERNED_CURRENT_STATE"
+    ],
+    "when_response_required": [
+      "WRITE_CHECKPOINT",
+      "REPORT_CURRENT_STATE",
+      "TERMINATE_CURRENT_RUNTIME_ACT"
+    ],
+    "silent_spinner": false
+  },
+  "G_13_persistence_closure": {
+    "separate_states": [
+      "AUTHORING_COMPLETE",
+      "VALIDATION_COMPLETE",
+      "PERSISTENCE_COMPLETE"
+    ],
+    "persistence_complete_requires": [
+      "EXACT_FINAL_COMMIT",
+      "PR_OR_EXPLICIT_NO_PERSIST_DISPOSITION",
+      "MERGE_SHA_IF_APPLICABLE",
+      "CURRENT_TASK_STATE_UPDATE",
+      "POST_PERSISTENCE_READBACK",
+      "NO_PLACEHOLDER_EXACT_REFS",
+      "ROLLBACK_REF",
+      "RUNTIME_TERMINATION"
+    ]
+  },
+  "G_14_validation_telemetry": {
+    "required_per_substantive_validation_act": [
+      "VALIDATION_ACT_ID",
+      "PARENT_WBS",
+      "RISK_TIER",
+      "TRIGGER_REASON",
+      "TARGET_SHA",
+      "START",
+      "END",
+      "TOTAL_WALL",
+      "ACTIVE_REVIEW",
+      "QUEUE_WAIT",
+      "DEPENDENCY_WAIT",
+      "CONTEXT_LOAD",
+      "DIRECT_REVIEW",
+      "TEST_TIME",
+      "RETRIEVAL_TIME",
+      "FINDING_INTEGRATION",
+      "CORRECTION_TIME",
+      "RECHECK_TIME",
+      "RETRY_TIME",
+      "FILES_OR_SECTIONS_READ",
+      "GIT_CALLS",
+      "FULL_SCAN_FLAG",
+      "REPEATED_WHOLE_READ_FLAG",
+      "REUSED_RECEIPT",
+      "REUSED_TEST_EVIDENCE",
+      "REVALIDATION_COUNT",
+      "FINDING_COUNT",
+      "TOKEN_OR_CRU_IF_AVAILABLE"
+    ],
+    "unknown_encoding": "NOT_INSTRUMENTED_NOT_ZERO"
+  },
+  "G_15_terminal_state_watchdog": {
+    "material_progress_heartbeat_max_minutes": 10,
+    "no_material_progress_minutes": 20,
+    "on_no_material_progress": [
+      "INSPECT_EXACT_ACTIVE_WORKER_OR_TOOL_STATE_ONCE",
+      "RETRY_FAILED_TOOL_CALL_AT_MOST_ONCE",
+      "WRITE_DURABLE_CHECKPOINT",
+      "REPORT_EXACT_GAP",
+      "TERMINATE_RUNTIME_ACT"
+    ],
+    "post_compute_seal_readback_hard_ceiling_minutes": 30,
+    "tool_call_retry_limit": 1,
+    "terminal_when_no_source_independent_work": "BLOCKED_EXTERNAL_INPUT_OR_OWNER_DECISION_WRITE_ONE_CHECKPOINT_REPORT_AND_TERMINATE",
+    "spinner_is_compute_evidence": false
+  },
+  "shadow_behavior": {
+    "load_guard": true,
+    "observe_routing": true,
+    "emit_telemetry": true,
+    "preserve_existing_validation_floor_and_gates": true,
+    "guard_direct_pass_or_fail": false,
+    "enforced_activation": false,
+    "representative_tests_required": [
+      "T0",
+      "T1",
+      "T2",
+      "T3",
+      "T4",
+      "T5",
+      "T6",
+      "T7",
+      "T8",
+      "T9",
+      "T10"
+    ]
+  },
+  "enforced_activation_preconditions": [
+    "ACTIVE_PERSONA_INVENTORY_EXACT",
+    "ALL_PERSONA_COVERAGE_PROVEN",
+    "COMMON_POINTER_COMPOSITION_PROVEN",
+    "v0_4_PRESERVED",
+    "NO_AUTHORITY_FLOOR_OR_INDEPENDENCE_CHANGE",
+    "T0_THROUGH_T10_PASS",
+    "TARGETED_VALIDATOR_RECEIPTS_PASS",
+    "ROLLBACK_DEMONSTRATED",
+    "PRE_MERGE_COMPARE_AND_SWAP_PASS",
+    "POST_MERGE_READBACK_PASS"
+  ],
+  "rollback_contract": {
+    "method": "FORWARD_ONLY_COMPARE_AND_SWAP_ROLLBACK_COMMIT",
+    "operational_rollback_transition": "ENFORCED_POINTER_TO_EXACT_PRIOR_SHADOW_POINTER",
+    "shadow_pointer_identity_binding": "PINNED_BY_A1_FREEZE_CHECKPOINT_AND_RECONFIRMED_PRE_ACTIVATION",
+    "guard_artifact_after_rollback": "IMMUTABLE_PRESENT_BUT_INERT_UNDER_SHADOW_POINTER",
+    "bootstrap_binding_after_rollback": "UNCHANGED_SINGLE_POINTER_ROUTE",
+    "rollback_actions": [
+      "READ_EXACT_CURRENT_REF",
+      "VERIFY_EXPECTED_ENFORCED_POINTER_BLOB_AND_ACTIVATION_REF",
+      "CREATE_FORWARD_POINTER_SUCCESSOR_RESTORING_EXACT_PRIOR_SHADOW_MODE",
+      "UPDATE_REF_NON_FORCE_ONLY",
+      "READ_BACK_COMMIT_TREE_POINTER_GUARD_COMPOSITION_AND_BOOTSTRAP_BINDING",
+      "VERIFY_FRESH_PERSONA_RESOLUTION_AND_VALIDATION_FLOOR_UNCHANGED"
+    ],
+    "a1_candidate_withdrawal_baseline": {
+      "commit": "1ec8fa08dcca560cc592869ac0ed7fdce8d1ce3a",
+      "tree": "a617863d7108beb9ee3a68ad0963b61bd434090f",
+      "common_pointer_state": "ABSENT",
+      "bootstrap_candidate_blob": "228db268c93d534efa69351a11b18a2f1f74fc1e"
+    },
+    "force_update": false,
+    "history_rewrite": false,
+    "delete_guard_artifact": false,
+    "rollback_demonstration_stage": "A5_BEFORE_FINAL_ENFORCED_ACTIVATION_CLOSURE"
+  },
+  "stop_conditions": [
+    "ACTIVE_PERSONA_REGISTRY_UNRESOLVED",
+    "MULTIPLE_CURRENT_COMMON_POINTER_CANDIDATES",
+    "ACTIVE_AUTHORITY_CONFLICT",
+    "v0_4_SEMANTIC_CONFLICT",
+    "VALIDATION_FLOOR_OR_INDEPENDENCE_IMPACT",
+    "SHARED_CONTRACT_IMPACT",
+    "PRODUCTION_OR_RELEASE_IMPACT",
+    "COMMON_INJECTION_ROUTE_UNPROVEN",
+    "ROLLBACK_UNAVAILABLE",
+    "UNEXPECTED_PERSONA_RESOLUTION",
+    "DIFF_RECHECK_DEPENDENCY_CLOSURE_UNPROVEN",
+    "UNBOUNDED_REQUIRED_REPOSITORY_SCAN"
+  ],
+  "claim_ceiling": "A1_SHADOW_DESIGN_ONLY_NO_BOOTSTRAP_INJECTION_NO_TEST_PASS_NO_VALIDATION_PASS_NO_ENFORCED_ACTIVATION"
+}
