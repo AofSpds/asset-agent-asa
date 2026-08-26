@@ -1,0 +1,192 @@
+{
+  "artifact_id": "AAA-CORE-B-AUTHORITY-COHERENCE-D2-IVA-FINAL-DISPOSITION-v1.0",
+  "artifact_kind": "P0_INDEPENDENT_VALIDATION_AUDITOR_D2_FINAL_DISPOSITION_RECEIPT",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "wbs_id": "P0-CORE-B-AUTHORITY-COHERENCE-D2-IVA-FINAL",
+  "governed_persona_id": "AAA-VALIDATION-AUDITOR",
+  "official_code": "IVA",
+  "assigned_role_label": "independent validation auditor",
+  "validation_class": "P0_INDEPENDENT_L2_FINAL_DISPOSITION",
+  "state": "D2_FINAL_L2_BLOCKED_WITH_EXACT_REASON",
+  "disposition_time_kst": "2026-08-26T14:03:04+09:00",
+  "exact_d2_target": {
+    "repository": "AofSpds/asset-agent-asa",
+    "branch": "aaa-core-b-authority-coherence-successor-v1.0-20260826",
+    "commit": "48f37d91f2b52a2909a973a1c8bc38b284229c9e",
+    "tree": "4aba5189dece01a017b3c59f6cdb36303a9d9026",
+    "sole_parent": "a1c65d0e500c34fe849badf452f84907f6d53554",
+    "target_changed_during_finalization": false,
+    "content_mutation_or_revalidation_scope_expansion": false
+  },
+  "persisted_independent_first_pass_binding": {
+    "artifact_id": "AAA-CORE-B-AUTHORITY-COHERENCE-D2-IVA-INDEPENDENT-FIRST-PASS-v1.0",
+    "path": "control/validation/organization/releases/v1.4/auditor/aaa-validation-auditor/AAA_CORE_B_AUTHORITY_COHERENCE_D2_IVA_INDEPENDENT_FIRST_PASS_v1.0.json",
+    "commit": "6355ea5801c15b69a00f5053a85cb738a557cb28",
+    "git_blob": "40e02495bb22b1fba4a2e0b2d5cfaa60a0912efd",
+    "sha256": "3d26e2eb03fccf2a766818dfb9a694e18d15e3934a8f81610d0a7aa5e4076d0a",
+    "byte_size": 19145,
+    "remote_readback": "PASS_EXACT",
+    "provisional_verdict": "BLOCKED_WITH_EXACT_REASON",
+    "frozen_finding_ids": [
+      "F-P0-IVA-D2-FP-001"
+    ]
+  },
+  "persisted_paired_l1_binding": {
+    "artifact_id": "AAA-CORE-B-AUTHORITY-COHERENCE-D2-P0-CTLV-L1-RECEIPT-v1.0",
+    "path": "control/validation/organization/releases/v1.4/validator/aaa-control-validator/AAA_CORE_B_AUTHORITY_COHERENCE_D2_P0_CTLV_L1_RECEIPT_v1.0.json",
+    "commit": "9e00b06bb5b8a375e0cfd64951c6115b3fa12c74",
+    "git_blob": "156c9018a953650493f942ee4a01d717985c8f1c",
+    "sha256": "330e3bd8287ccbb92adf006cc5aa17e29403d6e9c4fcdf019788d5b65c3acfaf",
+    "byte_size": 22771,
+    "remote_readback": "PASS_EXACT",
+    "governed_persona_id": "AAA-CONTROL-VALIDATOR",
+    "official_code": "CTLV",
+    "verdict": "PASS",
+    "p0_finding_count": 0,
+    "p1_finding_count": 0,
+    "target_match": "PASS_EXACT_SAME_D2"
+  },
+  "independence_and_sequence": {
+    "independent_first_pass_frozen_before_l1_read": true,
+    "l1_read_only_after_first_pass_persistence": true,
+    "only_exact_persisted_d2_l1_receipt_read_for_finalization": true,
+    "l1_pass_transfer_used": false,
+    "l1_findings_substituted_for_independent_judgment": false,
+    "d3_or_later_target_inspected": false,
+    "candidate_or_github_modified_by_iva": false
+  },
+  "l1_reconciliation": {
+    "same_exact_target": "PASS",
+    "fourteen_target_identity_convergence": "PASS",
+    "d1_to_d2_exact_two_add_convergence": "PASS",
+    "original_three_d1_findings_closure_convergence": "PASS",
+    "authority_non_expansion_convergence": "PASS",
+    "owner_and_postwrite_gate_convergence": "PASS",
+    "execution_cas_capability_risk_convergence": "PASS",
+    "frozen_iva_finding_reconciliation": {
+      "finding_id": "F-P0-IVA-D2-FP-001",
+      "l1_explicitly_adjudicated_counterexample": false,
+      "l1_contains_concurrent_change_state_analysis": false,
+      "l1_contains_unknown_until_pinned_readback_correction": false,
+      "l1_joint_rule_result": "PASS_COHERENT_FAIL_CLOSED_FORWARD_ONLY_CONTRACT",
+      "iva_result": "L1_PASS_DOES_NOT_REBUT_OR_CLOSE_FROZEN_INDEPENDENT_FINDING",
+      "pass_transfer": false
+    },
+    "reconciliation_result": "DISAGREEMENT_ON_ONE_P0_D2_AUTHORITY_STATE_ASSERTION_BLOCKER_REMAINS"
+  },
+  "confirmed_blocking_findings": [
+    {
+      "finding_id": "F-P0-IVA-D2-FP-001",
+      "severity": "P0",
+      "class": "PRIMARY_CAS_FAILURE_ACTIVE_STATE_OVERCLAIM_CONFLICT",
+      "status": "CONFIRMED_BLOCKING_AT_FINAL_L2",
+      "affected_artifacts": [
+        {
+          "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_CURRENT_POINTER_TRANSITION_PLAN_v1.2.json",
+          "git_blob": "a5542a2cec61d52816fdb642a50bd7c6734bd802",
+          "field": "primary_cas_failure_after_successor_staging.effective_active_state",
+          "observed": "UNCHANGED_v1.3_VIA_PRIMARY_REF_AT_EXPECTED_OLD"
+        },
+        {
+          "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_ROLLBACK_MANIFEST_v1.1.json",
+          "git_blob": "303c78194e5786baa1c8fb2d40d54f05f67bddfd",
+          "fields": [
+            "staged_successor_primary_cas_failure_recovery.effective_active_release",
+            "staged_successor_primary_cas_failure_recovery.effective_authority_changed",
+            "staged_successor_primary_cas_failure_recovery.primary_ref_expected_state_after_failure"
+          ],
+          "observed": [
+            "AAA-ORGANIZATION-RELEASE-v1.3",
+            false,
+            "5b2dd5c5ea5bf96eb22163a0598d6879fffada9e_OR_SURFACED_CONCURRENT_CHANGE"
+          ]
+        }
+      ],
+      "counterexample": [
+        "PREWRITE_PRIMARY_REF_EQUALS_EXPECTED_OLD",
+        "SUCCESSOR_REF_IS_ATOMICALLY_STAGED_AT_THE_ACTIVATION_COMMIT",
+        "A_CONCURRENT_ACTOR_MOVES_THE_PRIMARY_REF_BEFORE_THE_PRIMARY_CAS",
+        "TRUE_EXPECTED_OLD_CAS_CORRECTLY_FAILS",
+        "EFFECTIVE_AUTHORITY_IS_NOW_DETERMINED_BY_THE_CONCURRENT_PRIMARY_HEAD_NOT_NECESSARILY_v1.3"
+      ],
+      "final_reason": "The D2 transition plan and rollback manifest correctly agree on retaining the staged successor as inert, prohibiting deletion, and prohibiting same-act retry. They do not, however, agree with the complete failure-state space admitted by true expected-old CAS. Both frozen controls assert v1.3 remains effective after primary CAS failure, while the rollback manifest itself admits that the primary head may contain a surfaced concurrent change. In that admitted race, the effective release is unknown until pinned readback. The persisted CTLV L1 PASS validates the safe actions but does not explicitly analyze or resolve this contradictory authority-state assertion; its PASS cannot transfer to IVA.",
+      "safety_impact": "A blocker receipt or recovery route could falsely identify v1.3 as effective when the primary authority ref actually points at a concurrent head. This is an exact current-authority claim defect in a P0 cutover contract.",
+      "required_remediation": [
+        "Preserve D2 as immutable blocked evidence; do not mutate it in place.",
+        "Author a new forward-only successor transition plan and paired rollback manifest.",
+        "After staged-successor primary-CAS failure, define effective state as UNKNOWN_UNTIL_PINNED_READBACK.",
+        "Record THIS_CUTOVER_ACT_PRIMARY_UPDATE_SUCCEEDED=false separately from the global effective-authority state.",
+        "Assert v1.3 only if pinned primary-ref readback equals 5b2dd5c5ea5bf96eb22163a0598d6879fffada9e; otherwise persist the exact concurrent head and do not infer a release.",
+        "Freeze the new exact target and run one fresh affected-scope CTLV L1 followed by one independent IVA L2."
+      ],
+      "waiver_allowed": false
+    }
+  ],
+  "nonblocking_converged_results": {
+    "exact_d2_commit_tree_parent": "PASS",
+    "d1_to_d2_two_add_delta": "PASS",
+    "all_fourteen_target_identities": "PASS",
+    "all_three_original_d1_findings_closed": "PASS",
+    "exact_long_name_core_b_pair": "PASS",
+    "canonical_iva_identity": "PASS",
+    "authority_non_expansion": "PASS",
+    "no_delete_no_rewind_no_same_act_retry": "PASS",
+    "true_expected_old_cas_required": "PASS",
+    "prewrite_zero_write_semantics": "PASS",
+    "owner_yes_gate": "PASS",
+    "postwrite_and_bootstrap_boundaries": "PASS",
+    "m3top3_and_common_guard_isolation": "PASS"
+  },
+  "cutover_execution_capability_blocker": {
+    "risk_id": "RISK-CAS-PRIMITIVE-AVAILABILITY-001",
+    "state": "INDEPENDENTLY_BLOCKED_UNTIL_TRUE_ATOMIC_EXPECTED_OLD_CAS_CAPABILITY_IS_PROVEN",
+    "available_surface_satisfies_contract": false,
+    "waiver_or_emulation": "PROHIBITED",
+    "relationship_to_final_verdict": "ADDITIONAL_EXECUTION_BLOCKER_NOT_A_SUBSTITUTE_FOR_F_P0_IVA_D2_FP_001"
+  },
+  "final_verdict": "BLOCKED_WITH_EXACT_REASON",
+  "final_verdict_scope": "ONE_BOUNDED_INDEPENDENT_P0_L2_FINAL_DISPOSITION_ON_EXACT_D2_ONLY_AFTER_READING_EXACT_PERSISTED_D2_L1",
+  "final_verdict_reason": "The exact CTLV L1 PASS and IVA first pass converge on identities, D1 closure, authority non-expansion, gates, and safe no-delete/no-retry actions. The frozen independent P0 finding remains unrebutted: D2 overclaims v1.3 as the effective state in a primary-CAS failure branch that explicitly permits a concurrent primary-head change.",
+  "final_l2_pass": false,
+  "overall_d2_validation_pass": false,
+  "owner_packet_eligible": false,
+  "owner_cutover_decision_allowed_on_d2": false,
+  "next_route": {
+    "route_to_governed_persona_id": "AAA-CONTROL-ARCHITECT",
+    "official_code": "CTL",
+    "action": "AUTHOR_ONE_FORWARD_ONLY_SUCCESSOR_CORRECTION_FOR_F_P0_IVA_D2_FP_001_THEN_PMO_FREEZE_AND_FRESH_P0_L1_L2",
+    "do_not_mutate": "EXACT_D2_TARGET",
+    "do_not_issue": [
+      "D2_OWNER_PACKET",
+      "D2_CUTOVER_APPROVAL_REQUEST",
+      "D2_ACTIVATION_COMMIT_OR_REF_WRITE"
+    ]
+  },
+  "execution_effect": {
+    "local_receipt_files_written": 1,
+    "target_files_mutated": 0,
+    "github_writes": 0,
+    "refs_created": 0,
+    "refs_updated": 0,
+    "refs_deleted": 0,
+    "active_paths_mutated": 0,
+    "owner_decision_created": false,
+    "l2_pass_created": false
+  },
+  "claim_ceiling": {
+    "exact_d2_l1_receipt_reviewed": true,
+    "independent_final_disposition_frozen": true,
+    "final_l2_pass": false,
+    "overall_d2_validation_pass": false,
+    "owner_cutover_approved": false,
+    "owner_packet_eligible": false,
+    "active_pointer_moved": false,
+    "organization_v1_4_activated": false,
+    "routing_hold_released": false,
+    "bootstrap_regression_pass": false,
+    "shared_contract_model_or_pit_semantic_approval": false,
+    "freeze_release_or_production_authority": false
+  }
+}
