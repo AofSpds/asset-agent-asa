@@ -1,0 +1,299 @@
+{
+  "artifact_id": "AAA-COMMON-PERSONA-EXECUTION-VALIDATION-GUARD-SHADOW-TEST-MATRIX-v1.0",
+  "artifact_kind": "A3_NON_DESTRUCTIVE_SHADOW_REPRESENTATIVE_TEST_MATRIX",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "state": "A3_EXECUTED_AGAINST_EXACT_A2_TARGET",
+  "test_class": "DETERMINISTIC_ARTIFACT_RESOLUTION_AND_NON_DESTRUCTIVE_SCENARIO_EVALUATION_NOT_VALIDATION",
+  "target": {
+    "branch": "aaa-common-persona-validation-execution-guard-v1.1-r2-20260826",
+    "commit": "1a79f5483a6c1ec5a32113ec2a092e9bc889b46e",
+    "tree": "b76dad07d4e73a253d58f2d0132cb45a149aed54",
+    "guard_blob": "d803945e7e709dc96daf460ef2f6fd5cedec6e4b",
+    "shadow_pointer_blob": "05226252d787b29149eaf6da6a923d5b1cf090ec",
+    "composition_blob": "03ed1a50a1f503e464c418c9d3beddc49fbbc688",
+    "rollback_design_blob": "6b4fae6982a3db3695d06f787a1e04d3d9e64abe",
+    "bootstrap_candidate_blob": "29d1814629d6ac172b88ba7ad5c5471ed6064b16",
+    "coverage_manifest_blob": "ab1e7f7f269074ef5fccbdc835b8528622d07aa2",
+    "inventory_blob": "65b30bdecbd3704412fe75a2e250557ebf0d65ba"
+  },
+  "execution_rules": {
+    "mode": "SHADOW",
+    "writes_induced_by_scenarios": 0,
+    "stalls_induced": 0,
+    "tool_failures_induced": 0,
+    "validation_pass_created": false,
+    "enforced_activation": false
+  },
+  "tests": [
+    {
+      "id": "T0",
+      "name": "ALL_ACTIVE_PERSONA_COVERAGE",
+      "fixture": "Resolve the exact A2 bootstrap candidate, common pointer, selector, memory index, inventory, and coverage manifest for every governed current Persona; inspect the declared future-Persona inheritance route.",
+      "expected": [
+        "13 current Personas resolve one common pointer",
+        "13 memory/worklog routes resolve",
+        "future governed Personas inherit through the same pointer",
+        "no Persona-local normative guard copy"
+      ],
+      "observed": {
+        "current_personas": 13,
+        "pointer_resolved": 13,
+        "memory_worklog_resolved": 13,
+        "unresolved": 0,
+        "persona_local_guard_copies_added": 0,
+        "future_inheritance_route": "GOVERNED_REGISTRATION_THEN_EXISTING_BOOTSTRAP_POINTER_RESOLUTION"
+      },
+      "evidence": [
+        "AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_PERSONA_COVERAGE_v1.0.json@ab1e7f7f269074ef5fccbdc835b8528622d07aa2",
+        "AAA_ACTIVE_PERSONA_AND_VALIDATOR_INVENTORY_v1.0.tsv@65b30bdecbd3704412fe75a2e250557ebf0d65ba",
+        "AAA_PROJECT_INSTRUCTIONS_CURRENT_CANDIDATE_v1.0.json@29d1814629d6ac172b88ba7ad5c5471ed6064b16"
+      ],
+      "result": "PASS"
+    },
+    {
+      "id": "T1",
+      "name": "PLAN_REVIEW_NO_MUTATION",
+      "fixture": {
+        "current_action": "PLAN_OR_DOCUMENT_REVIEW_AND_NO_MUTATION",
+        "material_risk": "LOW",
+        "mutation": false
+      },
+      "expected": "FAST_BOUNDED_REVIEW_WITH_EXACT_CRITERIA_AND_VISIBLE_TASK_ESTIMATE",
+      "observed": {
+        "route": "FAST_BOUNDED_REVIEW",
+        "repository_wide_audit": false,
+        "opening_plan_fields_frozen": true,
+        "fixed_universal_duration_introduced": false
+      },
+      "evidence": [
+        "guard.G_01_action_risk_classification.routes[0]",
+        "guard.G_02_task_opening_plan"
+      ],
+      "result": "PASS"
+    },
+    {
+      "id": "T2",
+      "name": "BOUNDED_DOCUMENT_OR_CODE_MUTATION",
+      "fixture": {
+        "current_action": "NORMAL_IMPLEMENTATION_CHANGE",
+        "changed_surface": "EXACT_AND_BOUNDED",
+        "material_risk": "NORMAL"
+      },
+      "expected": "AFFECTED_REGRESSION_RELEVANT_VALIDATOR_ONLY_DIFF_FIRST_ONE_FINDING_FREEZE",
+      "observed": {
+        "route": "AFFECTED_REGRESSION_PLUS_ONE_RELEVANT_VALIDATOR_IF_REQUIRED",
+        "whole_repository_preload": false,
+        "independent_first_pass": true,
+        "finding_freeze": true,
+        "one_correction_batch_default": true
+      },
+      "evidence": [
+        "guard.G_01_action_risk_classification.routes[2]",
+        "guard.G_06_exact_validator_target",
+        "guard.G_07_parallel_role_scoped_validation",
+        "guard.G_09_correction_and_recheck"
+      ],
+      "result": "PASS"
+    },
+    {
+      "id": "T3",
+      "name": "HIGH_IMPACT_ACTION",
+      "fixture": {
+        "current_action": "AUTHORITY_OR_RELEASE_RELEVANT_CHANGE",
+        "material_risk": "HIGH_IMPACT"
+      },
+      "expected": "EXISTING_P0_P1_FLOORS_AND_RELEASE_PRODUCTION_GATES_PRESERVED",
+      "observed": {
+        "authority_route": "EXISTING_HIGH_RISK_VALIDATION_FLOOR",
+        "release_route": "EXISTING_FULL_HIGH_IMPACT_GATES",
+        "guard_bypass_allowed": false,
+        "validation_floor_change": false
+      },
+      "evidence": [
+        "guard.G_01_action_risk_classification.routes[3:5]",
+        "guard.authority_and_validation_firewall"
+      ],
+      "result": "PASS"
+    },
+    {
+      "id": "T4",
+      "name": "SHA_ONLY_NONMATERIAL_CHANGE",
+      "fixture": {
+        "new_sha": true,
+        "semantic_impact": "NONE_AFTER_CLASSIFICATION",
+        "evidence_changed": false
+      },
+      "expected": "NO_PASS_TRANSFER_REUSE_UNCHANGED_EVIDENCE_AFTER_IMPACT_CLASSIFICATION_NO_GLOBAL_REREAD",
+      "observed": {
+        "pass_auto_transfer": false,
+        "unaltered_evidence_reuse": "ALLOWED_AFTER_IMPACT_CLASSIFICATION",
+        "sealed_receipt_reuse": "EXACT_ORIGINAL_APPLICABILITY_ONLY",
+        "full_regression_for_packaging_only": false
+      },
+      "evidence": [
+        "guard.G_10_sha_and_receipt_reuse",
+        "guard.G_04_narrow_first_read"
+      ],
+      "result": "PASS"
+    },
+    {
+      "id": "T5",
+      "name": "CONCURRENT_MAIN_OR_POINTER_UPDATE",
+      "fixture": {
+        "base_main_sha": "fa7d1a8bd1d00d297c27a325801618b75c4e113e",
+        "live_main_at_test": "fa7d1a8bd1d00d297c27a325801618b75c4e113e",
+        "simulated_delta": "CURRENT_MAIN_OR_POINTER_SHA_DIFFERS_BEFORE_FREEZE_OR_MERGE"
+      },
+      "expected": "DETECT_DELTA_CONTINUE_IF_UNRELATED_BOUNDED_REVIEW_IF_MATERIAL",
+      "observed": {
+        "required_readbacks": [
+          "PRE_D0_FREEZE",
+          "PRE_COMPLETION",
+          "PRE_MERGE_COMPARE_AND_SWAP",
+          "POST_MERGE",
+          "POST_POINTER_SWITCH"
+        ],
+        "automatic_full_rerun": false,
+        "material_delta_route": "AFFECTED_IMPACT_REVIEW",
+        "write_strategy": "NON_FORCE_COMPARE_AND_SWAP"
+      },
+      "evidence": [
+        "guard.G_05_current_state_readback",
+        "rollback_design.method",
+        "main@fa7d1a8bd1d00d297c27a325801618b75c4e113e"
+      ],
+      "result": "PASS"
+    },
+    {
+      "id": "T6",
+      "name": "STAGE_OWNER_CHECK",
+      "fixture": "An Owner-reserved decision or material scope expansion is reached during an active stage.",
+      "expected": "CHECKPOINT_REPORT_TERMINATE_NO_SILENT_CONTINUATION_NO_QUALITY_DOWNGRADE",
+      "observed": {
+        "checkpoint_required": true,
+        "report_required": true,
+        "runtime_termination_required": true,
+        "silent_spinner": false,
+        "quality_downgrade": false
+      },
+      "evidence": [
+        "guard.G_12_owner_check",
+        "guard.G_15_terminal_state_watchdog"
+      ],
+      "result": "PASS"
+    },
+    {
+      "id": "T7",
+      "name": "VALIDATOR_IMPROVEMENT_IDEA",
+      "fixture": "A validator suggests an improvement that violates no current criterion or contract.",
+      "expected": "ADVISORY_NOT_BLOCKING_NO_VALIDATOR_COAUTHORING",
+      "observed": {
+        "classification": "ADVISORY",
+        "blocking": false,
+        "automatic_new_scope": false,
+        "routine_validator_coauthoring": false
+      },
+      "evidence": [
+        "guard.G_08_finding_discipline"
+      ],
+      "result": "PASS"
+    },
+    {
+      "id": "T8",
+      "name": "PERSISTENCE_CLOSURE",
+      "fixture": "Authoring artifacts exist but validation, PR/merge, pointer readback, rollback ref, or runtime termination is absent.",
+      "expected": "AUTHORING_COMPLETE_ALONE_CANNOT_CLAIM_PROGRAM_COMPLETION",
+      "observed": {
+        "separate_states": [
+          "AUTHORING_COMPLETE",
+          "VALIDATION_COMPLETE",
+          "PERSISTENCE_COMPLETE"
+        ],
+        "completion_without_exact_commit_merge_readback_rollback": false
+      },
+      "evidence": [
+        "guard.G_13_persistence_closure"
+      ],
+      "result": "PASS"
+    },
+    {
+      "id": "T9",
+      "name": "ZERO_WORKER_EXTERNAL_BLOCKER_TERMINAL_STATE",
+      "fixture": {
+        "active_workers": 0,
+        "active_validators": 0,
+        "active_work_units": [],
+        "source_independent_material_work_remaining": "NONE",
+        "only_external_or_owner_reserved_blockers_remain": true
+      },
+      "expected": "BLOCKED_EXTERNAL_INPUT_OR_OWNER_DECISION_CHECKPOINT_REPORT_TERMINATE",
+      "observed": {
+        "terminal_state": "BLOCKED_EXTERNAL_INPUT_OR_OWNER_DECISION",
+        "checkpoint_count": 1,
+        "owner_report": true,
+        "terminate_runtime": true,
+        "spinner": false
+      },
+      "execution": "NON_DESTRUCTIVE_FIXTURE_EVALUATION_NO_REAL_BLOCKER_INDUCED",
+      "evidence": [
+        "guard.G_15_terminal_state_watchdog.terminal_when_no_source_independent_work"
+      ],
+      "result": "PASS"
+    },
+    {
+      "id": "T10",
+      "name": "TOOL_OR_READBACK_NONRETURN",
+      "fixture": "A tool or exact readback does not return during a material act.",
+      "expected": "ONE_RETRY_MAXIMUM_CHECKPOINT_EXACT_GAP_REPORT_TERMINATE_WITHIN_HARD_CEILING",
+      "observed": {
+        "tool_call_retry_limit": 1,
+        "automatic_validation_retry_loop": false,
+        "durable_checkpoint": true,
+        "exact_gap_report": true,
+        "terminate_runtime": true,
+        "post_compute_seal_readback_hard_ceiling_minutes": 30
+      },
+      "execution": "NON_DESTRUCTIVE_FIXTURE_EVALUATION_NO_REAL_FAILURE_INDUCED",
+      "evidence": [
+        "guard.G_15_terminal_state_watchdog",
+        "rollback_design.failure_handling.ambiguous_tool_nonreturn"
+      ],
+      "result": "PASS"
+    }
+  ],
+  "correction_and_recheck": {
+    "correction_batch_count": 1,
+    "correction_receipt": "AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_A3_METADATA_CORRECTION_BATCH_v1.0.json@4f9f9820b0c62f9debdfaf7fd4d39225a10bc932",
+    "impact_classification": "NON_SEMANTIC_LIFECYCLE_AND_EXACT_REFERENCE_METADATA_ONLY",
+    "affected_tests_reexecuted": {
+      "T0": "PASS_FINAL_EXACT_ROUTE_13_OF_13",
+      "T5": "PASS_FINAL_D0_PIN_AND_COMPARE_AND_SWAP_ROUTE",
+      "T8": "PASS_CURRENT_LIFECYCLE_AND_PERSISTENCE_SEPARATION"
+    },
+    "unaffected_test_evidence_reused_after_impact_classification": [
+      "T1",
+      "T2",
+      "T3",
+      "T4",
+      "T6",
+      "T7",
+      "T9",
+      "T10"
+    ],
+    "full_test_rerun_required": false,
+    "open_findings": 0,
+    "open_advisories": 0
+  },
+  "summary": {
+    "test_count": 11,
+    "pass_count": 11,
+    "fail_count": 0,
+    "not_run_count": 0,
+    "result": "PASS_11_OF_11_SHADOW_TESTS",
+    "validation_verdict": "NONE",
+    "enforced_activation": false
+  },
+  "claim_ceiling": "A3_SHADOW_REPRESENTATIVE_TESTS_ONLY_NOT_A_VALIDATION_PASS_NOT_ENFORCED"
+}
