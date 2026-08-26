@@ -1,0 +1,88 @@
+{
+  "artifact_id": "AAA-CORE-B-AUTHORITY-COHERENCE-OWNER-CORRECTION-CLOSURE-CHECKPOINT-v1.0",
+  "artifact_kind": "PMO_OWNER_CORRECTION_AND_HISTORICAL_CLOSURE_CHECKPOINT",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-PMO-ORCHESTRATOR",
+  "checkpoint_time_kst": "2026-08-26T20:17:14+09:00",
+  "state": "CORE_B_AUTHORITY_COHERENCE_REMEDIATION_CLOSED_BY_OWNER_CORRECTION",
+  "owner_correction": {
+    "current_pair": {
+      "mod": "AAA-MODEL-ARCHITECT",
+      "modv": "AAA-MODEL-VALIDATOR"
+    },
+    "historical_long_pair": {
+      "mod": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+      "modv": "AAA-MODEL-DESIGN-VALIDATOR"
+    },
+    "correct_rename_direction": [
+      "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT -> AAA-MODEL-ARCHITECT",
+      "AAA-MODEL-DESIGN-VALIDATOR -> AAA-MODEL-VALIDATOR"
+    ],
+    "bootstrap_correction_receipt_commit": "6083d892ac52fc4654f809fe265b5e59ef6aa9c5",
+    "bootstrap_correction_receipt_path": "control/persona-memory/v1.0/AAA-ASA/review-receipts/OWNER_CORRECTION_CORE_B_RENAME_DIRECTION_AND_R7_SUPERSESSION_2026-08-26_2000_KST.md",
+    "bootstrap_correction_receipt_git_blob": "4ca8b85785e911cc757ae88c42b8490bb71009c1",
+    "owner_decision_evidence_commit": "bf8bddd9b86bc233a92a56a712f685f37f01a3f7",
+    "owner_decision_evidence_path": "control/decisions/organization/v0.3/AAA_OWNER_DECISION_CORE_B_MODEL_ROLE_v1.0.json",
+    "prior_r7_yes_disposition": "SUPERSEDED_FOR_D4_TARGET_DUE_TO_REFERENT_DIRECTION_ERROR"
+  },
+  "do_not_activate": {
+    "commit": "a044afe7c90f2b78f7d077ffc8e6dde9fd561992",
+    "tree": "7aa93e6420cd010a8d966318826ca3f5ba2e4f0e",
+    "disposition": "HISTORICAL_WRONG_DIRECTION_REVERSE_CUTOVER_DO_NOT_ACTIVATE"
+  },
+  "r7_checkpoint_disposition": {
+    "commit": "9c3fd73248a509ecc4451a771bc3cd8459eff06d",
+    "tree": "c4101a69b5a7ad245dccafe27861a92a25548dfa",
+    "git_blob": "89eba2e64b4ec30a7b3c9c928019a81cb2f4da81",
+    "state": "HISTORICAL_TERMINAL_EVIDENCE_ZERO_CUTOVER_WRITES",
+    "current_blocker": false,
+    "resume_from_r7": false
+  },
+  "active_authority_readback": {
+    "primary_ref": "aaa-persistent-locator-active-v0.3@5b2dd5c5ea5bf96eb22163a0598d6879fffada9e",
+    "organization_ref": "aaa-organization-active-v1.3@d7c490c373f2df356f31e4459c345328616b4eb3",
+    "current_state_blob": "cad42e60efea2eb67bb663b5ff889277c028e66c",
+    "routing_state_blob": "ca48540479b3c25ef4c8573a457d12a53e576246",
+    "pair_activation_blob": "3579860fd20e497161e13a9ccc8fa0c7fac0db61",
+    "current_pair": [
+      "AAA-MODEL-ARCHITECT",
+      "AAA-MODEL-VALIDATOR"
+    ],
+    "mutation_required": false
+  },
+  "closed_scope": {
+    "program": "Core-B authority coherence remediation",
+    "disposition": "CLOSED_NO_FURTHER_REMEDIATION_OR_VALIDATION",
+    "prohibited_reruns": [
+      "Core-B discovery",
+      "Organization v1.4 authoring",
+      "D0-D4 reconstruction",
+      "CTLV validation",
+      "IVA validation",
+      "R7 atomic proof"
+    ]
+  },
+  "next_route": {
+    "work": "BOUNDED_STALE_REFERENCE_CURRENTIZATION_ONLY",
+    "surfaces": [
+      "bootstrap",
+      "selector",
+      "Shared Contract current projection",
+      "current Persona references"
+    ],
+    "historical_rewrite": false,
+    "authority_change": false,
+    "model_semantic_change": false,
+    "then": "RESUME_COMMON_GUARD_FROM_10_OF_100_EWU"
+  },
+  "runtime_state": {
+    "active_workers": 0,
+    "active_validators": 0,
+    "activation_commit_created": false,
+    "authority_ref_moved": false,
+    "core_b_remediation_open": false
+  },
+  "claim_ceiling": "OWNER_CORRECTION_BOUND_CORE_B_REMEDIATION_CLOSED_D4_DO_NOT_ACTIVATE_R7_HISTORICAL_ONLY_CURRENT_SHORT_PAIR_PRESERVED"
+}
