@@ -9,10 +9,10 @@ LEGACY_NAMESPACE=SEMI-* (historical reference only)
 1. ROLE / TERMINOLOGY
 - 현행 정식 역할명은 AAA namespace를 사용한다.
 - 문서·통제 아키텍트 = AAA-CONTROL-ARCHITECT (CORE A)
-- 모델 검증·설계 아키텍트 = AAA-MODEL-VALIDATION-DESIGN-ARCHITECT (CORE B)
+- 모델 검증·설계 아키텍트 = AAA-MODEL-ARCHITECT (CORE B)
 - 리서치팀 = AAA-RESEARCH-ORCHESTRATOR
 - 독립 검증·감사팀 = AAA-VALIDATION-AUDITOR
-- 전담 검증: AAA-ADVISORY-VALIDATOR / AAA-CONTROL-VALIDATOR / AAA-MODEL-DESIGN-VALIDATOR / AAA-RESEARCH-VALIDATOR / AAA-ENGINEERING-VALIDATOR
+- 전담 검증: AAA-ADVISORY-VALIDATOR / AAA-CONTROL-VALIDATOR / AAA-MODEL-VALIDATOR / AAA-RESEARCH-VALIDATOR / AAA-ENGINEERING-VALIDATOR
 - 사용자가 legacy/혼용 용어를 써도 답변에서는 현행 정식명칭으로 정규화한다.
 - 과거 Frozen/Validated artifact의 SEMI-* 원문은 보존하되 현재 역할로 해석할 때 AAA-*로 resolve한다.
 - Channel != Persona. 채널은 실행 인스턴스, Persona는 지속 조직 정체성이다.
@@ -29,7 +29,7 @@ LEGACY_NAMESPACE=SEMI-* (historical reference only)
 - 모든 주요 Authoring/Execution Persona에는 전담 Validator가 붙는다.
   ASA→AAA-ADVISORY-VALIDATOR
   CORE A→AAA-CONTROL-VALIDATOR
-  CORE B→AAA-MODEL-DESIGN-VALIDATOR
+  CORE B→AAA-MODEL-VALIDATOR
   Research→AAA-RESEARCH-VALIDATOR
   Builder/Engineering→AAA-ENGINEERING-VALIDATOR
 - L1=Paired Domain Validation, L2=AAA-VALIDATION-AUDITOR Independent Validation/Audit, L3=Owner decision where required.
@@ -117,3 +117,5 @@ LEGACY_NAMESPACE=SEMI-* (historical reference only)
 - Governance는 목적이 아니라 신뢰 가능한 연구/운영을 위한 수단이다. 필요한 P0 control 이후 편의성 인프라가 scientific/model validation을 계속 지연시키지 않게 한다.
 - 모델 검증 우선 흐름: Frozen Model → Golden Replay → Full Replay → Performance Evaluation → Failure Analysis → Forward Successor.
 - 새 DB/graph/workflow/policy/ontology/requirements SaaS/generic agent framework는 명확한 필요성과 Owner 승인 없이 기본 도입하지 않는다.
+
+

@@ -21,8 +21,8 @@
     {"canonical_persona":"AAA-PMO-VALIDATOR","official_code":"PMOV","accepted_selectors":["PMOV","AAA-PMO-VALIDATOR"]},
     {"canonical_persona":"AAA-CONTROL-ARCHITECT","official_code":"CTL","accepted_selectors":["CTL","AAA-CONTROL-ARCHITECT"]},
     {"canonical_persona":"AAA-CONTROL-VALIDATOR","official_code":"CTLV","accepted_selectors":["CTLV","AAA-CONTROL-VALIDATOR"]},
-    {"canonical_persona":"AAA-MODEL-VALIDATION-DESIGN-ARCHITECT","official_code":"MOD","accepted_selectors":["MOD","AAA-MODEL-VALIDATION-DESIGN-ARCHITECT"]},
-    {"canonical_persona":"AAA-MODEL-DESIGN-VALIDATOR","official_code":"MODV","accepted_selectors":["MODV","AAA-MODEL-DESIGN-VALIDATOR"]},
+    {"canonical_persona":"AAA-MODEL-ARCHITECT","official_code":"MOD","accepted_selectors":["MOD","AAA-MODEL-ARCHITECT"]},
+    {"canonical_persona":"AAA-MODEL-VALIDATOR","official_code":"MODV","accepted_selectors":["MODV","AAA-MODEL-VALIDATOR"]},
     {"canonical_persona":"AAA-RESEARCH-ORCHESTRATOR","official_code":"RES","accepted_selectors":["RES","AAA-RESEARCH-ORCHESTRATOR"]},
     {"canonical_persona":"AAA-RESEARCH-VALIDATOR","official_code":"RESV","accepted_selectors":["RESV","AAA-RESEARCH-VALIDATOR"]},
     {"canonical_persona":"AAA-ENGINEERING-ORCHESTRATOR","official_code":"ENG","accepted_selectors":["ENG","AAA-ENGINEERING-ORCHESTRATOR"]},
@@ -34,3 +34,5 @@
   "ambiguous_rule": "MULTIPLE_SELECTOR_OR_CURRENT_AUTHORITY_MATCHES=>BOOTSTRAP_REVIEW_REQUIRED",
   "historical_rule": "Historical/superseded persona text is evidence only and is not an accepted runtime selector unless separately governed as current."
 }
+
+

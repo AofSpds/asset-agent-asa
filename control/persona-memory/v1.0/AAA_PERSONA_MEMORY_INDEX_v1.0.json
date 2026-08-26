@@ -30,8 +30,8 @@
     {"persona_id":"AAA-PMO-VALIDATOR","official_code":"PMOV","memory_path":"control/persona-memory/v1.0/AAA-PMO-VALIDATOR/MEMORY.md","worklog_path":"control/persona-memory/v1.0/AAA-PMO-VALIDATOR/WORKLOG.md","paired_persona":"AAA-PMO-ORCHESTRATOR"},
     {"persona_id":"AAA-CONTROL-ARCHITECT","official_code":"CTL","memory_path":"control/persona-memory/v1.0/AAA-CONTROL-ARCHITECT/MEMORY.md","worklog_path":"control/persona-memory/v1.0/AAA-CONTROL-ARCHITECT/WORKLOG.md","paired_persona":"AAA-CONTROL-VALIDATOR"},
     {"persona_id":"AAA-CONTROL-VALIDATOR","official_code":"CTLV","memory_path":"control/persona-memory/v1.0/AAA-CONTROL-VALIDATOR/MEMORY.md","worklog_path":"control/persona-memory/v1.0/AAA-CONTROL-VALIDATOR/WORKLOG.md","paired_persona":"AAA-CONTROL-ARCHITECT"},
-    {"persona_id":"AAA-MODEL-VALIDATION-DESIGN-ARCHITECT","official_code":"MOD","memory_path":"control/persona-memory/v1.0/AAA-MODEL-VALIDATION-DESIGN-ARCHITECT/MEMORY.md","worklog_path":"control/persona-memory/v1.0/AAA-MODEL-VALIDATION-DESIGN-ARCHITECT/WORKLOG.md","paired_persona":"AAA-MODEL-DESIGN-VALIDATOR"},
-    {"persona_id":"AAA-MODEL-DESIGN-VALIDATOR","official_code":"MODV","memory_path":"control/persona-memory/v1.0/AAA-MODEL-DESIGN-VALIDATOR/MEMORY.md","worklog_path":"control/persona-memory/v1.0/AAA-MODEL-DESIGN-VALIDATOR/WORKLOG.md","paired_persona":"AAA-MODEL-VALIDATION-DESIGN-ARCHITECT"},
+    {"persona_id":"AAA-MODEL-ARCHITECT","official_code":"MOD","memory_path":"control/persona-memory/v1.0/AAA-MODEL-ARCHITECT/MEMORY.md","worklog_path":"control/persona-memory/v1.0/AAA-MODEL-ARCHITECT/WORKLOG.md","paired_persona":"AAA-MODEL-VALIDATOR"},
+    {"persona_id":"AAA-MODEL-VALIDATOR","official_code":"MODV","memory_path":"control/persona-memory/v1.0/AAA-MODEL-VALIDATOR/MEMORY.md","worklog_path":"control/persona-memory/v1.0/AAA-MODEL-VALIDATOR/WORKLOG.md","paired_persona":"AAA-MODEL-ARCHITECT"},
     {"persona_id":"AAA-RESEARCH-ORCHESTRATOR","official_code":"RES","memory_path":"control/persona-memory/v1.0/AAA-RESEARCH-ORCHESTRATOR/MEMORY.md","worklog_path":"control/persona-memory/v1.0/AAA-RESEARCH-ORCHESTRATOR/WORKLOG.md","paired_persona":"AAA-RESEARCH-VALIDATOR"},
     {"persona_id":"AAA-RESEARCH-VALIDATOR","official_code":"RESV","memory_path":"control/persona-memory/v1.0/AAA-RESEARCH-VALIDATOR/MEMORY.md","worklog_path":"control/persona-memory/v1.0/AAA-RESEARCH-VALIDATOR/WORKLOG.md","paired_persona":"AAA-RESEARCH-ORCHESTRATOR"},
     {"persona_id":"AAA-ENGINEERING-ORCHESTRATOR","official_code":"ENG","memory_path":"control/persona-memory/v1.0/AAA-ENGINEERING-ORCHESTRATOR/MEMORY.md","worklog_path":"control/persona-memory/v1.0/AAA-ENGINEERING-ORCHESTRATOR/WORKLOG.md","paired_persona":"AAA-ENGINEERING-VALIDATOR"},
@@ -41,3 +41,5 @@
   "historical_persona_rule": "Do not create current memory routes for superseded persona IDs merely because historical artifacts contain them; preserve historical references separately.",
   "maintenance_rule": "Persona may update MEMORY for durable continuity and append WORKLOG for chronological execution history; any authority/model/shared-contract semantic claim must reference the actual governed source and cannot be created by memory/worklog text alone."
 }
+
+
