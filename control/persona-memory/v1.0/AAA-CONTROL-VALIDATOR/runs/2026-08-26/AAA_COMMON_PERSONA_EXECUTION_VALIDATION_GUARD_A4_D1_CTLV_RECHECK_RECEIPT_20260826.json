@@ -1,0 +1,131 @@
+{
+  "artifact_id": "AAA-COMMON-PERSONA-EXECUTION-VALIDATION-GUARD-A4-D1-CTLV-RECHECK-RECEIPT-20260826",
+  "artifact_kind": "AAA_CONTROL_VALIDATOR_ROLE_SCOPED_AFFECTED_DIFF_RECHECK_RECEIPT",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "validator_persona": "AAA-CONTROL-VALIDATOR",
+  "validation_act": "A4_D1_AFFECTED_DIFF_RECHECK",
+  "risk_tier": "P0_L1",
+  "state": "PASS_FROZEN_LOCAL_RECEIPT",
+  "verdict": "PASS",
+  "exact_target": {
+    "repository": "AofSpds/asset-agent-asa",
+    "branch": "aaa-common-persona-validation-execution-guard-v1.1-r2-20260826",
+    "commit": "e42fe2fb92f2a00e8f70437b135d2a8c5136ba96",
+    "tree": "a43056e357626e4166df2bb102aa27812b83aec0",
+    "sole_parent": "c1684266eb84aded0562c7983739b1799c3e04a1",
+    "d1_checkpoint_blob": "07b2be7ad9f5b73c24fdb13af7ed5e0835f7edcf",
+    "correction_source_commit": "c1684266eb84aded0562c7983739b1799c3e04a1",
+    "correction_source_tree": "849b56d624c6e7aef7bd8e4b63a99b6807aee29e",
+    "d0_parent_commit": "694be172bf97b93392d94e577244addbfe57c0f3"
+  },
+  "original_finding_closure": {
+    "finding_id": "F-A4-CTLV-D0-001",
+    "original_classification": "BLOCKING",
+    "disposition": "CLOSED_ON_EXACT_D1_BYTES",
+    "closure_basis": "ROLLBACK_DESIGN_NOW_BINDS_EXACT_D1_GUARD_AND_COMPOSITION_AND_DEFINES_FORWARD_ATOMIC_DERIVED_BINDING_ROLLBACK",
+    "pass_transfer": false
+  },
+  "acceptance_results": {
+    "AC-16": {
+      "result": "PASS",
+      "basis": "ONE_CONSOLIDATED_CORRECTION_BATCH_DETERMINISTIC_SEVEN_OBJECT_DELTA_AND_BOUNDED_AFFECTED_RECHECK"
+    },
+    "AC-18": {
+      "result": "PASS",
+      "basis": "ROLLBACK_BINDS_EXACT_D1_GUARD_AND_COMPOSITION"
+    },
+    "AC-27": {
+      "result": "PASS",
+      "basis": "POINTER_CONTROLLED_MODE_AND_FORWARD_NON_FORCE_EXPECTED_OLD_ATOMIC_CAS_ROLLBACK_DESIGN"
+    },
+    "bounded_impact_closure": "PASS"
+  },
+  "finding_counts": {
+    "blocking": 0,
+    "advisory": 0,
+    "new_scope": 0,
+    "total": 0
+  },
+  "exact_operative_blob_set": [
+    {
+      "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_v1.1.json",
+      "git_blob": "2bff1b6e8431bc36064d3dfd31bc245a4cf4829f"
+    },
+    {
+      "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_CURRENT.json",
+      "git_blob": "0daab5c5ac7f9b8efb2f4c015331c40581cf918b"
+    },
+    {
+      "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_COMPOSITION_v1.0.md",
+      "git_blob": "3f2d413c0796100581b8400a76a9b94ff802916d"
+    },
+    {
+      "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_ROLLBACK_DESIGN_v1.0.json",
+      "git_blob": "6bfc4c2a8e214a3b9ad49703e6fc662fb203231a"
+    },
+    {
+      "path": "control/bootstrap/project-instructions/v1.0/AAA_PROJECT_INSTRUCTIONS_CURRENT_CANDIDATE_v1.0.json",
+      "git_blob": "fa76370df6e97987b99e4c97389295f59f0f54cc"
+    },
+    {
+      "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_PERSONA_COVERAGE_v1.0.json",
+      "git_blob": "0f993786dbe21558d279a3874659243de3c6fbe7"
+    },
+    {
+      "path": "control/organization/current-state/v1.0/AAA_ACTIVE_PERSONA_AND_VALIDATOR_INVENTORY_v1.0.tsv",
+      "git_blob": "62c47f78b483e74738a29b9694ea6512cfdac40f"
+    }
+  ],
+  "rollback_and_cas_result": {
+    "pointer_mode_at_d1": "SHADOW",
+    "pointer_controls_effective_mode": true,
+    "forward_only": true,
+    "non_force": true,
+    "expected_old_compare_and_swap": true,
+    "atomic_change_set": true,
+    "derived_bootstrap_coverage_inventory_rebound_atomically": true,
+    "cas_mismatch_route": "STOP_AND_RUN_BOUNDED_DELTA_REVIEW",
+    "ambiguous_nonreturn_route": "UNKNOWN_UNTIL_ONE_PINNED_READBACK_NO_BLIND_RETRY",
+    "rewind": false,
+    "delete": false,
+    "a5_rollback_demonstrated": false
+  },
+  "impact_and_reuse": {
+    "changed_objects_deterministically_identified": true,
+    "dependency_closure": "BOUNDED_DAG_CLOSED",
+    "authority_change": false,
+    "shared_contract_change": false,
+    "validation_floor_change": false,
+    "paired_validator_independence_change": false,
+    "iva_independence_change": false,
+    "model_pit_gt_change": false,
+    "unbounded_scan_required": false,
+    "reused_unchanged_d0_evidence_after_impact_classification": [
+      "T1",
+      "T4",
+      "T6",
+      "T7",
+      "T9",
+      "T10"
+    ]
+  },
+  "telemetry": {
+    "git_or_github_read_calls": 25,
+    "retries": 0,
+    "failures": 0,
+    "github_writes": 0,
+    "target_writes": 0,
+    "validator_coauthoring": false,
+    "full_repository_scan": false,
+    "repository_tree_scan": false,
+    "repeated_whole_read": true,
+    "repeated_whole_read_reason": "BOUNDED_EXACT_RECEIPTS_REFETCHED_AFTER_CONNECTOR_OUTPUT_TRUNCATION",
+    "other_validator_outputs_read": false,
+    "wall_time": "APPROX_3_TO_4_MINUTES",
+    "active_review_time": "NOT_INSTRUMENTED",
+    "cru_or_tokens": "NOT_INSTRUMENTED"
+  },
+  "claim_ceiling": "CTLV_ROLE_SCOPED_D1_AFFECTED_DIFF_RECHECK_PASS_AND_F_A4_CTLV_D0_001_AC_16_AC_18_AC_27_CLOSURE_ONLY_NO_A4_AGGREGATE_COMPLETION_NO_A5_ROLLBACK_DEMONSTRATION_NO_MERGE_NO_ACTIVATION_NO_RELEASE_NO_GLOBAL_VALIDATION_NO_IVA_RESULT"
+}

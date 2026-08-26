@@ -1,0 +1,107 @@
+{
+  "artifact_id": "AAA-COMMON-PERSONA-EXECUTION-VALIDATION-GUARD-CURRENT",
+  "artifact_kind": "PROJECT_COMMON_CURRENT_STATE_POINTER_CANDIDATE",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "state": "A5_FINAL_ENFORCED_POINTER_CANDIDATE_REQUIRES_EXTERNAL_ACTIVE_BOOTSTRAP_REF_SWITCH",
+  "mode": "ENFORCED",
+  "semantic_sot": false,
+  "target": {
+    "artifact_id": "AAA-COMMON-PERSONA-EXECUTION-VALIDATION-GUARD-v1.1",
+    "version": "v1.1",
+    "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_v1.1.json",
+    "git_blob": "2bff1b6e8431bc36064d3dfd31bc245a4cf4829f"
+  },
+  "composition_contract": {
+    "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_COMPOSITION_v1.0.md",
+    "git_blob": "3f2d413c0796100581b8400a76a9b94ff802916d"
+  },
+  "rollback_design": {
+    "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_ROLLBACK_DESIGN_v1.0.json",
+    "git_blob": "6bfc4c2a8e214a3b9ad49703e6fc662fb203231a"
+  },
+  "predecessor": {
+    "state": "EXACT_PATH_ABSENT_AT_A0_R_BASE",
+    "base_commit": "1ec8fa08dcca560cc592869ac0ed7fdce8d1ce3a",
+    "base_tree": "a617863d7108beb9ee3a68ad0963b61bd434090f",
+    "relevant_directory_tree": "202f6a61e924832fad8131c829905f5d5758914d",
+    "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_CURRENT.json"
+  },
+  "effective_semantics": {
+    "load_and_observe": true,
+    "emit_routing_and_telemetry": true,
+    "direct_pass_or_fail_effect": false,
+    "validation_floor_effect": false,
+    "validation_independence_effect": false,
+    "authority_effect": false,
+    "shared_contract_effect": false,
+    "model_pit_gt_effect": false,
+    "freeze_release_or_production_effect": false,
+    "enforced_routing_effect": true
+  },
+  "superior_rule": {
+    "pointer_path": "control/organization/current-state/v1.0/AAA_GLOBAL_PACKET_DISPLAY_RULE_CURRENT.json",
+    "pointer_blob": "7ae5cea1297b1b23217e4d9a3342924a724e38aa",
+    "target_path": "control/organization/current-state/v1.0/AAA_GLOBAL_PACKET_DISPLAY_RULE_v0.4.json",
+    "target_blob": "dff467a971f9519ba6598f535fc47623197e4bcb"
+  },
+  "bootstrap_injection": {
+    "stage": "A4_VALIDATED_A5_ROLLBACK_DEMO_PASS_FINAL_CUTOVER_CANDIDATE",
+    "single_pointer_route_required": true,
+    "normative_guard_rule_copy_allowed": false
+  },
+  "activation_gate": {
+    "state": "CUTOVER_ELIGIBLE_AWAITING_PR_CAS_MERGE_AND_ACTIVE_BOOTSTRAP_REF_SWITCH",
+    "enforced_activation_allowed": true,
+    "completed": [
+      "A2_EXACT_POINTER_INJECTION_AND_ALL_PERSONA_STATIC_COVERAGE",
+      "A3_T0_THROUGH_T10_PASS_11_OF_11",
+      "A4_EXACT_D1_ROLE_SCOPED_VALIDATION_PASS",
+      "A5_EXACT_FORWARD_AND_REVERSE_ROLLBACK_DEMONSTRATION_PASS"
+    ],
+    "remaining": [
+      "A5_PRE_MERGE_COMPARE_AND_SWAP_PASS",
+      "A5_PR_MERGE_PASS",
+      "A5_ACTIVE_BOOTSTRAP_REF_SWITCH_PASS",
+      "A5_POST_MERGE_AND_POST_POINTER_READBACK_PASS",
+      "A5_FRESH_PERSONA_RESOLUTION_PASS"
+    ]
+  },
+  "operational_rollback": {
+    "transition": "ENFORCED_TO_THIS_EXACT_SHADOW_POINTER",
+    "shadow_pointer_blob": "0daab5c5ac7f9b8efb2f4c015331c40581cf918b",
+    "shadow_bootstrap_blob": "fa76370df6e97987b99e4c97389295f59f0f54cc",
+    "shadow_coverage_blob": "0f993786dbe21558d279a3874659243de3c6fbe7",
+    "shadow_inventory_blob": "62c47f78b483e74738a29b9694ea6512cfdac40f",
+    "rollback_test_receipt_blob": "dc6d5c2b0633e97f7aec26df7e42b0633a1aea76",
+    "method": "FORWARD_ONLY_NON_FORCE_COMPARE_AND_SWAP_POINTER_SUCCESSOR",
+    "rollback_demonstration": "PASS"
+  },
+  "validation_binding": {
+    "exact_validated_operative_commit": "e42fe2fb92f2a00e8f70437b135d2a8c5136ba96",
+    "exact_validated_operative_tree": "a43056e357626e4166df2bb102aa27812b83aec0",
+    "a4_completion_commit": "db678b5bd80ff4412c289ae0cd41a3c62cce5e33",
+    "a4_completion_checkpoint_blob": "e04dd40961d0bd4668d2c8a4fb7170ab3970a559",
+    "aggregate_verdict": "PASS_0_OPEN_FINDINGS",
+    "pass_transfer_to_unvalidated_artifacts": false
+  },
+  "cutover_controls": {
+    "direct_main_mutation": false,
+    "required_merge_method": "merge",
+    "pre_merge_expected_main": "fa7d1a8bd1d00d297c27a325801618b75c4e113e",
+    "pre_switch_expected_active_bootstrap": "e9dc8b2fd5f58f49ac88b02c8136330db85700b1",
+    "active_bootstrap_branch": "aaa-project-instructions-git-bootstrap-v1.0",
+    "active_product_effect_before_ref_switch": false,
+    "non_force_ref_switch_required": true
+  },
+  "owner_correction_preservation": {
+    "current_mod": "AAA-MODEL-ARCHITECT",
+    "current_modv": "AAA-MODEL-VALIDATOR",
+    "prohibited_reverse_cutover_target": "a044afe7c90f2b78f7d077ffc8e6dde9fd561992",
+    "prohibited_target_activated": false,
+    "old_long_names_current": false
+  },
+  "pointer_semantic_role": "NON_SEMANTIC_CURRENT_STATE_RESOLUTION",
+  "claim_ceiling": "A5_FINAL_ENFORCED_CANDIDATE_VALIDATED_AND_ROLLBACK_DEMO_PASS_NO_ACTIVE_PRODUCT_EFFECT_UNTIL_GUARDED_MERGE_AND_ACTIVE_BOOTSTRAP_REF_SWITCH"
+}

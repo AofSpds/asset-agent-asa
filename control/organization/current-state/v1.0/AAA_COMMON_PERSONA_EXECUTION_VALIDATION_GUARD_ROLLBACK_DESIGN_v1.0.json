@@ -1,0 +1,104 @@
+{
+  "artifact_id": "AAA-COMMON-PERSONA-EXECUTION-VALIDATION-GUARD-ROLLBACK-DESIGN-v1.0",
+  "artifact_kind": "FORWARD_ONLY_COMMON_GUARD_MODE_ROLLBACK_CONTRACT",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "state": "D1_CORRECTED_FORWARD_ATOMIC_ROLLBACK_CANDIDATE_NOT_DEMONSTRATED",
+  "scope": "COMMON_GUARD_POINTER_MODE_ONLY",
+  "guard_target": {
+    "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_v1.1.json",
+    "git_blob": "2bff1b6e8431bc36064d3dfd31bc245a4cf4829f"
+  },
+  "composition_contract": {
+    "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_COMPOSITION_v1.0.md",
+    "git_blob": "3f2d413c0796100581b8400a76a9b94ff802916d"
+  },
+  "current_pointer": {
+    "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_CURRENT.json",
+    "shadow_pointer_blob": "PIN_BY_LATEST_PRE_ACTIVATION_D1_FREEZE_CHECKPOINT",
+    "enforced_pointer_blob": "PIN_BY_A5_PRE_ACTIVATION_FREEZE"
+  },
+  "operational_transition": {
+    "from": "ENFORCED",
+    "to": "EXACT_PRIOR_SHADOW_POINTER",
+    "guard_artifact": "UNCHANGED_IMMUTABLE_PRESENT_BUT_INERT",
+    "composition_artifact": "UNCHANGED",
+    "bootstrap_pointer_path": "UNCHANGED",
+    "derived_bootstrap_coverage_inventory_blobs": "REBOUND_IN_SAME_FORWARD_ATOMIC_CHANGE_SET",
+    "validation_floor": "UNCHANGED",
+    "authority": "UNCHANGED"
+  },
+  "preconditions": [
+    "EXACT_ENFORCED_POINTER_BLOB_PINNED",
+    "EXACT_CURRENT_ACTIVATION_REF_AND_COMMIT_PINNED",
+    "EXACT_PRIOR_SHADOW_POINTER_AND_DERIVED_BLOB_SET_PINNED_BY_LATEST_PRE_ACTIVATION_D1_FREEZE",
+    "EXACT_BOOTSTRAP_WIRING_BLOBS_PINNED",
+    "EXACT_GUARD_AND_COMPOSITION_BLOBS_PINNED",
+    "PREWRITE_PINNED_READBACK_PASS",
+    "NO_MATERIAL_UNBOUNDED_DELTA"
+  ],
+  "method": {
+    "forward_only_pointer_successor": true,
+    "expected_old_compare_and_swap": true,
+    "atomic_change_set": true,
+    "force_update": false,
+    "history_rewind": false,
+    "delete_guard_or_composition": false,
+    "rewrite_bootstrap_rules": false,
+    "blind_retry": false,
+    "tool_retry_limit": 1
+  },
+  "sequence": [
+    "READ_CURRENT_ACTIVATION_REF_COMMIT_TREE_AND_POINTER",
+    "COMPARE_EXACT_ENFORCED_POINTER_AND_EXPECTED_OLD_REF",
+    "ASSESS_ANY_DELTA_WITH_BOUNDED_IMPACT_REVIEW",
+    "CREATE_FORWARD_COMMIT_RESTORING_EXACT_PRIOR_SHADOW_MODE_AND_REBINDING_DERIVED_BOOTSTRAP_COVERAGE_INVENTORY_IDENTITIES",
+    "UPDATE_REF_NON_FORCE_WITH_EXPECTED_OLD_PRECONDITION",
+    "READ_BACK_REF_COMMIT_TREE_AND_POINTER",
+    "VERIFY_GUARD_AND_COMPOSITION_BLOBS_UNCHANGED_AND_DERIVED_BOOTSTRAP_COVERAGE_INVENTORY_BLOBS_COHERENTLY_REBOUND",
+    "VERIFY_FRESH_PERSONA_RESOLUTION",
+    "VERIFY_AUTHORITY_AND_VALIDATION_FLOOR_UNCHANGED",
+    "WRITE_DURABLE_ROLLBACK_RECEIPT"
+  ],
+  "failure_handling": {
+    "compare_and_swap_mismatch": "STOP_AND_RUN_BOUNDED_DELTA_REVIEW",
+    "ambiguous_tool_nonreturn": "UNKNOWN_UNTIL_ONE_PINNED_READBACK_NO_BLIND_RETRY",
+    "rollback_route_unavailable": "AAA_CURRENT_STATE_REVIEW_REQUIRED_CHECKPOINT_REPORT_TERMINATE",
+    "postreadback_mismatch": "ACTIVATION_INTEGRITY_FAILURE_CHECKPOINT_REPORT_TERMINATE"
+  },
+  "required_postreadback": [
+    "REF",
+    "COMMIT",
+    "TREE",
+    "POINTER_BLOB",
+    "GUARD_BLOB",
+    "COMPOSITION_BLOB",
+    "BOOTSTRAP_POINTER_PATH_AND_REBOUND_BOOTSTRAP_COVERAGE_INVENTORY_BLOBS",
+    "FRESH_PERSONA_RESOLUTION",
+    "AUTHORITY_UNCHANGED",
+    "VALIDATION_FLOOR_UNCHANGED"
+  ],
+  "receipt_fields": [
+    "ROLLBACK_METHOD",
+    "EXPECTED_OLD_REF",
+    "ROLLBACK_REF",
+    "ROLLBACK_COMMIT",
+    "ROLLBACK_TREE",
+    "SHADOW_POINTER_BLOB",
+    "ENFORCED_POINTER_BLOB",
+    "POSTREADBACK",
+    "ROLLBACK_TEST_RECEIPT"
+  ],
+  "a1_candidate_withdrawal": {
+    "scope": "UNMERGED_A1_BRANCH_ONLY",
+    "baseline_commit": "1ec8fa08dcca560cc592869ac0ed7fdce8d1ce3a",
+    "baseline_tree": "a617863d7108beb9ee3a68ad0963b61bd434090f",
+    "baseline_common_pointer": "ABSENT",
+    "baseline_bootstrap_candidate_blob": "228db268c93d534efa69351a11b18a2f1f74fc1e",
+    "method": "FORWARD_ONLY_BRANCH_COMMIT_NOT_FORCE_NOT_REWIND",
+    "not_operational_rollback_demo": true
+  },
+  "demonstration_stage": "A5_BEFORE_FINAL_ENFORCED_ACTIVATION_CLOSURE",
+  "claim_ceiling": "D1_CORRECTED_FORWARD_ATOMIC_ROLLBACK_DESIGN_ONLY_NOT_EXECUTED_NOT_PASS"
+}

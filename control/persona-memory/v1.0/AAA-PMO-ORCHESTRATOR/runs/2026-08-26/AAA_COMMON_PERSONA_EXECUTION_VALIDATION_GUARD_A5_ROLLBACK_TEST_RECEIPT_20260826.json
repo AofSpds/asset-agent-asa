@@ -1,0 +1,67 @@
+{
+  "artifact_id": "AAA-COMMON-PERSONA-EXECUTION-VALIDATION-GUARD-A5-ROLLBACK-TEST-RECEIPT-20260826",
+  "artifact_kind": "A5_EXACT_FORWARD_TO_PRIOR_SHADOW_ROLLBACK_TEST_RECEIPT",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-PMO-ORCHESTRATOR",
+  "readback_time_kst": "2026-08-26T21:50:07+09:00",
+  "state": "ROLLBACK_DEMONSTRATION_COMPLETE_EXACT_D1_SHADOW_RESTORED",
+  "repository": "AofSpds/asset-agent-asa",
+  "branch": "aaa-common-persona-validation-execution-guard-v1.1-r2-20260826",
+  "forward_demo": {
+    "commit": "90c36c60fb86d07a9e3711b29e6d50faaf19bfed",
+    "tree": "8d0b61f2585335d3b88bee5b45c641eb9b1e3b8d",
+    "mode": "ENFORCED",
+    "active_product_effect": false,
+    "readback_receipt_blob": "0403e92324d0ac60e4a54a7ffda92549dcfbcb5e"
+  },
+  "reverse_restore": {
+    "commit": "891fc36050527e947befe7ebdb779db831b55218",
+    "tree": "b3cbd57d9862047dc3ff4bd26a5906b1a39049ba",
+    "sole_parent": "90c36c60fb86d07a9e3711b29e6d50faaf19bfed",
+    "mode": "SHADOW",
+    "exact_prior_d1_set_restored": true
+  },
+  "exact_restore_readback": [
+    {
+      "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_CURRENT.json",
+      "restored_git_blob": "0daab5c5ac7f9b8efb2f4c015331c40581cf918b"
+    },
+    {
+      "path": "control/bootstrap/project-instructions/v1.0/AAA_PROJECT_INSTRUCTIONS_CURRENT_CANDIDATE_v1.0.json",
+      "restored_git_blob": "fa76370df6e97987b99e4c97389295f59f0f54cc"
+    },
+    {
+      "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_PERSONA_COVERAGE_v1.0.json",
+      "restored_git_blob": "0f993786dbe21558d279a3874659243de3c6fbe7"
+    },
+    {
+      "path": "control/organization/current-state/v1.0/AAA_ACTIVE_PERSONA_AND_VALIDATOR_INVENTORY_v1.0.tsv",
+      "restored_git_blob": "62c47f78b483e74738a29b9694ea6512cfdac40f"
+    }
+  ],
+  "restored_semantics": {
+    "mode": "SHADOW",
+    "enforced_routing_effect": false,
+    "direct_pass_or_fail_effect": false,
+    "active_persona_count": 13,
+    "shadow_pointer_resolved_count": 13,
+    "unresolved_count": 0,
+    "long_name_current_count": 0
+  },
+  "isolation_readback": {
+    "main_sha": "fa7d1a8bd1d00d297c27a325801618b75c4e113e",
+    "active_bootstrap_sha": "e9dc8b2fd5f58f49ac88b02c8136330db85700b1",
+    "main_changed": false,
+    "active_bootstrap_changed": false
+  },
+  "acceptance_evidence": {
+    "AC_26": "PASS_EXACT_FORWARD_AND_REVERSE_TRANSITIONS",
+    "forward_readback": "PASS",
+    "reverse_readback": "PASS",
+    "rollback_ready": true
+  },
+  "verdict": "PASS",
+  "claim_ceiling": "AC_26_PASS_ON_ISOLATED_BRANCH_EXACT_D1_SHADOW_RESTORED_NO_PRODUCT_ACTIVATION"
+}

@@ -1,0 +1,118 @@
+{
+  "artifact_id": "AAA-COMMON-VALIDATION-TUNING-A2-SHADOW-INJECTION-CHECKPOINT-20260826",
+  "artifact_kind": "PMO_A2_SINGLE_SOT_SHADOW_INJECTION_AND_COVERAGE_CHECKPOINT",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-PMO-ORCHESTRATOR",
+  "checkpoint_time_kst": "2026-08-26T20:45:21+09:00",
+  "state": "A2_AUTHORING_AND_DURABLE_READBACK_COMPLETE_A3_ALLOWED",
+  "branch": "aaa-common-persona-validation-execution-guard-v1.1-r2-20260826",
+  "a1_checkpoint": {
+    "commit": "3408e1dbb27e92bdc0f2c34016391d98d3af5b54",
+    "tree": "d845c6ba00f46dd352e89ce0af795b404f7bebb7",
+    "checkpoint_blob": "cdefd14c7476b5633557328882eb32c07b7e85da"
+  },
+  "a2_target": {
+    "commit": "c2d4e153ff968445822ea62262d830264344e1bc",
+    "tree": "9d87100b7835dc8ee30afb93c1bd697af1ae261b",
+    "sole_parent": "3408e1dbb27e92bdc0f2c34016391d98d3af5b54",
+    "changed_paths": [
+      {
+        "path": "control/bootstrap/project-instructions/v1.0/AAA_PROJECT_INSTRUCTIONS_CURRENT_CANDIDATE_v1.0.json",
+        "old_blob": "228db268c93d534efa69351a11b18a2f1f74fc1e",
+        "new_blob": "f6bb6414983f17ffb92258b8544c8087fe5be296",
+        "change": "ADD_EXACT_v0_4_AND_COMMON_SHADOW_POINTER_RESOLUTION"
+      },
+      {
+        "path": "control/organization/current-state/v1.0/AAA_ACTIVE_PERSONA_AND_VALIDATOR_INVENTORY_v1.0.tsv",
+        "old_blob": "e1bfc77b96c4a5fbf1b7bf43c8bf5f0683c64be6",
+        "new_blob": "328f317577656ab5a9cc610eeefedb2000a57ada",
+        "change": "REFRESH_13_BOOTSTRAP_REFS_AND_SHADOW_COVERAGE_STATE"
+      },
+      {
+        "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_PERSONA_COVERAGE_v1.0.json",
+        "old_blob": "ABSENT",
+        "new_blob": "e30dd13f0bfda52dd6ab6d8e28a22e92fed76904",
+        "change": "ADD_13_PERSONA_SINGLE_POINTER_COVERAGE_MANIFEST"
+      }
+    ]
+  },
+  "single_sot_route": [
+    "AAA_PROJECT_INSTRUCTIONS_CURRENT_CANDIDATE_v1.0.json@f6bb6414983f17ffb92258b8544c8087fe5be296",
+    "AAA_GLOBAL_PACKET_DISPLAY_RULE_CURRENT.json@7ae5cea1297b1b23217e4d9a3342924a724e38aa",
+    "AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_CURRENT.json@f619f9635a3d86454974886996e33ab128a275d6",
+    "AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_v1.1.json@772e0d149e64d58a6d516df122aa29fa5e0c1b9e",
+    "AAA_PERSONA_RUNTIME_SELECTOR_REGISTRY_v1.0.json@de71a2179d5d84840eb8c2cef009588c1971f79e",
+    "AAA_PERSONA_MEMORY_INDEX_v1.0.json@2167e65347305b496c99a754d0a3e9434a4b1555",
+    "ROLE_SPECIFIC_MEMORY_AND_WORKLOG",
+    "TASK_SPECIFIC_PACKET"
+  ],
+  "coverage_readback": {
+    "active_persona_count": 13,
+    "selector_resolved_count": 13,
+    "memory_worklog_resolved_count": 13,
+    "static_shadow_pointer_resolution_count": 13,
+    "unresolved_count": 0,
+    "long_name_current_count": 0,
+    "persona_local_guard_copy_count": 0,
+    "future_persona_inheritance": "DESIGNED_PENDING_T0_RUNTIME_REPRESENTATIVE_TEST"
+  },
+  "no_dual_sot_evidence": {
+    "normative_guard_blob_unchanged": "772e0d149e64d58a6d516df122aa29fa5e0c1b9e",
+    "bootstrap_stores_pointer_and_exact_identity_only": true,
+    "a2_changed_persona_memory_or_worklog_paths": 0,
+    "a2_copied_G_01_through_G_15_into_persona_memory": false
+  },
+  "a2_acceptance": {
+    "single_sot_injection": "PASS_ISOLATED_BRANCH_SHADOW",
+    "all_current_persona_static_coverage": "PASS_13_OF_13",
+    "shadow_pointer_mode": "PASS",
+    "v0_4_resolved_before_common_guard": "PASS",
+    "remote_commit_tree_readback": "PASS",
+    "remote_changed_blob_readback": "PASS_3_OF_3",
+    "representative_runtime_tests": "PENDING_A3",
+    "validation": "NOT_STARTED",
+    "enforced_activation": false
+  },
+  "program_progress": {
+    "frozen_total_ewu": 100,
+    "a0_preserved_ewu": 10,
+    "a1_earned_ewu": 20,
+    "a2_earned_ewu": 25,
+    "earned_ewu": 55,
+    "overall_progress": "55/100",
+    "planned_total_cru": 100,
+    "a2_planned_cru": 20,
+    "actual_cru": "NOT_INSTRUMENTED",
+    "active_time": "NOT_INSTRUMENTED",
+    "wait_time": "NOT_INSTRUMENTED",
+    "rework_time": "NOT_INSTRUMENTED"
+  },
+  "stage_state": {
+    "A0": "COMPLETE_10_EWU_PRESERVED",
+    "A1": "COMPLETE_20_EWU",
+    "A2": "COMPLETE_25_EWU",
+    "A3": "READY",
+    "A4": "NOT_STARTED",
+    "A5": "NOT_STARTED"
+  },
+  "runtime_state": {
+    "active_workers": 0,
+    "active_validators": 0,
+    "validation_dispatch": "HOLD_UNTIL_A3_COMPLETE_AND_GENUINELY_FROZEN_D0_TARGET",
+    "next_unit": "A3_SHADOW_REPRESENTATIVE_TESTS_T0_THROUGH_T10"
+  },
+  "preservation": {
+    "core_b_current_pair": [
+      "AAA-MODEL-ARCHITECT",
+      "AAA-MODEL-VALIDATOR"
+    ],
+    "d4_target_activated": false,
+    "core_b_work_rerun": false,
+    "m3top3_branch": "aaa-pmo-m3top3-successor-resume-20260826-0034",
+    "m3top3_head": "0f3b7b0cc0864d9939c670129991fdabca14a90c",
+    "m3top3_unchanged": true
+  },
+  "claim_ceiling": "A2_SHADOW_INJECTION_COMPLETE_55_OF_100_EWU_NO_RUNTIME_TEST_PASS_NO_VALIDATION_PASS_NO_ENFORCED_ACTIVATION"
+}

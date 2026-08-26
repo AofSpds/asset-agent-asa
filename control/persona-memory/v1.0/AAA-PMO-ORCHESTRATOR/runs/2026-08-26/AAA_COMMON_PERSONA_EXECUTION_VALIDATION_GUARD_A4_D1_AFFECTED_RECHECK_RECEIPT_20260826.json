@@ -1,0 +1,83 @@
+{
+  "artifact_id": "AAA-COMMON-PERSONA-EXECUTION-VALIDATION-GUARD-A4-D1-AFFECTED-RECHECK-RECEIPT-20260826",
+  "artifact_kind": "PMO_DETERMINISTIC_AFFECTED_ONLY_RECHECK_RECEIPT",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "executor": "AAA-PMO-ORCHESTRATOR",
+  "end_time_kst": "2026-08-26T21:18:56+09:00",
+  "result": "PASS_5_OF_5_AFFECTED_TESTS",
+  "exact_d1_chain": {
+    "guard_blob": "2bff1b6e8431bc36064d3dfd31bc245a4cf4829f",
+    "composition_blob": "3f2d413c0796100581b8400a76a9b94ff802916d",
+    "rollback_blob": "6bfc4c2a8e214a3b9ad49703e6fc662fb203231a",
+    "shadow_pointer_blob": "0daab5c5ac7f9b8efb2f4c015331c40581cf918b",
+    "bootstrap_candidate_blob": "fa76370df6e97987b99e4c97389295f59f0f54cc",
+    "coverage_blob": "0f993786dbe21558d279a3874659243de3c6fbe7",
+    "inventory_blob": "62c47f78b483e74738a29b9694ea6512cfdac40f",
+    "shared_contract_persona_projection_blob": "8408ea10a98a6130703829e29c9325614a082ea5",
+    "current_persona_reference_projection_blob": "275e0da4257ea8562240979215a6c2dced290334"
+  },
+  "tests": [
+    {
+      "test_id": "T0",
+      "result": "PASS",
+      "evidence": "POINTER_BOOTSTRAP_COVERAGE_INVENTORY_EXACT_CHAIN_CLOSED_13_OF_13_PERSONAS_ZERO_UNRESOLVED_ZERO_PERSONA_LOCAL_GUARD_COPIES"
+    },
+    {
+      "test_id": "T2",
+      "result": "PASS",
+      "evidence": "UPSTREAM_ACTIVE_INVENTORY_BRANCH_WIRING_PREDECESSOR_FINAL_D1_EXTERNAL_PIN_AND_TWO_CURRENT_PERSONA_PROJECTIONS_HAVE_DISTINCT_EXACT_ROLES"
+    },
+    {
+      "test_id": "T3",
+      "result": "PASS",
+      "evidence": "D1_POINTER_REMAINS_SHADOW_GUARD_MODE_IS_POINTER_CONTROLLED_AND_ENFORCED_PATH_PRESERVES_AUTHORITY_SHARED_CONTRACT_VALIDATION_FLOOR_AND_DIRECT_PASS_FIREWALL"
+    },
+    {
+      "test_id": "T5",
+      "result": "PASS",
+      "evidence": "ROLLBACK_BINDS_EXACT_D1_GUARD_COMPOSITION_USES_FORWARD_NON_FORCE_EXPECTED_OLD_ATOMIC_CHANGE_SET_AND_REBINDS_DERIVED_BOOTSTRAP_COVERAGE_INVENTORY"
+    },
+    {
+      "test_id": "T8",
+      "result": "PASS",
+      "evidence": "POINTER_AND_BOOTSTRAP_RECORD_A3_PASS_KEEP_A4_A5_CLOSED_AND_MAKE_NO_VALIDATION_OR_ACTIVATION_CLAIM"
+    }
+  ],
+  "reference_closure": {
+    "stale_rollback_guard_blob_on_operational_rollback_surface_count": 0,
+    "current_pointer_a3_remaining_count": 0,
+    "bootstrap_pending_a3_count": 0,
+    "projection_bindings_present": 2,
+    "inventory_persona_rows": 13,
+    "inventory_new_bootstrap_ref_rows": 13,
+    "inventory_d1_lifecycle_rows": 13,
+    "json_parse_failures": 0
+  },
+  "impact_classification": {
+    "changed_objects_deterministically_identified": true,
+    "dependency_closure": "BOUNDED_DAG_CLOSED",
+    "authority_change": false,
+    "shared_contract_change": false,
+    "validation_floor_change": false,
+    "paired_validator_independence_change": false,
+    "iva_independence_change": false,
+    "model_pit_gt_change": false,
+    "unbounded_scan_required": false
+  },
+  "reused_unaffected_a3_evidence": [
+    "T1",
+    "T4",
+    "T6",
+    "T7",
+    "T9",
+    "T10"
+  ],
+  "reused_a3_receipt_blob": "193ad116105bd76386a0702eb668931903eb1bff",
+  "reused_a3_matrix_blob": "354d7c5b107489e94e817598552ec99d7426a405",
+  "validation_verdict": "NONE_AUTHOR_SIDE_DETERMINISTIC_RECHECK_ONLY",
+  "full_repository_scan": false,
+  "writes_to_github": 0,
+  "claim_ceiling": "D1_AFFECTED_TEST_RECHECK_PASS_ONLY_NO_VALIDATOR_PASS_NO_ENFORCED_ACTIVATION"
+}

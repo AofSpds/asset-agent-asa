@@ -1,0 +1,93 @@
+{
+  "artifact_id": "AAA-COMMON-PERSONA-EXECUTION-VALIDATION-GUARD-A3-METADATA-CORRECTION-BATCH-v1.0",
+  "artifact_kind": "BOUNDED_PRE_D0_SHADOW_METADATA_CORRECTION_BATCH",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "state": "CORRECTION_AUTHORED_AFFECTED_RECHECK_PENDING",
+  "base_commit": "801db98063c58a1e4168d6185f522aa5f341ca8a",
+  "base_tree": "c370079649d2e07e35e6e5aaa277d29514f740ed",
+  "trigger": {
+    "source": "A3_T0_TO_T5_SHADOW_EXECUTOR",
+    "classification": "NON_BLOCKING_METADATA_ADVISORY",
+    "finding": "SHADOW_POINTER_RETAINED_A1_BOOTSTRAP_INJECTION_PENDING_A2_LABEL_AFTER_A2_DURABLE_COMPLETION",
+    "routing_identity_mismatch": false,
+    "validation_floor_or_authority_impact": false
+  },
+  "correction_count": 1,
+  "changes": [
+    {
+      "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_v1.1.json",
+      "old_blob": "772e0d149e64d58a6d516df122aa29fa5e0c1b9e",
+      "new_blob": "d803945e7e709dc96daf460ef2f6fd5cedec6e4b",
+      "delta": "PIN_OPERATIONAL_SHADOW_ROLLBACK_TO_LATEST_PRE_ACTIVATION_D0_FREEZE"
+    },
+    {
+      "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_ROLLBACK_DESIGN_v1.0.json",
+      "old_blob": "44eea6d4ed6ca6455455030d6268461afbc3b407",
+      "new_blob": "6b4fae6982a3db3695d06f787a1e04d3d9e64abe",
+      "delta": "ALIGN_SHADOW_POINTER_PIN_WITH_LATEST_PRE_ACTIVATION_D0_FREEZE"
+    },
+    {
+      "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_CURRENT.json",
+      "old_blob": "f619f9635a3d86454974886996e33ab128a275d6",
+      "new_blob": "05226252d787b29149eaf6da6a923d5b1cf090ec",
+      "delta": "CURRENTIZE_A2_LIFECYCLE_STATE_AND_EXACT_TARGET_BINDINGS"
+    },
+    {
+      "path": "control/bootstrap/project-instructions/v1.0/AAA_PROJECT_INSTRUCTIONS_CURRENT_CANDIDATE_v1.0.json",
+      "old_blob": "f6bb6414983f17ffb92258b8544c8087fe5be296",
+      "new_blob": "29d1814629d6ac172b88ba7ad5c5471ed6064b16",
+      "delta": "FOLLOW_NEW_EXACT_SHADOW_POINTER_AND_GUARD_BLOBS"
+    },
+    {
+      "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_PERSONA_COVERAGE_v1.0.json",
+      "old_blob": "e30dd13f0bfda52dd6ab6d8e28a22e92fed76904",
+      "new_blob": "ab1e7f7f269074ef5fccbdc835b8528622d07aa2",
+      "delta": "FOLLOW_NEW_EXACT_BOOTSTRAP_POINTER_AND_GUARD_BLOBS"
+    },
+    {
+      "path": "control/organization/current-state/v1.0/AAA_ACTIVE_PERSONA_AND_VALIDATOR_INVENTORY_v1.0.tsv",
+      "old_blob": "328f317577656ab5a9cc610eeefedb2000a57ada",
+      "new_blob": "65b30bdecbd3704412fe75a2e250557ebf0d65ba",
+      "delta": "FOLLOW_NEW_EXACT_BOOTSTRAP_CANDIDATE_BLOB_FOR_13_ROWS"
+    }
+  ],
+  "preserved_exact": {
+    "composition_blob": "03ed1a50a1f503e464c418c9d3beddc49fbbc688",
+    "global_v0_4_pointer_blob": "7ae5cea1297b1b23217e4d9a3342924a724e38aa",
+    "global_v0_4_target_blob": "dff467a971f9519ba6598f535fc47623197e4bcb",
+    "selector_blob": "de71a2179d5d84840eb8c2cef009588c1971f79e",
+    "memory_index_blob": "2167e65347305b496c99a754d0a3e9434a4b1555",
+    "core_b_current_pair": [
+      "AAA-MODEL-ARCHITECT",
+      "AAA-MODEL-VALIDATOR"
+    ]
+  },
+  "impact_classification": {
+    "semantic_impact": "NONE",
+    "authority_impact": false,
+    "validation_floor_impact": false,
+    "independence_impact": false,
+    "shared_contract_impact": false,
+    "enforced_activation": false,
+    "affected_tests": [
+      "T0",
+      "T5",
+      "T8"
+    ],
+    "unaffected_test_evidence_reusable_after_this_classification": [
+      "T1",
+      "T2",
+      "T3",
+      "T4",
+      "T6",
+      "T7",
+      "T9",
+      "T10"
+    ],
+    "full_repository_read_or_full_test_rerun_required": false
+  },
+  "validation_state": "NOT_RUN_PRE_D0_AUTHORING_CORRECTION",
+  "claim_ceiling": "ONE_BOUNDED_METADATA_CORRECTION_BATCH_AFFECTED_SHADOW_RECHECK_PENDING_NO_VALIDATION_PASS"
+}

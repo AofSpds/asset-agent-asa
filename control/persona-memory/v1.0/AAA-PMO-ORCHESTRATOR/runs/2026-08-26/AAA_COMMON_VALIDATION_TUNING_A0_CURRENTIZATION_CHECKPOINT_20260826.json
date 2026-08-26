@@ -1,0 +1,152 @@
+{
+  "artifact_id": "AAA-COMMON-VALIDATION-TUNING-A0-CURRENTIZATION-CHECKPOINT-20260826",
+  "artifact_kind": "PMO_NARROW_A0_R_CURRENTIZATION_CHECKPOINT",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-PMO-ORCHESTRATOR",
+  "state": "NARROW_A0_R_CURRENTIZATION_COMPLETE_A1_ALLOWED",
+  "checkpoint_time_kst": "2026-08-26T20:17:14+09:00",
+  "historical_a0_binding": {
+    "branch": "aaa-common-persona-validation-execution-guard-v1.1-20260826",
+    "commit": "e782984a968b20c1913b3bdbb398a00c1ab533c4",
+    "tree": "541fbb5235a74bb2a5c612736a510d89330d93fb",
+    "inventory_blob": "578983fad4cc3955e544d17f217c92d3299f66c9",
+    "checkpoint_blob": "4dfde84b55a42d472f5425a5f1dbc97cf796bac9",
+    "earned_ewu": 10,
+    "disposition": "PRESERVED_HISTORICAL_A0_EVIDENCE_NO_RECOMPUTE"
+  },
+  "resume_lineage": {
+    "branch": "aaa-common-persona-validation-execution-guard-v1.1-r2-20260826",
+    "base_bootstrap_branch": "aaa-project-instructions-git-bootstrap-v1.0",
+    "base_commit": "6083d892ac52fc4654f809fe265b5e59ef6aa9c5",
+    "base_tree": "e89e0990e40b9baace05dd94b587e011c0756ddf",
+    "latest_bootstrap_evidence_commit": "e9dc8b2fd5f58f49ac88b02c8136330db85700b1",
+    "latest_bootstrap_evidence_tree": "9d2b43be667cba61ac209bfa6e5ea14139638d51",
+    "convergence_method": "TWO_PARENT_MERGE_CURRENTIZATION_COMMIT",
+    "currentization_commit": "SELF_COMMIT_VERIFY_BY_BRANCH_READBACK"
+  },
+  "owner_correction_binding": {
+    "decision_commit": "bf8bddd9b86bc233a92a56a712f685f37f01a3f7",
+    "correction_receipt_commit": "6083d892ac52fc4654f809fe265b5e59ef6aa9c5",
+    "core_b_closure_commit": "e07255b1d6c5381309d984c7f6c41b21db85d116",
+    "d4_target": "a044afe7c90f2b78f7d077ffc8e6dde9fd561992",
+    "d4_disposition": "DO_NOT_ACTIVATE_HISTORICAL_ONLY",
+    "r7_disposition": "HISTORICAL_TERMINAL_EVIDENCE_NOT_CURRENT_BLOCKER"
+  },
+  "resolved_current_pair": {
+    "mod": "AAA-MODEL-ARCHITECT",
+    "modv": "AAA-MODEL-VALIDATOR",
+    "old_long_names_resolve_current": false,
+    "active_organization_changed": false
+  },
+  "bounded_currentization": {
+    "bootstrap": [
+      {
+        "path": "control/bootstrap/project-instructions/v1.0/AAA_PROJECT_INSTRUCTIONS_CANONICAL_v1.0.md",
+        "old_blob": "b95a64fb2a11202b5e1c3490db90e27ad25650f0",
+        "new_blob": "113dc3b1929d0ac351e771852a37cf4f95d25223"
+      },
+      {
+        "path": "control/bootstrap/project-instructions/v1.0/AAA_PROJECT_INSTRUCTIONS_CURRENT_CANDIDATE_v1.0.json",
+        "old_blob": "d5159b9867c212b94748ffadb2abfdcf6a070e60",
+        "new_blob": "228db268c93d534efa69351a11b18a2f1f74fc1e"
+      }
+    ],
+    "selector_and_memory_index": [
+      {
+        "path": "control/persona-memory/v1.0/AAA_PERSONA_RUNTIME_SELECTOR_REGISTRY_v1.0.json",
+        "old_blob": "307b878ef133638eafc7e257b0cc8e22924ee947",
+        "new_blob": "de71a2179d5d84840eb8c2cef009588c1971f79e"
+      },
+      {
+        "path": "control/persona-memory/v1.0/AAA_PERSONA_MEMORY_INDEX_v1.0.json",
+        "old_blob": "d84e735b1bd7c03d16119bcfc901669c264ce43c",
+        "new_blob": "2167e65347305b496c99a754d0a3e9434a4b1555"
+      }
+    ],
+    "continuity_surfaces": [
+      {
+        "path": "control/persona-memory/v1.0/COMMON/PROJECT_MEMORY.md",
+        "old_blob": "487bd2c6216b2f935dc893dc87582d21a7ff6fe5",
+        "new_blob": "3950505579386c816aad22d8d52367606047730d",
+        "core_b_remediation_state": "CLOSED"
+      },
+      {
+        "path": "control/persona-memory/v1.0/AAA_PERSONA_RUNTIME_LOADOUT_AND_MEMORY_CONTINUITY_GUIDE_v1.0.md",
+        "old_blob": "d807de8e82f824ffd275657dcd708ee034f6d3fb",
+        "new_blob": "84e10e6010dd5109a35d9754ede3c53ebbe67d35",
+        "old_long_name_selectors_resolve_current": false
+      }
+    ],
+    "shared_contract_current_projection": {
+      "path": "control/organization/current-state/v1.0/AAA_SHARED_CONTRACT_CORE_B_PERSONA_CURRENT_PROJECTION_v1.0.json",
+      "git_blob": "8408ea10a98a6130703829e29c9325614a082ea5",
+      "immutable_target_rewritten": false
+    },
+    "current_persona_references": {
+      "path": "control/organization/current-state/v1.0/AAA_CORE_B_CURRENT_PERSONA_REFERENCES_v1.0.json",
+      "git_blob": "275e0da4257ea8562240979215a6c2dced290334",
+      "short_name_memory_and_worklog_count": 4,
+      "wrong_direction_candidate_files_rewritten": false,
+      "wrong_direction_candidate_disposition": "HISTORICAL_ONLY"
+    }
+  },
+  "current_inventory": {
+    "path": "control/organization/current-state/v1.0/AAA_ACTIVE_PERSONA_AND_VALIDATOR_INVENTORY_v1.0.tsv",
+    "git_blob": "e1bfc77b96c4a5fbf1b7bf43c8bf5f0683c64be6",
+    "active_persona_count": 13,
+    "current_projection_row_count": 13,
+    "conflicted_rows": 0,
+    "unresolved_selector_rows": 0,
+    "long_name_current_rows": 0
+  },
+  "common_injection_route": [
+    "AAA_PROJECT_INSTRUCTIONS_CURRENT_CANDIDATE_v1.0.json@228db268c93d534efa69351a11b18a2f1f74fc1e",
+    "COMMON/PROJECT_MEMORY.md@3950505579386c816aad22d8d52367606047730d",
+    "AAA_PERSONA_RUNTIME_LOADOUT_AND_MEMORY_CONTINUITY_GUIDE_v1.0.md@84e10e6010dd5109a35d9754ede3c53ebbe67d35",
+    "AAA_PERSONA_RUNTIME_SELECTOR_REGISTRY_v1.0.json@de71a2179d5d84840eb8c2cef009588c1971f79e",
+    "AAA_PERSONA_MEMORY_INDEX_v1.0.json@2167e65347305b496c99a754d0a3e9434a4b1555",
+    "AAA_CORE_B_CURRENT_PERSONA_REFERENCES_v1.0.json@275e0da4257ea8562240979215a6c2dced290334",
+    "AAA_SHARED_CONTRACT_CORE_B_PERSONA_CURRENT_PROJECTION_v1.0.json@8408ea10a98a6130703829e29c9325614a082ea5",
+    "AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_CURRENT.json@PENDING_A1_A2"
+  ],
+  "bounded_root_cause_receipt": {
+    "commit": "e9dc8b2fd5f58f49ac88b02c8136330db85700b1",
+    "path": "control/persona-memory/v1.0/AAA-ASA/review-receipts/CORE_B_RECURRING_CURRENT_STATE_ROOT_CAUSE_INVESTIGATION_2026-08-26.md",
+    "git_blob": "fb83835a32b2dfe9eb8217622712cea268ba8ea2",
+    "included_as_merge_parent_evidence": true
+  },
+  "a0_acceptance": {
+    "AC_01_authoritative_active_persona_inventory_resolved": "PASS",
+    "AC_02_all_active_persistent_persona_loadout_routes_resolved": "PASS_A0_CURRENTIZATION",
+    "active_authority_conflict": false,
+    "shared_contract_semantic_change": false,
+    "organization_cutover": false,
+    "validation_required_for_a0_currentization": false
+  },
+  "progress": {
+    "frozen_total_ewu": 100,
+    "earned_ewu": 10,
+    "overall_progress": "10/100",
+    "a0_recompute": false,
+    "currentization_double_counted": false,
+    "A1": "READY",
+    "A2": "NOT_STARTED",
+    "A3": "NOT_STARTED",
+    "A4": "NOT_STARTED",
+    "A5": "NOT_STARTED"
+  },
+  "program_isolation": {
+    "m3top3_branch": "aaa-pmo-m3top3-successor-resume-20260826-0034",
+    "m3top3_head": "0f3b7b0cc0864d9939c670129991fdabca14a90c",
+    "m3top3_state": "SOURCE_BLOCKED_UNTOUCHED"
+  },
+  "runtime_state": {
+    "active_workers": 0,
+    "active_validators": 0,
+    "next_unit": "A1_COMMON_GUARD_AND_COMPOSITION_DESIGN",
+    "validation_dispatch": "HOLD_UNTIL_GENUINELY_NEW_FROZEN_COMMON_GUARD_CANDIDATE"
+  },
+  "claim_ceiling": "NARROW_A0_CURRENTIZATION_PASS_10_OF_100_EWU_PRESERVED_A1_ALLOWED_NO_COMMON_GUARD_AUTHORED_OR_ACTIVATED_YET"
+}
