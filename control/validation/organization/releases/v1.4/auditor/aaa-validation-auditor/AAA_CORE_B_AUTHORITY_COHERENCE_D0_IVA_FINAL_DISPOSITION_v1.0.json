@@ -1,0 +1,193 @@
+{
+  "artifact_id": "AAA-CORE-B-AUTHORITY-COHERENCE-D0-IVA-FINAL-DISPOSITION-v1.0",
+  "artifact_kind": "P0_INDEPENDENT_VALIDATION_AUDIT_D0_ELIGIBILITY_DISPOSITION_NO_L2_PASS",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "wbs_id": "R5",
+  "persona": "AAA-VALIDATION-AUDITOR",
+  "official_code": "IVA",
+  "disposition_time_kst": "2026-08-26 13:33:46 KST",
+  "state": "D0_L2_NOT_ELIGIBLE_SUPERSEDED_REQUIRES_D1",
+  "exact_d0": {
+    "repository": "AofSpds/asset-agent-asa",
+    "freeze_id": "D0",
+    "commit": "a5a41edd27497f74e6539b151c914667f27bf680",
+    "tree": "b5aae5667b6d55bef67c9ac90cc6e80fd395f652",
+    "parent_commit": "d49f0507f4311168828faffae8e3a6234f86f9cc",
+    "freeze_receipt_commit": "75e2452631270379565cd6ab75faf00889dfdcdb",
+    "freeze_receipt_blob": "dd06664ca7dad8aa9fdec089cefb14e5980b5592",
+    "target_mutated_by_iva": false
+  },
+  "frozen_independent_first_pass_binding": {
+    "commit": "d83cfeb2b935675de3c8833cf15b75619dd45995",
+    "tree": "1d7d569d2c453247a18dd423f1b15c822bf52604",
+    "path": "control/validation/organization/releases/v1.4/auditor/aaa-validation-auditor/AAA_CORE_B_AUTHORITY_COHERENCE_D0_IVA_INDEPENDENT_FIRST_PASS_v1.0.json",
+    "git_blob": "3208985e9cd34a6ac836774b0bc443ee38504a49",
+    "sha256": "3481d9384693a1eb16ebb8233321b91f051bf5e0aca45cacfd9c3b5cede837d1",
+    "byte_size": 16154,
+    "frozen_state": "FIRST_PASS_FROZEN_AWAITING_CTLV_L1_RECEIPT",
+    "first_pass_result": "PASS_NO_BLOCKING_FINDINGS_WITHIN_BOUNDED_SCOPE",
+    "final_l2_disposition_in_first_pass": "NOT_ISSUED_PENDING_PERSISTED_CTLV_EXACT_L1_RECEIPT",
+    "persisted_unchanged": true
+  },
+  "independence_preservation": {
+    "first_pass_content_frozen_before_ctlv_findings_review": true,
+    "first_pass_exact_blob_persisted_unchanged": true,
+    "first_pass_rewritten_after_ctlv_review": false,
+    "ctlv_findings_seen_during_first_pass": false,
+    "ctlv_receipt_first_read_after_first_pass_freeze_and_persistence_confirmation": true,
+    "persistence_commit_parentage_does_not_transfer_ctlv_reasoning_into_the_preexisting_frozen_blob": true,
+    "pmo_directed_pass_or_fail": false,
+    "target_authoring_or_mutation": false,
+    "execution_worker_role": false,
+    "result": "PASS_INDEPENDENCE_PRESERVED"
+  },
+  "exact_ctlv_l1_receipt_binding": {
+    "commit": "522dc8d4387a749ddbd56668b27e490656249eda",
+    "tree": "88c983916800709e49fa23efed4fdcaeec0563f7",
+    "parent_commit": "75e2452631270379565cd6ab75faf00889dfdcdb",
+    "path": "control/validation/organization/releases/v1.4/validator/aaa-control-validator/AAA_CORE_B_AUTHORITY_COHERENCE_D0_P0_CTLV_L1_RECEIPT_v1.0.json",
+    "git_blob": "5b3eba70bad99cbef5b2f56d53a3719b600e9e45",
+    "sha256": "f4c54d63ba55a1fe95c72fca0911eb408d2dc49620f474e679088ad10bd572e2",
+    "byte_size": 18170,
+    "validation_persona": "AAA-CONTROL-VALIDATOR",
+    "validation_class": "P0_PAIRED_CONTROL_L1",
+    "exact_target_commit": "a5a41edd27497f74e6539b151c914667f27bf680",
+    "exact_target_tree": "b5aae5667b6d55bef67c9ac90cc6e80fd395f652",
+    "target_state_after_validation": "D0_UNCHANGED",
+    "verdict": "BLOCKED_WITH_EXACT_REASON",
+    "verdict_reason": "F-P0-CTLV-R4-001: the frozen D0 transition plan lacks an executable exact CAS contract for the governed active locator ref and four predecessor active blobs; fail closed before L2 or cutover.",
+    "identity_and_target_match_result": "PASS_EXACT"
+  },
+  "ctlv_cross_review": {
+    "acceptance_check_count": 12,
+    "passing_checks": 11,
+    "failing_checks": 1,
+    "failing_check": {
+      "id": "CTLV-R4-AC-09",
+      "check": "CURRENT_POINTER_TRANSITION_EXACTNESS_AND_CAS",
+      "result": "FAIL_P0"
+    },
+    "blocking_finding": {
+      "finding_id": "F-P0-CTLV-R4-001",
+      "severity": "P0",
+      "class": "POINTER_TRANSITION_CAS_CONTRACT_MISSING",
+      "status": "BLOCKING",
+      "exact_artifact_path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_CURRENT_POINTER_TRANSITION_PLAN_v1.0.json",
+      "exact_artifact_blob": "d81aa014414787106befdbaf4b4eadfecb1428b1",
+      "exact_reason": "Pinned content identities and one atomic tree commit are insufficient to prevent a stale-base or concurrent-ref cutover. D0 supplies no executable compare-and-swap contract for the governed active locator ref: exact ref name, expected-old ref SHA, required prewrite reread of cad42e60/ca485404/3579860f/30cbecc2, force=false update, and fail-closed behavior on any mismatch are absent. The D0 freeze receipt's derived CAS=true statement cannot add authority or missing execution semantics to the frozen plan.",
+      "waiver_allowed": false
+    }
+  },
+  "iva_post_freeze_adjudication": {
+    "authoritative_transition_plan_rechecked": true,
+    "transition_plan_blob": "d81aa014414787106befdbaf4b4eadfecb1428b1",
+    "required_executable_cas_elements": {
+      "exact_governed_ref_name": "MISSING",
+      "expected_old_ref_sha": "MISSING",
+      "exact_parent_or_head_precondition": "MISSING",
+      "prewrite_reread_of_all_four_predecessor_active_blobs": "MISSING",
+      "force_false_ref_update": "MISSING",
+      "fail_closed_no_write_on_any_mismatch": "MISSING"
+    },
+    "elements_present_but_insufficient": [
+      "PINNED_PREDECESSOR_AND_CANDIDATE_CONTENT_IDENTITIES",
+      "FOUR_FILE_ATOMIC_PROMOTION_INTENT",
+      "ONE_ATOMIC_TREE_COMMIT_INTENT",
+      "BRANCH_REF_MOVE_BEFORE_OWNER_CUTOVER_PROHIBITED"
+    ],
+    "d0_freeze_receipt_derived_pre_cutover_compare_and_swap_flag_can_cure_missing_authoritative_execution_semantics": false,
+    "finding_materiality": "P0_BLOCKING_STALE_BASE_OR_CONCURRENT_REF_CUTOVER_RISK",
+    "finding_confirmation": "CONFIRMED",
+    "result": "D0_FAIL_CLOSED_BEFORE_L2"
+  },
+  "first_pass_reconciliation": {
+    "first_pass_was_final_l2_pass": false,
+    "first_pass_observed_this_cas_gap": false,
+    "first_pass_is_preserved_as_independent_frozen_evidence": true,
+    "new_post_freeze_l1_input": "F-P0-CTLV-R4-001",
+    "new_input_changes_d0_l2_eligibility": true,
+    "first_pass_pass_language_transferred_to_final_l2": false,
+    "resolution": "THE_PERSISTED_BLOCKING_L1_RECEIPT_PREVENTS_D0_FROM_ENTERING_L2; NO_IVA_L2_PASS_IS_ISSUED"
+  },
+  "d0_eligibility_disposition": {
+    "ctlv_l1_pass": false,
+    "ctlv_l1_verdict": "BLOCKED_WITH_EXACT_REASON",
+    "d0_eligible_for_iva_l2": false,
+    "iva_l2_review_completed_as_pass_fail_validation": false,
+    "iva_l2_pass_issued": false,
+    "iva_l2_receipt_created": false,
+    "d0_cutover_eligible": false,
+    "d0_owner_cutover_packet_eligible": false,
+    "d0_status": "SUPERSEDED_FOR_VALIDATION_ROUTE_REQUIRES_D1",
+    "routing_hold": "REMAINS_ACTIVE",
+    "active_pointer_move": false,
+    "activation_or_cutover": false
+  },
+  "no_pass_transfer": {
+    "d0_first_pass_to_d0_final_l2": "PROHIBITED",
+    "d0_ctlv_passing_subchecks_to_d1": "PROHIBITED_AS_VALIDATION_PASS",
+    "d0_first_pass_to_d1": "PROHIBITED_AS_VALIDATION_PASS",
+    "d0_l1_to_d1_l1": "PROHIBITED",
+    "d0_to_d1_exact_target_substitution": "PROHIBITED",
+    "rule": "D1_REQUIRES_ITS_OWN_EXACT_FREEZE_FRESH_OR_AFFECTED_CTLV_L1_AND_FRESH_INDEPENDENT_IVA_L2_ON_THE_SAME_D1"
+  },
+  "required_d1_remediation_contract": {
+    "d0_mutation": "PROHIBITED",
+    "d1_authoring_required": true,
+    "exact_governed_ref_name": "MUST_BE_EXPLICITLY_NAMED_BY_CTL_IN_D1_NOT_INFERRED_HERE",
+    "expected_old_ref_sha": "MUST_BE_EXPLICITLY_BOUND_BY_CTL_IN_D1_NOT_INFERRED_HERE",
+    "exact_parent_or_head_precondition": "REQUIRED",
+    "expected_old_active_blobs": [
+      "cad42e60efea2eb67bb663b5ff889277c028e66c",
+      "ca48540479b3c25ef4c857d12a53e576246",
+      "3579860fd20e497161e13a9ccc8fa0c7fac0db61",
+      "30cbecc2a961d5fd92b28e00be419f5a590110c1"
+    ],
+    "exact_candidate_blobs": [
+      "e17749646a379e36e0613c6864d67a4a1b1a07ec",
+      "7b1cf5cf3f82067c1f72ae5a8a51bdf5a1b60b34",
+      "c7d44e071dba5fca54f069ffce1ab5b11feb2a66",
+      "16bf7e0256b5eb33e14fbcc775cb2d5c9fb48f50"
+    ],
+    "prewrite_reread_all_four_expected_old_blobs": "REQUIRED",
+    "one_atomic_tree_commit": "REQUIRED",
+    "ref_update_force": false,
+    "any_mismatch_behavior": "FAIL_CLOSED_NO_WRITE_NO_REF_MOVE",
+    "postwrite_binding": "ACTIVATION_RECEIPT_MUST_BIND_NEW_ACTIVATION_COMMIT_TREE_REF_AND_ALL_FOUR_PROMOTED_BLOBS"
+  },
+  "next_route": {
+    "ordered_sequence": [
+      "AAA-CONTROL-ARCHITECT_AUTHOR_NON_MUTATING_D1_SUCCESSOR_FIX_FOR_F-P0-CTLV-R4-001",
+      "AAA-PMO-ORCHESTRATOR_FREEZE_EXACT_D1_COMMIT_TREE_AND_BLOB_SET",
+      "AAA-CONTROL-VALIDATOR_ONE_FRESH_OR_AFFECTED_P0_L1_ON_EXACT_D1",
+      "AAA-VALIDATION-AUDITOR_ONE_FRESH_INDEPENDENT_P0_L2_ON_THE_SAME_EXACT_D1_ONLY_IF_D1_L1_PASSES",
+      "HUMAN_PROJECT_OWNER_EXACT_POST_VALIDATION_CUTOVER_DECISION"
+    ],
+    "d0_l2_route": "CLOSED_NOT_ELIGIBLE",
+    "d1_exists_or_was_inspected": false,
+    "d1_was_modified_by_iva": false
+  },
+  "execution_effect": {
+    "files_written": 1,
+    "local_disposition_file_only": true,
+    "github_writes": 0,
+    "d0_files_mutated": 0,
+    "d1_files_inspected": 0,
+    "d1_files_mutated": 0,
+    "active_refs_moved": 0,
+    "active_paths_mutated": 0
+  },
+  "claim_ceiling": {
+    "claim": "D0_ELIGIBILITY_DISPOSITION_ONLY",
+    "iva_l2_pass": false,
+    "d0_validation_pass": false,
+    "d1_validation_claim": false,
+    "owner_cutover_approved": false,
+    "active_pointer_moved": false,
+    "routing_hold_released": false,
+    "shared_contract_or_model_or_pit_semantic_validation": false,
+    "freeze_release_production_authority": false
+  }
+}
