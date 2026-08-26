@@ -1,6 +1,6 @@
 # M3Top3 Fast-Close → Tune Dashboard
 
-AS_OF = 2026-08-26 02:36 KST  
+AS_OF = 2026-08-26 11:18:24 KST
 FAST_CLOSE [██░░░░░░░░] 21%  
 EWU = 21 / 100  
 CRU = not instrumented / 142 replanned (160 original); prior batches approximately 32 aggregate worker-minutes plus Axis-B 75.043 s main path and 79.269 s rework plus KRX Axis-C 134.44 s capture span and calendar 28 s material span plus PMO integration  
@@ -59,3 +59,15 @@ LAST MATERIAL PROGRESS = official KRX custody evidence sealed at commit `e9bd65f
 - EWU/gate/validation effect: `0 / NONE / NONE`.
 
 Integrated G1–G4 remains `NOT_CLOSED`. EOPT-G0 remains `OPEN / NOT_PROVEN / 1 OF 6 PASS`; measurement and mutation remain not started.
+
+## Emergency stall recovery readback
+
+- Old visible runtime: `RETIRED`; current collaboration runtime workers/validators: `0/0`.
+- Packet last-observed SHA `4d7bdd9c897a487a7830555bc6fd0777f477c269` does not resolve; live branch source head before this status commit is `4d7bddb6b10159aaad59719a542283e8ccd71fea`.
+- Exact path/blob readback: `59` preserved files across Owner-decision, Axis-B, KRX custody and Fast-Close worker-result roots.
+- Owner decision binding and Axis-B PMO integration receipts exist; neither was rebuilt. Axis-B recompute and Owner rebind: `NO / NO`.
+- Durable progress remains `21/100 EWU`; the visible `80%` was not imported.
+- First unsealed unit at the stalled G3 frontier: `FC1-G3 / G3-B / Axis-C terminal reconciliation for 2,406 signals`.
+- Resume state: `RESUMED_AT_INPUT_GATE / SOURCE_BLOCKED`; no worker is dispatched until an authorized exact KRX/custodian CA-universe export and receipt exist.
+- Validation: `HOLD / 0 ACTIVE`; G4 remains sealed and was not rerun.
+- Readback receipt: `control/m3top3/recovery/2026-08-26/emergency-stall-readback/M3TOP3_PMO_EMERGENCY_STALL_RECOVERY_READBACK_2026-08-26.json`.

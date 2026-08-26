@@ -1,0 +1,467 @@
+{
+  "artifact_id": "AAA-M3TOP3-PMO-EMERGENCY-STALL-RECOVERY-READBACK-20260826-111824",
+  "artifact_class": "NON_VALIDATOR_DURABLE_READBACK_AND_BLOCKED_UNIT_RESUME_RECEIPT",
+  "created_at_kst": "2026-08-26T11:18:24+09:00",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "persona": "AAA-PMO-ORCHESTRATOR (PMO)",
+  "incident": "VISIBLE_RUNTIME_STALL_OVER_8_HOURS",
+  "old_runtime_retired": true,
+  "exclusive_scope": "ONE_BOUNDED_SALVAGE_READBACK_CYCLE",
+  "durable_branch": "aaa-pmo-m3top3-successor-resume-20260826-0034",
+  "head_reconciliation": {
+    "packet_last_observed_head": "4d7bdd9c897a487a7830555bc6fd0777f477c269",
+    "packet_head_resolves_as_commit": false,
+    "exact_branch_head_before_recovery_commit": "4d7bddb6b10159aaad59719a542283e8ccd71fea",
+    "exact_branch_tree_before_recovery_commit": "b379821627e453637acfdb9ac1998bd14fca80f1",
+    "mismatch_disposition": "LIVE_BRANCH_HEAD_GOVERNS; DO_NOT_INFER_OR_RECONSTRUCT_PACKET_SHA"
+  },
+  "bootstrap_and_authority": {
+    "current_persona_lock": "AAA-PMO-ORCHESTRATOR (PMO)",
+    "active_persistent_locator_branch_head": "5b2dd5c5ea5bf96eb22163a0598d6879fffada9e",
+    "active_persistent_locator_pointer_blob": "ca999bc2af458ce4e28d6da1a37fb94f0d49080e",
+    "active_organization_release": "AAA-ORGANIZATION-RELEASE-v1.3",
+    "organization_current_state_blob": "cad42e60efea2eb67bb663b5ff889277c028e66c",
+    "pmo_pair_state": "AAA-PMO-ORCHESTRATOR + AAA-PMO-VALIDATOR / ACTIVE",
+    "active_shared_contract": "AAA-SHARED-CONTRACT-LIMITED-ADDENDUM v0.1",
+    "shared_contract_current_state_blob": "9463e3802abd09d41c20675239c2df7739ac2751"
+  },
+  "issue_readback": {
+    "issue_49_latest_comment_id_before_recovery_commit": 5414321165,
+    "issue_54_latest_comment_id_before_recovery_commit": 5419649608,
+    "issue_54_latest_disposition": "OWNER_REPORTED_STALL_CONTINUITY_EVIDENCE_ONLY"
+  },
+  "preserved_surfaces": [
+    {
+      "root": "control/m3top3/recovery/2026-08-26/owner-decision-bindings/",
+      "files": [
+        {
+          "path": "control/m3top3/recovery/2026-08-26/owner-decision-bindings/M3TOP3_OWNER_DECISION_BINDING_RECEIPT_2026-08-26.json",
+          "git_blob": "f125c37678e9f92b1cd1a84bd3b011cf9bbf6fd5",
+          "bytes": 4377
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/owner-decision-bindings/M3TOP3_OWNER_DECISION_BINDING_RECEIPT_2026-08-26.md",
+          "git_blob": "ccd507eea9d3db9f554147915f5484ef012ca02c",
+          "bytes": 3918
+        }
+      ]
+    },
+    {
+      "root": "control/m3top3/recovery/2026-08-26/axis-b-derivation/",
+      "files": [
+        {
+          "path": "control/m3top3/recovery/2026-08-26/axis-b-derivation/check_g3_axis_b_artifacts.py",
+          "git_blob": "7ada38e4547b97b0863d2a4a3810f12003543e75",
+          "bytes": 13307
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/axis-b-derivation/derive_g3_axis_b.py",
+          "git_blob": "a4c04642db8ecc7f4f40aced0012d10840509e90",
+          "bytes": 27801
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/axis-b-derivation/G3_AXIS_B_DERIVATION_REPORT_2026-08-26.md",
+          "git_blob": "63f3d4ee2e85dc7a764b1a700d41f27a134181fd",
+          "bytes": 2389
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/axis-b-derivation/G3_AXIS_B_DERIVATION_SUMMARY_v0.1.json",
+          "git_blob": "71ef9c1362988400e3e31ff656328ccafdc15000",
+          "bytes": 5232
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/axis-b-derivation/G3_AXIS_B_FULL_ROW_DISPOSITION_LEDGER_v0.1.csv.gz",
+          "git_blob": "cdaec4627dee2a1c19bbb8ce57b76ebc9b2648c2",
+          "bytes": 38684591
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/axis-b-derivation/G3_AXIS_B_MATERIAL_SIGNAL_ROWS_v0.1.csv.gz",
+          "git_blob": "3a0196df75ed410b608319d0c56fa23463d09dae",
+          "bytes": 67700
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/axis-b-derivation/G3_AXIS_B_QUARANTINE_ROWS_v0.1.csv.gz",
+          "git_blob": "3f9453f4020f90aff8a26ec886a017702a6ed97f",
+          "bytes": 934247
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/axis-b-derivation/G3_AXIS_B_RUN_TELEMETRY_v0.1.json",
+          "git_blob": "6123ea37e85a396786c35a3473874731c373f677",
+          "bytes": 928
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/axis-b-derivation/G3_AXIS_B_SHA256SUMS_v0.1.txt",
+          "git_blob": "9383d8668974e843d0046f290471b7053b65c65a",
+          "bytes": 1144
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/axis-b-derivation/G3_AXIS_B_SOURCE_AND_OUTPUT_MANIFEST_v0.1.json",
+          "git_blob": "c56500ac4220538b8f70f8131d720e8d58cad7f7",
+          "bytes": 2939
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/axis-b-derivation/G3_AXIS_B_TARGETED_STRUCTURAL_REPRO_CHECK_v0.1.json",
+          "git_blob": "c36ad275c56cd8a4b12f9b042343a6a74a4726ef",
+          "bytes": 2153
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/axis-b-derivation/M3TOP3_G3_AXIS_B_PMO_INTEGRATION_RECEIPT_2026-08-26.json",
+          "git_blob": "b94a43361e31763e362f2be73175fcdc89685833",
+          "bytes": 2348
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/axis-b-derivation/M3TOP3_G3_AXIS_B_PMO_INTEGRATION_RECEIPT_2026-08-26.md",
+          "git_blob": "c12a49518ecac61b93c9e34001cb49d14c82aa87",
+          "bytes": 5504
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/axis-b-derivation/requirements-axis-b.txt",
+          "git_blob": "77727f3b6a5acb0396a42de04feaa95832d80a59",
+          "bytes": 16
+        }
+      ]
+    },
+    {
+      "root": "control/m3top3/recovery/2026-08-26/krx-source-custody/",
+      "files": [
+        {
+          "path": "control/m3top3/recovery/2026-08-26/krx-source-custody/axis-c/evidence/KRX_DATA_MARKETPLACE_MAIN_2026-08-26.html",
+          "git_blob": "865358cd2c66291e7287e77e4bdb85539f63be88",
+          "bytes": 588359
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/krx-source-custody/axis-c/evidence/KRX_DATA_MARKETPLACE_MENU_2026-08-26.xls",
+          "git_blob": "8b56961250bfe37e4a4b8334d104519c6e1852e0",
+          "bytes": 78848
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/krx-source-custody/axis-c/evidence/KRX_MDCHARD048_LOGIN_REQUIRED_2026-08-26.html",
+          "git_blob": "7473b0ff31a2d8599db569609dfb3ec05b7af58f",
+          "bytes": 407
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/krx-source-custody/axis-c/evidence/KRX_MDCHARD048_RESPONSE_HEADERS_2026-08-26.txt",
+          "git_blob": "7f65c95e1bd0956641b9255751daae747f0eb722",
+          "bytes": 341
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/krx-source-custody/axis-c/evidence/KRX_OPENAPI_CATALOG_2026-08-26.html",
+          "git_blob": "7c83ff740fb05e57729bf22658aa00c71b1daf58",
+          "bytes": 28569
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/krx-source-custody/axis-c/evidence/KRX_OPENAPI_USAGE_2026-08-26.html",
+          "git_blob": "92a887df35d7cee29000314ca6ca798ce889eb9f",
+          "bytes": 18972
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/krx-source-custody/axis-c/G3_AXIS_C_KRX_CUSTODY_SHA256SUMS_v0.1.txt",
+          "git_blob": "2695dfc2558f67a1ed4167d323a8256d67389196",
+          "bytes": 968
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/krx-source-custody/axis-c/G3_AXIS_C_KRX_SOURCE_CUSTODY_BLOCKER_RECEIPT_CANDIDATE_2026-08-26.json",
+          "git_blob": "26d8d8770288e07a72a709fad4b3bf65fe75145d",
+          "bytes": 4938
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/krx-source-custody/axis-c/G3_AXIS_C_KRX_SOURCE_CUSTODY_BLOCKER_RECEIPT_CANDIDATE_2026-08-26.md",
+          "git_blob": "f81a7893cf15f57f8bd4f3534ac20647750dc7d0",
+          "bytes": 6694
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/krx-source-custody/calendar/KRX_GOVERNED_CALENDAR_SOURCE_CUSTODY_RECEIPT_2026-08-26.json",
+          "git_blob": "2f9ade629f7d764723f12479cc54c1203e59e65d",
+          "bytes": 4037
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/krx-source-custody/calendar/KRX_GOVERNED_CALENDAR_SOURCE_CUSTODY_RECEIPT_2026-08-26.md",
+          "git_blob": "8aa3b206fb695ddcf76fe7668b085b668861de79",
+          "bytes": 5379
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/krx-source-custody/calendar/raw/KRX_CLOSURE_2024.json",
+          "git_blob": "98c93ecb5dafe38723ee06fb07cbd80c7c8a2a4d",
+          "bytes": 2143
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/krx-source-custody/calendar/raw/KRX_CLOSURE_2025.json",
+          "git_blob": "583c4c6dc374408bca2c8a8eadbd9ee168468210",
+          "bytes": 2270
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/krx-source-custody/calendar/raw/KRX_CLOSURE_2026.json",
+          "git_blob": "92c3815e6b8b5383620ec916716e777b51fdd142",
+          "bytes": 2049
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/krx-source-custody/calendar/SHA256SUMS",
+          "git_blob": "26b4d6bb4024553c3d2fb86caa607a95de45d1d5",
+          "bytes": 276
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/krx-source-custody/M3TOP3_G3_KRX_SOURCE_CUSTODY_PMO_INTEGRATION_RECEIPT_2026-08-26.json",
+          "git_blob": "2e5bafa32ac62e095d7b60a3637cc556fc33bb47",
+          "bytes": 2955
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/krx-source-custody/M3TOP3_G3_KRX_SOURCE_CUSTODY_PMO_INTEGRATION_RECEIPT_2026-08-26.md",
+          "git_blob": "505664dbdc3f655ea07086eaee2ee1a28dc8293c",
+          "bytes": 4137
+        }
+      ]
+    },
+    {
+      "root": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/",
+      "files": [
+        {
+          "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/FC1_G2_READ_ONLY_RECONCILIATION_2026-08-26.md",
+          "git_blob": "a0633ee974ca21902bc3e14d39167d7929128dc6",
+          "bytes": 11109
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/G2_B_C_D_SOURCE_PROVENANCE_BLOCKER_DECISION_2026-08-26.json",
+          "git_blob": "f6cf318c72aecd8cafda0d1289f52bd93afc03f1",
+          "bytes": 11322
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/G2_B_C_D_SOURCE_PROVENANCE_BLOCKER_DECISION_2026-08-26.md",
+          "git_blob": "9710e566c622ae18d2815dbd5304933e1f62fef5",
+          "bytes": 9082
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/G3_B_C_CALENDAR_DETERMINISTIC_CLOSURE_ASSESSMENT_2026-08-26.json",
+          "git_blob": "b8e37a49466007461656c9e8fc0f03c79c9d9ff3",
+          "bytes": 2581
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/G3_B_C_CALENDAR_DETERMINISTIC_CLOSURE_ASSESSMENT_2026-08-26.md",
+          "git_blob": "1b1c938e7149e4fe0b53d2169222da31d8f743c1",
+          "bytes": 12214
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/G3_D_E_F_NONVALIDATOR_CLOSURE_QUEUE.json",
+          "git_blob": "e956a8d5b16407b2c1aa3d47a924f9ab8ac2f903",
+          "bytes": 3461
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/G3_D_E_F_NONVALIDATOR_CLOSURE_QUEUE.md",
+          "git_blob": "b34b2c4fd8f220bbddeaa107d63e301016d7ef72",
+          "bytes": 13625
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/G3_D_ENTRY_TRADABILITY_SUMMARY.json",
+          "git_blob": "0febc7fbe2ac03ad9b085d8b0a685f216ca47d1d",
+          "bytes": 6192
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/g3-annotation-candidate/build_g3_e_candidate.py",
+          "git_blob": "8181ca67338348607b7c911df84db7af6c089d2d",
+          "bytes": 22211
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/g3-annotation-candidate/G3_E_ANNOTATION_CANDIDATE_SHA256SUMS.txt",
+          "git_blob": "07793239a867a1a3092ca91de978d31c7e9840d6",
+          "bytes": 760
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/g3-annotation-candidate/G3_E_ANNOTATION_INGEST_FIELD_REGISTRY_v0.1.json",
+          "git_blob": "18c81a0316045b2238a7830180d79d546a356474",
+          "bytes": 16035
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/g3-annotation-candidate/G3_E_ANNOTATION_INGEST_QUEUE_v0.1.jsonl.gz",
+          "git_blob": "4b3cfbfa9969abe2bd6dff5fdbfeb2db9d31cdae",
+          "bytes": 73327
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/g3-annotation-candidate/G3_E_ANNOTATION_INGEST_SCHEMA_v0.1.json",
+          "git_blob": "42a2788ef7e6f04bcfbcba847a860e0eadb701e3",
+          "bytes": 22683
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/g3-annotation-candidate/G3_E_ANNOTATION_LOCAL_RECOVERABILITY_AND_INGEST_CANDIDATE_2026-08-26.md",
+          "git_blob": "084ffeadcf16d12518c114717779cd3bcfb1af91",
+          "bytes": 8354
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/g3-annotation-candidate/G3_E_LOCAL_RECOVERABILITY_SUMMARY_v0.1.json",
+          "git_blob": "fc6cb48c041b9de3af9a33e15a8bfc2d826d1ba5",
+          "bytes": 10247
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/g3-annotation-candidate/G3_E_QUEUE_GZIP_STORAGE_RECEIPT.json",
+          "git_blob": "e532354983ba7f0ecf5e0c3e1fcfdfd552c5f2e7",
+          "bytes": 1035
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/g3-annotation-candidate/targeted_qc_g3_e_candidate.py",
+          "git_blob": "fb5cfaeb0e2d61c533e36e631d98200137be83e0",
+          "bytes": 3443
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/g3-governance-rules/G3_B_C_CALENDAR_MINIMAL_GOVERNED_PROTOCOL_CANDIDATE_2026-08-26.json",
+          "git_blob": "ae02c908ebd40867a3835d2019c6b48bd80c58c5",
+          "bytes": 20374
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/g3-governance-rules/G3_B_C_CALENDAR_MINIMAL_GOVERNED_PROTOCOL_CANDIDATE_2026-08-26.md",
+          "git_blob": "324dc8b09cb929880d38c285239f8dabe511d936",
+          "bytes": 16176
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/g3-governance-rules/SHA256SUMS",
+          "git_blob": "318ac8f8026affdc0f07476c743716764e7448c3",
+          "bytes": 266
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/g3-lineage-envelope/G3_F_EXACT_BLOCKED_LINEAGE_ENVELOPE_v0.1.json",
+          "git_blob": "f549c20aebb34d852a64199e7c65eb44b6dd7305",
+          "bytes": 19646
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/g3-lineage-envelope/G3_F_EXACT_BLOCKED_LINEAGE_ENVELOPE_v0.1.md",
+          "git_blob": "f794a095fe026bf6ce506474888c9c46aca5ec42",
+          "bytes": 9186
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/integrated-checkpoint-preflight/FC2_INTEGRATED_G1_G4_PREVALIDATION_BLOCKER_MATRIX_2026-08-26.json",
+          "git_blob": "8e5961d89aadd465ae68f2fbb4660ce21a1ed060",
+          "bytes": 19900
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/integrated-checkpoint-preflight/FC2_INTEGRATED_G1_G4_PREVALIDATION_BLOCKER_MATRIX_2026-08-26.md",
+          "git_blob": "f83bb75a42b8c9c9713ce6568c148f20935c2aeb",
+          "bytes": 19430
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/owner-decision-packet/M3TOP3_FAST_CLOSE_OWNER_DECISION_PACKET_2026-08-26.json",
+          "git_blob": "7311c73148b8d8d834f543b5c00ba17d7ac63aa6",
+          "bytes": 7769
+        },
+        {
+          "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/owner-decision-packet/M3TOP3_FAST_CLOSE_OWNER_DECISION_PACKET_2026-08-26.md",
+          "git_blob": "337ce540c12f52365daa5ddc3218e6ee01e4e27f",
+          "bytes": 6966
+        }
+      ]
+    }
+  ],
+  "preserved_file_count": 59,
+  "required_receipts": {
+    "owner_decision_binding_json": {
+      "path": "control/m3top3/recovery/2026-08-26/owner-decision-bindings/M3TOP3_OWNER_DECISION_BINDING_RECEIPT_2026-08-26.json",
+      "git_blob": "f125c37678e9f92b1cd1a84bd3b011cf9bbf6fd5",
+      "bytes": 4377,
+      "exact_path_and_blob_present": true
+    },
+    "owner_decision_binding_md": {
+      "path": "control/m3top3/recovery/2026-08-26/owner-decision-bindings/M3TOP3_OWNER_DECISION_BINDING_RECEIPT_2026-08-26.md",
+      "git_blob": "ccd507eea9d3db9f554147915f5484ef012ca02c",
+      "bytes": 3918,
+      "exact_path_and_blob_present": true
+    },
+    "axis_b_pmo_integration_json": {
+      "path": "control/m3top3/recovery/2026-08-26/axis-b-derivation/M3TOP3_G3_AXIS_B_PMO_INTEGRATION_RECEIPT_2026-08-26.json",
+      "git_blob": "b94a43361e31763e362f2be73175fcdc89685833",
+      "bytes": 2348,
+      "exact_path_and_blob_present": true
+    },
+    "axis_b_pmo_integration_md": {
+      "path": "control/m3top3/recovery/2026-08-26/axis-b-derivation/M3TOP3_G3_AXIS_B_PMO_INTEGRATION_RECEIPT_2026-08-26.md",
+      "git_blob": "c12a49518ecac61b93c9e34001cb49d14c82aa87",
+      "bytes": 5504,
+      "exact_path_and_blob_present": true
+    },
+    "krx_source_custody_integration_json": {
+      "path": "control/m3top3/recovery/2026-08-26/krx-source-custody/M3TOP3_G3_KRX_SOURCE_CUSTODY_PMO_INTEGRATION_RECEIPT_2026-08-26.json",
+      "git_blob": "2e5bafa32ac62e095d7b60a3637cc556fc33bb47",
+      "bytes": 2955,
+      "exact_path_and_blob_present": true
+    },
+    "krx_source_custody_integration_md": {
+      "path": "control/m3top3/recovery/2026-08-26/krx-source-custody/M3TOP3_G3_KRX_SOURCE_CUSTODY_PMO_INTEGRATION_RECEIPT_2026-08-26.md",
+      "git_blob": "505664dbdc3f655ea07086eaee2ee1a28dc8293c",
+      "bytes": 4137,
+      "exact_path_and_blob_present": true
+    }
+  },
+  "owner_decision_binding": {
+    "exists": true,
+    "rebind_performed": false,
+    "decisions": {
+      "OD-G3-B-01": "YES",
+      "OD-G3-C-01": "YES",
+      "OD-G3-CAL-01": "YES",
+      "OD-G3-WIN-01": "YES",
+      "OD-MAJOR-REBASE-01": "NO_UNCHANGED"
+    },
+    "decision_set_sha256": "79ca7f7723a11dad407b777b49719b7ebaf529d4c1fdd174ca4507cefb1ffe2d"
+  },
+  "axis_b": {
+    "artifact_commit": "3c0bedd4941b629b96a8fb9f830806eb817ccd26",
+    "artifact_tree": "07a4d0923b153866fa9176324c5d840972575643",
+    "integration_receipt_exists": true,
+    "recompute": false,
+    "rows": 1822019,
+    "evaluable_rows": 1734775,
+    "material_signals_pending_axis_c": 2406,
+    "quarantine_rows": 84272,
+    "unresolved_rows": 0,
+    "silent_drops": 0
+  },
+  "fast_close_progress_reconciliation": {
+    "current_path": "control/m3top3/progress/fast-close-20260826-0048/FAST_CLOSE_PROGRESS_CURRENT.json",
+    "source_git_blob": "15aacac4af1df7c44696ab8a0990769206e95271",
+    "durable_evidence_consistent": true,
+    "visible_80_percent_accepted_as_durable_progress": false,
+    "earned_ewu": 21,
+    "total_ewu": 100,
+    "g1_percent": 33,
+    "g2_percent": 28,
+    "g3_percent": 16,
+    "g4_percent": 100,
+    "validation_closure_percent": 0,
+    "active_workers": 0,
+    "active_validators": 0,
+    "validator_hold": true,
+    "integrated_g1_g4": "NOT_CLOSED",
+    "eopt_g0": "OPEN_NOT_PROVEN_1_OF_6"
+  },
+  "first_unsealed_unit": {
+    "interpretation": "FIRST_UNSEALED_UNIT_AT_THE_STALLED_G3_EXECUTION_FRONTIER; DOES_NOT_CLAIM_G1_OR_G2_CLOSED",
+    "wbs": "FC1-G3",
+    "subunit": "G3-B",
+    "leaf": "AXIS_C_TERMINAL_RECONCILIATION_FOR_2406_AXIS_B_SIGNALS",
+    "state": "RESUMED_AT_INPUT_GATE_BUT_SOURCE_BLOCKED",
+    "exact_blocker": "AUTHORIZED_EXACT_KRX_OR_CUSTODIAN_CA_UNIVERSE_EXPORT_WITH_QUERY_METADATA_FIELDS_ROW_COUNT_PUBLICATION_CUTOFF_DIGEST_AND_RECEIPT_NOT_OBTAINED",
+    "resume_action": "NO_WORKER_DISPATCH; WAIT_ONLY_FOR_GENUINELY_NEW_AUTHORIZED_EXACT_INPUT",
+    "conditional_execution_eta_after_admissible_input": {
+      "p50_hours": 1.5,
+      "p90_hours": 3.5,
+      "external_wait_excluded": true
+    }
+  },
+  "validation": {
+    "state": "HOLD",
+    "active_validator_count": 0,
+    "acts_dispatched": 0,
+    "global_validation": false,
+    "full_suite": false,
+    "validation_loop": false
+  },
+  "prohibited_recompute_confirmed": [
+    "AXIS_B_1822019_ROW_DERIVATION",
+    "MATERIAL_SIGNAL_EXTRACTION",
+    "QUARANTINE_DERIVATION",
+    "2024_2025_2026_PRICE_BYTE_RECOVERY",
+    "OWNER_FOUR_DECISION_BINDING",
+    "SEALED_G4_VALIDATION",
+    "PREVIOUSLY_CLOSED_DETERMINISTIC_RECEIPTS",
+    "REPOSITORY_WIDE_SOURCE_SEARCH"
+  ],
+  "gate_effect": "NONE",
+  "validation_claim": "NONE",
+  "production_authorized": false
+}
