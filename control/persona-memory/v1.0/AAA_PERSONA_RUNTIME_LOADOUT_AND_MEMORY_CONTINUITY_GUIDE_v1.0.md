@@ -66,8 +66,8 @@ Owner가 새 채널의 첫 메시지 또는 Codex task에서 Persona code/canoni
 - `pmov` → `AAA-PMO-VALIDATOR`
 - `ctl` → `AAA-CONTROL-ARCHITECT`
 - `ctlv` → `AAA-CONTROL-VALIDATOR`
-- `mod` → `AAA-MODEL-VALIDATION-DESIGN-ARCHITECT`
-- `modv` → `AAA-MODEL-DESIGN-VALIDATOR`
+- `mod` → `AAA-MODEL-ARCHITECT`
+- `modv` → `AAA-MODEL-VALIDATOR`
 - `res` → `AAA-RESEARCH-ORCHESTRATOR`
 - `resv` → `AAA-RESEARCH-VALIDATOR`
 - `eng` → `AAA-ENGINEERING-ORCHESTRATOR`
@@ -220,3 +220,5 @@ Fresh ChatGPT channel 또는 clean Codex local invocation에서 다른 승계 co
 14. future Persona registry entry도 별도 Owner 재지시 없이 universal behavior code를 상속함
 
 이 조건이 모두 PASS해야 Persona 재현/기억승계를 성공으로 본다.
+
+

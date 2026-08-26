@@ -4,13 +4,13 @@
   "version": "v1.0",
   "project": "AAA",
   "product": "ASSET AGENT ASA",
-  "state": "WORKING_CANDIDATE_NOT_ACTIVE_AUTHORITY",
+  "state": "A5_FINAL_ENFORCED_CUTOVER_CANDIDATE_REQUIRES_GUARDED_MERGE_AND_ACTIVE_BOOTSTRAP_REF_SWITCH",
   "semantic_sot": false,
   "target_commit": "cfc6347eb667f72f1bac0f6c0bbfdbf2a4393c84",
   "canonical_project_instructions": {
     "path": "control/bootstrap/project-instructions/v1.0/AAA_PROJECT_INSTRUCTIONS_CANONICAL_v1.0.md",
-    "git_blob": "b95a64fb2a11202b5e1c3490db90e27ad25650f0",
-    "byte_size": 9418
+    "git_blob": "113dc3b1929d0ac351e771852a37cf4f95d25223",
+    "byte_size": 9388
   },
   "project_instruction_stub": {
     "path": "control/bootstrap/project-instructions/v1.0/AAA_PROJECT_INSTRUCTIONS_BOOTSTRAP_STUB_v1.0.md",
@@ -39,7 +39,7 @@
   },
   "project_common_memory": {
     "path": "control/persona-memory/v1.0/COMMON/PROJECT_MEMORY.md",
-    "git_blob": "487bd2c6216b2f935dc893dc87582d21a7ff6fe5",
+    "git_blob": "3950505579386c816aad22d8d52367606047730d",
     "purpose": "Cross-persona continuity information every current Persona loads before Persona-specific memory."
   },
   "universal_execution_behavior_code": {
@@ -48,19 +48,36 @@
     "scope": "ALL_CURRENT_AND_FUTURE_AAA_PERSONAS",
     "purpose": "Universal progress/time/compute operating behavior loaded before Persona-specific MEMORY/WORKLOG whenever any Persona is instantiated or switched."
   },
+  "global_packet_display_rule_current": {
+    "path": "control/organization/current-state/v1.0/AAA_GLOBAL_PACKET_DISPLAY_RULE_CURRENT.json",
+    "git_blob": "7ae5cea1297b1b23217e4d9a3342924a724e38aa",
+    "target_path": "control/organization/current-state/v1.0/AAA_GLOBAL_PACKET_DISPLAY_RULE_v0.4.json",
+    "target_git_blob": "dff467a971f9519ba6598f535fc47623197e4bcb",
+    "purpose": "Superior quality-first global operating rule resolved before the common guard."
+  },
+  "common_persona_execution_validation_guard_current": {
+    "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_CURRENT.json",
+    "git_blob": "6e9ad6aa6ae57d292944b104584db7ce4673431f",
+    "mode": "ENFORCED",
+    "target_path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_v1.1.json",
+    "target_git_blob": "2bff1b6e8431bc36064d3dfd31bc245a4cf4829f",
+    "composition_path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_COMPOSITION_v1.0.md",
+    "composition_git_blob": "3f2d413c0796100581b8400a76a9b94ff802916d",
+    "purpose": "One project-common pointer route for all current and future governed Personas; A4 validation and the A5 rollback demonstration are complete, while product effect still requires guarded merge and the non-force active bootstrap ref switch."
+  },
   "persona_selector_registry": {
     "path": "control/persona-memory/v1.0/AAA_PERSONA_RUNTIME_SELECTOR_REGISTRY_v1.0.json",
-    "git_blob": "307b878ef133638eafc7e257b0cc8e22924ee947",
+    "git_blob": "de71a2179d5d84840eb8c2cef009588c1971f79e",
     "purpose": "Owner-invoked ASA/CTL/MOD/etc selector to canonical current Persona runtime routing; selector grants no authority."
   },
   "persona_memory_index": {
     "path": "control/persona-memory/v1.0/AAA_PERSONA_MEMORY_INDEX_v1.0.json",
-    "git_blob": "d84e735b1bd7c03d16119bcfc901669c264ce43c",
+    "git_blob": "2167e65347305b496c99a754d0a3e9434a4b1555",
     "purpose": "Maps each current Persona to MEMORY.md and WORKLOG.md."
   },
   "persona_runtime_loadout_guide": {
     "path": "control/persona-memory/v1.0/AAA_PERSONA_RUNTIME_LOADOUT_AND_MEMORY_CONTINUITY_GUIDE_v1.0.md",
-    "git_blob": "d807de8e82f824ffd275657dcd708ee034f6d3fb"
+    "git_blob": "84e10e6010dd5109a35d9754ede3c53ebbe67d35"
   },
   "persona_runtime_memo_template": {
     "path": "control/persona-memory/v1.0/AAA_PERSONA_RUNTIME_INJECTION_MEMO_TEMPLATE_v1.0.md"
@@ -76,6 +93,9 @@
     "RESOLVE_ACTIVE_ORGANIZATION",
     "RESOLVE_ACTIVE_SHARED_CONTRACT",
     "RESOLVE_PERSONA_AUTHORITY_AND_MANIFEST",
+    "RESOLVE_ACTIVE_GLOBAL_PACKET_DISPLAY_RULE",
+    "RESOLVE_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_CURRENT_POINTER",
+    "VERIFY_COMMON_GUARD_MODE_AND_EXACT_TARGET",
     "READ_PROJECT_COMMON_MEMORY",
     "READ_UNIVERSAL_EXECUTION_PROGRESS_TIME_COMPUTE_BEHAVIOR_CODE",
     "RESOLVE_PERSONA_SELECTOR_FROM_OWNER_TASK_OR_PROVEN_PERSONA",
@@ -98,8 +118,8 @@
     "PMOV": "AAA-PMO-VALIDATOR",
     "CTL": "AAA-CONTROL-ARCHITECT",
     "CTLV": "AAA-CONTROL-VALIDATOR",
-    "MOD": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
-    "MODV": "AAA-MODEL-DESIGN-VALIDATOR",
+    "MOD": "AAA-MODEL-ARCHITECT",
+    "MODV": "AAA-MODEL-VALIDATOR",
     "RES": "AAA-RESEARCH-ORCHESTRATOR",
     "RESV": "AAA-RESEARCH-VALIDATOR",
     "ENG": "AAA-ENGINEERING-ORCHESTRATOR",
@@ -109,6 +129,8 @@
   "persistence_rule": "Important Owner directives, corrections, blockers, decisions, checkpoints, and exact references are written to Persona MEMORY and chronological WORKLOG; parallel Codex workers use unique append-only run journals and later consolidation so successor channels/runs can recover state without manual packet reconstruction.",
   "fail_closed_conditions": [
     "POINTER_OR_TARGET_UNREADABLE",
+    "GLOBAL_PACKET_DISPLAY_RULE_POINTER_OR_TARGET_MISMATCH",
+    "COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_POINTER_TARGET_OR_MODE_MISMATCH",
     "UNIVERSAL_BEHAVIOR_CODE_UNREADABLE_FOR_EXECUTION_WBS_TASK",
     "EXACT_TARGET_IDENTITY_MISMATCH",
     "MULTIPLE_CURRENT_PERSONA_RESOLUTION",
@@ -120,5 +142,47 @@
     "PARALLEL_CODEX_SHARED_MUTABLE_WORKTREE_OR_SHARED_LOG_RACE"
   ],
   "memory_rule": "Persona/common memory, universal/role behavior codes, worklogs, and Codex run journals support continuity and runtime injection context but never create authority, validation PASS, model semantics, Shared Contract semantics, Freeze, Release, or Production authority.",
-  "activation_note": "This candidate does not itself activate product-level Project Instructions or a project-wide authority pointer. Governed review/validation and final product-level replacement remain separate acts."
+  "activation_note": "This candidate has no active product effect until it is merged through the bounded A5 PR and the active bootstrap branch is moved non-force to the merge commit after exact compare-and-swap readback. It creates no authority or Shared Contract semantics.",
+  "final_enforced_guard_wiring": {
+    "base_commit": "3408e1dbb27e92bdc0f2c34016391d98d3af5b54",
+    "single_sot": true,
+    "persona_local_guard_rule_copy": false,
+    "enforced_activation": true,
+    "representative_tests": "PASS_A3_T0_THROUGH_T10_11_OF_11",
+    "targeted_validation": "A4_PASS_EXACT_D1_TARGET_0_OPEN_FINDINGS",
+    "rollback_demonstration": "A5_PASS_EXACT_FORWARD_AND_REVERSE_TRANSITIONS",
+    "rollback_test_receipt_blob": "dc6d5c2b0633e97f7aec26df7e42b0633a1aea76",
+    "active_product_effect_before_external_ref_switch": false
+  },
+  "a5_cutover_binding": {
+    "a4_completion_commit": "db678b5bd80ff4412c289ae0cd41a3c62cce5e33",
+    "a4_completion_checkpoint_blob": "e04dd40961d0bd4668d2c8a4fb7170ab3970a559",
+    "expected_pre_merge_main": "fa7d1a8bd1d00d297c27a325801618b75c4e113e",
+    "expected_pre_switch_active_bootstrap": "e9dc8b2fd5f58f49ac88b02c8136330db85700b1",
+    "required_merge_method": "merge",
+    "required_ref_update": "NON_FORCE",
+    "rollback_ready": true
+  },
+  "currentization_base_commit": "6083d892ac52fc4654f809fe265b5e59ef6aa9c5",
+  "common_guard_resume_branch": "aaa-common-persona-validation-execution-guard-v1.1-r2-20260826",
+  "owner_correction_binding": {
+    "decision_commit": "bf8bddd9b86bc233a92a56a712f685f37f01a3f7",
+    "correction_receipt_commit": "6083d892ac52fc4654f809fe265b5e59ef6aa9c5",
+    "core_b_closure_commit": "e07255b1d6c5381309d984c7f6c41b21db85d116",
+    "current_pair": [
+      "AAA-MODEL-ARCHITECT",
+      "AAA-MODEL-VALIDATOR"
+    ],
+    "old_long_pair_disposition": "HISTORICAL_ONLY_NOT_CURRENT_SELECTOR"
+  },
+  "shared_contract_current_persona_projection": {
+    "path": "control/organization/current-state/v1.0/AAA_SHARED_CONTRACT_CORE_B_PERSONA_CURRENT_PROJECTION_v1.0.json",
+    "git_blob": "8408ea10a98a6130703829e29c9325614a082ea5",
+    "purpose": "Non-semantic current Persona identity projection over immutable active Shared Contract bytes."
+  },
+  "current_persona_reference_projection": {
+    "path": "control/organization/current-state/v1.0/AAA_CORE_B_CURRENT_PERSONA_REFERENCES_v1.0.json",
+    "git_blob": "275e0da4257ea8562240979215a6c2dced290334",
+    "purpose": "Forward-only current Persona resolution; wrong-direction long-name candidates are historical only."
+  }
 }

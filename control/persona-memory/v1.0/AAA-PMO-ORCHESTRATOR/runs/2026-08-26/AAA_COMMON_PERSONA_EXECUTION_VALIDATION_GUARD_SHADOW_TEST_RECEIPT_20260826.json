@@ -1,0 +1,115 @@
+{
+  "artifact_id": "AAA-COMMON-PERSONA-EXECUTION-VALIDATION-GUARD-SHADOW-TEST-RECEIPT-20260826",
+  "artifact_kind": "A3_SHADOW_REPRESENTATIVE_TEST_EXECUTION_RECEIPT_NOT_VALIDATION",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-PMO-ORCHESTRATOR",
+  "state": "A3_SHADOW_TESTS_PASS_11_OF_11",
+  "start_kst": "2026-08-26T20:46:00+09:00",
+  "end_kst": "2026-08-26T20:56:49+09:00",
+  "target": {
+    "branch": "aaa-common-persona-validation-execution-guard-v1.1-r2-20260826",
+    "commit": "1a79f5483a6c1ec5a32113ec2a092e9bc889b46e",
+    "tree": "b76dad07d4e73a253d58f2d0132cb45a149aed54",
+    "guard_blob": "d803945e7e709dc96daf460ef2f6fd5cedec6e4b",
+    "shadow_pointer_blob": "05226252d787b29149eaf6da6a923d5b1cf090ec",
+    "composition_blob": "03ed1a50a1f503e464c418c9d3beddc49fbbc688",
+    "rollback_design_blob": "6b4fae6982a3db3695d06f787a1e04d3d9e64abe",
+    "bootstrap_candidate_blob": "29d1814629d6ac172b88ba7ad5c5471ed6064b16",
+    "coverage_manifest_blob": "ab1e7f7f269074ef5fccbdc835b8528622d07aa2",
+    "inventory_blob": "65b30bdecbd3704412fe75a2e250557ebf0d65ba"
+  },
+  "matrix": {
+    "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_SHADOW_TEST_MATRIX_v1.0.json",
+    "git_blob": "354d7c5b107489e94e817598552ec99d7426a405",
+    "test_count": 11
+  },
+  "execution": {
+    "method": "BOUNDED_EXACT_ARTIFACT_RESOLUTION_AND_NON_DESTRUCTIVE_SCENARIO_EVALUATION",
+    "parallel_executor_slices": [
+      {
+        "slice": "T0_THROUGH_T5",
+        "initial_target": "801db98063c58a1e4168d6185f522aa5f341ca8a",
+        "initial_result": "PASS_6_OF_6",
+        "role": "SHADOW_TEST_EXECUTOR_NOT_VALIDATOR"
+      },
+      {
+        "slice": "T6_THROUGH_T10",
+        "initial_target": "801db98063c58a1e4168d6185f522aa5f341ca8a",
+        "initial_result": "PASS_5_OF_5",
+        "role": "SHADOW_TEST_EXECUTOR_NOT_VALIDATOR"
+      }
+    ],
+    "correction_batch": {
+      "count": 1,
+      "receipt_blob": "4f9f9820b0c62f9debdfaf7fd4d39225a10bc932",
+      "classification": "NON_SEMANTIC_LIFECYCLE_AND_EXACT_REFERENCE_METADATA_ONLY",
+      "affected_final_target_recheck": {
+        "T0": "PASS",
+        "T5": "PASS",
+        "T8": "PASS"
+      },
+      "unaffected_evidence_reused_after_impact_classification": [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T6",
+        "T7",
+        "T9",
+        "T10"
+      ]
+    },
+    "writes_induced_by_test_scenarios": 0,
+    "real_stall_induced": false,
+    "real_tool_failure_induced": false,
+    "repository_wide_scan": false,
+    "repeated_whole_target_read": false,
+    "active_validators": 0
+  },
+  "results": {
+    "T0": "PASS",
+    "T1": "PASS",
+    "T2": "PASS",
+    "T3": "PASS",
+    "T4": "PASS",
+    "T5": "PASS",
+    "T6": "PASS",
+    "T7": "PASS",
+    "T8": "PASS",
+    "T9": "PASS",
+    "T10": "PASS",
+    "summary": "PASS_11_OF_11",
+    "open_findings": 0,
+    "open_advisories": 0
+  },
+  "telemetry": {
+    "total_wall": "10_TO_11_MINUTES",
+    "active_review": "NOT_INSTRUMENTED",
+    "queue_wait": "NOT_INSTRUMENTED",
+    "dependency_wait": "NOT_INSTRUMENTED",
+    "context_load": "NOT_INSTRUMENTED",
+    "direct_review": "NOT_INSTRUMENTED",
+    "test_time": "NOT_INSTRUMENTED",
+    "retrieval_time": "NOT_INSTRUMENTED",
+    "finding_integration": "ONE_METADATA_ADVISORY_CORRECTED",
+    "correction_time": "NOT_INSTRUMENTED",
+    "recheck_time": "NOT_INSTRUMENTED",
+    "retry_time": "NOT_INSTRUMENTED",
+    "git_calls": "NOT_INSTRUMENTED",
+    "full_scan_flag": false,
+    "repeated_whole_read_flag": false,
+    "revalidation_count": 0,
+    "finding_count": 0,
+    "token_or_cru": "NOT_INSTRUMENTED"
+  },
+  "firewall": {
+    "validation_verdict_created": false,
+    "validator_receipt_created": false,
+    "authority_or_floor_change": false,
+    "enforced_activation": false
+  },
+  "next": "PERSIST_MATRIX_AND_RECEIPT_THEN_FREEZE_ONE_EXACT_A4_D0_TARGET",
+  "claim_ceiling": "A3_SHADOW_TEST_PASS_ONLY_NOT_A_VALIDATION_PASS_NOT_ENFORCED"
+}

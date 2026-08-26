@@ -1,0 +1,69 @@
+{
+  "artifact_id": "AAA-SHARED-CONTRACT-CORE-B-PERSONA-CURRENT-PROJECTION-v1.0",
+  "artifact_kind": "NON_SEMANTIC_CURRENT_PERSONA_IDENTITY_PROJECTION",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "state": "CURRENTIZED_CANDIDATE_FOR_COMMON_GUARD_R2",
+  "source_active_shared_contract": {
+    "branch": "aaa-shared-contract-v0.1-final-active-registration-v1.0",
+    "commit": "4d70f6ae32604bcef3f4a8027074163d5e5c80cd",
+    "path": "control/authority/shared-contract/active/AAA_SHARED_CONTRACT_CURRENT_ACTIVE_STATE_v1.0.json",
+    "git_blob": "9463e3802abd09d41c20675239c2df7739ac2751",
+    "state": "ACTIVE_UNCHANGED"
+  },
+  "immutable_semantic_target": {
+    "commit": "96d1c02f3d057a0b06db913988e3cc16b980314d",
+    "path": "control/validation/shared-contract/v0.1/l2-inputs/input-01/AAA_SHARED_CONTRACT_LIMITED_ADDENDUM_v0.1.json",
+    "git_blob": "d7702c1491bded7b2b90e857007599c36bc58b7d",
+    "bytes_mutated": false,
+    "validation_receipts_reused_or_reclassified": false
+  },
+  "owner_correction_binding": {
+    "decision_commit": "bf8bddd9b86bc233a92a56a712f685f37f01a3f7",
+    "correction_receipt_commit": "6083d892ac52fc4654f809fe265b5e59ef6aa9c5",
+    "direction": [
+      "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT -> AAA-MODEL-ARCHITECT",
+      "AAA-MODEL-DESIGN-VALIDATOR -> AAA-MODEL-VALIDATOR"
+    ]
+  },
+  "effective_current_persona_projection": {
+    "core_b_author": "AAA-MODEL-ARCHITECT",
+    "paired_validator": "AAA-MODEL-VALIDATOR",
+    "old_long_names_resolve_current": false,
+    "domain_scope_changed": false,
+    "authority_changed": false,
+    "model_semantics_changed": false,
+    "shared_contract_semantics_changed": false
+  },
+  "projected_current_fields": [
+    {
+      "source_field": "authority_owners.core_b.persona",
+      "current_value": "AAA-MODEL-ARCHITECT"
+    },
+    {
+      "source_field": "clause_reconciliation_matrix[CORE_B_AUTHORITY].clause_text",
+      "current_persona_identity": "AAA-MODEL-ARCHITECT"
+    },
+    {
+      "source_field": "scientific_capability_families[*].governance_owner",
+      "current_value": "AAA-MODEL-ARCHITECT"
+    },
+    {
+      "source_field": "open_reconciliation_register[MODEL_SCIENTIFIC_L1].description",
+      "current_persona_identity": "AAA-MODEL-VALIDATOR"
+    },
+    {
+      "source_field": "validation_routing.scientific_paired_validation",
+      "current_persona_identity": "AAA-MODEL-VALIDATOR"
+    }
+  ],
+  "historical_preservation": {
+    "source_refs_remain_byte_exact": true,
+    "scientific_capability_families_authority_source_ref_values": "PRESERVE_AS_HISTORICAL_PROVENANCE",
+    "active_shared_contract_current_state_open_val_01": "PRESERVE_AS_HISTORICAL_VALIDATION_BASIS",
+    "old_long_pair": "HISTORICAL_ONLY_NOT_CURRENT_RUNTIME_AUTHORITY"
+  },
+  "runtime_resolution_rule": "FOR_CURRENT_PERSONA_IDENTITY_ONLY_THIS_PROJECTION_OVERRIDES_LONG_NAME_VALUES_IN_THE_IMMUTABLE_SHARED_CONTRACT_TARGET; ALL_NON_IDENTITY_SEMANTICS_REMAIN_SOURCE_BYTES",
+  "claim_ceiling": "CURRENT_PERSONA_RENAME_PROJECTION_ONLY_NO_SHARED_CONTRACT_TARGET_REWRITE_NO_VALIDATION_PASS_NO_AUTHORITY_CHANGE"
+}

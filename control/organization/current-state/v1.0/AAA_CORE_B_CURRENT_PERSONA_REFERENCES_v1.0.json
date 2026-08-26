@@ -1,0 +1,89 @@
+{
+  "artifact_id": "AAA-CORE-B-CURRENT-PERSONA-REFERENCES-v1.0",
+  "artifact_kind": "FORWARD_ONLY_CURRENT_PERSONA_REFERENCE_PROJECTION",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "state": "CURRENTIZED_CANDIDATE_FOR_COMMON_GUARD_R2",
+  "owner_correction_binding": {
+    "decision_commit": "bf8bddd9b86bc233a92a56a712f685f37f01a3f7",
+    "correction_receipt_commit": "6083d892ac52fc4654f809fe265b5e59ef6aa9c5",
+    "core_b_remediation_closure_commit": "e07255b1d6c5381309d984c7f6c41b21db85d116",
+    "current_pair": [
+      "AAA-MODEL-ARCHITECT",
+      "AAA-MODEL-VALIDATOR"
+    ]
+  },
+  "active_organization_evidence": {
+    "primary_ref": "aaa-persistent-locator-active-v0.3@5b2dd5c5ea5bf96eb22163a0598d6879fffada9e",
+    "organization_ref": "aaa-organization-active-v1.3@d7c490c373f2df356f31e4459c345328616b4eb3",
+    "current_state_blob": "cad42e60efea2eb67bb663b5ff889277c028e66c",
+    "routing_state_blob": "ca48540479b3c25ef4c8573a457d12a53e576246",
+    "pair_activation_blob": "3579860fd20e497161e13a9ccc8fa0c7fac0db61"
+  },
+  "current_runtime_references": {
+    "selector_registry": {
+      "path": "control/persona-memory/v1.0/AAA_PERSONA_RUNTIME_SELECTOR_REGISTRY_v1.0.json",
+      "git_blob": "de71a2179d5d84840eb8c2cef009588c1971f79e"
+    },
+    "memory_index": {
+      "path": "control/persona-memory/v1.0/AAA_PERSONA_MEMORY_INDEX_v1.0.json",
+      "git_blob": "2167e65347305b496c99a754d0a3e9434a4b1555"
+    },
+    "common_project_memory": {
+      "path": "control/persona-memory/v1.0/COMMON/PROJECT_MEMORY.md",
+      "git_blob": "3950505579386c816aad22d8d52367606047730d",
+      "core_b_remediation_state": "CLOSED"
+    },
+    "runtime_loadout_guide": {
+      "path": "control/persona-memory/v1.0/AAA_PERSONA_RUNTIME_LOADOUT_AND_MEMORY_CONTINUITY_GUIDE_v1.0.md",
+      "git_blob": "84e10e6010dd5109a35d9754ede3c53ebbe67d35"
+    },
+    "mod_memory": "control/persona-memory/v1.0/AAA-MODEL-ARCHITECT/MEMORY.md",
+    "mod_worklog": "control/persona-memory/v1.0/AAA-MODEL-ARCHITECT/WORKLOG.md",
+    "modv_memory": "control/persona-memory/v1.0/AAA-MODEL-VALIDATOR/MEMORY.md",
+    "modv_worklog": "control/persona-memory/v1.0/AAA-MODEL-VALIDATOR/WORKLOG.md"
+  },
+  "superseded_current_like_candidates": [
+    {
+      "path": "control/organization/current-state/v1.0/AAA_CORE_B_CURRENT_STATE_SUCCESSOR_v1.0.json",
+      "git_blob": "7a0a8d5bbb53bf2158d2187985f5f380474672b7",
+      "disposition": "HISTORICAL_WRONG_DIRECTION_CANDIDATE_NOT_CURRENT"
+    },
+    {
+      "path": "control/organization/persona-authority/v1.0/AAA_CORE_B_PERSONA_AUTHORITY_RECONCILIATION_v1.0.json",
+      "git_blob": "e7b8c76fcc240ac62c7f0f107fd19cdedc7af1d0",
+      "disposition": "HISTORICAL_WRONG_DIRECTION_CANDIDATE_NOT_CURRENT"
+    },
+    {
+      "path": "control/organization/persona-manifest/v1.0/AAA_CORE_B_PERSONA_MANIFEST_SUCCESSOR_v1.0.json",
+      "git_blob": "5ee7e06c468ccf18cce133d18f604ed6c0dfa094",
+      "disposition": "HISTORICAL_WRONG_DIRECTION_CANDIDATE_NOT_CURRENT"
+    },
+    {
+      "path": "control/decisions/organization/v1.0/AAA_OWNER_CORE_B_AUTHORITY_COHERENCE_REMEDIATION_DIRECTIVE_v1.0.json",
+      "git_blob": "4928b3d12e9ad5587a689ea19ac89c3225203510",
+      "disposition": "SUPERSEDED_BY_LATER_OWNER_CORRECTION_NO_CURRENT_ROUTING_HOLD"
+    }
+  ],
+  "bounded_root_cause_receipt": {
+    "commit": "e9dc8b2fd5f58f49ac88b02c8136330db85700b1",
+    "path": "control/persona-memory/v1.0/AAA-ASA/review-receipts/CORE_B_RECURRING_CURRENT_STATE_ROOT_CAUSE_INVESTIGATION_2026-08-26.md",
+    "git_blob": "fb83835a32b2dfe9eb8217622712cea268ba8ea2",
+    "authority_sot": false
+  },
+  "resolution": {
+    "exactly_one_current_mod": "AAA-MODEL-ARCHITECT",
+    "exactly_one_current_modv": "AAA-MODEL-VALIDATOR",
+    "long_name_runtime_selectors_accepted": false,
+    "long_name_memory_paths_current": false,
+    "historical_artifacts_rewritten": false
+  },
+  "authority_firewall": {
+    "authority_change": false,
+    "model_semantic_change": false,
+    "validation_pass_created": false,
+    "organization_cutover": false,
+    "d4_or_r7_resumed": false
+  }
+}
