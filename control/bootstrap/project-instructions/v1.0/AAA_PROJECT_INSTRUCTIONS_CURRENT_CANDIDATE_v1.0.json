@@ -4,7 +4,7 @@
   "version": "v1.0",
   "project": "AAA",
   "product": "ASSET AGENT ASA",
-  "state": "WORKING_CANDIDATE_CURRENTIZED_NOT_ACTIVE_AUTHORITY",
+  "state": "WORKING_CANDIDATE_A2_SHADOW_GUARD_WIRED_NOT_ACTIVE_AUTHORITY",
   "semantic_sot": false,
   "target_commit": "cfc6347eb667f72f1bac0f6c0bbfdbf2a4393c84",
   "canonical_project_instructions": {
@@ -48,6 +48,23 @@
     "scope": "ALL_CURRENT_AND_FUTURE_AAA_PERSONAS",
     "purpose": "Universal progress/time/compute operating behavior loaded before Persona-specific MEMORY/WORKLOG whenever any Persona is instantiated or switched."
   },
+  "global_packet_display_rule_current": {
+    "path": "control/organization/current-state/v1.0/AAA_GLOBAL_PACKET_DISPLAY_RULE_CURRENT.json",
+    "git_blob": "7ae5cea1297b1b23217e4d9a3342924a724e38aa",
+    "target_path": "control/organization/current-state/v1.0/AAA_GLOBAL_PACKET_DISPLAY_RULE_v0.4.json",
+    "target_git_blob": "dff467a971f9519ba6598f535fc47623197e4bcb",
+    "purpose": "Superior quality-first global operating rule resolved before the common guard."
+  },
+  "common_persona_execution_validation_guard_current": {
+    "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_CURRENT.json",
+    "git_blob": "f619f9635a3d86454974886996e33ab128a275d6",
+    "mode": "SHADOW",
+    "target_path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_v1.1.json",
+    "target_git_blob": "772e0d149e64d58a6d516df122aa29fa5e0c1b9e",
+    "composition_path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_COMPOSITION_v1.0.md",
+    "composition_git_blob": "03ed1a50a1f503e464c418c9d3beddc49fbbc688",
+    "purpose": "One project-common pointer route for all current and future governed Personas; load and observe only until enforced activation gates close."
+  },
   "persona_selector_registry": {
     "path": "control/persona-memory/v1.0/AAA_PERSONA_RUNTIME_SELECTOR_REGISTRY_v1.0.json",
     "git_blob": "de71a2179d5d84840eb8c2cef009588c1971f79e",
@@ -76,6 +93,9 @@
     "RESOLVE_ACTIVE_ORGANIZATION",
     "RESOLVE_ACTIVE_SHARED_CONTRACT",
     "RESOLVE_PERSONA_AUTHORITY_AND_MANIFEST",
+    "RESOLVE_ACTIVE_GLOBAL_PACKET_DISPLAY_RULE",
+    "RESOLVE_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_CURRENT_POINTER",
+    "VERIFY_COMMON_GUARD_MODE_AND_EXACT_TARGET",
     "READ_PROJECT_COMMON_MEMORY",
     "READ_UNIVERSAL_EXECUTION_PROGRESS_TIME_COMPUTE_BEHAVIOR_CODE",
     "RESOLVE_PERSONA_SELECTOR_FROM_OWNER_TASK_OR_PROVEN_PERSONA",
@@ -109,6 +129,8 @@
   "persistence_rule": "Important Owner directives, corrections, blockers, decisions, checkpoints, and exact references are written to Persona MEMORY and chronological WORKLOG; parallel Codex workers use unique append-only run journals and later consolidation so successor channels/runs can recover state without manual packet reconstruction.",
   "fail_closed_conditions": [
     "POINTER_OR_TARGET_UNREADABLE",
+    "GLOBAL_PACKET_DISPLAY_RULE_POINTER_OR_TARGET_MISMATCH",
+    "COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_POINTER_TARGET_OR_MODE_MISMATCH",
     "UNIVERSAL_BEHAVIOR_CODE_UNREADABLE_FOR_EXECUTION_WBS_TASK",
     "EXACT_TARGET_IDENTITY_MISMATCH",
     "MULTIPLE_CURRENT_PERSONA_RESOLUTION",
@@ -121,6 +143,14 @@
   ],
   "memory_rule": "Persona/common memory, universal/role behavior codes, worklogs, and Codex run journals support continuity and runtime injection context but never create authority, validation PASS, model semantics, Shared Contract semantics, Freeze, Release, or Production authority.",
   "activation_note": "This candidate does not itself activate product-level Project Instructions or a project-wide authority pointer. Governed review/validation and final product-level replacement remain separate acts.",
+  "a2_shadow_guard_wiring": {
+    "base_commit": "3408e1dbb27e92bdc0f2c34016391d98d3af5b54",
+    "single_sot": true,
+    "persona_local_guard_rule_copy": false,
+    "enforced_activation": false,
+    "representative_tests": "PENDING_A3",
+    "targeted_validation": "PENDING_A4"
+  },
   "currentization_base_commit": "6083d892ac52fc4654f809fe265b5e59ef6aa9c5",
   "common_guard_resume_branch": "aaa-common-persona-validation-execution-guard-v1.1-r2-20260826",
   "owner_correction_binding": {
