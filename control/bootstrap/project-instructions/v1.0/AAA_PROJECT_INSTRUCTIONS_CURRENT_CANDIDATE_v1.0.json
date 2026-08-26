@@ -57,10 +57,10 @@
   },
   "common_persona_execution_validation_guard_current": {
     "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_CURRENT.json",
-    "git_blob": "f619f9635a3d86454974886996e33ab128a275d6",
+    "git_blob": "05226252d787b29149eaf6da6a923d5b1cf090ec",
     "mode": "SHADOW",
     "target_path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_v1.1.json",
-    "target_git_blob": "772e0d149e64d58a6d516df122aa29fa5e0c1b9e",
+    "target_git_blob": "d803945e7e709dc96daf460ef2f6fd5cedec6e4b",
     "composition_path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_COMPOSITION_v1.0.md",
     "composition_git_blob": "03ed1a50a1f503e464c418c9d3beddc49fbbc688",
     "purpose": "One project-common pointer route for all current and future governed Personas; load and observe only until enforced activation gates close."

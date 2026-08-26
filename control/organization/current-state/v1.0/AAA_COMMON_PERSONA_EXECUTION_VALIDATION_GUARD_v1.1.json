@@ -368,7 +368,7 @@
   "rollback_contract": {
     "method": "FORWARD_ONLY_COMPARE_AND_SWAP_ROLLBACK_COMMIT",
     "operational_rollback_transition": "ENFORCED_POINTER_TO_EXACT_PRIOR_SHADOW_POINTER",
-    "shadow_pointer_identity_binding": "PINNED_BY_A1_FREEZE_CHECKPOINT_AND_RECONFIRMED_PRE_ACTIVATION",
+    "shadow_pointer_identity_binding": "PINNED_BY_LATEST_PRE_ACTIVATION_D0_FREEZE_CHECKPOINT_AND_RECONFIRMED_PRE_ACTIVATION",
     "guard_artifact_after_rollback": "IMMUTABLE_PRESENT_BUT_INERT_UNDER_SHADOW_POINTER",
     "bootstrap_binding_after_rollback": "UNCHANGED_SINGLE_POINTER_ROUTE",
     "rollback_actions": [

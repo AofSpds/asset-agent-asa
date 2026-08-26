@@ -10,7 +10,7 @@
   "injection_route": {
     "bootstrap_candidate": {
       "path": "control/bootstrap/project-instructions/v1.0/AAA_PROJECT_INSTRUCTIONS_CURRENT_CANDIDATE_v1.0.json",
-      "git_blob": "f6bb6414983f17ffb92258b8544c8087fe5be296"
+      "git_blob": "29d1814629d6ac172b88ba7ad5c5471ed6064b16"
     },
     "global_rule_pointer": {
       "path": "control/organization/current-state/v1.0/AAA_GLOBAL_PACKET_DISPLAY_RULE_CURRENT.json",
@@ -19,12 +19,12 @@
     },
     "common_guard_pointer": {
       "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_CURRENT.json",
-      "git_blob": "f619f9635a3d86454974886996e33ab128a275d6",
+      "git_blob": "05226252d787b29149eaf6da6a923d5b1cf090ec",
       "mode": "SHADOW"
     },
     "common_guard": {
       "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_v1.1.json",
-      "git_blob": "772e0d149e64d58a6d516df122aa29fa5e0c1b9e"
+      "git_blob": "d803945e7e709dc96daf460ef2f6fd5cedec6e4b"
     },
     "composition_contract": {
       "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_COMPOSITION_v1.0.md",
