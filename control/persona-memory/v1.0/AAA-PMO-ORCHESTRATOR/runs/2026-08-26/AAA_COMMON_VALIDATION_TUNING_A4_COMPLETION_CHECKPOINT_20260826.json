@@ -1,0 +1,139 @@
+{
+  "artifact_id": "AAA-COMMON-VALIDATION-TUNING-A4-COMPLETION-CHECKPOINT-20260826",
+  "artifact_kind": "PMO_A4_TARGETED_VALIDATION_INTEGRATION_CHECKPOINT",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-PMO-ORCHESTRATOR",
+  "checkpoint_time_kst": "2026-08-26T21:35:28+09:00",
+  "state": "A4_COMPLETE_EXACT_D1_ROLE_SCOPED_VALIDATION_PASS_A5_ALLOWED",
+  "branch": "aaa-common-persona-validation-execution-guard-v1.1-r2-20260826",
+  "exact_validated_operative_target": {
+    "commit": "e42fe2fb92f2a00e8f70437b135d2a8c5136ba96",
+    "tree": "a43056e357626e4166df2bb102aa27812b83aec0",
+    "d1_checkpoint_blob": "07b2be7ad9f5b73c24fdb13af7ed5e0835f7edcf",
+    "operative_artifact_count": 7,
+    "operative_artifact_change_after_d1_freeze": false
+  },
+  "evidence_closure": {
+    "addendum_commit": "ba188b5dbe1561251ae8f20064543539558173fc",
+    "addendum_tree": "2cc52e9b58f7de3534e59c55c31ebd319e644384",
+    "addendum_blob": "239f40dfa337840a73f93bceeb071f9ef94efff0",
+    "delta_from_validated_target": "ONE_EVIDENCE_RECEIPT_ONLY_ZERO_OPERATIVE_CHANGES",
+    "canonical_t2_rebound": true,
+    "per_ac_impact_reuse_entries": 30
+  },
+  "validator_receipt_persistence": {
+    "commit": "f8c3a6be69ee7b758f0d0725c9c3d7c8b77cd13f",
+    "tree": "e964aff72b54087005e1d820d3c5382339aa9af8",
+    "sole_parent": "ba188b5dbe1561251ae8f20064543539558173fc",
+    "path_blob_mismatch_count": 0
+  },
+  "validator_receipts": [
+    {
+      "persona": "AAA-CONTROL-VALIDATOR",
+      "path": "control/persona-memory/v1.0/AAA-CONTROL-VALIDATOR/runs/2026-08-26/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_A4_D1_CTLV_RECHECK_RECEIPT_20260826.json",
+      "git_blob": "86020c5fc460c052607b11d2a7dea721ee22612c",
+      "verdict": "PASS",
+      "findings": "0_BLOCKING_0_ADVISORY_0_NEW_SCOPE",
+      "closed_findings": [
+        "F-A4-CTLV-D0-001"
+      ]
+    },
+    {
+      "persona": "AAA-PMO-VALIDATOR",
+      "path": "control/persona-memory/v1.0/AAA-PMO-VALIDATOR/runs/2026-08-26/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_A4_D1_PMOV_RECHECK_RECEIPT_20260826.json",
+      "git_blob": "aeaad19ca1870cd6e4df87b29aa2099e2babdb3a",
+      "verdict": "PASS",
+      "findings": "0_BLOCKING_0_ADVISORY_0_NEW_SCOPE",
+      "closed_findings": [
+        "F-A4-PMOV-D1-001",
+        "F-A4-PMOV-D1-002"
+      ]
+    },
+    {
+      "persona": "AAA-VALIDATION-AUDITOR",
+      "path": "control/persona-memory/v1.0/AAA-VALIDATION-AUDITOR/runs/2026-08-26/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_A4_D1_IVA_RECHECK_RECEIPT_20260826.json",
+      "git_blob": "d16b1ab41262b1b28d60634b0709e83d7c85151d",
+      "verdict": "PASS",
+      "findings": "0_BLOCKING_0_ADVISORY_0_NEW_SCOPE",
+      "closed_findings": [
+        "F-P0-IVA-A4-FP-001",
+        "F-P0-IVA-A4-FP-002",
+        "F-P1-IVA-A4-FP-003"
+      ]
+    }
+  ],
+  "validation_execution_summary": {
+    "d0_independent_first_passes": 3,
+    "independent_first_pass_findings_frozen_before_cross_visibility": true,
+    "single_consolidated_author_correction_batch": true,
+    "d1_affected_test_recheck": "PASS",
+    "d1_role_scoped_rechecks": 3,
+    "evidence_only_pmov_closure_recheck": 1,
+    "automatic_validation_loop": false,
+    "pass_transfer": false,
+    "final_open_blocking": 0,
+    "final_open_advisory": 0,
+    "final_open_new_scope": 0,
+    "aggregate_a4_verdict": "PASS"
+  },
+  "acceptance_closure_at_a4": {
+    "AC_01_THROUGH_AC_25": "PASS_WITH_EXACT_PER_AC_FRESH_OR_EXPLICIT_REUSE_LEDGER",
+    "AC_26": "PENDING_A5_ROLLBACK_DEMONSTRATION",
+    "AC_27": "PASS",
+    "AC_28": "PASS_AT_D0_FINAL_READBACK_REQUIRED_AT_COMPLETION",
+    "AC_29": "PENDING_A5",
+    "AC_30": "PENDING_A5"
+  },
+  "a5_entry_contract": {
+    "allowed": true,
+    "required_order": [
+      "PRE_A5_CURRENT_STATE_READBACK",
+      "ISOLATED_FORWARD_ENFORCED_TO_SHADOW_ROLLBACK_DEMONSTRATION",
+      "FINAL_ENFORCED_POINTER_AND_DERIVED_BINDING_CANDIDATE",
+      "PR_TO_MAIN",
+      "PRE_MERGE_MAIN_AND_ACTIVE_BOOTSTRAP_COMPARE_AND_SWAP",
+      "MERGE_WITH_EXPECTED_HEAD",
+      "NON_FORCE_ACTIVE_BOOTSTRAP_REF_SWITCH",
+      "POST_MERGE_AND_POST_POINTER_READBACK",
+      "FRESH_PERSONA_RESOLUTION",
+      "COMPLETION_AND_ROLLBACK_READY_RECEIPTS",
+      "RUNTIME_TERMINATION"
+    ],
+    "direct_main_mutation": false,
+    "enforced_activation": false
+  },
+  "pre_a5_known_refs": {
+    "main": "fa7d1a8bd1d00d297c27a325801618b75c4e113e",
+    "active_bootstrap": "aaa-project-instructions-git-bootstrap-v1.0@e9dc8b2fd5f58f49ac88b02c8136330db85700b1",
+    "m3top3": "aaa-pmo-m3top3-successor-resume-20260826-0034@0f3b7b0cc0864d9939c670129991fdabca14a90c"
+  },
+  "program_progress": {
+    "frozen_total_ewu": 100,
+    "earned_ewu": 90,
+    "overall_progress": "90/100",
+    "A0": "COMPLETE_10",
+    "A1": "COMPLETE_20",
+    "A2": "COMPLETE_25",
+    "A3": "COMPLETE_20",
+    "A4": "COMPLETE_15",
+    "A5": "READY_0_OF_10",
+    "actual_cru": "NOT_INSTRUMENTED"
+  },
+  "runtime_state": {
+    "active_workers": 0,
+    "active_validators": 0,
+    "next_transition": "PERSIST_THIS_CHECKPOINT_THEN_BEGIN_A5_PRE_READBACK"
+  },
+  "preservation": {
+    "core_b_current_pair": [
+      "AAA-MODEL-ARCHITECT",
+      "AAA-MODEL-VALIDATOR"
+    ],
+    "prohibited_target_activated": false,
+    "core_b_rerun": false,
+    "m3top3_unchanged": true
+  },
+  "claim_ceiling": "A4_ROLE_SCOPED_VALIDATION_COMPLETE_90_OF_100_EWU_A5_ALLOWED_NO_ROLLBACK_DEMONSTRATION_NO_PR_NO_MERGE_NO_ENFORCED_ACTIVATION"
+}
