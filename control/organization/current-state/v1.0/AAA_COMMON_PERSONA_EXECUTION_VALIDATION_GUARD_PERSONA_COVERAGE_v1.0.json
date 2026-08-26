@@ -4,13 +4,13 @@
   "version": "v1.0",
   "project": "AAA",
   "product": "ASSET AGENT ASA",
-  "state": "A5_ISOLATED_ENFORCED_ROLLBACK_DEMO_COVERAGE_NOT_ACTIVE_PRODUCT",
+  "state": "D1_CORRECTED_SHADOW_POINTER_COVERAGE_PENDING_AFFECTED_AND_VALIDATOR_RECHECK",
   "branch": "aaa-common-persona-validation-execution-guard-v1.1-r2-20260826",
   "a1_base_commit": "3408e1dbb27e92bdc0f2c34016391d98d3af5b54",
   "injection_route": {
     "bootstrap_candidate": {
       "path": "control/bootstrap/project-instructions/v1.0/AAA_PROJECT_INSTRUCTIONS_CURRENT_CANDIDATE_v1.0.json",
-      "git_blob": "f12bf7c80e2e9fb0ad622cffa1850d59498443b3"
+      "git_blob": "fa76370df6e97987b99e4c97389295f59f0f54cc"
     },
     "global_rule_pointer": {
       "path": "control/organization/current-state/v1.0/AAA_GLOBAL_PACKET_DISPLAY_RULE_CURRENT.json",
@@ -19,8 +19,8 @@
     },
     "common_guard_pointer": {
       "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_CURRENT.json",
-      "git_blob": "46e41f3d9704035cbab22cd2221c5e5ff31df0a0",
-      "mode": "ENFORCED"
+      "git_blob": "0daab5c5ac7f9b8efb2f4c015331c40581cf918b",
+      "mode": "SHADOW"
     },
     "common_guard": {
       "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_v1.1.json",
@@ -46,7 +46,7 @@
       "paired_persona": "AAA-ADVISORY-VALIDATOR",
       "memory_path": "control/persona-memory/v1.0/AAA-ASA/MEMORY.md",
       "worklog_path": "control/persona-memory/v1.0/AAA-ASA/WORKLOG.md",
-      "pointer_resolution": "PASS_ENFORCED_DEMO",
+      "pointer_resolution": "PASS_SHADOW",
       "persona_local_guard_copy": false
     },
     {
@@ -55,7 +55,7 @@
       "paired_persona": "AAA-ASA",
       "memory_path": "control/persona-memory/v1.0/AAA-ADVISORY-VALIDATOR/MEMORY.md",
       "worklog_path": "control/persona-memory/v1.0/AAA-ADVISORY-VALIDATOR/WORKLOG.md",
-      "pointer_resolution": "PASS_ENFORCED_DEMO",
+      "pointer_resolution": "PASS_SHADOW",
       "persona_local_guard_copy": false
     },
     {
@@ -64,7 +64,7 @@
       "paired_persona": "AAA-PMO-VALIDATOR",
       "memory_path": "control/persona-memory/v1.0/AAA-PMO-ORCHESTRATOR/MEMORY.md",
       "worklog_path": "control/persona-memory/v1.0/AAA-PMO-ORCHESTRATOR/WORKLOG.md",
-      "pointer_resolution": "PASS_ENFORCED_DEMO",
+      "pointer_resolution": "PASS_SHADOW",
       "persona_local_guard_copy": false
     },
     {
@@ -73,7 +73,7 @@
       "paired_persona": "AAA-PMO-ORCHESTRATOR",
       "memory_path": "control/persona-memory/v1.0/AAA-PMO-VALIDATOR/MEMORY.md",
       "worklog_path": "control/persona-memory/v1.0/AAA-PMO-VALIDATOR/WORKLOG.md",
-      "pointer_resolution": "PASS_ENFORCED_DEMO",
+      "pointer_resolution": "PASS_SHADOW",
       "persona_local_guard_copy": false
     },
     {
@@ -82,7 +82,7 @@
       "paired_persona": "AAA-CONTROL-VALIDATOR",
       "memory_path": "control/persona-memory/v1.0/AAA-CONTROL-ARCHITECT/MEMORY.md",
       "worklog_path": "control/persona-memory/v1.0/AAA-CONTROL-ARCHITECT/WORKLOG.md",
-      "pointer_resolution": "PASS_ENFORCED_DEMO",
+      "pointer_resolution": "PASS_SHADOW",
       "persona_local_guard_copy": false
     },
     {
@@ -91,7 +91,7 @@
       "paired_persona": "AAA-CONTROL-ARCHITECT",
       "memory_path": "control/persona-memory/v1.0/AAA-CONTROL-VALIDATOR/MEMORY.md",
       "worklog_path": "control/persona-memory/v1.0/AAA-CONTROL-VALIDATOR/WORKLOG.md",
-      "pointer_resolution": "PASS_ENFORCED_DEMO",
+      "pointer_resolution": "PASS_SHADOW",
       "persona_local_guard_copy": false
     },
     {
@@ -100,7 +100,7 @@
       "paired_persona": "AAA-MODEL-VALIDATOR",
       "memory_path": "control/persona-memory/v1.0/AAA-MODEL-ARCHITECT/MEMORY.md",
       "worklog_path": "control/persona-memory/v1.0/AAA-MODEL-ARCHITECT/WORKLOG.md",
-      "pointer_resolution": "PASS_ENFORCED_DEMO",
+      "pointer_resolution": "PASS_SHADOW",
       "persona_local_guard_copy": false
     },
     {
@@ -109,7 +109,7 @@
       "paired_persona": "AAA-MODEL-ARCHITECT",
       "memory_path": "control/persona-memory/v1.0/AAA-MODEL-VALIDATOR/MEMORY.md",
       "worklog_path": "control/persona-memory/v1.0/AAA-MODEL-VALIDATOR/WORKLOG.md",
-      "pointer_resolution": "PASS_ENFORCED_DEMO",
+      "pointer_resolution": "PASS_SHADOW",
       "persona_local_guard_copy": false
     },
     {
@@ -118,7 +118,7 @@
       "paired_persona": "AAA-RESEARCH-VALIDATOR",
       "memory_path": "control/persona-memory/v1.0/AAA-RESEARCH-ORCHESTRATOR/MEMORY.md",
       "worklog_path": "control/persona-memory/v1.0/AAA-RESEARCH-ORCHESTRATOR/WORKLOG.md",
-      "pointer_resolution": "PASS_ENFORCED_DEMO",
+      "pointer_resolution": "PASS_SHADOW",
       "persona_local_guard_copy": false
     },
     {
@@ -127,7 +127,7 @@
       "paired_persona": "AAA-RESEARCH-ORCHESTRATOR",
       "memory_path": "control/persona-memory/v1.0/AAA-RESEARCH-VALIDATOR/MEMORY.md",
       "worklog_path": "control/persona-memory/v1.0/AAA-RESEARCH-VALIDATOR/WORKLOG.md",
-      "pointer_resolution": "PASS_ENFORCED_DEMO",
+      "pointer_resolution": "PASS_SHADOW",
       "persona_local_guard_copy": false
     },
     {
@@ -136,7 +136,7 @@
       "paired_persona": "AAA-ENGINEERING-VALIDATOR",
       "memory_path": "control/persona-memory/v1.0/AAA-ENGINEERING-ORCHESTRATOR/MEMORY.md",
       "worklog_path": "control/persona-memory/v1.0/AAA-ENGINEERING-ORCHESTRATOR/WORKLOG.md",
-      "pointer_resolution": "PASS_ENFORCED_DEMO",
+      "pointer_resolution": "PASS_SHADOW",
       "persona_local_guard_copy": false
     },
     {
@@ -145,7 +145,7 @@
       "paired_persona": "AAA-ENGINEERING-ORCHESTRATOR",
       "memory_path": "control/persona-memory/v1.0/AAA-ENGINEERING-VALIDATOR/MEMORY.md",
       "worklog_path": "control/persona-memory/v1.0/AAA-ENGINEERING-VALIDATOR/WORKLOG.md",
-      "pointer_resolution": "PASS_ENFORCED_DEMO",
+      "pointer_resolution": "PASS_SHADOW",
       "persona_local_guard_copy": false
     },
     {
@@ -154,7 +154,7 @@
       "paired_persona": null,
       "memory_path": "control/persona-memory/v1.0/AAA-VALIDATION-AUDITOR/MEMORY.md",
       "worklog_path": "control/persona-memory/v1.0/AAA-VALIDATION-AUDITOR/WORKLOG.md",
-      "pointer_resolution": "PASS_ENFORCED_DEMO",
+      "pointer_resolution": "PASS_SHADOW",
       "persona_local_guard_copy": false
     }
   ],
@@ -162,8 +162,7 @@
     "active_persona_count": 13,
     "selector_resolved_count": 13,
     "memory_worklog_resolved_count": 13,
-    "shadow_pointer_resolved_count": 0,
-    "enforced_pointer_resolved_count": 13,
+    "shadow_pointer_resolved_count": 13,
     "persona_local_guard_copy_count": 0,
     "unresolved_count": 0,
     "long_name_current_count": 0
@@ -172,7 +171,7 @@
     "route": "GOVERNED_CURRENT_PERSONA_REGISTRATION_THEN_EXISTING_BOOTSTRAP_POINTER_RESOLUTION",
     "owner_restatement_required": false,
     "persona_local_rule_copy_required": false,
-    "proof": "A5_ISOLATED_DEMO_T0_EXACT_GENERATION_CHAIN_13_OF_13"
+    "proof": "PASS_T0_A3_ON_D0_CHAIN_AFFECTED_RECHECK_REQUIRED_FOR_D1_CHAIN"
   },
   "no_dual_sot_evidence": {
     "normative_guard_locations": [
@@ -181,8 +180,7 @@
     "bootstrap_contains_pointer_only": true,
     "persona_memory_contains_guard_copy": false
   },
-  "validation_state": "A4_PASS_A5_ISOLATED_DEMO_GENERATION",
+  "validation_state": "A3_PASS_D1_AFFECTED_AND_VALIDATOR_RECHECK_PENDING",
   "enforced_activation": false,
-  "demo_enforced_resolution": true,
-  "claim_ceiling": "A5_ISOLATED_ENFORCED_DEMO_COVERAGE_ONLY_NO_MAIN_OR_ACTIVE_BOOTSTRAP_EFFECT_NO_PRODUCT_ACTIVATION"
+  "claim_ceiling": "D1_AUTHOR_CORRECTED_SHADOW_COVERAGE_PENDING_AFFECTED_AND_VALIDATOR_RECHECK_NO_ENFORCED_ACTIVATION"
 }
