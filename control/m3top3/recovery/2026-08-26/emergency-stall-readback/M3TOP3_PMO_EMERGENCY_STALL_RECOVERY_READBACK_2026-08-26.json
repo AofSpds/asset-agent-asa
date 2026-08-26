@@ -29,7 +29,8 @@
   "issue_readback": {
     "issue_49_latest_comment_id_before_recovery_commit": 5414321165,
     "issue_54_latest_comment_id_before_recovery_commit": 5419649608,
-    "issue_54_latest_disposition": "OWNER_REPORTED_STALL_CONTINUITY_EVIDENCE_ONLY"
+    "issue_54_latest_disposition": "ASA_ROOT_CAUSE_CLASSIFICATION_CONTROL_PLANE_TERMINAL_STATE_TRANSITION_FAILURE",
+    "issue_54_latest_comment_material_effect": "NONE"
   },
   "preserved_surfaces": [
     {
@@ -463,5 +464,17 @@
   ],
   "gate_effect": "NONE",
   "validation_claim": "NONE",
-  "production_authorized": false
+  "production_authorized": false,
+  "terminal_guard": {
+    "condition": "ACTIVE_WORKERS_0_AND_ACTIVE_VALIDATORS_0_AND_ACTIVE_WORK_UNITS_EMPTY_AND_SOURCE_INDEPENDENT_MATERIAL_WORK_NONE_AND_ONLY_EXTERNAL_BLOCKERS_REMAIN",
+    "required_state": "BLOCKED_EXTERNAL_INPUT",
+    "required_actions": [
+      "WRITE_ONE_DURABLE_CHECKPOINT",
+      "RETURN_OWNER_REPORT",
+      "TERMINATE_RUNTIME"
+    ],
+    "no_progress_alert_minutes": 10,
+    "post_compute_seal_readback_hard_ceiling_minutes": 30,
+    "tool_retry_limit": 1
+  }
 }
