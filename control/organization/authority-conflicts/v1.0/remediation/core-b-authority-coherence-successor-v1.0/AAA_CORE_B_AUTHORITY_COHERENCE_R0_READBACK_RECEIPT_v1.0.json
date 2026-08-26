@@ -1,0 +1,124 @@
+{
+  "artifact_id": "AAA-CORE-B-AUTHORITY-COHERENCE-R0-READBACK-RECEIPT-v1.0",
+  "artifact_kind": "NON_SEMANTIC_PMO_READBACK_AND_EXCLUSIVE_TASK_LEASE_EVIDENCE",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-PMO-ORCHESTRATOR",
+  "packet_binding": {
+    "packet_id": "PMO CORE-B AUTHORITY COHERENCE REMEDIATION_TO_COMMON GUARD NARROW-A0 RESUME PACKET v1.0",
+    "transport_filename": "붙여넣은 텍스트 (1)(10).txt",
+    "transport_sha256": "ab7000add76772a8c680329f781d8c86f91bee7bf3efe7c1272425c3825f7a93"
+  },
+  "readback_time_kst": "2026-08-26 12:56 KST",
+  "current_persona_lock": "AAA-PMO-ORCHESTRATOR",
+  "bootstrap": {
+    "branch": "aaa-project-instructions-git-bootstrap-v1.0",
+    "head": "956035063ec7f30750b38a12c15adec394511338",
+    "canonical_project_instructions_blob": "b95a64fb2a11202b5e1c3490db90e27ad25650f0"
+  },
+  "governed_current_state": {
+    "active_persistent_locator": {
+      "branch": "aaa-persistent-locator-active-v0.3",
+      "head": "5b2dd5c5ea5bf96eb22163a0598d6879fffada9e",
+      "pointer_blob": "ca999bc2af458ce4e28d6da1a37fb94f0d49080e"
+    },
+    "active_organization": {
+      "authority_branch": "aaa-organization-active-v1.3",
+      "authority_head": "d7c490c373f2df356f31e4459c345328616b4eb3",
+      "current_state_blob": "cad42e60efea2eb67bb663b5ff889277c028e66c",
+      "routing_state_blob": "ca48540479b3c25ef4c8573a457d12a53e576246",
+      "pair_activation_blob": "3579860fd20e497161e13a9ccc8fa0c7fac0db61",
+      "active_core_b_pair": [
+        "AAA-MODEL-ARCHITECT",
+        "AAA-MODEL-VALIDATOR"
+      ]
+    },
+    "active_shared_contract": {
+      "current_state_blob": "9463e3802abd09d41c20675239c2df7739ac2751",
+      "target_commit": "96d1c02f3d057a0b06db913988e3cc16b980314d",
+      "target_blob": "d7702c1491bded7b2b90e857007599c36bc58b7d",
+      "core_b_persona": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT"
+    },
+    "selector_registry_blob": "307b878ef133638eafc7e257b0cc8e22924ee947",
+    "memory_index_blob": "d84e735b1bd7c03d16119bcfc901669c264ce43c"
+  },
+  "durable_inputs": {
+    "common_guard_a0": {
+      "branch": "aaa-common-persona-validation-execution-guard-v1.1-20260826",
+      "head": "e782984a968b20c1913b3dbb398a00c1ab533c4",
+      "tree": "541fbb5235a74bb2a5c612736a510d89330d93fb",
+      "inventory_blob": "578983fad4cc3955e544d17f217c92d3299f66c9",
+      "checkpoint_blob": "4dfde84b55a42d472f5425a5f1dbc97cf796bac9",
+      "earned_ewu": 10,
+      "total_ewu": 100
+    },
+    "owner_directive": {
+      "commit": "5256da49b621732cae2e69f5f1563c5ba2fae886",
+      "blob": "4928b3d12e9ad5587a689ea19ac89c3225203510",
+      "routing_hold": "ACTIVE_OWNER_DIRECTIVE_HOLD"
+    },
+    "existing_advisory_route": {
+      "branch": "aaa-core-b-authority-coherence-remediation-v1.0-owner-directive",
+      "head": "f4e18b1a22f7aebc028999a4bb5bf23b087e5cb6",
+      "state": "ADVISORY_VALIDATION_PENDING_NO_ACTIVE_SUCCESSOR"
+    }
+  },
+  "conflict": {
+    "classification": "COMPETING_CURRENT_CORE_B_PERSONA_PAIR_PROJECTIONS",
+    "confirmed": true,
+    "required_successor_pair": [
+      "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+      "AAA-MODEL-DESIGN-VALIDATOR"
+    ],
+    "routing_hold_release_condition": "P0_CORE_B_AUTHORITY_COHERENCE_SUCCESSOR_ACTIVATED_AND_BOOTSTRAP_REGRESSION_PASS"
+  },
+  "mutation_base": {
+    "branch": "aaa-persistent-locator-active-v0.3",
+    "sha": "5b2dd5c5ea5bf96eb22163a0598d6879fffada9e",
+    "rationale": "EXACT_INTEGRATED_GOVERNED_BASE_CONTAINING_CURRENT_ORGANIZATION_SHARED_CONTRACT_AND_PERSISTENT_LOCATOR_SURFACES"
+  },
+  "exclusive_remediation_lease": {
+    "lease_id": "AAA-CORE-B-AUTHORITY-COHERENCE-SUCCESSOR-v1.0-20260826",
+    "branch": "aaa-core-b-authority-coherence-successor-v1.0-20260826",
+    "base_sha": "5b2dd5c5ea5bf96eb22163a0598d6879fffada9e",
+    "holder": "AAA-PMO-ORCHESTRATOR",
+    "scope": "ONE_P0_CORE_B_AUTHORITY_COHERENCE_SUCCESSOR_LINEAGE",
+    "competing_task_specific_successor_branch_found": false,
+    "legacy_empty_branch": {
+      "branch": "aaa-core-b-authority-coherence-remediation-v1.0",
+      "head": "5b2dd5c5ea5bf96eb22163a0598d6879fffada9e",
+      "compare_to_mutation_base": "IDENTICAL_NO_COMMITS"
+    },
+    "force_push": "PROHIBITED"
+  },
+  "m3top3_preservation": {
+    "branch": "aaa-pmo-m3top3-successor-resume-20260826-0034",
+    "exact_head": "0f3b7b0cc0864d9939c670129991fdabca14a90c",
+    "state": "SOURCE_BLOCKED",
+    "unchanged": true,
+    "active_workers": 0,
+    "active_validators": 0,
+    "recompute_or_revalidation_performed": false
+  },
+  "progress": {
+    "remediation_total_ewu": 60,
+    "r0_earned_ewu": 5,
+    "common_guard_earned_ewu": 10,
+    "common_guard_total_ewu": 100,
+    "actual_cru": "NOT_INSTRUMENTED"
+  },
+  "execution_disposition": {
+    "r0": "PASS",
+    "next_stage": "R1_ASAV_BOUNDED_ADVISORY_CLOSURE",
+    "material_normative_mutation": false,
+    "active_validators_at_receipt": 0
+  },
+  "claim_ceiling": {
+    "model_semantic_approval": false,
+    "shared_contract_change": false,
+    "m3top3_gate_pass": false,
+    "freeze_release_production": false,
+    "owner_cutover_approval_inferred": false
+  }
+}
