@@ -1,0 +1,408 @@
+{
+  "artifact_id": "AAA-CORE-B-AUTHORITY-COHERENCE-D0-P0-CTLV-L1-RECEIPT-v1.0",
+  "artifact_kind": "FRESH_BOUNDED_P0_PAIRED_CONTROL_L1_VALIDATION_RECEIPT",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "wbs_id": "R4",
+  "validation_persona": "AAA-CONTROL-VALIDATOR",
+  "persona_code": "CTLV",
+  "paired_author": "AAA-CONTROL-ARCHITECT",
+  "validation_class": "P0_PAIRED_CONTROL_L1",
+  "validation_freshness": "FRESH_ONE_BOUNDED_RUN_ON_D0_ONLY",
+  "validation_date_kst": "2026-08-26 KST",
+  "time_precision": "DATE_ONLY_FROM_RUNTIME_ENVIRONMENT_CONTEXT",
+  "independence": {
+    "target_coauthored_by_validator": false,
+    "target_rewritten_by_validator": false,
+    "finding_reviewed_with_independent_l2_before_receipt_freeze": false,
+    "result": "PASS_PAIRED_L1_ROLE_SEPARATION"
+  },
+  "runtime_context_only": {
+    "authority_effect": "NONE",
+    "selector_registry_blob": "307b878ef133638eafc7e257b0cc8e22924ee947",
+    "memory_index_blob": "d84e735b1bd7c03d16119bcfc901669c264ce43c",
+    "loadout_source_commit": "956035063ec7f30750b38a12c15adec394511338",
+    "loaded": [
+      {
+        "path": "control/persona-memory/v1.0/COMMON/PROJECT_MEMORY.md",
+        "git_blob": "487bd2c6216b2f935dc893dc87582d21a7ff6fe5"
+      },
+      {
+        "path": "control/persona-memory/v1.0/AAA-CONTROL-VALIDATOR/MEMORY.md",
+        "git_blob": "4314c44ac5620976df686195eb17b82190ad701b"
+      },
+      {
+        "path": "control/persona-memory/v1.0/AAA-CONTROL-VALIDATOR/WORKLOG.md",
+        "git_blob": "0057aa9fe18fc9b087510fef81911d04377e9b48"
+      }
+    ],
+    "note": "The three runtime-context paths are absent from D0 target tree and were loaded from the known bootstrap head only; they were not treated as target evidence or authority."
+  },
+  "exact_d0_binding": {
+    "repository": "AofSpds/asset-agent-asa",
+    "freeze_id": "D0",
+    "target_commit": "a5a41edd27497f74e6539b151c914667f27bf680",
+    "target_tree": "b5aae5667b6d55bef67c9ac90cc6e80fd395f652",
+    "target_parent": "d49f0507f4311168828faffae8e3a6234f86f9cc",
+    "target_commit_tree_readback": "PASS_EXACT",
+    "target_parent_readback": "PASS_EXACT",
+    "freeze_receipt": {
+      "commit": "75e2452631270379565cd6ab75faf00889dfdcdb",
+      "path": "control/organization/authority-conflicts/v1.0/remediation/core-b-authority-coherence-successor-v1.0/AAA_CORE_B_AUTHORITY_COHERENCE_D0_FROZEN_TARGET_RECEIPT_v1.0.json",
+      "git_blob": "dd06664ca7dad8aa9fdec089cefb14e5980b5592",
+      "path_blob_readback": "PASS_EXACT"
+    },
+    "mutation_base": {
+      "branch": "aaa-persistent-locator-active-v0.3",
+      "commit": "5b2dd5c5ea5bf96eb22163a0598d6879fffada9e",
+      "compare_to_target": {
+        "status": "ahead",
+        "ahead_by": 3,
+        "behind_by": 0,
+        "changed_paths": 13,
+        "target_paths": 11,
+        "non_target_evidence_paths": 2
+      }
+    },
+    "parent_compare": {
+      "ahead_by": 1,
+      "behind_by": 0,
+      "added": 11,
+      "modified": 0,
+      "removed": 0,
+      "result": "PASS_EXACT_D0_TARGET_PATH_SET"
+    }
+  },
+  "d0_blob_identity_results": [
+    {
+      "path": "control/organization/releases/v1.4/AAA_ORGANIZATION_CORE_B_AUTHORITY_PAIRING_SUCCESSOR_v1.4.json",
+      "git_blob": "88279ebb6895da6813502c4930b6739fe9a79f2b",
+      "sha256": "3e259c49c4bd0edc29dbe57ecfe9220f7a9f2b4bd7cd17608754f22ae9399c33",
+      "byte_size": 17896,
+      "path_blob_match": true,
+      "sha256_match": true,
+      "byte_size_match": true,
+      "json_valid": true,
+      "result": "PASS"
+    },
+    {
+      "path": "control/organization/releases/v1.4/AAA_ORGANIZATION_TOPOLOGY_CONTRACT_v1.4.json",
+      "git_blob": "6bc1303960cce53e3936e3cabe2ac3b36db42d78",
+      "sha256": "a80523bb2742aacb1519af6455ca09668f564e6e536588bc7ed786a899ce18e8",
+      "byte_size": 26705,
+      "path_blob_match": true,
+      "sha256_match": true,
+      "byte_size_match": true,
+      "json_valid": true,
+      "result": "PASS"
+    },
+    {
+      "path": "control/organization/releases/v1.4/AAA_ORGANIZATION_RELEASE_MANIFEST_v1.4.json",
+      "git_blob": "97fa121e5d5c8d2dbb929f30df25aff0e2f731cc",
+      "sha256": "8b01f2b5e938ff64073e0058ba8e2738a406d125f26262c5ccc7b9d70d645924",
+      "byte_size": 12221,
+      "path_blob_match": true,
+      "sha256_match": true,
+      "byte_size_match": true,
+      "json_valid": true,
+      "result": "PASS"
+    },
+    {
+      "path": "control/organization/cutover/v1.4/phase-a/candidates/AAA_ORGANIZATION_CURRENT_ACTIVE_STATE_v1.0.json",
+      "git_blob": "e17749646a379e36e0613c6864d67a4a1b1a07ec",
+      "sha256": "f45b39e7652900dc8dc5c11480496993a1995d76a559789fff34dd1e4d1176d0",
+      "byte_size": 4567,
+      "path_blob_match": true,
+      "sha256_match": true,
+      "byte_size_match": true,
+      "json_valid": true,
+      "result": "PASS"
+    },
+    {
+      "path": "control/organization/cutover/v1.4/phase-a/candidates/AAA_ORGANIZATION_ACTIVE_ROUTING_STATE_v1.0.json",
+      "git_blob": "7b1cf5cf3f82067c1f72ae5a8a51bdf5a1b60b34",
+      "sha256": "047a9872316a6a5a1dda80c7a75949c7e04806619207ddeb2552e3176c556561",
+      "byte_size": 2306,
+      "path_blob_match": true,
+      "sha256_match": true,
+      "byte_size_match": true,
+      "json_valid": true,
+      "result": "PASS"
+    },
+    {
+      "path": "control/organization/cutover/v1.4/phase-a/candidates/AAA_ORGANIZATION_PAIR_ACTIVATION_STATE_v1.0.json",
+      "git_blob": "c7d44e071dba5fca54f069ffce1ab5b11feb2a66",
+      "sha256": "5551a036c4a915d6db05075d47e83e96f3f6d77a3fc3ee783f8f5aeefda9e645",
+      "byte_size": 3543,
+      "path_blob_match": true,
+      "sha256_match": true,
+      "byte_size_match": true,
+      "json_valid": true,
+      "result": "PASS"
+    },
+    {
+      "path": "control/organization/cutover/v1.4/phase-a/candidates/AAA_ACTIVE_ORGANIZATION_POINTER_v1.0.json",
+      "git_blob": "16bf7e0256b5eb33e14fbcc775cb2d5c9fb48f50",
+      "sha256": "e34348d0a49fbba80eded518e80037846242edcc8648117ba0c0e0bb9445e62c",
+      "byte_size": 3719,
+      "path_blob_match": true,
+      "sha256_match": true,
+      "byte_size_match": true,
+      "json_valid": true,
+      "result": "PASS"
+    },
+    {
+      "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_CURRENT_POINTER_TRANSITION_PLAN_v1.0.json",
+      "git_blob": "d81aa014414787106befdbaf4b4eadfecb1428b1",
+      "sha256": "eb438038a2b9dd8d0fb96ddc1bcb6e0b5acb1a8dd486b6894cc4e2329fa2283f",
+      "byte_size": 5261,
+      "path_blob_match": true,
+      "sha256_match": true,
+      "byte_size_match": true,
+      "json_valid": true,
+      "result": "PASS"
+    },
+    {
+      "path": "control/organization/releases/v1.4/AAA_ORGANIZATION_v1.3_TO_v1.4_DETERMINISTIC_OBJECT_DIFF_v1.0.json",
+      "git_blob": "377c59c3da47c02443693b544d48fbb9be4e29aa",
+      "sha256": "00d93e32c69392236502789498e39a1286806f07d90b7ff0aed4ce4a979f4a05",
+      "byte_size": 7407,
+      "path_blob_match": true,
+      "sha256_match": true,
+      "byte_size_match": true,
+      "json_valid": true,
+      "result": "PASS"
+    },
+    {
+      "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_ROLLBACK_MANIFEST_v1.0.json",
+      "git_blob": "0dbb63bd742b1e0938c23a6cecea5b1c80ae4e77",
+      "sha256": "2fa3868bec3e41a3987e956ecd9281cf3c8e767c3232065c3a3f6e8090f40743",
+      "byte_size": 4174,
+      "path_blob_match": true,
+      "sha256_match": true,
+      "byte_size_match": true,
+      "json_valid": true,
+      "result": "PASS"
+    },
+    {
+      "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_FRESH_BOOTSTRAP_REGRESSION_TEST_PLAN_v1.0.json",
+      "git_blob": "c36b581d285b26d2d9de4eca93f6d82fa1677a43",
+      "sha256": "8488bc679bc5d62b0d50f126ec3946c89199903dcec376a7e0ee149c165f064c",
+      "byte_size": 7039,
+      "path_blob_match": true,
+      "sha256_match": true,
+      "byte_size_match": true,
+      "json_valid": true,
+      "result": "PASS"
+    }
+  ],
+  "governed_context_identities": {
+    "predecessor_active_organization": [
+      {
+        "object": "CURRENT_ACTIVE_STATE",
+        "git_blob": "cad42e60efea2eb67bb663b5ff889277c028e66c"
+      },
+      {
+        "object": "ACTIVE_ROUTING_STATE",
+        "git_blob": "ca48540479b3c25ef4c8573a457d12a53e576246"
+      },
+      {
+        "object": "PAIR_ACTIVATION_STATE",
+        "git_blob": "3579860fd20e497161e13a9ccc8fa0c7fac0db61"
+      },
+      {
+        "object": "ACTIVE_ORGANIZATION_POINTER",
+        "git_blob": "30cbecc2a961d5fd92b28e00be419f5a590110c1"
+      }
+    ],
+    "shared_contract_current_state_blob": "9463e3802abd09d41c20675239c2df7739ac2751",
+    "shared_contract_target_blob": "d7702c1491bded7b2b90e857007599c36bc58b7d",
+    "selector_registry_blob": "307b878ef133638eafc7e257b0cc8e22924ee947",
+    "persona_memory_index_blob": "d84e735b1bd7c03d16119bcfc901669c264ce43c",
+    "project_instructions_blob": "d5159b9867c212b94748ffadb2abfdcf6a070e60",
+    "owner_directive": {
+      "commit": "5256da49b621732cae2e69f5f1563c5ba2fae886",
+      "git_blob": "4928b3d12e9ad5587a689ea19ac89c3225203510"
+    },
+    "result": "PASS_EXACT_BLOB_READBACK"
+  },
+  "independent_semantic_reconstruction": {
+    "canonicalization_profile": "AAA-ORG-CANON-JSON-1",
+    "base_blob": "3adf7660ea273876fdf51cf228b36d1c0e8ccda9",
+    "restore_blob": "942ece9458acdb2edc56318a0e3e48cb8bad5caf",
+    "pairing_successor_blob": "88279ebb6895da6813502c4930b6739fe9a79f2b",
+    "operation_count": 26,
+    "actual_effective_semantic_sha256": "366f703fcd4a5c903852d7edebeda0d93d5df994eae8628e89926c51a9767858",
+    "expected_effective_semantic_sha256": "366f703fcd4a5c903852d7edebeda0d93d5df994eae8628e89926c51a9767858",
+    "actual_effective_semantic_byte_size": 29677,
+    "expected_effective_semantic_byte_size": 29677,
+    "result": "PASS_EXACT_TWO_FIELD_IDENTITY"
+  },
+  "digest_recomputation": {
+    "author_scope_digests": {
+      "checked": 6,
+      "matched": 6
+    },
+    "validator_scope_digests": {
+      "checked": 6,
+      "matched": 6
+    },
+    "pair_contract_digests": {
+      "checked": 6,
+      "matched": 6
+    },
+    "core_b_pair_digest": "f8f9406d6f8dab7094654aa0e53cb56535bf5c58b7439cd6df232bd549e7be8f",
+    "result": "PASS_18_OF_18"
+  },
+  "acceptance_checks": [
+    {
+      "id": "CTLV-R4-AC-01",
+      "check": "OWNER_DIRECTIVE_FIDELITY",
+      "result": "PASS",
+      "evidence": "The successor uses the exact long-name Core-B pair required by 5256da49/4928b3d1, preserves all others, keeps historical v1.3 immutable, and requires a new target-bound Owner cutover decision after L1 and L2."
+    },
+    {
+      "id": "CTLV-R4-AC-02",
+      "check": "EXACT_LONG_NAME_CORE_B_PAIR",
+      "result": "PASS",
+      "evidence": {
+        "authoring_persona": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+        "paired_validator": "AAA-MODEL-DESIGN-VALIDATOR",
+        "pair_id": "AAA-PAIR-MOD-MODV-v1.2"
+      }
+    },
+    {
+      "id": "CTLV-R4-AC-03",
+      "check": "ALL_OTHER_ORGANIZATION_OBJECTS_PERSONAS_AND_ROUTES_PRESERVED",
+      "result": "PASS",
+      "evidence": {
+        "non_core_author_scopes_exact": true,
+        "non_core_author_digests_exact": true,
+        "non_core_validator_duties_exact": true,
+        "non_core_pair_objects_exact": true,
+        "non_core_route_objects_exact": true,
+        "preserved_current_persona_count": 11,
+        "before_current_persona_count": 13,
+        "after_current_persona_count": 13
+      }
+    },
+    {
+      "id": "CTLV-R4-AC-04",
+      "check": "ROUTING_AND_PAIR_ACTIVATION_COHERENT",
+      "result": "PASS",
+      "evidence": "Six routing pairs and six activation pairs converge; only index 3 advances from the stale short-name Core-B pair to the exact long-name pair."
+    },
+    {
+      "id": "CTLV-R4-AC-05",
+      "check": "NO_DUPLICATE_ACTIVE_CORE_B_PAIR",
+      "result": "PASS",
+      "evidence": {
+        "candidate_current_persona_count": 13,
+        "candidate_current_unique_persona_count": 13,
+        "stale_short_name_current_occurrences": 0,
+        "long_name_pair_current_occurrences": 2,
+        "selector_registry_long_name_pair": true,
+        "memory_index_reciprocal_long_name_pair": true
+      }
+    },
+    {
+      "id": "CTLV-R4-AC-06",
+      "check": "NO_SHARED_CONTRACT_MUTATION",
+      "result": "PASS",
+      "evidence": "Base-to-target changed-path set contains no Shared Contract path; current-state blob 9463e380 and target blob d7702c14 remain the pinned identities, and the target projects AAA-MODEL-VALIDATION-DESIGN-ARCHITECT for Core-B."
+    },
+    {
+      "id": "CTLV-R4-AC-07",
+      "check": "NO_MODEL_OR_PIT_SEMANTIC_MUTATION",
+      "result": "PASS",
+      "evidence": "The exact 11 D0 paths are Organization release/cutover artifacts only; the two earlier base-to-target additions are R0/R1 evidence receipts. No model, feature, missingness, imputation, scorer, weight, ranking, PIT/GT, production, or M3TOP3 path changed."
+    },
+    {
+      "id": "CTLV-R4-AC-08",
+      "check": "DETERMINISTIC_EFFECTIVE_SEMANTIC_RECONSTRUCTION",
+      "result": "PASS",
+      "evidence": "Independent execution of the 26 frozen composition operations converged to 29677 bytes and SHA256 366f703fcd4a5c903852d7edebeda0d93d5df994eae8628e89926c51a9767858; 18/18 scope and pair digests matched."
+    },
+    {
+      "id": "CTLV-R4-AC-09",
+      "check": "CURRENT_POINTER_TRANSITION_EXACTNESS_AND_CAS",
+      "result": "FAIL_P0",
+      "evidence": "The frozen transition plan pins the old and new pointer blobs and requires atomic four-file promotion, but does not name the governed active locator ref to be CAS-updated, does not bind an expected-old ref SHA at execution, and does not require a prewrite reread of the four predecessor active blobs with fail-closed mismatch. The non-semantic D0 freeze receipt says pre_cutover_compare_and_swap_required=true, but that rule is absent from the authoritative frozen transition-plan bytes."
+    },
+    {
+      "id": "CTLV-R4-AC-10",
+      "check": "ROLLBACK_COMPLETENESS",
+      "result": "PASS",
+      "evidence": "The rollback manifest pins v1.3 root/manifest plus all four predecessor active blobs, prohibits history rewrite/rewind/delete/silent reversion/pass transfer, and requires a separately authorized, freshly validated recovery successor."
+    },
+    {
+      "id": "CTLV-R4-AC-11",
+      "check": "BOOTSTRAP_REGRESSION_PLAN_ADEQUACY",
+      "result": "PASS",
+      "evidence": "BR-01 through BR-14 cover active ref/head, four active projections, release bindings, selector, memory, Shared Contract, Project Instructions, single current pair, cardinality, negative semantic touch, and hold release with exact-identity fail-closed rules."
+    },
+    {
+      "id": "CTLV-R4-AC-12",
+      "check": "ONE_EXACT_D0_BINDING_AND_POST_VALIDATION_OWNER_GATE",
+      "result": "PASS",
+      "evidence": "All artifacts bind D0 a5a41edd/b5aae566; pass transfer and L1/L2 target mismatch are prohibited; Owner cutover is explicitly not yet issued and cannot be inferred."
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "F-P0-CTLV-R4-001",
+      "severity": "P0",
+      "class": "POINTER_TRANSITION_CAS_CONTRACT_MISSING",
+      "status": "BLOCKING",
+      "exact_artifact": {
+        "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_CURRENT_POINTER_TRANSITION_PLAN_v1.0.json",
+        "git_blob": "d81aa014414787106befdbaf4b4eadfecb1428b1"
+      },
+      "exact_reason": "Pinned content identities and one atomic tree commit are insufficient to prevent a stale-base or concurrent-ref cutover. D0 supplies no executable compare-and-swap contract for the governed active locator ref: exact ref name, expected-old ref SHA, required prewrite reread of cad42e60/ca485404/3579860f/30cbecc2, force=false update, and fail-closed behavior on any mismatch are absent. The D0 freeze receipt's derived CAS=true statement cannot add authority or missing execution semantics to the frozen plan.",
+      "required_remediation": [
+        "Do not mutate D0.",
+        "Author D1 with an explicit phase-B activation transaction naming the governed ref, expected-old ref SHA, exact parent/head precondition, all four expected-old active blobs, all four exact candidate blobs, one atomic tree commit, force=false CAS ref update, and fail-closed no-write behavior on any mismatch.",
+        "Bind the postwrite readback and activation receipt to the new activation commit/tree/ref plus all four promoted blobs.",
+        "Freeze D1 and run one new fresh CTLV P0 L1; only a passing D1 may route to independent IVA P0 L2."
+      ],
+      "waiver_allowed": false
+    }
+  ],
+  "target_state_after_validation": {
+    "target_bytes_changed": false,
+    "target_commit_changed": false,
+    "target_tree_changed": false,
+    "github_writes": 0,
+    "active_refs_moved": 0,
+    "active_paths_mutated": 0,
+    "owner_cutover_inferred": false,
+    "routing_hold_changed": false,
+    "result": "D0_UNCHANGED"
+  },
+  "authority_firewall": {
+    "authority_expansion": false,
+    "shared_contract_semantic_authority": false,
+    "model_semantic_authority": false,
+    "pit_gt_authority": false,
+    "model_freeze_authority": false,
+    "release_or_production_authority": false,
+    "cutover_authority": false,
+    "owner_decision_substitution": false,
+    "independent_l2_pass_created": false
+  },
+  "verdict": "BLOCKED_WITH_EXACT_REASON",
+  "verdict_reason": "F-P0-CTLV-R4-001: the frozen D0 transition plan lacks an executable exact CAS contract for the governed active locator ref and four predecessor active blobs; fail closed before L2 or cutover.",
+  "claim_ceiling": "ONE_FRESH_BOUNDED_P0_PAIRED_CONTROL_L1_ON_D0_ONLY; NO_D0_PASS; NO_L2; NO_CUTOVER; NO_ACTIVATION; NO_REF_MOVE; NO_SHARED_CONTRACT_OR_MODEL_OR_PIT_SEMANTIC_VALIDATION; NO_FREEZE_RELEASE_OR_PRODUCTION_AUTHORITY",
+  "next_route": {
+    "route_to": "AAA-CONTROL-ARCHITECT",
+    "action": "AUTHOR_NON_MUTATING_D1_SUCCESSOR_FIX_FOR_F-P0-CTLV-R4-001",
+    "then": [
+      "AAA-PMO-ORCHESTRATOR_FREEZE_D1",
+      "AAA-CONTROL-VALIDATOR_ONE_FRESH_P0_L1_ON_D1",
+      "AAA-VALIDATION-AUDITOR_ONE_FRESH_INDEPENDENT_P0_L2_ON_SAME_D1_ONLY_IF_L1_PASSES",
+      "HUMAN_PROJECT_OWNER_EXACT_POST_VALIDATION_CUTOVER_DECISION"
+    ],
+    "d0_l2_route": "PROHIBITED_WHILE_BLOCKING_FINDING_OPEN"
+  }
+}
