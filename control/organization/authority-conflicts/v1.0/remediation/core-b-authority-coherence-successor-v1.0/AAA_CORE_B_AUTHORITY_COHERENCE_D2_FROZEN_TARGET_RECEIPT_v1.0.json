@@ -1,0 +1,207 @@
+{
+  "artifact_id": "AAA-CORE-B-AUTHORITY-COHERENCE-D2-FROZEN-TARGET-RECEIPT-v1.0",
+  "artifact_kind": "IMMUTABLE_PMO_D2_FROZEN_TARGET_RECEIPT",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-PMO-ORCHESTRATOR",
+  "state": "D2_FROZEN_PENDING_FRESH_AFFECTED_P0_L1_AND_INDEPENDENT_P0_L2",
+  "wbs_id": "P0-CORE-B-AUTHORITY-COHERENCE-D2-FREEZE",
+  "created_at_kst": "2026-08-26T13:54:56+09:00",
+  "frozen_target": {
+    "repository": "AofSpds/asset-agent-asa",
+    "authoring_branch": "aaa-core-b-authority-coherence-successor-v1.0-20260826",
+    "d2_target_commit": "48f37d91f2b52a2909a973a1c8bc38b284229c9e",
+    "d2_target_tree": "4aba5189dece01a017b3c59f6cdb36303a9d9026",
+    "d2_target_parent": "a1c65d0e500c34fe849badf452f84907f6d53554",
+    "d1_target_tree": "22aca5d9d5ad38525873f91232bc7728da137aa6",
+    "d0_semantic_target_commit": "a5a41edd27497f74e6539b151c914667f27bf680",
+    "mutation_base_commit": "5b2dd5c5ea5bf96eb22163a0598d6879fffada9e",
+    "branch_readback": "EXACT_MATCH",
+    "recursive_tree_truncated": false,
+    "activation_commit_parent_must_equal": "48f37d91f2b52a2909a973a1c8bc38b284229c9e",
+    "activation_parent_tree_must_equal": "4aba5189dece01a017b3c59f6cdb36303a9d9026",
+    "content_mutation_after_freeze": "PROHIBITED"
+  },
+  "d2_exact_diff_from_d1": {
+    "base": "a1c65d0e500c34fe849badf452f84907f6d53554",
+    "head": "48f37d91f2b52a2909a973a1c8bc38b284229c9e",
+    "ahead_by": 1,
+    "added": [
+      "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_CURRENT_POINTER_TRANSITION_PLAN_v1.2.json",
+      "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_ROLLBACK_MANIFEST_v1.1.json"
+    ],
+    "modified": [],
+    "removed": [],
+    "all_d0_d1_target_bytes_unchanged": true,
+    "semantic_scope": "TWO_REF_FAILURE_AND_ROLLBACK_NORMATIVE_COHERENCE_ONLY"
+  },
+  "d2_affected_artifacts": [
+    {
+      "artifact_id": "AAA-ORGANIZATION-v1.4-CURRENT-POINTER-TRANSITION-PLAN-v1.2",
+      "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_CURRENT_POINTER_TRANSITION_PLAN_v1.2.json",
+      "git_blob": "a5542a2cec61d52816fdb642a50bd7c6734bd802",
+      "sha256": "56545375a4024b43bbf5ba8d4257fa7879c9ec9002820ba9235bb227676d528b",
+      "byte_size": 19230,
+      "remote_readback": "EXACT_MATCH"
+    },
+    {
+      "artifact_id": "AAA-ORGANIZATION-v1.4-ROLLBACK-MANIFEST-v1.1",
+      "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_ROLLBACK_MANIFEST_v1.1.json",
+      "git_blob": "303c78194e5786baa1c8fb2d40d54f05f67bddfd",
+      "sha256": "57ff7475c7240a674baf6fa5e8370a94f2c44caf22834ec119bdcc9ba5444dd2",
+      "byte_size": 12362,
+      "remote_readback": "EXACT_MATCH"
+    }
+  ],
+  "preserved_target_artifacts": [
+    {
+      "path": "control/organization/releases/v1.4/AAA_ORGANIZATION_CORE_B_AUTHORITY_PAIRING_SUCCESSOR_v1.4.json",
+      "git_blob": "88279ebb6895da6813502c4930b6739fe9a79f2b",
+      "byte_size": 17896
+    },
+    {
+      "path": "control/organization/releases/v1.4/AAA_ORGANIZATION_TOPOLOGY_CONTRACT_v1.4.json",
+      "git_blob": "6bc1303960cce53e3936e3cabe2ac3b36db42d78",
+      "byte_size": 26705
+    },
+    {
+      "path": "control/organization/releases/v1.4/AAA_ORGANIZATION_RELEASE_MANIFEST_v1.4.json",
+      "git_blob": "97fa121e5d5c8d2dbb929f30df25aff0e2f731cc",
+      "byte_size": 12221
+    },
+    {
+      "path": "control/organization/cutover/v1.4/phase-a/candidates/AAA_ORGANIZATION_CURRENT_ACTIVE_STATE_v1.0.json",
+      "git_blob": "e17749646a379e36e0613c6864d67a4a1b1a07ec",
+      "byte_size": 4567
+    },
+    {
+      "path": "control/organization/cutover/v1.4/phase-a/candidates/AAA_ORGANIZATION_ACTIVE_ROUTING_STATE_v1.0.json",
+      "git_blob": "7b1cf5cf3f82067c1f72ae5a8a51bdf5a1b60b34",
+      "byte_size": 2306
+    },
+    {
+      "path": "control/organization/cutover/v1.4/phase-a/candidates/AAA_ORGANIZATION_PAIR_ACTIVATION_STATE_v1.0.json",
+      "git_blob": "c7d44e071dba5fca54f069ffce1ab5b11feb2a66",
+      "byte_size": 3543
+    },
+    {
+      "path": "control/organization/cutover/v1.4/phase-a/candidates/AAA_ACTIVE_ORGANIZATION_POINTER_v1.0.json",
+      "git_blob": "16bf7e0256b5eb33e14fbcc775cb2d5c9fb48f50",
+      "byte_size": 3719
+    },
+    {
+      "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_CURRENT_POINTER_TRANSITION_PLAN_v1.0.json",
+      "git_blob": "d81aa014414787106befdbaf4b4eadfecb1428b1",
+      "byte_size": 5261,
+      "disposition": "IMMUTABLE_D0_EVIDENCE"
+    },
+    {
+      "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_CURRENT_POINTER_TRANSITION_PLAN_v1.1.json",
+      "git_blob": "77b81bb023e54bd22ca47661f41da9d0d39208a7",
+      "byte_size": 20887,
+      "disposition": "IMMUTABLE_BLOCKED_D1_EVIDENCE"
+    },
+    {
+      "path": "control/organization/releases/v1.4/AAA_ORGANIZATION_v1.3_TO_v1.4_DETERMINISTIC_OBJECT_DIFF_v1.0.json",
+      "git_blob": "377c59c3da47c02443693b544d48fbb9be4e29aa",
+      "byte_size": 7407
+    },
+    {
+      "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_ROLLBACK_MANIFEST_v1.0.json",
+      "git_blob": "0dbb63bd742b1e0938c23a6cecea5b1c80ae4e77",
+      "byte_size": 4174,
+      "disposition": "IMMUTABLE_BLOCKED_D0_D1_EVIDENCE"
+    },
+    {
+      "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_FRESH_BOOTSTRAP_REGRESSION_TEST_PLAN_v1.0.json",
+      "git_blob": "c36b581d285b26d2d9de4eca93f6d82fa1677a43",
+      "byte_size": 7039
+    }
+  ],
+  "exact_authority_semantics": {
+    "only_material_authority_change": true,
+    "before_pair": [
+      "AAA-MODEL-ARCHITECT",
+      "AAA-MODEL-VALIDATOR"
+    ],
+    "after_pair": [
+      "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+      "AAA-MODEL-DESIGN-VALIDATOR"
+    ],
+    "after_pair_id": "AAA-PAIR-MOD-MODV-v1.2",
+    "preserved_persona_count": 11,
+    "before_total": 13,
+    "after_total": 13,
+    "shared_contract_mutated": false,
+    "project_instructions_mutated": false,
+    "selector_or_memory_pair_mutated": false,
+    "model_or_pit_mutated": false
+  },
+  "closed_d1_findings": [
+    {
+      "finding_id": "F-P0-IVA-D1-FP-001",
+      "closure_candidate": "D2_PLAN_v1.2_PLUS_ROLLBACK_v1.1_JOINT_RULE",
+      "joint_rule": "RETAIN_STAGED_v1.4_INERT_SURFACE_BLOCKER_NO_PRIMARY_RETRY_NO_DELETE_NO_REWIND",
+      "validation_state": "PENDING_FRESH_D2_L1_L2"
+    },
+    {
+      "finding_id": "F-P0-IVA-D1-FP-002",
+      "closure_candidate": "THIS_D2_FREEZE_RECEIPT_BINDS_EXACT_AFTER_PAIR_AND_PAIR_ID",
+      "validation_state": "PENDING_FRESH_D2_L1_L2"
+    },
+    {
+      "finding_id": "F-P0-IVA-D1-FP-003",
+      "closure_candidate": "THIS_D2_FREEZE_RECEIPT_USES_CANONICAL_IVA_GOVERNED_PERSONA_ID",
+      "validation_state": "PENDING_FRESH_D2_L1_L2"
+    }
+  ],
+  "cutover_contract": {
+    "primary_ref": "refs/heads/aaa-persistent-locator-active-v0.3",
+    "primary_expected_old_sha": "5b2dd5c5ea5bf96eb22163a0598d6879fffada9e",
+    "preserved_predecessor_ref": "refs/heads/aaa-organization-active-v1.3",
+    "preserved_predecessor_sha": "d7c490c373f2df356f31e4459c345328616b4eb3",
+    "successor_ref": "refs/heads/aaa-organization-active-v1.4",
+    "successor_required_prewrite_state": "ABSENT",
+    "successor_create": "ATOMIC_CREATE_IF_ABSENT",
+    "activation_commit_count": 1,
+    "true_expected_old_atomic_cas_required": true,
+    "read_then_update_or_force_false_only_sufficient": false,
+    "unsupported_primitive": "ABORT_BEFORE_ANY_REF_WRITE",
+    "primary_cas_failure_after_staging": "RETAIN_SUCCESSOR_REF_INERT_SURFACE_BLOCKER_PROHIBIT_PRIMARY_RETRY_NO_DELETE_NO_REWIND",
+    "postwrite_readback_and_immutable_activation_receipt_required": true,
+    "multi_ref_atomicity_claimed": false
+  },
+  "validation_route": {
+    "p0_l1": {
+      "governed_persona_id": "AAA-CONTROL-VALIDATOR",
+      "official_code": "CTLV",
+      "scope": "D2_FRESH_AFFECTED_SCOPE_WITH_ALL_PRESERVED_IDENTITIES_BOUND"
+    },
+    "p0_l2": {
+      "governed_persona_id": "AAA-VALIDATION-AUDITOR",
+      "official_code": "IVA",
+      "role_label": "independent validation auditor",
+      "scope": "INDEPENDENT_FIRST_PASS_THEN_EXACT_D2_L1_RECEIPT_REVIEW"
+    },
+    "pass_transfer": false,
+    "owner_packet_allowed_only_after": "D2_L1_PASS_AND_D2_L2_PASS"
+  },
+  "known_cutover_execution_blocker": {
+    "risk_id": "RISK-CAS-PRIMITIVE-AVAILABILITY-001",
+    "observed_available_ref_update_surface": "FORCE_FALSE_WITHOUT_EXPECTED_OLD_ARGUMENT",
+    "classification": "POST_VALIDATION_CUTOVER_EXECUTION_CAPABILITY_BLOCKER_NOT_D2_CONTRACT_DEFECT",
+    "required_disposition": "PROVE_TRUE_EXPECTED_OLD_ATOMIC_CAS_PRIMITIVE_OR_ABORT_WITH_ZERO_REF_WRITES",
+    "waiver_or_emulation": "PROHIBITED"
+  },
+  "program_isolation": {
+    "m3top3_branch": "aaa-pmo-m3top3-successor-resume-20260826-0034",
+    "m3top3_head_readback": "0f3b7b0cc0864d9939c670129991fdabca14a90c",
+    "m3top3_state": "SOURCE_BLOCKED_UNTOUCHED",
+    "axis_b_recompute": false,
+    "owner_decision_rebind": false,
+    "common_guard_progress": "10 / 100 EWU PRESERVED"
+  },
+  "freeze_verdict": "PASS_D2_TARGET_FROZEN_ROUTE_TO_FRESH_AFFECTED_P0_L1_AND_INDEPENDENT_P0_L2",
+  "claim_ceiling": "D2_TARGET_FROZEN_NOT_VALIDATED_NOT_OWNER_APPROVED_NOT_ACTIVATED"
+}
