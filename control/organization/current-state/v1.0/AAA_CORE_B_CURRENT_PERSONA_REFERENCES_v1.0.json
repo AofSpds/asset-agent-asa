@@ -30,6 +30,15 @@
       "path": "control/persona-memory/v1.0/AAA_PERSONA_MEMORY_INDEX_v1.0.json",
       "git_blob": "2167e65347305b496c99a754d0a3e9434a4b1555"
     },
+    "common_project_memory": {
+      "path": "control/persona-memory/v1.0/COMMON/PROJECT_MEMORY.md",
+      "git_blob": "3950505579386c816aad22d8d52367606047730d",
+      "core_b_remediation_state": "CLOSED"
+    },
+    "runtime_loadout_guide": {
+      "path": "control/persona-memory/v1.0/AAA_PERSONA_RUNTIME_LOADOUT_AND_MEMORY_CONTINUITY_GUIDE_v1.0.md",
+      "git_blob": "84e10e6010dd5109a35d9754ede3c53ebbe67d35"
+    },
     "mod_memory": "control/persona-memory/v1.0/AAA-MODEL-ARCHITECT/MEMORY.md",
     "mod_worklog": "control/persona-memory/v1.0/AAA-MODEL-ARCHITECT/WORKLOG.md",
     "modv_memory": "control/persona-memory/v1.0/AAA-MODEL-VALIDATOR/MEMORY.md",
@@ -50,8 +59,19 @@
       "path": "control/organization/persona-manifest/v1.0/AAA_CORE_B_PERSONA_MANIFEST_SUCCESSOR_v1.0.json",
       "git_blob": "5ee7e06c468ccf18cce133d18f604ed6c0dfa094",
       "disposition": "HISTORICAL_WRONG_DIRECTION_CANDIDATE_NOT_CURRENT"
+    },
+    {
+      "path": "control/decisions/organization/v1.0/AAA_OWNER_CORE_B_AUTHORITY_COHERENCE_REMEDIATION_DIRECTIVE_v1.0.json",
+      "git_blob": "4928b3d12e9ad5587a689ea19ac89c3225203510",
+      "disposition": "SUPERSEDED_BY_LATER_OWNER_CORRECTION_NO_CURRENT_ROUTING_HOLD"
     }
   ],
+  "bounded_root_cause_receipt": {
+    "commit": "e9dc8b2fd5f58f49ac88b02c8136330db85700b1",
+    "path": "control/persona-memory/v1.0/AAA-ASA/review-receipts/CORE_B_RECURRING_CURRENT_STATE_ROOT_CAUSE_INVESTIGATION_2026-08-26.md",
+    "git_blob": "fb83835a32b2dfe9eb8217622712cea268ba8ea2",
+    "authority_sot": false
+  },
   "resolution": {
     "exactly_one_current_mod": "AAA-MODEL-ARCHITECT",
     "exactly_one_current_modv": "AAA-MODEL-VALIDATOR",

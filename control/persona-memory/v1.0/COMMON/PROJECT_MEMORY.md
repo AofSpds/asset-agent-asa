@@ -31,7 +31,7 @@ AUTHORITY_SOT = FALSE
 
 ## CURRENT_GLOBAL_BLOCKERS
 - 이 bootstrap/memory 구조는 아직 `WORKING_CANDIDATE_NOT_ACTIVE_AUTHORITY`이며 governed activation/validation이 남아 있다.
-- Active Organization의 Core B authority/persona coherence incident는 별도 P0 remediation이 열려 있다. bootstrap candidate가 그 충돌을 자동 해결했다고 간주하지 않는다.
+- Core B authority/persona coherence remediation은 Owner correction에 따라 종료되었다. 현재 pair는 AAA-MODEL-ARCHITECT / AAA-MODEL-VALIDATOR이며, D4/v1.4 reverse-cutover와 R7 checkpoint는 historical evidence only이다. 이후 bootstrap은 bounded currentization 및 Common Guard resume checkpoint를 따른다.
 - Global current authority surfaces가 충돌하면 material work를 추정으로 진행하지 말고 `BOOTSTRAP_REVIEW_REQUIRED`로 보고한다.
 - ChatGPT fresh-channel regression과 Codex clean-local-invocation regression 모두 아직 PASS가 증명되지 않았다.
 
@@ -74,3 +74,5 @@ AUTHORITY_SOT = FALSE
 - 2026-08-22 05:02 KST | HIGH | ACTIVE | Owner approval: Codex/local repository runtime을 별도 bootstrap adapter로 추가하되 Persona system은 공유하고, mutation은 task별 branch/worktree로 격리하며 병렬 기록 충돌을 방지한다.
 - 2026-08-25 14:05 KST | HIGH | SUPERSEDED_BY_UNIVERSAL_SCOPE | Owner directed the current Progress Bar + empirical calibration + mandatory WBS time + CRU/EWU compute/work accounting draft to be adopted as persistent behavior guidance for ASA, PMO, and ASAV.
 - 2026-08-25 14:11 KST | HIGH | ACTIVE | Owner clarified that the same progress/time/compute principles must apply whenever ANY Persona is injected. Universal common behavior-code loadout now precedes Persona-specific loadout; current and future Personas inherit it automatically.
+
+
