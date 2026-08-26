@@ -1,0 +1,122 @@
+{
+  "artifact_id": "AAA-CORE-B-AUTHORITY-COHERENCE-D1-PMO-BLOCKED-DISPOSITION-AND-FREEZE-CORRECTION-v1.0",
+  "artifact_kind": "IMMUTABLE_PMO_D1_BLOCKED_DISPOSITION_AND_PRIOR_RECEIPT_CORRECTION",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-PMO-ORCHESTRATOR",
+  "state": "D1_SUPERSEDED_BLOCKED_ROUTE_TO_D2",
+  "created_at_kst": "2026-08-26T13:50:17+09:00",
+  "d1_exact_target": {
+    "branch": "aaa-core-b-authority-coherence-successor-v1.0-20260826",
+    "commit": "a1c65d0e500c34fe849badf452f84907f6d53554",
+    "tree": "22aca5d9d5ad38525873f91232bc7728da137aa6",
+    "parent": "78cea1dc42c0d35fda190c76b142c4e3b7623f27",
+    "disposition": "IMMUTABLE_FAILED_VALIDATION_EVIDENCE_NOT_OWNER_PACKET_ELIGIBLE_NOT_ACTIVATABLE"
+  },
+  "superseded_pmo_freeze_receipt": {
+    "artifact_id": "AAA-CORE-B-AUTHORITY-COHERENCE-D1-FROZEN-TARGET-RECEIPT-v1.0",
+    "path": "control/organization/authority-conflicts/v1.0/remediation/core-b-authority-coherence-successor-v1.0/AAA_CORE_B_AUTHORITY_COHERENCE_D1_FROZEN_TARGET_RECEIPT_v1.0.json",
+    "commit": "85321a798bc82912f28fe061450e047257bbea4d",
+    "git_blob": "5c363468c4b7d4aabb3f7e6eb79cb26c5923decd",
+    "sha256": "ac2f4510be63ab892b12e0e6f1af54a765889fbb3b85455a907f3d5fac2c4db2",
+    "byte_size": 9168,
+    "preservation": "PRESERVE_IMMUTABLY_AS_HISTORICAL_EVIDENCE_DO_NOT_OVERWRITE",
+    "authoritative_for_future_owner_or_cutover_binding": false
+  },
+  "pmo_corrections": [
+    {
+      "finding_id": "F-P0-IVA-D1-FP-002",
+      "field": "semantic_diff_from_d0.only_material_authority_change_remains",
+      "incorrect_value": "AAA-MODEL-ARCHITECT + AAA-MODEL-VALIDATOR TO AAA-CORE-MODEL-AUTHOR + AAA-CORE-MODEL-VALIDATOR",
+      "correct_before_pair": [
+        "AAA-MODEL-ARCHITECT",
+        "AAA-MODEL-VALIDATOR"
+      ],
+      "correct_after_pair": [
+        "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+        "AAA-MODEL-DESIGN-VALIDATOR"
+      ],
+      "correct_after_pair_id": "AAA-PAIR-MOD-MODV-v1.2",
+      "disposition": "ACKNOWLEDGED_AND_MUST_BE_CORRECT_IN_D2_FREEZE_RECEIPT"
+    },
+    {
+      "finding_id": "F-P0-IVA-D1-FP-003",
+      "field": "validation_route.p0_l2_role",
+      "incorrect_value": "AAA-INDEPENDENT-VALIDATION-AUDITOR",
+      "correct_governed_persona_id": "AAA-VALIDATION-AUDITOR",
+      "official_code": "IVA",
+      "non_authoritative_role_label_allowed": "independent validation auditor",
+      "disposition": "ACKNOWLEDGED_AND_MUST_BE_CORRECT_IN_D2_FREEZE_RECEIPT"
+    }
+  ],
+  "validation_evidence": {
+    "ctlv_l1": {
+      "verdict": "PASS",
+      "commit": "7bbe76c67dc9fbec4d024188adb8abebd2394e8e",
+      "git_blob": "4590ed259630d201b19c62de264db7164dc7cd2d",
+      "path": "control/validation/organization/releases/v1.4/validator/aaa-control-validator/AAA_CORE_B_AUTHORITY_COHERENCE_D1_P0_CTLV_L1_RECEIPT_v1.0.json",
+      "pass_transfer_to_l2": false
+    },
+    "iva_independent_first_pass": {
+      "verdict": "BLOCKED_WITH_EXACT_REASON",
+      "commit": "2e117276f59a55c81ef5c41dc2a41e6fc153ce0b",
+      "git_blob": "d5fa83cb5118b741f3e36fd2a0d536020e0286e6",
+      "path": "control/validation/organization/releases/v1.4/auditor/aaa-validation-auditor/AAA_CORE_B_AUTHORITY_COHERENCE_D1_IVA_INDEPENDENT_FIRST_PASS_v1.0.json"
+    },
+    "iva_final_disposition": {
+      "verdict": "BLOCKED_WITH_EXACT_REASON",
+      "l2_pass": false,
+      "commit": "923d0f62b1f52624d70be590cd83678d7fc2eead",
+      "git_blob": "02d129edaaf357731f35e12f5e2ec2d8991fec18",
+      "path": "control/validation/organization/releases/v1.4/auditor/aaa-validation-auditor/AAA_CORE_B_AUTHORITY_COHERENCE_D1_IVA_FINAL_DISPOSITION_v1.0.json"
+    }
+  },
+  "confirmed_candidate_blocker": {
+    "finding_id": "F-P0-IVA-D1-FP-001",
+    "class": "ROLLBACK_NORMATIVE_CONTRACT_CONFLICT",
+    "transition_plan": {
+      "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_CURRENT_POINTER_TRANSITION_PLAN_v1.1.json",
+      "git_blob": "77b81bb023e54bd22ca47661f41da9d0d39208a7",
+      "behavior": "TWO_REF_SEQUENCE_WITH_CONDITIONAL_DELETE_OF_NEW_v1.4_ON_PRIMARY_CAS_FAILURE"
+    },
+    "rollback_manifest": {
+      "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_ROLLBACK_MANIFEST_v1.0.json",
+      "git_blob": "0dbb63bd742b1e0938c23a6cecea5b1c80ae4e77",
+      "behavior": "SINGLE_GOVERNED_REF_UPDATE_NO_DELETE_DELETE_v1.4_PROHIBITED"
+    },
+    "reason": "BOTH_FROZEN_NORMATIVE_CONTROLS_CANNOT_BE_SATISFIED_SIMULTANEOUSLY",
+    "waiver_allowed": false
+  },
+  "d2_required_route": {
+    "author": "AAA-CONTROL-ARCHITECT",
+    "required_change": "FORWARD_ONLY_SUCCESSOR_TRANSITION_PLAN_AND_ROLLBACK_MANIFEST_WITH_COHERENT_TWO_REF_FAILURE_BEHAVIOR",
+    "policy": "NO_DELETE_RETAIN_NEW_v1.4_AS_INERT_SURFACED_BLOCKER_IF_PRIMARY_CAS_FAILS",
+    "preserve_d0_d1_bytes": true,
+    "fresh_d2_freeze_required": true,
+    "fresh_affected_ctlv_l1_required": true,
+    "fresh_independent_iva_l2_required": true,
+    "owner_packet_allowed_only_after_both_pass": true
+  },
+  "execution_capability_hold": {
+    "true_expected_old_atomic_cas_required": true,
+    "observed_force_false_only_tool_is_sufficient": false,
+    "emulation_or_waiver": "PROHIBITED",
+    "cutover_state": "HOLD"
+  },
+  "program_isolation": {
+    "m3top3_branch": "aaa-pmo-m3top3-successor-resume-20260826-0034",
+    "m3top3_head": "0f3b7b0cc0864d9939c670129991fdabca14a90c",
+    "m3top3_unchanged": true,
+    "axis_b_recompute": false,
+    "owner_decision_rebind": false,
+    "common_guard_progress": "10 / 100 EWU PRESERVED"
+  },
+  "owner_decision": {
+    "requested": false,
+    "inferred": false,
+    "reason": "D1_L2_BLOCKED"
+  },
+  "verdict": "D1_BLOCKED_SUPERSEDED_ROUTE_TO_D2",
+  "claim_ceiling": "D1_BLOCKED_DISPOSITION_AND_PMO_RECEIPT_CORRECTION_ONLY_NO_L2_PASS_NO_OWNER_PACKET_NO_CUTOVER_NO_ACTIVE_REF_WRITE"
+}
