@@ -1,0 +1,76 @@
+{
+  "artifact_id": "AAA-CORE-B-AUTHORITY-COHERENCE-D2-PMO-BLOCKED-DISPOSITION-v1.0",
+  "artifact_kind": "IMMUTABLE_PMO_D2_BLOCKED_DISPOSITION",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-PMO-ORCHESTRATOR",
+  "state": "D2_SUPERSEDED_BLOCKED_ROUTE_TO_D3",
+  "created_at_kst": "2026-08-26T14:04:19+09:00",
+  "exact_target": {
+    "commit": "48f37d91f2b52a2909a973a1c8bc38b284229c9e",
+    "tree": "4aba5189dece01a017b3c59f6cdb36303a9d9026",
+    "parent": "a1c65d0e500c34fe849badf452f84907f6d53554",
+    "disposition": "IMMUTABLE_BLOCKED_EVIDENCE_NOT_OWNER_PACKET_ELIGIBLE_NOT_ACTIVATABLE"
+  },
+  "validation_evidence": {
+    "ctlv_l1": {
+      "verdict": "PASS",
+      "commit": "9e00b06bb5b8a375e0cfd64951c6115b3fa12c74",
+      "git_blob": "156c9018a953650493f942ee4a01d717985c8f1c",
+      "path": "control/validation/organization/releases/v1.4/validator/aaa-control-validator/AAA_CORE_B_AUTHORITY_COHERENCE_D2_P0_CTLV_L1_RECEIPT_v1.0.json",
+      "pass_transfer": false
+    },
+    "iva_independent_first_pass": {
+      "verdict": "BLOCKED_WITH_EXACT_REASON",
+      "commit": "6355ea5801c15b69a00f5053a85cb738a557cb28",
+      "git_blob": "40e02495bb22b1fba4a2e0b2d5cfaa60a0912efd",
+      "path": "control/validation/organization/releases/v1.4/auditor/aaa-validation-auditor/AAA_CORE_B_AUTHORITY_COHERENCE_D2_IVA_INDEPENDENT_FIRST_PASS_v1.0.json"
+    },
+    "iva_final": {
+      "verdict": "BLOCKED_WITH_EXACT_REASON",
+      "l2_pass": false,
+      "commit": "d183b64b2a28a2232cc0add4b405218d5e659044",
+      "git_blob": "20f3d20547ae8e0ed9a324a4284ea32923c39412",
+      "path": "control/validation/organization/releases/v1.4/auditor/aaa-validation-auditor/AAA_CORE_B_AUTHORITY_COHERENCE_D2_IVA_FINAL_DISPOSITION_v1.0.json"
+    }
+  },
+  "confirmed_blocker": {
+    "finding_id": "F-P0-IVA-D2-FP-001",
+    "class": "PRIMARY_CAS_FAILURE_ACTIVE_STATE_OVERCLAIM_CONFLICT",
+    "plan_v1_2_blob": "a5542a2cec61d52816fdb642a50bd7c6734bd802",
+    "rollback_v1_1_blob": "303c78194e5786baa1c8fb2d40d54f05f67bddfd",
+    "exact_reason": "A_TRUE_EXPECTED_OLD_CAS_MAY_FAIL_BECAUSE_PRIMARY_WAS_CONCURRENTLY_CHANGED; EFFECTIVE_RELEASE_IS_UNKNOWN_UNTIL_PINNED_READBACK_AND_CANNOT_BE_UNCONDITIONALLY_REPORTED_AS_v1.3",
+    "waiver_allowed": false
+  },
+  "d3_required_route": {
+    "author": "AAA-CONTROL-ARCHITECT",
+    "required_change": "FORWARD_ONLY_SUCCESSOR_PLAN_AND_ROLLBACK_PAIR",
+    "required_failure_state": "UNKNOWN_UNTIL_PINNED_READBACK",
+    "this_act_statement": "REPORT_PRIMARY_UPDATE_RESULT_SEPARATELY_FROM_GLOBAL_AUTHORITY_STATE",
+    "v1_3_claim_condition": "PINNED_PRIMARY_EQUALS_5b2dd5c5_AND_FOUR_OLD_ACTIVE_BLOBS_MATCH",
+    "concurrent_head_disposition": "RECORD_EXACT_HEAD_INFER_NO_RELEASE_SURFACE_P0_REQUIRE_AFFECTED_DELTA_REVIEW",
+    "preserve_d2_bytes": true,
+    "fresh_freeze_l1_l2_required": true
+  },
+  "cutover_execution_hold": {
+    "true_expected_old_atomic_cas_required": true,
+    "observed_force_false_only_tool_sufficient": false,
+    "waiver_or_emulation": "PROHIBITED",
+    "active_ref_writes": 0
+  },
+  "program_isolation": {
+    "m3top3_head": "0f3b7b0cc0864d9939c670129991fdabca14a90c",
+    "m3top3_unchanged": true,
+    "axis_b_recompute": false,
+    "owner_decision_rebind": false,
+    "common_guard_progress": "10 / 100 EWU PRESERVED"
+  },
+  "owner_decision": {
+    "requested": false,
+    "inferred": false,
+    "reason": "D2_L2_BLOCKED"
+  },
+  "verdict": "D2_BLOCKED_SUPERSEDED_ROUTE_TO_D3",
+  "claim_ceiling": "D2_BLOCKED_DISPOSITION_ONLY_NO_L2_PASS_NO_OWNER_PACKET_NO_CUTOVER_NO_ACTIVE_REF_WRITE"
+}
