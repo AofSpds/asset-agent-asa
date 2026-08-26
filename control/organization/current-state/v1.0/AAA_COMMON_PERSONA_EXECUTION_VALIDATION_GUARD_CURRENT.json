@@ -4,22 +4,22 @@
   "version": "v1.0",
   "project": "AAA",
   "product": "ASSET AGENT ASA",
-  "state": "A2_SHADOW_POINTER_WIRED_ON_ISOLATED_BRANCH_NOT_ACTIVE",
+  "state": "D1_CORRECTED_SHADOW_POINTER_PENDING_AFFECTED_AND_VALIDATOR_RECHECK_NOT_ACTIVE",
   "mode": "SHADOW",
   "semantic_sot": false,
   "target": {
     "artifact_id": "AAA-COMMON-PERSONA-EXECUTION-VALIDATION-GUARD-v1.1",
     "version": "v1.1",
     "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_v1.1.json",
-    "git_blob": "d803945e7e709dc96daf460ef2f6fd5cedec6e4b"
+    "git_blob": "2bff1b6e8431bc36064d3dfd31bc245a4cf4829f"
   },
   "composition_contract": {
     "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_COMPOSITION_v1.0.md",
-    "git_blob": "03ed1a50a1f503e464c418c9d3beddc49fbbc688"
+    "git_blob": "3f2d413c0796100581b8400a76a9b94ff802916d"
   },
   "rollback_design": {
     "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_ROLLBACK_DESIGN_v1.0.json",
-    "git_blob": "6b4fae6982a3db3695d06f787a1e04d3d9e64abe"
+    "git_blob": "6bfc4c2a8e214a3b9ad49703e6fc662fb203231a"
   },
   "predecessor": {
     "state": "EXACT_PATH_ABSENT_AT_A0_R_BASE",
@@ -55,11 +55,12 @@
     "state": "CLOSED",
     "enforced_activation_allowed": false,
     "completed": [
-      "A2_EXACT_POINTER_INJECTION_AND_ALL_PERSONA_STATIC_COVERAGE"
+      "A2_EXACT_POINTER_INJECTION_AND_ALL_PERSONA_STATIC_COVERAGE",
+      "A3_T0_THROUGH_T10_PASS_11_OF_11"
     ],
     "remaining": [
-      "A3_T0_THROUGH_T10_PASS",
-      "A4_TARGETED_FROZEN_CANDIDATE_VALIDATION_PASS",
+      "A4_D1_AFFECTED_TEST_RECHECK_PASS",
+      "A4_D1_TARGETED_FROZEN_CANDIDATE_VALIDATOR_RECHECK_PASS",
       "A5_ROLLBACK_DEMONSTRATION_PASS",
       "A5_PRE_MERGE_COMPARE_AND_SWAP_PASS",
       "A5_POST_MERGE_AND_POST_POINTER_READBACK_PASS"
@@ -67,9 +68,9 @@
   },
   "operational_rollback": {
     "transition": "ENFORCED_TO_THIS_EXACT_SHADOW_POINTER",
-    "shadow_pointer_blob": "PIN_BY_LATEST_PRE_ACTIVATION_D0_FREEZE_CHECKPOINT",
+    "shadow_pointer_blob": "PIN_BY_LATEST_PRE_ACTIVATION_D1_FREEZE_CHECKPOINT",
     "method": "FORWARD_ONLY_NON_FORCE_COMPARE_AND_SWAP_POINTER_SUCCESSOR"
   },
   "pointer_semantic_role": "NON_SEMANTIC_CURRENT_STATE_RESOLUTION",
-  "claim_ceiling": "UNMERGED_A1_SHADOW_POINTER_CANDIDATE_NO_ACTIVE_OR_ENFORCED_EFFECT"
+  "claim_ceiling": "D1_AUTHOR_CORRECTED_SHADOW_POINTER_PENDING_AFFECTED_AND_VALIDATOR_RECHECK_NO_ACTIVE_OR_ENFORCED_EFFECT"
 }

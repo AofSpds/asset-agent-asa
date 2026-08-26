@@ -4,13 +4,13 @@
   "version": "v1.0",
   "project": "AAA",
   "product": "ASSET AGENT ASA",
-  "state": "A2_SHADOW_POINTER_COVERAGE_CANDIDATE",
+  "state": "D1_CORRECTED_SHADOW_POINTER_COVERAGE_PENDING_AFFECTED_AND_VALIDATOR_RECHECK",
   "branch": "aaa-common-persona-validation-execution-guard-v1.1-r2-20260826",
   "a1_base_commit": "3408e1dbb27e92bdc0f2c34016391d98d3af5b54",
   "injection_route": {
     "bootstrap_candidate": {
       "path": "control/bootstrap/project-instructions/v1.0/AAA_PROJECT_INSTRUCTIONS_CURRENT_CANDIDATE_v1.0.json",
-      "git_blob": "29d1814629d6ac172b88ba7ad5c5471ed6064b16"
+      "git_blob": "fa76370df6e97987b99e4c97389295f59f0f54cc"
     },
     "global_rule_pointer": {
       "path": "control/organization/current-state/v1.0/AAA_GLOBAL_PACKET_DISPLAY_RULE_CURRENT.json",
@@ -19,16 +19,16 @@
     },
     "common_guard_pointer": {
       "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_CURRENT.json",
-      "git_blob": "05226252d787b29149eaf6da6a923d5b1cf090ec",
+      "git_blob": "0daab5c5ac7f9b8efb2f4c015331c40581cf918b",
       "mode": "SHADOW"
     },
     "common_guard": {
       "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_v1.1.json",
-      "git_blob": "d803945e7e709dc96daf460ef2f6fd5cedec6e4b"
+      "git_blob": "2bff1b6e8431bc36064d3dfd31bc245a4cf4829f"
     },
     "composition_contract": {
       "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_COMPOSITION_v1.0.md",
-      "git_blob": "03ed1a50a1f503e464c418c9d3beddc49fbbc688"
+      "git_blob": "3f2d413c0796100581b8400a76a9b94ff802916d"
     },
     "selector_registry": {
       "path": "control/persona-memory/v1.0/AAA_PERSONA_RUNTIME_SELECTOR_REGISTRY_v1.0.json",
@@ -171,7 +171,7 @@
     "route": "GOVERNED_CURRENT_PERSONA_REGISTRATION_THEN_EXISTING_BOOTSTRAP_POINTER_RESOLUTION",
     "owner_restatement_required": false,
     "persona_local_rule_copy_required": false,
-    "must_be_proven_by": "T0_A3"
+    "proof": "PASS_T0_A3_ON_D0_CHAIN_AFFECTED_RECHECK_REQUIRED_FOR_D1_CHAIN"
   },
   "no_dual_sot_evidence": {
     "normative_guard_locations": [
@@ -180,7 +180,7 @@
     "bootstrap_contains_pointer_only": true,
     "persona_memory_contains_guard_copy": false
   },
-  "validation_state": "NOT_RUN_A2_ROUTING_EVIDENCE_ONLY",
+  "validation_state": "A3_PASS_D1_AFFECTED_AND_VALIDATOR_RECHECK_PENDING",
   "enforced_activation": false,
-  "claim_ceiling": "A2_SHADOW_POINTER_COVERAGE_MANIFEST_NO_TEST_OR_VALIDATION_PASS_NO_ENFORCED_ACTIVATION"
+  "claim_ceiling": "D1_AUTHOR_CORRECTED_SHADOW_COVERAGE_PENDING_AFFECTED_AND_VALIDATOR_RECHECK_NO_ENFORCED_ACTIVATION"
 }

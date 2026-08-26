@@ -7,9 +7,19 @@
   "product": "ASSET AGENT ASA",
   "authoring_persona": "AAA-PMO-ORCHESTRATOR",
   "task_class": "P1_GLOBAL_OPERATING_CONTROL",
-  "state": "FROZEN_A1_SHADOW_DESIGN_CANDIDATE_NOT_ENFORCED",
+  "state": "D1_CORRECTED_POINTER_CONTROLLED_CANDIDATE_PENDING_A4_RECHECK_NOT_ENFORCED",
   "semantic_sot": true,
-  "effective_mode": "SHADOW",
+  "effective_mode": "RESOLVED_FROM_EXACT_CURRENT_POINTER",
+  "effective_mode_source": {
+    "path": "control/organization/current-state/v1.0/AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_CURRENT.json",
+    "field": "mode",
+    "allowed_modes": [
+      "SHADOW",
+      "ENFORCED"
+    ],
+    "d1_candidate_mode": "SHADOW",
+    "guard_self_activation": false
+  },
   "owner_authorization": {
     "packet_id": "AAA-COMMON-PERSONA-VALIDATION-EXECUTION-TUNING-ROLLOUT-v1.1",
     "source_packet": "AAA-PERSONA-COMMON-VALIDATION-TUNING-REQUEST-v1.0",
@@ -26,6 +36,19 @@
     "active_organization": "aaa-organization-active-v1.3@d7c490c373f2df356f31e4459c345328616b4eb3",
     "active_persona_count": 13,
     "active_persona_inventory_blob": "e1bfc77b96c4a5fbf1b7bf43c8bf5f0683c64be6",
+    "active_persona_inventory_binding_role": "UPSTREAM_CANONICAL_ACTIVE_INVENTORY_AT_A0_R_NOT_BRANCH_LOCAL_SHADOW_WIRING_OVERLAY",
+    "d0_branch_shadow_wiring_inventory_predecessor_blob": "65b30bdecbd3704412fe75a2e250557ebf0d65ba",
+    "d1_branch_shadow_wiring_inventory_binding": "PINNED_EXTERNALLY_BY_D1_FREEZE_TO_AVOID_CONTENT_ADDRESSED_CYCLE",
+    "current_persona_projection_bindings": [
+      {
+        "path": "control/organization/current-state/v1.0/AAA_SHARED_CONTRACT_CORE_B_PERSONA_CURRENT_PROJECTION_v1.0.json",
+        "git_blob": "8408ea10a98a6130703829e29c9325614a082ea5"
+      },
+      {
+        "path": "control/organization/current-state/v1.0/AAA_CORE_B_CURRENT_PERSONA_REFERENCES_v1.0.json",
+        "git_blob": "275e0da4257ea8562240979215a6c2dced290334"
+      }
+    ],
     "m3top3_preserved": "aaa-pmo-m3top3-successor-resume-20260826-0034@0f3b7b0cc0864d9939c670129991fdabca14a90c"
   },
   "superior_current_rule_binding": {
@@ -353,6 +376,14 @@
       "T10"
     ]
   },
+  "enforced_behavior": {
+    "activation_source": "EXACT_CURRENT_POINTER_MODE_ONLY_AFTER_ALL_ENFORCED_ACTIVATION_PRECONDITIONS_PASS",
+    "apply_G_01_through_G_15": true,
+    "preserve_existing_validation_floor_and_gates": true,
+    "preserve_authority_and_shared_contract": true,
+    "guard_direct_pass_or_fail": false,
+    "guard_self_activation": false
+  },
   "enforced_activation_preconditions": [
     "ACTIVE_PERSONA_INVENTORY_EXACT",
     "ALL_PERSONA_COVERAGE_PROVEN",
@@ -368,14 +399,14 @@
   "rollback_contract": {
     "method": "FORWARD_ONLY_COMPARE_AND_SWAP_ROLLBACK_COMMIT",
     "operational_rollback_transition": "ENFORCED_POINTER_TO_EXACT_PRIOR_SHADOW_POINTER",
-    "shadow_pointer_identity_binding": "PINNED_BY_LATEST_PRE_ACTIVATION_D0_FREEZE_CHECKPOINT_AND_RECONFIRMED_PRE_ACTIVATION",
+    "shadow_pointer_identity_binding": "PINNED_BY_LATEST_PRE_ACTIVATION_D1_FREEZE_CHECKPOINT_AND_RECONFIRMED_PRE_ACTIVATION",
     "guard_artifact_after_rollback": "IMMUTABLE_PRESENT_BUT_INERT_UNDER_SHADOW_POINTER",
-    "bootstrap_binding_after_rollback": "UNCHANGED_SINGLE_POINTER_ROUTE",
+    "bootstrap_route_after_rollback": "UNCHANGED_SINGLE_POINTER_PATH_WITH_DERIVED_EXACT_BLOB_REBOUND_IN_ATOMIC_FORWARD_CHANGE_SET",
     "rollback_actions": [
       "READ_EXACT_CURRENT_REF",
       "VERIFY_EXPECTED_ENFORCED_POINTER_BLOB_AND_ACTIVATION_REF",
-      "CREATE_FORWARD_POINTER_SUCCESSOR_RESTORING_EXACT_PRIOR_SHADOW_MODE",
-      "UPDATE_REF_NON_FORCE_ONLY",
+      "CREATE_FORWARD_ATOMIC_CHANGE_SET_RESTORING_EXACT_PRIOR_SHADOW_MODE_AND_REBINDING_DERIVED_BOOTSTRAP_COVERAGE_INVENTORY_IDENTITIES",
+      "UPDATE_REF_NON_FORCE_ONLY_AFTER_EXPECTED_OLD_READBACK",
       "READ_BACK_COMMIT_TREE_POINTER_GUARD_COMPOSITION_AND_BOOTSTRAP_BINDING",
       "VERIFY_FRESH_PERSONA_RESOLUTION_AND_VALIDATION_FLOOR_UNCHANGED"
     ],
@@ -404,5 +435,5 @@
     "DIFF_RECHECK_DEPENDENCY_CLOSURE_UNPROVEN",
     "UNBOUNDED_REQUIRED_REPOSITORY_SCAN"
   ],
-  "claim_ceiling": "A1_SHADOW_DESIGN_ONLY_NO_BOOTSTRAP_INJECTION_NO_TEST_PASS_NO_VALIDATION_PASS_NO_ENFORCED_ACTIVATION"
+  "claim_ceiling": "D1_AUTHOR_CORRECTED_POINTER_CONTROLLED_CANDIDATE_PENDING_AFFECTED_RECHECK_AND_VALIDATOR_RECHECK_NO_ENFORCED_ACTIVATION"
 }

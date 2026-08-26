@@ -3,8 +3,8 @@
 PROJECT = AAA  
 PRODUCT = ASSET AGENT ASA  
 CLASS = P1_GLOBAL_OPERATING_CONTROL_COMPOSITION_CONTRACT  
-MODE = SHADOW_DESIGN  
-STATE = A1_FROZEN_CANDIDATE_NOT_ACTIVE  
+MODE = POINTER_CONTROLLED (`SHADOW` OR `ENFORCED`)  
+STATE = D1_CORRECTED_CANDIDATE_PENDING_A4_RECHECK_NOT_ACTIVE  
 AUTHORITY_SOT = FALSE
 
 ## Purpose and phase boundary
@@ -18,7 +18,10 @@ A1 creates design artifacts only. Bootstrap/pointer injection is A2, representat
 - Isolated branch: `aaa-common-persona-validation-execution-guard-v1.1-r2-20260826`
 - A0-R commit: `1ec8fa08dcca560cc592869ac0ed7fdce8d1ce3a`
 - A0-R tree: `a617863d7108beb9ee3a68ad0963b61bd434090f`
-- Active Persona inventory: `control/organization/current-state/v1.0/AAA_ACTIVE_PERSONA_AND_VALIDATOR_INVENTORY_v1.0.tsv@e1bfc77b96c4a5fbf1b7bf43c8bf5f0683c64be6`
+- Upstream canonical active Persona inventory at A0-R: `control/organization/current-state/v1.0/AAA_ACTIVE_PERSONA_AND_VALIDATOR_INVENTORY_v1.0.tsv@e1bfc77b96c4a5fbf1b7bf43c8bf5f0683c64be6`
+- Branch-local shadow-wiring inventory: exact blob is pinned separately by the latest D1 freeze checkpoint; it is routing evidence, not a second Persona authority SoT.
+- Shared Contract current Persona projection: `control/organization/current-state/v1.0/AAA_SHARED_CONTRACT_CORE_B_PERSONA_CURRENT_PROJECTION_v1.0.json@8408ea10a98a6130703829e29c9325614a082ea5`
+- Current Persona reference projection: `control/organization/current-state/v1.0/AAA_CORE_B_CURRENT_PERSONA_REFERENCES_v1.0.json@275e0da4257ea8562240979215a6c2dced290334`
 - Current Persona count: `13`
 - Relevant current-state directory tree: `202f6a61e924832fad8131c829905f5d5758914d`
 - Common guard/pointer/composition/rollback paths at that exact tree: `ABSENT`
@@ -55,11 +58,12 @@ Precedence is deterministic:
 2. Resolve the exact v0.4 current pointer and verify its target blob.
 3. Resolve `AAA_COMMON_PERSONA_EXECUTION_VALIDATION_GUARD_CURRENT.json`.
 4. Verify that the pointer names one exact guard path/blob and an allowed mode.
-5. In `SHADOW`, load the guard, compute the route, and emit telemetry without changing existing gates or verdicts.
-6. Resolve the Owner-selected/current Persona through the selector registry and memory index.
-7. Load only role-specific Persona memory/worklog/addenda; do not copy the common guard payload into them.
-8. Apply the task-specific packet subject to the precedence rules above.
-9. If any exact pointer/blob/mode check fails, stop before material execution and report the exact mismatch.
+5. Resolve the pointer mode. In `SHADOW`, load the guard, compute the route, and emit telemetry without changing existing gates or verdicts.
+6. In `ENFORCED`, only after every activation precondition is exact and PASS, apply G-01 through G-15 while preserving the authority, Shared Contract, validation-floor, independence, and direct-PASS firewalls.
+7. Resolve the Owner-selected/current Persona through the selector registry and memory index.
+8. Load only role-specific Persona memory/worklog/addenda; do not copy the common guard payload into them.
+9. Apply the task-specific packet subject to the precedence rules above.
+10. If any exact pointer/blob/mode check fails, stop before material execution and report the exact mismatch.
 
 ## One-pointer / no-dual-SoT rule
 
@@ -75,7 +79,7 @@ This separates the common guard SoT from its injection route and avoids a second
 
 ## Persona coverage and inheritance
 
-All 13 current Personas in inventory blob `e1bfc77b96c4a5fbf1b7bf43c8bf5f0683c64be6` use the same pointer route. A future Persona inherits the guard when it becomes governed current and is added to the canonical selector/memory route; no Persona-local copy or Owner restatement is required.
+All 13 current Personas in upstream canonical inventory blob `e1bfc77b96c4a5fbf1b7bf43c8bf5f0683c64be6` use the same pointer route. The latest D1 freeze checkpoint separately pins the branch-local inventory whose bootstrap fields evidence that wiring, avoiding a content-addressed cycle between guard, pointer, bootstrap, and inventory. A future Persona inherits the guard when it becomes governed current and is added to the canonical selector/memory route; no Persona-local copy or Owner restatement is required.
 
 In A1, coverage is designed but not wired. A2 must materialize a coverage manifest and exact pointer injection. A3 must prove current and future-Persona inheritance behavior under T0.
 
@@ -90,7 +94,7 @@ SHADOW means:
 - make no enforced routing decision;
 - run T0–T10 before any enforced activation.
 
-The A1 pointer is therefore a branch-local candidate pointer. It is neither the active product pointer nor evidence that enforced activation prerequisites passed.
+The current pointer is therefore a branch-local `SHADOW` candidate pointer. The immutable guard is pointer-controlled and supports `SHADOW` or `ENFORCED`, but the pointer remains neither the active product pointer nor evidence that enforced activation prerequisites passed.
 
 ## Activation gate
 
@@ -98,12 +102,12 @@ Enforced activation remains closed until all of the following are exact and PASS
 
 ## Rollback interface
 
-Operational rollback is `ENFORCED → exact prior SHADOW pointer` through a forward-only, non-force, compare-and-swap pointer successor. The guard and composition artifacts remain immutable and present but become inert under SHADOW. Bootstrap continues to resolve the same single pointer path; it is not rewritten during operational rollback.
+Operational rollback is `ENFORCED → exact prior SHADOW mode` through a forward-only, non-force, compare-and-swap atomic successor. The guard and composition artifacts remain immutable and present but become inert under SHADOW. Bootstrap continues to resolve the same single pointer path; because it exact-pins the pointer blob, its derived blob plus coverage/inventory bindings are rebound in the same forward atomic change set rather than claimed byte-unchanged.
 
 Required rollback preconditions:
 
 - exact enforced pointer blob and activation ref;
-- exact prior SHADOW pointer blob pinned by the A1 freeze checkpoint and reconfirmed before activation;
+- exact prior SHADOW pointer/blob set pinned by the latest D1 freeze checkpoint and reconfirmed before activation;
 - exact bootstrap injection blobs;
 - exact guard/composition blobs;
 - no unbounded or ambiguous pointer delta.
@@ -111,7 +115,7 @@ Required rollback preconditions:
 Required rollback post-readback:
 
 - ref, commit, tree, pointer blob, guard blob, composition blob;
-- bootstrap wiring blobs unchanged;
+- bootstrap pointer path unchanged and exact derived bootstrap/coverage/inventory blobs rebound coherently;
 - fresh Persona resolution;
 - validation floor and authority state unchanged;
 - durable rollback receipt.
@@ -134,4 +138,4 @@ Before A2 wiring or enforced activation, a forward-only branch commit may restor
 
 ## Claim ceiling
 
-`A1_SHADOW_COMPOSITION_DESIGN_ONLY_NO_BOOTSTRAP_INJECTION_NO_TEST_PASS_NO_VALIDATION_PASS_NO_ENFORCED_ACTIVATION`
+`D1_AUTHOR_CORRECTED_POINTER_CONTROLLED_COMPOSITION_PENDING_AFFECTED_RECHECK_AND_VALIDATOR_RECHECK_NO_ENFORCED_ACTIVATION`
