@@ -1,0 +1,257 @@
+{
+  "artifact_id": "AAA-CORE-B-AUTHORITY-COHERENCE-D0-FROZEN-TARGET-RECEIPT-v1.0",
+  "artifact_kind": "NON_SEMANTIC_PMO_EXACT_TARGET_FREEZE_AND_VALIDATION_BINDING_RECEIPT",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "authoring_persona": "AAA-PMO-ORCHESTRATOR",
+  "wbs_id": "R3",
+  "freeze_time_kst": "2026-08-26 13:22:09 KST",
+  "freeze_id": "D0",
+  "freeze_state": "FROZEN_FOR_ONE_BOUNDED_P0_CTLV_L1_AND_ONE_INDEPENDENT_P0_IVA_L2",
+  "exact_target": {
+    "repository": "AofSpds/asset-agent-asa",
+    "branch_at_freeze": "aaa-core-b-authority-coherence-successor-v1.0-20260826",
+    "commit": "a5a41edd27497f74e6539b151c914667f27bf680",
+    "tree": "b5aae5667b6d55bef67c9ac90cc6e80fd395f652",
+    "parent_commit": "d49f0507f4311168828faffae8e3a6234f86f9cc",
+    "mutation_base_branch": "aaa-persistent-locator-active-v0.3",
+    "mutation_base_commit": "5b2dd5c5ea5bf96eb22163a0598d6879fffada9e",
+    "moving_target_after_freeze": "PROHIBITED",
+    "material_change_after_freeze_requires": "D1_AND_AFFECTED_DIFF_RECHECK"
+  },
+  "preconditions": {
+    "r0_readback_receipt": {
+      "commit": "8944a2edd3d36803cef78f4f72c55ac3e7b28de0",
+      "git_blob": "2edb08ebeef58fb8a2ccda6fa79d07daa4e4a8ff",
+      "path": "control/organization/authority-conflicts/v1.0/remediation/core-b-authority-coherence-successor-v1.0/AAA_CORE_B_AUTHORITY_COHERENCE_R0_READBACK_RECEIPT_v1.0.json",
+      "result": "PASS"
+    },
+    "r1_asav_receipt": {
+      "commit": "d49f0507f4311168828faffae8e3a6234f86f9cc",
+      "git_blob": "c94aebd461dc4d78c4e5237636cf8bdd777e6af5",
+      "path": "control/validation/organization/authority-conflicts/v1.0/validator/aaa-advisory-validator/AAA_CORE_B_AUTHORITY_COHERENCE_REMEDIATION_R1_ASAV_RECEIPT_v1.0.json",
+      "verdict": "PASS_ROUTE_TO_AAA_CONTROL_ARCHITECT"
+    },
+    "owner_directive": {
+      "commit": "5256da49b621732cae2e69f5f1563c5ba2fae886",
+      "git_blob": "4928b3d12e9ad5587a689ea19ac89c3225203510",
+      "owner_exact_text": "바로 잡으세요"
+    }
+  },
+  "successor_release": {
+    "release_id": "AAA-ORGANIZATION-RELEASE-v1.4",
+    "release_set_digest": "f73ba38193a6be35dbe032cba6f41ec65940a2dc6fd9532b92c7bbe631c50586",
+    "effective_semantic_identity": {
+      "sha256": "366f703fcd4a5c903852d7edebeda0d93d5df994eae8628e89926c51a9767858",
+      "byte_size": 29677
+    },
+    "semantic_predecessor": "AAA-ORGANIZATION-RELEASE-v1.3",
+    "predecessor_disposition": "IMMUTABLE_SUPERSEDED_NOT_REWRITTEN"
+  },
+  "d0_blob_set": [
+    {
+      "path": "control/organization/releases/v1.4/AAA_ORGANIZATION_CORE_B_AUTHORITY_PAIRING_SUCCESSOR_v1.4.json",
+      "git_blob": "88279ebb6895da6813502c4930b6739fe9a79f2b",
+      "sha256": "3e259c49c4bd0edc29dbe57ecfe9220f7a9f2b4bd7cd17608754f22ae9399c33",
+      "byte_size": 17896
+    },
+    {
+      "path": "control/organization/releases/v1.4/AAA_ORGANIZATION_TOPOLOGY_CONTRACT_v1.4.json",
+      "git_blob": "6bc1303960cce53e3936e3cabe2ac3b36db42d78",
+      "sha256": "a80523bb2742aacb1519af6455ca09668f564e6e536588bc7ed786a899ce18e8",
+      "byte_size": 26705
+    },
+    {
+      "path": "control/organization/releases/v1.4/AAA_ORGANIZATION_RELEASE_MANIFEST_v1.4.json",
+      "git_blob": "97fa121e5d5c8d2dbb929f30df25aff0e2f731cc",
+      "sha256": "8b01f2b5e938ff64073e0058ba8e2738a406d125f26262c5ccc7b9d70d645924",
+      "byte_size": 12221
+    },
+    {
+      "path": "control/organization/cutover/v1.4/phase-a/candidates/AAA_ORGANIZATION_CURRENT_ACTIVE_STATE_v1.0.json",
+      "git_blob": "e17749646a379e36e0613c6864d67a4a1b1a07ec",
+      "sha256": "f45b39e7652900dc8dc5c11480496993a1995d76a559789fff34dd1e4d1176d0",
+      "byte_size": 4567
+    },
+    {
+      "path": "control/organization/cutover/v1.4/phase-a/candidates/AAA_ORGANIZATION_ACTIVE_ROUTING_STATE_v1.0.json",
+      "git_blob": "7b1cf5cf3f82067c1f72ae5a8a51bdf5a1b60b34",
+      "sha256": "047a9872316a6a5a1dda80c7a75949c7e04806619207ddeb2552e3176c556561",
+      "byte_size": 2306
+    },
+    {
+      "path": "control/organization/cutover/v1.4/phase-a/candidates/AAA_ORGANIZATION_PAIR_ACTIVATION_STATE_v1.0.json",
+      "git_blob": "c7d44e071dba5fca54f069ffce1ab5b11feb2a66",
+      "sha256": "5551a036c4a915d6db05075d47e83e96f3f6d77a3fc3ee783f8f5aeefda9e645",
+      "byte_size": 3543
+    },
+    {
+      "path": "control/organization/cutover/v1.4/phase-a/candidates/AAA_ACTIVE_ORGANIZATION_POINTER_v1.0.json",
+      "git_blob": "16bf7e0256b5eb33e14fbcc775cb2d5c9fb48f50",
+      "sha256": "e34348d0a49fbba80eded518e80037846242edcc8648117ba0c0e0bb9445e62c",
+      "byte_size": 3719
+    },
+    {
+      "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_CURRENT_POINTER_TRANSITION_PLAN_v1.0.json",
+      "git_blob": "d81aa014414787106befdbaf4b4eadfecb1428b1",
+      "sha256": "eb438038a2b9dd8d0fb96ddc1bcb6e0b5acb1a8dd486b6894cc4e2329fa2283f",
+      "byte_size": 5261
+    },
+    {
+      "path": "control/organization/releases/v1.4/AAA_ORGANIZATION_v1.3_TO_v1.4_DETERMINISTIC_OBJECT_DIFF_v1.0.json",
+      "git_blob": "377c59c3da47c02443693b544d48fbb9be4e29aa",
+      "sha256": "00d93e32c69392236502789498e39a1286806f07d90b7ff0aed4ce4a979f4a05",
+      "byte_size": 7407
+    },
+    {
+      "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_ROLLBACK_MANIFEST_v1.0.json",
+      "git_blob": "0dbb63bd742b1e0938c23a6cecea5b1c80ae4e77",
+      "sha256": "2fa3868bec3e41a3987e956ecd9281cf3c8e767c3232065c3a3f6e8090f40743",
+      "byte_size": 4174
+    },
+    {
+      "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_FRESH_BOOTSTRAP_REGRESSION_TEST_PLAN_v1.0.json",
+      "git_blob": "c36b581d285b26d2d9de4eca93f6d82fa1677a43",
+      "sha256": "8488bc679bc5d62b0d50f126ec3946c89199903dcec376a7e0ee149c165f064c",
+      "byte_size": 7039
+    }
+  ],
+  "d0_changed_paths": {
+    "from_parent_commit": {
+      "added": 11,
+      "modified": 0,
+      "removed": 0,
+      "compare_result": "PASS_EXACT_11_PATHS"
+    },
+    "from_mutation_base": {
+      "commits_ahead": 3,
+      "added": 13,
+      "modified": 0,
+      "removed": 0,
+      "non_target_evidence_paths": 2,
+      "compare_result": "PASS_11_TARGET_PATHS_PLUS_R0_AND_R1_EVIDENCE"
+    }
+  },
+  "exact_material_object_diff": {
+    "before_active_pair": [
+      "AAA-MODEL-ARCHITECT",
+      "AAA-MODEL-VALIDATOR"
+    ],
+    "after_candidate_pair": [
+      "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+      "AAA-MODEL-DESIGN-VALIDATOR"
+    ],
+    "only_material_authority_change": true,
+    "preserved_current_persona_count": 11,
+    "total_current_persona_count_before": 13,
+    "total_current_persona_count_after": 13,
+    "preserved_pair_and_route_count": 5,
+    "total_pair_and_route_count": 6,
+    "deterministic_diff_path": "control/organization/releases/v1.4/AAA_ORGANIZATION_v1.3_TO_v1.4_DETERMINISTIC_OBJECT_DIFF_v1.0.json",
+    "deterministic_diff_blob": "377c59c3da47c02443693b544d48fbb9be4e29aa"
+  },
+  "exact_proposed_activation_bytes": [
+    {
+      "candidate_path": "control/organization/cutover/v1.4/phase-a/candidates/AAA_ORGANIZATION_CURRENT_ACTIVE_STATE_v1.0.json",
+      "target_path": "control/authority/organization/active/AAA_ORGANIZATION_CURRENT_ACTIVE_STATE_v1.0.json",
+      "git_blob": "e17749646a379e36e0613c6864d67a4a1b1a07ec"
+    },
+    {
+      "candidate_path": "control/organization/cutover/v1.4/phase-a/candidates/AAA_ORGANIZATION_ACTIVE_ROUTING_STATE_v1.0.json",
+      "target_path": "control/authority/organization/active/AAA_ORGANIZATION_ACTIVE_ROUTING_STATE_v1.0.json",
+      "git_blob": "7b1cf5cf3f82067c1f72ae5a8a51bdf5a1b60b34"
+    },
+    {
+      "candidate_path": "control/organization/cutover/v1.4/phase-a/candidates/AAA_ORGANIZATION_PAIR_ACTIVATION_STATE_v1.0.json",
+      "target_path": "control/authority/organization/active/AAA_ORGANIZATION_PAIR_ACTIVATION_STATE_v1.0.json",
+      "git_blob": "c7d44e071dba5fca54f069ffce1ab5b11feb2a66"
+    },
+    {
+      "candidate_path": "control/organization/cutover/v1.4/phase-a/candidates/AAA_ACTIVE_ORGANIZATION_POINTER_v1.0.json",
+      "target_path": "control/authority/organization/active/AAA_ACTIVE_ORGANIZATION_POINTER_v1.0.json",
+      "git_blob": "16bf7e0256b5eb33e14fbcc775cb2d5c9fb48f50"
+    }
+  ],
+  "pointer_transition_plan": {
+    "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_CURRENT_POINTER_TRANSITION_PLAN_v1.0.json",
+    "git_blob": "d81aa014414787106befdbaf4b4eadfecb1428b1",
+    "current_pointer_blob": "30cbecc2a961d5fd92b28e00be419f5a590110c1",
+    "candidate_pointer_blob": "16bf7e0256b5eb33e14fbcc775cb2d5c9fb48f50",
+    "pre_cutover_compare_and_swap_required": true,
+    "partial_promotion": "PROHIBITED"
+  },
+  "rollback_ref": {
+    "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_ROLLBACK_MANIFEST_v1.0.json",
+    "git_blob": "0dbb63bd742b1e0938c23a6cecea5b1c80ae4e77",
+    "predecessor_branch": "aaa-organization-active-v1.3",
+    "predecessor_commit": "d7c490c373f2df356f31e4459c345328616b4eb3"
+  },
+  "bootstrap_regression_plan": {
+    "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_FRESH_BOOTSTRAP_REGRESSION_TEST_PLAN_v1.0.json",
+    "git_blob": "c36b581d285b26d2d9de4eca93f6d82fa1677a43",
+    "mod_expected": "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+    "modv_expected": "AAA-MODEL-DESIGN-VALIDATOR",
+    "multiple_current_match_expected": false
+  },
+  "d0_acceptance_criteria": [
+    "OWNER_DIRECTIVE_FIDELITY",
+    "EXACT_LONG_NAME_CORE_B_PAIR",
+    "ALL_OTHER_ORGANIZATION_OBJECTS_PRESERVED",
+    "ROUTING_AND_PAIR_ACTIVATION_COHERENT",
+    "NO_DUPLICATE_ACTIVE_CORE_B_PAIR",
+    "NO_SHARED_CONTRACT_MUTATION",
+    "NO_MODEL_OR_PIT_SEMANTIC_MUTATION",
+    "CURRENT_POINTER_TRANSITION_EXACTNESS",
+    "ROLLBACK_COMPLETENESS",
+    "BOOTSTRAP_TEST_PLAN_ADEQUACY",
+    "ONE_EXACT_D0_BINDING_FOR_L1_AND_L2",
+    "EXPLICIT_OWNER_CUTOVER_REQUIRED_AFTER_L1_AND_L2"
+  ],
+  "d0_explicit_exclusions": [
+    "NO_MODEL_SEMANTIC_CHANGE",
+    "NO_FEATURE_MISSINGNESS_IMPUTATION_SCORER_WEIGHT_RANKING_CHANGE",
+    "NO_PIT_OR_GROUND_TRUTH_CHANGE",
+    "NO_SHARED_CONTRACT_CHANGE",
+    "NO_PROJECT_INSTRUCTIONS_CHANGE",
+    "NO_SELECTOR_REGISTRY_CHANGE",
+    "NO_PERSONA_MEMORY_INDEX_CHANGE",
+    "NO_HISTORICAL_v1.3_REWRITE",
+    "NO_ACTIVE_POINTER_MOVE_BEFORE_OWNER_YES",
+    "NO_MODEL_FREEZE_RELEASE_PRODUCTION",
+    "NO_M3TOP3_REPLAY",
+    "NO_REPOSITORY_WIDE_OR_GLOBAL_REGRESSION"
+  ],
+  "validation_route": {
+    "l1": "AAA-CONTROL-VALIDATOR_ONE_BOUNDED_P0_PAIRED_L1_ON_D0_ONLY",
+    "l2": "AAA-VALIDATION-AUDITOR_ONE_BOUNDED_P0_INDEPENDENT_L2_ON_SAME_D0",
+    "iva_first_pass_must_be_frozen_before_ctlv_findings_review": true,
+    "validator_target_rewrite": "PROHIBITED",
+    "active_validators_at_freeze": 0
+  },
+  "m3top3_preservation": {
+    "branch": "aaa-pmo-m3top3-successor-resume-20260826-0034",
+    "exact_head": "0f3b7b0cc0864d9939c670129991fdabca14a90c",
+    "state": "SOURCE_BLOCKED",
+    "unchanged": true
+  },
+  "progress": {
+    "remediation_total_ewu": 60,
+    "r0_earned_ewu": 5,
+    "r1_earned_ewu": 8,
+    "r2_earned_ewu": 15,
+    "r3_earned_ewu": 5,
+    "remediation_earned_ewu_after_freeze": 33,
+    "common_guard_earned_ewu": 10,
+    "common_guard_total_ewu": 100,
+    "actual_cru": "NOT_INSTRUMENTED"
+  },
+  "claim_ceiling": {
+    "target_authored_and_frozen": true,
+    "validation_pass": false,
+    "owner_cutover_approved": false,
+    "active_pointer_moved": false,
+    "routing_hold_released": false,
+    "production_or_release_authority": false
+  }
+}
