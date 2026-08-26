@@ -1,0 +1,419 @@
+{
+  "artifact_id": "AAA-CORE-B-AUTHORITY-COHERENCE-D2-IVA-INDEPENDENT-FIRST-PASS-v1.0",
+  "artifact_kind": "P0_INDEPENDENT_VALIDATION_AUDITOR_D2_FIRST_PASS_RECEIPT_NOT_FINAL_L2",
+  "version": "v1.0",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "wbs_id": "P0-CORE-B-AUTHORITY-COHERENCE-D2-IVA-FIRST-PASS",
+  "governed_persona_id": "AAA-VALIDATION-AUDITOR",
+  "official_code": "IVA",
+  "assigned_role_label": "independent validation auditor",
+  "validation_class": "P0_INDEPENDENT_L2_FIRST_PASS",
+  "state": "INDEPENDENT_FIRST_PASS_FROZEN_BLOCKED_WITH_EXACT_REASON_FINAL_L2_NOT_ISSUED",
+  "freeze_time_kst": "2026-08-26T14:00:22+09:00",
+  "exact_d2_target": {
+    "repository": "AofSpds/asset-agent-asa",
+    "branch": "aaa-core-b-authority-coherence-successor-v1.0-20260826",
+    "commit": "48f37d91f2b52a2909a973a1c8bc38b284229c9e",
+    "tree": "4aba5189dece01a017b3c59f6cdb36303a9d9026",
+    "sole_parent": "a1c65d0e500c34fe849badf452f84907f6d53554",
+    "branch_head_readback": "48f37d91f2b52a2909a973a1c8bc38b284229c9e",
+    "branch_head_match": true,
+    "content_mutation_after_freeze": "PROHIBITED"
+  },
+  "d2_freeze_receipt_binding": {
+    "artifact_id": "AAA-CORE-B-AUTHORITY-COHERENCE-D2-FROZEN-TARGET-RECEIPT-v1.0",
+    "local_path": "/workspace/scratch/849bcf450445/work/core_b_remediation/d2/AAA_CORE_B_AUTHORITY_COHERENCE_D2_FROZEN_TARGET_RECEIPT_v1.0.json",
+    "remote_path": "control/organization/authority-conflicts/v1.0/remediation/core-b-authority-coherence-successor-v1.0/AAA_CORE_B_AUTHORITY_COHERENCE_D2_FROZEN_TARGET_RECEIPT_v1.0.json",
+    "remote_commit": "c635aed1d5e8cca82b6ca3b9268b19e8699054df",
+    "git_blob": "5f91842d2ae1a602d3495f9767f0cb6dcaa8e8ed",
+    "sha256": "fad408c598a4e720444793481eb0ba1de462ecb0bec162a9656940f0be153ad2",
+    "byte_size": 9152,
+    "local_json_parse": "PASS",
+    "remote_identity_readback": "PASS"
+  },
+  "independence_firewall": {
+    "current_d2_ctlv_contacted": false,
+    "current_d2_ctlv_receipt_read": false,
+    "current_d2_ctlv_findings_read": false,
+    "current_d2_ctlv_waited_for": false,
+    "current_d2_ctlv_result_used": false,
+    "pass_transfer_used": false,
+    "review_inputs": [
+      "EXACT_D2_COMMIT_TREE_AND_PARENT",
+      "CORRECTED_PMO_D2_FREEZE_RECEIPT",
+      "EXACT_D2_PLAN_v1.2_BYTES",
+      "EXACT_D2_ROLLBACK_MANIFEST_v1.1_BYTES",
+      "ALL_TWELVE_PRESERVED_D0_D1_TARGET_IDENTITIES",
+      "D1_IVA_FIRST_PASS_FINDING_DEFINITIONS_ONLY",
+      "PINNED_PREDECESSOR_ORGANIZATION_AUTHORITY_SOURCE",
+      "LIVE_READBACK_OF_ISOLATED_M3_AND_COMMON_GUARD_REFS"
+    ]
+  },
+  "d1_to_d2_commit_reconstruction": {
+    "base": "a1c65d0e500c34fe849badf452f84907f6d53554",
+    "head": "48f37d91f2b52a2909a973a1c8bc38b284229c9e",
+    "status": "ahead",
+    "ahead_by": 1,
+    "behind_by": 0,
+    "total_commits": 1,
+    "merge_base": "a1c65d0e500c34fe849badf452f84907f6d53554",
+    "commit_tree_readback": "4aba5189dece01a017b3c59f6cdb36303a9d9026",
+    "commit_parent_readback": [
+      "a1c65d0e500c34fe849badf452f84907f6d53554"
+    ],
+    "added": [
+      "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_CURRENT_POINTER_TRANSITION_PLAN_v1.2.json",
+      "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_ROLLBACK_MANIFEST_v1.1.json"
+    ],
+    "modified": [],
+    "removed": [],
+    "exact_two_add_delta": "PASS",
+    "all_d0_d1_target_paths_and_bytes_unchanged": "PASS"
+  },
+  "all_fourteen_target_identity_bindings": [
+    {
+      "path": "control/organization/releases/v1.4/AAA_ORGANIZATION_CORE_B_AUTHORITY_PAIRING_SUCCESSOR_v1.4.json",
+      "git_blob": "88279ebb6895da6813502c4930b6739fe9a79f2b",
+      "sha256": "3e259c49c4bd0edc29dbe57ecfe9220f7a9f2b4bd7cd17608754f22ae9399c33",
+      "byte_size": 17896,
+      "remote_readback": "PASS"
+    },
+    {
+      "path": "control/organization/releases/v1.4/AAA_ORGANIZATION_TOPOLOGY_CONTRACT_v1.4.json",
+      "git_blob": "6bc1303960cce53e3936e3cabe2ac3b36db42d78",
+      "sha256": "a80523bb2742aacb1519af6455ca09668f564e6e536588bc7ed786a899ce18e8",
+      "byte_size": 26705,
+      "remote_readback": "PASS"
+    },
+    {
+      "path": "control/organization/releases/v1.4/AAA_ORGANIZATION_RELEASE_MANIFEST_v1.4.json",
+      "git_blob": "97fa121e5d5c8d2dbb929f30df25aff0e2f731cc",
+      "sha256": "8b01f2b5e938ff64073e0058ba8e2738a406d125f26262c5ccc7b9d70d645924",
+      "byte_size": 12221,
+      "remote_readback": "PASS"
+    },
+    {
+      "path": "control/organization/cutover/v1.4/phase-a/candidates/AAA_ORGANIZATION_CURRENT_ACTIVE_STATE_v1.0.json",
+      "git_blob": "e17749646a379e36e0613c6864d67a4a1b1a07ec",
+      "sha256": "f45b39e7652900dc8dc5c11480496993a1995d76a559789fff34dd1e4d1176d0",
+      "byte_size": 4567,
+      "remote_readback": "PASS"
+    },
+    {
+      "path": "control/organization/cutover/v1.4/phase-a/candidates/AAA_ORGANIZATION_ACTIVE_ROUTING_STATE_v1.0.json",
+      "git_blob": "7b1cf5cf3f82067c1f72ae5a8a51bdf5a1b60b34",
+      "sha256": "047a9872316a6a5a1dda80c7a75949c7e04806619207ddeb2552e3176c556561",
+      "byte_size": 2306,
+      "remote_readback": "PASS"
+    },
+    {
+      "path": "control/organization/cutover/v1.4/phase-a/candidates/AAA_ORGANIZATION_PAIR_ACTIVATION_STATE_v1.0.json",
+      "git_blob": "c7d44e071dba5fca54f069ffce1ab5b11feb2a66",
+      "sha256": "5551a036c4a915d6db05075d47e83e96f3f6d77a3fc3ee783f8f5aeefda9e645",
+      "byte_size": 3543,
+      "remote_readback": "PASS"
+    },
+    {
+      "path": "control/organization/cutover/v1.4/phase-a/candidates/AAA_ACTIVE_ORGANIZATION_POINTER_v1.0.json",
+      "git_blob": "16bf7e0256b5eb33e14fbcc775cb2d5c9fb48f50",
+      "sha256": "e34348d0a49fbba80eded518e80037846242edcc8648117ba0c0e0bb9445e62c",
+      "byte_size": 3719,
+      "remote_readback": "PASS"
+    },
+    {
+      "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_CURRENT_POINTER_TRANSITION_PLAN_v1.0.json",
+      "git_blob": "d81aa014414787106befdbaf4b4eadfecb1428b1",
+      "sha256": "eb438038a2b9dd8d0fb96ddc1bcb6e0b5acb1a8dd486b6894cc4e2329fa2283f",
+      "byte_size": 5261,
+      "remote_readback": "PASS",
+      "disposition": "IMMUTABLE_D0_EVIDENCE"
+    },
+    {
+      "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_CURRENT_POINTER_TRANSITION_PLAN_v1.1.json",
+      "git_blob": "77b81bb023e54bd22ca47661f41da9d0d39208a7",
+      "sha256": "7c4268aa9f3668033f54a7cc284ac935acc28330a5b6f0aeffa76d88e3389254",
+      "byte_size": 20887,
+      "remote_readback": "PASS",
+      "disposition": "IMMUTABLE_BLOCKED_D1_EVIDENCE"
+    },
+    {
+      "path": "control/organization/releases/v1.4/AAA_ORGANIZATION_v1.3_TO_v1.4_DETERMINISTIC_OBJECT_DIFF_v1.0.json",
+      "git_blob": "377c59c3da47c02443693b544d48fbb9be4e29aa",
+      "sha256": "00d93e32c69392236502789498e39a1286806f07d90b7ff0aed4ce4a979f4a05",
+      "byte_size": 7407,
+      "remote_readback": "PASS"
+    },
+    {
+      "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_ROLLBACK_MANIFEST_v1.0.json",
+      "git_blob": "0dbb63bd742b1e0938c23a6cecea5b1c80ae4e77",
+      "sha256": "2fa3868bec3e41a3987e956ecd9281cf3c8e767c3232065c3a3f6e8090f40743",
+      "byte_size": 4174,
+      "remote_readback": "PASS",
+      "disposition": "IMMUTABLE_BLOCKED_D0_D1_EVIDENCE"
+    },
+    {
+      "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_FRESH_BOOTSTRAP_REGRESSION_TEST_PLAN_v1.0.json",
+      "git_blob": "c36b581d285b26d2d9de4eca93f6d82fa1677a43",
+      "sha256": "8488bc679bc5d62b0d50f126ec3946c89199903dcec376a7e0ee149c165f064c",
+      "byte_size": 7039,
+      "remote_readback": "PASS"
+    },
+    {
+      "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_CURRENT_POINTER_TRANSITION_PLAN_v1.2.json",
+      "git_blob": "a5542a2cec61d52816fdb642a50bd7c6734bd802",
+      "sha256": "56545375a4024b43bbf5ba8d4257fa7879c9ec9002820ba9235bb227676d528b",
+      "byte_size": 19230,
+      "remote_readback": "PASS",
+      "disposition": "D2_AFFECTED"
+    },
+    {
+      "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_ROLLBACK_MANIFEST_v1.1.json",
+      "git_blob": "303c78194e5786baa1c8fb2d40d54f05f67bddfd",
+      "sha256": "57ff7475c7240a674baf6fa5e8370a94f2c44caf22834ec119bdcc9ba5444dd2",
+      "byte_size": 12362,
+      "remote_readback": "PASS",
+      "disposition": "D2_AFFECTED"
+    }
+  ],
+  "d1_finding_closure_audit": [
+    {
+      "finding_id": "F-P0-IVA-D1-FP-001",
+      "class": "ROLLBACK_NORMATIVE_CONTRACT_CONFLICT",
+      "result": "CLOSED_ON_NARROW_ORIGINAL_CONFLICT",
+      "evidence": [
+        "PLAN_v1.2_AND_ROLLBACK_v1.1_BOTH_RETAIN_STAGED_SUCCESSOR_REF_INERT",
+        "BOTH_PROHIBIT_SUCCESSOR_REF_DELETE_REWIND_OR_FORCE_UPDATE",
+        "BOTH_PROHIBIT_PRIMARY_CAS_RETRY_IN_SAME_ACT",
+        "BOTH_REQUIRE_PINNED_READBACK_BLOCKER_RECEIPT_AND_TERMINATION"
+      ],
+      "qualification": "A_DISTINCT_D2_FAILURE_STATE_ASSERTION_DEFECT_IS_REPORTED_SEPARATELY"
+    },
+    {
+      "finding_id": "F-P0-IVA-D1-FP-002",
+      "class": "D1_FREEZE_RECEIPT_CORE_B_SEMANTIC_MISBINDING",
+      "result": "CLOSED",
+      "corrected_after_pair": [
+        "AAA-MODEL-VALIDATION-DESIGN-ARCHITECT",
+        "AAA-MODEL-DESIGN-VALIDATOR"
+      ],
+      "corrected_pair_id": "AAA-PAIR-MOD-MODV-v1.2"
+    },
+    {
+      "finding_id": "F-P0-IVA-D1-FP-003",
+      "class": "D1_FREEZE_RECEIPT_L2_PERSONA_ROUTE_MISMATCH",
+      "result": "CLOSED",
+      "corrected_governed_persona_id": "AAA-VALIDATION-AUDITOR",
+      "corrected_official_code": "IVA",
+      "role_label_is_non_authoritative": "independent validation auditor"
+    }
+  ],
+  "independent_checks": [
+    {
+      "id": "IVA-D2-FP-01",
+      "check": "D2_COMMIT_TREE_SOLE_PARENT_AND_EXACT_TWO_ADD_DELTA",
+      "result": "PASS"
+    },
+    {
+      "id": "IVA-D2-FP-02",
+      "check": "ALL_FOURTEEN_TARGET_JSON_BLOBS_BYTES_AND_REMOTE_IDENTITIES",
+      "result": "PASS"
+    },
+    {
+      "id": "IVA-D2-FP-03",
+      "check": "ALL_THREE_D1_P0_FINDINGS_CLOSED_AS_ORIGINALLY_STATED",
+      "result": "PASS_WITH_DISTINCT_NEW_D2_FINDING"
+    },
+    {
+      "id": "IVA-D2-FP-04",
+      "check": "JOINT_TWO_REF_CHOREOGRAPHY_NO_MULTI_REF_ATOMICITY_OVERCLAIM",
+      "result": "PASS"
+    },
+    {
+      "id": "IVA-D2-FP-05",
+      "check": "INERT_SUCCESSOR_RETAIN_NO_DELETE_NO_REWIND_NO_RETRY_ACTIONS",
+      "result": "PASS"
+    },
+    {
+      "id": "IVA-D2-FP-06",
+      "check": "PRIMARY_TRUE_EXPECTED_OLD_ATOMIC_CAS_REQUIRED_AND_READ_THEN_UPDATE_OR_FORCE_FALSE_ONLY_REJECTED",
+      "result": "PASS"
+    },
+    {
+      "id": "IVA-D2-FP-07",
+      "check": "PREWRITE_MISMATCH_OR_UNSUPPORTED_PRIMITIVE_ZERO_OBJECT_ZERO_REF_ZERO_ACTIVE_PATH_WRITE",
+      "result": "PASS"
+    },
+    {
+      "id": "IVA-D2-FP-08",
+      "check": "PRIMARY_CAS_FAILURE_EFFECTIVE_ACTIVE_STATE_ASSERTION_UNDER_CONCURRENT_REF_CHANGE",
+      "result": "FAIL",
+      "finding_id": "F-P0-IVA-D2-FP-001"
+    },
+    {
+      "id": "IVA-D2-FP-09",
+      "check": "OWNER_YES_ONLY_AFTER_SAME_TARGET_FRESH_L1_AND_L2_WITH_NO_INFERENCE",
+      "result": "PASS"
+    },
+    {
+      "id": "IVA-D2-FP-10",
+      "check": "EXACT_LONG_NAME_CORE_B_PAIR_AND_PAIR_ID",
+      "result": "PASS"
+    },
+    {
+      "id": "IVA-D2-FP-11",
+      "check": "CANONICAL_IVA_PERSONA_ID_AND_OFFICIAL_CODE",
+      "result": "PASS"
+    },
+    {
+      "id": "IVA-D2-FP-12",
+      "check": "AUTHORITY_NON_EXPANSION_AND_FIVE_NON_CORE_PAIR_OBJECTS_EXACT",
+      "result": "PASS",
+      "evidence": {
+        "unchanged_author_scope_arrays": 5,
+        "unchanged_validator_duty_arrays": 5,
+        "unchanged_non_core_pair_objects": 5,
+        "core_b_author_scope_array_preserved_exactly": true,
+        "core_b_validator_duties_array_preserved_exactly": true,
+        "before_persona_count": 13,
+        "after_persona_count": 13,
+        "preserved_persona_count": 11
+      }
+    },
+    {
+      "id": "IVA-D2-FP-13",
+      "check": "EXACTLY_FOUR_ACTIVE_PATH_REPLACEMENTS_ONE_ACTIVATION_COMMIT_SOLE_PARENT_D2",
+      "result": "PASS"
+    },
+    {
+      "id": "IVA-D2-FP-14",
+      "check": "POSTWRITE_PINNED_READBACK_IMMUTABLE_ACTIVATION_RECEIPT_AND_DECLARE_ACTIVE_BOUNDARY",
+      "result": "PASS"
+    },
+    {
+      "id": "IVA-D2-FP-15",
+      "check": "FORWARD_ONLY_POST_PRIMARY_CAS_RECOVERY_NO_REWIND_DELETE_FORCE_OR_SILENT_REVERSION",
+      "result": "PASS"
+    },
+    {
+      "id": "IVA-D2-FP-16",
+      "check": "FRESH_NEW_CHANNEL_BOOTSTRAP_REGRESSION_ONLY_AFTER_AUTHORIZED_ACTIVATION_AND_HOLD_RELEASE_ONLY_AFTER_ALL_TESTS_PASS",
+      "result": "PASS"
+    },
+    {
+      "id": "IVA-D2-FP-17",
+      "check": "M3TOP3_AND_COMMON_GUARD_ISOLATION",
+      "result": "PASS"
+    }
+  ],
+  "blocking_findings": [
+    {
+      "finding_id": "F-P0-IVA-D2-FP-001",
+      "severity": "P0",
+      "class": "PRIMARY_CAS_FAILURE_ACTIVE_STATE_OVERCLAIM_CONFLICT",
+      "status": "BLOCKING",
+      "affected_artifacts": [
+        {
+          "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_CURRENT_POINTER_TRANSITION_PLAN_v1.2.json",
+          "git_blob": "a5542a2cec61d52816fdb642a50bd7c6734bd802",
+          "field": "primary_cas_failure_after_successor_staging.effective_active_state",
+          "observed": "UNCHANGED_v1.3_VIA_PRIMARY_REF_AT_EXPECTED_OLD"
+        },
+        {
+          "path": "control/organization/cutover/v1.4/AAA_ORGANIZATION_v1.4_ROLLBACK_MANIFEST_v1.1.json",
+          "git_blob": "303c78194e5786baa1c8fb2d40d54f05f67bddfd",
+          "fields": [
+            "staged_successor_primary_cas_failure_recovery.effective_active_release",
+            "staged_successor_primary_cas_failure_recovery.effective_authority_changed",
+            "staged_successor_primary_cas_failure_recovery.primary_ref_expected_state_after_failure"
+          ],
+          "observed": [
+            "AAA-ORGANIZATION-RELEASE-v1.3",
+            false,
+            "5b2dd5c5ea5bf96eb22163a0598d6879fffada9e_OR_SURFACED_CONCURRENT_CHANGE"
+          ]
+        }
+      ],
+      "counterexample": [
+        "PREWRITE_PRIMARY_REF_READS_EXACT_5b2dd5c5ea5bf96eb22163a0598d6879fffada9e",
+        "SUCCESSOR_v1.4_REF_IS_STAGED_AT_THE_EXACT_ACTIVATION_COMMIT",
+        "A_CONCURRENT_ACTOR_MOVES_THE_PRIMARY_REF_BEFORE_THE_EXPECTED_OLD_CAS",
+        "THE_TRUE_EXPECTED_OLD_CAS_CORRECTLY_FAILS",
+        "THE_ACTUAL_EFFECTIVE_ACTIVE_RELEASE_IS_THEN_DETERMINED_BY_THE_CONCURRENT_PRIMARY_REF_VALUE_NOT_NECESSARILY_v1.3"
+      ],
+      "exact_reason": "The D2 plan unconditionally asserts that a failed primary expected-old CAS leaves v1.3 effective via the old primary ref. The paired D2 rollback manifest also names v1.3 as the effective active release and states that effective authority did not change, while in the same failure object it explicitly admits that the primary ref may instead contain a surfaced concurrent change. A true expected-old CAS is specifically designed to fail on that race. Therefore the actual effective state is unknown until pinned readback and cannot be normatively asserted as v1.3. The no-delete/no-retry actions remain safe, but the two frozen controls contain a false and internally inconsistent P0 authority-state assertion.",
+      "safety_impact": "An immutable blocker receipt or downstream recovery packet could falsely report v1.3 as effective after a CAS mismatch even when the primary authority ref was concurrently changed. Pinned readback is required but does not erase the contradictory normative state assertions in the frozen target.",
+      "required_remediation": [
+        "Do not mutate D2 in place and do not issue an Owner packet from D2.",
+        "Author a new forward-only successor plan and paired rollback manifest.",
+        "On primary CAS failure after successor staging, set the effective active state to UNKNOWN_UNTIL_PINNED_READBACK or an equivalent exact-ref-readback-bound state.",
+        "Distinguish THIS_CUTOVER_ACT_DID_NOT_UPDATE_PRIMARY from any claim that global effective authority remained v1.3.",
+        "Claim v1.3 effective only when the pinned post-failure primary-ref readback still equals 5b2dd5c5ea5bf96eb22163a0598d6879fffada9e; otherwise report the exact concurrent head without inferring a release.",
+        "Run fresh affected-scope CTLV L1 and independent IVA L2 on the new exact frozen target."
+      ],
+      "waiver_allowed": false
+    }
+  ],
+  "nonblocking_execution_risk": {
+    "risk_id": "RISK-CAS-PRIMITIVE-AVAILABILITY-001",
+    "state": "CUTOVER_EXECUTION_BLOCKED_UNTIL_CAPABILITY_PROVEN",
+    "observed_surface": "FORCE_FALSE_WITHOUT_EXPECTED_OLD_ARGUMENT",
+    "required_disposition": "PROVE_TRUE_EXPECTED_OLD_ATOMIC_CAS_OR_ABORT_WITH_ZERO_REF_WRITES_NO_EMULATION",
+    "classification": "EXECUTION_CAPABILITY_BLOCKER_DISTINCT_FROM_F_P0_IVA_D2_FP_001"
+  },
+  "program_isolation": {
+    "m3top3_branch": "aaa-pmo-m3top3-successor-resume-20260826-0034",
+    "m3top3_head_readback": "0f3b7b0cc0864d9939c670129991fdabca14a90c",
+    "m3top3_expected_head": "0f3b7b0cc0864d9939c670129991fdabca14a90c",
+    "m3top3_result": "PASS_SOURCE_BLOCKED_UNTOUCHED",
+    "common_guard_branch": "aaa-common-persona-validation-execution-guard-v1.1-20260826",
+    "common_guard_head_readback": "e782984a968b20c1913b3dbb398a00c1ab533c4",
+    "common_guard_progress": "10 / 100 EWU PRESERVED",
+    "d2_delta_touched_m3_or_common_guard_paths": false
+  },
+  "current_ref_readback_non_authoritative_for_future_execution": {
+    "primary_ref": {
+      "ref": "refs/heads/aaa-persistent-locator-active-v0.3",
+      "sha": "5b2dd5c5ea5bf96eb22163a0598d6879fffada9e",
+      "result": "CURRENT_MATCH_EXECUTION_REREAD_STILL_REQUIRED"
+    },
+    "predecessor_ref": {
+      "ref": "refs/heads/aaa-organization-active-v1.3",
+      "sha": "d7c490c373f2df356f31e4459c345328616b4eb3",
+      "result": "CURRENT_MATCH_EXECUTION_REREAD_STILL_REQUIRED"
+    },
+    "successor_ref": {
+      "ref": "refs/heads/aaa-organization-active-v1.4",
+      "state": "ABSENT_404",
+      "result": "CURRENT_MATCH_EXECUTION_REREAD_STILL_REQUIRED"
+    }
+  },
+  "provisional_verdict": "BLOCKED_WITH_EXACT_REASON",
+  "provisional_verdict_reason": "F-P0-IVA-D2-FP-001 makes the frozen D2 failure-state authority assertion internally inconsistent under the exact concurrent-change condition that true expected-old CAS must handle.",
+  "independent_first_pass_result": "FROZEN_BLOCKED",
+  "final_l2_eligibility": false,
+  "final_l2_disposition": "NOT_ISSUED_DO_NOT_READ_OR_RECONCILE_CURRENT_D2_L1_AS_A_FINALIZATION_STEP",
+  "next_required_action": "PMO_ROUTE_F_P0_IVA_D2_FP_001_TO_AAA_CONTROL_ARCHITECT_FOR_ONE_FORWARD_ONLY_SUCCESSOR_CORRECTION_THEN_FREEZE_AND_FRESH_P0_L1_L2",
+  "execution_effect": {
+    "candidate_files_modified": 0,
+    "github_writes": 0,
+    "refs_created": 0,
+    "refs_updated": 0,
+    "refs_deleted": 0,
+    "active_paths_mutated": 0,
+    "owner_decision_created": false,
+    "final_l2_pass_created": false
+  },
+  "claim_ceiling": {
+    "independent_first_pass_frozen": true,
+    "final_l2_pass": false,
+    "current_d2_ctlv_l1_reviewed": false,
+    "d2_validation_pass": false,
+    "owner_cutover_approved": false,
+    "owner_packet_eligible": false,
+    "active_pointer_moved": false,
+    "routing_hold_released": false,
+    "shared_contract_model_or_pit_semantic_approval": false,
+    "freeze_release_or_production_authority": false
+  }
+}
