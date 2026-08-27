@@ -1,0 +1,12 @@
+{
+  "canary_id": "KSD-CROSSWALK-042700",
+  "source_entity_sha256": "f3222d32400f728a3259fe751531662198078bea23892a7ed0cf74f65106d2ac",
+  "parser": "XML_LOCAL_NAME_EXACT_FIELD_READBACK_v1",
+  "issucoCustno": "6069",
+  "issuer_name": "한미반도체",
+  "market_name": "유가증권",
+  "expected_identity_fields_match": true,
+  "network_attempts": 0,
+  "evidence_origin": "SANITIZED_ACTIONS_ARTIFACT_9666862342",
+  "validation_claim": "NONE"
+}

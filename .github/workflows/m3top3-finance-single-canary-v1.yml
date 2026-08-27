@@ -226,7 +226,7 @@ jobs:
               )
               print("FINANCE_SINGLE_CANARY=PASS")
           except Blocked as exc:
-              persist("BLOCKED", reason=str(exc), network_attempts=0 if str(exc).startswith(("MISSING_", "INVALID_DECODED_")) else 1, quota_attempts=0 if str(exc).startswith(("MISSING_", "INVALID_DECODED_")) else 1)
+              persist("BLOCKED", reason=str(exc), network_attempts=0 if str(exc).startswith(("MISSING_", "INVALID_DECODED_", "PERCENT_ENCODED_")) else 1, quota_attempts=0 if str(exc).startswith(("MISSING_", "INVALID_DECODED_", "PERCENT_ENCODED_")) else 1)
               print("FINANCE_SINGLE_CANARY=BLOCKED:" + str(exc))
               raise SystemExit(2)
           PY

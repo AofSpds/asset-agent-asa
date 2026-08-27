@@ -1,6 +1,6 @@
 {
   "artifact": "M3TOP3_PUBLIC_DATA_API_CANARY_MANIFEST_v1.0",
-  "as_of_kst": "2026-08-28T07:26:17+09:00",
+  "as_of_kst": "2026-08-28T07:34:00+09:00",
   "state": "PARTIAL_PASS_2_OF_4_BOUNDED_CANARIES",
   "workflow_run_id": null,
   "workflow_head_commit": "5bcdbb588b6f10209cc48b84464808ef127b92ed",
@@ -63,7 +63,7 @@
   "leak_scan": "PASS_BOTH_SUCCESS_BUNDLES",
   "sanitized_artifact_id": null,
   "sanitized_artifact_digest": null,
-  "next_action": "FREEZE_DATA_GO_KR_KSD_SOURCE_IDENTITY_AND_RUN_REMAINING_CANARIES_ONE_REQUEST_AT_A_TIME",
+  "next_action": "RUN_KSD_BASIC_6069_EXACTLY_ONCE_AFTER_SHARED_KSD_IDENTITY_ALIGNMENT",
   "gate_effect": "NONE",
   "validation_claim": "NONE",
   "request_accounting": {
@@ -79,5 +79,20 @@
     "automatic_retries": 0,
     "owner_authorized_manual_retests": 1,
     "note": "One Finance transport failure preceded the successful owner-authorized single retest; preflight-only failures consumed no network quota."
-  }
+  },
+  "canonical_raw_entities": 0,
+  "offline_reparse": [
+    {
+      "canary_id": "KSD-CROSSWALK-042700",
+      "source_entity_sha256": "f3222d32400f728a3259fe751531662198078bea23892a7ed0cf74f65106d2ac",
+      "parser": "XML_LOCAL_NAME_EXACT_FIELD_READBACK_v1",
+      "issucoCustno": "6069",
+      "issuer_name": "한미반도체",
+      "market_name": "유가증권",
+      "expected_identity_fields_match": true,
+      "network_attempts": 0,
+      "evidence_origin": "SANITIZED_ACTIONS_ARTIFACT_9666862342",
+      "validation_claim": "NONE"
+    }
+  ]
 }

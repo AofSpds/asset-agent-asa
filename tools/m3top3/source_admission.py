@@ -32,9 +32,9 @@ SECRET_NAMES = (
     "DATA_GO_KR_FINANCE_STOCK_RIGHTS_SERVICE_KEY",
     "DATA_GO_KR_KSD_CORP_SERVICE_KEY",
 )
-KSD_SOURCE_ID = "M3TOP3-KSD-CORP-SEIBRO-v1"
-KSD_BASE_URL = "https://api.seibro.or.kr/openapi/service/CorpSvc"
-KSD_ALTERNATE_CANDIDATE = "https://apis.data.go.kr/B552481/CorpSvc"
+KSD_SOURCE_ID = "M3TOP3-KSD-CORP-DATA-GO-KR-v1"
+KSD_BASE_URL = "https://apis.data.go.kr/B552481/CorpSvc"
+KSD_ALTERNATE_CANDIDATE = "https://api.seibro.or.kr/openapi/service/CorpSvc"
 FINANCE_SOURCE_ID = "M3TOP3-FINANCE-STOCK-RIGHTS-v1"
 FINANCE_URL = (
     "https://apis.data.go.kr/1160100/GetStocRighScheService_V2/"
@@ -42,8 +42,8 @@ FINANCE_URL = (
 )
 QUOTA_CAPS = {"KSD": 80, "FINANCE": 8000}
 SAFE_HEADERS = {"content-type", "content-length", "date", "etag", "last-modified"}
+KSD_MARKET_NAME_FIELDS = ("listNm", "caltotMartTpcdNm", "lstgScrsItmsKcdNm", "scrsItmsKcdNm", "mrktNm", "marketNm")
 _PERCENT_TRIPLET = re.compile(r"%[0-9A-Fa-f]{2}")
-_KEY_SHAPE = re.compile(r"[A-Za-z0-9+/_=-]{20,}")
 
 
 class AdmissionError(RuntimeError):
@@ -76,7 +76,7 @@ def validate_decoded_secret(name: str, value: str | None) -> str:
         raise CredentialContractError(f"missing required secret: {name}")
     if value != value.strip() or any(ch.isspace() for ch in value):
         raise CredentialContractError(f"invalid decoded secret format: {name}")
-    if _PERCENT_TRIPLET.search(value) or not _KEY_SHAPE.fullmatch(value):
+    if _PERCENT_TRIPLET.search(value):
         raise CredentialContractError(f"invalid decoded secret format: {name}")
     return value
 

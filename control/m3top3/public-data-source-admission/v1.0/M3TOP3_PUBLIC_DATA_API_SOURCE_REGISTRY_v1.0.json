@@ -1,0 +1,142 @@
+{
+  "artifact": "M3TOP3_PUBLIC_DATA_API_SOURCE_REGISTRY_v1.0",
+  "as_of_kst": "2026-08-28T07:34:00+09:00",
+  "state": "PARTIAL_FREEZE",
+  "sources": [
+    {
+      "provider": "KSD",
+      "source_id": "M3TOP3-KSD-CORP-DATA-GO-KR-v1",
+      "base_url": "https://apis.data.go.kr/B552481/CorpSvc",
+      "operations": [
+        "getIssucoCustnoByShortIsin",
+        "getIssucoBasicInfo"
+      ],
+      "credential_alias": "DATA_GO_KR_KSD_CORP_SERVICE_KEY",
+      "declared_daily_quota": 100,
+      "conservative_daily_cap": 80,
+      "reserve": 20,
+      "quota_day_timezone": "Asia/Seoul",
+      "prior_candidate_not_selected": "https://api.seibro.or.kr/openapi/service/CorpSvc",
+      "endpoint_equivalence_claim": "NONE",
+      "selection_evidence": {
+        "owner_approved_catalog_endpoint": true,
+        "live_canary_run_id": 33122137049,
+        "live_canary_artifact_id": 9666862342,
+        "http_status": 200,
+        "provider_result_code": "00"
+      },
+      "redirects": "DISABLED",
+      "automatic_failover": "PROHIBITED",
+      "catalog_service_id": "B552481/CorpSvc",
+      "documentation_digest": "PARTIAL_OPERATION_SCOPE_ONLY",
+      "license_retention_attribution": "OPEN_NOT_FROZEN",
+      "update_cycle": "OPEN_NOT_DISPLAYED_AS_EXACT_METADATA",
+      "formats": [
+        "XML",
+        "JSON_IF_PROVIDER_RETURNS_JSON"
+      ],
+      "parser_version": "M3TOP3-SOURCE-ADMISSION-PARSER-v1.0",
+      "catalog_dataset_id": "15157348",
+      "catalog_url": "https://www.data.go.kr/data/15157348/openapi.do",
+      "official_format": [
+        "XML"
+      ],
+      "displayed_development_quota_per_day": 100,
+      "license": {
+        "type": "PUBLIC_NURI_TYPE_2",
+        "requirements": [
+          "ATTRIBUTION",
+          "NON_COMMERCIAL_USE_ONLY"
+        ],
+        "source_url": "https://www.data.go.kr/data/15157348/openapi.do"
+      },
+      "realtime_inquiry_prose": "NOT_PROMOTED_TO_UPDATE_CYCLE_AUTHORITY",
+      "official_reference_documents": [
+        {
+          "filename": "[한국예탁결제원 기업정보서비스] 주식권리일정 조회_세부항목.hwp",
+          "file_id": "FILE_000000003629540/1",
+          "byte_size": 82944,
+          "sha256": "7f3843d70e863e5de32cdf0f8866b9392709c54011a0bc91e81f8577bb1e3f07",
+          "proven_scope": [
+            "getCorpActionDtList",
+            "RECENT_APPROXIMATELY_SEVEN_DAY_SCHEDULE",
+            "dtTpcd_DICTIONARY"
+          ],
+          "does_not_prove": [
+            "getIssucoCustnoByShortIsin_FULL_SCHEMA",
+            "getIssucoBasicInfo_FULL_SCHEMA",
+            "UPDATE_CYCLE"
+          ]
+        }
+      ]
+    },
+    {
+      "provider": "FINANCE",
+      "source_id": "M3TOP3-FINANCE-STOCK-RIGHTS-v1",
+      "base_url": "https://apis.data.go.kr/1160100/GetStocRighScheService_V2/getRighExerReasSche_V2",
+      "operations": [
+        "getRighExerReasSche_V2"
+      ],
+      "credential_alias": "DATA_GO_KR_FINANCE_STOCK_RIGHTS_SERVICE_KEY",
+      "declared_daily_quota": 10000,
+      "conservative_daily_cap": 8000,
+      "reserve": 2000,
+      "quota_day_timezone": "Asia/Seoul",
+      "redirects": "DISABLED",
+      "automatic_failover": "PROHIBITED",
+      "broad_query_shape": {
+        "serviceKey": "ENV_ONLY_DECODED_VALUE",
+        "numOfRows": 10,
+        "pageNo": 1,
+        "resultType": "json",
+        "basDt": "YYYYMMDD",
+        "issuCmpyKsdCustNo": "EMPTY_STRING",
+        "stckIssuCmpyNm": "EMPTY_STRING"
+      },
+      "catalog_service_id": "1160100/GetStocRighScheService_V2",
+      "documentation_digest": "OPEN_NOT_CAPTURED",
+      "license_retention_attribution": "OPEN_NOT_FROZEN",
+      "update_cycle": {
+        "state": "FROZEN_CATALOG_METADATA",
+        "frequency": "DAILY_NON_REALTIME",
+        "typical_availability": "BUSINESS_DAY_D_PLUS_1_AFTER_13_00_KST",
+        "evidence": [
+          "DATA_GO_KR_CATALOG_15059609",
+          "Issue_54_comment_5444375457"
+        ]
+      },
+      "formats": [
+        "JSON",
+        "XML_ERROR_ENVELOPE_POSSIBLE"
+      ],
+      "parser_version": "M3TOP3-SOURCE-ADMISSION-PARSER-v1.0",
+      "catalog_dataset_id": "15059609",
+      "catalog_url": "https://www.data.go.kr/data/15059609/openapi.do",
+      "official_format": [
+        "JSON",
+        "XML"
+      ],
+      "displayed_development_quota_per_day": 10000,
+      "license": {
+        "type": "PUBLIC_NURI_TYPE_2",
+        "requirements": [
+          "ATTRIBUTION",
+          "NON_COMMERCIAL_USE_ONLY"
+        ],
+        "commercial_use_condition": "PURPOSE_AND_SCOPE_INFORMATION_USE_AGREEMENT_WITH_ORIGINAL_OWNER_KSD_REQUIRED",
+        "source_url": "https://www.data.go.kr/data/15059609/openapi.do"
+      },
+      "official_reference_documents": [
+        {
+          "filename": "오픈API 활용자가이드_금융위원회_주식권리일정정보.docx",
+          "byte_size": "OPEN",
+          "sha256": "OPEN_NOT_CAPTURED"
+        }
+      ]
+    }
+  ],
+  "source_identity_rule": "DATA_GO_KR_ENDPOINTS_ONLY_NO_SEIBRO_EQUIVALENCE_OR_FAILOVER",
+  "commercial_use_boundary": "PUBLIC_NURI_TYPE_2_NON_COMMERCIAL_ONLY_UNLESS_REQUIRED_AGREEMENT_IS_SEPARATELY_PROVEN",
+  "gate_effect": "NONE",
+  "validation_claim": "NONE"
+}

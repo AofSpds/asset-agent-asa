@@ -1,29 +1,29 @@
-name: M3Top3 KSD Single Canary v1.0
+name: M3Top3 KSD Basic Single Canary v1.0
 
 on:
   push:
     branches:
       - aaa-pmo-public-data-g2-g3-source-admission-v1-20260828
     paths:
-      - .github/workflows/m3top3-ksd-single-canary-v1.yml
+      - .github/workflows/m3top3-ksd-basic-single-canary-v1.yml
 
 permissions:
   contents: read
 
 concurrency:
-  group: m3top3-ksd-single-canary-v1
+  group: m3top3-ksd-basic-single-canary-v1
   cancel-in-progress: false
 
 jobs:
-  ksd-single-canary:
+  ksd-basic-single-canary:
     if: >-
       github.actor == github.repository_owner &&
       github.ref == 'refs/heads/aaa-pmo-public-data-g2-g3-source-admission-v1-20260828' &&
-      github.event.head_commit.message == 'Add KSD single canary v1.0'
+      github.event.head_commit.message == 'Run KSD basic single canary v1.0'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Call KSD API exactly once
+      - name: Call KSD basic API exactly once
         id: canary
         continue-on-error: true
         shell: bash
@@ -31,7 +31,7 @@ jobs:
           KSD_SERVICE_KEY: ${{ secrets.DATA_GO_KR_KSD_CORP_SERVICE_KEY }}
         run: |
           set -euo pipefail
-          mkdir -p ksd_canary_out
+          mkdir -p ksd_basic_out
           python3 - <<'PY'
           import hashlib
           import json
@@ -44,8 +44,8 @@ jobs:
           from pathlib import Path
           from xml.etree import ElementTree
 
-          OUT = Path("ksd_canary_out")
-          ENDPOINT = "https://apis.data.go.kr/B552481/CorpSvc/getIssucoCustnoByShortIsin"
+          OUT = Path("ksd_basic_out")
+          ENDPOINT = "https://apis.data.go.kr/B552481/CorpSvc/getIssucoBasicInfo"
           SECRET_NAME = "DATA_GO_KR_KSD_CORP_SERVICE_KEY"
           PERCENT = re.compile(r"%[0-9A-Fa-f]{2}")
 
@@ -66,84 +66,28 @@ jobs:
                   urllib.parse.quote_plus(secret, safe="").encode(),
               }
 
-          def first(value, names):
-              if isinstance(value, dict):
-                  for name in names:
-                      if name in value and not isinstance(value[name], (dict, list)):
-                          return value[name]
-                  for child in value.values():
-                      found = first(child, names)
-                      if found is not None:
-                          return found
-              elif isinstance(value, list):
-                  for child in value:
-                      found = first(child, names)
-                      if found is not None:
-                          return found
-              return None
+          def local(tag):
+              return tag.rsplit("}", 1)[-1]
 
-          def items(value):
-              if isinstance(value, dict):
-                  if "item" in value:
-                      item = value["item"]
-                      if item in (None, ""):
-                          return []
-                      if isinstance(item, dict):
-                          return [item]
-                      if isinstance(item, list):
-                          return [row for row in item if isinstance(row, dict)]
-                      raise Blocked("INVALID_ITEM_SHAPE")
-                  for child in value.values():
-                      found = items(child)
-                      if found:
-                          return found
-              elif isinstance(value, list):
-                  for child in value:
-                      found = items(child)
-                      if found:
-                          return found
-              return []
+          def text_from(root, names):
+              for element in root.iter():
+                  if local(element.tag) in names and element.text:
+                      return element.text.strip()
+              return ""
 
-          def xml_value(element):
-              children = list(element)
-              if not children:
-                  return (element.text or "").strip()
-              result = {}
-              for child in children:
-                  key = child.tag.rsplit("}", 1)[-1]
-                  value = xml_value(child)
-                  if key in result:
-                      if not isinstance(result[key], list):
-                          result[key] = [result[key]]
-                      result[key].append(value)
-                  else:
-                      result[key] = value
-              return result
-
-          def parse(body):
-              payload = body.lstrip(b"\xef\xbb\xbf\x00\t\r\n ")
-              if payload.startswith((b"{", b"[")):
-                  try:
-                      return json.loads(payload.decode("utf-8"))
-                  except Exception:
-                      raise Blocked("MALFORMED_JSON") from None
-              if payload.startswith(b"<"):
-                  if b"<!DOCTYPE" in payload.upper() or b"<!ENTITY" in payload.upper():
-                      raise Blocked("UNSAFE_XML")
-                  try:
-                      root = ElementTree.fromstring(payload)
-                  except ElementTree.ParseError:
-                      raise Blocked("MALFORMED_XML") from None
-                  return {root.tag.rsplit("}", 1)[-1]: xml_value(root)}
-              raise Blocked("UNEXPECTED_RESPONSE_FORMAT")
+          def row_text(row, names):
+              for element in row.iter():
+                  if local(element.tag) in names and element.text:
+                      return element.text.strip()
+              return ""
 
           def persist(state, **fields):
               record = {
-                  "artifact": "M3TOP3_KSD_SINGLE_CANARY_v1.0",
+                  "artifact": "M3TOP3_KSD_BASIC_SINGLE_CANARY_v1.0",
                   "state": state,
                   "source_id": "M3TOP3-KSD-CORP-DATA-GO-KR-v1",
-                  "operation": "getIssucoCustnoByShortIsin",
-                  "shortIsin": "042700",
+                  "operation": "getIssucoBasicInfo",
+                  "issucoCustno": "6069",
                   "network_attempts": fields.pop("network_attempts", 0),
                   "quota_attempts": fields.pop("quota_attempts", 0),
                   "acquired_at_utc": datetime.now(timezone.utc).isoformat(),
@@ -151,7 +95,7 @@ jobs:
                   "validation_claim": "NONE",
                   **fields,
               }
-              (OUT / "M3TOP3_KSD_SINGLE_CANARY_v1.0.json").write_bytes(cjson(record))
+              (OUT / "M3TOP3_KSD_BASIC_SINGLE_CANARY_v1.0.json").write_bytes(cjson(record))
 
           secret = os.environ.get("KSD_SERVICE_KEY", "")
           called = False
@@ -165,15 +109,15 @@ jobs:
               for value in variants(secret):
                   print("::add-mask::" + value.decode())
 
-              params = {"shortIsin": "042700"}
+              params = {"issucoCustno": "6069"}
               request_identity = {
                   "source_id": "M3TOP3-KSD-CORP-DATA-GO-KR-v1",
                   "endpoint": ENDPOINT,
-                  "operation": "getIssucoCustnoByShortIsin",
+                  "operation": "getIssucoBasicInfo",
                   "params": params,
               }
               request_id = hashlib.sha256(cjson(request_identity)).hexdigest()
-              (OUT / "M3TOP3_KSD_SINGLE_QUOTA_LEDGER_v1.0.jsonl").write_bytes(cjson({
+              (OUT / "M3TOP3_KSD_BASIC_SINGLE_QUOTA_LEDGER_v1.0.jsonl").write_bytes(cjson({
                   "event": "QUOTA_SLOT_RESERVED",
                   "provider": "KSD",
                   "ordinal": 1,
@@ -184,13 +128,12 @@ jobs:
 
               query = dict(params)
               query["serviceKey"] = secret
-              authenticated_url = ENDPOINT + "?" + urllib.parse.urlencode(query)
               request = urllib.request.Request(
-                  authenticated_url,
+                  ENDPOINT + "?" + urllib.parse.urlencode(query),
                   headers={
-                      "Accept": "application/json, application/xml;q=0.9",
+                      "Accept": "application/xml",
                       "Accept-Encoding": "identity",
-                      "User-Agent": "AAA-M3Top3-KSD-Single-Canary/1.0",
+                      "User-Agent": "AAA-M3Top3-KSD-Basic-Single-Canary/1.0",
                   },
               )
               called = True
@@ -207,6 +150,35 @@ jobs:
                   raise Blocked("HTTP_STATUS:" + str(status))
               if any(value and value in body for value in variants(secret)):
                   raise Blocked("SECRET_ECHO_IN_RESPONSE")
+              payload = body.lstrip(b"\xef\xbb\xbf\x00\t\r\n ")
+              if not payload.startswith(b"<"):
+                  raise Blocked("UNEXPECTED_RESPONSE_FORMAT")
+              if b"<!DOCTYPE" in payload.upper() or b"<!ENTITY" in payload.upper():
+                  raise Blocked("UNSAFE_XML")
+              try:
+                  root = ElementTree.fromstring(payload)
+              except ElementTree.ParseError:
+                  raise Blocked("MALFORMED_XML") from None
+
+              result_code = text_from(root, {"resultCode", "returnReasonCode", "code"})
+              if (result_code.lstrip("0") or "0") != "0":
+                  raise Blocked("PROVIDER_RESULT_CODE:" + result_code)
+              rows = [element for element in root.iter() if local(element.tag) == "item"]
+              if len(rows) != 1:
+                  raise Blocked("KSD_BASIC_CARDINALITY:" + str(len(rows)))
+              row = rows[0]
+              issuer_id = row_text(row, {"issucoCustno", "issucoCustNo"})
+              short_code = row_text(row, {"shotnIsin", "shortIsin", "scrsItmsIsinCd"})
+              company = row_text(row, {"repSecnNm", "korIssucoNm", "issucoNm", "issuCmpyNm", "issucoKorNm"})
+              market = row_text(row, {"caltotMartTpcdNm", "listNm", "lstgScrsItmsKcdNm", "scrsItmsKcdNm", "mrktNm", "marketNm"})
+              if issuer_id != "6069":
+                  raise Blocked("KSD_BASIC_ISSUER_ID_MISMATCH")
+              if short_code != "042700":
+                  raise Blocked("KSD_BASIC_SHORT_CODE_MISMATCH")
+              if "한미반도체" not in company:
+                  raise Blocked("KSD_BASIC_COMPANY_MISMATCH")
+              if "유가증권" not in market:
+                  raise Blocked("KSD_BASIC_MARKET_MISMATCH")
 
               digest = hashlib.sha256(body).hexdigest()
               raw_path = OUT / "raw" / (digest + ".entity")
@@ -214,35 +186,22 @@ jobs:
               raw_path.write_bytes(body)
               if hashlib.sha256(raw_path.read_bytes()).hexdigest() != digest:
                   raise Blocked("RAW_REREAD_DIGEST_MISMATCH")
-
-              parsed = parse(raw_path.read_bytes())
-              result_code = str(first(parsed, ("resultCode", "returnReasonCode", "code")) or "")
-              if (result_code.lstrip("0") or "0") != "0":
-                  raise Blocked("PROVIDER_RESULT_CODE:" + result_code)
-              rows = items(parsed)
-              if len(rows) != 1:
-                  raise Blocked("KSD_CROSSWALK_CARDINALITY:" + str(len(rows)))
-              issuer_id = str(first(rows[0], ("issucoCustno", "issucoCustNo")) or "")
-              if issuer_id != "6069":
-                  raise Blocked("KSD_CROSSWALK_ISSUER_ID_MISMATCH")
-              issuer_name = str(first(rows[0], ("korIssucoNm", "issucoNm", "issuCmpyNm", "issucoKorNm")) or "")
-
               persist(
                   "PASS",
                   network_attempts=1,
                   quota_attempts=1,
                   http_status=status,
                   result_code=result_code,
-                  row_count=len(rows),
-                  issuer_id=issuer_id,
-                  issuer_name_match=("한미반도체" in issuer_name),
-                  market_name_match=("유가증권" in market_name),
+                  row_count=1,
+                  issuer_id_match=True,
+                  short_code_match=True,
+                  company_match=True,
+                  market_match=True,
                   entity_bytes=len(body),
                   entity_sha256=digest,
-                  response_scope="ONE_CROSSWALK_REQUEST_NO_PAGINATION",
                   raw_custody="ACTIONS_EPHEMERAL_STAGING_NOT_CANONICAL_CUSTODY",
               )
-              print("KSD_SINGLE_CANARY=PASS")
+              print("KSD_BASIC_SINGLE_CANARY=PASS")
           except Blocked as exc:
               persist(
                   "BLOCKED",
@@ -250,7 +209,7 @@ jobs:
                   network_attempts=1 if called else 0,
                   quota_attempts=1 if called else 0,
               )
-              print("KSD_SINGLE_CANARY=BLOCKED:" + str(exc))
+              print("KSD_BASIC_SINGLE_CANARY=BLOCKED:" + str(exc))
               raise SystemExit(2)
           PY
 
@@ -268,7 +227,7 @@ jobs:
           import urllib.parse
           from pathlib import Path
 
-          root = Path("ksd_canary_out")
+          root = Path("ksd_basic_out")
           secret = os.environ.get("KSD_SERVICE_KEY", "")
           variants = set()
           if secret:
@@ -297,10 +256,10 @@ jobs:
 
       - name: Upload sanitized single-call evidence
         if: always() && steps.leak_scan.outputs.safe == 'true' && steps.leak_scan.outputs.has_files == 'true'
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: m3top3-ksd-single-canary-${{ github.run_id }}
-          path: ksd_canary_out/
+          name: m3top3-ksd-basic-single-canary-${{ github.run_id }}
+          path: ksd_basic_out/
           if-no-files-found: error
           retention-days: 7
           compression-level: 0

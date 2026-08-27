@@ -15,8 +15,10 @@
     "bulk_acquisition_authorized": false,
     "bulk_blockers": [
       "READ_ONLY_CANARY_SET_INCOMPLETE_2_OF_4",
-      "SOURCE_DOCUMENTATION_LICENSE_UPDATE_FIELDS_NOT_YET_FROZEN",
-      "DURABLE_RAW_OBJECTS_NOT_YET_MATERIALIZED_FOR_THIS_SOURCE_FAMILY",
+      "FINANCE_OFFICIAL_REFERENCE_DOCUMENT_BYTES_DIGEST_OPEN",
+      "KSD_IDENTITY_OPERATION_DOCUMENTATION_AND_UPDATE_CYCLE_OPEN",
+      "SOURCE_SPECIFIC_RAW_PREFIX_AND_EXECUTOR_WRITE_AUTHORITY_NOT_FROZEN",
+      "SOURCE_FAMILY_REMOTE_BYTES_NOT_MATERIALIZED_OR_SHA256_VERIFIED",
       "PAGINATION_SNAPSHOT_INVARIANTS_NOT_PROVEN"
     ],
     "credential_preflight_state": "PASS_BOTH_LIVE_REQUEST_PROVEN",
@@ -48,14 +50,47 @@
       "redirects": "DISABLED",
       "automatic_failover": "PROHIBITED",
       "catalog_service_id": "B552481/CorpSvc",
-      "documentation_digest": "OPEN_NOT_FROZEN",
+      "documentation_digest": "PARTIAL_OPERATION_SCOPE_ONLY",
       "license_retention_attribution": "OPEN_NOT_FROZEN",
-      "update_cycle": "OPEN_NOT_FROZEN",
+      "update_cycle": "OPEN_NOT_DISPLAYED_AS_EXACT_METADATA",
       "formats": [
         "XML",
         "JSON_IF_PROVIDER_RETURNS_JSON"
       ],
-      "parser_version": "M3TOP3-SOURCE-ADMISSION-PARSER-v1.0"
+      "parser_version": "M3TOP3-SOURCE-ADMISSION-PARSER-v1.0",
+      "catalog_dataset_id": "15157348",
+      "catalog_url": "https://www.data.go.kr/data/15157348/openapi.do",
+      "official_format": [
+        "XML"
+      ],
+      "displayed_development_quota_per_day": 100,
+      "license": {
+        "type": "PUBLIC_NURI_TYPE_2",
+        "requirements": [
+          "ATTRIBUTION",
+          "NON_COMMERCIAL_USE_ONLY"
+        ],
+        "source_url": "https://www.data.go.kr/data/15157348/openapi.do"
+      },
+      "realtime_inquiry_prose": "NOT_PROMOTED_TO_UPDATE_CYCLE_AUTHORITY",
+      "official_reference_documents": [
+        {
+          "filename": "[한국예탁결제원 기업정보서비스] 주식권리일정 조회_세부항목.hwp",
+          "file_id": "FILE_000000003629540/1",
+          "byte_size": 82944,
+          "sha256": "7f3843d70e863e5de32cdf0f8866b9392709c54011a0bc91e81f8577bb1e3f07",
+          "proven_scope": [
+            "getCorpActionDtList",
+            "RECENT_APPROXIMATELY_SEVEN_DAY_SCHEDULE",
+            "dtTpcd_DICTIONARY"
+          ],
+          "does_not_prove": [
+            "getIssucoCustnoByShortIsin_FULL_SCHEMA",
+            "getIssucoBasicInfo_FULL_SCHEMA",
+            "UPDATE_CYCLE"
+          ]
+        }
+      ]
     },
     {
       "provider": "FINANCE",
@@ -81,14 +116,45 @@
         "stckIssuCmpyNm": "EMPTY_STRING"
       },
       "catalog_service_id": "1160100/GetStocRighScheService_V2",
-      "documentation_digest": "OPEN_NOT_FROZEN",
+      "documentation_digest": "OPEN_NOT_CAPTURED",
       "license_retention_attribution": "OPEN_NOT_FROZEN",
-      "update_cycle": "OPEN_NOT_FROZEN",
+      "update_cycle": {
+        "state": "FROZEN_CATALOG_METADATA",
+        "frequency": "DAILY_NON_REALTIME",
+        "typical_availability": "BUSINESS_DAY_D_PLUS_1_AFTER_13_00_KST",
+        "evidence": [
+          "DATA_GO_KR_CATALOG_15059609",
+          "Issue_54_comment_5444375457"
+        ]
+      },
       "formats": [
         "JSON",
         "XML_ERROR_ENVELOPE_POSSIBLE"
       ],
-      "parser_version": "M3TOP3-SOURCE-ADMISSION-PARSER-v1.0"
+      "parser_version": "M3TOP3-SOURCE-ADMISSION-PARSER-v1.0",
+      "catalog_dataset_id": "15059609",
+      "catalog_url": "https://www.data.go.kr/data/15059609/openapi.do",
+      "official_format": [
+        "JSON",
+        "XML"
+      ],
+      "displayed_development_quota_per_day": 10000,
+      "license": {
+        "type": "PUBLIC_NURI_TYPE_2",
+        "requirements": [
+          "ATTRIBUTION",
+          "NON_COMMERCIAL_USE_ONLY"
+        ],
+        "commercial_use_condition": "PURPOSE_AND_SCOPE_INFORMATION_USE_AGREEMENT_WITH_ORIGINAL_OWNER_KSD_REQUIRED",
+        "source_url": "https://www.data.go.kr/data/15059609/openapi.do"
+      },
+      "official_reference_documents": [
+        {
+          "filename": "오픈API 활용자가이드_금융위원회_주식권리일정정보.docx",
+          "byte_size": "OPEN",
+          "sha256": "OPEN_NOT_CAPTURED"
+        }
+      ]
     }
   ],
   "credential_contract": {
@@ -253,7 +319,14 @@
       "provider": "Amazon S3",
       "region": "ap-northeast-2",
       "private_bucket": "semi-data-plane-aofspds-20260815",
-      "target_prefix": "s3://semi-data-plane-aofspds-20260815/raw/public-data/M3TOP3-PUBLIC-DATA-API-SOURCE-ADMISSION_v1.0/",
+      "governed_raw_root": "s3://semi-data-plane-aofspds-20260815/raw/",
+      "governed_root_scope": "GENERIC_RAW_CLASS_AND_PRICE_DATASET_MATERIALIZATION_ONLY",
+      "candidate_source_prefixes": [
+        "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/",
+        "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-KSD-CORP-DATA-GO-KR-v1/"
+      ],
+      "candidate_prefix_authority": "NONE_UNTIL_EXPLICIT_SOURCE_SPECIFIC_FREEZE",
+      "actions_s3_write_authority": "NOT_EVIDENCED",
       "current_source_family_materialization": "NOT_STARTED",
       "stable_object_locator_claim": "NONE_UNTIL_UPLOAD_AND_REMOTE_SHA256_VERIFY"
     }
@@ -371,5 +444,16 @@
     "ACTIVE_MANIFEST",
     "PRODUCTION_PROVIDER"
   ],
-  "last_currentized_at_kst": "2026-08-28T07:26:17+09:00"
+  "last_currentized_at_kst": "2026-08-28T07:34:00+09:00",
+  "s2_freeze_state": {
+    "state": "PARTIAL_CUSTODY_BLOCKED",
+    "quota_policy": "FROZEN",
+    "credential_contract": "SATISFIED",
+    "endpoint_identity": "FROZEN_TO_DATA_GO_KR",
+    "catalog_and_license": "FROZEN",
+    "transport_schema": "PARTIAL",
+    "source_specific_raw_prefix": "CANDIDATE_NOT_FROZEN",
+    "remote_materialization": "NOT_STARTED",
+    "stable_object_locators": 0
+  }
 }

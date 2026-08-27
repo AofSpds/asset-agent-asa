@@ -1,0 +1,21 @@
+{
+  "acquired_at_utc": "2026-08-27T22:18:12.321082+00:00",
+  "artifact": "M3TOP3_FINANCE_SINGLE_CANARY_v1.0",
+  "basDt": "20191231",
+  "entity_bytes": 4550,
+  "entity_sha256": "6b556a5f81f0446c00fd2d61bea212b8271303b805e397ecae7703bf3d573620",
+  "gate_effect": "NONE",
+  "http_status": 200,
+  "network_attempts": 1,
+  "numOfRows": 10,
+  "operation": "getRighExerReasSche_V2",
+  "pageNo": 1,
+  "quota_attempts": 1,
+  "raw_custody": "ACTIONS_EPHEMERAL_STAGING_NOT_CANONICAL_CUSTODY",
+  "response_scope": "FIRST_PAGE_ONLY_NO_PAGINATION",
+  "result_code": "00",
+  "source_id": "M3TOP3-FINANCE-STOCK-RIGHTS-v1",
+  "state": "PASS",
+  "total_count": 52563,
+  "validation_claim": "NONE"
+}

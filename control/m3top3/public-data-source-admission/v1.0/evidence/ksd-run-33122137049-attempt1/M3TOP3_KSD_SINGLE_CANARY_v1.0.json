@@ -1,0 +1,21 @@
+{
+  "acquired_at_utc": "2026-08-27T22:21:06.982557+00:00",
+  "artifact": "M3TOP3_KSD_SINGLE_CANARY_v1.0",
+  "entity_bytes": 411,
+  "entity_sha256": "f3222d32400f728a3259fe751531662198078bea23892a7ed0cf74f65106d2ac",
+  "gate_effect": "NONE",
+  "http_status": 200,
+  "issuer_id": "6069",
+  "issuer_name_match": true,
+  "network_attempts": 1,
+  "operation": "getIssucoCustnoByShortIsin",
+  "quota_attempts": 1,
+  "raw_custody": "ACTIONS_EPHEMERAL_STAGING_NOT_CANONICAL_CUSTODY",
+  "response_scope": "ONE_CROSSWALK_REQUEST_NO_PAGINATION",
+  "result_code": "00",
+  "row_count": 1,
+  "shortIsin": "042700",
+  "source_id": "M3TOP3-KSD-CORP-DATA-GO-KR-v1",
+  "state": "PASS",
+  "validation_claim": "NONE"
+}

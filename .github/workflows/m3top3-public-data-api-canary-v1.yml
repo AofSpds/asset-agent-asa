@@ -49,10 +49,9 @@ jobs:
 
           OUT = Path("canary_out")
           KST = timezone(timedelta(hours=9))
-          KSD_BASE = "https://api.seibro.or.kr/openapi/service/CorpSvc"
+          KSD_BASE = "https://apis.data.go.kr/B552481/CorpSvc"
           FINANCE_URL = "https://apis.data.go.kr/1160100/GetStocRighScheService_V2/getRighExerReasSche_V2"
           PERCENT = re.compile(r"%[0-9A-Fa-f]{2}")
-          KEY_SHAPE = re.compile(r"[A-Za-z0-9+/_=-]{20,}")
           SAFE_HEADERS = {"content-type", "content-length", "date", "etag", "last-modified"}
           quota = {"KSD": 0, "FINANCE": 0}
           caps = {"KSD": 80, "FINANCE": 8000}
@@ -86,7 +85,7 @@ jobs:
                   raise Blocked("MISSING_REQUIRED_SECRET", name)
               if value != value.strip() or any(ch.isspace() for ch in value):
                   raise Blocked("INVALID_DECODED_SECRET_FORMAT", name)
-              if PERCENT.search(value) or not KEY_SHAPE.fullmatch(value):
+              if PERCENT.search(value):
                   raise Blocked("INVALID_DECODED_SECRET_FORMAT", name)
               mask(value)
               return value
@@ -292,7 +291,7 @@ jobs:
           }))
 
           results = []
-          parsed, receipt = call("KSD", "M3TOP3-KSD-CORP-SEIBRO-v1", KSD_BASE + "/getIssucoCustnoByShortIsin", "getIssucoCustnoByShortIsin", {"shortIsin": "042700"}, ksd, secrets)
+          parsed, receipt = call("KSD", "M3TOP3-KSD-CORP-DATA-GO-KR-v1", KSD_BASE + "/getIssucoCustnoByShortIsin", "getIssucoCustnoByShortIsin", {"shortIsin": "042700"}, ksd, secrets)
           if normalized_code(parsed) not in ("0",):
               raise Blocked("KSD_CROSSWALK_PROVIDER_CODE_FAILURE", provider_code(parsed))
           rows = items(parsed)
@@ -302,12 +301,12 @@ jobs:
           if str(first(row, ("issucoCustno", "issucoCustNo")) or "") != "6069":
               raise Blocked("KSD_CROSSWALK_ISSUER_ID_MISMATCH")
           issuer_name = str(first(row, ("korIssucoNm", "issucoNm", "issuCmpyNm", "issucoKorNm")) or "")
-          market_name = str(first(row, ("lstgScrsItmsKcdNm", "scrsItmsKcdNm", "mrktNm", "marketNm")) or "")
+          market_name = str(first(row, ("listNm", "caltotMartTpcdNm", "lstgScrsItmsKcdNm", "scrsItmsKcdNm", "mrktNm", "marketNm")) or "")
           if "한미반도체" not in issuer_name or "유가증권" not in market_name:
               raise Blocked("KSD_CROSSWALK_IDENTITY_FIELDS_MISMATCH")
           results.append({"canary_id": "KSD-CROSSWALK-042700", "state": "PASS", "entity_sha256": receipt["entity_sha256"]})
 
-          parsed, receipt = call("KSD", "M3TOP3-KSD-CORP-SEIBRO-v1", KSD_BASE + "/getIssucoBasicInfo", "getIssucoBasicInfo", {"issucoCustno": "6069"}, ksd, secrets)
+          parsed, receipt = call("KSD", "M3TOP3-KSD-CORP-DATA-GO-KR-v1", KSD_BASE + "/getIssucoBasicInfo", "getIssucoBasicInfo", {"issucoCustno": "6069"}, ksd, secrets)
           if normalized_code(parsed) != "0":
               raise Blocked("KSD_BASIC_PROVIDER_CODE_FAILURE", provider_code(parsed))
           rows = items(parsed)

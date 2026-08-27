@@ -49,10 +49,17 @@ class SequenceOpener:
 class SourceAdmissionTests(unittest.TestCase):
     def test_decoded_secret_contract(self):
         self.assertEqual(sa.validate_decoded_secret("S", SYNTHETIC_SECRET), SYNTHETIC_SECRET)
+        opaque_hex_key = "a1" * 32
+        self.assertEqual(sa.validate_decoded_secret("S", opaque_hex_key), opaque_hex_key)
         for value in (None, "", "  ", "abc defghijklmnopqrstuvwxyz", "ABC%2BDEF012345678901234"):
             with self.subTest(value=value):
                 with self.assertRaises(sa.CredentialContractError):
                     sa.validate_decoded_secret("S", value)
+
+    def test_data_go_kr_ksd_identity_and_market_alias(self):
+        self.assertEqual(sa.KSD_SOURCE_ID, "M3TOP3-KSD-CORP-DATA-GO-KR-v1")
+        self.assertEqual(sa.KSD_BASE_URL, "https://apis.data.go.kr/B552481/CorpSvc")
+        self.assertIn("listNm", sa.KSD_MARKET_NAME_FIELDS)
 
     def test_exactly_once_query_encoding(self):
         url = sa.encoded_query("https://example.invalid/op", {"a": "x", "serviceKey": "ignored"}, SYNTHETIC_SECRET)
