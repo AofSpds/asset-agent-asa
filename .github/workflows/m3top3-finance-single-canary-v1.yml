@@ -19,7 +19,7 @@ jobs:
     if: >-
       github.actor == github.repository_owner &&
       github.ref == 'refs/heads/aaa-pmo-public-data-g2-g3-source-admission-v1-20260828' &&
-      github.event.head_commit.message == 'Run one Finance positive canary v1.0'
+      github.event.head_commit.message == 'Relax Finance key shape guard and run once v1.0'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -49,7 +49,6 @@ jobs:
           ENDPOINT = "https://apis.data.go.kr/1160100/GetStocRighScheService_V2/getRighExerReasSche_V2"
           SECRET_NAME = "DATA_GO_KR_FINANCE_STOCK_RIGHTS_SERVICE_KEY"
           PERCENT = re.compile(r"%[0-9A-Fa-f]{2}")
-          KEY_SHAPE = re.compile(r"[A-Za-z0-9+/_=-]{20,}")
 
           class Blocked(Exception):
               pass
@@ -141,8 +140,8 @@ jobs:
                   raise Blocked("MISSING_REQUIRED_SECRET:" + SECRET_NAME)
               if secret != secret.strip() or any(ch.isspace() for ch in secret):
                   raise Blocked("INVALID_DECODED_SECRET_FORMAT:" + SECRET_NAME)
-              if PERCENT.search(secret) or not KEY_SHAPE.fullmatch(secret):
-                  raise Blocked("INVALID_DECODED_SECRET_FORMAT:" + SECRET_NAME)
+              if PERCENT.search(secret):
+                  raise Blocked("PERCENT_ENCODED_SECRET_NOT_ALLOWED:" + SECRET_NAME)
               for value in variants(secret):
                   print("::add-mask::" + value.decode())
 
