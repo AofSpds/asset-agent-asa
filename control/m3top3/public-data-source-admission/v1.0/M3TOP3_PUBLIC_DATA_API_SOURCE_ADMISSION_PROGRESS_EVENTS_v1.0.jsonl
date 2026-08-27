@@ -1,0 +1,5 @@
+{"earned_ewu":5,"event":"STAGE_CLOSED","evidence":"Issue_49_comment_5445122080","stage":"S0","timestamp_kst":"2026-08-28T05:56:20+09:00"}
+{"commit":"3d14a819bced5b88a4fb1e0a3b4329978ea992f3","event":"CANARY_ARMING_COMMIT_CREATED","stage":"S1","timestamp_kst":"2026-08-28T06:06:58+09:00"}
+{"event":"WORKFLOW_SKIPPED","reason":"HEAD_COMMIT_ADDED_LATCH_FALSE_FOR_GIT_DATA_COMMIT","run_id":33116614512,"stage":"S1","timestamp_kst":"2026-08-28T06:07:04+09:00"}
+{"commit":"0bf4ff8289aed88365dda8ac958b08ddc67b03db","correction_batch_count":1,"event":"ONE_SHOT_LATCH_CORRECTED","stage":"S1","timestamp_kst":"2026-08-28T06:08:08+09:00"}
+{"earned_ewu":0,"event":"STAGE_BLOCKED_FAIL_CLOSED","exact_blocker":"MISSING_REQUIRED_SECRET:DATA_GO_KR_FINANCE_STOCK_RIGHTS_SERVICE_KEY","leak_scan":"PASS","network_attempts":0,"run_id":33116700451,"stage":"S1","timestamp_kst":"2026-08-28T06:08:20+09:00"}

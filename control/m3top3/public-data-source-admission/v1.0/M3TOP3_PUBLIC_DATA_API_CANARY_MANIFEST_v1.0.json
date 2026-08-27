@@ -1,0 +1,29 @@
+{
+  "artifact": "M3TOP3_PUBLIC_DATA_API_CANARY_MANIFEST_v1.0",
+  "as_of_kst": "2026-08-28T06:09:07+09:00",
+  "state": "BLOCKED_PRE_NETWORK",
+  "workflow_run_id": 33116700451,
+  "workflow_head_commit": "0bf4ff8289aed88365dda8ac958b08ddc67b03db",
+  "credential_preflight": {
+    "DATA_GO_KR_FINANCE_STOCK_RIGHTS_SERVICE_KEY": "MISSING",
+    "DATA_GO_KR_KSD_CORP_SERVICE_KEY": "NOT_EVALUATED_FAIL_FAST",
+    "values_logged_or_persisted": false,
+    "rotation_required_for_both": true,
+    "decoded_value_form_required": true
+  },
+  "canaries": [
+    {"canary_id": "KSD-CROSSWALK-042700", "state": "NOT_RUN_PRECONDITION_BLOCKED"},
+    {"canary_id": "KSD-BASIC-6069", "state": "NOT_RUN_PRECONDITION_BLOCKED"},
+    {"canary_id": "FINANCE-POSITIVE-20191231", "state": "NOT_RUN_PRECONDITION_BLOCKED"},
+    {"canary_id": "FINANCE-VALID-EMPTY-20240809", "state": "NOT_RUN_PRECONDITION_BLOCKED"}
+  ],
+  "network_attempts": 0,
+  "quota_attempts": {"KSD": 0, "FINANCE": 0},
+  "raw_entities": 0,
+  "leak_scan": "PASS",
+  "sanitized_artifact_id": 9664772560,
+  "sanitized_artifact_digest": "sha256:dbe9f02229a87292ff3a1cd709ac3eb9fb731efcce1d013aa00bc7a3e307fcd4",
+  "next_action": "ROTATE_AND_CONFIGURE_BOTH_DECODED_FORM_REPOSITORY_SECRETS_THEN_RERUN_FAILED_JOB",
+  "gate_effect": "NONE",
+  "validation_claim": "NONE"
+}
