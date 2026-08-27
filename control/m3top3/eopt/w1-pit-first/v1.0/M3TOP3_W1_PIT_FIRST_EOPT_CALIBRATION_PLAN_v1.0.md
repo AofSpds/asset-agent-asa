@@ -7,6 +7,8 @@ CURRENT_PERSONA_LOCK = AAA-PMO-ORCHESTRATOR (PMO)
 ARTIFACT = M3TOP3_W1_PIT_FIRST_EOPT_CALIBRATION_PLAN_v1.0
 ISSUED_AT_KST = 2026-08-27T06:53:00+09:00
 PLAN_STATE = READ_ONLY_EXECUTION_DESIGN_CANDIDATE / NOT_ACTIVATED
+CORRECTION_BATCH = 1
+CORRECTION_CLASS = EXACT_REPRODUCIBILITY_AND_NON_DISPATCH_WBS_LABEL_CLARIFICATION_ONLY
 GATE_EFFECT = NONE
 VALIDATION_CLAIM = NONE
 PRODUCTION_AUTHORIZED = FALSE
@@ -165,11 +167,13 @@ When EOPT-G0 permits measurement, materialize deterministically as follows:
 
 1. Start from W1 rows carrying the pre-existing working label `ELIGIBLE` and mechanical Entry Open `TRUE`.
 2. Do not treat that working label as G2 proof; set every bundle label to `CALIBRATION_ONLY_NOT_G2_RELEASE_ADMITTED`.
-3. Compute `selection_key = SHA256("W1-CAL-B24|96d63cc...e69fe|" + canonical_company_id)`.
-4. Sort ascending by `selection_key` and take the first 24 rows.
-5. If fewer than 24 rows survive exact identity/hash binding, use all surviving rows. Never pad with unresolved rows.
-6. Freeze company IDs, row identities, input hashes, selection keys, selection algorithm version and manifest digest before the first timed run.
-7. Prohibit winner, rank, return, MFE, MAE, future earnings, later price path or any outcome-derived selection input.
+3. Set `SELECTION_ALGORITHM_VERSION = W1-CAL-B24-v1.0`.
+4. Set `REGISTRY_SHA256_FULL = 96d63cc98a01b6332cf9486440e7f3fdaa0ec5a2d605f21bc14a4025b46e69fe`.
+5. Compute `selection_key = SHA256(SELECTION_ALGORITHM_VERSION + "|" + REGISTRY_SHA256_FULL + "|" + canonical_company_id)` using literal `|` separators and UTF-8 bytes. `canonical_company_id` is taken byte-for-byte from the frozen input manifest; no case, whitespace, Unicode, or alias normalization is performed during selection.
+6. Sort ascending by `selection_key` and take the first 24 rows.
+7. If fewer than 24 rows survive exact identity/hash binding, use all surviving rows. Never pad with unresolved rows.
+8. Freeze company IDs, row identities, input hashes, selection keys, selection algorithm version and manifest digest before the first timed run.
+9. Prohibit winner, rank, return, MFE, MAE, future earnings, later price path or any outcome-derived selection input.
 
 ### 5.3 Exact-path requirement
 
@@ -416,9 +420,11 @@ Runtime success, higher throughput, completed PIT collection, or an equivalent c
 
 This plan is not activated, so it creates no new earned EWU. Upon G0 entry, freeze a separate execution baseline before work begins.
 
+The ranges below are non-dispatch, low-confidence planning priors only. Before any execution dispatch, replace them with a frozen WBS baseline carrying point P50, P90/range, timing confidence, dependencies, completion evidence, terminal rule, EWU weight, and measurable CRU fields for every executable row.
+
 Preliminary low-confidence planning ranges, excluding external source/custodian wait:
 
-| Stage | Scope | P50 wall | P90 wall | CRU |
+| Stage | Scope | Preliminary wall prior | P90 ceiling | CRU |
 |---|---|---:|---:|---|
 | W1-0 | exact manifests, environment and oracle freeze | 0.5-1.0h | 2.0h | NOT_CALIBRATED |
 | W1-1 | B24 original cold/warm A/A | 0.5-1.5h | 3.0h | NOT_CALIBRATED |
