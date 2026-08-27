@@ -19,7 +19,7 @@ jobs:
     if: >-
       github.actor == github.repository_owner &&
       github.ref == 'refs/heads/aaa-pmo-public-data-g2-g3-source-admission-v1-20260828' &&
-      contains(github.event.head_commit.added, '.github/workflows/m3top3-public-data-api-canary-v1.yml')
+      github.event.head_commit.message == 'Arm hermetic public-data source canary v1.0'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
