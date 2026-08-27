@@ -1,0 +1,16 @@
+{
+  "artifact": "M3TOP3_FINANCE_VALID_EMPTY_20240809_OFFLINE_REPARSE_v1.0",
+  "source_entity_sha256": "f4f9606ff0c2d20265bb4b552f4a121a76e77cd12d1f6de8e56461d40d090b28",
+  "entity_bytes": 4710,
+  "result_code": "00",
+  "total_count": 67,
+  "returned_page_items": 10,
+  "observed_item_basDt_values": [
+    "20240809"
+  ],
+  "classification": "HISTORICAL_BACKFILL_OR_DAILY_SOURCE_DRIFT_NOT_AUTH_OR_FILTER_FAILURE",
+  "network_attempts": 0,
+  "evidence_origin": "SANITIZED_ACTIONS_ARTIFACT_9667243904",
+  "gate_effect": "NONE",
+  "validation_claim": "NONE"
+}

@@ -1,0 +1,15 @@
+{
+  "acquired_at_utc": "2026-08-27T22:35:45.455600+00:00",
+  "artifact": "M3TOP3_FINANCE_VALID_EMPTY_SINGLE_CANARY_v1.0",
+  "state": "BLOCKED",
+  "source_id": "M3TOP3-FINANCE-STOCK-RIGHTS-v1",
+  "operation": "getRighExerReasSche_V2",
+  "basDt": "20240809",
+  "pageNo": 1,
+  "numOfRows": 10,
+  "network_attempts": 1,
+  "quota_attempts": 1,
+  "reason": "EXPECTED_VALID_EMPTY_TOTAL_COUNT_ZERO",
+  "gate_effect": "NONE",
+  "validation_claim": "NONE"
+}

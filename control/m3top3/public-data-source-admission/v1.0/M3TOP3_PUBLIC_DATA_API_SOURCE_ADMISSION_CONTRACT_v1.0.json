@@ -268,7 +268,35 @@
         "result_code": "00",
         "total_count": 0,
         "state": "VALID_EMPTY_NO_RETRY"
-      }
+      },
+      "latest_observation": {
+        "state": "SOURCE_DRIFT",
+        "run_id": 33123121495,
+        "observed_total_count": 67,
+        "entity_sha256": "f4f9606ff0c2d20265bb4b552f4a121a76e77cd12d1f6de8e56461d40d090b28",
+        "disposition": "DO_NOT_SILENTLY_UPDATE_BASELINE_USE_PRE_FROZEN_FALLBACK_ONCE"
+      },
+      "replacement_candidate_id": "FINANCE-VALID-EMPTY-FALLBACK-20240810"
+    },
+    {
+      "canary_id": "FINANCE-VALID-EMPTY-FALLBACK-20240810",
+      "source_id": "M3TOP3-FINANCE-STOCK-RIGHTS-v1",
+      "operation": "getRighExerReasSche_V2",
+      "params": {
+        "basDt": "20240810",
+        "numOfRows": 10,
+        "pageNo": 1,
+        "resultType": "json",
+        "issuCmpyKsdCustNo": "EMPTY_STRING",
+        "stckIssuCmpyNm": "EMPTY_STRING"
+      },
+      "expect": {
+        "result_code": "00",
+        "total_count": 0,
+        "state": "VALID_EMPTY_NO_RETRY"
+      },
+      "authorization_basis": "PRE_FROZEN_PILOT_FALLBACK_DATE_LIST",
+      "maximum_network_attempts": 1
     }
   ],
   "raw_custody_contract": {
@@ -444,7 +472,7 @@
     "ACTIVE_MANIFEST",
     "PRODUCTION_PROVIDER"
   ],
-  "last_currentized_at_kst": "2026-08-28T07:34:00+09:00",
+  "last_currentized_at_kst": "2026-08-28T07:39:00+09:00",
   "s2_freeze_state": {
     "state": "PARTIAL_CUSTODY_BLOCKED",
     "quota_policy": "FROZEN",

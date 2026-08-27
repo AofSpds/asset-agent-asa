@@ -1,9 +1,9 @@
 {
   "artifact": "M3TOP3_PUBLIC_DATA_API_CANARY_MANIFEST_v1.0",
-  "as_of_kst": "2026-08-28T07:36:00+09:00",
-  "state": "PARTIAL_PASS_3_OF_4_BOUNDED_CANARIES",
+  "as_of_kst": "2026-08-28T07:39:00+09:00",
+  "state": "SOURCE_DRIFT_REMEDIATION_PENDING_3_PURPOSES_PASS_1_VALID_EMPTY_OPEN",
   "workflow_run_id": null,
-  "workflow_head_commit": "8e376b3f7d77deaa2dfd31ac31267da3e66fdf0a",
+  "workflow_head_commit": "701835e9c3d3b9e8a0188691ffa7a23f42659828",
   "credential_preflight": {
     "DATA_GO_KR_FINANCE_STOCK_RIGHTS_SERVICE_KEY": "PRESENT_DECODED_FORM_LIVE_REQUEST_PROVEN",
     "DATA_GO_KR_KSD_CORP_SERVICE_KEY": "PRESENT_DECODED_FORM_LIVE_REQUEST_PROVEN",
@@ -67,7 +67,37 @@
     },
     {
       "canary_id": "FINANCE-VALID-EMPTY-20240809",
-      "state": "NOT_RUN_BOUNDED_SEQUENCE"
+      "state": "SOURCE_DRIFT",
+      "source_id": "M3TOP3-FINANCE-STOCK-RIGHTS-v1",
+      "run_id": 33123121495,
+      "run_attempt": 1,
+      "workflow_head_commit": "701835e9c3d3b9e8a0188691ffa7a23f42659828",
+      "http_status": 200,
+      "provider_result_code": "00",
+      "expected_total_count": 0,
+      "observed_total_count": 67,
+      "returned_page_items": 10,
+      "observed_item_basDt_values": [
+        "20240809"
+      ],
+      "entity_bytes": 4710,
+      "entity_sha256": "f4f9606ff0c2d20265bb4b552f4a121a76e77cd12d1f6de8e56461d40d090b28",
+      "artifact_id": 9667243904,
+      "artifact_sha256": "5941771a49cf59adbb5cd76645fad43cb9fd4b11f5160bd078bc3aac5c675059",
+      "classification": "HISTORICAL_BACKFILL_OR_DAILY_SOURCE_DRIFT_NOT_AUTH_OR_FILTER_FAILURE",
+      "replacement_candidate_id": "FINANCE-VALID-EMPTY-FALLBACK-20240810",
+      "raw_custody": "ACTIONS_EPHEMERAL_STAGING_NOT_CANONICAL_CUSTODY"
+    },
+    {
+      "canary_id": "FINANCE-VALID-EMPTY-FALLBACK-20240810",
+      "state": "NOT_RUN_BOUNDED_SOURCE_DRIFT_REMEDIATION",
+      "source_id": "M3TOP3-FINANCE-STOCK-RIGHTS-v1",
+      "params": {
+        "basDt": "20240810",
+        "numOfRows": 10,
+        "pageNo": 1,
+        "resultType": "json"
+      }
     }
   ],
   "network_attempts": 0,
@@ -75,18 +105,18 @@
     "KSD": 0,
     "FINANCE": 0
   },
-  "raw_entities": 3,
+  "raw_entities": 4,
   "leak_scan": "PASS_BOTH_SUCCESS_BUNDLES",
   "sanitized_artifact_id": null,
   "sanitized_artifact_digest": null,
-  "next_action": "RUN_FINANCE_VALID_EMPTY_20240809_EXACTLY_ONCE",
+  "next_action": "RUN_PRE_FROZEN_FALLBACK_DATE_20240810_EXACTLY_ONCE_THEN_STOP_IF_NOT_EMPTY",
   "gate_effect": "NONE",
   "validation_claim": "NONE",
   "request_accounting": {
-    "network_attempts": 4,
+    "network_attempts": 5,
     "quota_attempts": {
       "KSD": 2,
-      "FINANCE": 2
+      "FINANCE": 3
     },
     "successful_requests": 3,
     "valid_empty_requests": 0,
@@ -94,7 +124,9 @@
     "failed_requests": 1,
     "automatic_retries": 0,
     "owner_authorized_manual_retests": 1,
-    "note": "One Finance transport failure preceded the successful owner-authorized single retest; preflight-only failures consumed no network quota."
+    "note": "One Finance transport failure preceded the successful owner-authorized single retest; preflight-only failures consumed no network quota.",
+    "provider_successful_responses": 4,
+    "source_drift_mismatches": 1
   },
   "canonical_raw_entities": 0,
   "offline_reparse": [
