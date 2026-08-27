@@ -1,0 +1,193 @@
+{
+  "artifact": "M3TOP3_PUBLIC_DATA_API_SOURCE_ADMISSION_CONTRACT_v1.0",
+  "issued_at_kst": "2026-08-28T06:10:00+09:00",
+  "persona": "AAA-PMO-ORCHESTRATOR",
+  "runtime_lock_id": "PMO-API-SRC-ADMIT-20260828055620",
+  "base_commit": "6b19834dc4ab89fd4e669e4319b37d5475a7ad08",
+  "branch": "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828",
+  "authority": {
+    "scope": "PUBLIC_DATA_API_SOURCE_PREFLIGHT_AND_READ_ONLY_CANARIES",
+    "production_authorized": false,
+    "model_semantic_change_authorized": false,
+    "pit_semantic_change_authorized": false,
+    "validation_claim": "NONE",
+    "gate_effect": "NONE",
+    "bulk_acquisition_authorized": false,
+    "bulk_blockers": [
+      "ROTATED_DECODED_FORM_CREDENTIALS_NOT_YET_PROVEN",
+      "KSD_EXACT_SOURCE_IDENTITY_CONFLICT_OPEN",
+      "DURABLE_RAW_DATA_PLANE_LOCATOR_NOT_BOUND",
+      "PAGINATION_SNAPSHOT_INVARIANTS_NOT_PROVEN"
+    ]
+  },
+  "source_registry": [
+    {
+      "provider": "KSD",
+      "source_id": "M3TOP3-KSD-CORP-SEIBRO-v1",
+      "base_url": "https://api.seibro.or.kr/openapi/service/CorpSvc",
+      "operations": ["getIssucoCustnoByShortIsin", "getIssucoBasicInfo"],
+      "credential_alias": "DATA_GO_KR_KSD_CORP_SERVICE_KEY",
+      "declared_daily_quota": 100,
+      "conservative_daily_cap": 80,
+      "reserve": 20,
+      "quota_day_timezone": "Asia/Seoul",
+      "alternate_candidate_not_equivalent": "https://apis.data.go.kr/B552481/CorpSvc",
+      "redirects": "DISABLED",
+      "automatic_failover": "PROHIBITED",
+      "catalog_service_id": "OPEN_NOT_FROZEN",
+      "documentation_digest": "OPEN_NOT_FROZEN",
+      "license_retention_attribution": "OPEN_NOT_FROZEN",
+      "update_cycle": "OPEN_NOT_FROZEN",
+      "formats": ["XML", "JSON_IF_PROVIDER_RETURNS_JSON"],
+      "parser_version": "M3TOP3-SOURCE-ADMISSION-PARSER-v1.0"
+    },
+    {
+      "provider": "FINANCE",
+      "source_id": "M3TOP3-FINANCE-STOCK-RIGHTS-v1",
+      "base_url": "https://apis.data.go.kr/1160100/GetStocRighScheService_V2/getRighExerReasSche_V2",
+      "operations": ["getRighExerReasSche_V2"],
+      "credential_alias": "DATA_GO_KR_FINANCE_STOCK_RIGHTS_SERVICE_KEY",
+      "declared_daily_quota": 10000,
+      "conservative_daily_cap": 8000,
+      "reserve": 2000,
+      "quota_day_timezone": "Asia/Seoul",
+      "redirects": "DISABLED",
+      "automatic_failover": "PROHIBITED",
+      "broad_query_shape": {
+        "serviceKey": "ENV_ONLY_DECODED_VALUE",
+        "numOfRows": 10,
+        "pageNo": 1,
+        "resultType": "json",
+        "basDt": "YYYYMMDD",
+        "issuCmpyKsdCustNo": "EMPTY_STRING",
+        "stckIssuCmpyNm": "EMPTY_STRING"
+      },
+      "catalog_service_id": "1160100/GetStocRighScheService_V2",
+      "documentation_digest": "OPEN_NOT_FROZEN",
+      "license_retention_attribution": "OPEN_NOT_FROZEN",
+      "update_cycle": "OPEN_NOT_FROZEN",
+      "formats": ["JSON", "XML_ERROR_ENVELOPE_POSSIBLE"],
+      "parser_version": "M3TOP3-SOURCE-ADMISSION-PARSER-v1.0"
+    }
+  ],
+  "credential_contract": {
+    "storage": "GITHUB_ACTIONS_REPOSITORY_SECRETS_ONLY",
+    "decoded_value_required": true,
+    "already_percent_encoded_value": "REJECT_WITHOUT_TRANSFORMATION",
+    "missing_empty_whitespace_value": "REJECT",
+    "rotation_required_before_network": true,
+    "reason": "CREDENTIAL_VALUES_ENTERED_IN_CONVERSATION_CONTEXT_AND_ONE_VALUE_FORMAT_APPEARS_PERCENT_ENCODED",
+    "prohibited_persistence": [
+      "VALUE",
+      "HASH",
+      "PREFIX",
+      "AUTHENTICATED_URL",
+      "REQUEST_DUMP",
+      "REDIRECT_LOCATION",
+      "EXCEPTION_TEXT_CONTAINING_URL"
+    ],
+    "encoding": "DECODED_VALUE_URLENCODED_EXACTLY_ONCE_BY_CLIENT"
+  },
+  "retry_contract": {
+    "maximum_total_attempts": 3,
+    "retryable": ["NETWORK_TIMEOUT", "HTTP_429", "HTTP_5XX", "TRANSIENT_TRANSPORT"],
+    "not_retryable": ["FINANCE_CODE_00_TOTAL_0", "KSD_CODE_3_NODATA", "KSD_CODE_11_SCHEMA_ERROR", "HTTP_4XX_EXCEPT_429", "UNKNOWN_PROVIDER_CODE"],
+    "backoff": "BOUNDED_EXPONENTIAL_PLUS_DETERMINISTIC_JITTER",
+    "every_attempt_consumes_quota": true,
+    "reservation_order": "QUOTA_SLOT_RESERVED_BEFORE_NETWORK_IO",
+    "known_external_attempts_minimum": 0,
+    "unknown_external_attempts": true
+  },
+  "canary_manifest": [
+    {
+      "canary_id": "KSD-CROSSWALK-042700",
+      "source_id": "M3TOP3-KSD-CORP-SEIBRO-v1",
+      "operation": "getIssucoCustnoByShortIsin",
+      "params": {"shortIsin": "042700"},
+      "expect": {"result_state": "SUCCESS", "issucoCustno": "6069", "issuer_name": "한미반도체", "market_name": "유가증권"}
+    },
+    {
+      "canary_id": "KSD-BASIC-6069",
+      "source_id": "M3TOP3-KSD-CORP-SEIBRO-v1",
+      "operation": "getIssucoBasicInfo",
+      "params": {"issucoCustno": "6069"},
+      "expect": {"result_state": "SUCCESS", "short_code": "042700"}
+    },
+    {
+      "canary_id": "FINANCE-POSITIVE-20191231",
+      "source_id": "M3TOP3-FINANCE-STOCK-RIGHTS-v1",
+      "operation": "getRighExerReasSche_V2",
+      "params": {"basDt": "20191231", "numOfRows": 10, "pageNo": 1, "resultType": "json", "issuCmpyKsdCustNo": "EMPTY_STRING", "stckIssuCmpyNm": "EMPTY_STRING"},
+      "expect": {"result_code": "00", "total_count": "GREATER_THAN_ZERO", "scope": "HEADER_ONLY_NO_AUTOPAGINATION"}
+    },
+    {
+      "canary_id": "FINANCE-VALID-EMPTY-20240809",
+      "source_id": "M3TOP3-FINANCE-STOCK-RIGHTS-v1",
+      "operation": "getRighExerReasSche_V2",
+      "params": {"basDt": "20240809", "numOfRows": 10, "pageNo": 1, "resultType": "json", "issuCmpyKsdCustNo": "EMPTY_STRING", "stckIssuCmpyNm": "EMPTY_STRING"},
+      "expect": {"result_code": "00", "total_count": 0, "state": "VALID_EMPTY_NO_RETRY"}
+    }
+  ],
+  "raw_custody_contract": {
+    "canonical_bytes": "HTTP_ENTITY_BODY_AFTER_TRANSPORT_CONTENT_DECODING_BEFORE_CHARSET_JSON_XML_DECODING",
+    "write_order": ["FETCHED", "LEAK_SCAN_PASS", "RAW_SEALED_EXCLUSIVE_CREATE", "DIGEST_REREAD_VERIFIED", "PARSED"],
+    "digest": "SHA-256",
+    "current_local_status": "LOCAL_STAGING_NOT_DURABLE",
+    "canonical_admission_requires": "IMMUTABLE_DURABLE_DATA_PLANE_LOCATOR",
+    "ephemeral_actions_artifact_is_canonical": false,
+    "safe_response_headers": ["content-type", "content-length", "date", "etag", "last-modified"],
+    "raw_record_required_fields": ["source_id", "operation", "safe_params", "request_id", "attempt", "quota_day_kst", "http_status", "entity_bytes", "entity_sha256", "acquired_at_utc", "storage_locator"],
+    "raw_record_prohibited_fields": ["serviceKey", "credential_value", "credential_hash", "credential_prefix", "authenticated_url", "request_headers", "Location"]
+  },
+  "request_state_machine": ["REQUEST_PLANNED", "QUOTA_SLOT_RESERVED", "FETCHED", "RAW_SEALED", "PARSED", "PAGE_VALIDATED", "DATE_COMPLETE", "NORMALIZED_CANDIDATE"],
+  "pagination_invariants": [
+    "ASSERT_ECHOED_PAGE_NUMBER",
+    "USE_ACTUAL_RETURNED_PAGE_SIZE",
+    "ASSERT_STABLE_TOTAL_COUNT_AND_PAGE_SIZE",
+    "REJECT_EMPTY_INTERMEDIATE_PAGE",
+    "DETECT_REPEATED_WHOLE_PAGE",
+    "ASSERT_SUM_ITEMS_EQUALS_TOTAL_COUNT_AT_DATE_COMPLETE",
+    "ON_RESUME_REVALIDATE_PAGE_1_IDENTITY_AND_TOTAL",
+    "QUARANTINE_TOTAL_COUNT_OR_PAGE_SHIFT_DRIFT"
+  ],
+  "u127_input_binding": {
+    "commit": "6f9ed94e7323e20abf3b19637ecb807e342430f2",
+    "git_blob": "f16f0caa0d57063e8d26d0a66a6e3f8e869b183f",
+    "content_sha256": "752138a1897cdacfcbb4762ac0caf5888007e49ac4605f88152576e544eeaa33",
+    "rows": 127,
+    "identity_fields": ["KRX_code", "company_id"],
+    "names_are_identity": false,
+    "code_contract": "SIX_CHARACTER_STRING_PRESERVE_LEADING_ZERO_AND_ALPHANUMERIC",
+    "crosswalk_states": ["FOUND", "NOT_FOUND", "AMBIGUOUS", "IDENTITY_CONFLICT", "SOURCE_DRIFT", "TRANSIENT_ERROR", "SCHEMA_ERROR", "NOT_ATTEMPTED_QUOTA_BOUNDARY"],
+    "basic_info_default": "NOT_QUERIED_NULLABLE",
+    "historical_validity_proven": false
+  },
+  "finance_target": {"start_date": "2024-01-01", "end_date": "2026-08-14", "bounds": "INCLUSIVE"},
+  "pilot_primary_dates": ["20240102", "20240131", "20240329", "20240628", "20240808", "20240809", "20240812", "20240930", "20241231", "20250115", "20250331", "20250630", "20251231", "20260115", "20260331", "20260630", "20260814"],
+  "pilot_fallback_dates": ["20240807", "20240810", "20240811", "20240813", "20240814", "20241108", "20241111"],
+  "pilot_promotion": {
+    "raw_digest_and_length_verification_rate": 1.0,
+    "deterministic_reparse_digest_rate": 1.0,
+    "page_invariant_failures": 0,
+    "secret_occurrences": 0,
+    "systemic_identity_conflicts": 0,
+    "forecast_must_fit_daily_split_plan": true,
+    "all_primary_dates_empty": "STOP_NO_PROMOTION",
+    "cumulative_or_snapshot_semantics_suspected": "STOP_NO_PROMOTION"
+  },
+  "required_artifact_family": [
+    "M3TOP3_PUBLIC_DATA_API_SOURCE_ADMISSION_PLAN_v1.0",
+    "M3TOP3_PUBLIC_DATA_API_SOURCE_REGISTRY_v1.0",
+    "M3TOP3_PUBLIC_DATA_API_CREDENTIAL_CONTRACT_v1.0",
+    "M3TOP3_PUBLIC_DATA_API_QUOTA_LEDGER_v1.0",
+    "M3TOP3_PUBLIC_DATA_API_CANARY_MANIFEST_v1.0",
+    "M3TOP3_U127_KSD_IDENTITY_CROSSWALK_v1.0",
+    "M3TOP3_FINANCE_CA_RAW_CUSTODY_INDEX_v1.0",
+    "M3TOP3_FINANCE_CA_COVERAGE_PILOT_v1.0",
+    "M3TOP3_FINANCE_CA_ACQUISITION_CHECKPOINT_v1.0"
+  ],
+  "g2_effect_ceiling": "IDENTITY_CORROBORATION_ONLY_NOT_HISTORICAL_BUSINESS_PRIORITY_LISTING_OR_WINDOW_AUTHORITY",
+  "g3_effect_ceiling": "CANDIDATE_CA_EVENT_UNIVERSE_ONLY_NOT_CALENDAR_CUSTODY_PUBLICATION_CUTOFF_OR_ADJUSTMENT_FACTOR",
+  "event_semantics": "EVENT_UNIVERSE_CANDIDATE_PIT_PUBLICATION_PROVENANCE_OPEN",
+  "frozen_non_targets": ["AXIS_B", "SEALED_G4", "F01_F09", "MODEL_WEIGHTS", "SCORER", "RANKING", "TIE_POLICY", "PIT_CUTOFF_MEANING", "ACTIVE_MANIFEST", "PRODUCTION_PROVIDER"]
+}

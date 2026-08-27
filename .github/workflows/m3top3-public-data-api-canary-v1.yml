@@ -1,0 +1,426 @@
+name: M3Top3 Public Data API Canary v1.0
+
+on:
+  push:
+    branches:
+      - aaa-pmo-public-data-g2-g3-source-admission-v1-20260828
+    paths:
+      - .github/workflows/m3top3-public-data-api-canary-v1.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: m3top3-public-data-api-canary-v1
+  cancel-in-progress: false
+
+jobs:
+  canary:
+    if: >-
+      github.actor == github.repository_owner &&
+      github.ref == 'refs/heads/aaa-pmo-public-data-g2-g3-source-admission-v1-20260828' &&
+      contains(github.event.head_commit.added, '.github/workflows/m3top3-public-data-api-canary-v1.yml')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Run hermetic read-only canaries
+        id: canary
+        continue-on-error: true
+        shell: bash
+        env:
+          FINANCE_SERVICE_KEY: ${{ secrets.DATA_GO_KR_FINANCE_STOCK_RIGHTS_SERVICE_KEY }}
+          KSD_SERVICE_KEY: ${{ secrets.DATA_GO_KR_KSD_CORP_SERVICE_KEY }}
+        run: |
+          set -euo pipefail
+          mkdir -p canary_out
+          python3 - <<'PY'
+          import hashlib
+          import json
+          import os
+          import re
+          import sys
+          import time
+          import urllib.error
+          import urllib.parse
+          import urllib.request
+          from datetime import datetime, timedelta, timezone
+          from pathlib import Path
+          from xml.etree import ElementTree
+
+          OUT = Path("canary_out")
+          KST = timezone(timedelta(hours=9))
+          KSD_BASE = "https://api.seibro.or.kr/openapi/service/CorpSvc"
+          FINANCE_URL = "https://apis.data.go.kr/1160100/GetStocRighScheService_V2/getRighExerReasSche_V2"
+          PERCENT = re.compile(r"%[0-9A-Fa-f]{2}")
+          KEY_SHAPE = re.compile(r"[A-Za-z0-9+/_=-]{20,}")
+          SAFE_HEADERS = {"content-type", "content-length", "date", "etag", "last-modified"}
+          quota = {"KSD": 0, "FINANCE": 0}
+          caps = {"KSD": 80, "FINANCE": 8000}
+
+          class Blocked(Exception):
+              def __init__(self, code, detail=None):
+                  self.code = code
+                  self.detail = detail
+                  super().__init__(code if detail is None else code + ":" + detail)
+
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self, req, fp, code, msg, headers, newurl):
+                  return None
+
+          def cjson(value):
+              return (json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n").encode()
+
+          def variants(secret):
+              return {
+                  secret.encode(),
+                  urllib.parse.quote(secret, safe="").encode(),
+                  urllib.parse.quote_plus(secret, safe="").encode(),
+              }
+
+          def mask(secret):
+              for value in variants(secret):
+                  print("::add-mask::" + value.decode())
+
+          def require_decoded(name, value):
+              if not value:
+                  raise Blocked("MISSING_REQUIRED_SECRET", name)
+              if value != value.strip() or any(ch.isspace() for ch in value):
+                  raise Blocked("INVALID_DECODED_SECRET_FORMAT", name)
+              if PERCENT.search(value) or not KEY_SHAPE.fullmatch(value):
+                  raise Blocked("INVALID_DECODED_SECRET_FORMAT", name)
+              mask(value)
+              return value
+
+          def leak_scan(data, secrets):
+              if any(part and part in data for secret in secrets for part in variants(secret)):
+                  raise Blocked("SECRET_ECHO_IN_RESPONSE")
+
+          def xml_value(element):
+              children = list(element)
+              if not children:
+                  return (element.text or "").strip()
+              grouped = {}
+              for child in children:
+                  tag = child.tag.rsplit("}", 1)[-1]
+                  value = xml_value(child)
+                  if tag in grouped:
+                      if not isinstance(grouped[tag], list):
+                          grouped[tag] = [grouped[tag]]
+                      grouped[tag].append(value)
+                  else:
+                      grouped[tag] = value
+              return grouped
+
+          def parse(data):
+              payload = data.lstrip(b"\xef\xbb\xbf\x00\t\r\n ")
+              if payload.startswith((b"{", b"[")):
+                  def pairs(values):
+                      result = {}
+                      for key, value in values:
+                          if key in result:
+                              raise Blocked("DUPLICATE_JSON_KEY")
+                          result[key] = value
+                      return result
+                  try:
+                      return json.loads(payload.decode(), object_pairs_hook=pairs)
+                  except Blocked:
+                      raise
+                  except Exception:
+                      raise Blocked("MALFORMED_JSON") from None
+              if payload.startswith(b"<"):
+                  if b"<!DOCTYPE" in payload.upper() or b"<!ENTITY" in payload.upper():
+                      raise Blocked("UNSAFE_XML")
+                  try:
+                      root = ElementTree.fromstring(payload)
+                  except ElementTree.ParseError:
+                      raise Blocked("MALFORMED_XML") from None
+                  return {root.tag.rsplit("}", 1)[-1]: xml_value(root)}
+              raise Blocked("UNEXPECTED_RESPONSE_FORMAT")
+
+          def first(value, names):
+              if isinstance(value, dict):
+                  for name in names:
+                      if name in value and not isinstance(value[name], (dict, list)):
+                          return value[name]
+                  for child in value.values():
+                      found = first(child, names)
+                      if found is not None:
+                          return found
+              elif isinstance(value, list):
+                  for child in value:
+                      found = first(child, names)
+                      if found is not None:
+                          return found
+              return None
+
+          def items(value):
+              if isinstance(value, dict):
+                  if "item" in value:
+                      item = value["item"]
+                      if item in (None, ""):
+                          return []
+                      if isinstance(item, dict):
+                          return [item]
+                      if isinstance(item, list) and all(isinstance(row, dict) for row in item):
+                          return item
+                      raise Blocked("INVALID_ITEM_SHAPE")
+                  for child in value.values():
+                      found = items(child)
+                      if found:
+                          return found
+              elif isinstance(value, list):
+                  for child in value:
+                      found = items(child)
+                      if found:
+                          return found
+              return []
+
+          def reserve(provider, operation, request_id):
+              if quota[provider] >= caps[provider]:
+                  raise Blocked("CONSERVATIVE_QUOTA_BOUNDARY", provider)
+              quota[provider] += 1
+              row = {
+                  "event": "QUOTA_SLOT_RESERVED",
+                  "provider": provider,
+                  "operation": operation,
+                  "request_id": request_id,
+                  "ordinal": quota[provider],
+                  "quota_day_kst": datetime.now(timezone.utc).astimezone(KST).date().isoformat(),
+                  "known_external_attempts_minimum": 0,
+                  "unknown_external_attempts": True,
+              }
+              with (OUT / "M3TOP3_PUBLIC_DATA_API_QUOTA_LEDGER_v1.0.jsonl").open("ab") as handle:
+                  handle.write(cjson(row))
+                  handle.flush()
+                  os.fsync(handle.fileno())
+              return row
+
+          def call(provider, source_id, endpoint, operation, params, secret, all_secrets):
+              identity = {"source_id": source_id, "endpoint": endpoint, "operation": operation, "params": params}
+              request_id = hashlib.sha256(cjson(identity)).hexdigest()
+              opener = urllib.request.build_opener(NoRedirect())
+              last_code = "TRANSIENT_TRANSPORT"
+              for attempt in range(1, 4):
+                  slot = reserve(provider, operation, request_id)
+                  query = dict(params)
+                  query["serviceKey"] = secret
+                  authenticated_url = endpoint + "?" + urllib.parse.urlencode(query)
+                  request = urllib.request.Request(
+                      authenticated_url,
+                      headers={
+                          "Accept": "application/json, application/xml;q=0.9",
+                          "Accept-Encoding": "identity",
+                          "User-Agent": "AAA-M3Top3-Hermetic-Canary/1.0",
+                      },
+                  )
+                  try:
+                      response = opener.open(request, timeout=20)
+                      status = int(getattr(response, "status", response.getcode()))
+                      body = response.read()
+                      if status != 200:
+                          raise Blocked("NON_200_HTTP", str(status))
+                      leak_scan(body, all_secrets)
+                      digest = hashlib.sha256(body).hexdigest()
+                      raw_path = OUT / "raw" / provider.lower() / slot["quota_day_kst"] / (digest + ".entity")
+                      raw_path.parent.mkdir(parents=True, exist_ok=True)
+                      try:
+                          with raw_path.open("xb") as handle:
+                              handle.write(body)
+                              handle.flush()
+                              os.fsync(handle.fileno())
+                      except FileExistsError:
+                          if raw_path.read_bytes() != body:
+                              raise Blocked("RAW_DIGEST_COLLISION")
+                      if hashlib.sha256(raw_path.read_bytes()).hexdigest() != digest:
+                          raise Blocked("RAW_REREAD_DIGEST_MISMATCH")
+                      receipt = {
+                          **identity,
+                          "request_id": request_id,
+                          "attempt": attempt,
+                          "quota_day_kst": slot["quota_day_kst"],
+                          "quota_ordinal": slot["ordinal"],
+                          "http_status": status,
+                          "safe_headers": {str(k).lower(): str(v) for k, v in response.headers.items() if str(k).lower() in SAFE_HEADERS},
+                          "entity_bytes": len(body),
+                          "entity_sha256": digest,
+                          "raw_entity_bytes_definition": "HTTP entity body after transport content-decoding and before charset/JSON/XML decoding",
+                          "storage_status": "ACTIONS_EPHEMERAL_STAGING_NOT_CANONICAL_CUSTODY",
+                          "storage_locator": str(raw_path),
+                          "acquired_at_utc": datetime.now(timezone.utc).isoformat(),
+                      }
+                      with (OUT / "M3TOP3_FINANCE_CA_RAW_CUSTODY_INDEX_v1.0.jsonl").open("ab") as handle:
+                          handle.write(cjson(receipt))
+                      return parse(raw_path.read_bytes()), receipt
+                  except urllib.error.HTTPError as exc:
+                      status = int(exc.code)
+                      last_code = "HTTP_" + str(status)
+                      if status != 429 and not 500 <= status <= 599:
+                          raise Blocked("NON_RETRYABLE_HTTP_STATUS", str(status)) from None
+                  except (urllib.error.URLError, TimeoutError, OSError):
+                      last_code = "TRANSIENT_TRANSPORT"
+                  if attempt < 3:
+                      jitter = int(hashlib.sha256(f"{request_id}|{attempt}".encode()).hexdigest()[:4], 16) % 1000 / 1000
+                      time.sleep(min(2 ** (attempt - 1), 4) + jitter)
+              raise Blocked("MAX_ATTEMPTS_EXHAUSTED", last_code)
+
+          def provider_code(parsed):
+              return str(first(parsed, ("resultCode", "returnReasonCode", "code")) or "")
+
+          def normalized_code(parsed):
+              code = provider_code(parsed)
+              return code.lstrip("0") or "0"
+
+          def finance_total(parsed):
+              if normalized_code(parsed) != "0":
+                  raise Blocked("FINANCE_PROVIDER_CODE_FAILURE", provider_code(parsed))
+              value = first(parsed, ("totalCount", "totalCnt"))
+              try:
+                  return int(value)
+              except Exception:
+                  raise Blocked("FINANCE_TOTAL_COUNT_INVALID") from None
+
+          finance = require_decoded("DATA_GO_KR_FINANCE_STOCK_RIGHTS_SERVICE_KEY", os.environ.get("FINANCE_SERVICE_KEY"))
+          ksd = require_decoded("DATA_GO_KR_KSD_CORP_SERVICE_KEY", os.environ.get("KSD_SERVICE_KEY"))
+          secrets = (finance, ksd)
+          (OUT / "M3TOP3_PUBLIC_DATA_API_CREDENTIAL_PREFLIGHT_v1.0.json").write_bytes(cjson({
+              "state": "PASS",
+              "credentials": {
+                  "DATA_GO_KR_FINANCE_STOCK_RIGHTS_SERVICE_KEY": "PRESENT_DECODED_FORM_VALIDATED",
+                  "DATA_GO_KR_KSD_CORP_SERVICE_KEY": "PRESENT_DECODED_FORM_VALIDATED",
+              },
+              "secret_values_persisted": False,
+          }))
+
+          results = []
+          parsed, receipt = call("KSD", "M3TOP3-KSD-CORP-SEIBRO-v1", KSD_BASE + "/getIssucoCustnoByShortIsin", "getIssucoCustnoByShortIsin", {"shortIsin": "042700"}, ksd, secrets)
+          if normalized_code(parsed) not in ("0",):
+              raise Blocked("KSD_CROSSWALK_PROVIDER_CODE_FAILURE", provider_code(parsed))
+          rows = items(parsed)
+          if len(rows) != 1:
+              raise Blocked("KSD_CROSSWALK_CARDINALITY_MISMATCH")
+          row = rows[0]
+          if str(first(row, ("issucoCustno", "issucoCustNo")) or "") != "6069":
+              raise Blocked("KSD_CROSSWALK_ISSUER_ID_MISMATCH")
+          issuer_name = str(first(row, ("korIssucoNm", "issucoNm", "issuCmpyNm", "issucoKorNm")) or "")
+          market_name = str(first(row, ("lstgScrsItmsKcdNm", "scrsItmsKcdNm", "mrktNm", "marketNm")) or "")
+          if "한미반도체" not in issuer_name or "유가증권" not in market_name:
+              raise Blocked("KSD_CROSSWALK_IDENTITY_FIELDS_MISMATCH")
+          results.append({"canary_id": "KSD-CROSSWALK-042700", "state": "PASS", "entity_sha256": receipt["entity_sha256"]})
+
+          parsed, receipt = call("KSD", "M3TOP3-KSD-CORP-SEIBRO-v1", KSD_BASE + "/getIssucoBasicInfo", "getIssucoBasicInfo", {"issucoCustno": "6069"}, ksd, secrets)
+          if normalized_code(parsed) != "0":
+              raise Blocked("KSD_BASIC_PROVIDER_CODE_FAILURE", provider_code(parsed))
+          rows = items(parsed)
+          if len(rows) != 1:
+              raise Blocked("KSD_BASIC_CARDINALITY_MISMATCH")
+          short_code = str(first(rows[0], ("shotnIsin", "shortIsin", "scrsItmsIsinCd")) or "")
+          if short_code != "042700":
+              raise Blocked("KSD_BASIC_SHORT_CODE_MISMATCH")
+          results.append({"canary_id": "KSD-BASIC-6069", "state": "PASS", "entity_sha256": receipt["entity_sha256"]})
+
+          common = {"numOfRows": 10, "pageNo": 1, "resultType": "json", "issuCmpyKsdCustNo": "", "stckIssuCmpyNm": ""}
+          parsed, receipt = call("FINANCE", "M3TOP3-FINANCE-STOCK-RIGHTS-v1", FINANCE_URL, "getRighExerReasSche_V2", {**common, "basDt": "20191231"}, finance, secrets)
+          positive_total = finance_total(parsed)
+          if positive_total <= 0:
+              raise Blocked("FINANCE_POSITIVE_CANARY_NOT_POSITIVE")
+          results.append({"canary_id": "FINANCE-POSITIVE-20191231", "state": "PASS", "total_count": positive_total, "scope": "HEADER_ONLY_NO_AUTOPAGINATION", "entity_sha256": receipt["entity_sha256"]})
+
+          parsed, receipt = call("FINANCE", "M3TOP3-FINANCE-STOCK-RIGHTS-v1", FINANCE_URL, "getRighExerReasSche_V2", {**common, "basDt": "20240809"}, finance, secrets)
+          empty_total = finance_total(parsed)
+          if empty_total != 0:
+              raise Blocked("FINANCE_VALID_EMPTY_CANARY_DRIFT")
+          results.append({"canary_id": "FINANCE-VALID-EMPTY-20240809", "state": "PASS", "total_count": 0, "classification": "VALID_EMPTY_NO_RETRY", "entity_sha256": receipt["entity_sha256"]})
+
+          (OUT / "M3TOP3_PUBLIC_DATA_API_CANARY_MANIFEST_v1.0.json").write_bytes(cjson({
+              "state": "PASS",
+              "results": results,
+              "quota_attempts": quota,
+              "raw_custody": "ACTIONS_EPHEMERAL_STAGING_NOT_CANONICAL_CUSTODY",
+              "gate_effect": "NONE",
+              "validation_claim": "NONE",
+          }))
+          print("CANARY_VERDICT=PASS")
+          PY
+
+      - name: Persist sanitized blocked verdict
+        if: always() && steps.canary.outcome != 'success'
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p canary_out
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          path = Path("canary_out/M3TOP3_PUBLIC_DATA_API_CANARY_BLOCKED_v1.0.json")
+          path.write_text(json.dumps({
+              "state": "BLOCKED",
+              "reason": "SEE_SANITIZED_WORKFLOW_STEP_CLASSIFICATION",
+              "network_calls_may_be_zero_if_credential_preflight_failed": True,
+              "gate_effect": "NONE",
+              "validation_claim": "NONE",
+          }, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
+          PY
+
+      - name: Reject secret-bearing outputs
+        id: leak_scan
+        if: always()
+        shell: bash
+        env:
+          FINANCE_SERVICE_KEY: ${{ secrets.DATA_GO_KR_FINANCE_STOCK_RIGHTS_SERVICE_KEY }}
+          KSD_SERVICE_KEY: ${{ secrets.DATA_GO_KR_KSD_CORP_SERVICE_KEY }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import os
+          import shutil
+          import urllib.parse
+          from pathlib import Path
+
+          root = Path("canary_out")
+          secrets = [os.environ.get("FINANCE_SERVICE_KEY", ""), os.environ.get("KSD_SERVICE_KEY", "")]
+          variants = set()
+          for secret in secrets:
+              if not secret:
+                  continue
+              encoded = {secret, urllib.parse.quote(secret, safe=""), urllib.parse.quote_plus(secret, safe="")}
+              for value in encoded:
+                  if value == value.strip() and not any(ch.isspace() for ch in value):
+                      print("::add-mask::" + value)
+                  variants.add(value.encode())
+          leaked = False
+          if root.exists():
+              for path in root.rglob("*"):
+                  if path.is_file():
+                      data = path.read_bytes()
+                      if any(value and value in data for value in variants):
+                          leaked = True
+                          break
+          output = Path(os.environ["GITHUB_OUTPUT"])
+          if leaked:
+              shutil.rmtree(root, ignore_errors=True)
+              with output.open("a", encoding="utf-8") as handle:
+                  handle.write("safe=false\nhas_files=false\n")
+              raise SystemExit("secret-bearing output rejected")
+          has_files = root.exists() and any(path.is_file() for path in root.rglob("*"))
+          with output.open("a", encoding="utf-8") as handle:
+              handle.write("safe=true\n")
+              handle.write("has_files=" + ("true" if has_files else "false") + "\n")
+          PY
+
+      - name: Upload sanitized canary custody bundle
+        if: always() && steps.leak_scan.outputs.safe == 'true' && steps.leak_scan.outputs.has_files == 'true'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: m3top3-public-data-canary-${{ github.run_id }}
+          path: canary_out/
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+      - name: Enforce canary verdict
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          test '${{ steps.canary.outcome }}' = success
+          test '${{ steps.leak_scan.outcome }}' = success

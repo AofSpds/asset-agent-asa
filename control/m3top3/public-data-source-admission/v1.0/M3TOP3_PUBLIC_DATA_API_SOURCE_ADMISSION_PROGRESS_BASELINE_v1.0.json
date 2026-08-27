@@ -1,0 +1,32 @@
+{
+  "artifact": "M3TOP3_PUBLIC_DATA_API_SOURCE_ADMISSION_PROGRESS_BASELINE_v1.0",
+  "issued_at_kst": "2026-08-28T06:10:00+09:00",
+  "runtime_lock_id": "PMO-API-SRC-ADMIT-20260828055620",
+  "denominator_ewu": 100,
+  "earned_ewu": 5,
+  "overall_progress_percent": 5,
+  "current_stage": "S1",
+  "active_workers": 1,
+  "active_validators": 0,
+  "validation_closure": "NONE",
+  "wbs": [
+    {"id": "S0", "name": "bootstrap_and_single_runtime_lock", "weight_ewu": 5, "state": "CLOSED", "evidence": "Issue_49_comment_5445122080"},
+    {"id": "S1", "name": "secret_executor_no_writer_preflight", "weight_ewu": 10, "state": "IN_PROGRESS", "terminal_rule": "BOTH_ROTATED_DECODED_SECRETS_PASS_HERMETIC_ACTIONS_PREFLIGHT_OR_FAIL_CLOSED"},
+    {"id": "S2", "name": "source_schema_quota_custody_freeze", "weight_ewu": 10, "state": "BLOCKED_BY_S1_AND_OPEN_SOURCE_CUSTODY_FIELDS"},
+    {"id": "S3", "name": "read_only_canaries", "weight_ewu": 10, "state": "BLOCKED_BY_S1"},
+    {"id": "S4", "name": "u127_ksd_crosswalk_first_batch", "weight_ewu": 15, "state": "NOT_STARTED"},
+    {"id": "S5", "name": "finance_date_distribution_pilot", "weight_ewu": 15, "state": "NOT_STARTED"},
+    {"id": "S6", "name": "resumable_runner_quota_raw_custody_ledger", "weight_ewu": 15, "state": "NOT_STARTED"},
+    {"id": "S7", "name": "first_governed_historical_acquisition_batch", "weight_ewu": 10, "state": "NOT_STARTED"},
+    {"id": "S8", "name": "affected_g2_g3_reconciliation", "weight_ewu": 5, "state": "NOT_STARTED"},
+    {"id": "S9", "name": "readback_checkpoint_report_termination", "weight_ewu": 5, "state": "NOT_STARTED"}
+  ],
+  "current_blockers": [
+    "CREDENTIAL_ROTATION_AND_DECODED_FORM_REPLACEMENT_REQUIRED_BEFORE_NETWORK",
+    "ACTIONS_SECRET_PREFLIGHT_NOT_YET_RUN",
+    "KSD_ENDPOINT_IDENTITY_EQUIVALENCE_NOT_PROVEN",
+    "DURABLE_RAW_DATA_PLANE_LOCATOR_NOT_BOUND"
+  ],
+  "next_exact_action": "ADD_AND_OBSERVE_ONE_SHOT_HERMETIC_BRANCH_CANARY_WORKFLOW",
+  "claim_ceiling": "DESIGN_AND_PREFLIGHT_ONLY_GATE_EFFECT_NONE_VALIDATION_NONE"
+}
