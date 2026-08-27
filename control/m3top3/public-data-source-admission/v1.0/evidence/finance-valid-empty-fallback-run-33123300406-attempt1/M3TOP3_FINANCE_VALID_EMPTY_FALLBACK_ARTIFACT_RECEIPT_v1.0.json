@@ -1,0 +1,30 @@
+{
+  "artifact": "M3TOP3_FINANCE_VALID_EMPTY_FALLBACK_ARTIFACT_RECEIPT_v1.0",
+  "run_id": 33123300406,
+  "run_attempt": 1,
+  "workflow_head_commit": "88ca835e60fda24972c2d0a75b4ada9c64fdd33d",
+  "github_artifact_id": 9667323286,
+  "github_artifact_name": "m3top3-finance-valid-empty-fallback-single-canary-33123300406",
+  "artifact_created_at_utc": "2026-08-27T22:38:51Z",
+  "artifact_zip_bytes": 1054,
+  "artifact_zip_sha256": "e56c41a66e33d3ce3156f78ff888ed18af47397e7a9f2d5a715d46595412f3aa",
+  "members": [
+    {
+      "name": "M3TOP3_FINANCE_VALID_EMPTY_FALLBACK_SINGLE_CANARY_v1.0.json",
+      "bytes": 391,
+      "sha256": "8b7058d4d10107ed0667058c2a907284bdf9661ff9c3a6907a7e477cf000158c"
+    },
+    {
+      "name": "M3TOP3_FINANCE_VALID_EMPTY_FALLBACK_SINGLE_QUOTA_LEDGER_v1.0.jsonl",
+      "bytes": 207,
+      "sha256": "4d3042caa078643fb0f8b84dee43f5fb5f7d850600b0af2f0188181ac69a0f6c"
+    }
+  ],
+  "outcome": "BLOCKED_TRANSIENT_TRANSPORT",
+  "reason": "TRANSPORT_ERROR:URLError",
+  "provider_response_entity_present": false,
+  "secret_value_persisted": false,
+  "gate_effect": "NONE",
+  "validation_claim": "NONE",
+  "verified_at_kst": "2026-08-28T07:42:54+09:00"
+}

@@ -26,3 +26,25 @@ VALIDATION_CLAIM = NONE
 1. Complete bounded S2 evidence freeze where available.
 2. Run remaining S3 canaries one request at a time.
 3. Do not start bulk S4/S5 until S2/S3 and raw-custody prerequisites are satisfied.
+
+## CHECKPOINT UPDATE — 2026-08-28 07:42:54 KST
+- KSD basic-info canary passed: run 33122941717 attempt 1, HTTP 200, provider code 00, exact identity fields matched.
+- Finance valid-empty primary date 20240809 returned HTTP 200 / code 00 with totalCount 67 instead of the frozen empty expectation. This is recorded as historical backfill or daily source drift, not an authentication or filter failure.
+- The pre-frozen fallback date 20240810 was attempted exactly once: run 33123300406 attempt 1. It ended before provider response bytes with TRANSPORT_ERROR:URLError.
+- No automatic retry and no sequential date search were performed.
+- Sanitized fallback artifact 9667323286 was recovered; ZIP SHA256 e56c41a66e33d3ce3156f78ff888ed18af47397e7a9f2d5a715d46595412f3aa.
+- Reconciled accounting: six network/quota attempts total (Finance 4, KSD 2), four ephemeral provider-response entities, zero canonical raw entities.
+- S1 remains CLOSED; cumulative earned progress remains 15/100 EWU.
+- S2 remains PARTIAL_CUSTODY_BLOCKED.
+- S3 remains BLOCKED_TRANSIENT_TRANSPORT_AFTER_SINGLE_FALLBACK_ATTEMPT with 0/10 EWU.
+- S4 through S9 were not started.
+
+## TERMINAL BLOCKERS
+- S2: Finance reference-document bytes/digest; KSD identity-operation documentation and exact update cycle; source-specific object prefix freeze; Actions S3 write/OIDC authority; first remote upload plus SHA256 verification.
+- S3: Finance valid-empty purpose remains open after one source-drift observation and one bounded fallback transport failure.
+- No G2/G3 closure, PIT semantic change, validation PASS, release, production authority, or gate effect is claimed.
+
+## CONTROLLED NEXT ACTION
+- Runtime is stopped with zero active workers and zero active validators.
+- The owner may explicitly authorize a later retry of the same Finance date 20240810. A different date will not be searched automatically.
+- Bulk S4/S5 acquisition remains prohibited until S2 raw-custody prerequisites and S3 are satisfied.

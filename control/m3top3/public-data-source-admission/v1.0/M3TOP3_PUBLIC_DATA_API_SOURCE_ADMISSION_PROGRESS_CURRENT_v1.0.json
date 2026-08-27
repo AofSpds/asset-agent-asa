@@ -1,22 +1,22 @@
 {
   "artifact": "M3TOP3_PUBLIC_DATA_API_SOURCE_ADMISSION_PROGRESS_CURRENT_v1.0",
-  "as_of_kst": "2026-08-28T07:39:00+09:00",
+  "as_of_kst": "2026-08-28T07:42:54+09:00",
   "runtime_lock_id": "PMO-API-SRC-ADMIT-20260828055620",
   "branch": "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828",
-  "head_commit": "701835e9c3d3b9e8a0188691ffa7a23f42659828",
+  "head_commit": "88ca835e60fda24972c2d0a75b4ada9c64fdd33d",
   "denominator_ewu": 100,
   "earned_ewu": 15,
   "overall_progress_percent": 15,
   "current_stage": "S3",
-  "current_stage_state": "BLOCKED_SOURCE_DRIFT_FALLBACK_PENDING",
+  "current_stage_state": "BLOCKED_TRANSIENT_TRANSPORT_AFTER_SINGLE_FALLBACK_ATTEMPT",
   "current_stage_earned_ewu": 0,
-  "active_workers": 1,
+  "active_workers": 0,
   "active_validators": 0,
   "validation_closure": "NONE",
-  "network_attempts": 5,
+  "network_attempts": 6,
   "quota_attempts": {
     "KSD": 2,
-    "FINANCE": 3
+    "FINANCE": 4
   },
   "raw_entities_captured": 4,
   "workflow_evidence": {
@@ -36,13 +36,18 @@
     "ksd_basic_artifact_sha256": "0a0dd6884e747af1c4559f16c581dfc30f9e6a7c8e78accc2776e0423ba26afd",
     "finance_valid_empty_run_id": 33123121495,
     "finance_valid_empty_artifact_id": 9667243904,
-    "finance_valid_empty_artifact_sha256": "5941771a49cf59adbb5cd76645fad43cb9fd4b11f5160bd078bc3aac5c675059"
+    "finance_valid_empty_artifact_sha256": "5941771a49cf59adbb5cd76645fad43cb9fd4b11f5160bd078bc3aac5c675059",
+    "finance_valid_empty_fallback_run_id": 33123300406,
+    "finance_valid_empty_fallback_attempt": 1,
+    "finance_valid_empty_fallback_artifact_id": 9667323286,
+    "finance_valid_empty_fallback_artifact_sha256": "e56c41a66e33d3ce3156f78ff888ed18af47397e7a9f2d5a715d46595412f3aa",
+    "finance_valid_empty_fallback_reason": "TRANSPORT_ERROR:URLError"
   },
-  "exact_blocker": "S2_PARTIAL_CUSTODY_BLOCKED_SOURCE_SPECIFIC_PREFIX_WRITE_AUTHORITY_AND_REMOTE_SHA256_OPEN",
+  "exact_blocker": "S2_PARTIAL_CUSTODY_BLOCKED_AND_S3_FINANCE_VALID_EMPTY_TRANSIENT_TRANSPORT_AFTER_SINGLE_FALLBACK_ATTEMPT",
   "ksd_secret_state": "PRESENT_DECODED_FORM_LIVE_REQUEST_PROVEN",
   "credential_security_disposition": "PROTECTED_REPOSITORY_SECRETS_CONFIGURED_VALUES_NEVER_PERSISTED",
   "resume_trigger": "SATISFIED",
-  "resume_action": "RUN_PRE_FROZEN_FALLBACK_20240810_EXACTLY_ONCE_THEN_CHECKPOINT",
+  "resume_action": "OWNER_MAY_AUTHORIZE_SAME_DATE_20240810_RETRY_LATER_NO_AUTOMATIC_RETRY",
   "time_accounting": {
     "runtime_lock_at_kst": "2026-08-28T05:56:20+09:00",
     "resumed_at_kst": "2026-08-28T07:26:17+09:00",
@@ -52,8 +57,8 @@
     "blocked_seconds": "NOT_INSTRUMENTED",
     "rework_seconds": "NOT_INSTRUMENTED"
   },
-  "claim_ceiling": "S1_CLOSED_S2_PARTIAL_CUSTODY_BLOCKED_S3_SOURCE_DRIFT_REMEDIATION_GATE_EFFECT_NONE_VALIDATION_NONE",
-  "raw_custody_state": "TWO_EPHEMERAL_ACTIONS_ENTITIES_ZERO_CANONICAL_DATA_PLANE_ENTITIES",
+  "claim_ceiling": "S1_CLOSED_S2_PARTIAL_CUSTODY_BLOCKED_S3_TRANSIENT_TRANSPORT_BLOCKED_GATE_EFFECT_NONE_VALIDATION_NONE",
+  "raw_custody_state": "FOUR_EPHEMERAL_ACTIONS_RESPONSE_ENTITIES_ZERO_CANONICAL_DATA_PLANE_ENTITIES",
   "s1": {
     "state": "CLOSED",
     "earned_ewu": 10,
@@ -83,7 +88,7 @@
     ]
   },
   "s3": {
-    "state": "BLOCKED_SOURCE_DRIFT_FALLBACK_PENDING",
+    "state": "BLOCKED_TRANSIENT_TRANSPORT_AFTER_SINGLE_FALLBACK_ATTEMPT",
     "earned_ewu": 0,
     "passed_purposes": [
       "KSD-CROSSWALK",
@@ -94,11 +99,24 @@
       {
         "canary_id": "FINANCE-VALID-EMPTY-20240809",
         "expected_total_count": 0,
-        "observed_total_count": 67
+        "observed_total_count": 67,
+        "run_id": 33123121495
       }
     ],
+    "fallback_attempt": {
+      "canary_id": "FINANCE-VALID-EMPTY-FALLBACK-20240810",
+      "run_id": 33123300406,
+      "run_attempt": 1,
+      "state": "BLOCKED_TRANSIENT_TRANSPORT",
+      "reason": "TRANSPORT_ERROR:URLError",
+      "network_attempts": 1,
+      "quota_attempts": 1,
+      "automatic_retry": false,
+      "raw_entity_present": false
+    },
     "remaining_purpose": "FINANCE-VALID-EMPTY",
-    "next_bounded_canary": "FINANCE-VALID-EMPTY-FALLBACK-20240810"
+    "next_bounded_canary": "NONE_STOPPED_AFTER_SINGLE_FALLBACK_TRANSPORT_FAILURE",
+    "next_action": "OWNER_MAY_AUTHORIZE_SAME_DATE_20240810_RETRY_LATER"
   },
   "finance_secret_state": "PRESENT_DECODED_FORM_LIVE_REQUEST_PROVEN",
   "canonical_raw_entities": 0,

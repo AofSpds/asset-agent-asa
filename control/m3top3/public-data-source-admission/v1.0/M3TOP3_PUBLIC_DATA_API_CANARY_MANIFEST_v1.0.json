@@ -1,9 +1,9 @@
 {
   "artifact": "M3TOP3_PUBLIC_DATA_API_CANARY_MANIFEST_v1.0",
-  "as_of_kst": "2026-08-28T07:39:00+09:00",
-  "state": "SOURCE_DRIFT_REMEDIATION_PENDING_3_PURPOSES_PASS_1_VALID_EMPTY_OPEN",
+  "as_of_kst": "2026-08-28T07:42:54+09:00",
+  "state": "BLOCKED_TRANSIENT_TRANSPORT_AFTER_SINGLE_FALLBACK_ATTEMPT",
   "workflow_run_id": null,
-  "workflow_head_commit": "701835e9c3d3b9e8a0188691ffa7a23f42659828",
+  "workflow_head_commit": "88ca835e60fda24972c2d0a75b4ada9c64fdd33d",
   "credential_preflight": {
     "DATA_GO_KR_FINANCE_STOCK_RIGHTS_SERVICE_KEY": "PRESENT_DECODED_FORM_LIVE_REQUEST_PROVEN",
     "DATA_GO_KR_KSD_CORP_SERVICE_KEY": "PRESENT_DECODED_FORM_LIVE_REQUEST_PROVEN",
@@ -90,43 +90,55 @@
     },
     {
       "canary_id": "FINANCE-VALID-EMPTY-FALLBACK-20240810",
-      "state": "NOT_RUN_BOUNDED_SOURCE_DRIFT_REMEDIATION",
+      "state": "BLOCKED_TRANSIENT_TRANSPORT",
       "source_id": "M3TOP3-FINANCE-STOCK-RIGHTS-v1",
       "params": {
         "basDt": "20240810",
         "numOfRows": 10,
         "pageNo": 1,
         "resultType": "json"
-      }
+      },
+      "run_id": 33123300406,
+      "run_attempt": 1,
+      "workflow_head_commit": "88ca835e60fda24972c2d0a75b4ada9c64fdd33d",
+      "network_attempts": 1,
+      "quota_attempts": 1,
+      "reason": "TRANSPORT_ERROR:URLError",
+      "artifact_id": 9667323286,
+      "artifact_sha256": "e56c41a66e33d3ce3156f78ff888ed18af47397e7a9f2d5a715d46595412f3aa",
+      "raw_entity_present": false,
+      "raw_custody": "NO_PROVIDER_RESPONSE_ENTITY_TRANSPORT_FAILED_BEFORE_RESPONSE_BYTES"
     }
   ],
-  "network_attempts": 0,
+  "network_attempts": 6,
   "quota_attempts": {
-    "KSD": 0,
-    "FINANCE": 0
+    "KSD": 2,
+    "FINANCE": 4
   },
   "raw_entities": 4,
-  "leak_scan": "PASS_BOTH_SUCCESS_BUNDLES",
-  "sanitized_artifact_id": null,
-  "sanitized_artifact_digest": null,
-  "next_action": "RUN_PRE_FROZEN_FALLBACK_DATE_20240810_EXACTLY_ONCE_THEN_STOP_IF_NOT_EMPTY",
+  "leak_scan": "PASS_ALL_CAPTURED_SANITIZED_BUNDLES",
+  "sanitized_artifact_id": 9667323286,
+  "sanitized_artifact_digest": "e56c41a66e33d3ce3156f78ff888ed18af47397e7a9f2d5a715d46595412f3aa",
+  "next_action": "STOP_NO_AUTOMATIC_RETRY_OWNER_MAY_AUTHORIZE_SAME_DATE_20240810_RETRY_LATER",
   "gate_effect": "NONE",
   "validation_claim": "NONE",
   "request_accounting": {
-    "network_attempts": 5,
+    "network_attempts": 6,
     "quota_attempts": {
       "KSD": 2,
-      "FINANCE": 3
+      "FINANCE": 4
     },
     "successful_requests": 3,
     "valid_empty_requests": 0,
     "nodata_requests": 0,
-    "failed_requests": 1,
+    "failed_requests": 2,
     "automatic_retries": 0,
     "owner_authorized_manual_retests": 1,
-    "note": "One Finance transport failure preceded the successful owner-authorized single retest; preflight-only failures consumed no network quota.",
+    "note": "Finance attempts comprise one earlier owner-authorized transport failure, one positive PASS, one HTTP 200 source-drift observation, and one pre-frozen fallback transport failure. No automatic retry was performed.",
     "provider_successful_responses": 4,
-    "source_drift_mismatches": 1
+    "source_drift_mismatches": 1,
+    "bounded_fallback_attempts": 1,
+    "transport_failures": 2
   },
   "canonical_raw_entities": 0,
   "offline_reparse": [
