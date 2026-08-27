@@ -1,44 +1,88 @@
 {
   "artifact": "M3TOP3_PUBLIC_DATA_API_SOURCE_ADMISSION_PROGRESS_CURRENT_v1.0",
-  "as_of_kst": "2026-08-28T06:09:07+09:00",
+  "as_of_kst": "2026-08-28T07:26:17+09:00",
   "runtime_lock_id": "PMO-API-SRC-ADMIT-20260828055620",
   "branch": "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828",
-  "head_commit": "0bf4ff8289aed88365dda8ac958b08ddc67b03db",
+  "head_commit": "5bcdbb588b6f10209cc48b84464808ef127b92ed",
   "denominator_ewu": 100,
-  "earned_ewu": 5,
-  "overall_progress_percent": 5,
-  "current_stage": "S1",
-  "current_stage_state": "BLOCKED_FAIL_CLOSED",
+  "earned_ewu": 15,
+  "overall_progress_percent": 15,
+  "current_stage": "S2",
+  "current_stage_state": "IN_PROGRESS",
   "current_stage_earned_ewu": 0,
-  "active_workers": 0,
+  "active_workers": 1,
   "active_validators": 0,
   "validation_closure": "NONE",
-  "network_attempts": 0,
-  "quota_attempts": {"KSD": 0, "FINANCE": 0},
-  "raw_entities_captured": 0,
-  "workflow_evidence": {
-    "first_run_id": 33116614512,
-    "first_run_conclusion": "SKIPPED_BY_UNSUPPORTED_ADDED_FILE_LATCH",
-    "correction_batch_count": 1,
-    "canary_run_id": 33116700451,
-    "canary_run_conclusion": "FAILURE_AT_SECRET_PREFLIGHT_BEFORE_NETWORK",
-    "sanitized_artifact_id": 9664772560,
-    "sanitized_artifact_digest": "sha256:dbe9f02229a87292ff3a1cd709ac3eb9fb731efcce1d013aa00bc7a3e307fcd4",
-    "leak_scan": "PASS"
+  "network_attempts": 3,
+  "quota_attempts": {
+    "KSD": 1,
+    "FINANCE": 2
   },
-  "exact_blocker": "MISSING_REQUIRED_SECRET:DATA_GO_KR_FINANCE_STOCK_RIGHTS_SERVICE_KEY",
-  "ksd_secret_state": "NOT_EVALUATED_DUE_FAIL_FAST_FINANCE_BLOCKER",
-  "credential_security_disposition": "ROTATE_BOTH_THEN_STORE_DECODED_VALUES_AS_PROTECTED_REPOSITORY_SECRETS",
-  "resume_trigger": "OWNER_CONFIRMS_BOTH_ROTATED_DECODED_SECRETS_ARE_CONFIGURED",
-  "resume_action": "RERUN_FAILED_JOB_FOR_WORKFLOW_RUN_33116700451",
+  "raw_entities_captured": 2,
+  "workflow_evidence": {
+    "initial_preflight_run_id": 33116700451,
+    "finance_single_run_id": 33121294378,
+    "finance_success_attempt": 3,
+    "finance_success_artifact_id": 9666787245,
+    "finance_success_artifact_sha256": "66ad165d843ab418c260a42a670c9fa00b112bfeb567b4f903dd49bdba9e2dde",
+    "ksd_single_run_id": 33122137049,
+    "ksd_success_attempt": 1,
+    "ksd_success_artifact_id": 9666862342,
+    "ksd_success_artifact_sha256": "162821b2b75e2bbef39f62070b23a7029af2b959d9f7e5f2f15957037ba5e83b",
+    "leak_scan": "PASS_BOTH_SUCCESS_BUNDLES"
+  },
+  "exact_blocker": "S2_OPEN_DOCUMENTATION_LICENSE_UPDATE_AND_SOURCE_FAMILY_REMOTE_MATERIALIZATION_FIELDS",
+  "ksd_secret_state": "PRESENT_DECODED_FORM_LIVE_REQUEST_PROVEN",
+  "credential_security_disposition": "PROTECTED_REPOSITORY_SECRETS_CONFIGURED_VALUES_NEVER_PERSISTED",
+  "resume_trigger": "SATISFIED",
+  "resume_action": "CONTINUE_S2_THEN_REMAINING_S3_CANARIES_ONE_REQUEST_AT_A_TIME",
   "time_accounting": {
     "runtime_lock_at_kst": "2026-08-28T05:56:20+09:00",
-    "checkpoint_at_kst": "2026-08-28T06:09:07+09:00",
-    "observed_wall_seconds": 767,
+    "resumed_at_kst": "2026-08-28T07:26:17+09:00",
+    "elapsed_wall_seconds": "NOT_INSTRUMENTED_ACROSS_UI_INTERRUPTION",
     "active_cpu_seconds": "NOT_INSTRUMENTED",
     "wait_seconds": "NOT_INSTRUMENTED",
     "blocked_seconds": "NOT_INSTRUMENTED",
     "rework_seconds": "NOT_INSTRUMENTED"
   },
-  "claim_ceiling": "SOURCE_PREFLIGHT_BLOCKED_GATE_EFFECT_NONE_VALIDATION_NONE"
+  "claim_ceiling": "S1_CLOSED_S3_PARTIAL_GATE_EFFECT_NONE_VALIDATION_NONE",
+  "raw_custody_state": "EPHEMERAL_ACTIONS_EVIDENCE_ONLY_NOT_CANONICAL_DATA_PLANE",
+  "s1": {
+    "state": "CLOSED",
+    "earned_ewu": 10,
+    "terminal_evidence": "BOTH_ROTATED_DECODED_SECRET_ALIASES_PASSED_LIVE_SINGLE_REQUESTS_AND_NO_COMPETING_WRITER_READBACK",
+    "competing_writer_readback": {
+      "active_workflow_runs": 0,
+      "open_branch_pull_requests": 0,
+      "branch_head": "5bcdbb588b6f10209cc48b84464808ef127b92ed"
+    }
+  },
+  "s2": {
+    "state": "IN_PROGRESS",
+    "earned_ewu": 0,
+    "completed": [
+      "KSD_DATA_GO_KR_ENDPOINT_SELECTED_AND_LIVE_PROVEN",
+      "CREDENTIAL_AND_QUOTA_CONTRACT_CURRENTIZED",
+      "DATA_PLANE_TARGET_PREFIX_BOUND"
+    ],
+    "open": [
+      "DOCUMENTATION_DIGEST",
+      "LICENSE_RETENTION_ATTRIBUTION",
+      "UPDATE_CYCLE",
+      "SOURCE_FAMILY_REMOTE_BYTE_MATERIALIZATION"
+    ]
+  },
+  "s3": {
+    "state": "PARTIAL_2_OF_4",
+    "earned_ewu": 0,
+    "passed": [
+      "KSD-CROSSWALK-042700",
+      "FINANCE-POSITIVE-20191231"
+    ],
+    "remaining": [
+      "KSD-BASIC-6069",
+      "FINANCE-VALID-EMPTY-20240809"
+    ]
+  },
+  "finance_secret_state": "PRESENT_DECODED_FORM_LIVE_REQUEST_PROVEN"
 }

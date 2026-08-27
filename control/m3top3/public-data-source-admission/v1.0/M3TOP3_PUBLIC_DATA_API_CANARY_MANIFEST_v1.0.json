@@ -1,29 +1,83 @@
 {
   "artifact": "M3TOP3_PUBLIC_DATA_API_CANARY_MANIFEST_v1.0",
-  "as_of_kst": "2026-08-28T06:09:07+09:00",
-  "state": "BLOCKED_PRE_NETWORK",
-  "workflow_run_id": 33116700451,
-  "workflow_head_commit": "0bf4ff8289aed88365dda8ac958b08ddc67b03db",
+  "as_of_kst": "2026-08-28T07:26:17+09:00",
+  "state": "PARTIAL_PASS_2_OF_4_BOUNDED_CANARIES",
+  "workflow_run_id": null,
+  "workflow_head_commit": "5bcdbb588b6f10209cc48b84464808ef127b92ed",
   "credential_preflight": {
-    "DATA_GO_KR_FINANCE_STOCK_RIGHTS_SERVICE_KEY": "MISSING",
-    "DATA_GO_KR_KSD_CORP_SERVICE_KEY": "NOT_EVALUATED_FAIL_FAST",
+    "DATA_GO_KR_FINANCE_STOCK_RIGHTS_SERVICE_KEY": "PRESENT_DECODED_FORM_LIVE_REQUEST_PROVEN",
+    "DATA_GO_KR_KSD_CORP_SERVICE_KEY": "PRESENT_DECODED_FORM_LIVE_REQUEST_PROVEN",
     "values_logged_or_persisted": false,
-    "rotation_required_for_both": true,
-    "decoded_value_form_required": true
+    "owner_reissue_and_repository_configuration_confirmed": true
   },
   "canaries": [
-    {"canary_id": "KSD-CROSSWALK-042700", "state": "NOT_RUN_PRECONDITION_BLOCKED"},
-    {"canary_id": "KSD-BASIC-6069", "state": "NOT_RUN_PRECONDITION_BLOCKED"},
-    {"canary_id": "FINANCE-POSITIVE-20191231", "state": "NOT_RUN_PRECONDITION_BLOCKED"},
-    {"canary_id": "FINANCE-VALID-EMPTY-20240809", "state": "NOT_RUN_PRECONDITION_BLOCKED"}
+    {
+      "canary_id": "KSD-CROSSWALK-042700",
+      "state": "PASS",
+      "source_id": "M3TOP3-KSD-CORP-DATA-GO-KR-v1",
+      "run_id": 33122137049,
+      "run_attempt": 1,
+      "workflow_head_commit": "5bcdbb588b6f10209cc48b84464808ef127b92ed",
+      "http_status": 200,
+      "provider_result_code": "00",
+      "row_count": 1,
+      "issucoCustno": "6069",
+      "issuer_name_match": true,
+      "entity_bytes": 411,
+      "entity_sha256": "f3222d32400f728a3259fe751531662198078bea23892a7ed0cf74f65106d2ac",
+      "artifact_id": 9666862342,
+      "artifact_sha256": "162821b2b75e2bbef39f62070b23a7029af2b959d9f7e5f2f15957037ba5e83b",
+      "raw_custody": "ACTIONS_EPHEMERAL_STAGING_NOT_CANONICAL_CUSTODY"
+    },
+    {
+      "canary_id": "KSD-BASIC-6069",
+      "state": "NOT_RUN_BOUNDED_SEQUENCE"
+    },
+    {
+      "canary_id": "FINANCE-POSITIVE-20191231",
+      "state": "PASS",
+      "source_id": "M3TOP3-FINANCE-STOCK-RIGHTS-v1",
+      "run_id": 33121294378,
+      "run_attempt": 3,
+      "workflow_head_commit": "2f52a80918b8c2059c598077aa06953d9ec290b9",
+      "http_status": 200,
+      "provider_result_code": "00",
+      "total_count": 52563,
+      "entity_bytes": 4550,
+      "entity_sha256": "6b556a5f81f0446c00fd2d61bea212b8271303b805e397ecae7703bf3d573620",
+      "artifact_id": 9666787245,
+      "artifact_sha256": "66ad165d843ab418c260a42a670c9fa00b112bfeb567b4f903dd49bdba9e2dde",
+      "raw_custody": "ACTIONS_EPHEMERAL_STAGING_NOT_CANONICAL_CUSTODY"
+    },
+    {
+      "canary_id": "FINANCE-VALID-EMPTY-20240809",
+      "state": "NOT_RUN_BOUNDED_SEQUENCE"
+    }
   ],
   "network_attempts": 0,
-  "quota_attempts": {"KSD": 0, "FINANCE": 0},
-  "raw_entities": 0,
-  "leak_scan": "PASS",
-  "sanitized_artifact_id": 9664772560,
-  "sanitized_artifact_digest": "sha256:dbe9f02229a87292ff3a1cd709ac3eb9fb731efcce1d013aa00bc7a3e307fcd4",
-  "next_action": "ROTATE_AND_CONFIGURE_BOTH_DECODED_FORM_REPOSITORY_SECRETS_THEN_RERUN_FAILED_JOB",
+  "quota_attempts": {
+    "KSD": 0,
+    "FINANCE": 0
+  },
+  "raw_entities": 2,
+  "leak_scan": "PASS_BOTH_SUCCESS_BUNDLES",
+  "sanitized_artifact_id": null,
+  "sanitized_artifact_digest": null,
+  "next_action": "FREEZE_DATA_GO_KR_KSD_SOURCE_IDENTITY_AND_RUN_REMAINING_CANARIES_ONE_REQUEST_AT_A_TIME",
   "gate_effect": "NONE",
-  "validation_claim": "NONE"
+  "validation_claim": "NONE",
+  "request_accounting": {
+    "network_attempts": 3,
+    "quota_attempts": {
+      "KSD": 1,
+      "FINANCE": 2
+    },
+    "successful_requests": 2,
+    "valid_empty_requests": 0,
+    "nodata_requests": 0,
+    "failed_requests": 1,
+    "automatic_retries": 0,
+    "owner_authorized_manual_retests": 1,
+    "note": "One Finance transport failure preceded the successful owner-authorized single retest; preflight-only failures consumed no network quota."
+  }
 }
