@@ -1,24 +1,24 @@
 {
   "artifact": "M3TOP3_PUBLIC_DATA_API_SOURCE_ADMISSION_PROGRESS_CURRENT_v1.0",
-  "as_of_kst": "2026-08-28T07:34:00+09:00",
+  "as_of_kst": "2026-08-28T07:36:00+09:00",
   "runtime_lock_id": "PMO-API-SRC-ADMIT-20260828055620",
   "branch": "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828",
-  "head_commit": "a680c561f03692dd745714867b8b2d2dee583dd7",
+  "head_commit": "8e376b3f7d77deaa2dfd31ac31267da3e66fdf0a",
   "denominator_ewu": 100,
   "earned_ewu": 15,
   "overall_progress_percent": 15,
-  "current_stage": "S2",
-  "current_stage_state": "IN_PROGRESS",
+  "current_stage": "S3",
+  "current_stage_state": "PARTIAL_3_OF_4",
   "current_stage_earned_ewu": 0,
   "active_workers": 1,
   "active_validators": 0,
   "validation_closure": "NONE",
-  "network_attempts": 3,
+  "network_attempts": 4,
   "quota_attempts": {
-    "KSD": 1,
+    "KSD": 2,
     "FINANCE": 2
   },
-  "raw_entities_captured": 2,
+  "raw_entities_captured": 3,
   "workflow_evidence": {
     "initial_preflight_run_id": 33116700451,
     "finance_single_run_id": 33121294378,
@@ -29,13 +29,17 @@
     "ksd_success_attempt": 1,
     "ksd_success_artifact_id": 9666862342,
     "ksd_success_artifact_sha256": "162821b2b75e2bbef39f62070b23a7029af2b959d9f7e5f2f15957037ba5e83b",
-    "leak_scan": "PASS_BOTH_SUCCESS_BUNDLES"
+    "leak_scan": "PASS_BOTH_SUCCESS_BUNDLES",
+    "ksd_basic_run_id": 33122941717,
+    "ksd_basic_success_attempt": 1,
+    "ksd_basic_artifact_id": 9667174181,
+    "ksd_basic_artifact_sha256": "0a0dd6884e747af1c4559f16c581dfc30f9e6a7c8e78accc2776e0423ba26afd"
   },
   "exact_blocker": "S2_PARTIAL_CUSTODY_BLOCKED_SOURCE_SPECIFIC_PREFIX_WRITE_AUTHORITY_AND_REMOTE_SHA256_OPEN",
   "ksd_secret_state": "PRESENT_DECODED_FORM_LIVE_REQUEST_PROVEN",
   "credential_security_disposition": "PROTECTED_REPOSITORY_SECRETS_CONFIGURED_VALUES_NEVER_PERSISTED",
   "resume_trigger": "SATISFIED",
-  "resume_action": "ALIGN_SHARED_KSD_CODE_THEN_RUN_KSD_BASIC_SINGLE_CANARY_EXACTLY_ONCE",
+  "resume_action": "RUN_FINANCE_VALID_EMPTY_20240809_EXACTLY_ONCE",
   "time_accounting": {
     "runtime_lock_at_kst": "2026-08-28T05:56:20+09:00",
     "resumed_at_kst": "2026-08-28T07:26:17+09:00",
@@ -45,7 +49,7 @@
     "blocked_seconds": "NOT_INSTRUMENTED",
     "rework_seconds": "NOT_INSTRUMENTED"
   },
-  "claim_ceiling": "S1_CLOSED_S2_PARTIAL_CUSTODY_BLOCKED_S3_PARTIAL_GATE_EFFECT_NONE_VALIDATION_NONE",
+  "claim_ceiling": "S1_CLOSED_S2_PARTIAL_CUSTODY_BLOCKED_S3_PARTIAL_3_OF_4_GATE_EFFECT_NONE_VALIDATION_NONE",
   "raw_custody_state": "TWO_EPHEMERAL_ACTIONS_ENTITIES_ZERO_CANONICAL_DATA_PLANE_ENTITIES",
   "s1": {
     "state": "CLOSED",
@@ -76,14 +80,14 @@
     ]
   },
   "s3": {
-    "state": "PARTIAL_2_OF_4",
+    "state": "PARTIAL_3_OF_4",
     "earned_ewu": 0,
     "passed": [
       "KSD-CROSSWALK-042700",
+      "KSD-BASIC-6069",
       "FINANCE-POSITIVE-20191231"
     ],
     "remaining": [
-      "KSD-BASIC-6069",
       "FINANCE-VALID-EMPTY-20240809"
     ]
   },

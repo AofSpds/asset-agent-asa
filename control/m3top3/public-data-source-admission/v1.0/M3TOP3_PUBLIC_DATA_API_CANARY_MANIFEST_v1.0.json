@@ -1,9 +1,9 @@
 {
   "artifact": "M3TOP3_PUBLIC_DATA_API_CANARY_MANIFEST_v1.0",
-  "as_of_kst": "2026-08-28T07:34:00+09:00",
-  "state": "PARTIAL_PASS_2_OF_4_BOUNDED_CANARIES",
+  "as_of_kst": "2026-08-28T07:36:00+09:00",
+  "state": "PARTIAL_PASS_3_OF_4_BOUNDED_CANARIES",
   "workflow_run_id": null,
-  "workflow_head_commit": "5bcdbb588b6f10209cc48b84464808ef127b92ed",
+  "workflow_head_commit": "8e376b3f7d77deaa2dfd31ac31267da3e66fdf0a",
   "credential_preflight": {
     "DATA_GO_KR_FINANCE_STOCK_RIGHTS_SERVICE_KEY": "PRESENT_DECODED_FORM_LIVE_REQUEST_PROVEN",
     "DATA_GO_KR_KSD_CORP_SERVICE_KEY": "PRESENT_DECODED_FORM_LIVE_REQUEST_PROVEN",
@@ -31,7 +31,23 @@
     },
     {
       "canary_id": "KSD-BASIC-6069",
-      "state": "NOT_RUN_BOUNDED_SEQUENCE"
+      "state": "PASS",
+      "source_id": "M3TOP3-KSD-CORP-DATA-GO-KR-v1",
+      "run_id": 33122941717,
+      "run_attempt": 1,
+      "workflow_head_commit": "8e376b3f7d77deaa2dfd31ac31267da3e66fdf0a",
+      "http_status": 200,
+      "provider_result_code": "00",
+      "row_count": 1,
+      "issuer_id_match": true,
+      "short_code_match": true,
+      "company_match": true,
+      "market_match": true,
+      "entity_bytes": 1651,
+      "entity_sha256": "f38df1bf65a04ff93e49968b9d5f9728b9e0f44c11de6f6f3961977b1547d8a4",
+      "artifact_id": 9667174181,
+      "artifact_sha256": "0a0dd6884e747af1c4559f16c581dfc30f9e6a7c8e78accc2776e0423ba26afd",
+      "raw_custody": "ACTIONS_EPHEMERAL_STAGING_NOT_CANONICAL_CUSTODY"
     },
     {
       "canary_id": "FINANCE-POSITIVE-20191231",
@@ -59,20 +75,20 @@
     "KSD": 0,
     "FINANCE": 0
   },
-  "raw_entities": 2,
+  "raw_entities": 3,
   "leak_scan": "PASS_BOTH_SUCCESS_BUNDLES",
   "sanitized_artifact_id": null,
   "sanitized_artifact_digest": null,
-  "next_action": "RUN_KSD_BASIC_6069_EXACTLY_ONCE_AFTER_SHARED_KSD_IDENTITY_ALIGNMENT",
+  "next_action": "RUN_FINANCE_VALID_EMPTY_20240809_EXACTLY_ONCE",
   "gate_effect": "NONE",
   "validation_claim": "NONE",
   "request_accounting": {
-    "network_attempts": 3,
+    "network_attempts": 4,
     "quota_attempts": {
-      "KSD": 1,
+      "KSD": 2,
       "FINANCE": 2
     },
-    "successful_requests": 2,
+    "successful_requests": 3,
     "valid_empty_requests": 0,
     "nodata_requests": 0,
     "failed_requests": 1,

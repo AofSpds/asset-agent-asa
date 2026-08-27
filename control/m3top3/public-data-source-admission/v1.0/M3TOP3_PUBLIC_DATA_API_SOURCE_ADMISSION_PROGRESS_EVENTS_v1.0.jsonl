@@ -14,3 +14,5 @@
 {"event":"OFFLINE_RAW_REPARSE_PASS","stage":"S3","canary_id":"KSD-CROSSWALK-042700","entity_sha256":"f3222d32400f728a3259fe751531662198078bea23892a7ed0cf74f65106d2ac","issuer_id_match":true,"issuer_name_match":true,"market_name_match":true,"network_attempts":0,"timestamp_kst":"2026-08-28T07:34:00+09:00"}
 {"event":"STAGE_STARTED","stage":"S2","state":"PARTIAL_CUSTODY_BLOCKED","earned_ewu":0,"timestamp_kst":"2026-08-28T07:34:00+09:00"}
 {"event":"S2_METADATA_PARTIAL_FREEZE","stage":"S2","catalog_ids":["15059609","15157348"],"licenses":"PUBLIC_NURI_TYPE_2_BOTH","finance_update_cycle":"FROZEN","ksd_update_cycle":"OPEN","stable_object_locators":0,"timestamp_kst":"2026-08-28T07:34:00+09:00"}
+{"event":"KSD_BASIC_SINGLE_CANARY_PASS","stage":"S3","run_id":33122941717,"run_attempt":1,"artifact_id":9667174181,"http_status":200,"provider_result_code":"00","row_count":1,"identity_fields_match":true,"network_attempts":1,"quota_attempts":1,"timestamp_kst":"2026-08-28T07:33:04+09:00"}
+{"event":"STAGE_PARTIAL","stage":"S3","passed_canaries":3,"total_canaries":4,"earned_ewu":0,"remaining":["FINANCE-VALID-EMPTY-20240809"],"timestamp_kst":"2026-08-28T07:36:00+09:00"}

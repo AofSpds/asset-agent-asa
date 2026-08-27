@@ -1,0 +1,22 @@
+{
+  "acquired_at_utc": "2026-08-27T22:33:04.837374+00:00",
+  "artifact": "M3TOP3_KSD_BASIC_SINGLE_CANARY_v1.0",
+  "state": "PASS",
+  "source_id": "M3TOP3-KSD-CORP-DATA-GO-KR-v1",
+  "operation": "getIssucoBasicInfo",
+  "issucoCustno": "6069",
+  "network_attempts": 1,
+  "quota_attempts": 1,
+  "http_status": 200,
+  "result_code": "00",
+  "row_count": 1,
+  "issuer_id_match": true,
+  "short_code_match": true,
+  "company_match": true,
+  "market_match": true,
+  "entity_bytes": 1651,
+  "entity_sha256": "f38df1bf65a04ff93e49968b9d5f9728b9e0f44c11de6f6f3961977b1547d8a4",
+  "raw_custody": "ACTIONS_EPHEMERAL_STAGING_NOT_CANONICAL_CUSTODY",
+  "gate_effect": "NONE",
+  "validation_claim": "NONE"
+}
