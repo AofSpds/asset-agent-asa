@@ -1,6 +1,7 @@
 {
   "artifact": "M3TOP3_KSD_OFFICIAL_SWAGGER_FIELD_SEMANTICS_RECEIPT_v1.0",
   "observed_at_kst": "2026-08-28T13:13:00+09:00",
+  "last_currentized_at_kst": "2026-08-28T14:01:16+09:00",
   "acquisition_mode": "READ_ONLY_OFFICIAL_CATALOG_INLINE_SWAGGER_RESEARCH_NO_PROVIDER_DATA_API_CALL",
   "provider_api_network_attempts": 0,
   "provider": "KSD",
@@ -54,9 +55,73 @@
     "CORRECTION_OR_RETROACTIVE_UPDATE_RULES",
     "EXACT_UPDATE_FREQUENCY_CUTOFF_OR_LATENCY_SLA"
   ],
+  "null_and_event_date_semantics": {
+    "state": "UNKNOWN_NOT_PROVEN",
+    "official_schema_nullability_or_sentinel_rules": "ABSENT",
+    "blank_null_whitespace_empty_xml_or_00000000_equivalence": "NOT_PROVEN",
+    "safe_handling": "PRESERVE_RAW_AND_PARSE_AS_MISSING_OR_SENTINEL_UNSPECIFIED_WITHOUT_EVENT_ABSENCE_OR_CURRENT_STATUS_INFERENCE",
+    "event_date_ceiling": {
+      "dlistDt": "KSD_REPORTED_DELISTING_EVENT_ONLY_NOT_CORPORATE_CLOSURE_OR_EXTINCTION",
+      "apliDtN": "KSD_REPORTED_DEPOSITARY_DESIGNATION_CANCELLATION_EVENT_ONLY_NOT_CURRENT_CORPORATE_OR_LISTING_STATUS",
+      "custXtinDt": "KSD_REPORTED_COMPANY_EXTINCTION_DATE_PRESENT_ONLY_CAUSE_SUCCESSOR_CURRENT_LEGAL_STATUS_AND_TIMELINESS_UNPROVEN",
+      "founDt_apliDt_apliDtY_with_blank_end_dates": "DO_NOT_INFER_ACTIVE"
+    },
+    "default_current_status": "UNKNOWN"
+  },
+  "official_seibro_status_separation": {
+    "source_url": "https://seibro.or.kr/websquare/control.jsp?w2xPath=/IPORTAL/user/stock/BIP_CNTS02025V.xml&menuNo=33",
+    "displayed_separate_columns": [
+      "등록(예탁)가능여부",
+      "예탁지정일",
+      "예탁지정취소일",
+      "시장구분",
+      "상장일",
+      "상장폐지일"
+    ],
+    "corroborated_conclusion": "CURRENT_DEPOSIT_AVAILABILITY_IS_DISPLAYED_SEPARATELY_FROM_EVENT_DATES",
+    "corpsvc_wire_field_equivalence": "NOT_PROVEN",
+    "promotion_to_current_status_semantics": "PROHIBITED"
+  },
+  "official_sibling_service_corroboration": {
+    "catalog_dataset_id": "15157413",
+    "catalog_url": "https://www.data.go.kr/data/15157413/openapi.do",
+    "service_id": "B552481/StockSvc",
+    "field_name": "caltotMartTpcd",
+    "candidate_response_dictionary_repeated_in": [
+      "getListStatN1",
+      "getKDRIssuLmtDetailsN1"
+    ],
+    "candidate_response_dictionary": {
+      "11": "유가증권시장",
+      "12": "코스닥시장",
+      "13": "K-OTC시장",
+      "14": "코넥스시장",
+      "50": "기타비상장"
+    },
+    "same_sibling_service_description_conflict": {
+      "operation": "getKDRSecnInfo",
+      "parameter_description": "11:유가증권시장, 12:코스닥시장, 13:코넥스시장",
+      "conflicting_code": "13"
+    },
+    "state": "OFFICIAL_SIBLING_SERVICE_FIELD_NAME_MATCH_CORROBORATION_ONLY_WITH_DESCRIPTION_CONFLICT",
+    "corpsvc_dictionary_equivalence": "NOT_PROVEN",
+    "promotion_to_corpsvc_full_dictionary": "PROHIBITED",
+    "safe_handling": "PRESERVE_RAW_CODE_AND_NAME_UNKNOWN_PASS_THROUGH"
+  },
+  "roster_close_code_dictionaries": {
+    "state": "UNKNOWN_NOT_PROVEN",
+    "rostCloseTermUnitNm_description": "월 or 일",
+    "rostCloseTermUnitCd_to_name_mapping": "ABSENT",
+    "rostCloseTermTpcd_dictionary": "ABSENT",
+    "composite_display_example": "기준일후 1 월",
+    "separate_hwp_dtTpcd_04_mapping_transfer": "PROHIBITED_NOT_THE_SAME_FIELD",
+    "safe_handling": "PRESERVE_RAW_CODES_AND_NAMES_UNKNOWN_PASS_THROUGH"
+  },
   "historical_validity_semantics": {
     "state": "UNKNOWN_NOT_PROVEN",
-    "reason": "REQUEST_SCHEMA_HAS_NO_AS_OF_PARAMETER_AND_RESPONSE_SCHEMA_HAS_NO_OBSERVATION_TIMESTAMP_EFFECTIVE_PERIOD_OR_REVISION_FIELD",
+    "reason": "BASIC_INFO_REQUEST_SCHEMA_HAS_NO_AS_OF_PARAMETER_AND_RESPONSE_SCHEMA_HAS_NO_PUBLICATION_OR_OBSERVATION_TIMESTAMP_EFFECTIVE_PERIOD_VERSION_REVISION_CORRECTION_SUPERSESSION_OR_RETRACTION_FIELD",
+    "other_operation_business_or_reference_dates": "DO_NOT_PROVE_SYSTEM_TIME_OR_PUBLICATION_TIME_POINT_IN_TIME_REPRODUCIBILITY",
+    "seibro_dividend_finality": "SEPARATE_FINALITY_CONCEPT_EXISTS_BUT_CORPSVC_DIVIDEND_RESPONSE_DOES_NOT EXPOSE FINALITY_OR_REVISION",
     "null_or_status_inference": "PROHIBITED"
   },
   "exact_update_cycle": {
@@ -65,9 +130,110 @@
       "실시간으로 조회",
       "업데이트가 빠르고 정확"
     ],
+    "schema_org_datasetTimeInterval_label": "실시간",
+    "schema_org_temporalCoverage": "BLANK",
+    "dcat_accrualPeriodicity": "ABSENT",
+    "numeric_refresh_interval": "ABSENT",
+    "cutoff_max_staleness_or_latency_sla": "ABSENT",
+    "cross_service_cycle_transfer": "PROHIBITED",
     "disposition": "GENERIC_RETRIEVAL_AND_FRESHNESS_PROSE_NOT_PROMOTED_TO_EXACT_REFRESH_FREQUENCY_CUTOFF_OR_SLA"
   },
-  "claim_ceiling": "FIELD_NAME_AND_BASIC_DESCRIPTION_PROVEN_CODE_DICTIONARY_PARTIAL_ONLY_EXACT_UPDATE_CYCLE_UNKNOWN_HISTORICAL_VALIDITY_UNKNOWN_NO_AS_OF_QUERY_DO_NOT_INFER_NULL_OR_STATUS",
+  "bounded_official_search": {
+    "completed_at_kst": "2026-08-28T14:01:16+09:00",
+    "required_unproven_scope": [
+      "NULL_AND_CURRENT_STATUS_SEMANTICS",
+      "HISTORICAL_VALIDITY_SEMANTICS",
+      "FULL_MARKET_AND_ROSTER_CLOSE_CODE_DICTIONARIES",
+      "EXACT_UPDATE_CYCLE"
+    ],
+    "sources_checked": [
+      {
+        "kind": "CURRENT_DATA_GO_KR_CORPSVC_CATALOG_AND_INLINE_SWAGGER",
+        "url": "https://www.data.go.kr/data/15157348/openapi.do",
+        "operations_scanned": 20
+      },
+      {
+        "kind": "CURRENT_DATA_GO_KR_CORPSVC_SCHEMA_ORG_METADATA",
+        "url": "https://www.data.go.kr/catalog/15157348/openapi.json"
+      },
+      {
+        "kind": "CURRENT_DATA_GO_KR_CORPSVC_DCAT_METADATA",
+        "url": "https://www.data.go.kr/biz/dcat/metadata/15157348.do"
+      },
+      {
+        "kind": "DATA_GO_KR_KSD_OPENAPI_SEARCH_RESULT_SET",
+        "url": "https://www.data.go.kr/tcs/dss/selectDataSetList.do?keyword=한국예탁결제원&dType=API",
+        "dataset_ids_scanned": [
+          "15157347",
+          "15157348",
+          "15157413",
+          "15157414",
+          "15157416",
+          "15157426",
+          "15157427",
+          "15157428",
+          "15157429",
+          "15158905",
+          "15043284",
+          "15043421",
+          "15043423",
+          "15043445",
+          "15059582",
+          "15059592",
+          "15059598",
+          "15059607",
+          "15059609",
+          "15059612",
+          "15043360",
+          "15043364",
+          "15043446",
+          "15043461",
+          "15043462",
+          "15059591",
+          "15059595",
+          "15059610",
+          "15059611",
+          "15059613"
+        ],
+        "target_roster_identifiers_found_in_dataset_ids": [
+          "15157348"
+        ]
+      },
+      {
+        "kind": "CURRENT_DATA_GO_KR_STOCKSVC_CATALOG_AND_INLINE_SWAGGER",
+        "url": "https://www.data.go.kr/data/15157413/openapi.do",
+        "operations_checked": [
+          "getListStatN1",
+          "getKDRIssuLmtDetailsN1",
+          "getKDRSecnInfo"
+        ]
+      },
+      {
+        "kind": "EXISTING_BOUND_OFFICIAL_HWP_RECEIPT_REVIEW",
+        "file_id": "FILE_000000003629540/1",
+        "sha256": "7f3843d70e863e5de32cdf0f8866b9392709c54011a0bc91e81f8577bb1e3f07"
+      },
+      {
+        "kind": "OFFICIAL_SEIBRO_PUBLIC_UI_AND_STATIC_XML",
+        "urls": [
+          "https://seibro.or.kr/websquare/control.jsp?menuNo=4&w2xPath=/IPORTAL/user/company/BIP_CNTS01001V.xml",
+          "https://seibro.or.kr/websquare/control.jsp?menuNo=22&w2xPath=/IPORTAL/user/company/BIP_CNTS01040V.xml",
+          "https://seibro.or.kr/websquare/control.jsp?w2xPath=/IPORTAL/user/stock/BIP_CNTS02025V.xml&menuNo=33",
+          "https://seibro.or.kr/IPORTAL/user/company/BIP_CNTS01041V.xml",
+          "https://seibro.or.kr/IPORTAL/user/company/BIP_CNTS01027V.xml",
+          "https://seibro.or.kr/IPORTAL/user/etc/BIP_CMUC01030V.xml",
+          "https://api.seibro.or.kr/pubc/pubr/cmm/CMPubrHome/viewRQDevGuideList.do"
+        ]
+      }
+    ],
+    "additional_corroborating_evidence_found": true,
+    "additional_required_formal_evidence_found": false,
+    "disposition": "NO_ADDITIONAL_FORMAL_CLOSURE_EVIDENCE_FOUND_WITHIN_RECORDED_SCOPE_AS_OF_CUTOFF",
+    "global_nonexistence_claim": false,
+    "reopen_trigger": "NEW_OR_REVISED_OFFICIAL_KSD_OR_DATA_GO_KR_DOCUMENTATION",
+    "provider_api_network_attempts": 0
+  },
+  "claim_ceiling": "FIELD_NAMES_LABELS_AND_BASIC_FORMATS_PROVEN_SEIBRO_STATUS_SEPARATION_CORROBORATED_SIBLING_MARKET_DICTIONARY_NOT_PROMOTED_FULL_MARKET_AND_ROSTER_DICTIONARIES_UNKNOWN_EXACT_UPDATE_CYCLE_UNKNOWN_HISTORICAL_PIT_UNKNOWN_DO_NOT_INFER_NULL_EVENT_ABSENCE_OR_CURRENT_STATUS",
   "validation_claim": "NONE",
   "gate_effect": "NONE"
 }
