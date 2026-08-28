@@ -5,14 +5,15 @@
   "runtime_lock_id": "PMO-API-SRC-ADMIT-20260828192737",
   "runtime_lock_generation": 3,
   "pilot_run_id": "FINANCE-LIVE-PILOT-20260828192737",
-  "state": "GENERATION_3_PRECHECK_BLOCKED_NO_DURABLE_CAS_OBJECT_CREATED",
-  "checkpoint_role": "S3_DURABLE_CAS_NON_EXECUTED_CONTROL_PLANE_TEMPLATE_BLOCKED",
-  "execution_state": "NOT_EXECUTED_PRECHECK_BLOCKED",
-  "last_currentized_at_kst": "2026-08-28T20:45:47+09:00",
+  "state": "GENERATION_3_PRECHECK_BLOCKED_NO_PILOT_EXECUTION",
+  "checkpoint_role": "REPOSITORY_CONTROL_PLANE_BLOCKED_CHECKPOINT_NO_DURABLE_S3_CHECKPOINT_CREATED",
+  "execution_state": "NOT_EXECUTED_PRECHECK_FAILED_BEFORE_PROVIDER_AND_S3",
+  "last_currentized_at_kst": "2026-08-28T20:51:40+09:00",
+  "last_checkpointed_at_kst": "2026-08-28T20:51:40+09:00",
   "authority_binding": {
     "contract_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_SOURCE_ADMISSION_CONTRACT_v1.0.json",
-    "contract_commit": "29db67359e6d08097f2b715ddefa9bc946c892fb",
-    "contract_content_sha256": "0bbc813e2823a4e196fc00b82503d3e62a8ed4bc58e54fd3eacf37678c0e8dd7",
+    "contract_commit": "4b74453802c686271fdbc8fdb210711ed67e3d27",
+    "contract_content_sha256": "f4b0f8878edb69d16430630a6cdce80f5d91c6cc79d21bdabbc85f411342c62d",
     "owner_cap_spec_sha256": "7b65152d8df10a6497d1656dbc5cc6d4bd253740f53a29480bb8d877b81b9f05",
     "execution_token_sha256": "9cda8bb429b3558e81e1ffcc4a232c78976c521186f13fbad5462c0312281f37",
     "execution_token_persistence": "SHA256_ONLY_ORIGINAL_VALUE_PROHIBITED"
@@ -61,7 +62,8 @@
   "attempts_by_logical_page": {},
   "last_error": {
     "code": "AWS_OIDC_CUSTOM_SUBJECT_TRUST_BINDING_MISMATCH",
-    "phase": "READ_ONLY_PRECHECK_BEFORE_AWS_SESSION_PROVIDER_CALL_QUOTA_RESERVATION_OR_S3_WRITE",
+    "phase": "AWS_STS_ASSUME_ROLE_WITH_WEB_IDENTITY",
+    "disposition": "AWS_TRUST_OR_OIDC_PROVIDER_ALIGNMENT_NOT_PROVEN",
     "precheck_run_ids": [
       33167156189,
       33167412476,
@@ -72,7 +74,9 @@
     "aws_sts_session_established": false,
     "provider_api_network_attempts": 0,
     "quota_reservations": 0,
-    "remote_s3_writes": 0
+    "remote_s3_writes": 0,
+    "secret_persisted": false,
+    "authenticated_url_persisted": false
   },
   "quarantine": null,
   "durable_cas": {
@@ -119,7 +123,7 @@
   "canonical_raw_entities_added": 0,
   "successful_http_entities": 0,
   "execution_gate": {
-    "state": "CLOSED_BLOCKED_AWS_OIDC_CUSTOM_SUBJECT_TRUST_BINDING_MISMATCH",
+    "state": "CLOSED_BLOCKED_AWS_OIDC_TRUST_OR_PROVIDER_ALIGNMENT_NOT_PROVEN",
     "execution_armed": false,
     "provider_api_calls_permitted_now": false,
     "remote_s3_writes_permitted_now": false
