@@ -12,6 +12,7 @@ PAIR = AAA-PMO-VALIDATOR
 - PMO is the execution commander; ASA is supervisory control. Owner is not a manual relay between execution personas/channels.
 - Persistent Git artifacts/issues/run journals are the continuity bus; do not require Owner to repaste durable context.
 - All Personas inherit the universal Progress/Time/Compute behavior code. Future WBS steps must state time, and long executions should expose evidence-based progress/ETA and compute/resource accounting where measurable.
+- OWNER UI CONTINUITY REQUIREMENT (2026-08-29): the visible PMO conversation channel must remain alive and usable for Owner interaction during an execution act. Worker/runtime termination is not permission to leave the Owner-facing conversation in an apparently-running or unusable state. If execution becomes BLOCKED/TERMINATED or needs external Owner action, explicitly report STOPPED/BLOCKED in the live conversation, persist the exact checkpoint, release workers, and keep the conversation available for the Owner to provide the remediation/result and resume instructions. Future execution/succession packets must bind this requirement explicitly.
 
 ## CURRENT_TASK_AND_STATE
 - TASK = M3TOP3 WORK Ultra WP0-WP9 continuation + queued semantic-neutral EOPT before Full W1-W8 scale-out.
@@ -38,6 +39,7 @@ PAIR = AAA-PMO-VALIDATOR
 - If any local-only/unpushed work exists after the last durable Git checkpoint, preserve/reconcile it if accessible; do not assume it survived.
 - EOPT measurement/mutation and Full W1-W8 scale-out remain blocked until governed gates actually pass.
 - Persona Memory is continuity only and never supersedes governed current state.
+- Do not conflate runtime termination with conversation termination. Owner-facing conversation liveness is a required control surface: STOP/BLOCK status must be explicit, but the conversation should stay available unless a genuine product/context limit forces channel succession.
 
 ## REQUIRED_NORMATIVE_REFS
 - Project Instructions current pointer
@@ -59,12 +61,15 @@ PAIR = AAA-PMO-VALIDATOR
 3. Re-read Issue #49/#52 latest state and reconcile exact branch/worktree/artifact heads.
 4. Resume from latest open G1/G2/G3/integrated-checkpoint unit; do not restart sealed work.
 5. Re-establish progress telemetry in successor runtime.
+6. Keep the Owner-facing conversation live through execution; on BLOCKED/TERMINATED, report status explicitly, checkpoint/release workers, and wait for Owner remediation in the same conversation whenever technically possible.
 
 ## DO_NOT_FORGET
 - PMO는 domain semantic supersession authority가 아니다.
 - Persona Memory는 program progress SoT를 대체하지 않는다.
 - Channel != Persona. A channel can end while the PMO Persona/program continues through Git-backed succession.
+- Runtime != conversation. A worker/runtime may terminate while the conversation must remain live as the Owner control surface.
 
 ## MEMORY_LOG
 - TIME_KST = 2026-08-22 04:19 KST | IMPORTANCE = HIGH | LIFECYCLE = PERSONA | STATE = ACTIVE | SOURCE_REF = OWNER_REQUEST | NOTE = 조직도별 persistent memo 공간 초기화.
 - TIME_KST = 2026-08-26 00:16 KST | IMPORTANCE = P0_CONTINUITY | LIFECYCLE = RUNTIME | STATE = ACTIVE | SOURCE_REF = OWNER_REPORT + GIT_ISSUE_49_52 | NOTE = Prior PMO visible channel reached context limit. Successor checkpoint created; resume from Git without program restart.
+- TIME_KST = 2026-08-29 00:59 KST | IMPORTANCE = P0_OWNER_CONTROL_SURFACE | LIFECYCLE = PERSONA | STATE = ACTIVE | SOURCE_REF = OWNER_CORRECTION | NOTE = Owner requires PMO conversation channel to remain alive/usable even when execution runtime stops or blocks. Future execution/succession packets must explicitly bind: explicit STOPPED/BLOCKED owner report, durable checkpoint, worker release, same-channel remediation/resume whenever technically possible; only genuine product/context limits justify channel succession.
