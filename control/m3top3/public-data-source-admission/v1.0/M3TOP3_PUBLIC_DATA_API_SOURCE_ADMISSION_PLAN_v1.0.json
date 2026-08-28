@@ -13,7 +13,7 @@
   "authority_binding": {
     "contract_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_SOURCE_ADMISSION_CONTRACT_v1.0.json",
     "contract_commit": "9849d08406e1bb601c1f719dc1af7e35fcdf960e",
-    "contract_content_sha256": "b305a4b030b6f92ea9f2365d730cca87cd1e6efc67a5e2970f133f7a91a91a51",
+    "contract_content_sha256": "88851ee3b66bc93abf2b3ea523fea852bb9554b697bd3084a282a58f12075e4e",
     "owner_cap_spec_sha256": "7b65152d8df10a6497d1656dbc5cc6d4bd253740f53a29480bb8d877b81b9f05",
     "execution_token_sha256": "9cda8bb429b3558e81e1ffcc4a232c78976c521186f13fbad5462c0312281f37",
     "execution_token_persistence": "SHA256_ONLY_ORIGINAL_VALUE_PROHIBITED",
