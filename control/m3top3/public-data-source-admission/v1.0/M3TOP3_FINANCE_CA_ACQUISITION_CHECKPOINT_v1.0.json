@@ -8,12 +8,12 @@
   "state": "GENERATION_3_S3_DURABLE_CAS_SEED_STAGED_NOT_EXECUTED",
   "checkpoint_role": "S3_DURABLE_CAS_NON_EXECUTED_CONTROL_PLANE_TEMPLATE",
   "execution_state": "NOT_EXECUTED_ENTRY_GATE_CLOSED",
-  "last_currentized_at_kst": "2026-08-29T02:14:47+09:00",
-  "last_checkpointed_at_kst": "2026-08-29T02:14:47+09:00",
+  "last_currentized_at_kst": "2026-08-29T02:17:49+09:00",
+  "last_checkpointed_at_kst": "2026-08-29T02:17:49+09:00",
   "authority_binding": {
     "contract_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_SOURCE_ADMISSION_CONTRACT_v1.0.json",
-    "contract_commit": "ce77187eb895e38d1edbe5cd19513c81b67a7a8b",
-    "contract_content_sha256": "09c4bda704489b9265e1a54daf32e4bc6ed2076e2ffd94ae9228648c8642843d",
+    "contract_commit": "45abf48dc53265869513aab470086f6520a09751",
+    "contract_content_sha256": "e5e1f9fba11732aa7838592a3041f61b92324e44048a2bf597bff6611c77c989",
     "owner_cap_spec_sha256": "7b65152d8df10a6497d1656dbc5cc6d4bd253740f53a29480bb8d877b81b9f05",
     "execution_token_sha256": "9cda8bb429b3558e81e1ffcc4a232c78976c521186f13fbad5462c0312281f37",
     "execution_token_persistence": "SHA256_ONLY_ORIGINAL_VALUE_PROHIBITED"
@@ -106,7 +106,7 @@
   "canonical_raw_entities_added": 0,
   "successful_http_entities": 0,
   "execution_gate": {
-    "state": "CLOSED_PENDING_LIVE_ADAPTER_AND_DURABLE_CUSTODY_PREREQUISITES",
+    "state": "CLOSED_PRECHECK_PASS_CURRENT_KST_LIVE_ROLLOVER_PENDING",
     "execution_armed": false,
     "provider_api_calls_permitted_now": false,
     "remote_s3_writes_permitted_now": false
@@ -182,5 +182,18 @@
     "quota_reservations": 0,
     "remote_s3_writes": 0,
     "next_action": "READ_LATEST_VERSION_ID_AND_HEAD_THAT_EXACT_VERSION_IN_NEW_READ_ONLY_PRECHECK"
+  },
+  "precheck_pass_evidence": {
+    "run_id": 33193940219,
+    "artifact_id": 9694932515,
+    "artifact_sha256": "1b67ab0a810ce85058d5b4bc622051e39fb93631330265f862fa403422e0a604",
+    "github_oidc_claims": "PASS",
+    "aws_sts_assumed_role": "PASS",
+    "account_bucket_versioning_prefix": "PASS",
+    "known_finance_object_version_id": "EY9BXLRgeqXAYda6YSlWIB3cUhTIZbfd",
+    "known_finance_object_version_readback": "PASS",
+    "provider_api_network_attempts": 0,
+    "quota_reservations": 0,
+    "remote_s3_writes": 0
   }
 }
