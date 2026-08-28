@@ -18,7 +18,7 @@
     "activated_at_kst": "2026-08-28T19:27:37+09:00"
   },
   "current_runtime_authority": {
-    "state": "ACTIVE_PREPARING_FINANCE_ONLY_LIVE_PILOT",
+    "state": "BLOCKED_EXTERNAL_AWS_OIDC_CONFIGURATION",
     "authorized_scope": [
       "FINANCE_ONLY_LIVE_ADAPTER_AND_WORKFLOW_PREPARATION",
       "FINANCE_ONLY_BOUNDED_LIVE_PILOT_AFTER_ENTRY_GATE",
@@ -28,12 +28,14 @@
     "repository_control_plane_writes_authorized": true,
     "offline_fixture_and_static_checks_authorized": true,
     "provider_api_network_calls_authorized": true,
-    "provider_api_network_calls_entry_gate": "CLOSED_PENDING_LIVE_ADAPTER_AND_DURABLE_CUSTODY_PREREQUISITES",
+    "provider_api_network_calls_entry_gate": "CLOSED_BLOCKED_AWS_OIDC_CUSTOM_SUBJECT_TRUST_BINDING_MISMATCH",
+    "provider_api_network_calls_permitted_now": false,
     "provider_api_network_attempt_budget": 200,
     "quota_reservation_authorized": true,
     "provider_workflow_dispatch_authorized": true,
     "live_multi_page_provider_run_authorized": true,
     "remote_raw_custody_write_authorized": true,
+    "remote_raw_custody_writes_permitted_now": false,
     "remote_raw_custody_prefix": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/",
     "ksd_provider_calls_authorized": false,
     "ksd_document_search_authorized": false,
@@ -64,7 +66,7 @@
     "offline_finance_pilot_readiness_authorized": false,
     "finance_only_bounded_live_pilot_authorized": true,
     "provider_api_network_calls_authorized": true,
-    "provider_api_network_calls_entry_gate": "CLOSED_PENDING_LIVE_ADAPTER_AND_DURABLE_CUSTODY_PREREQUISITES",
+    "provider_api_network_calls_entry_gate": "CLOSED_BLOCKED_AWS_OIDC_CUSTOM_SUBJECT_TRUST_BINDING_MISMATCH",
     "live_multi_page_provider_run_authorized": true,
     "ksd_provider_calls_authorized": false,
     "bulk_blockers": [
@@ -717,7 +719,7 @@
   },
   "finance_live_pilot_authority": {
     "owner_decision": "APPROVE",
-    "authority_state": "GRANTED_ENTRY_GATE_CLOSED_PENDING_PREREQUISITES",
+    "authority_state": "GRANTED_ENTRY_GATE_BLOCKED_EXTERNAL_AWS_OIDC_CONFIGURATION",
     "pilot_run_id": "FINANCE-LIVE-PILOT-20260828192737",
     "owner_cap_spec_sha256": "7b65152d8df10a6497d1656dbc5cc6d4bd253740f53a29480bb8d877b81b9f05",
     "execution_token_sha256": "9cda8bb429b3558e81e1ffcc4a232c78976c521186f13fbad5462c0312281f37",
@@ -768,7 +770,7 @@
       "next_finance_ordinal": 6
     },
     "live_entry_gate": {
-      "state": "CLOSED_PENDING_LIVE_ADAPTER_AND_DURABLE_CUSTODY_PREREQUISITES",
+      "state": "CLOSED_BLOCKED_AWS_OIDC_CUSTOM_SUBJECT_TRUST_BINDING_MISMATCH",
       "required_before_open": [
         "FINANCE_ONLY_LIVE_ADAPTER_FOCUSED_TEST_PASS",
         "DURABLE_WRITE_AHEAD_QUOTA_ACCOUNTING",
@@ -795,13 +797,13 @@
   "s2_freeze_state": {
     "state": "PARTIAL_CLAIM_CEILING_FROZEN",
     "stage_closure": "NOT_CLOSED",
-    "runtime_disposition": "GENERATION_3_ACTIVE_PREPARING_FINANCE_ONLY_BOUNDED_LIVE_PILOT",
+    "runtime_disposition": "GENERATION_3_BLOCKED_EXTERNAL_AWS_OIDC_CONFIGURATION_NO_PROVIDER_OR_S3_EFFECT",
     "predecessor_runtime_disposition": "TERMINATED_NO_ACTIVE_WORK",
     "exact_blocker": "KSD_NULL_CURRENT_STATUS_HISTORICAL_VALIDITY_FULL_MARKET_AND_ROSTER_CLOSE_CODE_DICTIONARIES_AND_EXACT_UPDATE_CYCLE_UNPROVEN_AFTER_BOUNDED_OFFICIAL_SEARCH",
     "reopen_trigger": "NEW_OR_REVISED_OFFICIAL_KSD_OR_DATA_GO_KR_DOCUMENTATION",
     "reopen_trigger_satisfied": false,
     "ksd_evidence_search_reopened": false,
-    "offline_finance_pilot_readiness": "FOCUSED_SYNTHETIC_FIXTURE_PASS_LIVE_PILOT_NOT_RUN",
+    "offline_finance_pilot_readiness": "FOCUSED_SYNTHETIC_FIXTURE_PASS_LIVE_PILOT_NOT_RUN_PRECHECK_BLOCKED",
     "claim_promotion": "NONE",
     "quota_policy": "FROZEN",
     "credential_contract": "SATISFIED",
@@ -811,7 +813,7 @@
     "source_specific_raw_prefix": "FROZEN_CONTROL_PLANE",
     "remote_materialization": "ONE_CANONICAL_FINANCE_ENTITY_REMOTE_SHA256_VERIFIED",
     "stable_object_locators": 1,
-    "actions_oidc": "NOT_REQUIRED_FOR_FIRST_MANUAL_CLOUDSHELL_CUSTODY_FALLBACK"
+    "actions_oidc": "GITHUB_CUSTOM_SUBJECT_PROVEN_AWS_STS_ROLE_BINDING_NOT_PROVEN"
   },
   "first_materialization_backup": {
     "state": "DURABLE_PRIVATE_BACKUP_PRESENT_NOT_CANONICAL_DATA_PLANE",
@@ -845,5 +847,34 @@
     "live_multi_page_provider_run": "NOT_PERFORMED",
     "provider_api_network_attempts": 0,
     "bulk_acquisition_authorized": false
-  }
+  },
+  "generation_3_finance_oidc_precheck": {
+    "state": "BLOCKED_AWS_OIDC_CUSTOM_SUBJECT_TRUST_BINDING_MISMATCH",
+    "precheck_run_count": 5,
+    "precheck_success_count": 0,
+    "precheck_run_ids": [
+      33167156189,
+      33167412476,
+      33167677777,
+      33167799898,
+      33167935763
+    ],
+    "github_observed_subject": "repo:AofSpds@87963280/asset-agent-asa@1334403184:environment:m3top3-source-admission",
+    "repository_contract_subject_at_failure": "repo:AofSpds/asset-agent-asa:environment:m3top3-source-admission",
+    "aws_live_role_trust_readback": "NOT_AVAILABLE_FROM_CURRENT_RUNTIME",
+    "aws_sts_session_established": false,
+    "provider_api_network_attempts": 0,
+    "quota_reservations": 0,
+    "primary_page_acquisitions": 0,
+    "remote_s3_writes": 0,
+    "canonical_raw_entities_added": 0,
+    "secret_persisted": false,
+    "authenticated_url_persisted": false,
+    "next_action": "EXTERNAL_TRUST_ONLY_IAM_REMEDIATION_THEN_SEPARATELY_HASHED_READ_ONLY_PRECHECK_REARM",
+    "live_rearm_before_precheck_pass": "PROHIBITED"
+  },
+  "owner_action_required": true,
+  "external_operational_action_required": true,
+  "owner_semantic_decision_required": false,
+  "authority_expansion_required": false
 }
