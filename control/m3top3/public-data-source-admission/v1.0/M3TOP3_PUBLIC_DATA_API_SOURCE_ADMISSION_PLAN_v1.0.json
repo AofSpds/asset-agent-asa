@@ -9,11 +9,11 @@
   "branch": "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828",
   "state": "LIVE_ARMED_EXECUTABLE",
   "mode": "GENERATION_3_FINANCE_ONLY_LIVE_ARMED_CURRENT_KST",
-  "last_currentized_at_kst": "2026-08-29T02:31:45+09:00",
+  "last_currentized_at_kst": "2026-08-29T02:34:07+09:00",
   "authority_binding": {
     "contract_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_SOURCE_ADMISSION_CONTRACT_v1.0.json",
-    "contract_commit": "03e4b3e65d58740fb9a558b248cb662f14c3e9e6",
-    "contract_content_sha256": "16deebe382d93d6d3e815ee7e9ff8b4efe2c18d7c724d35ad15f86ff1bf2048b",
+    "contract_commit": "146a71e9d0e21ae446796880e77b9a9052fba7ec",
+    "contract_content_sha256": "10ec745dbcc6aa27787f4739662552aad3518f3ec31122e6a522c03cbd621b2c",
     "owner_cap_spec_sha256": "7b65152d8df10a6497d1656dbc5cc6d4bd253740f53a29480bb8d877b81b9f05",
     "execution_token_sha256": "9cda8bb429b3558e81e1ffcc4a232c78976c521186f13fbad5462c0312281f37",
     "execution_token_persistence": "SHA256_ONLY_ORIGINAL_VALUE_PROHIBITED",
@@ -175,8 +175,8 @@
       "max_network_attempts_total": 200,
       "quota_reservations": 0,
       "provider_api_network_attempts": 0,
-      "known_external_attempts": true,
-      "historical_baseline_excluded_from_current_day_counters": true
+      "historical_baseline_excluded_from_current_day_counters": true,
+      "unknown_external_attempts": true
     }
   },
   "hard_prohibitions": {
@@ -247,11 +247,11 @@
   "authority_expansion_required": false,
   "live_control_rollover": {
     "state": "READY_LATCH_ACT_PENDING",
-    "currentized_at_kst": "2026-08-29T02:31:45+09:00",
-    "authority_commit": "03e4b3e65d58740fb9a558b248cb662f14c3e9e6",
-    "authority_sha256": "16deebe382d93d6d3e815ee7e9ff8b4efe2c18d7c724d35ad15f86ff1bf2048b",
-    "runner_commit": "416c01b07b85f26216978824e0eb87331034563f",
-    "runner_sha256": "7b2be46f38ac97f8a320bd6223b8d904e86ff154e82af06c569fb26c35f19326",
+    "currentized_at_kst": "2026-08-29T02:34:07+09:00",
+    "authority_commit": "146a71e9d0e21ae446796880e77b9a9052fba7ec",
+    "authority_sha256": "10ec745dbcc6aa27787f4739662552aad3518f3ec31122e6a522c03cbd621b2c",
+    "runner_commit": "3b95f94843335ae442e41e6c6ddab0e4d8079e82",
+    "runner_sha256": "6c1cbffc914a2c0e6b033b33fa78354e7a5626a6c74eac17be06f9807ea118b2",
     "runner_test_sha256": "9c8547c79b1aa4a9b8333fc9185a417357262a5f10d7c914c95ad9938b1449a8",
     "focused_live_pilot_tests": "PASS_20_OF_20",
     "workflow_commit": "b9102357e5cdc3140361ba9f69abf98dcbe572b7",
@@ -268,6 +268,9 @@
     "quota_reservations": 0,
     "remote_s3_writes": 0,
     "validation_claim": "NONE",
-    "gate_effect": "NONE"
+    "gate_effect": "NONE",
+    "known_external_attempts_minimum": 0,
+    "unknown_external_attempts": true,
+    "provider_key_global_usage_claim": "NONE"
   }
 }
