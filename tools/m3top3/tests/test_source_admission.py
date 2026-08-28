@@ -152,5 +152,35 @@ class SourceAdmissionTests(unittest.TestCase):
         self.assertEqual(a, sa.canonical_request_id("S", "https://x.invalid", "op", {"filter": ""}))
 
 
+    def test_pagination_snapshot_complete_and_resume_stable(self):
+        pages = [
+            {"page_no": 1, "page_size": 2, "total_count": 3, "items": [{"id": 1}, {"id": 2}]},
+            {"page_no": 2, "page_size": 2, "total_count": 3, "items": [{"id": 3}]},
+        ]
+        snapshot = sa.validate_pagination_snapshot(pages)
+        self.assertEqual(snapshot["state"], "DATE_COMPLETE")
+        self.assertEqual(snapshot["item_count"], 3)
+        sa.assert_resume_page_1(snapshot, pages[0])
+
+    def test_pagination_snapshot_rejects_protocol_drift(self):
+        cases = [
+            [{"page_no": 2, "page_size": 2, "total_count": 1, "items": [{"id": 1}]}],
+            [{"page_no": 1, "page_size": 2, "total_count": 3, "items": [{"id": 1}]}, {"page_no": 2, "page_size": 2, "total_count": 4, "items": [{"id": 2}]}],
+            [{"page_no": 1, "page_size": 2, "total_count": 3, "items": [{"id": 1}, {"id": 2}]}, {"page_no": 2, "page_size": 2, "total_count": 3, "items": []}],
+            [{"page_no": 1, "page_size": 1, "total_count": 2, "items": [{"id": 1}]}, {"page_no": 2, "page_size": 1, "total_count": 2, "items": [{"id": 1}]}],
+        ]
+        for pages in cases:
+            with self.subTest(pages=pages):
+                with self.assertRaises(sa.SourceProtocolError):
+                    sa.validate_pagination_snapshot(pages)
+
+    def test_resume_page_1_shift_rejected(self):
+        page = {"page_no": 1, "page_size": 2, "total_count": 1, "items": [{"id": 1}]}
+        snapshot = sa.validate_pagination_snapshot([page])
+        shifted = {**page, "total_count": 2}
+        with self.assertRaises(sa.SourceProtocolError):
+            sa.assert_resume_page_1(snapshot, shifted)
+
+
 if __name__ == "__main__":
     unittest.main()
