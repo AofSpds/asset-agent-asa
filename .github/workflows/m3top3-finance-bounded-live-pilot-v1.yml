@@ -63,7 +63,7 @@ jobs:
           EVENT_AFTER: ${{ github.event.after }}
           EVENT_FORCED: ${{ github.event.forced }}
           EVENT_HEAD_MESSAGE: ${{ github.event.head_commit.message }}
-          ROLE_ARN: ${{ vars.M3TOP3_AWS_ROLE_ARN }}
+          ROLE_ARN: arn:aws:iam::956315449338:role/M3Top3GitHubOIDCRawWriter
         run: |
           set -euo pipefail
           python - <<'PY'
@@ -464,7 +464,7 @@ jobs:
         if: steps.preflight.outputs.mode == 'PRECHECK_ARMED'
         uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
         with:
-          role-to-assume: ${{ vars.M3TOP3_AWS_ROLE_ARN }}
+          role-to-assume: arn:aws:iam::956315449338:role/M3Top3GitHubOIDCRawWriter
           aws-region: ap-northeast-2
           role-session-name: m3top3-finance-precheck-${{ github.run_id }}
           role-duration-seconds: 900
@@ -509,7 +509,7 @@ jobs:
         if: steps.preflight.outputs.mode == 'LIVE_ARMED'
         uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
         with:
-          role-to-assume: ${{ vars.M3TOP3_AWS_ROLE_ARN }}
+          role-to-assume: arn:aws:iam::956315449338:role/M3Top3GitHubOIDCRawWriter
           aws-region: ap-northeast-2
           role-session-name: m3top3-finance-live-${{ github.run_id }}
           role-duration-seconds: 3600
