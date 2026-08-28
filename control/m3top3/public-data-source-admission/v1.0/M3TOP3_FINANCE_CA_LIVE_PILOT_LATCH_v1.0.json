@@ -15,6 +15,22 @@
   "activation_commit_message": null,
   "blocked_at_kst": "2026-08-28T20:45:47+09:00",
   "blocker": "AWS_OIDC_CUSTOM_SUBJECT_TRUST_BINDING_MISMATCH",
+  "precheck_evidence": {
+    "run_ids": [
+      33167156189,
+      33167412476,
+      33167677777,
+      33167799898,
+      33167935763
+    ],
+    "precheck_success_count": 0,
+    "github_observed_subject": "repo:AofSpds@87963280/asset-agent-asa@1334403184:environment:m3top3-source-admission",
+    "repository_contract_subject_at_failure": "repo:AofSpds/asset-agent-asa:environment:m3top3-source-admission",
+    "aws_sts_session_established": false,
+    "provider_api_network_attempts": 0,
+    "quota_reservations": 0,
+    "remote_s3_writes": 0
+  },
   "activation_modes": {
     "PRECHECK_ARMED": {
       "exact_commit_message": "Arm M3Top3 Finance precheck v1.0",
@@ -34,11 +50,11 @@
   "authority_bindings": {
     "bindings_finalized": true,
     "authority_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_SOURCE_ADMISSION_CONTRACT_v1.0.json",
-    "authority_sha256": "7611e0a339690fa51145e91abfd1088b233ac01c6ee2df892defd00e35eae8e5",
+    "authority_sha256": "0bbc813e2823a4e196fc00b82503d3e62a8ed4bc58e54fd3eacf37678c0e8dd7",
     "plan_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_SOURCE_ADMISSION_PLAN_v1.0.json",
-    "plan_sha256": "057bd34bc12977ef16e52696ee61c38c1826b0c9b3154c941405889b6cd4f042",
+    "plan_sha256": "84c7f6367b2a26d6a24e0e9b44ba208a68144e92c35941adbc38ead49e9411b1",
     "checkpoint_seed_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_ACQUISITION_CHECKPOINT_v1.0.json",
-    "checkpoint_seed_sha256": "6f55dd31091a124ff2fa4377611fe42aa3f717e960a425b1890b0efcf5ad3221",
+    "checkpoint_seed_sha256": "0ecb71263184dae6f7d04d4cb250b4cdd1e6e39e57a75af8521350d16eec585f",
     "baseline_quota_ledger_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_QUOTA_LEDGER_v1.0.jsonl",
     "baseline_quota_ledger_sha256": "aa1d73613a3ba737837b368ad0b15f0504f0bf35d56f5a81558093b4cc03f607",
     "baseline_raw_index_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_RAW_CUSTODY_INDEX_v1.0.jsonl",
@@ -48,20 +64,20 @@
     "source_admission_path": "tools/m3top3/source_admission.py",
     "source_admission_sha256": "574b2f45474b39fd0cf64f28a946bd115ddb3b782595c3ddd78d15c801d111dd",
     "workflow_path": ".github/workflows/m3top3-finance-bounded-live-pilot-v1.yml",
-    "workflow_sha256": "f0a904e856c2bc2813b9f56c2a31e1c2214bcbca7c1e27b38c1bf19b3f5f1bb0"
+    "workflow_sha256": "480b15c91fdb029dca0245c75faa7304cbb253f95528dd19566f803357960f55"
   },
   "execution_material": {
     "runtime_lock_id": "PMO-API-SRC-ADMIT-20260828192737",
     "pilot_run_id": "FINANCE-LIVE-PILOT-20260828192737",
-    "authority_sha256": "7611e0a339690fa51145e91abfd1088b233ac01c6ee2df892defd00e35eae8e5",
-    "plan_sha256": "057bd34bc12977ef16e52696ee61c38c1826b0c9b3154c941405889b6cd4f042",
+    "authority_sha256": "0bbc813e2823a4e196fc00b82503d3e62a8ed4bc58e54fd3eacf37678c0e8dd7",
+    "plan_sha256": "84c7f6367b2a26d6a24e0e9b44ba208a68144e92c35941adbc38ead49e9411b1",
     "runner_sha256": "1912d1a92bcb8f36a45beb72ff324f418233df6ced1dddb254abe3276af93a4c",
     "source_admission_sha256": "574b2f45474b39fd0cf64f28a946bd115ddb3b782595c3ddd78d15c801d111dd",
-    "checkpoint_template_sha256": "6f55dd31091a124ff2fa4377611fe42aa3f717e960a425b1890b0efcf5ad3221",
+    "checkpoint_template_sha256": "0ecb71263184dae6f7d04d4cb250b4cdd1e6e39e57a75af8521350d16eec585f",
     "owner_cap_spec_sha256": "7b65152d8df10a6497d1656dbc5cc6d4bd253740f53a29480bb8d877b81b9f05",
     "execution_token_sha256": "9cda8bb429b3558e81e1ffcc4a232c78976c521186f13fbad5462c0312281f37"
   },
-  "execution_material_sha256": "48f913f18daa9965e8046f67936db789d9890959015da589c673b20257229484",
+  "execution_material_sha256": "026b6b3c72af010498f9176b2131258bf8d34d3a3dbdb1509b613601b117191a",
   "finance_spec": {
     "source_id": "M3TOP3-FINANCE-STOCK-RIGHTS-v1",
     "operation": "getRighExerReasSche_V2",
