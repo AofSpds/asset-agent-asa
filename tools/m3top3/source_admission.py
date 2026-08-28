@@ -216,35 +216,61 @@ def classify_provider(provider: str, parsed: Any) -> dict[str, Any]:
     return {"provider": provider, "state": state, "result_code": code, "message": message, "total_count": total, "items": items}
 
 
+def _validate_pagination_page(
+    page: Mapping[str, Any],
+    *,
+    expected_page_no: int,
+    first_total: Any,
+    first_size: Any,
+    seen_pages: set[bytes],
+    item_count: int,
+) -> int:
+    """Validate one page before any later page can consume quota."""
+    page_no = page.get("page_no")
+    total_count = page.get("total_count")
+    page_size = page.get("page_size")
+    if type(page_no) is not int or page_no != expected_page_no:
+        raise SourceProtocolError("pagination echoed page number mismatch")
+    if type(total_count) is not int or total_count < 0:
+        raise SourceProtocolError("invalid pagination totalCount")
+    if type(page_size) is not int or page_size <= 0:
+        raise SourceProtocolError("invalid pagination page size")
+    if total_count != first_total or page_size != first_size:
+        raise SourceProtocolError("pagination snapshot shifted")
+    items = page.get("items")
+    if not isinstance(items, list):
+        raise SourceProtocolError("invalid pagination items")
+    fingerprint = canonical_json_bytes(items)
+    if items and fingerprint in seen_pages:
+        raise SourceProtocolError("repeated whole page")
+    if len(items) > first_size:
+        raise SourceProtocolError("returned page exceeds page size")
+    next_item_count = item_count + len(items)
+    if next_item_count > first_total:
+        raise SourceProtocolError("pagination item count exceeds totalCount")
+    if not items and next_item_count < first_total:
+        raise SourceProtocolError("empty intermediate page")
+    seen_pages.add(fingerprint)
+    return next_item_count
+
+
 def validate_pagination_snapshot(pages: list[Mapping[str, Any]]) -> dict[str, Any]:
     """Validate one complete, immutable pagination snapshot without network I/O."""
     if not pages:
         raise SourceProtocolError("pagination snapshot has no pages")
     first_total = pages[0].get("total_count")
     first_size = pages[0].get("page_size")
-    if not isinstance(first_total, int) or first_total < 0:
-        raise SourceProtocolError("invalid pagination totalCount")
-    if not isinstance(first_size, int) or first_size <= 0:
-        raise SourceProtocolError("invalid pagination page size")
     seen_pages: set[bytes] = set()
     item_count = 0
     for ordinal, page in enumerate(pages, start=1):
-        if page.get("page_no") != ordinal:
-            raise SourceProtocolError("pagination echoed page number mismatch")
-        if page.get("total_count") != first_total or page.get("page_size") != first_size:
-            raise SourceProtocolError("pagination snapshot shifted")
-        items = page.get("items")
-        if not isinstance(items, list):
-            raise SourceProtocolError("invalid pagination items")
-        fingerprint = canonical_json_bytes(items)
-        if items and fingerprint in seen_pages:
-            raise SourceProtocolError("repeated whole page")
-        seen_pages.add(fingerprint)
-        item_count += len(items)
-        if not items and item_count < first_total:
-            raise SourceProtocolError("empty intermediate page")
-        if len(items) > first_size:
-            raise SourceProtocolError("returned page exceeds page size")
+        item_count = _validate_pagination_page(
+            page,
+            expected_page_no=ordinal,
+            first_total=first_total,
+            first_size=first_size,
+            seen_pages=seen_pages,
+            item_count=item_count,
+        )
     if item_count != first_total:
         raise SourceProtocolError("pagination item count does not equal totalCount")
     identity = hashlib.sha256(canonical_json_bytes({
@@ -296,10 +322,19 @@ def collect_bounded_pagination_snapshot(
 
     total_count = first_page.get("total_count")
     page_size = first_page.get("page_size")
-    if not isinstance(total_count, int) or isinstance(total_count, bool) or total_count < 0:
+    if type(total_count) is not int or total_count < 0:
         raise SourceProtocolError("invalid pagination totalCount")
-    if not isinstance(page_size, int) or isinstance(page_size, bool) or page_size <= 0:
+    if type(page_size) is not int or page_size <= 0:
         raise SourceProtocolError("invalid pagination page size")
+    seen_pages: set[bytes] = set()
+    item_count = _validate_pagination_page(
+        first_page,
+        expected_page_no=1,
+        first_total=total_count,
+        first_size=page_size,
+        seen_pages=seen_pages,
+        item_count=0,
+    )
     expected_pages = max(1, (total_count + page_size - 1) // page_size)
     if expected_pages > max_pages:
         raise QuotaBoundaryError("bounded pagination page limit exceeded")
@@ -309,7 +344,16 @@ def collect_bounded_pagination_snapshot(
         page = fetch_page(page_no)
         if not isinstance(page, Mapping):
             raise SourceProtocolError("invalid pagination page record")
-        pages.append(dict(page))
+        page = dict(page)
+        item_count = _validate_pagination_page(
+            page,
+            expected_page_no=page_no,
+            first_total=total_count,
+            first_size=page_size,
+            seen_pages=seen_pages,
+            item_count=item_count,
+        )
+        pages.append(page)
 
     snapshot = validate_pagination_snapshot(pages)
     return {
