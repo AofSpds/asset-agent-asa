@@ -16,6 +16,9 @@
     "STOP_OR_SINGLE_OWNER_EXCEPTION_IF_REQUIRED_REVIEWER_UNAVAILABLE"
   ],
   "github_role_arn_variable": "M3TOP3_AWS_ROLE_ARN",
+  "expected_role_name": "M3Top3GitHubOIDCRawWriter",
+  "expected_role_arn": "arn:aws:iam::956315449338:role/M3Top3GitHubOIDCRawWriter",
+  "expected_role_binding_state": "NOT_PROVEN_PENDING_PRECHECK",
   "long_lived_access_keys": "PROHIBITED",
   "oidc_provider_url": "https://token.actions.githubusercontent.com",
   "oidc_audience": "sts.amazonaws.com",
@@ -126,6 +129,7 @@
     "precheck_executed": false,
     "precheck_scope": [
       "OIDC_TOKEN_AND_STS_CALLER_IDENTITY",
+      "EXACT_ROLE_ARN_AND_ASSUMED_ROLE_NAME_READBACK",
       "S3_BUCKET_LOCATION_READBACK",
       "S3_BUCKET_VERSIONING_READBACK",
       "INLINE_SESSION_POLICY_EXACT_FINANCE_PREFIX_STATIC_BINDING",
