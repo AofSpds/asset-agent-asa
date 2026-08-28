@@ -14,8 +14,7 @@
     "gate_effect": "NONE",
     "bulk_acquisition_authorized": false,
     "bulk_blockers": [
-      "KSD_FIELD_LEVEL_TEMPORAL_STATUS_HISTORICAL_SEMANTICS_AND_EXACT_UPDATE_CYCLE_OPEN",
-      "PAGINATION_VALIDATOR_BULK_COLLECTOR_INTEGRATION_OPEN"
+      "KSD_FIELD_LEVEL_TEMPORAL_STATUS_HISTORICAL_SEMANTICS_AND_EXACT_UPDATE_CYCLE_OPEN"
     ],
     "credential_preflight_state": "PASS_BOTH_LIVE_REQUEST_PROVEN",
     "ksd_source_identity_conflict": "RESOLVED_BY_OWNER_APPROVED_DATA_GO_KR_ENDPOINT_AND_LIVE_CANARY_WITHOUT_EQUIVALENCE_CLAIM",
@@ -47,7 +46,7 @@
       "redirects": "DISABLED",
       "automatic_failover": "PROHIBITED",
       "catalog_service_id": "B552481/CorpSvc",
-      "documentation_digest": "OFFICIAL_HWP_SHA256_BOUND_SCOPE_LIMITED_IDENTITY_OPERATION_FULL_GUIDE_OPEN",
+      "documentation_digest": "OFFICIAL_HWP_SHA256_AND_INLINE_SWAGGER_TARGET_FIELD_LABELS_FORMATS_BOUND_HISTORICAL_AND_EXACT_UPDATE_UNKNOWN",
       "license_retention_attribution": {
         "state": "FROZEN",
         "required_metadata_fields": [
@@ -60,7 +59,15 @@
         "license_type": "PUBLIC_NURI_TYPE_2",
         "commercial_boundary": "NON_COMMERCIAL_ONLY_UNLESS_REQUIRED_AGREEMENT_SEPARATELY_PROVEN"
       },
-      "update_cycle": "OPEN_NOT_DISPLAYED_AS_EXACT_METADATA",
+      "update_cycle": {
+        "state": "UNKNOWN_NOT_PROVEN_AFTER_BOUNDED_OFFICIAL_SEARCH",
+        "catalog_prose": [
+          "실시간으로 조회",
+          "업데이트가 빠르고 정확"
+        ],
+        "disposition": "NOT_PROMOTED_TO_EXACT_REFRESH_FREQUENCY_CUTOFF_OR_LATENCY_SLA",
+        "evidence_receipt": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_KSD_OFFICIAL_SWAGGER_FIELD_SEMANTICS_RECEIPT_v1.0.json"
+      },
       "formats": [
         "XML",
         "JSON_IF_PROVIDER_RETURNS_JSON"
@@ -102,7 +109,7 @@
       "frozen_raw_prefix": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-KSD-CORP-DATA-GO-KR-v1/",
       "object_key_template": "raw/public-data-api/<source_id>/<operation>/quota_day_kst=<YYYY-MM-DD>/request_id=<safe_request_id_sha256>/attempt=<N>/sha256=<entity_sha256>.entity",
       "identity_operation_evidence": {
-        "state": "OFFICIAL_SWAGGER_REQUEST_AND_FULL_RESPONSE_FIELD_NAMES_BOUND_LIVE_CANARY_VALUES_PROVEN",
+        "state": "OFFICIAL_SWAGGER_REQUEST_FULL_RESPONSE_FIELD_NAMES_AND_TARGET_FIELD_LABELS_FORMATS_BOUND_LIVE_CANARY_VALUES_PROVEN_HISTORICAL_AND_EXACT_UPDATE_UNKNOWN",
         "operations": [
           {
             "operation": "getIssucoCustnoByShortIsin",
@@ -166,10 +173,19 @@
           }
         ],
         "open_official_scope": [
-          "FIELD_LEVEL_TEMPORAL_AND_STATUS_SEMANTICS",
+          "NULL_AND_CURRENT_STATUS_SEMANTICS",
           "HISTORICAL_VALIDITY_SEMANTICS",
+          "FULL_MARKET_AND_ROSTER_CLOSE_CODE_DICTIONARIES",
           "EXACT_UPDATE_CYCLE"
         ],
+        "target_field_semantics": {
+          "state": "OFFICIAL_FIELD_LABELS_AND_FORMATS_BOUND_CODE_DICTIONARIES_PARTIAL_ONLY",
+          "field_count": 13,
+          "historical_as_of_parameter": "ABSENT",
+          "historical_validity_semantics": "UNKNOWN_NOT_PROVEN",
+          "null_or_status_inference": "PROHIBITED",
+          "receipt": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_KSD_OFFICIAL_SWAGGER_FIELD_SEMANTICS_RECEIPT_v1.0.json"
+        },
         "evidence_issue_comments": [
           "Issue_53_comment_5444487903",
           "Issue_53_comment_5444512589",
@@ -178,7 +194,8 @@
           "Issue_53_comment_5444603846"
         ]
       },
-      "official_document_receipt": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_OFFICIAL_DOCUMENT_RECEIPT_v1.0.json"
+      "official_document_receipt": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_OFFICIAL_DOCUMENT_RECEIPT_v1.0.json",
+      "official_swagger_field_semantics_receipt": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_KSD_OFFICIAL_SWAGGER_FIELD_SEMANTICS_RECEIPT_v1.0.json"
     },
     {
       "provider": "FINANCE",
@@ -594,14 +611,14 @@
     "ACTIVE_MANIFEST",
     "PRODUCTION_PROVIDER"
   ],
-  "last_currentized_at_kst": "2026-08-28T12:12:00+09:00",
+  "last_currentized_at_kst": "2026-08-28T13:15:00+09:00",
   "s2_freeze_state": {
-    "state": "PARTIAL_FINANCE_DOCUMENTATION_CLOSED_KSD_IDENTITY_DICTIONARY_AND_EXACT_UPDATE_CYCLE_OPEN",
+    "state": "PARTIAL_FINANCE_DOCUMENTATION_CLOSED_KSD_TARGET_FIELD_LABELS_FORMATS_BOUND_HISTORICAL_STATUS_AND_EXACT_UPDATE_CYCLE_OPEN_PAGINATION_INTEGRATION_PASS",
     "quota_policy": "FROZEN",
     "credential_contract": "SATISFIED",
     "endpoint_identity": "FROZEN_TO_DATA_GO_KR",
     "catalog_and_license": "FROZEN",
-    "transport_schema": "FINANCE_FROZEN_KSD_IDENTITY_SCHEMA_PARTIAL",
+    "transport_schema": "FINANCE_FROZEN_KSD_IDENTITY_AND_TARGET_FIELD_LABELS_FORMATS_BOUND_CODE_DICTIONARIES_PARTIAL",
     "source_specific_raw_prefix": "FROZEN_CONTROL_PLANE",
     "remote_materialization": "ONE_CANONICAL_FINANCE_ENTITY_REMOTE_SHA256_VERIFIED",
     "stable_object_locators": 1,
@@ -623,13 +640,21 @@
     "remote_readback_sha256": "5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05"
   },
   "official_document_receipt": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_OFFICIAL_DOCUMENT_RECEIPT_v1.0.json",
+  "ksd_official_swagger_field_semantics_receipt": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_KSD_OFFICIAL_SWAGGER_FIELD_SEMANTICS_RECEIPT_v1.0.json",
   "pagination_invariant_implementation": {
-    "state": "OFFLINE_VALIDATOR_UNIT_TEST_PASS_BULK_COLLECTOR_INTEGRATION_OPEN",
-    "source_commit": "0468f41893b09fa466044d7b06f93ad3c7555d43",
-    "test_commit": "a5e64a6e3e27ee0a7a9ef8598daad367d1077720",
-    "receipt": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_PAGINATION_INVARIANT_TEST_RECEIPT_v1.0.json",
-    "tests_run": 14,
+    "state": "BOUNDED_COLLECTOR_INTEGRATION_FOCUSED_TEST_PASS_QUOTA_SAFE_FAIL_FAST",
+    "source_commit": "207b3f822d04d5f4fd40d518c67205998a8e2d72",
+    "source_blob": "84e0084b10df457cce3a05a23ce83258a2d65f51",
+    "test_commit": "58b3b0f22d3d0402171b582290e79c3a7d0a1ce9",
+    "test_blob": "c79c78b14985c2795e9b67eca4f465b8e86b90a8",
+    "receipt": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_PAGINATION_COLLECTOR_INTEGRATION_TEST_RECEIPT_v1.0.json",
+    "offline_unit_receipt": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_PAGINATION_INVARIANT_TEST_RECEIPT_v1.0.json",
+    "tests_run": 20,
     "failures": 0,
-    "provider_api_network_attempts": 0
+    "errors": 0,
+    "quota_safe_fail_fast_before_later_page": true,
+    "live_multi_page_provider_run": "NOT_PERFORMED",
+    "provider_api_network_attempts": 0,
+    "bulk_acquisition_authorized": false
   }
 }
