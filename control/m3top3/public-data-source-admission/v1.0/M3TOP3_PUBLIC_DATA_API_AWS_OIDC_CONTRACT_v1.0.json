@@ -1,7 +1,7 @@
 {
   "artifact": "M3TOP3_PUBLIC_DATA_API_AWS_OIDC_CONTRACT_v1.0",
   "issued_at_kst": "2026-08-28T10:08:28+09:00",
-  "state": "PMO_STDERR_SAFE_READ_ONLY_DIAGNOSTIC_PRECHECK_PREPARING",
+  "state": "DIAGNOSTIC_PRECHECK_PARTIAL_PASS_FROZEN_VERSION_403_LATEST_HEAD_PASS_CURRENT_VERSION_PROBE_REQUIRED",
   "provider": "AWS_IAM_OIDC",
   "aws_region": "ap-northeast-2",
   "aws_account_id": "956315449338",
@@ -18,7 +18,7 @@
   "github_role_arn_variable": "M3TOP3_AWS_ROLE_ARN",
   "expected_role_name": "M3Top3GitHubOIDCRawWriter",
   "expected_role_arn": "arn:aws:iam::956315449338:role/M3Top3GitHubOIDCRawWriter",
-  "expected_role_binding_state": "GITHUB_OIDC_AND_STS_ASSUMED_ROLE_PASS_DIAGNOSTIC_PRECHECK_PENDING",
+  "expected_role_binding_state": "OIDC_STS_LATEST_GET_OBJECT_PASS_GET_OBJECT_VERSION_NOT_YET_DISTINGUISHED",
   "long_lived_access_keys": "PROHIBITED",
   "oidc_provider_url": "https://token.actions.githubusercontent.com",
   "oidc_audience": "sts.amazonaws.com",
@@ -85,14 +85,14 @@
     "trust_only_remediation_script_sha256": "9573ed2c1d69b5780510a19d5f9522fe8986c5bb8871c94d5636525a7afc0936"
   },
   "workflow": ".github/workflows/m3top3-finance-bounded-live-pilot-v1.yml",
-  "workflow_disposition": "NEW_STDERR_SAFE_READ_ONLY_DIAGNOSTIC_PRECHECK_REARM_PENDING",
+  "workflow_disposition": "DIAGNOSTIC_PRECHECK_FAIL_CLOSED_FROZEN_VERSION_403_LATEST_HEAD_PASS_ZERO_PROVIDER_ZERO_S3_WRITE",
   "historical_single_canary_workflow": ".github/workflows/m3top3-s3-raw-custody-single-canary-v1.yml",
   "current_runtime": {
     "runtime_lock_id": "PMO-API-SRC-ADMIT-20260828192737",
     "pilot_id": "FINANCE-LIVE-PILOT-20260828192737",
-    "authority_state": "ACTIVE_PREPARING_STDERR_SAFE_READ_ONLY_DIAGNOSTIC_PRECHECK",
-    "live_pilot_entry_gate": "CLOSED_PENDING_FULL_READ_ONLY_DIAGNOSTIC_PRECHECK_PASS",
-    "workflow_execution_authorized": true,
+    "authority_state": "TERMINATED_BLOCKED_CURRENT_VERSION_ID_READ_ONLY_PROBE_REQUIRED",
+    "live_pilot_entry_gate": "CLOSED_FULL_PRECHECK_NOT_PASS",
+    "workflow_execution_authorized": false,
     "remote_write_execution_authorized": false,
     "provider_api_network_calls_authorized_during_precheck": false
   },
@@ -159,7 +159,7 @@
     "manual_custody_receipt": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_S3_MANUAL_CUSTODY_RECEIPT_v1.0.json",
     "remote_sha256_verified": true
   },
-  "last_currentized_at_kst": "2026-08-29T02:07:34+09:00",
+  "last_currentized_at_kst": "2026-08-29T02:11:23+09:00",
   "repository_visibility": "PRIVATE",
   "private_repository_environment_gate": {
     "preferred": "REQUIRED_REVIEWER_AofSpds",
@@ -245,10 +245,10 @@
     "required": false,
     "semantic_decision_required": false,
     "authority_expansion_required": false,
-    "action": "NONE_PMO_READ_ONLY_DIAGNOSTIC_PRECHECK_PREPARATION",
-    "next_verification": "NEW_DIAGNOSTIC_PRECHECK_DO_NOT_RERUN_33192667201",
+    "action": "NONE_PENDING_PMO_CURRENT_VERSION_ID_READ_ONLY_PROBE",
+    "next_verification": "NEW_READ_ONLY_DIAGNOSTIC_PRECHECK_DO_NOT_RERUN_33193429858",
     "prohibit": [
-      "RERUN_RUN_33192667201",
+      "RERUN_RUN_33193429858",
       "LIVE_ARMING_BEFORE_FULL_PRECHECK_PASS",
       "PROVIDER_API_CALL",
       "S3_WRITE",
@@ -303,5 +303,18 @@
     "commit": "38b9253fc83003733a327f206776ffe9dbb84ae1",
     "content_sha256": "7d7ba22e4d1c9366daa4c064172006a60c773510035221f976c92c5761a67339",
     "scope": "AWS_ERROR_CODE_ONLY_VERSIONED_AND_LATEST_HEAD_READBACK_NO_PROVIDER_NO_S3_WRITE"
+  },
+  "current_version_diagnostic": {
+    "run_id": 33193429858,
+    "job_id": 98924447216,
+    "artifact_id": 9694722772,
+    "artifact_sha256": "eddde9ee4fc8413f29014661d7fe5b51eccb8f1dd672e569a32512d964710235",
+    "frozen_versioned_head_error_code": "403",
+    "latest_head": "PASS",
+    "classification": "GET_OBJECT_VERSION_PERMISSION_VS_FROZEN_VERSION_DRIFT_NOT_YET_DISTINGUISHED",
+    "next_probe": "READ_LATEST_HEAD_VERSION_ID_THEN_HEAD_THAT_EXACT_VERSION",
+    "provider_api_network_attempts": 0,
+    "quota_reservations": 0,
+    "remote_s3_writes": 0
   }
 }
