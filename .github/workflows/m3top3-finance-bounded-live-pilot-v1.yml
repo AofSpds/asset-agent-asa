@@ -550,6 +550,41 @@ jobs:
               isinstance(audience, list) and "sts.amazonaws.com" in audience
           ):
               raise SystemExit("OIDC_AUDIENCE_MISMATCH")
+          actual_subject = claims.get("sub")
+          if (
+              not isinstance(actual_subject, str)
+              or not 1 <= len(actual_subject) <= 500
+              or any(
+                  ch not in "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._:/@%-"
+                  for ch in actual_subject
+              )
+          ):
+              raise SystemExit("OIDC_SUBJECT_UNSAFE_OR_INVALID")
+          if actual_subject != expected["sub"]:
+              receipt_path = Path("live_out/preflight.json")
+              receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+              receipt["github_oidc_claims"] = {
+                  "state": "BLOCKED_SUBJECT_MISMATCH_NO_TOKEN_PERSISTED",
+                  "issuer": expected["iss"],
+                  "audience": "sts.amazonaws.com",
+                  "expected_subject": expected["sub"],
+                  "actual_subject": actual_subject,
+                  "repository": claims.get("repository"),
+                  "ref": claims.get("ref"),
+                  "sha": claims.get("sha"),
+                  "actor": claims.get("actor"),
+                  "environment": claims.get("environment"),
+                  "token_persisted": False,
+                  "authenticated_url_persisted": False,
+              }
+              receipt_path.write_text(
+                  json.dumps(receipt, sort_keys=True, separators=(",", ":")) + "\n",
+                  encoding="utf-8",
+              )
+              token = None
+              request_token = None
+              audience_url = None
+              raise SystemExit("OIDC_CLAIM_MISMATCH:sub")
           for key, value in expected.items():
               if claims.get(key) != value:
                   raise SystemExit("OIDC_CLAIM_MISMATCH:" + key)
