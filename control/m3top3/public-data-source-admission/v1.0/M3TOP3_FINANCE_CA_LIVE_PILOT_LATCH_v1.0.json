@@ -40,13 +40,13 @@
     "baseline_quota_ledger_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_QUOTA_LEDGER_v1.0.jsonl",
     "baseline_quota_ledger_sha256": "aa1d73613a3ba737837b368ad0b15f0504f0bf35d56f5a81558093b4cc03f607",
     "baseline_raw_index_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_RAW_CUSTODY_INDEX_v1.0.jsonl",
-    "baseline_raw_index_sha256": "e20f2b8fc8836234af8c0098d512dc5726d4f67e21a8c2c3b23842937ecdaaa4",
+    "baseline_raw_index_sha256": "84b66b656f32cabb74e76423971ff913ee9bae997129f7fabfe2f40ce2671347",
     "runner_path": "tools/m3top3/finance_live_pilot.py",
     "runner_sha256": "1912d1a92bcb8f36a45beb72ff324f418233df6ced1dddb254abe3276af93a4c",
     "source_admission_path": "tools/m3top3/source_admission.py",
     "source_admission_sha256": "574b2f45474b39fd0cf64f28a946bd115ddb3b782595c3ddd78d15c801d111dd",
     "workflow_path": ".github/workflows/m3top3-finance-bounded-live-pilot-v1.yml",
-    "workflow_sha256": "8a705ff9ef9bdc917f33c6e534ba991d49489885e746c8ec84f2ae0272d7e916"
+    "workflow_sha256": "27051fe73d09f941172baece33428ab54eeaf16e7edb1af1028bbe33ac1f8fa7"
   },
   "execution_material": {
     "runtime_lock_id": "PMO-API-SRC-ADMIT-20260828192737",
