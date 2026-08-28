@@ -14,8 +14,8 @@
     "gate_effect": "NONE",
     "bulk_acquisition_authorized": false,
     "bulk_blockers": [
-      "KSD_FULL_FIELD_DICTIONARY_TEMPORAL_SEMANTICS_DOCUMENT_DIGEST_AND_UPDATE_CYCLE_OPEN",
-      "PAGINATION_SNAPSHOT_INVARIANTS_NOT_PROVEN"
+      "KSD_IDENTITY_FULL_FIELD_DICTIONARY_TEMPORAL_STATUS_HISTORICAL_SEMANTICS_AND_EXACT_UPDATE_CYCLE_OPEN",
+      "PAGINATION_VALIDATOR_BULK_COLLECTOR_INTEGRATION_OPEN"
     ],
     "credential_preflight_state": "PASS_BOTH_LIVE_REQUEST_PROVEN",
     "ksd_source_identity_conflict": "RESOLVED_BY_OWNER_APPROVED_DATA_GO_KR_ENDPOINT_AND_LIVE_CANARY_WITHOUT_EQUIVALENCE_CLAIM",
@@ -554,7 +554,7 @@
     "ACTIVE_MANIFEST",
     "PRODUCTION_PROVIDER"
   ],
-  "last_currentized_at_kst": "2026-08-28T11:58:00+09:00",
+  "last_currentized_at_kst": "2026-08-28T12:05:00+09:00",
   "s2_freeze_state": {
     "state": "PARTIAL_FINANCE_DOCUMENTATION_CLOSED_KSD_IDENTITY_DICTIONARY_AND_EXACT_UPDATE_CYCLE_OPEN",
     "quota_policy": "FROZEN",
@@ -582,5 +582,14 @@
     "s3_version_id": "EY9BXLRgeqXAYda6YSIVIB3cUhIIZbfd",
     "remote_readback_sha256": "5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05"
   },
-  "official_document_receipt": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_OFFICIAL_DOCUMENT_RECEIPT_v1.0.json"
+  "official_document_receipt": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_OFFICIAL_DOCUMENT_RECEIPT_v1.0.json",
+  "pagination_invariant_implementation": {
+    "state": "OFFLINE_VALIDATOR_UNIT_TEST_PASS_BULK_COLLECTOR_INTEGRATION_OPEN",
+    "source_commit": "0468f41893b09fa466044d7b06f93ad3c7555d43",
+    "test_commit": "a5e64a6e3e27ee0a7a9ef8598daad367d1077720",
+    "receipt": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_PAGINATION_INVARIANT_TEST_RECEIPT_v1.0.json",
+    "tests_run": 14,
+    "failures": 0,
+    "provider_api_network_attempts": 0
+  }
 }
