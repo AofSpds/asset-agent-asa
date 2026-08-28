@@ -55,9 +55,15 @@ jq -n \
     Version:"2012-10-17",
     Statement:[
       {
-        Sid:"BucketMetadataAndRestrictedList",
+        Sid:"BucketMetadataReadOnly",
         Effect:"Allow",
-        Action:["s3:GetBucketLocation","s3:GetBucketVersioning","s3:ListBucket"],
+        Action:["s3:GetBucketLocation","s3:GetBucketVersioning"],
+        Resource:("arn:aws:s3:::"+$bucket)
+      },
+      {
+        Sid:"RestrictedSourcePrefixList",
+        Effect:"Allow",
+        Action:"s3:ListBucket",
         Resource:("arn:aws:s3:::"+$bucket),
         Condition:{StringLike:{"s3:prefix":[
           "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/*",
