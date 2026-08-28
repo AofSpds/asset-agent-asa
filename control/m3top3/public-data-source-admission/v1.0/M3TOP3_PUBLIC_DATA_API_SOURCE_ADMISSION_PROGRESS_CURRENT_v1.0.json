@@ -1,9 +1,9 @@
 {
   "artifact": "M3TOP3_PUBLIC_DATA_API_SOURCE_ADMISSION_PROGRESS_CURRENT_v1.0",
-  "as_of_kst": "2026-08-28T11:32:09+09:00",
+  "as_of_kst": "2026-08-28T11:48:01+09:00",
   "runtime_lock_id": "PMO-API-SRC-ADMIT-20260828055620",
   "branch": "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828",
-  "head_commit": "dd34b6af3d1ad481201dddd57ed73444b293b474",
+  "head_commit": "033d37776075b03aa7bbc19b4f1f5dcc763d9a61",
   "denominator_ewu": 100,
   "earned_ewu": 25,
   "overall_progress_percent": 25,
@@ -51,7 +51,9 @@
     "s2_contract_currentization_commit": "a2037969d6baad8485cbebe20a6fe65df9978301",
     "s2_registry_currentization_commit": "ccc37a641d8a4d92395d7eecc216081780e98b17",
     "finance_raw_custody_index_commit": "dc589be03c4af25ec6c70090338ea2f6d49a87ec",
-    "s2_custody_currentization_events_commit": "dd34b6af3d1ad481201dddd57ed73444b293b474"
+    "s2_custody_currentization_events_commit": "dd34b6af3d1ad481201dddd57ed73444b293b474",
+    "manual_s3_custody_receipt_cleanup_commit": "52b9a17956360f82fd5b40490af1de7331e6da06",
+    "s2_custody_cleanup_events_commit": "033d37776075b03aa7bbc19b4f1f5dcc763d9a61"
   },
   "exact_blocker": "FINANCE_AND_KSD_DOCUMENTATION_BYTES_DIGESTS_AND_TEMPORAL_SEMANTICS_OPEN",
   "ksd_secret_state": "PRESENT_DECODED_FORM_LIVE_REQUEST_PROVEN",
@@ -68,7 +70,7 @@
     "rework_seconds": "NOT_INSTRUMENTED"
   },
   "claim_ceiling": "S1_CLOSED_S3_CLOSED_S2_FIRST_REMOTE_CUSTODY_CLOSED_DOCUMENTATION_BINDINGS_OPEN_GATE_EFFECT_NONE_VALIDATION_NONE",
-  "raw_custody_state": "FIVE_EPHEMERAL_ACTIONS_RESPONSE_ENTITIES_ONE_CANONICAL_S3_ENTITY_ONE_NONCANONICAL_DUPLICATE_PRESERVED_PENDING_OWNER_DELETE_APPROVAL",
+  "raw_custody_state": "FIVE_EPHEMERAL_ACTIONS_RESPONSE_ENTITIES_ONE_CANONICAL_S3_ENTITY_NONCANONICAL_DUPLICATE_HIDDEN_BY_VERSIONED_DELETE_MARKER",
   "s1": {
     "state": "CLOSED",
     "earned_ewu": 10,
@@ -95,7 +97,9 @@
       "FIRST_REMOTE_BYTE_UPLOAD_AND_SHA256_VERIFICATION",
       "CANONICAL_S3_VERSION_ID_AND_METADATA_READBACK_BOUND",
       "CANONICAL_CUSTODY_CONTRACT_AND_SOURCE_REGISTRY_CURRENTIZED",
-      "FINANCE_RAW_CUSTODY_INDEX_CREATED_ONE_CANONICAL_RECORD"
+      "FINANCE_RAW_CUSTODY_INDEX_CREATED_ONE_CANONICAL_RECORD",
+      "NONCANONICAL_DUPLICATE_DELETE_MARKER_AND_POST_DELETE_404_VERIFIED",
+      "CANONICAL_OBJECT_POST_CLEANUP_HEAD_VERIFIED"
     ],
     "open": [
       "FINANCE_REFERENCE_DOCUMENT_BYTES_AND_DIGEST",
@@ -175,6 +179,8 @@
       "code_fix": "m3top3-finance-single-canary-v1.yml"
     }
   ],
-  "last_material_progress": "S2_FIRST_CANONICAL_S3_RAW_ENTITY_VERIFIED_CONTRACT_REGISTRY_AND_RAW_CUSTODY_INDEX_CURRENTIZED",
-  "noncanonical_raw_entities_preserved_pending_owner_delete_approval": 1
+  "last_material_progress": "S2_NONCANONICAL_DUPLICATE_CLEANUP_CLOSED_CANONICAL_OBJECT_POST_CLEANUP_HEAD_PASS",
+  "noncanonical_raw_entities_current": 0,
+  "noncanonical_raw_entity_delete_markers": 1,
+  "owner_action_required": false
 }
