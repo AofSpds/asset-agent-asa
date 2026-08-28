@@ -17,8 +17,6 @@
       "FINANCE_OFFICIAL_REFERENCE_DOCUMENT_BYTES_DIGEST_OPEN",
       "FINANCE_TYPICAL_AVAILABILITY_CATALOG_RECEIPT_OPEN",
       "KSD_FULL_FIELD_DICTIONARY_TEMPORAL_SEMANTICS_DOCUMENT_DIGEST_AND_UPDATE_CYCLE_OPEN",
-      "ACTIONS_OIDC_ROLE_AND_GITHUB_ENVIRONMENT_CAPABILITY_NOT_BOUND",
-      "SOURCE_FAMILY_REMOTE_BYTES_NOT_MATERIALIZED_OR_SHA256_VERIFIED",
       "PAGINATION_SNAPSHOT_INVARIANTS_NOT_PROVEN"
     ],
     "credential_preflight_state": "PASS_BOTH_LIVE_REQUEST_PROVEN",
@@ -377,7 +375,7 @@
       "PARSED"
     ],
     "digest": "SHA-256",
-    "current_local_status": "LOCAL_STAGING_NOT_DURABLE",
+    "current_local_status": "ONE_CANONICAL_S3_ENTITY_REMOTE_SHA256_VERIFIED",
     "canonical_admission_requires": "IMMUTABLE_DURABLE_DATA_PLANE_LOCATOR",
     "ephemeral_actions_artifact_is_canonical": false,
     "safe_response_headers": [
@@ -422,9 +420,9 @@
         "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-KSD-CORP-DATA-GO-KR-v1/"
       ],
       "candidate_prefix_authority": "SUPERSEDED_BY_EXPLICIT_SOURCE_SPECIFIC_FREEZE",
-      "actions_s3_write_authority": "GIT_SIDE_PREPARED_OWNER_AWS_ROLE_AND_GITHUB_ENVIRONMENT_BINDING_REQUIRED",
-      "current_source_family_materialization": "PREPARED_NOT_RUN",
-      "stable_object_locator_claim": "NONE_UNTIL_UPLOAD_AND_REMOTE_SHA256_VERIFY",
+      "actions_s3_write_authority": "MANUAL_AWS_CLOUDSHELL_FALLBACK_COMPLETED_FOR_FIRST_ENTITY_NO_LONG_LIVED_KEYS",
+      "current_source_family_materialization": "ONE_CANONICAL_FINANCE_ENTITY_REMOTE_SHA256_VERIFIED",
+      "stable_object_locator_claim": "ONE_CANONICAL_VERSIONED_S3_LOCATOR",
       "frozen_source_prefixes": [
         "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/",
         "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-KSD-CORP-DATA-GO-KR-v1/"
@@ -432,7 +430,16 @@
       "source_prefix_freeze_record": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_S3_PREFIX_FREEZE_v1.0.json",
       "first_materialization_workflow": ".github/workflows/m3top3-s3-raw-custody-single-canary-v1.yml",
       "first_materialization_target_locator": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/getRighExerReasSche_V2/quota_day_kst=2026-08-28/request_id=970cde9fee8c25ba842c7969793ede827d92ca62138ceb3745abfa43ead55b6f/attempt=2/sha256=5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05.entity",
-      "object_key_template": "raw/public-data-api/<source_id>/<operation>/quota_day_kst=<YYYY-MM-DD>/request_id=<safe_request_id_sha256>/attempt=<N>/sha256=<entity_sha256>.entity"
+      "object_key_template": "raw/public-data-api/<source_id>/<operation>/quota_day_kst=<YYYY-MM-DD>/request_id=<safe_request_id_sha256>/attempt=<N>/sha256=<entity_sha256>.entity",
+      "first_materialization_receipt": {
+        "path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_S3_MANUAL_CUSTODY_RECEIPT_v1.0.json",
+        "locator": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/getRighExerReasSche_V2/quota_day_kst=2026-08-28/request_id=970cde9fee8c25ba842c7969793ede827d92ca62138ceb3745abfa43ead55b6f/attempt=2/sha256=5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05.entity",
+        "version_id": "EY9BXLRgeqXAYda6YSIVIB3cUhIIZbfd",
+        "entity_bytes": 143,
+        "entity_sha256": "5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05",
+        "remote_readback": "PASS",
+        "provider_api_network_attempts": 0
+      }
     }
   },
   "request_state_machine": [
@@ -534,7 +541,8 @@
     "M3TOP3_FINANCE_CA_ACQUISITION_CHECKPOINT_v1.0",
     "M3TOP3_PUBLIC_DATA_API_S3_PREFIX_FREEZE_v1.0",
     "M3TOP3_PUBLIC_DATA_API_AWS_OIDC_CONTRACT_v1.0",
-    "M3TOP3_PUBLIC_DATA_API_S3_RAW_CUSTODY_RECEIPT_v1.0"
+    "M3TOP3_PUBLIC_DATA_API_S3_RAW_CUSTODY_RECEIPT_v1.0",
+    "M3TOP3_PUBLIC_DATA_API_S3_MANUAL_CUSTODY_RECEIPT_v1.0"
   ],
   "g2_effect_ceiling": "IDENTITY_CORROBORATION_ONLY_NOT_HISTORICAL_BUSINESS_PRIORITY_LISTING_OR_WINDOW_AUTHORITY",
   "g3_effect_ceiling": "CANDIDATE_CA_EVENT_UNIVERSE_ONLY_NOT_CALENDAR_CUSTODY_PUBLICATION_CUTOFF_OR_ADJUSTMENT_FACTOR",
@@ -551,18 +559,18 @@
     "ACTIVE_MANIFEST",
     "PRODUCTION_PROVIDER"
   ],
-  "last_currentized_at_kst": "2026-08-28T10:28:00+09:00",
+  "last_currentized_at_kst": "2026-08-28T11:32:09+09:00",
   "s2_freeze_state": {
-    "state": "PARTIAL_CUSTODY_BLOCKED",
+    "state": "PARTIAL_REMOTE_CUSTODY_CLOSED_DOCUMENTATION_BINDINGS_OPEN",
     "quota_policy": "FROZEN",
     "credential_contract": "SATISFIED",
     "endpoint_identity": "FROZEN_TO_DATA_GO_KR",
     "catalog_and_license": "FROZEN",
     "transport_schema": "PARTIAL",
     "source_specific_raw_prefix": "FROZEN_CONTROL_PLANE",
-    "remote_materialization": "PREPARED_NOT_STARTED",
-    "stable_object_locators": 0,
-    "actions_oidc": "GIT_SIDE_PREPARED_OWNER_BINDING_REQUIRED"
+    "remote_materialization": "ONE_CANONICAL_FINANCE_ENTITY_REMOTE_SHA256_VERIFIED",
+    "stable_object_locators": 1,
+    "actions_oidc": "NOT_REQUIRED_FOR_FIRST_MANUAL_CLOUDSHELL_CUSTODY_FALLBACK"
   },
   "first_materialization_backup": {
     "state": "DURABLE_PRIVATE_BACKUP_PRESENT_NOT_CANONICAL_DATA_PLANE",
@@ -574,6 +582,9 @@
     "entity_sha256": "5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05",
     "original_actions_expiry_utc": "2026-09-04T00:50:26Z",
     "provider_api_network_attempts": 0,
-    "stable_object_locator_claim": "NONE_UNTIL_S3_UPLOAD_AND_REMOTE_SHA256_VERIFY"
+    "stable_object_locator_claim": "PROMOTED_TO_CANONICAL_VERSIONED_S3_LOCATOR",
+    "canonical_locator": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/getRighExerReasSche_V2/quota_day_kst=2026-08-28/request_id=970cde9fee8c25ba842c7969793ede827d92ca62138ceb3745abfa43ead55b6f/attempt=2/sha256=5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05.entity",
+    "s3_version_id": "EY9BXLRgeqXAYda6YSIVIB3cUhIIZbfd",
+    "remote_readback_sha256": "5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05"
   }
 }
