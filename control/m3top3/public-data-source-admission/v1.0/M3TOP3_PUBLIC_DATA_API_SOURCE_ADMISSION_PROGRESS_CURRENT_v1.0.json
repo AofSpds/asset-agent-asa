@@ -1,18 +1,26 @@
 {
   "artifact": "M3TOP3_PUBLIC_DATA_API_SOURCE_ADMISSION_PROGRESS_CURRENT_v1.0",
-  "as_of_kst": "2026-08-28T13:17:00+09:00",
+  "as_of_kst": "2026-08-28T14:03:22+09:00",
   "runtime_lock_id": "PMO-API-SRC-ADMIT-20260828055620",
   "branch": "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828",
-  "head_commit": "69df7880a1b6130cbc121b0218b22710343c5736",
+  "head_commit": "ec0fbcce9937abfca3292847ff1c7a5a5cbb78a2",
   "denominator_ewu": 100,
   "earned_ewu": 25,
   "overall_progress_percent": 25,
+  "runtime_state": "TERMINATED",
   "current_stage": "S2",
-  "current_stage_state": "PARTIAL_KSD_TARGET_FIELD_LABELS_FORMATS_BOUND_HISTORICAL_STATUS_AND_EXACT_UPDATE_CYCLE_OPEN_PAGINATION_INTEGRATION_PASS",
+  "current_stage_state": "PARTIAL_CLAIM_CEILING_FROZEN",
+  "stage_closure": "NOT_CLOSED",
   "current_stage_earned_ewu": 0,
   "active_workers": 0,
   "active_validators": 0,
+  "production_authorized": false,
+  "bulk_acquisition_authorized": false,
+  "model_semantic_change_authorized": false,
+  "pit_semantic_change_authorized": false,
+  "validation_claim": "NONE",
   "validation_closure": "NONE",
+  "gate_effect": "NONE",
   "network_attempts": 7,
   "quota_attempts": {
     "KSD": 2,
@@ -72,13 +80,17 @@
     "ksd_field_semantics_receipt_commit": "45f2fe2d25f8919c48362699e53c6a789ecda13b",
     "pagination_collector_integration_receipt_commit": "f2be73e9f1056f955a05e10232f22424abe82a13",
     "s2_semantics_pagination_contract_commit": "934a56af44dd61ed378501bffcb21855b89405de",
-    "s2_semantics_pagination_events_commit": "69df7880a1b6130cbc121b0218b22710343c5736"
+    "s2_semantics_pagination_events_commit": "69df7880a1b6130cbc121b0218b22710343c5736",
+    "ksd_bounded_search_receipt_commit": "34b9abcb1e47756b625dc63b276db4c045ac93f5",
+    "s2_partial_ceiling_contract_commit": "b1aba0ea2d06a6d5a7ac77cabe8baee9e94fdcd1",
+    "s2_runtime_termination_events_commit": "ec0fbcce9937abfca3292847ff1c7a5a5cbb78a2"
   },
-  "exact_blocker": "KSD_FIELD_LEVEL_TEMPORAL_STATUS_HISTORICAL_SEMANTICS_AND_EXACT_UPDATE_CYCLE_OPEN",
+  "exact_blocker": "KSD_NULL_CURRENT_STATUS_HISTORICAL_VALIDITY_FULL_MARKET_AND_ROSTER_CLOSE_CODE_DICTIONARIES_AND_EXACT_UPDATE_CYCLE_UNPROVEN_AFTER_BOUNDED_OFFICIAL_SEARCH",
+  "blocker_disposition": "UNPROVEN_AFTER_BOUNDED_OFFICIAL_SEARCH",
   "ksd_secret_state": "PRESENT_DECODED_FORM_LIVE_REQUEST_PROVEN",
   "credential_security_disposition": "PROTECTED_REPOSITORY_SECRETS_CONFIGURED_VALUES_NEVER_PERSISTED",
-  "resume_trigger": "NONE_OWNER_ACTION_NOT_REQUIRED",
-  "resume_action": "CONTINUE_BOUNDED_OFFICIAL_PROVENANCE_FOR_KSD_NULL_STATUS_HISTORICAL_VALIDITY_FULL_CODE_DICTIONARIES_AND_EXACT_UPDATE_CYCLE_OR_RETAIN_UNKNOWN_CEILING_NO_PROVIDER_DATA_API_CALL",
+  "resume_trigger": "NEW_OR_REVISED_OFFICIAL_KSD_DOCUMENTATION_ADDRESSING_REQUIRED_SCOPE",
+  "resume_action": "REOPEN_READ_ONLY_PROVENANCE_REVIEW_ONLY_NO_PROVIDER_DATA_API_CALL",
   "time_accounting": {
     "runtime_lock_at_kst": "2026-08-28T05:56:20+09:00",
     "resumed_at_kst": "2026-08-28T07:26:17+09:00",
@@ -88,7 +100,7 @@
     "blocked_seconds": "NOT_INSTRUMENTED",
     "rework_seconds": "NOT_INSTRUMENTED"
   },
-  "claim_ceiling": "S1_CLOSED_S3_CLOSED_S2_CUSTODY_FINANCE_DOCUMENTATION_AND_OFFLINE_PAGINATION_INTEGRATION_CLOSED_KSD_FIELD_LABELS_FORMATS_BOUND_HISTORICAL_STATUS_AND_EXACT_UPDATE_UNKNOWN_BULK_FALSE_GATE_EFFECT_NONE_VALIDATION_NONE",
+  "claim_ceiling": "S1_CLOSED_S3_CLOSED_S2_PARTIAL_CLAIM_CEILING_FROZEN_KSD_FIELD_LABELS_FORMATS_BOUND_STATUS_SEPARATION_CORROBORATED_SIBLING_MARKET_DICTIONARY_NOT_PROMOTED_FULL_MARKET_AND_ROSTER_DICTIONARIES_HISTORICAL_PIT_NULL_STATUS_AND_EXACT_UPDATE_UNPROVEN_BULK_FALSE_GATE_EFFECT_NONE_VALIDATION_NONE",
   "raw_custody_state": "FIVE_EPHEMERAL_ACTIONS_RESPONSE_ENTITIES_ONE_CANONICAL_S3_ENTITY_NONCANONICAL_DUPLICATE_HIDDEN_BY_VERSIONED_DELETE_MARKER",
   "s1": {
     "state": "CLOSED",
@@ -101,7 +113,7 @@
     }
   },
   "s2": {
-    "state": "PARTIAL_KSD_TARGET_FIELD_LABELS_FORMATS_BOUND_HISTORICAL_STATUS_AND_EXACT_UPDATE_CYCLE_OPEN_PAGINATION_INTEGRATION_PASS",
+    "state": "PARTIAL_CLAIM_CEILING_FROZEN",
     "earned_ewu": 0,
     "completed": [
       "KSD_DATA_GO_KR_ENDPOINT_SELECTED_AND_LIVE_PROVEN",
@@ -127,12 +139,14 @@
       "KSD_OFFICIAL_SWAGGER_THIRTEEN_TARGET_FIELD_LABELS_AND_FORMATS_BOUND",
       "KSD_HISTORICAL_VALIDITY_AND_EXACT_UPDATE_CYCLE_FROZEN_UNKNOWN_NOT_PROVEN",
       "PAGINATION_BOUNDED_COLLECTOR_INTEGRATION_FOCUSED_TESTS_PASS_20_OF_20",
-      "PAGINATION_QUOTA_SAFE_FAIL_FAST_BEFORE_LATER_PAGE_BOUND"
+      "PAGINATION_QUOTA_SAFE_FAIL_FAST_BEFORE_LATER_PAGE_BOUND",
+      "KSD_BOUNDED_OFFICIAL_SEARCH_COMPLETED_REQUIRED_FORMAL_CLOSURE_EVIDENCE_UNPROVEN"
     ],
     "open": [
       "KSD_NULL_CURRENT_STATUS_HISTORICAL_VALIDITY_AND_FULL_CODE_DICTIONARY_SEMANTICS",
       "KSD_EXACT_UPDATE_CYCLE"
     ],
+    "open_disposition": "FROZEN_UNPROVEN_REOPEN_ONLY_ON_TRIGGER",
     "frozen_prefixes": [
       "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/",
       "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-KSD-CORP-DATA-GO-KR-v1/"
@@ -206,7 +220,7 @@
       "code_fix": "m3top3-finance-single-canary-v1.yml"
     }
   ],
-  "last_material_progress": "S2_KSD_THIRTEEN_OFFICIAL_FIELD_LABELS_FORMATS_BOUND_WITH_UNKNOWN_CEILING_AND_PAGINATION_BOUNDED_COLLECTOR_FAIL_FAST_INTEGRATION_PASS",
+  "last_material_progress": "S2_KSD_BOUNDED_OFFICIAL_SEARCH_COMPLETED_STATUS_SEPARATION_CORROBORATED_REQUIRED_FORMAL_CLOSURE_EVIDENCE_UNPROVEN_PARTIAL_CLAIM_CEILING_FROZEN_RUNTIME_TERMINATED",
   "noncanonical_raw_entities_current": 0,
   "noncanonical_raw_entity_delete_markers": 1,
   "owner_action_required": false
