@@ -1,0 +1,142 @@
+{
+  "artifact": "M3TOP3_PUBLIC_DATA_API_SOURCE_ADMISSION_PLAN_v1.0",
+  "issued_at_kst": "2026-08-28T14:57:22+09:00",
+  "persona": "AAA-PMO-ORCHESTRATOR",
+  "runtime_lock_id": "PMO-API-SRC-ADMIT-20260828145204",
+  "branch": "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828",
+  "authority_binding": {
+    "contract_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_SOURCE_ADMISSION_CONTRACT_v1.0.json",
+    "contract_commit": "f3fa765fbfd1a42e9c1488f53cf4c42bbb4f016d",
+    "contract_sha256": "dc70ecea1a907fdff24c7c8fc14a27e4a42beaee1be77d03a73c75d988bed199",
+    "activation_base_head_commit": "5e3444f3390d13e4547e91091749980deb891f90"
+  },
+  "current_runtime_scope": [
+    "NO_PROVIDER_CONTROL_PLANE_CURRENTIZATION",
+    "OFFLINE_FINANCE_PILOT_READINESS"
+  ],
+  "stage_projection": {
+    "S2": {
+      "state": "PARTIAL_CLAIM_CEILING_FROZEN",
+      "stage_closure": "NOT_CLOSED",
+      "earned_ewu": 0,
+      "reopen_trigger_satisfied": false
+    },
+    "S4": {
+      "state": "NOT_STARTED",
+      "execution_authorized": false
+    },
+    "S5": {
+      "state": "LIVE_PILOT_NOT_STARTED_OFFLINE_READINESS_ONLY",
+      "execution_authorized": false
+    },
+    "S6": {
+      "state": "OFFLINE_INTERFACE_AND_CHECKPOINT_READINESS_AUTHORIZED",
+      "provider_execution_authorized": false,
+      "remote_custody_write_authorized": false
+    },
+    "S7": {
+      "state": "NOT_STARTED",
+      "execution_authorized": false
+    },
+    "S8": {
+      "state": "NOT_STARTED",
+      "execution_authorized": false
+    },
+    "S9": {
+      "state": "NOT_STARTED",
+      "execution_authorized": false
+    }
+  },
+  "finance_pilot_plan": {
+    "source_id": "M3TOP3-FINANCE-STOCK-RIGHTS-v1",
+    "operation": "getRighExerReasSche_V2",
+    "target_start_date": "2024-01-01",
+    "target_end_date": "2026-08-14",
+    "bounds": "INCLUSIVE",
+    "ordered_primary_dates": [
+      "20240102",
+      "20240131",
+      "20240329",
+      "20240628",
+      "20240808",
+      "20240809",
+      "20240812",
+      "20240930",
+      "20241231",
+      "20250115",
+      "20250331",
+      "20250630",
+      "20251231",
+      "20260115",
+      "20260331",
+      "20260630",
+      "20260814"
+    ],
+    "ordered_primary_dates_sha256": "920b118d7d7abaa10f69e93169698ed380db7162ac3c5024756a07702a7065f6",
+    "fallback_dates": [
+      "20240807",
+      "20240810",
+      "20240811",
+      "20240813",
+      "20240814",
+      "20241108",
+      "20241111"
+    ],
+    "fallback_activation": "PROHIBITED_AUTOMATICALLY_REQUIRES_SEPARATE_EXACT_LATCH",
+    "full_date_range_auto_expansion": "PROHIBITED",
+    "historical_canary_date_20191231_auto_inclusion": "PROHIBITED",
+    "requested_page_size_candidate": 10,
+    "live_max_pages_per_date": "UNSET_REQUIRES_SEPARATE_PILOT_LATCH",
+    "live_max_page_acquisitions": 0,
+    "provider_api_network_attempt_budget": 0,
+    "quota_reservation_authorized": false,
+    "live_multi_page_provider_run": "PROHIBITED",
+    "remote_raw_custody_write_authorized": false,
+    "promotion_authority": "NONE"
+  },
+  "offline_readiness_work": {
+    "allowed": [
+      "STRICT_PRIMARY_DATE_PLAN_VALIDATION",
+      "STRICT_FINANCE_WIRE_RESPONSE_TO_PAGE_NORMALIZATION",
+      "DEPENDENCY_INJECTED_PAGINATION_COLLECTION",
+      "CHECKPOINT_SCHEMA_AND_COMPARE_AND_SWAP_IMPLEMENTATION",
+      "STAGING_NONCANONICAL_RAW_CUSTODY_INTERFACE",
+      "FOCUSED_SYNTHETIC_TESTS",
+      "CONTROL_PLANE_REGISTRY_AND_OIDC_CURRENTIZATION"
+    ],
+    "forbidden": [
+      "AMBIENT_NETWORK_ACCESS",
+      "PROVIDER_API_CALL",
+      "QUOTA_RESERVATION",
+      "PROVIDER_WORKFLOW_DISPATCH",
+      "REMOTE_S3_WRITE",
+      "LIVE_MULTI_PAGE_RUN",
+      "NORMALIZATION_OR_RELEASE_PROMOTION",
+      "FULL_ACQUISITION",
+      "GLOBAL_REGRESSION"
+    ]
+  },
+  "live_pilot_entry_gate": {
+    "state": "CLOSED",
+    "required_before_open": [
+      "SEPARATE_FINANCE_ONLY_BOUNDED_PILOT_AUTHORITY_LATCH",
+      "EXACT_DATE_PAGE_AND_ATTEMPT_HARD_CAPS",
+      "DURABLE_REMOTE_RAW_CUSTODY_WRITE_PATH",
+      "CHECKPOINT_AND_CUSTODY_INDEX_FOCUSED_TEST_PASS",
+      "NO_COMPETING_WRITER_READBACK"
+    ],
+    "s2_bulk_blocker_waived": false,
+    "bulk_acquisition_authorized": false
+  },
+  "checkpoint_artifact": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_ACQUISITION_CHECKPOINT_v1.0.json",
+  "coverage_pilot_artifact": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_COVERAGE_PILOT_v1.0.json",
+  "production_authorized": false,
+  "bulk_acquisition_authorized": false,
+  "model_semantic_change_authorized": false,
+  "pit_semantic_change_authorized": false,
+  "validation_claim": "NONE",
+  "validation_closure": "NONE",
+  "gate_effect": "NONE",
+  "provider_api_network_attempts": 0,
+  "owner_action_required": false
+}
