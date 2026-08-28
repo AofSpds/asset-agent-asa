@@ -1,7 +1,7 @@
 {
   "artifact": "M3TOP3_PUBLIC_DATA_API_AWS_OIDC_CONTRACT_v1.0",
   "issued_at_kst": "2026-08-28T10:08:28+09:00",
-  "state": "OWNER_AUTHORIZED_FINANCE_ONLY_LIVE_PILOT_OIDC_PRECHECK_PENDING_AUTOMATED_CUSTODY_UNPROVEN",
+  "state": "OWNER_AUTHORIZED_FINANCE_ONLY_LIVE_PILOT_BLOCKED_EXTERNAL_AWS_IAM_OIDC_TRUST_REMEDIATION_REQUIRED",
   "provider": "AWS_IAM_OIDC",
   "aws_region": "ap-northeast-2",
   "aws_account_id": "956315449338",
@@ -18,11 +18,28 @@
   "github_role_arn_variable": "M3TOP3_AWS_ROLE_ARN",
   "expected_role_name": "M3Top3GitHubOIDCRawWriter",
   "expected_role_arn": "arn:aws:iam::956315449338:role/M3Top3GitHubOIDCRawWriter",
-  "expected_role_binding_state": "NOT_PROVEN_PENDING_PRECHECK",
+  "expected_role_binding_state": "NOT_PROVEN_STS_SESSION_NOT_ESTABLISHED_AWS_TRUST_OR_OIDC_PROVIDER_NOT_ALIGNED",
   "long_lived_access_keys": "PROHIBITED",
   "oidc_provider_url": "https://token.actions.githubusercontent.com",
   "oidc_audience": "sts.amazonaws.com",
-  "oidc_subject": "repo:AofSpds/asset-agent-asa:environment:m3top3-source-admission",
+  "oidc_subject": "repo:AofSpds@87963280/asset-agent-asa@1334403184:environment:m3top3-source-admission",
+  "oidc_subject_previous_template": "repo:AofSpds/asset-agent-asa:environment:m3top3-source-admission",
+  "oidc_subject_evidence": {
+    "state": "GITHUB_OIDC_CUSTOM_SUBJECT_PROVEN_REPOSITORY_CONTRACT_DRIFT_CONFIRMED_AWS_ROLE_TRUST_READBACK_NOT_AVAILABLE",
+    "workflow_run_id": 33167935763,
+    "artifact_id": 9684351829,
+    "issuer": "https://token.actions.githubusercontent.com",
+    "audience": "sts.amazonaws.com",
+    "github_observed_subject": "repo:AofSpds@87963280/asset-agent-asa@1334403184:environment:m3top3-source-admission",
+    "repository_contract_subject_at_failure": "repo:AofSpds/asset-agent-asa:environment:m3top3-source-admission",
+    "repository": "AofSpds/asset-agent-asa",
+    "ref": "refs/heads/aaa-pmo-public-data-g2-g3-source-admission-v1-20260828",
+    "actor": "AofSpds",
+    "environment": "m3top3-source-admission",
+    "token_persisted": false,
+    "authenticated_url_persisted": false,
+    "cause_claim_ceiling": "GITHUB_OIDC_SUBJECT_CONTRACT_DRIFT_CONFIRMED_AWS_TRUST_OR_OIDC_PROVIDER_ALIGNMENT_NOT_PROVEN"
+  },
   "configure_aws_credentials": {
     "repository": "aws-actions/configure-aws-credentials",
     "release": "v6.2.3",
@@ -35,19 +52,19 @@
     "setup_script": "control/m3top3/public-data-source-admission/v1.0/aws-oidc/setup_m3top3_github_oidc_role_v1.sh"
   },
   "workflow": ".github/workflows/m3top3-finance-bounded-live-pilot-v1.yml",
-  "workflow_disposition": "FINANCE_ONLY_PRECHECK_STAGING_NOT_YET_EXECUTED",
+  "workflow_disposition": "PRECHECK_EXECUTED_FAIL_CLOSED_BEFORE_PROVIDER_AND_S3_STS_SESSION_NOT_ESTABLISHED",
   "historical_single_canary_workflow": ".github/workflows/m3top3-s3-raw-custody-single-canary-v1.yml",
   "current_runtime": {
     "runtime_lock_id": "PMO-API-SRC-ADMIT-20260828192737",
     "pilot_id": "FINANCE-LIVE-PILOT-20260828192737",
-    "authority_state": "OWNER_AUTHORIZED_PRECHECK_PENDING",
-    "live_pilot_entry_gate": "CLOSED",
+    "authority_state": "OWNER_AUTHORIZED_ENTRY_GATE_BLOCKED_EXTERNAL_AWS_IAM_OIDC_CONFIGURATION",
+    "live_pilot_entry_gate": "CLOSED_BLOCKED_AWS_OIDC_CUSTOM_SUBJECT_TRUST_BINDING_MISMATCH",
     "workflow_execution_authorized": false,
     "remote_write_execution_authorized": false,
     "provider_api_network_calls_authorized_during_precheck": false
   },
   "finance_only_live_pilot_boundary": {
-    "state": "AUTHORIZED_SCOPE_FROZEN_EXECUTION_GATE_CLOSED",
+    "state": "AUTHORIZED_SCOPE_FROZEN_EXECUTION_GATE_CLOSED_BLOCKED_AWS_OIDC_CUSTOM_SUBJECT_TRUST_BINDING_MISMATCH",
     "source_id": "M3TOP3-FINANCE-STOCK-RIGHTS-v1",
     "remote_raw_custody_prefix": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/",
     "bucket_list_prefix": "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/*",
@@ -109,7 +126,7 @@
     "manual_custody_receipt": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_S3_MANUAL_CUSTODY_RECEIPT_v1.0.json",
     "remote_sha256_verified": true
   },
-  "last_currentized_at_kst": "2026-08-28T19:27:37+09:00",
+  "last_currentized_at_kst": "2026-08-28T20:45:47+09:00",
   "repository_visibility": "PRIVATE",
   "private_repository_environment_gate": {
     "preferred": "REQUIRED_REVIEWER_AofSpds",
@@ -119,14 +136,61 @@
   },
   "aws_account_id_evidence": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_S3_MANUAL_CUSTODY_RECEIPT_v1.0.json",
   "future_automated_custody": {
-    "state": "OWNER_AUTHORIZED_FINANCE_ONLY_PRECHECK_PENDING_AUTOMATION_UNPROVEN",
-    "oidc_role_binding": "NOT_PROVEN",
-    "github_environment_role_arn_binding": "NOT_PROVEN",
+    "state": "BLOCKED_AWS_OIDC_CUSTOM_SUBJECT_TRUST_BINDING_MISMATCH",
+    "oidc_role_binding": "GITHUB_CLAIMS_PROVEN_STS_BINDING_NOT_PROVEN",
+    "github_environment_role_arn_binding": "FAILED_STS_WEB_IDENTITY_VALIDATION_AFTER_GITHUB_CUSTOM_SUBJECT_PROOF",
     "inline_session_policy_binding": "NOT_PROVEN",
     "finance_exact_prefix_binding": "NOT_PROVEN",
     "ksd_and_other_prefix_exclusion": "NOT_PROVEN",
     "precheck_authorized": true,
-    "precheck_executed": false,
+    "precheck_executed": true,
+    "precheck_run_count": 5,
+    "precheck_success_count": 0,
+    "precheck_run_ids": [
+      33167156189,
+      33167412476,
+      33167677777,
+      33167799898,
+      33167935763
+    ],
+    "precheck_runs": [
+      {
+        "run_id": 33167156189,
+        "failure_phase": "CONTROL_BASELINE_RAW_INDEX_HASH_PREFLIGHT",
+        "provider_api_network_attempts": 0,
+        "quota_reservations": 0,
+        "remote_s3_writes": 0
+      },
+      {
+        "run_id": 33167412476,
+        "failure_phase": "AWS_STS_ASSUME_ROLE_WITH_WEB_IDENTITY",
+        "provider_api_network_attempts": 0,
+        "quota_reservations": 0,
+        "remote_s3_writes": 0
+      },
+      {
+        "run_id": 33167677777,
+        "failure_phase": "GITHUB_OIDC_REQUEST_CONTEXT_VALIDATION",
+        "provider_api_network_attempts": 0,
+        "quota_reservations": 0,
+        "remote_s3_writes": 0
+      },
+      {
+        "run_id": 33167799898,
+        "failure_phase": "GITHUB_OIDC_SUBJECT_VALIDATION",
+        "provider_api_network_attempts": 0,
+        "quota_reservations": 0,
+        "remote_s3_writes": 0
+      },
+      {
+        "run_id": 33167935763,
+        "failure_phase": "GITHUB_OIDC_CUSTOM_SUBJECT_EVIDENCE_CAPTURE_FAIL_CLOSED",
+        "provider_api_network_attempts": 0,
+        "quota_reservations": 0,
+        "remote_s3_writes": 0
+      }
+    ],
+    "aws_sts_session_established": false,
     "precheck_scope": [
       "OIDC_TOKEN_AND_STS_CALLER_IDENTITY",
       "EXACT_ROLE_ARN_AND_ASSUMED_ROLE_NAME_READBACK",
@@ -140,9 +204,24 @@
     "precheck_remote_raw_custody_writes": 0,
     "workflow_execution_authorized": false,
     "remote_write_execution_authorized": false,
-    "live_pilot_entry_gate": "CLOSED",
+    "live_pilot_entry_gate": "CLOSED_BLOCKED_AWS_OIDC_CUSTOM_SUBJECT_TRUST_BINDING_MISMATCH",
     "configuration_required_before_any_future_automated_write": true,
-    "owner_action_required_now": false
+    "owner_action_required_now": true
+  },
+  "external_operational_action": {
+    "required": true,
+    "semantic_decision_required": false,
+    "authority_expansion_required": false,
+    "action": "UPDATE_ONLY_M3Top3GitHubOIDCRawWriter_ASSUME_ROLE_TRUST_TO_EXACT_ID_QUALIFIED_SUBJECT_THEN_RERUN_READ_ONLY_PRECHECK",
+    "prohibit": [
+      "ROLE_RECREATION",
+      "PERMISSIONS_POLICY_CHANGE",
+      "PERMISSIONS_BOUNDARY_CHANGE",
+      "ATTACHED_OR_INLINE_POLICY_CHANGE",
+      "DUAL_OLD_AND_NEW_SUBJECT",
+      "STRINGLIKE_OR_WILDCARD_SUBJECT",
+      "LIVE_ARMING_BEFORE_PRECHECK_PASS"
+    ]
   },
   "production_authorized": false,
   "bulk_acquisition_authorized": false,
@@ -152,5 +231,7 @@
   "validation_closure": "NONE",
   "gate_effect": "NONE",
   "currentization_provider_api_network_attempts": 0,
-  "owner_action_required": false
+  "owner_action_required": true,
+  "owner_semantic_decision_required": false,
+  "authority_expansion_required": false
 }
