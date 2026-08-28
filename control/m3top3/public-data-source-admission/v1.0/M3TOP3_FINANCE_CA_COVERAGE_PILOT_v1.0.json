@@ -1,0 +1,83 @@
+{
+  "artifact": "M3TOP3_FINANCE_CA_COVERAGE_PILOT_v1.0",
+  "artifact_class": "OFFLINE_READINESS_RECEIPT_NOT_A_LIVE_COVERAGE_RESULT",
+  "issued_at_kst": "2026-08-28T15:09:04+09:00",
+  "persona": "AAA-PMO-ORCHESTRATOR",
+  "runtime_lock_id": "PMO-API-SRC-ADMIT-20260828145204",
+  "branch": "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828",
+  "state": "OFFLINE_FIXTURE_READINESS_PASS_LIVE_PILOT_NOT_RUN",
+  "authority_binding": {
+    "contract_commit": "f3fa765fbfd1a42e9c1488f53cf4c42bbb4f016d",
+    "contract_sha256": "dc70ecea1a907fdff24c7c8fc14a27e4a42beaee1be77d03a73c75d988bed199",
+    "plan_commit": "2bf3bb03e68da8f18a9a2d62f925dc12bf45551b",
+    "plan_blob": "5723947ad5d4cbb689c278db71837ef2886dacc8",
+    "checkpoint_commit": "8566112d49e9b4d7585ec4517a333f14e05548de",
+    "checkpoint_blob": "9d1eebefc408bb36932948efdd39fbf3d0283bb1"
+  },
+  "implementation": {
+    "source_path": "tools/m3top3/source_admission.py",
+    "source_commit": "79eb161db49682d5df0f54e946a9622cf4b5ccbd",
+    "source_blob": "2aba27f2ca27dddabcdf1f6c963f28d63d26402f",
+    "source_sha256": "574b2f45474b39fd0cf64f28a946bd115ddb3b782595c3ddd78d15c801d111dd",
+    "test_path": "tools/m3top3/tests/test_source_admission.py",
+    "test_commit": "d355d0cdd6ae3558637f987a65588d12c77f55ff",
+    "test_blob": "6fec642b92855b836ec4e63f0ae30969dbce8111",
+    "test_sha256": "eb6d217c737cedcf987b0777ae3d1ea1bc03dd3d6083c77e9b70dbd8b8e766e8"
+  },
+  "offline_capabilities_proven_by_synthetic_fixtures": [
+    "EXACT_ORDERED_DATE_PLAN_VALIDATION_WITHOUT_AUTO_EXPANSION",
+    "STRICT_FINANCE_RESULT_CODE_AND_WIRE_INTEGER_NORMALIZATION",
+    "ITEM_BASE_DATE_ECHO_VALIDATION",
+    "RETURNED_PAGE_SIZE_AUTHORITY_AND_PAGE_CEILING_FAIL_CLOSED",
+    "CUSTODY_FIRST_RAW_PRESERVATION_BEFORE_PARSE_AND_PAGE_VALIDATION",
+    "PAGE_ONE_IDENTITY_REVALIDATION_ON_RESUME",
+    "ORDERED_COMPLETED_DATE_PREFIX_RESUME",
+    "PROCESS_SAFE_CHECKPOINT_COMPARE_AND_SWAP",
+    "CHECKPOINT_WRITE_FAILURE_DOES_NOT_SILENTLY_ADVANCE",
+    "PAGINATION_DRIFT_STOPS_LATER_PAGE_ACQUISITION",
+    "OFFLINE_CUSTODY_READBACK_DIGEST_BINDING",
+    "NO_AMBIENT_NETWORK_PATH_IN_INJECTED_FIXTURE_EXECUTION"
+  ],
+  "focused_checks": {
+    "py_compile_command": "python -m py_compile tools/m3top3/source_admission.py tools/m3top3/tests/test_source_admission.py",
+    "py_compile_state": "PASS",
+    "unittest_command": "python -m unittest tools.m3top3.tests.test_source_admission -v",
+    "tests_run": 35,
+    "tests_passed": 35,
+    "failures": 0,
+    "errors": 0,
+    "elapsed_seconds": 0.179,
+    "global_regression_run": false
+  },
+  "live_pilot_disposition": {
+    "state": "NOT_RUN_NOT_AUTHORIZED",
+    "live_pilot_latch": "ABSENT",
+    "exact_live_max_pages_per_date": "UNSET",
+    "exact_live_max_page_acquisitions": 0,
+    "durable_remote_raw_custody_write_path": "UNCONFIGURED_FOR_RUNNER",
+    "coverage_observation": "NONE",
+    "promotion_authority": "NONE"
+  },
+  "side_effect_accounting": {
+    "provider_api_network_attempts": 0,
+    "quota_reservations": 0,
+    "provider_workflow_dispatches": 0,
+    "remote_s3_writes": 0,
+    "canonical_raw_entities_added": 0,
+    "bulk_acquisition_authorized": false,
+    "production_authorized": false,
+    "model_semantic_change_authorized": false,
+    "pit_semantic_change_authorized": false
+  },
+  "stage_effect": {
+    "current_stage": "S2",
+    "current_stage_state": "PARTIAL_CLAIM_CEILING_FROZEN",
+    "stage_closure": "NOT_CLOSED",
+    "earned_ewu_effect": 0,
+    "cumulative_earned_ewu": 25,
+    "validation_claim": "NONE",
+    "validation_closure": "NONE",
+    "gate_effect": "NONE"
+  },
+  "exact_blocker": "KSD_NULL_CURRENT_STATUS_HISTORICAL_VALIDITY_FULL_MARKET_AND_ROSTER_CLOSE_CODE_DICTIONARIES_AND_EXACT_UPDATE_CYCLE_UNPROVEN_AFTER_BOUNDED_OFFICIAL_SEARCH"
+}
