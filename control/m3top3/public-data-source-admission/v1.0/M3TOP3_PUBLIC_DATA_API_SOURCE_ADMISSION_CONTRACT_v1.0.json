@@ -720,7 +720,8 @@
     "authority_state": "GRANTED_ENTRY_GATE_CLOSED_PENDING_PREREQUISITES",
     "pilot_run_id": "FINANCE-LIVE-PILOT-20260828192737",
     "owner_cap_spec_sha256": "7b65152d8df10a6497d1656dbc5cc6d4bd253740f53a29480bb8d877b81b9f05",
-    "single_use_execution_token": "EXECUTE_FINANCE_PRIMARY17_BOUNDED_ONCE_7B65152D8DF10A64",
+    "execution_token_sha256": "63fecc55a7d06cc1ca1237d312f80d2f1acd01e84678b47789e27ec93450e90d",
+    "execution_token_persistence": "PLAINTEXT_PROHIBITED_SHA256_ONLY",
     "source_id": "M3TOP3-FINANCE-STOCK-RIGHTS-v1",
     "operation": "getRighExerReasSche_V2",
     "ordered_primary_dates": [
