@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 export AWS_PAGER=''
+
+# GENERAL BOOTSTRAP ONLY: do not use this script for the current trust-only
+# remediation; it also creates or changes the OIDC provider and role permissions.
 command -v aws >/dev/null
 command -v jq >/dev/null
 
@@ -42,7 +45,7 @@ trap 'rm -rf "$TASK_TMP_DIR"' EXIT
 
 jq -n \
   --arg provider "$OIDC_PROVIDER_ARN" \
-  --arg sub "repo:$GITHUB_REPOSITORY:environment:$GITHUB_ENVIRONMENT" \
+  --arg sub "repo:AofSpds@87963280/asset-agent-asa@1334403184:environment:m3top3-source-admission" \
   '{
     Version:"2012-10-17",
     Statement:[{
