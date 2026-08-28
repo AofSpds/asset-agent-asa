@@ -10,9 +10,11 @@
   "owner_actor": "AofSpds",
   "runtime_lock_id": "PMO-API-SRC-ADMIT-20260828192737",
   "pilot_run_id": "FINANCE-LIVE-PILOT-20260828192737",
-  "state": "ARMED",
-  "mode": "PRECHECK_ARMED",
-  "activation_commit_message": "Arm M3Top3 Finance precheck v1.0",
+  "state": "BLOCKED",
+  "mode": "PRECHECK_BLOCKED",
+  "activation_commit_message": null,
+  "blocked_at_kst": "2026-08-28T20:45:47+09:00",
+  "blocker": "AWS_OIDC_CUSTOM_SUBJECT_TRUST_BINDING_MISMATCH",
   "activation_modes": {
     "PRECHECK_ARMED": {
       "exact_commit_message": "Arm M3Top3 Finance precheck v1.0",
@@ -97,7 +99,7 @@
     "authorized": true,
     "aws_account_id": "956315449338",
     "aws_region": "ap-northeast-2",
-    "aws_role_arn_binding_state": "EXACT_ROLE_ARN_BOUND_PENDING_PRECHECK",
+    "aws_role_arn_binding_state": "NOT_PROVEN_BLOCKED_AWS_OIDC_CUSTOM_SUBJECT_TRUST_BINDING_MISMATCH",
     "aws_role_arn_expected": "arn:aws:iam::956315449338:role/M3Top3GitHubOIDCRawWriter",
     "aws_role_path_expected": "M3Top3GitHubOIDCRawWriter",
     "bucket": "semi-data-plane-aofspds-20260815",
@@ -154,8 +156,10 @@
   "pit_semantic_change_authorized": false,
   "validation_claim": "NONE",
   "gate_effect": "NONE",
-  "initial_disposition": "INERT_STAGED_ARTIFACT_REQUIRES_SEPARATE_EXACT_PATH_PUSH_WITH_EXACT_MODE_AND_COMMIT_MESSAGE",
+  "initial_disposition": "BLOCKED_EXTERNAL_AWS_IAM_OIDC_TRUST_REMEDIATION_REQUIRED_PRECHECK_ONLY_AFTER_REHASH",
   "provider_api_network_calls_on_this_commit": 0,
   "remote_s3_writes_on_this_commit": 0,
-  "owner_action_required": false
+  "owner_action_required": true,
+  "owner_semantic_decision_required": false,
+  "authority_expansion_required": false
 }
