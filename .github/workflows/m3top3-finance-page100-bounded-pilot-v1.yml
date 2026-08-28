@@ -1,0 +1,1896 @@
+name: M3Top3 Finance Page100 Bounded Pilot v1.0
+
+on:
+  push:
+    branches:
+      - aaa-pmo-public-data-g2-g3-source-admission-v1-20260828
+    paths:
+      - control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_PILOT_LATCH_v1.0.json
+
+permissions:
+  contents: read
+  actions: read
+  id-token: write
+
+concurrency:
+  # Deliberately shared with the predecessor Finance writer so the two
+  # workflows cannot execute concurrently even if the retired latch moves.
+  group: m3top3-finance-bounded-live-pilot-v1
+  cancel-in-progress: false
+
+jobs:
+  finance-page100-bounded-pilot:
+    if: >-
+      github.repository == 'AofSpds/asset-agent-asa' &&
+      github.event_name == 'push' &&
+      github.actor == 'AofSpds' &&
+      github.triggering_actor == 'AofSpds' &&
+      github.run_attempt == 1 &&
+      github.ref == 'refs/heads/aaa-pmo-public-data-g2-g3-source-admission-v1-20260828' &&
+      (github.event.head_commit.message == 'Arm M3Top3 Finance page100 precheck v1.0' ||
+       github.event.head_commit.message == 'Arm M3Top3 Finance page100 bounded live pilot v1.0')
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    environment: m3top3-source-admission
+    env:
+      AWS_REGION: ap-northeast-2
+      AWS_DEFAULT_REGION: ap-northeast-2
+      AWS_MAX_ATTEMPTS: "1"
+      AWS_RETRY_MODE: standard
+      AWS_PAGER: ""
+      FINANCE_SELF_DEADLINE_SECONDS: "19800"
+      FINANCE_LATCH_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_PILOT_LATCH_v1.0.json
+      FINANCE_AUTHORITY_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_PILOT_AUTHORITY_v1.0.json
+      FINANCE_PLAN_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_PILOT_PLAN_v1.0.json
+      FINANCE_CHECKPOINT_SEED_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_CHECKPOINT_SEED_v1.0.json
+      FINANCE_BASELINE_QUOTA_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_QUOTA_LEDGER_v1.0.jsonl
+      FINANCE_BASELINE_RAW_INDEX_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_RAW_CUSTODY_INDEX_v1.0.jsonl
+      FINANCE_PREDECESSOR_CHECKPOINT_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_ACQUISITION_CHECKPOINT_v1.0.json
+      FINANCE_PREDECESSOR_REPORT_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_LIVE_PILOT_REPORT_v1.0.json
+      FINANCE_PREDECESSOR_RUN_RECEIPT_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_LIVE_PILOT_RUN_RECEIPT_33195472310_v1.0.json
+      FINANCE_RUNNER_PATH: tools/m3top3/finance_page100_pilot.py
+      FINANCE_SOURCE_ADMISSION_PATH: tools/m3top3/source_admission.py
+      FINANCE_WORKFLOW_PATH: .github/workflows/m3top3-finance-page100-bounded-pilot-v1.yml
+
+    steps:
+      - name: Checkout exact pushed revision
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Fail-closed authority and latch preflight
+        id: preflight
+        shell: bash
+        env:
+          EVENT_ACTOR: ${{ github.actor }}
+          EVENT_TRIGGERING_ACTOR: ${{ github.triggering_actor }}
+          EVENT_REPOSITORY: ${{ github.repository }}
+          EVENT_REF: ${{ github.ref }}
+          EVENT_BEFORE: ${{ github.event.before }}
+          EVENT_AFTER: ${{ github.event.after }}
+          EVENT_FORCED: ${{ github.event.forced }}
+          EVENT_HEAD_MESSAGE: ${{ github.event.head_commit.message }}
+          EVENT_RUN_ATTEMPT: ${{ github.run_attempt }}
+          ROLE_ARN: arn:aws:iam::956315449338:role/M3Top3GitHubOIDCRawWriter
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          import re
+          import subprocess
+          from datetime import datetime, timedelta, timezone
+          from pathlib import Path
+
+          EXPECTED_REPOSITORY = "AofSpds/asset-agent-asa"
+          EXPECTED_ACTOR = "AofSpds"
+          EXPECTED_REF = "refs/heads/aaa-pmo-public-data-g2-g3-source-admission-v1-20260828"
+          EXPECTED_BRANCH = "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828"
+          EXPECTED_RUNTIME = "PMO-FINANCE-PAGE100-20260829041623"
+          EXPECTED_RUN_ID = "FINANCE-PAGE100-PILOT-20260829041623"
+          EXPECTED_TOKEN_HASH = "763c3e1a57f270efcec8ca9be1ee2565a131bf0e4501343e68670fd7f5d32d0d"
+          EXPECTED_OWNER_SPEC = "9e972a94e24c1a20213fd42e04e6daa895e3afd8179f093fdf8a9f904f870444"
+          EXPECTED_PREDECESSOR_HEAD = "31d1bc2a23b97c34adb851ab73394145994ddb6e"
+          EXPECTED_PREDECESSOR_TREE = "172f65ce29b565792cc64519a3c5d431028ec537"
+          EXPECTED_PREDECESSOR_RUN_ID = 33195472310
+          EXPECTED_PREDECESSOR_JOB_ID = 98931365000
+          EXPECTED_PREDECESSOR_RUNTIME = "PMO-API-SRC-ADMIT-20260828192737"
+          EXPECTED_PREDECESSOR_PILOT = "FINANCE-LIVE-PILOT-20260828192737"
+          EXPECTED_QUOTA_DAY_KST = "2026-08-29"
+          EXPECTED_PREDECESSOR_QUOTA_ORDINAL_BASE = 9
+          EXPECTED_DATE_HASH = "920b118d7d7abaa10f69e93169698ed380db7162ac3c5024756a07702a7065f6"
+          EXPECTED_DATES = (
+              "20240102", "20240131", "20240329", "20240628", "20240808",
+              "20240809", "20240812", "20240930", "20241231", "20250115",
+              "20250331", "20250630", "20251231", "20260115", "20260331",
+              "20260630", "20260814",
+          )
+          EXPECTED_PREDECESSOR_OBJECTS = (
+              ("20240102", 1, "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/getRighExerReasSche_V2/quota_day_kst=2026-08-29/request_id=d33797605e0c26ae522952cc4bb30c08b6e5df664c6fb0dc0ad1fcdb03ddcd08/attempt=1/sha256=9ae1972c806552eea241e1f9fdff1beb5640ead731a9afd907974af4c8937e86.entity", "DSSDileXVAbVA_5qGyIhY9HyeNMEjKz6", 4609, "9ae1972c806552eea241e1f9fdff1beb5640ead731a9afd907974af4c8937e86", "\"ccb4606be66bec50fc83b435c63ed578\""),
+              ("20240102", 2, "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/getRighExerReasSche_V2/quota_day_kst=2026-08-29/request_id=70dcfbd8ee61944a5d1d89ba154ced3c359f6371ae45cc0599a9358790cfd0b0/attempt=1/sha256=bc6941e170dd478d2a82c6902a1d4bcbf7279c165fa5691b37cf96bbcc2557dd.entity", "eojCYd2M1CRuDYUAmH3YCf5m1ZF.DXdE", 4623, "bc6941e170dd478d2a82c6902a1d4bcbf7279c165fa5691b37cf96bbcc2557dd", "\"68f8089d91b129e97c6752b5139f8c44\""),
+              ("20240102", 3, "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/getRighExerReasSche_V2/quota_day_kst=2026-08-29/request_id=0a8280b1911b1757fafb8a2e015d7d93ac08dfe38537ec3edcca5a09a89b505a/attempt=1/sha256=a650aab45904c982a126ee5a66035e3e7f8f5d26494729ec216d2e7313c5fcdc.entity", "rj8.2G7po2sIniQuahEY7zT.U3.ohWso", 4887, "a650aab45904c982a126ee5a66035e3e7f8f5d26494729ec216d2e7313c5fcdc", "\"23840a521a3a902056aac06dc0edfe98\""),
+              ("20240102", 4, "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/getRighExerReasSche_V2/quota_day_kst=2026-08-29/request_id=136967392bd657b047e6518d69c8a35b190897df03ba73231d907fe3a257aa1e/attempt=1/sha256=c72ab1b18be543b257091690855e47555f0794da36bfa126b6826ce74c1183ab.entity", "G2QrD9tI8Qa9SbktghJ9KYg4c1AU28As", 4761, "c72ab1b18be543b257091690855e47555f0794da36bfa126b6826ce74c1183ab", "\"f6ea8a6739d5d665f307bb0d19493825\""),
+              ("20240102", 5, "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/getRighExerReasSche_V2/quota_day_kst=2026-08-29/request_id=bcf0ad2e685b75c6696482084c45e962ee858f7c0b0cca6a8781abd58581a348/attempt=1/sha256=d7b8d94452393a2c6d65b32f9f3286e2e64f910671984c73a637a35594d89891.entity", "HSVA_3fPluU4qmtqlU7qN.jbsZSBmtRY", 4738, "d7b8d94452393a2c6d65b32f9f3286e2e64f910671984c73a637a35594d89891", "\"64179218e7ad72f84f9787d73c2a77dc\""),
+              ("20240102", 6, "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/getRighExerReasSche_V2/quota_day_kst=2026-08-29/request_id=4954fa52697f075e90ef5650714b742ced08a2afd6cc2f8d685bdd7d51e77a54/attempt=1/sha256=9b808f879f548ba7d97fe612dee1800bdc800afb00a27d1b1c4111cdb2c1dceb.entity", "3LU73fHs2z3YvCqJCTAWqGiMWGw5XzaM", 4720, "9b808f879f548ba7d97fe612dee1800bdc800afb00a27d1b1c4111cdb2c1dceb", "\"23b283034f5deec1e34d272d0ae88914\""),
+              ("20240102", 7, "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/getRighExerReasSche_V2/quota_day_kst=2026-08-29/request_id=22e0eb5b6f2d4c989028bbd780169c8cc4315a3b32e9ebe71b4b953e248da599/attempt=1/sha256=e439958f7339b5749d83e2d6944c1ae96def5610e4c3e1a3c52ad79d3c04f0a3.entity", "phrNPpMB1GDv.ZYdbO3Ez8yWmmN6_yi6", 4629, "e439958f7339b5749d83e2d6944c1ae96def5610e4c3e1a3c52ad79d3c04f0a3", "\"b8bc81831802c6ad225331d0f0b69b2a\""),
+              ("20240102", 8, "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/getRighExerReasSche_V2/quota_day_kst=2026-08-29/request_id=859ad56eadad1d5ef356ce16c45381898b232f71e5cd4d55531f00ef0fefabb5/attempt=1/sha256=4393f5565bb99b2a6a9b2914039b539a00571d72ab4ef3beb43258cfb91fe959.entity", "orAIUhf.yVs1whYuqyEoKak7BebuG3_U", 2814, "4393f5565bb99b2a6a9b2914039b539a00571d72ab4ef3beb43258cfb91fe959", "\"b709a91de0f03336fc20608eb765feec\""),
+              ("20240131", 1, "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/getRighExerReasSche_V2/quota_day_kst=2026-08-29/request_id=2336abe1c81d4c86f90fef6575e204d0455367d4d5e8ed6cce103a752f0330da/attempt=1/sha256=2e97f391bcf833db568de2c8638c5ff6d297ea07be21efc3fca6d05cd266c309.entity", "avNHRa6z6kooy0MEG0rB3H2Ify2dWSjq", 4642, "2e97f391bcf833db568de2c8638c5ff6d297ea07be21efc3fca6d05cd266c309", "\"f53c31679b7985d17c59e9bed7006f04\""),
+          )
+          LATCH_PATH = Path(os.environ["FINANCE_LATCH_PATH"])
+          AUTHORITY_PATH = Path(os.environ["FINANCE_AUTHORITY_PATH"])
+          PLAN_PATH = Path(os.environ["FINANCE_PLAN_PATH"])
+          CHECKPOINT_PATH = Path(os.environ["FINANCE_CHECKPOINT_SEED_PATH"])
+          BASELINE_QUOTA_PATH = Path(os.environ["FINANCE_BASELINE_QUOTA_PATH"])
+          BASELINE_RAW_INDEX_PATH = Path(os.environ["FINANCE_BASELINE_RAW_INDEX_PATH"])
+          PREDECESSOR_CHECKPOINT_PATH = Path(os.environ["FINANCE_PREDECESSOR_CHECKPOINT_PATH"])
+          PREDECESSOR_REPORT_PATH = Path(os.environ["FINANCE_PREDECESSOR_REPORT_PATH"])
+          PREDECESSOR_RUN_RECEIPT_PATH = Path(os.environ["FINANCE_PREDECESSOR_RUN_RECEIPT_PATH"])
+          RUNNER_PATH = Path(os.environ["FINANCE_RUNNER_PATH"])
+          SOURCE_ADMISSION_PATH = Path(os.environ["FINANCE_SOURCE_ADMISSION_PATH"])
+          WORKFLOW_PATH = Path(os.environ["FINANCE_WORKFLOW_PATH"])
+          ZERO_HASH = "0" * 64
+          HEX64 = re.compile(r"^[0-9a-f]{64}$")
+
+          class Blocked(RuntimeError):
+              pass
+
+          def require(condition, code):
+              if not condition:
+                  raise Blocked(code)
+
+          def strict_json(path):
+              def pairs(values):
+                  result = {}
+                  for key, value in values:
+                      if key in result:
+                          raise Blocked("DUPLICATE_JSON_KEY:" + str(path))
+                      result[key] = value
+                  return result
+              try:
+                  return json.loads(path.read_text(encoding="utf-8"), object_pairs_hook=pairs)
+              except Blocked:
+                  raise
+              except Exception as exc:
+                  raise Blocked("INVALID_JSON:" + str(path)) from exc
+
+          def strict_jsonl(path):
+              rows = []
+              for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+                  if not line.strip():
+                      continue
+                  try:
+                      rows.append(json.loads(line, object_pairs_hook=lambda values: _strict_pairs(values, path, line_number)))
+                  except Blocked:
+                      raise
+                  except Exception as exc:
+                      raise Blocked("INVALID_JSONL:" + str(path) + ":" + str(line_number)) from exc
+              return rows
+
+          def _strict_pairs(values, path, line_number):
+              result = {}
+              for key, value in values:
+                  if key in result:
+                      raise Blocked("DUPLICATE_JSON_KEY:" + str(path) + ":" + str(line_number))
+                  result[key] = value
+              return result
+
+          def sha256_file(path):
+              return hashlib.sha256(path.read_bytes()).hexdigest()
+
+          def terminal_sha256(path):
+              # Workspace/bootstrap copies may contain one transport-added blank
+              # line. Terminal evidence is bound to exactly one final newline.
+              return hashlib.sha256(path.read_bytes().rstrip(b"\n") + b"\n").hexdigest()
+
+          def canonical_sha256(value):
+              payload = (json.dumps(
+                  value, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+              ) + "\n").encode("utf-8")
+              return hashlib.sha256(payload).hexdigest()
+
+          require(os.environ.get("EVENT_REPOSITORY") == EXPECTED_REPOSITORY, "REPOSITORY_MISMATCH")
+          require(os.environ.get("EVENT_ACTOR") == EXPECTED_ACTOR, "OWNER_ACTOR_MISMATCH")
+          require(os.environ.get("EVENT_TRIGGERING_ACTOR") == EXPECTED_ACTOR, "OWNER_TRIGGERING_ACTOR_MISMATCH")
+          require(os.environ.get("EVENT_REF") == EXPECTED_REF, "TASK_BRANCH_MISMATCH")
+          require(os.environ.get("EVENT_FORCED", "false").lower() == "false", "FORCED_PUSH_PROHIBITED")
+          require(os.environ.get("EVENT_RUN_ATTEMPT") == "1", "WORKFLOW_RERUN_PROHIBITED")
+          require(bool(HEX64.fullmatch(EXPECTED_OWNER_SPEC)), "OWNER_SPEC_HASH_PLACEHOLDER_NOT_FINALIZED")
+
+          before = os.environ.get("EVENT_BEFORE", "")
+          after = os.environ.get("EVENT_AFTER", "")
+          require(bool(re.fullmatch(r"[0-9a-f]{40}", before)), "INVALID_BEFORE_SHA")
+          require(bool(re.fullmatch(r"[0-9a-f]{40}", after)), "INVALID_AFTER_SHA")
+          require(before != "0" * 40, "NEW_BRANCH_PUSH_PROHIBITED")
+          head = subprocess.run(
+              ["git", "rev-parse", "HEAD"], check=True,
+              stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+          ).stdout.strip()
+          require(head == after and os.environ.get("GITHUB_SHA") == after, "CHECKED_OUT_HEAD_EVENT_AFTER_MISMATCH")
+          commit_count = subprocess.run(
+              ["git", "rev-list", "--count", before + ".." + after],
+              check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+          ).stdout.strip()
+          require(commit_count == "1", "ARM_PUSH_MUST_BE_EXACTLY_ONE_COMMIT")
+          parent = subprocess.run(
+              ["git", "rev-parse", after + "^"],
+              check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+          ).stdout.strip()
+          require(parent == before, "ARM_COMMIT_PARENT_MUST_EQUAL_EVENT_BEFORE")
+          changed = subprocess.run(
+              ["git", "diff", "--name-only", "--no-renames", before, after],
+              check=True,
+              stdout=subprocess.PIPE,
+              stderr=subprocess.PIPE,
+              text=True,
+          ).stdout.splitlines()
+          require(changed == [str(LATCH_PATH)], "PUSH_MUST_CHANGE_EXACTLY_LATCH_PATH")
+          name_status = subprocess.run(
+              ["git", "diff", "--name-status", "--no-renames", before, after],
+              check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+          ).stdout.splitlines()
+          require(name_status == ["M\t" + str(LATCH_PATH)], "LATCH_MUST_PREEXIST_AND_BE_MODIFIED_ONLY")
+
+          for path in (
+              LATCH_PATH, AUTHORITY_PATH, PLAN_PATH, CHECKPOINT_PATH,
+              BASELINE_QUOTA_PATH, BASELINE_RAW_INDEX_PATH,
+              PREDECESSOR_CHECKPOINT_PATH, PREDECESSOR_REPORT_PATH,
+              PREDECESSOR_RUN_RECEIPT_PATH, RUNNER_PATH,
+              SOURCE_ADMISSION_PATH, WORKFLOW_PATH,
+          ):
+              require(path.is_file(), "REQUIRED_FILE_MISSING:" + str(path))
+
+          latch = strict_json(LATCH_PATH)
+          mode = latch.get("mode")
+          require(mode in {"PRECHECK_ARMED", "LIVE_ARMED"}, "LATCH_NOT_ARMED")
+          require(latch.get("state") == "ARMED", "LATCH_STATE_NOT_ARMED")
+          activation = latch.get("activation_modes", {}).get(mode, {})
+          expected_message = activation.get("exact_commit_message")
+          require(expected_message in {
+              "Arm M3Top3 Finance page100 precheck v1.0",
+              "Arm M3Top3 Finance page100 bounded live pilot v1.0",
+          }, "UNKNOWN_ACTIVATION_MESSAGE")
+          require(os.environ.get("EVENT_HEAD_MESSAGE") == expected_message, "ACTIVATION_MESSAGE_MISMATCH")
+          require(latch.get("activation_commit_message") == expected_message, "LATCH_MESSAGE_MISMATCH")
+          require(latch.get("repository") == EXPECTED_REPOSITORY, "LATCH_REPOSITORY_MISMATCH")
+          require(latch.get("owner_actor") == EXPECTED_ACTOR, "LATCH_ACTOR_MISMATCH")
+          require(latch.get("branch") == EXPECTED_BRANCH, "LATCH_BRANCH_MISMATCH")
+          require(latch.get("runtime_lock_id") == EXPECTED_RUNTIME, "LATCH_RUNTIME_MISMATCH")
+          require(latch.get("pilot_run_id") == EXPECTED_RUN_ID, "LATCH_RUN_ID_MISMATCH")
+          require(latch.get("execution_token_sha256") == EXPECTED_TOKEN_HASH, "EXECUTION_TOKEN_HASH_MISMATCH")
+          require(latch.get("owner_cap_spec_sha256") == EXPECTED_OWNER_SPEC, "OWNER_SPEC_HASH_MISMATCH")
+          preparation = latch.get("preparation_commit", {})
+          preparation_tree = subprocess.run(
+              ["git", "rev-parse", before + "^{tree}"], check=True,
+              stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+          ).stdout.strip()
+          preparation_parent = subprocess.run(
+              ["git", "rev-parse", before + "^"], check=True,
+              stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+          ).stdout.strip()
+          require(preparation.get("head_sha") == before, "PREPARATION_HEAD_BINDING_MISMATCH")
+          require(preparation.get("tree_sha") == preparation_tree, "PREPARATION_TREE_BINDING_MISMATCH")
+          require(preparation.get("parent_sha") == preparation_parent, "PREPARATION_PARENT_BINDING_MISMATCH")
+          bindings = latch.get("authority_bindings", {})
+          require(bindings.get("bindings_finalized") is True, "HASH_BINDINGS_NOT_FINALIZED")
+          predecessor = latch.get("predecessor_terminal", {})
+          require(predecessor.get("head_sha") == EXPECTED_PREDECESSOR_HEAD, "PREDECESSOR_HEAD_BINDING_MISMATCH")
+          require(predecessor.get("tree_sha") == EXPECTED_PREDECESSOR_TREE, "PREDECESSOR_TREE_BINDING_MISMATCH")
+          require(predecessor.get("workflow_run_id") == EXPECTED_PREDECESSOR_RUN_ID, "PREDECESSOR_RUN_BINDING_MISMATCH")
+          require(predecessor.get("workflow_job_id") == EXPECTED_PREDECESSOR_JOB_ID, "PREDECESSOR_JOB_BINDING_MISMATCH")
+          require(predecessor.get("do_not_rerun") is True, "PREDECESSOR_DO_NOT_RERUN_BINDING_MISSING")
+          if mode == "PRECHECK_ARMED":
+              require(preparation_parent == EXPECTED_PREDECESSOR_HEAD, "PRECHECK_PREPARATION_PARENT_MISMATCH")
+              require(activation.get("provider_api_calls_authorized") is False, "PRECHECK_PROVIDER_CALL_MUST_BE_FALSE")
+              require(activation.get("remote_raw_custody_writes_authorized") is False, "PRECHECK_REMOTE_WRITE_MUST_BE_FALSE")
+          else:
+              require(activation.get("provider_api_calls_authorized") is True, "LIVE_PROVIDER_CALL_AUTHORITY_MISMATCH")
+              require(activation.get("remote_raw_custody_writes_authorized") is True, "LIVE_REMOTE_WRITE_AUTHORITY_MISMATCH")
+              kst_day = datetime.now(timezone.utc).astimezone(timezone(timedelta(hours=9))).date().isoformat()
+              require(kst_day == EXPECTED_QUOTA_DAY_KST, "LIVE_QUOTA_DAY_KST_MISMATCH")
+              fresh = latch.get("fresh_precheck_binding", {})
+              require(fresh.get("state") == "PASS_FRESH_PRECHECK_ZERO_SIDE_EFFECT", "LIVE_FRESH_PRECHECK_PASS_BINDING_MISSING")
+              require(fresh.get("runtime_lock_id") == EXPECTED_RUNTIME, "LIVE_PRECHECK_RUNTIME_MISMATCH")
+              require(fresh.get("pilot_run_id") == EXPECTED_RUN_ID, "LIVE_PRECHECK_PILOT_MISMATCH")
+              require(type(fresh.get("workflow_run_id")) is int and fresh.get("workflow_run_id") > 0, "LIVE_PRECHECK_RUN_ID_INVALID")
+              require(type(fresh.get("artifact_id")) is int and fresh.get("artifact_id") > 0, "LIVE_PRECHECK_ARTIFACT_ID_INVALID")
+              require(fresh.get("workflow_run_attempt") == 1, "LIVE_PRECHECK_RUN_ATTEMPT_MISMATCH")
+              require(bool(re.fullmatch(r"[0-9a-f]{40}", str(fresh.get("head_sha", "")))), "LIVE_PRECHECK_HEAD_SHA_INVALID")
+              require(fresh.get("head_sha") != after, "LIVE_PRECHECK_MUST_BE_SEPARATE_RUN")
+              require(preparation_parent == fresh.get("head_sha"), "LIVE_PREPARATION_PARENT_MUST_BE_PRECHECK_HEAD")
+              for hash_key in ("artifact_digest_sha256", "preflight_sha256", "aws_precheck_sha256", "github_readback_sha256"):
+                  require(bool(HEX64.fullmatch(str(fresh.get(hash_key, "")))), "LIVE_PRECHECK_HASH_INVALID:" + hash_key)
+              for zero_key in ("provider_api_network_attempts", "quota_reservations", "remote_raw_custody_writes"):
+                  require(fresh.get(zero_key) == 0, "LIVE_PRECHECK_SIDE_EFFECT_NOT_ZERO:" + zero_key)
+              require(fresh.get("predecessor_object_readbacks") == 9, "LIVE_PRECHECK_OBJECT_COUNT_MISMATCH")
+              require(fresh.get("predecessor_raw_entity_bytes") == 40423, "LIVE_PRECHECK_OBJECT_BYTES_MISMATCH")
+              require(fresh.get("new_control_prefix_object_count") == 0, "LIVE_PRECHECK_CONTROL_PREFIX_NOT_EMPTY")
+              require(fresh.get("global_writer_claim_absent") is True, "LIVE_PRECHECK_WRITER_CLAIM_ABSENCE_NOT_BOUND")
+              static_material = fresh.get("static_material_sha256", {})
+              for static_label in (
+                  "checkpoint_seed", "baseline_quota_ledger", "baseline_raw_index",
+                  "predecessor_checkpoint", "predecessor_report", "predecessor_run_receipt",
+                  "runner", "source_admission", "workflow",
+              ):
+                  require(static_material.get(static_label) == bindings.get(static_label + "_sha256"), "LIVE_PRECHECK_STATIC_MATERIAL_CHANGED:" + static_label)
+
+          bound_paths = {
+              "authority": ("authority_path", "authority_sha256", AUTHORITY_PATH),
+              "plan": ("plan_path", "plan_sha256", PLAN_PATH),
+              "checkpoint": ("checkpoint_seed_path", "checkpoint_seed_sha256", CHECKPOINT_PATH),
+              "baseline_quota": ("baseline_quota_ledger_path", "baseline_quota_ledger_sha256", BASELINE_QUOTA_PATH),
+              "baseline_raw_index": ("baseline_raw_index_path", "baseline_raw_index_sha256", BASELINE_RAW_INDEX_PATH),
+              "predecessor_checkpoint": ("predecessor_checkpoint_path", "predecessor_checkpoint_sha256", PREDECESSOR_CHECKPOINT_PATH),
+              "predecessor_report": ("predecessor_report_path", "predecessor_report_sha256", PREDECESSOR_REPORT_PATH),
+              "predecessor_run_receipt": ("predecessor_run_receipt_path", "predecessor_run_receipt_sha256", PREDECESSOR_RUN_RECEIPT_PATH),
+              "runner": ("runner_path", "runner_sha256", RUNNER_PATH),
+              "source_admission": ("source_admission_path", "source_admission_sha256", SOURCE_ADMISSION_PATH),
+              "workflow": ("workflow_path", "workflow_sha256", WORKFLOW_PATH),
+          }
+          for label, (path_key, hash_key, expected_path) in bound_paths.items():
+              require(bindings.get(path_key) == str(expected_path), label.upper() + "_PATH_MISMATCH")
+              expected_hash = bindings.get(hash_key)
+              require(isinstance(expected_hash, str) and HEX64.fullmatch(expected_hash), label.upper() + "_HASH_INVALID")
+              require(expected_hash != ZERO_HASH, label.upper() + "_HASH_UNFINALIZED")
+              require(sha256_file(expected_path) == expected_hash, label.upper() + "_HASH_MISMATCH")
+
+          material = latch.get("execution_material")
+          require(isinstance(material, dict), "EXECUTION_MATERIAL_MISSING")
+          material_hash = latch.get("execution_material_sha256")
+          require(isinstance(material_hash, str) and HEX64.fullmatch(material_hash), "EXECUTION_MATERIAL_HASH_INVALID")
+          require(material_hash != ZERO_HASH, "EXECUTION_MATERIAL_HASH_UNFINALIZED")
+          require(canonical_sha256(material) == material_hash, "EXECUTION_MATERIAL_HASH_MISMATCH")
+          require(material.get("runtime_lock_id") == EXPECTED_RUNTIME, "MATERIAL_RUNTIME_MISMATCH")
+          require(material.get("pilot_run_id") == EXPECTED_RUN_ID, "MATERIAL_RUN_ID_MISMATCH")
+          require(material.get("execution_token_sha256") == EXPECTED_TOKEN_HASH, "MATERIAL_TOKEN_HASH_MISMATCH")
+          require(material.get("owner_cap_spec_sha256") == EXPECTED_OWNER_SPEC, "MATERIAL_OWNER_SPEC_MISMATCH")
+          require(material.get("authority_sha256") == bindings.get("authority_sha256"), "MATERIAL_AUTHORITY_HASH_MISMATCH")
+          require(material.get("plan_sha256") == bindings.get("plan_sha256"), "MATERIAL_PLAN_HASH_MISMATCH")
+          require(material.get("runner_sha256") == bindings.get("runner_sha256"), "MATERIAL_RUNNER_HASH_MISMATCH")
+          require(material.get("source_admission_sha256") == bindings.get("source_admission_sha256"), "MATERIAL_SOURCE_ADMISSION_HASH_MISMATCH")
+          require(material.get("checkpoint_template_sha256") == bindings.get("checkpoint_seed_sha256"), "MATERIAL_CHECKPOINT_HASH_MISMATCH")
+          require(material.get("workflow_sha256") == bindings.get("workflow_sha256"), "MATERIAL_WORKFLOW_HASH_MISMATCH")
+          require(material.get("baseline_quota_ledger_sha256") == bindings.get("baseline_quota_ledger_sha256"), "MATERIAL_QUOTA_BASELINE_HASH_MISMATCH")
+          require(material.get("baseline_raw_index_sha256") == bindings.get("baseline_raw_index_sha256"), "MATERIAL_RAW_BASELINE_HASH_MISMATCH")
+          require(material.get("predecessor_checkpoint_sha256") == bindings.get("predecessor_checkpoint_sha256"), "MATERIAL_PREDECESSOR_CHECKPOINT_HASH_MISMATCH")
+          require(material.get("predecessor_report_sha256") == bindings.get("predecessor_report_sha256"), "MATERIAL_PREDECESSOR_REPORT_HASH_MISMATCH")
+          require(material.get("predecessor_run_receipt_sha256") == bindings.get("predecessor_run_receipt_sha256"), "MATERIAL_PREDECESSOR_RECEIPT_HASH_MISMATCH")
+
+          finance = latch.get("finance_spec", {})
+          require(finance.get("source_id") == "M3TOP3-FINANCE-STOCK-RIGHTS-v1", "SOURCE_ID_MISMATCH")
+          require(finance.get("operation") == "getRighExerReasSche_V2", "OPERATION_MISMATCH")
+          require(tuple(finance.get("ordered_primary_dates", ())) == EXPECTED_DATES, "PRIMARY_DATE_SET_MISMATCH")
+          require(finance.get("primary_date_count") == 17, "PRIMARY_DATE_COUNT_MISMATCH")
+          require(canonical_sha256(list(EXPECTED_DATES)) == EXPECTED_DATE_HASH, "FROZEN_DATE_HASH_INTERNAL_MISMATCH")
+          require(finance.get("ordered_primary_dates_sha256") == EXPECTED_DATE_HASH, "PRIMARY_DATE_HASH_MISMATCH")
+          exact_caps = {
+              "request_page_size": 10,
+              "max_pages_per_date": 100,
+              "max_primary_page_acquisitions": 1700,
+              "max_network_attempts_total": 2000,
+              "max_attempts_per_page": 2,
+          }
+          for key, expected in exact_caps.items():
+              require(type(finance.get(key)) is int and finance.get(key) == expected, "CAP_MISMATCH:" + key)
+          for key in (
+              "fallback_dates_authorized",
+              "full_date_range_expansion_authorized",
+              "historical_2019_canary_expansion_authorized",
+          ):
+              require(finance.get(key) is False, "EXPANSION_PROHIBITION_MISMATCH:" + key)
+
+          remote = latch.get("remote_custody", {})
+          exact_uri = "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/"
+          exact_prefix = "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/"
+          raw_write_prefix = (
+              exact_prefix
+              + "_pilot_generation/runtime_lock_id=" + EXPECTED_RUNTIME
+              + "/pilot_run_id=" + EXPECTED_RUN_ID + "/"
+          )
+          raw_write_uri = "s3://semi-data-plane-aofspds-20260815/" + raw_write_prefix
+          control_prefix = (
+              exact_prefix
+              + "_pilot_control/runtime_lock_id=" + EXPECTED_RUNTIME
+              + "/pilot_run_id=" + EXPECTED_RUN_ID + "/"
+          )
+          writer_claim_prefix = (
+              exact_prefix + "_writer_claims/quota_day_kst="
+              + EXPECTED_QUOTA_DAY_KST + "/"
+          )
+          writer_claim_uri = (
+              "s3://semi-data-plane-aofspds-20260815/"
+              + writer_claim_prefix + "execution-claim.json"
+          )
+          require(remote.get("authorized") is True, "REMOTE_CUSTODY_NOT_AUTHORIZED")
+          require(remote.get("aws_account_id") == "956315449338", "AWS_ACCOUNT_BINDING_MISMATCH")
+          require(remote.get("aws_region") == "ap-northeast-2", "AWS_REGION_BINDING_MISMATCH")
+          require(remote.get("bucket") == "semi-data-plane-aofspds-20260815", "S3_BUCKET_BINDING_MISMATCH")
+          require(remote.get("exact_source_prefix") == exact_prefix, "S3_PREFIX_BINDING_MISMATCH")
+          require(remote.get("exact_source_uri") == exact_uri, "S3_URI_BINDING_MISMATCH")
+          require(remote.get("successor_raw_write_prefix") == raw_write_prefix, "S3_RAW_WRITE_PREFIX_BINDING_MISMATCH")
+          require(remote.get("successor_raw_write_uri") == raw_write_uri, "S3_RAW_WRITE_URI_BINDING_MISMATCH")
+          require(remote.get("global_writer_claim_prefix") == writer_claim_prefix, "S3_WRITER_CLAIM_PREFIX_MISMATCH")
+          require(remote.get("control_prefix") == control_prefix, "S3_CONTROL_PREFIX_MISMATCH")
+          control_uri = "s3://semi-data-plane-aofspds-20260815/" + control_prefix
+          exact_control_uris = {
+              "checkpoint_uri": control_uri + "checkpoint.json",
+              "quota_ledger_uri": control_uri + "quota-ledger.jsonl",
+              "raw_index_uri": control_uri + "raw-index.jsonl",
+              "report_uri": control_uri + "report.json",
+              "execution_claim_uri": writer_claim_uri,
+          }
+          for key, expected in exact_control_uris.items():
+              require(remote.get(key) == expected, "S3_CONTROL_URI_EXACT_MISMATCH:" + key)
+          require(remote.get("materialization_state") == {
+              "checkpoint_uri": "DURABLE_CAS_MATERIALIZED_BY_RUNNER",
+              "execution_claim_uri": "CONDITIONAL_CREATE_MATERIALIZED_BY_RUNNER",
+              "quota_ledger_uri": "RESERVED_NOT_MATERIALIZED",
+              "raw_index_uri": "RESERVED_NOT_MATERIALIZED",
+              "report_uri": "RESERVED_NOT_MATERIALIZED",
+          }, "REMOTE_CONTROL_MATERIALIZATION_STATE_MISMATCH")
+          require(remote.get("canonical_live_attempt_and_raw_telemetry") == "DURABLE_CHECKPOINT_INTERNAL", "CANONICAL_TELEMETRY_BINDING_MISMATCH")
+          require(remote.get("post_run_sanitized_control_currentization") == "REPOSITORY_CAS_AFTER_ARTIFACT_READBACK", "POST_RUN_CURRENTIZATION_BINDING_MISMATCH")
+          cas = remote.get("checkpoint_cas", {})
+          require(cas.get("create_precondition") == "If-None-Match:*", "CAS_CREATE_PRECONDITION_MISMATCH")
+          require(cas.get("update_precondition") == "If-Match:PRIOR_ETAG", "CAS_UPDATE_PRECONDITION_MISMATCH")
+          require(cas.get("version_id_readback_required") is True, "CAS_VERSION_READBACK_REQUIRED")
+          require(cas.get("single_writer_execution_claim_required_before_provider_call") is True, "EXECUTION_CLAIM_REQUIRED")
+
+          authority = strict_json(AUTHORITY_PATH)
+          require(authority.get("runtime_lock_id") == EXPECTED_RUNTIME, "AUTHORITY_RUNTIME_MISMATCH")
+          require(authority.get("branch") == EXPECTED_BRANCH, "AUTHORITY_BRANCH_MISMATCH")
+          current = authority.get("current_runtime_authority", {})
+          require(current.get("provider_api_network_attempt_budget") == 2000, "AUTHORITY_NETWORK_CAP_MISMATCH")
+          require(current.get("remote_raw_custody_prefix") == raw_write_uri, "AUTHORITY_REMOTE_CUSTODY_PREFIX_MISMATCH")
+          for key in (
+              "ksd_provider_calls_authorized", "ksd_document_search_authorized",
+              "fallback_dates_authorized", "full_date_range_expansion_authorized",
+              "historical_canary_2019_authorized", "bulk_acquisition_authorized",
+              "production_authorized", "model_semantic_change_authorized",
+              "pit_semantic_change_authorized", "normalized_release_authorized",
+              "automatic_promotion_authorized",
+          ):
+              require(current.get(key) is False, "AUTHORITY_PROHIBITION_MISMATCH:" + key)
+          require(current.get("validation_claim") == "NONE", "AUTHORITY_VALIDATION_CLAIM_MISMATCH")
+          require(current.get("gate_effect") == "NONE", "AUTHORITY_GATE_EFFECT_MISMATCH")
+          live_authority = authority.get("finance_page100_pilot_authority", {})
+          require(live_authority.get("pilot_run_id") == EXPECTED_RUN_ID, "AUTHORITY_RUN_ID_MISMATCH")
+          require(live_authority.get("execution_token_sha256") == EXPECTED_TOKEN_HASH, "AUTHORITY_EXECUTION_TOKEN_HASH_MISMATCH")
+          require(live_authority.get("owner_cap_spec_sha256") == EXPECTED_OWNER_SPEC, "AUTHORITY_OWNER_SPEC_MISMATCH")
+          require(live_authority.get("durable_checkpoint_prefix") == "s3://semi-data-plane-aofspds-20260815/" + control_prefix, "AUTHORITY_CONTROL_PREFIX_MISMATCH")
+          require(live_authority.get("remote_raw_custody_prefix") == raw_write_uri, "LIVE_AUTHORITY_REMOTE_CUSTODY_PREFIX_MISMATCH")
+          require(live_authority.get("execution_claim_uri") == writer_claim_uri, "LIVE_AUTHORITY_EXECUTION_CLAIM_URI_MISMATCH")
+          require(live_authority.get("authorized_fallback_dates") == [], "LIVE_AUTHORITY_FALLBACK_DATE_SET_MISMATCH")
+          for key in (
+              "fallback_dates_authorized", "full_date_range_expansion_authorized",
+              "historical_canary_2019_authorized", "bulk_acquisition_authorized",
+              "production_authorized", "model_semantic_change_authorized",
+              "pit_semantic_change_authorized", "normalized_release_authorized",
+              "automatic_promotion_authorized", "ksd_blocker_waived",
+          ):
+              require(live_authority.get(key) is False, "LIVE_AUTHORITY_PROHIBITION_MISMATCH:" + key)
+          if mode == "PRECHECK_ARMED":
+              require(current.get("provider_api_network_calls_entry_gate") == "CLOSED", "PRECHECK_AUTHORITY_ENTRY_GATE_NOT_CLOSED")
+              require(current.get("precheck_provider_api_calls_authorized") is False, "PRECHECK_AUTHORITY_PROVIDER_CALL_MUST_BE_FALSE")
+              require(current.get("precheck_quota_reservations_authorized") is False, "PRECHECK_AUTHORITY_QUOTA_MUST_BE_FALSE")
+              require(current.get("precheck_remote_raw_writes_authorized") is False, "PRECHECK_AUTHORITY_REMOTE_WRITE_MUST_BE_FALSE")
+              require(live_authority.get("authority_state") == "GRANTED_CONDITIONALLY_ENTRY_GATE_CLOSED", "PRECHECK_AUTHORITY_STATE_MISMATCH")
+              require(live_authority.get("live_entry_gate", {}).get("state") == "CLOSED_PRECHECK_NOT_EXECUTED", "PRECHECK_LIVE_ENTRY_GATE_NOT_CLOSED")
+          else:
+              require(current.get("provider_api_network_calls_authorized") is True, "LIVE_AUTHORITY_PROVIDER_CALL_NOT_AUTHORIZED")
+              require(current.get("quota_reservation_authorized") is True, "LIVE_AUTHORITY_QUOTA_NOT_AUTHORIZED")
+              require(current.get("live_multi_page_provider_run_authorized") is True, "LIVE_AUTHORITY_LIVE_RUN_NOT_AUTHORIZED")
+              require(current.get("remote_raw_custody_write_authorized") is True, "LIVE_AUTHORITY_REMOTE_CUSTODY_NOT_AUTHORIZED")
+              require(current.get("provider_api_network_calls_entry_gate") == "OPEN", "AUTHORITY_PROVIDER_ENTRY_GATE_NOT_OPEN")
+              require(live_authority.get("authority_state") == "GRANTED_ENTRY_GATE_OPEN", "LIVE_AUTHORITY_STATE_NOT_OPEN")
+              require(live_authority.get("live_entry_gate", {}).get("state") == "OPEN", "LIVE_ENTRY_GATE_NOT_OPEN")
+
+          plan = strict_json(PLAN_PATH)
+          require(plan.get("runtime_lock_id") == EXPECTED_RUNTIME, "PLAN_RUNTIME_MISMATCH")
+          require(plan.get("pilot_run_id") == EXPECTED_RUN_ID, "PLAN_RUN_ID_MISMATCH")
+          require(plan.get("branch") == EXPECTED_BRANCH, "PLAN_BRANCH_MISMATCH")
+          for key in (
+              "bulk_acquisition_authorized", "production_authorized",
+              "normalized_release_authorized", "model_semantic_change_authorized",
+              "pit_semantic_change_authorized", "automatic_promotion_authorized",
+          ):
+              require(plan.get(key) is False, "PLAN_PROHIBITION_MISMATCH:" + key)
+          plan_binding = plan.get("authority_binding", {})
+          require(plan_binding.get("owner_cap_spec_sha256") == EXPECTED_OWNER_SPEC, "PLAN_OWNER_SPEC_MISMATCH")
+          require(plan_binding.get("execution_token_sha256") == EXPECTED_TOKEN_HASH, "PLAN_EXECUTION_TOKEN_HASH_MISMATCH")
+          require(plan_binding.get("contract_content_sha256") == bindings.get("authority_sha256"), "PLAN_AUTHORITY_HASH_MISMATCH")
+          pilot = plan.get("finance_pilot_plan", {})
+          require(tuple(pilot.get("ordered_primary_dates", ())) == EXPECTED_DATES, "PLAN_DATE_SET_MISMATCH")
+          require(pilot.get("ordered_primary_dates_sha256") == EXPECTED_DATE_HASH, "PLAN_DATE_HASH_MISMATCH")
+          require(pilot.get("request_page_size") == 10, "PLAN_PAGE_SIZE_MISMATCH")
+          require(pilot.get("max_pages_per_date") == 100, "PLAN_PAGE_CAP_MISMATCH")
+          require(pilot.get("max_primary_page_acquisitions") == 1700, "PLAN_ACQUISITION_CAP_MISMATCH")
+          require(pilot.get("max_network_attempts_total") == 2000, "PLAN_NETWORK_CAP_MISMATCH")
+          require(pilot.get("max_attempts_per_logical_page") == 2, "PLAN_ATTEMPT_CAP_MISMATCH")
+          require(pilot.get("authorized_fallback_dates") == [], "PLAN_FALLBACK_DATE_SET_MISMATCH")
+          require(pilot.get("fallback_dates_authorized") is False, "PLAN_FALLBACK_MISMATCH")
+          require(pilot.get("full_date_range_expansion_authorized") is False, "PLAN_RANGE_EXPANSION_MISMATCH")
+          require(pilot.get("historical_canary_2019_authorized") is False, "PLAN_2019_EXPANSION_MISMATCH")
+          require(pilot.get("automatic_promotion_authorized") is False, "PLAN_PROMOTION_MISMATCH")
+          plan_gate = plan.get("execution_gate", {})
+          durable = plan.get("durable_custody_plan", {})
+          require(isinstance(durable, dict), "PLAN_DURABLE_CUSTODY_BLOCK_MISSING")
+          require(durable.get("aws_account_id") == "956315449338", "PLAN_DURABLE_AWS_ACCOUNT_MISMATCH")
+          require(durable.get("aws_region") == "ap-northeast-2", "PLAN_DURABLE_AWS_REGION_MISMATCH")
+          require(durable.get("bucket") == "semi-data-plane-aofspds-20260815", "PLAN_DURABLE_BUCKET_MISMATCH")
+          require(durable.get("exact_remote_raw_prefix") == raw_write_uri, "PLAN_DURABLE_RAW_PREFIX_MISMATCH")
+          require(durable.get("exact_durable_control_prefix") == control_uri, "PLAN_DURABLE_CONTROL_PREFIX_MISMATCH")
+          for key, expected in exact_control_uris.items():
+              require(durable.get(key) == expected, "PLAN_DURABLE_CONTROL_URI_MISMATCH:" + key)
+          if mode == "PRECHECK_ARMED":
+              require(plan.get("state") == "STAGED_NOT_EXECUTABLE_ENTRY_GATE_CLOSED", "PRECHECK_PLAN_STATE_MISMATCH")
+              require(durable.get("state") == "STAGED_NO_REMOTE_WRITE", "PRECHECK_DURABLE_CUSTODY_STATE_MISMATCH")
+              require(plan_gate.get("execution_armed") is False, "PRECHECK_PLAN_MUST_NOT_BE_ARMED")
+              require(plan_gate.get("plan_executable") is False, "PRECHECK_PLAN_MUST_NOT_BE_EXECUTABLE")
+              require(plan_gate.get("provider_api_calls_permitted_now") is False, "PRECHECK_PLAN_PROVIDER_CALL_MUST_BE_FALSE")
+              require(plan_gate.get("remote_s3_writes_permitted_now") is False, "PRECHECK_PLAN_REMOTE_WRITE_MUST_BE_FALSE")
+          else:
+              require(plan.get("state") == "LIVE_ARMED_EXECUTABLE", "LIVE_PLAN_STATE_MISMATCH")
+              require(durable.get("state") == "READY_FOR_LIVE_ARMED", "LIVE_DURABLE_CUSTODY_STATE_MISMATCH")
+              require(plan_gate.get("state") == "OPEN", "LIVE_PLAN_ENTRY_GATE_NOT_OPEN")
+              require(plan_gate.get("execution_armed") is True, "LIVE_PLAN_NOT_ARMED")
+              require(plan_gate.get("plan_executable") is True, "LIVE_PLAN_NOT_EXECUTABLE")
+              require(plan_gate.get("provider_api_calls_permitted_now") is True, "LIVE_PLAN_PROVIDER_CALL_NOT_PERMITTED")
+              require(plan_gate.get("remote_s3_writes_permitted_now") is True, "LIVE_PLAN_REMOTE_WRITE_NOT_PERMITTED")
+
+          checkpoint = strict_json(CHECKPOINT_PATH)
+          require(checkpoint.get("runtime_lock_id") == EXPECTED_RUNTIME, "CHECKPOINT_RUNTIME_MISMATCH")
+          require(checkpoint.get("pilot_run_id") == EXPECTED_RUN_ID, "CHECKPOINT_RUN_ID_MISMATCH")
+          require(checkpoint.get("state") == "GENERATION_3_S3_DURABLE_CAS_SEED_STAGED_NOT_EXECUTED", "CHECKPOINT_STATE_MISMATCH")
+          require(checkpoint.get("checkpoint_role") == "S3_DURABLE_CAS_NON_EXECUTED_CONTROL_PLANE_TEMPLATE", "CHECKPOINT_ROLE_MISMATCH")
+          checkpoint_binding = checkpoint.get("authority_binding", {})
+          require(checkpoint_binding.get("owner_cap_spec_sha256") == EXPECTED_OWNER_SPEC, "CHECKPOINT_OWNER_SPEC_MISMATCH")
+          require(checkpoint_binding.get("execution_token_sha256") == EXPECTED_TOKEN_HASH, "CHECKPOINT_EXECUTION_TOKEN_HASH_MISMATCH")
+          require(checkpoint_binding.get("contract_content_sha256") == bindings.get("authority_sha256"), "CHECKPOINT_AUTHORITY_HASH_MISMATCH")
+          require(tuple(checkpoint.get("ordered_dates", ())) == EXPECTED_DATES, "CHECKPOINT_DATE_SET_MISMATCH")
+          require(checkpoint.get("ordered_date_plan_sha256") == EXPECTED_DATE_HASH, "CHECKPOINT_DATE_HASH_MISMATCH")
+          require(checkpoint.get("requested_page_size") == 10, "CHECKPOINT_PAGE_SIZE_MISMATCH")
+          require(checkpoint.get("max_pages_per_date") == 100, "CHECKPOINT_PAGE_CAP_MISMATCH")
+          require(checkpoint.get("max_primary_page_acquisitions") == 1700, "CHECKPOINT_ACQUISITION_CAP_MISMATCH")
+          require(checkpoint.get("max_network_attempts_total") == 2000, "CHECKPOINT_NETWORK_CAP_MISMATCH")
+          require(checkpoint.get("max_attempts_per_logical_page") == 2, "CHECKPOINT_ATTEMPT_CAP_MISMATCH")
+          require(checkpoint.get("network_attempts_started_conservative") == 0, "CHECKPOINT_NOT_ZERO_NETWORK")
+          require(checkpoint.get("provider_api_network_attempts") == 0, "CHECKPOINT_PROVIDER_NETWORK_NOT_ZERO")
+          require(checkpoint.get("response_entities_received") == 0, "CHECKPOINT_NOT_ZERO_ENTITIES")
+          require(checkpoint.get("quota_reservations") == 0, "CHECKPOINT_NOT_ZERO_QUOTA")
+          require(checkpoint.get("raw_entity_bytes") == 0, "CHECKPOINT_NOT_ZERO_RAW_BYTES")
+          require(checkpoint.get("next_date_index") == 1, "CHECKPOINT_SUCCESSOR_INDEX_MISMATCH")
+          require(checkpoint.get("completed_dates") == ["20240102"], "CHECKPOINT_INHERITED_COMPLETED_DATE_MISMATCH")
+          inherited = checkpoint.get("inherited_predecessor_evidence", {})
+          require(inherited.get("workflow_run_id") == EXPECTED_PREDECESSOR_RUN_ID, "CHECKPOINT_PREDECESSOR_RUN_MISMATCH")
+          require(inherited.get("workflow_run_attempt") == 1, "CHECKPOINT_PREDECESSOR_ATTEMPT_MISMATCH")
+          require(inherited.get("completed_dates_reused") == ["20240102"], "CHECKPOINT_REUSED_DATE_MISMATCH")
+          require(inherited.get("completed_page_count_reused") == 8, "CHECKPOINT_REUSED_PAGE_COUNT_MISMATCH")
+          require(inherited.get("completed_item_count_reused") == 76, "CHECKPOINT_REUSED_ITEM_COUNT_MISMATCH")
+          require(inherited.get("raw_object_count_reused") == 9, "CHECKPOINT_REUSED_RAW_COUNT_MISMATCH")
+          require(inherited.get("raw_entity_bytes_reused") == 40423, "CHECKPOINT_REUSED_RAW_BYTES_MISMATCH")
+          current_seed_date = checkpoint.get("current_date", {})
+          require(current_seed_date.get("basDt") == "20240131", "CHECKPOINT_CURRENT_DATE_MISMATCH")
+          partial = current_seed_date.get("predecessor_page_1_reference", {})
+          require(partial.get("basDt") == "20240131" and partial.get("page_no") == 1, "CHECKPOINT_PARTIAL_PAGE_MISMATCH")
+          require(partial.get("entity_bytes") == 4642, "CHECKPOINT_PARTIAL_PAGE_BYTES_MISMATCH")
+          require(partial.get("entity_sha256") == "2e97f391bcf833db568de2c8638c5ff6d297ea07be21efc3fca6d05cd266c309", "CHECKPOINT_PARTIAL_PAGE_DIGEST_MISMATCH")
+          require(partial.get("s3_version_id") == "avNHRa6z6kooy0MEG0rB3H2Ify2dWSjq", "CHECKPOINT_PARTIAL_PAGE_VERSION_MISMATCH")
+          require(inherited.get("network_attempts_recounted_as_successor") == 0, "CHECKPOINT_PREDECESSOR_NETWORK_RECOUNT_PROHIBITED")
+          require(inherited.get("raw_entities_rewritten") == 0, "CHECKPOINT_PREDECESSOR_REWRITE_PROHIBITED")
+          require(inherited.get("predecessor_rerun") is False, "CHECKPOINT_PREDECESSOR_RERUN_PROHIBITED")
+
+          # Immutable predecessor terminal evidence is the successor's only
+          # resume source.  Normalize only transport-added trailing blank lines.
+          require(terminal_sha256(PREDECESSOR_CHECKPOINT_PATH) == "9a18edaf66b9f03b2202dbef11c0f86472340695c0c245f0a8ca958e3cfce55d", "PREDECESSOR_CHECKPOINT_TERMINAL_HASH_MISMATCH")
+          require(terminal_sha256(PREDECESSOR_REPORT_PATH) == "78c4e659f02b0a206129474219db681b50756e58f2492dbe4c1a689733fa6b2a", "PREDECESSOR_REPORT_TERMINAL_HASH_MISMATCH")
+          require(terminal_sha256(PREDECESSOR_RUN_RECEIPT_PATH) == "f42af57c62f65a8dd1e31b6b4f825ae067c0f9c6290a5efc104dcca5337d5a8b", "PREDECESSOR_RECEIPT_TERMINAL_HASH_MISMATCH")
+          require(terminal_sha256(BASELINE_QUOTA_PATH) == "b04e0d5434dff371ece950b568b545076a1833db078a5e40f85ebf704a436c49", "PREDECESSOR_QUOTA_TERMINAL_HASH_MISMATCH")
+          require(terminal_sha256(BASELINE_RAW_INDEX_PATH) == "c78f29fa90e7648df1ef1513df539d021b26aeac19e6b5cc3e701c90d5fcc9ad", "PREDECESSOR_RAW_INDEX_TERMINAL_HASH_MISMATCH")
+
+          predecessor_checkpoint = strict_json(PREDECESSOR_CHECKPOINT_PATH)
+          require(predecessor_checkpoint.get("state") == "BLOCKED", "PREDECESSOR_CHECKPOINT_NOT_TERMINAL_BLOCKED")
+          require(predecessor_checkpoint.get("runtime_lock_id") == EXPECTED_PREDECESSOR_RUNTIME, "PREDECESSOR_CHECKPOINT_RUNTIME_MISMATCH")
+          require(predecessor_checkpoint.get("pilot_run_id") == EXPECTED_PREDECESSOR_PILOT, "PREDECESSOR_CHECKPOINT_PILOT_MISMATCH")
+          require(predecessor_checkpoint.get("next_date_index") == 1, "PREDECESSOR_CHECKPOINT_INDEX_MISMATCH")
+          require(predecessor_checkpoint.get("completed_dates") == ["20240102"], "PREDECESSOR_CHECKPOINT_COMPLETED_DATE_MISMATCH")
+          require(predecessor_checkpoint.get("quota_reservations") == 9, "PREDECESSOR_CHECKPOINT_QUOTA_MISMATCH")
+          require(predecessor_checkpoint.get("network_attempts_started_conservative") == 9, "PREDECESSOR_CHECKPOINT_NETWORK_MISMATCH")
+          require(predecessor_checkpoint.get("response_entities_received") == 9, "PREDECESSOR_CHECKPOINT_ENTITY_COUNT_MISMATCH")
+          require(predecessor_checkpoint.get("raw_entity_bytes") == 40423, "PREDECESSOR_CHECKPOINT_BYTES_MISMATCH")
+
+          predecessor_report = strict_json(PREDECESSOR_REPORT_PATH)
+          require(predecessor_report.get("state") == "STOP_NO_PROMOTION_PILOT_BLOCKED", "PREDECESSOR_REPORT_STATE_MISMATCH")
+          require(predecessor_report.get("runtime_lock_id") == EXPECTED_PREDECESSOR_RUNTIME, "PREDECESSOR_REPORT_RUNTIME_MISMATCH")
+          require(predecessor_report.get("pilot_run_id") == EXPECTED_PREDECESSOR_PILOT, "PREDECESSOR_REPORT_PILOT_MISMATCH")
+          require(predecessor_report.get("completed_date_count") == 1, "PREDECESSOR_REPORT_COMPLETED_COUNT_MISMATCH")
+          require(predecessor_report.get("total_items") == 76, "PREDECESSOR_REPORT_ITEM_COUNT_MISMATCH")
+
+          predecessor_receipt = strict_json(PREDECESSOR_RUN_RECEIPT_PATH)
+          require(predecessor_receipt.get("state") == "STOP_NO_PROMOTION_PILOT_BLOCKED", "PREDECESSOR_RECEIPT_STATE_MISMATCH")
+          require(predecessor_receipt.get("workflow_run_id") == EXPECTED_PREDECESSOR_RUN_ID, "PREDECESSOR_RECEIPT_RUN_MISMATCH")
+          require(predecessor_receipt.get("workflow_job_id") == EXPECTED_PREDECESSOR_JOB_ID, "PREDECESSOR_RECEIPT_JOB_MISMATCH")
+          require(predecessor_receipt.get("run_attempt") == 1, "PREDECESSOR_RECEIPT_ATTEMPT_MISMATCH")
+          require(predecessor_receipt.get("historical_failed_run_rerun") is False, "PREDECESSOR_RECEIPT_RERUN_STATE_MISMATCH")
+          require(predecessor_receipt.get("quota_reservations") == 9, "PREDECESSOR_RECEIPT_QUOTA_MISMATCH")
+          require(predecessor_receipt.get("provider_api_network_attempts") == 9, "PREDECESSOR_RECEIPT_NETWORK_MISMATCH")
+          require(predecessor_receipt.get("raw_s3_entities") == 9, "PREDECESSOR_RECEIPT_RAW_COUNT_MISMATCH")
+          require(predecessor_receipt.get("raw_entity_bytes") == 40423, "PREDECESSOR_RECEIPT_BYTES_MISMATCH")
+          require(predecessor_receipt.get("exact_resume_instruction", "").startswith("DO_NOT_RERUN_33195472310;"), "PREDECESSOR_RECEIPT_DO_NOT_RERUN_MISSING")
+          execution_claim = predecessor_receipt.get("execution_claim", {})
+          require(execution_claim.get("version_id") == "sYrxA7bgF.ElY95G1xOYzjKCLWbknHVZ", "PREDECESSOR_EXECUTION_CLAIM_VERSION_MISMATCH")
+          require(execution_claim.get("server_side_encryption") == "AES256", "PREDECESSOR_EXECUTION_CLAIM_ENCRYPTION_MISMATCH")
+          require(execution_claim.get("write_precondition") == "IF_NONE_MATCH_STAR", "PREDECESSOR_EXECUTION_CLAIM_PRECONDITION_MISMATCH")
+          artifact = predecessor_receipt.get("github_actions_artifact", {})
+          require(artifact.get("artifact_id") == 9695626442, "PREDECESSOR_ARTIFACT_ID_MISMATCH")
+          require(artifact.get("zip_sha256") == "0665c599163a9b72bfcb22b009bd8c2f34462de7638c35b6ed4079a47201146c", "PREDECESSOR_ARTIFACT_DIGEST_MISMATCH")
+
+          quota_rows = strict_jsonl(BASELINE_QUOTA_PATH)
+          raw_rows = strict_jsonl(BASELINE_RAW_INDEX_PATH)
+          require(len(quota_rows) == 16, "PREDECESSOR_QUOTA_LEDGER_ROW_COUNT_MISMATCH")
+          require(len(raw_rows) == 10, "PREDECESSOR_RAW_INDEX_ROW_COUNT_MISMATCH")
+          predecessor_quota_rows = [row for row in quota_rows if row.get("pilot_run_id") == EXPECTED_PREDECESSOR_PILOT]
+          require(len(predecessor_quota_rows) == 9, "PREDECESSOR_QUOTA_ROW_COUNT_MISMATCH")
+          require([row.get("ordinal") for row in predecessor_quota_rows] == list(range(1, 10)), "PREDECESSOR_QUOTA_ORDINAL_SEQUENCE_MISMATCH")
+          predecessor_raw_rows = [row for row in raw_rows if row.get("pilot_run_id") == EXPECTED_PREDECESSOR_PILOT]
+          require(len(predecessor_raw_rows) == 9, "PREDECESSOR_RAW_ROW_COUNT_MISMATCH")
+          actual_objects = tuple(
+              (
+                  row.get("basDt"), row.get("page_no"), row.get("s3_object_key"),
+                  row.get("s3_version_id"), row.get("entity_bytes"),
+                  row.get("entity_sha256"), row.get("s3_etag"),
+              )
+              for row in predecessor_raw_rows
+          )
+          require(actual_objects == EXPECTED_PREDECESSOR_OBJECTS, "PREDECESSOR_RAW_OBJECT_MANIFEST_MISMATCH")
+          for row in predecessor_raw_rows:
+              require(row.get("github_run_id") == EXPECTED_PREDECESSOR_RUN_ID, "PREDECESSOR_RAW_RUN_MISMATCH")
+              require(row.get("run_attempt") == 1, "PREDECESSOR_RAW_RUN_ATTEMPT_MISMATCH")
+              require(row.get("runtime_lock_id") == EXPECTED_PREDECESSOR_RUNTIME, "PREDECESSOR_RAW_RUNTIME_MISMATCH")
+              require(row.get("http_status") == 200, "PREDECESSOR_RAW_HTTP_STATUS_MISMATCH")
+              require(row.get("server_side_encryption") == "AES256", "PREDECESSOR_RAW_ENCRYPTION_MISMATCH")
+              require(row.get("remote_readback_bytes") == row.get("entity_bytes"), "PREDECESSOR_RAW_READBACK_BYTES_MISMATCH")
+              require(row.get("remote_readback_sha256") == row.get("entity_sha256"), "PREDECESSOR_RAW_READBACK_DIGEST_MISMATCH")
+          require(sum(row[4] for row in EXPECTED_PREDECESSOR_OBJECTS) == 40423, "PREDECESSOR_OBJECT_MANIFEST_TOTAL_BYTES_MISMATCH")
+
+          hard = latch.get("hard_prohibitions", {})
+          for key in (
+              "fallback_dates", "full_date_range_expansion", "historical_2019_canary_expansion",
+              "ksd_api_or_secret_use", "ksd_search_or_api_expansion", "bulk_acquisition",
+              "normalized_release", "model_semantic_change", "pit_semantic_change",
+              "automatic_normalized_model_pit_promotion", "automatic_promotion",
+              "secret_persistence", "authenticated_url_persistence",
+              "execution_token_original_persistence",
+          ):
+              require(hard.get(key) in {"NOT_AUTHORIZED", "PROHIBITED"}, "HARD_PROHIBITION_MISMATCH:" + key)
+          require(latch.get("s2_ksd_blocker_waiver") is False, "KSD_BLOCKER_WAIVER_PROHIBITED")
+          require(latch.get("bulk_acquisition_authorized") is False, "BULK_AUTHORITY_PROHIBITED")
+          require(latch.get("production_authorized") is False, "PRODUCTION_AUTHORITY_PROHIBITED")
+          require(latch.get("model_semantic_change_authorized") is False, "MODEL_CHANGE_PROHIBITED")
+          require(latch.get("pit_semantic_change_authorized") is False, "PIT_CHANGE_PROHIBITED")
+          require(latch.get("validation_claim") == "NONE", "VALIDATION_CLAIM_MISMATCH")
+          require(latch.get("gate_effect") == "NONE", "GATE_EFFECT_MISMATCH")
+
+          role_arn = os.environ.get("ROLE_ARN", "")
+          expected_role_arn = "arn:aws:iam::956315449338:role/M3Top3GitHubOIDCRawWriter"
+          require(role_arn == expected_role_arn, "AWS_ROLE_ARN_EXACT_MISMATCH")
+          expected_role_binding_state = (
+              "EXACT_ROLE_ARN_BOUND_PENDING_PRECHECK"
+              if mode == "PRECHECK_ARMED"
+              else "PASS_EXACT_ROLE_ARN_OIDC_STS_READ_ONLY_PRECHECK"
+          )
+          require(remote.get("aws_role_arn_binding_state") == expected_role_binding_state, "AWS_ROLE_BINDING_STATE_MISMATCH")
+          require(remote.get("aws_role_arn_expected") == expected_role_arn, "LATCH_AWS_ROLE_ARN_MISMATCH")
+          require(remote.get("aws_role_path_expected") == "M3Top3GitHubOIDCRawWriter", "LATCH_AWS_ROLE_PATH_MISMATCH")
+
+          Path("live_out").mkdir(parents=True, exist_ok=True)
+          receipt = {
+              "artifact": "M3TOP3_FINANCE_CA_PAGE100_PILOT_PREFLIGHT_v1.0",
+              "state": "PASS_NO_PROVIDER_CALL",
+              "mode": mode,
+              "runtime_lock_id": EXPECTED_RUNTIME,
+              "pilot_run_id": EXPECTED_RUN_ID,
+              "owner_cap_spec_sha256": EXPECTED_OWNER_SPEC,
+              "primary_date_count": 17,
+              "request_page_size": 10,
+              "max_pages_per_date": 100,
+              "max_primary_page_acquisitions": 1700,
+              "max_network_attempts_total": 2000,
+              "max_attempts_per_page": 2,
+              "quota_day_kst_gate": EXPECTED_QUOTA_DAY_KST if mode == "LIVE_ARMED" else "NOT_APPLICABLE_PRECHECK",
+              "predecessor_terminal_head_sha": EXPECTED_PREDECESSOR_HEAD,
+              "predecessor_workflow_run_id": EXPECTED_PREDECESSOR_RUN_ID,
+              "predecessor_object_manifest_count": 9,
+              "predecessor_raw_entity_bytes": 40423,
+              "completed_dates_reused": ["20240102"],
+              "completed_page_count_reused": 8,
+              "completed_item_count_reused": 76,
+              "successor_raw_write_prefix": raw_write_prefix,
+              "control_prefix": control_prefix,
+              "global_writer_claim_uri": writer_claim_uri,
+              "self_deadline_seconds": int(os.environ["FINANCE_SELF_DEADLINE_SECONDS"]),
+              "static_material_sha256": {
+                  "checkpoint_seed": bindings["checkpoint_seed_sha256"],
+                  "baseline_quota_ledger": bindings["baseline_quota_ledger_sha256"],
+                  "baseline_raw_index": bindings["baseline_raw_index_sha256"],
+                  "predecessor_checkpoint": bindings["predecessor_checkpoint_sha256"],
+                  "predecessor_report": bindings["predecessor_report_sha256"],
+                  "predecessor_run_receipt": bindings["predecessor_run_receipt_sha256"],
+                  "runner": bindings["runner_sha256"],
+                  "source_admission": bindings["source_admission_sha256"],
+                  "workflow": bindings["workflow_sha256"],
+              },
+              "aws_role_arn_shape": "PASS_EXACT_EQUALITY",
+              "aws_role_arn_sha256": hashlib.sha256(role_arn.encode("utf-8")).hexdigest(),
+              "provider_api_network_attempts": 0,
+              "quota_reservations": 0,
+              "remote_s3_writes": 0,
+              "remote_raw_custody_writes": 0,
+              "validation_claim": "NONE",
+              "gate_effect": "NONE",
+          }
+          Path("live_out/preflight.json").write_text(
+              json.dumps(receipt, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n",
+              encoding="utf-8",
+          )
+          with Path(os.environ["GITHUB_OUTPUT"]).open("a", encoding="utf-8") as handle:
+              handle.write("mode=" + mode + "\n")
+              handle.write("control_prefix=" + control_prefix + "\n")
+              handle.write("raw_write_prefix=" + raw_write_prefix + "\n")
+              handle.write("writer_claim_prefix=" + writer_claim_prefix + "\n")
+              handle.write("writer_claim_key=" + writer_claim_prefix + "execution-claim.json\n")
+              if mode == "LIVE_ARMED":
+                  fresh = latch["fresh_precheck_binding"]
+                  handle.write("precheck_run_id=" + str(fresh["workflow_run_id"]) + "\n")
+                  handle.write("precheck_head_sha=" + fresh["head_sha"] + "\n")
+                  handle.write("precheck_artifact_id=" + str(fresh["artifact_id"]) + "\n")
+                  handle.write("precheck_artifact_digest_sha256=" + fresh["artifact_digest_sha256"] + "\n")
+          PY
+
+      - name: Verify GitHub OIDC claims without persisting token
+        if: steps.preflight.outputs.mode == 'PRECHECK_ARMED'
+        shell: bash
+        env:
+          EXPECTED_REPOSITORY: ${{ github.repository }}
+          EXPECTED_REF: ${{ github.ref }}
+          EXPECTED_SHA: ${{ github.sha }}
+          EXPECTED_ACTOR: ${{ github.actor }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import base64
+          import json
+          import os
+          import time
+          import urllib.parse
+          import urllib.request
+          from pathlib import Path
+
+          expected = {
+              "iss": "https://token.actions.githubusercontent.com",
+              "sub": "repo:AofSpds@87963280/asset-agent-asa@1334403184:environment:m3top3-source-admission",
+              "repository": "AofSpds/asset-agent-asa",
+              "repository_owner": "AofSpds",
+              "ref": "refs/heads/aaa-pmo-public-data-g2-g3-source-admission-v1-20260828",
+              "actor": "AofSpds",
+              "environment": "m3top3-source-admission",
+          }
+          if (
+              os.environ.get("EXPECTED_REPOSITORY") != expected["repository"]
+              or os.environ.get("EXPECTED_REF") != expected["ref"]
+              or os.environ.get("EXPECTED_ACTOR") != expected["actor"]
+          ):
+              raise SystemExit("OIDC_EVENT_CONTEXT_MISMATCH")
+          expected_sha = os.environ.get("EXPECTED_SHA", "")
+          if len(expected_sha) != 40 or any(ch not in "0123456789abcdef" for ch in expected_sha):
+              raise SystemExit("OIDC_EVENT_SHA_INVALID")
+
+          request_url = os.environ.get("ACTIONS_ID_TOKEN_REQUEST_URL", "")
+          request_token = os.environ.get("ACTIONS_ID_TOKEN_REQUEST_TOKEN", "")
+          parsed = urllib.parse.urlsplit(request_url)
+          if (
+              parsed.scheme != "https"
+              or not parsed.hostname
+              or not parsed.hostname.endswith(".actions.githubusercontent.com")
+              or parsed.username is not None
+              or parsed.password is not None
+              or parsed.port is not None
+          ):
+              raise SystemExit("OIDC_REQUEST_URL_CONTEXT_INVALID")
+          if not request_token or any(ch.isspace() for ch in request_token):
+              raise SystemExit("OIDC_REQUEST_TOKEN_CONTEXT_INVALID")
+          query = urllib.parse.parse_qsl(parsed.query, keep_blank_values=True)
+          query = [(key, value) for key, value in query if key != "audience"]
+          query.append(("audience", "sts.amazonaws.com"))
+          audience_url = urllib.parse.urlunsplit(
+              (parsed.scheme, parsed.netloc, parsed.path, urllib.parse.urlencode(query), "")
+          )
+          request = urllib.request.Request(
+              audience_url,
+              headers={
+                  "Authorization": "Bearer " + request_token,
+                  "Accept": "application/json",
+                  "User-Agent": "AAA-M3Top3-OIDC-Claims-Precheck/1.0",
+              },
+          )
+          with urllib.request.urlopen(request, timeout=20) as response:
+              if int(response.status) != 200:
+                  raise SystemExit("OIDC_TOKEN_ENDPOINT_NON_200")
+              body = response.read(100_001)
+          if len(body) > 100_000:
+              raise SystemExit("OIDC_TOKEN_RESPONSE_TOO_LARGE")
+          token = json.loads(body).get("value")
+          if not isinstance(token, str) or token.count(".") != 2:
+              raise SystemExit("OIDC_TOKEN_RESPONSE_INVALID")
+
+          def decode(segment):
+              padding = "=" * ((4 - len(segment) % 4) % 4)
+              return json.loads(base64.urlsafe_b64decode(segment + padding))
+
+          header_segment, payload_segment, _ = token.split(".")
+          header = decode(header_segment)
+          claims = decode(payload_segment)
+          if header.get("alg") != "RS256" or header.get("typ") != "JWT":
+              raise SystemExit("OIDC_JWT_HEADER_MISMATCH")
+          audience = claims.get("aud")
+          if audience != "sts.amazonaws.com" and not (
+              isinstance(audience, list) and "sts.amazonaws.com" in audience
+          ):
+              raise SystemExit("OIDC_AUDIENCE_MISMATCH")
+          actual_subject = claims.get("sub")
+          if (
+              not isinstance(actual_subject, str)
+              or not 1 <= len(actual_subject) <= 500
+              or any(
+                  ch not in "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._:/@%-"
+                  for ch in actual_subject
+              )
+          ):
+              raise SystemExit("OIDC_SUBJECT_UNSAFE_OR_INVALID")
+          if actual_subject != expected["sub"]:
+              receipt_path = Path("live_out/preflight.json")
+              receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+              receipt["github_oidc_claims"] = {
+                  "state": "BLOCKED_SUBJECT_MISMATCH_NO_TOKEN_PERSISTED",
+                  "issuer": expected["iss"],
+                  "audience": "sts.amazonaws.com",
+                  "expected_subject": expected["sub"],
+                  "actual_subject": actual_subject,
+                  "repository": claims.get("repository"),
+                  "ref": claims.get("ref"),
+                  "sha": claims.get("sha"),
+                  "actor": claims.get("actor"),
+                  "environment": claims.get("environment"),
+                  "token_persisted": False,
+                  "authenticated_url_persisted": False,
+              }
+              receipt_path.write_text(
+                  json.dumps(receipt, sort_keys=True, separators=(",", ":")) + "\n",
+                  encoding="utf-8",
+              )
+              token = None
+              request_token = None
+              audience_url = None
+              raise SystemExit("OIDC_CLAIM_MISMATCH:sub")
+          for key, value in expected.items():
+              if claims.get(key) != value:
+                  raise SystemExit("OIDC_CLAIM_MISMATCH:" + key)
+          if claims.get("sha") != expected_sha:
+              raise SystemExit("OIDC_SHA_CLAIM_MISMATCH")
+          now = int(time.time())
+          if (
+              type(claims.get("iat")) is not int
+              or type(claims.get("exp")) is not int
+              or not claims["iat"] - 120 <= now < claims["exp"]
+          ):
+              raise SystemExit("OIDC_TOKEN_TIME_WINDOW_INVALID")
+
+          receipt_path = Path("live_out/preflight.json")
+          receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+          receipt["github_oidc_claims"] = {
+              "state": "PASS_EXPECTED_ENVIRONMENT_SUBJECT_NO_TOKEN_PERSISTED",
+              "issuer": expected["iss"],
+              "audience": "sts.amazonaws.com",
+              "subject": expected["sub"],
+              "repository": expected["repository"],
+              "repository_owner": expected["repository_owner"],
+              "ref": expected["ref"],
+              "sha": expected_sha,
+              "actor": expected["actor"],
+              "environment": expected["environment"],
+              "token_persisted": False,
+              "authenticated_url_persisted": False,
+          }
+          receipt_path.write_text(
+              json.dumps(receipt, sort_keys=True, separators=(",", ":")) + "\n",
+              encoding="utf-8",
+          )
+          token = None
+          request_token = None
+          audience_url = None
+          PY
+
+      - name: Configure read-only AWS OIDC precheck session
+        if: steps.preflight.outputs.mode == 'PRECHECK_ARMED'
+        uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
+        with:
+          role-to-assume: arn:aws:iam::956315449338:role/M3Top3GitHubOIDCRawWriter
+          aws-region: ap-northeast-2
+          role-session-name: m3top3-finance-precheck-${{ github.run_id }}
+          role-duration-seconds: 900
+          retry-max-attempts: 1
+          disable-retry: true
+          output-credentials: false
+          mask-aws-account-id: true
+          inline-session-policy: |
+            {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Sid": "ExactBucketMetadata",
+                  "Effect": "Allow",
+                  "Action": ["s3:GetBucketLocation", "s3:GetBucketVersioning"],
+                  "Resource": "arn:aws:s3:::semi-data-plane-aofspds-20260815"
+                },
+                {
+                  "Sid": "ExactFinancePrefixList",
+                  "Effect": "Allow",
+                  "Action": ["s3:ListBucket", "s3:ListBucketVersions"],
+                  "Resource": "arn:aws:s3:::semi-data-plane-aofspds-20260815",
+                  "Condition": {
+                    "StringLike": {
+                      "s3:prefix": [
+                        "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/",
+                        "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/*"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "Sid": "FinanceReadOnlyNoWriteCapability",
+                  "Effect": "Allow",
+                  "Action": ["s3:GetObject", "s3:GetObjectVersion"],
+                  "Resource": "arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/*"
+                }
+              ]
+            }
+
+      - name: Configure bounded AWS OIDC live writer session
+        if: steps.preflight.outputs.mode == 'LIVE_ARMED'
+        uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
+        with:
+          role-to-assume: arn:aws:iam::956315449338:role/M3Top3GitHubOIDCRawWriter
+          aws-region: ap-northeast-2
+          role-session-name: m3top3-finance-live-${{ github.run_id }}
+          # The role must support this MaxSessionDuration.  Failure to obtain
+          # the full session occurs before any provider or S3 write.
+          role-duration-seconds: 21600
+          retry-max-attempts: 1
+          disable-retry: true
+          output-credentials: false
+          mask-aws-account-id: true
+          inline-session-policy: |
+            {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Sid": "ExactBucketMetadata",
+                  "Effect": "Allow",
+                  "Action": ["s3:GetBucketLocation", "s3:GetBucketVersioning"],
+                  "Resource": "arn:aws:s3:::semi-data-plane-aofspds-20260815"
+                },
+                {
+                  "Sid": "ExactFinancePrefixList",
+                  "Effect": "Allow",
+                  "Action": ["s3:ListBucket", "s3:ListBucketVersions"],
+                  "Resource": "arn:aws:s3:::semi-data-plane-aofspds-20260815",
+                  "Condition": {
+                    "StringLike": {
+                      "s3:prefix": [
+                        "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/",
+                        "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/*"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "Sid": "FinancePredecessorReadOnly",
+                  "Effect": "Allow",
+                  "Action": ["s3:GetObject", "s3:GetObjectVersion"],
+                  "Resource": "arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/*"
+                },
+                {
+                  "Sid": "ExactSuccessorRawAndControlWriter",
+                  "Effect": "Allow",
+                  "Action": ["s3:PutObject", "s3:GetObject", "s3:GetObjectVersion"],
+                  "Resource": [
+                    "arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_generation/runtime_lock_id=PMO-FINANCE-PAGE100-20260829041623/pilot_run_id=FINANCE-PAGE100-PILOT-20260829041623/*",
+                    "arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_control/runtime_lock_id=PMO-FINANCE-PAGE100-20260829041623/pilot_run_id=FINANCE-PAGE100-PILOT-20260829041623/*",
+                    "arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_writer_claims/quota_day_kst=2026-08-29/execution-claim.json"
+                  ]
+                }
+              ]
+            }
+
+      - name: Verify AWS account, immutable predecessor, and empty successor prefixes
+        if: >-
+          steps.preflight.outputs.mode == 'PRECHECK_ARMED' ||
+          steps.preflight.outputs.mode == 'LIVE_ARMED'
+        shell: bash
+        env:
+          PILOT_MODE: ${{ steps.preflight.outputs.mode }}
+          CONTROL_PREFIX: ${{ steps.preflight.outputs.control_prefix }}
+          RAW_WRITE_PREFIX: ${{ steps.preflight.outputs.raw_write_prefix }}
+          WRITER_CLAIM_KEY: ${{ steps.preflight.outputs.writer_claim_key }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          import subprocess
+          import tempfile
+          from pathlib import Path
+
+          BUCKET = "semi-data-plane-aofspds-20260815"
+          OWNER = "956315449338"
+          SOURCE_ROOT = "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/"
+          EXPECTED_CONTROL_PREFIX = (
+              SOURCE_ROOT
+              + "_pilot_control/runtime_lock_id=PMO-FINANCE-PAGE100-20260829041623/"
+              + "pilot_run_id=FINANCE-PAGE100-PILOT-20260829041623/"
+          )
+          EXPECTED_RAW_WRITE_PREFIX = (
+              SOURCE_ROOT
+              + "_pilot_generation/runtime_lock_id=PMO-FINANCE-PAGE100-20260829041623/"
+              + "pilot_run_id=FINANCE-PAGE100-PILOT-20260829041623/"
+          )
+          EXPECTED_WRITER_CLAIM_KEY = (
+              SOURCE_ROOT
+              + "_writer_claims/quota_day_kst=2026-08-29/execution-claim.json"
+          )
+          PREDECESSOR_CLAIM = {
+              "key": SOURCE_ROOT + "_pilot_control/runtime_lock_id=PMO-API-SRC-ADMIT-20260828192737/pilot_run_id=FINANCE-LIVE-PILOT-20260828192737/execution-claim.json",
+              "version_id": "sYrxA7bgF.ElY95G1xOYzjKCLWbknHVZ",
+              "sha256": "d0f5e4d9958d041ff1c75a5b4b2d69cffcdd3f28538d63664c10ad32c37455d6",
+              "etag": "\"b479eaf0925d2ad6d0452924b8e762af\"",
+              "writer_id": "github-run:33195472310",
+          }
+          PREDECESSOR_OBJECTS = (
+              ("20240102", 1, SOURCE_ROOT + "getRighExerReasSche_V2/quota_day_kst=2026-08-29/request_id=d33797605e0c26ae522952cc4bb30c08b6e5df664c6fb0dc0ad1fcdb03ddcd08/attempt=1/sha256=9ae1972c806552eea241e1f9fdff1beb5640ead731a9afd907974af4c8937e86.entity", "DSSDileXVAbVA_5qGyIhY9HyeNMEjKz6", 4609, "9ae1972c806552eea241e1f9fdff1beb5640ead731a9afd907974af4c8937e86", "\"ccb4606be66bec50fc83b435c63ed578\""),
+              ("20240102", 2, SOURCE_ROOT + "getRighExerReasSche_V2/quota_day_kst=2026-08-29/request_id=70dcfbd8ee61944a5d1d89ba154ced3c359f6371ae45cc0599a9358790cfd0b0/attempt=1/sha256=bc6941e170dd478d2a82c6902a1d4bcbf7279c165fa5691b37cf96bbcc2557dd.entity", "eojCYd2M1CRuDYUAmH3YCf5m1ZF.DXdE", 4623, "bc6941e170dd478d2a82c6902a1d4bcbf7279c165fa5691b37cf96bbcc2557dd", "\"68f8089d91b129e97c6752b5139f8c44\""),
+              ("20240102", 3, SOURCE_ROOT + "getRighExerReasSche_V2/quota_day_kst=2026-08-29/request_id=0a8280b1911b1757fafb8a2e015d7d93ac08dfe38537ec3edcca5a09a89b505a/attempt=1/sha256=a650aab45904c982a126ee5a66035e3e7f8f5d26494729ec216d2e7313c5fcdc.entity", "rj8.2G7po2sIniQuahEY7zT.U3.ohWso", 4887, "a650aab45904c982a126ee5a66035e3e7f8f5d26494729ec216d2e7313c5fcdc", "\"23840a521a3a902056aac06dc0edfe98\""),
+              ("20240102", 4, SOURCE_ROOT + "getRighExerReasSche_V2/quota_day_kst=2026-08-29/request_id=136967392bd657b047e6518d69c8a35b190897df03ba73231d907fe3a257aa1e/attempt=1/sha256=c72ab1b18be543b257091690855e47555f0794da36bfa126b6826ce74c1183ab.entity", "G2QrD9tI8Qa9SbktghJ9KYg4c1AU28As", 4761, "c72ab1b18be543b257091690855e47555f0794da36bfa126b6826ce74c1183ab", "\"f6ea8a6739d5d665f307bb0d19493825\""),
+              ("20240102", 5, SOURCE_ROOT + "getRighExerReasSche_V2/quota_day_kst=2026-08-29/request_id=bcf0ad2e685b75c6696482084c45e962ee858f7c0b0cca6a8781abd58581a348/attempt=1/sha256=d7b8d94452393a2c6d65b32f9f3286e2e64f910671984c73a637a35594d89891.entity", "HSVA_3fPluU4qmtqlU7qN.jbsZSBmtRY", 4738, "d7b8d94452393a2c6d65b32f9f3286e2e64f910671984c73a637a35594d89891", "\"64179218e7ad72f84f9787d73c2a77dc\""),
+              ("20240102", 6, SOURCE_ROOT + "getRighExerReasSche_V2/quota_day_kst=2026-08-29/request_id=4954fa52697f075e90ef5650714b742ced08a2afd6cc2f8d685bdd7d51e77a54/attempt=1/sha256=9b808f879f548ba7d97fe612dee1800bdc800afb00a27d1b1c4111cdb2c1dceb.entity", "3LU73fHs2z3YvCqJCTAWqGiMWGw5XzaM", 4720, "9b808f879f548ba7d97fe612dee1800bdc800afb00a27d1b1c4111cdb2c1dceb", "\"23b283034f5deec1e34d272d0ae88914\""),
+              ("20240102", 7, SOURCE_ROOT + "getRighExerReasSche_V2/quota_day_kst=2026-08-29/request_id=22e0eb5b6f2d4c989028bbd780169c8cc4315a3b32e9ebe71b4b953e248da599/attempt=1/sha256=e439958f7339b5749d83e2d6944c1ae96def5610e4c3e1a3c52ad79d3c04f0a3.entity", "phrNPpMB1GDv.ZYdbO3Ez8yWmmN6_yi6", 4629, "e439958f7339b5749d83e2d6944c1ae96def5610e4c3e1a3c52ad79d3c04f0a3", "\"b8bc81831802c6ad225331d0f0b69b2a\""),
+              ("20240102", 8, SOURCE_ROOT + "getRighExerReasSche_V2/quota_day_kst=2026-08-29/request_id=859ad56eadad1d5ef356ce16c45381898b232f71e5cd4d55531f00ef0fefabb5/attempt=1/sha256=4393f5565bb99b2a6a9b2914039b539a00571d72ab4ef3beb43258cfb91fe959.entity", "orAIUhf.yVs1whYuqyEoKak7BebuG3_U", 2814, "4393f5565bb99b2a6a9b2914039b539a00571d72ab4ef3beb43258cfb91fe959", "\"b709a91de0f03336fc20608eb765feec\""),
+              ("20240131", 1, SOURCE_ROOT + "getRighExerReasSche_V2/quota_day_kst=2026-08-29/request_id=2336abe1c81d4c86f90fef6575e204d0455367d4d5e8ed6cce103a752f0330da/attempt=1/sha256=2e97f391bcf833db568de2c8638c5ff6d297ea07be21efc3fca6d05cd266c309.entity", "avNHRa6z6kooy0MEG0rB3H2Ify2dWSjq", 4642, "2e97f391bcf833db568de2c8638c5ff6d297ea07be21efc3fca6d05cd266c309", "\"f53c31679b7985d17c59e9bed7006f04\""),
+          )
+
+          def run_aws(*args, check=True):
+              return subprocess.run(
+                  ["aws", *args],
+                  check=check,
+                  stdout=subprocess.PIPE,
+                  stderr=subprocess.PIPE,
+                  text=True,
+              )
+
+          def aws_json(*args):
+              completed = run_aws(*args, "--output", "json")
+              try:
+                  return json.loads(completed.stdout)
+              except json.JSONDecodeError:
+                  raise SystemExit("AWS_CLI_INVALID_JSON") from None
+
+          def require(condition, code):
+              if not condition:
+                  raise SystemExit(code)
+
+          require(os.environ["CONTROL_PREFIX"] == EXPECTED_CONTROL_PREFIX, "AWS_CONTROL_PREFIX_MISMATCH")
+          require(os.environ["RAW_WRITE_PREFIX"] == EXPECTED_RAW_WRITE_PREFIX, "AWS_RAW_WRITE_PREFIX_MISMATCH")
+          require(os.environ["WRITER_CLAIM_KEY"] == EXPECTED_WRITER_CLAIM_KEY, "AWS_WRITER_CLAIM_KEY_MISMATCH")
+
+          model = aws_json("s3api", "put-object", "--generate-cli-skeleton", "input")
+          require(
+              "IfNoneMatch" in model and "IfMatch" in model,
+              "AWS_CLI_CONDITIONAL_PUT_MODEL_UNSUPPORTED",
+          )
+          identity = aws_json("sts", "get-caller-identity")
+          require(identity.get("Account") == OWNER, "AWS_ACCOUNT_MISMATCH")
+          require(
+              str(identity.get("Arn", "")).startswith(
+                  "arn:aws:sts::956315449338:assumed-role/M3Top3GitHubOIDCRawWriter/"
+              ),
+              "AWS_CALLER_ARN_MISMATCH",
+          )
+          location = aws_json(
+              "s3api", "get-bucket-location", "--bucket", BUCKET,
+              "--expected-bucket-owner", OWNER,
+          )
+          require(location.get("LocationConstraint") == "ap-northeast-2", "AWS_BUCKET_REGION_MISMATCH")
+          versioning = aws_json(
+              "s3api", "get-bucket-versioning", "--bucket", BUCKET,
+              "--expected-bucket-owner", OWNER,
+          )
+          require(versioning.get("Status") == "Enabled", "AWS_BUCKET_VERSIONING_NOT_ENABLED")
+
+          def assert_empty_prefix(prefix, code):
+              payload = aws_json(
+                  "s3api", "list-object-versions", "--bucket", BUCKET,
+                  "--prefix", prefix, "--max-keys", "1",
+                  "--expected-bucket-owner", OWNER,
+              )
+              require(not payload.get("Versions"), code + "_VERSIONS")
+              require(not payload.get("DeleteMarkers"), code + "_DELETE_MARKERS")
+
+          # Both modes must observe an unused successor namespace and global
+          # quota-day writer claim.  LIVE creates the claim later with a
+          # conditional If-None-Match:* in the runner.
+          assert_empty_prefix(EXPECTED_CONTROL_PREFIX, "SUCCESSOR_CONTROL_PREFIX_NOT_EMPTY")
+          assert_empty_prefix(EXPECTED_RAW_WRITE_PREFIX, "SUCCESSOR_RAW_PREFIX_NOT_EMPTY")
+          assert_empty_prefix(EXPECTED_WRITER_CLAIM_KEY, "GLOBAL_WRITER_CLAIM_HISTORY_NOT_EMPTY")
+          claim_probe = run_aws(
+              "s3api", "head-object", "--bucket", BUCKET,
+              "--key", EXPECTED_WRITER_CLAIM_KEY,
+              "--expected-bucket-owner", OWNER,
+              "--output", "json", check=False,
+          )
+          if claim_probe.returncode == 0:
+              raise SystemExit("GLOBAL_WRITER_CLAIM_ALREADY_EXISTS")
+          if not any(code in claim_probe.stderr for code in ("404", "NoSuchKey", "NotFound")):
+              raise SystemExit("GLOBAL_WRITER_CLAIM_ABSENCE_NOT_PROVABLE")
+
+          readbacks = []
+          with tempfile.TemporaryDirectory(prefix="finance-predecessor-readback-") as temp_dir:
+              temp_root = Path(temp_dir)
+              for index, (bas_dt, page_no, key, version_id, expected_bytes, expected_sha, expected_etag) in enumerate(PREDECESSOR_OBJECTS, 1):
+                  head = aws_json(
+                      "s3api", "head-object", "--bucket", BUCKET, "--key", key,
+                      "--version-id", version_id, "--expected-bucket-owner", OWNER,
+                  )
+                  require(head.get("VersionId") == version_id, "PREDECESSOR_VERSION_ID_MISMATCH")
+                  require(head.get("ContentLength") == expected_bytes, "PREDECESSOR_CONTENT_LENGTH_MISMATCH")
+                  require(head.get("ETag") == expected_etag, "PREDECESSOR_ETAG_MISMATCH")
+                  require(head.get("ServerSideEncryption") == "AES256", "PREDECESSOR_ENCRYPTION_MISMATCH")
+                  target = temp_root / ("raw-" + str(index) + ".entity")
+                  response = aws_json(
+                      "s3api", "get-object", "--bucket", BUCKET, "--key", key,
+                      "--version-id", version_id, "--expected-bucket-owner", OWNER,
+                      str(target),
+                  )
+                  data = target.read_bytes()
+                  actual_sha = hashlib.sha256(data).hexdigest()
+                  require(len(data) == expected_bytes, "PREDECESSOR_GET_BYTES_MISMATCH")
+                  require(actual_sha == expected_sha, "PREDECESSOR_GET_DIGEST_MISMATCH")
+                  require(response.get("VersionId") == version_id, "PREDECESSOR_GET_VERSION_MISMATCH")
+                  require(response.get("ETag") == expected_etag, "PREDECESSOR_GET_ETAG_MISMATCH")
+                  require(response.get("ServerSideEncryption") == "AES256", "PREDECESSOR_GET_ENCRYPTION_MISMATCH")
+                  readbacks.append({
+                      "basDt": bas_dt,
+                      "page_no": page_no,
+                      "version_id": version_id,
+                      "entity_bytes": expected_bytes,
+                      "entity_sha256": expected_sha,
+                      "etag": expected_etag,
+                      "server_side_encryption": "AES256",
+                      "state": "PASS_EXACT_VERSION_NO_FALLBACK",
+                  })
+
+              claim_target = temp_root / "predecessor-execution-claim.json"
+              claim_response = aws_json(
+                  "s3api", "get-object", "--bucket", BUCKET,
+                  "--key", PREDECESSOR_CLAIM["key"],
+                  "--version-id", PREDECESSOR_CLAIM["version_id"],
+                  "--expected-bucket-owner", OWNER, str(claim_target),
+              )
+              claim_bytes = claim_target.read_bytes()
+              require(
+                  hashlib.sha256(claim_bytes).hexdigest() == PREDECESSOR_CLAIM["sha256"],
+                  "PREDECESSOR_EXECUTION_CLAIM_DIGEST_MISMATCH",
+              )
+              require(claim_response.get("VersionId") == PREDECESSOR_CLAIM["version_id"], "PREDECESSOR_EXECUTION_CLAIM_VERSION_MISMATCH")
+              require(claim_response.get("ETag") == PREDECESSOR_CLAIM["etag"], "PREDECESSOR_EXECUTION_CLAIM_ETAG_MISMATCH")
+              require(claim_response.get("ServerSideEncryption") == "AES256", "PREDECESSOR_EXECUTION_CLAIM_ENCRYPTION_MISMATCH")
+              claim_payload = json.loads(claim_bytes)
+              require(claim_payload.get("writer_id") == PREDECESSOR_CLAIM["writer_id"], "PREDECESSOR_EXECUTION_CLAIM_WRITER_MISMATCH")
+
+          require(len(readbacks) == 9, "PREDECESSOR_READBACK_COUNT_MISMATCH")
+          require(sum(item["entity_bytes"] for item in readbacks) == 40423, "PREDECESSOR_READBACK_TOTAL_BYTES_MISMATCH")
+          expected_slots = [("20240102", page) for page in range(1, 9)] + [("20240131", 1)]
+          require([(item["basDt"], item["page_no"]) for item in readbacks] == expected_slots, "PREDECESSOR_DATE_PAGE_SET_MISMATCH")
+
+          receipt = {
+              "artifact": "M3TOP3_FINANCE_CA_PAGE100_AWS_PREFLIGHT_v1.0",
+              "state": "PASS_NO_PROVIDER_CALL_NO_REMOTE_WRITE",
+              "mode": os.environ["PILOT_MODE"],
+              "aws_account_id": OWNER,
+              "aws_region": "ap-northeast-2",
+              "sts_assumed_role_binding": "M3Top3GitHubOIDCRawWriter_EXACT_PASS",
+              "bucket": BUCKET,
+              "bucket_versioning": "Enabled",
+              "aws_cli_conditional_put_model": "IF_NONE_MATCH_AND_IF_MATCH_PASS",
+              "predecessor_object_readbacks": 9,
+              "predecessor_raw_entity_bytes": 40423,
+              "predecessor_readback_mode": "EXACT_VERSION_ID_NO_LATEST_FALLBACK",
+              "predecessor_execution_claim_readback": "PASS_EXACT_VERSION_ID_SHA256_ETAG_AES256_WRITER",
+              "new_control_prefix_object_count": 0,
+              "new_raw_prefix_object_count": 0,
+              "global_writer_claim_absent": True,
+              "provider_api_network_attempts": 0,
+              "quota_reservations": 0,
+              "remote_raw_custody_writes": 0,
+              "s3_put_object_calls": 0,
+          }
+          Path("live_out").mkdir(parents=True, exist_ok=True)
+          Path("live_out/aws-precheck.json").write_text(
+              json.dumps(receipt, sort_keys=True, separators=(",", ":")) + "\n",
+              encoding="utf-8",
+          )
+          Path("live_out/predecessor-readback.json").write_text(
+              json.dumps({
+                  "artifact": "M3TOP3_FINANCE_CA_PAGE100_PREDECESSOR_READBACK_v1.0",
+                  "state": "PASS_9_OF_9_PLUS_PREDECESSOR_CLAIM",
+                  "objects": readbacks,
+                  "object_count": 9,
+                  "raw_entity_bytes": 40423,
+                  "raw_entities_in_actions_artifact": 0,
+                  "provider_api_network_attempts": 0,
+                  "quota_reservations": 0,
+                  "remote_raw_custody_writes": 0,
+              }, sort_keys=True, separators=(",", ":")) + "\n",
+              encoding="utf-8",
+          )
+          preflight_path = Path("live_out/preflight.json")
+          preflight = json.loads(preflight_path.read_text(encoding="utf-8"))
+          preflight.update({
+              "predecessor_object_readbacks": 9,
+              "predecessor_raw_entity_bytes": 40423,
+              "new_control_prefix_object_count": 0,
+              "new_raw_prefix_object_count": 0,
+              "global_writer_claim_absent": True,
+          })
+          preflight_path.write_text(
+              json.dumps(preflight, sort_keys=True, separators=(",", ":")) + "\n",
+              encoding="utf-8",
+          )
+          PY
+
+      - name: Stage governed quota and custody mirrors
+        if: steps.preflight.outputs.mode == 'LIVE_ARMED'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import os
+          import shutil
+          from pathlib import Path
+
+          source_pairs = (
+              (Path(os.environ["FINANCE_BASELINE_QUOTA_PATH"]), Path("live_out/quota-ledger.jsonl")),
+              (Path(os.environ["FINANCE_BASELINE_RAW_INDEX_PATH"]), Path("live_out/raw-index.jsonl")),
+          )
+          Path("live_out").mkdir(parents=True, exist_ok=True)
+          for source, target in source_pairs:
+              if not source.is_file() or target.exists():
+                  raise SystemExit("GOVERNED_MIRROR_STAGING_BLOCKED")
+              shutil.copyfile(source, target)
+          PY
+
+      - name: Reconfirm branch, fresh precheck, and repo-wide sole Finance writer
+        if: >-
+          steps.preflight.outputs.mode == 'PRECHECK_ARMED' ||
+          steps.preflight.outputs.mode == 'LIVE_ARMED'
+        shell: bash
+        env:
+          PILOT_MODE: ${{ steps.preflight.outputs.mode }}
+          GH_API_TOKEN: ${{ github.token }}
+          EXPECTED_ACTOR: ${{ github.actor }}
+          EXPECTED_TRIGGERING_ACTOR: ${{ github.triggering_actor }}
+          EXPECTED_REPOSITORY: ${{ github.repository }}
+          EXPECTED_REF: ${{ github.ref }}
+          EXPECTED_SHA: ${{ github.sha }}
+          EXPECTED_RUN_ID: ${{ github.run_id }}
+          EXPECTED_RUN_ATTEMPT: ${{ github.run_attempt }}
+          PRECHECK_RUN_ID: ${{ steps.preflight.outputs.precheck_run_id }}
+          PRECHECK_HEAD_SHA: ${{ steps.preflight.outputs.precheck_head_sha }}
+          PRECHECK_ARTIFACT_ID: ${{ steps.preflight.outputs.precheck_artifact_id }}
+          PRECHECK_ARTIFACT_DIGEST_SHA256: ${{ steps.preflight.outputs.precheck_artifact_digest_sha256 }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          import os
+          import urllib.error
+          import urllib.parse
+          import urllib.request
+          from pathlib import Path
+
+          REPOSITORY = "AofSpds/asset-agent-asa"
+          ACTOR = "AofSpds"
+          BRANCH = "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828"
+          REF = "refs/heads/" + BRANCH
+          WORKFLOW_PATH = ".github/workflows/m3top3-finance-page100-bounded-pilot-v1.yml"
+          PREDECESSOR_WORKFLOW_PATH = ".github/workflows/m3top3-finance-bounded-live-pilot-v1.yml"
+          PREDECESSOR_RUN_ID = 33195472310
+          PREDECESSOR_JOB_ID = 98931365000
+          PREDECESSOR_HEAD_SHA = "f0918e170a662867caf57ced28d68c82e79cdb0a"
+          API_ROOT = "https://api.github.com"
+          ACTIVE_STATES = ("queued", "in_progress", "waiting", "requested", "pending")
+          token = os.environ.get("GH_API_TOKEN", "")
+          if not token or any(ch.isspace() for ch in token):
+              raise SystemExit("GITHUB_TOKEN_MISSING_OR_INVALID")
+          if os.environ.get("EXPECTED_ACTOR") != ACTOR:
+              raise SystemExit("GITHUB_ACTOR_RECHECK_MISMATCH")
+          if os.environ.get("EXPECTED_TRIGGERING_ACTOR") != ACTOR:
+              raise SystemExit("GITHUB_TRIGGERING_ACTOR_RECHECK_MISMATCH")
+          if os.environ.get("EXPECTED_REPOSITORY") != REPOSITORY:
+              raise SystemExit("GITHUB_REPOSITORY_RECHECK_MISMATCH")
+          if os.environ.get("EXPECTED_REF") != REF:
+              raise SystemExit("GITHUB_REF_RECHECK_MISMATCH")
+          expected_sha = os.environ.get("EXPECTED_SHA", "")
+          expected_run_id = int(os.environ.get("EXPECTED_RUN_ID", "0"))
+          expected_run_attempt = int(os.environ.get("EXPECTED_RUN_ATTEMPT", "0"))
+          if expected_run_attempt != 1:
+              raise SystemExit("WORKFLOW_RERUN_PROHIBITED")
+
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self, req, fp, code, msg, headers, newurl):
+                  return None
+
+          opener = urllib.request.build_opener(NoRedirect())
+
+          def pairs(values):
+              result = {}
+              for key, value in values:
+                  if key in result:
+                      raise SystemExit("GITHUB_API_DUPLICATE_JSON_KEY")
+                  result[key] = value
+              return result
+
+          def get_json(path):
+              if not path.startswith("/repos/AofSpds/asset-agent-asa/"):
+                  raise SystemExit("GITHUB_API_PATH_OUT_OF_SCOPE")
+              request = urllib.request.Request(
+                  API_ROOT + path,
+                  headers={
+                      "Accept": "application/vnd.github+json",
+                      "Authorization": "Bearer " + token,
+                      "User-Agent": "AAA-M3Top3-Finance-Page100-Readback/1.0",
+                      "X-GitHub-Api-Version": "2022-11-28",
+                  },
+              )
+              try:
+                  with opener.open(request, timeout=20) as response:
+                      if int(response.status) != 200:
+                          raise SystemExit("GITHUB_API_NON_200")
+                      data = response.read(10_000_001)
+              except urllib.error.HTTPError as exc:
+                  raise SystemExit("GITHUB_API_HTTP_" + str(exc.code)) from None
+              except (urllib.error.URLError, TimeoutError, OSError):
+                  raise SystemExit("GITHUB_API_TRANSPORT_BLOCKED") from None
+              if len(data) > 10_000_000:
+                  raise SystemExit("GITHUB_API_RESPONSE_TOO_LARGE")
+              try:
+                  return json.loads(data, object_pairs_hook=pairs)
+              except (UnicodeDecodeError, json.JSONDecodeError):
+                  raise SystemExit("GITHUB_API_INVALID_JSON") from None
+
+          encoded_branch = urllib.parse.quote(BRANCH, safe="")
+          branch = get_json("/repos/" + REPOSITORY + "/branches/" + encoded_branch)
+          if branch.get("name") != BRANCH or branch.get("commit", {}).get("sha") != expected_sha:
+              raise SystemExit("CURRENT_BRANCH_HEAD_NOT_GITHUB_SHA")
+
+          # Discover checked-in Finance/S3 writers and include known legacy
+          # writers even if their content changes on another branch.
+          finance_writer_paths = {
+              WORKFLOW_PATH,
+              PREDECESSOR_WORKFLOW_PATH,
+              ".github/workflows/m3top3-s3-raw-custody-single-canary-v1.yml",
+          }
+          workflow_root = Path(".github/workflows")
+          if workflow_root.is_dir():
+              for candidate in tuple(workflow_root.glob("*.yml")) + tuple(workflow_root.glob("*.yaml")):
+                  body = candidate.read_text(encoding="utf-8", errors="strict")
+                  folded = body.lower()
+                  if (
+                      "m3top3-finance-stock-rights-v1" in folded
+                      and (
+                          "s3:putobject" in folded
+                          or "put-object" in folded
+                          or "finance_live_pilot" in folded
+                          or "finance_page100_pilot" in folded
+                      )
+                  ):
+                      finance_writer_paths.add(candidate.as_posix())
+
+          active_by_id = {}
+          for status in ACTIVE_STATES:
+              page = 1
+              observed = 0
+              expected_total = None
+              while True:
+                  query = urllib.parse.urlencode({
+                      "status": status,
+                      "per_page": 100,
+                      "page": page,
+                  })
+                  payload = get_json("/repos/" + REPOSITORY + "/actions/runs?" + query)
+                  runs = payload.get("workflow_runs", [])
+                  if not isinstance(runs, list):
+                      raise SystemExit("GITHUB_ACTIVE_WORKFLOW_RUNS_INVALID")
+                  if expected_total is None:
+                      expected_total = int(payload.get("total_count", 0))
+                  observed += len(runs)
+                  for run in runs:
+                      run_id = int(run.get("id", 0))
+                      if run_id <= 0:
+                          raise SystemExit("GITHUB_ACTIVE_WORKFLOW_RUN_ID_INVALID")
+                      active_by_id[run_id] = run
+                  if len(runs) < 100:
+                      break
+                  page += 1
+                  if page > 100:
+                      raise SystemExit("GITHUB_ACTIVE_WORKFLOW_PAGINATION_LIMIT")
+              if observed < int(expected_total or 0):
+                  raise SystemExit("GITHUB_ACTIVE_WORKFLOW_RUNS_INCOMPLETE")
+
+          active_finance_writers = [
+              run for run in active_by_id.values()
+              if str(run.get("path", "")) in finance_writer_paths
+              or "m3top3-finance" in str(run.get("path", "")).lower()
+              or "m3top3-s3-raw-custody" in str(run.get("path", "")).lower()
+          ]
+          if len(active_finance_writers) != 1:
+              raise SystemExit("COMPETING_OR_MISSING_REPOSITORY_FINANCE_WRITER")
+          current = active_finance_writers[0]
+          if int(current.get("id", 0)) != expected_run_id:
+              raise SystemExit("CURRENT_FINANCE_WRITER_NOT_SOLE_ACTIVE_WRITER")
+          if current.get("path") != WORKFLOW_PATH:
+              raise SystemExit("CURRENT_WORKFLOW_PATH_MISMATCH")
+          if current.get("head_sha") != expected_sha or current.get("event") != "push":
+              raise SystemExit("CURRENT_WORKFLOW_RUN_IDENTITY_MISMATCH")
+          if int(current.get("run_attempt", 0)) != 1:
+              raise SystemExit("CURRENT_WORKFLOW_RUN_ATTEMPT_MISMATCH")
+          if current.get("actor", {}).get("login") != ACTOR:
+              raise SystemExit("CURRENT_WORKFLOW_RUN_ACTOR_MISMATCH")
+          if current.get("triggering_actor", {}).get("login") != ACTOR:
+              raise SystemExit("CURRENT_WORKFLOW_RUN_TRIGGERING_ACTOR_MISMATCH")
+          if current.get("repository", {}).get("full_name") != REPOSITORY:
+              raise SystemExit("CURRENT_WORKFLOW_RUN_REPOSITORY_MISMATCH")
+
+          predecessor = get_json(
+              "/repos/" + REPOSITORY + "/actions/runs/" + str(PREDECESSOR_RUN_ID)
+          )
+          if (
+              predecessor.get("status") != "completed"
+              or predecessor.get("conclusion") != "failure"
+              or predecessor.get("event") != "push"
+              or predecessor.get("path") != PREDECESSOR_WORKFLOW_PATH
+              or predecessor.get("head_sha") != PREDECESSOR_HEAD_SHA
+              or int(predecessor.get("run_attempt", 0)) != 1
+          ):
+              raise SystemExit("PREDECESSOR_RUN_TERMINAL_IDENTITY_MISMATCH")
+          predecessor_jobs = get_json(
+              "/repos/" + REPOSITORY + "/actions/runs/" + str(PREDECESSOR_RUN_ID)
+              + "/jobs?filter=all&per_page=100"
+          )
+          jobs = predecessor_jobs.get("jobs", [])
+          if not isinstance(jobs, list) or not any(
+              int(job.get("id", 0)) == PREDECESSOR_JOB_ID for job in jobs
+          ):
+              raise SystemExit("PREDECESSOR_JOB_TERMINAL_IDENTITY_MISMATCH")
+
+          precheck_verified = False
+          precheck_run_id = None
+          precheck_artifact_id = None
+          if os.environ["PILOT_MODE"] == "LIVE_ARMED":
+              precheck_run_id = int(os.environ.get("PRECHECK_RUN_ID", "0"))
+              precheck_head_sha = os.environ.get("PRECHECK_HEAD_SHA", "")
+              precheck_artifact_id = int(os.environ.get("PRECHECK_ARTIFACT_ID", "0"))
+              precheck_digest = os.environ.get("PRECHECK_ARTIFACT_DIGEST_SHA256", "")
+              prior = get_json(
+                  "/repos/" + REPOSITORY + "/actions/runs/" + str(precheck_run_id)
+              )
+              if (
+                  prior.get("status") != "completed"
+                  or prior.get("conclusion") != "success"
+                  or prior.get("event") != "push"
+                  or prior.get("path") != WORKFLOW_PATH
+                  or prior.get("head_sha") != precheck_head_sha
+                  or int(prior.get("run_attempt", 0)) != 1
+                  or prior.get("actor", {}).get("login") != ACTOR
+                  or prior.get("triggering_actor", {}).get("login") != ACTOR
+                  or prior.get("head_commit", {}).get("message")
+                     != "Arm M3Top3 Finance page100 precheck v1.0"
+              ):
+                  raise SystemExit("FRESH_PRECHECK_WORKFLOW_RUN_MISMATCH")
+              artifacts = get_json(
+                  "/repos/" + REPOSITORY + "/actions/runs/" + str(precheck_run_id)
+                  + "/artifacts?per_page=100"
+              )
+              candidates = [
+                  item for item in artifacts.get("artifacts", [])
+                  if int(item.get("id", 0)) == precheck_artifact_id
+              ]
+              if len(candidates) != 1:
+                  raise SystemExit("FRESH_PRECHECK_ARTIFACT_ID_MISMATCH")
+              artifact = candidates[0]
+              if (
+                  artifact.get("name")
+                  != "m3top3-finance-page100-bounded-pilot-"
+                     + str(precheck_run_id) + "-1"
+                  or artifact.get("expired") is not False
+                  or artifact.get("digest") != "sha256:" + precheck_digest
+                  or int(artifact.get("workflow_run", {}).get("id", 0))
+                     != precheck_run_id
+              ):
+                  raise SystemExit("FRESH_PRECHECK_ARTIFACT_BINDING_MISMATCH")
+              precheck_verified = True
+
+          receipt = {
+              "artifact": "M3TOP3_FINANCE_CA_PAGE100_GITHUB_READBACK_v1.0",
+              "state": "PASS_BRANCH_PREDECESSOR_AND_REPOSITORY_WIDE_SOLE_FINANCE_WRITER",
+              "mode": os.environ["PILOT_MODE"],
+              "repository": REPOSITORY,
+              "actor": ACTOR,
+              "triggering_actor": ACTOR,
+              "branch": BRANCH,
+              "head_sha": expected_sha,
+              "workflow_run_id": expected_run_id,
+              "workflow_run_attempt": 1,
+              "active_repository_run_count": len(active_by_id),
+              "active_finance_writer_count": 1,
+              "finance_writer_paths_checked": sorted(finance_writer_paths),
+              "predecessor_workflow_run_id": PREDECESSOR_RUN_ID,
+              "predecessor_workflow_job_id": PREDECESSOR_JOB_ID,
+              "predecessor_terminal_state": "COMPLETED_FAILURE_ATTEMPT_1_DO_NOT_RERUN",
+              "fresh_precheck_verified": precheck_verified,
+              "fresh_precheck_run_id": precheck_run_id,
+              "fresh_precheck_artifact_id": precheck_artifact_id,
+              "github_token_logged": False,
+              "github_token_persisted": False,
+              "provider_api_network_attempts": 0,
+              "quota_reservations": 0,
+              "remote_raw_custody_writes": 0,
+          }
+          Path("live_out/github-readback.json").write_text(
+              json.dumps(receipt, sort_keys=True, separators=(",", ":")) + "\n",
+              encoding="utf-8",
+          )
+          PY
+
+      - name: Execute Finance-only bounded live pilot once
+        if: steps.preflight.outputs.mode == 'LIVE_ARMED'
+        shell: bash
+        env:
+          DATA_GO_KR_FINANCE_STOCK_RIGHTS_SERVICE_KEY: ${{ secrets.DATA_GO_KR_FINANCE_STOCK_RIGHTS_SERVICE_KEY }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_REF: ${{ github.ref }}
+          GITHUB_SHA: ${{ github.sha }}
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TRIGGERING_ACTOR: ${{ github.triggering_actor }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
+          GITHUB_RUN_ATTEMPT: ${{ github.run_attempt }}
+          PYTHONUNBUFFERED: "1"
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import os
+          import re
+          import urllib.parse
+
+          value = os.environ.get("DATA_GO_KR_FINANCE_STOCK_RIGHTS_SERVICE_KEY", "")
+          if not value:
+              raise SystemExit("MISSING_FINANCE_SERVICE_SECRET")
+          if value != value.strip() or any(ch.isspace() for ch in value):
+              raise SystemExit("INVALID_FINANCE_SERVICE_SECRET_FORMAT")
+          if re.search(r"%[0-9A-Fa-f]{2}", value):
+              raise SystemExit("FINANCE_SERVICE_SECRET_MUST_BE_DECODED")
+          variants = {value, urllib.parse.quote(value, safe=""), urllib.parse.quote_plus(value, safe="")}
+          for variant in variants:
+              escaped = variant.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+              print("::add-mask::" + escaped)
+          PY
+
+          set +e
+          python -m tools.m3top3.finance_page100_pilot \
+            --authority control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_PILOT_AUTHORITY_v1.0.json \
+            --plan control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_PILOT_PLAN_v1.0.json \
+            --latch control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_PILOT_LATCH_v1.0.json \
+            --checkpoint live_out/checkpoint.json \
+            --quota-ledger live_out/quota-ledger.jsonl \
+            --raw-index live_out/raw-index.jsonl \
+            --report live_out/report.json
+          runner_rc=$?
+
+          contract_rc=0
+          if [ "$runner_rc" -eq 0 ]; then
+            python - <<'PY' || contract_rc=$?
+          import json
+          import os
+          from pathlib import Path
+
+          def pairs(values):
+              result = {}
+              for key, value in values:
+                  if key in result:
+                      raise SystemExit("DUPLICATE_RUNNER_OUTPUT_JSON_KEY")
+                  result[key] = value
+              return result
+
+          root = Path("live_out")
+          required = {
+              "checkpoint": root / "checkpoint.json",
+              "report": root / "report.json",
+              "quota": root / "quota-ledger.jsonl",
+              "raw": root / "raw-index.jsonl",
+          }
+          if any(not path.is_file() for path in required.values()):
+              raise SystemExit("SUCCESSFUL_RUNNER_MISSING_REQUIRED_OUTPUT")
+          checkpoint = json.loads(
+              required["checkpoint"].read_text(encoding="utf-8"),
+              object_pairs_hook=pairs,
+          )
+          report = json.loads(
+              required["report"].read_text(encoding="utf-8"),
+              object_pairs_hook=pairs,
+          )
+          expected_writer = (
+              "github-run:" + os.environ["GITHUB_RUN_ID"]
+              + ":attempt:" + os.environ["GITHUB_RUN_ATTEMPT"]
+          )
+          claim = checkpoint.get("execution_claim", {})
+          if (
+              checkpoint.get("state") != "COMPLETE"
+              or checkpoint.get("runtime_lock_id") != "PMO-FINANCE-PAGE100-20260829041623"
+              or checkpoint.get("pilot_run_id") != "FINANCE-PAGE100-PILOT-20260829041623"
+              or checkpoint.get("completed_dates") != [
+                  "20240102", "20240131", "20240329", "20240628", "20240808",
+                  "20240809", "20240812", "20240930", "20241231", "20250115",
+                  "20250331", "20250630", "20251231", "20260115", "20260331",
+                  "20260630", "20260814",
+              ]
+              or claim.get("writer_id") != expected_writer
+              or claim.get("object_key")
+                 != "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_writer_claims/quota_day_kst=2026-08-29/execution-claim.json"
+              or claim.get("server_side_encryption") != "AES256"
+              or claim.get("write_precondition") != "IF_NONE_MATCH_STAR"
+              or not claim.get("version_id")
+              or not claim.get("etag")
+          ):
+              raise SystemExit("SUCCESSFUL_RUNNER_CHECKPOINT_CONTRACT_MISMATCH")
+          result = report.get("result", {})
+          if (
+              report.get("runtime_lock_id") != checkpoint.get("runtime_lock_id")
+              or report.get("pilot_run_id") != checkpoint.get("pilot_run_id")
+              or result.get("checkpoint_state") != "COMPLETE"
+              or result.get("completed_date_count") != 17
+              or result.get("all_primary_dates_completed") is not True
+              or report.get("validation_claim") != "NONE"
+              or report.get("gate_effect") != "NONE"
+          ):
+              raise SystemExit("SUCCESSFUL_RUNNER_REPORT_CONTRACT_MISMATCH")
+          quota_baseline = Path(os.environ["FINANCE_BASELINE_QUOTA_PATH"]).read_bytes()
+          raw_baseline = Path(os.environ["FINANCE_BASELINE_RAW_INDEX_PATH"]).read_bytes()
+          if not required["quota"].read_bytes().startswith(quota_baseline):
+              raise SystemExit("SUCCESSOR_QUOTA_LEDGER_DID_NOT_PRESERVE_PREDECESSOR_PREFIX")
+          if not required["raw"].read_bytes().startswith(raw_baseline):
+              raise SystemExit("SUCCESSOR_RAW_INDEX_DID_NOT_PRESERVE_PREDECESSOR_PREFIX")
+          PY
+          fi
+
+          python - <<'PY'
+          import json
+          import os
+          import shutil
+          import urllib.parse
+          from pathlib import Path
+
+          root = Path("live_out")
+          secret = os.environ["DATA_GO_KR_FINANCE_STOCK_RIGHTS_SERVICE_KEY"].encode("utf-8")
+          variants = {
+              secret,
+              urllib.parse.quote(secret.decode("utf-8"), safe="").encode("utf-8"),
+              urllib.parse.quote_plus(secret.decode("utf-8"), safe="").encode("utf-8"),
+          }
+          leaked = False
+          if root.exists():
+              for path in root.rglob("*"):
+                  if path.is_file():
+                      data = path.read_bytes()
+                      if any(value and value in data for value in variants):
+                          leaked = True
+                          break
+          if leaked:
+              shutil.rmtree(root, ignore_errors=True)
+              root.mkdir(parents=True, exist_ok=True)
+              root.joinpath("exact-secret-scan.json").write_text(
+                  json.dumps({
+                      "artifact": "M3TOP3_FINANCE_CA_PAGE100_EXACT_SECRET_SCAN_v1.0",
+                      "state": "BLOCKED_OUTPUT_REMOVED",
+                      "matched_value_persisted": False,
+                  }, sort_keys=True, separators=(",", ":")) + "\n",
+                  encoding="utf-8",
+              )
+              raise SystemExit(86)
+          root.mkdir(parents=True, exist_ok=True)
+          root.joinpath("exact-secret-scan.json").write_text(
+              json.dumps({
+                  "artifact": "M3TOP3_FINANCE_CA_PAGE100_EXACT_SECRET_SCAN_v1.0",
+                  "state": "PASS",
+                  "matched_value_persisted": False,
+              }, sort_keys=True, separators=(",", ":")) + "\n",
+              encoding="utf-8",
+          )
+          PY
+          scan_rc=$?
+          set -e
+          if [ "$scan_rc" -ne 0 ]; then
+            exit "$scan_rc"
+          fi
+          if [ "$contract_rc" -ne 0 ]; then
+            exit "$contract_rc"
+          fi
+          exit "$runner_rc"
+
+      - name: Leak-scan and build sanitized evidence bundle
+        if: always()
+        id: sanitize
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          import re
+          import shutil
+          from pathlib import Path
+
+          source = Path("live_out")
+          target = Path("sanitized_out")
+          shutil.rmtree(target, ignore_errors=True)
+          target.mkdir(parents=True, exist_ok=True)
+          allowed = {
+              "preflight.json": "json",
+              "aws-precheck.json": "json",
+              "predecessor-readback.json": "json",
+              "aws-readonly-diagnostic.json": "json",
+              "github-readback.json": "json",
+              "checkpoint.json": "json",
+              "quota-ledger.jsonl": "jsonl",
+              "raw-index.jsonl": "jsonl",
+              "report.json": "json",
+              "exact-secret-scan.json": "json",
+          }
+          ignored_zero_byte_locks = {
+              ".checkpoint.json.lock",
+              ".quota-ledger.jsonl.lock",
+              ".raw-index.jsonl.lock",
+              ".report.json.lock",
+          }
+          byte_patterns = (
+              re.compile(br"serviceKey", re.IGNORECASE),
+              re.compile(br"(?:X-Amz-Credential|X-Amz-Signature|X-Amz-Security-Token)", re.IGNORECASE),
+              re.compile(br"Authorization\s*:", re.IGNORECASE),
+              re.compile(br"(?:AKIA|ASIA)[A-Z0-9]{16}"),
+              re.compile(br"https?://[^\s\"']*[?&](?:serviceKey|X-Amz-[A-Za-z]+)=", re.IGNORECASE),
+              re.compile(br"DATA_GO_KR_(?:FINANCE|KSD)", re.IGNORECASE),
+              re.compile(br"M3TOP3-KSD", re.IGNORECASE),
+          )
+          prohibited_key_fragments = (
+              "servicekey", "credential_value", "credential_hash", "credential_prefix",
+              "authenticated_url", "request_headers", "authorization_header",
+              "secret_value", "aws_access_key", "aws_secret", "aws_session_token",
+          )
+
+          def pairs(values):
+              result = {}
+              for key, value in values:
+                  if key in result:
+                      raise ValueError("DUPLICATE_JSON_KEY")
+                  result[key] = value
+              return result
+
+          def inspect(value):
+              if isinstance(value, dict):
+                  for key, child in value.items():
+                      if key in {"authenticated_url_persisted", "secret_persisted"}:
+                          if child is not False:
+                              raise ValueError("PERSISTENCE_NEGATIVE_EVIDENCE_MUST_BE_FALSE")
+                          continue
+                      folded = str(key).replace("_", "").lower()
+                      if any(fragment.replace("_", "") in folded for fragment in prohibited_key_fragments):
+                          raise ValueError("PROHIBITED_OUTPUT_FIELD")
+                      inspect(child)
+              elif isinstance(value, list):
+                  for child in value:
+                      inspect(child)
+              elif isinstance(value, str):
+                  if value == "KSD":
+                      raise ValueError("KSD_OUTPUT_VALUE_PROHIBITED")
+                  encoded = value.encode("utf-8")
+                  if any(pattern.search(encoded) for pattern in byte_patterns):
+                      raise ValueError("PROHIBITED_OUTPUT_VALUE")
+
+          state = "PASS"
+          copied = []
+          try:
+              if source.exists():
+                  ignored = [
+                      path for path in source.rglob("*")
+                      if path.is_file() and path.name in ignored_zero_byte_locks
+                  ]
+                  if any(path.stat().st_size != 0 for path in ignored):
+                      raise ValueError("NONEMPTY_LOCK_FILE")
+                  unexpected = [
+                      path for path in source.rglob("*")
+                      if path.is_file()
+                      and path.name not in allowed
+                      and path.name not in ignored_zero_byte_locks
+                  ]
+                  if unexpected:
+                      raise ValueError("UNEXPECTED_OUTPUT_FILE")
+                  for name, kind in allowed.items():
+                      path = source / name
+                      if not path.exists():
+                          continue
+                      data = path.read_bytes()
+                      if len(data) > 25_000_000:
+                          raise ValueError("OUTPUT_FILE_TOO_LARGE")
+                      if any(pattern.search(data) for pattern in byte_patterns):
+                          raise ValueError("PROHIBITED_OUTPUT_BYTES")
+                      rows = []
+                      if kind == "json":
+                          rows = [json.loads(data.decode("utf-8"), object_pairs_hook=pairs)]
+                      else:
+                          for line in data.decode("utf-8").splitlines():
+                              if line.strip():
+                                  rows.append(json.loads(line, object_pairs_hook=pairs))
+                      if name == "quota-ledger.jsonl":
+                          if any(row.get("provider") not in {"FINANCE", "KSD"} for row in rows):
+                              raise ValueError("UNKNOWN_QUOTA_PROVIDER")
+                          rows = [row for row in rows if row.get("provider") == "FINANCE"]
+                      for row in rows:
+                          inspect(row)
+                      rendered = "".join(
+                          json.dumps(row, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n"
+                          for row in rows
+                      )
+                      target.joinpath(name).write_text(rendered, encoding="utf-8")
+                      copied.append(name)
+          except Exception:
+              state = "BLOCKED_UNSAFE_OR_MALFORMED_OUTPUT_NOT_COPIED"
+              shutil.rmtree(target, ignore_errors=True)
+              target.mkdir(parents=True, exist_ok=True)
+              copied = []
+
+          receipt = {
+              "artifact": "M3TOP3_FINANCE_CA_PAGE100_SANITIZED_BUNDLE_RECEIPT_v1.0",
+              "state": state,
+              "copied_files": sorted(copied),
+              "raw_entities_in_actions_artifact": 0,
+              "secret_values_persisted": False,
+              "authenticated_urls_persisted": False,
+              "ksd_material_present": False,
+          }
+          target.joinpath("sanitization-receipt.json").write_text(
+              json.dumps(receipt, sort_keys=True, separators=(",", ":")) + "\n",
+              encoding="utf-8",
+          )
+          if state != "PASS":
+              raise SystemExit(87)
+          PY
+
+      - name: Upload sanitized pilot evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: m3top3-finance-page100-bounded-pilot-${{ github.run_id }}-${{ github.run_attempt }}
+          path: sanitized_out/
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 6
+          overwrite: false
+          include-hidden-files: false
