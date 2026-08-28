@@ -1,10 +1,10 @@
 {
   "artifact": "M3TOP3_PUBLIC_DATA_API_AWS_OIDC_CONTRACT_v1.0",
   "issued_at_kst": "2026-08-28T10:08:28+09:00",
-  "state": "GIT_SIDE_PREPARED_OWNER_GITHUB_ENVIRONMENT_CAPABILITY_AND_AWS_BINDING_REQUIRED",
+  "state": "FIRST_ENTITY_MANUAL_CUSTODY_COMPLETE_OIDC_NOT_REQUIRED_FUTURE_AUTOMATED_CUSTODY_UNCONFIGURED",
   "provider": "AWS_IAM_OIDC",
   "aws_region": "ap-northeast-2",
-  "aws_account_id": "NOT_ASSUMED_NOT_STORED",
+  "aws_account_id": "956315449338",
   "bucket": "semi-data-plane-aofspds-20260815",
   "github_repository": "AofSpds/asset-agent-asa",
   "github_branch": "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828",
@@ -72,14 +72,35 @@
       "AWS_OIDC_ROLE_SECOND",
       "ENVIRONMENT_ROLE_ARN_VARIABLE_THIRD",
       "PMO_PUSH_LATCH_LAST"
-    ]
+    ],
+    "state": "NOT_EXECUTED_SUPERSEDED_BY_COMPLETED_MANUAL_CLOUDSHELL_CUSTODY",
+    "activation_authorized": false,
+    "do_not_trigger": true,
+    "oidc_required_for_first_entity": false,
+    "manual_custody_receipt": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_S3_MANUAL_CUSTODY_RECEIPT_v1.0.json",
+    "remote_sha256_verified": true
   },
-  "last_currentized_at_kst": "2026-08-28T10:27:00+09:00",
+  "last_currentized_at_kst": "2026-08-28T14:53:40+09:00",
   "repository_visibility": "PRIVATE",
   "private_repository_environment_gate": {
     "preferred": "REQUIRED_REVIEWER_AofSpds",
     "plan_caveat": "PRIVATE_REQUIRED_REVIEWERS_MAY_REQUIRE_GITHUB_ENTERPRISE",
     "fallback": "ONLY_IF_OWNER_VERIFIES_NO_OTHER_WRITE_OR_ADMIN_PRINCIPAL_OR_INSTALLED_APP",
     "otherwise": "MANUAL_AWS_CLOUDSHELL_CUSTODY_ONLY"
-  }
+  },
+  "aws_account_id_evidence": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_S3_MANUAL_CUSTODY_RECEIPT_v1.0.json",
+  "future_automated_custody": {
+    "state": "UNCONFIGURED_NOT_PROVEN",
+    "oidc_role_binding": "NOT_PROVEN",
+    "github_environment_role_arn_binding": "NOT_PROVEN",
+    "workflow_execution_authorized": false,
+    "configuration_required_before_any_future_automated_write": true,
+    "owner_action_required_now": false
+  },
+  "production_authorized": false,
+  "bulk_acquisition_authorized": false,
+  "validation_claim": "NONE",
+  "gate_effect": "NONE",
+  "currentization_provider_api_network_attempts": 0,
+  "owner_action_required": false
 }
