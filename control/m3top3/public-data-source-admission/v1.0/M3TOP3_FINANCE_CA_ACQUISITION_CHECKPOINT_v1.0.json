@@ -71,6 +71,13 @@
     "raw_index_uri": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_control/runtime_lock_id=PMO-API-SRC-ADMIT-20260828192737/pilot_run_id=FINANCE-LIVE-PILOT-20260828192737/raw-index.jsonl",
     "report_uri": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_control/runtime_lock_id=PMO-API-SRC-ADMIT-20260828192737/pilot_run_id=FINANCE-LIVE-PILOT-20260828192737/report.json",
     "execution_claim_uri": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_control/runtime_lock_id=PMO-API-SRC-ADMIT-20260828192737/pilot_run_id=FINANCE-LIVE-PILOT-20260828192737/execution-claim.json",
+    "control_object_materialization": {
+      "checkpoint.json": "DURABLE_CAS_REQUIRED",
+      "execution-claim.json": "DURABLE_EXCLUSIVE_CREATE_AND_READBACK_REQUIRED",
+      "quota-ledger.jsonl": "RESERVED_NOT_MATERIALIZED_CANONICAL_ATTEMPTS_IN_CHECKPOINT_POSTRUN_REPO_CAS",
+      "raw-index.jsonl": "RESERVED_NOT_MATERIALIZED_CANONICAL_RAW_INDEX_IN_CHECKPOINT_POSTRUN_REPO_CAS",
+      "report.json": "RESERVED_NOT_MATERIALIZED_DERIVED_POSTRUN_AND_REPO_CAS"
+    },
     "create_precondition": "If-None-Match:*",
     "update_precondition": "If-Match:PRIOR_ETAG",
     "version_id_readback_required": true,
