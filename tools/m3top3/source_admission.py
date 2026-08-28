@@ -216,6 +216,58 @@ def classify_provider(provider: str, parsed: Any) -> dict[str, Any]:
     return {"provider": provider, "state": state, "result_code": code, "message": message, "total_count": total, "items": items}
 
 
+def validate_pagination_snapshot(pages: list[Mapping[str, Any]]) -> dict[str, Any]:
+    """Validate one complete, immutable pagination snapshot without network I/O."""
+    if not pages:
+        raise SourceProtocolError("pagination snapshot has no pages")
+    first_total = pages[0].get("total_count")
+    first_size = pages[0].get("page_size")
+    if not isinstance(first_total, int) or first_total < 0:
+        raise SourceProtocolError("invalid pagination totalCount")
+    if not isinstance(first_size, int) or first_size <= 0:
+        raise SourceProtocolError("invalid pagination page size")
+    seen_pages: set[bytes] = set()
+    item_count = 0
+    for ordinal, page in enumerate(pages, start=1):
+        if page.get("page_no") != ordinal:
+            raise SourceProtocolError("pagination echoed page number mismatch")
+        if page.get("total_count") != first_total or page.get("page_size") != first_size:
+            raise SourceProtocolError("pagination snapshot shifted")
+        items = page.get("items")
+        if not isinstance(items, list):
+            raise SourceProtocolError("invalid pagination items")
+        fingerprint = canonical_json_bytes(items)
+        if items and fingerprint in seen_pages:
+            raise SourceProtocolError("repeated whole page")
+        seen_pages.add(fingerprint)
+        item_count += len(items)
+        if not items and item_count < first_total:
+            raise SourceProtocolError("empty intermediate page")
+        if len(items) > first_size:
+            raise SourceProtocolError("returned page exceeds page size")
+    if item_count != first_total:
+        raise SourceProtocolError("pagination item count does not equal totalCount")
+    identity = hashlib.sha256(canonical_json_bytes({
+        "page_no": 1,
+        "page_size": first_size,
+        "total_count": first_total,
+        "items": pages[0].get("items"),
+    })).hexdigest()
+    return {"state": "DATE_COMPLETE", "page_count": len(pages), "item_count": item_count, "page_1_identity": identity}
+
+
+def assert_resume_page_1(snapshot: Mapping[str, Any], page_1: Mapping[str, Any]) -> None:
+    """Fail closed when resumed page 1 no longer matches the frozen snapshot."""
+    current = hashlib.sha256(canonical_json_bytes({
+        "page_no": page_1.get("page_no"),
+        "page_size": page_1.get("page_size"),
+        "total_count": page_1.get("total_count"),
+        "items": page_1.get("items"),
+    })).hexdigest()
+    if current != snapshot.get("page_1_identity"):
+        raise SourceProtocolError("resume page 1 identity or total shifted")
+
+
 @dataclass(frozen=True)
 class QuotaReservation:
     provider: str
