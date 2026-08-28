@@ -810,35 +810,7 @@ jobs:
               suffix = stderr.split(marker, 1)[1]
               return suffix.split(")", 1)[0] if ")" in suffix else "UNCLASSIFIED_AWS_CLI_ERROR"
 
-          versioned_probe = probe_known_head(known_version)
-          if versioned_probe.returncode != 0:
-              latest_probe = probe_known_head()
-              versioned_error_code = aws_error_code(versioned_probe.stderr)
-              latest_error_code = (
-                  "PASS"
-                  if latest_probe.returncode == 0
-                  else aws_error_code(latest_probe.stderr)
-              )
-              diagnostic = {
-                  "artifact": "M3TOP3_FINANCE_CA_AWS_READONLY_DIAGNOSTIC_v1.0",
-                  "state": "BLOCKED_KNOWN_VERSION_READBACK",
-                  "mode": os.environ["PILOT_MODE"],
-                  "operation": "S3_HEAD_OBJECT",
-                  "versioned_head_error_code": versioned_error_code,
-                  "versioned_head_return_code": versioned_probe.returncode,
-                  "latest_head_state": (
-                      "PASS" if latest_probe.returncode == 0 else "BLOCKED"
-                  ),
-                  "latest_head_error_code": latest_error_code,
-                  "latest_head_return_code": latest_probe.returncode,
-                  "provider_api_network_attempts": 0,
-                  "quota_reservations": 0,
-                  "remote_s3_writes": 0,
-                  "secret_persisted": False,
-                  "authenticated_url_persisted": False,
-                  "validation_claim": "NONE",
-                  "gate_effect": "NONE",
-              }
+          def persist_readonly_diagnostic(diagnostic):
               Path("live_out").mkdir(parents=True, exist_ok=True)
               Path("live_out/aws-readonly-diagnostic.json").write_text(
                   json.dumps(diagnostic, sort_keys=True, separators=(",", ":")) + "\n",
@@ -848,13 +820,80 @@ jobs:
                   "AWS_READONLY_DIAGNOSTIC:"
                   + json.dumps(diagnostic, sort_keys=True, separators=(",", ":"))
               )
-              raise SystemExit(
-                  "AWS_KNOWN_FINANCE_OBJECT_VERSION_HEAD_FAILED:"
-                  + versioned_error_code
-                  + ":LATEST_HEAD:"
-                  + latest_error_code
+
+          versioned_probe = probe_known_head(known_version)
+          known_version_binding = "FROZEN_VERSION_EXACT_READBACK"
+          frozen_versioned_head_result = "PASS"
+          if versioned_probe.returncode != 0:
+              versioned_error_code = aws_error_code(versioned_probe.stderr)
+              latest_probe = probe_known_head()
+              diagnostic = {
+                  "artifact": "M3TOP3_FINANCE_CA_AWS_READONLY_DIAGNOSTIC_v1.0",
+                  "mode": os.environ["PILOT_MODE"],
+                  "operation": "S3_HEAD_OBJECT",
+                  "frozen_versioned_head_state": "BLOCKED",
+                  "frozen_versioned_head_error_code": versioned_error_code,
+                  "frozen_versioned_head_return_code": versioned_probe.returncode,
+                  "latest_head_state": (
+                      "PASS" if latest_probe.returncode == 0 else "BLOCKED"
+                  ),
+                  "latest_head_error_code": (
+                      "PASS"
+                      if latest_probe.returncode == 0
+                      else aws_error_code(latest_probe.stderr)
+                  ),
+                  "latest_head_return_code": latest_probe.returncode,
+                  "provider_api_network_attempts": 0,
+                  "quota_reservations": 0,
+                  "remote_s3_writes": 0,
+                  "secret_persisted": False,
+                  "authenticated_url_persisted": False,
+                  "validation_claim": "NONE",
+                  "gate_effect": "NONE",
+              }
+              if latest_probe.returncode != 0:
+                  diagnostic["state"] = "BLOCKED_LATEST_HEAD_AFTER_FROZEN_VERSION_FAILURE"
+                  persist_readonly_diagnostic(diagnostic)
+                  raise SystemExit(
+                      "AWS_LATEST_FINANCE_OBJECT_HEAD_FAILED:"
+                      + diagnostic["latest_head_error_code"]
+                  )
+              latest = json.loads(latest_probe.stdout)
+              current_version = str(latest.get("VersionId") or "")
+              diagnostic["latest_version_id"] = current_version
+              diagnostic["latest_content_length"] = latest.get("ContentLength")
+              diagnostic["latest_server_side_encryption"] = latest.get("ServerSideEncryption")
+              if not current_version:
+                  diagnostic["state"] = "BLOCKED_LATEST_VERSION_ID_MISSING"
+                  persist_readonly_diagnostic(diagnostic)
+                  raise SystemExit("AWS_LATEST_FINANCE_OBJECT_VERSION_ID_MISSING")
+              current_version_probe = probe_known_head(current_version)
+              diagnostic["current_versioned_head_state"] = (
+                  "PASS" if current_version_probe.returncode == 0 else "BLOCKED"
               )
-          known = json.loads(versioned_probe.stdout)
+              diagnostic["current_versioned_head_error_code"] = (
+                  "PASS"
+                  if current_version_probe.returncode == 0
+                  else aws_error_code(current_version_probe.stderr)
+              )
+              diagnostic["current_versioned_head_return_code"] = current_version_probe.returncode
+              if current_version_probe.returncode != 0:
+                  diagnostic["state"] = "BLOCKED_CURRENT_VERSION_EXACT_READBACK"
+                  persist_readonly_diagnostic(diagnostic)
+                  raise SystemExit(
+                      "AWS_CURRENT_FINANCE_OBJECT_VERSION_HEAD_FAILED:"
+                      + diagnostic["current_versioned_head_error_code"]
+                  )
+              known = json.loads(current_version_probe.stdout)
+              known_version = current_version
+              known_version_binding = "CURRENT_LATEST_VERSION_EXACT_READBACK_AFTER_FROZEN_VERSION_403"
+              frozen_versioned_head_result = versioned_error_code
+              diagnostic["state"] = "PASS_CURRENT_VERSION_EXACT_READBACK"
+              diagnostic["current_version_content_length"] = known.get("ContentLength")
+              diagnostic["current_version_server_side_encryption"] = known.get("ServerSideEncryption")
+              persist_readonly_diagnostic(diagnostic)
+          else:
+              known = json.loads(versioned_probe.stdout)
           if known.get("ContentLength") != 143 or known.get("VersionId") != known_version:
               raise SystemExit("AWS_KNOWN_FINANCE_OBJECT_READBACK_MISMATCH")
           if known.get("ServerSideEncryption") != "AES256":
@@ -873,6 +912,9 @@ jobs:
               "exact_source_prefix": exact_prefix,
               "control_prefix": control_prefix,
               "known_finance_object_version_readback": "PASS",
+              "known_finance_object_version_id": known_version,
+              "known_version_binding": known_version_binding,
+              "frozen_versioned_head_result": frozen_versioned_head_result,
               "provider_api_network_attempts": 0,
           }
           Path("live_out").mkdir(parents=True, exist_ok=True)
