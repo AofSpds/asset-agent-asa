@@ -1,6 +1,7 @@
 {
   "artifact": "M3TOP3_PUBLIC_DATA_API_S3_MANUAL_CUSTODY_RECEIPT_v1.0",
   "recorded_at_kst": "2026-08-28T11:32:09+09:00",
+  "last_updated_at_kst": "2026-08-28T11:48:01+09:00",
   "persona": "AAA-PMO-ORCHESTRATOR",
   "runtime_lock_id": "PMO-API-SRC-ADMIT-20260828055620",
   "state": "PASS",
@@ -34,13 +35,21 @@
     "entity_sha256": "5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05",
     "remote_readback_bytes": 143,
     "remote_readback_sha256": "5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05",
-    "metadata_readback": "PASS"
+    "metadata_readback": "PASS",
+    "post_cleanup_head_state": "PRESENT",
+    "post_cleanup_content_length": 143,
+    "post_cleanup_server_side_encryption": "AES256",
+    "post_cleanup_metadata_readback": "PASS"
   },
   "noncanonical_object": {
     "locator": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/getRighExerReasSche_V2/basDt=20240810/sha256=5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05/response.entity",
     "canonical_data_plane": false,
-    "disposition": "PRESERVE_PENDING_EXPLICIT_OWNER_DELETE_APPROVAL",
-    "bytes_and_sha256_verified": true
+    "owner_delete_approval": "GRANTED",
+    "disposition": "DELETE_MARKER_CREATED_POST_DELETE_HEAD_404",
+    "delete_marker_created": true,
+    "post_delete_head_state": "404_NOT_FOUND",
+    "bytes_and_sha256_verified_before_cleanup": true,
+    "recoverability": "VERSIONED_SOURCE_VERSION_RETAINED_BEHIND_DELETE_MARKER"
   },
   "security": {
     "long_lived_aws_access_keys_created": false,
@@ -50,7 +59,8 @@
   },
   "counters": {
     "canonical_raw_entities_delta": 1,
-    "stable_object_locators_delta": 1
+    "stable_object_locators_delta": 1,
+    "noncanonical_current_objects_delta": 0
   },
   "gate_effect": "NONE",
   "validation_claim": "NONE"
