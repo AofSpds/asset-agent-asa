@@ -987,7 +987,20 @@ class FinanceLivePilotTests(unittest.TestCase):
 
         authority_doc = json.loads(authority_source.read_text())
         current = authority_doc["current_runtime_authority"]
-        current["provider_api_network_calls_entry_gate"] = "OPEN"
+        current.update(
+            {
+                "state": "ACTIVE_FINANCE_ONLY_LIVE_PILOT",
+                "provider_api_network_calls_entry_gate": "OPEN",
+                "provider_api_network_calls_authorized": True,
+                "provider_api_network_calls_permitted_now": True,
+                "provider_api_network_attempt_budget": live.MAX_NETWORK_ATTEMPTS_TOTAL,
+                "quota_reservation_authorized": True,
+                "provider_workflow_dispatch_authorized": True,
+                "live_multi_page_provider_run_authorized": True,
+                "remote_raw_custody_write_authorized": True,
+                "remote_raw_custody_writes_permitted_now": True,
+            }
+        )
         live_authority = authority_doc["finance_live_pilot_authority"]
         live_authority["authority_state"] = "GRANTED_ENTRY_GATE_OPEN"
         live_authority["live_entry_gate"]["state"] = "OPEN"
