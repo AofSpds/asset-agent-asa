@@ -15,6 +15,8 @@
   "activation_commit_message": null,
   "blocked_at_kst": "2026-08-28T20:45:47+09:00",
   "blocker": "AWS_OIDC_CUSTOM_SUBJECT_TRUST_BINDING_MISMATCH",
+  "blocker_cause_claim_ceiling": "GITHUB_OIDC_SUBJECT_CONTRACT_DRIFT_CONFIRMED_AWS_TRUST_OR_OIDC_PROVIDER_ALIGNMENT_NOT_PROVEN",
+  "runtime_disposition": "TERMINATED_NO_ACTIVE_WORK_EXTERNAL_TRUST_ONLY_REMEDIATION_REQUIRED",
   "precheck_evidence": {
     "run_ids": [
       33167156189,
@@ -50,11 +52,11 @@
   "authority_bindings": {
     "bindings_finalized": true,
     "authority_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_SOURCE_ADMISSION_CONTRACT_v1.0.json",
-    "authority_sha256": "0bbc813e2823a4e196fc00b82503d3e62a8ed4bc58e54fd3eacf37678c0e8dd7",
+    "authority_sha256": "f4b0f8878edb69d16430630a6cdce80f5d91c6cc79d21bdabbc85f411342c62d",
     "plan_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_SOURCE_ADMISSION_PLAN_v1.0.json",
-    "plan_sha256": "84c7f6367b2a26d6a24e0e9b44ba208a68144e92c35941adbc38ead49e9411b1",
+    "plan_sha256": "f5af18bc6fc2082fa9d94a44c94d86b3ade6b09c9caf6bb5944581570e6073b4",
     "checkpoint_seed_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_ACQUISITION_CHECKPOINT_v1.0.json",
-    "checkpoint_seed_sha256": "0ecb71263184dae6f7d04d4cb250b4cdd1e6e39e57a75af8521350d16eec585f",
+    "checkpoint_seed_sha256": "f85f781c7e3a8a1be1a43a1df515c3c74d1011fc68a2d34ba0e60d2afbcd7141",
     "baseline_quota_ledger_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_QUOTA_LEDGER_v1.0.jsonl",
     "baseline_quota_ledger_sha256": "aa1d73613a3ba737837b368ad0b15f0504f0bf35d56f5a81558093b4cc03f607",
     "baseline_raw_index_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_RAW_CUSTODY_INDEX_v1.0.jsonl",
@@ -69,15 +71,15 @@
   "execution_material": {
     "runtime_lock_id": "PMO-API-SRC-ADMIT-20260828192737",
     "pilot_run_id": "FINANCE-LIVE-PILOT-20260828192737",
-    "authority_sha256": "0bbc813e2823a4e196fc00b82503d3e62a8ed4bc58e54fd3eacf37678c0e8dd7",
-    "plan_sha256": "84c7f6367b2a26d6a24e0e9b44ba208a68144e92c35941adbc38ead49e9411b1",
+    "authority_sha256": "f4b0f8878edb69d16430630a6cdce80f5d91c6cc79d21bdabbc85f411342c62d",
+    "plan_sha256": "f5af18bc6fc2082fa9d94a44c94d86b3ade6b09c9caf6bb5944581570e6073b4",
     "runner_sha256": "1912d1a92bcb8f36a45beb72ff324f418233df6ced1dddb254abe3276af93a4c",
     "source_admission_sha256": "574b2f45474b39fd0cf64f28a946bd115ddb3b782595c3ddd78d15c801d111dd",
-    "checkpoint_template_sha256": "0ecb71263184dae6f7d04d4cb250b4cdd1e6e39e57a75af8521350d16eec585f",
+    "checkpoint_template_sha256": "f85f781c7e3a8a1be1a43a1df515c3c74d1011fc68a2d34ba0e60d2afbcd7141",
     "owner_cap_spec_sha256": "7b65152d8df10a6497d1656dbc5cc6d4bd253740f53a29480bb8d877b81b9f05",
     "execution_token_sha256": "9cda8bb429b3558e81e1ffcc4a232c78976c521186f13fbad5462c0312281f37"
   },
-  "execution_material_sha256": "026b6b3c72af010498f9176b2131258bf8d34d3a3dbdb1509b613601b117191a",
+  "execution_material_sha256": "476e59e9f8993eb9e713d9be9f0d34a3f0085e3c7972f4edb184d30fdbab08c1",
   "finance_spec": {
     "source_id": "M3TOP3-FINANCE-STOCK-RIGHTS-v1",
     "operation": "getRighExerReasSche_V2",
@@ -128,14 +130,14 @@
     "report_uri": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_control/runtime_lock_id=PMO-API-SRC-ADMIT-20260828192737/pilot_run_id=FINANCE-LIVE-PILOT-20260828192737/report.json",
     "execution_claim_uri": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_control/runtime_lock_id=PMO-API-SRC-ADMIT-20260828192737/pilot_run_id=FINANCE-LIVE-PILOT-20260828192737/execution-claim.json",
     "materialization_state": {
-      "checkpoint_uri": "DURABLE_CAS_MATERIALIZED_BY_RUNNER",
-      "execution_claim_uri": "CONDITIONAL_CREATE_MATERIALIZED_BY_RUNNER",
-      "quota_ledger_uri": "RESERVED_NOT_MATERIALIZED",
-      "raw_index_uri": "RESERVED_NOT_MATERIALIZED",
-      "report_uri": "RESERVED_NOT_MATERIALIZED"
+      "checkpoint_uri": "NOT_CREATED_PRECHECK_BLOCKED",
+      "execution_claim_uri": "NOT_CREATED_PRECHECK_BLOCKED",
+      "quota_ledger_uri": "NOT_CREATED_PRECHECK_BLOCKED",
+      "raw_index_uri": "NOT_CREATED_PRECHECK_BLOCKED",
+      "report_uri": "NOT_CREATED_PRECHECK_BLOCKED"
     },
-    "canonical_live_attempt_and_raw_telemetry": "DURABLE_CHECKPOINT_INTERNAL",
-    "post_run_sanitized_control_currentization": "REPOSITORY_CAS_AFTER_ARTIFACT_READBACK",
+    "canonical_live_attempt_and_raw_telemetry": "NOT_CREATED_PILOT_NOT_EXECUTED",
+    "post_run_sanitized_control_currentization": "NOT_APPLICABLE_PRECHECK_BLOCKED",
     "checkpoint_cas": {
       "create_precondition": "If-None-Match:*",
       "update_precondition": "If-Match:PRIOR_ETAG",
