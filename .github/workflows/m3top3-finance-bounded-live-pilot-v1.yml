@@ -503,11 +503,15 @@ jobs:
           parsed = urllib.parse.urlsplit(request_url)
           if (
               parsed.scheme != "https"
-              or parsed.hostname != "vstoken.actions.githubusercontent.com"
-              or not request_token
-              or any(ch.isspace() for ch in request_token)
+              or not parsed.hostname
+              or not parsed.hostname.endswith(".actions.githubusercontent.com")
+              or parsed.username is not None
+              or parsed.password is not None
+              or parsed.port is not None
           ):
-              raise SystemExit("OIDC_REQUEST_CONTEXT_INVALID")
+              raise SystemExit("OIDC_REQUEST_URL_CONTEXT_INVALID")
+          if not request_token or any(ch.isspace() for ch in request_token):
+              raise SystemExit("OIDC_REQUEST_TOKEN_CONTEXT_INVALID")
           query = urllib.parse.parse_qsl(parsed.query, keep_blank_values=True)
           query = [(key, value) for key, value in query if key != "audience"]
           query.append(("audience", "sts.amazonaws.com"))
