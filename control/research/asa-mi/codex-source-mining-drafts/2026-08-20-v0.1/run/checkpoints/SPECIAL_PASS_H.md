@@ -1,0 +1,14 @@
+# Specialized Pass H — FAILURE_MODES_AND_RISKS
+
+```text
+PASS_ID = SPECIAL_PASS_H
+PASS_STATE = COMPLETE
+CORPUS_FILES_CONSIDERED = 18
+OBJECTS_AUDITED = 44
+NEW_OBJECT_COUNT = 8
+NEW_OBJECT_IDS = CX-INF-0016, CX-INF-0017, CX-INF-0018, CX-INF-0019, CX-INF-0020, CX-INF-0021, CX-INF-0022, CX-INF-0023
+NEW_RELATION_CANDIDATE_COUNT = 0
+KNOWN_AMBIGUITIES = OWNER_TAGGING_PENDING
+```
+
+This pass reviewed the full corpus through the named specialist lens. Existing objects were not duplicated merely to inflate counts.
