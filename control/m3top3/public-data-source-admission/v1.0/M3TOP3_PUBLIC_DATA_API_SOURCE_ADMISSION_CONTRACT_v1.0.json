@@ -18,7 +18,7 @@
     "activated_at_kst": "2026-08-28T19:27:37+09:00"
   },
   "current_runtime_authority": {
-    "state": "ACTIVE_PRECHECK_PASS_PREPARING_CURRENT_KST_BOUNDED_LIVE_ROLLOVER",
+    "state": "ACTIVE_LIVE_ARMED_CURRENT_KST_BOUNDED_PILOT",
     "authorized_scope": [
       "FINANCE_ONLY_LIVE_ADAPTER_AND_WORKFLOW_PREPARATION",
       "FINANCE_ONLY_BOUNDED_LIVE_PILOT_AFTER_ENTRY_GATE",
@@ -28,7 +28,7 @@
     "repository_control_plane_writes_authorized": true,
     "offline_fixture_and_static_checks_authorized": true,
     "provider_api_network_calls_authorized": true,
-    "provider_api_network_calls_entry_gate": "CLOSED_PENDING_CURRENT_KST_QUOTA_DAY_AND_LIVE_HASH_BINDINGS",
+    "provider_api_network_calls_entry_gate": "OPEN",
     "provider_api_network_attempt_budget": 200,
     "quota_reservation_authorized": true,
     "provider_workflow_dispatch_authorized": true,
@@ -51,8 +51,8 @@
     "validation_claim": "NONE",
     "validation_closure": "NONE",
     "gate_effect": "NONE",
-    "provider_api_network_calls_permitted_now": false,
-    "remote_raw_custody_writes_permitted_now": false
+    "provider_api_network_calls_permitted_now": true,
+    "remote_raw_custody_writes_permitted_now": true
   },
   "authority": {
     "scope": "PUBLIC_DATA_API_SOURCE_ADMISSION_AND_BOUNDED_RAW_CUSTODY_MATERIALIZATION",
@@ -671,9 +671,9 @@
     "ACTIVE_MANIFEST",
     "PRODUCTION_PROVIDER"
   ],
-  "last_currentized_at_kst": "2026-08-29T02:17:49+09:00",
+  "last_currentized_at_kst": "2026-08-29T02:27:21+09:00",
   "successor_currentization": {
-    "state": "READ_ONLY_PRECHECK_PASS_CURRENT_KST_LIVE_ROLLOVER_IN_PROGRESS",
+    "state": "LIVE_AUTHORITY_OPEN_CURRENT_KST_BINDING_CURRENTIZATION_IN_PROGRESS",
     "source_registry_commit": "0868e7734d11d71205627ad3bfe1b683494d3e0c",
     "source_registry_blob": "e3f6c8e3b35365fce5a352b3aea3f69a579f91d0",
     "aws_oidc_contract_commit": "ea7848d425bcc4a274158e372cdfa336cee094d4",
@@ -691,7 +691,12 @@
     "diagnostic_workflow_commit": "5eff05c3cdd1a7e9c24d05ede1a2026fe432fd4f",
     "diagnostic_workflow_sha256": "8ec23e55e3775b9eff77f5a272c9bc7b562f6a7ef9a3053124df60f384062d1b",
     "successful_precheck_run_id": 33193940219,
-    "successful_precheck_artifact_id": 9694932515
+    "successful_precheck_artifact_id": 9694932515,
+    "live_quota_day_kst": "2026-08-29",
+    "governed_baseline_quota_day_kst": "2026-08-28",
+    "governed_baseline_finance_last_ordinal": 5,
+    "governed_baseline_ksd_last_ordinal": 2,
+    "live_finance_quota_ordinal_base": 0
   },
   "offline_finance_pilot_readiness": {
     "state": "FOCUSED_SYNTHETIC_FIXTURE_PASS_LIVE_PILOT_NOT_RUN",
@@ -724,7 +729,7 @@
   },
   "finance_live_pilot_authority": {
     "owner_decision": "APPROVE",
-    "authority_state": "GRANTED_ENTRY_GATE_CLOSED_PRECHECK_PASS_LIVE_ROLLOVER_PENDING",
+    "authority_state": "GRANTED_ENTRY_GATE_OPEN",
     "pilot_run_id": "FINANCE-LIVE-PILOT-20260828192737",
     "owner_cap_spec_sha256": "7b65152d8df10a6497d1656dbc5cc6d4bd253740f53a29480bb8d877b81b9f05",
     "execution_token_sha256": "9cda8bb429b3558e81e1ffcc4a232c78976c521186f13fbad5462c0312281f37",
@@ -775,7 +780,7 @@
       "next_finance_ordinal": 6
     },
     "live_entry_gate": {
-      "state": "CLOSED_PRECHECK_PASS_CURRENT_KST_LIVE_ROLLOVER_PENDING",
+      "state": "OPEN",
       "required_before_open": [
         "FINANCE_ONLY_LIVE_ADAPTER_FOCUSED_TEST_PASS",
         "DURABLE_WRITE_AHEAD_QUOTA_ACCOUNTING",
@@ -785,7 +790,9 @@
         "NO_COMPETING_WRITER_READBACK",
         "EXACT_BRANCH_HEAD_CAS_READBACK"
       ],
-      "additional_owner_approval_required_after_prerequisites": false
+      "additional_owner_approval_required_after_prerequisites": false,
+      "opened_at_kst": "2026-08-29T02:27:21+09:00",
+      "prerequisite_disposition": "SATISFIED_BY_FOCUSED_ROLLOVER_BINDINGS_AND_SUCCESSFUL_READ_ONLY_PRECHECK"
     },
     "ksd_disposition": "KEEP_CURRENT_UNKNOWN_NOT_PROVEN_CLAIM_CEILING_NO_SEARCH_OR_API_EXPANSION",
     "ksd_blocker_waived": false,
@@ -797,7 +804,16 @@
     "automatic_promotion_authorized": false,
     "validation_claim": "NONE",
     "validation_closure": "NONE",
-    "gate_effect": "NONE"
+    "gate_effect": "NONE",
+    "current_pilot_quota_day": {
+      "quota_day_kst": "2026-08-29",
+      "prior_finance_attempts": 0,
+      "finance_ordinal_base": 0,
+      "next_finance_ordinal": 1,
+      "max_network_attempts_total": 200,
+      "historical_baseline_rows_preserved": 7,
+      "historical_baseline_excluded_from_current_day_counters": true
+    }
   },
   "s2_freeze_state": {
     "state": "PARTIAL_CLAIM_CEILING_FROZEN",
@@ -869,7 +885,7 @@
     ],
     "github_observed_subject": "repo:AofSpds@87963280/asset-agent-asa@1334403184:environment:m3top3-source-admission",
     "repository_contract_subject_at_failure": "repo:AofSpds/asset-agent-asa:environment:m3top3-source-admission",
-    "aws_live_role_trust_readback": "OWNER_ATTESTED_PENDING_GITHUB_OIDC_READ_ONLY_PRECHECK",
+    "aws_live_role_trust_readback": "PASS_GITHUB_OIDC_READ_ONLY_PRECHECK",
     "aws_sts_session_established": true,
     "provider_api_network_attempts": 0,
     "quota_reservations": 0,
@@ -878,7 +894,7 @@
     "canonical_raw_entities_added": 0,
     "secret_persisted": false,
     "authenticated_url_persisted": false,
-    "next_action": "CURRENT_KST_QUOTA_DAY_AND_LIVE_CONTROL_BINDING_REISSUE_THEN_SEPARATE_LIVE_LATCH_ACT",
+    "next_action": "FINALIZE_LIVE_RUNNER_WORKFLOW_PLAN_CHECKPOINT_AND_LATCH_BINDINGS_THEN_SEPARATE_LIVE_ACT",
     "live_rearm_before_precheck_pass": "PROHIBITED",
     "owner_attestation_issue_comment_id": 5455199293,
     "github_oidc_claims": "PASS",
@@ -892,7 +908,7 @@
     "successful_artifact_id": 9694932515,
     "successful_artifact_sha256": "1b67ab0a810ce85058d5b4bc622051e39fb93631330265f862fa403422e0a604",
     "known_finance_object_version_id": "EY9BXLRgeqXAYda6YSlWIB3cUhTIZbfd",
-    "live_rearm_before_current_kst_reissue": "PROHIBITED"
+    "live_rearm_before_current_kst_reissue": "ROLLOVER_IN_PROGRESS_NOT_YET_ARMED"
   },
   "owner_action_required": false,
   "external_operational_action_required": false,
@@ -1063,5 +1079,25 @@
     "provider_api_network_calls_permitted_now": false,
     "remote_raw_custody_writes_permitted_now": false,
     "terminated_at_kst": "2026-08-29T02:11:23+09:00"
+  },
+  "generation_3_finance_live_rollover": {
+    "state": "AUTHORITY_OPEN_BINDINGS_CURRENTIZATION_IN_PROGRESS",
+    "issued_at_kst": "2026-08-29T02:27:21+09:00",
+    "live_quota_day_kst": "2026-08-29",
+    "governed_baseline_quota_day_kst": "2026-08-28",
+    "governed_baseline_quota_ledger_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_QUOTA_LEDGER_v1.0.jsonl",
+    "governed_baseline_quota_ledger_sha256": "aa1d73613a3ba737837b368ad0b15f0504f0bf35d56f5a81558093b4cc03f607",
+    "governed_baseline_rows": 7,
+    "governed_baseline_finance_last_ordinal": 5,
+    "governed_baseline_ksd_last_ordinal": 2,
+    "live_finance_quota_ordinal_base": 0,
+    "first_live_finance_quota_ordinal": 1,
+    "baseline_bytes_modified": false,
+    "semantic_change": false,
+    "provider_api_network_attempts": 0,
+    "quota_reservations": 0,
+    "remote_s3_writes": 0,
+    "validation_claim": "NONE",
+    "gate_effect": "NONE"
   }
 }
