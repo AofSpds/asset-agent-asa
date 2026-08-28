@@ -1,7 +1,7 @@
 {
   "artifact": "M3TOP3_FINANCE_CA_LIVE_PILOT_LATCH_v1.0",
   "schema_version": 1,
-  "issued_at_kst": "2026-08-29T01:59:17+09:00",
+  "issued_at_kst": "2026-08-29T02:07:34+09:00",
   "persona": "AAA-PMO-ORCHESTRATOR",
   "project": "AAA",
   "product": "ASSET AGENT ASA",
@@ -10,9 +10,9 @@
   "owner_actor": "AofSpds",
   "runtime_lock_id": "PMO-API-SRC-ADMIT-20260828192737",
   "pilot_run_id": "FINANCE-LIVE-PILOT-20260828192737",
-  "state": "BLOCKED",
-  "mode": "PRECHECK_BLOCKED",
-  "activation_commit_message": null,
+  "state": "ARMED",
+  "mode": "PRECHECK_ARMED",
+  "activation_commit_message": "Arm M3Top3 Finance precheck v1.0",
   "precheck_evidence": {
     "run_ids": [
       33167156189,
@@ -42,7 +42,16 @@
     "fresh_artifact_sha256": "0bbb206e8fcfe695ae3725be535d219f5201e1ef6c9b6f2fa173a3df2f288c3f",
     "github_oidc_claims": "PASS",
     "aws_account_bucket_versioning_prefix_readback": "PASS",
-    "known_finance_object_version_readback": "BLOCKED_EXIT_254_EXACT_AWS_ERROR_CODE_NOT_CAPTURED"
+    "known_finance_object_version_readback": "BLOCKED_EXIT_254_EXACT_AWS_ERROR_CODE_NOT_CAPTURED",
+    "diagnostic_rearm_state": "ARMED_PENDING_NEW_GITHUB_ACTIONS_READBACK",
+    "diagnostic_workflow_commit": "38b9253fc83003733a327f206776ffe9dbb84ae1",
+    "diagnostic_workflow_sha256": "7d7ba22e4d1c9366daa4c064172006a60c773510035221f976c92c5761a67339",
+    "predecessor_failed_run_id": 33192667201,
+    "predecessor_failed_run_rerun": false,
+    "diagnostic_scope": [
+      "VERSIONED_HEAD_ERROR_CODE",
+      "LATEST_HEAD_STATE_AND_ERROR_CODE"
+    ]
   },
   "activation_modes": {
     "PRECHECK_ARMED": {
@@ -63,11 +72,11 @@
   "authority_bindings": {
     "bindings_finalized": true,
     "authority_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_SOURCE_ADMISSION_CONTRACT_v1.0.json",
-    "authority_sha256": "2988c84366a155f66755b739881211d34082e1d4032e4f6324af27456e274c90",
+    "authority_sha256": "617ca3872fa95bd75184a567c4f42fb1d37b45b44107a1a8cf03ab56fb5e7b27",
     "plan_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_SOURCE_ADMISSION_PLAN_v1.0.json",
-    "plan_sha256": "fc57a3480b14d0d3ab3b31db27db3635eab221519ab09cf3f59756763a225948",
+    "plan_sha256": "c416e620b2bed054e57022a47ba428c2d845c6921c950406381b14c57d077f0e",
     "checkpoint_seed_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_ACQUISITION_CHECKPOINT_v1.0.json",
-    "checkpoint_seed_sha256": "d399095f7008c93ba3e85af13d26a95914b6c68379c96c1e433f96326c93ee6c",
+    "checkpoint_seed_sha256": "c359ba1e115e9f19e2fc9ca07644d142b4204c4e2a08512fd51326224837d591",
     "baseline_quota_ledger_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_QUOTA_LEDGER_v1.0.jsonl",
     "baseline_quota_ledger_sha256": "aa1d73613a3ba737837b368ad0b15f0504f0bf35d56f5a81558093b4cc03f607",
     "baseline_raw_index_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_RAW_CUSTODY_INDEX_v1.0.jsonl",
@@ -77,20 +86,20 @@
     "source_admission_path": "tools/m3top3/source_admission.py",
     "source_admission_sha256": "574b2f45474b39fd0cf64f28a946bd115ddb3b782595c3ddd78d15c801d111dd",
     "workflow_path": ".github/workflows/m3top3-finance-bounded-live-pilot-v1.yml",
-    "workflow_sha256": "480b15c91fdb029dca0245c75faa7304cbb253f95528dd19566f803357960f55"
+    "workflow_sha256": "7d7ba22e4d1c9366daa4c064172006a60c773510035221f976c92c5761a67339"
   },
   "execution_material": {
     "runtime_lock_id": "PMO-API-SRC-ADMIT-20260828192737",
     "pilot_run_id": "FINANCE-LIVE-PILOT-20260828192737",
-    "authority_sha256": "2988c84366a155f66755b739881211d34082e1d4032e4f6324af27456e274c90",
-    "plan_sha256": "fc57a3480b14d0d3ab3b31db27db3635eab221519ab09cf3f59756763a225948",
+    "authority_sha256": "617ca3872fa95bd75184a567c4f42fb1d37b45b44107a1a8cf03ab56fb5e7b27",
+    "plan_sha256": "c416e620b2bed054e57022a47ba428c2d845c6921c950406381b14c57d077f0e",
     "runner_sha256": "1912d1a92bcb8f36a45beb72ff324f418233df6ced1dddb254abe3276af93a4c",
     "source_admission_sha256": "574b2f45474b39fd0cf64f28a946bd115ddb3b782595c3ddd78d15c801d111dd",
-    "checkpoint_template_sha256": "d399095f7008c93ba3e85af13d26a95914b6c68379c96c1e433f96326c93ee6c",
+    "checkpoint_template_sha256": "c359ba1e115e9f19e2fc9ca07644d142b4204c4e2a08512fd51326224837d591",
     "owner_cap_spec_sha256": "7b65152d8df10a6497d1656dbc5cc6d4bd253740f53a29480bb8d877b81b9f05",
     "execution_token_sha256": "9cda8bb429b3558e81e1ffcc4a232c78976c521186f13fbad5462c0312281f37"
   },
-  "execution_material_sha256": "a0c197fb2738d1b4361dbff59516cc7d58ada4a9b94a874a5a695d12d3be9140",
+  "execution_material_sha256": "0d938b8c0d04c737f963576666d0617e2432107c5f4a66247394bad4308e36ef",
   "finance_spec": {
     "source_id": "M3TOP3-FINANCE-STOCK-RIGHTS-v1",
     "operation": "getRighExerReasSche_V2",
@@ -128,7 +137,7 @@
     "authorized": true,
     "aws_account_id": "956315449338",
     "aws_region": "ap-northeast-2",
-    "aws_role_arn_binding_state": "GITHUB_OIDC_AND_STS_PASS_KNOWN_OBJECT_VERSION_READBACK_NOT_PROVEN",
+    "aws_role_arn_binding_state": "EXACT_ROLE_ARN_BOUND_PENDING_PRECHECK",
     "aws_role_arn_expected": "arn:aws:iam::956315449338:role/M3Top3GitHubOIDCRawWriter",
     "aws_role_path_expected": "M3Top3GitHubOIDCRawWriter",
     "bucket": "semi-data-plane-aofspds-20260815",
@@ -141,14 +150,14 @@
     "report_uri": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_control/runtime_lock_id=PMO-API-SRC-ADMIT-20260828192737/pilot_run_id=FINANCE-LIVE-PILOT-20260828192737/report.json",
     "execution_claim_uri": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_control/runtime_lock_id=PMO-API-SRC-ADMIT-20260828192737/pilot_run_id=FINANCE-LIVE-PILOT-20260828192737/execution-claim.json",
     "materialization_state": {
-      "checkpoint_uri": "NOT_CREATED_PRECHECK_BLOCKED",
-      "execution_claim_uri": "NOT_CREATED_PRECHECK_BLOCKED",
-      "quota_ledger_uri": "NOT_CREATED_PRECHECK_BLOCKED",
-      "raw_index_uri": "NOT_CREATED_PRECHECK_BLOCKED",
-      "report_uri": "NOT_CREATED_PRECHECK_BLOCKED"
+      "checkpoint_uri": "DURABLE_CAS_MATERIALIZED_BY_RUNNER",
+      "execution_claim_uri": "CONDITIONAL_CREATE_MATERIALIZED_BY_RUNNER",
+      "quota_ledger_uri": "RESERVED_NOT_MATERIALIZED",
+      "raw_index_uri": "RESERVED_NOT_MATERIALIZED",
+      "report_uri": "RESERVED_NOT_MATERIALIZED"
     },
-    "canonical_live_attempt_and_raw_telemetry": "NOT_CREATED_PILOT_NOT_EXECUTED",
-    "post_run_sanitized_control_currentization": "NOT_APPLICABLE_PRECHECK_BLOCKED",
+    "canonical_live_attempt_and_raw_telemetry": "DURABLE_CHECKPOINT_INTERNAL",
+    "post_run_sanitized_control_currentization": "REPOSITORY_CAS_AFTER_ARTIFACT_READBACK",
     "checkpoint_cas": {
       "create_precondition": "If-None-Match:*",
       "update_precondition": "If-Match:PRIOR_ETAG",
@@ -185,7 +194,7 @@
   "pit_semantic_change_authorized": false,
   "validation_claim": "NONE",
   "gate_effect": "NONE",
-  "initial_disposition": "BLOCKED_READ_ONLY_DIAGNOSTIC_REQUIRED_NO_PROVIDER_OR_S3_EFFECT",
+  "initial_disposition": "INERT_STAGED_ARTIFACT_REQUIRES_SEPARATE_EXACT_PATH_PUSH_WITH_EXACT_MODE_AND_COMMIT_MESSAGE",
   "provider_api_network_calls_on_this_commit": 0,
   "remote_s3_writes_on_this_commit": 0,
   "owner_action_required": false,
@@ -216,8 +225,45 @@
     },
     "terminal_head": "5f110462b4572992ea49175e78cfc64f95fe0fbb"
   },
-  "blocked_at_kst": "2026-08-29T02:02:43+09:00",
-  "blocker": "AWS_KNOWN_FINANCE_OBJECT_EXACT_VERSION_HEAD_NONZERO_EXIT_254",
-  "blocker_cause_claim_ceiling": "OIDC_STS_ACCOUNT_BUCKET_VERSIONING_PREFIX_PASS_EXACT_AWS_ERROR_CODE_NOT_CAPTURED_BY_WORKFLOW",
-  "runtime_disposition": "TERMINATED_NO_ACTIVE_WORK_PMO_STDERR_SAFE_READ_ONLY_DIAGNOSTIC_REQUIRED"
+  "predecessor_partial_pass_block": {
+    "state": "BLOCKED",
+    "mode": "PRECHECK_BLOCKED",
+    "blocked_at_kst": "2026-08-29T02:02:43+09:00",
+    "blocker": "AWS_KNOWN_FINANCE_OBJECT_EXACT_VERSION_HEAD_NONZERO_EXIT_254",
+    "blocker_cause_claim_ceiling": "OIDC_STS_ACCOUNT_BUCKET_VERSIONING_PREFIX_PASS_EXACT_AWS_ERROR_CODE_NOT_CAPTURED_BY_WORKFLOW",
+    "runtime_disposition": "TERMINATED_NO_ACTIVE_WORK_PMO_STDERR_SAFE_READ_ONLY_DIAGNOSTIC_REQUIRED",
+    "precheck_evidence": {
+      "run_ids": [
+        33167156189,
+        33167412476,
+        33167677777,
+        33167799898,
+        33167935763,
+        33192667201
+      ],
+      "precheck_success_count": 0,
+      "github_observed_subject": "repo:AofSpds@87963280/asset-agent-asa@1334403184:environment:m3top3-source-admission",
+      "repository_contract_subject_at_failure": "repo:AofSpds/asset-agent-asa:environment:m3top3-source-admission",
+      "aws_sts_session_established": true,
+      "provider_api_network_attempts": 0,
+      "quota_reservations": 0,
+      "remote_s3_writes": 0,
+      "owner_aws_setup_checkpoint_issue": 49,
+      "owner_aws_setup_checkpoint_comment_id": 5455199293,
+      "owner_aws_setup_state": "COMPLETE",
+      "owner_action_required": false,
+      "fresh_precheck_state": "ARMED_PENDING_GITHUB_ACTIONS_READBACK",
+      "fresh_precheck_provider_api_calls_authorized": false,
+      "fresh_precheck_remote_s3_writes_authorized": false,
+      "fresh_run_id": 33192667201,
+      "fresh_job_id": 98921831280,
+      "fresh_artifact_id": 9694408438,
+      "fresh_artifact_sha256": "0bbb206e8fcfe695ae3725be535d219f5201e1ef6c9b6f2fa173a3df2f288c3f",
+      "github_oidc_claims": "PASS",
+      "aws_account_bucket_versioning_prefix_readback": "PASS",
+      "known_finance_object_version_readback": "BLOCKED_EXIT_254_EXACT_AWS_ERROR_CODE_NOT_CAPTURED"
+    },
+    "terminal_head": "69aed0ad7d898f9822328c4b59a3fb062536f060",
+    "issue_49_comment_id": 5455415083
+  }
 }
