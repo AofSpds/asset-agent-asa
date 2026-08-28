@@ -785,10 +785,76 @@ jobs:
               + "attempt=2/sha256=5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05.entity"
           )
           known_version = "EY9BXLRgeqXAYda6YSIVIB3cUhIIZbfd"
-          known = aws(
-              "s3api", "head-object", "--bucket", bucket, "--key", known_key,
-              "--version-id", known_version, "--expected-bucket-owner", "956315449338",
-          )
+          def probe_known_head(version_id=None):
+              command = [
+                  "aws", "s3api", "head-object",
+                  "--bucket", bucket,
+                  "--key", known_key,
+                  "--expected-bucket-owner", "956315449338",
+                  "--output", "json",
+              ]
+              if version_id is not None:
+                  command.extend(["--version-id", version_id])
+              return subprocess.run(
+                  command,
+                  check=False,
+                  stdout=subprocess.PIPE,
+                  stderr=subprocess.PIPE,
+                  text=True,
+              )
+
+          def aws_error_code(stderr):
+              marker = "An error occurred ("
+              if marker not in stderr:
+                  return "UNCLASSIFIED_AWS_CLI_ERROR"
+              suffix = stderr.split(marker, 1)[1]
+              return suffix.split(")", 1)[0] if ")" in suffix else "UNCLASSIFIED_AWS_CLI_ERROR"
+
+          versioned_probe = probe_known_head(known_version)
+          if versioned_probe.returncode != 0:
+              latest_probe = probe_known_head()
+              versioned_error_code = aws_error_code(versioned_probe.stderr)
+              latest_error_code = (
+                  "PASS"
+                  if latest_probe.returncode == 0
+                  else aws_error_code(latest_probe.stderr)
+              )
+              diagnostic = {
+                  "artifact": "M3TOP3_FINANCE_CA_AWS_READONLY_DIAGNOSTIC_v1.0",
+                  "state": "BLOCKED_KNOWN_VERSION_READBACK",
+                  "mode": os.environ["PILOT_MODE"],
+                  "operation": "S3_HEAD_OBJECT",
+                  "versioned_head_error_code": versioned_error_code,
+                  "versioned_head_return_code": versioned_probe.returncode,
+                  "latest_head_state": (
+                      "PASS" if latest_probe.returncode == 0 else "BLOCKED"
+                  ),
+                  "latest_head_error_code": latest_error_code,
+                  "latest_head_return_code": latest_probe.returncode,
+                  "provider_api_network_attempts": 0,
+                  "quota_reservations": 0,
+                  "remote_s3_writes": 0,
+                  "secret_persisted": False,
+                  "authenticated_url_persisted": False,
+                  "validation_claim": "NONE",
+                  "gate_effect": "NONE",
+              }
+              Path("live_out").mkdir(parents=True, exist_ok=True)
+              Path("live_out/aws-readonly-diagnostic.json").write_text(
+                  json.dumps(diagnostic, sort_keys=True, separators=(",", ":")) + "\n",
+                  encoding="utf-8",
+              )
+              print(
+                  "AWS_READONLY_DIAGNOSTIC:"
+                  + json.dumps(diagnostic, sort_keys=True, separators=(",", ":"))
+              )
+              raise SystemExit(
+                  "AWS_KNOWN_FINANCE_OBJECT_VERSION_HEAD_FAILED:"
+                  + versioned_error_code
+                  + ":LATEST_HEAD:"
+                  + latest_error_code
+              )
+          known = json.loads(versioned_probe.stdout)
           if known.get("ContentLength") != 143 or known.get("VersionId") != known_version:
               raise SystemExit("AWS_KNOWN_FINANCE_OBJECT_READBACK_MISMATCH")
           if known.get("ServerSideEncryption") != "AES256":
@@ -1093,6 +1159,7 @@ jobs:
           allowed = {
               "preflight.json": "json",
               "aws-precheck.json": "json",
+              "aws-readonly-diagnostic.json": "json",
               "github-readback.json": "json",
               "checkpoint.json": "json",
               "quota-ledger.jsonl": "jsonl",
