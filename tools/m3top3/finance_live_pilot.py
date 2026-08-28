@@ -31,7 +31,7 @@ RUNTIME_LOCK_ID = "PMO-API-SRC-ADMIT-20260828192737"
 PILOT_RUN_ID = "FINANCE-LIVE-PILOT-20260828192737"
 ACTIVATION_BASE_HEAD_COMMIT = "188c39b20f91d2cbf1a05d71757e4a35bbbbb5f9"
 OWNER_CAP_SPEC_SHA256 = "7b65152d8df10a6497d1656dbc5cc6d4bd253740f53a29480bb8d877b81b9f05"
-EXPECTED_AUTHORITY_SHA256 = "7611e0a339690fa51145e91abfd1088b233ac01c6ee2df892defd00e35eae8e5"
+EXPECTED_AUTHORITY_SHA256 = "16deebe382d93d6d3e815ee7e9ff8b4efe2c18d7c724d35ad15f86ff1bf2048b"
 EXPECTED_EXECUTION_TOKEN_SHA256 = "9cda8bb429b3558e81e1ffcc4a232c78976c521186f13fbad5462c0312281f37"
 EXPECTED_SOURCE_ADMISSION_SHA256 = "574b2f45474b39fd0cf64f28a946bd115ddb3b782595c3ddd78d15c801d111dd"
 FINANCE_SECRET_ENV = "DATA_GO_KR_FINANCE_STOCK_RIGHTS_SERVICE_KEY"
@@ -57,9 +57,11 @@ MAX_PAGES_PER_DATE = 10
 MAX_PRIMARY_PAGE_SLOTS = 170
 MAX_NETWORK_ATTEMPTS_TOTAL = 200
 MAX_ATTEMPTS_PER_PAGE = 2
-PRE_PILOT_FINANCE_QUOTA_ORDINAL = 5
-PRE_PILOT_KSD_QUOTA_ORDINAL = 2
-PILOT_QUOTA_DAY_KST = "2026-08-28"
+HISTORICAL_BASELINE_QUOTA_DAY_KST = "2026-08-28"
+HISTORICAL_BASELINE_FINANCE_LAST_ORDINAL = 5
+HISTORICAL_BASELINE_KSD_LAST_ORDINAL = 2
+PILOT_QUOTA_DAY_KST = "2026-08-29"
+PILOT_FINANCE_ORDINAL_BASE = 0
 _SHA256_RE = re.compile(r"[0-9a-f]{64}")
 _GIT_SHA_RE = re.compile(r"[0-9a-f]{40}")
 _WRITER_ID_RE = re.compile(r"github-run:[1-9][0-9]*")
@@ -360,6 +362,9 @@ def validate_cli_materials(
         "runtime_lock_id", "pilot_run_id", "authority_sha256", "plan_sha256",
         "runner_sha256", "source_admission_sha256", "checkpoint_template_sha256",
         "owner_cap_spec_sha256", "execution_token_sha256",
+        "pilot_quota_day_kst", "historical_baseline_quota_day_kst",
+        "current_day_finance_ordinal_base", "current_day_next_finance_ordinal",
+        "historical_baseline_rows_preserved",
     }
     if set(material) != exact_material_keys:
         raise AuthorityBindingError("latch execution-material key set mismatch")
@@ -387,6 +392,11 @@ def validate_cli_materials(
         "source_admission_sha256": source_admission_sha,
         "owner_cap_spec_sha256": OWNER_CAP_SPEC_SHA256,
         "execution_token_sha256": token_sha,
+        "pilot_quota_day_kst": PILOT_QUOTA_DAY_KST,
+        "historical_baseline_quota_day_kst": HISTORICAL_BASELINE_QUOTA_DAY_KST,
+        "current_day_finance_ordinal_base": PILOT_FINANCE_ORDINAL_BASE,
+        "current_day_next_finance_ordinal": PILOT_FINANCE_ORDINAL_BASE + 1,
+        "historical_baseline_rows_preserved": 7,
     }
     for key, expected in expected_material.items():
         if material.get(key) != expected:
@@ -531,6 +541,11 @@ def validate_cli_materials(
         "fallback_dates_authorized": False,
         "full_date_range_expansion_authorized": False,
         "historical_2019_canary_expansion_authorized": False,
+        "pilot_quota_day_kst": PILOT_QUOTA_DAY_KST,
+        "historical_baseline_quota_day_kst": HISTORICAL_BASELINE_QUOTA_DAY_KST,
+        "current_day_finance_ordinal_base": PILOT_FINANCE_ORDINAL_BASE,
+        "current_day_next_finance_ordinal": PILOT_FINANCE_ORDINAL_BASE + 1,
+        "historical_baseline_rows_preserved": 7,
     }
     if any(finance_spec.get(key) != value for key, value in exact_finance_spec.items()):
         raise AuthorityBindingError("latch Finance specification mismatch")
@@ -1155,13 +1170,13 @@ def _read_baseline_quota_ledger(path: Path) -> tuple[str, list[dict[str, Any]]]:
             rows.append(row)
     except (UnicodeDecodeError, json.JSONDecodeError, ValueError):
         raise AuthorityBindingError("baseline quota ledger malformed") from None
-    baseline = [row for row in rows if row.get("pilot_run_id") != PILOT_RUN_ID]
+    baseline = [row for row in rows if "pilot_run_id" not in row]
     if len(baseline) != 7:
         raise AuthorityBindingError("governed baseline quota row count mismatch")
     for row in baseline:
         if (
             row.get("event") != "QUOTA_SLOT_SPENT"
-            or row.get("quota_day_kst") != PILOT_QUOTA_DAY_KST
+            or row.get("quota_day_kst") != HISTORICAL_BASELINE_QUOTA_DAY_KST
             or row.get("provider") not in {"FINANCE", "KSD"}
         ):
             raise AuthorityBindingError("governed baseline quota binding mismatch")
@@ -1176,11 +1191,11 @@ def _read_baseline_quota_ledger(path: Path) -> tuple[str, list[dict[str, Any]]]:
         and row.get("event") == "QUOTA_SLOT_SPENT"
     ]
     if [row.get("ordinal") for row in finance] != list(
-        range(1, PRE_PILOT_FINANCE_QUOTA_ORDINAL + 1)
+        range(1, HISTORICAL_BASELINE_FINANCE_LAST_ORDINAL + 1)
     ):
         raise AuthorityBindingError("Finance baseline quota ordinals mismatch")
     if [row.get("ordinal") for row in ksd] != list(
-        range(1, PRE_PILOT_KSD_QUOTA_ORDINAL + 1)
+        range(1, HISTORICAL_BASELINE_KSD_LAST_ORDINAL + 1)
     ):
         raise AuthorityBindingError("KSD baseline quota ordinals mismatch")
     if any(row.get("operation") != sa.FINANCE_OPERATION for row in finance):
@@ -1423,8 +1438,8 @@ def _assert_checkpoint_binding(
         raise sa.CheckpointConflictError("Finance checkpoint counter mismatch")
     expected_ordinals = list(
         range(
-            PRE_PILOT_FINANCE_QUOTA_ORDINAL + 1,
-            PRE_PILOT_FINANCE_QUOTA_ORDINAL + len(attempts) + 1,
+            PILOT_FINANCE_ORDINAL_BASE + 1,
+            PILOT_FINANCE_ORDINAL_BASE + len(attempts) + 1,
         )
     )
     if [row.get("provider_quota_ordinal") for row in attempts if isinstance(row, Mapping)] != expected_ordinals:
@@ -1918,9 +1933,11 @@ def _build_report(
             "github_run_attempts_observed": list(
                 checkpoint.get("observed_github_run_attempts", [])
             ),
-            "pre_pilot_finance_ordinal": PRE_PILOT_FINANCE_QUOTA_ORDINAL,
+            "pre_pilot_finance_ordinal": PILOT_FINANCE_ORDINAL_BASE,
+            "historical_baseline_quota_day_kst": HISTORICAL_BASELINE_QUOTA_DAY_KST,
+            "historical_baseline_finance_last_ordinal": HISTORICAL_BASELINE_FINANCE_LAST_ORDINAL,
             "pilot_reservations": checkpoint.get("quota_reservations", 0),
-            "provider_finance_last_ordinal": PRE_PILOT_FINANCE_QUOTA_ORDINAL
+            "provider_finance_last_ordinal": PILOT_FINANCE_ORDINAL_BASE
             + int(checkpoint.get("quota_reservations", 0)),
             "network_attempts_started_conservative": checkpoint.get(
                 "network_attempts_started_conservative", 0
@@ -2048,7 +2065,7 @@ def run_finance_live_pilot(
             "quota_day_kst": quota_day_kst,
             "raw_object_prefix": raw_object_prefix,
             "provider_quota_ordinal": (
-                PRE_PILOT_FINANCE_QUOTA_ORDINAL
+                PILOT_FINANCE_ORDINAL_BASE
                 + checkpoint["quota_reservations"]
                 + 1
             ),
@@ -2517,7 +2534,7 @@ def _governed_baseline_jsonl_bytes(path: Path) -> bytes:
             )
             if not isinstance(value, dict):
                 raise ValueError
-            if value.get("pilot_run_id") == PILOT_RUN_ID:
+            if "pilot_run_id" in value:
                 pilot_rows_started = True
             else:
                 if pilot_rows_started:

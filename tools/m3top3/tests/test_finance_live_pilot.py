@@ -13,8 +13,8 @@ from tools.m3top3 import finance_live_pilot as live
 from tools.m3top3 import source_admission as sa
 
 
-NOW = "2026-08-28T11:00:00+00:00"
-PILOT_CLOCK = lambda: datetime(2026, 8, 28, 11, tzinfo=timezone.utc)
+NOW = "2026-08-29T11:00:00+00:00"
+PILOT_CLOCK = lambda: datetime(2026, 8, 29, 11, tzinfo=timezone.utc)
 WRITER_ID = "github-run:33129999999"
 WORKFLOW_ENV = {
     "GITHUB_REPOSITORY": live.AUTHORIZED_GITHUB_REPOSITORY,
@@ -224,7 +224,7 @@ class FinanceLivePilotTests(unittest.TestCase):
                 "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/"
             )
         )
-        self.assertIn("quota_day_kst=2026-08-28/", key)
+        self.assertIn("quota_day_kst=2026-08-29/", key)
         self.assertIn(
             f"request_id={live.deterministic_request_id('20240102', 1)}/",
             key,
@@ -258,7 +258,7 @@ class FinanceLivePilotTests(unittest.TestCase):
                         "provider": provider,
                         "ordinal": ordinal,
                         "operation": operation,
-                        "quota_day_kst": live.PILOT_QUOTA_DAY_KST,
+                        "quota_day_kst": live.HISTORICAL_BASELINE_QUOTA_DAY_KST,
                     }
                 )
         with tempfile.TemporaryDirectory() as directory:
@@ -277,7 +277,9 @@ class FinanceLivePilotTests(unittest.TestCase):
                     {
                         "event": "QUOTA_SLOT_SPENT",
                         "provider": "FINANCE",
-                        "ordinal": 6,
+                        "ordinal": 1,
+                        "operation": sa.FINANCE_OPERATION,
+                        "quota_day_kst": live.PILOT_QUOTA_DAY_KST,
                         "pilot_run_id": live.PILOT_RUN_ID,
                     }
                 )
@@ -285,8 +287,25 @@ class FinanceLivePilotTests(unittest.TestCase):
             resumed_sha, resumed_rows = live._read_baseline_quota_ledger(path)
         self.assertEqual(first_sha, resumed_sha)
         self.assertEqual(first_rows, resumed_rows)
+        self.assertTrue(
+            all(
+                row["quota_day_kst"] == live.HISTORICAL_BASELINE_QUOTA_DAY_KST
+                for row in resumed_rows
+            )
+        )
 
         root = Path(__file__).resolve().parents[3]
+        governed_quota = (
+            root / "control/m3top3/public-data-source-admission/v1.0/"
+            "M3TOP3_PUBLIC_DATA_API_QUOTA_LEDGER_v1.0.jsonl"
+        )
+        self.assertEqual(
+            live._governed_baseline_jsonl_sha256(governed_quota),
+            "aa1d73613a3ba737837b368ad0b15f0504f0bf35d56f5a81558093b4cc03f607",
+        )
+        self.assertEqual(
+            len(live._read_baseline_quota_ledger(governed_quota)[1]), 7
+        )
         governed_raw = (
             root / "control/m3top3/public-data-source-admission/v1.0/"
             "M3TOP3_FINANCE_CA_RAW_CUSTODY_INDEX_v1.0.jsonl"
@@ -305,7 +324,7 @@ class FinanceLivePilotTests(unittest.TestCase):
         self.assertEqual(checkpoint.value["unique_page_slots"][0], "20240102:1")
         self.assertEqual(
             [row["provider_quota_ordinal"] for row in checkpoint.value["attempts"]],
-            list(range(6, 23)),
+            list(range(1, len(live.PRIMARY_DATES) + 1)),
         )
         self.assertTrue(
             all(row["run_attempt"] == 1 for row in checkpoint.value["attempts"])
@@ -314,6 +333,11 @@ class FinanceLivePilotTests(unittest.TestCase):
         self.assertEqual(checkpoint.value["state"], "COMPLETE")
         self.assertEqual(report["normalization_records_created"], 0)
         self.assertFalse(report["automatic_promotion_performed"])
+        self.assertEqual(report["quota"]["quota_day_kst"], "2026-08-29")
+        self.assertEqual(report["quota"]["pre_pilot_finance_ordinal"], 0)
+        self.assertEqual(report["quota"]["historical_baseline_quota_day_kst"], "2026-08-28")
+        self.assertEqual(report["quota"]["historical_baseline_finance_last_ordinal"], 5)
+        self.assertEqual(report["quota"]["provider_finance_last_ordinal"], 17)
         raw = sa.canonical_json_bytes(checkpoint.value)
         self.assertNotIn(b"serviceKey", raw)
         self.assertNotIn(b"https://apis.data.go.kr", raw)
@@ -748,7 +772,7 @@ class FinanceLivePilotTests(unittest.TestCase):
                 checkpoint_store=checkpoint,
                 writer_id=WRITER_ID,
                 secrets=(),
-                clock=lambda: datetime(2026, 8, 28, 16, tzinfo=timezone.utc),
+                clock=lambda: datetime(2026, 8, 29, 16, tzinfo=timezone.utc),
                 sleep_fn=lambda _: None,
             )
         self.assertEqual(custody.events, [])
@@ -761,7 +785,7 @@ class FinanceLivePilotTests(unittest.TestCase):
             def __call__(self):
                 self.calls += 1
                 hour = 11 if self.calls <= 6 else 16
-                return datetime(2026, 8, 28, hour, tzinfo=timezone.utc)
+                return datetime(2026, 8, 29, hour, tzinfo=timezone.utc)
 
         checkpoint = FakeCheckpointStore()
         custody = FakeCustody()
@@ -1019,6 +1043,15 @@ class FinanceLivePilotTests(unittest.TestCase):
         latch = json.loads(staged.read_text())
         latch["state"] = "ARMED"
         latch["mode"] = "LIVE_ARMED"
+        latch["finance_spec"].update(
+            {
+                "pilot_quota_day_kst": live.PILOT_QUOTA_DAY_KST,
+                "historical_baseline_quota_day_kst": live.HISTORICAL_BASELINE_QUOTA_DAY_KST,
+                "current_day_finance_ordinal_base": live.PILOT_FINANCE_ORDINAL_BASE,
+                "current_day_next_finance_ordinal": live.PILOT_FINANCE_ORDINAL_BASE + 1,
+                "historical_baseline_rows_preserved": 7,
+            }
+        )
         with tempfile.TemporaryDirectory() as directory:
             directory_path = Path(directory)
             authority = directory_path / "authority.json"
@@ -1043,6 +1076,11 @@ class FinanceLivePilotTests(unittest.TestCase):
                 "checkpoint_template_sha256": checkpoint_sha,
                 "owner_cap_spec_sha256": live.OWNER_CAP_SPEC_SHA256,
                 "execution_token_sha256": live.EXPECTED_EXECUTION_TOKEN_SHA256,
+                "pilot_quota_day_kst": live.PILOT_QUOTA_DAY_KST,
+                "historical_baseline_quota_day_kst": live.HISTORICAL_BASELINE_QUOTA_DAY_KST,
+                "current_day_finance_ordinal_base": live.PILOT_FINANCE_ORDINAL_BASE,
+                "current_day_next_finance_ordinal": live.PILOT_FINANCE_ORDINAL_BASE + 1,
+                "historical_baseline_rows_preserved": 7,
             }
             latch["execution_material_sha256"] = hashlib.sha256(
                 sa.canonical_json_bytes(latch["execution_material"])
@@ -1217,7 +1255,7 @@ class FinanceLivePilotTests(unittest.TestCase):
         }
         for field, changed in (
             ("http-status", "201"),
-            ("acquired-at-utc", "2026-08-28T11:00:01+00:00"),
+            ("acquired-at-utc", "2026-08-29T11:00:01+00:00"),
         ):
             conflicting = dict(base_metadata)
             conflicting[field] = changed
