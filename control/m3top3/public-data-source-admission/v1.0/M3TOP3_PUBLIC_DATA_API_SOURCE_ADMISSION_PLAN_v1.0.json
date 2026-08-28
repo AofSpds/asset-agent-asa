@@ -7,13 +7,13 @@
   "runtime_lock_generation": 3,
   "pilot_run_id": "FINANCE-LIVE-PILOT-20260828192737",
   "branch": "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828",
-  "state": "BLOCKED_NOT_EXECUTABLE_EXTERNAL_AWS_IAM_OIDC_TRUST_REMEDIATION_REQUIRED",
-  "mode": "GENERATION_3_FINANCE_ONLY_BOUNDED_LIVE_PILOT_PRECHECK_BLOCKED",
-  "last_currentized_at_kst": "2026-08-28T20:51:40+09:00",
+  "state": "STAGED_NOT_EXECUTABLE_ENTRY_GATE_CLOSED",
+  "mode": "GENERATION_3_FINANCE_ONLY_BOUNDED_LIVE_PILOT_PREPARATION",
+  "last_currentized_at_kst": "2026-08-29T01:54:32+09:00",
   "authority_binding": {
     "contract_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_SOURCE_ADMISSION_CONTRACT_v1.0.json",
-    "contract_commit": "4b74453802c686271fdbc8fdb210711ed67e3d27",
-    "contract_content_sha256": "f4b0f8878edb69d16430630a6cdce80f5d91c6cc79d21bdabbc85f411342c62d",
+    "contract_commit": "9849d08406e1bb601c1f719dc1af7e35fcdf960e",
+    "contract_content_sha256": "b305a4b030b6f92ea9f2365d730cca87cd1e6efc67a5e2970f133f7a91a91a51",
     "owner_cap_spec_sha256": "7b65152d8df10a6497d1656dbc5cc6d4bd253740f53a29480bb8d877b81b9f05",
     "execution_token_sha256": "9cda8bb429b3558e81e1ffcc4a232c78976c521186f13fbad5462c0312281f37",
     "execution_token_persistence": "SHA256_ONLY_ORIGINAL_VALUE_PROHIBITED",
@@ -31,7 +31,7 @@
     "PILOT_TELEMETRY_REPORT_PROMOTION_RECOMMENDATION_AND_TERMINAL_CHECKPOINT"
   ],
   "execution_gate": {
-    "state": "CLOSED_BLOCKED_AWS_OIDC_TRUST_OR_PROVIDER_ALIGNMENT_NOT_PROVEN",
+    "state": "CLOSED_PENDING_LIVE_ADAPTER_AND_DURABLE_CUSTODY_PREREQUISITES",
     "authority_granted": true,
     "execution_armed": false,
     "plan_executable": false,
@@ -61,12 +61,12 @@
       "execution_authorized": false
     },
     "S5": {
-      "state": "OWNER_AUTHORIZED_PRECHECK_BLOCKED_EXTERNAL_AWS_OIDC",
+      "state": "OWNER_AUTHORIZED_ENTRY_GATE_CLOSED",
       "execution_authorized_after_gate": true,
       "execution_permitted_now": false
     },
     "S6": {
-      "state": "STAGED_BLOCKED_NO_REMOTE_WRITE",
+      "state": "DURABLE_S3_CAS_AND_RAW_CUSTODY_PREPARATION",
       "provider_execution_permitted_now": false,
       "remote_custody_write_permitted_now": false
     },
@@ -149,7 +149,7 @@
       "version_id_readback_required": true,
       "single_writer_execution_claim_required_before_provider_call": true
     },
-    "state": "BLOCKED_NO_REMOTE_WRITE_STS_SESSION_NOT_ESTABLISHED"
+    "state": "STAGED_NO_REMOTE_WRITE"
   },
   "quota_accounting": {
     "prior_durable_seed": {
@@ -184,7 +184,7 @@
   "checkpoint_artifact": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_ACQUISITION_CHECKPOINT_v1.0.json",
   "coverage_pilot_artifact": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_COVERAGE_PILOT_v1.0.json",
   "oidc_precheck_evidence": {
-    "state": "BLOCKED_AWS_OIDC_TRUST_OR_PROVIDER_ALIGNMENT_NOT_PROVEN",
+    "state": "OWNER_AWS_PREREQUISITES_COMPLETE_FRESH_READ_ONLY_PRECHECK_REARM_PENDING",
     "precheck_run_count": 5,
     "precheck_success_count": 0,
     "precheck_run_ids": [
@@ -200,8 +200,9 @@
     "primary_page_acquisitions": 0,
     "remote_s3_writes": 0,
     "canonical_raw_entities_added": 0,
-    "next_permitted_execution": "READ_ONLY_PRECHECK_AFTER_EXTERNAL_TRUST_ONLY_REMEDIATION_AND_CONTROL_HASH_REBIND",
-    "live_execution_before_precheck_pass": "PROHIBITED"
+    "next_permitted_execution": "FRESH_READ_ONLY_PRECHECK_AFTER_EXACT_CONTROL_HASH_REBIND",
+    "live_execution_before_precheck_pass": "PROHIBITED",
+    "owner_attestation_issue_comment_id": 5455199293
   },
   "side_effect_accounting_at_currentization": {
     "provider_api_network_attempts": 0,
@@ -218,8 +219,8 @@
   "validation_claim": "NONE",
   "validation_closure": "NONE",
   "gate_effect": "NONE",
-  "owner_action_required": true,
-  "external_operational_action_required": true,
+  "owner_action_required": false,
+  "external_operational_action_required": false,
   "owner_semantic_decision_required": false,
   "authority_expansion_required": false
 }
