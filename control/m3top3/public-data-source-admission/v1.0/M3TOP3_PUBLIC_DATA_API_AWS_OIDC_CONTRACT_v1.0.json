@@ -1,7 +1,7 @@
 {
   "artifact": "M3TOP3_PUBLIC_DATA_API_AWS_OIDC_CONTRACT_v1.0",
   "issued_at_kst": "2026-08-28T10:08:28+09:00",
-  "state": "OWNER_AUTHORIZED_FINANCE_ONLY_LIVE_PILOT_AWS_PREREQUISITES_COMPLETE_READ_ONLY_PRECHECK_PENDING",
+  "state": "FRESH_PRECHECK_PARTIAL_PASS_OIDC_STS_ACCOUNT_BUCKET_VERSIONING_PREFIX_PASS_KNOWN_VERSION_READBACK_BLOCKED",
   "provider": "AWS_IAM_OIDC",
   "aws_region": "ap-northeast-2",
   "aws_account_id": "956315449338",
@@ -18,7 +18,7 @@
   "github_role_arn_variable": "M3TOP3_AWS_ROLE_ARN",
   "expected_role_name": "M3Top3GitHubOIDCRawWriter",
   "expected_role_arn": "arn:aws:iam::956315449338:role/M3Top3GitHubOIDCRawWriter",
-  "expected_role_binding_state": "EXACT_ROLE_ARN_BOUND_OWNER_ATTESTED_PENDING_READ_ONLY_PRECHECK",
+  "expected_role_binding_state": "GITHUB_OIDC_AND_STS_ASSUMED_ROLE_PASS_EXACT_KNOWN_OBJECT_VERSION_READBACK_NOT_PROVEN",
   "long_lived_access_keys": "PROHIBITED",
   "oidc_provider_url": "https://token.actions.githubusercontent.com",
   "oidc_audience": "sts.amazonaws.com",
@@ -54,6 +54,19 @@
       "managed_policy_count": 0,
       "delete_authority": false,
       "validation_status": "PENDING_FRESH_READ_ONLY_PRECHECK"
+    },
+    "fresh_precheck": {
+      "state": "PASS_EXPECTED_ENVIRONMENT_SUBJECT_NO_TOKEN_PERSISTED",
+      "workflow_run_id": 33192667201,
+      "artifact_id": 9694408438,
+      "head_sha": "d5fa564420e5e5381d2340dbc60597c4a4085249",
+      "subject": "repo:AofSpds@87963280/asset-agent-asa@1334403184:environment:m3top3-source-admission",
+      "audience": "sts.amazonaws.com",
+      "issuer": "https://token.actions.githubusercontent.com",
+      "actor": "AofSpds",
+      "environment": "m3top3-source-admission",
+      "token_persisted": false,
+      "authenticated_url_persisted": false
     }
   },
   "configure_aws_credentials": {
@@ -72,14 +85,14 @@
     "trust_only_remediation_script_sha256": "9573ed2c1d69b5780510a19d5f9522fe8986c5bb8871c94d5636525a7afc0936"
   },
   "workflow": ".github/workflows/m3top3-finance-bounded-live-pilot-v1.yml",
-  "workflow_disposition": "FRESH_READ_ONLY_PRECHECK_REARM_PENDING_NO_PROVIDER_OR_S3_EFFECT",
+  "workflow_disposition": "FRESH_PRECHECK_FAIL_CLOSED_AFTER_OIDC_STS_ACCOUNT_BUCKET_VERSIONING_PREFIX_PASS_BEFORE_PROVIDER_AND_S3_WRITE",
   "historical_single_canary_workflow": ".github/workflows/m3top3-s3-raw-custody-single-canary-v1.yml",
   "current_runtime": {
     "runtime_lock_id": "PMO-API-SRC-ADMIT-20260828192737",
     "pilot_id": "FINANCE-LIVE-PILOT-20260828192737",
-    "authority_state": "OWNER_AUTHORIZED_ENTRY_GATE_CLOSED_PENDING_READ_ONLY_PRECHECK_PASS",
-    "live_pilot_entry_gate": "CLOSED_PENDING_READ_ONLY_PRECHECK_PASS",
-    "workflow_execution_authorized": true,
+    "authority_state": "TERMINATED_BLOCKED_READ_ONLY_KNOWN_OBJECT_VERSION_READBACK_DIAGNOSTIC_REQUIRED",
+    "live_pilot_entry_gate": "CLOSED_PRECHECK_NOT_PASS",
+    "workflow_execution_authorized": false,
     "remote_write_execution_authorized": false,
     "provider_api_network_calls_authorized_during_precheck": false
   },
@@ -146,7 +159,7 @@
     "manual_custody_receipt": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_S3_MANUAL_CUSTODY_RECEIPT_v1.0.json",
     "remote_sha256_verified": true
   },
-  "last_currentized_at_kst": "2026-08-29T01:54:32+09:00",
+  "last_currentized_at_kst": "2026-08-29T02:02:43+09:00",
   "repository_visibility": "PRIVATE",
   "private_repository_environment_gate": {
     "preferred": "REQUIRED_REVIEWER_AofSpds",
@@ -232,13 +245,14 @@
     "required": false,
     "semantic_decision_required": false,
     "authority_expansion_required": false,
-    "action": "NONE_OWNER_AWS_GITHUB_MANUAL_SETTINGS_COMPLETE_ISSUE_49_COMMENT_5455199293",
-    "next_verification": "FRESH_GITHUB_OIDC_AND_AWS_READ_ONLY_PRECHECK",
+    "action": "NONE_PENDING_PMO_STDERR_SAFE_READ_ONLY_DIAGNOSTIC_PRECHECK",
+    "next_verification": "FRESH_DIAGNOSTIC_PRECHECK_DO_NOT_RERUN_RUN_33192667201",
     "prohibit": [
-      "RERUN_HISTORICAL_FAILED_WORKFLOW",
-      "ROLE_OR_PROVIDER_RECREATION",
-      "PERMISSIONS_EXPANSION",
-      "LIVE_ARMING_BEFORE_PRECHECK_PASS"
+      "RERUN_RUN_33192667201",
+      "LIVE_ARMING_BEFORE_FULL_PRECHECK_PASS",
+      "PROVIDER_API_CALL",
+      "S3_WRITE",
+      "PERMISSIONS_EXPANSION"
     ]
   },
   "production_authorized": false,
@@ -253,20 +267,35 @@
   "owner_semantic_decision_required": false,
   "authority_expansion_required": false,
   "predecessor_external_operational_action": {
-    "required": true,
+    "required": false,
     "semantic_decision_required": false,
     "authority_expansion_required": false,
-    "action": "UPDATE_ONLY_M3Top3GitHubOIDCRawWriter_ASSUME_ROLE_TRUST_TO_EXACT_ID_QUALIFIED_SUBJECT_THEN_RERUN_READ_ONLY_PRECHECK",
-    "approved_artifact": "control/m3top3/public-data-source-admission/v1.0/aws-oidc/remediate_m3top3_github_oidc_trust_only_v1.sh",
-    "approved_artifact_sha256": "9573ed2c1d69b5780510a19d5f9522fe8986c5bb8871c94d5636525a7afc0936",
+    "action": "NONE_OWNER_AWS_GITHUB_MANUAL_SETTINGS_COMPLETE_ISSUE_49_COMMENT_5455199293",
+    "next_verification": "FRESH_GITHUB_OIDC_AND_AWS_READ_ONLY_PRECHECK",
     "prohibit": [
-      "ROLE_RECREATION",
-      "PERMISSIONS_POLICY_CHANGE",
-      "PERMISSIONS_BOUNDARY_CHANGE",
-      "ATTACHED_OR_INLINE_POLICY_CHANGE",
-      "DUAL_OLD_AND_NEW_SUBJECT",
-      "STRINGLIKE_OR_WILDCARD_SUBJECT",
+      "RERUN_HISTORICAL_FAILED_WORKFLOW",
+      "ROLE_OR_PROVIDER_RECREATION",
+      "PERMISSIONS_EXPANSION",
       "LIVE_ARMING_BEFORE_PRECHECK_PASS"
     ]
+  },
+  "fresh_precheck_readback": {
+    "run_id": 33192667201,
+    "job_id": 98921831280,
+    "artifact_id": 9694408438,
+    "artifact_sha256": "0bbb206e8fcfe695ae3725be535d219f5201e1ef6c9b6f2fa173a3df2f288c3f",
+    "control_preflight": "PASS_NO_PROVIDER_CALL",
+    "github_oidc_claims": "PASS",
+    "aws_sts_assumed_role": "PASS",
+    "aws_account": "PASS",
+    "bucket_region": "PASS",
+    "bucket_versioning": "PASS",
+    "finance_prefix_list": "PASS",
+    "control_prefix_list": "PASS",
+    "known_finance_object_exact_version_head": "BLOCKED_NONZERO_EXIT_254",
+    "exact_aws_error_code": "NOT_CAPTURED_BY_CURRENT_WORKFLOW",
+    "provider_api_network_attempts": 0,
+    "quota_reservations": 0,
+    "remote_s3_writes": 0
   }
 }
