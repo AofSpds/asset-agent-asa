@@ -1,7 +1,7 @@
 {
   "artifact": "M3TOP3_PUBLIC_DATA_API_AWS_OIDC_CONTRACT_v1.0",
   "issued_at_kst": "2026-08-28T10:08:28+09:00",
-  "state": "FIRST_ENTITY_MANUAL_CUSTODY_COMPLETE_OIDC_NOT_REQUIRED_FUTURE_AUTOMATED_CUSTODY_UNCONFIGURED",
+  "state": "OWNER_AUTHORIZED_FINANCE_ONLY_LIVE_PILOT_OIDC_PRECHECK_PENDING_AUTOMATED_CUSTODY_UNPROVEN",
   "provider": "AWS_IAM_OIDC",
   "aws_region": "ap-northeast-2",
   "aws_account_id": "956315449338",
@@ -31,7 +31,33 @@
     "permissions_policy": "control/m3top3/public-data-source-admission/v1.0/aws-oidc/M3TOP3_AWS_S3_RAW_WRITER_POLICY_v1.0.json",
     "setup_script": "control/m3top3/public-data-source-admission/v1.0/aws-oidc/setup_m3top3_github_oidc_role_v1.sh"
   },
-  "workflow": ".github/workflows/m3top3-s3-raw-custody-single-canary-v1.yml",
+  "workflow": ".github/workflows/m3top3-finance-bounded-live-pilot-v1.yml",
+  "workflow_disposition": "FINANCE_ONLY_PRECHECK_STAGING_NOT_YET_EXECUTED",
+  "historical_single_canary_workflow": ".github/workflows/m3top3-s3-raw-custody-single-canary-v1.yml",
+  "current_runtime": {
+    "runtime_lock_id": "PMO-API-SRC-ADMIT-20260828192737",
+    "pilot_id": "FINANCE-LIVE-PILOT-20260828192737",
+    "authority_state": "OWNER_AUTHORIZED_PRECHECK_PENDING",
+    "live_pilot_entry_gate": "CLOSED",
+    "workflow_execution_authorized": false,
+    "remote_write_execution_authorized": false,
+    "provider_api_network_calls_authorized_during_precheck": false
+  },
+  "finance_only_live_pilot_boundary": {
+    "state": "AUTHORIZED_SCOPE_FROZEN_EXECUTION_GATE_CLOSED",
+    "source_id": "M3TOP3-FINANCE-STOCK-RIGHTS-v1",
+    "remote_raw_custody_prefix": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/",
+    "bucket_list_prefix": "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/*",
+    "object_resource": "arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/*",
+    "finance_prefix_authorized": true,
+    "ksd_prefix_authorized": false,
+    "other_source_prefixes_authorized": false,
+    "inline_session_policy_required": true,
+    "inline_session_policy_state": "REQUIRED_NOT_PROVEN",
+    "inline_session_policy_must_omit_ksd_and_other_prefixes": true,
+    "long_lived_access_keys": "PROHIBITED",
+    "authenticated_url_persistence": "PROHIBITED"
+  },
   "permissions_ceiling": {
     "github": [
       "contents:read",
@@ -80,7 +106,7 @@
     "manual_custody_receipt": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_S3_MANUAL_CUSTODY_RECEIPT_v1.0.json",
     "remote_sha256_verified": true
   },
-  "last_currentized_at_kst": "2026-08-28T14:53:40+09:00",
+  "last_currentized_at_kst": "2026-08-28T19:27:37+09:00",
   "repository_visibility": "PRIVATE",
   "private_repository_environment_gate": {
     "preferred": "REQUIRED_REVIEWER_AofSpds",
@@ -90,16 +116,36 @@
   },
   "aws_account_id_evidence": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_S3_MANUAL_CUSTODY_RECEIPT_v1.0.json",
   "future_automated_custody": {
-    "state": "UNCONFIGURED_NOT_PROVEN",
+    "state": "OWNER_AUTHORIZED_FINANCE_ONLY_PRECHECK_PENDING_AUTOMATION_UNPROVEN",
     "oidc_role_binding": "NOT_PROVEN",
     "github_environment_role_arn_binding": "NOT_PROVEN",
+    "inline_session_policy_binding": "NOT_PROVEN",
+    "finance_exact_prefix_binding": "NOT_PROVEN",
+    "ksd_and_other_prefix_exclusion": "NOT_PROVEN",
+    "precheck_authorized": true,
+    "precheck_executed": false,
+    "precheck_scope": [
+      "OIDC_TOKEN_AND_STS_CALLER_IDENTITY",
+      "S3_BUCKET_LOCATION_READBACK",
+      "S3_BUCKET_VERSIONING_READBACK",
+      "INLINE_SESSION_POLICY_EXACT_FINANCE_PREFIX_STATIC_BINDING",
+      "ZERO_PROVIDER_API_NETWORK_CALLS",
+      "ZERO_REMOTE_RAW_CUSTODY_WRITES"
+    ],
+    "precheck_provider_api_network_attempts": 0,
+    "precheck_remote_raw_custody_writes": 0,
     "workflow_execution_authorized": false,
+    "remote_write_execution_authorized": false,
+    "live_pilot_entry_gate": "CLOSED",
     "configuration_required_before_any_future_automated_write": true,
     "owner_action_required_now": false
   },
   "production_authorized": false,
   "bulk_acquisition_authorized": false,
+  "model_semantic_change_authorized": false,
+  "pit_semantic_change_authorized": false,
   "validation_claim": "NONE",
+  "validation_closure": "NONE",
   "gate_effect": "NONE",
   "currentization_provider_api_network_attempts": 0,
   "owner_action_required": false
