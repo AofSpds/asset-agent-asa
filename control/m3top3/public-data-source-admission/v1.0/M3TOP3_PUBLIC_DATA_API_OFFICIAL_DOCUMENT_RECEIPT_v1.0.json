@@ -1,0 +1,92 @@
+{
+  "artifact": "M3TOP3_PUBLIC_DATA_API_OFFICIAL_DOCUMENT_RECEIPT_v1.0",
+  "observed_at_kst": "2026-08-28T11:58:00+09:00",
+  "acquisition_mode": "AUTHENTICATED_PUBLIC_CATALOG_BROWSER_DOWNLOAD_AND_LOCAL_SHA256",
+  "provider_api_network_attempts": 0,
+  "finance": {
+    "source_id": "M3TOP3-FINANCE-STOCK-RIGHTS-v1",
+    "catalog_dataset_id": "15059609",
+    "catalog_url": "https://www.data.go.kr/data/15059609/openapi.do",
+    "reference_document": {
+      "filename": "오픈API 활용자가이드_금융위원회_주식권리일정정보.docx",
+      "file_id": "FILE_000000003624104/1",
+      "byte_size": 509485,
+      "sha256": "f154cca7154f244d0e8f86d2b13af45a89185cfddd8d8cf785fb51385d5a1fd2"
+    },
+    "catalog_temporal_semantics": {
+      "update_frequency": "DAILY_ONCE",
+      "realtime": false,
+      "typical_availability": "BASE_DATE_NEXT_BUSINESS_DAY_AFTER_13_00_KST",
+      "weekend_holiday_examples": [
+        "FRIDAY_DATA_AVAILABLE_MONDAY",
+        "IF_MONDAY_HOLIDAY_AVAILABLE_NEXT_BUSINESS_DAY"
+      ],
+      "evidence_scope": "DIRECT_OFFICIAL_CATALOG_PROSE"
+    },
+    "guide_scope": {
+      "endpoint": "http://apis.data.go.kr/1160100/GetStocRighScheService_V2/getRighExerReasSche_V2",
+      "request_fields": [
+        "numOfRows",
+        "pageNo",
+        "resultType",
+        "serviceKey",
+        "basDt",
+        "issuCmpyKsdCustNo",
+        "stckIssuCmpyNm"
+      ],
+      "response_fields": [
+        "resultCode",
+        "resultMsg",
+        "numOfRows",
+        "pageNo",
+        "totalCount",
+        "basDt",
+        "issuCmpyKsdCustNo",
+        "crno",
+        "stckIssuCmpyNm",
+        "scrsIssuMnbdCd",
+        "scrsIssuMnbdCdNm",
+        "stckIssuRcd",
+        "stckIssuRcdNm",
+        "rgtExertRcd",
+        "rgtExertRcdNm",
+        "rgtExertSttgDt",
+        "rgtExertEdDt",
+        "trsnmDptyDcd",
+        "trsnmDptyDcdNm",
+        "stckParPrc",
+        "stckStacMd",
+        "nmlsLckSttgDt",
+        "nmlsLckEdDt"
+      ]
+    }
+  },
+  "ksd": {
+    "source_id": "M3TOP3-KSD-CORP-DATA-GO-KR-v1",
+    "catalog_dataset_id": "15157348",
+    "catalog_url": "https://www.data.go.kr/data/15157348/openapi.do",
+    "reference_document": {
+      "filename": "[한국예탁결제원 기업정보서비스] 주식권리일정 조회_세부항목.hwp",
+      "file_id": "FILE_000000003629540/1",
+      "byte_size": 82944,
+      "sha256": "7f3843d70e863e5de32cdf0f8866b9392709c54011a0bc91e81f8577bb1e3f07"
+    },
+    "catalog_prose_claim": "REALTIME_INQUIRY",
+    "catalog_prose_promotion": "NOT_PROMOTED_TO_EXACT_UPDATE_CYCLE",
+    "proven_scope": [
+      "getCorpActionDtList",
+      "RECENT_APPROXIMATELY_SEVEN_DAY_SCHEDULE",
+      "dtTpcd_DICTIONARY"
+    ],
+    "does_not_prove": [
+      "getIssucoCustnoByShortIsin_FULL_RESPONSE_FIELD_DICTIONARY",
+      "getIssucoBasicInfo_FULL_RESPONSE_FIELD_DICTIONARY",
+      "TEMPORAL_AND_STATUS_FIELD_SEMANTICS",
+      "HISTORICAL_VALIDITY_SEMANTICS",
+      "EXACT_UPDATE_CYCLE"
+    ]
+  },
+  "claim_ceiling": "OFFICIAL_DOCUMENT_BYTES_AND_DIGESTS_BOUND_FINANCE_TEMPORAL_SEMANTICS_BOUND_KSD_IDENTITY_DICTIONARY_AND_EXACT_UPDATE_CYCLE_OPEN",
+  "validation_claim": "NONE",
+  "gate_effect": "NONE"
+}
