@@ -1,0 +1,27 @@
+{
+  "artifact": "M3TOP3_PUBLIC_DATA_API_PAGINATION_INVARIANT_TEST_RECEIPT_v1.0",
+  "tested_at_kst": "2026-08-28T12:05:00+09:00",
+  "test_command": "python -m unittest tools.m3top3.tests.test_source_admission -v",
+  "tests_run": 14,
+  "failures": 0,
+  "errors": 0,
+  "state": "PASS_OFFLINE_UNIT_SCOPE",
+  "source_commit": "0468f41893b09fa466044d7b06f93ad3c7555d43",
+  "test_commit": "a5e64a6e3e27ee0a7a9ef8598daad367d1077720",
+  "proven": [
+    "ASSERT_ECHOED_PAGE_NUMBER",
+    "ASSERT_STABLE_TOTAL_COUNT_AND_PAGE_SIZE",
+    "REJECT_EMPTY_INTERMEDIATE_PAGE",
+    "DETECT_REPEATED_WHOLE_PAGE",
+    "ASSERT_SUM_ITEMS_EQUALS_TOTAL_COUNT_AT_DATE_COMPLETE",
+    "ON_RESUME_REVALIDATE_PAGE_1_IDENTITY_AND_TOTAL",
+    "QUARANTINE_TOTAL_COUNT_OR_PAGE_SHIFT_DRIFT"
+  ],
+  "not_proven": [
+    "BULK_COLLECTOR_INTEGRATION",
+    "LIVE_MULTI_PAGE_PROVIDER_RUN"
+  ],
+  "provider_api_network_attempts": 0,
+  "validation_claim": "NONE",
+  "gate_effect": "NONE"
+}
