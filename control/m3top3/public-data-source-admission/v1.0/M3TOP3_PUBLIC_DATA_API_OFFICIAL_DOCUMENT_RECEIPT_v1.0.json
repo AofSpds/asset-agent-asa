@@ -1,6 +1,6 @@
 {
   "artifact": "M3TOP3_PUBLIC_DATA_API_OFFICIAL_DOCUMENT_RECEIPT_v1.0",
-  "observed_at_kst": "2026-08-28T11:58:00+09:00",
+  "observed_at_kst": "2026-08-28T12:12:00+09:00",
   "acquisition_mode": "AUTHENTICATED_PUBLIC_CATALOG_BROWSER_DOWNLOAD_AND_LOCAL_SHA256",
   "provider_api_network_attempts": 0,
   "finance": {
@@ -79,14 +79,89 @@
       "dtTpcd_DICTIONARY"
     ],
     "does_not_prove": [
-      "getIssucoCustnoByShortIsin_FULL_RESPONSE_FIELD_DICTIONARY",
-      "getIssucoBasicInfo_FULL_RESPONSE_FIELD_DICTIONARY",
       "TEMPORAL_AND_STATUS_FIELD_SEMANTICS",
       "HISTORICAL_VALIDITY_SEMANTICS",
       "EXACT_UPDATE_CYCLE"
-    ]
+    ],
+    "official_swagger": {
+      "catalog_url": "https://www.data.go.kr/data/15157348/openapi.do",
+      "base_url": "https://apis.data.go.kr/B552481/CorpSvc",
+      "response_content_type": "application/xml",
+      "common_response_codes": {
+        "3": "NODATA_ERROR",
+        "10": "INVALID_REQUEST_PARAMETER_ERROR",
+        "11": "NO_MANDATORY_REQUEST_PARAMETER_ERROR",
+        "200": "SUCCESS"
+      },
+      "operations": [
+        {
+          "operation": "getIssucoCustnoByShortIsin",
+          "description": "단축번호로 발행회사번호 조회",
+          "request_fields": [
+            "shortIsin",
+            "serviceKey"
+          ],
+          "response_envelope_fields": [
+            "resultCode",
+            "resultMsg",
+            "totalCount"
+          ],
+          "response_item_fields": [
+            "listNm",
+            "issucoCustno",
+            "issucoNm"
+          ]
+        },
+        {
+          "operation": "getIssucoBasicInfo",
+          "description": "기업기본정보 기업개요 조회",
+          "request_fields": [
+            "issucoCustno",
+            "serviceKey"
+          ],
+          "response_envelope_fields": [
+            "resultCode",
+            "resultMsg",
+            "totalCount"
+          ],
+          "response_item_fields": [
+            "dlistDt",
+            "repSecnNm",
+            "bizno",
+            "ceoNm",
+            "setaccMmdd",
+            "pval",
+            "engCustNm",
+            "engLegFormNm",
+            "founDt",
+            "agOrgTpcd",
+            "agOrgTpcdNm",
+            "homepAddr",
+            "pvalStkqty",
+            "rostCloseTermTpcd",
+            "rostCloseTerms",
+            "rostCloseTermUnitCd",
+            "rostCloseTermUnitNm",
+            "rostCloseTerm",
+            "issucoCustno",
+            "shotnIsin",
+            "totalStkCnt",
+            "custXtinDt",
+            "caltotMartTpcd",
+            "caltotMartTpcdNm",
+            "apliDtY",
+            "apliDt",
+            "eltscYn",
+            "apliDtN"
+          ]
+        }
+      ],
+      "evidence_scope": "DIRECT_OFFICIAL_CATALOG_SWAGGER_DOM",
+      "field_names_state": "FULL_RESPONSE_FIELD_NAMES_BOUND",
+      "field_semantics_state": "NAMES_ONLY_TEMPORAL_STATUS_AND_HISTORICAL_VALIDITY_SEMANTICS_OPEN"
+    }
   },
-  "claim_ceiling": "OFFICIAL_DOCUMENT_BYTES_AND_DIGESTS_BOUND_FINANCE_TEMPORAL_SEMANTICS_BOUND_KSD_IDENTITY_DICTIONARY_AND_EXACT_UPDATE_CYCLE_OPEN",
+  "claim_ceiling": "OFFICIAL_DOCUMENT_BYTES_AND_DIGESTS_BOUND_FINANCE_TEMPORAL_SEMANTICS_BOUND_KSD_IDENTITY_FIELD_NAMES_BOUND_KSD_FIELD_SEMANTICS_AND_EXACT_UPDATE_CYCLE_OPEN",
   "validation_claim": "NONE",
   "gate_effect": "NONE"
 }
