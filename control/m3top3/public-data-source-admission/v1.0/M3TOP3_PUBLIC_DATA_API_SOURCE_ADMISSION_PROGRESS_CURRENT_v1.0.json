@@ -1,9 +1,9 @@
 {
   "artifact": "M3TOP3_PUBLIC_DATA_API_SOURCE_ADMISSION_PROGRESS_CURRENT_v1.0",
-  "as_of_kst": "2026-08-28T11:58:00+09:00",
+  "as_of_kst": "2026-08-28T12:05:00+09:00",
   "runtime_lock_id": "PMO-API-SRC-ADMIT-20260828055620",
   "branch": "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828",
-  "head_commit": "0a0b750e45444e16bcdf0e3c66dca2b27e42f59c",
+  "head_commit": "7d6a1fc3edc4f397dae99161da8babce8debf106",
   "denominator_ewu": 100,
   "earned_ewu": 25,
   "overall_progress_percent": 25,
@@ -56,13 +56,18 @@
     "s2_custody_cleanup_events_commit": "033d37776075b03aa7bbc19b4f1f5dcc763d9a61",
     "official_document_receipt_commit": "21d476ccb1bed124ec38502b2419f72228ed6921",
     "s2_documentation_contract_commit": "94e4df43e585a7c81319206a8027fcd4b9d6f637",
-    "s2_documentation_events_commit": "0a0b750e45444e16bcdf0e3c66dca2b27e42f59c"
+    "s2_documentation_events_commit": "0a0b750e45444e16bcdf0e3c66dca2b27e42f59c",
+    "pagination_validator_source_commit": "0468f41893b09fa466044d7b06f93ad3c7555d43",
+    "pagination_validator_test_commit": "a5e64a6e3e27ee0a7a9ef8598daad367d1077720",
+    "pagination_test_receipt_commit": "3eb652f1b9be80fde93074c116b94b8bc5c7a865",
+    "pagination_currentization_contract_commit": "e1f7ba013ab7d95a18f3b64ba3a3446342039cb9",
+    "pagination_currentization_events_commit": "7d6a1fc3edc4f397dae99161da8babce8debf106"
   },
-  "exact_blocker": "KSD_IDENTITY_OPERATION_FULL_FIELD_DICTIONARY_TEMPORAL_STATUS_HISTORICAL_SEMANTICS_AND_EXACT_UPDATE_CYCLE_OPEN_PLUS_PAGINATION_SNAPSHOT_INVARIANTS_NOT_PROVEN",
+  "exact_blocker": "KSD_IDENTITY_OPERATION_FULL_FIELD_DICTIONARY_TEMPORAL_STATUS_HISTORICAL_SEMANTICS_AND_EXACT_UPDATE_CYCLE_OPEN_PLUS_PAGINATION_VALIDATOR_BULK_COLLECTOR_INTEGRATION_OPEN",
   "ksd_secret_state": "PRESENT_DECODED_FORM_LIVE_REQUEST_PROVEN",
   "credential_security_disposition": "PROTECTED_REPOSITORY_SECRETS_CONFIGURED_VALUES_NEVER_PERSISTED",
   "resume_trigger": "NONE_OWNER_ACTION_NOT_REQUIRED",
-  "resume_action": "CONTINUE_OFFICIAL_KSD_IDENTITY_OPERATION_DOCUMENT_DISCOVERY_AND_OFFLINE_PAGINATION_INVARIANT_EVIDENCE_NO_PROVIDER_DATA_API_CALL",
+  "resume_action": "CONTINUE_OFFICIAL_KSD_IDENTITY_OPERATION_DOCUMENT_DISCOVERY_AND_BIND_PAGINATION_VALIDATOR_TO_BOUNDED_COLLECTOR_NO_PROVIDER_DATA_API_CALL",
   "time_accounting": {
     "runtime_lock_at_kst": "2026-08-28T05:56:20+09:00",
     "resumed_at_kst": "2026-08-28T07:26:17+09:00",
@@ -104,12 +109,14 @@
       "CANONICAL_OBJECT_POST_CLEANUP_HEAD_VERIFIED",
       "FINANCE_OFFICIAL_GUIDE_BYTES_AND_SHA256_BOUND",
       "FINANCE_DAILY_ONCE_NON_REALTIME_AND_NEXT_BUSINESS_DAY_AFTER_13_00_KST_BOUND",
-      "KSD_OFFICIAL_HWP_BYTES_AND_SHA256_BOUND_SCOPE_LIMITED"
+      "KSD_OFFICIAL_HWP_BYTES_AND_SHA256_BOUND_SCOPE_LIMITED",
+      "PAGINATION_INVARIANT_OFFLINE_VALIDATOR_IMPLEMENTED",
+      "PAGINATION_INVARIANT_UNIT_TESTS_PASS_14_OF_14"
     ],
     "open": [
       "KSD_IDENTITY_OPERATION_FULL_RESPONSE_FIELD_DICTIONARY_TEMPORAL_STATUS_AND_HISTORICAL_VALIDITY_SEMANTICS",
       "KSD_EXACT_UPDATE_CYCLE",
-      "PAGINATION_SNAPSHOT_INVARIANTS_NOT_PROVEN"
+      "PAGINATION_VALIDATOR_BULK_COLLECTOR_INTEGRATION"
     ],
     "frozen_prefixes": [
       "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/",
@@ -184,7 +191,7 @@
       "code_fix": "m3top3-finance-single-canary-v1.yml"
     }
   ],
-  "last_material_progress": "S2_FINANCE_DOCUMENTATION_AND_TEMPORAL_SEMANTICS_CLOSED_KSD_DOCUMENT_DIGEST_BOUND_SCOPE_LIMITED",
+  "last_material_progress": "S2_PAGINATION_OFFLINE_VALIDATOR_14_OF_14_PASS_BULK_COLLECTOR_INTEGRATION_OPEN",
   "noncanonical_raw_entities_current": 0,
   "noncanonical_raw_entity_delete_markers": 1,
   "owner_action_required": false
