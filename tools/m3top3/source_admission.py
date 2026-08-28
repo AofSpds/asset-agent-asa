@@ -268,6 +268,58 @@ def assert_resume_page_1(snapshot: Mapping[str, Any], page_1: Mapping[str, Any])
         raise SourceProtocolError("resume page 1 identity or total shifted")
 
 
+def collect_bounded_pagination_snapshot(
+    fetch_page: Callable[[int], Mapping[str, Any]],
+    *,
+    max_pages: int,
+    resume_snapshot: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Collect one bounded page set and close it through the invariant validator.
+
+    ``fetch_page`` is dependency-injected so offline tests can prove the complete
+    collection path without making provider requests.  A resumed collection
+    always re-reads page 1 and binds it to the prior snapshot before any later
+    page is fetched.  The first returned page size is the pagination authority;
+    ``max_pages`` is a caller-frozen safety ceiling, not a provider hint.
+    """
+    if isinstance(max_pages, bool) or not isinstance(max_pages, int) or max_pages <= 0:
+        raise SourceProtocolError("invalid bounded pagination page limit")
+    if resume_snapshot is not None and not isinstance(resume_snapshot, Mapping):
+        raise SourceProtocolError("invalid resume snapshot")
+
+    first_page = fetch_page(1)
+    if not isinstance(first_page, Mapping):
+        raise SourceProtocolError("invalid pagination page record")
+    first_page = dict(first_page)
+    if resume_snapshot is not None:
+        assert_resume_page_1(resume_snapshot, first_page)
+
+    total_count = first_page.get("total_count")
+    page_size = first_page.get("page_size")
+    if not isinstance(total_count, int) or isinstance(total_count, bool) or total_count < 0:
+        raise SourceProtocolError("invalid pagination totalCount")
+    if not isinstance(page_size, int) or isinstance(page_size, bool) or page_size <= 0:
+        raise SourceProtocolError("invalid pagination page size")
+    expected_pages = max(1, (total_count + page_size - 1) // page_size)
+    if expected_pages > max_pages:
+        raise QuotaBoundaryError("bounded pagination page limit exceeded")
+
+    pages: list[Mapping[str, Any]] = [first_page]
+    for page_no in range(2, expected_pages + 1):
+        page = fetch_page(page_no)
+        if not isinstance(page, Mapping):
+            raise SourceProtocolError("invalid pagination page record")
+        pages.append(dict(page))
+
+    snapshot = validate_pagination_snapshot(pages)
+    return {
+        "state": snapshot["state"],
+        "pages": pages,
+        "snapshot": snapshot,
+        "resumed": resume_snapshot is not None,
+    }
+
+
 @dataclass(frozen=True)
 class QuotaReservation:
     provider: str
