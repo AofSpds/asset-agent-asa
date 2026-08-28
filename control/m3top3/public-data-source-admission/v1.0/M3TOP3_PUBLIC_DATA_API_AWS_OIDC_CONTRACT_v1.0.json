@@ -1,7 +1,7 @@
 {
   "artifact": "M3TOP3_PUBLIC_DATA_API_AWS_OIDC_CONTRACT_v1.0",
   "issued_at_kst": "2026-08-28T10:08:28+09:00",
-  "state": "FRESH_PRECHECK_PARTIAL_PASS_OIDC_STS_ACCOUNT_BUCKET_VERSIONING_PREFIX_PASS_KNOWN_VERSION_READBACK_BLOCKED",
+  "state": "PMO_STDERR_SAFE_READ_ONLY_DIAGNOSTIC_PRECHECK_PREPARING",
   "provider": "AWS_IAM_OIDC",
   "aws_region": "ap-northeast-2",
   "aws_account_id": "956315449338",
@@ -18,7 +18,7 @@
   "github_role_arn_variable": "M3TOP3_AWS_ROLE_ARN",
   "expected_role_name": "M3Top3GitHubOIDCRawWriter",
   "expected_role_arn": "arn:aws:iam::956315449338:role/M3Top3GitHubOIDCRawWriter",
-  "expected_role_binding_state": "GITHUB_OIDC_AND_STS_ASSUMED_ROLE_PASS_EXACT_KNOWN_OBJECT_VERSION_READBACK_NOT_PROVEN",
+  "expected_role_binding_state": "GITHUB_OIDC_AND_STS_ASSUMED_ROLE_PASS_DIAGNOSTIC_PRECHECK_PENDING",
   "long_lived_access_keys": "PROHIBITED",
   "oidc_provider_url": "https://token.actions.githubusercontent.com",
   "oidc_audience": "sts.amazonaws.com",
@@ -85,14 +85,14 @@
     "trust_only_remediation_script_sha256": "9573ed2c1d69b5780510a19d5f9522fe8986c5bb8871c94d5636525a7afc0936"
   },
   "workflow": ".github/workflows/m3top3-finance-bounded-live-pilot-v1.yml",
-  "workflow_disposition": "FRESH_PRECHECK_FAIL_CLOSED_AFTER_OIDC_STS_ACCOUNT_BUCKET_VERSIONING_PREFIX_PASS_BEFORE_PROVIDER_AND_S3_WRITE",
+  "workflow_disposition": "NEW_STDERR_SAFE_READ_ONLY_DIAGNOSTIC_PRECHECK_REARM_PENDING",
   "historical_single_canary_workflow": ".github/workflows/m3top3-s3-raw-custody-single-canary-v1.yml",
   "current_runtime": {
     "runtime_lock_id": "PMO-API-SRC-ADMIT-20260828192737",
     "pilot_id": "FINANCE-LIVE-PILOT-20260828192737",
-    "authority_state": "TERMINATED_BLOCKED_READ_ONLY_KNOWN_OBJECT_VERSION_READBACK_DIAGNOSTIC_REQUIRED",
-    "live_pilot_entry_gate": "CLOSED_PRECHECK_NOT_PASS",
-    "workflow_execution_authorized": false,
+    "authority_state": "ACTIVE_PREPARING_STDERR_SAFE_READ_ONLY_DIAGNOSTIC_PRECHECK",
+    "live_pilot_entry_gate": "CLOSED_PENDING_FULL_READ_ONLY_DIAGNOSTIC_PRECHECK_PASS",
+    "workflow_execution_authorized": true,
     "remote_write_execution_authorized": false,
     "provider_api_network_calls_authorized_during_precheck": false
   },
@@ -159,7 +159,7 @@
     "manual_custody_receipt": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_S3_MANUAL_CUSTODY_RECEIPT_v1.0.json",
     "remote_sha256_verified": true
   },
-  "last_currentized_at_kst": "2026-08-29T02:02:43+09:00",
+  "last_currentized_at_kst": "2026-08-29T02:07:34+09:00",
   "repository_visibility": "PRIVATE",
   "private_repository_environment_gate": {
     "preferred": "REQUIRED_REVIEWER_AofSpds",
@@ -245,8 +245,8 @@
     "required": false,
     "semantic_decision_required": false,
     "authority_expansion_required": false,
-    "action": "NONE_PENDING_PMO_STDERR_SAFE_READ_ONLY_DIAGNOSTIC_PRECHECK",
-    "next_verification": "FRESH_DIAGNOSTIC_PRECHECK_DO_NOT_RERUN_RUN_33192667201",
+    "action": "NONE_PMO_READ_ONLY_DIAGNOSTIC_PRECHECK_PREPARATION",
+    "next_verification": "NEW_DIAGNOSTIC_PRECHECK_DO_NOT_RERUN_33192667201",
     "prohibit": [
       "RERUN_RUN_33192667201",
       "LIVE_ARMING_BEFORE_FULL_PRECHECK_PASS",
@@ -297,5 +297,11 @@
     "provider_api_network_attempts": 0,
     "quota_reservations": 0,
     "remote_s3_writes": 0
+  },
+  "diagnostic_workflow": {
+    "path": ".github/workflows/m3top3-finance-bounded-live-pilot-v1.yml",
+    "commit": "38b9253fc83003733a327f206776ffe9dbb84ae1",
+    "content_sha256": "7d7ba22e4d1c9366daa4c064172006a60c773510035221f976c92c5761a67339",
+    "scope": "AWS_ERROR_CODE_ONLY_VERSIONED_AND_LATEST_HEAD_READBACK_NO_PROVIDER_NO_S3_WRITE"
   }
 }
