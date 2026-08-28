@@ -15,8 +15,9 @@
     "bulk_acquisition_authorized": false,
     "bulk_blockers": [
       "FINANCE_OFFICIAL_REFERENCE_DOCUMENT_BYTES_DIGEST_OPEN",
-      "KSD_IDENTITY_OPERATION_DOCUMENTATION_AND_UPDATE_CYCLE_OPEN",
-      "ACTIONS_OIDC_ROLE_AND_PROTECTED_GITHUB_ENVIRONMENT_NOT_BOUND",
+      "FINANCE_TYPICAL_AVAILABILITY_CATALOG_RECEIPT_OPEN",
+      "KSD_FULL_FIELD_DICTIONARY_TEMPORAL_SEMANTICS_DOCUMENT_DIGEST_AND_UPDATE_CYCLE_OPEN",
+      "ACTIONS_OIDC_ROLE_AND_GITHUB_ENVIRONMENT_CAPABILITY_NOT_BOUND",
       "SOURCE_FAMILY_REMOTE_BYTES_NOT_MATERIALIZED_OR_SHA256_VERIFIED",
       "PAGINATION_SNAPSHOT_INVARIANTS_NOT_PROVEN"
     ],
@@ -50,7 +51,7 @@
       "redirects": "DISABLED",
       "automatic_failover": "PROHIBITED",
       "catalog_service_id": "B552481/CorpSvc",
-      "documentation_digest": "PARTIAL_OPERATION_SCOPE_ONLY",
+      "documentation_digest": "LIVE_CANARY_RECEIPTS_CAPTURED_OFFICIAL_FULL_IDENTITY_OPERATION_GUIDE_OPEN",
       "license_retention_attribution": {
         "state": "FROZEN",
         "required_metadata_fields": [
@@ -103,7 +104,45 @@
         }
       ],
       "frozen_raw_prefix": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-KSD-CORP-DATA-GO-KR-v1/",
-      "object_key_template": "raw/public-data-api/<source_id>/<operation>/quota_day_kst=<YYYY-MM-DD>/request_id=<safe_request_id_sha256>/attempt=<N>/sha256=<entity_sha256>.entity"
+      "object_key_template": "raw/public-data-api/<source_id>/<operation>/quota_day_kst=<YYYY-MM-DD>/request_id=<safe_request_id_sha256>/attempt=<N>/sha256=<entity_sha256>.entity",
+      "identity_operation_evidence": {
+        "state": "ENDPOINT_REQUEST_AND_CANARY_RESPONSE_FIELDS_EVIDENCE_BACKED",
+        "operations": [
+          {
+            "operation": "getIssucoCustnoByShortIsin",
+            "endpoint": "https://apis.data.go.kr/B552481/CorpSvc/getIssucoCustnoByShortIsin",
+            "request_fields": [
+              "serviceKey",
+              "shortIsin"
+            ],
+            "canary_value": "005930",
+            "live_run_id": 33122137049,
+            "raw_entity_bytes": 411,
+            "raw_entity_sha256": "f3222d32400f728a3259fe751531662198078bea23892a7ed0cf74f65106d2ac"
+          },
+          {
+            "operation": "getIssucoBasicInfo",
+            "endpoint": "https://apis.data.go.kr/B552481/CorpSvc/getIssucoBasicInfo",
+            "live_run_id": 33122941717,
+            "raw_entity_bytes": 1651,
+            "raw_entity_sha256": "f38df1bf65a04ff93e49968b9d5f9728b9e0f44c11de6f6f3961977b1547d8a4"
+          }
+        ],
+        "open_official_scope": [
+          "FULL_RESPONSE_FIELD_DICTIONARY",
+          "TEMPORAL_AND_STATUS_FIELD_SEMANTICS",
+          "HISTORICAL_VALIDITY_SEMANTICS",
+          "IDENTITY_OPERATION_DOCUMENT_BYTES_AND_DIGEST",
+          "EXACT_UPDATE_CYCLE"
+        ],
+        "evidence_issue_comments": [
+          "Issue_53_comment_5444487903",
+          "Issue_53_comment_5444512589",
+          "Issue_53_comment_5444536900",
+          "Issue_53_comment_5444563878",
+          "Issue_53_comment_5444603846"
+        ]
+      }
     },
     {
       "provider": "FINANCE",
@@ -143,13 +182,14 @@
         "commercial_boundary": "NON_COMMERCIAL_ONLY_UNLESS_REQUIRED_AGREEMENT_SEPARATELY_PROVEN"
       },
       "update_cycle": {
-        "state": "FROZEN_CATALOG_METADATA",
+        "state": "PARTIAL_EVIDENCE_FREQUENCY_ONLY",
         "frequency": "DAILY_NON_REALTIME",
-        "typical_availability": "BUSINESS_DAY_D_PLUS_1_AFTER_13_00_KST",
-        "evidence": [
-          "DATA_GO_KR_CATALOG_15059609",
-          "Issue_54_comment_5444375457"
-        ]
+        "frequency_evidence": [
+          "Issue_54_comment_5444375457_DAILY_OPERATION_ONLY"
+        ],
+        "typical_availability": "OPEN_UNRECEIPTED",
+        "prior_unreceipted_catalog_prose": "BUSINESS_DAY_D_PLUS_1_AFTER_13_00_KST",
+        "promotion_rule": "DO_NOT_FREEZE_TYPICAL_AVAILABILITY_UNTIL_DIRECT_CATALOG_OR_GUIDE_BYTES_RECEIPT"
       },
       "formats": [
         "JSON",
@@ -176,7 +216,9 @@
         {
           "filename": "오픈API 활용자가이드_금융위원회_주식권리일정정보.docx",
           "byte_size": "OPEN",
-          "sha256": "OPEN_NOT_CAPTURED"
+          "sha256": "OPEN_NOT_CAPTURED",
+          "catalog_url": "https://www.data.go.kr/data/15059609/openapi.do",
+          "direct_download_url": "OPEN_NOT_CAPTURED"
         }
       ],
       "frozen_raw_prefix": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/",
@@ -509,7 +551,7 @@
     "ACTIVE_MANIFEST",
     "PRODUCTION_PROVIDER"
   ],
-  "last_currentized_at_kst": "2026-08-28T10:08:28+09:00",
+  "last_currentized_at_kst": "2026-08-28T10:28:00+09:00",
   "s2_freeze_state": {
     "state": "PARTIAL_CUSTODY_BLOCKED",
     "quota_policy": "FROZEN",
@@ -521,5 +563,17 @@
     "remote_materialization": "PREPARED_NOT_STARTED",
     "stable_object_locators": 0,
     "actions_oidc": "GIT_SIDE_PREPARED_OWNER_BINDING_REQUIRED"
+  },
+  "first_materialization_backup": {
+    "state": "DURABLE_PRIVATE_BACKUP_PRESENT_NOT_CANONICAL_DATA_PLANE",
+    "source_artifact_id": 9670226482,
+    "zip_filename": "M3TOP3_FINANCE_VALID_EMPTY_RAW_ARTIFACT_9670226482.zip",
+    "zip_bytes": 1668,
+    "zip_sha256": "cd30546ed6991b7e4028e3c792622fc9d9566490aa6086d1aa7361adeb3fb903",
+    "entity_bytes": 143,
+    "entity_sha256": "5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05",
+    "original_actions_expiry_utc": "2026-09-04T00:50:26Z",
+    "provider_api_network_attempts": 0,
+    "stable_object_locator_claim": "NONE_UNTIL_S3_UPLOAD_AND_REMOTE_SHA256_VERIFY"
   }
 }
