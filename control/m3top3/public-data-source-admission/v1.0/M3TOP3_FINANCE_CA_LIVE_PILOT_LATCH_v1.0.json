@@ -10,9 +10,9 @@
   "owner_actor": "AofSpds",
   "runtime_lock_id": "PMO-API-SRC-ADMIT-20260828192737",
   "pilot_run_id": "FINANCE-LIVE-PILOT-20260828192737",
-  "state": "ARMED",
-  "mode": "PRECHECK_ARMED",
-  "activation_commit_message": "Arm M3Top3 Finance precheck v1.0",
+  "state": "BLOCKED",
+  "mode": "PRECHECK_BLOCKED",
+  "activation_commit_message": null,
   "precheck_evidence": {
     "run_ids": [
       33167156189,
@@ -20,7 +20,8 @@
       33167677777,
       33167799898,
       33167935763,
-      33192667201
+      33192667201,
+      33193429858
     ],
     "precheck_success_count": 0,
     "github_observed_subject": "repo:AofSpds@87963280/asset-agent-asa@1334403184:environment:m3top3-source-admission",
@@ -51,7 +52,13 @@
     "diagnostic_scope": [
       "VERSIONED_HEAD_ERROR_CODE",
       "LATEST_HEAD_STATE_AND_ERROR_CODE"
-    ]
+    ],
+    "diagnostic_run_id": 33193429858,
+    "diagnostic_job_id": 98924447216,
+    "diagnostic_artifact_id": 9694722772,
+    "diagnostic_artifact_sha256": "eddde9ee4fc8413f29014661d7fe5b51eccb8f1dd672e569a32512d964710235",
+    "frozen_versioned_head_error_code": "403",
+    "latest_head": "PASS"
   },
   "activation_modes": {
     "PRECHECK_ARMED": {
@@ -72,11 +79,11 @@
   "authority_bindings": {
     "bindings_finalized": true,
     "authority_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_SOURCE_ADMISSION_CONTRACT_v1.0.json",
-    "authority_sha256": "617ca3872fa95bd75184a567c4f42fb1d37b45b44107a1a8cf03ab56fb5e7b27",
+    "authority_sha256": "8f1a38bd8ca8fdac087c8d7a483ba34397d0657dfce09d9581f7c87ee9309c82",
     "plan_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_SOURCE_ADMISSION_PLAN_v1.0.json",
-    "plan_sha256": "c416e620b2bed054e57022a47ba428c2d845c6921c950406381b14c57d077f0e",
+    "plan_sha256": "0b2811ce6b972fbdbaae0366950c34f1cc1bae722c02edd5bed3f49b7bf99ea8",
     "checkpoint_seed_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_ACQUISITION_CHECKPOINT_v1.0.json",
-    "checkpoint_seed_sha256": "c359ba1e115e9f19e2fc9ca07644d142b4204c4e2a08512fd51326224837d591",
+    "checkpoint_seed_sha256": "e45bf61ee73235938a41f32559f4839ba77d716060be303ecc70319ba1508314",
     "baseline_quota_ledger_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_QUOTA_LEDGER_v1.0.jsonl",
     "baseline_quota_ledger_sha256": "aa1d73613a3ba737837b368ad0b15f0504f0bf35d56f5a81558093b4cc03f607",
     "baseline_raw_index_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_RAW_CUSTODY_INDEX_v1.0.jsonl",
@@ -91,15 +98,15 @@
   "execution_material": {
     "runtime_lock_id": "PMO-API-SRC-ADMIT-20260828192737",
     "pilot_run_id": "FINANCE-LIVE-PILOT-20260828192737",
-    "authority_sha256": "617ca3872fa95bd75184a567c4f42fb1d37b45b44107a1a8cf03ab56fb5e7b27",
-    "plan_sha256": "c416e620b2bed054e57022a47ba428c2d845c6921c950406381b14c57d077f0e",
+    "authority_sha256": "8f1a38bd8ca8fdac087c8d7a483ba34397d0657dfce09d9581f7c87ee9309c82",
+    "plan_sha256": "0b2811ce6b972fbdbaae0366950c34f1cc1bae722c02edd5bed3f49b7bf99ea8",
     "runner_sha256": "1912d1a92bcb8f36a45beb72ff324f418233df6ced1dddb254abe3276af93a4c",
     "source_admission_sha256": "574b2f45474b39fd0cf64f28a946bd115ddb3b782595c3ddd78d15c801d111dd",
-    "checkpoint_template_sha256": "c359ba1e115e9f19e2fc9ca07644d142b4204c4e2a08512fd51326224837d591",
+    "checkpoint_template_sha256": "e45bf61ee73235938a41f32559f4839ba77d716060be303ecc70319ba1508314",
     "owner_cap_spec_sha256": "7b65152d8df10a6497d1656dbc5cc6d4bd253740f53a29480bb8d877b81b9f05",
     "execution_token_sha256": "9cda8bb429b3558e81e1ffcc4a232c78976c521186f13fbad5462c0312281f37"
   },
-  "execution_material_sha256": "0d938b8c0d04c737f963576666d0617e2432107c5f4a66247394bad4308e36ef",
+  "execution_material_sha256": "77ef1731bd28e0c745037043929941fb881aac69e768b4fd2f22ee96f4cfaeed",
   "finance_spec": {
     "source_id": "M3TOP3-FINANCE-STOCK-RIGHTS-v1",
     "operation": "getRighExerReasSche_V2",
@@ -137,7 +144,7 @@
     "authorized": true,
     "aws_account_id": "956315449338",
     "aws_region": "ap-northeast-2",
-    "aws_role_arn_binding_state": "EXACT_ROLE_ARN_BOUND_PENDING_PRECHECK",
+    "aws_role_arn_binding_state": "OIDC_STS_LATEST_GET_OBJECT_PASS_GET_OBJECT_VERSION_NOT_YET_DISTINGUISHED",
     "aws_role_arn_expected": "arn:aws:iam::956315449338:role/M3Top3GitHubOIDCRawWriter",
     "aws_role_path_expected": "M3Top3GitHubOIDCRawWriter",
     "bucket": "semi-data-plane-aofspds-20260815",
@@ -150,14 +157,14 @@
     "report_uri": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_control/runtime_lock_id=PMO-API-SRC-ADMIT-20260828192737/pilot_run_id=FINANCE-LIVE-PILOT-20260828192737/report.json",
     "execution_claim_uri": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_control/runtime_lock_id=PMO-API-SRC-ADMIT-20260828192737/pilot_run_id=FINANCE-LIVE-PILOT-20260828192737/execution-claim.json",
     "materialization_state": {
-      "checkpoint_uri": "DURABLE_CAS_MATERIALIZED_BY_RUNNER",
-      "execution_claim_uri": "CONDITIONAL_CREATE_MATERIALIZED_BY_RUNNER",
-      "quota_ledger_uri": "RESERVED_NOT_MATERIALIZED",
-      "raw_index_uri": "RESERVED_NOT_MATERIALIZED",
-      "report_uri": "RESERVED_NOT_MATERIALIZED"
+      "checkpoint_uri": "NOT_CREATED_PRECHECK_BLOCKED",
+      "execution_claim_uri": "NOT_CREATED_PRECHECK_BLOCKED",
+      "quota_ledger_uri": "NOT_CREATED_PRECHECK_BLOCKED",
+      "raw_index_uri": "NOT_CREATED_PRECHECK_BLOCKED",
+      "report_uri": "NOT_CREATED_PRECHECK_BLOCKED"
     },
-    "canonical_live_attempt_and_raw_telemetry": "DURABLE_CHECKPOINT_INTERNAL",
-    "post_run_sanitized_control_currentization": "REPOSITORY_CAS_AFTER_ARTIFACT_READBACK",
+    "canonical_live_attempt_and_raw_telemetry": "NOT_CREATED_PILOT_NOT_EXECUTED",
+    "post_run_sanitized_control_currentization": "NOT_APPLICABLE_PRECHECK_BLOCKED",
     "checkpoint_cas": {
       "create_precondition": "If-None-Match:*",
       "update_precondition": "If-Match:PRIOR_ETAG",
@@ -194,7 +201,7 @@
   "pit_semantic_change_authorized": false,
   "validation_claim": "NONE",
   "gate_effect": "NONE",
-  "initial_disposition": "INERT_STAGED_ARTIFACT_REQUIRES_SEPARATE_EXACT_PATH_PUSH_WITH_EXACT_MODE_AND_COMMIT_MESSAGE",
+  "initial_disposition": "BLOCKED_CURRENT_VERSION_ID_READ_ONLY_PROBE_REQUIRED_ZERO_EFFECT",
   "provider_api_network_calls_on_this_commit": 0,
   "remote_s3_writes_on_this_commit": 0,
   "owner_action_required": false,
@@ -265,5 +272,9 @@
     },
     "terminal_head": "69aed0ad7d898f9822328c4b59a3fb062536f060",
     "issue_49_comment_id": 5455415083
-  }
+  },
+  "blocked_at_kst": "2026-08-29T02:11:23+09:00",
+  "blocker": "FROZEN_VERSIONED_HEAD_403_LATEST_HEAD_PASS",
+  "blocker_cause_claim_ceiling": "GET_OBJECT_VERSION_PERMISSION_VS_FROZEN_VERSION_DRIFT_NOT_YET_DISTINGUISHED",
+  "runtime_disposition": "TERMINATED_NO_ACTIVE_WORK_CURRENT_VERSION_ID_READ_ONLY_PROBE_REQUIRED"
 }
