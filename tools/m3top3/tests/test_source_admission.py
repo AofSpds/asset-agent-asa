@@ -200,6 +200,15 @@ class SourceAdmissionTests(unittest.TestCase):
 
     def test_bounded_collector_rejects_each_contract_pagination_drift(self):
         cases = {
+            "boolean_page_number": [
+                {"page_no": True, "page_size": 1, "total_count": 1, "items": [{"id": 1}]},
+            ],
+            "boolean_total_count": [
+                {"page_no": 1, "page_size": 1, "total_count": True, "items": [{"id": 1}]},
+            ],
+            "boolean_page_size": [
+                {"page_no": 1, "page_size": True, "total_count": 1, "items": [{"id": 1}]},
+            ],
             "echoed_page_number": [
                 {"page_no": 1, "page_size": 1, "total_count": 2, "items": [{"id": 1}]},
                 {"page_no": 3, "page_size": 1, "total_count": 2, "items": [{"id": 2}]},
@@ -240,6 +249,29 @@ class SourceAdmissionTests(unittest.TestCase):
         with self.assertRaises(sa.QuotaBoundaryError):
             sa.collect_bounded_pagination_snapshot(fetch_page, max_pages=2)
         self.assertEqual(requested, [1])
+
+    def test_bounded_collector_quarantines_page_two_before_page_three(self):
+        page_1 = {"page_no": 1, "page_size": 1, "total_count": 3, "items": [{"id": 1}]}
+        page_3 = {"page_no": 3, "page_size": 1, "total_count": 3, "items": [{"id": 3}]}
+        drift_cases = {
+            "echoed_page_number": {"page_no": 3, "page_size": 1, "total_count": 3, "items": [{"id": 2}]},
+            "total_count_shift": {"page_no": 2, "page_size": 1, "total_count": 4, "items": [{"id": 2}]},
+            "page_size_shift": {"page_no": 2, "page_size": 2, "total_count": 3, "items": [{"id": 2}]},
+            "empty_intermediate_page": {"page_no": 2, "page_size": 1, "total_count": 3, "items": []},
+            "repeated_whole_page": {"page_no": 2, "page_size": 1, "total_count": 3, "items": [{"id": 1}]},
+        }
+        for name, page_2 in drift_cases.items():
+            requested = []
+            pages = {1: page_1, 2: page_2, 3: page_3}
+
+            def fetch_page(page_no):
+                requested.append(page_no)
+                return pages[page_no]
+
+            with self.subTest(name=name):
+                with self.assertRaises(sa.SourceProtocolError):
+                    sa.collect_bounded_pagination_snapshot(fetch_page, max_pages=3)
+                self.assertEqual(requested, [1, 2])
 
     def test_bounded_collector_resume_revalidates_page_one_before_page_two(self):
         original_pages = [
