@@ -1,0 +1,65 @@
+{
+  "artifact": "M3TOP3_PUBLIC_DATA_API_AWS_OIDC_CONTRACT_v1.0",
+  "issued_at_kst": "2026-08-28T10:08:28+09:00",
+  "state": "GIT_SIDE_PREPARED_OWNER_AWS_AND_GITHUB_ENVIRONMENT_BINDING_REQUIRED",
+  "provider": "AWS_IAM_OIDC",
+  "aws_region": "ap-northeast-2",
+  "aws_account_id": "NOT_ASSUMED_NOT_STORED",
+  "bucket": "semi-data-plane-aofspds-20260815",
+  "github_repository": "AofSpds/asset-agent-asa",
+  "github_branch": "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828",
+  "github_environment": "m3top3-source-admission",
+  "github_environment_requirements": [
+    "REQUIRED_REVIEWER_REPOSITORY_OWNER",
+    "SELECTED_DEPLOYMENT_BRANCH_EXACT",
+    "NO_UNPROTECTED_AUTOCREATION"
+  ],
+  "github_role_arn_variable": "M3TOP3_AWS_ROLE_ARN",
+  "long_lived_access_keys": "PROHIBITED",
+  "oidc_provider_url": "https://token.actions.githubusercontent.com",
+  "oidc_audience": "sts.amazonaws.com",
+  "oidc_subject": "repo:AofSpds/asset-agent-asa:environment:m3top3-source-admission",
+  "configure_aws_credentials": {
+    "repository": "aws-actions/configure-aws-credentials",
+    "release": "v6.2.3",
+    "commit_sha": "e6de054238d6b7531b4efff3b6587d9aade6a06c",
+    "verified_commit": true
+  },
+  "iam_files": {
+    "trust_policy_template": "control/m3top3/public-data-source-admission/v1.0/aws-oidc/M3TOP3_AWS_GITHUB_OIDC_TRUST_POLICY_TEMPLATE_v1.0.json",
+    "permissions_policy": "control/m3top3/public-data-source-admission/v1.0/aws-oidc/M3TOP3_AWS_S3_RAW_WRITER_POLICY_v1.0.json",
+    "setup_script": "control/m3top3/public-data-source-admission/v1.0/aws-oidc/setup_m3top3_github_oidc_role_v1.sh"
+  },
+  "workflow": ".github/workflows/m3top3-s3-raw-custody-single-canary-v1.yml",
+  "permissions_ceiling": {
+    "github": [
+      "contents:read",
+      "actions:read",
+      "id-token:write"
+    ],
+    "s3_bucket": [
+      "GetBucketLocation",
+      "GetBucketVersioning",
+      "ListBucket_PREFIX_RESTRICTED"
+    ],
+    "s3_objects": [
+      "PutObject",
+      "GetObject",
+      "GetObjectVersion"
+    ],
+    "explicitly_absent": [
+      "STATIC_AWS_ACCESS_KEYS",
+      "DeleteObject",
+      "DeleteObjectVersion",
+      "PutBucketPolicy",
+      "ListAllMyBuckets",
+      "WILDCARD_BUCKET_RESOURCE"
+    ]
+  },
+  "first_run": {
+    "confirmation_token": "MATERIALIZE_ARTIFACT_9670226482_ONCE",
+    "provider_api_network_attempts": 0,
+    "target_locator": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/getRighExerReasSche_V2/quota_day_kst=2026-08-28/request_id=970cde9fee8c25ba842c7969793ede827d92ca62138ceb3745abfa43ead55b6f/attempt=2/sha256=5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05.entity",
+    "remote_sha256_required": true
+  }
+}

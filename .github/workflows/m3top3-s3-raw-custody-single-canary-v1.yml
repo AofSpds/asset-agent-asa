@@ -1,0 +1,163 @@
+name: M3Top3 S3 Raw Custody Single Canary v1.0
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirmation:
+        description: Exact one-shot materialization confirmation
+        required: true
+        type: choice
+        default: DO_NOT_RUN
+        options:
+          - DO_NOT_RUN
+          - MATERIALIZE_ARTIFACT_9670226482_ONCE
+
+permissions:
+  contents: read
+  actions: read
+  id-token: write
+
+concurrency:
+  group: m3top3-s3-raw-custody-single-canary-v1
+  cancel-in-progress: false
+
+jobs:
+  materialize-finance-valid-empty-raw:
+    if: >-
+      github.actor == github.repository_owner &&
+      github.ref == 'refs/heads/aaa-pmo-public-data-g2-g3-source-admission-v1-20260828' &&
+      inputs.confirmation == 'MATERIALIZE_ARTIFACT_9670226482_ONCE'
+    environment: m3top3-source-admission
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      AWS_REGION: ap-northeast-2
+      AWS_ROLE_ARN: ${{ vars.M3TOP3_AWS_ROLE_ARN }}
+      S3_BUCKET: semi-data-plane-aofspds-20260815
+      ARTIFACT_ID: '9670226482'
+      ARTIFACT_ZIP_SHA256: cd30546ed6991b7e4028e3c792622fc9d9566490aa6086d1aa7361adeb3fb903
+      ENTITY_SHA256: 5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05
+      ENTITY_BYTES: '143'
+      OBJECT_KEY: raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/getRighExerReasSche_V2/quota_day_kst=2026-08-28/request_id=970cde9fee8c25ba842c7969793ede827d92ca62138ceb3745abfa43ead55b6f/attempt=2/sha256=5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05.entity
+
+    steps:
+      - name: Validate frozen configuration
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$AWS_ROLE_ARN"
+          case "$AWS_ROLE_ARN" in
+            arn:aws:iam::*:role/*) ;;
+            *) echo 'M3TOP3_AWS_ROLE_ARN is missing or malformed.' >&2; exit 2 ;;
+          esac
+          test "$S3_BUCKET" = 'semi-data-plane-aofspds-20260815'
+          test "$AWS_REGION" = 'ap-northeast-2'
+
+      - name: Recover and verify exact prior raw entity
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          curl -fsSL \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H 'Accept: application/vnd.github+json' \
+            -H 'X-GitHub-Api-Version: 2022-11-28' \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/$ARTIFACT_ID/zip" \
+            -o /tmp/source-artifact.zip
+          echo "$ARTIFACT_ZIP_SHA256  /tmp/source-artifact.zip" | sha256sum -c -
+          unzip -p /tmp/source-artifact.zip "raw/$ENTITY_SHA256.entity" > /tmp/response.entity
+          echo "$ENTITY_SHA256  /tmp/response.entity" | sha256sum -c -
+          test "$(wc -c < /tmp/response.entity)" -eq "$ENTITY_BYTES"
+
+      - name: Configure AWS credentials through OIDC
+        uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
+        with:
+          role-to-assume: ${{ env.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+          role-session-name: m3top3-custody-${{ github.run_id }}
+          role-duration-seconds: 900
+          retry-max-attempts: 1
+          mask-aws-account-id: true
+          unset-current-credentials: true
+          output-credentials: false
+
+      - name: Conditionally materialize and remote-verify
+        shell: bash
+        run: |
+          set -euo pipefail
+          if aws s3api head-object --bucket "$S3_BUCKET" --key "$OBJECT_KEY" > /tmp/preexisting-head.json 2>/dev/null; then
+            printf 'ALREADY_PRESENT_MATCH_CHECK_REQUIRED\n' > /tmp/materialization-state
+          else
+            aws s3api put-object \
+              --bucket "$S3_BUCKET" \
+              --key "$OBJECT_KEY" \
+              --body /tmp/response.entity \
+              --content-type application/json \
+              --metadata "sha256=$ENTITY_SHA256,source_id=M3TOP3-FINANCE-STOCK-RIGHTS-v1,run_id=33123300406,run_attempt=2" \
+              --if-none-match '*' > /tmp/put-object.json
+            printf 'MATERIALIZED_NEW\n' > /tmp/materialization-state
+          fi
+
+          aws s3api head-object --bucket "$S3_BUCKET" --key "$OBJECT_KEY" > /tmp/remote-head.json
+          test "$(jq -r '.ContentLength' /tmp/remote-head.json)" -eq "$ENTITY_BYTES"
+          test "$(jq -r '.Metadata.sha256 // empty' /tmp/remote-head.json)" = "$ENTITY_SHA256"
+
+          aws s3api get-object \
+            --bucket "$S3_BUCKET" \
+            --key "$OBJECT_KEY" \
+            /tmp/remote-response.entity > /tmp/get-object.json
+          echo "$ENTITY_SHA256  /tmp/remote-response.entity" | sha256sum -c -
+
+      - name: Write sanitized custody receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p s3_custody_out
+          python3 - <<'PY'
+          import json
+          import os
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          head = json.loads(Path('/tmp/remote-head.json').read_text(encoding='utf-8'))
+          state = Path('/tmp/materialization-state').read_text(encoding='utf-8').strip()
+          receipt = {
+              'artifact': 'M3TOP3_PUBLIC_DATA_API_S3_RAW_CUSTODY_RECEIPT_v1.0',
+              'state': state,
+              'source_id': 'M3TOP3-FINANCE-STOCK-RIGHTS-v1',
+              'operation': 'getRighExerReasSche_V2',
+              'source_artifact_id': 9670226482,
+              'source_run_id': 33123300406,
+              'source_run_attempt': 2,
+              'provider_api_network_attempts': 0,
+              'bucket': os.environ['S3_BUCKET'],
+              'region': os.environ['AWS_REGION'],
+              'object_key': os.environ['OBJECT_KEY'],
+              'storage_locator': 's3://' + os.environ['S3_BUCKET'] + '/' + os.environ['OBJECT_KEY'],
+              'entity_bytes': int(os.environ['ENTITY_BYTES']),
+              'local_sha256': os.environ['ENTITY_SHA256'],
+              'remote_sha256': os.environ['ENTITY_SHA256'],
+              'remote_sha256_match': True,
+              'version_id': head.get('VersionId'),
+              'etag_observed_not_hash_authority': head.get('ETag'),
+              'credential_mode': 'GITHUB_OIDC_SHORT_LIVED',
+              'secret_values_persisted': False,
+              'verified_at_utc': datetime.now(timezone.utc).isoformat(),
+              'validation_claim': 'NONE',
+              'gate_effect': 'NONE',
+          }
+          Path('s3_custody_out/M3TOP3_PUBLIC_DATA_API_S3_RAW_CUSTODY_RECEIPT_v1.0.json').write_text(
+              json.dumps(receipt, ensure_ascii=False, sort_keys=True, indent=2) + '\n',
+              encoding='utf-8',
+          )
+          PY
+
+      - name: Upload sanitized receipt
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: m3top3-s3-raw-custody-single-canary-${{ github.run_id }}
+          path: s3_custody_out/
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0

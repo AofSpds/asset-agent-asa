@@ -66,3 +66,15 @@ VALIDATION_CLAIM = NONE
 - Open S2 evidence remains: Finance guide bytes/digest; KSD identity-operation documentation and exact update cycle; source-specific object prefix freeze; Actions S3 write/OIDC authority; first remote upload plus SHA256 verification.
 - Active workers and validators are both zero.
 - No G2/G3 closure, validation PASS, PIT semantic change, release, production authority, or gate effect is claimed.
+
+## CONTINUOUS-EXECUTION CORRECTION / S2 OIDC PREPARATION — 2026-08-28 10:08:28 KST
+- Owner clarified that PMO must continue autonomously until an actual Owner-only action is reached.
+- The earlier one-call API restriction is limited to provider calls and does not stop Git-side preparation.
+- Existing S3 materialization was USER/AWS CloudShell based; no GitHub Actions OIDC integration existed.
+- Finance and KSD source prefixes are now frozen under the governed raw root.
+- A protected GitHub Environment, least-privilege AWS trust/policy, idempotent CloudShell setup script, and dormant one-shot custody workflow are prepared.
+- The workflow reuses artifact 9670226482 and performs zero new data.go.kr calls.
+- First target locator is s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/getRighExerReasSche_V2/quota_day_kst=2026-08-28/request_id=970cde9fee8c25ba842c7969793ede827d92ca62138ceb3745abfa43ead55b6f/attempt=2/sha256=5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05.entity.
+- No AWS role, GitHub environment, S3 object, or stable locator was created by this Git commit.
+- Next Owner-only boundary: run the idempotent AWS setup script, create/protect the GitHub Environment, and set the non-secret role ARN variable.
+- After that binding, PMO can dispatch the one-shot workflow, retrieve the object, verify SHA-256, persist the locator, and continue without another provider API call.

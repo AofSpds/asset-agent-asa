@@ -1,7 +1,7 @@
 {
   "artifact": "M3TOP3_PUBLIC_DATA_API_SOURCE_REGISTRY_v1.0",
-  "as_of_kst": "2026-08-28T07:34:00+09:00",
-  "state": "PARTIAL_FREEZE",
+  "as_of_kst": "2026-08-28T10:08:28+09:00",
+  "state": "PARTIAL_FREEZE_PREFIXES_AND_LICENSE_RETENTION_FROZEN",
   "sources": [
     {
       "provider": "KSD",
@@ -29,7 +29,18 @@
       "automatic_failover": "PROHIBITED",
       "catalog_service_id": "B552481/CorpSvc",
       "documentation_digest": "PARTIAL_OPERATION_SCOPE_ONLY",
-      "license_retention_attribution": "OPEN_NOT_FROZEN",
+      "license_retention_attribution": {
+        "state": "FROZEN",
+        "required_metadata_fields": [
+          "provider",
+          "source_id",
+          "catalog_dataset_id",
+          "catalog_url",
+          "license_type"
+        ],
+        "license_type": "PUBLIC_NURI_TYPE_2",
+        "commercial_boundary": "NON_COMMERCIAL_ONLY_UNLESS_REQUIRED_AGREEMENT_SEPARATELY_PROVEN"
+      },
       "update_cycle": "OPEN_NOT_DISPLAYED_AS_EXACT_METADATA",
       "formats": [
         "XML",
@@ -68,7 +79,9 @@
             "UPDATE_CYCLE"
           ]
         }
-      ]
+      ],
+      "frozen_raw_prefix": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-KSD-CORP-DATA-GO-KR-v1/",
+      "object_key_template": "raw/public-data-api/<source_id>/<operation>/quota_day_kst=<YYYY-MM-DD>/request_id=<safe_request_id_sha256>/attempt=<N>/sha256=<entity_sha256>.entity"
     },
     {
       "provider": "FINANCE",
@@ -95,7 +108,18 @@
       },
       "catalog_service_id": "1160100/GetStocRighScheService_V2",
       "documentation_digest": "OPEN_NOT_CAPTURED",
-      "license_retention_attribution": "OPEN_NOT_FROZEN",
+      "license_retention_attribution": {
+        "state": "FROZEN",
+        "required_metadata_fields": [
+          "provider",
+          "source_id",
+          "catalog_dataset_id",
+          "catalog_url",
+          "license_type"
+        ],
+        "license_type": "PUBLIC_NURI_TYPE_2",
+        "commercial_boundary": "NON_COMMERCIAL_ONLY_UNLESS_REQUIRED_AGREEMENT_SEPARATELY_PROVEN"
+      },
       "update_cycle": {
         "state": "FROZEN_CATALOG_METADATA",
         "frequency": "DAILY_NON_REALTIME",
@@ -132,11 +156,26 @@
           "byte_size": "OPEN",
           "sha256": "OPEN_NOT_CAPTURED"
         }
-      ]
+      ],
+      "frozen_raw_prefix": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/",
+      "object_key_template": "raw/public-data-api/<source_id>/<operation>/quota_day_kst=<YYYY-MM-DD>/request_id=<safe_request_id_sha256>/attempt=<N>/sha256=<entity_sha256>.entity"
     }
   ],
   "source_identity_rule": "DATA_GO_KR_ENDPOINTS_ONLY_NO_SEIBRO_EQUIVALENCE_OR_FAILOVER",
   "commercial_use_boundary": "PUBLIC_NURI_TYPE_2_NON_COMMERCIAL_ONLY_UNLESS_REQUIRED_AGREEMENT_IS_SEPARATELY_PROVEN",
   "gate_effect": "NONE",
-  "validation_claim": "NONE"
+  "validation_claim": "NONE",
+  "raw_custody_prefix_freeze": {
+    "state": "FROZEN_CONTROL_PLANE",
+    "record_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_S3_PREFIX_FREEZE_v1.0.json",
+    "bucket": "semi-data-plane-aofspds-20260815",
+    "region": "ap-northeast-2",
+    "prefixes": [
+      "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/",
+      "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-KSD-CORP-DATA-GO-KR-v1/"
+    ],
+    "object_key_template": "raw/public-data-api/<source_id>/<operation>/quota_day_kst=<YYYY-MM-DD>/request_id=<safe_request_id_sha256>/attempt=<N>/sha256=<entity_sha256>.entity",
+    "remote_materialization": "NOT_STARTED",
+    "stable_object_locators": 0
+  }
 }

@@ -1,0 +1,49 @@
+{
+  "artifact": "M3TOP3_PUBLIC_DATA_API_S3_PREFIX_FREEZE_v1.0",
+  "frozen_at_kst": "2026-08-28T10:08:28+09:00",
+  "state": "FROZEN_CONTROL_PLANE",
+  "authority_basis": "OWNER_AUTHORIZED_S3_PERMISSION_SETUP_AND_CONTINUOUS_EXECUTION",
+  "production_authorized": false,
+  "model_semantic_change_authorized": false,
+  "pit_semantic_change_authorized": false,
+  "validation_claim": "NONE",
+  "gate_effect": "NONE",
+  "governed_binding": {
+    "provider": "Amazon S3",
+    "region": "ap-northeast-2",
+    "private_bucket": "semi-data-plane-aofspds-20260815",
+    "governed_raw_root": "s3://semi-data-plane-aofspds-20260815/raw/",
+    "storage_contract_path": "control/data-plane/DATA-PLANE-STORAGE-CONTRACT_v1.0.yaml",
+    "materialization_audit_path": "control/data-plane/G1-I-MATERIALIZATION-AUDIT_v1.0.yaml"
+  },
+  "frozen_prefixes": [
+    {
+      "source_id": "M3TOP3-FINANCE-STOCK-RIGHTS-v1",
+      "prefix": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/"
+    },
+    {
+      "source_id": "M3TOP3-KSD-CORP-DATA-GO-KR-v1",
+      "prefix": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-KSD-CORP-DATA-GO-KR-v1/"
+    }
+  ],
+  "object_key_contract": {
+    "template": "raw/public-data-api/<source_id>/<operation>/quota_day_kst=<YYYY-MM-DD>/request_id=<safe_request_id_sha256>/attempt=<N>/sha256=<entity_sha256>.entity",
+    "safe_request_id_only": true,
+    "credential_material_prohibited": true,
+    "overwrite": "PROHIBITED_CONDITIONAL_CREATE_OR_IDEMPOTENT_EXACT_MATCH_ONLY",
+    "sha256_filename_authority": true,
+    "etag_hash_authority": false,
+    "post_upload_getobject_sha256_required": true,
+    "version_id_recording": "REQUIRED_WHEN_RETURNED"
+  },
+  "first_materialization_candidate": {
+    "provider_api_network_attempts": 0,
+    "source_artifact_id": 9670226482,
+    "artifact_zip_sha256": "cd30546ed6991b7e4028e3c792622fc9d9566490aa6086d1aa7361adeb3fb903",
+    "entity_bytes": 143,
+    "entity_sha256": "5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05",
+    "target_object_key": "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/getRighExerReasSche_V2/quota_day_kst=2026-08-28/request_id=970cde9fee8c25ba842c7969793ede827d92ca62138ceb3745abfa43ead55b6f/attempt=2/sha256=5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05.entity",
+    "target_locator": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/getRighExerReasSche_V2/quota_day_kst=2026-08-28/request_id=970cde9fee8c25ba842c7969793ede827d92ca62138ceb3745abfa43ead55b6f/attempt=2/sha256=5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05.entity",
+    "stable_locator_state": "PENDING_UPLOAD_AND_REMOTE_SHA256"
+  }
+}
