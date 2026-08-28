@@ -46,7 +46,7 @@
     "source_admission_path": "tools/m3top3/source_admission.py",
     "source_admission_sha256": "574b2f45474b39fd0cf64f28a946bd115ddb3b782595c3ddd78d15c801d111dd",
     "workflow_path": ".github/workflows/m3top3-finance-bounded-live-pilot-v1.yml",
-    "workflow_sha256": "27051fe73d09f941172baece33428ab54eeaf16e7edb1af1028bbe33ac1f8fa7"
+    "workflow_sha256": "cdc26f7ec00bdf018f4cc90f452f47d64be623ea3abe15d72b89da66f1ea3ca9"
   },
   "execution_material": {
     "runtime_lock_id": "PMO-API-SRC-ADMIT-20260828192737",
