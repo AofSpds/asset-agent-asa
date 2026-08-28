@@ -187,7 +187,7 @@ jobs:
               require(activation.get("provider_api_calls_authorized") is True, "LIVE_PROVIDER_CALL_AUTHORITY_MISMATCH")
               require(activation.get("remote_raw_custody_writes_authorized") is True, "LIVE_REMOTE_WRITE_AUTHORITY_MISMATCH")
               kst_day = datetime.now(timezone.utc).astimezone(timezone(timedelta(hours=9))).date().isoformat()
-              require(kst_day == "2026-08-28", "LIVE_QUOTA_DAY_KST_MISMATCH")
+              require(kst_day == "2026-08-29", "LIVE_QUOTA_DAY_KST_MISMATCH")
 
           bindings = latch.get("authority_bindings", {})
           require(bindings.get("bindings_finalized") is True, "HASH_BINDINGS_NOT_FINALIZED")
@@ -424,7 +424,12 @@ jobs:
           role_arn = os.environ.get("ROLE_ARN", "")
           expected_role_arn = "arn:aws:iam::956315449338:role/M3Top3GitHubOIDCRawWriter"
           require(role_arn == expected_role_arn, "AWS_ROLE_ARN_EXACT_MISMATCH")
-          require(remote.get("aws_role_arn_binding_state") == "EXACT_ROLE_ARN_BOUND_PENDING_PRECHECK", "AWS_ROLE_BINDING_STATE_MISMATCH")
+          expected_role_binding_state = (
+              "EXACT_ROLE_ARN_BOUND_PENDING_PRECHECK"
+              if mode == "PRECHECK_ARMED"
+              else "PASS_EXACT_ROLE_ARN_OIDC_STS_READ_ONLY_PRECHECK"
+          )
+          require(remote.get("aws_role_arn_binding_state") == expected_role_binding_state, "AWS_ROLE_BINDING_STATE_MISMATCH")
           require(remote.get("aws_role_arn_expected") == expected_role_arn, "LATCH_AWS_ROLE_ARN_MISMATCH")
           require(remote.get("aws_role_path_expected") == "M3Top3GitHubOIDCRawWriter", "LATCH_AWS_ROLE_PATH_MISMATCH")
 
@@ -442,7 +447,7 @@ jobs:
               "max_primary_page_acquisitions": 170,
               "max_network_attempts_total": 200,
               "max_attempts_per_page": 2,
-              "quota_day_kst_gate": "2026-08-28" if mode == "LIVE_ARMED" else "NOT_APPLICABLE_PRECHECK",
+              "quota_day_kst_gate": "2026-08-29" if mode == "LIVE_ARMED" else "NOT_APPLICABLE_PRECHECK",
               "aws_role_arn_shape": "PASS_EXACT_EQUALITY",
               "aws_role_arn_sha256": hashlib.sha256(role_arn.encode("utf-8")).hexdigest(),
               "provider_api_network_attempts": 0,
@@ -784,7 +789,7 @@ jobs:
               + "request_id=970cde9fee8c25ba842c7969793ede827d92ca62138ceb3745abfa43ead55b6f/"
               + "attempt=2/sha256=5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05.entity"
           )
-          known_version = "EY9BXLRgeqXAYda6YSIVIB3cUhIIZbfd"
+          known_version = "EY9BXLRgeqXAYda6YSlWIB3cUhTIZbfd"
           def probe_known_head(version_id=None):
               command = [
                   "aws", "s3api", "head-object",
@@ -822,10 +827,32 @@ jobs:
               )
 
           versioned_probe = probe_known_head(known_version)
-          known_version_binding = "FROZEN_VERSION_EXACT_READBACK"
+          known_version_binding = "PINNED_CURRENT_VERSION_EXACT_READBACK"
           frozen_versioned_head_result = "PASS"
           if versioned_probe.returncode != 0:
               versioned_error_code = aws_error_code(versioned_probe.stderr)
+              if os.environ["PILOT_MODE"] != "PRECHECK_ARMED":
+                  diagnostic = {
+                      "artifact": "M3TOP3_FINANCE_CA_AWS_READONLY_DIAGNOSTIC_v1.0",
+                      "mode": os.environ["PILOT_MODE"],
+                      "operation": "S3_HEAD_OBJECT",
+                      "state": "BLOCKED_PINNED_CURRENT_VERSION_EXACT_READBACK",
+                      "pinned_versioned_head_state": "BLOCKED",
+                      "pinned_versioned_head_error_code": versioned_error_code,
+                      "pinned_versioned_head_return_code": versioned_probe.returncode,
+                      "provider_api_network_attempts": 0,
+                      "quota_reservations": 0,
+                      "remote_s3_writes": 0,
+                      "secret_persisted": False,
+                      "authenticated_url_persisted": False,
+                      "validation_claim": "NONE",
+                      "gate_effect": "NONE",
+                  }
+                  persist_readonly_diagnostic(diagnostic)
+                  raise SystemExit(
+                      "AWS_PINNED_FINANCE_OBJECT_VERSION_HEAD_FAILED:"
+                      + versioned_error_code
+                  )
               latest_probe = probe_known_head()
               diagnostic = {
                   "artifact": "M3TOP3_FINANCE_CA_AWS_READONLY_DIAGNOSTIC_v1.0",
