@@ -1,7 +1,7 @@
 {
   "artifact": "M3TOP3_PUBLIC_DATA_API_AWS_OIDC_CONTRACT_v1.0",
   "issued_at_kst": "2026-08-28T10:08:28+09:00",
-  "state": "GIT_SIDE_PREPARED_OWNER_AWS_AND_GITHUB_ENVIRONMENT_BINDING_REQUIRED",
+  "state": "GIT_SIDE_PREPARED_OWNER_GITHUB_ENVIRONMENT_CAPABILITY_AND_AWS_BINDING_REQUIRED",
   "provider": "AWS_IAM_OIDC",
   "aws_region": "ap-northeast-2",
   "aws_account_id": "NOT_ASSUMED_NOT_STORED",
@@ -10,9 +10,10 @@
   "github_branch": "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828",
   "github_environment": "m3top3-source-admission",
   "github_environment_requirements": [
-    "REQUIRED_REVIEWER_REPOSITORY_OWNER",
     "SELECTED_DEPLOYMENT_BRANCH_EXACT",
-    "NO_UNPROTECTED_AUTOCREATION"
+    "REQUIRED_REVIEWER_REPOSITORY_OWNER_IF_PRIVATE_REPO_PLAN_SUPPORTS",
+    "PREVENT_SELF_REVIEW_FALSE_FOR_SINGLE_OWNER",
+    "STOP_OR_SINGLE_OWNER_EXCEPTION_IF_REQUIRED_REVIEWER_UNAVAILABLE"
   ],
   "github_role_arn_variable": "M3TOP3_AWS_ROLE_ARN",
   "long_lived_access_keys": "PROHIBITED",
@@ -60,6 +61,25 @@
     "confirmation_token": "MATERIALIZE_ARTIFACT_9670226482_ONCE",
     "provider_api_network_attempts": 0,
     "target_locator": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/getRighExerReasSche_V2/quota_day_kst=2026-08-28/request_id=970cde9fee8c25ba842c7969793ede827d92ca62138ceb3745abfa43ead55b6f/attempt=2/sha256=5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05.entity",
-    "remote_sha256_required": true
+    "remote_sha256_required": true,
+    "trigger_mode": "TASK_BRANCH_EXACT_PATH_PUSH_LATCH",
+    "latch_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_S3_CUSTODY_PUSH_LATCH_v1.0.json",
+    "activation_commit_message": "MATERIALIZE_ARTIFACT_9670226482_ONCE",
+    "workflow_dispatch_note": "UNAVAILABLE_UNTIL_WORKFLOW_FILE_EXISTS_ON_DEFAULT_BRANCH",
+    "source_artifact_expires_at_utc": "2026-09-04T00:50:26Z",
+    "owner_setup_order": [
+      "PROTECTED_GITHUB_ENVIRONMENT_FIRST",
+      "AWS_OIDC_ROLE_SECOND",
+      "ENVIRONMENT_ROLE_ARN_VARIABLE_THIRD",
+      "PMO_PUSH_LATCH_LAST"
+    ]
+  },
+  "last_currentized_at_kst": "2026-08-28T10:27:00+09:00",
+  "repository_visibility": "PRIVATE",
+  "private_repository_environment_gate": {
+    "preferred": "REQUIRED_REVIEWER_AofSpds",
+    "plan_caveat": "PRIVATE_REQUIRED_REVIEWERS_MAY_REQUIRE_GITHUB_ENTERPRISE",
+    "fallback": "ONLY_IF_OWNER_VERIFIES_NO_OTHER_WRITE_OR_ADMIN_PRINCIPAL_OR_INSTALLED_APP",
+    "otherwise": "MANUAL_AWS_CLOUDSHELL_CUSTODY_ONLY"
   }
 }

@@ -1,14 +1,14 @@
 {
   "artifact": "M3TOP3_PUBLIC_DATA_API_SOURCE_ADMISSION_PROGRESS_CURRENT_v1.0",
-  "as_of_kst": "2026-08-28T10:08:28+09:00",
+  "as_of_kst": "2026-08-28T10:27:00+09:00",
   "runtime_lock_id": "PMO-API-SRC-ADMIT-20260828055620",
   "branch": "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828",
-  "head_commit": "e715a7e2d00f4749a66f3c4a7b157625c259df36",
+  "head_commit": "de3e8feed8e088f4decd5d9a5f9c699594f9cd17",
   "denominator_ewu": 100,
   "earned_ewu": 25,
   "overall_progress_percent": 25,
   "current_stage": "S2",
-  "current_stage_state": "PARTIAL_CUSTODY_OWNER_AWS_BINDING_REQUIRED",
+  "current_stage_state": "PARTIAL_CUSTODY_OWNER_GITHUB_ENV_CAPABILITY_AND_AWS_BINDING_REQUIRED",
   "current_stage_earned_ewu": 0,
   "active_workers": 0,
   "active_validators": 0,
@@ -47,11 +47,11 @@
     "finance_valid_empty_fallback_total_count": 0,
     "finance_valid_empty_fallback_entity_sha256": "5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05"
   },
-  "exact_blocker": "OWNER_AWS_IAM_OIDC_ROLE_AND_PROTECTED_GITHUB_ENVIRONMENT_ROLE_ARN_BINDING_REQUIRED_BEFORE_FIRST_REMOTE_UPLOAD",
+  "exact_blocker": "OWNER_PROTECTED_GITHUB_ENVIRONMENT_CAPABILITY_AND_AWS_IAM_OIDC_BINDING_REQUIRED_BEFORE_PUSH_LATCH",
   "ksd_secret_state": "PRESENT_DECODED_FORM_LIVE_REQUEST_PROVEN",
   "credential_security_disposition": "PROTECTED_REPOSITORY_SECRETS_CONFIGURED_VALUES_NEVER_PERSISTED",
-  "resume_trigger": "OWNER_AWS_OIDC_BINDING_REQUIRED",
-  "resume_action": "RUN_IDEMPOTENT_AWS_SETUP_SCRIPT_THEN_CREATE_PROTECTED_GITHUB_ENVIRONMENT_AND_SET_M3TOP3_AWS_ROLE_ARN",
+  "resume_trigger": "OWNER_GITHUB_ENVIRONMENT_CAPABILITY_AND_AWS_OIDC_BINDING_REQUIRED",
+  "resume_action": "CONFIGURE_EXACT_BRANCH_ENVIRONMENT_THEN_RUN_IDEMPOTENT_AWS_SETUP_AND_SET_M3TOP3_AWS_ROLE_ARN",
   "time_accounting": {
     "runtime_lock_at_kst": "2026-08-28T05:56:20+09:00",
     "resumed_at_kst": "2026-08-28T07:26:17+09:00",
@@ -74,7 +74,7 @@
     }
   },
   "s2": {
-    "state": "PARTIAL_CUSTODY_OWNER_AWS_BINDING_REQUIRED",
+    "state": "PARTIAL_CUSTODY_OWNER_GITHUB_ENV_CAPABILITY_AND_AWS_BINDING_REQUIRED",
     "earned_ewu": 0,
     "completed": [
       "KSD_DATA_GO_KR_ENDPOINT_SELECTED_AND_LIVE_PROVEN",
@@ -83,13 +83,14 @@
       "FINANCE_DAILY_UPDATE_METADATA_BOUND",
       "GOVERNED_GENERIC_S3_RAW_ROOT_IDENTIFIED",
       "SOURCE_SPECIFIC_OBJECT_KEY_PREFIX_FREEZE",
-      "GITHUB_OIDC_AND_LEAST_PRIVILEGE_IAM_ARTIFACTS_PREPARED"
+      "GITHUB_OIDC_AND_LEAST_PRIVILEGE_IAM_ARTIFACTS_PREPARED",
+      "TASK_BRANCH_EXACT_PATH_PUSH_LATCH_PREPARED"
     ],
     "open": [
       "FINANCE_REFERENCE_DOCUMENT_BYTES_AND_DIGEST",
       "KSD_IDENTITY_OPERATION_DOCUMENTATION_AND_EXACT_UPDATE_CYCLE",
       "FIRST_REMOTE_BYTE_UPLOAD_AND_SHA256_VERIFICATION",
-      "OWNER_AWS_IAM_OIDC_ROLE_AND_PROTECTED_GITHUB_ENVIRONMENT_BINDING"
+      "OWNER_PROTECTED_GITHUB_ENVIRONMENT_CAPABILITY_AND_AWS_IAM_OIDC_BINDING"
     ],
     "frozen_prefixes": [
       "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/",
@@ -100,7 +101,11 @@
       "source_entity_sha256": "5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05",
       "source_entity_bytes": 143,
       "target_locator": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/getRighExerReasSche_V2/quota_day_kst=2026-08-28/request_id=970cde9fee8c25ba842c7969793ede827d92ca62138ceb3745abfa43ead55b6f/attempt=2/sha256=5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05.entity",
-      "provider_api_network_attempts": 0
+      "provider_api_network_attempts": 0,
+      "trigger_mode": "TASK_BRANCH_EXACT_PATH_PUSH_LATCH",
+      "latch_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_S3_CUSTODY_PUSH_LATCH_v1.0.json",
+      "activation_commit_message": "MATERIALIZE_ARTIFACT_9670226482_ONCE",
+      "source_artifact_expires_at_utc": "2026-09-04T00:50:26Z"
     }
   },
   "s3": {
@@ -148,5 +153,5 @@
       "code_fix": "m3top3-finance-single-canary-v1.yml"
     }
   ],
-  "last_material_progress": "S2_SOURCE_PREFIX_FREEZE_AND_GITHUB_OIDC_GITSIDE_PREPARATION"
+  "last_material_progress": "S2_TASK_BRANCH_PUSH_LATCH_AND_OWNER_ENVIRONMENT_CAPABILITY_GATE_PREPARED"
 }

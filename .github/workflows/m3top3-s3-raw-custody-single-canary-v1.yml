@@ -12,6 +12,12 @@ on:
           - DO_NOT_RUN
           - MATERIALIZE_ARTIFACT_9670226482_ONCE
 
+  push:
+    branches:
+      - aaa-pmo-public-data-g2-g3-source-admission-v1-20260828
+    paths:
+      - control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_S3_CUSTODY_PUSH_LATCH_v1.0.json
+
 permissions:
   contents: read
   actions: read
@@ -26,7 +32,12 @@ jobs:
     if: >-
       github.actor == github.repository_owner &&
       github.ref == 'refs/heads/aaa-pmo-public-data-g2-g3-source-admission-v1-20260828' &&
-      inputs.confirmation == 'MATERIALIZE_ARTIFACT_9670226482_ONCE'
+      (
+        (github.event_name == 'workflow_dispatch' &&
+         inputs.confirmation == 'MATERIALIZE_ARTIFACT_9670226482_ONCE') ||
+        (github.event_name == 'push' &&
+         github.event.head_commit.message == 'MATERIALIZE_ARTIFACT_9670226482_ONCE')
+      )
     environment: m3top3-source-admission
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -130,6 +141,8 @@ jobs:
               'source_artifact_id': 9670226482,
               'source_run_id': 33123300406,
               'source_run_attempt': 2,
+              'trigger_event': os.environ['GITHUB_EVENT_NAME'],
+              'trigger_sha': os.environ['GITHUB_SHA'],
               'provider_api_network_attempts': 0,
               'bucket': os.environ['S3_BUCKET'],
               'region': os.environ['AWS_REGION'],

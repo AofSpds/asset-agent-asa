@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
+export AWS_PAGER=''
+command -v aws >/dev/null
+command -v jq >/dev/null
 
 AWS_REGION='ap-northeast-2'
 S3_BUCKET='semi-data-plane-aofspds-20260815'
@@ -22,7 +25,12 @@ test "$VERSIONING" = "Enabled"
 
 OIDC_PROVIDER_ARN="arn:aws:iam::$AWS_ACCOUNT_ID:oidc-provider/token.actions.githubusercontent.com"
 if aws iam get-open-id-connect-provider --open-id-connect-provider-arn "$OIDC_PROVIDER_ARN" >/dev/null 2>&1; then
-  :
+  PROVIDER_JSON="$(aws iam get-open-id-connect-provider --open-id-connect-provider-arn "$OIDC_PROVIDER_ARN")"
+  if ! jq -e --arg audience "$OIDC_AUDIENCE" '.ClientIDList | index($audience) != null' <<< "$PROVIDER_JSON" >/dev/null; then
+    aws iam add-client-id-to-open-id-connect-provider \
+      --open-id-connect-provider-arn "$OIDC_PROVIDER_ARN" \
+      --client-id "$OIDC_AUDIENCE"
+  fi
 else
   aws iam create-open-id-connect-provider \
     --url "$OIDC_URL" \
@@ -83,6 +91,16 @@ jq -n \
   }' > "$TASK_TMP_DIR/permissions.json"
 
 if aws iam get-role --role-name "$ROLE_NAME" >/dev/null 2>&1; then
+  ATTACHED_POLICIES="$(aws iam list-attached-role-policies --role-name "$ROLE_NAME")"
+  INLINE_POLICIES="$(aws iam list-role-policies --role-name "$ROLE_NAME")"
+  if ! jq -e '.AttachedPolicies | length == 0' <<< "$ATTACHED_POLICIES" >/dev/null; then
+    echo "Existing role has unexpected attached policies; stop for inspection." >&2
+    exit 3
+  fi
+  if ! jq -e --arg expected "$INLINE_POLICY_NAME" 'all(.PolicyNames[]?; . == $expected)' <<< "$INLINE_POLICIES" >/dev/null; then
+    echo "Existing role has an unexpected inline policy; stop for inspection." >&2
+    exit 3
+  fi
   aws iam update-assume-role-policy \
     --role-name "$ROLE_NAME" \
     --policy-document "file://$TASK_TMP_DIR/trust.json"
@@ -98,6 +116,11 @@ aws iam put-role-policy \
   --role-name "$ROLE_NAME" \
   --policy-name "$INLINE_POLICY_NAME" \
   --policy-document "file://$TASK_TMP_DIR/permissions.json"
+
+FINAL_ATTACHED_POLICIES="$(aws iam list-attached-role-policies --role-name "$ROLE_NAME")"
+FINAL_INLINE_POLICIES="$(aws iam list-role-policies --role-name "$ROLE_NAME")"
+jq -e '.AttachedPolicies | length == 0' <<< "$FINAL_ATTACHED_POLICIES" >/dev/null
+jq -e --arg expected "$INLINE_POLICY_NAME" '.PolicyNames == [$expected]' <<< "$FINAL_INLINE_POLICIES" >/dev/null
 
 ROLE_ARN="$(aws iam get-role --role-name "$ROLE_NAME" --query Role.Arn --output text)"
 test -n "$ROLE_ARN"
