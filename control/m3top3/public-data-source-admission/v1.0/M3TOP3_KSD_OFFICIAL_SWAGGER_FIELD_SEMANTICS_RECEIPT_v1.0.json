@@ -1,0 +1,73 @@
+{
+  "artifact": "M3TOP3_KSD_OFFICIAL_SWAGGER_FIELD_SEMANTICS_RECEIPT_v1.0",
+  "observed_at_kst": "2026-08-28T13:13:00+09:00",
+  "acquisition_mode": "READ_ONLY_OFFICIAL_CATALOG_INLINE_SWAGGER_RESEARCH_NO_PROVIDER_DATA_API_CALL",
+  "provider_api_network_attempts": 0,
+  "provider": "KSD",
+  "source_id": "M3TOP3-KSD-CORP-DATA-GO-KR-v1",
+  "catalog_dataset_id": "15157348",
+  "catalog_url": "https://www.data.go.kr/data/15157348/openapi.do",
+  "official_swagger_source": "https://www.data.go.kr/data/15157348/openapi.do#/API%20목록/getIssucoBasicInfo",
+  "official_schema_metadata_url": "https://www.data.go.kr/catalog/15157348/openapi.json",
+  "swagger_identity": {
+    "title": "한국예탁결제원_기업정보서비스_GW",
+    "version": "1.0.0",
+    "host": "apis.data.go.kr",
+    "base_path": "/B552481/CorpSvc",
+    "operation": "getIssucoBasicInfo",
+    "request_fields": [
+      "issucoCustno",
+      "serviceKey"
+    ],
+    "historical_as_of_parameter": "ABSENT"
+  },
+  "field_definitions": {
+    "dlistDt": "상장폐지일(YYYYMMDD)",
+    "custXtinDt": "회사소멸일(YYYYMMDD)",
+    "apliDtY": "예탁지정일(YYYYMMDD)",
+    "apliDt": "상장일(YYYYMMDD)",
+    "apliDtN": "예탁취소일(YYYYMMDD)",
+    "eltscYn": "전자증권여부(Y/N)",
+    "caltotMartTpcd": "시장구분코드(예: 11)",
+    "caltotMartTpcdNm": "시장명(예: 유가증권)",
+    "rostCloseTermTpcd": "명부폐쇄기간구분코드",
+    "rostCloseTerms": "명부폐쇄기간수(일수 or 개월수)",
+    "rostCloseTermUnitCd": "명부폐쇄기간단위구분코드",
+    "rostCloseTermUnitNm": "명부폐쇄기간단위구분명(월 or 일)",
+    "rostCloseTerm": "명부폐쇄기간(예: 기준일후 1 월)"
+  },
+  "field_names_state": "FULL_RESPONSE_FIELD_NAMES_BOUND",
+  "field_semantics_state": "OFFICIAL_FIELD_LABELS_AND_FORMATS_BOUND_CODE_DICTIONARIES_PARTIAL_ONLY",
+  "directly_proven_scope": [
+    "THIRTEEN_OFFICIAL_KOREAN_FIELD_LABELS",
+    "FIVE_DATE_FIELD_YYYYMMDD_FORMATS",
+    "ELTSC_YN_Y_N_VALUE_DOMAIN",
+    "MARKET_CODE_AND_NAME_ROLES_WITH_ONE_OFFICIAL_EXAMPLE",
+    "ROSTER_CLOSE_TERM_COUNT_AND_UNIT_ROLES_WITH_OFFICIAL_EXAMPLES"
+  ],
+  "not_proven_scope": [
+    "BLANK_NULL_OR_00000000_SEMANTICS",
+    "FULL_MARKET_CODE_DICTIONARY",
+    "FULL_ROSTER_CLOSE_TERM_CODE_DICTIONARIES",
+    "CURRENT_STATUS_FROM_EVENT_DATES",
+    "HISTORICAL_POINT_IN_TIME_REPRODUCIBILITY",
+    "CORRECTION_OR_RETROACTIVE_UPDATE_RULES",
+    "EXACT_UPDATE_FREQUENCY_CUTOFF_OR_LATENCY_SLA"
+  ],
+  "historical_validity_semantics": {
+    "state": "UNKNOWN_NOT_PROVEN",
+    "reason": "REQUEST_SCHEMA_HAS_NO_AS_OF_PARAMETER_AND_RESPONSE_SCHEMA_HAS_NO_OBSERVATION_TIMESTAMP_EFFECTIVE_PERIOD_OR_REVISION_FIELD",
+    "null_or_status_inference": "PROHIBITED"
+  },
+  "exact_update_cycle": {
+    "state": "UNKNOWN_NOT_PROVEN",
+    "catalog_prose": [
+      "실시간으로 조회",
+      "업데이트가 빠르고 정확"
+    ],
+    "disposition": "GENERIC_RETRIEVAL_AND_FRESHNESS_PROSE_NOT_PROMOTED_TO_EXACT_REFRESH_FREQUENCY_CUTOFF_OR_SLA"
+  },
+  "claim_ceiling": "FIELD_NAME_AND_BASIC_DESCRIPTION_PROVEN_CODE_DICTIONARY_PARTIAL_ONLY_EXACT_UPDATE_CYCLE_UNKNOWN_HISTORICAL_VALIDITY_UNKNOWN_NO_AS_OF_QUERY_DO_NOT_INFER_NULL_OR_STATUS",
+  "validation_claim": "NONE",
+  "gate_effect": "NONE"
+}
