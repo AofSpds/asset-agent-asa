@@ -1,0 +1,15 @@
+{
+  "artifact": "M3TOP3_PUBLIC_DATA_API_S3_CUSTODY_PUSH_LATCH_v1.0",
+  "created_at_kst": "2026-08-28T10:22:26+09:00",
+  "state": "DORMANT_OWNER_BINDING_REQUIRED",
+  "branch": "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828",
+  "workflow": ".github/workflows/m3top3-s3-raw-custody-single-canary-v1.yml",
+  "trigger_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_S3_CUSTODY_PUSH_LATCH_v1.0.json",
+  "activation_commit_message": "MATERIALIZE_ARTIFACT_9670226482_ONCE",
+  "activation_rule": "OWNER_ACTOR_EXACT_BRANCH_EXACT_PATH_EXACT_COMMIT_MESSAGE_PROTECTED_ENVIRONMENT",
+  "source_artifact_id": 9670226482,
+  "provider_api_network_attempts": 0,
+  "production_authorized": false,
+  "validation_claim": "NONE",
+  "gate_effect": "NONE"
+}
