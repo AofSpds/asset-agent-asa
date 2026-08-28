@@ -1,14 +1,14 @@
 {
   "artifact": "M3TOP3_PUBLIC_DATA_API_SOURCE_ADMISSION_PROGRESS_CURRENT_v1.0",
-  "as_of_kst": "2026-08-28T10:28:00+09:00",
+  "as_of_kst": "2026-08-28T11:32:09+09:00",
   "runtime_lock_id": "PMO-API-SRC-ADMIT-20260828055620",
   "branch": "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828",
-  "head_commit": "55b4b5a01d1c370623ae092bc3032c92e8f1ed14",
+  "head_commit": "638541996afa5ad66e92c0a2f083fc36fbbd66ed",
   "denominator_ewu": 100,
   "earned_ewu": 25,
   "overall_progress_percent": 25,
   "current_stage": "S2",
-  "current_stage_state": "PARTIAL_CUSTODY_OWNER_GITHUB_ENV_CAPABILITY_AND_AWS_BINDING_REQUIRED",
+  "current_stage_state": "PARTIAL_REMOTE_CUSTODY_CLOSED_DOCUMENTATION_BINDINGS_OPEN",
   "current_stage_earned_ewu": 0,
   "active_workers": 0,
   "active_validators": 0,
@@ -45,13 +45,15 @@
     "finance_valid_empty_fallback_http_status": 200,
     "finance_valid_empty_fallback_provider_result_code": "00",
     "finance_valid_empty_fallback_total_count": 0,
-    "finance_valid_empty_fallback_entity_sha256": "5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05"
+    "finance_valid_empty_fallback_entity_sha256": "5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05",
+    "manual_s3_custody_receipt_commit": "88a8270edde0141365a37d74f74e8c4c1622457d",
+    "manual_s3_custody_events_commit": "638541996afa5ad66e92c0a2f083fc36fbbd66ed"
   },
-  "exact_blocker": "OWNER_PROTECTED_GITHUB_ENVIRONMENT_CAPABILITY_AND_AWS_IAM_OIDC_BINDING_REQUIRED_BEFORE_PUSH_LATCH",
+  "exact_blocker": "FINANCE_AND_KSD_DOCUMENTATION_BYTES_DIGESTS_AND_TEMPORAL_SEMANTICS_OPEN",
   "ksd_secret_state": "PRESENT_DECODED_FORM_LIVE_REQUEST_PROVEN",
   "credential_security_disposition": "PROTECTED_REPOSITORY_SECRETS_CONFIGURED_VALUES_NEVER_PERSISTED",
-  "resume_trigger": "OWNER_GITHUB_ENVIRONMENT_CAPABILITY_AND_AWS_OIDC_BINDING_REQUIRED",
-  "resume_action": "CONFIGURE_EXACT_BRANCH_ENVIRONMENT_THEN_RUN_IDEMPOTENT_AWS_SETUP_AND_SET_M3TOP3_AWS_ROLE_ARN",
+  "resume_trigger": "NONE_OWNER_ACTION_NOT_REQUIRED",
+  "resume_action": "BOUNDED_SOURCE_DOCUMENT_RETRIEVAL_DIGEST_AND_TEMPORAL_SEMANTICS_BINDING_NO_PROVIDER_DATA_API_CALL",
   "time_accounting": {
     "runtime_lock_at_kst": "2026-08-28T05:56:20+09:00",
     "resumed_at_kst": "2026-08-28T07:26:17+09:00",
@@ -61,8 +63,8 @@
     "blocked_seconds": "NOT_INSTRUMENTED",
     "rework_seconds": "NOT_INSTRUMENTED"
   },
-  "claim_ceiling": "S1_CLOSED_S3_CLOSED_S2_PREFIX_FROZEN_OIDC_PREPARED_REMOTE_CUSTODY_OPEN_GATE_EFFECT_NONE_VALIDATION_NONE",
-  "raw_custody_state": "FIVE_EPHEMERAL_ACTIONS_RESPONSE_ENTITIES_ZERO_CANONICAL_DATA_PLANE_ENTITIES_ONE_EXACT_ZIP_DURABLE_PRIVATE_BACKUP",
+  "claim_ceiling": "S1_CLOSED_S3_CLOSED_S2_FIRST_REMOTE_CUSTODY_CLOSED_DOCUMENTATION_BINDINGS_OPEN_GATE_EFFECT_NONE_VALIDATION_NONE",
+  "raw_custody_state": "FIVE_EPHEMERAL_ACTIONS_RESPONSE_ENTITIES_ONE_CANONICAL_S3_ENTITY_ONE_NONCANONICAL_DUPLICATE_PRESERVED_PENDING_OWNER_DELETE_APPROVAL",
   "s1": {
     "state": "CLOSED",
     "earned_ewu": 10,
@@ -74,7 +76,7 @@
     }
   },
   "s2": {
-    "state": "PARTIAL_CUSTODY_OWNER_GITHUB_ENV_CAPABILITY_AND_AWS_BINDING_REQUIRED",
+    "state": "PARTIAL_REMOTE_CUSTODY_CLOSED_DOCUMENTATION_BINDINGS_OPEN",
     "earned_ewu": 0,
     "completed": [
       "KSD_DATA_GO_KR_ENDPOINT_SELECTED_AND_LIVE_PROVEN",
@@ -84,14 +86,15 @@
       "GOVERNED_GENERIC_S3_RAW_ROOT_IDENTIFIED",
       "SOURCE_SPECIFIC_OBJECT_KEY_PREFIX_FREEZE",
       "GITHUB_OIDC_AND_LEAST_PRIVILEGE_IAM_ARTIFACTS_PREPARED",
-      "TASK_BRANCH_EXACT_PATH_PUSH_LATCH_PREPARED"
+      "TASK_BRANCH_EXACT_PATH_PUSH_LATCH_PREPARED",
+      "OWNER_MANUAL_AWS_CLOUDSHELL_CUSTODY_COMPLETED",
+      "FIRST_REMOTE_BYTE_UPLOAD_AND_SHA256_VERIFICATION",
+      "CANONICAL_S3_VERSION_ID_AND_METADATA_READBACK_BOUND"
     ],
     "open": [
       "FINANCE_REFERENCE_DOCUMENT_BYTES_AND_DIGEST",
       "FINANCE_TYPICAL_AVAILABILITY_CATALOG_RECEIPT",
-      "KSD_OFFICIAL_FULL_FIELD_DICTIONARY_TEMPORAL_SEMANTICS_DOCUMENT_DIGEST_AND_EXACT_UPDATE_CYCLE",
-      "FIRST_REMOTE_BYTE_UPLOAD_AND_SHA256_VERIFICATION",
-      "OWNER_PROTECTED_GITHUB_ENVIRONMENT_CAPABILITY_AND_AWS_IAM_OIDC_BINDING"
+      "KSD_OFFICIAL_FULL_FIELD_DICTIONARY_TEMPORAL_SEMANTICS_DOCUMENT_DIGEST_AND_EXACT_UPDATE_CYCLE"
     ],
     "frozen_prefixes": [
       "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/",
@@ -103,7 +106,7 @@
       "source_entity_bytes": 143,
       "target_locator": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/getRighExerReasSche_V2/quota_day_kst=2026-08-28/request_id=970cde9fee8c25ba842c7969793ede827d92ca62138ceb3745abfa43ead55b6f/attempt=2/sha256=5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05.entity",
       "provider_api_network_attempts": 0,
-      "trigger_mode": "TASK_BRANCH_EXACT_PATH_PUSH_LATCH",
+      "trigger_mode": "MANUAL_AWS_CLOUDSHELL_CUSTODY",
       "latch_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_S3_CUSTODY_PUSH_LATCH_v1.0.json",
       "activation_commit_message": "MATERIALIZE_ARTIFACT_9670226482_ONCE",
       "source_artifact_expires_at_utc": "2026-09-04T00:50:26Z",
@@ -112,7 +115,13 @@
         "zip_filename": "M3TOP3_FINANCE_VALID_EMPTY_RAW_ARTIFACT_9670226482.zip",
         "zip_bytes": 1668,
         "zip_sha256": "cd30546ed6991b7e4028e3c792622fc9d9566490aa6086d1aa7361adeb3fb903"
-      }
+      },
+      "materialization_state": "CANONICAL_REMOTE_CUSTODY_PASS",
+      "custody_mode": "MANUAL_AWS_CLOUDSHELL_CUSTODY",
+      "s3_version_id": "EY9BXLRgeqXAYda6YSIVIB3cUhIIZbfd",
+      "remote_readback_bytes": 143,
+      "remote_readback_sha256": "5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05",
+      "receipt": "M3TOP3_PUBLIC_DATA_API_S3_MANUAL_CUSTODY_RECEIPT_v1.0.json"
     }
   },
   "s3": {
@@ -148,7 +157,7 @@
     "next_bounded_canary": null
   },
   "finance_secret_state": "PRESENT_DECODED_FORM_LIVE_REQUEST_PROVEN",
-  "canonical_raw_entities": 0,
+  "canonical_raw_entities": 1,
   "counter_corrections": [
     {
       "run_id": 33121294378,
@@ -160,5 +169,6 @@
       "code_fix": "m3top3-finance-single-canary-v1.yml"
     }
   ],
-  "last_material_progress": "S2_PUSH_LATCH_PREPARED_AND_DOCUMENTATION_BLOCKERS_NARROWED_WITH_EXACT_ARTIFACT_BACKUP"
+  "last_material_progress": "S2_FIRST_CANONICAL_S3_RAW_ENTITY_MATERIALIZED_AND_REMOTE_SHA256_VERIFIED",
+  "noncanonical_raw_entities_preserved_pending_owner_delete_approval": 1
 }
