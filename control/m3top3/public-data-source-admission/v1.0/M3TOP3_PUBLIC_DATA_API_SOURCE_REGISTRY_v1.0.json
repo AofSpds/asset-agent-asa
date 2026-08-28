@@ -1,7 +1,7 @@
 {
   "artifact": "M3TOP3_PUBLIC_DATA_API_SOURCE_REGISTRY_v1.0",
-  "as_of_kst": "2026-08-28T10:28:00+09:00",
-  "state": "PARTIAL_FREEZE_PREFIX_LICENSE_AND_LIVE_IDENTITY_FIELDS_FROZEN_DOCUMENT_RECEIPTS_OPEN",
+  "as_of_kst": "2026-08-28T11:32:09+09:00",
+  "state": "PARTIAL_FREEZE_FIRST_REMOTE_CUSTODY_CLOSED_DOCUMENT_RECEIPTS_OPEN",
   "sources": [
     {
       "provider": "KSD",
@@ -199,7 +199,18 @@
         }
       ],
       "frozen_raw_prefix": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/",
-      "object_key_template": "raw/public-data-api/<source_id>/<operation>/quota_day_kst=<YYYY-MM-DD>/request_id=<safe_request_id_sha256>/attempt=<N>/sha256=<entity_sha256>.entity"
+      "object_key_template": "raw/public-data-api/<source_id>/<operation>/quota_day_kst=<YYYY-MM-DD>/request_id=<safe_request_id_sha256>/attempt=<N>/sha256=<entity_sha256>.entity",
+      "canonical_raw_materialization": {
+        "state": "PASS",
+        "locator": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/getRighExerReasSche_V2/quota_day_kst=2026-08-28/request_id=970cde9fee8c25ba842c7969793ede827d92ca62138ceb3745abfa43ead55b6f/attempt=2/sha256=5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05.entity",
+        "s3_version_id": "EY9BXLRgeqXAYda6YSIVIB3cUhIIZbfd",
+        "entity_bytes": 143,
+        "entity_sha256": "5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05",
+        "remote_readback_sha256": "5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05",
+        "custody_mode": "MANUAL_AWS_CLOUDSHELL_CUSTODY",
+        "receipt_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_S3_MANUAL_CUSTODY_RECEIPT_v1.0.json",
+        "provider_api_network_attempts": 0
+      }
     }
   ],
   "source_identity_rule": "DATA_GO_KR_ENDPOINTS_ONLY_NO_SEIBRO_EQUIVALENCE_OR_FAILOVER",
@@ -216,7 +227,7 @@
       "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-KSD-CORP-DATA-GO-KR-v1/"
     ],
     "object_key_template": "raw/public-data-api/<source_id>/<operation>/quota_day_kst=<YYYY-MM-DD>/request_id=<safe_request_id_sha256>/attempt=<N>/sha256=<entity_sha256>.entity",
-    "remote_materialization": "NOT_STARTED",
-    "stable_object_locators": 0
+    "remote_materialization": "ONE_CANONICAL_FINANCE_ENTITY_REMOTE_SHA256_VERIFIED",
+    "stable_object_locators": 1
   }
 }
