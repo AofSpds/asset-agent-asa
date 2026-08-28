@@ -807,12 +807,15 @@
     "gate_effect": "NONE",
     "current_pilot_quota_day": {
       "quota_day_kst": "2026-08-29",
-      "prior_finance_attempts": 0,
       "finance_ordinal_base": 0,
       "next_finance_ordinal": 1,
       "max_network_attempts_total": 200,
       "historical_baseline_rows_preserved": 7,
-      "historical_baseline_excluded_from_current_day_counters": true
+      "historical_baseline_excluded_from_current_day_counters": true,
+      "known_durable_finance_attempts_before_pilot": 0,
+      "known_external_attempts_minimum": 0,
+      "unknown_external_attempts": true,
+      "provider_key_global_usage_claim": "NONE"
     }
   },
   "s2_freeze_state": {
@@ -1098,6 +1101,10 @@
     "quota_reservations": 0,
     "remote_s3_writes": 0,
     "validation_claim": "NONE",
-    "gate_effect": "NONE"
+    "gate_effect": "NONE",
+    "known_durable_finance_attempts_before_pilot": 0,
+    "known_external_attempts_minimum": 0,
+    "unknown_external_attempts": true,
+    "provider_key_global_usage_claim": "NONE"
   }
 }
