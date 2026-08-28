@@ -1,0 +1,48 @@
+{
+  "artifact": "M3TOP3_PUBLIC_DATA_API_PAGINATION_COLLECTOR_INTEGRATION_TEST_RECEIPT_v1.0",
+  "tested_at_kst": "2026-08-28T13:13:00+09:00",
+  "test_command": "python -m unittest tools.m3top3.tests.test_source_admission -v",
+  "tests_run": 20,
+  "failures": 0,
+  "errors": 0,
+  "state": "PASS_BOUNDED_COLLECTOR_INTEGRATION_FOCUSED_SCOPE",
+  "integration_scope": "DEPENDENCY_INJECTED_BOUNDED_PAGINATION_COLLECTOR_NO_PROVIDER_NETWORK",
+  "source_commit": "207b3f822d04d5f4fd40d518c67205998a8e2d72",
+  "source_blob": "84e0084b10df457cce3a05a23ce83258a2d65f51",
+  "test_commit": "58b3b0f22d3d0402171b582290e79c3a7d0a1ce9",
+  "test_blob": "c79c78b14985c2795e9b67eca4f465b8e86b90a8",
+  "implementation_history": {
+    "initial_collector_source_commit": "9dc4f7a46e938cee7b941688935afd25763788ea",
+    "initial_collector_test_commit": "b252df4850fd69313fcbb19a3a2eb9631ab6d5a3",
+    "quota_safe_fail_fast_source_commit": "207b3f822d04d5f4fd40d518c67205998a8e2d72",
+    "quota_safe_fail_fast_test_commit": "58b3b0f22d3d0402171b582290e79c3a7d0a1ce9"
+  },
+  "prior_receipt_reconciliation": {
+    "receipt": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_PAGINATION_INVARIANT_TEST_RECEIPT_v1.0.json",
+    "prior_declared_tests_run": 14,
+    "preexisting_test_methods_observed_before_integration": 15,
+    "disposition": "CURRENT_FOCUSED_RUN_COUNT_IS_AUTHORITATIVE_PRIOR_RECEIPT_PRESERVED_UNCHANGED"
+  },
+  "proven": [
+    "ASSERT_ECHOED_PAGE_NUMBER",
+    "USE_ACTUAL_RETURNED_PAGE_SIZE",
+    "ASSERT_STABLE_TOTAL_COUNT_AND_PAGE_SIZE",
+    "REJECT_EMPTY_INTERMEDIATE_PAGE",
+    "DETECT_REPEATED_WHOLE_PAGE",
+    "ASSERT_SUM_ITEMS_EQUALS_TOTAL_COUNT_AT_DATE_COMPLETE",
+    "ON_RESUME_REVALIDATE_PAGE_1_IDENTITY_AND_TOTAL",
+    "QUARANTINE_TOTAL_COUNT_OR_PAGE_SHIFT_DRIFT",
+    "QUOTA_SAFE_FAIL_FAST_BEFORE_FETCHING_LATER_PAGE",
+    "FROZEN_MAX_PAGE_CEILING_BEFORE_PAGE_2",
+    "INTEGER_PROTOCOL_FIELDS_REJECT_BOOLEAN"
+  ],
+  "not_proven": [
+    "LIVE_MULTI_PAGE_PROVIDER_RUN",
+    "PRODUCTION_OR_BULK_ACQUISITION"
+  ],
+  "provider_api_network_attempts": 0,
+  "bulk_acquisition_authorized": false,
+  "production_authorized": false,
+  "validation_claim": "NONE",
+  "gate_effect": "NONE"
+}
