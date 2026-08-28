@@ -11,7 +11,7 @@
       "Condition": {
         "StringEquals": {
           "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
-          "token.actions.githubusercontent.com:sub": "repo:AofSpds/asset-agent-asa:environment:m3top3-source-admission"
+          "token.actions.githubusercontent.com:sub": "repo:AofSpds@87963280/asset-agent-asa@1334403184:environment:m3top3-source-admission"
         }
       }
     }
