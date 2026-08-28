@@ -1,7 +1,7 @@
 {
   "artifact": "M3TOP3_PUBLIC_DATA_API_AWS_OIDC_CONTRACT_v1.0",
   "issued_at_kst": "2026-08-28T10:08:28+09:00",
-  "state": "PMO_CURRENT_VERSION_ID_READ_ONLY_PRECHECK_PREPARING",
+  "state": "FRESH_READ_ONLY_PRECHECK_PASS_CURRENT_VERSION_EXACT_READBACK_LIVE_ROLLOVER_PREPARATION",
   "provider": "AWS_IAM_OIDC",
   "aws_region": "ap-northeast-2",
   "aws_account_id": "956315449338",
@@ -18,7 +18,7 @@
   "github_role_arn_variable": "M3TOP3_AWS_ROLE_ARN",
   "expected_role_name": "M3Top3GitHubOIDCRawWriter",
   "expected_role_arn": "arn:aws:iam::956315449338:role/M3Top3GitHubOIDCRawWriter",
-  "expected_role_binding_state": "OIDC_STS_LATEST_GET_OBJECT_PASS_GET_OBJECT_VERSION_NOT_YET_DISTINGUISHED",
+  "expected_role_binding_state": "PASS_EXACT_GITHUB_OIDC_STS_FINANCE_PREFIX_READ_AND_CURRENT_VERSION",
   "long_lived_access_keys": "PROHIBITED",
   "oidc_provider_url": "https://token.actions.githubusercontent.com",
   "oidc_audience": "sts.amazonaws.com",
@@ -85,13 +85,13 @@
     "trust_only_remediation_script_sha256": "9573ed2c1d69b5780510a19d5f9522fe8986c5bb8871c94d5636525a7afc0936"
   },
   "workflow": ".github/workflows/m3top3-finance-bounded-live-pilot-v1.yml",
-  "workflow_disposition": "NEW_CURRENT_VERSION_ID_READ_ONLY_PRECHECK_REARM_PENDING",
+  "workflow_disposition": "READ_ONLY_PRECHECK_PASS_NO_PROVIDER_CALL_NO_S3_WRITE",
   "historical_single_canary_workflow": ".github/workflows/m3top3-s3-raw-custody-single-canary-v1.yml",
   "current_runtime": {
     "runtime_lock_id": "PMO-API-SRC-ADMIT-20260828192737",
     "pilot_id": "FINANCE-LIVE-PILOT-20260828192737",
-    "authority_state": "ACTIVE_PREPARING_CURRENT_VERSION_ID_READ_ONLY_PRECHECK",
-    "live_pilot_entry_gate": "CLOSED_PENDING_FULL_READ_ONLY_PRECHECK_PASS",
+    "authority_state": "ACTIVE_PRECHECK_PASS_PREPARING_BOUNDED_LIVE_ROLLOVER",
+    "live_pilot_entry_gate": "CLOSED_PENDING_CURRENT_KST_QUOTA_DAY_AND_LIVE_HASH_BINDINGS",
     "workflow_execution_authorized": true,
     "remote_write_execution_authorized": false,
     "provider_api_network_calls_authorized_during_precheck": false
@@ -159,7 +159,7 @@
     "manual_custody_receipt": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_S3_MANUAL_CUSTODY_RECEIPT_v1.0.json",
     "remote_sha256_verified": true
   },
-  "last_currentized_at_kst": "2026-08-29T02:14:47+09:00",
+  "last_currentized_at_kst": "2026-08-29T02:17:49+09:00",
   "repository_visibility": "PRIVATE",
   "private_repository_environment_gate": {
     "preferred": "REQUIRED_REVIEWER_AofSpds",
@@ -245,13 +245,11 @@
     "required": false,
     "semantic_decision_required": false,
     "authority_expansion_required": false,
-    "action": "NONE_PMO_CURRENT_VERSION_ID_READ_ONLY_PRECHECK_PREPARATION",
-    "next_verification": "NEW_PRECHECK_DO_NOT_RERUN_33193429858",
+    "action": "NONE_PRECHECK_PASS",
+    "next_verification": "PMO_CURRENT_KST_LIVE_CONTROL_ROLLOVER_THEN_SEPARATE_LIVE_LATCH_ACT",
     "prohibit": [
-      "RERUN_RUN_33193429858",
-      "LIVE_ARMING_BEFORE_FULL_PRECHECK_PASS",
-      "PROVIDER_API_CALL",
-      "S3_WRITE",
+      "RERUN_SUCCESSFUL_PRECHECK",
+      "LIVE_ARMING_BEFORE_CURRENT_KST_ROLLOVER_AND_EXACT_REBIND",
       "PERMISSIONS_EXPANSION"
     ]
   },
@@ -316,5 +314,30 @@
     "provider_api_network_attempts": 0,
     "quota_reservations": 0,
     "remote_s3_writes": 0
+  },
+  "successful_precheck": {
+    "run_id": 33193940219,
+    "job_id": 98926163948,
+    "head_sha": "c54284cb96021b17a6301e1db0e54fd046c9e619",
+    "artifact_id": 9694932515,
+    "artifact_sha256": "1b67ab0a810ce85058d5b4bc622051e39fb93631330265f862fa403422e0a604",
+    "github_oidc_claims": "PASS",
+    "aws_sts_assumed_role": "PASS",
+    "aws_account_id": "956315449338",
+    "aws_region": "ap-northeast-2",
+    "bucket": "semi-data-plane-aofspds-20260815",
+    "bucket_versioning": "Enabled",
+    "finance_prefix_read": "PASS",
+    "control_prefix_read": "PASS",
+    "known_object_version_id": "EY9BXLRgeqXAYda6YSlWIB3cUhTIZbfd",
+    "known_object_version_readback": "PASS",
+    "known_version_binding": "CURRENT_LATEST_VERSION_EXACT_READBACK_AFTER_FROZEN_VERSION_403",
+    "content_length": 143,
+    "server_side_encryption": "AES256",
+    "provider_api_network_attempts": 0,
+    "quota_reservations": 0,
+    "remote_s3_writes": 0,
+    "secret_persisted": false,
+    "authenticated_url_persisted": false
   }
 }
