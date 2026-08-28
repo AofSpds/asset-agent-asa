@@ -14,7 +14,7 @@
     "gate_effect": "NONE",
     "bulk_acquisition_authorized": false,
     "bulk_blockers": [
-      "KSD_IDENTITY_FULL_FIELD_DICTIONARY_TEMPORAL_STATUS_HISTORICAL_SEMANTICS_AND_EXACT_UPDATE_CYCLE_OPEN",
+      "KSD_FIELD_LEVEL_TEMPORAL_STATUS_HISTORICAL_SEMANTICS_AND_EXACT_UPDATE_CYCLE_OPEN",
       "PAGINATION_VALIDATOR_BULK_COLLECTOR_INTEGRATION_OPEN"
     ],
     "credential_preflight_state": "PASS_BOTH_LIVE_REQUEST_PROVEN",
@@ -102,7 +102,7 @@
       "frozen_raw_prefix": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-KSD-CORP-DATA-GO-KR-v1/",
       "object_key_template": "raw/public-data-api/<source_id>/<operation>/quota_day_kst=<YYYY-MM-DD>/request_id=<safe_request_id_sha256>/attempt=<N>/sha256=<entity_sha256>.entity",
       "identity_operation_evidence": {
-        "state": "ENDPOINT_REQUEST_AND_CANARY_RESPONSE_FIELDS_EVIDENCE_BACKED",
+        "state": "OFFICIAL_SWAGGER_REQUEST_AND_FULL_RESPONSE_FIELD_NAMES_BOUND_LIVE_CANARY_VALUES_PROVEN",
         "operations": [
           {
             "operation": "getIssucoCustnoByShortIsin",
@@ -114,19 +114,59 @@
             "canary_value": "005930",
             "live_run_id": 33122137049,
             "raw_entity_bytes": 411,
-            "raw_entity_sha256": "f3222d32400f728a3259fe751531662198078bea23892a7ed0cf74f65106d2ac"
+            "raw_entity_sha256": "f3222d32400f728a3259fe751531662198078bea23892a7ed0cf74f65106d2ac",
+            "official_response_fields": [
+              "resultCode",
+              "resultMsg",
+              "totalCount",
+              "listNm",
+              "issucoCustno",
+              "issucoNm"
+            ]
           },
           {
             "operation": "getIssucoBasicInfo",
             "endpoint": "https://apis.data.go.kr/B552481/CorpSvc/getIssucoBasicInfo",
             "live_run_id": 33122941717,
             "raw_entity_bytes": 1651,
-            "raw_entity_sha256": "f38df1bf65a04ff93e49968b9d5f9728b9e0f44c11de6f6f3961977b1547d8a4"
+            "raw_entity_sha256": "f38df1bf65a04ff93e49968b9d5f9728b9e0f44c11de6f6f3961977b1547d8a4",
+            "official_response_fields": [
+              "resultCode",
+              "resultMsg",
+              "totalCount",
+              "dlistDt",
+              "repSecnNm",
+              "bizno",
+              "ceoNm",
+              "setaccMmdd",
+              "pval",
+              "engCustNm",
+              "engLegFormNm",
+              "founDt",
+              "agOrgTpcd",
+              "agOrgTpcdNm",
+              "homepAddr",
+              "pvalStkqty",
+              "rostCloseTermTpcd",
+              "rostCloseTerms",
+              "rostCloseTermUnitCd",
+              "rostCloseTermUnitNm",
+              "rostCloseTerm",
+              "issucoCustno",
+              "shotnIsin",
+              "totalStkCnt",
+              "custXtinDt",
+              "caltotMartTpcd",
+              "caltotMartTpcdNm",
+              "apliDtY",
+              "apliDt",
+              "eltscYn",
+              "apliDtN"
+            ]
           }
         ],
         "open_official_scope": [
-          "FULL_RESPONSE_FIELD_DICTIONARY",
-          "TEMPORAL_AND_STATUS_FIELD_SEMANTICS",
+          "FIELD_LEVEL_TEMPORAL_AND_STATUS_SEMANTICS",
           "HISTORICAL_VALIDITY_SEMANTICS",
           "EXACT_UPDATE_CYCLE"
         ],
@@ -554,7 +594,7 @@
     "ACTIVE_MANIFEST",
     "PRODUCTION_PROVIDER"
   ],
-  "last_currentized_at_kst": "2026-08-28T12:05:00+09:00",
+  "last_currentized_at_kst": "2026-08-28T12:12:00+09:00",
   "s2_freeze_state": {
     "state": "PARTIAL_FINANCE_DOCUMENTATION_CLOSED_KSD_IDENTITY_DICTIONARY_AND_EXACT_UPDATE_CYCLE_OPEN",
     "quota_policy": "FROZEN",
