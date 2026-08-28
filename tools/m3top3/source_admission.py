@@ -3,13 +3,14 @@
 
 This module is additive and deliberately does not touch production providers,
 model semantics, PIT semantics, or active manifests.  It supports only source
-preflight/canary evidence until the durable raw-data plane and endpoint identity
-gates are closed.
+preflight/canary evidence and injected-fixture Finance pilot readiness until the
+durable raw-data plane and endpoint identity gates are closed.
 """
 
 from __future__ import annotations
 
 import argparse
+import fcntl
 import hashlib
 import json
 import os
@@ -20,9 +21,9 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from dataclasses import dataclass
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
-from typing import Any, Callable, Mapping
+from typing import Any, Callable, Mapping, Protocol
 from xml.etree import ElementTree
 
 
@@ -40,10 +41,14 @@ FINANCE_URL = (
     "https://apis.data.go.kr/1160100/GetStocRighScheService_V2/"
     "getRighExerReasSche_V2"
 )
+FINANCE_OPERATION = "getRighExerReasSche_V2"
 QUOTA_CAPS = {"KSD": 80, "FINANCE": 8000}
 SAFE_HEADERS = {"content-type", "content-length", "date", "etag", "last-modified"}
 KSD_MARKET_NAME_FIELDS = ("listNm", "caltotMartTpcdNm", "lstgScrsItmsKcdNm", "scrsItmsKcdNm", "mrktNm", "marketNm")
 _PERCENT_TRIPLET = re.compile(r"%[0-9A-Fa-f]{2}")
+_ASCII_YYYYMMDD = re.compile(r"[0-9]{8}")
+_ASCII_SHA256 = re.compile(r"[0-9a-f]{64}")
+_ASCII_UNSIGNED_INTEGER = re.compile(r"[0-9]+")
 
 
 class AdmissionError(RuntimeError):
@@ -63,6 +68,10 @@ class SourceProtocolError(AdmissionError):
 
 
 class SourceTransportError(AdmissionError):
+    pass
+
+
+class CheckpointConflictError(AdmissionError):
     pass
 
 
@@ -216,6 +225,130 @@ def classify_provider(provider: str, parsed: Any) -> dict[str, Any]:
     return {"provider": provider, "state": state, "result_code": code, "message": message, "total_count": total, "items": items}
 
 
+def _parse_iso_date_bound(value: str, field: str) -> date:
+    if not isinstance(value, str):
+        raise SourceProtocolError(f"invalid Finance {field}")
+    try:
+        parsed = date.fromisoformat(value)
+    except ValueError:
+        raise SourceProtocolError(f"invalid Finance {field}") from None
+    if parsed.isoformat() != value:
+        raise SourceProtocolError(f"invalid Finance {field}")
+    return parsed
+
+
+def _parse_finance_bas_dt(value: str) -> date:
+    if not isinstance(value, str) or _ASCII_YYYYMMDD.fullmatch(value) is None:
+        raise SourceProtocolError("invalid Finance basDt")
+    try:
+        parsed = datetime.strptime(value, "%Y%m%d").date()
+    except ValueError:
+        raise SourceProtocolError("invalid Finance basDt") from None
+    if parsed.strftime("%Y%m%d") != value:
+        raise SourceProtocolError("invalid Finance basDt")
+    return parsed
+
+
+def validate_finance_pilot_dates(
+    dates: tuple[str, ...],
+    *,
+    start_date: str,
+    end_date: str,
+) -> tuple[str, ...]:
+    """Validate one exact, caller-frozen Finance date plan without expanding it."""
+    if not isinstance(dates, tuple) or not dates:
+        raise SourceProtocolError("Finance pilot date plan must be a non-empty tuple")
+    lower = _parse_iso_date_bound(start_date, "start date")
+    upper = _parse_iso_date_bound(end_date, "end date")
+    if lower > upper:
+        raise SourceProtocolError("invalid Finance target date bounds")
+    parsed_dates = [_parse_finance_bas_dt(value) for value in dates]
+    if len(set(dates)) != len(dates):
+        raise SourceProtocolError("duplicate Finance pilot date")
+    if parsed_dates != sorted(parsed_dates):
+        raise SourceProtocolError("Finance pilot dates must be strictly increasing")
+    if any(value < lower or value > upper for value in parsed_dates):
+        raise SourceProtocolError("Finance pilot date outside target bounds")
+    return dates
+
+
+def finance_request_params(bas_dt: str, page_no: int, requested_page_size: int) -> dict[str, str]:
+    """Build the secret-free, type-stable Finance query identity material."""
+    _parse_finance_bas_dt(bas_dt)
+    for value, name in ((page_no, "page number"), (requested_page_size, "page size")):
+        if isinstance(value, bool) or not isinstance(value, int) or value <= 0:
+            raise SourceProtocolError(f"invalid Finance requested {name}")
+    return {
+        "basDt": bas_dt,
+        "issuCmpyKsdCustNo": "",
+        "numOfRows": str(requested_page_size),
+        "pageNo": str(page_no),
+        "resultType": "json",
+        "stckIssuCmpyNm": "",
+    }
+
+
+def _strict_unsigned_wire_integer(value: Any, field: str, *, positive: bool = False) -> int:
+    if isinstance(value, bool):
+        raise SourceProtocolError(f"invalid Finance {field}")
+    if isinstance(value, int):
+        result = value
+    elif isinstance(value, str) and _ASCII_UNSIGNED_INTEGER.fullmatch(value) is not None:
+        result = int(value)
+    else:
+        raise SourceProtocolError(f"invalid Finance {field}")
+    if result < (1 if positive else 0):
+        raise SourceProtocolError(f"invalid Finance {field}")
+    return result
+
+
+def finance_entity_to_page(
+    body: bytes,
+    *,
+    expected_bas_dt: str,
+    expected_page_no: int,
+) -> dict[str, Any]:
+    """Normalize one already-custodied Finance entity into pagination input."""
+    _parse_finance_bas_dt(expected_bas_dt)
+    if isinstance(expected_page_no, bool) or not isinstance(expected_page_no, int) or expected_page_no <= 0:
+        raise SourceProtocolError("invalid Finance expected page number")
+    parsed = parse_entity_bytes(body)
+    result_code = _find_first(parsed, ("resultCode",))
+    if result_code in (None, ""):
+        raise SourceProtocolError("Finance response missing resultCode")
+    if not isinstance(result_code, str) or result_code != "00":
+        raise SourceProtocolError("Finance provider resultCode failure")
+    classified = classify_provider("FINANCE", parsed)
+    page_no = _strict_unsigned_wire_integer(_find_first(parsed, ("pageNo",)), "pageNo", positive=True)
+    page_size = _strict_unsigned_wire_integer(_find_first(parsed, ("numOfRows",)), "numOfRows", positive=True)
+    total_count = _strict_unsigned_wire_integer(_find_first(parsed, ("totalCount", "totalCnt")), "totalCount")
+    if page_no != expected_page_no:
+        raise SourceProtocolError("Finance echoed page number mismatch")
+    if total_count != classified["total_count"]:
+        raise SourceProtocolError("Finance totalCount normalization mismatch")
+    items = classified["items"]
+    for item in items:
+        observed_bas_dt = _find_first(item, ("basDt",))
+        if str(observed_bas_dt or "") != expected_bas_dt:
+            raise SourceProtocolError("Finance item basDt mismatch")
+    return {
+        "page_no": page_no,
+        "page_size": page_size,
+        "total_count": total_count,
+        "items": items,
+    }
+
+
+def pagination_page_1_identity(page: Mapping[str, Any]) -> str:
+    """Return the single public identity used for fresh and resumed page 1."""
+    return hashlib.sha256(canonical_json_bytes({
+        "page_no": page.get("page_no"),
+        "page_size": page.get("page_size"),
+        "total_count": page.get("total_count"),
+        "items": page.get("items"),
+    })).hexdigest()
+
+
 def _validate_pagination_page(
     page: Mapping[str, Any],
     *,
@@ -273,23 +406,13 @@ def validate_pagination_snapshot(pages: list[Mapping[str, Any]]) -> dict[str, An
         )
     if item_count != first_total:
         raise SourceProtocolError("pagination item count does not equal totalCount")
-    identity = hashlib.sha256(canonical_json_bytes({
-        "page_no": 1,
-        "page_size": first_size,
-        "total_count": first_total,
-        "items": pages[0].get("items"),
-    })).hexdigest()
+    identity = pagination_page_1_identity(pages[0])
     return {"state": "DATE_COMPLETE", "page_count": len(pages), "item_count": item_count, "page_1_identity": identity}
 
 
 def assert_resume_page_1(snapshot: Mapping[str, Any], page_1: Mapping[str, Any]) -> None:
     """Fail closed when resumed page 1 no longer matches the frozen snapshot."""
-    current = hashlib.sha256(canonical_json_bytes({
-        "page_no": page_1.get("page_no"),
-        "page_size": page_1.get("page_size"),
-        "total_count": page_1.get("total_count"),
-        "items": page_1.get("items"),
-    })).hexdigest()
+    current = pagination_page_1_identity(page_1)
     if current != snapshot.get("page_1_identity"):
         raise SourceProtocolError("resume page 1 identity or total shifted")
 
@@ -299,6 +422,7 @@ def collect_bounded_pagination_snapshot(
     *,
     max_pages: int,
     resume_snapshot: Mapping[str, Any] | None = None,
+    on_page_validated: Callable[[int, Mapping[str, Any], int], None] | None = None,
 ) -> dict[str, Any]:
     """Collect one bounded page set and close it through the invariant validator.
 
@@ -335,6 +459,8 @@ def collect_bounded_pagination_snapshot(
         seen_pages=seen_pages,
         item_count=0,
     )
+    if on_page_validated is not None:
+        on_page_validated(1, first_page, item_count)
     expected_pages = max(1, (total_count + page_size - 1) // page_size)
     if expected_pages > max_pages:
         raise QuotaBoundaryError("bounded pagination page limit exceeded")
@@ -354,6 +480,8 @@ def collect_bounded_pagination_snapshot(
             item_count=item_count,
         )
         pages.append(page)
+        if on_page_validated is not None:
+            on_page_validated(page_no, page, item_count)
 
     snapshot = validate_pagination_snapshot(pages)
     return {
@@ -504,6 +632,453 @@ def write_sealed_entity(root: Path, body: bytes, receipt: Mapping[str, Any], sec
         if path.read_bytes() != body:
             raise AdmissionError("raw custody digest collision")
     return path
+
+
+@dataclass(frozen=True)
+class FinancePilotSpec:
+    """Frozen, offline-only Finance pilot inputs; dates are never auto-expanded."""
+
+    ordered_dates: tuple[str, ...]
+    target_start_date: str
+    target_end_date: str
+    requested_page_size: int
+    max_pages_per_date: int
+    max_page_acquisitions: int
+    authority_binding_sha256: str
+    source_id: str = FINANCE_SOURCE_ID
+    operation: str = FINANCE_OPERATION
+
+
+@dataclass(frozen=True)
+class AcquiredRawEntity:
+    """One injected raw fixture entity; this type carries no credential material."""
+
+    body: bytes
+    http_status: int
+    acquired_at_utc: str
+    provider_api_network_attempts: int = 0
+
+
+@dataclass(frozen=True)
+class CustodyWriteResult:
+    storage_locator: str
+    entity_bytes: int
+    entity_sha256: str
+    readback_bytes: int
+    readback_sha256: str
+    canonical: bool = False
+
+
+class RawCustodySink(Protocol):
+    def seal_and_verify(self, body: bytes, draft: Mapping[str, Any]) -> CustodyWriteResult:
+        ...
+
+
+class CheckpointStore(Protocol):
+    def load(self) -> tuple[Mapping[str, Any] | None, str | None]:
+        ...
+
+    def compare_and_swap(self, value: Mapping[str, Any], expected_sha256: str | None) -> str:
+        ...
+
+
+class JsonCheckpointStore:
+    """Canonical JSON checkpoint with process-safe CAS and atomic replacement."""
+
+    def __init__(self, path: Path) -> None:
+        self.path = path
+        self._lock = threading.Lock()
+
+    def _load_locked(self) -> tuple[dict[str, Any] | None, str | None]:
+        if not self.path.exists():
+            return None, None
+        raw = self.path.read_bytes()
+        parsed = parse_entity_bytes(raw)
+        if not isinstance(parsed, dict) or canonical_json_bytes(parsed) != raw:
+            raise SourceProtocolError("non-canonical Finance checkpoint")
+        return parsed, hashlib.sha256(raw).hexdigest()
+
+    def load(self) -> tuple[Mapping[str, Any] | None, str | None]:
+        with self._lock:
+            return self._load_locked()
+
+    def compare_and_swap(self, value: Mapping[str, Any], expected_sha256: str | None) -> str:
+        if not isinstance(value, Mapping):
+            raise SourceProtocolError("invalid Finance checkpoint")
+        payload = canonical_json_bytes(dict(value))
+        digest = hashlib.sha256(payload).hexdigest()
+        with self._lock:
+            self.path.parent.mkdir(parents=True, exist_ok=True)
+            lock_path = self.path.with_name(f".{self.path.name}.lock")
+            lock_fd = os.open(lock_path, os.O_CREAT | os.O_RDWR, 0o600)
+            try:
+                fcntl.flock(lock_fd, fcntl.LOCK_EX)
+                _, current_sha256 = self._load_locked()
+                if current_sha256 != expected_sha256:
+                    raise CheckpointConflictError("Finance checkpoint compare-and-swap conflict")
+                temp_path = self.path.with_name(
+                    f".{self.path.name}.{os.getpid()}.{threading.get_ident()}.{time.time_ns()}.tmp"
+                )
+                try:
+                    with temp_path.open("xb") as handle:
+                        handle.write(payload)
+                        handle.flush()
+                        os.fsync(handle.fileno())
+                    os.replace(temp_path, self.path)
+                    directory_fd = os.open(self.path.parent, os.O_RDONLY)
+                    try:
+                        os.fsync(directory_fd)
+                    finally:
+                        os.close(directory_fd)
+                finally:
+                    temp_path.unlink(missing_ok=True)
+            finally:
+                fcntl.flock(lock_fd, fcntl.LOCK_UN)
+                os.close(lock_fd)
+        return digest
+
+
+def _finance_plan_identity(spec: FinancePilotSpec) -> str:
+    material = {
+        "source_id": spec.source_id,
+        "operation": spec.operation,
+        "ordered_dates": list(spec.ordered_dates),
+        "requested_page_size": spec.requested_page_size,
+        "max_pages_per_date": spec.max_pages_per_date,
+        "max_page_acquisitions": spec.max_page_acquisitions,
+    }
+    return hashlib.sha256(canonical_json_bytes(material)).hexdigest()
+
+
+def _validate_finance_pilot_spec(spec: FinancePilotSpec) -> str:
+    if not isinstance(spec, FinancePilotSpec):
+        raise SourceProtocolError("invalid Finance pilot specification")
+    if spec.source_id != FINANCE_SOURCE_ID or spec.operation != FINANCE_OPERATION:
+        raise SourceProtocolError("Finance pilot source identity mismatch")
+    validate_finance_pilot_dates(
+        spec.ordered_dates,
+        start_date=spec.target_start_date,
+        end_date=spec.target_end_date,
+    )
+    for value, field in (
+        (spec.requested_page_size, "requested page size"),
+        (spec.max_pages_per_date, "page ceiling"),
+        (spec.max_page_acquisitions, "acquisition ceiling"),
+    ):
+        if isinstance(value, bool) or not isinstance(value, int) or value <= 0:
+            raise SourceProtocolError(f"invalid Finance pilot {field}")
+    if not isinstance(spec.authority_binding_sha256, str) or _ASCII_SHA256.fullmatch(spec.authority_binding_sha256) is None:
+        raise SourceProtocolError("invalid Finance pilot authority binding")
+    return _finance_plan_identity(spec)
+
+
+def _checkpoint_timestamp(clock: Callable[[], datetime]) -> str:
+    value = clock()
+    if not isinstance(value, datetime) or value.tzinfo is None:
+        raise SourceProtocolError("Finance checkpoint clock must be timezone-aware")
+    return value.astimezone(timezone.utc).isoformat()
+
+
+def _initial_finance_checkpoint(spec: FinancePilotSpec, plan_identity: str, timestamp: str) -> dict[str, Any]:
+    return {
+        "artifact": "M3TOP3_FINANCE_CA_ACQUISITION_CHECKPOINT_v1.0",
+        "schema_version": 1,
+        "authority_binding_sha256": spec.authority_binding_sha256,
+        "source_id": spec.source_id,
+        "operation": spec.operation,
+        "ordered_date_plan_sha256": plan_identity,
+        "ordered_dates": list(spec.ordered_dates),
+        "requested_page_size": spec.requested_page_size,
+        "max_pages_per_date": spec.max_pages_per_date,
+        "max_page_acquisitions": spec.max_page_acquisitions,
+        "page_acquisitions": 0,
+        "next_date_index": 0,
+        "completed_dates": [],
+        "date_results": [],
+        "current_date": None,
+        "last_error": None,
+        "provider_api_network_attempts": 0,
+        "remote_raw_custody_writes": 0,
+        "bulk_acquisition_authorized": False,
+        "validation_claim": "NONE",
+        "gate_effect": "NONE",
+        "updated_at_utc": timestamp,
+    }
+
+
+def _assert_finance_checkpoint_binding(
+    checkpoint: Mapping[str, Any],
+    spec: FinancePilotSpec,
+    plan_identity: str,
+) -> None:
+    expected = {
+        "artifact": "M3TOP3_FINANCE_CA_ACQUISITION_CHECKPOINT_v1.0",
+        "schema_version": 1,
+        "authority_binding_sha256": spec.authority_binding_sha256,
+        "source_id": spec.source_id,
+        "operation": spec.operation,
+        "ordered_date_plan_sha256": plan_identity,
+        "ordered_dates": list(spec.ordered_dates),
+        "requested_page_size": spec.requested_page_size,
+        "max_pages_per_date": spec.max_pages_per_date,
+        "max_page_acquisitions": spec.max_page_acquisitions,
+        "provider_api_network_attempts": 0,
+        "remote_raw_custody_writes": 0,
+        "bulk_acquisition_authorized": False,
+        "validation_claim": "NONE",
+        "gate_effect": "NONE",
+    }
+    for field, expected_value in expected.items():
+        if checkpoint.get(field) != expected_value:
+            raise CheckpointConflictError(f"Finance checkpoint binding mismatch: {field}")
+    completed = checkpoint.get("completed_dates")
+    next_index = checkpoint.get("next_date_index")
+    results = checkpoint.get("date_results")
+    acquisitions = checkpoint.get("page_acquisitions")
+    if not isinstance(completed, list) or completed != list(spec.ordered_dates[:len(completed)]):
+        raise CheckpointConflictError("Finance checkpoint completed dates are not an ordered prefix")
+    if type(next_index) is not int or next_index != len(completed):
+        raise CheckpointConflictError("Finance checkpoint next date index mismatch")
+    if not isinstance(results, list) or len(results) != len(completed):
+        raise CheckpointConflictError("Finance checkpoint result prefix mismatch")
+    if type(acquisitions) is not int or acquisitions < 0 or acquisitions > spec.max_page_acquisitions:
+        raise CheckpointConflictError("Finance checkpoint acquisition count mismatch")
+    current = checkpoint.get("current_date")
+    if current is not None:
+        if not isinstance(current, Mapping) or next_index >= len(spec.ordered_dates):
+            raise CheckpointConflictError("invalid Finance current-date checkpoint")
+        if current.get("basDt") != spec.ordered_dates[next_index]:
+            raise CheckpointConflictError("Finance current-date checkpoint is not next in plan")
+
+
+def _validate_acquired_raw_entity(entity: AcquiredRawEntity) -> None:
+    if not isinstance(entity, AcquiredRawEntity) or not isinstance(entity.body, bytes):
+        raise SourceProtocolError("invalid injected Finance raw entity")
+    if type(entity.http_status) is not int or entity.http_status != 200:
+        raise SourceProtocolError("invalid injected Finance HTTP status")
+    if entity.provider_api_network_attempts != 0:
+        raise SourceProtocolError("offline Finance pilot rejected provider network activity")
+    try:
+        observed = datetime.fromisoformat(entity.acquired_at_utc.replace("Z", "+00:00"))
+    except (AttributeError, ValueError):
+        raise SourceProtocolError("invalid Finance acquisition timestamp") from None
+    if observed.tzinfo is None or observed.utcoffset() != timedelta(0):
+        raise SourceProtocolError("Finance acquisition timestamp must be UTC")
+
+
+def _validate_offline_custody_result(result: CustodyWriteResult, body: bytes) -> None:
+    digest = hashlib.sha256(body).hexdigest()
+    if not isinstance(result, CustodyWriteResult) or result.canonical:
+        raise SourceProtocolError("offline Finance custody cannot be canonical")
+    if not isinstance(result.storage_locator, str) or not result.storage_locator:
+        raise SourceProtocolError("invalid offline Finance custody locator")
+    if (
+        result.entity_bytes != len(body)
+        or result.readback_bytes != len(body)
+        or result.entity_sha256 != digest
+        or result.readback_sha256 != digest
+    ):
+        raise SourceProtocolError("offline Finance custody readback mismatch")
+
+
+def run_finance_historical_pilot(
+    spec: FinancePilotSpec,
+    *,
+    reserve_attempt: Callable[[str, str, str], QuotaReservation],
+    acquire_raw_once: Callable[[Mapping[str, str], QuotaReservation], AcquiredRawEntity],
+    leak_scan: Callable[[bytes], None],
+    custody_sink: RawCustodySink,
+    custody_index_append: Callable[[Mapping[str, Any]], None],
+    checkpoint_store: CheckpointStore,
+    clock: Callable[[], datetime],
+) -> dict[str, Any]:
+    """Run a secret-free, no-network Finance pilot over injected raw fixtures."""
+    plan_identity = _validate_finance_pilot_spec(spec)
+    loaded, checkpoint_sha256 = checkpoint_store.load()
+    if loaded is None:
+        checkpoint = _initial_finance_checkpoint(spec, plan_identity, _checkpoint_timestamp(clock))
+        checkpoint_sha256 = checkpoint_store.compare_and_swap(checkpoint, None)
+    else:
+        if not isinstance(loaded, Mapping):
+            raise SourceProtocolError("invalid Finance checkpoint record")
+        checkpoint = json.loads(canonical_json_bytes(dict(loaded)).decode("utf-8"))
+    _assert_finance_checkpoint_binding(checkpoint, spec, plan_identity)
+
+    while checkpoint["next_date_index"] < len(spec.ordered_dates):
+        bas_dt = spec.ordered_dates[checkpoint["next_date_index"]]
+        prior_current = checkpoint.get("current_date")
+        prior_page_1_identity = None
+        prior_custody_refs: list[dict[str, Any]] = []
+        if isinstance(prior_current, Mapping) and prior_current.get("basDt") == bas_dt:
+            prior_page_1_identity = prior_current.get("page_1_identity")
+            prior_refs = prior_current.get("custody_refs", [])
+            if isinstance(prior_refs, list) and all(isinstance(row, dict) for row in prior_refs):
+                prior_custody_refs = list(prior_refs)
+        checkpoint["current_date"] = {
+            "basDt": bas_dt,
+            "state": "IN_PROGRESS",
+            "page_1_identity": prior_page_1_identity,
+            "first_total_count": None,
+            "first_returned_page_size": None,
+            "expected_pages": None,
+            "validated_pages": [],
+            "custody_refs": prior_custody_refs,
+        }
+        checkpoint["last_error"] = None
+        checkpoint["updated_at_utc"] = _checkpoint_timestamp(clock)
+        checkpoint_sha256 = checkpoint_store.compare_and_swap(checkpoint, checkpoint_sha256)
+
+        page_refs: dict[int, dict[str, Any]] = {}
+
+        def save_checkpoint() -> None:
+            nonlocal checkpoint_sha256
+            checkpoint["updated_at_utc"] = _checkpoint_timestamp(clock)
+            checkpoint_sha256 = checkpoint_store.compare_and_swap(checkpoint, checkpoint_sha256)
+
+        def fetch_page(page_no: int) -> Mapping[str, Any]:
+            if checkpoint["page_acquisitions"] >= spec.max_page_acquisitions:
+                raise QuotaBoundaryError("Finance pilot acquisition ceiling reached")
+            params = finance_request_params(bas_dt, page_no, spec.requested_page_size)
+            request_id = canonical_request_id(spec.source_id, FINANCE_URL, spec.operation, params)
+            reservation = reserve_attempt("FINANCE", spec.operation, request_id)
+            if not isinstance(reservation, QuotaReservation):
+                raise SourceProtocolError("invalid Finance quota reservation")
+            if (
+                reservation.provider != "FINANCE"
+                or reservation.operation != spec.operation
+                or type(reservation.ordinal) is not int
+                or reservation.ordinal <= 0
+            ):
+                raise SourceProtocolError("Finance quota reservation mismatch")
+            try:
+                quota_day = date.fromisoformat(reservation.quota_day_kst)
+            except (TypeError, ValueError):
+                raise SourceProtocolError("invalid Finance quota day") from None
+            if quota_day.isoformat() != reservation.quota_day_kst:
+                raise SourceProtocolError("invalid Finance quota day")
+
+            acquired = acquire_raw_once(params, reservation)
+            _validate_acquired_raw_entity(acquired)
+            leak_scan(acquired.body)
+            digest = hashlib.sha256(acquired.body).hexdigest()
+            draft = {
+                "source_id": spec.source_id,
+                "operation": spec.operation,
+                "safe_params": dict(params),
+                "request_id": request_id,
+                "attempt": 1,
+                "quota_day_kst": reservation.quota_day_kst,
+                "http_status": acquired.http_status,
+                "entity_bytes": len(acquired.body),
+                "entity_sha256": digest,
+                "acquired_at_utc": acquired.acquired_at_utc,
+            }
+            custody = custody_sink.seal_and_verify(acquired.body, draft)
+            _validate_offline_custody_result(custody, acquired.body)
+            raw_record = {**draft, "storage_locator": custody.storage_locator}
+            prohibited = {
+                "servicekey", "credential_value", "credential_hash", "credential_prefix",
+                "authenticated_url", "request_headers", "location",
+            }
+            if any(str(key).lower() in prohibited for key in raw_record):
+                raise CredentialContractError("prohibited field in Finance raw custody record")
+            custody_index_append(raw_record)
+            reference = {
+                "page_no": page_no,
+                "request_id": request_id,
+                "attempt": 1,
+                "quota_day_kst": reservation.quota_day_kst,
+                "quota_ordinal": reservation.ordinal,
+                "entity_bytes": len(acquired.body),
+                "entity_sha256": digest,
+                "storage_locator": custody.storage_locator,
+                "canonical": False,
+            }
+            if reference not in checkpoint["current_date"]["custody_refs"]:
+                checkpoint["current_date"]["custody_refs"].append(reference)
+            checkpoint["current_date"]["state"] = "RAW_SEALED"
+            checkpoint["page_acquisitions"] += 1
+            save_checkpoint()
+            page = finance_entity_to_page(
+                acquired.body,
+                expected_bas_dt=bas_dt,
+                expected_page_no=page_no,
+            )
+            page_refs[page_no] = reference
+            return page
+
+        def on_page_validated(page_no: int, page: Mapping[str, Any], cumulative_item_count: int) -> None:
+            reference = page_refs.get(page_no)
+            if reference is None:
+                raise SourceProtocolError("Finance validated page missing custody reference")
+            current = checkpoint["current_date"]
+            current["state"] = "PAGE_VALIDATED"
+            current["validated_pages"].append({
+                **reference,
+                "cumulative_item_count": cumulative_item_count,
+            })
+            if page_no == 1:
+                current["page_1_identity"] = pagination_page_1_identity(page)
+                current["first_total_count"] = page["total_count"]
+                current["first_returned_page_size"] = page["page_size"]
+                current["expected_pages"] = max(
+                    1,
+                    (page["total_count"] + page["page_size"] - 1) // page["page_size"],
+                )
+            save_checkpoint()
+
+        resume_snapshot = None
+        if prior_page_1_identity is not None:
+            if not isinstance(prior_page_1_identity, str) or _ASCII_SHA256.fullmatch(prior_page_1_identity) is None:
+                raise CheckpointConflictError("invalid Finance resume page-1 identity")
+            resume_snapshot = {"page_1_identity": prior_page_1_identity}
+        try:
+            collected = collect_bounded_pagination_snapshot(
+                fetch_page,
+                max_pages=spec.max_pages_per_date,
+                resume_snapshot=resume_snapshot,
+                on_page_validated=on_page_validated,
+            )
+        except Exception as exc:
+            if checkpoint.get("current_date") is not None:
+                checkpoint["current_date"]["state"] = "BLOCKED"
+                checkpoint["last_error"] = type(exc).__name__
+                try:
+                    save_checkpoint()
+                except CheckpointConflictError:
+                    raise
+            raise
+
+        date_result = {
+            "basDt": bas_dt,
+            "state": "DATE_COMPLETE",
+            "snapshot": collected["snapshot"],
+            "custody_refs": list(checkpoint["current_date"]["custody_refs"]),
+            "valid_empty": collected["snapshot"]["item_count"] == 0,
+        }
+        checkpoint["completed_dates"].append(bas_dt)
+        checkpoint["date_results"].append(date_result)
+        checkpoint["next_date_index"] += 1
+        checkpoint["current_date"] = None
+        checkpoint["last_error"] = None
+        save_checkpoint()
+
+    all_empty = all(result["valid_empty"] for result in checkpoint["date_results"])
+    return {
+        "state": "STOP_NO_PROMOTION" if all_empty else "OFFLINE_FIXTURE_COMPLETE_NO_PROMOTION",
+        "source_id": spec.source_id,
+        "operation": spec.operation,
+        "ordered_date_plan_sha256": plan_identity,
+        "completed_dates": list(checkpoint["completed_dates"]),
+        "date_results": list(checkpoint["date_results"]),
+        "page_acquisitions": checkpoint["page_acquisitions"],
+        "checkpoint_sha256": checkpoint_sha256,
+        "provider_api_network_attempts": 0,
+        "remote_raw_custody_writes": 0,
+        "bulk_acquisition_authorized": False,
+        "validation_claim": "NONE",
+        "gate_effect": "NONE",
+    }
 
 
 def preflight_environment() -> dict[str, str]:
