@@ -18,7 +18,7 @@
     "activated_at_kst": "2026-08-28T19:27:37+09:00"
   },
   "current_runtime_authority": {
-    "state": "ACTIVE_PREPARING_CURRENT_VERSION_ID_READ_ONLY_PRECHECK",
+    "state": "ACTIVE_PRECHECK_PASS_PREPARING_CURRENT_KST_BOUNDED_LIVE_ROLLOVER",
     "authorized_scope": [
       "FINANCE_ONLY_LIVE_ADAPTER_AND_WORKFLOW_PREPARATION",
       "FINANCE_ONLY_BOUNDED_LIVE_PILOT_AFTER_ENTRY_GATE",
@@ -28,7 +28,7 @@
     "repository_control_plane_writes_authorized": true,
     "offline_fixture_and_static_checks_authorized": true,
     "provider_api_network_calls_authorized": true,
-    "provider_api_network_calls_entry_gate": "CLOSED_PENDING_LIVE_ADAPTER_AND_DURABLE_CUSTODY_PREREQUISITES",
+    "provider_api_network_calls_entry_gate": "CLOSED_PENDING_CURRENT_KST_QUOTA_DAY_AND_LIVE_HASH_BINDINGS",
     "provider_api_network_attempt_budget": 200,
     "quota_reservation_authorized": true,
     "provider_workflow_dispatch_authorized": true,
@@ -66,7 +66,7 @@
     "offline_finance_pilot_readiness_authorized": false,
     "finance_only_bounded_live_pilot_authorized": true,
     "provider_api_network_calls_authorized": true,
-    "provider_api_network_calls_entry_gate": "CLOSED_PENDING_LIVE_ADAPTER_AND_DURABLE_CUSTODY_PREREQUISITES",
+    "provider_api_network_calls_entry_gate": "CLOSED_PENDING_CURRENT_KST_QUOTA_DAY_AND_LIVE_HASH_BINDINGS",
     "live_multi_page_provider_run_authorized": true,
     "ksd_provider_calls_authorized": false,
     "bulk_blockers": [
@@ -671,13 +671,13 @@
     "ACTIVE_MANIFEST",
     "PRODUCTION_PROVIDER"
   ],
-  "last_currentized_at_kst": "2026-08-29T02:14:47+09:00",
+  "last_currentized_at_kst": "2026-08-29T02:17:49+09:00",
   "successor_currentization": {
-    "state": "CURRENT_VERSION_ID_READ_ONLY_PRECHECK_CONTROL_REARM_IN_PROGRESS_NO_PROVIDER_OR_S3_EFFECT",
+    "state": "READ_ONLY_PRECHECK_PASS_CURRENT_KST_LIVE_ROLLOVER_IN_PROGRESS",
     "source_registry_commit": "0868e7734d11d71205627ad3bfe1b683494d3e0c",
     "source_registry_blob": "e3f6c8e3b35365fce5a352b3aea3f69a579f91d0",
-    "aws_oidc_contract_commit": "637ffbc8f5c1dfc6ad48bfe5f978a441385674fc",
-    "aws_oidc_contract_blob": "ebfab8dc44c459d919e19a0e18b6ae11d993f8bc",
+    "aws_oidc_contract_commit": "ea7848d425bcc4a274158e372cdfa336cee094d4",
+    "aws_oidc_contract_blob": "6f9955d213ca79b773c14f1317110fbe76295593",
     "source_admission_plan_commit": "2bf3bb03e68da8f18a9a2d62f925dc12bf45551b",
     "source_admission_plan_blob": "5723947ad5d4cbb689c278db71837ef2886dacc8",
     "finance_checkpoint_template_commit": "8566112d49e9b4d7585ec4517a333f14e05548de",
@@ -689,7 +689,9 @@
     "gate_effect": "NONE",
     "owner_aws_prerequisite_attestation": "ISSUE_49_COMMENT_5455199293",
     "diagnostic_workflow_commit": "5eff05c3cdd1a7e9c24d05ede1a2026fe432fd4f",
-    "diagnostic_workflow_sha256": "8ec23e55e3775b9eff77f5a272c9bc7b562f6a7ef9a3053124df60f384062d1b"
+    "diagnostic_workflow_sha256": "8ec23e55e3775b9eff77f5a272c9bc7b562f6a7ef9a3053124df60f384062d1b",
+    "successful_precheck_run_id": 33193940219,
+    "successful_precheck_artifact_id": 9694932515
   },
   "offline_finance_pilot_readiness": {
     "state": "FOCUSED_SYNTHETIC_FIXTURE_PASS_LIVE_PILOT_NOT_RUN",
@@ -722,7 +724,7 @@
   },
   "finance_live_pilot_authority": {
     "owner_decision": "APPROVE",
-    "authority_state": "GRANTED_ENTRY_GATE_CLOSED_PENDING_PREREQUISITES",
+    "authority_state": "GRANTED_ENTRY_GATE_CLOSED_PRECHECK_PASS_LIVE_ROLLOVER_PENDING",
     "pilot_run_id": "FINANCE-LIVE-PILOT-20260828192737",
     "owner_cap_spec_sha256": "7b65152d8df10a6497d1656dbc5cc6d4bd253740f53a29480bb8d877b81b9f05",
     "execution_token_sha256": "9cda8bb429b3558e81e1ffcc4a232c78976c521186f13fbad5462c0312281f37",
@@ -773,7 +775,7 @@
       "next_finance_ordinal": 6
     },
     "live_entry_gate": {
-      "state": "CLOSED_PENDING_LIVE_ADAPTER_AND_DURABLE_CUSTODY_PREREQUISITES",
+      "state": "CLOSED_PRECHECK_PASS_CURRENT_KST_LIVE_ROLLOVER_PENDING",
       "required_before_open": [
         "FINANCE_ONLY_LIVE_ADAPTER_FOCUSED_TEST_PASS",
         "DURABLE_WRITE_AHEAD_QUOTA_ACCOUNTING",
@@ -800,7 +802,7 @@
   "s2_freeze_state": {
     "state": "PARTIAL_CLAIM_CEILING_FROZEN",
     "stage_closure": "NOT_CLOSED",
-    "runtime_disposition": "GENERATION_3_CURRENT_VERSION_DIAGNOSTIC_SUCCESSOR_ACTIVE_PREPARING",
+    "runtime_disposition": "GENERATION_3_ACTIVE_PRECHECK_PASS_PREPARING_FINANCE_ONLY_BOUNDED_LIVE_ROLLOVER",
     "predecessor_runtime_disposition": "TERMINATED_NO_ACTIVE_WORK",
     "exact_blocker": "KSD_NULL_CURRENT_STATUS_HISTORICAL_VALIDITY_FULL_MARKET_AND_ROSTER_CLOSE_CODE_DICTIONARIES_AND_EXACT_UPDATE_CYCLE_UNPROVEN_AFTER_BOUNDED_OFFICIAL_SEARCH",
     "reopen_trigger": "NEW_OR_REVISED_OFFICIAL_KSD_OR_DATA_GO_KR_DOCUMENTATION",
@@ -816,7 +818,7 @@
     "source_specific_raw_prefix": "FROZEN_CONTROL_PLANE",
     "remote_materialization": "ONE_CANONICAL_FINANCE_ENTITY_REMOTE_SHA256_VERIFIED",
     "stable_object_locators": 1,
-    "actions_oidc": "OIDC_STS_LATEST_HEAD_PASS_CURRENT_VERSION_EXACT_READBACK_PENDING"
+    "actions_oidc": "PASS_EXACT_GITHUB_OIDC_STS_ACCOUNT_BUCKET_VERSIONING_PREFIX_CURRENT_VERSION"
   },
   "first_materialization_backup": {
     "state": "DURABLE_PRIVATE_BACKUP_PRESENT_NOT_CANONICAL_DATA_PLANE",
@@ -852,9 +854,9 @@
     "bulk_acquisition_authorized": false
   },
   "generation_3_finance_oidc_precheck": {
-    "state": "CURRENT_VERSION_ID_READ_ONLY_PRECHECK_REARM_PENDING",
-    "precheck_run_count": 7,
-    "precheck_success_count": 0,
+    "state": "PASS_NO_PROVIDER_CALL_NO_S3_WRITE",
+    "precheck_run_count": 8,
+    "precheck_success_count": 1,
     "precheck_run_ids": [
       33167156189,
       33167412476,
@@ -862,7 +864,8 @@
       33167799898,
       33167935763,
       33192667201,
-      33193429858
+      33193429858,
+      33193940219
     ],
     "github_observed_subject": "repo:AofSpds@87963280/asset-agent-asa@1334403184:environment:m3top3-source-admission",
     "repository_contract_subject_at_failure": "repo:AofSpds/asset-agent-asa:environment:m3top3-source-admission",
@@ -875,16 +878,21 @@
     "canonical_raw_entities_added": 0,
     "secret_persisted": false,
     "authenticated_url_persisted": false,
-    "next_action": "NEW_PRECHECK_LATCH_ACT_DO_NOT_RERUN_33193429858",
+    "next_action": "CURRENT_KST_QUOTA_DAY_AND_LIVE_CONTROL_BINDING_REISSUE_THEN_SEPARATE_LIVE_LATCH_ACT",
     "live_rearm_before_precheck_pass": "PROHIBITED",
     "owner_attestation_issue_comment_id": 5455199293,
     "github_oidc_claims": "PASS",
     "aws_account_bucket_versioning_prefix_readback": "PASS",
-    "known_finance_object_version_readback": "BLOCKED_EXIT_254_EXACT_AWS_ERROR_CODE_NOT_CAPTURED",
+    "known_finance_object_version_readback": "PASS",
     "fresh_precheck_artifact_id": 9694408438,
     "live_rearm_before_full_precheck_pass": "PROHIBITED",
     "frozen_versioned_head_error_code": "403",
-    "latest_head": "PASS"
+    "latest_head": "PASS",
+    "successful_run_id": 33193940219,
+    "successful_artifact_id": 9694932515,
+    "successful_artifact_sha256": "1b67ab0a810ce85058d5b4bc622051e39fb93631330265f862fa403422e0a604",
+    "known_finance_object_version_id": "EY9BXLRgeqXAYda6YSlWIB3cUhTIZbfd",
+    "live_rearm_before_current_kst_reissue": "PROHIBITED"
   },
   "owner_action_required": false,
   "external_operational_action_required": false,
