@@ -181,6 +181,91 @@ class SourceAdmissionTests(unittest.TestCase):
         with self.assertRaises(sa.SourceProtocolError):
             sa.assert_resume_page_1(snapshot, shifted)
 
+    def test_bounded_collector_closes_complete_snapshot_from_returned_page_size(self):
+        pages = {
+            1: {"page_no": 1, "page_size": 2, "total_count": 3, "items": [{"id": 1}, {"id": 2}]},
+            2: {"page_no": 2, "page_size": 2, "total_count": 3, "items": [{"id": 3}]},
+        }
+        requested = []
+
+        def fetch_page(page_no):
+            requested.append(page_no)
+            return pages[page_no]
+
+        result = sa.collect_bounded_pagination_snapshot(fetch_page, max_pages=2)
+        self.assertEqual(requested, [1, 2])
+        self.assertEqual(result["state"], "DATE_COMPLETE")
+        self.assertEqual(result["snapshot"]["item_count"], 3)
+        self.assertFalse(result["resumed"])
+
+    def test_bounded_collector_rejects_each_contract_pagination_drift(self):
+        cases = {
+            "echoed_page_number": [
+                {"page_no": 1, "page_size": 1, "total_count": 2, "items": [{"id": 1}]},
+                {"page_no": 3, "page_size": 1, "total_count": 2, "items": [{"id": 2}]},
+            ],
+            "total_count_shift": [
+                {"page_no": 1, "page_size": 1, "total_count": 2, "items": [{"id": 1}]},
+                {"page_no": 2, "page_size": 1, "total_count": 3, "items": [{"id": 2}]},
+            ],
+            "page_size_shift": [
+                {"page_no": 1, "page_size": 1, "total_count": 2, "items": [{"id": 1}]},
+                {"page_no": 2, "page_size": 2, "total_count": 2, "items": [{"id": 2}]},
+            ],
+            "empty_intermediate_page": [
+                {"page_no": 1, "page_size": 1, "total_count": 2, "items": [{"id": 1}]},
+                {"page_no": 2, "page_size": 1, "total_count": 2, "items": []},
+            ],
+            "repeated_whole_page": [
+                {"page_no": 1, "page_size": 1, "total_count": 2, "items": [{"id": 1}]},
+                {"page_no": 2, "page_size": 1, "total_count": 2, "items": [{"id": 1}]},
+            ],
+            "date_complete_item_count": [
+                {"page_no": 1, "page_size": 2, "total_count": 3, "items": [{"id": 1}]},
+                {"page_no": 2, "page_size": 2, "total_count": 3, "items": [{"id": 2}]},
+            ],
+        }
+        for name, rows in cases.items():
+            with self.subTest(name=name):
+                with self.assertRaises(sa.SourceProtocolError):
+                    sa.collect_bounded_pagination_snapshot(lambda page_no: rows[page_no - 1], max_pages=2)
+
+    def test_bounded_collector_enforces_frozen_page_ceiling_before_page_two(self):
+        requested = []
+
+        def fetch_page(page_no):
+            requested.append(page_no)
+            return {"page_no": page_no, "page_size": 2, "total_count": 5, "items": [{"id": 1}, {"id": 2}]}
+
+        with self.assertRaises(sa.QuotaBoundaryError):
+            sa.collect_bounded_pagination_snapshot(fetch_page, max_pages=2)
+        self.assertEqual(requested, [1])
+
+    def test_bounded_collector_resume_revalidates_page_one_before_page_two(self):
+        original_pages = [
+            {"page_no": 1, "page_size": 1, "total_count": 2, "items": [{"id": 1}]},
+            {"page_no": 2, "page_size": 1, "total_count": 2, "items": [{"id": 2}]},
+        ]
+        prior = sa.validate_pagination_snapshot(original_pages)
+        stable = sa.collect_bounded_pagination_snapshot(
+            lambda page_no: original_pages[page_no - 1], max_pages=2, resume_snapshot=prior
+        )
+        self.assertTrue(stable["resumed"])
+
+        requested = []
+
+        def shifted_fetch(page_no):
+            requested.append(page_no)
+            if page_no == 1:
+                return {**original_pages[0], "items": [{"id": 99}]}
+            return original_pages[page_no - 1]
+
+        with self.assertRaises(sa.SourceProtocolError):
+            sa.collect_bounded_pagination_snapshot(
+                shifted_fetch, max_pages=2, resume_snapshot=prior
+            )
+        self.assertEqual(requested, [1])
+
 
 if __name__ == "__main__":
     unittest.main()
