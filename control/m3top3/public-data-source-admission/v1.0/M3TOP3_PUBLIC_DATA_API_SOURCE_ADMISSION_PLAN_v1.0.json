@@ -7,13 +7,13 @@
   "runtime_lock_generation": 3,
   "pilot_run_id": "FINANCE-LIVE-PILOT-20260828192737",
   "branch": "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828",
-  "state": "LIVE_ARMED_EXECUTABLE",
-  "mode": "GENERATION_3_FINANCE_ONLY_LIVE_ARMED_CURRENT_KST",
-  "last_currentized_at_kst": "2026-08-29T02:34:07+09:00",
+  "state": "TERMINAL_BLOCKED_NO_RERUN_PAGE_CEILING",
+  "mode": "GENERATION_3_FINANCE_ONLY_LIVE_TERMINAL_BLOCKED",
+  "last_currentized_at_kst": "2026-08-29T02:52:21+09:00",
   "authority_binding": {
     "contract_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_SOURCE_ADMISSION_CONTRACT_v1.0.json",
-    "contract_commit": "146a71e9d0e21ae446796880e77b9a9052fba7ec",
-    "contract_content_sha256": "10ec745dbcc6aa27787f4739662552aad3518f3ec31122e6a522c03cbd621b2c",
+    "contract_commit": "0d91f48f14b16a7d12b350a2d537f6ed07240ac0",
+    "contract_content_sha256": "508b689f9dfc3571bd016ac79b07813f6c9f4e91ebdd9e183efdc5a7ca9a9404",
     "owner_cap_spec_sha256": "7b65152d8df10a6497d1656dbc5cc6d4bd253740f53a29480bb8d877b81b9f05",
     "execution_token_sha256": "9cda8bb429b3558e81e1ffcc4a232c78976c521186f13fbad5462c0312281f37",
     "execution_token_persistence": "SHA256_ONLY_ORIGINAL_VALUE_PROHIBITED",
@@ -31,13 +31,13 @@
     "PILOT_TELEMETRY_REPORT_PROMOTION_RECOMMENDATION_AND_TERMINAL_CHECKPOINT"
   ],
   "execution_gate": {
-    "state": "OPEN",
+    "state": "CLOSED_TERMINAL_NO_RERUN",
     "authority_granted": true,
-    "execution_armed": true,
-    "plan_executable": true,
-    "provider_api_calls_permitted_now": true,
-    "remote_s3_writes_permitted_now": true,
-    "additional_owner_approval_required_after_prerequisites": false,
+    "execution_armed": false,
+    "plan_executable": false,
+    "provider_api_calls_permitted_now": false,
+    "remote_s3_writes_permitted_now": false,
+    "additional_owner_approval_required_after_prerequisites": true,
     "required_before_open": [
       "FINANCE_ONLY_LIVE_ADAPTER_FOCUSED_TEST_PASS",
       "DURABLE_WRITE_AHEAD_QUOTA_ACCOUNTING",
@@ -47,7 +47,7 @@
       "NO_COMPETING_WRITER_READBACK",
       "EXACT_BRANCH_HEAD_CAS_READBACK"
     ],
-    "prerequisite_disposition": "SATISFIED"
+    "prerequisite_disposition": "CONSUMED_TERMINAL_BLOCKED"
   },
   "stage_projection": {
     "S2": {
@@ -62,14 +62,14 @@
       "execution_authorized": false
     },
     "S5": {
-      "state": "LIVE_ARMED_EXECUTABLE",
+      "state": "TERMINAL_BLOCKED_PAGE_CEILING",
       "execution_authorized_after_gate": true,
-      "execution_permitted_now": true
+      "execution_permitted_now": false
     },
     "S6": {
-      "state": "READY_FOR_LIVE_ARMED",
-      "provider_execution_permitted_now": true,
-      "remote_custody_write_permitted_now": true
+      "state": "PARTIAL_CUSTODY_DURABLE_TERMINAL_BLOCKED",
+      "provider_execution_permitted_now": false,
+      "remote_custody_write_permitted_now": false
     },
     "S7": {
       "state": "NOT_STARTED",
@@ -150,7 +150,7 @@
       "version_id_readback_required": true,
       "single_writer_execution_claim_required_before_provider_call": true
     },
-    "state": "READY_FOR_LIVE_ARMED"
+    "state": "PARTIAL_CUSTODY_DURABLE_TERMINAL_BLOCKED"
   },
   "quota_accounting": {
     "prior_durable_seed": {
@@ -171,12 +171,14 @@
       "quota_day_kst": "2026-08-29",
       "finance_attempts_before_pilot": 0,
       "finance_ordinal_base": 0,
-      "next_finance_ordinal": 1,
+      "next_finance_ordinal": 10,
       "max_network_attempts_total": 200,
-      "quota_reservations": 0,
-      "provider_api_network_attempts": 0,
+      "quota_reservations": 9,
+      "provider_api_network_attempts": 9,
       "historical_baseline_excluded_from_current_day_counters": true,
-      "unknown_external_attempts": true
+      "unknown_external_attempts": true,
+      "finance_attempts_after_pilot": 9,
+      "raw_s3_entities": 9
     }
   },
   "hard_prohibitions": {
@@ -227,10 +229,12 @@
     "live_execution_before_rollover": "ROLLOVER_SATISFIED_LATCH_ACT_PENDING"
   },
   "side_effect_accounting_at_currentization": {
-    "provider_api_network_attempts": 0,
-    "quota_reservations": 0,
-    "provider_workflow_dispatches": 0,
-    "remote_s3_writes": 0
+    "provider_api_network_attempts": 9,
+    "quota_reservations": 9,
+    "provider_workflow_dispatches": 1,
+    "remote_raw_s3_entities": 9,
+    "execution_claim_objects": 1,
+    "checkpoint_revision": 39
   },
   "production_authorized": false,
   "bulk_acquisition_authorized": false,
@@ -241,10 +245,10 @@
   "validation_claim": "NONE",
   "validation_closure": "NONE",
   "gate_effect": "NONE",
-  "owner_action_required": false,
+  "owner_action_required": true,
   "external_operational_action_required": false,
-  "owner_semantic_decision_required": false,
-  "authority_expansion_required": false,
+  "owner_semantic_decision_required": true,
+  "authority_expansion_required": true,
   "live_control_rollover": {
     "state": "READY_LATCH_ACT_PENDING",
     "currentized_at_kst": "2026-08-29T02:34:07+09:00",
@@ -272,5 +276,38 @@
     "known_external_attempts_minimum": 0,
     "unknown_external_attempts": true,
     "provider_key_global_usage_claim": "NONE"
+  },
+  "terminal_live_pilot_result": {
+    "state": "STOP_NO_PROMOTION_PILOT_BLOCKED",
+    "terminal_at_kst": "2026-08-29T02:52:21+09:00",
+    "workflow_run_id": 33195472310,
+    "workflow_job_id": 98931365000,
+    "workflow_head_sha": "f0918e170a662867caf57ced28d68c82e79cdb0a",
+    "artifact_id": 9695626442,
+    "artifact_zip_sha256": "0665c599163a9b72bfcb22b009bd8c2f34462de7638c35b6ed4079a47201146c",
+    "evidence_currentization_commit": "027c58a9bbce173fdb379e9458e4e7b34f0603f9",
+    "run_receipt_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_LIVE_PILOT_RUN_RECEIPT_33195472310_v1.0.json",
+    "run_receipt_sha256": "f42af57c62f65a8dd1e31b6b4f825ae067c0f9c6290a5efc104dcca5337d5a8b",
+    "checkpoint_sha256": "9a18edaf66b9f03b2202dbef11c0f86472340695c0c245f0a8ca958e3cfce55d",
+    "report_sha256": "78c4e659f02b0a206129474219db681b50756e58f2492dbe4c1a689733fa6b2a",
+    "quota_ledger_sha256": "b04e0d5434dff371ece950b568b545076a1833db078a5e40f85ebf704a436c49",
+    "raw_index_sha256": "c78f29fa90e7648df1ef1513df539d021b26aeac19e6b5cc3e701c90d5fcc9ad",
+    "last_error_class": "QuotaBoundaryError",
+    "exact_blocker": "FINANCE_20240131_PAGE_1_TOTAL_COUNT_REQUIRES_MORE_THAN_AUTHORIZED_10_PAGES",
+    "completed_dates": [
+      "20240102"
+    ],
+    "completed_date_count": 1,
+    "quota_reservations": 9,
+    "provider_api_network_attempts": 9,
+    "raw_s3_entities": 9,
+    "raw_entity_bytes": 40423,
+    "normalization_records_created": 0,
+    "promotion_actions": 0,
+    "automatic_promotion_performed": false,
+    "validation_claim": "NONE",
+    "gate_effect": "NONE",
+    "owner_action_required": true,
+    "exact_resume_instruction": "DO_NOT_RERUN_33195472310; OWNER_DECIDE_ACCEPT_PARTIAL_TERMINAL_OR_AUTHORIZE_A_NEW_SEPARATE_BOUNDED_PILOT_WITH_REVISED_PAGE_CAP"
   }
 }
