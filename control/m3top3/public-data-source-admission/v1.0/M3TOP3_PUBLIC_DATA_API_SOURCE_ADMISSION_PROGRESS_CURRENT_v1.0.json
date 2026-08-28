@@ -1,24 +1,24 @@
 {
   "artifact": "M3TOP3_PUBLIC_DATA_API_SOURCE_ADMISSION_PROGRESS_CURRENT_v1.0",
-  "as_of_kst": "2026-08-28T07:42:54+09:00",
+  "as_of_kst": "2026-08-28T09:52:11+09:00",
   "runtime_lock_id": "PMO-API-SRC-ADMIT-20260828055620",
   "branch": "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828",
-  "head_commit": "88ca835e60fda24972c2d0a75b4ada9c64fdd33d",
+  "head_commit": "ed3bbeec87f65c6312e89a7031cc6973271cca8a",
   "denominator_ewu": 100,
-  "earned_ewu": 15,
-  "overall_progress_percent": 15,
-  "current_stage": "S3",
-  "current_stage_state": "BLOCKED_TRANSIENT_TRANSPORT_AFTER_SINGLE_FALLBACK_ATTEMPT",
+  "earned_ewu": 25,
+  "overall_progress_percent": 25,
+  "current_stage": "S2",
+  "current_stage_state": "PARTIAL_CUSTODY_BLOCKED",
   "current_stage_earned_ewu": 0,
   "active_workers": 0,
   "active_validators": 0,
   "validation_closure": "NONE",
-  "network_attempts": 6,
+  "network_attempts": 7,
   "quota_attempts": {
     "KSD": 2,
-    "FINANCE": 4
+    "FINANCE": 5
   },
-  "raw_entities_captured": 4,
+  "raw_entities_captured": 5,
   "workflow_evidence": {
     "initial_preflight_run_id": 33116700451,
     "finance_single_run_id": 33121294378,
@@ -38,16 +38,20 @@
     "finance_valid_empty_artifact_id": 9667243904,
     "finance_valid_empty_artifact_sha256": "5941771a49cf59adbb5cd76645fad43cb9fd4b11f5160bd078bc3aac5c675059",
     "finance_valid_empty_fallback_run_id": 33123300406,
-    "finance_valid_empty_fallback_attempt": 1,
-    "finance_valid_empty_fallback_artifact_id": 9667323286,
-    "finance_valid_empty_fallback_artifact_sha256": "e56c41a66e33d3ce3156f78ff888ed18af47397e7a9f2d5a715d46595412f3aa",
-    "finance_valid_empty_fallback_reason": "TRANSPORT_ERROR:URLError"
+    "finance_valid_empty_fallback_attempt": 2,
+    "finance_valid_empty_fallback_artifact_id": 9670226482,
+    "finance_valid_empty_fallback_artifact_sha256": "cd30546ed6991b7e4028e3c792622fc9d9566490aa6086d1aa7361adeb3fb903",
+    "finance_valid_empty_fallback_reason": null,
+    "finance_valid_empty_fallback_http_status": 200,
+    "finance_valid_empty_fallback_provider_result_code": "00",
+    "finance_valid_empty_fallback_total_count": 0,
+    "finance_valid_empty_fallback_entity_sha256": "5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05"
   },
-  "exact_blocker": "S2_PARTIAL_CUSTODY_BLOCKED_AND_S3_FINANCE_VALID_EMPTY_TRANSIENT_TRANSPORT_AFTER_SINGLE_FALLBACK_ATTEMPT",
+  "exact_blocker": "S2_PARTIAL_CUSTODY_BLOCKED_SOURCE_SPECIFIC_PREFIX_WRITE_AUTHORITY_AND_REMOTE_SHA256_OPEN",
   "ksd_secret_state": "PRESENT_DECODED_FORM_LIVE_REQUEST_PROVEN",
   "credential_security_disposition": "PROTECTED_REPOSITORY_SECRETS_CONFIGURED_VALUES_NEVER_PERSISTED",
   "resume_trigger": "SATISFIED",
-  "resume_action": "OWNER_MAY_AUTHORIZE_SAME_DATE_20240810_RETRY_LATER_NO_AUTOMATIC_RETRY",
+  "resume_action": "FREEZE_SOURCE_PREFIX_AND_PROVIDE_ACTIONS_S3_WRITE_OR_OIDC_AUTHORITY_THEN_REMOTE_SHA256_CANARY",
   "time_accounting": {
     "runtime_lock_at_kst": "2026-08-28T05:56:20+09:00",
     "resumed_at_kst": "2026-08-28T07:26:17+09:00",
@@ -57,8 +61,8 @@
     "blocked_seconds": "NOT_INSTRUMENTED",
     "rework_seconds": "NOT_INSTRUMENTED"
   },
-  "claim_ceiling": "S1_CLOSED_S2_PARTIAL_CUSTODY_BLOCKED_S3_TRANSIENT_TRANSPORT_BLOCKED_GATE_EFFECT_NONE_VALIDATION_NONE",
-  "raw_custody_state": "FOUR_EPHEMERAL_ACTIONS_RESPONSE_ENTITIES_ZERO_CANONICAL_DATA_PLANE_ENTITIES",
+  "claim_ceiling": "S1_CLOSED_S3_CLOSED_S2_PARTIAL_CUSTODY_BLOCKED_GATE_EFFECT_NONE_VALIDATION_NONE",
+  "raw_custody_state": "FIVE_EPHEMERAL_ACTIONS_RESPONSE_ENTITIES_ZERO_CANONICAL_DATA_PLANE_ENTITIES",
   "s1": {
     "state": "CLOSED",
     "earned_ewu": 10,
@@ -88,14 +92,16 @@
     ]
   },
   "s3": {
-    "state": "BLOCKED_TRANSIENT_TRANSPORT_AFTER_SINGLE_FALLBACK_ATTEMPT",
-    "earned_ewu": 0,
+    "state": "CLOSED",
+    "earned_ewu": 10,
+    "terminal_evidence": "KSD_CROSSWALK_AND_BASIC_PLUS_FINANCE_POSITIVE_AND_VALID_EMPTY_PASS",
     "passed_purposes": [
       "KSD-CROSSWALK",
       "KSD-BASIC",
-      "FINANCE-POSITIVE"
+      "FINANCE-POSITIVE",
+      "FINANCE-VALID-EMPTY"
     ],
-    "source_drift": [
+    "source_drift_history": [
       {
         "canary_id": "FINANCE-VALID-EMPTY-20240809",
         "expected_total_count": 0,
@@ -103,20 +109,19 @@
         "run_id": 33123121495
       }
     ],
-    "fallback_attempt": {
+    "valid_empty_terminal": {
       "canary_id": "FINANCE-VALID-EMPTY-FALLBACK-20240810",
       "run_id": 33123300406,
-      "run_attempt": 1,
-      "state": "BLOCKED_TRANSIENT_TRANSPORT",
-      "reason": "TRANSPORT_ERROR:URLError",
-      "network_attempts": 1,
-      "quota_attempts": 1,
-      "automatic_retry": false,
-      "raw_entity_present": false
+      "run_attempt": 2,
+      "http_status": 200,
+      "provider_result_code": "00",
+      "total_count": 0,
+      "entity_sha256": "5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05",
+      "artifact_id": 9670226482,
+      "artifact_sha256": "cd30546ed6991b7e4028e3c792622fc9d9566490aa6086d1aa7361adeb3fb903"
     },
-    "remaining_purpose": "FINANCE-VALID-EMPTY",
-    "next_bounded_canary": "NONE_STOPPED_AFTER_SINGLE_FALLBACK_TRANSPORT_FAILURE",
-    "next_action": "OWNER_MAY_AUTHORIZE_SAME_DATE_20240810_RETRY_LATER"
+    "remaining_purpose": null,
+    "next_bounded_canary": null
   },
   "finance_secret_state": "PRESENT_DECODED_FORM_LIVE_REQUEST_PROVEN",
   "canonical_raw_entities": 0,
@@ -130,5 +135,6 @@
       "evidence": "PERCENT_ENCODED_SECRET_NOT_ALLOWED_OCCURRED_BEFORE_QUOTA_LEDGER_OR_NETWORK_IO",
       "code_fix": "m3top3-finance-single-canary-v1.yml"
     }
-  ]
+  ],
+  "last_material_progress": "S3_CLOSED_ON_OWNER_APPROVED_FINANCE_VALID_EMPTY_RETRY_ATTEMPT_2"
 }

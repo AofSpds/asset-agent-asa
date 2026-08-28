@@ -1,0 +1,39 @@
+{
+  "artifact": "M3TOP3_FINANCE_VALID_EMPTY_FALLBACK_RETRY_ARTIFACT_RECEIPT_v1.0",
+  "run_id": 33123300406,
+  "run_attempt": 2,
+  "workflow_head_commit": "88ca835e60fda24972c2d0a75b4ada9c64fdd33d",
+  "github_artifact_id": 9670226482,
+  "github_artifact_name": "m3top3-finance-valid-empty-fallback-single-canary-33123300406",
+  "artifact_created_at_utc": "2026-08-28T00:50:26Z",
+  "artifact_zip_bytes": 1668,
+  "artifact_zip_sha256": "cd30546ed6991b7e4028e3c792622fc9d9566490aa6086d1aa7361adeb3fb903",
+  "members": [
+    {
+      "name": "M3TOP3_FINANCE_VALID_EMPTY_FALLBACK_SINGLE_CANARY_v1.0.json",
+      "bytes": 620,
+      "sha256": "fcf48d3f96f7c5ee59460b9088dec78a99cb42381fc7f9a05e0e634ee374d749"
+    },
+    {
+      "name": "M3TOP3_FINANCE_VALID_EMPTY_FALLBACK_SINGLE_QUOTA_LEDGER_v1.0.jsonl",
+      "bytes": 207,
+      "sha256": "4d3042caa078643fb0f8b84dee43f5fb5f7d850600b0af2f0188181ac69a0f6c"
+    },
+    {
+      "name": "raw/5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05.entity",
+      "bytes": 143,
+      "sha256": "5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05",
+      "persisted_to_git": false
+    }
+  ],
+  "outcome": "PASS_VALID_EMPTY",
+  "http_status": 200,
+  "provider_result_code": "00",
+  "total_count": 0,
+  "provider_response_entity_present": true,
+  "raw_custody": "ACTIONS_EPHEMERAL_STAGING_NOT_CANONICAL_CUSTODY",
+  "secret_value_persisted": false,
+  "gate_effect": "NONE",
+  "validation_claim": "NONE",
+  "verified_at_kst": "2026-08-28T09:52:11+09:00"
+}

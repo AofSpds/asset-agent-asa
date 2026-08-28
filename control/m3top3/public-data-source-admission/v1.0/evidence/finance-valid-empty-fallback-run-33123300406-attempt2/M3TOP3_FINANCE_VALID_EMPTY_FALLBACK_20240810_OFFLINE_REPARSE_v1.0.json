@@ -1,0 +1,16 @@
+{
+  "artifact": "M3TOP3_FINANCE_VALID_EMPTY_FALLBACK_20240810_OFFLINE_REPARSE_v1.0",
+  "source_artifact_id": 9670226482,
+  "source_entity_bytes": 143,
+  "source_entity_sha256": "5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05",
+  "parser": "JSON_EXACT_FIELD_READBACK_v1",
+  "result_code": "00",
+  "total_count": 0,
+  "returned_item_count": 0,
+  "valid_empty_match": true,
+  "network_attempts": 0,
+  "raw_bytes_persisted_to_git": false,
+  "validation_claim": "NONE",
+  "gate_effect": "NONE",
+  "reparsed_at_kst": "2026-08-28T09:52:11+09:00"
+}

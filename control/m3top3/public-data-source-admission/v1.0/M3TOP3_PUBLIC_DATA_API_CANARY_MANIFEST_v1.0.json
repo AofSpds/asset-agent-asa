@@ -1,8 +1,8 @@
 {
   "artifact": "M3TOP3_PUBLIC_DATA_API_CANARY_MANIFEST_v1.0",
-  "as_of_kst": "2026-08-28T07:42:54+09:00",
-  "state": "BLOCKED_TRANSIENT_TRANSPORT_AFTER_SINGLE_FALLBACK_ATTEMPT",
-  "workflow_run_id": null,
+  "as_of_kst": "2026-08-28T09:52:11+09:00",
+  "state": "PASS_ALL_4_BOUNDED_CANARY_PURPOSES_S2_CUSTODY_BLOCKED",
+  "workflow_run_id": 33123300406,
   "workflow_head_commit": "88ca835e60fda24972c2d0a75b4ada9c64fdd33d",
   "credential_preflight": {
     "DATA_GO_KR_FINANCE_STOCK_RIGHTS_SERVICE_KEY": "PRESENT_DECODED_FORM_LIVE_REQUEST_PROVEN",
@@ -90,7 +90,7 @@
     },
     {
       "canary_id": "FINANCE-VALID-EMPTY-FALLBACK-20240810",
-      "state": "BLOCKED_TRANSIENT_TRANSPORT",
+      "state": "PASS",
       "source_id": "M3TOP3-FINANCE-STOCK-RIGHTS-v1",
       "params": {
         "basDt": "20240810",
@@ -99,45 +99,78 @@
         "resultType": "json"
       },
       "run_id": 33123300406,
-      "run_attempt": 1,
+      "run_attempt": 2,
       "workflow_head_commit": "88ca835e60fda24972c2d0a75b4ada9c64fdd33d",
       "network_attempts": 1,
       "quota_attempts": 1,
-      "reason": "TRANSPORT_ERROR:URLError",
-      "artifact_id": 9667323286,
-      "artifact_sha256": "e56c41a66e33d3ce3156f78ff888ed18af47397e7a9f2d5a715d46595412f3aa",
-      "raw_entity_present": false,
-      "raw_custody": "NO_PROVIDER_RESPONSE_ENTITY_TRANSPORT_FAILED_BEFORE_RESPONSE_BYTES"
+      "artifact_id": 9670226482,
+      "artifact_sha256": "cd30546ed6991b7e4028e3c792622fc9d9566490aa6086d1aa7361adeb3fb903",
+      "raw_entity_present": true,
+      "raw_custody": "ACTIONS_EPHEMERAL_STAGING_NOT_CANONICAL_CUSTODY",
+      "attempt_history": [
+        {
+          "run_id": 33123300406,
+          "run_attempt": 1,
+          "state": "BLOCKED_TRANSIENT_TRANSPORT",
+          "reason": "TRANSPORT_ERROR:URLError",
+          "network_attempts": 1,
+          "quota_attempts": 1,
+          "artifact_id": 9667323286,
+          "artifact_sha256": "e56c41a66e33d3ce3156f78ff888ed18af47397e7a9f2d5a715d46595412f3aa",
+          "raw_entity_present": false
+        },
+        {
+          "run_id": 33123300406,
+          "run_attempt": 2,
+          "state": "PASS",
+          "http_status": 200,
+          "provider_result_code": "00",
+          "total_count": 0,
+          "network_attempts": 1,
+          "quota_attempts": 1,
+          "artifact_id": 9670226482,
+          "artifact_sha256": "cd30546ed6991b7e4028e3c792622fc9d9566490aa6086d1aa7361adeb3fb903",
+          "entity_bytes": 143,
+          "entity_sha256": "5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05",
+          "raw_entity_present": true,
+          "raw_custody": "ACTIONS_EPHEMERAL_STAGING_NOT_CANONICAL_CUSTODY"
+        }
+      ],
+      "http_status": 200,
+      "provider_result_code": "00",
+      "total_count": 0,
+      "entity_bytes": 143,
+      "entity_sha256": "5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05"
     }
   ],
-  "network_attempts": 6,
+  "network_attempts": 7,
   "quota_attempts": {
     "KSD": 2,
-    "FINANCE": 4
+    "FINANCE": 5
   },
-  "raw_entities": 4,
+  "raw_entities": 5,
   "leak_scan": "PASS_ALL_CAPTURED_SANITIZED_BUNDLES",
-  "sanitized_artifact_id": 9667323286,
-  "sanitized_artifact_digest": "e56c41a66e33d3ce3156f78ff888ed18af47397e7a9f2d5a715d46595412f3aa",
-  "next_action": "STOP_NO_AUTOMATIC_RETRY_OWNER_MAY_AUTHORIZE_SAME_DATE_20240810_RETRY_LATER",
+  "sanitized_artifact_id": 9670226482,
+  "sanitized_artifact_digest": "cd30546ed6991b7e4028e3c792622fc9d9566490aa6086d1aa7361adeb3fb903",
+  "next_action": "STOP_S3_CLOSED_S2_CUSTODY_BLOCKED",
   "gate_effect": "NONE",
   "validation_claim": "NONE",
   "request_accounting": {
-    "network_attempts": 6,
+    "network_attempts": 7,
     "quota_attempts": {
       "KSD": 2,
-      "FINANCE": 4
+      "FINANCE": 5
     },
-    "successful_requests": 3,
-    "valid_empty_requests": 0,
+    "successful_requests": 4,
+    "valid_empty_requests": 1,
     "nodata_requests": 0,
     "failed_requests": 2,
     "automatic_retries": 0,
-    "owner_authorized_manual_retests": 1,
-    "note": "Finance attempts comprise one earlier owner-authorized transport failure, one positive PASS, one HTTP 200 source-drift observation, and one pre-frozen fallback transport failure. No automatic retry was performed.",
-    "provider_successful_responses": 4,
+    "owner_authorized_manual_retests": 2,
+    "note": "The Owner explicitly authorized run 33123300406 attempt 2 for the same frozen date 20240810. It used one network call and passed HTTP 200 / code 00 / totalCount 0. No automatic retry or sequential date search occurred.",
+    "provider_successful_responses": 5,
     "source_drift_mismatches": 1,
-    "bounded_fallback_attempts": 1,
+    "bounded_fallback_attempts": 2,
     "transport_failures": 2
   },
   "canonical_raw_entities": 0,
@@ -152,6 +185,18 @@
       "expected_identity_fields_match": true,
       "network_attempts": 0,
       "evidence_origin": "SANITIZED_ACTIONS_ARTIFACT_9666862342",
+      "validation_claim": "NONE"
+    },
+    {
+      "canary_id": "FINANCE-VALID-EMPTY-FALLBACK-20240810",
+      "source_entity_sha256": "5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05",
+      "parser": "JSON_EXACT_FIELD_READBACK_v1",
+      "result_code": "00",
+      "total_count": 0,
+      "returned_item_count": 0,
+      "valid_empty_match": true,
+      "network_attempts": 0,
+      "evidence_origin": "SANITIZED_ACTIONS_ARTIFACT_9670226482",
       "validation_claim": "NONE"
     }
   ]

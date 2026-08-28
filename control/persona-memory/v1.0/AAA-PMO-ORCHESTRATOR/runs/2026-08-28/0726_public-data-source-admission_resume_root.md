@@ -48,3 +48,21 @@ VALIDATION_CLAIM = NONE
 - Runtime is stopped with zero active workers and zero active validators.
 - The owner may explicitly authorize a later retry of the same Finance date 20240810. A different date will not be searched automatically.
 - Bulk S4/S5 acquisition remains prohibited until S2 raw-custody prerequisites and S3 are satisfied.
+
+## OWNER-APPROVED RETRY CHECKPOINT — 2026-08-28 09:52:11 KST
+- The Owner explicitly authorized one retry of the same Finance fallback date 20240810.
+- Run 33123300406 attempt 2 completed successfully.
+- Exact result: HTTP 200, provider resultCode 00, totalCount 0, returned item count 0.
+- The retry consumed one network/quota attempt. No automatic retry and no sequential date search occurred.
+- Sanitized artifact 9670226482 was recovered; ZIP SHA256 cd30546ed6991b7e4028e3c792622fc9d9566490aa6086d1aa7361adeb3fb903.
+- Response entity: 143 bytes, SHA256 5c390ca1fb6d6d8c68ceeb0e6e38342518da8bd17a25b919f0d1ba026a069d05.
+- The raw entity remains ephemeral Actions staging and was not committed as canonical raw custody.
+- S3 is CLOSED and earns 10 EWU. Cumulative progress is 25/100 EWU.
+- S2 remains PARTIAL_CUSTODY_BLOCKED with 0/10 EWU.
+- S4 through S9 remain not started.
+
+## CURRENT TERMINAL BOUNDARY
+- Exact active blocker is S2 source-specific prefix/write-authority/remote-SHA256 custody closure.
+- Open S2 evidence remains: Finance guide bytes/digest; KSD identity-operation documentation and exact update cycle; source-specific object prefix freeze; Actions S3 write/OIDC authority; first remote upload plus SHA256 verification.
+- Active workers and validators are both zero.
+- No G2/G3 closure, validation PASS, PIT semantic change, release, production authority, or gate effect is claimed.
