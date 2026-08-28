@@ -460,6 +460,130 @@ jobs:
               handle.write("control_prefix=" + control_prefix + "\n")
           PY
 
+      - name: Verify GitHub OIDC claims without persisting token
+        if: steps.preflight.outputs.mode == 'PRECHECK_ARMED'
+        shell: bash
+        env:
+          EXPECTED_REPOSITORY: ${{ github.repository }}
+          EXPECTED_REF: ${{ github.ref }}
+          EXPECTED_SHA: ${{ github.sha }}
+          EXPECTED_ACTOR: ${{ github.actor }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import base64
+          import json
+          import os
+          import time
+          import urllib.parse
+          import urllib.request
+          from pathlib import Path
+
+          expected = {
+              "iss": "https://token.actions.githubusercontent.com",
+              "sub": "repo:AofSpds/asset-agent-asa:environment:m3top3-source-admission",
+              "repository": "AofSpds/asset-agent-asa",
+              "repository_owner": "AofSpds",
+              "ref": "refs/heads/aaa-pmo-public-data-g2-g3-source-admission-v1-20260828",
+              "actor": "AofSpds",
+              "environment": "m3top3-source-admission",
+          }
+          if (
+              os.environ.get("EXPECTED_REPOSITORY") != expected["repository"]
+              or os.environ.get("EXPECTED_REF") != expected["ref"]
+              or os.environ.get("EXPECTED_ACTOR") != expected["actor"]
+          ):
+              raise SystemExit("OIDC_EVENT_CONTEXT_MISMATCH")
+          expected_sha = os.environ.get("EXPECTED_SHA", "")
+          if len(expected_sha) != 40 or any(ch not in "0123456789abcdef" for ch in expected_sha):
+              raise SystemExit("OIDC_EVENT_SHA_INVALID")
+
+          request_url = os.environ.get("ACTIONS_ID_TOKEN_REQUEST_URL", "")
+          request_token = os.environ.get("ACTIONS_ID_TOKEN_REQUEST_TOKEN", "")
+          parsed = urllib.parse.urlsplit(request_url)
+          if (
+              parsed.scheme != "https"
+              or parsed.hostname != "vstoken.actions.githubusercontent.com"
+              or not request_token
+              or any(ch.isspace() for ch in request_token)
+          ):
+              raise SystemExit("OIDC_REQUEST_CONTEXT_INVALID")
+          query = urllib.parse.parse_qsl(parsed.query, keep_blank_values=True)
+          query = [(key, value) for key, value in query if key != "audience"]
+          query.append(("audience", "sts.amazonaws.com"))
+          audience_url = urllib.parse.urlunsplit(
+              (parsed.scheme, parsed.netloc, parsed.path, urllib.parse.urlencode(query), "")
+          )
+          request = urllib.request.Request(
+              audience_url,
+              headers={
+                  "Authorization": "Bearer " + request_token,
+                  "Accept": "application/json",
+                  "User-Agent": "AAA-M3Top3-OIDC-Claims-Precheck/1.0",
+              },
+          )
+          with urllib.request.urlopen(request, timeout=20) as response:
+              if int(response.status) != 200:
+                  raise SystemExit("OIDC_TOKEN_ENDPOINT_NON_200")
+              body = response.read(100_001)
+          if len(body) > 100_000:
+              raise SystemExit("OIDC_TOKEN_RESPONSE_TOO_LARGE")
+          token = json.loads(body).get("value")
+          if not isinstance(token, str) or token.count(".") != 2:
+              raise SystemExit("OIDC_TOKEN_RESPONSE_INVALID")
+
+          def decode(segment):
+              padding = "=" * ((4 - len(segment) % 4) % 4)
+              return json.loads(base64.urlsafe_b64decode(segment + padding))
+
+          header_segment, payload_segment, _ = token.split(".")
+          header = decode(header_segment)
+          claims = decode(payload_segment)
+          if header.get("alg") != "RS256" or header.get("typ") != "JWT":
+              raise SystemExit("OIDC_JWT_HEADER_MISMATCH")
+          audience = claims.get("aud")
+          if audience != "sts.amazonaws.com" and not (
+              isinstance(audience, list) and "sts.amazonaws.com" in audience
+          ):
+              raise SystemExit("OIDC_AUDIENCE_MISMATCH")
+          for key, value in expected.items():
+              if claims.get(key) != value:
+                  raise SystemExit("OIDC_CLAIM_MISMATCH:" + key)
+          if claims.get("sha") != expected_sha:
+              raise SystemExit("OIDC_SHA_CLAIM_MISMATCH")
+          now = int(time.time())
+          if (
+              type(claims.get("iat")) is not int
+              or type(claims.get("exp")) is not int
+              or not claims["iat"] - 120 <= now < claims["exp"]
+          ):
+              raise SystemExit("OIDC_TOKEN_TIME_WINDOW_INVALID")
+
+          receipt_path = Path("live_out/preflight.json")
+          receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+          receipt["github_oidc_claims"] = {
+              "state": "PASS_EXPECTED_ENVIRONMENT_SUBJECT_NO_TOKEN_PERSISTED",
+              "issuer": expected["iss"],
+              "audience": "sts.amazonaws.com",
+              "subject": expected["sub"],
+              "repository": expected["repository"],
+              "repository_owner": expected["repository_owner"],
+              "ref": expected["ref"],
+              "sha": expected_sha,
+              "actor": expected["actor"],
+              "environment": expected["environment"],
+              "token_persisted": False,
+              "authenticated_url_persisted": False,
+          }
+          receipt_path.write_text(
+              json.dumps(receipt, sort_keys=True, separators=(",", ":")) + "\n",
+              encoding="utf-8",
+          )
+          token = None
+          request_token = None
+          audience_url = None
+          PY
+
       - name: Configure read-only AWS OIDC precheck session
         if: steps.preflight.outputs.mode == 'PRECHECK_ARMED'
         uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
