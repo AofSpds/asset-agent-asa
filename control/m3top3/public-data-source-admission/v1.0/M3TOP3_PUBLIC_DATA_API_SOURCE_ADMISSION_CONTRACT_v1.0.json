@@ -14,7 +14,7 @@
     "gate_effect": "NONE",
     "bulk_acquisition_authorized": false,
     "bulk_blockers": [
-      "KSD_FIELD_LEVEL_TEMPORAL_STATUS_HISTORICAL_SEMANTICS_AND_EXACT_UPDATE_CYCLE_OPEN"
+      "KSD_NULL_CURRENT_STATUS_HISTORICAL_VALIDITY_FULL_MARKET_AND_ROSTER_CLOSE_CODE_DICTIONARIES_AND_EXACT_UPDATE_CYCLE_UNPROVEN_AFTER_BOUNDED_OFFICIAL_SEARCH"
     ],
     "credential_preflight_state": "PASS_BOTH_LIVE_REQUEST_PROVEN",
     "ksd_source_identity_conflict": "RESOLVED_BY_OWNER_APPROVED_DATA_GO_KR_ENDPOINT_AND_LIVE_CANARY_WITHOUT_EQUIVALENCE_CLAIM",
@@ -46,7 +46,7 @@
       "redirects": "DISABLED",
       "automatic_failover": "PROHIBITED",
       "catalog_service_id": "B552481/CorpSvc",
-      "documentation_digest": "OFFICIAL_HWP_SHA256_AND_INLINE_SWAGGER_TARGET_FIELD_LABELS_FORMATS_BOUND_HISTORICAL_AND_EXACT_UPDATE_UNKNOWN",
+      "documentation_digest": "OFFICIAL_HWP_SHA256_INLINE_SWAGGER_AND_BOUNDED_OFFICIAL_SEARCH_TARGET_FIELD_LABELS_FORMATS_BOUND_STATUS_SEPARATION_CORROBORATED_HISTORICAL_FULL_CODE_DICTIONARIES_AND_EXACT_UPDATE_UNPROVEN",
       "license_retention_attribution": {
         "state": "FROZEN",
         "required_metadata_fields": [
@@ -109,7 +109,7 @@
       "frozen_raw_prefix": "s3://semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-KSD-CORP-DATA-GO-KR-v1/",
       "object_key_template": "raw/public-data-api/<source_id>/<operation>/quota_day_kst=<YYYY-MM-DD>/request_id=<safe_request_id_sha256>/attempt=<N>/sha256=<entity_sha256>.entity",
       "identity_operation_evidence": {
-        "state": "OFFICIAL_SWAGGER_REQUEST_FULL_RESPONSE_FIELD_NAMES_AND_TARGET_FIELD_LABELS_FORMATS_BOUND_LIVE_CANARY_VALUES_PROVEN_HISTORICAL_AND_EXACT_UPDATE_UNKNOWN",
+        "state": "OFFICIAL_SWAGGER_REQUEST_FULL_RESPONSE_FIELD_NAMES_AND_TARGET_FIELD_LABELS_FORMATS_BOUND_LIVE_CANARY_VALUES_PROVEN_STATUS_SEPARATION_CORROBORATED_HISTORICAL_FULL_CODE_DICTIONARIES_AND_EXACT_UPDATE_UNPROVEN_AFTER_BOUNDED_OFFICIAL_SEARCH",
         "operations": [
           {
             "operation": "getIssucoCustnoByShortIsin",
@@ -184,6 +184,10 @@
           "historical_as_of_parameter": "ABSENT",
           "historical_validity_semantics": "UNKNOWN_NOT_PROVEN",
           "null_or_status_inference": "PROHIBITED",
+          "official_seibro_status_separation": "CURRENT_DEPOSIT_AVAILABILITY_DISPLAYED_SEPARATELY_FROM_EVENT_DATES_CORROBORATION_ONLY_CORPSVC_WIRE_EQUIVALENCE_NOT_PROVEN",
+          "market_dictionary": "OFFICIAL_STOCKSVC_SIBLING_FIELD_NAME_MATCH_CANDIDATE_DICTIONARY_NOT_PROMOTED_TO_CORPSVC_DUE_TO_UNPROVEN_EQUIVALENCE_AND_DESCRIPTION_CONFLICT",
+          "roster_close_code_dictionaries": "UNKNOWN_NOT_PROVEN",
+          "bounded_search_disposition": "REQUIRED_FORMAL_CLOSURE_EVIDENCE_UNPROVEN_WITHIN_RECORDED_SCOPE_GLOBAL_NONEXISTENCE_NOT_CLAIMED",
           "receipt": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_KSD_OFFICIAL_SWAGGER_FIELD_SEMANTICS_RECEIPT_v1.0.json"
         },
         "evidence_issue_comments": [
@@ -611,9 +615,13 @@
     "ACTIVE_MANIFEST",
     "PRODUCTION_PROVIDER"
   ],
-  "last_currentized_at_kst": "2026-08-28T13:15:00+09:00",
+  "last_currentized_at_kst": "2026-08-28T14:01:16+09:00",
   "s2_freeze_state": {
-    "state": "PARTIAL_FINANCE_DOCUMENTATION_CLOSED_KSD_TARGET_FIELD_LABELS_FORMATS_BOUND_HISTORICAL_STATUS_AND_EXACT_UPDATE_CYCLE_OPEN_PAGINATION_INTEGRATION_PASS",
+    "state": "PARTIAL_CLAIM_CEILING_FROZEN",
+    "stage_closure": "NOT_CLOSED",
+    "runtime_disposition": "TERMINATED_NO_ACTIVE_WORK",
+    "exact_blocker": "KSD_NULL_CURRENT_STATUS_HISTORICAL_VALIDITY_FULL_MARKET_AND_ROSTER_CLOSE_CODE_DICTIONARIES_AND_EXACT_UPDATE_CYCLE_UNPROVEN_AFTER_BOUNDED_OFFICIAL_SEARCH",
+    "reopen_trigger": "NEW_OR_REVISED_OFFICIAL_KSD_OR_DATA_GO_KR_DOCUMENTATION",
     "quota_policy": "FROZEN",
     "credential_contract": "SATISFIED",
     "endpoint_identity": "FROZEN_TO_DATA_GO_KR",
