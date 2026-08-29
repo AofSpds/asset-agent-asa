@@ -17,6 +17,9 @@ import os
 import re
 import tempfile
 import time
+import subprocess
+import urllib.error
+import urllib.request
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -26,17 +29,22 @@ from . import finance_live_pilot as legacy
 from . import source_admission as sa
 
 
-RUNTIME_LOCK_ID = "PMO-FINANCE-PAGE100-G4-20260829094400"
-PILOT_RUN_ID = "FINANCE-PAGE100-PILOT-G4-20260829094400"
-ACTIVATION_BASE_HEAD_COMMIT = "8b0183a0754ee1a1d8cda2a64c4153735e653565"
-EXECUTION_TOKEN_SHA256 = "a1d20922b03c9e5fe887d6834e19c546284ba812c30edd6558afd8d710f828fd"
-GENERATION_ID = "FINANCE-PAGE100-G4-20260829094400"
-PRECHECK_ACT_ID = "FINANCE-PAGE100-PRECHECK-ACT-G4-20260829094400"
-LATCH_EVENT_ID = "FINANCE-PAGE100-PRECHECK-LATCH-G4-20260829094400"
+RUNTIME_LOCK_ID = "PMO-FINANCE-PAGE100-G5-20260829204006"
+PILOT_RUN_ID = "FINANCE-PAGE100-PILOT-G5-20260829204006"
+ACTIVATION_BASE_HEAD_COMMIT = "9dea1e8af383becaf3319bb7e5e71ddb1579ff2f"
+EXECUTION_TOKEN_SHA256 = "3f5daecc1277bf12a50a6f8dcb9e92e99ca3ec5e913038b805dc4836adc59c26"
+GENERATION_ID = "FINANCE-PAGE100-G5-20260829204006"
+PRECHECK_ACT_ID = "FINANCE-PAGE100-PRECHECK-ACT-G5-20260829204006"
+LATCH_EVENT_ID = "FINANCE-PAGE100-LATCH-G5-20260829204006"
 FAILED_PRECHECK_WORKFLOW_RUN_ID = 33205926951
 FAILED_PRECHECK_WORKFLOW_JOB_ID = 98966822862
 FAILED_PRECHECK_HEAD_SHA = "c2fda7ae46474c0dd70bd6add5ea8184cacd4b87"
 FAILED_PRECHECK_RERUN_AUTHORIZED = False
+LIVE_ACT_ID = "FINANCE-PAGE100-LIVE-ACT-G5-20260829204006"
+G4_PRECHECK_WORKFLOW_RUN_ID = 33225643741
+G4_PRECHECK_HEAD_SHA = "784e9eea008b5eea57132e2e341a3c63982951cc"
+MAX_SESSION_RECEIPT_SHA256 = "40a4385a25cb773bd0547669bd1fc7b0560e328f062545f8b4bcea2c7916c342"
+LIVE_NOT_AFTER_UTC = datetime.fromisoformat("2026-08-30T14:30:00+00:00")
 
 PRIMARY_DATES = legacy.PRIMARY_DATES
 REQUEST_PAGE_SIZE = 10
@@ -110,6 +118,32 @@ NoEntityTransportError = legacy.NoEntityTransportError
 
 
 @dataclass(frozen=True)
+class SuccessorSealedEntity(legacy.SealedEntity):
+    response_received_at_utc: str
+
+
+def _with_response_timing(
+    sealed: SealedEntity, response_received_at_utc: str
+) -> SuccessorSealedEntity:
+    return SuccessorSealedEntity(
+        body=sealed.body,
+        object_key=sealed.object_key,
+        storage_locator=sealed.storage_locator,
+        entity_sha256=sealed.entity_sha256,
+        entity_bytes=sealed.entity_bytes,
+        readback_sha256=sealed.readback_sha256,
+        readback_bytes=sealed.readback_bytes,
+        version_id=sealed.version_id,
+        etag=sealed.etag,
+        server_side_encryption=sealed.server_side_encryption,
+        write_precondition=sealed.write_precondition,
+        http_status=sealed.http_status,
+        acquired_at_utc=sealed.acquired_at_utc,
+        response_received_at_utc=response_received_at_utc,
+    )
+
+
+@dataclass(frozen=True)
 class HistoricalPageOneBinding:
     object_key: str = PREDECESSOR_PAGE1_KEY
     version_id: str = PREDECESSOR_PAGE1_VERSION_ID
@@ -134,8 +168,8 @@ class PredecessorBinding:
 class SuccessorBindings:
     runtime_lock_id: str = RUNTIME_LOCK_ID
     pilot_run_id: str = PILOT_RUN_ID
-    quota_day_kst: str = "2026-08-29"
-    finance_ordinal_base: int = 9
+    quota_day_kst: str = "2026-08-30"
+    finance_ordinal_base: int = 0
     github_run_id: int = 1
     github_run_attempt: int = 1
     predecessor: PredecessorBinding = PredecessorBinding()
@@ -185,7 +219,9 @@ class Page100CustodyStore(Protocol):
         self, object_key: str, version_id: str | None = None
     ) -> SealedEntity | None: ...
 
-    def find_existing_by_prefix(self, object_prefix: str) -> SealedEntity | None: ...
+    def find_existing_by_prefix(
+        self, object_prefix: str, expected_lineage: Mapping[str, Any]
+    ) -> SealedEntity | None: ...
 
     def seal_and_readback(
         self, object_key: str, body: bytes, metadata: Mapping[str, str]
@@ -645,6 +681,61 @@ def _assert_quota_day(
         raise sa.QuotaBoundaryError("successor pilot crossed frozen KST quota day")
 
 
+def _assert_not_after(
+    not_after_utc: datetime | None, clock: Callable[[], datetime]
+) -> None:
+    if not_after_utc is None:
+        return
+    if not isinstance(not_after_utc, datetime) or not_after_utc.tzinfo is None:
+        raise BindingError("successor absolute not-after must be timezone-aware")
+    observed = clock()
+    if not isinstance(observed, datetime) or observed.tzinfo is None:
+        raise BindingError("successor clock must be timezone-aware")
+    if observed.astimezone(timezone.utc) >= not_after_utc.astimezone(timezone.utc):
+        raise SelfDeadlineExceededError("successor absolute not-after reached")
+
+
+def _parse_aware_utc(value: Any) -> datetime:
+    if not isinstance(value, str) or not value:
+        raise ValueError("timestamp missing")
+    parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    if parsed.tzinfo is None:
+        raise ValueError("timestamp must be timezone-aware")
+    return parsed.astimezone(timezone.utc)
+
+
+def _valid_response_timing(
+    marker_at_utc: Any,
+    socket_opened_at_utc: Any,
+    response_received_at_utc: Any,
+    quota_day_kst: Any,
+    *,
+    crossed: Any,
+) -> bool:
+    try:
+        marker = _parse_aware_utc(marker_at_utc)
+        socket_opened = _parse_aware_utc(socket_opened_at_utc)
+        response_received = _parse_aware_utc(response_received_at_utc)
+    except (TypeError, ValueError):
+        return False
+    if (
+        not isinstance(quota_day_kst, str)
+        or (crossed is not None and type(crossed) is not bool)
+    ):
+        return False
+    response_crossed = (
+        response_received.astimezone(sa.KST).date().isoformat()
+        != quota_day_kst
+    )
+    return (
+        marker <= socket_opened <= response_received
+        and marker.astimezone(sa.KST).date().isoformat() == quota_day_kst
+        and socket_opened.astimezone(sa.KST).date().isoformat() == quota_day_kst
+        and socket_opened < LIVE_NOT_AFTER_UTC
+        and (crossed is None or crossed is response_crossed)
+    )
+
+
 def _execution_claim(
     bindings: SuccessorBindings, writer_id: str
 ) -> dict[str, Any]:
@@ -942,6 +1033,47 @@ def _assert_checkpoint(
             or row.get("run_attempt") != bindings.github_run_attempt
             or f"pilot_run_id={bindings.pilot_run_id}/"
             not in str(row.get("raw_object_prefix"))
+            or (row.get("provider_call_started") is True and (
+                not isinstance(row.get("provider_call_started_at_utc"), str)
+                or type(row.get("reservation_checkpoint_revision")) is not int
+                or row.get("reservation_checkpoint_revision", 0) <= 0
+                or _SHA256_RE.fullmatch(str(row.get("reservation_checkpoint_token_sha256", ""))) is None
+                or not isinstance(row.get("execution_claim_version_id"), str)
+                or not row.get("execution_claim_version_id")
+                or _SHA256_RE.fullmatch(str(row.get("execution_claim_content_sha256", ""))) is None
+            ))
+            or (("provider_call_checkpoint_revision" in row
+                 or "provider_call_checkpoint_token_sha256" in row) and (
+                type(row.get("provider_call_checkpoint_revision")) is not int
+                or row.get("provider_call_checkpoint_revision", 0) <= 0
+                or _SHA256_RE.fullmatch(str(row.get("provider_call_checkpoint_token_sha256", ""))) is None
+            ))
+            or (row.get("provider_call_started") is not True and (
+                "provider_call_checkpoint_revision" in row
+                or "provider_call_checkpoint_token_sha256" in row
+            ))
+            or (row.get("provider_call_started") is True
+                and row.get("state") != "RESERVED_WRITE_AHEAD"
+                and (
+                    "provider_call_checkpoint_revision" not in row
+                    or "provider_call_checkpoint_token_sha256" not in row
+                ))
+            or ("response_received_at_utc" in row and (
+                not isinstance(row.get("response_received_at_utc"), str)
+                or not row.get("response_received_at_utc")
+                or type(row.get("response_crossed_quota_day")) is not bool
+                or not _valid_response_timing(
+                    row.get("provider_call_started_at_utc"),
+                    row.get("socket_opened_at_utc"),
+                    row.get("response_received_at_utc"),
+                    bindings.quota_day_kst,
+                    crossed=row.get("response_crossed_quota_day"),
+                )
+            ))
+            or (row.get("response_entity_received") is True and (
+                not isinstance(row.get("socket_opened_at_utc"), str)
+                or not isinstance(row.get("response_received_at_utc"), str)
+            ))
         ):
             raise sa.CheckpointConflictError("page-100 attempt lineage invalid")
         if slot not in observed_slots:
@@ -985,6 +1117,17 @@ def _assert_checkpoint(
             or raw.get("remote_readback_bytes") != raw.get("entity_bytes")
             or raw.get("server_side_encryption") != "AES256"
             or raw.get("write_precondition") != "IF_NONE_MATCH_STAR"
+            or matches[0].get("provider_call_started") is not True
+            or raw.get("provider_call_started_at_utc") != matches[0].get("provider_call_started_at_utc")
+            or raw.get("socket_opened_at_utc") != matches[0].get("socket_opened_at_utc")
+            or raw.get("response_received_at_utc") != matches[0].get("response_received_at_utc")
+            or raw.get("response_crossed_quota_day") != matches[0].get("response_crossed_quota_day")
+            or raw.get("reservation_checkpoint_revision") != matches[0].get("reservation_checkpoint_revision")
+            or raw.get("reservation_checkpoint_token_sha256") != matches[0].get("reservation_checkpoint_token_sha256")
+            or raw.get("provider_call_checkpoint_revision") != matches[0].get("provider_call_checkpoint_revision")
+            or raw.get("provider_call_checkpoint_token_sha256") != matches[0].get("provider_call_checkpoint_token_sha256")
+            or raw.get("execution_claim_version_id") != matches[0].get("execution_claim_version_id")
+            or raw.get("execution_claim_content_sha256") != matches[0].get("execution_claim_content_sha256")
         ):
             raise sa.CheckpointConflictError("page-100 raw custody join invalid")
         raw_by_attempt[identity] = raw
@@ -994,6 +1137,18 @@ def _assert_checkpoint(
         observed_result_counts[result_code] = (
             observed_result_counts.get(result_code, 0) + 1
         )
+    for attempt_row in attempts:
+        attempt_identity = (
+            attempt_row.get("basDt"), attempt_row.get("page_no"),
+            attempt_row.get("attempt"),
+        )
+        if (
+            attempt_row.get("response_crossed_quota_day") is True
+            and attempt_identity not in raw_by_attempt
+        ):
+            raise sa.CheckpointConflictError(
+                "quota-day rollover response lacks raw custody"
+            )
     if (
         checkpoint.get("raw_entity_bytes")
         != sum(int(row.get("entity_bytes", -1)) for row in raw_index)
@@ -1582,6 +1737,16 @@ def _current_raw_record(
         "remote_readback_bytes": sealed.readback_bytes,
         "remote_readback_sha256": sealed.readback_sha256,
         "acquired_at_utc": sealed.acquired_at_utc,
+        "provider_call_started_at_utc": attempt["provider_call_started_at_utc"],
+        "socket_opened_at_utc": attempt["socket_opened_at_utc"],
+        "response_received_at_utc": attempt["response_received_at_utc"],
+        "response_crossed_quota_day": attempt["response_crossed_quota_day"],
+        "reservation_checkpoint_revision": attempt["reservation_checkpoint_revision"],
+        "reservation_checkpoint_token_sha256": attempt["reservation_checkpoint_token_sha256"],
+        "provider_call_checkpoint_revision": attempt["provider_call_checkpoint_revision"],
+        "provider_call_checkpoint_token_sha256": attempt["provider_call_checkpoint_token_sha256"],
+        "execution_claim_version_id": attempt["execution_claim_version_id"],
+        "execution_claim_content_sha256": attempt["execution_claim_content_sha256"],
         "reconciled_after_custody_before_checkpoint_gap": reconciled,
         "canonical": True,
         "historical_reuse": False,
@@ -1609,6 +1774,16 @@ def _assert_checkpoint_entity_readback(
         or sealed.write_precondition != "IF_NONE_MATCH_STAR"
         or not sealed.etag
         or sealed.etag != attempt.get("s3_etag")
+        or sealed.acquired_at_utc != attempt.get("socket_opened_at_utc")
+        or getattr(sealed, "response_received_at_utc", None)
+           != attempt.get("response_received_at_utc")
+        or not _valid_response_timing(
+            attempt.get("provider_call_started_at_utc"),
+            attempt.get("socket_opened_at_utc"),
+            attempt.get("response_received_at_utc"),
+            attempt.get("quota_day_kst"),
+            crossed=attempt.get("response_crossed_quota_day"),
+        )
         or sealed.storage_locator
         != f"s3://semi-data-plane-aofspds-20260815/{expected_key}"
     ):
@@ -1627,6 +1802,7 @@ def run_page100_pilot(
     writer_id: str,
     secrets: tuple[str, ...],
     clock: Callable[[], datetime] = lambda: datetime.now(timezone.utc),
+    not_after_utc: datetime | None = None,
     deadline_monotonic: float | None = None,
     monotonic_fn: Callable[[], float] = time.monotonic,
     sleep_fn: Callable[[float], None] = time.sleep,
@@ -1638,8 +1814,11 @@ def run_page100_pilot(
     seed = load_historical_seed(
         bindings, predecessor_bundle, custody, secrets=secrets
     )
+    _assert_quota_day(bindings, clock)
+    _assert_not_after(not_after_utc, clock)
 
     claim = _execution_claim(bindings, writer_id)
+    _assert_not_after(not_after_utc, clock)
     evidence = claim_store.acquire_execution_claim(claim)
     expected_claim_hash = _sha256(sa.canonical_json_bytes(claim))
     if (
@@ -1658,7 +1837,9 @@ def run_page100_pilot(
 
     loaded, token = checkpoint_store.load()
     if loaded is None:
+        _assert_not_after(not_after_utc, clock)
         checkpoint = _initial_checkpoint(bindings, seed, evidence, clock=clock)
+        _assert_not_after(not_after_utc, clock)
         token = checkpoint_store.compare_and_swap(checkpoint, None)
     else:
         checkpoint = json.loads(json.dumps(loaded))
@@ -1676,6 +1857,7 @@ def run_page100_pilot(
         nonlocal token
         checkpoint["checkpoint_revision"] += 1
         checkpoint["updated_at_utc"] = _iso_utc(clock)
+        _assert_checkpoint(checkpoint, bindings)
         sa.assert_no_secret(sa.canonical_json_bytes(checkpoint), secrets)
         token = checkpoint_store.compare_and_swap(checkpoint, token)
 
@@ -1692,6 +1874,7 @@ def run_page100_pilot(
         save()
 
     def assert_self_deadline() -> None:
+        _assert_not_after(not_after_utc, clock)
         if (
             deadline_monotonic is not None
             and monotonic_fn() >= deadline_monotonic
@@ -1748,6 +1931,25 @@ def run_page100_pilot(
         expected_key = canonical_raw_object_key(
             attempt["raw_object_prefix"], sealed.entity_sha256
         )
+        if not attempt.get("socket_opened_at_utc"):
+            attempt["socket_opened_at_utc"] = sealed.acquired_at_utc
+        if not attempt.get("response_received_at_utc"):
+            response_received = getattr(sealed, "response_received_at_utc", None)
+            if not isinstance(response_received, str) or not response_received:
+                raise RemoteCustodyError("successor recovered response timing missing")
+            attempt["response_received_at_utc"] = response_received
+            attempt["response_crossed_quota_day"] = (
+                _parse_aware_utc(response_received).astimezone(sa.KST).date().isoformat()
+                != bindings.quota_day_kst
+            )
+        if not _valid_response_timing(
+            attempt.get("provider_call_started_at_utc"),
+            attempt.get("socket_opened_at_utc"),
+            attempt.get("response_received_at_utc"),
+            bindings.quota_day_kst,
+            crossed=attempt.get("response_crossed_quota_day"),
+        ):
+            raise RemoteCustodyError("successor response timing invariant mismatch")
         if (
             sealed.object_key != expected_key
             or sealed.entity_sha256 != sealed.readback_sha256
@@ -1760,6 +1962,19 @@ def run_page100_pilot(
             or not sealed.etag
             or sealed.storage_locator
             != f"s3://semi-data-plane-aofspds-20260815/{expected_key}"
+            or attempt.get("provider_call_started") is not True
+            or not attempt.get("provider_call_started_at_utc")
+            or type(attempt.get("reservation_checkpoint_revision")) is not int
+            or _SHA256_RE.fullmatch(str(attempt.get("reservation_checkpoint_token_sha256", ""))) is None
+            or type(attempt.get("provider_call_checkpoint_revision")) is not int
+            or _SHA256_RE.fullmatch(str(attempt.get("provider_call_checkpoint_token_sha256", ""))) is None
+            or attempt.get("execution_claim_version_id") != evidence.version_id
+            or attempt.get("execution_claim_content_sha256") != evidence.content_sha256
+            or sealed.acquired_at_utc != attempt.get("socket_opened_at_utc")
+            or getattr(sealed, "response_received_at_utc", attempt.get("response_received_at_utc"))
+               != attempt.get("response_received_at_utc")
+            or not attempt.get("response_received_at_utc")
+            or type(attempt.get("response_crossed_quota_day")) is not bool
         ):
             raise RemoteCustodyError("successor raw custody invariant mismatch")
         attempt.update({
@@ -1809,8 +2024,29 @@ def run_page100_pilot(
                     "terminal Finance entity already custodied"
                 )
             if latest and latest["state"] == "RESERVED_WRITE_AHEAD":
+                if latest.get("provider_call_started") is not True:
+                    latest["state"] = "RESERVATION_SPENT_WITHOUT_DURABLE_CALL_START"
+                    checkpoint["no_entity_attempts"] += 1
+                    save()
+                    if len(prior) >= attempt_limit:
+                        raise NoEntityTransportError("Finance reservation lacks durable call start")
+                    continue
+                durable_call_revision = checkpoint["checkpoint_revision"]
+                durable_call_token_sha256 = _sha256(str(token).encode("utf-8"))
+                if (
+                    ("provider_call_checkpoint_revision" in latest
+                     and latest.get("provider_call_checkpoint_revision") != durable_call_revision)
+                    or ("provider_call_checkpoint_token_sha256" in latest
+                        and latest.get("provider_call_checkpoint_token_sha256")
+                            != durable_call_token_sha256)
+                ):
+                    raise sa.CheckpointConflictError(
+                        "durable provider-call marker checkpoint shifted"
+                    )
+                latest["provider_call_checkpoint_revision"] = durable_call_revision
+                latest["provider_call_checkpoint_token_sha256"] = durable_call_token_sha256
                 sealed = custody.find_existing_by_prefix(
-                    latest["raw_object_prefix"]
+                    latest["raw_object_prefix"], latest
                 )
                 if sealed is None:
                     latest["state"] = "RESERVATION_SPENT_NO_REMOTE_ENTITY_ON_RESUME"
@@ -1852,16 +2088,27 @@ def run_page100_pilot(
                 # A failed recheck leaves the reservation spent and starts no call.
                 _assert_quota_day(bindings, clock)
                 assert_self_deadline()
+                call_started_at = _iso_utc(clock)
+                if not_after_utc is not None and datetime.fromisoformat(call_started_at).astimezone(timezone.utc) >= not_after_utc.astimezone(timezone.utc):
+                    raise SelfDeadlineExceededError("Finance call start crossed absolute not-after")
                 attempt["provider_call_started"] = True
-                attempt["provider_call_started_at_utc"] = _iso_utc(clock)
+                attempt["provider_call_started_at_utc"] = call_started_at
+                attempt["reservation_checkpoint_revision"] = checkpoint["checkpoint_revision"]
+                attempt["reservation_checkpoint_token_sha256"] = _sha256(str(token).encode("utf-8"))
+                attempt["execution_claim_version_id"] = evidence.version_id
+                attempt["execution_claim_content_sha256"] = evidence.content_sha256
                 if bas_dt == "20240131" and page_no == 1:
                     checkpoint["page_1_revalidation"]["fresh_calls_started"] += 1
                 checkpoint["provider_api_network_attempts"] += 1
                 save()
+                attempt["provider_call_checkpoint_revision"] = checkpoint["checkpoint_revision"]
+                attempt["provider_call_checkpoint_token_sha256"] = _sha256(str(token).encode("utf-8"))
                 params = sa.finance_request_params(
                     bas_dt, page_no, REQUEST_PAGE_SIZE
                 )
                 try:
+                    _assert_quota_day(bindings, clock)
+                    assert_self_deadline()
                     response = transport.fetch_once(params)
                 except NoEntityTransportError:
                     attempt["state"] = "NO_RESPONSE_ENTITY_RESERVATION_SPENT"
@@ -1873,6 +2120,28 @@ def run_page100_pilot(
                     continue
                 if not isinstance(response, TransportResponse):
                     raise Page100PilotError("invalid Finance transport response")
+                marker_time = attempt.get("provider_call_started_at_utc")
+                if not _valid_response_timing(
+                    marker_time, response.acquired_at_utc,
+                    response.acquired_at_utc, bindings.quota_day_kst,
+                    crossed=False,
+                ):
+                    raise sa.QuotaBoundaryError("Finance socket opened outside the frozen acquisition window")
+                response_received_at = _iso_utc(clock)
+                response_received_time = datetime.fromisoformat(response_received_at).astimezone(timezone.utc)
+                response_crossed = (
+                    response_received_time.astimezone(sa.KST).date().isoformat()
+                    != bindings.quota_day_kst
+                )
+                if not _valid_response_timing(
+                    marker_time, response.acquired_at_utc,
+                    response_received_at, bindings.quota_day_kst,
+                    crossed=response_crossed,
+                ):
+                    raise Page100PilotError("Finance response timing lineage invalid")
+                attempt["socket_opened_at_utc"] = response.acquired_at_utc
+                attempt["response_received_at_utc"] = response_received_at
+                attempt["response_crossed_quota_day"] = response_crossed
                 sa.assert_no_secret(response.body, secrets)
                 digest = _sha256(response.body)
                 object_key = canonical_raw_object_key(
@@ -1889,6 +2158,15 @@ def run_page100_pilot(
                     "runtime-lock-id": bindings.runtime_lock_id,
                     "pilot-run-id": bindings.pilot_run_id,
                     "quota-day-kst": bindings.quota_day_kst,
+                    "provider-call-started-at-utc": attempt["provider_call_started_at_utc"],
+                    "socket-opened-at-utc": attempt["socket_opened_at_utc"],
+                    "response-received-at-utc": attempt["response_received_at_utc"],
+                    "reservation-checkpoint-revision": str(attempt["reservation_checkpoint_revision"]),
+                    "reservation-checkpoint-token-sha256": attempt["reservation_checkpoint_token_sha256"],
+                    "provider-call-checkpoint-revision": str(attempt["provider_call_checkpoint_revision"]),
+                    "provider-call-checkpoint-token-sha256": attempt["provider_call_checkpoint_token_sha256"],
+                    "execution-claim-version-id": attempt["execution_claim_version_id"],
+                    "execution-claim-content-sha256": attempt["execution_claim_content_sha256"],
                 }
                 sealed = custody.seal_and_readback(
                     object_key, response.body, metadata
@@ -1897,6 +2175,10 @@ def run_page100_pilot(
                 latest = attempt
 
             assert latest is not None and sealed is not None
+            if latest.get("response_crossed_quota_day") is True:
+                raise sa.QuotaBoundaryError(
+                    "Finance response crossed frozen KST quota day after raw custody"
+                )
             if sealed.http_status == 429 or 500 <= sealed.http_status <= 599:
                 latest["state"] = "RETRYABLE_HTTP_ENTITY_CUSTODIED"
                 save()
@@ -2196,6 +2478,161 @@ def run_page100_pilot(
         raise
 
 
+class BoundedUrlLibFinanceTransport:
+    """One socket attempt with an immediately-adjacent acquisition guard."""
+
+    MAX_ENTITY_BYTES = 2_000_000
+
+    def __init__(
+        self,
+        secret: str,
+        *,
+        quota_day_kst: str,
+        not_after_utc: datetime,
+        deadline_monotonic: float,
+        timeout_seconds: float = 20.0,
+        opener: Any | None = None,
+        clock: Callable[[], datetime] = lambda: datetime.now(timezone.utc),
+        monotonic_fn: Callable[[], float] = time.monotonic,
+    ) -> None:
+        self.secret = sa.validate_decoded_secret(
+            legacy.FINANCE_SECRET_ENV, secret
+        )
+        if (
+            quota_day_kst != "2026-08-30"
+            or not isinstance(not_after_utc, datetime)
+            or not_after_utc.tzinfo is None
+            or not_after_utc.astimezone(timezone.utc) != LIVE_NOT_AFTER_UTC
+            or type(deadline_monotonic) not in {int, float}
+            or not math.isfinite(float(deadline_monotonic))
+            or type(timeout_seconds) not in {int, float}
+            or not math.isfinite(float(timeout_seconds))
+            or not 0 < float(timeout_seconds) <= 20.0
+        ):
+            raise BindingError("invalid bounded Finance transport configuration")
+        self.quota_day_kst = quota_day_kst
+        self.not_after_utc = not_after_utc.astimezone(timezone.utc)
+        self.deadline_monotonic = float(deadline_monotonic)
+        self.timeout_seconds = float(timeout_seconds)
+        self.opener = opener or urllib.request.build_opener(sa.NoRedirect())
+        self.clock = clock
+        self.monotonic_fn = monotonic_fn
+
+    def _socket_open_stamp(self) -> str:
+        if self.monotonic_fn() >= self.deadline_monotonic:
+            raise SelfDeadlineExceededError(
+                "Finance socket open crossed monotonic self-deadline"
+            )
+        observed = self.clock()
+        if not isinstance(observed, datetime) or observed.tzinfo is None:
+            raise BindingError("Finance transport clock must be timezone-aware")
+        observed_utc = observed.astimezone(timezone.utc)
+        if observed_utc >= self.not_after_utc:
+            raise SelfDeadlineExceededError(
+                "Finance socket open crossed absolute not-after"
+            )
+        if observed_utc.astimezone(sa.KST).date().isoformat() != self.quota_day_kst:
+            raise sa.QuotaBoundaryError(
+                "Finance socket open crossed frozen KST quota day"
+            )
+        return observed_utc.isoformat()
+
+    def _remaining_body_timeout(self) -> float:
+        remaining = self.deadline_monotonic - self.monotonic_fn()
+        if remaining <= 0.001:
+            raise NoEntityTransportError(
+                "Finance response body crossed monotonic self-deadline"
+            )
+        return min(self.timeout_seconds, remaining)
+
+    @staticmethod
+    def _set_stream_timeout(stream: Any, timeout_seconds: float) -> None:
+        queue = [stream]
+        seen: set[int] = set()
+        for _ in range(16):
+            if not queue:
+                break
+            current = queue.pop(0)
+            if current is None or id(current) in seen:
+                continue
+            seen.add(id(current))
+            setter = getattr(current, "settimeout", None)
+            if callable(setter):
+                setter(timeout_seconds)
+                return
+            for name in ("fp", "raw", "_sock"):
+                child = getattr(current, name, None)
+                if child is not None:
+                    queue.append(child)
+
+    def _read_bounded_entity(self, stream: Any) -> bytes:
+        chunks: list[bytes] = []
+        observed = 0
+        while True:
+            remaining_timeout = self._remaining_body_timeout()
+            self._set_stream_timeout(stream, remaining_timeout)
+            remaining_bytes = self.MAX_ENTITY_BYTES + 1 - observed
+            if remaining_bytes <= 0:
+                raise Page100PilotError(
+                    "Finance response entity exceeded the bounded byte ceiling"
+                )
+            read_size = min(65_536, remaining_bytes)
+            read_one = getattr(stream, "read1", None)
+            reader = read_one if callable(read_one) else stream.read
+            chunk = reader(read_size)
+            if not isinstance(chunk, bytes):
+                raise NoEntityTransportError(
+                    "Finance response body reader returned a non-byte entity"
+                )
+            if not chunk:
+                return b"".join(chunks)
+            chunks.append(chunk)
+            observed += len(chunk)
+            if observed > self.MAX_ENTITY_BYTES:
+                raise Page100PilotError(
+                    "Finance response entity exceeded the bounded byte ceiling"
+                )
+
+    def fetch_once(self, params: Mapping[str, str]) -> TransportResponse:
+        url = sa.encoded_query(sa.FINANCE_URL, params, self.secret)
+        request = urllib.request.Request(
+            url,
+            headers={
+                "Accept": "application/json",
+                "Accept-Encoding": "identity",
+                "User-Agent": "AAA-M3Top3-Finance-Page100-G5/1.0",
+            },
+        )
+        socket_opened_at = self._socket_open_stamp()
+        try:
+            response = self.opener.open(request, timeout=self.timeout_seconds)
+            status = int(getattr(response, "status", response.getcode()))
+            body = self._read_bounded_entity(response)
+            headers = {
+                str(key).lower(): str(value)
+                for key, value in response.headers.items()
+                if str(key).lower() in legacy.SAFE_RESPONSE_HEADERS
+            }
+        except urllib.error.HTTPError as exc:
+            status = int(exc.code)
+            body = self._read_bounded_entity(exc)
+            headers = {
+                str(key).lower(): str(value)
+                for key, value in exc.headers.items()
+                if str(key).lower() in legacy.SAFE_RESPONSE_HEADERS
+            }
+        except (urllib.error.URLError, TimeoutError, OSError):
+            raise NoEntityTransportError(
+                "Finance transport ended without response entity"
+            ) from None
+        return TransportResponse(
+            body=body,
+            http_status=status,
+            safe_headers=headers,
+            acquired_at_utc=socket_opened_at,
+        )
+
+
 class S3Page100ObjectStore(legacy.S3CliObjectStore):
     """Exact successor namespace plus version-bound predecessor readback."""
 
@@ -2209,6 +2646,143 @@ class S3Page100ObjectStore(legacy.S3CliObjectStore):
         self.bindings = bindings
         self.checkpoint_key = checkpoint_object_key(bindings)
         self.claim_key = execution_claim_object_key(bindings)
+
+    def compare_and_swap(
+        self, value: Mapping[str, Any], expected_token: str | None
+    ) -> str:
+        """Version-aware CAS with exact-payload recovery after uncertain writes."""
+        if not isinstance(value, Mapping):
+            raise RemoteCustodyError("invalid checkpoint value")
+        payload = sa.canonical_json_bytes(dict(value))
+
+        def token_from(
+            readback: tuple[bytes, dict[str, Any]] | None,
+            *, require_payload: bool,
+        ) -> tuple[bytes, str] | None:
+            if readback is None:
+                return None
+            body, meta = readback
+            etag = str(meta.get("ETag", ""))
+            version_id = str(meta.get("VersionId", ""))
+            sse = str(meta.get("ServerSideEncryption", ""))
+            user = meta.get("Metadata", {})
+            if (
+                not etag
+                or not version_id
+                or sse != "AES256"
+                or str(meta.get("ContentType", "")) != "application/json"
+                or not isinstance(user, Mapping)
+                or {str(k): str(v) for k, v in user.items()}
+                   != {"sha256": _sha256(body)}
+            ):
+                raise RemoteCustodyError("checkpoint CAS evidence incomplete")
+            if require_payload and body != payload:
+                raise sa.CheckpointConflictError("checkpoint CAS exact payload mismatch")
+            return body, self._checkpoint_token(etag, version_id, sse)
+
+        current = token_from(self._get(self.checkpoint_key), require_payload=False)
+        if current is not None and current[0] == payload:
+            return current[1]
+        if expected_token is None:
+            if current is not None:
+                raise sa.CheckpointConflictError("checkpoint create found existing value")
+            condition = ["--if-none-match", "*"]
+        else:
+            expected_etag = self._checkpoint_etag(expected_token)
+            if current is None or current[1] != expected_token:
+                raise sa.CheckpointConflictError("checkpoint version-aware CAS token shifted")
+            condition = ["--if-match", expected_etag]
+
+        with tempfile.NamedTemporaryFile(prefix="m3top3-page100-cas-", delete=False) as handle:
+            target = Path(handle.name)
+            handle.write(payload)
+            handle.flush()
+            os.fsync(handle.fileno())
+        try:
+            try:
+                result = self._invoke(
+                    self._base("put-object") + [
+                        "--key", self.checkpoint_key,
+                        "--body", str(target),
+                        "--content-type", "application/json",
+                        "--server-side-encryption", "AES256",
+                        "--metadata", f"sha256={_sha256(payload)}",
+                    ] + condition
+                )
+                assert result is not None
+                result_version = str(result.get("VersionId", ""))
+                if not result_version:
+                    raise RemoteCustodyError("checkpoint CAS missing VersionId")
+                recovered = token_from(
+                    self._get(self.checkpoint_key, version_id=result_version),
+                    require_payload=True,
+                )
+                if recovered is None:
+                    raise RemoteCustodyError("checkpoint CAS readback missing")
+                latest = token_from(self._get(self.checkpoint_key), require_payload=True)
+                if latest is None or latest[1] != recovered[1]:
+                    raise sa.CheckpointConflictError("checkpoint CAS result is not latest")
+                return recovered[1]
+            except Exception as write_error:
+                try:
+                    recovered = token_from(
+                        self._get(self.checkpoint_key), require_payload=True
+                    )
+                except Exception:
+                    raise write_error
+                if recovered is None or recovered[1] == expected_token:
+                    raise write_error
+                return recovered[1]
+        finally:
+            target.unlink(missing_ok=True)
+
+    def checkpoint_reference(
+        self, checkpoint: Mapping[str, Any], token: str | None
+    ) -> Mapping[str, Any]:
+        if token is None:
+            raise RemoteCustodyError("terminal checkpoint token missing")
+        try:
+            parts = json.loads(token)
+        except (TypeError, json.JSONDecodeError):
+            raise RemoteCustodyError("terminal checkpoint token invalid") from None
+        if (
+            not isinstance(parts, dict)
+            or set(parts) != {"etag", "version_id", "sse"}
+            or parts.get("sse") != "AES256"
+            or not all(isinstance(parts.get(key), str) and parts.get(key) for key in parts)
+        ):
+            raise RemoteCustodyError("terminal checkpoint token incomplete")
+        payload = sa.canonical_json_bytes(dict(checkpoint))
+        readback = self._get(self.checkpoint_key, version_id=parts["version_id"])
+        if readback is None:
+            raise RemoteCustodyError("terminal checkpoint version missing")
+        body, meta = readback
+        user = meta.get("Metadata", {})
+        if (
+            body != payload
+            or str(meta.get("VersionId", "")) != parts["version_id"]
+            or str(meta.get("ETag", "")) != parts["etag"]
+            or str(meta.get("ServerSideEncryption", "")) != "AES256"
+            or str(meta.get("ContentType", "")) != "application/json"
+            or not isinstance(user, Mapping)
+            or {str(k): str(v) for k, v in user.items()}
+               != {"sha256": _sha256(payload)}
+            or checkpoint.get("state") != "COMPLETE"
+            or type(checkpoint.get("checkpoint_revision")) is not int
+        ):
+            raise RemoteCustodyError("terminal checkpoint exact version mismatch")
+        latest = self._get(self.checkpoint_key)
+        if latest is None or str(latest[1].get("VersionId", "")) != parts["version_id"]:
+            raise RemoteCustodyError("terminal checkpoint version is not latest")
+        return {
+            "object_key": self.checkpoint_key,
+            "version_id": parts["version_id"],
+            "etag": parts["etag"],
+            "sha256": _sha256(payload),
+            "server_side_encryption": "AES256",
+            "checkpoint_revision": checkpoint["checkpoint_revision"],
+            "state": "COMPLETE",
+        }
 
     def _sealed(
         self,
@@ -2249,54 +2823,101 @@ class S3Page100ObjectStore(legacy.S3CliObjectStore):
             acquired_at_utc=str(user_metadata.get("acquired-at-utc", "")),
         )
 
+    def _assert_single_version(self, object_key: str, version_id: str) -> None:
+        payload = self._invoke(
+            self._base("list-object-versions")
+            + ["--prefix", object_key, "--max-keys", "2"]
+        )
+        assert payload is not None
+        versions = payload.get("Versions", [])
+        markers = payload.get("DeleteMarkers", [])
+        if (
+            payload.get("IsTruncated") is True
+            or not isinstance(versions, list)
+            or not isinstance(markers, list)
+            or markers
+            or len(versions) != 1
+            or versions[0].get("Key") != object_key
+            or versions[0].get("VersionId") != version_id
+            or versions[0].get("IsLatest") is not True
+        ):
+            raise RemoteCustodyError("create-once S3 version history mismatch")
+
     def acquire_execution_claim(
         self, claim: Mapping[str, Any]
     ) -> ExecutionClaimEvidence:
-        """Create once; a 412 always blocks, even for byte-identical payloads."""
+        """Create once, or accept only the exact same run/attempt payload."""
         payload = sa.canonical_json_bytes(dict(claim))
-        with tempfile.NamedTemporaryFile(
-            prefix="m3top3-page100-claim-", delete=False
-        ) as handle:
-            target = Path(handle.name)
-            handle.write(payload)
-            handle.flush()
-            os.fsync(handle.fileno())
-        try:
-            result = self._invoke(
-                self._base("put-object") + [
-                    "--key", self.claim_key,
-                    "--body", str(target),
-                    "--content-type", "application/json",
-                    "--server-side-encryption", "AES256",
-                    "--if-none-match", "*",
-                ]
-            )
-            assert result is not None
-            created_version = str(result.get("VersionId", ""))
-            if not created_version:
-                raise RemoteCustodyError(
-                    "execution claim create missing VersionId"
-                )
-            readback = self._get(self.claim_key, version_id=created_version)
-            if readback is None or readback[0] != payload:
-                raise RemoteCustodyError("execution claim readback mismatch")
-            meta = readback[1]
+        digest = _sha256(payload)
+
+        def evidence_from(readback: tuple[bytes, dict[str, Any]] | None) -> ExecutionClaimEvidence | None:
+            if readback is None:
+                return None
+            body, meta = readback
             version_id = str(meta.get("VersionId", ""))
             etag = str(meta.get("ETag", ""))
             sse = str(meta.get("ServerSideEncryption", ""))
-            if version_id != created_version or not etag or sse != "AES256":
-                raise RemoteCustodyError(
-                    "execution claim readback evidence missing"
-                )
+            user = meta.get("Metadata", {})
+            if (
+                body != payload
+                or not version_id
+                or not etag
+                or sse != "AES256"
+                or str(meta.get("ContentType", "")) != "application/json"
+                or not isinstance(user, Mapping)
+                or {str(key): str(value) for key, value in user.items()}
+                   != {"sha256": digest}
+            ):
+                raise sa.CheckpointConflictError("execution claim belongs to another writer")
+            self._assert_single_version(self.claim_key, version_id)
             return ExecutionClaimEvidence(
                 object_key=self.claim_key,
-                content_sha256=_sha256(payload),
+                content_sha256=digest,
                 version_id=version_id,
                 etag=etag,
                 server_side_encryption=sse,
                 write_precondition="IF_NONE_MATCH_STAR",
                 writer_id=str(claim.get("writer_id", "")),
             )
+
+        existing = evidence_from(self._get(self.claim_key))
+        if existing is not None:
+            return existing
+        with tempfile.NamedTemporaryFile(prefix="m3top3-page100-claim-", delete=False) as handle:
+            target = Path(handle.name)
+            handle.write(payload)
+            handle.flush()
+            os.fsync(handle.fileno())
+        try:
+            try:
+                result = self._invoke(
+                    self._base("put-object") + [
+                        "--key", self.claim_key,
+                        "--body", str(target),
+                        "--content-type", "application/json",
+                        "--server-side-encryption", "AES256",
+                        "--if-none-match", "*",
+                        "--metadata", f"sha256={digest}",
+                    ]
+                )
+                assert result is not None
+                created_version = str(result.get("VersionId", ""))
+                if not created_version:
+                    raise RemoteCustodyError("execution claim create missing VersionId")
+                recovered = evidence_from(
+                    self._get(self.claim_key, version_id=created_version)
+                )
+                if recovered is None or recovered.version_id != created_version:
+                    raise RemoteCustodyError("execution claim readback mismatch")
+                return recovered
+            except Exception as write_error:
+                try:
+                    recovered = evidence_from(self._get(self.claim_key))
+                except Exception:
+                    raise write_error
+                if recovered is None:
+                    raise write_error
+                return recovered
         finally:
             target.unlink(missing_ok=True)
 
@@ -2319,7 +2940,7 @@ class S3Page100ObjectStore(legacy.S3CliObjectStore):
         expected = {
             "runtime-lock-id": PREDECESSOR_RUNTIME_LOCK_ID,
             "pilot-run-id": PREDECESSOR_PILOT_RUN_ID,
-            "quota-day-kst": self.bindings.quota_day_kst,
+            "quota-day-kst": "2026-08-29",
             "bas-dt": "20240131",
             "page-no": "1",
             "attempt": "1",
@@ -2339,7 +2960,10 @@ class S3Page100ObjectStore(legacy.S3CliObjectStore):
         return sealed
 
     def _read_current(
-        self, object_key: str, version_id: str | None = None
+        self,
+        object_key: str,
+        version_id: str | None = None,
+        expected_lineage: Mapping[str, Any] | None = None,
     ) -> SealedEntity | None:
         namespace = (
             RAW_KEY_PREFIX + "_pilot_generation/"
@@ -2363,6 +2987,9 @@ class S3Page100ObjectStore(legacy.S3CliObjectStore):
         )
         quota_day, request_id, attempt_text, key_digest = matched.groups()
         user = metadata.get("Metadata", {})
+        if not isinstance(user, Mapping):
+            raise RemoteCustodyError("successor raw metadata missing")
+        user = {str(key): str(value) for key, value in user.items()}
         try:
             bas_dt = str(user["bas-dt"])
             page_no = int(user["page-no"])
@@ -2371,31 +2998,87 @@ class S3Page100ObjectStore(legacy.S3CliObjectStore):
         required = {
             "sha256", "http-status", "acquired-at-utc", "request-id",
             "bas-dt", "page-no", "attempt", "runtime-lock-id",
-            "pilot-run-id", "quota-day-kst",
+            "pilot-run-id", "quota-day-kst", "provider-call-started-at-utc",
+            "socket-opened-at-utc", "response-received-at-utc",
+            "reservation-checkpoint-revision", "reservation-checkpoint-token-sha256",
+            "provider-call-checkpoint-revision", "provider-call-checkpoint-token-sha256",
+            "execution-claim-version-id", "execution-claim-content-sha256",
         }
+        expected_claim_hash = _sha256(sa.canonical_json_bytes(_execution_claim(
+            self.bindings,
+            f"github-run:{self.bindings.github_run_id}:attempt:{self.bindings.github_run_attempt}",
+        )))
         if (
             set(user) != required
             or quota_day != self.bindings.quota_day_kst
             or bas_dt not in PRIMARY_DATES[1:]
             or not 1 <= page_no <= MAX_PAGES_PER_DATE
             or request_id != deterministic_request_id(bas_dt, page_no)
-            or str(user.get("request-id", "")) != request_id
-            or str(user.get("attempt", "")) != attempt_text
-            or str(user.get("runtime-lock-id", "")) != RUNTIME_LOCK_ID
-            or str(user.get("pilot-run-id", "")) != PILOT_RUN_ID
-            or str(user.get("quota-day-kst", "")) != quota_day
+            or user.get("request-id") != request_id
+            or user.get("attempt") != attempt_text
+            or user.get("runtime-lock-id") != RUNTIME_LOCK_ID
+            or user.get("pilot-run-id") != PILOT_RUN_ID
+            or user.get("quota-day-kst") != quota_day
+            or user.get("execution-claim-content-sha256") != expected_claim_hash
+            or _SHA256_RE.fullmatch(user.get("reservation-checkpoint-token-sha256", "")) is None
+            or _SHA256_RE.fullmatch(user.get("provider-call-checkpoint-token-sha256", "")) is None
+            or not user.get("execution-claim-version-id")
+            or not user.get("provider-call-started-at-utc")
+            or not user.get("socket-opened-at-utc")
+            or not user.get("response-received-at-utc")
+            or user.get("acquired-at-utc") != user.get("socket-opened-at-utc")
+            or not _valid_response_timing(
+                user.get("provider-call-started-at-utc"),
+                user.get("socket-opened-at-utc"),
+                user.get("response-received-at-utc"),
+                quota_day,
+                crossed=None,
+            )
+            or not user.get("reservation-checkpoint-revision", "").isdigit()
+            or not user.get("provider-call-checkpoint-revision", "").isdigit()
             or key_digest != sealed.entity_sha256
             or (version_id is not None and sealed.version_id != version_id)
         ):
             raise RemoteCustodyError("successor raw lineage metadata mismatch")
-        return sealed
+        if expected_lineage is not None:
+            try:
+                exact = {
+                    "request-id": str(expected_lineage["request_id"]),
+                    "bas-dt": str(expected_lineage["basDt"]),
+                    "page-no": str(expected_lineage["page_no"]),
+                    "attempt": str(expected_lineage["attempt"]),
+                    "runtime-lock-id": self.bindings.runtime_lock_id,
+                    "pilot-run-id": self.bindings.pilot_run_id,
+                    "quota-day-kst": self.bindings.quota_day_kst,
+                    "provider-call-started-at-utc": str(expected_lineage["provider_call_started_at_utc"]),
+                    "reservation-checkpoint-revision": str(expected_lineage["reservation_checkpoint_revision"]),
+                    "reservation-checkpoint-token-sha256": str(expected_lineage["reservation_checkpoint_token_sha256"]),
+                    "provider-call-checkpoint-revision": str(expected_lineage["provider_call_checkpoint_revision"]),
+                    "provider-call-checkpoint-token-sha256": str(expected_lineage["provider_call_checkpoint_token_sha256"]),
+                    "execution-claim-version-id": str(expected_lineage["execution_claim_version_id"]),
+                    "execution-claim-content-sha256": str(expected_lineage["execution_claim_content_sha256"]),
+                }
+                expected_prefix = str(expected_lineage["raw_object_prefix"])
+            except (KeyError, TypeError, ValueError):
+                raise RemoteCustodyError("successor reconciliation lineage incomplete") from None
+            if (
+                expected_lineage.get("provider_call_started") is not True
+                or not object_key.startswith(expected_prefix)
+                or any(user.get(key) != value for key, value in exact.items())
+            ):
+                raise RemoteCustodyError("successor reconciliation lineage mismatch")
+        return _with_response_timing(
+            sealed, user["response-received-at-utc"]
+        )
 
     def read_existing(
         self, object_key: str, version_id: str | None = None
     ) -> SealedEntity | None:
         return self._read_current(object_key, version_id)
 
-    def find_existing_by_prefix(self, object_prefix: str) -> SealedEntity | None:
+    def find_existing_by_prefix(
+        self, object_prefix: str, expected_lineage: Mapping[str, Any]
+    ) -> SealedEntity | None:
         required = (
             RAW_KEY_PREFIX + "_pilot_generation/"
             + f"runtime_lock_id={RUNTIME_LOCK_ID}/"
@@ -2404,30 +3087,39 @@ class S3Page100ObjectStore(legacy.S3CliObjectStore):
         if not object_prefix.startswith(required):
             raise RemoteCustodyError("successor reconciliation prefix escaped")
         result = self._invoke(
-            self._base("list-objects-v2")
+            self._base("list-object-versions")
             + ["--prefix", object_prefix, "--max-keys", "2"]
         )
         assert result is not None
-        contents = result.get("Contents", [])
-        keys = [
-            row.get("Key") for row in contents if isinstance(row, Mapping)
-        ] if isinstance(contents, list) else []
+        versions = result.get("Versions", [])
+        markers = result.get("DeleteMarkers", [])
+        if not isinstance(versions, list) or not isinstance(markers, list):
+            raise RemoteCustodyError("successor reconciliation history invalid")
+        if not versions and not markers and result.get("IsTruncated") is not True:
+            return None
         if (
-            not isinstance(contents, list)
-            or len(keys) != len(contents)
-            or result.get("IsTruncated") is True
-            or len(keys) > 1
-            or any(
-                not isinstance(key, str)
-                or re.fullmatch(
-                    re.escape(object_prefix) + r"sha256=[0-9a-f]{64}\.entity",
-                    key,
-                ) is None
-                for key in keys
-            )
+            result.get("IsTruncated") is True
+            or markers
+            or len(versions) != 1
+            or versions[0].get("IsLatest") is not True
+            or not isinstance(versions[0].get("Key"), str)
+            or re.fullmatch(
+                re.escape(object_prefix) + r"sha256=[0-9a-f]{64}\.entity",
+                versions[0]["Key"],
+            ) is None
+            or not isinstance(versions[0].get("VersionId"), str)
+            or not versions[0].get("VersionId")
         ):
-            raise RemoteCustodyError("successor reconciliation listing invalid")
-        return self._read_current(keys[0]) if keys else None
+            raise RemoteCustodyError("successor reconciliation history is not create-once")
+        key = versions[0]["Key"]
+        version_id = versions[0]["VersionId"]
+        sealed = self._read_current(
+            key, version_id=version_id, expected_lineage=expected_lineage
+        )
+        if sealed is None:
+            raise RemoteCustodyError("successor reconciliation version missing")
+        self._assert_single_version(key, version_id)
+        return sealed
 
     def seal_and_readback(
         self, object_key: str, body: bytes, metadata: Mapping[str, str]
@@ -2436,7 +3128,11 @@ class S3Page100ObjectStore(legacy.S3CliObjectStore):
         required = {
             "sha256", "http-status", "acquired-at-utc", "request-id",
             "bas-dt", "page-no", "attempt", "runtime-lock-id",
-            "pilot-run-id", "quota-day-kst",
+            "pilot-run-id", "quota-day-kst", "provider-call-started-at-utc",
+            "socket-opened-at-utc", "response-received-at-utc",
+            "reservation-checkpoint-revision", "reservation-checkpoint-token-sha256",
+            "provider-call-checkpoint-revision", "provider-call-checkpoint-token-sha256",
+            "execution-claim-version-id", "execution-claim-content-sha256",
         }
         safe = {str(key): str(value) for key, value in metadata.items()}
         if set(safe) != required or safe.get("sha256") != digest:
@@ -2454,81 +3150,170 @@ class S3Page100ObjectStore(legacy.S3CliObjectStore):
             or safe["runtime-lock-id"] != RUNTIME_LOCK_ID
             or safe["pilot-run-id"] != PILOT_RUN_ID
             or safe["quota-day-kst"] != self.bindings.quota_day_kst
+            or _SHA256_RE.fullmatch(safe["reservation-checkpoint-token-sha256"]) is None
+            or _SHA256_RE.fullmatch(safe["provider-call-checkpoint-token-sha256"]) is None
+            or _SHA256_RE.fullmatch(safe["execution-claim-content-sha256"]) is None
+            or not safe["execution-claim-version-id"]
+            or not safe["provider-call-started-at-utc"]
+            or not safe["socket-opened-at-utc"]
+            or not safe["response-received-at-utc"]
+            or safe["acquired-at-utc"] != safe["socket-opened-at-utc"]
+            or not _valid_response_timing(
+                safe["provider-call-started-at-utc"],
+                safe["socket-opened-at-utc"],
+                safe["response-received-at-utc"],
+                self.bindings.quota_day_kst,
+                crossed=None,
+            )
+            or not safe["reservation-checkpoint-revision"].isdigit()
+            or not safe["provider-call-checkpoint-revision"].isdigit()
         ):
             raise RemoteCustodyError("successor raw metadata lineage shifted")
-        with tempfile.NamedTemporaryFile(
-            prefix="m3top3-page100-raw-", delete=False
-        ) as handle:
+
+        def exact_read(version_id: str | None = None) -> SealedEntity | None:
+            readback = self._get(object_key, version_id=version_id)
+            if readback is None:
+                return None
+            observed_body, observed_meta = readback
+            observed_user = observed_meta.get("Metadata", {})
+            if (
+                observed_body != body
+                or not isinstance(observed_user, Mapping)
+                or {str(key): str(value) for key, value in observed_user.items()} != safe
+                or str(observed_meta.get("ContentType", "")) != "application/octet-stream"
+            ):
+                raise sa.CheckpointConflictError("successor raw object belongs to different lineage")
+            sealed = self._sealed(
+                observed_body, object_key, observed_meta,
+                write_precondition="IF_NONE_MATCH_STAR",
+            )
+            self._assert_single_version(object_key, sealed.version_id)
+            return _with_response_timing(
+                sealed, safe["response-received-at-utc"]
+            )
+
+        existing = exact_read()
+        if existing is not None:
+            return existing
+        with tempfile.NamedTemporaryFile(prefix="m3top3-page100-raw-", delete=False) as handle:
             target = Path(handle.name)
             handle.write(body)
             handle.flush()
             os.fsync(handle.fileno())
         try:
-            result = self._invoke(
-                self._base("put-object") + [
-                    "--key", object_key,
-                    "--body", str(target),
-                    "--content-type", "application/octet-stream",
-                    "--server-side-encryption", "AES256",
-                    "--if-none-match", "*",
-                    "--metadata",
-                    ",".join(f"{key}={safe[key]}" for key in sorted(safe)),
-                ]
-            )
-            assert result is not None
-            version_id = str(result.get("VersionId", ""))
-            if not version_id:
-                raise RemoteCustodyError("successor raw write missing VersionId")
-            sealed = self._read_current(object_key, version_id)
-            if sealed is None or sealed.body != body:
-                raise RemoteCustodyError("successor raw readback mismatch")
-            return sealed
+            last_write_error: Exception | None = None
+            for write_attempt in range(1, 4):
+                try:
+                    existing = exact_read()
+                    if existing is not None:
+                        return existing
+                    result = self._invoke(
+                        self._base("put-object") + [
+                            "--key", object_key,
+                            "--body", str(target),
+                            "--content-type", "application/octet-stream",
+                            "--server-side-encryption", "AES256",
+                            "--if-none-match", "*",
+                            "--metadata",
+                            ",".join(f"{key}={safe[key]}" for key in sorted(safe)),
+                        ]
+                    )
+                    assert result is not None
+                    version_id = str(result.get("VersionId", ""))
+                    if not version_id:
+                        raise RemoteCustodyError("successor raw write missing VersionId")
+                    recovered = exact_read(version_id)
+                    if recovered is None or recovered.version_id != version_id:
+                        raise RemoteCustodyError("successor raw readback mismatch")
+                    return recovered
+                except Exception as write_error:
+                    try:
+                        recovered = exact_read()
+                    except Exception:
+                        recovered = None
+                    if recovered is not None:
+                        return recovered
+                    last_write_error = write_error
+                    if write_attempt < 3:
+                        time.sleep(float(write_attempt))
+            assert last_write_error is not None
+            raise last_write_error
         finally:
             target.unlink(missing_ok=True)
 
     def put_control_artifact(
         self, name: str, body: bytes, content_type: str
     ) -> Mapping[str, str]:
-        if name not in {"quota-ledger.jsonl", "raw-index.jsonl", "report.json"}:
+        if name not in {"quota-ledger.jsonl", "raw-index.jsonl", "report.json", "terminal-manifest.json"}:
             raise RemoteCustodyError("successor control artifact name invalid")
         key = self.checkpoint_key.rsplit("/", 1)[0] + "/" + name
-        with tempfile.NamedTemporaryFile(
-            prefix="m3top3-page100-control-", delete=False
-        ) as handle:
+        digest = _sha256(body)
+
+        def exact_ref(version_id: str | None = None) -> Mapping[str, str] | None:
+            readback = self._get(key, version_id=version_id)
+            if readback is None:
+                return None
+            observed_body, meta = readback
+            user = meta.get("Metadata", {})
+            observed_version = str(meta.get("VersionId", ""))
+            etag = str(meta.get("ETag", ""))
+            if (
+                observed_body != body
+                or not observed_version
+                or (version_id is not None and observed_version != version_id)
+                or not etag
+                or str(meta.get("ServerSideEncryption", "")) != "AES256"
+                or str(meta.get("ContentType", "")) != content_type
+                or not isinstance(user, Mapping)
+                or {str(k): str(v) for k, v in user.items()} != {"sha256": digest}
+            ):
+                raise sa.CheckpointConflictError("successor control artifact differs")
+            self._assert_single_version(key, observed_version)
+            return {
+                "object_key": key,
+                "version_id": observed_version,
+                "etag": etag,
+                "sha256": digest,
+                "server_side_encryption": "AES256",
+                "write_precondition": "IF_NONE_MATCH_STAR",
+            }
+
+        existing = exact_ref()
+        if existing is not None:
+            return existing
+        with tempfile.NamedTemporaryFile(prefix="m3top3-page100-control-", delete=False) as handle:
             target = Path(handle.name)
             handle.write(body)
             handle.flush()
             os.fsync(handle.fileno())
         try:
-            result = self._invoke(
-                self._base("put-object") + [
-                    "--key", key,
-                    "--body", str(target),
-                    "--content-type", content_type,
-                    "--server-side-encryption", "AES256",
-                    "--if-none-match", "*",
-                    "--metadata", f"sha256={_sha256(body)}",
-                ]
-            )
-            assert result is not None
-            version = str(result.get("VersionId", ""))
-            readback = self._get(key, version_id=version)
-            if (
-                not version
-                or readback is None
-                or readback[0] != body
-                or str(readback[1].get("VersionId", "")) != version
-                or str(readback[1].get("ServerSideEncryption", "")) != "AES256"
-            ):
-                raise RemoteCustodyError("successor control readback mismatch")
-            return {
-                "object_key": key,
-                "version_id": version,
-                "etag": str(readback[1].get("ETag", "")),
-                "sha256": _sha256(body),
-                "server_side_encryption": "AES256",
-                "write_precondition": "IF_NONE_MATCH_STAR",
-            }
+            try:
+                result = self._invoke(
+                    self._base("put-object") + [
+                        "--key", key,
+                        "--body", str(target),
+                        "--content-type", content_type,
+                        "--server-side-encryption", "AES256",
+                        "--if-none-match", "*",
+                        "--metadata", f"sha256={digest}",
+                    ]
+                )
+                assert result is not None
+                version = str(result.get("VersionId", ""))
+                if not version:
+                    raise RemoteCustodyError("successor control write missing VersionId")
+                recovered = exact_ref(version)
+                if recovered is None:
+                    raise RemoteCustodyError("successor control readback missing")
+                return recovered
+            except Exception as write_error:
+                try:
+                    recovered = exact_ref()
+                except Exception:
+                    raise write_error
+                if recovered is None:
+                    raise write_error
+                return recovered
         finally:
             target.unlink(missing_ok=True)
 
@@ -2629,6 +3414,14 @@ def _validate_cli_materials(
         or latch.get("failed_generation_terminal", {}).get("workflow_run_id")
            != FAILED_PRECHECK_WORKFLOW_RUN_ID
         or latch.get("failed_generation_terminal", {}).get("do_not_rerun") is not True
+        or latch.get("g4_precheck_terminal", {}).get("workflow_run_id")
+           != G4_PRECHECK_WORKFLOW_RUN_ID
+        or latch.get("g4_precheck_terminal", {}).get("head_sha")
+           != G4_PRECHECK_HEAD_SHA
+        or latch.get("g4_precheck_terminal", {}).get("do_not_rerun") is not True
+        or latch.get("g4_precheck_terminal", {}).get("do_not_reuse_latch") is not True
+        or latch.get("fresh_precheck_binding", {}).get("head_sha") == G4_PRECHECK_HEAD_SHA
+        or latch.get("live_act_id") != LIVE_ACT_ID
     ):
         raise BindingError("successor LIVE latch binding mismatch")
 
@@ -2670,6 +3463,7 @@ def _validate_cli_materials(
         ),
         "remediation_receipt_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_AWS_S3_RAW_WRITER_LISTBUCKETVERSIONS_REMEDIATION_RECEIPT_v1.0.json",
         "effective_writer_policy_path": "control/m3top3/public-data-source-admission/v1.0/aws-oidc/M3TOP3_AWS_S3_RAW_WRITER_POLICY_v1.0.json",
+        "max_session_receipt_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_AWS_IAM_ROLE_MAX_SESSION_DURATION_REMEDIATION_RECEIPT_v1.0.json",
     }
     hash_keys = {
         "authority_path": "authority_sha256",
@@ -2685,6 +3479,7 @@ def _validate_cli_materials(
         "workflow_path": "workflow_sha256",
         "remediation_receipt_path": "remediation_receipt_sha256",
         "effective_writer_policy_path": "effective_writer_policy_sha256",
+        "max_session_receipt_path": "max_session_receipt_sha256",
     }
     bound_paths: dict[str, Path] = {}
     for path_key, expected in exact_paths.items():
@@ -2695,6 +3490,30 @@ def _validate_cli_materials(
         raise BindingError("successor authority content hash mismatch")
     if bound.get("plan_sha256") != plan_sha:
         raise BindingError("successor plan content hash mismatch")
+
+    max_session = json.loads(bound_paths["max_session_receipt_path"].read_text(encoding="utf-8"))
+    checkpoint_seed = json.loads(bound_paths["checkpoint_seed_path"].read_text(encoding="utf-8"))
+    if (
+        bound.get("max_session_receipt_sha256") != MAX_SESSION_RECEIPT_SHA256
+        or max_session.get("state") != "PASS__MAX_SESSION_DURATION_3600_TO_21600__READBACK_PROVEN"
+        or max_session.get("change", {}).get("from_max_session_duration_seconds") != 3600
+        or max_session.get("change", {}).get("to_max_session_duration_seconds") != 21600
+        or max_session.get("change", {}).get("only_changed_field") != "Role.MaxSessionDuration"
+        or max_session.get("aws_cli_execution", {}).get("update_role_attempts") != 1
+        or max_session.get("aws_cli_execution", {}).get("update_role_retry") != "PROHIBITED"
+        or max_session.get("aws_cli_execution", {}).get("update_role_rc") != 0
+        or max_session.get("post_state", {}).get("max_session_duration_seconds") != 21600
+        or max_session.get("non_target_invariants", {}).get("collateral_check") != "PASS__ONLY_MAX_SESSION_DURATION_CHANGED"
+        or max_session.get("rollback", {}).get("dormant_rollback_executed") is not False
+        or max_session.get("validation_claim") != "NONE"
+        or checkpoint_seed.get("planned_quota_day_kst") != SuccessorBindings().quota_day_kst
+        or checkpoint_seed.get("runtime_lock_id") != RUNTIME_LOCK_ID
+        or checkpoint_seed.get("pilot_run_id") != PILOT_RUN_ID
+        or checkpoint_seed.get("provider_api_network_attempts") != 0
+        or checkpoint_seed.get("quota_reservations") != 0
+        or checkpoint_seed.get("remote_raw_custody_writes") != 0
+    ):
+        raise BindingError("successor MaxSession or checkpoint-seed semantic mismatch")
 
     material = latch.get("execution_material")
     material_hash = _require_hash(
@@ -2711,6 +3530,7 @@ def _validate_cli_materials(
         "owner_cap_spec_sha256": OWNER_CAP_SPEC_SHA256,
         "generation_id": GENERATION_ID,
         "precheck_act_id": PRECHECK_ACT_ID,
+        "live_act_id": LIVE_ACT_ID,
         "latch_event_id": LATCH_EVENT_ID,
         "authority_sha256": authority_sha,
         "plan_sha256": plan_sha,
@@ -2720,6 +3540,7 @@ def _validate_cli_materials(
         "workflow_sha256": bound.get("workflow_sha256"),
         "remediation_receipt_sha256": bound.get("remediation_receipt_sha256"),
         "effective_writer_policy_sha256": bound.get("effective_writer_policy_sha256"),
+        "max_session_receipt_sha256": bound.get("max_session_receipt_sha256"),
         "effective_writer_policy_canonical_sha256": "d2d1936ff420d2e97ededf64f376f544dacf838f125e4e8d6f3f4562efef774c",
         "baseline_quota_ledger_sha256": bound.get(
             "baseline_quota_ledger_sha256"
@@ -2736,10 +3557,24 @@ def _validate_cli_materials(
     if any(material.get(key) != value for key, value in required_material.items()):
         raise BindingError("successor execution material binding mismatch")
 
-    current = authority.get("current_runtime_authority")
-    live = authority.get("finance_page100_pilot_authority")
-    plan_gate = plan.get("execution_gate")
+    authority_profiles = authority.get("mode_profiles")
+    plan_profiles = plan.get("mode_profiles")
+    if (
+        authority.get("active_profile_selector") != "LATCH_MODE"
+        or plan.get("active_profile_selector") != "LATCH_MODE"
+        or not isinstance(authority_profiles, Mapping)
+        or not isinstance(plan_profiles, Mapping)
+        or set(authority_profiles) != {"PRECHECK_ARMED", "LIVE_ARMED"}
+        or set(plan_profiles) != {"PRECHECK_ARMED", "LIVE_ARMED"}
+    ):
+        raise BindingError("successor immutable mode profiles missing")
+    auth_profile = authority_profiles.get("LIVE_ARMED")
+    plan_profile = plan_profiles.get("LIVE_ARMED")
+    current = auth_profile.get("current_runtime_authority") if isinstance(auth_profile, Mapping) else None
+    live = auth_profile.get("finance_page100_pilot_authority") if isinstance(auth_profile, Mapping) else None
+    plan_gate = plan_profile.get("execution_gate") if isinstance(plan_profile, Mapping) else None
     custody_plan = plan.get("durable_custody_plan")
+    activation = latch.get("activation_modes", {}).get("LIVE_ARMED", {})
     raw_uri = (
         "s3://semi-data-plane-aofspds-20260815/" + RAW_KEY_PREFIX
         + "_pilot_generation/"
@@ -2767,23 +3602,30 @@ def _validate_cli_materials(
         or live.get("live_entry_gate", {}).get("state") != "OPEN"
         or live.get("remote_raw_custody_prefix") != raw_uri
         or live.get("execution_claim_uri") != claim_uri
-        or plan.get("state") != "LIVE_ARMED_EXECUTABLE"
+        or not isinstance(plan_profile, Mapping)
+        or plan_profile.get("state") != "LIVE_ARMED_EXECUTABLE"
+        or plan_profile.get("durable_custody_state") != "READY_FOR_LIVE_ARMED"
         or not isinstance(plan_gate, Mapping)
         or plan_gate.get("state") != "OPEN"
-        or any(
-            plan_gate.get(key) is not True
-            for key in (
-                "execution_armed", "plan_executable",
-                "provider_api_calls_permitted_now",
-                "remote_s3_writes_permitted_now",
-            )
-        )
+        or any(plan_gate.get(key) is not True for key in (
+            "execution_armed", "plan_executable",
+            "provider_api_calls_permitted_now", "quota_reservations_permitted_now",
+            "remote_s3_writes_permitted_now",
+        ))
+        or any(activation.get(key) is not True for key in (
+            "provider_api_calls_authorized", "quota_reservations_authorized",
+            "remote_raw_custody_writes_authorized",
+        ))
+        or activation.get("act_id") != LIVE_ACT_ID
+        or latch.get("provider_api_calls_authorized") is not True
+        or latch.get("quota_reservations_authorized") is not True
+        or latch.get("remote_raw_custody_writes_authorized") is not True
         or not isinstance(custody_plan, Mapping)
-        or custody_plan.get("state") != "READY_FOR_LIVE_ARMED"
+        or custody_plan.get("state") != "DERIVED_FROM_LATCH_MODE"
         or custody_plan.get("exact_remote_raw_prefix") != raw_uri
         or custody_plan.get("execution_claim_uri") != claim_uri
     ):
-        raise BindingError("successor LIVE authority gate is not open")
+        raise BindingError("successor LIVE authority profile is not open")
 
     finance = latch.get("finance_spec")
     if not isinstance(finance, Mapping):
@@ -2902,15 +3744,43 @@ def _main(argv: Sequence[str] | None = None) -> int:
         raw_index_path=args.raw_index,
     )
     deadline_text = os.environ.get("FINANCE_SELF_DEADLINE_SECONDS", "")
-    if deadline_text != "19800":
+    if deadline_text != "18000":
         raise BindingError("successor self-deadline binding mismatch")
+    not_after_text = os.environ.get("FINANCE_LIVE_NOT_AFTER_UTC", "")
+    if not_after_text != "2026-08-30T14:30:00Z":
+        raise BindingError("successor absolute not-after binding mismatch")
+    not_after = datetime.fromisoformat(not_after_text.replace("Z", "+00:00"))
+    remaining = (not_after - datetime.now(timezone.utc)).total_seconds()
+    if remaining <= 0:
+        raise SelfDeadlineExceededError("successor absolute not-after reached")
     secret = sa.validate_decoded_secret(
         legacy.FINANCE_SECRET_ENV,
         os.environ.get(legacy.FINANCE_SECRET_ENV),
     )
-    store = S3Page100ObjectStore(bindings)
-    transport = legacy.UrlLibFinanceTransport(secret)
-    deadline = time.monotonic() + int(deadline_text)
+    acquisition_seconds = min(int(deadline_text), int(remaining) - 1200)
+    if acquisition_seconds <= 0:
+        raise SelfDeadlineExceededError("successor shutdown reserve unavailable")
+    deadline = time.monotonic() + acquisition_seconds
+    shutdown_deadline = deadline + 1200.0
+    def bounded_s3_command_runner(
+        command: Sequence[str],
+    ) -> subprocess.CompletedProcess[str]:
+        remaining_shutdown = shutdown_deadline - time.monotonic()
+        if remaining_shutdown <= 0.25:
+            raise RemoteCustodyError("successor shutdown S3 budget exhausted")
+        return subprocess.run(
+            list(command), check=False, capture_output=True, text=True,
+            timeout=min(20.0, remaining_shutdown),
+        )
+    store = S3Page100ObjectStore(
+        bindings, command_runner=bounded_s3_command_runner
+    )
+    transport = BoundedUrlLibFinanceTransport(
+        secret,
+        quota_day_kst=bindings.quota_day_kst,
+        not_after_utc=not_after,
+        deadline_monotonic=deadline,
+    )
     writer_id = (
         f"github-run:{bindings.github_run_id}:attempt:{bindings.github_run_attempt}"
     )
@@ -2928,6 +3798,7 @@ def _main(argv: Sequence[str] | None = None) -> int:
             checkpoint_store=store,
             writer_id=writer_id,
             secrets=(secret,),
+            not_after_utc=not_after,
             deadline_monotonic=deadline,
         )
     except Exception as exc:
@@ -2957,29 +3828,85 @@ def _main(argv: Sequence[str] | None = None) -> int:
     _atomic_write(args.quota_ledger, quota_bytes)
     _atomic_write(args.raw_index, raw_bytes)
     _atomic_write(args.report, report_bytes)
-
-    quota_ref = store.put_control_artifact(
-        "quota-ledger.jsonl", quota_bytes, "application/x-ndjson"
-    )
-    raw_ref = store.put_control_artifact(
-        "raw-index.jsonl", raw_bytes, "application/x-ndjson"
-    )
-    report["durable_control_artifacts"] = {
-        "quota_ledger": dict(quota_ref),
-        "raw_index": dict(raw_ref),
-    }
-    report_bytes = sa.canonical_json_bytes(report)
-    sa.assert_no_secret(report_bytes, (secret,))
-    _atomic_write(args.report, report_bytes)
-    report_ref = store.put_control_artifact(
-        "report.json", report_bytes, "application/json"
-    )
-    report["durable_control_artifacts"]["report"] = dict(report_ref)
-    # The S3 report cannot contain its own content digest without a cycle.  The
-    # local sanitized mirror records the exact immutable S3 reference.
-    _atomic_write(args.report, sa.canonical_json_bytes(report))
     if execution_error is not None:
         raise execution_error
+    _assert_checkpoint(checkpoint, bindings)
+    if checkpoint.get("state") != "COMPLETE":
+        raise RemoteCustodyError("successor terminal checkpoint is not COMPLETE")
+
+    # Same-process, exact-body terminal recovery only.  This is not a workflow
+    # rerun and cannot issue provider calls, reserve quota, or write raw data.
+    # The shared shutdown deadline was fixed before acquisition.  Raw custody,
+    # checkpointing, and terminal publication cannot receive a fresh budget.
+    base_report = json.loads(json.dumps(report))
+    finalization_deadline = shutdown_deadline
+    last_finalization_error: Exception | None = None
+    for finalization_attempt in range(1, 4):
+        try:
+            if time.monotonic() >= finalization_deadline:
+                raise RemoteCustodyError(
+                    "successor terminal finalization budget exhausted"
+                )
+            checkpoint_ref = store.checkpoint_reference(
+                checkpoint, checkpoint_token
+            )
+            quota_ref = store.put_control_artifact(
+                "quota-ledger.jsonl", quota_bytes, "application/x-ndjson"
+            )
+            raw_ref = store.put_control_artifact(
+                "raw-index.jsonl", raw_bytes, "application/x-ndjson"
+            )
+            durable_report = json.loads(json.dumps(base_report))
+            durable_report["durable_control_artifacts"] = {
+                "checkpoint": dict(checkpoint_ref),
+                "quota_ledger": dict(quota_ref),
+                "raw_index": dict(raw_ref),
+            }
+            durable_report_bytes = sa.canonical_json_bytes(durable_report)
+            sa.assert_no_secret(durable_report_bytes, (secret,))
+            report_ref = store.put_control_artifact(
+                "report.json", durable_report_bytes, "application/json"
+            )
+            terminal_manifest = {
+                "artifact": "M3TOP3_FINANCE_CA_PAGE100_TERMINAL_MANIFEST_v1.0",
+                "state": "COMPLETE_TERMINAL_READBACK_PROVEN",
+                "runtime_lock_id": RUNTIME_LOCK_ID,
+                "pilot_run_id": PILOT_RUN_ID,
+                "checkpoint_token_sha256": _sha256(
+                    str(checkpoint_token).encode("utf-8")
+                ),
+                "checkpoint": dict(checkpoint_ref),
+                "quota_ledger": dict(quota_ref),
+                "raw_index": dict(raw_ref),
+                "report": dict(report_ref),
+                "automatic_promotion_performed": False,
+                "validation_claim": "NONE",
+            }
+            manifest_ref = store.put_control_artifact(
+                "terminal-manifest.json",
+                sa.canonical_json_bytes(terminal_manifest),
+                "application/json",
+            )
+            report = durable_report
+            report["durable_control_artifacts"]["report"] = dict(report_ref)
+            report["durable_control_artifacts"]["terminal_manifest"] = dict(
+                manifest_ref
+            )
+            _atomic_write(args.report, sa.canonical_json_bytes(report))
+            last_finalization_error = None
+            break
+        except Exception as exc:
+            last_finalization_error = exc
+            if finalization_attempt < 3:
+                retry_delay = float(finalization_attempt)
+                if time.monotonic() + retry_delay >= finalization_deadline:
+                    last_finalization_error = RemoteCustodyError(
+                        "successor terminal finalization budget exhausted"
+                    )
+                    break
+                time.sleep(retry_delay)
+    if last_finalization_error is not None:
+        raise last_finalization_error
     return exit_code
 
 

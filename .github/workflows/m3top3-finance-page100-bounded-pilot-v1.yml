@@ -27,8 +27,8 @@ jobs:
       github.triggering_actor == 'AofSpds' &&
       github.run_attempt == 1 &&
       github.ref == 'refs/heads/aaa-pmo-public-data-g2-g3-source-admission-v1-20260828' &&
-      (github.event.head_commit.message == 'Arm M3Top3 Finance page100 G4 precheck 20260829094400 v1.0' ||
-       github.event.head_commit.message == 'Arm M3Top3 Finance page100 G4 bounded live pilot 20260829094400 v1.0')
+      (github.event.head_commit.message == 'Arm M3Top3 Finance page100 G5 precheck 20260829204006 v1.0' ||
+       github.event.head_commit.message == 'Arm M3Top3 Finance page100 G5 bounded live pilot 20260829204006 v1.0')
     runs-on: ubuntu-latest
     timeout-minutes: 360
     environment: m3top3-source-admission
@@ -38,7 +38,8 @@ jobs:
       AWS_MAX_ATTEMPTS: "1"
       AWS_RETRY_MODE: standard
       AWS_PAGER: ""
-      FINANCE_SELF_DEADLINE_SECONDS: "19800"
+      FINANCE_SELF_DEADLINE_SECONDS: "18000"
+      FINANCE_LIVE_NOT_AFTER_UTC: "2026-08-30T14:30:00Z"
       FINANCE_LATCH_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_PILOT_LATCH_v1.0.json
       FINANCE_AUTHORITY_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_PILOT_AUTHORITY_v1.0.json
       FINANCE_PLAN_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_PILOT_PLAN_v1.0.json
@@ -53,8 +54,17 @@ jobs:
       FINANCE_WORKFLOW_PATH: .github/workflows/m3top3-finance-page100-bounded-pilot-v1.yml
       FINANCE_REMEDIATION_RECEIPT_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_AWS_S3_RAW_WRITER_LISTBUCKETVERSIONS_REMEDIATION_RECEIPT_v1.0.json
       FINANCE_EFFECTIVE_WRITER_POLICY_PATH: control/m3top3/public-data-source-admission/v1.0/aws-oidc/M3TOP3_AWS_S3_RAW_WRITER_POLICY_v1.0.json
+      FINANCE_MAX_SESSION_RECEIPT_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_AWS_IAM_ROLE_MAX_SESSION_DURATION_REMEDIATION_RECEIPT_v1.0.json
 
     steps:
+      - name: Capture bounded job timing anchor
+        shell: bash
+        run: |
+          set -euo pipefail
+          anchor_epoch="$(date -u +%s)"
+          case "$anchor_epoch" in (*[!0-9]*|"") exit 1;; esac
+          echo "FINANCE_JOB_ANCHOR_EPOCH=$anchor_epoch" >> "$GITHUB_ENV"
+
       - name: Checkout exact pushed revision
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
@@ -90,15 +100,16 @@ jobs:
           EXPECTED_ACTOR = "AofSpds"
           EXPECTED_REF = "refs/heads/aaa-pmo-public-data-g2-g3-source-admission-v1-20260828"
           EXPECTED_BRANCH = "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828"
-          EXPECTED_RUNTIME = "PMO-FINANCE-PAGE100-G4-20260829094400"
-          EXPECTED_RUN_ID = "FINANCE-PAGE100-PILOT-G4-20260829094400"
-          EXPECTED_TOKEN_HASH = "a1d20922b03c9e5fe887d6834e19c546284ba812c30edd6558afd8d710f828fd"
-          EXPECTED_OWNER_SPEC = "259eb2655df203cfada15902eac08670c173289c935fd7e3e53fc945c3a55c89"
-          EXPECTED_GENERATION_ID = "FINANCE-PAGE100-G4-20260829094400"
-          EXPECTED_PRECHECK_ACT_ID = "FINANCE-PAGE100-PRECHECK-ACT-G4-20260829094400"
-          EXPECTED_LATCH_EVENT_ID = "FINANCE-PAGE100-PRECHECK-LATCH-G4-20260829094400"
-          EXPECTED_RESUME_BASE_HEAD = "8b0183a0754ee1a1d8cda2a64c4153735e653565"
-          EXPECTED_RESUME_BASE_TREE = "c63bcdb2339529c2eef2ba2950880bc698dd8fb0"
+          EXPECTED_RUNTIME = "PMO-FINANCE-PAGE100-G5-20260829204006"
+          EXPECTED_RUN_ID = "FINANCE-PAGE100-PILOT-G5-20260829204006"
+          EXPECTED_TOKEN_HASH = "3f5daecc1277bf12a50a6f8dcb9e92e99ca3ec5e913038b805dc4836adc59c26"
+          EXPECTED_OWNER_SPEC = "e30516b34e5d381856f405a0490c54c688c83ae84294d124f9931ce9d54fd2db"
+          EXPECTED_GENERATION_ID = "FINANCE-PAGE100-G5-20260829204006"
+          EXPECTED_PRECHECK_ACT_ID = "FINANCE-PAGE100-PRECHECK-ACT-G5-20260829204006"
+          EXPECTED_LIVE_ACT_ID = "FINANCE-PAGE100-LIVE-ACT-G5-20260829204006"
+          EXPECTED_LATCH_EVENT_ID = "FINANCE-PAGE100-LATCH-G5-20260829204006"
+          EXPECTED_RESUME_BASE_HEAD = "9dea1e8af383becaf3319bb7e5e71ddb1579ff2f"
+          EXPECTED_RESUME_BASE_TREE = "eecb7cc37d9f758d660e1b21e3789373b68c5df5"
           EXPECTED_FAILED_RUN_ID = 33205926951
           EXPECTED_FAILED_JOB_ID = 98966822862
           EXPECTED_FAILED_HEAD = "c2fda7ae46474c0dd70bd6add5ea8184cacd4b87"
@@ -106,14 +117,20 @@ jobs:
           EXPECTED_REMEDIATION_RECEIPT_SHA = "a78d9c238e46b055c14c21e15cc7f50762de832e0e42382356d108053efd7ff7"
           EXPECTED_EFFECTIVE_POLICY_SHA = "cc9297ceb8f2247b3dcf003055c814c139a92a88859bb44585807705e41270ed"
           EXPECTED_EFFECTIVE_POLICY_CANONICAL_SHA = "d2d1936ff420d2e97ededf64f376f544dacf838f125e4e8d6f3f4562efef774c"
-          EXPECTED_PREPARATION_MESSAGE = "Prepare M3Top3 Finance page100 G4 fresh precheck 20260829094400 v1.0"
+          EXPECTED_MAX_SESSION_RECEIPT_SHA = "40a4385a25cb773bd0547669bd1fc7b0560e328f062545f8b4bcea2c7916c342"
+          EXPECTED_G4_PRECHECK_RUN_ID = 33225643741
+          EXPECTED_G4_PRECHECK_JOB_ID = 99028755766
+          EXPECTED_G4_PRECHECK_HEAD = "784e9eea008b5eea57132e2e341a3c63982951cc"
+          EXPECTED_G4_PRECHECK_ARTIFACT_ID = 9706754794
+          EXPECTED_G4_PRECHECK_ARTIFACT_DIGEST = "sha256:b32f5fb3b94adeb7b6202af07700b6fdb9b80c828f31e55ddfe78a2de7296b24"
+          EXPECTED_PREPARATION_MESSAGE = "Prepare M3Top3 Finance page100 G5 immutable dual-profile 20260829204006 v1.0"
           EXPECTED_PREDECESSOR_HEAD = "31d1bc2a23b97c34adb851ab73394145994ddb6e"
           EXPECTED_PREDECESSOR_TREE = "172f65ce29b565792cc64519a3c5d431028ec537"
           EXPECTED_PREDECESSOR_RUN_ID = 33195472310
           EXPECTED_PREDECESSOR_JOB_ID = 98931365000
           EXPECTED_PREDECESSOR_RUNTIME = "PMO-API-SRC-ADMIT-20260828192737"
           EXPECTED_PREDECESSOR_PILOT = "FINANCE-LIVE-PILOT-20260828192737"
-          EXPECTED_QUOTA_DAY_KST = "2026-08-29"
+          EXPECTED_QUOTA_DAY_KST = "2026-08-30"
           EXPECTED_PREDECESSOR_QUOTA_ORDINAL_BASE = 9
           EXPECTED_DATE_HASH = "920b118d7d7abaa10f69e93169698ed380db7162ac3c5024756a07702a7065f6"
           EXPECTED_DATES = (
@@ -147,6 +164,7 @@ jobs:
           WORKFLOW_PATH = Path(os.environ["FINANCE_WORKFLOW_PATH"])
           REMEDIATION_RECEIPT_PATH = Path(os.environ["FINANCE_REMEDIATION_RECEIPT_PATH"])
           EFFECTIVE_WRITER_POLICY_PATH = Path(os.environ["FINANCE_EFFECTIVE_WRITER_POLICY_PATH"])
+          MAX_SESSION_RECEIPT_PATH = Path(os.environ["FINANCE_MAX_SESSION_RECEIPT_PATH"])
           ZERO_HASH = "0" * 64
           HEX64 = re.compile(r"^[0-9a-f]{64}$")
 
@@ -235,6 +253,11 @@ jobs:
               check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
           ).stdout.strip()
           require(parent == before, "ARM_COMMIT_PARENT_MUST_EQUAL_EVENT_BEFORE")
+          after_parents = subprocess.run(
+              ["git", "rev-list", "--parents", "-n", "1", after],
+              check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+          ).stdout.split()
+          require(after_parents == [after, before], "ARM_COMMIT_MUST_HAVE_EXACTLY_ONE_PARENT")
           changed = subprocess.run(
               ["git", "diff", "--name-only", "--no-renames", before, after],
               check=True,
@@ -255,7 +278,7 @@ jobs:
               PREDECESSOR_CHECKPOINT_PATH, PREDECESSOR_REPORT_PATH,
               PREDECESSOR_RUN_RECEIPT_PATH, RUNNER_PATH,
               SOURCE_ADMISSION_PATH, WORKFLOW_PATH,
-              REMEDIATION_RECEIPT_PATH, EFFECTIVE_WRITER_POLICY_PATH,
+              REMEDIATION_RECEIPT_PATH, EFFECTIVE_WRITER_POLICY_PATH, MAX_SESSION_RECEIPT_PATH,
           ):
               require(path.is_file(), "REQUIRED_FILE_MISSING:" + str(path))
 
@@ -264,10 +287,12 @@ jobs:
           require(mode in {"PRECHECK_ARMED", "LIVE_ARMED"}, "LATCH_NOT_ARMED")
           require(latch.get("state") == "ARMED", "LATCH_STATE_NOT_ARMED")
           activation = latch.get("activation_modes", {}).get(mode, {})
+          expected_act_id = EXPECTED_PRECHECK_ACT_ID if mode == "PRECHECK_ARMED" else EXPECTED_LIVE_ACT_ID
+          require(activation.get("act_id") == expected_act_id, "ACTIVATION_ACT_ID_MISMATCH")
           expected_message = activation.get("exact_commit_message")
           require(expected_message in {
-              "Arm M3Top3 Finance page100 G4 precheck 20260829094400 v1.0",
-              "Arm M3Top3 Finance page100 G4 bounded live pilot 20260829094400 v1.0",
+              "Arm M3Top3 Finance page100 G5 precheck 20260829204006 v1.0",
+              "Arm M3Top3 Finance page100 G5 bounded live pilot 20260829204006 v1.0",
           }, "UNKNOWN_ACTIVATION_MESSAGE")
           require(os.environ.get("EVENT_HEAD_MESSAGE") == expected_message, "ACTIVATION_MESSAGE_MISMATCH")
           require(latch.get("activation_commit_message") == expected_message, "LATCH_MESSAGE_MISMATCH")
@@ -280,6 +305,7 @@ jobs:
           require(latch.get("owner_cap_spec_sha256") == EXPECTED_OWNER_SPEC, "OWNER_SPEC_HASH_MISMATCH")
           require(latch.get("generation_id") == EXPECTED_GENERATION_ID, "GENERATION_ID_MISMATCH")
           require(latch.get("precheck_act_id") == EXPECTED_PRECHECK_ACT_ID, "PRECHECK_ACT_ID_MISMATCH")
+          require(latch.get("live_act_id") == EXPECTED_LIVE_ACT_ID, "LIVE_ACT_ID_MISMATCH")
           require(latch.get("latch_event_id") == EXPECTED_LATCH_EVENT_ID, "LATCH_EVENT_ID_MISMATCH")
           failed_terminal = latch.get("failed_generation_terminal", {})
           require(failed_terminal.get("workflow_run_id") == EXPECTED_FAILED_RUN_ID, "FAILED_RUN_BINDING_MISMATCH")
@@ -289,25 +315,53 @@ jobs:
           require(failed_terminal.get("do_not_rerun") is True, "FAILED_RUN_DO_NOT_RERUN_MISSING")
           require(failed_terminal.get("do_not_reuse_latch") is True, "FAILED_LATCH_DO_NOT_REUSE_MISSING")
           preparation = latch.get("preparation_commit", {})
-          preparation_tree = subprocess.run(
-              ["git", "rev-parse", before + "^{tree}"], check=True,
+          prep_head = str(preparation.get("head_sha", ""))
+          require(bool(re.fullmatch(r"[0-9a-f]{40}", prep_head)), "PREPARATION_HEAD_INVALID")
+          prep_tree = subprocess.run(
+              ["git", "rev-parse", prep_head + "^{tree}"], check=True,
               stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
           ).stdout.strip()
-          preparation_parent = subprocess.run(
-              ["git", "rev-parse", before + "^"], check=True,
+          prep_parent = subprocess.run(
+              ["git", "rev-parse", prep_head + "^"], check=True,
               stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
           ).stdout.strip()
-          require(preparation.get("head_sha") == before, "PREPARATION_HEAD_BINDING_MISMATCH")
-          require(preparation.get("tree_sha") == preparation_tree, "PREPARATION_TREE_BINDING_MISMATCH")
-          require(preparation.get("parent_sha") == preparation_parent, "PREPARATION_PARENT_BINDING_MISMATCH")
-          preparation_message = subprocess.run(
-              ["git", "log", "-1", "--format=%s", before], check=True,
+          prep_parents = subprocess.run(
+              ["git", "rev-list", "--parents", "-n", "1", prep_head], check=True,
               stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
-          ).stdout.rstrip("\n")
+          ).stdout.split()
+          require(prep_parents == [prep_head, prep_parent], "PREPARATION_COMMIT_MUST_HAVE_EXACTLY_ONE_PARENT")
+          prep_parent_tree = subprocess.run(
+              ["git", "rev-parse", prep_parent + "^{tree}"], check=True,
+              stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+          ).stdout.strip()
+          prep_commit_object = subprocess.run(
+              ["git", "cat-file", "commit", prep_head], check=True,
+              stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+          ).stdout
+          prep_headers, prep_separator, prep_message = prep_commit_object.partition(b"\n\n")
+          require(bool(prep_headers) and prep_separator == b"\n\n", "PREPARATION_COMMIT_OBJECT_INVALID")
+          require(preparation.get("tree_sha") == prep_tree, "PREPARATION_TREE_BINDING_MISMATCH")
+          require(preparation.get("parent_sha") == prep_parent, "PREPARATION_PARENT_BINDING_MISMATCH")
+          require(preparation.get("parent_tree_sha") == prep_parent_tree, "PREPARATION_PARENT_TREE_BINDING_MISMATCH")
           require(preparation.get("exact_commit_message") == EXPECTED_PREPARATION_MESSAGE, "PREPARATION_MESSAGE_BINDING_MISMATCH")
-          require(preparation_message == EXPECTED_PREPARATION_MESSAGE, "PREPARATION_COMMIT_MESSAGE_MISMATCH")
-          require(preparation.get("parent_tree_sha") == EXPECTED_RESUME_BASE_TREE, "PREPARATION_PARENT_TREE_BINDING_MISMATCH")
+          require(
+              prep_message == (EXPECTED_PREPARATION_MESSAGE + "\n").encode("utf-8"),
+              "PREPARATION_COMMIT_MESSAGE_MISMATCH",
+          )
+          require(prep_parent == EXPECTED_RESUME_BASE_HEAD, "PREPARATION_PARENT_HEAD_MISMATCH")
+          require(prep_parent_tree == EXPECTED_RESUME_BASE_TREE, "PREPARATION_PARENT_TREE_MISMATCH")
           require(preparation.get("latch_path_changed_in_preparation") is False, "PREPARATION_LATCH_TOUCH_PROHIBITED")
+          prep_status = subprocess.run(
+              ["git", "diff", "--name-status", "--no-renames", prep_parent, prep_head],
+              check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+          ).stdout.splitlines()
+          require(prep_status == [
+              "M\t" + str(WORKFLOW_PATH),
+              "M\t" + str(CHECKPOINT_PATH),
+              "M\t" + str(AUTHORITY_PATH),
+              "M\t" + str(PLAN_PATH),
+              "M\t" + str(RUNNER_PATH),
+          ], "PREPARATION_TOUCH_SET_MISMATCH")
           bindings = latch.get("authority_bindings", {})
           require(bindings.get("bindings_finalized") is True, "HASH_BINDINGS_NOT_FINALIZED")
           predecessor = latch.get("predecessor_terminal", {})
@@ -317,52 +371,73 @@ jobs:
           require(predecessor.get("workflow_job_id") == EXPECTED_PREDECESSOR_JOB_ID, "PREDECESSOR_JOB_BINDING_MISMATCH")
           require(predecessor.get("do_not_rerun") is True, "PREDECESSOR_DO_NOT_RERUN_BINDING_MISSING")
           if mode == "PRECHECK_ARMED":
-              require(preparation_parent == EXPECTED_RESUME_BASE_HEAD, "PRECHECK_PREPARATION_PARENT_MISMATCH")
-              require(subprocess.run(["git", "rev-parse", before + "^" + "^{tree}"], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True).stdout.strip() == EXPECTED_RESUME_BASE_TREE, "PRECHECK_RESUME_BASE_TREE_MISMATCH")
+              require(before == prep_head, "PRECHECK_EVENT_BEFORE_MUST_EQUAL_PREPARATION_HEAD")
               require(activation.get("provider_api_calls_authorized") is False, "PRECHECK_PROVIDER_CALL_MUST_BE_FALSE")
+              require(activation.get("quota_reservations_authorized") is False, "PRECHECK_QUOTA_MUST_BE_FALSE")
               require(activation.get("remote_raw_custody_writes_authorized") is False, "PRECHECK_REMOTE_WRITE_MUST_BE_FALSE")
           else:
               require(activation.get("provider_api_calls_authorized") is True, "LIVE_PROVIDER_CALL_AUTHORITY_MISMATCH")
+              require(activation.get("quota_reservations_authorized") is True, "LIVE_QUOTA_AUTHORITY_MISMATCH")
               require(activation.get("remote_raw_custody_writes_authorized") is True, "LIVE_REMOTE_WRITE_AUTHORITY_MISMATCH")
-              kst_day = datetime.now(timezone.utc).astimezone(timezone(timedelta(hours=9))).date().isoformat()
+              now_utc = datetime.now(timezone.utc)
+              kst_now = now_utc.astimezone(timezone(timedelta(hours=9)))
+              kst_day = kst_now.date().isoformat()
               require(kst_day == EXPECTED_QUOTA_DAY_KST, "LIVE_QUOTA_DAY_KST_MISMATCH")
+              next_midnight = (kst_now + timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
+              seconds_to_midnight = int((next_midnight - kst_now).total_seconds())
+              require(seconds_to_midnight >= 21600, "LIVE_INSUFFICIENT_KST_DAY_REMAINING")
+              require(os.environ.get("FINANCE_LIVE_NOT_AFTER_UTC") == "2026-08-30T14:30:00Z", "LIVE_NOT_AFTER_BINDING_MISMATCH")
               fresh = latch.get("fresh_precheck_binding", {})
               require(fresh.get("state") == "PASS_FRESH_PRECHECK_ZERO_SIDE_EFFECT", "LIVE_FRESH_PRECHECK_PASS_BINDING_MISSING")
+              require(fresh.get("generation_id") == EXPECTED_GENERATION_ID, "LIVE_PRECHECK_GENERATION_MISMATCH")
               require(fresh.get("runtime_lock_id") == EXPECTED_RUNTIME, "LIVE_PRECHECK_RUNTIME_MISMATCH")
               require(fresh.get("pilot_run_id") == EXPECTED_RUN_ID, "LIVE_PRECHECK_PILOT_MISMATCH")
               require(type(fresh.get("workflow_run_id")) is int and fresh.get("workflow_run_id") > 0, "LIVE_PRECHECK_RUN_ID_INVALID")
+              require(fresh.get("workflow_run_id") != EXPECTED_G4_PRECHECK_RUN_ID, "G4_PRECHECK_REUSE_AS_G5_FRESHNESS_PROHIBITED")
               require(type(fresh.get("artifact_id")) is int and fresh.get("artifact_id") > 0, "LIVE_PRECHECK_ARTIFACT_ID_INVALID")
               require(fresh.get("workflow_run_attempt") == 1, "LIVE_PRECHECK_RUN_ATTEMPT_MISMATCH")
               require(bool(re.fullmatch(r"[0-9a-f]{40}", str(fresh.get("head_sha", "")))), "LIVE_PRECHECK_HEAD_SHA_INVALID")
-              require(fresh.get("head_sha") != after, "LIVE_PRECHECK_MUST_BE_SEPARATE_RUN")
-              require(preparation_parent == fresh.get("head_sha"), "LIVE_PREPARATION_PARENT_MUST_BE_PRECHECK_HEAD")
-              for hash_key in ("artifact_digest_sha256", "preflight_sha256", "aws_precheck_sha256", "github_readback_sha256"):
+              require(fresh.get("head_sha") == before, "LIVE_EVENT_BEFORE_MUST_EQUAL_FRESH_PRECHECK_HEAD")
+              fresh_parent = subprocess.run(
+                  ["git", "rev-parse", before + "^"], check=True,
+                  stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+              ).stdout.strip()
+              require(fresh_parent == prep_head, "LIVE_FRESH_PRECHECK_PARENT_MUST_EQUAL_PREPARATION_HEAD")
+              fresh_parents = subprocess.run(
+                  ["git", "rev-list", "--parents", "-n", "1", before], check=True,
+                  stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+              ).stdout.split()
+              require(fresh_parents == [before, prep_head], "LIVE_FRESH_PRECHECK_MUST_HAVE_EXACTLY_ONE_PARENT")
+              precheck_status = subprocess.run(
+                  ["git", "diff", "--name-status", "--no-renames", prep_head, before],
+                  check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+              ).stdout.splitlines()
+              require(precheck_status == ["M\t" + str(LATCH_PATH)], "LIVE_FRESH_PRECHECK_COMMIT_NOT_LATCH_ONLY")
+              for hash_key in ("artifact_digest_sha256", "preflight_sha256", "aws_precheck_sha256", "github_readback_sha256", "predecessor_readback_sha256", "sanitization_receipt_sha256"):
                   require(bool(HEX64.fullmatch(str(fresh.get(hash_key, "")))), "LIVE_PRECHECK_HASH_INVALID:" + hash_key)
               for zero_key in ("provider_api_network_attempts", "quota_reservations", "remote_raw_custody_writes"):
                   require(fresh.get(zero_key) == 0, "LIVE_PRECHECK_SIDE_EFFECT_NOT_ZERO:" + zero_key)
               require(fresh.get("predecessor_object_readbacks") == 9, "LIVE_PRECHECK_OBJECT_COUNT_MISMATCH")
               require(fresh.get("predecessor_raw_entity_bytes") == 40423, "LIVE_PRECHECK_OBJECT_BYTES_MISMATCH")
               require(fresh.get("new_control_prefix_object_count") == 0, "LIVE_PRECHECK_CONTROL_PREFIX_NOT_EMPTY")
+              require(fresh.get("new_raw_prefix_object_count") == 0, "LIVE_PRECHECK_RAW_PREFIX_NOT_EMPTY")
               for zero_history_key in (
-                  "failed_g3_control_prefix_version_count",
-                  "failed_g3_control_prefix_delete_marker_count",
-                  "failed_g3_raw_prefix_version_count",
-                  "failed_g3_raw_prefix_delete_marker_count",
-                  "new_g4_control_prefix_version_count",
-                  "new_g4_control_prefix_delete_marker_count",
-                  "new_g4_raw_prefix_version_count",
-                  "new_g4_raw_prefix_delete_marker_count",
-                  "writer_claim_version_count",
-                  "writer_claim_delete_marker_count",
+                  "failed_g3_control_prefix_version_count", "failed_g3_control_prefix_delete_marker_count",
+                  "failed_g3_raw_prefix_version_count", "failed_g3_raw_prefix_delete_marker_count",
+                  "prior_g4_control_prefix_version_count", "prior_g4_control_prefix_delete_marker_count",
+                  "prior_g4_raw_prefix_version_count", "prior_g4_raw_prefix_delete_marker_count",
+                  "new_g5_control_prefix_version_count", "new_g5_control_prefix_delete_marker_count",
+                  "new_g5_raw_prefix_version_count", "new_g5_raw_prefix_delete_marker_count",
+                  "writer_claim_version_count", "writer_claim_delete_marker_count",
               ):
                   require(fresh.get(zero_history_key) == 0, "LIVE_PRECHECK_VERSION_HISTORY_NOT_ZERO:" + zero_history_key)
               require(fresh.get("global_writer_claim_absent") is True, "LIVE_PRECHECK_WRITER_CLAIM_ABSENCE_NOT_BOUND")
               static_material = fresh.get("static_material_sha256", {})
               for static_label in (
-                  "checkpoint_seed", "baseline_quota_ledger", "baseline_raw_index",
+                  "authority", "plan", "checkpoint_seed", "baseline_quota_ledger", "baseline_raw_index",
                   "predecessor_checkpoint", "predecessor_report", "predecessor_run_receipt",
-                  "runner", "source_admission", "workflow",
-                  "remediation_receipt", "effective_writer_policy",
+                  "runner", "source_admission", "workflow", "remediation_receipt",
+                  "effective_writer_policy", "max_session_receipt",
               ):
                   require(static_material.get(static_label) == bindings.get(static_label + "_sha256"), "LIVE_PRECHECK_STATIC_MATERIAL_CHANGED:" + static_label)
 
@@ -380,6 +455,7 @@ jobs:
               "workflow": ("workflow_path", "workflow_sha256", WORKFLOW_PATH),
               "remediation_receipt": ("remediation_receipt_path", "remediation_receipt_sha256", REMEDIATION_RECEIPT_PATH),
               "effective_writer_policy": ("effective_writer_policy_path", "effective_writer_policy_sha256", EFFECTIVE_WRITER_POLICY_PATH),
+              "max_session_receipt": ("max_session_receipt_path", "max_session_receipt_sha256", MAX_SESSION_RECEIPT_PATH),
           }
           for label, (path_key, hash_key, expected_path) in bound_paths.items():
               require(bindings.get(path_key) == str(expected_path), label.upper() + "_PATH_MISMATCH")
@@ -400,6 +476,7 @@ jobs:
           require(material.get("owner_cap_spec_sha256") == EXPECTED_OWNER_SPEC, "MATERIAL_OWNER_SPEC_MISMATCH")
           require(material.get("generation_id") == EXPECTED_GENERATION_ID, "MATERIAL_GENERATION_ID_MISMATCH")
           require(material.get("precheck_act_id") == EXPECTED_PRECHECK_ACT_ID, "MATERIAL_PRECHECK_ACT_ID_MISMATCH")
+          require(material.get("live_act_id") == EXPECTED_LIVE_ACT_ID, "MATERIAL_LIVE_ACT_ID_MISMATCH")
           require(material.get("latch_event_id") == EXPECTED_LATCH_EVENT_ID, "MATERIAL_LATCH_EVENT_ID_MISMATCH")
           require(material.get("authority_sha256") == bindings.get("authority_sha256"), "MATERIAL_AUTHORITY_HASH_MISMATCH")
           require(material.get("plan_sha256") == bindings.get("plan_sha256"), "MATERIAL_PLAN_HASH_MISMATCH")
@@ -409,6 +486,7 @@ jobs:
           require(material.get("workflow_sha256") == bindings.get("workflow_sha256"), "MATERIAL_WORKFLOW_HASH_MISMATCH")
           require(material.get("remediation_receipt_sha256") == bindings.get("remediation_receipt_sha256"), "MATERIAL_REMEDIATION_RECEIPT_HASH_MISMATCH")
           require(material.get("effective_writer_policy_sha256") == bindings.get("effective_writer_policy_sha256"), "MATERIAL_EFFECTIVE_POLICY_HASH_MISMATCH")
+          require(material.get("max_session_receipt_sha256") == bindings.get("max_session_receipt_sha256"), "MATERIAL_MAX_SESSION_RECEIPT_HASH_MISMATCH")
           require(material.get("effective_writer_policy_canonical_sha256") == EXPECTED_EFFECTIVE_POLICY_CANONICAL_SHA, "MATERIAL_EFFECTIVE_POLICY_CANONICAL_HASH_MISMATCH")
           require(material.get("baseline_quota_ledger_sha256") == bindings.get("baseline_quota_ledger_sha256"), "MATERIAL_QUOTA_BASELINE_HASH_MISMATCH")
           require(material.get("baseline_raw_index_sha256") == bindings.get("baseline_raw_index_sha256"), "MATERIAL_RAW_BASELINE_HASH_MISMATCH")
@@ -425,6 +503,19 @@ jobs:
           require(remediation_receipt.get("state") == "PASS_MINIMAL_INLINE_POLICY_REMEDIATION_APPLIED_POST_READBACK", "REMEDIATION_RECEIPT_STATE_MISMATCH")
           require(remediation_receipt.get("execution_safety", {}).get("old_failed_run_33205926951_disposition") == "TERMINAL_DO_NOT_RERUN", "REMEDIATION_FAILED_RUN_DISPOSITION_MISMATCH")
           require(remediation_receipt.get("execution_safety", {}).get("predecessor_run_33195472310_disposition") == "TERMINAL_DO_NOT_RERUN", "REMEDIATION_PREDECESSOR_DISPOSITION_MISMATCH")
+          max_session_receipt = strict_json(MAX_SESSION_RECEIPT_PATH)
+          require(sha256_file(MAX_SESSION_RECEIPT_PATH) == EXPECTED_MAX_SESSION_RECEIPT_SHA, "MAX_SESSION_RECEIPT_HASH_MISMATCH")
+          require(max_session_receipt.get("state") == "PASS__MAX_SESSION_DURATION_3600_TO_21600__READBACK_PROVEN", "MAX_SESSION_RECEIPT_STATE_MISMATCH")
+          require(max_session_receipt.get("change", {}).get("from_max_session_duration_seconds") == 3600, "MAX_SESSION_PRE_VALUE_MISMATCH")
+          require(max_session_receipt.get("change", {}).get("to_max_session_duration_seconds") == 21600, "MAX_SESSION_POST_VALUE_MISMATCH")
+          require(max_session_receipt.get("change", {}).get("only_changed_field") == "Role.MaxSessionDuration", "MAX_SESSION_CHANGED_FIELD_MISMATCH")
+          require(max_session_receipt.get("aws_cli_execution", {}).get("update_role_attempts") == 1, "MAX_SESSION_ATTEMPT_COUNT_MISMATCH")
+          require(max_session_receipt.get("aws_cli_execution", {}).get("update_role_retry") == "PROHIBITED", "MAX_SESSION_RETRY_MISMATCH")
+          require(max_session_receipt.get("aws_cli_execution", {}).get("update_role_rc") == 0, "MAX_SESSION_UPDATE_RC_MISMATCH")
+          require(max_session_receipt.get("post_state", {}).get("state_sha256") == "4039a06a2946d0e9deffb603ccd928d275a7715897316b6278b2eb600659aae0", "MAX_SESSION_POST_STATE_HASH_MISMATCH")
+          require(max_session_receipt.get("non_target_invariants", {}).get("collateral_check") == "PASS__ONLY_MAX_SESSION_DURATION_CHANGED", "MAX_SESSION_COLLATERAL_MISMATCH")
+          require(max_session_receipt.get("rollback", {}).get("dormant_rollback_executed") is False, "MAX_SESSION_ROLLBACK_MISMATCH")
+          require(max_session_receipt.get("validation_claim") == "NONE", "MAX_SESSION_VALIDATION_CLAIM_MISMATCH")
           finance = latch.get("finance_spec", {})
           require(finance.get("source_id") == "M3TOP3-FINANCE-STOCK-RIGHTS-v1", "SOURCE_ID_MISMATCH")
           require(finance.get("operation") == "getRighExerReasSche_V2", "OPERATION_MISMATCH")
@@ -508,9 +599,20 @@ jobs:
           authority = strict_json(AUTHORITY_PATH)
           require(authority.get("runtime_lock_id") == EXPECTED_RUNTIME, "AUTHORITY_RUNTIME_MISMATCH")
           require(authority.get("branch") == EXPECTED_BRANCH, "AUTHORITY_BRANCH_MISMATCH")
-          current = authority.get("current_runtime_authority", {})
-          require(current.get("provider_api_network_attempt_budget") == 2000, "AUTHORITY_NETWORK_CAP_MISMATCH")
+          require(authority.get("active_profile_selector") == "LATCH_MODE", "AUTHORITY_PROFILE_SELECTOR_MISMATCH")
+          authority_profiles = authority.get("mode_profiles", {})
+          require(set(authority_profiles) == {"PRECHECK_ARMED", "LIVE_ARMED"}, "AUTHORITY_MODE_PROFILE_SET_MISMATCH")
+          authority_profile = authority_profiles.get(mode, {})
+          current = authority_profile.get("current_runtime_authority", {})
+          live_authority = authority_profile.get("finance_page100_pilot_authority", {})
           require(current.get("remote_raw_custody_prefix") == raw_write_uri, "AUTHORITY_REMOTE_CUSTODY_PREFIX_MISMATCH")
+          require(live_authority.get("pilot_run_id") == EXPECTED_RUN_ID, "AUTHORITY_RUN_ID_MISMATCH")
+          require(live_authority.get("execution_token_sha256") == EXPECTED_TOKEN_HASH, "AUTHORITY_EXECUTION_TOKEN_HASH_MISMATCH")
+          require(live_authority.get("owner_cap_spec_sha256") == EXPECTED_OWNER_SPEC, "AUTHORITY_OWNER_SPEC_MISMATCH")
+          require(live_authority.get("durable_checkpoint_prefix") == "s3://semi-data-plane-aofspds-20260815/" + control_prefix, "AUTHORITY_CONTROL_PREFIX_MISMATCH")
+          require(live_authority.get("remote_raw_custody_prefix") == raw_write_uri, "LIVE_AUTHORITY_REMOTE_CUSTODY_PREFIX_MISMATCH")
+          require(live_authority.get("execution_claim_uri") == writer_claim_uri, "LIVE_AUTHORITY_EXECUTION_CLAIM_URI_MISMATCH")
+          require(live_authority.get("authorized_fallback_dates") == [], "LIVE_AUTHORITY_FALLBACK_DATE_SET_MISMATCH")
           for key in (
               "ksd_provider_calls_authorized", "ksd_document_search_authorized",
               "fallback_dates_authorized", "full_date_range_expansion_authorized",
@@ -520,31 +622,13 @@ jobs:
               "automatic_promotion_authorized",
           ):
               require(current.get(key) is False, "AUTHORITY_PROHIBITION_MISMATCH:" + key)
-          require(current.get("validation_claim") == "NONE", "AUTHORITY_VALIDATION_CLAIM_MISMATCH")
-          require(current.get("gate_effect") == "NONE", "AUTHORITY_GATE_EFFECT_MISMATCH")
-          live_authority = authority.get("finance_page100_pilot_authority", {})
-          require(live_authority.get("pilot_run_id") == EXPECTED_RUN_ID, "AUTHORITY_RUN_ID_MISMATCH")
-          require(live_authority.get("execution_token_sha256") == EXPECTED_TOKEN_HASH, "AUTHORITY_EXECUTION_TOKEN_HASH_MISMATCH")
-          require(live_authority.get("owner_cap_spec_sha256") == EXPECTED_OWNER_SPEC, "AUTHORITY_OWNER_SPEC_MISMATCH")
-          require(live_authority.get("durable_checkpoint_prefix") == "s3://semi-data-plane-aofspds-20260815/" + control_prefix, "AUTHORITY_CONTROL_PREFIX_MISMATCH")
-          require(live_authority.get("remote_raw_custody_prefix") == raw_write_uri, "LIVE_AUTHORITY_REMOTE_CUSTODY_PREFIX_MISMATCH")
-          require(live_authority.get("execution_claim_uri") == writer_claim_uri, "LIVE_AUTHORITY_EXECUTION_CLAIM_URI_MISMATCH")
-          require(live_authority.get("authorized_fallback_dates") == [], "LIVE_AUTHORITY_FALLBACK_DATE_SET_MISMATCH")
-          for key in (
-              "fallback_dates_authorized", "full_date_range_expansion_authorized",
-              "historical_canary_2019_authorized", "bulk_acquisition_authorized",
-              "production_authorized", "model_semantic_change_authorized",
-              "pit_semantic_change_authorized", "normalized_release_authorized",
-              "automatic_promotion_authorized", "ksd_blocker_waived",
-          ):
-              require(live_authority.get(key) is False, "LIVE_AUTHORITY_PROHIBITION_MISMATCH:" + key)
           if mode == "PRECHECK_ARMED":
               require(current.get("provider_api_network_calls_entry_gate") == "CLOSED", "PRECHECK_AUTHORITY_ENTRY_GATE_NOT_CLOSED")
-              require(current.get("precheck_provider_api_calls_authorized") is False, "PRECHECK_AUTHORITY_PROVIDER_CALL_MUST_BE_FALSE")
-              require(current.get("precheck_quota_reservations_authorized") is False, "PRECHECK_AUTHORITY_QUOTA_MUST_BE_FALSE")
-              require(current.get("precheck_remote_raw_writes_authorized") is False, "PRECHECK_AUTHORITY_REMOTE_WRITE_MUST_BE_FALSE")
-              require(live_authority.get("authority_state") == "GRANTED_CONDITIONALLY_ENTRY_GATE_CLOSED", "PRECHECK_AUTHORITY_STATE_MISMATCH")
-              require(live_authority.get("live_entry_gate", {}).get("state") == "CLOSED_PRECHECK_NOT_EXECUTED", "PRECHECK_LIVE_ENTRY_GATE_NOT_CLOSED")
+              require(current.get("provider_api_network_calls_authorized") is False, "PRECHECK_AUTHORITY_PROVIDER_CALL_MUST_BE_FALSE")
+              require(current.get("quota_reservation_authorized") is False, "PRECHECK_AUTHORITY_QUOTA_MUST_BE_FALSE")
+              require(current.get("remote_raw_custody_write_authorized") is False, "PRECHECK_AUTHORITY_REMOTE_WRITE_MUST_BE_FALSE")
+              require(live_authority.get("authority_state") == "PRECHECK_ONLY_ZERO_EFFECT_ENTRY_GATE_CLOSED", "PRECHECK_AUTHORITY_STATE_MISMATCH")
+              require(live_authority.get("live_entry_gate", {}).get("state") == "CLOSED_PRECHECK", "PRECHECK_LIVE_ENTRY_GATE_NOT_CLOSED")
           else:
               require(current.get("provider_api_network_calls_authorized") is True, "LIVE_AUTHORITY_PROVIDER_CALL_NOT_AUTHORIZED")
               require(current.get("quota_reservation_authorized") is True, "LIVE_AUTHORITY_QUOTA_NOT_AUTHORIZED")
@@ -558,32 +642,17 @@ jobs:
           require(plan.get("runtime_lock_id") == EXPECTED_RUNTIME, "PLAN_RUNTIME_MISMATCH")
           require(plan.get("pilot_run_id") == EXPECTED_RUN_ID, "PLAN_RUN_ID_MISMATCH")
           require(plan.get("branch") == EXPECTED_BRANCH, "PLAN_BRANCH_MISMATCH")
-          for key in (
-              "bulk_acquisition_authorized", "production_authorized",
-              "normalized_release_authorized", "model_semantic_change_authorized",
-              "pit_semantic_change_authorized", "automatic_promotion_authorized",
-          ):
-              require(plan.get(key) is False, "PLAN_PROHIBITION_MISMATCH:" + key)
+          require(plan.get("active_profile_selector") == "LATCH_MODE", "PLAN_PROFILE_SELECTOR_MISMATCH")
           plan_binding = plan.get("authority_binding", {})
           require(plan_binding.get("owner_cap_spec_sha256") == EXPECTED_OWNER_SPEC, "PLAN_OWNER_SPEC_MISMATCH")
           require(plan_binding.get("execution_token_sha256") == EXPECTED_TOKEN_HASH, "PLAN_EXECUTION_TOKEN_HASH_MISMATCH")
           require(plan_binding.get("contract_content_sha256") == bindings.get("authority_sha256"), "PLAN_AUTHORITY_HASH_MISMATCH")
-          pilot = plan.get("finance_pilot_plan", {})
-          require(tuple(pilot.get("ordered_primary_dates", ())) == EXPECTED_DATES, "PLAN_DATE_SET_MISMATCH")
-          require(pilot.get("ordered_primary_dates_sha256") == EXPECTED_DATE_HASH, "PLAN_DATE_HASH_MISMATCH")
-          require(pilot.get("request_page_size") == 10, "PLAN_PAGE_SIZE_MISMATCH")
-          require(pilot.get("max_pages_per_date") == 100, "PLAN_PAGE_CAP_MISMATCH")
-          require(pilot.get("max_primary_page_acquisitions") == 1700, "PLAN_ACQUISITION_CAP_MISMATCH")
-          require(pilot.get("max_network_attempts_total") == 2000, "PLAN_NETWORK_CAP_MISMATCH")
-          require(pilot.get("max_attempts_per_logical_page") == 2, "PLAN_ATTEMPT_CAP_MISMATCH")
-          require(pilot.get("authorized_fallback_dates") == [], "PLAN_FALLBACK_DATE_SET_MISMATCH")
-          require(pilot.get("fallback_dates_authorized") is False, "PLAN_FALLBACK_MISMATCH")
-          require(pilot.get("full_date_range_expansion_authorized") is False, "PLAN_RANGE_EXPANSION_MISMATCH")
-          require(pilot.get("historical_canary_2019_authorized") is False, "PLAN_2019_EXPANSION_MISMATCH")
-          require(pilot.get("automatic_promotion_authorized") is False, "PLAN_PROMOTION_MISMATCH")
-          plan_gate = plan.get("execution_gate", {})
+          plan_profiles = plan.get("mode_profiles", {})
+          require(set(plan_profiles) == {"PRECHECK_ARMED", "LIVE_ARMED"}, "PLAN_MODE_PROFILE_SET_MISMATCH")
+          plan_profile = plan_profiles.get(mode, {})
+          plan_gate = plan_profile.get("execution_gate", {})
           durable = plan.get("durable_custody_plan", {})
-          require(isinstance(durable, dict), "PLAN_DURABLE_CUSTODY_BLOCK_MISSING")
+          require(durable.get("state") == "DERIVED_FROM_LATCH_MODE", "PLAN_DURABLE_PROFILE_SELECTOR_MISMATCH")
           require(durable.get("aws_account_id") == "956315449338", "PLAN_DURABLE_AWS_ACCOUNT_MISMATCH")
           require(durable.get("aws_region") == "ap-northeast-2", "PLAN_DURABLE_AWS_REGION_MISMATCH")
           require(durable.get("bucket") == "semi-data-plane-aofspds-20260815", "PLAN_DURABLE_BUCKET_MISMATCH")
@@ -592,25 +661,21 @@ jobs:
           for key, expected in exact_control_uris.items():
               require(durable.get(key) == expected, "PLAN_DURABLE_CONTROL_URI_MISMATCH:" + key)
           if mode == "PRECHECK_ARMED":
-              require(plan.get("state") == "STAGED_NOT_EXECUTABLE_ENTRY_GATE_CLOSED", "PRECHECK_PLAN_STATE_MISMATCH")
-              require(durable.get("state") == "STAGED_NO_REMOTE_WRITE", "PRECHECK_DURABLE_CUSTODY_STATE_MISMATCH")
-              require(plan_gate.get("execution_armed") is False, "PRECHECK_PLAN_MUST_NOT_BE_ARMED")
-              require(plan_gate.get("plan_executable") is False, "PRECHECK_PLAN_MUST_NOT_BE_EXECUTABLE")
-              require(plan_gate.get("provider_api_calls_permitted_now") is False, "PRECHECK_PLAN_PROVIDER_CALL_MUST_BE_FALSE")
-              require(plan_gate.get("remote_s3_writes_permitted_now") is False, "PRECHECK_PLAN_REMOTE_WRITE_MUST_BE_FALSE")
+              require(plan_profile.get("state") == "STAGED_NOT_EXECUTABLE_ENTRY_GATE_CLOSED", "PRECHECK_PLAN_STATE_MISMATCH")
+              require(plan_profile.get("durable_custody_state") == "STAGED_NO_REMOTE_WRITE", "PRECHECK_DURABLE_CUSTODY_STATE_MISMATCH")
+              require(plan_gate.get("state") == "CLOSED_PRECHECK", "PRECHECK_PLAN_GATE_MISMATCH")
+              require(all(plan_gate.get(key) is False for key in ("execution_armed", "plan_executable", "provider_api_calls_permitted_now", "quota_reservations_permitted_now", "remote_s3_writes_permitted_now")), "PRECHECK_PLAN_EFFECT_NOT_ZERO")
           else:
-              require(plan.get("state") == "LIVE_ARMED_EXECUTABLE", "LIVE_PLAN_STATE_MISMATCH")
-              require(durable.get("state") == "READY_FOR_LIVE_ARMED", "LIVE_DURABLE_CUSTODY_STATE_MISMATCH")
+              require(plan_profile.get("state") == "LIVE_ARMED_EXECUTABLE", "LIVE_PLAN_STATE_MISMATCH")
+              require(plan_profile.get("durable_custody_state") == "READY_FOR_LIVE_ARMED", "LIVE_DURABLE_CUSTODY_STATE_MISMATCH")
               require(plan_gate.get("state") == "OPEN", "LIVE_PLAN_ENTRY_GATE_NOT_OPEN")
-              require(plan_gate.get("execution_armed") is True, "LIVE_PLAN_NOT_ARMED")
-              require(plan_gate.get("plan_executable") is True, "LIVE_PLAN_NOT_EXECUTABLE")
-              require(plan_gate.get("provider_api_calls_permitted_now") is True, "LIVE_PLAN_PROVIDER_CALL_NOT_PERMITTED")
-              require(plan_gate.get("remote_s3_writes_permitted_now") is True, "LIVE_PLAN_REMOTE_WRITE_NOT_PERMITTED")
+              require(all(plan_gate.get(key) is True for key in ("execution_armed", "plan_executable", "provider_api_calls_permitted_now", "quota_reservations_permitted_now", "remote_s3_writes_permitted_now")), "LIVE_PLAN_EFFECT_NOT_OPEN")
 
           checkpoint = strict_json(CHECKPOINT_PATH)
           require(checkpoint.get("runtime_lock_id") == EXPECTED_RUNTIME, "CHECKPOINT_RUNTIME_MISMATCH")
           require(checkpoint.get("pilot_run_id") == EXPECTED_RUN_ID, "CHECKPOINT_RUN_ID_MISMATCH")
-          require(checkpoint.get("state") == "GENERATION_4_S3_DURABLE_CAS_SEED_STAGED_NOT_EXECUTED", "CHECKPOINT_STATE_MISMATCH")
+          require(checkpoint.get("planned_quota_day_kst") == EXPECTED_QUOTA_DAY_KST, "CHECKPOINT_QUOTA_DAY_MISMATCH")
+          require(checkpoint.get("state") == "GENERATION_5_S3_DURABLE_CAS_SEED_STAGED_NOT_EXECUTED", "CHECKPOINT_STATE_MISMATCH")
           require(checkpoint.get("checkpoint_role") == "S3_DURABLE_CAS_NON_EXECUTED_CONTROL_PLANE_TEMPLATE", "CHECKPOINT_ROLE_MISMATCH")
           checkpoint_binding = checkpoint.get("authority_binding", {})
           require(checkpoint_binding.get("owner_cap_spec_sha256") == EXPECTED_OWNER_SPEC, "CHECKPOINT_OWNER_SPEC_MISMATCH")
@@ -761,6 +826,7 @@ jobs:
               "pilot_run_id": EXPECTED_RUN_ID,
               "generation_id": EXPECTED_GENERATION_ID,
               "precheck_act_id": EXPECTED_PRECHECK_ACT_ID,
+              "live_act_id": EXPECTED_LIVE_ACT_ID,
               "latch_event_id": EXPECTED_LATCH_EVENT_ID,
               "owner_cap_spec_sha256": EXPECTED_OWNER_SPEC,
               "primary_date_count": 17,
@@ -782,6 +848,8 @@ jobs:
               "global_writer_claim_uri": writer_claim_uri,
               "self_deadline_seconds": int(os.environ["FINANCE_SELF_DEADLINE_SECONDS"]),
               "static_material_sha256": {
+                  "authority": bindings["authority_sha256"],
+                  "plan": bindings["plan_sha256"],
                   "checkpoint_seed": bindings["checkpoint_seed_sha256"],
                   "baseline_quota_ledger": bindings["baseline_quota_ledger_sha256"],
                   "baseline_raw_index": bindings["baseline_raw_index_sha256"],
@@ -793,6 +861,7 @@ jobs:
                   "workflow": bindings["workflow_sha256"],
                   "remediation_receipt": bindings["remediation_receipt_sha256"],
                   "effective_writer_policy": bindings["effective_writer_policy_sha256"],
+                  "max_session_receipt": bindings["max_session_receipt_sha256"],
               },
               "aws_role_arn_shape": "PASS_EXACT_EQUALITY",
               "aws_role_arn_sha256": hashlib.sha256(role_arn.encode("utf-8")).hexdigest(),
@@ -991,7 +1060,7 @@ jobs:
           role-to-assume: arn:aws:iam::956315449338:role/M3Top3GitHubOIDCRawWriter
           aws-region: ap-northeast-2
           role-session-name: m3top3-finance-precheck-${{ github.run_id }}
-          role-duration-seconds: 900
+          role-duration-seconds: 21600
           retry-max-attempts: 1
           disable-retry: true
           output-credentials: false
@@ -1029,16 +1098,14 @@ jobs:
               ]
             }
 
-      - name: Configure bounded AWS OIDC live writer session
+      - name: Configure read-only AWS OIDC live verification session
         if: steps.preflight.outputs.mode == 'LIVE_ARMED'
         uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
         with:
           role-to-assume: arn:aws:iam::956315449338:role/M3Top3GitHubOIDCRawWriter
           aws-region: ap-northeast-2
-          role-session-name: m3top3-finance-live-${{ github.run_id }}
-          # The role must support this MaxSessionDuration.  Failure to obtain
-          # the full session occurs before any provider or S3 write.
-          role-duration-seconds: 21600
+          role-session-name: m3top3-finance-live-verify-${{ github.run_id }}
+          role-duration-seconds: 3600
           retry-max-attempts: 1
           disable-retry: true
           output-credentials: false
@@ -1068,20 +1135,10 @@ jobs:
                   }
                 },
                 {
-                  "Sid": "FinancePredecessorReadOnly",
+                  "Sid": "FinanceReadOnlyNoWriteCapability",
                   "Effect": "Allow",
                   "Action": ["s3:GetObject", "s3:GetObjectVersion"],
                   "Resource": "arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/*"
-                },
-                {
-                  "Sid": "ExactSuccessorRawAndControlWriter",
-                  "Effect": "Allow",
-                  "Action": ["s3:PutObject", "s3:GetObject", "s3:GetObjectVersion"],
-                  "Resource": [
-                    "arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_generation/runtime_lock_id=PMO-FINANCE-PAGE100-G4-20260829094400/pilot_run_id=FINANCE-PAGE100-PILOT-G4-20260829094400/*",
-                    "arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_control/runtime_lock_id=PMO-FINANCE-PAGE100-G4-20260829094400/pilot_run_id=FINANCE-PAGE100-PILOT-G4-20260829094400/*",
-                    "arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_writer_claims/quota_day_kst=2026-08-29/execution-claim.json"
-                  ]
                 }
               ]
             }
@@ -1111,13 +1168,13 @@ jobs:
           SOURCE_ROOT = "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/"
           EXPECTED_CONTROL_PREFIX = (
               SOURCE_ROOT
-              + "_pilot_control/runtime_lock_id=PMO-FINANCE-PAGE100-G4-20260829094400/"
-              + "pilot_run_id=FINANCE-PAGE100-PILOT-G4-20260829094400/"
+              + "_pilot_control/runtime_lock_id=PMO-FINANCE-PAGE100-G5-20260829204006/"
+              + "pilot_run_id=FINANCE-PAGE100-PILOT-G5-20260829204006/"
           )
           EXPECTED_RAW_WRITE_PREFIX = (
               SOURCE_ROOT
-              + "_pilot_generation/runtime_lock_id=PMO-FINANCE-PAGE100-G4-20260829094400/"
-              + "pilot_run_id=FINANCE-PAGE100-PILOT-G4-20260829094400/"
+              + "_pilot_generation/runtime_lock_id=PMO-FINANCE-PAGE100-G5-20260829204006/"
+              + "pilot_run_id=FINANCE-PAGE100-PILOT-G5-20260829204006/"
           )
           FAILED_CONTROL_PREFIX = (
               SOURCE_ROOT
@@ -1129,9 +1186,17 @@ jobs:
               + "_pilot_generation/runtime_lock_id=PMO-FINANCE-PAGE100-20260829041623/"
               + "pilot_run_id=FINANCE-PAGE100-PILOT-20260829041623/"
           )
+          PRIOR_G4_CONTROL_PREFIX = (
+              SOURCE_ROOT + "_pilot_control/runtime_lock_id=PMO-FINANCE-PAGE100-G4-20260829094400/"
+              + "pilot_run_id=FINANCE-PAGE100-PILOT-G4-20260829094400/"
+          )
+          PRIOR_G4_RAW_WRITE_PREFIX = (
+              SOURCE_ROOT + "_pilot_generation/runtime_lock_id=PMO-FINANCE-PAGE100-G4-20260829094400/"
+              + "pilot_run_id=FINANCE-PAGE100-PILOT-G4-20260829094400/"
+          )
           EXPECTED_WRITER_CLAIM_KEY = (
               SOURCE_ROOT
-              + "_writer_claims/quota_day_kst=2026-08-29/execution-claim.json"
+              + "_writer_claims/quota_day_kst=2026-08-30/execution-claim.json"
           )
           PREDECESSOR_CLAIM = {
               "key": SOURCE_ROOT + "_pilot_control/runtime_lock_id=PMO-API-SRC-ADMIT-20260828192737/pilot_run_id=FINANCE-LIVE-PILOT-20260828192737/execution-claim.json",
@@ -1224,6 +1289,9 @@ jobs:
                   "--prefix", prefix, "--max-keys", "1",
                   "--expected-bucket-owner", OWNER,
               )
+              require(payload.get("IsTruncated") in {None, False}, code + "_TRUNCATED")
+              require(not payload.get("NextKeyMarker"), code + "_NEXT_KEY_MARKER")
+              require(not payload.get("NextVersionIdMarker"), code + "_NEXT_VERSION_MARKER")
               require(not payload.get("Versions"), code + "_VERSIONS")
               require(not payload.get("DeleteMarkers"), code + "_DELETE_MARKERS")
 
@@ -1232,6 +1300,8 @@ jobs:
           # conditional If-None-Match:* in the runner.
           assert_empty_prefix(FAILED_CONTROL_PREFIX, "FAILED_G3_CONTROL_PREFIX_NOT_EMPTY")
           assert_empty_prefix(FAILED_RAW_WRITE_PREFIX, "FAILED_G3_RAW_PREFIX_NOT_EMPTY")
+          assert_empty_prefix(PRIOR_G4_CONTROL_PREFIX, "PRIOR_G4_CONTROL_PREFIX_NOT_EMPTY")
+          assert_empty_prefix(PRIOR_G4_RAW_WRITE_PREFIX, "PRIOR_G4_RAW_PREFIX_NOT_EMPTY")
           assert_empty_prefix(EXPECTED_CONTROL_PREFIX, "SUCCESSOR_CONTROL_PREFIX_NOT_EMPTY")
           assert_empty_prefix(EXPECTED_RAW_WRITE_PREFIX, "SUCCESSOR_RAW_PREFIX_NOT_EMPTY")
           assert_empty_prefix(EXPECTED_WRITER_CLAIM_KEY, "GLOBAL_WRITER_CLAIM_HISTORY_NOT_EMPTY")
@@ -1323,12 +1393,16 @@ jobs:
               "failed_g3_control_prefix_delete_marker_count": 0,
               "failed_g3_raw_prefix_version_count": 0,
               "failed_g3_raw_prefix_delete_marker_count": 0,
-              "new_g4_control_prefix_version_count": 0,
-              "new_g4_control_prefix_delete_marker_count": 0,
-              "new_g4_raw_prefix_version_count": 0,
-              "new_g4_raw_prefix_delete_marker_count": 0,
+              "new_g5_control_prefix_version_count": 0,
+              "new_g5_control_prefix_delete_marker_count": 0,
+              "new_g5_raw_prefix_version_count": 0,
+              "new_g5_raw_prefix_delete_marker_count": 0,
               "writer_claim_version_count": 0,
               "writer_claim_delete_marker_count": 0,
+              "prior_g4_control_prefix_version_count": 0,
+              "prior_g4_control_prefix_delete_marker_count": 0,
+              "prior_g4_raw_prefix_version_count": 0,
+              "prior_g4_raw_prefix_delete_marker_count": 0,
               "new_control_prefix_object_count": 0,
               "new_raw_prefix_object_count": 0,
               "global_writer_claim_absent": True,
@@ -1365,12 +1439,16 @@ jobs:
               "failed_g3_control_prefix_delete_marker_count": 0,
               "failed_g3_raw_prefix_version_count": 0,
               "failed_g3_raw_prefix_delete_marker_count": 0,
-              "new_g4_control_prefix_version_count": 0,
-              "new_g4_control_prefix_delete_marker_count": 0,
-              "new_g4_raw_prefix_version_count": 0,
-              "new_g4_raw_prefix_delete_marker_count": 0,
+              "new_g5_control_prefix_version_count": 0,
+              "new_g5_control_prefix_delete_marker_count": 0,
+              "new_g5_raw_prefix_version_count": 0,
+              "new_g5_raw_prefix_delete_marker_count": 0,
               "writer_claim_version_count": 0,
               "writer_claim_delete_marker_count": 0,
+              "prior_g4_control_prefix_version_count": 0,
+              "prior_g4_control_prefix_delete_marker_count": 0,
+              "prior_g4_raw_prefix_version_count": 0,
+              "prior_g4_raw_prefix_delete_marker_count": 0,
               "new_control_prefix_object_count": 0,
               "new_raw_prefix_object_count": 0,
               "global_writer_claim_absent": True,
@@ -1424,6 +1502,7 @@ jobs:
         run: |
           set -euo pipefail
           python - <<'PY'
+          import hashlib
           import json
           import os
           import urllib.error
@@ -1446,6 +1525,12 @@ jobs:
           FAILED_ARTIFACT_ID = 9699648116
           FAILED_ARTIFACT_DIGEST = "sha256:d0526119349f573ad38be855195a3b9c0c08bd29c1f6717f448d0844656cb234"
           FAILED_ARTIFACT_SIZE = 2062
+          G4_PRECHECK_RUN_ID = 33225643741
+          G4_PRECHECK_JOB_ID = 99028755766
+          G4_PRECHECK_HEAD_SHA = "784e9eea008b5eea57132e2e341a3c63982951cc"
+          G4_PRECHECK_ARTIFACT_ID = 9706754794
+          G4_PRECHECK_ARTIFACT_DIGEST = "sha256:b32f5fb3b94adeb7b6202af07700b6fdb9b80c828f31e55ddfe78a2de7296b24"
+          G4_PRECHECK_ARTIFACT_SIZE = 5309
           API_ROOT = "https://api.github.com"
           ACTIVE_STATES = ("queued", "in_progress", "waiting", "requested", "pending")
           token = os.environ.get("GH_API_TOKEN", "")
@@ -1566,15 +1651,11 @@ jobs:
               if observed < int(expected_total or 0):
                   raise SystemExit("GITHUB_ACTIVE_WORKFLOW_RUNS_INCOMPLETE")
 
-          active_finance_writers = [
-              run for run in active_by_id.values()
-              if str(run.get("path", "")) in finance_writer_paths
-              or "m3top3-finance" in str(run.get("path", "")).lower()
-              or "m3top3-s3-raw-custody" in str(run.get("path", "")).lower()
-          ]
-          if len(active_finance_writers) != 1:
-              raise SystemExit("COMPETING_OR_MISSING_REPOSITORY_FINANCE_WRITER")
-          current = active_finance_writers[0]
+          # Fail closed across every active repository workflow, including
+          # paths or branch revisions that are absent from this checkout.
+          if set(active_by_id) != {expected_run_id}:
+              raise SystemExit("COMPETING_OR_MISSING_REPOSITORY_WORKFLOW_RUN")
+          current = active_by_id[expected_run_id]
           if int(current.get("id", 0)) != expected_run_id:
               raise SystemExit("CURRENT_FINANCE_WRITER_NOT_SOLE_ACTIVE_WRITER")
           if current.get("path") != WORKFLOW_PATH:
@@ -1660,6 +1741,22 @@ jobs:
           ):
               raise SystemExit("FAILED_G3_ARTIFACT_BINDING_MISMATCH")
 
+          g4_run = get_json("/repos/" + REPOSITORY + "/actions/runs/" + str(G4_PRECHECK_RUN_ID))
+          if (
+              g4_run.get("status") != "completed" or g4_run.get("conclusion") != "success"
+              or g4_run.get("event") != "push" or g4_run.get("path") != WORKFLOW_PATH
+              or g4_run.get("head_sha") != G4_PRECHECK_HEAD_SHA
+              or int(g4_run.get("run_attempt", 0)) != 1
+          ):
+              raise SystemExit("G4_PRECHECK_TERMINAL_IDENTITY_MISMATCH")
+          g4_jobs = get_json("/repos/" + REPOSITORY + "/actions/runs/" + str(G4_PRECHECK_RUN_ID) + "/jobs?filter=all&per_page=100")
+          if not any(int(job.get("id", 0)) == G4_PRECHECK_JOB_ID and job.get("conclusion") == "success" for job in g4_jobs.get("jobs", [])):
+              raise SystemExit("G4_PRECHECK_JOB_IDENTITY_MISMATCH")
+          g4_artifacts = get_json("/repos/" + REPOSITORY + "/actions/runs/" + str(G4_PRECHECK_RUN_ID) + "/artifacts?per_page=100")
+          g4_candidates = [item for item in g4_artifacts.get("artifacts", []) if int(item.get("id", 0)) == G4_PRECHECK_ARTIFACT_ID]
+          if len(g4_candidates) != 1 or g4_candidates[0].get("digest") != G4_PRECHECK_ARTIFACT_DIGEST or int(g4_candidates[0].get("size_in_bytes", 0)) != G4_PRECHECK_ARTIFACT_SIZE:
+              raise SystemExit("G4_PRECHECK_ARTIFACT_BINDING_MISMATCH")
+
           precheck_verified = False
           precheck_run_id = None
           precheck_artifact_id = None
@@ -1668,6 +1765,10 @@ jobs:
               precheck_head_sha = os.environ.get("PRECHECK_HEAD_SHA", "")
               precheck_artifact_id = int(os.environ.get("PRECHECK_ARTIFACT_ID", "0"))
               precheck_digest = os.environ.get("PRECHECK_ARTIFACT_DIGEST_SHA256", "")
+              fresh_binding = json.loads(Path(os.environ["FINANCE_LATCH_PATH"]).read_text(encoding="utf-8"))["fresh_precheck_binding"]
+              precheck_job_id = int(fresh_binding.get("workflow_job_id", 0))
+              if precheck_job_id <= 0:
+                  raise SystemExit("FRESH_PRECHECK_JOB_ID_INVALID")
               prior = get_json(
                   "/repos/" + REPOSITORY + "/actions/runs/" + str(precheck_run_id)
               )
@@ -1677,13 +1778,21 @@ jobs:
                   or prior.get("event") != "push"
                   or prior.get("path") != WORKFLOW_PATH
                   or prior.get("head_sha") != precheck_head_sha
+                  or prior.get("head_branch") != BRANCH
                   or int(prior.get("run_attempt", 0)) != 1
                   or prior.get("actor", {}).get("login") != ACTOR
                   or prior.get("triggering_actor", {}).get("login") != ACTOR
                   or prior.get("head_commit", {}).get("message")
-                     != "Arm M3Top3 Finance page100 G4 precheck 20260829094400 v1.0"
+                     != "Arm M3Top3 Finance page100 G5 precheck 20260829204006 v1.0"
               ):
                   raise SystemExit("FRESH_PRECHECK_WORKFLOW_RUN_MISMATCH")
+              fresh_jobs = get_json(
+                  "/repos/" + REPOSITORY + "/actions/runs/" + str(precheck_run_id)
+                  + "/jobs?filter=all&per_page=100"
+              )
+              exact_jobs = [job for job in fresh_jobs.get("jobs", []) if int(job.get("id", 0)) == precheck_job_id]
+              if len(exact_jobs) != 1 or exact_jobs[0].get("conclusion") != "success":
+                  raise SystemExit("FRESH_PRECHECK_JOB_IDENTITY_MISMATCH")
               artifacts = get_json(
                   "/repos/" + REPOSITORY + "/actions/runs/" + str(precheck_run_id)
                   + "/artifacts?per_page=100"
@@ -1705,6 +1814,70 @@ jobs:
                      != precheck_run_id
               ):
                   raise SystemExit("FRESH_PRECHECK_ARTIFACT_BINDING_MISMATCH")
+              request = urllib.request.Request(
+                  "https://api.github.com/repos/" + REPOSITORY
+                  + "/actions/artifacts/" + str(precheck_artifact_id) + "/zip",
+                  headers={"Accept": "application/vnd.github+json", "Authorization": "Bearer " + token, "X-GitHub-Api-Version": "2022-11-28"},
+              )
+              class NoRedirect(urllib.request.HTTPRedirectHandler):
+                  def redirect_request(self, req, fp, code, msg, headers, newurl):
+                      return None
+              try:
+                  NoRedirectOpener = urllib.request.build_opener(NoRedirect)
+                  NoRedirectOpener.open(request, timeout=30)
+                  raise SystemExit("FRESH_PRECHECK_ARCHIVE_REDIRECT_MISSING")
+              except urllib.error.HTTPError as exc:
+                  if exc.code not in {301, 302, 303, 307, 308}:
+                      raise
+                  redirect_url = exc.headers.get("Location", "")
+              redirect = urllib.parse.urlparse(redirect_url)
+              allowed_host = (
+                  redirect.hostname is not None
+                  and (redirect.hostname.endswith(".blob.core.windows.net")
+                       or redirect.hostname.endswith(".amazonaws.com"))
+              )
+              if redirect.scheme != "https" or not allowed_host or redirect.username or redirect.password:
+                  raise SystemExit("FRESH_PRECHECK_ARCHIVE_REDIRECT_INVALID")
+              clean_request = urllib.request.Request(redirect_url, headers={"Accept": "application/zip"})
+              with urllib.request.urlopen(clean_request, timeout=30) as response:
+                  archive_bytes = response.read(2_000_001)
+              if len(archive_bytes) > 2_000_000 or hashlib.sha256(archive_bytes).hexdigest() != precheck_digest:
+                  raise SystemExit("FRESH_PRECHECK_ARCHIVE_DIGEST_MISMATCH")
+              import io
+              import zipfile
+              exact_files = {
+                  "preflight.json": "preflight_sha256",
+                  "aws-precheck.json": "aws_precheck_sha256",
+                  "github-readback.json": "github_readback_sha256",
+                  "predecessor-readback.json": "predecessor_readback_sha256",
+                  "sanitization-receipt.json": "sanitization_receipt_sha256",
+              }
+              with zipfile.ZipFile(io.BytesIO(archive_bytes)) as archive:
+                  names = archive.namelist()
+                  if (
+                      len(names) != len(exact_files)
+                      or len(set(names)) != len(names)
+                      or set(names) != set(exact_files)
+                  ):
+                      raise SystemExit("FRESH_PRECHECK_ARCHIVE_FILE_SET_MISMATCH")
+                  total_uncompressed = 0
+                  for name, binding_key in exact_files.items():
+                      info = archive.getinfo(name)
+                      if (
+                          info.is_dir()
+                          or info.file_size > 500_000
+                          or info.compress_size > 500_000
+                          or info.flag_bits & 0x1
+                      ):
+                          raise SystemExit("FRESH_PRECHECK_ARCHIVE_MEMBER_INVALID:" + name)
+                      total_uncompressed += info.file_size
+                      if total_uncompressed > 1_000_000:
+                          raise SystemExit("FRESH_PRECHECK_ARCHIVE_EXPANSION_LIMIT")
+                      payload = archive.read(name)
+                      if len(payload) != info.file_size:
+                          raise SystemExit("FRESH_PRECHECK_ARCHIVE_MEMBER_SIZE_MISMATCH:" + name)
+                      if hashlib.sha256(payload).hexdigest() != fresh_binding.get(binding_key):
+                          raise SystemExit("FRESH_PRECHECK_INNER_HASH_MISMATCH:" + name)
               precheck_verified = True
 
           receipt = {
@@ -1745,11 +1918,70 @@ jobs:
           )
           PY
 
+      - name: Configure fresh bounded AWS OIDC live writer session
+        if: steps.preflight.outputs.mode == 'LIVE_ARMED'
+        uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
+        with:
+          role-to-assume: arn:aws:iam::956315449338:role/M3Top3GitHubOIDCRawWriter
+          aws-region: ap-northeast-2
+          role-session-name: m3top3-finance-live-fresh-${{ github.run_id }}
+          # The role must support this MaxSessionDuration.  Failure to obtain
+          # the full session occurs before any provider or S3 write.
+          role-duration-seconds: 21600
+          retry-max-attempts: 1
+          disable-retry: true
+          output-credentials: false
+          mask-aws-account-id: true
+          inline-session-policy: |
+            {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Sid": "ExactBucketMetadata",
+                  "Effect": "Allow",
+                  "Action": ["s3:GetBucketLocation", "s3:GetBucketVersioning"],
+                  "Resource": "arn:aws:s3:::semi-data-plane-aofspds-20260815"
+                },
+                {
+                  "Sid": "ExactFinancePrefixList",
+                  "Effect": "Allow",
+                  "Action": ["s3:ListBucket", "s3:ListBucketVersions"],
+                  "Resource": "arn:aws:s3:::semi-data-plane-aofspds-20260815",
+                  "Condition": {
+                    "StringLike": {
+                      "s3:prefix": [
+                        "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/",
+                        "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/*"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "Sid": "FinancePredecessorReadOnly",
+                  "Effect": "Allow",
+                  "Action": ["s3:GetObject", "s3:GetObjectVersion"],
+                  "Resource": "arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/*"
+                },
+                {
+                  "Sid": "ExactSuccessorRawAndControlWriter",
+                  "Effect": "Allow",
+                  "Action": ["s3:PutObject", "s3:GetObject", "s3:GetObjectVersion"],
+                  "Resource": [
+                    "arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_generation/runtime_lock_id=PMO-FINANCE-PAGE100-G5-20260829204006/pilot_run_id=FINANCE-PAGE100-PILOT-G5-20260829204006/*",
+                    "arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_control/runtime_lock_id=PMO-FINANCE-PAGE100-G5-20260829204006/pilot_run_id=FINANCE-PAGE100-PILOT-G5-20260829204006/*",
+                    "arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_writer_claims/quota_day_kst=2026-08-30/execution-claim.json"
+                  ]
+                }
+              ]
+            }
+
+
       - name: Execute Finance-only bounded live pilot once
         if: steps.preflight.outputs.mode == 'LIVE_ARMED'
         shell: bash
         env:
           DATA_GO_KR_FINANCE_STOCK_RIGHTS_SERVICE_KEY: ${{ secrets.DATA_GO_KR_FINANCE_STOCK_RIGHTS_SERVICE_KEY }}
+          GH_API_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           GITHUB_REF: ${{ github.ref }}
           GITHUB_SHA: ${{ github.sha }}
@@ -1761,9 +1993,241 @@ jobs:
         run: |
           set -euo pipefail
           python - <<'PY'
+          import json
           import os
           import re
+          import subprocess
+          import time
+          import urllib.error
           import urllib.parse
+          import urllib.request
+          from datetime import datetime, timedelta, timezone
+
+          anchor_text = os.environ.get("FINANCE_JOB_ANCHOR_EPOCH", "")
+          if not anchor_text.isdigit():
+              raise SystemExit("LIVE_JOB_ANCHOR_INVALID")
+          now_epoch = int(time.time())
+          elapsed = now_epoch - int(anchor_text)
+          if not 0 <= elapsed <= 900:
+              raise SystemExit("LIVE_PREFLIGHT_EXCEEDED_15_MINUTE_BUDGET")
+          live_preflight_deadline = time.monotonic() + float(900 - elapsed)
+          now_utc = datetime.now(timezone.utc)
+          kst = timezone(timedelta(hours=9))
+          now_kst = now_utc.astimezone(kst)
+          if now_kst.date().isoformat() != "2026-08-30":
+              raise SystemExit("LIVE_FRESH_SESSION_QUOTA_DAY_MISMATCH")
+          next_midnight = (now_kst + timedelta(days=1)).replace(
+              hour=0, minute=0, second=0, microsecond=0
+          )
+          not_after = datetime.fromisoformat("2026-08-30T14:30:00+00:00")
+          if int((next_midnight - now_kst).total_seconds()) < 21600:
+              raise SystemExit("LIVE_FRESH_SESSION_MIDNIGHT_RESERVE_INSUFFICIENT")
+          if int((not_after - now_utc).total_seconds()) < 19800:
+              raise SystemExit("LIVE_FRESH_SESSION_TERMINAL_RESERVE_INSUFFICIENT")
+          if (
+              os.environ.get("FINANCE_SELF_DEADLINE_SECONDS") != "18000"
+              or os.environ.get("FINANCE_LIVE_NOT_AFTER_UTC")
+                 != "2026-08-30T14:30:00Z"
+          ):
+              raise SystemExit("LIVE_FRESH_SESSION_DEADLINE_BINDING_MISMATCH")
+          def aws_json(arguments):
+              remaining_preflight = live_preflight_deadline - time.monotonic()
+              if remaining_preflight <= 0.25:
+                  raise SystemExit("LIVE_PREFLIGHT_MONOTONIC_BUDGET_EXHAUSTED")
+              completed = subprocess.run(
+                  ["aws", *arguments, "--no-cli-pager", "--output", "json"],
+                  check=True, stdout=subprocess.PIPE,
+                  stderr=subprocess.PIPE, text=True,
+                  timeout=min(20.0, remaining_preflight),
+              )
+              value = json.loads(completed.stdout or "{}")
+              if not isinstance(value, dict):
+                  raise SystemExit("LIVE_FRESH_SESSION_AWS_JSON_INVALID")
+              return value
+          identity = aws_json(["sts", "get-caller-identity"])
+          expected_session = "m3top3-finance-live-fresh-" + os.environ["GITHUB_RUN_ID"]
+          if (
+              identity.get("Account") != "956315449338"
+              or identity.get("Arn")
+                 != "arn:aws:sts::956315449338:assumed-role/M3Top3GitHubOIDCRawWriter/" + expected_session
+          ):
+              raise SystemExit("LIVE_FRESH_SESSION_IDENTITY_MISMATCH")
+          bucket = "semi-data-plane-aofspds-20260815"
+          if aws_json(["s3api", "get-bucket-location", "--bucket", bucket]).get("LocationConstraint") != "ap-northeast-2":
+              raise SystemExit("LIVE_FRESH_SESSION_BUCKET_REGION_MISMATCH")
+          if aws_json(["s3api", "get-bucket-versioning", "--bucket", bucket]).get("Status") != "Enabled":
+              raise SystemExit("LIVE_FRESH_SESSION_BUCKET_VERSIONING_MISMATCH")
+          prefixes = (
+              "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_generation/runtime_lock_id=PMO-FINANCE-PAGE100-G5-20260829204006/pilot_run_id=FINANCE-PAGE100-PILOT-G5-20260829204006/",
+              "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_control/runtime_lock_id=PMO-FINANCE-PAGE100-G5-20260829204006/pilot_run_id=FINANCE-PAGE100-PILOT-G5-20260829204006/",
+              "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_writer_claims/quota_day_kst=2026-08-30/execution-claim.json",
+          )
+          for prefix in prefixes:
+              history = aws_json([
+                  "s3api", "list-object-versions", "--bucket", bucket,
+                  "--prefix", prefix, "--max-keys", "2",
+              ])
+              if (
+                  history.get("IsTruncated") is True
+                  or history.get("NextKeyMarker")
+                  or history.get("NextVersionIdMarker")
+                  or history.get("Versions")
+                  or history.get("DeleteMarkers")
+              ):
+                  raise SystemExit("LIVE_FRESH_SESSION_SUCCESSOR_PREFIX_NOT_EMPTY")
+
+          # Recheck all active repository runs after the fresh writer session
+          # and immediately before the provider runner. Unknown paths fail closed.
+          gh_token = os.environ.get("GH_API_TOKEN", "")
+          if not gh_token or any(ch.isspace() for ch in gh_token):
+              raise SystemExit("LIVE_FINAL_GITHUB_TOKEN_INVALID")
+          class FinalNoRedirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self, req, fp, code, msg, headers, newurl):
+                  return None
+          final_opener = urllib.request.build_opener(FinalNoRedirect())
+          def final_pairs(values):
+              result = {}
+              for key, item in values:
+                  if key in result:
+                      raise SystemExit("LIVE_FINAL_GITHUB_DUPLICATE_JSON_KEY")
+                  result[key] = item
+              return result
+          def final_remaining_timeout():
+              remaining_preflight = live_preflight_deadline - time.monotonic()
+              if remaining_preflight <= 0.25:
+                  raise SystemExit("LIVE_FINAL_GITHUB_BUDGET_EXHAUSTED")
+              return min(20.0, remaining_preflight)
+          def final_set_stream_timeout(stream, timeout_seconds):
+              queue = [stream]
+              seen = set()
+              for _ in range(16):
+                  if not queue:
+                      break
+                  current = queue.pop(0)
+                  if current is None or id(current) in seen:
+                      continue
+                  seen.add(id(current))
+                  setter = getattr(current, "settimeout", None)
+                  if callable(setter):
+                      setter(timeout_seconds)
+                      return
+                  for name in ("fp", "raw", "_sock"):
+                      child = getattr(current, name, None)
+                      if child is not None:
+                          queue.append(child)
+          def final_read_body(response):
+              chunks = []
+              observed = 0
+              while True:
+                  remaining_timeout = final_remaining_timeout()
+                  final_set_stream_timeout(response, remaining_timeout)
+                  remaining_bytes = 10_000_001 - observed
+                  if remaining_bytes <= 0:
+                      raise SystemExit("LIVE_FINAL_GITHUB_RESPONSE_TOO_LARGE")
+                  read_size = min(65_536, remaining_bytes)
+                  read_one = getattr(response, "read1", None)
+                  reader = read_one if callable(read_one) else response.read
+                  chunk = reader(read_size)
+                  if not isinstance(chunk, bytes):
+                      raise SystemExit("LIVE_FINAL_GITHUB_NON_BYTE_RESPONSE")
+                  if not chunk:
+                      return b"".join(chunks)
+                  chunks.append(chunk)
+                  observed += len(chunk)
+                  if observed > 10_000_000:
+                      raise SystemExit("LIVE_FINAL_GITHUB_RESPONSE_TOO_LARGE")
+          def final_get_json(path):
+              if not path.startswith("/repos/AofSpds/asset-agent-asa/"):
+                  raise SystemExit("LIVE_FINAL_GITHUB_PATH_OUT_OF_SCOPE")
+              request = urllib.request.Request(
+                  "https://api.github.com" + path,
+                  headers={
+                      "Accept": "application/vnd.github+json",
+                      "Authorization": "Bearer " + gh_token,
+                      "User-Agent": "AAA-M3Top3-Finance-Live-Final-Gate/1.0",
+                      "X-GitHub-Api-Version": "2022-11-28",
+                  },
+              )
+              try:
+                  with final_opener.open(
+                      request, timeout=final_remaining_timeout()
+                  ) as response:
+                      if int(response.status) != 200:
+                          raise SystemExit("LIVE_FINAL_GITHUB_NON_200")
+                      body = final_read_body(response)
+              except urllib.error.HTTPError as exc:
+                  raise SystemExit("LIVE_FINAL_GITHUB_HTTP_" + str(exc.code)) from None
+              except (urllib.error.URLError, TimeoutError, OSError):
+                  raise SystemExit("LIVE_FINAL_GITHUB_TRANSPORT_BLOCKED") from None
+              try:
+                  return json.loads(body, object_pairs_hook=final_pairs)
+              except (UnicodeDecodeError, json.JSONDecodeError):
+                  raise SystemExit("LIVE_FINAL_GITHUB_INVALID_JSON") from None
+          final_active = {}
+          for status in ("queued", "in_progress", "waiting", "requested", "pending"):
+              page = 1
+              observed = 0
+              expected_total = None
+              while True:
+                  query = urllib.parse.urlencode({
+                      "status": status, "per_page": 100, "page": page,
+                  })
+                  payload = final_get_json(
+                      "/repos/AofSpds/asset-agent-asa/actions/runs?" + query
+                  )
+                  runs = payload.get("workflow_runs", [])
+                  if not isinstance(runs, list):
+                      raise SystemExit("LIVE_FINAL_ACTIVE_RUNS_INVALID")
+                  if expected_total is None:
+                      expected_total = int(payload.get("total_count", 0))
+                  observed += len(runs)
+                  for run in runs:
+                      run_id = int(run.get("id", 0))
+                      if run_id <= 0:
+                          raise SystemExit("LIVE_FINAL_ACTIVE_RUN_ID_INVALID")
+                      final_active[run_id] = run
+                  if len(runs) < 100:
+                      break
+                  page += 1
+                  if page > 100:
+                      raise SystemExit("LIVE_FINAL_ACTIVE_RUN_PAGINATION_LIMIT")
+              if observed < int(expected_total or 0):
+                  raise SystemExit("LIVE_FINAL_ACTIVE_RUNS_INCOMPLETE")
+          current_run_id = int(os.environ.get("GITHUB_RUN_ID", "0"))
+          if set(final_active) != {current_run_id}:
+              raise SystemExit("LIVE_FINAL_REPOSITORY_RUN_NOT_SOLE_ACTIVE")
+          final_current = final_active[current_run_id]
+          if (
+              final_current.get("path")
+                 != ".github/workflows/m3top3-finance-page100-bounded-pilot-v1.yml"
+              or final_current.get("head_sha") != os.environ.get("GITHUB_SHA")
+              or final_current.get("event") != "push"
+              or int(final_current.get("run_attempt", 0)) != 1
+              or final_current.get("actor", {}).get("login") != "AofSpds"
+              or final_current.get("triggering_actor", {}).get("login") != "AofSpds"
+              or final_current.get("repository", {}).get("full_name")
+                 != "AofSpds/asset-agent-asa"
+          ):
+              raise SystemExit("LIVE_FINAL_REPOSITORY_RUN_IDENTITY_MISMATCH")
+
+          # Revalidate every live-start reserve after AWS and GitHub readbacks.
+          final_now_epoch = int(time.time())
+          final_elapsed = final_now_epoch - int(anchor_text)
+          if not 0 <= final_elapsed <= 900:
+              raise SystemExit("LIVE_FINAL_PREFLIGHT_EXCEEDED_15_MINUTE_BUDGET")
+          final_now_utc = datetime.now(timezone.utc)
+          final_now_kst = final_now_utc.astimezone(kst)
+          final_next_midnight = (final_now_kst + timedelta(days=1)).replace(
+              hour=0, minute=0, second=0, microsecond=0
+          )
+          if final_now_kst.date().isoformat() != "2026-08-30":
+              raise SystemExit("LIVE_FINAL_QUOTA_DAY_MISMATCH")
+          if int((final_next_midnight - final_now_kst).total_seconds()) < 21600:
+              raise SystemExit("LIVE_FINAL_MIDNIGHT_RESERVE_INSUFFICIENT")
+          if int((not_after - final_now_utc).total_seconds()) < 19800:
+              raise SystemExit("LIVE_FINAL_TERMINAL_RESERVE_INSUFFICIENT")
+          if time.monotonic() >= live_preflight_deadline:
+              raise SystemExit("LIVE_FINAL_MONOTONIC_BUDGET_EXHAUSTED")
 
           value = os.environ.get("DATA_GO_KR_FINANCE_STOCK_RIGHTS_SERVICE_KEY", "")
           if not value:
@@ -1828,8 +2292,8 @@ jobs:
           claim = checkpoint.get("execution_claim", {})
           if (
               checkpoint.get("state") != "COMPLETE"
-              or checkpoint.get("runtime_lock_id") != "PMO-FINANCE-PAGE100-G4-20260829094400"
-              or checkpoint.get("pilot_run_id") != "FINANCE-PAGE100-PILOT-G4-20260829094400"
+              or checkpoint.get("runtime_lock_id") != "PMO-FINANCE-PAGE100-G5-20260829204006"
+              or checkpoint.get("pilot_run_id") != "FINANCE-PAGE100-PILOT-G5-20260829204006"
               or checkpoint.get("completed_dates") != [
                   "20240102", "20240131", "20240329", "20240628", "20240808",
                   "20240809", "20240812", "20240930", "20241231", "20250115",
@@ -1838,7 +2302,7 @@ jobs:
               ]
               or claim.get("writer_id") != expected_writer
               or claim.get("object_key")
-                 != "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_writer_claims/quota_day_kst=2026-08-29/execution-claim.json"
+                 != "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_writer_claims/quota_day_kst=2026-08-30/execution-claim.json"
               or claim.get("server_side_encryption") != "AES256"
               or claim.get("write_precondition") != "IF_NONE_MATCH_STAR"
               or not claim.get("version_id")
