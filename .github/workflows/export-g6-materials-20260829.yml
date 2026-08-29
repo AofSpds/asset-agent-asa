@@ -1,0 +1,42 @@
+name: Export exact G5 materials for bounded G6 remediation
+
+on:
+  push:
+    branches:
+      - aaa-pmo-g6-material-export-20260829-2210
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    if: github.actor == 'AofSpds' && github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact failed G5 head
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ee7cd5f6f48c9f13ad43071b8c7c3648c9bdd1d0
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Stage exact bounded material set
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p export/.github/workflows export/control/m3top3/public-data-source-admission/v1.0 export/tools/m3top3
+          cp .github/workflows/m3top3-finance-page100-bounded-pilot-v1.yml export/.github/workflows/
+          cp control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_PILOT_AUTHORITY_v1.0.json export/control/m3top3/public-data-source-admission/v1.0/
+          cp control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_PILOT_PLAN_v1.0.json export/control/m3top3/public-data-source-admission/v1.0/
+          cp control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_CHECKPOINT_SEED_v1.0.json export/control/m3top3/public-data-source-admission/v1.0/
+          cp control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_PILOT_LATCH_v1.0.json export/control/m3top3/public-data-source-admission/v1.0/
+          cp tools/m3top3/finance_page100_pilot.py export/tools/m3top3/
+          find export -type f -print0 | sort -z | xargs -0 sha256sum > export/SHA256SUMS
+      - name: Upload exact material bundle
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: g5-materials-for-g6-remediation
+          path: export/
+          if-no-files-found: error
+          retention-days: 1
+          compression-level: 6
