@@ -27,8 +27,8 @@ jobs:
       github.triggering_actor == 'AofSpds' &&
       github.run_attempt == 1 &&
       github.ref == 'refs/heads/aaa-pmo-public-data-g2-g3-source-admission-v1-20260828' &&
-      (github.event.head_commit.message == 'Arm M3Top3 Finance page100 G8 precheck 20260830025626 v1.0' ||
-       github.event.head_commit.message == 'Arm M3Top3 Finance page100 G8 bounded live pilot 20260830025626 v1.0')
+      (github.event.head_commit.message == 'Arm M3Top3 Finance page100 G9 precheck 20260830035948 v1.0' ||
+       github.event.head_commit.message == 'Arm M3Top3 Finance page100 G9 bounded live pilot 20260830035948 v1.0')
     runs-on: ubuntu-latest
     timeout-minutes: 360
     environment: m3top3-source-admission
@@ -89,10 +89,12 @@ jobs:
           set -euo pipefail
           python - <<'PY'
           import hashlib
+          import importlib.util
           import json
           import os
           import re
           import subprocess
+          import sys
           from datetime import datetime, timedelta, timezone
           from pathlib import Path
 
@@ -100,25 +102,26 @@ jobs:
           EXPECTED_ACTOR = "AofSpds"
           EXPECTED_REF = "refs/heads/aaa-pmo-public-data-g2-g3-source-admission-v1-20260828"
           EXPECTED_BRANCH = "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828"
-          EXPECTED_RUNTIME = "PMO-FINANCE-PAGE100-G8-20260830025626"
-          EXPECTED_RUN_ID = "FINANCE-PAGE100-PILOT-G8-20260830025626"
-          EXPECTED_TOKEN_HASH = "b6399bc8e328088bb25b56e0c897d0470b50873e70bea04a93106bb1255f2bd3"
-          EXPECTED_OWNER_SPEC = "584bb1d3ca0359f18dc4f9ac3de7644a88bb43fe4362c6c67a705e30ac27f309"
-          EXPECTED_GENERATION_ID = "FINANCE-PAGE100-G8-20260830025626"
-          EXPECTED_PRECHECK_ACT_ID = "FINANCE-PAGE100-PRECHECK-ACT-G8-20260830025626"
-          EXPECTED_LIVE_ACT_ID = "FINANCE-PAGE100-LIVE-ACT-G8-20260830025626"
-          EXPECTED_LATCH_EVENT_ID = "FINANCE-PAGE100-LATCH-G8-20260830025626"
+          EXPECTED_RUNTIME = "PMO-FINANCE-PAGE100-G9-20260830035948"
+          EXPECTED_RUN_ID = "FINANCE-PAGE100-PILOT-G9-20260830035948"
+          EXPECTED_TOKEN_HASH = "3e6982ec39734922880b736007e415b6bd21256ff3828f1c9ffd0e8ed8f73a06"
+          EXPECTED_OWNER_SPEC = "1f3f7679bf8aac78b86487305077896edbc827decbb420e01c28d2eb350f7f7c"
+          EXPECTED_GENERATION_ID = "FINANCE-PAGE100-G9-20260830035948"
+          EXPECTED_PRECHECK_ACT_ID = "FINANCE-PAGE100-PRECHECK-ACT-G9-20260830035948"
+          EXPECTED_LIVE_ACT_ID = "FINANCE-PAGE100-LIVE-ACT-G9-20260830035948"
+          EXPECTED_LATCH_EVENT_ID = "FINANCE-PAGE100-LATCH-G9-20260830035948"
           EXPECTED_MODE_PROFILE_CONTRACT = "IMMUTABLE_DUAL_PROFILE_SELECTED_ONLY_BY_LATCH_MODE"
           EXPECTED_EXECUTION_MATERIAL_KEYS = frozenset(('authority_sha256', 'baseline_quota_ledger_sha256', 'baseline_raw_index_sha256', 'checkpoint_template_sha256', 'effective_writer_policy_canonical_sha256', 'effective_writer_policy_sha256', 'execution_token_sha256', 'generation_id', 'latch_event_id', 'live_act_id', 'max_session_receipt_sha256', 'mode_profile_contract', 'owner_cap_spec_sha256', 'pilot_run_id', 'plan_sha256', 'precheck_act_id', 'predecessor_checkpoint_sha256', 'predecessor_report_sha256', 'predecessor_run_receipt_sha256', 'remediation_receipt_sha256', 'runner_sha256', 'runtime_lock_id', 'source_admission_sha256', 'workflow_sha256'))
           EXPECTED_G6_TERMINAL_BINDING = {'receipt_path': 'control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G6_PRECHECK_TERMINAL_RECEIPT_v1.0.json', 'receipt_sha256': '143776782028e45fcf1ef652bfd1387e2dbe2943b5ea01cd46f41669ffe0364f', 'receipt_git_blob': '944b4919d672e1f82a4c3e8dae6cef6c2380041a', 'receipt_commit': 'c770d8729068e0995cc44c9004a5cb50d858ba2e', 'receipt_commit_tree': 'cac7d235555391c018e894f7133016665c67c825', 'state': 'STOPPED_BLOCKED_TERMINAL_ZERO_SIDE_EFFECT', 'resume_authorized_scope': 'NEW_SEPARATELY_BOUND_G7_CONTROL_SUCCESSOR_ONLY', 'do_not_rerun': [33195472310, 33205926951, 33253477005, 33255869818]}
+          EXPECTED_G8_TERMINAL_BINDING = {'receipt_path': 'control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G8_LIVE_TERMINAL_RECEIPT_v1.0.json', 'receipt_sha256': 'f5d9fe266c061dc85ae5a3acb32c16885c7243b1fb7c8a6ed47a3fdc0950f647', 'receipt_git_blob': 'b97e60018e329f0d60907315092bad3e38605733', 'receipt_commit': '381a4609b12b78da35dfc06e0d58ec154879cfdd', 'receipt_commit_tree': 'fd4e833c034ece0fe0064cc00bdb0d896f18858e', 'state': 'STOPPED_BLOCKED_TERMINAL_ZERO_PROVIDER_QUOTA_S3_SIDE_EFFECT_AFTER_LIVE_STS_SESSION', 'resume_authorized_scope': 'NEW_SEPARATELY_BOUND_G9_CONTROL_SUCCESSOR_ONLY_AFTER_OWNER_APPROVAL', 'do_not_rerun': [33195472310, 33205926951, 33253477005, 33255869818, 33263150487, 33263450756, 33268730204, 33268992794]}
           EXPECTED_G7_TERMINAL_BINDING = {'receipt_path': 'control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G7_LIVE_TERMINAL_RECEIPT_v1.0.json', 'receipt_sha256': '42dc4938b4f1def30da79f558e15269a7ad2a6ac0fde2788347a93ae6a801b73', 'receipt_git_blob': 'c7422962c6bdcccbda945da812168be3745d9e7e', 'receipt_commit': '76d0a696ce431c7c5b16e5c71d1a223abc2e58a4', 'receipt_commit_tree': '8f3f73b628c56be9d0a657f081654c843b039baf', 'state': 'STOPPED_BLOCKED_TERMINAL_ZERO_PROVIDER_QUOTA_S3_SIDE_EFFECT', 'resume_authorized_scope': 'NEW_SEPARATELY_BOUND_G8_CONTROL_SUCCESSOR_ONLY_AFTER_OWNER_APPROVAL', 'do_not_rerun': [33195472310, 33205926951, 33253477005, 33255869818, 33263150487, 33263450756]}
-          EXPECTED_MESSAGE_BY_MODE = {'PRECHECK_ARMED': 'Arm M3Top3 Finance page100 G8 precheck 20260830025626 v1.0', 'LIVE_ARMED': 'Arm M3Top3 Finance page100 G8 bounded live pilot 20260830025626 v1.0'}
-          EXPECTED_RESUME_BASE_HEAD = "76d0a696ce431c7c5b16e5c71d1a223abc2e58a4"
-          EXPECTED_RESUME_BASE_TREE = "8f3f73b628c56be9d0a657f081654c843b039baf"
-          EXPECTED_FAILED_RUN_ID = 33263450756
-          EXPECTED_FAILED_JOB_ID = 99129208782
-          EXPECTED_FAILED_HEAD = "cb8ee876930ff1d12f5170c34e8fb89467c0b056"
-          EXPECTED_FAILED_TREE = "9ffb26fa10eb44b7e07ab57c042517104b335919"
+          EXPECTED_MESSAGE_BY_MODE = {'PRECHECK_ARMED': 'Arm M3Top3 Finance page100 G9 precheck 20260830035948 v1.0', 'LIVE_ARMED': 'Arm M3Top3 Finance page100 G9 bounded live pilot 20260830035948 v1.0'}
+          EXPECTED_RESUME_BASE_HEAD = "381a4609b12b78da35dfc06e0d58ec154879cfdd"
+          EXPECTED_RESUME_BASE_TREE = "fd4e833c034ece0fe0064cc00bdb0d896f18858e"
+          EXPECTED_FAILED_RUN_ID = 33268992794
+          EXPECTED_FAILED_JOB_ID = 99143970012
+          EXPECTED_FAILED_HEAD = "85e4b91681bc0e47542a0d770d49989fba5142ce"
+          EXPECTED_FAILED_TREE = "8839d10275ef9fed7d123e7fdff83a6eee97ba4d"
           EXPECTED_REMEDIATION_RECEIPT_SHA = "a78d9c238e46b055c14c21e15cc7f50762de832e0e42382356d108053efd7ff7"
           EXPECTED_EFFECTIVE_POLICY_SHA = "cc9297ceb8f2247b3dcf003055c814c139a92a88859bb44585807705e41270ed"
           EXPECTED_EFFECTIVE_POLICY_CANONICAL_SHA = "d2d1936ff420d2e97ededf64f376f544dacf838f125e4e8d6f3f4562efef774c"
@@ -128,6 +131,21 @@ jobs:
           EXPECTED_G4_PRECHECK_HEAD = "784e9eea008b5eea57132e2e341a3c63982951cc"
           EXPECTED_G4_PRECHECK_ARTIFACT_ID = 9706754794
           EXPECTED_G4_PRECHECK_ARTIFACT_DIGEST = "sha256:b32f5fb3b94adeb7b6202af07700b6fdb9b80c828f31e55ddfe78a2de7296b24"
+          FORBIDDEN_FRESH_G8_RUN_IDS = frozenset((33268730204, 33268992794))
+          FORBIDDEN_FRESH_G8_JOB_IDS = frozenset((99143279466, 99143970012))
+          FORBIDDEN_FRESH_G8_ARTIFACT_IDS = frozenset((9719445921, 9719523770))
+          FORBIDDEN_FRESH_G8_ARTIFACT_DIGESTS = frozenset((
+              "sha256:0605215f1e3dc6c6b0dae43a76a9a57977482e220b46fde07013237e9b796942",
+              "sha256:b0e5b6f1b599866636fd6ba7710e2190e777adb1ddb8c3cf7585bd8c60970053",
+          ))
+          FORBIDDEN_FRESH_G8_HEADS = frozenset((
+              "a94c242fe5555ff7d7f514ab614983a4af24f9ab",
+              "85e4b91681bc0e47542a0d770d49989fba5142ce",
+          ))
+          FORBIDDEN_FRESH_G8_TREES = frozenset((
+              "5cbfae49e25f2f6cdc9a31c3f8fbd9fbc2612ed8",
+              "8839d10275ef9fed7d123e7fdff83a6eee97ba4d",
+          ))
           FORBIDDEN_FRESH_G7_RUN_IDS = frozenset((33263150487, 33263450756))
           FORBIDDEN_FRESH_G7_JOB_IDS = frozenset((99128436859, 99129208782))
           FORBIDDEN_FRESH_G7_ARTIFACT_IDS = frozenset((9717845321, 9717928511))
@@ -143,7 +161,7 @@ jobs:
               "e7300461fc36e4121b44605e9466b7fb61a489a9",
               "9ffb26fa10eb44b7e07ab57c042517104b335919",
           ))
-          EXPECTED_PREPARATION_MESSAGE = "Prepare M3Top3 Finance page100 G8 immutable dual-profile 20260830025626 v1.0"
+          EXPECTED_PREPARATION_MESSAGE = "Prepare M3Top3 Finance page100 G9 immutable dual-profile 20260830035948 v1.0"
           EXPECTED_PREDECESSOR_HEAD = "31d1bc2a23b97c34adb851ab73394145994ddb6e"
           EXPECTED_PREDECESSOR_TREE = "172f65ce29b565792cc64519a3c5d431028ec537"
           EXPECTED_PREDECESSOR_RUN_ID = 33195472310
@@ -186,6 +204,7 @@ jobs:
           EFFECTIVE_WRITER_POLICY_PATH = Path(os.environ["FINANCE_EFFECTIVE_WRITER_POLICY_PATH"])
           MAX_SESSION_RECEIPT_PATH = Path(os.environ["FINANCE_MAX_SESSION_RECEIPT_PATH"])
           G6_TERMINAL_RECEIPT_PATH = Path("control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G6_PRECHECK_TERMINAL_RECEIPT_v1.0.json")
+          G8_TERMINAL_RECEIPT_PATH = Path("control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G8_LIVE_TERMINAL_RECEIPT_v1.0.json")
           G7_TERMINAL_RECEIPT_PATH = Path("control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G7_LIVE_TERMINAL_RECEIPT_v1.0.json")
           ZERO_HASH = "0" * 64
           HEX64 = re.compile(r"^[0-9a-f]{64}$")
@@ -247,6 +266,17 @@ jobs:
               ) + "\n").encode("utf-8")
               return hashlib.sha256(payload).hexdigest()
 
+          exact_runner_name = "tools.m3top3.finance_page100_pilot_g9_preflight"
+          exact_runner_spec = importlib.util.spec_from_file_location(exact_runner_name, RUNNER_PATH)
+          require(exact_runner_spec is not None and exact_runner_spec.loader is not None, "RUNNER_OWNER_SPEC_IMPORT_FAILED")
+          exact_runner = importlib.util.module_from_spec(exact_runner_spec)
+          sys.modules[exact_runner_name] = exact_runner
+          exact_runner_spec.loader.exec_module(exact_runner)
+          exact_runner_owner_material = exact_runner.owner_cap_material()
+          exact_runner_owner_sha = hashlib.sha256(exact_runner.sa.canonical_json_bytes(exact_runner_owner_material)).hexdigest()
+          require(exact_runner.OWNER_CAP_SPEC_SHA256 == exact_runner_owner_sha, "RUNNER_OWNER_SPEC_INTERNAL_MISMATCH")
+          require(exact_runner_owner_sha == EXPECTED_OWNER_SPEC, "RUNNER_OWNER_SPEC_EXPECTED_MISMATCH")
+
           require(os.environ.get("EVENT_REPOSITORY") == EXPECTED_REPOSITORY, "REPOSITORY_MISMATCH")
           require(os.environ.get("EVENT_ACTOR") == EXPECTED_ACTOR, "OWNER_ACTOR_MISMATCH")
           require(os.environ.get("EVENT_TRIGGERING_ACTOR") == EXPECTED_ACTOR, "OWNER_TRIGGERING_ACTOR_MISMATCH")
@@ -301,7 +331,7 @@ jobs:
               PREDECESSOR_RUN_RECEIPT_PATH, RUNNER_PATH,
               SOURCE_ADMISSION_PATH, WORKFLOW_PATH,
               REMEDIATION_RECEIPT_PATH, EFFECTIVE_WRITER_POLICY_PATH, MAX_SESSION_RECEIPT_PATH,
-              G6_TERMINAL_RECEIPT_PATH, G7_TERMINAL_RECEIPT_PATH,
+              G6_TERMINAL_RECEIPT_PATH, G7_TERMINAL_RECEIPT_PATH, G8_TERMINAL_RECEIPT_PATH,
           ):
               require(path.is_file(), "REQUIRED_FILE_MISSING:" + str(path))
 
@@ -343,22 +373,23 @@ jobs:
           require(failed_terminal.get("tree_sha") == EXPECTED_FAILED_TREE, "FAILED_TREE_BINDING_MISMATCH")
           require(failed_terminal.get("do_not_rerun") is True, "FAILED_RUN_DO_NOT_RERUN_MISSING")
           require(failed_terminal.get("do_not_reuse_latch") is True, "FAILED_LATCH_DO_NOT_REUSE_MISSING")
-          require(failed_terminal.get("generation_id") == "FINANCE-PAGE100-G7-20260830010311", "FAILED_GENERATION_BINDING_MISMATCH")
-          require(failed_terminal.get("runtime_lock_id") == "PMO-FINANCE-PAGE100-G7-20260830010311" and failed_terminal.get("pilot_run_id") == "FINANCE-PAGE100-PILOT-G7-20260830010311", "FAILED_RUNTIME_PILOT_BINDING_MISMATCH")
+          require(failed_terminal.get("generation_id") == "FINANCE-PAGE100-G8-20260830025626", "FAILED_GENERATION_BINDING_MISMATCH")
+          require(failed_terminal.get("runtime_lock_id") == "PMO-FINANCE-PAGE100-G8-20260830025626" and failed_terminal.get("pilot_run_id") == "FINANCE-PAGE100-PILOT-G8-20260830025626", "FAILED_RUNTIME_PILOT_BINDING_MISMATCH")
           require(failed_terminal.get("workflow_run_attempt") == 1 and failed_terminal.get("status") == "completed" and failed_terminal.get("conclusion") == "failure", "FAILED_TERMINAL_STATUS_MISMATCH")
           require(failed_terminal.get("disposition") == "TERMINAL_FAILED_LIVE_DO_NOT_RERUN_DO_NOT_REUSE", "FAILED_DISPOSITION_MISMATCH")
-          require(failed_terminal.get("exact_blocker") == "AWS_STS_PACKED_POLICY_SIZE_EXCEEDED", "FAILED_BLOCKER_BINDING_MISMATCH")
-          require(failed_terminal.get("failing_step_number") == 11 and failed_terminal.get("failing_step_name") == "Configure fresh bounded AWS OIDC live writer session", "FAILED_STEP_BINDING_MISMATCH")
-          require(failed_terminal.get("packed_policy_size_percent") == 104, "FAILED_PACKED_POLICY_SIZE_MISMATCH")
+          require(failed_terminal.get("exact_blocker") == "RUNNER_OWNER_CAP_SPEC_SHA256_MISMATCH", "FAILED_BLOCKER_BINDING_MISMATCH")
+          require(failed_terminal.get("failing_step_number") == 12 and failed_terminal.get("failing_step_name") == "Execute Finance-only bounded live pilot once", "FAILED_STEP_BINDING_MISMATCH")
+          require(failed_terminal.get("declared_owner_cap_spec_sha256") == "584bb1d3ca0359f18dc4f9ac3de7644a88bb43fe4362c6c67a705e30ac27f309", "FAILED_DECLARED_OWNER_CAP_MISMATCH")
+          require(failed_terminal.get("runner_derived_owner_cap_spec_sha256") == "82c63df675a863bc5901ce1e05d1b2ff6047d4601e6fe36847c3da1d6c4b2b8d", "FAILED_RUNNER_OWNER_CAP_MISMATCH")
           require(failed_terminal.get("aws_oidc_read_only_sessions_started") == 1, "FAILED_READ_ONLY_SESSION_COUNT_MISMATCH")
           require(failed_terminal.get("aws_oidc_live_writer_session_attempts") == 1, "FAILED_WRITER_ATTEMPT_COUNT_MISMATCH")
-          require(failed_terminal.get("aws_oidc_live_writer_sessions_started") == 0, "FAILED_WRITER_SESSION_COUNT_MISMATCH")
-          require(failed_terminal.get("actions_artifact_id") == 9717928511, "FAILED_ARTIFACT_ID_BINDING_MISMATCH")
-          require(failed_terminal.get("actions_artifact_digest") == "sha256:384b9dfe952b4f90c39279765df0de16eb2611a11bdaacc86f8455543e99a398", "FAILED_ARTIFACT_DIGEST_BINDING_MISMATCH")
-          require(failed_terminal.get("actions_artifact_size_in_bytes") == 9328, "FAILED_ARTIFACT_SIZE_BINDING_MISMATCH")
-          require(failed_terminal.get("terminal_receipt_sha256") == "42dc4938b4f1def30da79f558e15269a7ad2a6ac0fde2788347a93ae6a801b73", "FAILED_RECEIPT_HASH_BINDING_MISMATCH")
-          require(failed_terminal.get("terminal_receipt_path") == "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G7_LIVE_TERMINAL_RECEIPT_v1.0.json", "FAILED_RECEIPT_PATH_BINDING_MISMATCH")
-          require(failed_terminal.get("side_effect_scope") == "READ_ONLY_AWS_SESSION_ZERO_WRITER_PROVIDER_QUOTA_S3_SIDE_EFFECT", "FAILED_SIDE_EFFECT_SCOPE_MISMATCH")
+          require(failed_terminal.get("aws_oidc_live_writer_sessions_started") == 1, "FAILED_WRITER_SESSION_COUNT_MISMATCH")
+          require(failed_terminal.get("actions_artifact_id") == 9719523770, "FAILED_ARTIFACT_ID_BINDING_MISMATCH")
+          require(failed_terminal.get("actions_artifact_digest") == "sha256:b0e5b6f1b599866636fd6ba7710e2190e777adb1ddb8c3cf7585bd8c60970053", "FAILED_ARTIFACT_DIGEST_BINDING_MISMATCH")
+          require(failed_terminal.get("actions_artifact_size_in_bytes") == 9615, "FAILED_ARTIFACT_SIZE_BINDING_MISMATCH")
+          require(failed_terminal.get("terminal_receipt_sha256") == "f5d9fe266c061dc85ae5a3acb32c16885c7243b1fb7c8a6ed47a3fdc0950f647", "FAILED_RECEIPT_HASH_BINDING_MISMATCH")
+          require(failed_terminal.get("terminal_receipt_path") == "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G8_LIVE_TERMINAL_RECEIPT_v1.0.json", "FAILED_RECEIPT_PATH_BINDING_MISMATCH")
+          require(failed_terminal.get("side_effect_scope") == "LIVE_WRITER_SESSION_ESTABLISHED_ZERO_PROVIDER_QUOTA_S3_SIDE_EFFECT", "FAILED_SIDE_EFFECT_SCOPE_MISMATCH")
           for failed_zero_key in ("provider_api_network_attempts", "quota_reservations", "remote_raw_custody_writes", "remote_s3_control_writes", "s3_put_object_calls"):
               require(failed_terminal.get(failed_zero_key) == 0, "FAILED_GENERATION_EFFECT_NOT_ZERO:" + failed_zero_key)
           require(failed_terminal.get("execution_claim_created") is False, "FAILED_GENERATION_CLAIM_CREATED")
@@ -422,6 +453,7 @@ jobs:
           if mode == "PRECHECK_ARMED":
               require(before == prep_head, "PRECHECK_EVENT_BEFORE_MUST_EQUAL_PREPARATION_HEAD")
               require("fresh_precheck_binding" not in latch, "PRECHECK_FRESH_BINDING_PROHIBITED")
+              require("fresh_precheck_binding" not in latch, "PRECHECK_FRESH_BINDING_PROHIBITED")
               require(activation.get("provider_api_calls_authorized") is False, "PRECHECK_PROVIDER_CALL_MUST_BE_FALSE")
               require(activation.get("quota_reservations_authorized") is False, "PRECHECK_QUOTA_MUST_BE_FALSE")
               require(activation.get("remote_raw_custody_writes_authorized") is False, "PRECHECK_REMOTE_WRITE_MUST_BE_FALSE")
@@ -443,19 +475,29 @@ jobs:
               require(fresh.get("runtime_lock_id") == EXPECTED_RUNTIME, "LIVE_PRECHECK_RUNTIME_MISMATCH")
               require(fresh.get("pilot_run_id") == EXPECTED_RUN_ID, "LIVE_PRECHECK_PILOT_MISMATCH")
               require(type(fresh.get("workflow_run_id")) is int and fresh.get("workflow_run_id") > 0, "LIVE_PRECHECK_RUN_ID_INVALID")
+              require(fresh.get("workflow_run_id") not in FORBIDDEN_FRESH_G8_RUN_IDS, "G8_RUN_REUSE_AS_G9_FRESHNESS_PROHIBITED")
+              require(type(fresh.get("workflow_job_id")) is int and fresh.get("workflow_job_id") > 0, "LIVE_PRECHECK_JOB_ID_INVALID")
+              require(fresh.get("workflow_job_id") not in FORBIDDEN_FRESH_G8_JOB_IDS, "G8_JOB_REUSE_AS_G9_FRESHNESS_PROHIBITED")
               require(fresh.get("workflow_run_id") not in FORBIDDEN_FRESH_G7_RUN_IDS, "G7_RUN_REUSE_AS_G8_FRESHNESS_PROHIBITED")
               require(type(fresh.get("workflow_job_id")) is int and fresh.get("workflow_job_id") > 0, "LIVE_PRECHECK_JOB_ID_INVALID")
               require(fresh.get("workflow_job_id") not in FORBIDDEN_FRESH_G7_JOB_IDS, "G7_JOB_REUSE_AS_G8_FRESHNESS_PROHIBITED")
-              require(fresh.get("workflow_run_id") != EXPECTED_G4_PRECHECK_RUN_ID, "G4_PRECHECK_REUSE_AS_G8_FRESHNESS_PROHIBITED")
+              require(fresh.get("workflow_run_id") != EXPECTED_G4_PRECHECK_RUN_ID, "G4_PRECHECK_REUSE_AS_G9_FRESHNESS_PROHIBITED")
               require(type(fresh.get("artifact_id")) is int and fresh.get("artifact_id") > 0, "LIVE_PRECHECK_ARTIFACT_ID_INVALID")
+              require(fresh.get("artifact_id") not in FORBIDDEN_FRESH_G8_ARTIFACT_IDS, "G8_ARTIFACT_REUSE_AS_G9_FRESHNESS_PROHIBITED")
+              require("sha256:" + str(fresh.get("artifact_digest_sha256", "")) not in FORBIDDEN_FRESH_G8_ARTIFACT_DIGESTS, "G8_ARTIFACT_DIGEST_REUSE_AS_G9_FRESHNESS_PROHIBITED")
               require(fresh.get("artifact_id") not in FORBIDDEN_FRESH_G7_ARTIFACT_IDS, "G7_ARTIFACT_REUSE_AS_G8_FRESHNESS_PROHIBITED")
               require("sha256:" + str(fresh.get("artifact_digest_sha256", "")) not in FORBIDDEN_FRESH_G7_ARTIFACT_DIGESTS, "G7_ARTIFACT_DIGEST_REUSE_AS_G8_FRESHNESS_PROHIBITED")
               require(fresh.get("workflow_run_attempt") == 1, "LIVE_PRECHECK_RUN_ATTEMPT_MISMATCH")
               require(bool(re.fullmatch(r"[0-9a-f]{40}", str(fresh.get("head_sha", "")))), "LIVE_PRECHECK_HEAD_SHA_INVALID")
+              require(fresh.get("head_sha") not in FORBIDDEN_FRESH_G8_HEADS, "G8_HEAD_REUSE_AS_G9_FRESHNESS_PROHIBITED")
+              require(bool(re.fullmatch(r"[0-9a-f]{40}", str(fresh.get("head_tree_sha", "")))), "LIVE_PRECHECK_TREE_SHA_INVALID")
+              require(fresh.get("head_tree_sha") not in FORBIDDEN_FRESH_G8_TREES, "G8_TREE_REUSE_AS_G9_FRESHNESS_PROHIBITED")
               require(fresh.get("head_sha") not in FORBIDDEN_FRESH_G7_HEADS, "G7_HEAD_REUSE_AS_G8_FRESHNESS_PROHIBITED")
               require(bool(re.fullmatch(r"[0-9a-f]{40}", str(fresh.get("head_tree_sha", "")))), "LIVE_PRECHECK_TREE_SHA_INVALID")
               require(fresh.get("head_tree_sha") not in FORBIDDEN_FRESH_G7_TREES, "G7_TREE_REUSE_AS_G8_FRESHNESS_PROHIBITED")
               require(fresh.get("head_sha") == before, "LIVE_EVENT_BEFORE_MUST_EQUAL_FRESH_PRECHECK_HEAD")
+              fresh_tree = subprocess.run(["git", "rev-parse", before + "^{tree}"], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True).stdout.strip()
+              require(fresh.get("head_tree_sha") == fresh_tree, "LIVE_FRESH_PRECHECK_TREE_MISMATCH")
               fresh_tree = subprocess.run(["git", "rev-parse", before + "^{tree}"], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True).stdout.strip()
               require(fresh.get("head_tree_sha") == fresh_tree, "LIVE_FRESH_PRECHECK_TREE_MISMATCH")
               fresh_parent = subprocess.run(
@@ -499,8 +541,10 @@ jobs:
                   "failed_g6_raw_prefix_version_count", "failed_g6_raw_prefix_delete_marker_count",
                   "failed_g7_control_prefix_version_count", "failed_g7_control_prefix_delete_marker_count",
                   "failed_g7_raw_prefix_version_count", "failed_g7_raw_prefix_delete_marker_count",
-                  "new_g8_control_prefix_version_count", "new_g8_control_prefix_delete_marker_count",
-                  "new_g8_raw_prefix_version_count", "new_g8_raw_prefix_delete_marker_count",
+                  "failed_g8_control_prefix_version_count", "failed_g8_control_prefix_delete_marker_count",
+                  "failed_g8_raw_prefix_version_count", "failed_g8_raw_prefix_delete_marker_count",
+                  "new_g9_control_prefix_version_count", "new_g9_control_prefix_delete_marker_count",
+                  "new_g9_raw_prefix_version_count", "new_g9_raw_prefix_delete_marker_count",
                   "writer_claim_version_count", "writer_claim_delete_marker_count",
               ):
                   require(fresh.get(zero_history_key) == 0, "LIVE_PRECHECK_VERSION_HISTORY_NOT_ZERO:" + zero_history_key)
@@ -801,10 +845,40 @@ jobs:
           for zero_effect in ("provider_api_network_attempts", "quota_reservations", "remote_raw_custody_writes", "remote_s3_control_writes", "s3_put_object_calls"):
               require(g7_effects.get(zero_effect) == 0, "G7_TERMINAL_EFFECT_NOT_ZERO:" + zero_effect)
           require(g7_effects.get("execution_claim_created") is False, "G7_TERMINAL_CLAIM_CREATED")
+          g8_terminal_receipt = strict_json(G8_TERMINAL_RECEIPT_PATH)
+          for receipt_label, receipt_control in (("LATCH", latch), ("AUTHORITY", authority), ("PLAN", plan), ("CHECKPOINT", checkpoint)):
+              require(receipt_control.get("g8_terminal_receipt_binding") == EXPECTED_G8_TERMINAL_BINDING, receipt_label + "_G8_TERMINAL_RECEIPT_BINDING_MISMATCH")
+          require(sha256_file(G8_TERMINAL_RECEIPT_PATH) == "f5d9fe266c061dc85ae5a3acb32c16885c7243b1fb7c8a6ed47a3fdc0950f647", "G8_TERMINAL_RECEIPT_HASH_MISMATCH")
+          g8_failed = g8_terminal_receipt.get("failed_generation", {})
+          g8_failure = g8_terminal_receipt.get("failure", {})
+          g8_precheck = g8_terminal_receipt.get("fresh_precheck_evidence", {})
+          g8_artifact = g8_terminal_receipt.get("github_actions_artifact", {})
+          g8_resume = g8_terminal_receipt.get("resume_contract", {})
+          g8_effects = g8_terminal_receipt.get("side_effects", {})
+          require(g8_terminal_receipt.get("state") == "STOPPED_BLOCKED_TERMINAL_ZERO_PROVIDER_QUOTA_S3_SIDE_EFFECT_AFTER_LIVE_STS_SESSION", "G8_TERMINAL_RECEIPT_STATE_MISMATCH")
+          require(g8_failed.get("workflow_run_id") == 33268992794 and g8_failed.get("workflow_job_id") == 99143970012 and g8_failed.get("workflow_run_attempt") == 1, "G8_TERMINAL_WORKFLOW_IDENTITY_MISMATCH")
+          require(g8_failed.get("head_sha") == "85e4b91681bc0e47542a0d770d49989fba5142ce" and g8_failed.get("head_tree_sha") == "8839d10275ef9fed7d123e7fdff83a6eee97ba4d", "G8_TERMINAL_HEAD_TREE_MISMATCH")
+          require(g8_failed.get("preparation_head_sha") == "e8c91ebf8a1d3c1af3dcbeb1100564ebef27acef" and g8_failed.get("preparation_tree_sha") == "64beb1f034d8ea95abe60a941998365e19a6cb39", "G8_TERMINAL_PREPARATION_MISMATCH")
+          require(g8_failure.get("exact_code") == "RUNNER_OWNER_CAP_SPEC_SHA256_MISMATCH", "G8_TERMINAL_FAILURE_CODE_MISMATCH")
+          require(g8_failure.get("failing_step_number") == 12 and g8_failure.get("failing_step_name") == "Execute Finance-only bounded live pilot once", "G8_TERMINAL_FAILING_STEP_MISMATCH")
+          require(g8_failure.get("declared_owner_cap_spec_sha256") == "584bb1d3ca0359f18dc4f9ac3de7644a88bb43fe4362c6c67a705e30ac27f309" and g8_failure.get("runner_derived_owner_cap_spec_sha256") == "82c63df675a863bc5901ce1e05d1b2ff6047d4601e6fe36847c3da1d6c4b2b8d", "G8_TERMINAL_OWNER_CAP_EVIDENCE_MISMATCH")
+          require(g8_failure.get("runner_sha256") == "d91ed260c2de133e885f0a0e9fd9539876dccea05ba9d0e09b9fca2c56f1e982", "G8_TERMINAL_RUNNER_HASH_MISMATCH")
+          require(g8_precheck.get("workflow_run_id") == 33268730204 and g8_precheck.get("workflow_job_id") == 99143279466 and g8_precheck.get("workflow_run_attempt") == 1, "G8_TERMINAL_PRECHECK_IDENTITY_MISMATCH")
+          require(g8_precheck.get("head_sha") == "a94c242fe5555ff7d7f514ab614983a4af24f9ab" and g8_precheck.get("head_tree_sha") == "5cbfae49e25f2f6cdc9a31c3f8fbd9fbc2612ed8", "G8_TERMINAL_PRECHECK_HEAD_TREE_MISMATCH")
+          require(g8_precheck.get("artifact_id") == 9719445921 and g8_precheck.get("artifact_digest") == "sha256:0605215f1e3dc6c6b0dae43a76a9a57977482e220b46fde07013237e9b796942", "G8_TERMINAL_PRECHECK_ARTIFACT_MISMATCH")
+          require(g8_artifact.get("artifact_id") == 9719523770 and g8_artifact.get("digest") == "sha256:b0e5b6f1b599866636fd6ba7710e2190e777adb1ddb8c3cf7585bd8c60970053" and g8_artifact.get("size_in_bytes") == 9615, "G8_TERMINAL_ARTIFACT_MISMATCH")
+          require(g8_resume.get("authorized_scope") == "NEW_SEPARATELY_BOUND_G9_CONTROL_SUCCESSOR_ONLY_AFTER_OWNER_APPROVAL", "G8_TERMINAL_RESUME_SCOPE_MISMATCH")
+          require(g8_resume.get("do_not_rerun") == [33195472310, 33205926951, 33253477005, 33255869818, 33263150487, 33263450756, 33268730204, 33268992794], "G8_TERMINAL_DO_NOT_RERUN_SET_MISMATCH")
+          require(g8_resume.get("live_rerun_authorized") is False and g8_resume.get("reuse_failed_g8_live_latch") is False, "G8_TERMINAL_REUSE_GUARD_MISMATCH")
+          require(g8_effects.get("read_only_aws_oidc_session_established") == 1 and g8_effects.get("live_writer_oidc_assume_role_attempts") == 1 and g8_effects.get("live_writer_session_established") == 1, "G8_TERMINAL_SESSION_COUNTS_MISMATCH")
+          require(g8_effects.get("post_run_s3_history_readback_performed") is False and g8_effects.get("current_g8_quota_rows_in_artifact") == 0 and g8_effects.get("current_g8_raw_index_rows_in_artifact") == 0, "G8_TERMINAL_EVIDENCE_SCOPE_MISMATCH")
+          for zero_effect in ("provider_api_network_attempts", "quota_reservations", "remote_raw_custody_writes", "remote_s3_control_writes", "s3_put_object_calls"):
+              require(g8_effects.get(zero_effect) == 0, "G8_TERMINAL_EFFECT_NOT_ZERO:" + zero_effect)
+          require(g8_effects.get("execution_claim_created") is False, "G8_TERMINAL_CLAIM_CREATED")
           require(checkpoint.get("runtime_lock_id") == EXPECTED_RUNTIME, "CHECKPOINT_RUNTIME_MISMATCH")
           require(checkpoint.get("pilot_run_id") == EXPECTED_RUN_ID, "CHECKPOINT_RUN_ID_MISMATCH")
           require(checkpoint.get("planned_quota_day_kst") == EXPECTED_QUOTA_DAY_KST, "CHECKPOINT_QUOTA_DAY_MISMATCH")
-          require(checkpoint.get("state") == "GENERATION_8_S3_DURABLE_CAS_SEED_STAGED_NOT_EXECUTED", "CHECKPOINT_STATE_MISMATCH")
+          require(checkpoint.get("state") == "GENERATION_9_S3_DURABLE_CAS_SEED_STAGED_NOT_EXECUTED", "CHECKPOINT_STATE_MISMATCH")
           require(checkpoint.get("checkpoint_role") == "S3_DURABLE_CAS_NON_EXECUTED_CONTROL_PLANE_TEMPLATE", "CHECKPOINT_ROLE_MISMATCH")
           checkpoint_binding = checkpoint.get("authority_binding", {})
           require(checkpoint_binding.get("owner_cap_spec_sha256") == EXPECTED_OWNER_SPEC, "CHECKPOINT_OWNER_SPEC_MISMATCH")
@@ -1287,6 +1361,7 @@ jobs:
           set -euo pipefail
           python - <<'PY'
           import hashlib
+          import importlib.util
           import json
           import os
           import subprocess
@@ -1298,13 +1373,13 @@ jobs:
           SOURCE_ROOT = "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/"
           EXPECTED_CONTROL_PREFIX = (
               SOURCE_ROOT
-              + "_pilot_control/runtime_lock_id=PMO-FINANCE-PAGE100-G8-20260830025626/"
-              + "pilot_run_id=FINANCE-PAGE100-PILOT-G8-20260830025626/"
+              + "_pilot_control/runtime_lock_id=PMO-FINANCE-PAGE100-G9-20260830035948/"
+              + "pilot_run_id=FINANCE-PAGE100-PILOT-G9-20260830035948/"
           )
           EXPECTED_RAW_WRITE_PREFIX = (
               SOURCE_ROOT
-              + "_pilot_generation/runtime_lock_id=PMO-FINANCE-PAGE100-G8-20260830025626/"
-              + "pilot_run_id=FINANCE-PAGE100-PILOT-G8-20260830025626/"
+              + "_pilot_generation/runtime_lock_id=PMO-FINANCE-PAGE100-G9-20260830035948/"
+              + "pilot_run_id=FINANCE-PAGE100-PILOT-G9-20260830035948/"
           )
           FAILED_CONTROL_PREFIX = (
               SOURCE_ROOT
@@ -1339,6 +1414,14 @@ jobs:
           FAILED_G6_RAW_WRITE_PREFIX = (
               SOURCE_ROOT + "_pilot_generation/runtime_lock_id=PMO-FINANCE-PAGE100-G6-20260829221500/"
               + "pilot_run_id=FINANCE-PAGE100-PILOT-G6-20260829221500/"
+          )
+          FAILED_G8_CONTROL_PREFIX = (
+              SOURCE_ROOT + "_pilot_control/runtime_lock_id=PMO-FINANCE-PAGE100-G8-20260830025626/"
+              + "pilot_run_id=FINANCE-PAGE100-PILOT-G8-20260830025626/"
+          )
+          FAILED_G8_RAW_WRITE_PREFIX = (
+              SOURCE_ROOT + "_pilot_generation/runtime_lock_id=PMO-FINANCE-PAGE100-G8-20260830025626/"
+              + "pilot_run_id=FINANCE-PAGE100-PILOT-G8-20260830025626/"
           )
           FAILED_G7_CONTROL_PREFIX = (
               SOURCE_ROOT + "_pilot_control/runtime_lock_id=PMO-FINANCE-PAGE100-G7-20260830010311/"
@@ -1462,6 +1545,8 @@ jobs:
           assert_empty_prefix(FAILED_G5_RAW_WRITE_PREFIX, "FAILED_G5_RAW_PREFIX_NOT_EMPTY")
           assert_empty_prefix(FAILED_G6_CONTROL_PREFIX, "FAILED_G6_CONTROL_PREFIX_NOT_EMPTY")
           assert_empty_prefix(FAILED_G6_RAW_WRITE_PREFIX, "FAILED_G6_RAW_PREFIX_NOT_EMPTY")
+          assert_empty_prefix(FAILED_G8_CONTROL_PREFIX, "FAILED_G8_CONTROL_PREFIX_NOT_EMPTY")
+          assert_empty_prefix(FAILED_G8_RAW_WRITE_PREFIX, "FAILED_G8_RAW_PREFIX_NOT_EMPTY")
           assert_empty_prefix(FAILED_G7_CONTROL_PREFIX, "FAILED_G7_CONTROL_PREFIX_NOT_EMPTY")
           assert_empty_prefix(FAILED_G7_RAW_WRITE_PREFIX, "FAILED_G7_RAW_PREFIX_NOT_EMPTY")
           assert_empty_prefix(EXPECTED_CONTROL_PREFIX, "SUCCESSOR_CONTROL_PREFIX_NOT_EMPTY")
@@ -1567,10 +1652,14 @@ jobs:
               "failed_g7_control_prefix_delete_marker_count": 0,
               "failed_g7_raw_prefix_version_count": 0,
               "failed_g7_raw_prefix_delete_marker_count": 0,
-              "new_g8_control_prefix_version_count": 0,
-              "new_g8_control_prefix_delete_marker_count": 0,
-              "new_g8_raw_prefix_version_count": 0,
-              "new_g8_raw_prefix_delete_marker_count": 0,
+              "failed_g8_control_prefix_version_count": 0,
+              "failed_g8_control_prefix_delete_marker_count": 0,
+              "failed_g8_raw_prefix_version_count": 0,
+              "failed_g8_raw_prefix_delete_marker_count": 0,
+              "new_g9_control_prefix_version_count": 0,
+              "new_g9_control_prefix_delete_marker_count": 0,
+              "new_g9_raw_prefix_version_count": 0,
+              "new_g9_raw_prefix_delete_marker_count": 0,
               "writer_claim_version_count": 0,
               "writer_claim_delete_marker_count": 0,
               "prior_g4_control_prefix_version_count": 0,
@@ -1625,10 +1714,14 @@ jobs:
               "failed_g7_control_prefix_delete_marker_count": 0,
               "failed_g7_raw_prefix_version_count": 0,
               "failed_g7_raw_prefix_delete_marker_count": 0,
-              "new_g8_control_prefix_version_count": 0,
-              "new_g8_control_prefix_delete_marker_count": 0,
-              "new_g8_raw_prefix_version_count": 0,
-              "new_g8_raw_prefix_delete_marker_count": 0,
+              "failed_g8_control_prefix_version_count": 0,
+              "failed_g8_control_prefix_delete_marker_count": 0,
+              "failed_g8_raw_prefix_version_count": 0,
+              "failed_g8_raw_prefix_delete_marker_count": 0,
+              "new_g9_control_prefix_version_count": 0,
+              "new_g9_control_prefix_delete_marker_count": 0,
+              "new_g9_raw_prefix_version_count": 0,
+              "new_g9_raw_prefix_delete_marker_count": 0,
               "writer_claim_version_count": 0,
               "writer_claim_delete_marker_count": 0,
               "prior_g4_control_prefix_version_count": 0,
@@ -1689,6 +1782,7 @@ jobs:
           set -euo pipefail
           python - <<'PY'
           import hashlib
+          import importlib.util
           import json
           import os
           import urllib.error
@@ -1705,12 +1799,18 @@ jobs:
           PREDECESSOR_RUN_ID = 33195472310
           PREDECESSOR_JOB_ID = 98931365000
           PREDECESSOR_HEAD_SHA = "f0918e170a662867caf57ced28d68c82e79cdb0a"
-          FAILED_RUN_ID = 33263450756
-          FAILED_JOB_ID = 99129208782
-          FAILED_HEAD_SHA = "cb8ee876930ff1d12f5170c34e8fb89467c0b056"
-          FAILED_ARTIFACT_ID = 9717928511
-          FAILED_ARTIFACT_DIGEST = "sha256:384b9dfe952b4f90c39279765df0de16eb2611a11bdaacc86f8455543e99a398"
-          FAILED_ARTIFACT_SIZE = 9328
+          FAILED_RUN_ID = 33268992794
+          FAILED_JOB_ID = 99143970012
+          FAILED_HEAD_SHA = "85e4b91681bc0e47542a0d770d49989fba5142ce"
+          FAILED_ARTIFACT_ID = 9719523770
+          FAILED_ARTIFACT_DIGEST = "sha256:b0e5b6f1b599866636fd6ba7710e2190e777adb1ddb8c3cf7585bd8c60970053"
+          FAILED_ARTIFACT_SIZE = 9615
+          FORBIDDEN_FRESH_G8_RUN_IDS = frozenset((33268730204, 33268992794))
+          FORBIDDEN_FRESH_G8_JOB_IDS = frozenset((99143279466, 99143970012))
+          FORBIDDEN_FRESH_G8_ARTIFACT_IDS = frozenset((9719445921, 9719523770))
+          FORBIDDEN_FRESH_G8_HEADS = frozenset(("a94c242fe5555ff7d7f514ab614983a4af24f9ab", "85e4b91681bc0e47542a0d770d49989fba5142ce"))
+          FORBIDDEN_FRESH_G8_TREES = frozenset(("5cbfae49e25f2f6cdc9a31c3f8fbd9fbc2612ed8", "8839d10275ef9fed7d123e7fdff83a6eee97ba4d"))
+          FORBIDDEN_FRESH_G8_DIGESTS = frozenset(("sha256:0605215f1e3dc6c6b0dae43a76a9a57977482e220b46fde07013237e9b796942", "sha256:b0e5b6f1b599866636fd6ba7710e2190e777adb1ddb8c3cf7585bd8c60970053"))
           FORBIDDEN_FRESH_G7_RUN_IDS = frozenset((33263150487, 33263450756))
           FORBIDDEN_FRESH_G7_JOB_IDS = frozenset((99128436859, 99129208782))
           FORBIDDEN_FRESH_G7_ARTIFACT_IDS = frozenset((9717845321, 9717928511))
@@ -1896,7 +1996,7 @@ jobs:
               or failed_run.get("head_sha") != FAILED_HEAD_SHA
               or int(failed_run.get("run_attempt", 0)) != 1
           ):
-              raise SystemExit("FAILED_G7_RUN_TERMINAL_IDENTITY_MISMATCH")
+              raise SystemExit("FAILED_G8_RUN_TERMINAL_IDENTITY_MISMATCH")
           failed_jobs_payload = get_json(
               "/repos/" + REPOSITORY + "/actions/runs/" + str(FAILED_RUN_ID)
               + "/jobs?filter=all&per_page=100"
@@ -1906,17 +2006,17 @@ jobs:
               if int(job.get("id", 0)) == FAILED_JOB_ID
           ]
           if len(failed_jobs) != 1:
-              raise SystemExit("FAILED_G7_JOB_TERMINAL_IDENTITY_MISMATCH")
+              raise SystemExit("FAILED_G8_JOB_TERMINAL_IDENTITY_MISMATCH")
           failed_steps = {int(step.get("number", 0)): step for step in failed_jobs[0].get("steps", [])}
-          failed_sts_step = failed_steps.get(11, {})
-          skipped_provider_step = failed_steps.get(12, {})
+          successful_sts_step = failed_steps.get(11, {})
+          failed_provider_step = failed_steps.get(12, {})
           if (
-              failed_sts_step.get("name") != "Configure fresh bounded AWS OIDC live writer session"
-              or failed_sts_step.get("conclusion") != "failure"
-              or skipped_provider_step.get("name") != "Execute Finance-only bounded live pilot once"
-              or skipped_provider_step.get("conclusion") != "skipped"
+              successful_sts_step.get("name") != "Configure fresh bounded AWS OIDC live writer session"
+              or successful_sts_step.get("conclusion") != "success"
+              or failed_provider_step.get("name") != "Execute Finance-only bounded live pilot once"
+              or failed_provider_step.get("conclusion") != "failure"
           ):
-              raise SystemExit("FAILED_G7_EXACT_FAILING_STEP_MISMATCH")
+              raise SystemExit("FAILED_G8_EXACT_FAILING_STEP_MISMATCH")
           failed_artifacts_payload = get_json(
               "/repos/" + REPOSITORY + "/actions/runs/" + str(FAILED_RUN_ID)
               + "/artifacts?per_page=100"
@@ -1926,14 +2026,14 @@ jobs:
               if int(item.get("id", 0)) == FAILED_ARTIFACT_ID
           ]
           if len(failed_artifacts) != 1:
-              raise SystemExit("FAILED_G7_ARTIFACT_ID_MISMATCH")
+              raise SystemExit("FAILED_G8_ARTIFACT_ID_MISMATCH")
           failed_artifact = failed_artifacts[0]
           if (
               failed_artifact.get("digest") != FAILED_ARTIFACT_DIGEST
               or int(failed_artifact.get("size_in_bytes", 0)) != FAILED_ARTIFACT_SIZE
               or int(failed_artifact.get("workflow_run", {}).get("id", 0)) != FAILED_RUN_ID
           ):
-              raise SystemExit("FAILED_G7_ARTIFACT_BINDING_MISMATCH")
+              raise SystemExit("FAILED_G8_ARTIFACT_BINDING_MISMATCH")
 
           g4_run = get_json("/repos/" + REPOSITORY + "/actions/runs/" + str(G4_PRECHECK_RUN_ID))
           if (
@@ -1964,6 +2064,15 @@ jobs:
               if precheck_job_id <= 0:
                   raise SystemExit("FRESH_PRECHECK_JOB_ID_INVALID")
               if (
+                  precheck_run_id in FORBIDDEN_FRESH_G8_RUN_IDS
+                  or precheck_job_id in FORBIDDEN_FRESH_G8_JOB_IDS
+                  or precheck_artifact_id in FORBIDDEN_FRESH_G8_ARTIFACT_IDS
+                  or precheck_head_sha in FORBIDDEN_FRESH_G8_HEADS
+                  or fresh_binding.get("head_tree_sha") in FORBIDDEN_FRESH_G8_TREES
+                  or "sha256:" + precheck_digest in FORBIDDEN_FRESH_G8_DIGESTS
+              ):
+                  raise SystemExit("G8_EVIDENCE_REUSE_AS_G9_FRESHNESS_PROHIBITED")
+              if (
                   precheck_run_id in FORBIDDEN_FRESH_G7_RUN_IDS
                   or precheck_job_id in FORBIDDEN_FRESH_G7_JOB_IDS
                   or precheck_artifact_id in FORBIDDEN_FRESH_G7_ARTIFACT_IDS
@@ -1986,7 +2095,7 @@ jobs:
                   or prior.get("actor", {}).get("login") != ACTOR
                   or prior.get("triggering_actor", {}).get("login") != ACTOR
                   or prior.get("head_commit", {}).get("message")
-                     != "Arm M3Top3 Finance page100 G8 precheck 20260830025626 v1.0"
+                     != "Arm M3Top3 Finance page100 G9 precheck 20260830035948 v1.0"
               ):
                   raise SystemExit("FRESH_PRECHECK_WORKFLOW_RUN_MISMATCH")
               fresh_jobs = get_json(
@@ -2139,7 +2248,7 @@ jobs:
           output-credentials: false
           mask-aws-account-id: true
           inline-session-policy: |-
-            {"Statement":[{"Action":["s3:GetBucketLocation","s3:GetBucketVersioning"],"Effect":"Allow","Resource":"arn:aws:s3:::semi-data-plane-aofspds-20260815"},{"Action":["s3:ListBucket","s3:ListBucketVersions"],"Condition":{"StringLike":{"s3:prefix":"raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/*"}},"Effect":"Allow","Resource":"arn:aws:s3:::semi-data-plane-aofspds-20260815"},{"Action":["s3:GetObject","s3:GetObjectVersion"],"Effect":"Allow","Resource":"arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/*"},{"Action":"s3:PutObject","Effect":"Allow","Resource":["arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_generation/runtime_lock_id=PMO-FINANCE-PAGE100-G8-20260830025626/pilot_run_id=FINANCE-PAGE100-PILOT-G8-20260830025626/*","arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_control/runtime_lock_id=PMO-FINANCE-PAGE100-G8-20260830025626/pilot_run_id=FINANCE-PAGE100-PILOT-G8-20260830025626/*","arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_writer_claims/quota_day_kst=2026-08-30/execution-claim.json"]}],"Version":"2012-10-17"}
+            {"Statement":[{"Action":["s3:GetBucketLocation","s3:GetBucketVersioning"],"Effect":"Allow","Resource":"arn:aws:s3:::semi-data-plane-aofspds-20260815"},{"Action":["s3:ListBucket","s3:ListBucketVersions"],"Condition":{"StringLike":{"s3:prefix":"raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/*"}},"Effect":"Allow","Resource":"arn:aws:s3:::semi-data-plane-aofspds-20260815"},{"Action":["s3:GetObject","s3:GetObjectVersion"],"Effect":"Allow","Resource":"arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/*"},{"Action":"s3:PutObject","Effect":"Allow","Resource":["arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_generation/runtime_lock_id=PMO-FINANCE-PAGE100-G9-20260830035948/pilot_run_id=FINANCE-PAGE100-PILOT-G9-20260830035948/*","arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_control/runtime_lock_id=PMO-FINANCE-PAGE100-G9-20260830035948/pilot_run_id=FINANCE-PAGE100-PILOT-G9-20260830035948/*","arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_writer_claims/quota_day_kst=2026-08-30/execution-claim.json"]}],"Version":"2012-10-17"}
 
 
       - name: Execute Finance-only bounded live pilot once
@@ -2224,8 +2333,8 @@ jobs:
           if aws_json(["s3api", "get-bucket-versioning", "--bucket", bucket]).get("Status") != "Enabled":
               raise SystemExit("LIVE_FRESH_SESSION_BUCKET_VERSIONING_MISMATCH")
           prefixes = (
-              "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_generation/runtime_lock_id=PMO-FINANCE-PAGE100-G8-20260830025626/pilot_run_id=FINANCE-PAGE100-PILOT-G8-20260830025626/",
-              "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_control/runtime_lock_id=PMO-FINANCE-PAGE100-G8-20260830025626/pilot_run_id=FINANCE-PAGE100-PILOT-G8-20260830025626/",
+              "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_generation/runtime_lock_id=PMO-FINANCE-PAGE100-G9-20260830035948/pilot_run_id=FINANCE-PAGE100-PILOT-G9-20260830035948/",
+              "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_control/runtime_lock_id=PMO-FINANCE-PAGE100-G9-20260830035948/pilot_run_id=FINANCE-PAGE100-PILOT-G9-20260830035948/",
               "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_writer_claims/quota_day_kst=2026-08-30/execution-claim.json",
           )
           for prefix in prefixes:
@@ -2458,8 +2567,8 @@ jobs:
           claim = checkpoint.get("execution_claim", {})
           if (
               checkpoint.get("state") != "COMPLETE"
-              or checkpoint.get("runtime_lock_id") != "PMO-FINANCE-PAGE100-G8-20260830025626"
-              or checkpoint.get("pilot_run_id") != "FINANCE-PAGE100-PILOT-G8-20260830025626"
+              or checkpoint.get("runtime_lock_id") != "PMO-FINANCE-PAGE100-G9-20260830035948"
+              or checkpoint.get("pilot_run_id") != "FINANCE-PAGE100-PILOT-G9-20260830035948"
               or checkpoint.get("completed_dates") != [
                   "20240102", "20240131", "20240329", "20240628", "20240808",
                   "20240809", "20240812", "20240930", "20241231", "20250115",
