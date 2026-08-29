@@ -29,28 +29,32 @@ from . import finance_live_pilot as legacy
 from . import source_admission as sa
 
 
-RUNTIME_LOCK_ID = "PMO-FINANCE-PAGE100-G7-20260830010311"
-PILOT_RUN_ID = "FINANCE-PAGE100-PILOT-G7-20260830010311"
-ACTIVATION_BASE_HEAD_COMMIT = "c770d8729068e0995cc44c9004a5cb50d858ba2e"
-EXECUTION_TOKEN_SHA256 = "dc2c08d0050ad1509c97bb15afb79a2037969160146df2e48ac826c2952467be"
-GENERATION_ID = "FINANCE-PAGE100-G7-20260830010311"
-PRECHECK_ACT_ID = "FINANCE-PAGE100-PRECHECK-ACT-G7-20260830010311"
-LATCH_EVENT_ID = "FINANCE-PAGE100-LATCH-G7-20260830010311"
-FAILED_PRECHECK_WORKFLOW_RUN_ID = 33255869818
-FAILED_PRECHECK_WORKFLOW_JOB_ID = 99109343938
-FAILED_PRECHECK_HEAD_SHA = "59d83dd7ab40d680c22a6b28b8cb2efec7d9b20c"
+RUNTIME_LOCK_ID = "PMO-FINANCE-PAGE100-G8-20260830025626"
+PILOT_RUN_ID = "FINANCE-PAGE100-PILOT-G8-20260830025626"
+ACTIVATION_BASE_HEAD_COMMIT = "76d0a696ce431c7c5b16e5c71d1a223abc2e58a4"
+EXECUTION_TOKEN_SHA256 = "b6399bc8e328088bb25b56e0c897d0470b50873e70bea04a93106bb1255f2bd3"
+GENERATION_ID = "FINANCE-PAGE100-G8-20260830025626"
+PRECHECK_ACT_ID = "FINANCE-PAGE100-PRECHECK-ACT-G8-20260830025626"
+LATCH_EVENT_ID = "FINANCE-PAGE100-LATCH-G8-20260830025626"
+FAILED_PRECHECK_WORKFLOW_RUN_ID = 33263450756
+FAILED_PRECHECK_WORKFLOW_JOB_ID = 99129208782
+FAILED_PRECHECK_HEAD_SHA = "cb8ee876930ff1d12f5170c34e8fb89467c0b056"
 FAILED_PRECHECK_RERUN_AUTHORIZED = False
-LIVE_ACT_ID = "FINANCE-PAGE100-LIVE-ACT-G7-20260830010311"
+LIVE_ACT_ID = "FINANCE-PAGE100-LIVE-ACT-G8-20260830025626"
 G4_PRECHECK_WORKFLOW_RUN_ID = 33225643741
 G4_PRECHECK_HEAD_SHA = "784e9eea008b5eea57132e2e341a3c63982951cc"
 MAX_SESSION_RECEIPT_SHA256 = "40a4385a25cb773bd0547669bd1fc7b0560e328f062545f8b4bcea2c7916c342"
 MODE_PROFILE_CONTRACT = "IMMUTABLE_DUAL_PROFILE_SELECTED_ONLY_BY_LATCH_MODE"
-PREPARATION_COMMIT_MESSAGE = "Prepare M3Top3 Finance page100 G7 immutable dual-profile 20260830010311 v1.0"
-PRECHECK_COMMIT_MESSAGE = "Arm M3Top3 Finance page100 G7 precheck 20260830010311 v1.0"
-LIVE_COMMIT_MESSAGE = "Arm M3Top3 Finance page100 G7 bounded live pilot 20260830010311 v1.0"
+PREPARATION_COMMIT_MESSAGE = "Prepare M3Top3 Finance page100 G8 immutable dual-profile 20260830025626 v1.0"
+PRECHECK_COMMIT_MESSAGE = "Arm M3Top3 Finance page100 G8 precheck 20260830025626 v1.0"
+LIVE_COMMIT_MESSAGE = "Arm M3Top3 Finance page100 G8 bounded live pilot 20260830025626 v1.0"
 G6_TERMINAL_RECEIPT_PATH = Path("control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G6_PRECHECK_TERMINAL_RECEIPT_v1.0.json")
 G6_TERMINAL_RECEIPT_SHA256 = "143776782028e45fcf1ef652bfd1387e2dbe2943b5ea01cd46f41669ffe0364f"
 G6_TERMINAL_RECEIPT_BINDING = {'receipt_path': 'control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G6_PRECHECK_TERMINAL_RECEIPT_v1.0.json', 'receipt_sha256': '143776782028e45fcf1ef652bfd1387e2dbe2943b5ea01cd46f41669ffe0364f', 'receipt_git_blob': '944b4919d672e1f82a4c3e8dae6cef6c2380041a', 'receipt_commit': 'c770d8729068e0995cc44c9004a5cb50d858ba2e', 'receipt_commit_tree': 'cac7d235555391c018e894f7133016665c67c825', 'state': 'STOPPED_BLOCKED_TERMINAL_ZERO_SIDE_EFFECT', 'resume_authorized_scope': 'NEW_SEPARATELY_BOUND_G7_CONTROL_SUCCESSOR_ONLY', 'do_not_rerun': [33195472310, 33205926951, 33253477005, 33255869818]}
+G7_TERMINAL_RECEIPT_PATH = Path("control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G7_LIVE_TERMINAL_RECEIPT_v1.0.json")
+G7_TERMINAL_RECEIPT_SHA256 = "42dc4938b4f1def30da79f558e15269a7ad2a6ac0fde2788347a93ae6a801b73"
+G7_TERMINAL_RECEIPT_BINDING = {'receipt_path': 'control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G7_LIVE_TERMINAL_RECEIPT_v1.0.json', 'receipt_sha256': '42dc4938b4f1def30da79f558e15269a7ad2a6ac0fde2788347a93ae6a801b73', 'receipt_git_blob': 'c7422962c6bdcccbda945da812168be3745d9e7e', 'receipt_commit': '76d0a696ce431c7c5b16e5c71d1a223abc2e58a4', 'receipt_commit_tree': '8f3f73b628c56be9d0a657f081654c843b039baf', 'state': 'STOPPED_BLOCKED_TERMINAL_ZERO_PROVIDER_QUOTA_S3_SIDE_EFFECT', 'resume_authorized_scope': 'NEW_SEPARATELY_BOUND_G8_CONTROL_SUCCESSOR_ONLY_AFTER_OWNER_APPROVAL', 'do_not_rerun': [33195472310, 33205926951, 33253477005, 33255869818, 33263150487, 33263450756]}
+
 EXECUTION_MATERIAL_KEYS = frozenset(('authority_sha256', 'baseline_quota_ledger_sha256', 'baseline_raw_index_sha256', 'checkpoint_template_sha256', 'effective_writer_policy_canonical_sha256', 'effective_writer_policy_sha256', 'execution_token_sha256', 'generation_id', 'latch_event_id', 'live_act_id', 'max_session_receipt_sha256', 'mode_profile_contract', 'owner_cap_spec_sha256', 'pilot_run_id', 'plan_sha256', 'precheck_act_id', 'predecessor_checkpoint_sha256', 'predecessor_report_sha256', 'predecessor_run_receipt_sha256', 'remediation_receipt_sha256', 'runner_sha256', 'runtime_lock_id', 'source_admission_sha256', 'workflow_sha256'))
 LIVE_NOT_AFTER_UTC = datetime.fromisoformat("2026-08-30T14:30:00+00:00")
 
@@ -2608,7 +2612,7 @@ class BoundedUrlLibFinanceTransport:
             headers={
                 "Accept": "application/json",
                 "Accept-Encoding": "identity",
-                "User-Agent": "AAA-M3Top3-Finance-Page100-G7/1.0",
+                "User-Agent": "AAA-M3Top3-Finance-Page100-G8/1.0",
             },
         )
         socket_opened_at = self._socket_open_stamp()
@@ -3443,6 +3447,7 @@ def _validate_cli_materials(
         or latch.get("activation_modes", {}).get("LIVE_ARMED", {}).get("exact_commit_message") != LIVE_COMMIT_MESSAGE
         or latch.get("preparation_commit", {}).get("exact_commit_message") != PREPARATION_COMMIT_MESSAGE
         or latch.get("g6_terminal_receipt_binding") != G6_TERMINAL_RECEIPT_BINDING
+        or latch.get("g7_terminal_receipt_binding") != G7_TERMINAL_RECEIPT_BINDING
     ):
         raise BindingError("successor LIVE latch binding mismatch")
 
@@ -3540,6 +3545,58 @@ def _validate_cli_materials(
         or receipt_resume.get("do_not_rerun") != [33195472310, 33205926951, 33253477005, 33255869818]
     ):
         raise BindingError("successor G6 terminal receipt semantic mismatch")
+    g7_receipt, _, g7_receipt_sha = _load_control_json(G7_TERMINAL_RECEIPT_PATH)
+    receipt_controls_g7 = (authority, plan, checkpoint_seed, latch)
+    if any(control.get("g7_terminal_receipt_binding") != G7_TERMINAL_RECEIPT_BINDING for control in receipt_controls_g7):
+        raise BindingError("successor G7 terminal receipt binding mismatch")
+    g7_failed = g7_receipt.get("failed_generation", {})
+    g7_failure = g7_receipt.get("failure", {})
+    g7_artifact = g7_receipt.get("github_actions_artifact", {})
+    g7_precheck = g7_receipt.get("fresh_precheck_evidence", {})
+    g7_resume = g7_receipt.get("resume_contract", {})
+    g7_effects = g7_receipt.get("side_effects", {})
+    if (
+        g7_receipt_sha != G7_TERMINAL_RECEIPT_SHA256
+        or g7_receipt.get("state") != "STOPPED_BLOCKED_TERMINAL_ZERO_PROVIDER_QUOTA_S3_SIDE_EFFECT"
+        or g7_failed.get("workflow_run_id") != 33263450756
+        or g7_failed.get("workflow_job_id") != 99129208782
+        or g7_failed.get("workflow_run_attempt") != 1
+        or g7_failed.get("head_sha") != "cb8ee876930ff1d12f5170c34e8fb89467c0b056"
+        or g7_failed.get("head_tree_sha") != "9ffb26fa10eb44b7e07ab57c042517104b335919"
+        or g7_failed.get("preparation_head_sha") != "3df9bb8bf384920223e6185bb48190985e2ddce0"
+        or g7_failed.get("preparation_tree_sha") != "46354e0594f77cf8c9023314626aab399d74a60d"
+        or g7_failure.get("exact_code") != "AWS_STS_PACKED_POLICY_SIZE_EXCEEDED"
+        or g7_failure.get("failing_step_number") != 11
+        or g7_failure.get("failing_step_name") != "Configure fresh bounded AWS OIDC live writer session"
+        or g7_failure.get("packed_policy_size_percent") != 104
+        or g7_failure.get("live_writer_session_established") is not False
+        or g7_failure.get("provider_execution_step_number") != 12
+        or g7_failure.get("provider_execution_step_conclusion") != "skipped"
+        or g7_artifact.get("artifact_id") != 9717928511
+        or g7_artifact.get("digest") != "sha256:384b9dfe952b4f90c39279765df0de16eb2611a11bdaacc86f8455543e99a398"
+        or g7_artifact.get("size_in_bytes") != 9328
+        or g7_precheck.get("workflow_run_id") != 33263150487
+        or g7_precheck.get("workflow_job_id") != 99128436859
+        or g7_precheck.get("workflow_run_attempt") != 1
+        or g7_precheck.get("head_sha") != "bf3ffa4e54ee0a6216d1257a763420f1b385a502"
+        or g7_precheck.get("head_tree_sha") != "e7300461fc36e4121b44605e9466b7fb61a489a9"
+        or g7_precheck.get("artifact_id") != 9717845321
+        or g7_precheck.get("artifact_digest") != "sha256:fc042be1493a8c4dc2611a1c3cfa024eff2a5cda941f7f276059e2d4c1fcdb61"
+        or g7_resume.get("authorized_scope") != "NEW_SEPARATELY_BOUND_G8_CONTROL_SUCCESSOR_ONLY_AFTER_OWNER_APPROVAL"
+        or g7_resume.get("do_not_rerun") != [33195472310, 33205926951, 33253477005, 33255869818, 33263150487, 33263450756]
+        or g7_resume.get("live_rerun_authorized") is not False
+        or g7_resume.get("reuse_failed_g7_live_latch") is not False
+        or g7_effects.get("read_only_aws_oidc_session_established") != 1
+        or g7_effects.get("live_writer_oidc_assume_role_attempts") != 1
+        or g7_effects.get("live_writer_session_established") != 0
+        or any(g7_effects.get(key) != 0 for key in (
+            "provider_api_network_attempts", "quota_reservations",
+            "remote_raw_custody_writes", "remote_s3_control_writes",
+            "s3_put_object_calls",
+        ))
+        or g7_effects.get("execution_claim_created") is not False
+    ):
+        raise BindingError("successor G7 terminal receipt semantic mismatch")
     seed_material_binding = checkpoint_seed.get("execution_material_binding", {})
     if seed_material_binding.get("mode_profile_contract") != MODE_PROFILE_CONTRACT:
         raise BindingError("successor checkpoint mode profile contract mismatch")
