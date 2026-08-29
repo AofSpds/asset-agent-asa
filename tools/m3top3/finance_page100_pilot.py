@@ -26,10 +26,17 @@ from . import finance_live_pilot as legacy
 from . import source_admission as sa
 
 
-RUNTIME_LOCK_ID = "PMO-FINANCE-PAGE100-20260829041623"
-PILOT_RUN_ID = "FINANCE-PAGE100-PILOT-20260829041623"
-ACTIVATION_BASE_HEAD_COMMIT = "31d1bc2a23b97c34adb851ab73394145994ddb6e"
-EXECUTION_TOKEN_SHA256 = "763c3e1a57f270efcec8ca9be1ee2565a131bf0e4501343e68670fd7f5d32d0d"
+RUNTIME_LOCK_ID = "PMO-FINANCE-PAGE100-G4-20260829094400"
+PILOT_RUN_ID = "FINANCE-PAGE100-PILOT-G4-20260829094400"
+ACTIVATION_BASE_HEAD_COMMIT = "8b0183a0754ee1a1d8cda2a64c4153735e653565"
+EXECUTION_TOKEN_SHA256 = "a1d20922b03c9e5fe887d6834e19c546284ba812c30edd6558afd8d710f828fd"
+GENERATION_ID = "FINANCE-PAGE100-G4-20260829094400"
+PRECHECK_ACT_ID = "FINANCE-PAGE100-PRECHECK-ACT-G4-20260829094400"
+LATCH_EVENT_ID = "FINANCE-PAGE100-PRECHECK-LATCH-G4-20260829094400"
+FAILED_PRECHECK_WORKFLOW_RUN_ID = 33205926951
+FAILED_PRECHECK_WORKFLOW_JOB_ID = 98966822862
+FAILED_PRECHECK_HEAD_SHA = "c2fda7ae46474c0dd70bd6add5ea8184cacd4b87"
+FAILED_PRECHECK_RERUN_AUTHORIZED = False
 
 PRIMARY_DATES = legacy.PRIMARY_DATES
 REQUEST_PAGE_SIZE = 10
@@ -2616,6 +2623,12 @@ def _validate_cli_materials(
         or latch.get("pilot_run_id") != PILOT_RUN_ID
         or latch.get("execution_token_sha256") != EXECUTION_TOKEN_SHA256
         or latch.get("owner_cap_spec_sha256") != OWNER_CAP_SPEC_SHA256
+        or latch.get("generation_id") != GENERATION_ID
+        or latch.get("precheck_act_id") != PRECHECK_ACT_ID
+        or latch.get("latch_event_id") != LATCH_EVENT_ID
+        or latch.get("failed_generation_terminal", {}).get("workflow_run_id")
+           != FAILED_PRECHECK_WORKFLOW_RUN_ID
+        or latch.get("failed_generation_terminal", {}).get("do_not_rerun") is not True
     ):
         raise BindingError("successor LIVE latch binding mismatch")
 
@@ -2655,6 +2668,8 @@ def _validate_cli_materials(
             ".github/workflows/"
             "m3top3-finance-page100-bounded-pilot-v1.yml"
         ),
+        "remediation_receipt_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_AWS_S3_RAW_WRITER_LISTBUCKETVERSIONS_REMEDIATION_RECEIPT_v1.0.json",
+        "effective_writer_policy_path": "control/m3top3/public-data-source-admission/v1.0/aws-oidc/M3TOP3_AWS_S3_RAW_WRITER_POLICY_v1.0.json",
     }
     hash_keys = {
         "authority_path": "authority_sha256",
@@ -2668,6 +2683,8 @@ def _validate_cli_materials(
         "runner_path": "runner_sha256",
         "source_admission_path": "source_admission_sha256",
         "workflow_path": "workflow_sha256",
+        "remediation_receipt_path": "remediation_receipt_sha256",
+        "effective_writer_policy_path": "effective_writer_policy_sha256",
     }
     bound_paths: dict[str, Path] = {}
     for path_key, expected in exact_paths.items():
@@ -2692,12 +2709,18 @@ def _validate_cli_materials(
         "pilot_run_id": PILOT_RUN_ID,
         "execution_token_sha256": EXECUTION_TOKEN_SHA256,
         "owner_cap_spec_sha256": OWNER_CAP_SPEC_SHA256,
+        "generation_id": GENERATION_ID,
+        "precheck_act_id": PRECHECK_ACT_ID,
+        "latch_event_id": LATCH_EVENT_ID,
         "authority_sha256": authority_sha,
         "plan_sha256": plan_sha,
         "runner_sha256": bound.get("runner_sha256"),
         "source_admission_sha256": bound.get("source_admission_sha256"),
         "checkpoint_template_sha256": bound.get("checkpoint_seed_sha256"),
         "workflow_sha256": bound.get("workflow_sha256"),
+        "remediation_receipt_sha256": bound.get("remediation_receipt_sha256"),
+        "effective_writer_policy_sha256": bound.get("effective_writer_policy_sha256"),
+        "effective_writer_policy_canonical_sha256": "d2d1936ff420d2e97ededf64f376f544dacf838f125e4e8d6f3f4562efef774c",
         "baseline_quota_ledger_sha256": bound.get(
             "baseline_quota_ledger_sha256"
         ),

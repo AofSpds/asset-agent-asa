@@ -27,8 +27,8 @@ jobs:
       github.triggering_actor == 'AofSpds' &&
       github.run_attempt == 1 &&
       github.ref == 'refs/heads/aaa-pmo-public-data-g2-g3-source-admission-v1-20260828' &&
-      (github.event.head_commit.message == 'Arm M3Top3 Finance page100 precheck v1.0' ||
-       github.event.head_commit.message == 'Arm M3Top3 Finance page100 bounded live pilot v1.0')
+      (github.event.head_commit.message == 'Arm M3Top3 Finance page100 G4 precheck 20260829094400 v1.0' ||
+       github.event.head_commit.message == 'Arm M3Top3 Finance page100 G4 bounded live pilot 20260829094400 v1.0')
     runs-on: ubuntu-latest
     timeout-minutes: 360
     environment: m3top3-source-admission
@@ -51,6 +51,8 @@ jobs:
       FINANCE_RUNNER_PATH: tools/m3top3/finance_page100_pilot.py
       FINANCE_SOURCE_ADMISSION_PATH: tools/m3top3/source_admission.py
       FINANCE_WORKFLOW_PATH: .github/workflows/m3top3-finance-page100-bounded-pilot-v1.yml
+      FINANCE_REMEDIATION_RECEIPT_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_AWS_S3_RAW_WRITER_LISTBUCKETVERSIONS_REMEDIATION_RECEIPT_v1.0.json
+      FINANCE_EFFECTIVE_WRITER_POLICY_PATH: control/m3top3/public-data-source-admission/v1.0/aws-oidc/M3TOP3_AWS_S3_RAW_WRITER_POLICY_v1.0.json
 
     steps:
       - name: Checkout exact pushed revision
@@ -88,10 +90,23 @@ jobs:
           EXPECTED_ACTOR = "AofSpds"
           EXPECTED_REF = "refs/heads/aaa-pmo-public-data-g2-g3-source-admission-v1-20260828"
           EXPECTED_BRANCH = "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828"
-          EXPECTED_RUNTIME = "PMO-FINANCE-PAGE100-20260829041623"
-          EXPECTED_RUN_ID = "FINANCE-PAGE100-PILOT-20260829041623"
-          EXPECTED_TOKEN_HASH = "763c3e1a57f270efcec8ca9be1ee2565a131bf0e4501343e68670fd7f5d32d0d"
-          EXPECTED_OWNER_SPEC = "9e972a94e24c1a20213fd42e04e6daa895e3afd8179f093fdf8a9f904f870444"
+          EXPECTED_RUNTIME = "PMO-FINANCE-PAGE100-G4-20260829094400"
+          EXPECTED_RUN_ID = "FINANCE-PAGE100-PILOT-G4-20260829094400"
+          EXPECTED_TOKEN_HASH = "a1d20922b03c9e5fe887d6834e19c546284ba812c30edd6558afd8d710f828fd"
+          EXPECTED_OWNER_SPEC = "259eb2655df203cfada15902eac08670c173289c935fd7e3e53fc945c3a55c89"
+          EXPECTED_GENERATION_ID = "FINANCE-PAGE100-G4-20260829094400"
+          EXPECTED_PRECHECK_ACT_ID = "FINANCE-PAGE100-PRECHECK-ACT-G4-20260829094400"
+          EXPECTED_LATCH_EVENT_ID = "FINANCE-PAGE100-PRECHECK-LATCH-G4-20260829094400"
+          EXPECTED_RESUME_BASE_HEAD = "8b0183a0754ee1a1d8cda2a64c4153735e653565"
+          EXPECTED_RESUME_BASE_TREE = "c63bcdb2339529c2eef2ba2950880bc698dd8fb0"
+          EXPECTED_FAILED_RUN_ID = 33205926951
+          EXPECTED_FAILED_JOB_ID = 98966822862
+          EXPECTED_FAILED_HEAD = "c2fda7ae46474c0dd70bd6add5ea8184cacd4b87"
+          EXPECTED_FAILED_TREE = "a9e735fe661ebe413209fb4f506aca5cb2fdb48c"
+          EXPECTED_REMEDIATION_RECEIPT_SHA = "a78d9c238e46b055c14c21e15cc7f50762de832e0e42382356d108053efd7ff7"
+          EXPECTED_EFFECTIVE_POLICY_SHA = "cc9297ceb8f2247b3dcf003055c814c139a92a88859bb44585807705e41270ed"
+          EXPECTED_EFFECTIVE_POLICY_CANONICAL_SHA = "d2d1936ff420d2e97ededf64f376f544dacf838f125e4e8d6f3f4562efef774c"
+          EXPECTED_PREPARATION_MESSAGE = "Prepare M3Top3 Finance page100 G4 fresh precheck 20260829094400 v1.0"
           EXPECTED_PREDECESSOR_HEAD = "31d1bc2a23b97c34adb851ab73394145994ddb6e"
           EXPECTED_PREDECESSOR_TREE = "172f65ce29b565792cc64519a3c5d431028ec537"
           EXPECTED_PREDECESSOR_RUN_ID = 33195472310
@@ -130,6 +145,8 @@ jobs:
           RUNNER_PATH = Path(os.environ["FINANCE_RUNNER_PATH"])
           SOURCE_ADMISSION_PATH = Path(os.environ["FINANCE_SOURCE_ADMISSION_PATH"])
           WORKFLOW_PATH = Path(os.environ["FINANCE_WORKFLOW_PATH"])
+          REMEDIATION_RECEIPT_PATH = Path(os.environ["FINANCE_REMEDIATION_RECEIPT_PATH"])
+          EFFECTIVE_WRITER_POLICY_PATH = Path(os.environ["FINANCE_EFFECTIVE_WRITER_POLICY_PATH"])
           ZERO_HASH = "0" * 64
           HEX64 = re.compile(r"^[0-9a-f]{64}$")
 
@@ -238,6 +255,7 @@ jobs:
               PREDECESSOR_CHECKPOINT_PATH, PREDECESSOR_REPORT_PATH,
               PREDECESSOR_RUN_RECEIPT_PATH, RUNNER_PATH,
               SOURCE_ADMISSION_PATH, WORKFLOW_PATH,
+              REMEDIATION_RECEIPT_PATH, EFFECTIVE_WRITER_POLICY_PATH,
           ):
               require(path.is_file(), "REQUIRED_FILE_MISSING:" + str(path))
 
@@ -248,8 +266,8 @@ jobs:
           activation = latch.get("activation_modes", {}).get(mode, {})
           expected_message = activation.get("exact_commit_message")
           require(expected_message in {
-              "Arm M3Top3 Finance page100 precheck v1.0",
-              "Arm M3Top3 Finance page100 bounded live pilot v1.0",
+              "Arm M3Top3 Finance page100 G4 precheck 20260829094400 v1.0",
+              "Arm M3Top3 Finance page100 G4 bounded live pilot 20260829094400 v1.0",
           }, "UNKNOWN_ACTIVATION_MESSAGE")
           require(os.environ.get("EVENT_HEAD_MESSAGE") == expected_message, "ACTIVATION_MESSAGE_MISMATCH")
           require(latch.get("activation_commit_message") == expected_message, "LATCH_MESSAGE_MISMATCH")
@@ -260,6 +278,16 @@ jobs:
           require(latch.get("pilot_run_id") == EXPECTED_RUN_ID, "LATCH_RUN_ID_MISMATCH")
           require(latch.get("execution_token_sha256") == EXPECTED_TOKEN_HASH, "EXECUTION_TOKEN_HASH_MISMATCH")
           require(latch.get("owner_cap_spec_sha256") == EXPECTED_OWNER_SPEC, "OWNER_SPEC_HASH_MISMATCH")
+          require(latch.get("generation_id") == EXPECTED_GENERATION_ID, "GENERATION_ID_MISMATCH")
+          require(latch.get("precheck_act_id") == EXPECTED_PRECHECK_ACT_ID, "PRECHECK_ACT_ID_MISMATCH")
+          require(latch.get("latch_event_id") == EXPECTED_LATCH_EVENT_ID, "LATCH_EVENT_ID_MISMATCH")
+          failed_terminal = latch.get("failed_generation_terminal", {})
+          require(failed_terminal.get("workflow_run_id") == EXPECTED_FAILED_RUN_ID, "FAILED_RUN_BINDING_MISMATCH")
+          require(failed_terminal.get("workflow_job_id") == EXPECTED_FAILED_JOB_ID, "FAILED_JOB_BINDING_MISMATCH")
+          require(failed_terminal.get("head_sha") == EXPECTED_FAILED_HEAD, "FAILED_HEAD_BINDING_MISMATCH")
+          require(failed_terminal.get("tree_sha") == EXPECTED_FAILED_TREE, "FAILED_TREE_BINDING_MISMATCH")
+          require(failed_terminal.get("do_not_rerun") is True, "FAILED_RUN_DO_NOT_RERUN_MISSING")
+          require(failed_terminal.get("do_not_reuse_latch") is True, "FAILED_LATCH_DO_NOT_REUSE_MISSING")
           preparation = latch.get("preparation_commit", {})
           preparation_tree = subprocess.run(
               ["git", "rev-parse", before + "^{tree}"], check=True,
@@ -272,6 +300,14 @@ jobs:
           require(preparation.get("head_sha") == before, "PREPARATION_HEAD_BINDING_MISMATCH")
           require(preparation.get("tree_sha") == preparation_tree, "PREPARATION_TREE_BINDING_MISMATCH")
           require(preparation.get("parent_sha") == preparation_parent, "PREPARATION_PARENT_BINDING_MISMATCH")
+          preparation_message = subprocess.run(
+              ["git", "log", "-1", "--format=%s", before], check=True,
+              stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+          ).stdout.rstrip("\n")
+          require(preparation.get("exact_commit_message") == EXPECTED_PREPARATION_MESSAGE, "PREPARATION_MESSAGE_BINDING_MISMATCH")
+          require(preparation_message == EXPECTED_PREPARATION_MESSAGE, "PREPARATION_COMMIT_MESSAGE_MISMATCH")
+          require(preparation.get("parent_tree_sha") == EXPECTED_RESUME_BASE_TREE, "PREPARATION_PARENT_TREE_BINDING_MISMATCH")
+          require(preparation.get("latch_path_changed_in_preparation") is False, "PREPARATION_LATCH_TOUCH_PROHIBITED")
           bindings = latch.get("authority_bindings", {})
           require(bindings.get("bindings_finalized") is True, "HASH_BINDINGS_NOT_FINALIZED")
           predecessor = latch.get("predecessor_terminal", {})
@@ -281,7 +317,8 @@ jobs:
           require(predecessor.get("workflow_job_id") == EXPECTED_PREDECESSOR_JOB_ID, "PREDECESSOR_JOB_BINDING_MISMATCH")
           require(predecessor.get("do_not_rerun") is True, "PREDECESSOR_DO_NOT_RERUN_BINDING_MISSING")
           if mode == "PRECHECK_ARMED":
-              require(preparation_parent == EXPECTED_PREDECESSOR_HEAD, "PRECHECK_PREPARATION_PARENT_MISMATCH")
+              require(preparation_parent == EXPECTED_RESUME_BASE_HEAD, "PRECHECK_PREPARATION_PARENT_MISMATCH")
+              require(subprocess.run(["git", "rev-parse", before + "^" + "^{tree}"], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True).stdout.strip() == EXPECTED_RESUME_BASE_TREE, "PRECHECK_RESUME_BASE_TREE_MISMATCH")
               require(activation.get("provider_api_calls_authorized") is False, "PRECHECK_PROVIDER_CALL_MUST_BE_FALSE")
               require(activation.get("remote_raw_custody_writes_authorized") is False, "PRECHECK_REMOTE_WRITE_MUST_BE_FALSE")
           else:
@@ -306,12 +343,26 @@ jobs:
               require(fresh.get("predecessor_object_readbacks") == 9, "LIVE_PRECHECK_OBJECT_COUNT_MISMATCH")
               require(fresh.get("predecessor_raw_entity_bytes") == 40423, "LIVE_PRECHECK_OBJECT_BYTES_MISMATCH")
               require(fresh.get("new_control_prefix_object_count") == 0, "LIVE_PRECHECK_CONTROL_PREFIX_NOT_EMPTY")
+              for zero_history_key in (
+                  "failed_g3_control_prefix_version_count",
+                  "failed_g3_control_prefix_delete_marker_count",
+                  "failed_g3_raw_prefix_version_count",
+                  "failed_g3_raw_prefix_delete_marker_count",
+                  "new_g4_control_prefix_version_count",
+                  "new_g4_control_prefix_delete_marker_count",
+                  "new_g4_raw_prefix_version_count",
+                  "new_g4_raw_prefix_delete_marker_count",
+                  "writer_claim_version_count",
+                  "writer_claim_delete_marker_count",
+              ):
+                  require(fresh.get(zero_history_key) == 0, "LIVE_PRECHECK_VERSION_HISTORY_NOT_ZERO:" + zero_history_key)
               require(fresh.get("global_writer_claim_absent") is True, "LIVE_PRECHECK_WRITER_CLAIM_ABSENCE_NOT_BOUND")
               static_material = fresh.get("static_material_sha256", {})
               for static_label in (
                   "checkpoint_seed", "baseline_quota_ledger", "baseline_raw_index",
                   "predecessor_checkpoint", "predecessor_report", "predecessor_run_receipt",
                   "runner", "source_admission", "workflow",
+                  "remediation_receipt", "effective_writer_policy",
               ):
                   require(static_material.get(static_label) == bindings.get(static_label + "_sha256"), "LIVE_PRECHECK_STATIC_MATERIAL_CHANGED:" + static_label)
 
@@ -327,6 +378,8 @@ jobs:
               "runner": ("runner_path", "runner_sha256", RUNNER_PATH),
               "source_admission": ("source_admission_path", "source_admission_sha256", SOURCE_ADMISSION_PATH),
               "workflow": ("workflow_path", "workflow_sha256", WORKFLOW_PATH),
+              "remediation_receipt": ("remediation_receipt_path", "remediation_receipt_sha256", REMEDIATION_RECEIPT_PATH),
+              "effective_writer_policy": ("effective_writer_policy_path", "effective_writer_policy_sha256", EFFECTIVE_WRITER_POLICY_PATH),
           }
           for label, (path_key, hash_key, expected_path) in bound_paths.items():
               require(bindings.get(path_key) == str(expected_path), label.upper() + "_PATH_MISMATCH")
@@ -345,18 +398,33 @@ jobs:
           require(material.get("pilot_run_id") == EXPECTED_RUN_ID, "MATERIAL_RUN_ID_MISMATCH")
           require(material.get("execution_token_sha256") == EXPECTED_TOKEN_HASH, "MATERIAL_TOKEN_HASH_MISMATCH")
           require(material.get("owner_cap_spec_sha256") == EXPECTED_OWNER_SPEC, "MATERIAL_OWNER_SPEC_MISMATCH")
+          require(material.get("generation_id") == EXPECTED_GENERATION_ID, "MATERIAL_GENERATION_ID_MISMATCH")
+          require(material.get("precheck_act_id") == EXPECTED_PRECHECK_ACT_ID, "MATERIAL_PRECHECK_ACT_ID_MISMATCH")
+          require(material.get("latch_event_id") == EXPECTED_LATCH_EVENT_ID, "MATERIAL_LATCH_EVENT_ID_MISMATCH")
           require(material.get("authority_sha256") == bindings.get("authority_sha256"), "MATERIAL_AUTHORITY_HASH_MISMATCH")
           require(material.get("plan_sha256") == bindings.get("plan_sha256"), "MATERIAL_PLAN_HASH_MISMATCH")
           require(material.get("runner_sha256") == bindings.get("runner_sha256"), "MATERIAL_RUNNER_HASH_MISMATCH")
           require(material.get("source_admission_sha256") == bindings.get("source_admission_sha256"), "MATERIAL_SOURCE_ADMISSION_HASH_MISMATCH")
           require(material.get("checkpoint_template_sha256") == bindings.get("checkpoint_seed_sha256"), "MATERIAL_CHECKPOINT_HASH_MISMATCH")
           require(material.get("workflow_sha256") == bindings.get("workflow_sha256"), "MATERIAL_WORKFLOW_HASH_MISMATCH")
+          require(material.get("remediation_receipt_sha256") == bindings.get("remediation_receipt_sha256"), "MATERIAL_REMEDIATION_RECEIPT_HASH_MISMATCH")
+          require(material.get("effective_writer_policy_sha256") == bindings.get("effective_writer_policy_sha256"), "MATERIAL_EFFECTIVE_POLICY_HASH_MISMATCH")
+          require(material.get("effective_writer_policy_canonical_sha256") == EXPECTED_EFFECTIVE_POLICY_CANONICAL_SHA, "MATERIAL_EFFECTIVE_POLICY_CANONICAL_HASH_MISMATCH")
           require(material.get("baseline_quota_ledger_sha256") == bindings.get("baseline_quota_ledger_sha256"), "MATERIAL_QUOTA_BASELINE_HASH_MISMATCH")
           require(material.get("baseline_raw_index_sha256") == bindings.get("baseline_raw_index_sha256"), "MATERIAL_RAW_BASELINE_HASH_MISMATCH")
           require(material.get("predecessor_checkpoint_sha256") == bindings.get("predecessor_checkpoint_sha256"), "MATERIAL_PREDECESSOR_CHECKPOINT_HASH_MISMATCH")
           require(material.get("predecessor_report_sha256") == bindings.get("predecessor_report_sha256"), "MATERIAL_PREDECESSOR_REPORT_HASH_MISMATCH")
           require(material.get("predecessor_run_receipt_sha256") == bindings.get("predecessor_run_receipt_sha256"), "MATERIAL_PREDECESSOR_RECEIPT_HASH_MISMATCH")
 
+          remediation_receipt = strict_json(REMEDIATION_RECEIPT_PATH)
+          effective_policy = strict_json(EFFECTIVE_WRITER_POLICY_PATH)
+          require(sha256_file(REMEDIATION_RECEIPT_PATH) == EXPECTED_REMEDIATION_RECEIPT_SHA, "REMEDIATION_RECEIPT_HASH_MISMATCH")
+          require(sha256_file(EFFECTIVE_WRITER_POLICY_PATH) == EXPECTED_EFFECTIVE_POLICY_SHA, "EFFECTIVE_POLICY_HASH_MISMATCH")
+          policy_compact = json.dumps(effective_policy, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+          require(hashlib.sha256(policy_compact).hexdigest() == EXPECTED_EFFECTIVE_POLICY_CANONICAL_SHA, "EFFECTIVE_POLICY_CANONICAL_HASH_MISMATCH")
+          require(remediation_receipt.get("state") == "PASS_MINIMAL_INLINE_POLICY_REMEDIATION_APPLIED_POST_READBACK", "REMEDIATION_RECEIPT_STATE_MISMATCH")
+          require(remediation_receipt.get("execution_safety", {}).get("old_failed_run_33205926951_disposition") == "TERMINAL_DO_NOT_RERUN", "REMEDIATION_FAILED_RUN_DISPOSITION_MISMATCH")
+          require(remediation_receipt.get("execution_safety", {}).get("predecessor_run_33195472310_disposition") == "TERMINAL_DO_NOT_RERUN", "REMEDIATION_PREDECESSOR_DISPOSITION_MISMATCH")
           finance = latch.get("finance_spec", {})
           require(finance.get("source_id") == "M3TOP3-FINANCE-STOCK-RIGHTS-v1", "SOURCE_ID_MISMATCH")
           require(finance.get("operation") == "getRighExerReasSche_V2", "OPERATION_MISMATCH")
@@ -542,7 +610,7 @@ jobs:
           checkpoint = strict_json(CHECKPOINT_PATH)
           require(checkpoint.get("runtime_lock_id") == EXPECTED_RUNTIME, "CHECKPOINT_RUNTIME_MISMATCH")
           require(checkpoint.get("pilot_run_id") == EXPECTED_RUN_ID, "CHECKPOINT_RUN_ID_MISMATCH")
-          require(checkpoint.get("state") == "GENERATION_3_S3_DURABLE_CAS_SEED_STAGED_NOT_EXECUTED", "CHECKPOINT_STATE_MISMATCH")
+          require(checkpoint.get("state") == "GENERATION_4_S3_DURABLE_CAS_SEED_STAGED_NOT_EXECUTED", "CHECKPOINT_STATE_MISMATCH")
           require(checkpoint.get("checkpoint_role") == "S3_DURABLE_CAS_NON_EXECUTED_CONTROL_PLANE_TEMPLATE", "CHECKPOINT_ROLE_MISMATCH")
           checkpoint_binding = checkpoint.get("authority_binding", {})
           require(checkpoint_binding.get("owner_cap_spec_sha256") == EXPECTED_OWNER_SPEC, "CHECKPOINT_OWNER_SPEC_MISMATCH")
@@ -691,6 +759,9 @@ jobs:
               "mode": mode,
               "runtime_lock_id": EXPECTED_RUNTIME,
               "pilot_run_id": EXPECTED_RUN_ID,
+              "generation_id": EXPECTED_GENERATION_ID,
+              "precheck_act_id": EXPECTED_PRECHECK_ACT_ID,
+              "latch_event_id": EXPECTED_LATCH_EVENT_ID,
               "owner_cap_spec_sha256": EXPECTED_OWNER_SPEC,
               "primary_date_count": 17,
               "request_page_size": 10,
@@ -720,6 +791,8 @@ jobs:
                   "runner": bindings["runner_sha256"],
                   "source_admission": bindings["source_admission_sha256"],
                   "workflow": bindings["workflow_sha256"],
+                  "remediation_receipt": bindings["remediation_receipt_sha256"],
+                  "effective_writer_policy": bindings["effective_writer_policy_sha256"],
               },
               "aws_role_arn_shape": "PASS_EXACT_EQUALITY",
               "aws_role_arn_sha256": hashlib.sha256(role_arn.encode("utf-8")).hexdigest(),
@@ -1005,8 +1078,8 @@ jobs:
                   "Effect": "Allow",
                   "Action": ["s3:PutObject", "s3:GetObject", "s3:GetObjectVersion"],
                   "Resource": [
-                    "arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_generation/runtime_lock_id=PMO-FINANCE-PAGE100-20260829041623/pilot_run_id=FINANCE-PAGE100-PILOT-20260829041623/*",
-                    "arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_control/runtime_lock_id=PMO-FINANCE-PAGE100-20260829041623/pilot_run_id=FINANCE-PAGE100-PILOT-20260829041623/*",
+                    "arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_generation/runtime_lock_id=PMO-FINANCE-PAGE100-G4-20260829094400/pilot_run_id=FINANCE-PAGE100-PILOT-G4-20260829094400/*",
+                    "arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_control/runtime_lock_id=PMO-FINANCE-PAGE100-G4-20260829094400/pilot_run_id=FINANCE-PAGE100-PILOT-G4-20260829094400/*",
                     "arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_writer_claims/quota_day_kst=2026-08-29/execution-claim.json"
                   ]
                 }
@@ -1038,10 +1111,20 @@ jobs:
           SOURCE_ROOT = "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/"
           EXPECTED_CONTROL_PREFIX = (
               SOURCE_ROOT
+              + "_pilot_control/runtime_lock_id=PMO-FINANCE-PAGE100-G4-20260829094400/"
+              + "pilot_run_id=FINANCE-PAGE100-PILOT-G4-20260829094400/"
+          )
+          EXPECTED_RAW_WRITE_PREFIX = (
+              SOURCE_ROOT
+              + "_pilot_generation/runtime_lock_id=PMO-FINANCE-PAGE100-G4-20260829094400/"
+              + "pilot_run_id=FINANCE-PAGE100-PILOT-G4-20260829094400/"
+          )
+          FAILED_CONTROL_PREFIX = (
+              SOURCE_ROOT
               + "_pilot_control/runtime_lock_id=PMO-FINANCE-PAGE100-20260829041623/"
               + "pilot_run_id=FINANCE-PAGE100-PILOT-20260829041623/"
           )
-          EXPECTED_RAW_WRITE_PREFIX = (
+          FAILED_RAW_WRITE_PREFIX = (
               SOURCE_ROOT
               + "_pilot_generation/runtime_lock_id=PMO-FINANCE-PAGE100-20260829041623/"
               + "pilot_run_id=FINANCE-PAGE100-PILOT-20260829041623/"
@@ -1070,13 +1153,31 @@ jobs:
           )
 
           def run_aws(*args, check=True):
-              return subprocess.run(
+              completed = subprocess.run(
                   ["aws", *args],
-                  check=check,
+                  check=False,
                   stdout=subprocess.PIPE,
                   stderr=subprocess.PIPE,
                   text=True,
               )
+              if check and completed.returncode != 0:
+                  Path("live_out").mkdir(parents=True, exist_ok=True)
+                  Path("live_out/aws-readonly-diagnostic.json").write_text(
+                      json.dumps({
+                          "artifact": "M3TOP3_FINANCE_CA_PAGE100_AWS_READONLY_DIAGNOSTIC_v1.0",
+                          "state": "BLOCKED_READ_ONLY_AWS_CALL",
+                          "operation": list(args[:2]),
+                          "returncode": completed.returncode,
+                          "stdout_persisted": False,
+                          "stderr_persisted": False,
+                          "provider_api_network_attempts": 0,
+                          "quota_reservations": 0,
+                          "remote_raw_custody_writes": 0,
+                      }, sort_keys=True, separators=(",", ":")) + "\n",
+                      encoding="utf-8",
+                  )
+                  raise SystemExit("AWS_READ_ONLY_CALL_FAILED")
+              return completed
 
           def aws_json(*args):
               completed = run_aws(*args, "--output", "json")
@@ -1129,6 +1230,8 @@ jobs:
           # Both modes must observe an unused successor namespace and global
           # quota-day writer claim.  LIVE creates the claim later with a
           # conditional If-None-Match:* in the runner.
+          assert_empty_prefix(FAILED_CONTROL_PREFIX, "FAILED_G3_CONTROL_PREFIX_NOT_EMPTY")
+          assert_empty_prefix(FAILED_RAW_WRITE_PREFIX, "FAILED_G3_RAW_PREFIX_NOT_EMPTY")
           assert_empty_prefix(EXPECTED_CONTROL_PREFIX, "SUCCESSOR_CONTROL_PREFIX_NOT_EMPTY")
           assert_empty_prefix(EXPECTED_RAW_WRITE_PREFIX, "SUCCESSOR_RAW_PREFIX_NOT_EMPTY")
           assert_empty_prefix(EXPECTED_WRITER_CLAIM_KEY, "GLOBAL_WRITER_CLAIM_HISTORY_NOT_EMPTY")
@@ -1216,6 +1319,16 @@ jobs:
               "predecessor_raw_entity_bytes": 40423,
               "predecessor_readback_mode": "EXACT_VERSION_ID_NO_LATEST_FALLBACK",
               "predecessor_execution_claim_readback": "PASS_EXACT_VERSION_ID_SHA256_ETAG_AES256_WRITER",
+              "failed_g3_control_prefix_version_count": 0,
+              "failed_g3_control_prefix_delete_marker_count": 0,
+              "failed_g3_raw_prefix_version_count": 0,
+              "failed_g3_raw_prefix_delete_marker_count": 0,
+              "new_g4_control_prefix_version_count": 0,
+              "new_g4_control_prefix_delete_marker_count": 0,
+              "new_g4_raw_prefix_version_count": 0,
+              "new_g4_raw_prefix_delete_marker_count": 0,
+              "writer_claim_version_count": 0,
+              "writer_claim_delete_marker_count": 0,
               "new_control_prefix_object_count": 0,
               "new_raw_prefix_object_count": 0,
               "global_writer_claim_absent": True,
@@ -1248,6 +1361,16 @@ jobs:
           preflight.update({
               "predecessor_object_readbacks": 9,
               "predecessor_raw_entity_bytes": 40423,
+              "failed_g3_control_prefix_version_count": 0,
+              "failed_g3_control_prefix_delete_marker_count": 0,
+              "failed_g3_raw_prefix_version_count": 0,
+              "failed_g3_raw_prefix_delete_marker_count": 0,
+              "new_g4_control_prefix_version_count": 0,
+              "new_g4_control_prefix_delete_marker_count": 0,
+              "new_g4_raw_prefix_version_count": 0,
+              "new_g4_raw_prefix_delete_marker_count": 0,
+              "writer_claim_version_count": 0,
+              "writer_claim_delete_marker_count": 0,
               "new_control_prefix_object_count": 0,
               "new_raw_prefix_object_count": 0,
               "global_writer_claim_absent": True,
@@ -1317,6 +1440,12 @@ jobs:
           PREDECESSOR_RUN_ID = 33195472310
           PREDECESSOR_JOB_ID = 98931365000
           PREDECESSOR_HEAD_SHA = "f0918e170a662867caf57ced28d68c82e79cdb0a"
+          FAILED_RUN_ID = 33205926951
+          FAILED_JOB_ID = 98966822862
+          FAILED_HEAD_SHA = "c2fda7ae46474c0dd70bd6add5ea8184cacd4b87"
+          FAILED_ARTIFACT_ID = 9699648116
+          FAILED_ARTIFACT_DIGEST = "sha256:d0526119349f573ad38be855195a3b9c0c08bd29c1f6717f448d0844656cb234"
+          FAILED_ARTIFACT_SIZE = 2062
           API_ROOT = "https://api.github.com"
           ACTIVE_STATES = ("queued", "in_progress", "waiting", "requested", "pending")
           token = os.environ.get("GH_API_TOKEN", "")
@@ -1483,6 +1612,54 @@ jobs:
           ):
               raise SystemExit("PREDECESSOR_JOB_TERMINAL_IDENTITY_MISMATCH")
 
+          failed_run = get_json(
+              "/repos/" + REPOSITORY + "/actions/runs/" + str(FAILED_RUN_ID)
+          )
+          if (
+              failed_run.get("status") != "completed"
+              or failed_run.get("conclusion") != "failure"
+              or failed_run.get("event") != "push"
+              or failed_run.get("path") != WORKFLOW_PATH
+              or failed_run.get("head_sha") != FAILED_HEAD_SHA
+              or int(failed_run.get("run_attempt", 0)) != 1
+          ):
+              raise SystemExit("FAILED_G3_RUN_TERMINAL_IDENTITY_MISMATCH")
+          failed_jobs_payload = get_json(
+              "/repos/" + REPOSITORY + "/actions/runs/" + str(FAILED_RUN_ID)
+              + "/jobs?filter=all&per_page=100"
+          )
+          failed_jobs = [
+              job for job in failed_jobs_payload.get("jobs", [])
+              if int(job.get("id", 0)) == FAILED_JOB_ID
+          ]
+          if len(failed_jobs) != 1:
+              raise SystemExit("FAILED_G3_JOB_TERMINAL_IDENTITY_MISMATCH")
+          failed_steps = failed_jobs[0].get("steps", [])
+          if not any(
+              int(step.get("number", 0)) == 7
+              and step.get("name") == "Verify AWS account, immutable predecessor, and empty successor prefixes"
+              and step.get("conclusion") == "failure"
+              for step in failed_steps
+          ):
+              raise SystemExit("FAILED_G3_EXACT_FAILING_STEP_MISMATCH")
+          failed_artifacts_payload = get_json(
+              "/repos/" + REPOSITORY + "/actions/runs/" + str(FAILED_RUN_ID)
+              + "/artifacts?per_page=100"
+          )
+          failed_artifacts = [
+              item for item in failed_artifacts_payload.get("artifacts", [])
+              if int(item.get("id", 0)) == FAILED_ARTIFACT_ID
+          ]
+          if len(failed_artifacts) != 1:
+              raise SystemExit("FAILED_G3_ARTIFACT_ID_MISMATCH")
+          failed_artifact = failed_artifacts[0]
+          if (
+              failed_artifact.get("digest") != FAILED_ARTIFACT_DIGEST
+              or int(failed_artifact.get("size_in_bytes", 0)) != FAILED_ARTIFACT_SIZE
+              or int(failed_artifact.get("workflow_run", {}).get("id", 0)) != FAILED_RUN_ID
+          ):
+              raise SystemExit("FAILED_G3_ARTIFACT_BINDING_MISMATCH")
+
           precheck_verified = False
           precheck_run_id = None
           precheck_artifact_id = None
@@ -1504,7 +1681,7 @@ jobs:
                   or prior.get("actor", {}).get("login") != ACTOR
                   or prior.get("triggering_actor", {}).get("login") != ACTOR
                   or prior.get("head_commit", {}).get("message")
-                     != "Arm M3Top3 Finance page100 precheck v1.0"
+                     != "Arm M3Top3 Finance page100 G4 precheck 20260829094400 v1.0"
               ):
                   raise SystemExit("FRESH_PRECHECK_WORKFLOW_RUN_MISMATCH")
               artifacts = get_json(
@@ -1547,6 +1724,12 @@ jobs:
               "predecessor_workflow_run_id": PREDECESSOR_RUN_ID,
               "predecessor_workflow_job_id": PREDECESSOR_JOB_ID,
               "predecessor_terminal_state": "COMPLETED_FAILURE_ATTEMPT_1_DO_NOT_RERUN",
+              "failed_generation_workflow_run_id": FAILED_RUN_ID,
+              "failed_generation_workflow_job_id": FAILED_JOB_ID,
+              "failed_generation_terminal_state": "COMPLETED_FAILURE_ATTEMPT_1_DO_NOT_RERUN_DO_NOT_REUSE",
+              "failed_generation_artifact_id": FAILED_ARTIFACT_ID,
+              "failed_generation_artifact_digest": FAILED_ARTIFACT_DIGEST,
+              "failed_generation_artifact_size_in_bytes": FAILED_ARTIFACT_SIZE,
               "fresh_precheck_verified": precheck_verified,
               "fresh_precheck_run_id": precheck_run_id,
               "fresh_precheck_artifact_id": precheck_artifact_id,
@@ -1645,8 +1828,8 @@ jobs:
           claim = checkpoint.get("execution_claim", {})
           if (
               checkpoint.get("state") != "COMPLETE"
-              or checkpoint.get("runtime_lock_id") != "PMO-FINANCE-PAGE100-20260829041623"
-              or checkpoint.get("pilot_run_id") != "FINANCE-PAGE100-PILOT-20260829041623"
+              or checkpoint.get("runtime_lock_id") != "PMO-FINANCE-PAGE100-G4-20260829094400"
+              or checkpoint.get("pilot_run_id") != "FINANCE-PAGE100-PILOT-G4-20260829094400"
               or checkpoint.get("completed_dates") != [
                   "20240102", "20240131", "20240329", "20240628", "20240808",
                   "20240809", "20240812", "20240930", "20241231", "20250115",
