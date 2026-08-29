@@ -24,8 +24,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p export/.github/workflows export/control/m3top3/public-data-source-admission/v1.0 export/tools/m3top3
-          cp .github/workflows/m3top3-finance-page100-bounded-pilot-v1.yml export/.github/workflows/
+          mkdir -p export/control/m3top3/public-data-source-admission/v1.0 export/tools/m3top3
+          cp .github/workflows/m3top3-finance-page100-bounded-pilot-v1.yml export/m3top3-finance-page100-bounded-pilot-v1.yml
           cp control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_PILOT_AUTHORITY_v1.0.json export/control/m3top3/public-data-source-admission/v1.0/
           cp control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_PILOT_PLAN_v1.0.json export/control/m3top3/public-data-source-admission/v1.0/
           cp control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_CHECKPOINT_SEED_v1.0.json export/control/m3top3/public-data-source-admission/v1.0/
@@ -35,7 +35,7 @@ jobs:
       - name: Upload exact material bundle
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: g5-materials-for-g6-remediation
+          name: g5-materials-for-g6-remediation-v2
           path: export/
           if-no-files-found: error
           retention-days: 1
