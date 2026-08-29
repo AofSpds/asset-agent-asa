@@ -1,0 +1,117 @@
+{
+  "artifact": "M3TOP3_AWS_IAM_ROLE_MAX_SESSION_DURATION_REMEDIATION_RECEIPT_v1.0",
+  "audit_scope": "OWNER_SUPPLIED_CLOUDSHELL_TRANSCRIPT_RUNTIME_OUTPUT_ONLY",
+  "authorization": {
+    "owner_message": "계속하세여",
+    "owner_message_interpretation": "APPROVE_EXACT_PREVIOUSLY_STATED_SINGLE_IAM_UPDATE_ONLY",
+    "resolved_authority_token": "AUTHORIZE_EXACT_ROLE_MAX_SESSION_DURATION_UPDATE_3600_TO_21600_BEFORE_LIVE",
+    "scope": {
+      "allowed_api": "iam:UpdateRole",
+      "allowed_mutation_attempts": 1,
+      "allowed_parameter_change": "MaxSessionDuration:3600->21600",
+      "automatic_rollback_authorized": false,
+      "other_role_or_policy_changes_authorized": false
+    }
+  },
+  "aws_cli_execution": {
+    "aws_exact_binary": "/usr/local/bin/aws",
+    "aws_max_attempts": 1,
+    "aws_retry_mode": "standard",
+    "caller_account": "956315449338",
+    "caller_arn": "arn:aws:iam::956315449338:root",
+    "exact_mutation_command": "aws iam update-role --role-name M3Top3GitHubOIDCRawWriter --max-session-duration 21600",
+    "mutation_api": "iam:UpdateRole",
+    "post_read_attempt": 1,
+    "post_read_class": "TARGET_OBSERVED",
+    "update_role_attempts": 1,
+    "update_role_cli_class": "SUCCESS",
+    "update_role_rc": 0,
+    "update_role_retry": "PROHIBITED"
+  },
+  "change": {
+    "from_max_session_duration_seconds": 3600,
+    "only_changed_field": "Role.MaxSessionDuration",
+    "to_max_session_duration_seconds": 21600
+  },
+  "claim_ceiling": "TRANSCRIPT_BOUND__NO_SEPARATE_POST_UPLOAD_AWS_REREAD",
+  "evidence": {
+    "execution_timestamp_claim": "NOT_PRESENT_IN_SOURCE",
+    "receipt_created_at_kst": "2026-08-29 20:28:53 KST",
+    "runtime_output_bytes": 2858,
+    "runtime_output_line_end": 605,
+    "runtime_output_line_start": 555,
+    "runtime_output_sha256": "6de47498e0a9d91972855fd97f5fee4828a89af0c5cf1db0b98d3d982632f361",
+    "source_filename": "붙여넣은 텍스트 (1)(20260829-112724).txt",
+    "source_filename_timestamp_kst": "2026-08-29 11:27:24 KST",
+    "source_request_id": "NOT_PRESENT_IN_SOURCE",
+    "source_transcript_bytes": 28113,
+    "source_transcript_lines": 605,
+    "source_transcript_sha256": "dc124041dab029d87aa6f79de27f481f23256c7b34d708e3d531e9af89a9a888",
+    "source_type": "OWNER_SUPPLIED_AWS_CLOUDSHELL_TRANSCRIPT",
+    "validated_script_bytes": 23690,
+    "validated_script_sha256": "a658341f8ffcd45bba9c7b3731c1b60dda59365ec7c0ac0ffbe31d8e0307842c"
+  },
+  "git_binding": {
+    "branch": "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828",
+    "receipt_commit_parent_head_sha": "784e9eea008b5eea57132e2e341a3c63982951cc",
+    "receipt_commit_parent_tree_sha": "1702863fdf1a89d62e5709c4f11baf9474a24bd6"
+  },
+  "live_gate": {
+    "automatic_promotion_authorized": false,
+    "fresh_precheck_artifact_digest": "sha256:b32f5fb3b94adeb7b6202af07700b6fdb9b80c828f31e55ddfe78a2de7296b24",
+    "fresh_precheck_artifact_id": 9706754794,
+    "fresh_precheck_job_id": 99028755766,
+    "fresh_precheck_run_attempt": 1,
+    "fresh_precheck_run_id": 33225643741,
+    "fresh_precheck_state": "COMPLETED_SUCCESS",
+    "live_latch_state_in_this_receipt_commit": "NOT_CREATED_NOT_ARMED",
+    "max_session_duration_prerequisite": "FULFILLED_BY_EXACT_READBACK",
+    "production_authorized": false
+  },
+  "non_target_invariants": {
+    "attached_managed_policy_count": 0,
+    "attached_policy_set_sha256_post": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "attached_policy_set_sha256_pre": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "collateral_check": "PASS__ONLY_MAX_SESSION_DURATION_CHANGED",
+    "inline_policy_name": "M3Top3PublicDataRawWriter",
+    "inline_policy_set_sha256_post": "30e9d021d8edfada2bb19f11514c43a7e5518bc83c9752b688266b59f87a0d5a",
+    "inline_policy_set_sha256_pre": "30e9d021d8edfada2bb19f11514c43a7e5518bc83c9752b688266b59f87a0d5a",
+    "inline_policy_sha256_post": "d2d1936ff420d2e97ededf64f376f544dacf838f125e4e8d6f3f4562efef774c",
+    "inline_policy_sha256_pre": "d2d1936ff420d2e97ededf64f376f544dacf838f125e4e8d6f3f4562efef774c",
+    "permissions_boundary_post": "ABSENT",
+    "permissions_boundary_pre": "ABSENT",
+    "role_tags_sha256_post": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "role_tags_sha256_pre": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "trust_policy_sha256_post": "bfabe1b8b3a0de3f500766581e5123c348e6052d44300ccf655c1b4eeb6b0a83",
+    "trust_policy_sha256_pre": "bfabe1b8b3a0de3f500766581e5123c348e6052d44300ccf655c1b4eeb6b0a83"
+  },
+  "post_state": {
+    "expected_post_state_sha256": "4039a06a2946d0e9deffb603ccd928d275a7715897316b6278b2eb600659aae0",
+    "max_session_duration_seconds": 21600,
+    "role_arn": "arn:aws:iam::956315449338:role/M3Top3GitHubOIDCRawWriter",
+    "role_description": "GitHub OIDC writer for M3Top3 Finance public-data raw prefix only",
+    "role_id": "AROA55KGXW75IOIWUNBZM",
+    "role_path": "/",
+    "state_sha256": "4039a06a2946d0e9deffb603ccd928d275a7715897316b6278b2eb600659aae0"
+  },
+  "pre_state": {
+    "max_session_duration_seconds": 3600,
+    "role_arn": "arn:aws:iam::956315449338:role/M3Top3GitHubOIDCRawWriter",
+    "role_description": "GitHub OIDC writer for M3Top3 Finance public-data raw prefix only",
+    "role_id": "AROA55KGXW75IOIWUNBZM",
+    "role_path": "/",
+    "state_sha256": "a5605bc717d9de1a0340da4141013a47829f18800a98dd853324a4061c048362"
+  },
+  "rollback": {
+    "dormant_rollback_executed": false,
+    "dormant_rollback_file_sha256": "2d6bda6504fb8d94c36742ec381da89fd4db8010bf515916165deed8db29cb99",
+    "dormant_rollback_target_seconds": 3600
+  },
+  "schema_version": "1.0",
+  "state": "PASS__MAX_SESSION_DURATION_3600_TO_21600__READBACK_PROVEN",
+  "validation_claim": "NONE",
+  "verdict": {
+    "blocker": "NONE",
+    "independent_transcript_audit": "PASS"
+  }
+}
