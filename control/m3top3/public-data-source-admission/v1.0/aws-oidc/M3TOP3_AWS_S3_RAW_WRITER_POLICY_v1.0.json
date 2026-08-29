@@ -11,21 +11,23 @@
       "Resource": "arn:aws:s3:::semi-data-plane-aofspds-20260815"
     },
     {
-      "Sid": "RestrictedSourcePrefixList",
+      "Sid": "FinancePrefixListOnly",
       "Effect": "Allow",
-      "Action": "s3:ListBucket",
+      "Action": [
+        "s3:ListBucket",
+        "s3:ListBucketVersions"
+      ],
       "Resource": "arn:aws:s3:::semi-data-plane-aofspds-20260815",
       "Condition": {
         "StringLike": {
           "s3:prefix": [
-            "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/*",
-            "raw/public-data-api/M3TOP3-KSD-CORP-DATA-GO-KR-v1/*"
+            "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/*"
           ]
         }
       }
     },
     {
-      "Sid": "SourcePrefixWriteAndReadNoDelete",
+      "Sid": "FinanceRawWriteAndReadNoDelete",
       "Effect": "Allow",
       "Action": [
         "s3:PutObject",
@@ -33,8 +35,7 @@
         "s3:GetObjectVersion"
       ],
       "Resource": [
-        "arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/*",
-        "arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-KSD-CORP-DATA-GO-KR-v1/*"
+        "arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/*"
       ]
     }
   ]

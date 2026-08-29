@@ -1,0 +1,115 @@
+{
+  "artifact": "M3TOP3_AWS_S3_RAW_WRITER_LISTBUCKETVERSIONS_REMEDIATION_RECEIPT_v1.0",
+  "schema_version": 1,
+  "observed_at_kst": "2026-08-29T09:33:09+09:00",
+  "persona": "AAA-PMO-ORCHESTRATOR",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "repository": "AofSpds/asset-agent-asa",
+  "branch": "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828",
+  "repository_parent_head": "c2fda7ae46474c0dd70bd6add5ea8184cacd4b87",
+  "repository_parent_tree": "a9e735fe661ebe413209fb4f506aca5cb2fdb48c",
+  "state": "PASS_MINIMAL_INLINE_POLICY_REMEDIATION_APPLIED_POST_READBACK",
+  "owner_evidence": {
+    "mode": "OWNER_AWS_CLOUDSHELL_EXACT_OUTPUT_RETURNED_TO_PMO",
+    "transcript_sha256": "15768e0d6f5d5ebcc33fbd6a556ee794e2e67194c94f350f3fb4b9223df8a537",
+    "transcript_bytes": 25760,
+    "transcript_lines": 571,
+    "secret_values_persisted": false,
+    "authenticated_urls_persisted": false
+  },
+  "aws_target": {
+    "account_id": "956315449338",
+    "region": "ap-northeast-2",
+    "caller_arn": "arn:aws:iam::956315449338:root",
+    "role_name": "M3Top3GitHubOIDCRawWriter",
+    "role_arn": "arn:aws:iam::956315449338:role/M3Top3GitHubOIDCRawWriter",
+    "inline_policy_name": "M3Top3PublicDataRawWriter",
+    "bucket": "semi-data-plane-aofspds-20260815"
+  },
+  "authorization_layer_readback": {
+    "permissions_boundary": "ABSENT",
+    "attached_managed_policy_count": 0,
+    "inline_policy_set": [
+      "M3Top3PublicDataRawWriter"
+    ],
+    "bucket_policy": "PROVEN_ABSENT",
+    "organizations_scp": "PROVEN_ABSENT_NO_AWS_ORGANIZATION"
+  },
+  "policy_hashes": {
+    "canonicalization": "SHA256_UTF8_JQ_COMPACT_SORTED_NO_TRAILING_NEWLINE",
+    "precondition_policy_sha256": "353828a973a9dc68a2c52a621106647bf633b399594d10c49fdf42cd86a4c705",
+    "immediate_prewrite_policy_sha256": "353828a973a9dc68a2c52a621106647bf633b399594d10c49fdf42cd86a4c705",
+    "candidate_policy_sha256": "d2d1936ff420d2e97ededf64f376f544dacf838f125e4e8d6f3f4562efef774c",
+    "post_readback_policy_sha256": "d2d1936ff420d2e97ededf64f376f544dacf838f125e4e8d6f3f4562efef774c",
+    "post_readback_attempt": 1
+  },
+  "mutation": {
+    "aws_api": "iam:PutRolePolicy",
+    "primary_attempts": 1,
+    "primary_outcome": "CLI_SUCCESS",
+    "aws_state_mutations": 1,
+    "changed_sids": [
+      "FinancePrefixListOnly"
+    ],
+    "added_actions": [
+      "s3:ListBucketVersions"
+    ],
+    "removed_actions": [],
+    "target_resource_changed": false,
+    "target_condition_changed": false,
+    "non_target_statement_changes": 0,
+    "forbidden_broadening": "NONE"
+  },
+  "rollback": {
+    "ready_before_aws_mutation": true,
+    "executed": false,
+    "backup_file_sha256": "508cdb134eee88238a74d22b04d1c8ebe470bede5cbfd130c8ac9bf9c63a59d9",
+    "rollback_file_sha256": "b38725d4d0e3278b1bcc9aa6c7c78c0910b0ec410f7965b921a255545c1056b7",
+    "owner_cloudshell_local_path": "/home/cloudshell-user/m3top3-iam-remediation-backup.57HS0bdj/rollback_exact_inline_policy.sh",
+    "repository_persistence": "HASH_ONLY_SCRIPT_NOT_IMPORTED",
+    "instruction": "DO_NOT_EXECUTE_UNLESS_PMO_EXPLICITLY_INSTRUCTS"
+  },
+  "repository_candidate_currentization": {
+    "path": "control/m3top3/public-data-source-admission/v1.0/aws-oidc/M3TOP3_AWS_S3_RAW_WRITER_POLICY_v1.0.json",
+    "prior_git_blob": "bb8fbfa82739a810415d7da86bf868fc9567e23b",
+    "prior_file_sha256": "4b05d72d0f4e786286c7ff8778791f9291ef0a12694b106d2672058c2c294359",
+    "prior_canonical_policy_sha256": "f3694cd184d353d391a967da6f3d88b01cc2f7ebbea4f445f2f89611349324db",
+    "target_file_sha256": "cc9297ceb8f2247b3dcf003055c814c139a92a88859bb44585807705e41270ed",
+    "target_git_blob": "0b048e7c860be887caf78f962843ba527f7973ba",
+    "target_canonical_policy_sha256": "d2d1936ff420d2e97ededf64f376f544dacf838f125e4e8d6f3f4562efef774c",
+    "target_matches_aws_post_readback": true,
+    "classification": "OBSERVED_STATE_CURRENTIZATION_NOT_AN_ADDITIONAL_AWS_MUTATION"
+  },
+  "execution_safety": {
+    "provider_api_network_attempts": 0,
+    "quota_reservations": 0,
+    "remote_s3_writes": 0,
+    "fresh_generation_created": false,
+    "fresh_precheck_latch_created": false,
+    "live_latch_created": false,
+    "workflow_rerun_performed": false,
+    "old_failed_run_33205926951_disposition": "TERMINAL_DO_NOT_RERUN",
+    "predecessor_run_33195472310_disposition": "TERMINAL_DO_NOT_RERUN"
+  },
+  "duplicated_setup_script_policy": {
+    "path": "control/m3top3/public-data-source-admission/v1.0/aws-oidc/setup_m3top3_github_oidc_role_v1.sh",
+    "state": "STALE_DUAL_PREFIX_NO_LISTBUCKETVERSIONS",
+    "execution_in_this_act": "PROHIBITED_DO_NOT_RUN",
+    "currentization_in_this_act": false,
+    "required_before_future_execution": "SEPARATE_EXACT_CURRENTIZATION_OR_REPLACEMENT_WITH_DECLARATIVE_POLICY_FILE_READ"
+  },
+  "live_session_duration_prerequisite": {
+    "role_max_session_duration_seconds": 3600,
+    "current_live_workflow_requested_seconds": 21600,
+    "mutation_in_this_act": false,
+    "state": "UNRESOLVED_LIVE_ONLY_PREREQUISITE"
+  },
+  "production_authorized": false,
+  "model_semantic_change_authorized": false,
+  "pit_semantic_change_authorized": false,
+  "validation_claim": "NONE",
+  "gate_effect": "NONE",
+  "owner_action_required": false,
+  "next_required_act": "SEPARATE_NEW_RUNTIME_AND_GENERATION_FRESH_PRECHECK_AUTHORING_NO_OLD_RUN_RERUN"
+}
