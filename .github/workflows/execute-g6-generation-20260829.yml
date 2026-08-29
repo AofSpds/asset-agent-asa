@@ -13,7 +13,7 @@ jobs:
     if: >-
       github.actor == 'AofSpds' &&
       github.run_attempt == 1 &&
-      github.event.head_commit.message == 'Materialize bounded G6 Git objects'
+      github.event.head_commit.message == 'Materialize bounded G6 Git objects v2'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -29,7 +29,7 @@ jobs:
         with:
           ref: ee7cd5f6f48c9f13ad43071b8c7c3648c9bdd1d0
           path: target
-          persist-credentials: false
+          persist-credentials: true
           fetch-depth: 0
       - name: Materialize isolated G6 Git objects without moving refs
         shell: bash
@@ -45,7 +45,7 @@ jobs:
       - name: Upload remote object manifest
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: m3top3-finance-page100-g6-remote-object-manifest
+          name: m3top3-finance-page100-g6-remote-object-manifest-v2
           path: /tmp/g6-remote-object-manifest.json
           if-no-files-found: error
           retention-days: 7
