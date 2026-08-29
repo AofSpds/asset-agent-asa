@@ -27,8 +27,8 @@ jobs:
       github.triggering_actor == 'AofSpds' &&
       github.run_attempt == 1 &&
       github.ref == 'refs/heads/aaa-pmo-public-data-g2-g3-source-admission-v1-20260828' &&
-      (github.event.head_commit.message == 'Arm M3Top3 Finance page100 G5 precheck 20260829204006 v1.0' ||
-       github.event.head_commit.message == 'Arm M3Top3 Finance page100 G5 bounded live pilot 20260829204006 v1.0')
+      (github.event.head_commit.message == 'Arm M3Top3 Finance page100 G6 precheck 20260829221500 v1.0' ||
+       github.event.head_commit.message == 'Arm M3Top3 Finance page100 G6 bounded live pilot 20260829221500 v1.0')
     runs-on: ubuntu-latest
     timeout-minutes: 360
     environment: m3top3-source-admission
@@ -100,20 +100,20 @@ jobs:
           EXPECTED_ACTOR = "AofSpds"
           EXPECTED_REF = "refs/heads/aaa-pmo-public-data-g2-g3-source-admission-v1-20260828"
           EXPECTED_BRANCH = "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828"
-          EXPECTED_RUNTIME = "PMO-FINANCE-PAGE100-G5-20260829204006"
-          EXPECTED_RUN_ID = "FINANCE-PAGE100-PILOT-G5-20260829204006"
-          EXPECTED_TOKEN_HASH = "3f5daecc1277bf12a50a6f8dcb9e92e99ca3ec5e913038b805dc4836adc59c26"
-          EXPECTED_OWNER_SPEC = "e30516b34e5d381856f405a0490c54c688c83ae84294d124f9931ce9d54fd2db"
-          EXPECTED_GENERATION_ID = "FINANCE-PAGE100-G5-20260829204006"
-          EXPECTED_PRECHECK_ACT_ID = "FINANCE-PAGE100-PRECHECK-ACT-G5-20260829204006"
-          EXPECTED_LIVE_ACT_ID = "FINANCE-PAGE100-LIVE-ACT-G5-20260829204006"
-          EXPECTED_LATCH_EVENT_ID = "FINANCE-PAGE100-LATCH-G5-20260829204006"
-          EXPECTED_RESUME_BASE_HEAD = "9dea1e8af383becaf3319bb7e5e71ddb1579ff2f"
-          EXPECTED_RESUME_BASE_TREE = "eecb7cc37d9f758d660e1b21e3789373b68c5df5"
-          EXPECTED_FAILED_RUN_ID = 33205926951
-          EXPECTED_FAILED_JOB_ID = 98966822862
-          EXPECTED_FAILED_HEAD = "c2fda7ae46474c0dd70bd6add5ea8184cacd4b87"
-          EXPECTED_FAILED_TREE = "a9e735fe661ebe413209fb4f506aca5cb2fdb48c"
+          EXPECTED_RUNTIME = "PMO-FINANCE-PAGE100-G6-20260829221500"
+          EXPECTED_RUN_ID = "FINANCE-PAGE100-PILOT-G6-20260829221500"
+          EXPECTED_TOKEN_HASH = "3ecb5ad567e05208d76e892164d91d4a408d9ca50ab775c43c0ea294905c3c1d"
+          EXPECTED_OWNER_SPEC = "584bb1d3ca0359f18dc4f9ac3de7644a88bb43fe4362c6c67a705e30ac27f309"
+          EXPECTED_GENERATION_ID = "FINANCE-PAGE100-G6-20260829221500"
+          EXPECTED_PRECHECK_ACT_ID = "FINANCE-PAGE100-PRECHECK-ACT-G6-20260829221500"
+          EXPECTED_LIVE_ACT_ID = "FINANCE-PAGE100-LIVE-ACT-G6-20260829221500"
+          EXPECTED_LATCH_EVENT_ID = "FINANCE-PAGE100-LATCH-G6-20260829221500"
+          EXPECTED_RESUME_BASE_HEAD = "ee7cd5f6f48c9f13ad43071b8c7c3648c9bdd1d0"
+          EXPECTED_RESUME_BASE_TREE = "8888b6d7208b5c4b72d17eb887827d09c2b0c61c"
+          EXPECTED_FAILED_RUN_ID = 33253477005
+          EXPECTED_FAILED_JOB_ID = 99103056660
+          EXPECTED_FAILED_HEAD = "ee7cd5f6f48c9f13ad43071b8c7c3648c9bdd1d0"
+          EXPECTED_FAILED_TREE = "8888b6d7208b5c4b72d17eb887827d09c2b0c61c"
           EXPECTED_REMEDIATION_RECEIPT_SHA = "a78d9c238e46b055c14c21e15cc7f50762de832e0e42382356d108053efd7ff7"
           EXPECTED_EFFECTIVE_POLICY_SHA = "cc9297ceb8f2247b3dcf003055c814c139a92a88859bb44585807705e41270ed"
           EXPECTED_EFFECTIVE_POLICY_CANONICAL_SHA = "d2d1936ff420d2e97ededf64f376f544dacf838f125e4e8d6f3f4562efef774c"
@@ -123,7 +123,7 @@ jobs:
           EXPECTED_G4_PRECHECK_HEAD = "784e9eea008b5eea57132e2e341a3c63982951cc"
           EXPECTED_G4_PRECHECK_ARTIFACT_ID = 9706754794
           EXPECTED_G4_PRECHECK_ARTIFACT_DIGEST = "sha256:b32f5fb3b94adeb7b6202af07700b6fdb9b80c828f31e55ddfe78a2de7296b24"
-          EXPECTED_PREPARATION_MESSAGE = "Prepare M3Top3 Finance page100 G5 immutable dual-profile 20260829204006 v1.0"
+          EXPECTED_PREPARATION_MESSAGE = "Prepare M3Top3 Finance page100 G6 immutable dual-profile 20260829221500 v1.0"
           EXPECTED_PREDECESSOR_HEAD = "31d1bc2a23b97c34adb851ab73394145994ddb6e"
           EXPECTED_PREDECESSOR_TREE = "172f65ce29b565792cc64519a3c5d431028ec537"
           EXPECTED_PREDECESSOR_RUN_ID = 33195472310
@@ -291,8 +291,8 @@ jobs:
           require(activation.get("act_id") == expected_act_id, "ACTIVATION_ACT_ID_MISMATCH")
           expected_message = activation.get("exact_commit_message")
           require(expected_message in {
-              "Arm M3Top3 Finance page100 G5 precheck 20260829204006 v1.0",
-              "Arm M3Top3 Finance page100 G5 bounded live pilot 20260829204006 v1.0",
+              "Arm M3Top3 Finance page100 G6 precheck 20260829221500 v1.0",
+              "Arm M3Top3 Finance page100 G6 bounded live pilot 20260829221500 v1.0",
           }, "UNKNOWN_ACTIVATION_MESSAGE")
           require(os.environ.get("EVENT_HEAD_MESSAGE") == expected_message, "ACTIVATION_MESSAGE_MISMATCH")
           require(latch.get("activation_commit_message") == expected_message, "LATCH_MESSAGE_MISMATCH")
@@ -344,8 +344,9 @@ jobs:
           require(preparation.get("parent_sha") == prep_parent, "PREPARATION_PARENT_BINDING_MISMATCH")
           require(preparation.get("parent_tree_sha") == prep_parent_tree, "PREPARATION_PARENT_TREE_BINDING_MISMATCH")
           require(preparation.get("exact_commit_message") == EXPECTED_PREPARATION_MESSAGE, "PREPARATION_MESSAGE_BINDING_MISMATCH")
+          expected_preparation_body = EXPECTED_PREPARATION_MESSAGE.encode("utf-8")
           require(
-              prep_message == (EXPECTED_PREPARATION_MESSAGE + "\n").encode("utf-8"),
+              prep_message in {expected_preparation_body, expected_preparation_body + b"\n"},
               "PREPARATION_COMMIT_MESSAGE_MISMATCH",
           )
           require(prep_parent == EXPECTED_RESUME_BASE_HEAD, "PREPARATION_PARENT_HEAD_MISMATCH")
@@ -393,7 +394,7 @@ jobs:
               require(fresh.get("runtime_lock_id") == EXPECTED_RUNTIME, "LIVE_PRECHECK_RUNTIME_MISMATCH")
               require(fresh.get("pilot_run_id") == EXPECTED_RUN_ID, "LIVE_PRECHECK_PILOT_MISMATCH")
               require(type(fresh.get("workflow_run_id")) is int and fresh.get("workflow_run_id") > 0, "LIVE_PRECHECK_RUN_ID_INVALID")
-              require(fresh.get("workflow_run_id") != EXPECTED_G4_PRECHECK_RUN_ID, "G4_PRECHECK_REUSE_AS_G5_FRESHNESS_PROHIBITED")
+              require(fresh.get("workflow_run_id") != EXPECTED_G4_PRECHECK_RUN_ID, "G4_PRECHECK_REUSE_AS_G6_FRESHNESS_PROHIBITED")
               require(type(fresh.get("artifact_id")) is int and fresh.get("artifact_id") > 0, "LIVE_PRECHECK_ARTIFACT_ID_INVALID")
               require(fresh.get("workflow_run_attempt") == 1, "LIVE_PRECHECK_RUN_ATTEMPT_MISMATCH")
               require(bool(re.fullmatch(r"[0-9a-f]{40}", str(fresh.get("head_sha", "")))), "LIVE_PRECHECK_HEAD_SHA_INVALID")
@@ -1168,13 +1169,13 @@ jobs:
           SOURCE_ROOT = "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/"
           EXPECTED_CONTROL_PREFIX = (
               SOURCE_ROOT
-              + "_pilot_control/runtime_lock_id=PMO-FINANCE-PAGE100-G5-20260829204006/"
-              + "pilot_run_id=FINANCE-PAGE100-PILOT-G5-20260829204006/"
+              + "_pilot_control/runtime_lock_id=PMO-FINANCE-PAGE100-G6-20260829221500/"
+              + "pilot_run_id=FINANCE-PAGE100-PILOT-G6-20260829221500/"
           )
           EXPECTED_RAW_WRITE_PREFIX = (
               SOURCE_ROOT
-              + "_pilot_generation/runtime_lock_id=PMO-FINANCE-PAGE100-G5-20260829204006/"
-              + "pilot_run_id=FINANCE-PAGE100-PILOT-G5-20260829204006/"
+              + "_pilot_generation/runtime_lock_id=PMO-FINANCE-PAGE100-G6-20260829221500/"
+              + "pilot_run_id=FINANCE-PAGE100-PILOT-G6-20260829221500/"
           )
           FAILED_CONTROL_PREFIX = (
               SOURCE_ROOT
@@ -1519,12 +1520,12 @@ jobs:
           PREDECESSOR_RUN_ID = 33195472310
           PREDECESSOR_JOB_ID = 98931365000
           PREDECESSOR_HEAD_SHA = "f0918e170a662867caf57ced28d68c82e79cdb0a"
-          FAILED_RUN_ID = 33205926951
-          FAILED_JOB_ID = 98966822862
-          FAILED_HEAD_SHA = "c2fda7ae46474c0dd70bd6add5ea8184cacd4b87"
-          FAILED_ARTIFACT_ID = 9699648116
-          FAILED_ARTIFACT_DIGEST = "sha256:d0526119349f573ad38be855195a3b9c0c08bd29c1f6717f448d0844656cb234"
-          FAILED_ARTIFACT_SIZE = 2062
+          FAILED_RUN_ID = 33253477005
+          FAILED_JOB_ID = 99103056660
+          FAILED_HEAD_SHA = "ee7cd5f6f48c9f13ad43071b8c7c3648c9bdd1d0"
+          FAILED_ARTIFACT_ID = 9715080560
+          FAILED_ARTIFACT_DIGEST = "sha256:05853717a7b9af6f107bd8747a7c44a6fd817a5fd5b123059898d092fc639be4"
+          FAILED_ARTIFACT_SIZE = 344
           G4_PRECHECK_RUN_ID = 33225643741
           G4_PRECHECK_JOB_ID = 99028755766
           G4_PRECHECK_HEAD_SHA = "784e9eea008b5eea57132e2e341a3c63982951cc"
@@ -1783,7 +1784,7 @@ jobs:
                   or prior.get("actor", {}).get("login") != ACTOR
                   or prior.get("triggering_actor", {}).get("login") != ACTOR
                   or prior.get("head_commit", {}).get("message")
-                     != "Arm M3Top3 Finance page100 G5 precheck 20260829204006 v1.0"
+                     != "Arm M3Top3 Finance page100 G6 precheck 20260829221500 v1.0"
               ):
                   raise SystemExit("FRESH_PRECHECK_WORKFLOW_RUN_MISMATCH")
               fresh_jobs = get_json(
@@ -1967,8 +1968,8 @@ jobs:
                   "Effect": "Allow",
                   "Action": ["s3:PutObject", "s3:GetObject", "s3:GetObjectVersion"],
                   "Resource": [
-                    "arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_generation/runtime_lock_id=PMO-FINANCE-PAGE100-G5-20260829204006/pilot_run_id=FINANCE-PAGE100-PILOT-G5-20260829204006/*",
-                    "arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_control/runtime_lock_id=PMO-FINANCE-PAGE100-G5-20260829204006/pilot_run_id=FINANCE-PAGE100-PILOT-G5-20260829204006/*",
+                    "arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_generation/runtime_lock_id=PMO-FINANCE-PAGE100-G6-20260829221500/pilot_run_id=FINANCE-PAGE100-PILOT-G6-20260829221500/*",
+                    "arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_control/runtime_lock_id=PMO-FINANCE-PAGE100-G6-20260829221500/pilot_run_id=FINANCE-PAGE100-PILOT-G6-20260829221500/*",
                     "arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_writer_claims/quota_day_kst=2026-08-30/execution-claim.json"
                   ]
                 }
@@ -2058,8 +2059,8 @@ jobs:
           if aws_json(["s3api", "get-bucket-versioning", "--bucket", bucket]).get("Status") != "Enabled":
               raise SystemExit("LIVE_FRESH_SESSION_BUCKET_VERSIONING_MISMATCH")
           prefixes = (
-              "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_generation/runtime_lock_id=PMO-FINANCE-PAGE100-G5-20260829204006/pilot_run_id=FINANCE-PAGE100-PILOT-G5-20260829204006/",
-              "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_control/runtime_lock_id=PMO-FINANCE-PAGE100-G5-20260829204006/pilot_run_id=FINANCE-PAGE100-PILOT-G5-20260829204006/",
+              "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_generation/runtime_lock_id=PMO-FINANCE-PAGE100-G6-20260829221500/pilot_run_id=FINANCE-PAGE100-PILOT-G6-20260829221500/",
+              "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_control/runtime_lock_id=PMO-FINANCE-PAGE100-G6-20260829221500/pilot_run_id=FINANCE-PAGE100-PILOT-G6-20260829221500/",
               "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_writer_claims/quota_day_kst=2026-08-30/execution-claim.json",
           )
           for prefix in prefixes:
@@ -2292,8 +2293,8 @@ jobs:
           claim = checkpoint.get("execution_claim", {})
           if (
               checkpoint.get("state") != "COMPLETE"
-              or checkpoint.get("runtime_lock_id") != "PMO-FINANCE-PAGE100-G5-20260829204006"
-              or checkpoint.get("pilot_run_id") != "FINANCE-PAGE100-PILOT-G5-20260829204006"
+              or checkpoint.get("runtime_lock_id") != "PMO-FINANCE-PAGE100-G6-20260829221500"
+              or checkpoint.get("pilot_run_id") != "FINANCE-PAGE100-PILOT-G6-20260829221500"
               or checkpoint.get("completed_dates") != [
                   "20240102", "20240131", "20240329", "20240628", "20240808",
                   "20240809", "20240812", "20240930", "20241231", "20250115",
