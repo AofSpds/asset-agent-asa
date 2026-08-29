@@ -1,0 +1,49 @@
+name: Execute bounded G6 generation
+
+on:
+  push:
+    branches:
+      - aaa-pmo-g6-material-export-20260829-2210
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    if: >-
+      github.actor == 'AofSpds' &&
+      github.run_attempt == 1 &&
+      github.event.head_commit.message == 'Execute bounded G6 generation'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout exact generator source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.sha }}
+          path: generator
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Checkout exact task base with write credential
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ee7cd5f6f48c9f13ad43071b8c7c3648c9bdd1d0
+          path: target
+          persist-credentials: true
+          fetch-depth: 0
+      - name: Generate isolated G6 P-C lineage
+        shell: bash
+        working-directory: target
+        run: |
+          set -euo pipefail
+          git config user.name AofSpds
+          git config user.email 87963280+AofSpds@users.noreply.github.com
+          python ../generator/tools/tmp/generate_g6_page100.py
+      - name: Upload generation manifest
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: m3top3-finance-page100-g6-generation-manifest
+          path: /tmp/g6-generation-manifest.json
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 6
