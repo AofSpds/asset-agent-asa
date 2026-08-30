@@ -1,0 +1,1 @@
+{"Statement":[{"Action":["s3:GetBucketLocation","s3:GetBucketVersioning"],"Effect":"Allow","Resource":"arn:aws:s3:::semi-data-plane-aofspds-20260815"}],"Version":"2012-10-17"}
