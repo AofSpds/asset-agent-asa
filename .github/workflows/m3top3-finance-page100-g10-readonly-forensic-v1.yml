@@ -1,0 +1,127 @@
+name: M3Top3 Finance Page100 G10 Read-Only Forensic v1.0
+
+on:
+  push:
+    branches:
+      - aaa-pmo-public-data-g2-g3-source-admission-v1-20260828
+    paths:
+      - control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_FORENSIC_ACTIVATION_v1.0.json
+
+permissions:
+  contents: read
+  issues: read
+  actions: read
+  id-token: write
+
+concurrency:
+  group: m3top3-finance-bounded-live-pilot-v1
+  cancel-in-progress: false
+
+jobs:
+  g10-readonly-forensic:
+    if: >-
+      github.repository == 'AofSpds/asset-agent-asa' &&
+      github.event_name == 'push' &&
+      github.actor == 'AofSpds' &&
+      github.triggering_actor == 'AofSpds' &&
+      github.run_attempt == 1 &&
+      github.ref == 'refs/heads/aaa-pmo-public-data-g2-g3-source-admission-v1-20260828' &&
+      github.event.forced == false &&
+      github.event.head_commit.message == 'Arm G10 read-only issuer and S3 forensic audit once v1.0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    environment: m3top3-source-admission
+    env:
+      AWS_REGION: ap-northeast-2
+      AWS_DEFAULT_REGION: ap-northeast-2
+      AWS_MAX_ATTEMPTS: "1"
+      AWS_RETRY_MODE: standard
+      AWS_PAGER: ""
+      AUTHORITY_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_FORENSIC_AUTHORITY_v1.0.json
+      ACTIVATION_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_FORENSIC_ACTIVATION_v1.0.json
+      TERMINAL_RECEIPT_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_LIVE_TERMINAL_RECEIPT_v1.0.json
+      PREDECESSOR_CHECKPOINT_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_ACQUISITION_CHECKPOINT_v1.0.json
+      MANIFEST_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_FORENSIC_MANIFEST_v1.0.json
+      RUNNER_PATH: tools/m3top3/finance_page100_g10_forensic.py
+
+    steps:
+      - name: Checkout exact activation revision
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Fail-closed Git authority activation and Owner-comment preflight
+        shell: bash
+        env:
+          EVENT_BEFORE: ${{ github.event.before }}
+          EVENT_AFTER: ${{ github.event.after }}
+          EVENT_FORCED: ${{ github.event.forced }}
+          EVENT_HEAD_MESSAGE: ${{ github.event.head_commit.message }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          python "$RUNNER_PATH" preflight \
+            --authority "$AUTHORITY_PATH" \
+            --activation "$ACTIVATION_PATH" \
+            --receipt "$TERMINAL_RECEIPT_PATH" \
+            --predecessor-checkpoint "$PREDECESSOR_CHECKPOINT_PATH" \
+            --manifest "$MANIFEST_PATH" \
+            --verify-owner-comment
+
+      - name: Verify remote branch and single-run custody before AWS
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          python "$RUNNER_PATH" remote-gate \
+            --activation "$ACTIVATION_PATH" \
+            --phase before-aws
+
+      - name: Configure exact-prefix read-only AWS OIDC forensic session
+        uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
+        with:
+          role-to-assume: arn:aws:iam::956315449338:role/M3Top3GitHubOIDCRawWriter
+          aws-region: ap-northeast-2
+          role-session-name: g10-readonly-forensic-${{ github.run_id }}
+          role-duration-seconds: 3600
+          retry-max-attempts: 1
+          disable-retry: true
+          output-credentials: false
+          mask-aws-account-id: true
+          inline-session-policy: |-
+            {"Version":"2012-10-17","Statement":[{"Effect":"Allow","Action":"s3:ListBucketVersions","Resource":"arn:aws:s3:::semi-data-plane-aofspds-20260815","Condition":{"StringEquals":{"s3:prefix":["raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_generation/runtime_lock_id=PMO-FINANCE-PAGE100-G10-20260830044522/pilot_run_id=FINANCE-PAGE100-PILOT-G10-20260830044522/","raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_control/runtime_lock_id=PMO-FINANCE-PAGE100-G10-20260830044522/pilot_run_id=FINANCE-PAGE100-PILOT-G10-20260830044522/","raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_writer_claims/quota_day_kst=2026-08-30/execution-claim.json"]}}},{"Effect":"Allow","Action":"s3:GetObjectVersion","Resource":["arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_generation/runtime_lock_id=PMO-FINANCE-PAGE100-G10-20260830044522/pilot_run_id=FINANCE-PAGE100-PILOT-G10-20260830044522/*","arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_control/runtime_lock_id=PMO-FINANCE-PAGE100-G10-20260830044522/pilot_run_id=FINANCE-PAGE100-PILOT-G10-20260830044522/checkpoint.json","arn:aws:s3:::semi-data-plane-aofspds-20260815/raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_writer_claims/quota_day_kst=2026-08-30/execution-claim.json"]}]}
+
+      - name: Read exact existing versions and reproduce hash-only conflicts
+        shell: bash
+        run: |
+          set -euo pipefail
+          umask 077
+          mkdir -p forensic-artifact
+          python "$RUNNER_PATH" audit \
+            --authority "$AUTHORITY_PATH" \
+            --activation "$ACTIVATION_PATH" \
+            --receipt "$TERMINAL_RECEIPT_PATH" \
+            --predecessor-checkpoint "$PREDECESSOR_CHECKPOINT_PATH" \
+            --manifest "$MANIFEST_PATH" \
+            --output-dir forensic-artifact
+
+      - name: Verify remote branch and single-run custody before artifact
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          python "$RUNNER_PATH" remote-gate \
+            --activation "$ACTIVATION_PATH" \
+            --phase before-artifact
+
+      - name: Upload sanitized hash-only forensic evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: m3top3-g10-readonly-forensic-${{ github.run_id }}-${{ github.run_attempt }}
+          path: forensic-artifact
+          if-no-files-found: error
+          include-hidden-files: false
+          retention-days: 30
