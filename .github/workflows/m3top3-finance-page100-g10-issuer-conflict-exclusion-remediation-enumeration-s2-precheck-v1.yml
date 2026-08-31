@@ -1,0 +1,157 @@
+name: M3Top3 Finance G10 Issuer Exclusion Enumeration S2 PRECHECK v1.0
+
+on:
+  push:
+    branches:
+      - aaa-pmo-public-data-g2-g3-source-admission-v1-20260828
+    paths:
+      - control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_ISSUER_CONFLICT_EXCLUSION_REMEDIATION_ENUMERATION_S2_PRECHECK_ACTIVATION_v1.0.json
+
+permissions:
+  contents: read
+
+concurrency:
+  group: m3top3-finance-bounded-live-pilot-v1
+  cancel-in-progress: false
+
+env:
+  AUTHORITY_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_ISSUER_CONFLICT_EXCLUSION_REMEDIATION_ENUMERATION_S2_AUTHORITY_v1.0.json
+  MANIFEST_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_ISSUER_CONFLICT_EXCLUSION_REMEDIATION_ENUMERATION_S2_MANIFEST_v1.0.json
+  POLICY_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_ISSUER_CONFLICT_EXCLUSION_REMEDIATION_ENUMERATION_S2_LIVE_SESSION_POLICY_v1.0.json
+  ACTIVATION_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_ISSUER_CONFLICT_EXCLUSION_REMEDIATION_ENUMERATION_S2_PRECHECK_ACTIVATION_v1.0.json
+  LIVE_ACTIVATION_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_ISSUER_CONFLICT_EXCLUSION_REMEDIATION_ENUMERATION_S2_LIVE_ACTIVATION_v1.0.json
+  TERMINAL_RECEIPT_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_ISSUER_CONFLICT_EXCLUSION_REMEDIATION_ENUMERATION_S1_LIVE_TERMINAL_RECEIPT_33397813927_v1.0.json
+  RUNNER_PATH: tools/m3top3/finance_page100_g10_issuer_conflict_exclusion_enumeration_s2.py
+
+jobs:
+  precheck:
+    if: >-
+      github.repository == 'AofSpds/asset-agent-asa' &&
+      github.event_name == 'push' &&
+      github.actor == 'AofSpds' &&
+      github.triggering_actor == 'AofSpds' &&
+      github.run_attempt == 1 &&
+      github.ref == 'refs/heads/aaa-pmo-public-data-g2-g3-source-admission-v1-20260828' &&
+      github.event.forced == false &&
+      github.event.head_commit.message == 'Arm G10 issuer-group exclusion enumeration S2 PRECHECK 20260831134500 v1.0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact S2 PRECHECK activation revision
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 5
+          persist-credentials: false
+
+      - name: Fail-closed exact actor message and lineage preflight
+        shell: bash
+        env:
+          EVENT_AFTER: ${{ github.event.after }}
+          EVENT_BEFORE: ${{ github.event.before }}
+          EVENT_ACTOR: ${{ github.actor }}
+          EVENT_TRIGGERING_ACTOR: ${{ github.triggering_actor }}
+          EVENT_REF: ${{ github.ref }}
+          EVENT_REPOSITORY: ${{ github.repository }}
+          EVENT_RUN_ATTEMPT: ${{ github.run_attempt }}
+        run: |
+          set -euo pipefail
+          export LC_ALL=C
+          test "$EVENT_REPOSITORY" = 'AofSpds/asset-agent-asa'
+          test "$EVENT_ACTOR" = 'AofSpds'
+          test "$EVENT_TRIGGERING_ACTOR" = 'AofSpds'
+          test "$EVENT_REF" = 'refs/heads/aaa-pmo-public-data-g2-g3-source-admission-v1-20260828'
+          test "$EVENT_RUN_ATTEMPT" = '1'
+          test "$(git rev-parse HEAD)" = "$EVENT_AFTER"
+          test "$(git rev-parse HEAD^)" = "$EVENT_BEFORE"
+          test "$(git show -s --format=%P HEAD | wc -w | tr -d ' ')" = '1'
+          test "$(git log -1 --pretty=%B HEAD)" = 'Arm G10 issuer-group exclusion enumeration S2 PRECHECK 20260831134500 v1.0'
+          test "$(git diff-tree --no-commit-id --name-status -r HEAD)" = "$(printf 'A\t%s' "$ACTIVATION_PATH")"
+
+          preparation_commit="$(git rev-parse HEAD^)"
+          preparation_tree="$(git rev-parse "${preparation_commit}^{tree}")"
+          test "$(git show -s --format=%P "$preparation_commit" | wc -w | tr -d ' ')" = '1'
+          test "$(git log -1 --pretty=%B "$preparation_commit")" = 'Prepare G10 issuer-group exclusion enumeration S2 20260831134500 v1.0'
+          test "$(git rev-parse "${preparation_commit}^")" = '83d14411f7b0dc18a3cd6e8f58b0e0659eea98e9'
+          test "$(git rev-parse "${preparation_commit}^^{tree}")" = '035d7ba146a4b679e362ceeb9d73242b49089e0b'
+
+          if git cat-file -e "HEAD:${LIVE_ACTIVATION_PATH}" 2>/dev/null; then
+            exit 1
+          fi
+          test -f "$AUTHORITY_PATH"
+          test -f "$MANIFEST_PATH"
+          test -f "$POLICY_PATH"
+          test -f "$RUNNER_PATH"
+          test -f "$TERMINAL_RECEIPT_PATH"
+          actual_preparation_diff="$(git diff-tree --no-commit-id --name-status -r "$preparation_commit" | LC_ALL=C sort)"
+          expected_preparation_diff="$(
+            {
+              jq -r '.preparation_files | keys[]' "$MANIFEST_PATH"
+              printf '%s\n' "$MANIFEST_PATH"
+            } | LC_ALL=C sort | sed $'s/^/A\t/'
+          )"
+          test "$actual_preparation_diff" = "$expected_preparation_diff"
+          test "$(wc -c < "$TERMINAL_RECEIPT_PATH" | tr -d ' ')" = '5555'
+          test "$(sha256sum -- "$TERMINAL_RECEIPT_PATH" | cut -d' ' -f1)" = 'f204fb27f607a235e69c7e53b1752b55ad9b89e9ce421901c1daebc735b5fb46'
+          test "$(git hash-object -- "$TERMINAL_RECEIPT_PATH")" = '09afa0c51fdba04c7c1b0cdfc372123010c73110'
+
+          jq -e \
+            --arg preparation_commit "$preparation_commit" \
+            --arg preparation_tree "$preparation_tree" \
+            --arg authority_sha "$(sha256sum -- "$AUTHORITY_PATH" | cut -d' ' -f1)" \
+            --arg manifest_sha "$(sha256sum -- "$MANIFEST_PATH" | cut -d' ' -f1)" \
+            --arg policy_sha "$(sha256sum -- "$POLICY_PATH" | cut -d' ' -f1)" \
+            '.artifact == "M3TOP3_FINANCE_CA_PAGE100_G10_ISSUER_CONFLICT_EXCLUSION_REMEDIATION_ENUMERATION_S2_PRECHECK_ACTIVATION_v1.0" and
+             .state == "ARMED_FRESH_ZERO_EXTERNAL_EFFECT_S2_PRECHECK_ONCE" and
+             .armed == true and
+             .repository == "AofSpds/asset-agent-asa" and
+             .branch == "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828" and
+             .expected_commit_message == "Arm G10 issuer-group exclusion enumeration S2 PRECHECK 20260831134500 v1.0" and
+             .preparation_commit_sha == $preparation_commit and
+             .preparation_tree_sha == $preparation_tree and
+             .authority_sha256 == $authority_sha and
+             .manifest_sha256 == $manifest_sha and
+             .policy_sha256 == $policy_sha and
+             .preparation_parent == {"terminal_commit_sha":"83d14411f7b0dc18a3cd6e8f58b0e0659eea98e9","terminal_tree_sha":"035d7ba146a4b679e362ceeb9d73242b49089e0b"}' \
+            "$ACTIVATION_PATH" >/dev/null
+
+      - name: Run focused S2 contract tests offline
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m unittest discover \
+            -s tools/m3top3/tests \
+            -p 'test_finance_page100_g10_issuer_conflict_exclusion_enumeration_s2.py' \
+            -v
+
+      - name: Run fresh bounded S2 PRECHECK offline
+        shell: bash
+        env:
+          EVENT_ACTOR: ${{ github.actor }}
+          EVENT_TRIGGERING_ACTOR: ${{ github.triggering_actor }}
+          EVENT_REPOSITORY: ${{ github.repository }}
+          EVENT_REF: ${{ github.ref }}
+          EVENT_AFTER: ${{ github.event.after }}
+          EVENT_BEFORE: ${{ github.event.before }}
+          EVENT_FORCED: ${{ github.event.forced }}
+          EVENT_HEAD_MESSAGE: ${{ github.event.head_commit.message }}
+          EVENT_RUN_ATTEMPT: ${{ github.run_attempt }}
+        run: |
+          set -euo pipefail
+          preparation_commit="$(git rev-parse HEAD^)"
+          preparation_tree="$(git rev-parse "${preparation_commit}^{tree}")"
+          python "$RUNNER_PATH" precheck \
+            --root . \
+            --authority "$AUTHORITY_PATH" \
+            --manifest "$MANIFEST_PATH" \
+            --policy "$POLICY_PATH" \
+            --activation "$ACTIVATION_PATH" \
+            --expected-preparation-commit "$preparation_commit" \
+            --expected-preparation-tree "$preparation_tree"
+
+      - name: Confirm PRECHECK has no external-effect capability
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${{ job.status }}" = 'success'
+          test "$(jq -r '.exact_read_scope.call_ceiling.s3_get_object_version_calls' "$AUTHORITY_PATH")" = '4'
+          test "$(jq -r '.claim_ceiling.exact_enumeration_completed' "$AUTHORITY_PATH")" = 'false'
