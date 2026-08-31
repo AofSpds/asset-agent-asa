@@ -15,6 +15,7 @@ PAIR = AAA-PMO-VALIDATOR
 - All Personas inherit the universal Progress/Time/Compute behavior code. Future WBS steps must state time, and long executions should expose evidence-based progress/ETA and compute/resource accounting where measurable.
 - Owner directive: no global validation loop, no full-repository regression by default, no repeated whole-target read, and no validator ping-pong. Reuse sealed exact evidence when applicability is proven.
 - Owner direction after Common Guard close: return to M3Top3 and explore tuning from PIT first, without bypassing current gates or inventing the W1 tuple.
+- Owner direction 2026-09-01: persist a three-model operating split as a governed candidate: ChatGPT for PMO/execution/integration, Claude as the preferred independent-validation/Red-Team runtime, Gemini as non-authoritative explorer/alternative analyst/mechanical consistency scout. No model voting; model identity does not create Persona authority.
 
 ## CURRENT_TASK_AND_STATE
 - TASK = M3TOP3 WORK Ultra WP0-WP9 continuation + W1 PIT-first semantic-neutral EOPT calibration planning after current gate reconciliation.
@@ -51,6 +52,9 @@ PAIR = AAA-PMO-VALIDATOR
 - EOPT measurement/mutation and Full W1-W8 scale-out remain blocked until governed gates actually pass.
 - W1 is the first governed non-overlapping historical window, not automatically calendar Q1. Read the authoritative registry before assigning dates.
 - Persona Memory is continuity only and never supersedes governed current state.
+- Multi-model routing candidate artifact: `control/organization/current-state/v1.0/AAA_MULTI_MODEL_OPERATING_RULE_v0.1.md` on `aaa-pmo-multimodel-operating-rule-v1-20260901`.
+- Calibration basis: frozen G10 S2 `f243ca44938919ce19c3e4c4f53cdbfb76867eed` / tree `ef24f950209fc4c198957ca218b75a4db0f446f7`. Claude found the stale `two companies` semantic regression in blind audit; Gemini did not. This is a reversible empirical routing default, not a permanent vendor-quality claim.
+- `AAA-VALIDATION-AUDITOR` authority is never granted merely because Claude is selected. Formal IVA still requires governed Persona resolution and exact validation evidence.
 
 ## REQUIRED_NORMATIVE_REFS
 - Project Instructions current pointer on `aaa-project-instructions-git-bootstrap-v1.0`
@@ -63,6 +67,7 @@ PAIR = AAA-PMO-VALIDATOR
 - Active bootstrap transition commit `ed3d0c975e73b5ae1883db6d4bdb16db2c070275`
 - GitHub Issues #49, #53, and #54 current state/comments
 - `PMO_CHANNEL_SUCCESSION_CHECKPOINT_2026-08-26_0016_KST.md`
+- Multi-model routing candidate: `control/organization/current-state/v1.0/AAA_MULTI_MODEL_OPERATING_RULE_v0.1.md`
 
 ## LATEST_CHECKPOINTS
 - `control/persona-memory/v1.0/AAA-PMO-ORCHESTRATOR/checkpoints/AAA_PMO_COMMON_GUARD_A5_FINAL_CLOSEOUT_2026-08-27_0546_KST.md`
@@ -83,8 +88,10 @@ PAIR = AAA-PMO-VALIDATOR
 - PMO는 domain semantic supersession authority가 아니다.
 - Persona Memory는 program progress SoT를 대체하지 않는다.
 - Channel != Persona. A channel can end while the PMO Persona/program continues through Git-backed succession.
+- External model role != AAA Persona authority. Multi-model outputs are evidence inputs and must be reconciled against governed authority and deterministic evidence.
 
 ## MEMORY_LOG
 - TIME_KST = 2026-08-22 04:19 KST | IMPORTANCE = HIGH | LIFECYCLE = PERSONA | STATE = ACTIVE | SOURCE_REF = OWNER_REQUEST | NOTE = 조직도별 persistent memo 공간 초기화.
 - TIME_KST = 2026-08-26 00:16 KST | IMPORTANCE = P0_CONTINUITY | LIFECYCLE = RUNTIME | STATE = SUPERSEDED_BY_SUCCESSOR_CLOSEOUT | SOURCE_REF = OWNER_REPORT + GIT_ISSUE_49_52 | NOTE = Prior PMO visible channel reached context limit. Successor checkpoint created; resume from Git without program restart.
 - TIME_KST = 2026-08-27 05:46 KST | IMPORTANCE = HIGH | LIFECYCLE = PROGRAM | STATE = CLOSED | SOURCE_REF = PR_55 + `da0e3a4f7b921ee710785f12435a10aa750fcba6` + `ed3d0c975e73b5ae1883db6d4bdb16db2c070275` + checkpoint `45a1fd92ac1997f8f65db9e76d895f9461e6f96e` | NOTE = Common Guard v1.1 closed at 100/100 EWU after exact merge, active-bootstrap transition, and post-switch readback. Return to M3Top3 #49/#53/#54; PIT-first tuning remains gate-bounded.
+- TIME_KST = 2026-09-01 01:04 KST | IMPORTANCE = HIGH | LIFECYCLE = PROGRAM | STATE = OWNER_APPROVED_CANDIDATE | SOURCE_REF = OWNER_CHAT_CURRENT_CHANNEL + candidate `AAA_MULTI_MODEL_OPERATING_RULE_v0.1.md` | NOTE = Persist ChatGPT=PMO/execution/integration, Claude=preferred independent-validation runtime, Gemini=explorer/scout. No model voting; no model-identity authority; calibration remains reversible and requires governed validation/merge before active project-wide effect.
