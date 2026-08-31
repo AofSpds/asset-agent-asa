@@ -1,0 +1,34 @@
+name: M3Top3 Finance G10 Issuer Exclusion Filter S3 APPLY v1.0
+on:
+  push:
+    branches: [aaa-pmo-public-data-g2-g3-source-admission-v1-20260828]
+    paths: [control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_ISSUER_CONFLICT_EXCLUSION_FILTER_S3_APPLY_ACTIVATION_v1.0.json]
+permissions:
+  contents: read
+concurrency:
+  group: m3top3-finance-bounded-live-pilot-v1
+  cancel-in-progress: false
+jobs:
+  apply:
+    if: >-
+      github.repository == 'AofSpds/asset-agent-asa' && github.actor == 'AofSpds' && github.triggering_actor == 'AofSpds' && github.run_attempt == 1 && github.event.forced == false && github.event.head_commit.message == 'Arm G10 issuer-group exclusion filter S3 APPLY 20260901011000 v1.0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with: {fetch-depth: 5, persist-credentials: false}
+      - name: Exact offline filter application
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD^)" = "$(jq -r '.precheck_pass_receipt_commit_sha' 'control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_ISSUER_CONFLICT_EXCLUSION_FILTER_S3_APPLY_ACTIVATION_v1.0.json')"
+          test "$(git diff-tree --no-commit-id --name-status -r HEAD)" = "$(printf 'A\t%s' 'control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_ISSUER_CONFLICT_EXCLUSION_FILTER_S3_APPLY_ACTIVATION_v1.0.json')"
+          test "$(jq -r '.expected_commit_message' 'control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_ISSUER_CONFLICT_EXCLUSION_FILTER_S3_APPLY_ACTIVATION_v1.0.json')" = 'Arm G10 issuer-group exclusion filter S3 APPLY 20260901011000 v1.0'
+          test "$(jq -r '.armed' 'control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_ISSUER_CONFLICT_EXCLUSION_FILTER_S3_APPLY_ACTIVATION_v1.0.json')" = 'true'
+          jq -e '.state=="TERMINAL_PASS_FOCUSED_PRECHECK_ZERO_EXTERNAL_EFFECT" and .conclusion=="success" and .run_attempt==1 and .external_effects_all_zero==true' 'control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_ISSUER_CONFLICT_EXCLUSION_FILTER_S3_PRECHECK_PASS_RECEIPT_v1.0.json' >/dev/null
+          test "$(git rev-parse HEAD:control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_ISSUER_CONFLICT_OWNER_DECISION_RECEIPT_v1.1.json)" = '45efc3a45db3691b20a01e04810b8ca6ae16e94a'
+          test "$(git rev-parse HEAD:control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_ISSUER_CONFLICT_EXCLUSION_REMEDIATION_ENUMERATION_S2_LIVE_TERMINAL_RECEIPT_33403101817_v1.0.json)" = 'bdd2d7a18e7ee6fac091c0ce95acb1c00e78eb2d'
+          jq -e '.state=="OWNER_APPROVED_CURRENT_PILOT_COMPANY_WIDE_EXACT_ISSUER_GROUP_EXCLUSION__EXACT_ENUMERATION_AND_FOCUSED_PRECHECK_PENDING" and .authority.owner_decision=="OWNER_APPROVE_PILOT_ONLY_EXACT_ISSUER_GROUP_EXCLUSION" and .authority.current_pilot_eligibility_treatment_change_authorized==true and .authority.issuer_identity_resolution_authorized==false and .exact_exclusion_target.global_row_ordinals==[37,39] and .exclusion_semantics.scope=="CURRENT_FROZEN_FINANCE_PAGE100_G10_40_ROW_SLICE_ONLY" and .exclusion_semantics.selector=="EXACT_CUSTODY_KEY_SHA256" and .exclusion_semantics.non_excluded_rows_retain_original_identity_validation_floor==true' 'control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_ISSUER_CONFLICT_OWNER_DECISION_RECEIPT_v1.1.json' >/dev/null
+          jq -e '.state=="TERMINAL_PASS_HASH_ONLY_ENUMERATION_COMPLETE_FILTER_NOT_APPLIED" and .disposition.actual_exclusion_applied==false and .disposition.next_filter_application_requires_distinct_gate==true and .workflow.run_id==33403101817 and .workflow.job_id==99523967217 and .workflow.run_attempt==1 and .workflow.conclusion=="success" and .enumeration_result.bas_dt=="20240131" and .enumeration_result.target_global_row_ordinals==[36,37,38,39,40] and .enumeration_result.partition_accounting=={"eligible_match_rows":35,"excluded_conflict_occurrences":2,"excluded_prior_matching_occurrences":3,"excluded_total_occurrences":5,"missing_rows":0,"source_rows":40} and .enumeration_result.eligible_projection=={"row_count":35,"sha256":"8f6986c9a9839ad62fe856dd0c4d31b54ce1982373deffd1404671c4c9fbfd24"} and .effect_classification.finance_provider_api_calls==0 and .effect_classification.provider_quota_reservations==0 and .effect_classification.remote_custody_mutations==0' 'control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_ISSUER_CONFLICT_EXCLUSION_REMEDIATION_ENUMERATION_S2_LIVE_TERMINAL_RECEIPT_33403101817_v1.0.json' >/dev/null
+          jq -e '[.external_effect_ceiling[]] | add == 0' 'control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_ISSUER_CONFLICT_EXCLUSION_FILTER_S3_AUTHORITY_v1.0.json' >/dev/null
+          printf '%s\n' '{"actual_exclusion_applied":true,"bas_dt":"20240131","eligible_global_row_ordinals":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35],"eligible_rows":35,"excluded_global_row_ordinals":[36,37,38,39,40],"excluded_known_conflict_global_row_ordinals":[37,39],"excluded_prior_matching_global_row_ordinals":[36,38,40],"excluded_rows":5,"gate_effect":"PILOT_ELIGIBLE_SUBSET_FILTER_ONLY","g10_or_g11_runs":0,"issuer_identity_selected":false,"missing_rows":0,"normalization_pit_promotion_release_production_actions":0,"provider_api_calls":0,"provider_quota_reservations":0,"remote_custody_mutations":0,"sealed_eligible_projection_sha256":"8f6986c9a9839ad62fe856dd0c4d31b54ce1982373deffd1404671c4c9fbfd24","selector_match_left_eligible":false,"source_admission_verdict":"NOT_ADMITTED","source_rows":40,"state":"PASS_OWNER_AUTHORIZED_ELIGIBLE_SUBSET_FILTER_APPLIED_HASH_ONLY","validation_claim":"FOCUSED_FILTER_GATE_ONLY"}'
