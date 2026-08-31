@@ -43,6 +43,17 @@ AUTHORITY_SOT = FALSE
 - 중요한 새 Owner 지시, correction, blocker, 결정, checkpoint는 해당 Persona MEMORY/WORKLOG 또는 병렬 run journal에 지속 기록한다.
 - Persona 호출과 Git branch 생성은 분리한다. 실제 repository mutation 때만 task별 isolated branch/worktree를 사용한다.
 
+## MULTI_MODEL_ROUTING_OWNER_APPROVED_CANDIDATE
+- Owner approved persistence of the current ChatGPT/Claude/Gemini operating split on 2026-09-01.
+- Candidate artifact: `control/organization/current-state/v1.0/AAA_MULTI_MODEL_OPERATING_RULE_v0.1.md` on branch `aaa-pmo-multimodel-operating-rule-v1-20260901`.
+- Current default routing candidate: ChatGPT = PMO/execution/integration; Claude = preferred independent-validation / Red-Team runtime; Gemini = non-authoritative explorer / alternative analyst / mechanical consistency scout.
+- Model identity does not create Persona authority. Claude does not become IVA merely by model name; formal `AAA-VALIDATION-AUDITOR` state still requires governed Persona resolution and exact validation evidence.
+- Gemini is retained. Its current calibration is strong mechanical consistency / broad exploration but insufficient as the sole final P0/P1 PASS/FAIL authority.
+- No majority-model vote. Governed authority + exact Git/evidence + deterministic invariants/tests outrank model opinion.
+- Same-SHA blind comparisons use isolated read-only workspaces/sessions where feasible.
+- Calibration basis: frozen G10 S2 checkpoint `f243ca44938919ce19c3e4c4f53cdbfb76867eed` / tree `ef24f950209fc4c198957ca218b75a4db0f446f7`. Claude independently detected the stale `two companies` semantic regression; Gemini missed it and over-advanced the suggested next action. This is a reversible empirical routing calibration, not a universal vendor-quality claim.
+- This candidate does not alter Shared Contract, validation tiers, Owner reserved authority, model/PIT/evidence semantics, Release, or Production authority.
+
 ## UNIVERSAL_BEHAVIOR_CODE_LOADOUT
 - Owner directive dated 2026-08-25: empirically calibrated progress, mandatory WBS time fields, CRU compute/resource accounting, and EWU evidence-closed progress accounting apply whenever ANY AAA Persona is instantiated/injected.
 - Universal shared behavior code: `control/persona-memory/v1.0/COMMON/AAA_EXECUTION_PROGRESS_TIME_COMPUTE_BEHAVIOR_CODE_v1.0.md`.
@@ -74,5 +85,5 @@ AUTHORITY_SOT = FALSE
 - 2026-08-22 05:02 KST | HIGH | ACTIVE | Owner approval: Codex/local repository runtime을 별도 bootstrap adapter로 추가하되 Persona system은 공유하고, mutation은 task별 branch/worktree로 격리하며 병렬 기록 충돌을 방지한다.
 - 2026-08-25 14:05 KST | HIGH | SUPERSEDED_BY_UNIVERSAL_SCOPE | Owner directed the current Progress Bar + empirical calibration + mandatory WBS time + CRU/EWU compute/work accounting draft to be adopted as persistent behavior guidance for ASA, PMO, and ASAV.
 - 2026-08-25 14:11 KST | HIGH | ACTIVE | Owner clarified that the same progress/time/compute principles must apply whenever ANY Persona is injected. Universal common behavior-code loadout now precedes Persona-specific loadout; current and future Personas inherit it automatically.
-
+- 2026-09-01 01:04 KST | HIGH | OWNER_APPROVED_CANDIDATE | Owner approved Git persistence of the current 3-model operating split. Candidate rule: `AAA_MULTI_MODEL_OPERATING_RULE_v0.1.md`; ChatGPT=PMO/execution/integration, Claude=preferred independent validator runtime, Gemini=explorer/scout; no model voting and no model-identity authority.
 
