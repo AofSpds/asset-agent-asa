@@ -1,0 +1,126 @@
+name: M3Top3 Finance G10 Issuer Exclusion Enumeration PRECHECK v1.0
+
+on:
+  push:
+    branches:
+      - aaa-pmo-public-data-g2-g3-source-admission-v1-20260828
+    paths:
+      - control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_ISSUER_CONFLICT_EXCLUSION_REMEDIATION_ENUMERATION_PRECHECK_ACTIVATION_v1.0.json
+
+permissions:
+  contents: read
+
+concurrency:
+  group: m3top3-finance-bounded-live-pilot-v1
+  cancel-in-progress: false
+
+env:
+  AUTHORITY_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_ISSUER_CONFLICT_EXCLUSION_REMEDIATION_ENUMERATION_PRECHECK_AUTHORITY_v1.0.json
+  MANIFEST_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_ISSUER_CONFLICT_EXCLUSION_REMEDIATION_ENUMERATION_PRECHECK_MANIFEST_v1.0.json
+  ACTIVATION_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_ISSUER_CONFLICT_EXCLUSION_REMEDIATION_ENUMERATION_PRECHECK_ACTIVATION_v1.0.json
+  RUNNER_PATH: tools/m3top3/finance_page100_g10_issuer_conflict_exclusion_enumeration_precheck.py
+  TEST_PATH: tools/m3top3/tests/test_finance_page100_g10_issuer_conflict_exclusion_enumeration_precheck.py
+
+jobs:
+  precheck:
+    if: >-
+      github.repository == 'AofSpds/asset-agent-asa' &&
+      github.event_name == 'push' &&
+      github.actor == 'AofSpds' &&
+      github.triggering_actor == 'AofSpds' &&
+      github.run_attempt == 1 &&
+      github.ref == 'refs/heads/aaa-pmo-public-data-g2-g3-source-admission-v1-20260828' &&
+      github.event.forced == false &&
+      github.event.head_commit.message == 'Arm G10 issuer-group exclusion enumeration PRECHECK once v1.0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact zero-effect PRECHECK activation revision
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 3
+          persist-credentials: false
+
+      - name: Shell-only exact lineage and immutable bundle preflight
+        shell: bash
+        env:
+          EVENT_AFTER: ${{ github.event.after }}
+          EVENT_BEFORE: ${{ github.event.before }}
+        run: |
+          set -euo pipefail
+          export LC_ALL=C
+          test "$(git rev-parse HEAD)" = "$EVENT_AFTER"
+          preparation_commit="$(git rev-parse HEAD^)"
+          preparation_tree="$(git rev-parse "${preparation_commit}^{tree}")"
+          test "$preparation_commit" = "$EVENT_BEFORE"
+          test "$(git show -s --format=%P HEAD | wc -w | tr -d ' ')" = "1"
+          test "$(git show -s --format=%P "$preparation_commit" | wc -w | tr -d ' ')" = "1"
+          test "$(git log -1 --pretty=%B HEAD)" = "Arm G10 issuer-group exclusion enumeration PRECHECK once v1.0"
+          test "$(git log -1 --pretty=%B "$preparation_commit")" = "Prepare G10 issuer-group exclusion enumeration PRECHECK v1.0"
+          test "$(git rev-parse HEAD^^)" = "85b6467adc52c08bb469083473a34d784afbc019"
+          test "$(git rev-parse "HEAD^^^{tree}")" = "526d3a9787ce60e6f0e16830ad0909056fcbc05d"
+          test "$(git diff-tree --no-commit-id --name-status -r HEAD)" = "$(printf 'A\t%s' "$ACTIVATION_PATH")"
+
+          actual_preparation_files="$(git diff-tree --no-commit-id --name-status -r "$preparation_commit" | sort)"
+          expected_preparation_files="$(printf 'A\t%s\n' \
+            '.github/workflows/m3top3-finance-page100-g10-issuer-conflict-exclusion-remediation-enumeration-precheck-v1.yml' \
+            'control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_ISSUER_CONFLICT_EXCLUSION_REMEDIATION_ENUMERATION_PRECHECK_ACTIVATION_v1.0.json.template' \
+            'control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_ISSUER_CONFLICT_EXCLUSION_REMEDIATION_ENUMERATION_PRECHECK_AUTHORITY_v1.0.json' \
+            'control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_ISSUER_CONFLICT_EXCLUSION_REMEDIATION_ENUMERATION_PRECHECK_MANIFEST_v1.0.json' \
+            'tools/m3top3/finance_page100_g10_issuer_conflict_exclusion_enumeration_precheck.py' \
+            'tools/m3top3/tests/test_finance_page100_g10_issuer_conflict_exclusion_enumeration_precheck.py' | sort)"
+          test "$actual_preparation_files" = "$expected_preparation_files"
+
+          authority_sha="$(sha256sum -- "$AUTHORITY_PATH" | cut -d' ' -f1)"
+          manifest_sha="$(sha256sum -- "$MANIFEST_PATH" | cut -d' ' -f1)"
+          jq -e \
+            --arg authority_sha "$authority_sha" \
+            --arg manifest_sha "$manifest_sha" \
+            --arg preparation_commit "$preparation_commit" \
+            --arg preparation_tree "$preparation_tree" \
+            '.artifact == "M3TOP3_FINANCE_CA_PAGE100_G10_ISSUER_CONFLICT_EXCLUSION_REMEDIATION_ENUMERATION_PRECHECK_ACTIVATION_v1.0" and
+             .state == "ARMED_ZERO_EXTERNAL_EFFECT_PRECHECK_ONCE" and
+             .armed == true and
+             .authority_sha256 == $authority_sha and
+             .manifest_sha256 == $manifest_sha and
+             .preparation_commit_sha == $preparation_commit and
+             .preparation_tree_sha == $preparation_tree and
+             .preparation_parent.decision_commit_sha == "85b6467adc52c08bb469083473a34d784afbc019" and
+             .preparation_parent.decision_tree_sha == "526d3a9787ce60e6f0e16830ad0909056fcbc05d"' \
+            "$ACTIVATION_PATH" >/dev/null
+
+          jq -r '.preparation_files | to_entries[] | [.key, (.value.bytes|tostring), .value.sha256, .value.git_blob_sha] | @tsv' "$MANIFEST_PATH" |
+            while IFS=$'\t' read -r path bytes sha blob; do
+              test -f "$path"
+              test "$(wc -c < "$path" | tr -d ' ')" = "$bytes"
+              test "$(sha256sum -- "$path" | cut -d' ' -f1)" = "$sha"
+              test "$(git hash-object -- "$path")" = "$blob"
+            done
+
+          decision_path="$(jq -er '.decision_receipt_binding.path' "$AUTHORITY_PATH")"
+          test "$(wc -c < "$decision_path" | tr -d ' ')" = "$(jq -er '.decision_receipt_binding.bytes' "$AUTHORITY_PATH")"
+          test "$(sha256sum -- "$decision_path" | cut -d' ' -f1)" = "$(jq -er '.decision_receipt_binding.sha256' "$AUTHORITY_PATH")"
+          test "$(git hash-object -- "$decision_path")" = "$(jq -er '.decision_receipt_binding.git_blob_sha' "$AUTHORITY_PATH")"
+
+      - name: Validate activation and preparation bindings offline
+        shell: bash
+        run: |
+          set -euo pipefail
+          preparation_commit="$(git rev-parse HEAD^)"
+          preparation_tree="$(git rev-parse "${preparation_commit}^{tree}")"
+          python "$RUNNER_PATH" precheck \
+            --root . \
+            --authority "$AUTHORITY_PATH" \
+            --manifest "$MANIFEST_PATH" \
+            --activation "$ACTIVATION_PATH" \
+            --expected-preparation-commit "$preparation_commit" \
+            --expected-preparation-tree "$preparation_tree"
+
+      - name: Run focused offline exclusion PRECHECK tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          export EXPECT_ACTIVATION_PRESENT=1
+          export EXPECTED_PREPARATION_COMMIT="$(git rev-parse HEAD^)"
+          export EXPECTED_PREPARATION_TREE="$(git rev-parse 'HEAD^^{tree}')"
+          python -m unittest "$TEST_PATH"
