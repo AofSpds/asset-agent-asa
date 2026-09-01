@@ -1,0 +1,352 @@
+name: M3Top3 Finance Page100 G11C1 Eligible Successor Focused PRECHECK v1.0
+
+on:
+  push:
+    branches:
+      - aaa-pmo-public-data-g2-g3-source-admission-v1-20260828
+    paths:
+      - control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C1_ELIGIBLE_SUCCESSOR_PRECHECK_ACTIVATION_v1.0.json
+
+permissions:
+  contents: read
+
+concurrency:
+  group: m3top3-finance-bounded-live-pilot-v1
+  cancel-in-progress: false
+
+env:
+  AUTHORITY_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C1_ELIGIBLE_SUCCESSOR_AUTHORITY_v1.0.json
+  PLAN_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C1_ELIGIBLE_SUCCESSOR_PLAN_v1.0.json
+  SEED_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C1_ELIGIBLE_SUCCESSOR_CHECKPOINT_SEED_v1.0.json
+  MANIFEST_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C1_ELIGIBLE_SUCCESSOR_MANIFEST_v1.0.json
+  OWNER_DECISION_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11_DOWNSTREAM_OWNER_DECISION_RECEIPT_v1.1.json
+  ACTIVATION_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C1_ELIGIBLE_SUCCESSOR_PRECHECK_ACTIVATION_v1.0.json
+  RUNNER_PATH: tools/m3top3/finance_page100_g11c1_selector_successor.py
+  TEST_PATH: tools/m3top3/tests/test_finance_page100_g11c1_selector_successor.py
+  LIVE_ADAPTER_PATH: tools/m3top3/finance_page100_g11c1_live_adapter.py
+  ADAPTER_TEST_PATH: tools/m3top3/tests/test_finance_page100_g11c1_live_adapter.py
+  PRECHECK_POLICY_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C1_PRECHECK_SESSION_POLICY_v1.0.json
+  LIVE_POLICY_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C1_LIVE_SESSION_POLICY_v1.0.json
+  RECEIPT_SCHEMA_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C1_FOCUSED_PRECHECK_TERMINAL_RECEIPT_SCHEMA_v1.0.json
+  RECEIPT_GENERATOR_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C1_FOCUSED_PRECHECK_TERMINAL_RECEIPT_GENERATOR_v1.0.py
+  PRECHECK_WORKFLOW_PATH: .github/workflows/m3top3-finance-page100-g11c1-eligible-successor-precheck-v1.yml
+  LIVE_WORKFLOW_PATH: .github/workflows/m3top3-finance-page100-g11c1-eligible-successor-live-v1.yml
+  EXPECTED_MESSAGE: Arm M3Top3 Finance Page100 G11C1 focused PRECHECK 20260901123521 v1.0
+  EXPECTED_PREPARATION_MESSAGE: Prepare M3Top3 Finance page100 G11C1 eligible successor 20260901123521 v1.0
+  EXPECTED_PREPARATION_PARENT_COMMIT: e8b0b93714060627b2fbc124566eb6a5b32cf9d5
+  EXPECTED_PREPARATION_PARENT_TREE: 0d4465091a680c1ac9ad6c7aed3aed8f606f57ea
+  FAILURE_RECEIPT_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11_ELIGIBLE_SUCCESSOR_LIVE_TERMINAL_RECEIPT_33466306591_v1.0.json
+  EXPECTED_FAILURE_RECEIPT_BLOB: 00bd90fa57062e438bcddfdcc36be9a5694ef3d9
+  EXPECTED_FAILURE_RECEIPT_SHA256: 0577dbbacefa40e60e402dcfb37dd0a85c621952ac29314b56a8481d5e2087d6
+  EXPECTED_OWNER_DECISION_BLOB: 1a20b86b784c1c69b407a432e08fb476c60b496d
+  EXPECTED_OWNER_DECISION_SHA256: 9efa622791a036c870ff4cded87bc4123cfae8089382c90a9ee2e804955ec6dd
+
+jobs:
+  focused-precheck:
+    if: >-
+      github.repository == 'AofSpds/asset-agent-asa' &&
+      github.event_name == 'push' &&
+      github.actor == 'AofSpds' &&
+      github.triggering_actor == 'AofSpds' &&
+      github.run_attempt == 1 &&
+      github.ref == 'refs/heads/aaa-pmo-public-data-g2-g3-source-admission-v1-20260828' &&
+      github.event.forced == false &&
+      github.event.head_commit.message == 'Arm M3Top3 Finance Page100 G11C1 focused PRECHECK 20260901123521 v1.0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact fresh PRECHECK activation revision
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 5
+          persist-credentials: false
+
+      - name: Fail closed on activation lineage or material drift
+        shell: bash
+        env:
+          EVENT_AFTER: ${{ github.event.after }}
+          EVENT_BEFORE: ${{ github.event.before }}
+          EVENT_ACTOR: ${{ github.actor }}
+          EVENT_TRIGGERING_ACTOR: ${{ github.triggering_actor }}
+          EVENT_REPOSITORY: ${{ github.repository }}
+          EVENT_REF: ${{ github.ref }}
+          EVENT_RUN_ATTEMPT: ${{ github.run_attempt }}
+        run: |
+          set -euo pipefail
+          export LC_ALL=C
+
+          test "$EVENT_REPOSITORY" = 'AofSpds/asset-agent-asa'
+          test "$EVENT_ACTOR" = 'AofSpds'
+          test "$EVENT_TRIGGERING_ACTOR" = 'AofSpds'
+          test "$EVENT_REF" = 'refs/heads/aaa-pmo-public-data-g2-g3-source-admission-v1-20260828'
+          test "$EVENT_RUN_ATTEMPT" = '1'
+          test "$(TZ=Asia/Seoul date +%F)" = '2026-09-01'
+          test "$(git rev-parse HEAD)" = "$EVENT_AFTER"
+          test "$(git rev-parse HEAD^)" = "$EVENT_BEFORE"
+          test "$(git show -s --format=%P HEAD | wc -w | tr -d ' ')" = '1'
+          test "$(git log -1 --pretty=%B HEAD)" = "$EXPECTED_MESSAGE"
+          test "$(git diff-tree --no-commit-id --name-status -r HEAD)" = "$(printf 'A\t%s' "$ACTIVATION_PATH")"
+
+          preparation_commit="$(git rev-parse HEAD^)"
+          preparation_tree="$(git rev-parse "${preparation_commit}^{tree}")"
+          test "$(git log -1 --pretty=%B "$preparation_commit")" = "$EXPECTED_PREPARATION_MESSAGE"
+          test "$(git rev-parse "${preparation_commit}^")" = "$EXPECTED_PREPARATION_PARENT_COMMIT"
+          test "$(git rev-parse "${preparation_commit}^^{tree}")" = "$EXPECTED_PREPARATION_PARENT_TREE"
+          test -f "$FAILURE_RECEIPT_PATH"
+          test "$(git hash-object -- "$FAILURE_RECEIPT_PATH")" = "$EXPECTED_FAILURE_RECEIPT_BLOB"
+          test "$(sha256sum -- "$FAILURE_RECEIPT_PATH" | cut -d' ' -f1)" = "$EXPECTED_FAILURE_RECEIPT_SHA256"
+
+          for path in \
+            "$AUTHORITY_PATH" \
+            "$PLAN_PATH" \
+            "$SEED_PATH" \
+            "$MANIFEST_PATH" \
+            "$OWNER_DECISION_PATH" \
+            "$ACTIVATION_PATH" \
+            "$RUNNER_PATH" \
+            "$TEST_PATH" \
+            "$LIVE_ADAPTER_PATH" \
+            "$ADAPTER_TEST_PATH" \
+            "$PRECHECK_POLICY_PATH" \
+            "$LIVE_POLICY_PATH" \
+            "$RECEIPT_SCHEMA_PATH" \
+            "$RECEIPT_GENERATOR_PATH" \
+            "$PRECHECK_WORKFLOW_PATH" \
+            "$LIVE_WORKFLOW_PATH"
+          do
+            test -f "$path"
+          done
+
+          test "$(git hash-object -- "$OWNER_DECISION_PATH")" = "$EXPECTED_OWNER_DECISION_BLOB"
+          test "$(sha256sum -- "$OWNER_DECISION_PATH" | cut -d' ' -f1)" = "$EXPECTED_OWNER_DECISION_SHA256"
+
+          manifest_sha="$(sha256sum -- "$MANIFEST_PATH" | cut -d' ' -f1)"
+          manifest_blob="$(git hash-object -- "$MANIFEST_PATH")"
+          activation_preparation_commit="$(jq -r '.activation_binding.preparation_commit // empty' "$ACTIVATION_PATH")"
+          activation_preparation_tree="$(jq -r '.activation_binding.preparation_tree // empty' "$ACTIVATION_PATH")"
+          activation_manifest_sha="$(jq -r '.material_bindings.manifest_sha256 // empty' "$ACTIVATION_PATH")"
+          activation_manifest_blob="$(jq -r '.material_bindings.manifest_git_blob // empty' "$ACTIVATION_PATH")"
+          test "$activation_preparation_commit" = "$preparation_commit"
+          test "$activation_preparation_tree" = "$preparation_tree"
+          test "$activation_manifest_sha" = "$manifest_sha"
+          test "$activation_manifest_blob" = "$manifest_blob"
+
+          verify_manifest_file() {
+            role="$1"
+            expected_path="$2"
+            bound_path="$(jq -r --arg role "$role" '.files[$role].path // empty' "$MANIFEST_PATH")"
+            bound_sha="$(jq -r --arg role "$role" '.files[$role].sha256 // empty' "$MANIFEST_PATH")"
+            bound_blob="$(jq -r --arg role "$role" '.files[$role].git_blob // empty' "$MANIFEST_PATH")"
+            test "$bound_path" = "$expected_path"
+            test -f "$bound_path"
+            test "$(sha256sum -- "$bound_path" | cut -d' ' -f1)" = "$bound_sha"
+            test "$(git hash-object -- "$bound_path")" = "$bound_blob"
+          }
+          verify_manifest_file authority "$AUTHORITY_PATH"
+          verify_manifest_file plan "$PLAN_PATH"
+          verify_manifest_file seed "$SEED_PATH"
+          verify_manifest_file runner "$RUNNER_PATH"
+          verify_manifest_file tests "$TEST_PATH"
+          verify_manifest_file live_adapter "$LIVE_ADAPTER_PATH"
+          verify_manifest_file adapter_tests "$ADAPTER_TEST_PATH"
+          verify_manifest_file precheck_session_policy "$PRECHECK_POLICY_PATH"
+          verify_manifest_file live_session_policy "$LIVE_POLICY_PATH"
+          verify_manifest_file precheck_workflow "$PRECHECK_WORKFLOW_PATH"
+          verify_manifest_file live_workflow "$LIVE_WORKFLOW_PATH"
+          verify_manifest_file precheck_receipt_schema "$RECEIPT_SCHEMA_PATH"
+          verify_manifest_file precheck_receipt_generator "$RECEIPT_GENERATOR_PATH"
+          while IFS=$'\t' read -r role bound_path; do
+            case "$bound_path" in
+              ''|/*|../*|*/../*|*/..) exit 1 ;;
+            esac
+            verify_manifest_file "$role" "$bound_path"
+          done < <(jq -r '.files | to_entries[] | [.key,.value.path] | @tsv' "$MANIFEST_PATH")
+
+          expected_preparation_paths="$({
+            printf '%s\n' "$MANIFEST_PATH"
+            jq -r '.files | to_entries[].value.path' "$MANIFEST_PATH"
+          } | LC_ALL=C sort -u)"
+          observed_preparation_paths="$(
+            git diff-tree --no-commit-id --name-only -r "$preparation_commit" |
+              LC_ALL=C sort -u
+          )"
+          test "$observed_preparation_paths" = "$expected_preparation_paths"
+
+          # OA-F01 is a hard authority correction: only the five already sealed
+          # occurrences are excluded. A future selector match is raw-custodied
+          # first and then terminates the run fail-closed.
+          jq -e '
+            .artifact == "M3TOP3_FINANCE_CA_PAGE100_G11_DOWNSTREAM_OWNER_DECISION_RECEIPT_v1.1" and
+            .correction_id == "OA-F01" and
+            .selector_continuation_semantics.sealed_exclusion_scope == [36,37,38,39,40] and
+            .selector_continuation_semantics.future_selector_match == "RAW_CUSTODY_THEN_FAIL_CLOSED" and
+            .selector_continuation_semantics.future_selector_match_auto_excluded == false and
+            .no_rerun.consumed_g10_precheck_run == 33272691259
+          ' "$OWNER_DECISION_PATH" >/dev/null
+
+          jq -e '
+            .selector_continuation_semantics.sealed_exclusion_scope == [36,37,38,39,40] and
+            .selector_continuation_semantics.future_selector_match == "RAW_CUSTODY_THEN_FAIL_CLOSED" and
+            .selector_continuation_semantics.future_selector_match_auto_excluded == false and
+            (.no_rerun.consumed_github_runs | index(33272691259)) != null and
+            (.no_rerun.consumed_github_runs | index(33465583987)) != null and
+            (.no_rerun.consumed_github_runs | index(33466306591)) != null and
+            .entry_gate.precheck_effect_ceiling == "ZERO_PROVIDER_ZERO_QUOTA_ZERO_S3_WRITE_ZERO_REPOSITORY_MUTATION"
+          ' "$AUTHORITY_PATH" >/dev/null
+
+          authority_sha="$(sha256sum -- "$AUTHORITY_PATH" | cut -d' ' -f1)"
+          plan_sha="$(sha256sum -- "$PLAN_PATH" | cut -d' ' -f1)"
+          seed_sha="$(sha256sum -- "$SEED_PATH" | cut -d' ' -f1)"
+          owner_decision_sha="$(sha256sum -- "$OWNER_DECISION_PATH" | cut -d' ' -f1)"
+          runner_sha="$(sha256sum -- "$RUNNER_PATH" | cut -d' ' -f1)"
+          test_sha="$(sha256sum -- "$TEST_PATH" | cut -d' ' -f1)"
+
+          jq -e \
+            --arg message "$EXPECTED_MESSAGE" \
+            --arg preparation_commit "$preparation_commit" \
+            --arg preparation_tree "$preparation_tree" \
+            --arg authority_sha "$authority_sha" \
+            --arg plan_sha "$plan_sha" \
+            --arg seed_sha "$seed_sha" \
+            --arg manifest_sha "$manifest_sha" \
+            --arg owner_decision_sha "$owner_decision_sha" \
+            --arg runner_sha "$runner_sha" \
+            --arg test_sha "$test_sha" \
+            --arg manifest_blob "$manifest_blob" '
+              .artifact == "M3TOP3_FINANCE_CA_PAGE100_G11C1_ELIGIBLE_SUCCESSOR_PRECHECK_ACTIVATION_v1.0" and
+              .repository == "AofSpds/asset-agent-asa" and
+              .branch == "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828" and
+              .mode == "PRECHECK" and
+              .armed == true and
+              .activation_binding.commit_message == $message and
+              .activation_binding.activation_commit == "BOUND_BY_GITHUB_EVENT_AFTER" and
+              .activation_binding.activation_tree == "BOUND_BY_CHECKED_OUT_HEAD_TREE" and
+              .activation_binding.expected_branch_head_at_dispatch == "BOUND_BY_GITHUB_EVENT_AFTER" and
+              .identity.generation_id == "FINANCE-PAGE100-G11C1-20260901123521" and
+              .identity.runtime_lock_id == "PMO-FINANCE-PAGE100-G11C1-20260901123521" and
+              .identity.pilot_run_id == "FINANCE-PAGE100-PILOT-G11C1-20260901123521" and
+              .identity.act_id == "FINANCE-PAGE100-PRECHECK-ACT-G11C1-20260901123521" and
+              .identity.latch_event_id == "FINANCE-PAGE100-LATCH-G11C1-20260901123521" and
+              .activation_binding.preparation_commit == $preparation_commit and
+              .activation_binding.preparation_tree == $preparation_tree and
+              .material_bindings.manifest_sha256 == $manifest_sha and
+              .material_bindings.manifest_git_blob == $manifest_blob and
+              .owner_authority_binding.governing_forward_only_receipt_sha256 == $owner_decision_sha and
+              .exact_version_qualified_read_vector.verification_mode == "STATIC_BINDING_VALIDATION_FROM_SEALED_EVIDENCE_ZERO_AWS_CALLS" and
+              .exact_version_qualified_read_vector.object_count == 5 and
+              .exact_version_qualified_read_vector.raw_bytes == 18730 and
+              .exact_version_qualified_read_vector.provider_reacquisition_authorized == false and
+              .side_effect_ceiling.provider_calls == 0 and
+              .side_effect_ceiling.quota_reservations == 0 and
+              .side_effect_ceiling.aws_calls == 0 and
+              .side_effect_ceiling.s3_calls == 0 and
+              .side_effect_ceiling.repository_mutations_by_workflow == 0 and
+              .no_rerun.github_run_attempt_required == 1 and
+              (.no_rerun.consumed_github_runs | index(33465583987)) != null and
+              (.no_rerun.consumed_github_runs | index(33466306591)) != null and
+              .no_rerun.same_run_retry_authorized == false and
+              .no_rerun.same_activation_reuse_authorized == false and
+              .no_rerun.same_latch_reuse_authorized == false and
+              .concurrency.group == "m3top3-finance-bounded-live-pilot-v1"
+            ' "$ACTIVATION_PATH" >/dev/null
+
+      - name: Run focused local G11C1 PRECHECK with zero external effect
+        shell: bash
+        env:
+          PRECHECK_OUTPUT: ${{ runner.temp }}/g11c1-focused-precheck-result.json
+        run: |
+          set -euo pipefail
+          export PYTHONDONTWRITEBYTECODE=1
+          test ! -e "$PRECHECK_OUTPUT"
+          python "$ADAPTER_TEST_PATH"
+          jq -cn \
+            --arg test_path "$ADAPTER_TEST_PATH" \
+            --arg test_sha256 "$(sha256sum -- "$ADAPTER_TEST_PATH" | cut -d' ' -f1)" \
+            '{adapter_focused_test:"PASS",runtime:"PYTHON_STDLIB_SELF_CONTAINED",test_path:$test_path,test_sha256:$test_sha256}'
+          set +e
+          python "$RUNNER_PATH" \
+            --mode precheck \
+            --manifest "$MANIFEST_PATH" \
+            --authority "$AUTHORITY_PATH" \
+            --plan "$PLAN_PATH" \
+            --seed "$SEED_PATH" \
+            --pytest-file "$TEST_PATH" \
+            --live-adapter "$LIVE_ADAPTER_PATH" \
+            --adapter-test "$ADAPTER_TEST_PATH" \
+            --output "$PRECHECK_OUTPUT"
+          runner_status="$?"
+          set -e
+
+          test -f "$PRECHECK_OUTPUT"
+          result_sha="$(sha256sum -- "$PRECHECK_OUTPUT" | cut -d' ' -f1)"
+          result_bytes="$(wc -c < "$PRECHECK_OUTPUT" | tr -d ' ')"
+          printf '%s\n' 'G11C1_FOCUSED_PRECHECK_RESULT_BASE64_BEGIN'
+          base64 -w 0 "$PRECHECK_OUTPUT"
+          printf '\n%s\n' 'G11C1_FOCUSED_PRECHECK_RESULT_BASE64_END'
+          jq -cn \
+            --arg result_sha256 "$result_sha" \
+            --arg result_bytes "$result_bytes" \
+            --arg runner_status "$runner_status" \
+            '{result_sha256:$result_sha256,result_bytes:($result_bytes|tonumber),runner_status:($runner_status|tonumber)}'
+          if test "$runner_status" -ne 0; then
+            exit "$runner_status"
+          fi
+
+          jq -e '
+            .schema == "M3TOP3_FINANCE_CA_PAGE100_G11C1_FOCUSED_PRECHECK_RESULT_v1.0" and
+            .verdict == "PASS" and
+            .entry_gate == "FOCUSED_PRECHECK_PASS" and
+            .live_adapter_gate == "READY" and
+            .bundle.generation_id == "FINANCE-PAGE100-G11C1-20260901123521" and
+            .bundle.first_new_page == 5 and
+            .bundle.inherited_g10_acquisitions == 4 and
+            .bundle.remaining_g11_acquisitions == 1696 and
+            .bundle.inherited_g10_attempts == 4 and
+            .bundle.remaining_g11_attempts == 1996 and
+            .tests.status == "PASS" and
+            .tests.test_runtime == "PYTHON_STDLIB_SELF_CONTAINED" and
+            .observations.future_selector_policy == "RAW_CUSTODY_THEN_FAIL_CLOSED_PENDING_OWNER_DECISION" and
+            .observations.sealed_exclusion_scope == [36,37,38,39,40] and
+            .observations.live_pre_mutation_order == [
+              "RUNTIME_KST_DATE_EQUALITY_GATE",
+              "FIVE_EXACT_PREDECESSOR_GET_OBJECT_VERSION_READS",
+              "THREE_BOUNDED_LIST_BUCKET_VERSIONS_READS",
+              "RUNTIME_KST_DATE_RECHECK",
+              "EXECUTION_CLAIM_IF_NONE_MATCH_CREATE",
+              "FRESH_CHECKPOINT_QUOTA_PROVIDER"
+            ] and
+            (.observations.required_no_rerun_runs | index(33272691259)) != null and
+            (.observations.required_no_rerun_runs | index(33465583987)) != null and
+            (.observations.required_no_rerun_runs | index(33466306591)) != null and
+            .effects == {
+              "provider_calls":0,
+              "quota_reservations":0,
+              "aws_calls":0,
+              "s3_calls":0,
+              "repository_writes":0,
+              "remote_custody_mutations":0,
+              "g10_runs":0,
+              "g11_live_runs":0,
+              "normalization_actions":0,
+              "pit_actions":0,
+              "promotion_actions":0,
+              "release_actions":0,
+              "production_actions":0
+            }
+          ' "$PRECHECK_OUTPUT" >/dev/null
+
+          jq -cn \
+            --arg result_sha256 "$result_sha" \
+            --arg result_bytes "$result_bytes" \
+            --arg verdict "$(jq -r '.verdict' "$PRECHECK_OUTPUT")" \
+            --arg entry_gate "$(jq -r '.entry_gate' "$PRECHECK_OUTPUT")" \
+            --arg live_adapter_gate "$(jq -r '.live_adapter_gate' "$PRECHECK_OUTPUT")" \
+            '{verdict:$verdict,entry_gate:$entry_gate,live_adapter_gate:$live_adapter_gate,result_sha256:$result_sha256,result_bytes:($result_bytes|tonumber),effects:"ZERO_EXTERNAL_EFFECT"}'
+
+      - name: Confirm PRECHECK made no repository mutation or artifact upload
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -z "$(git status --porcelain)"
+          printf '%s\n' 'PRECHECK_REPOSITORY_CLEAN_ZERO_WORKFLOW_MUTATION'

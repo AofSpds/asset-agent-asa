@@ -1,0 +1,841 @@
+name: M3Top3 Finance Page100 G11C1 Eligible Successor LIVE v1.0
+
+on:
+  push:
+    branches:
+      - aaa-pmo-public-data-g2-g3-source-admission-v1-20260828
+    paths:
+      - control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C1_ELIGIBLE_SUCCESSOR_LIVE_ACTIVATION_v1.0.json
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: m3top3-finance-bounded-live-pilot-v1
+  cancel-in-progress: false
+
+env:
+  AUTHORITY_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C1_ELIGIBLE_SUCCESSOR_AUTHORITY_v1.0.json
+  PLAN_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C1_ELIGIBLE_SUCCESSOR_PLAN_v1.0.json
+  SEED_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C1_ELIGIBLE_SUCCESSOR_CHECKPOINT_SEED_v1.0.json
+  MANIFEST_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C1_ELIGIBLE_SUCCESSOR_MANIFEST_v1.0.json
+  OWNER_DECISION_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11_DOWNSTREAM_OWNER_DECISION_RECEIPT_v1.1.json
+  PRECHECK_ACTIVATION_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C1_ELIGIBLE_SUCCESSOR_PRECHECK_ACTIVATION_v1.0.json
+  PRECHECK_RECEIPT_PREFIX: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C1_ELIGIBLE_SUCCESSOR_PRECHECK_TERMINAL_RECEIPT_
+  ACTIVATION_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C1_ELIGIBLE_SUCCESSOR_LIVE_ACTIVATION_v1.0.json
+  RUNNER_PATH: tools/m3top3/finance_page100_g11c1_selector_successor.py
+  TEST_PATH: tools/m3top3/tests/test_finance_page100_g11c1_selector_successor.py
+  LIVE_ADAPTER_PATH: tools/m3top3/finance_page100_g11c1_live_adapter.py
+  ADAPTER_TEST_PATH: tools/m3top3/tests/test_finance_page100_g11c1_live_adapter.py
+  PRECHECK_POLICY_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C1_PRECHECK_SESSION_POLICY_v1.0.json
+  LIVE_POLICY_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C1_LIVE_SESSION_POLICY_v1.0.json
+  RECEIPT_SCHEMA_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C1_FOCUSED_PRECHECK_TERMINAL_RECEIPT_SCHEMA_v1.0.json
+  RECEIPT_GENERATOR_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C1_FOCUSED_PRECHECK_TERMINAL_RECEIPT_GENERATOR_v1.0.py
+  PRECHECK_WORKFLOW_PATH: .github/workflows/m3top3-finance-page100-g11c1-eligible-successor-precheck-v1.yml
+  LIVE_WORKFLOW_PATH: .github/workflows/m3top3-finance-page100-g11c1-eligible-successor-live-v1.yml
+  EXPECTED_MESSAGE: Arm M3Top3 Finance Page100 G11C1 bounded LIVE 20260901123521 v1.0
+  EXPECTED_PRECHECK_MESSAGE: Arm M3Top3 Finance Page100 G11C1 focused PRECHECK 20260901123521 v1.0
+  EXPECTED_PRECHECK_RECEIPT_MESSAGE: Record M3Top3 Finance Page100 G11C1 focused PRECHECK PASS 20260901123521 v1.0
+  EXPECTED_PREPARATION_MESSAGE: Prepare M3Top3 Finance page100 G11C1 eligible successor 20260901123521 v1.0
+  EXPECTED_PREPARATION_PARENT_COMMIT: e8b0b93714060627b2fbc124566eb6a5b32cf9d5
+  EXPECTED_PREPARATION_PARENT_TREE: 0d4465091a680c1ac9ad6c7aed3aed8f606f57ea
+  FAILURE_RECEIPT_PATH: control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11_ELIGIBLE_SUCCESSOR_LIVE_TERMINAL_RECEIPT_33466306591_v1.0.json
+  EXPECTED_FAILURE_RECEIPT_BLOB: 00bd90fa57062e438bcddfdcc36be9a5694ef3d9
+  EXPECTED_FAILURE_RECEIPT_SHA256: 0577dbbacefa40e60e402dcfb37dd0a85c621952ac29314b56a8481d5e2087d6
+  EXPECTED_OWNER_DECISION_BLOB: 1a20b86b784c1c69b407a432e08fb476c60b496d
+  EXPECTED_OWNER_DECISION_SHA256: 9efa622791a036c870ff4cded87bc4123cfae8089382c90a9ee2e804955ec6dd
+  AWS_REGION: ap-northeast-2
+  AWS_DEFAULT_REGION: ap-northeast-2
+  AWS_MAX_ATTEMPTS: '1'
+  AWS_RETRY_MODE: standard
+  AWS_PAGER: ''
+  G11C1_PRIMARY_ACQUISITION_CEILING: '1696'
+  G11C1_NETWORK_ATTEMPT_CEILING: '1996'
+  MAX_ATTEMPTS_PER_LOGICAL_PAGE: '2'
+
+jobs:
+  live:
+    if: >-
+      github.repository == 'AofSpds/asset-agent-asa' &&
+      github.event_name == 'push' &&
+      github.actor == 'AofSpds' &&
+      github.triggering_actor == 'AofSpds' &&
+      github.run_attempt == 1 &&
+      github.ref == 'refs/heads/aaa-pmo-public-data-g2-g3-source-admission-v1-20260828' &&
+      github.event.forced == false &&
+      github.event.head_commit.message == 'Arm M3Top3 Finance Page100 G11C1 bounded LIVE 20260901123521 v1.0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    environment: m3top3-source-admission
+    steps:
+      - name: Checkout exact fresh LIVE activation revision
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 7
+          persist-credentials: false
+
+      - name: Fail closed on LIVE lineage material or PRECHECK receipt drift
+        id: live-lineage
+        shell: bash
+        env:
+          EVENT_AFTER: ${{ github.event.after }}
+          EVENT_BEFORE: ${{ github.event.before }}
+          EVENT_ACTOR: ${{ github.actor }}
+          EVENT_TRIGGERING_ACTOR: ${{ github.triggering_actor }}
+          EVENT_REPOSITORY: ${{ github.repository }}
+          EVENT_REF: ${{ github.ref }}
+          EVENT_RUN_ATTEMPT: ${{ github.run_attempt }}
+        run: |
+          set -euo pipefail
+          export LC_ALL=C
+
+          test "$EVENT_REPOSITORY" = 'AofSpds/asset-agent-asa'
+          test "$EVENT_ACTOR" = 'AofSpds'
+          test "$EVENT_TRIGGERING_ACTOR" = 'AofSpds'
+          test "$EVENT_REF" = 'refs/heads/aaa-pmo-public-data-g2-g3-source-admission-v1-20260828'
+          test "$EVENT_RUN_ATTEMPT" = '1'
+          test "$(TZ=Asia/Seoul date +%F)" = '2026-09-01'
+          test "$(git rev-parse HEAD)" = "$EVENT_AFTER"
+          test "$(git rev-parse HEAD^)" = "$EVENT_BEFORE"
+          test "$(git show -s --format=%P HEAD | wc -w | tr -d ' ')" = '1'
+          test "$(git log -1 --pretty=%B HEAD)" = "$EXPECTED_MESSAGE"
+          test "$(git diff-tree --no-commit-id --name-status -r HEAD)" = "$(printf 'A\t%s' "$ACTIVATION_PATH")"
+
+          receipt_commit="$(git rev-parse HEAD^)"
+          precheck_activation_commit="$(git rev-parse HEAD^^)"
+          preparation_commit="$(git rev-parse HEAD^^^)"
+          preparation_tree="$(git rev-parse "${preparation_commit}^{tree}")"
+          receipt_tree="$(git rev-parse "${receipt_commit}^{tree}")"
+          precheck_activation_tree="$(git rev-parse "${precheck_activation_commit}^{tree}")"
+          precheck_receipt_path="$(jq -r '.precheck_pass_binding.path // empty' "$ACTIVATION_PATH")"
+          case "$precheck_receipt_path" in
+            "$PRECHECK_RECEIPT_PREFIX"[0-9]*_v1.0.json) ;;
+            *) exit 1 ;;
+          esac
+          receipt_run_id="${precheck_receipt_path#"$PRECHECK_RECEIPT_PREFIX"}"
+          receipt_run_id="${receipt_run_id%_v1.0.json}"
+          test -n "$receipt_run_id"
+          test "$(printf '%s' "$receipt_run_id" | tr -cd '0-9')" = "$receipt_run_id"
+
+          test "$(git show -s --format=%P "$receipt_commit" | wc -w | tr -d ' ')" = '1'
+          test "$(git show -s --format=%P "$precheck_activation_commit" | wc -w | tr -d ' ')" = '1'
+          test "$(git show -s --format=%P "$preparation_commit" | wc -w | tr -d ' ')" = '1'
+          test "$(git log -1 --pretty=%B "$receipt_commit")" = "$EXPECTED_PRECHECK_RECEIPT_MESSAGE"
+          test "$(git log -1 --pretty=%B "$precheck_activation_commit")" = "$EXPECTED_PRECHECK_MESSAGE"
+          test "$(git log -1 --pretty=%B "$preparation_commit")" = "$EXPECTED_PREPARATION_MESSAGE"
+          test "$(git diff-tree --no-commit-id --name-status -r "$receipt_commit")" = "$(printf 'A\t%s' "$precheck_receipt_path")"
+          test "$(git diff-tree --no-commit-id --name-status -r "$precheck_activation_commit")" = "$(printf 'A\t%s' "$PRECHECK_ACTIVATION_PATH")"
+          test "$(git rev-parse "${preparation_commit}^")" = "$EXPECTED_PREPARATION_PARENT_COMMIT"
+          test "$(git rev-parse "${preparation_commit}^^{tree}")" = "$EXPECTED_PREPARATION_PARENT_TREE"
+          test -f "$FAILURE_RECEIPT_PATH"
+          test "$(git hash-object -- "$FAILURE_RECEIPT_PATH")" = "$EXPECTED_FAILURE_RECEIPT_BLOB"
+          test "$(sha256sum -- "$FAILURE_RECEIPT_PATH" | cut -d' ' -f1)" = "$EXPECTED_FAILURE_RECEIPT_SHA256"
+
+          for path in \
+            "$AUTHORITY_PATH" \
+            "$PLAN_PATH" \
+            "$SEED_PATH" \
+            "$MANIFEST_PATH" \
+            "$OWNER_DECISION_PATH" \
+            "$PRECHECK_ACTIVATION_PATH" \
+            "$ACTIVATION_PATH" \
+            "$RUNNER_PATH" \
+            "$TEST_PATH" \
+            "$LIVE_ADAPTER_PATH" \
+            "$ADAPTER_TEST_PATH" \
+            "$PRECHECK_POLICY_PATH" \
+            "$LIVE_POLICY_PATH" \
+            "$RECEIPT_SCHEMA_PATH" \
+            "$RECEIPT_GENERATOR_PATH" \
+            "$PRECHECK_WORKFLOW_PATH" \
+            "$LIVE_WORKFLOW_PATH"
+          do
+            test -f "$path"
+          done
+          test -f "$precheck_receipt_path"
+
+          test "$(git hash-object -- "$OWNER_DECISION_PATH")" = "$EXPECTED_OWNER_DECISION_BLOB"
+          test "$(sha256sum -- "$OWNER_DECISION_PATH" | cut -d' ' -f1)" = "$EXPECTED_OWNER_DECISION_SHA256"
+
+          manifest_sha="$(sha256sum -- "$MANIFEST_PATH" | cut -d' ' -f1)"
+          manifest_blob="$(git hash-object -- "$MANIFEST_PATH")"
+          activation_preparation_commit="$(jq -r '.activation_binding.preparation_commit // empty' "$ACTIVATION_PATH")"
+          activation_preparation_tree="$(jq -r '.activation_binding.preparation_tree // empty' "$ACTIVATION_PATH")"
+          activation_manifest_sha="$(jq -r '.material_bindings.manifest_sha256 // empty' "$ACTIVATION_PATH")"
+          activation_manifest_blob="$(jq -r '.material_bindings.manifest_git_blob // empty' "$ACTIVATION_PATH")"
+          test "$activation_preparation_commit" = "$preparation_commit"
+          test "$activation_preparation_tree" = "$preparation_tree"
+          test "$activation_manifest_sha" = "$manifest_sha"
+          test "$activation_manifest_blob" = "$manifest_blob"
+
+          verify_manifest_file() {
+            role="$1"
+            expected_path="$2"
+            bound_path="$(jq -r --arg role "$role" '.files[$role].path // empty' "$MANIFEST_PATH")"
+            bound_sha="$(jq -r --arg role "$role" '.files[$role].sha256 // empty' "$MANIFEST_PATH")"
+            bound_blob="$(jq -r --arg role "$role" '.files[$role].git_blob // empty' "$MANIFEST_PATH")"
+            test "$bound_path" = "$expected_path"
+            test -f "$bound_path"
+            test "$(sha256sum -- "$bound_path" | cut -d' ' -f1)" = "$bound_sha"
+            test "$(git hash-object -- "$bound_path")" = "$bound_blob"
+          }
+          verify_manifest_file authority "$AUTHORITY_PATH"
+          verify_manifest_file plan "$PLAN_PATH"
+          verify_manifest_file seed "$SEED_PATH"
+          verify_manifest_file runner "$RUNNER_PATH"
+          verify_manifest_file tests "$TEST_PATH"
+          verify_manifest_file live_adapter "$LIVE_ADAPTER_PATH"
+          verify_manifest_file adapter_tests "$ADAPTER_TEST_PATH"
+          verify_manifest_file precheck_session_policy "$PRECHECK_POLICY_PATH"
+          verify_manifest_file live_session_policy "$LIVE_POLICY_PATH"
+          verify_manifest_file precheck_workflow "$PRECHECK_WORKFLOW_PATH"
+          verify_manifest_file live_workflow "$LIVE_WORKFLOW_PATH"
+          verify_manifest_file precheck_receipt_schema "$RECEIPT_SCHEMA_PATH"
+          verify_manifest_file precheck_receipt_generator "$RECEIPT_GENERATOR_PATH"
+          while IFS=$'\t' read -r role bound_path; do
+            case "$bound_path" in
+              ''|/*|../*|*/../*|*/..) exit 1 ;;
+            esac
+            verify_manifest_file "$role" "$bound_path"
+          done < <(jq -r '.files | to_entries[] | [.key,.value.path] | @tsv' "$MANIFEST_PATH")
+
+          expected_preparation_paths="$({
+            printf '%s\n' "$MANIFEST_PATH"
+            jq -r '.files | to_entries[].value.path' "$MANIFEST_PATH"
+          } | LC_ALL=C sort -u)"
+          observed_preparation_paths="$(
+            git diff-tree --no-commit-id --name-only -r "$preparation_commit" |
+              LC_ALL=C sort -u
+          )"
+          test "$observed_preparation_paths" = "$expected_preparation_paths"
+
+          receipt_blob="$(git hash-object -- "$precheck_receipt_path")"
+          receipt_sha="$(sha256sum -- "$precheck_receipt_path" | cut -d' ' -f1)"
+          receipt_bytes="$(wc -c < "$precheck_receipt_path" | tr -d ' ')"
+          receipt_job_id="$(jq -r '.github_job_id | tostring' "$precheck_receipt_path")"
+          test -n "$receipt_job_id"
+          test "$(printf '%s' "$receipt_job_id" | tr -cd '0-9')" = "$receipt_job_id"
+          precheck_activation_blob="$(git hash-object -- "$PRECHECK_ACTIVATION_PATH")"
+          precheck_activation_sha="$(sha256sum -- "$PRECHECK_ACTIVATION_PATH" | cut -d' ' -f1)"
+          authority_sha="$(sha256sum -- "$AUTHORITY_PATH" | cut -d' ' -f1)"
+          plan_sha="$(sha256sum -- "$PLAN_PATH" | cut -d' ' -f1)"
+          seed_sha="$(sha256sum -- "$SEED_PATH" | cut -d' ' -f1)"
+          owner_decision_sha="$(sha256sum -- "$OWNER_DECISION_PATH" | cut -d' ' -f1)"
+          runner_sha="$(sha256sum -- "$RUNNER_PATH" | cut -d' ' -f1)"
+          test_sha="$(sha256sum -- "$TEST_PATH" | cut -d' ' -f1)"
+          precheck_policy_sha="$(sha256sum -- "$PRECHECK_POLICY_PATH" | cut -d' ' -f1)"
+          live_policy_sha="$(sha256sum -- "$LIVE_POLICY_PATH" | cut -d' ' -f1)"
+          precheck_workflow_sha="$(sha256sum -- "$PRECHECK_WORKFLOW_PATH" | cut -d' ' -f1)"
+
+          jq -e \
+            --arg precheck_activation_commit "$precheck_activation_commit" \
+            --arg precheck_activation_tree "$precheck_activation_tree" \
+            --arg precheck_activation_sha "$precheck_activation_sha" \
+            --arg receipt_run_id "$receipt_run_id" \
+            --arg authority_sha "$authority_sha" \
+            --arg plan_sha "$plan_sha" \
+            --arg manifest_sha "$manifest_sha" '
+              .artifact == ("M3TOP3_FINANCE_CA_PAGE100_G11C1_ELIGIBLE_SUCCESSOR_PRECHECK_TERMINAL_RECEIPT_" + $receipt_run_id + "_v1.0") and
+              .repository == "AofSpds/asset-agent-asa" and
+              .branch == "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828" and
+              .result == "PASS" and
+              .terminal_state == "TERMINAL_PASS_FOCUSED_G11C1_PRECHECK_ZERO_EXTERNAL_EFFECT_LIVE_NOT_AUTHORIZED" and
+              .commit == $precheck_activation_commit and
+              .tree == $precheck_activation_tree and
+              (.github_run_id | tostring) == $receipt_run_id and
+              (.github_job_id | tostring | test("^[0-9]+$")) and
+              .github_run_attempt == 1 and
+              .generation_id == "FINANCE-PAGE100-G11C1-20260901123521" and
+              .runtime_lock_id == "PMO-FINANCE-PAGE100-G11C1-20260901123521" and
+              .pilot_run_id == "FINANCE-PAGE100-PILOT-G11C1-20260901123521" and
+              .act_id == "FINANCE-PAGE100-PRECHECK-ACT-G11C1-20260901123521" and
+              (.execution_binding.run_id | tostring) == $receipt_run_id and
+              .execution_binding.head_sha == $precheck_activation_commit and
+              .execution_binding.tree_sha == $precheck_activation_tree and
+              .execution_binding.run_attempt == 1 and
+              (.execution_binding.job_id | tostring | test("^[0-9]+$"))
+            ' "$precheck_receipt_path" >/dev/null
+
+          # Keep the longer receipt contract in a separate assertion so the
+          # Boolean grouping above cannot accidentally weaken any condition.
+          jq -e \
+            --arg precheck_activation_commit "$precheck_activation_commit" \
+            --arg precheck_activation_tree "$precheck_activation_tree" \
+            --arg precheck_activation_sha "$precheck_activation_sha" \
+            --arg receipt_run_id "$receipt_run_id" \
+            --arg receipt_job_id "$receipt_job_id" \
+            --arg preparation_commit "$preparation_commit" \
+            --arg preparation_tree "$preparation_tree" \
+            --arg owner_decision_sha "$owner_decision_sha" \
+            --arg authority_sha "$authority_sha" \
+            --arg plan_sha "$plan_sha" \
+            --arg seed_sha "$seed_sha" \
+            --arg manifest_sha "$manifest_sha" '
+              .execution_binding.head_sha == $precheck_activation_commit and
+              .execution_binding.tree_sha == $precheck_activation_tree and
+              (.execution_binding.run_id | tostring) == $receipt_run_id and
+              .execution_binding.run_attempt == 1 and
+              .activation_binding.activation_path == env.PRECHECK_ACTIVATION_PATH and
+              .activation_binding.activation_sha256 == $precheck_activation_sha and
+              .activation_binding.preparation_commit == $preparation_commit and
+              .activation_binding.preparation_tree == $preparation_tree and
+              .activation_binding.commit_message == env.EXPECTED_PRECHECK_MESSAGE and
+              .activation_binding.act_id == "FINANCE-PAGE100-PRECHECK-ACT-G11C1-20260901123521" and
+              .activation_binding.latch_event_id == "FINANCE-PAGE100-LATCH-G11C1-20260901123521" and
+              .material_bindings.manifest_path == env.MANIFEST_PATH and
+              .material_bindings.manifest_sha256 == $manifest_sha and
+              .material_bindings.owner_decision_path == env.OWNER_DECISION_PATH and
+              .material_bindings.owner_decision_sha256 == $owner_decision_sha and
+              .material_bindings.authority_path == env.AUTHORITY_PATH and
+              .material_bindings.authority_sha256 == $authority_sha and
+              .material_bindings.plan_path == env.PLAN_PATH and
+              .material_bindings.plan_sha256 == $plan_sha and
+              .material_bindings.seed_path == env.SEED_PATH and
+              .material_bindings.seed_sha256 == $seed_sha and
+              .effect_reconciliation.provider_calls == 0 and
+              .effect_reconciliation.quota_reservations == 0 and
+              .effect_reconciliation.aws_calls == 0 and
+              .effect_reconciliation.s3_calls == 0 and
+              .effect_reconciliation.raw_writes == 0 and
+              .effect_reconciliation.s3_put_delete_copy == 0 and
+              .effect_reconciliation.repository_mutations_by_workflow == 0 and
+              .effect_reconciliation.remote_custody_mutations == 0 and
+              .effect_reconciliation.all_mutation_effects_zero == true and
+              .effect_reconciliation.effects_reconciled == true and
+              .effect_reconciliation.ambiguous_side_effects == false and
+              .live_adapter_gate.runner_reported_readiness == "READY" and
+              .live_adapter_gate.state == "CLOSED_AWAITING_SEPARATE_FRESH_LIVE_ACTIVATION" and
+              .live_adapter_gate.precheck_pass_is_necessary_not_sufficient == true and
+              .live_adapter_gate.precheck_receipt_alone_authorizes_live == false and
+              .live_adapter_gate.live_activation_observed == false and
+              .live_adapter_gate.live_provider_adapter_enabled == false and
+              .live_adapter_gate.live_s3_write_adapter_enabled == false and
+              .live_adapter_gate.required_live_act_id == "FINANCE-PAGE100-LIVE-ACT-G11C1-20260901123521" and
+              .live_adapter_gate.required_latch_event_id == "FINANCE-PAGE100-LATCH-G11C1-20260901123521" and
+              .runner_result.observations.live_pre_mutation_order == [
+                "RUNTIME_KST_DATE_EQUALITY_GATE",
+                "FIVE_EXACT_PREDECESSOR_GET_OBJECT_VERSION_READS",
+                "THREE_BOUNDED_LIST_BUCKET_VERSIONS_READS",
+                "RUNTIME_KST_DATE_RECHECK",
+                "EXECUTION_CLAIM_IF_NONE_MATCH_CREATE",
+                "FRESH_CHECKPOINT_QUOTA_PROVIDER"
+              ] and
+              .no_rerun.consumed_g10_precheck_run == "33272691259" and
+              .no_rerun.consumed_g10_live_run == "33273146915" and
+              .no_rerun.consumed_s2_precheck_run == "33401871715" and
+              .no_rerun.consumed_s2_live_run == "33403101817" and
+              .no_rerun.consumed_s3_precheck_run == "33414615913" and
+              .no_rerun.consumed_s3_apply_run == "33414695818" and
+              .no_rerun.consumed_g11_precheck_run == "33465583987" and
+              .no_rerun.consumed_g11_live_run == "33466306591" and
+              .no_rerun.current_run_retry_authorized == false and
+              .no_rerun.same_activation_reuse_authorized == false and
+              .no_rerun.same_latch_reuse_authorized == false and
+              .execution_binding.artifact_sha256 == .runner_result.result_sha256 and
+              (.execution_binding.artifact_sha256 | test("^[0-9a-f]{64}$")) and
+              (.receipt_integrity.payload_sha256 | test("^[0-9a-f]{64}$"))
+            ' "$precheck_receipt_path" >/dev/null
+
+          jq -e \
+            --arg precheck_policy_sha "$precheck_policy_sha" \
+            --arg live_policy_sha "$live_policy_sha" \
+            --arg precheck_workflow_sha "$precheck_workflow_sha" \
+            --arg runner_sha "$runner_sha" \
+            --arg tests_sha "$test_sha" '
+              .material_bindings.precheck_session_policy_path == env.PRECHECK_POLICY_PATH and
+              .material_bindings.precheck_session_policy_sha256 == $precheck_policy_sha and
+              .material_bindings.live_session_policy_path == env.LIVE_POLICY_PATH and
+              .material_bindings.live_session_policy_sha256 == $live_policy_sha and
+              .material_bindings.workflow_path == env.PRECHECK_WORKFLOW_PATH and
+              .material_bindings.workflow_sha256 == $precheck_workflow_sha and
+              .material_bindings.runner_path == env.RUNNER_PATH and
+              .material_bindings.runner_sha256 == $runner_sha and
+              .material_bindings.tests_path == env.TEST_PATH and
+              .material_bindings.tests_sha256 == $tests_sha
+            ' "$precheck_receipt_path" >/dev/null
+
+          receipt_payload_sha="$(python - "$precheck_receipt_path" <<'PY'
+          import hashlib
+          import json
+          import pathlib
+          import sys
+
+          document = json.loads(pathlib.Path(sys.argv[1]).read_text(encoding="utf-8"))
+          document.pop("receipt_integrity", None)
+          payload = json.dumps(
+              document, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+          ).encode("utf-8")
+          print(hashlib.sha256(payload).hexdigest())
+          PY
+          )"
+          test "$receipt_payload_sha" = "$(jq -r '.receipt_integrity.payload_sha256' "$precheck_receipt_path")"
+
+          jq -e \
+            --arg message "$EXPECTED_MESSAGE" \
+            --arg preparation_commit "$preparation_commit" \
+            --arg preparation_tree "$preparation_tree" \
+            --arg precheck_activation_commit "$precheck_activation_commit" \
+            --arg precheck_activation_tree "$precheck_activation_tree" \
+            --arg receipt_commit "$receipt_commit" \
+            --arg receipt_tree "$receipt_tree" \
+            --arg receipt_blob "$receipt_blob" \
+            --arg receipt_sha "$receipt_sha" \
+            --arg receipt_bytes "$receipt_bytes" \
+            --arg receipt_path "$precheck_receipt_path" \
+            --arg receipt_run_id "$receipt_run_id" \
+            --arg receipt_job_id "$receipt_job_id" \
+            --arg authority_sha "$authority_sha" \
+            --arg plan_sha "$plan_sha" \
+            --arg seed_sha "$seed_sha" \
+            --arg manifest_sha "$manifest_sha" \
+            --arg owner_decision_sha "$owner_decision_sha" \
+            --arg runner_sha "$runner_sha" \
+            --arg test_sha "$test_sha" \
+            --arg manifest_blob "$manifest_blob" '
+              .artifact == "M3TOP3_FINANCE_CA_PAGE100_G11C1_ELIGIBLE_SUCCESSOR_LIVE_ACTIVATION_v1.0" and
+              .repository == "AofSpds/asset-agent-asa" and
+              .branch == "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828" and
+              .mode == "LIVE" and
+              .armed == true and
+              .activation_binding.commit_message == $message and
+              .activation_binding.live_activation_commit == "BOUND_BY_GITHUB_EVENT_AFTER" and
+              .activation_binding.live_activation_tree == "BOUND_BY_CHECKED_OUT_HEAD_TREE" and
+              .activation_binding.expected_branch_head_at_dispatch == "BOUND_BY_GITHUB_EVENT_AFTER" and
+              .identity.generation_id == "FINANCE-PAGE100-G11C1-20260901123521" and
+              .identity.runtime_lock_id == "PMO-FINANCE-PAGE100-G11C1-20260901123521" and
+              .identity.pilot_run_id == "FINANCE-PAGE100-PILOT-G11C1-20260901123521" and
+              .identity.act_id == "FINANCE-PAGE100-LIVE-ACT-G11C1-20260901123521" and
+              .identity.latch_event_id == "FINANCE-PAGE100-LATCH-G11C1-20260901123521" and
+              .activation_binding.preparation_commit == $preparation_commit and
+              .activation_binding.preparation_tree == $preparation_tree and
+              .activation_binding.precheck_activation_commit == $precheck_activation_commit and
+              .activation_binding.precheck_activation_tree == $precheck_activation_tree and
+              .precheck_pass_binding.path == $receipt_path and
+              .precheck_pass_binding.commit == $receipt_commit and
+              .precheck_pass_binding.tree == $receipt_tree and
+              .precheck_pass_binding.git_blob == $receipt_blob and
+              .precheck_pass_binding.sha256 == $receipt_sha and
+              .precheck_pass_binding.github_run_attempt == 1 and
+              (.precheck_pass_binding.github_run_id | tostring) == $receipt_run_id and
+              (.precheck_pass_binding.github_job_id | tostring) == $receipt_job_id and
+              .precheck_pass_binding.result == "PASS" and
+              .material_bindings.manifest_sha256 == $manifest_sha and
+              .material_bindings.manifest_git_blob == $manifest_blob and
+              .material_bindings.owner_decision_v1_1_sha256 == $owner_decision_sha and
+              .exact_version_qualified_read_vector.verification_mode == "EXACT_GET_OBJECT_VERSION_READS_AFTER_CREDENTIAL_GATE" and
+              .exact_version_qualified_read_vector.object_count == 5 and
+              .exact_version_qualified_read_vector.raw_bytes == 18730 and
+              .exact_version_qualified_read_vector.provider_reacquisition_authorized == false and
+              .live_adapter_gate == "READY" and
+              .safe_executable_adapter.ready == true and
+              .effect_bounds.maximum_new_g11_primary_page_acquisitions == 1696 and
+              .effect_bounds.maximum_new_g11_network_attempts == 1996 and
+              .effect_bounds.maximum_new_g11_provider_calls == 1996 and
+              .effect_bounds.maximum_new_g11_quota_reservations == 1996 and
+              .effect_bounds.maximum_new_g11_raw_writes == 1696 and
+              .effect_bounds.max_attempts_per_logical_page == 2 and
+              .effect_bounds.fallback_ksd_2019_full_range_bulk_or_new_provider == false and
+              .effect_bounds.raw_or_predecessor_delete_copy_rewrite == false and
+              .no_rerun.github_run_attempt_required == 1 and
+              (.no_rerun.consumed_github_runs | index(33465583987)) != null and
+              (.no_rerun.consumed_github_runs | index(33466306591)) != null and
+              .no_rerun.same_run_retry_authorized == false and
+              .no_rerun.same_activation_reuse_authorized == false and
+              .no_rerun.same_latch_reuse_authorized == false and
+              .concurrency.group == "m3top3-finance-bounded-live-pilot-v1"
+            ' "$ACTIVATION_PATH" >/dev/null
+
+          printf 'head_sha=%s\n' "$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          printf 'head_tree=%s\n' "$(git rev-parse 'HEAD^{tree}')" >> "$GITHUB_OUTPUT"
+
+      - name: Require sealed executable adapter READY before credentials
+        id: adapter-gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          export LC_ALL=C
+
+          # This is intentionally before OIDC configuration and before the
+          # provider secret is placed in any step environment. The gate remains
+          # closed unless the preparation manifest hash-binds reviewed code.
+          test -f "$LIVE_ADAPTER_PATH"
+          adapter_bound_path="$(jq -r '.files.live_adapter.path // empty' "$MANIFEST_PATH")"
+          adapter_bound_blob="$(jq -r '.files.live_adapter.git_blob // empty' "$MANIFEST_PATH")"
+          adapter_bound_sha="$(jq -r '.files.live_adapter.sha256 // empty' "$MANIFEST_PATH")"
+          test "$adapter_bound_path" = "$LIVE_ADAPTER_PATH"
+          test "$(git hash-object -- "$LIVE_ADAPTER_PATH")" = "$adapter_bound_blob"
+          test "$(sha256sum -- "$LIVE_ADAPTER_PATH" | cut -d' ' -f1)" = "$adapter_bound_sha"
+
+          jq -e --arg path "$LIVE_ADAPTER_PATH" '
+              .live_adapter_gate == "READY" and
+              .live_adapter.executable == true and
+              .live_adapter.sealed == true and
+              .live_adapter.ready == true and
+              .live_adapter.path == $path and
+              .safe_executable_adapter.ready == true and
+              .safe_executable_adapter.runner_path == env.RUNNER_PATH and
+              (.safe_executable_adapter.factory_symbol | type == "string" and length > 0) and
+              (.safe_executable_adapter.factory_symbol | startswith("__") | not)
+            ' "$MANIFEST_PATH" >/dev/null
+
+          jq -e '
+              .entry_gate.live_adapter_gate == "READY" and
+              (.no_rerun.consumed_github_runs | index(33465583987)) != null and
+              (.no_rerun.consumed_github_runs | index(33466306591)) != null and
+              .safe_executable_adapter.ready == true
+            ' "$AUTHORITY_PATH" >/dev/null
+
+          jq -e '
+              .live_adapter_gate == "READY" and
+              .precheck_pass_binding.live_adapter_gate == "READY" and
+              .safe_executable_adapter.ready == true and
+              .safe_executable_adapter.runner_path == env.RUNNER_PATH
+            ' "$ACTIVATION_PATH" >/dev/null
+
+          manifest_safe_adapter="$(jq -cS '.safe_executable_adapter' "$MANIFEST_PATH")"
+          authority_safe_adapter="$(jq -cS '.safe_executable_adapter' "$AUTHORITY_PATH")"
+          activation_safe_adapter="$(jq -cS '.safe_executable_adapter' "$ACTIVATION_PATH")"
+          test "$authority_safe_adapter" = "$manifest_safe_adapter"
+          test "$activation_safe_adapter" = "$manifest_safe_adapter"
+
+          authority_order="$(jq -cS '.adapter_execution_order_binding' "$AUTHORITY_PATH")"
+          manifest_order="$(jq -cS '.adapter_execution_order_binding' "$MANIFEST_PATH")"
+          test "$authority_order" = "$manifest_order"
+          jq -e '
+              .adapter_execution_order_binding |
+              .fixed_quota_day_kst == "2026-09-01" and
+              .runtime_kst_date_equality_required_before_any_mutation == true and
+              .exact_predecessor_get_object_version_reads == 5 and
+              .ordered_read_roles == ["CHECKPOINT","RAW_PAGE_1","RAW_PAGE_2","RAW_PAGE_3","RAW_PAGE_4"] and
+              .exact_live_list_bucket_versions_calls == 3 and
+              .ordered_list_targets == ["FRESH_G11_GENERATION_PREFIX","FRESH_G11_CONTROL_PREFIX","EXACT_2026_09_01_EXECUTION_CLAIM_KEY"] and
+              .all_reads_complete_before_execution_claim == true and
+              .all_three_lists_complete_before_execution_claim == true and
+              .execution_claim_create_precondition == "If-None-Match:*" and
+              .execution_claim_created_before_provider_quota_or_other_write == true and
+              .provider_quota_and_other_writes_before_claim == false and
+              .precheck_performs_runtime_aws_reads == false and
+              .live_head_object_calls == 0 and
+              .live_predecessor_unversioned_get_object_calls == 0 and
+              .fresh_g11_or_claim_unversioned_get_object_use == "UNCERTAIN_WRITE_RECONCILIATION_ONLY"
+            ' "$AUTHORITY_PATH" >/dev/null
+
+          jq -e '
+              .runtime_quota_day_gate.required_value == "2026-09-01" and
+              .execution_claim.fixed_quota_day_kst == "2026-09-01" and
+              .execution_claim.all_five_predecessor_version_reads_required_before_create == true and
+              .execution_claim.all_three_list_bucket_versions_reads_required_before_create == true and
+              .execution_claim.prior_existence_read_authorized == true and
+              .execution_claim.prior_existence_read_method == "BOUNDED_s3_ListBucketVersions_ONLY" and
+              .execution_claim.prior_head_or_unversioned_get_authorized == false and
+              .execution_claim.create_precondition == "If-None-Match:*" and
+              .execution_claim.exact_version_readback_required == true
+            ' "$ACTIVATION_PATH" >/dev/null
+
+          jq -e '
+            .artifact == "M3TOP3_FINANCE_CA_PAGE100_G11_DOWNSTREAM_OWNER_DECISION_RECEIPT_v1.1" and
+            .correction_id == "OA-F01" and
+            .selector_continuation_semantics.sealed_exclusion_scope == [36,37,38,39,40] and
+            .selector_continuation_semantics.future_selector_match == "RAW_CUSTODY_THEN_FAIL_CLOSED" and
+            .selector_continuation_semantics.future_selector_match_auto_excluded == false
+          ' "$OWNER_DECISION_PATH" >/dev/null
+
+          printf '%s\n' 'SEALED_EXECUTABLE_ADAPTER_READY_GATE_PASS'
+
+      - name: Load sealed exact-version and append-only G11C1 session policy
+        id: live-policy
+        shell: bash
+        run: |
+          set -euo pipefail
+          jq -e '
+            .Version == "2012-10-17" and
+            (.Statement | length) == 4 and
+            ([.Statement[].Action] | flatten | sort) ==
+              (["s3:GetObject","s3:GetObjectVersion","s3:GetObjectVersion",
+                "s3:GetObjectVersion","s3:ListBucketVersions","s3:PutObject"] | sort) and
+            ([.Statement[].Resource] | flatten | all(. != "*")) and
+            ([.Statement[] | select(([.Action] | flatten | index("s3:ListBucketVersions")) != null)] | length) == 1 and
+            ([.Statement[] |
+              select(([.Action] | flatten | index("s3:ListBucketVersions")) != null) |
+              .Condition.StringLike["s3:prefix"]] | flatten | sort) ==
+              (["raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_*/runtime_lock_id=PMO-FINANCE-PAGE100-G11C1-20260901123521/pilot_run_id=FINANCE-PAGE100-PILOT-G11C1-20260901123521/*",
+                "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_writer_claims/quota_day_kst=2026-09-01/execution-claim.json"] | sort) and
+            (all(.Statement[];
+              (([.Action] | flatten | index("s3:GetObject")) == null) or
+              ([.Resource] | flatten | all(
+                contains("PMO-FINANCE-PAGE100-G11C1-20260901123521") or
+                contains("_writer_claims/quota_day_kst=2026-09-01/execution-claim.json")
+              )))) and
+            ([.Statement[].Condition.StringEquals["s3:VersionId"]? | select(. != null)] | flatten | sort) ==
+              (["VdsI_D_jNujHIb9ff8loyRWtuAW737RI",
+                "30whtf2xTpWQYXPmr.Kt5RBnK1Y_YDI4",
+                "1dHYBfs4hg1tM7S6TckyUngOmfwWKZc2",
+                "iBxAq9V.V7eA_doOM39JcVt_gtzAHskI",
+                "r3eu2mkgFklGzpZPyKq5xXrt50wa6JgU"] | sort) and
+            ([.Statement[].Resource] | flatten |
+              any(contains("PMO-FINANCE-PAGE100-G10-20260830044522"))) and
+            ([.Statement[].Resource] | flatten |
+              any(contains("PMO-FINANCE-PAGE100-G11C1-20260901123521")))
+          ' "$LIVE_POLICY_PATH" >/dev/null
+          {
+            echo 'json<<G11C1_POLICY_EOF'
+            cat "$LIVE_POLICY_PATH"
+            echo 'G11C1_POLICY_EOF'
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Configure exact bounded G11C1 AWS OIDC session
+        id: configure-live-aws
+        uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
+        with:
+          role-to-assume: arn:aws:iam::956315449338:role/M3Top3GitHubOIDCRawWriter
+          aws-region: ap-northeast-2
+          role-session-name: finance-page100-g11c1-${{ github.run_id }}
+          role-duration-seconds: 21600
+          retry-max-attempts: 1
+          disable-retry: true
+          allowed-account-ids: '956315449338'
+          output-env-credentials: true
+          output-credentials: false
+          mask-aws-account-id: true
+          role-skip-session-tagging: true
+          inline-session-policy: ${{ steps.live-policy.outputs.json }}
+
+      - name: Run one bounded G11C1 LIVE generation without retry
+        shell: bash
+        env:
+          CONFIGURED_AWS_ACCOUNT_ID: ${{ steps.configure-live-aws.outputs.aws-account-id }}
+          DATA_GO_KR_FINANCE_STOCK_RIGHTS_SERVICE_KEY: ${{ secrets.DATA_GO_KR_FINANCE_STOCK_RIGHTS_SERVICE_KEY }}
+          G11C1_LIVE_HEAD_SHA: ${{ steps.live-lineage.outputs.head_sha }}
+          G11C1_LIVE_HEAD_TREE: ${{ steps.live-lineage.outputs.head_tree }}
+          LIVE_OUTPUT: ${{ runner.temp }}/g11c1-live-terminal-result.json
+        run: |
+          set -euo pipefail
+          export PYTHONDONTWRITEBYTECODE=1
+          test "$CONFIGURED_AWS_ACCOUNT_ID" = '956315449338'
+          test -n "$DATA_GO_KR_FINANCE_STOCK_RIGHTS_SERVICE_KEY"
+          test "$G11C1_LIVE_HEAD_SHA" = "$GITHUB_SHA"
+          test "$(git rev-parse HEAD)" = "$G11C1_LIVE_HEAD_SHA"
+          test "$(git rev-parse 'HEAD^{tree}')" = "$G11C1_LIVE_HEAD_TREE"
+          test ! -e "$LIVE_OUTPUT"
+          precheck_receipt_path="$(jq -r '.precheck_pass_binding.path // empty' "$ACTIVATION_PATH")"
+          test -f "$precheck_receipt_path"
+
+          live_result_emitted=0
+          emit_live_result() {
+            if test "$live_result_emitted" -eq 1; then
+              return 0
+            fi
+            if test -f "$LIVE_OUTPUT"; then
+              live_sha="$(sha256sum -- "$LIVE_OUTPUT" | cut -d' ' -f1)"
+              live_bytes="$(wc -c < "$LIVE_OUTPUT" | tr -d ' ')"
+              printf '%s\n' 'G11C1_LIVE_SANITIZED_TERMINAL_RESULT_BASE64_BEGIN'
+              base64 -w 0 "$LIVE_OUTPUT"
+              printf '\n%s\n' 'G11C1_LIVE_SANITIZED_TERMINAL_RESULT_BASE64_END'
+              jq -cn \
+                --arg terminal_sha256 "$live_sha" \
+                --arg terminal_bytes "$live_bytes" \
+                --arg runner_status "${runner_status:-NOT_STARTED}" \
+                '{terminal_sha256:$terminal_sha256,terminal_bytes:($terminal_bytes|tonumber),runner_status:$runner_status}'
+            else
+              printf '%s\n' '{"terminal_result":"MISSING","disposition":"FAIL_CLOSED_NO_RETRY"}'
+            fi
+            live_result_emitted=1
+          }
+          finalize_live_log() {
+            final_status="$?"
+            trap - EXIT
+            set +e
+            emit_live_result
+            exit "$final_status"
+          }
+          trap finalize_live_log EXIT
+
+          set +e
+          python "$RUNNER_PATH" \
+            --mode live \
+            --manifest "$MANIFEST_PATH" \
+            --authority "$AUTHORITY_PATH" \
+            --plan "$PLAN_PATH" \
+            --seed "$SEED_PATH" \
+            --pytest-file "$TEST_PATH" \
+            --activation "$ACTIVATION_PATH" \
+            --precheck-receipt "$precheck_receipt_path" \
+            --live-adapter "$LIVE_ADAPTER_PATH" \
+            --adapter-test "$ADAPTER_TEST_PATH" \
+            --owner-decision "$OWNER_DECISION_PATH" \
+            --self-deadline-seconds 18000 \
+            --output "$LIVE_OUTPUT"
+          runner_status="$?"
+          set -e
+
+          test -f "$LIVE_OUTPUT"
+          emit_live_result
+          jq -e \
+            --argjson acquisition_ceiling "$G11C1_PRIMARY_ACQUISITION_CEILING" \
+            --argjson attempt_ceiling "$G11C1_NETWORK_ATTEMPT_CEILING" '
+              .schema == "M3TOP3_FINANCE_CA_PAGE100_G11C1_LIVE_ENTRY_RESULT_v1.0" and
+              (.entry_gate == "LIVE_NOT_ENTERED" or .entry_gate == "LIVE_ENTERED_ONCE") and
+              .effects.primary_acquisitions >= 0 and
+              .effects.primary_acquisitions <= $acquisition_ceiling and
+              .effects.effective_primary_acquisitions == (4 + .effects.primary_acquisitions) and
+              .effects.effective_primary_acquisitions <= 1700 and
+              .effects.network_attempts >= 0 and
+              .effects.network_attempts <= $attempt_ceiling and
+              .effects.effective_network_attempts == (4 + .effects.network_attempts) and
+              .effects.effective_network_attempts <= 2000 and
+              .effects.primary_acquisitions <= .effects.network_attempts and
+              .effects.network_attempts <= (2 * .effects.primary_acquisitions) and
+              .effects.provider_calls >= 0 and
+              .effects.provider_calls <= $attempt_ceiling and
+              .effects.provider_calls <= .effects.network_attempts and
+              .effects.finance_provider_api_calls == .effects.provider_calls and
+              .effects.quota_reservations == .effects.network_attempts and
+              .effects.quota_reservations <= $attempt_ceiling and
+              .effects.provider_quota_reservations == .effects.quota_reservations and
+              .effects.raw_writes >= 0 and
+              .effects.raw_writes <= $acquisition_ceiling and
+              .effects.raw_writes <= .effects.provider_calls and
+              .effects.raw_objects_written == .effects.raw_writes and
+              .effects.raw_index_appends == .effects.raw_writes and
+              .effects.quota_ledger_appends == 0 and
+              .effects.checkpoint_writes >= 0 and
+              .effects.checkpoint_writes <= 8003 and
+              .effects.checkpoint_writes <= ((.effects.network_attempts * 4) + 19) and
+              .effects.execution_claim_writes >= 0 and
+              .effects.execution_claim_writes <= 1 and
+              .effects.terminal_receipt_writes >= 0 and
+              .effects.terminal_receipt_writes <= 1 and
+              .effects.terminal_receipt_put_attempts >= .effects.terminal_receipt_writes and
+              .effects.terminal_receipt_put_attempts <= 1 and
+              .effects.s3_get_calls >= 0 and
+              .effects.s3_put_calls >= 0 and
+              .effects.s3_delete_calls == 0 and
+              .effects.s3_copy_calls == 0 and
+              .effects.s3_tagging_mutation_calls == 0 and
+              .effects.s3_other_calls >= 0 and
+              .effects.s3_other_calls <= 3 and
+              .effects.s3_get_attempts == .effects.s3_get_calls and
+              .effects.s3_put_attempts == .effects.s3_put_calls and
+              .effects.s3_other_read_calls == .effects.s3_other_calls and
+              .effects.aws_calls ==
+                (.effects.s3_get_calls + .effects.s3_put_calls + .effects.s3_other_calls) and
+              .effects.s3_calls == .effects.aws_calls and
+              .effects.remote_custody_mutations ==
+                (.effects.raw_writes + .effects.checkpoint_writes +
+                 .effects.execution_claim_writes + .effects.terminal_receipt_writes) and
+              .effects.remote_custody_mutations <= .effects.s3_put_calls and
+              .effects.successful_put_mutations == .effects.remote_custody_mutations and
+              .effects.unconfirmed_or_failed_put_attempts ==
+                (.effects.s3_put_attempts - .effects.successful_put_mutations) and
+              .effects.normalization_actions == 0 and
+              .effects.pit_actions == 0 and
+              .effects.promotion_actions == 0 and
+              .effects.release_actions == 0 and
+              .effects.production_actions == 0 and
+              .effects.company_master_mutations == 0 and
+              .effects.universe_mutations == 0 and
+              .effects.company_master_or_universe_mutations == 0 and
+              .effects.repository_writes == 0 and
+              .effects.repository_mutations_by_workflow == 0 and
+              .effects.github_actions_artifacts_uploaded == 0 and
+              .effects.effects_reconciled == true and
+              .effects.ambiguous_side_effects == false and
+              .effect_reconciliation.complete == true and
+              .effect_reconciliation.ambiguous_side_effects == false and
+              (if .entry_gate == "LIVE_ENTERED_ONCE"
+               then (.effects.execution_claim_writes == 1 and
+                     .effects.s3_other_calls == 3 and
+                     .effects.s3_get_calls >= 5)
+               else (.effects.execution_claim_writes == 0 and
+                     .effects.provider_calls == 0 and
+                     .effects.quota_reservations == 0 and
+                     .effects.raw_writes == 0 and
+                     .effects.checkpoint_writes == 0 and
+                     .effects.terminal_receipt_writes == 0 and
+                     .effects.terminal_receipt_put_attempts == 0 and
+                     .effects.remote_custody_mutations == 0) end) and
+              (if (.effects.remote_custody_mutations > 0 or
+                   .effects.provider_calls > 0 or
+                   .effects.quota_reservations > 0)
+               then .effects.execution_claim_writes == 1
+               else true end)
+            ' "$LIVE_OUTPUT" >/dev/null
+          if test "$runner_status" -ne 0; then
+            jq -e '
+              .verdict == "FAIL_CLOSED" and
+              .no_rerun.same_run_retry_authorized == false and
+              .no_rerun.same_activation_reuse_authorized == false and
+              .no_rerun.same_latch_reuse_authorized == false
+            ' "$LIVE_OUTPUT" >/dev/null
+            exit "$runner_status"
+          fi
+
+          jq -e \
+            --argjson acquisition_ceiling "$G11C1_PRIMARY_ACQUISITION_CEILING" \
+            --argjson attempt_ceiling "$G11C1_NETWORK_ATTEMPT_CEILING" '
+              .verdict == "PASS" and
+              .entry_gate == "LIVE_ENTERED_ONCE" and
+              .live_adapter_gate == "READY" and
+              .execution_binding.head_sha == env.G11C1_LIVE_HEAD_SHA and
+              .execution_binding.tree_sha == env.G11C1_LIVE_HEAD_TREE and
+              .effects.primary_acquisitions >= 0 and
+              .effects.primary_acquisitions <= $acquisition_ceiling and
+              .effects.network_attempts >= 0 and
+              .effects.network_attempts <= $attempt_ceiling and
+              .effects.provider_calls >= 0 and
+              .effects.provider_calls <= $attempt_ceiling and
+              .effects.quota_reservations == .effects.network_attempts and
+              .effects.raw_writes <= $acquisition_ceiling and
+              .effects.checkpoint_writes <= 8003 and
+              .effects.execution_claim_writes == 1 and
+              .effects.terminal_receipt_writes == 1 and
+              .effects.terminal_receipt_put_attempts == 1 and
+              .effects.s3_other_calls == 3 and
+              .effects.s3_put_calls == .effects.remote_custody_mutations and
+              .effects.s3_get_calls >= (5 + .effects.remote_custody_mutations) and
+              .effect_reconciliation.complete == true and
+              .effect_reconciliation.ambiguous_side_effects == false and
+              .execution_claim_binding.key ==
+                "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_writer_claims/quota_day_kst=2026-09-01/execution-claim.json" and
+              (.execution_claim_binding.version_id | type == "string" and length > 0) and
+              (.execution_claim_binding.etag | type == "string" and length > 0) and
+              (.execution_claim_binding.sha256 | test("^[0-9a-f]{64}$")) and
+              .execution_claim_binding.bytes > 0 and
+              .execution_claim_binding.content_type == "application/json" and
+              .execution_claim_binding.server_side_encryption == "AES256" and
+              .checkpoint_binding.key ==
+                "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_control/runtime_lock_id=PMO-FINANCE-PAGE100-G11C1-20260901123521/pilot_run_id=FINANCE-PAGE100-PILOT-G11C1-20260901123521/checkpoint.json" and
+              (.checkpoint_binding.version_id | type == "string" and length > 0) and
+              (.checkpoint_binding.etag | type == "string" and length > 0) and
+              (.checkpoint_binding.sha256 | test("^[0-9a-f]{64}$")) and
+              .checkpoint_binding.bytes > 0 and
+              .checkpoint_binding.content_type == "application/json" and
+              .checkpoint_binding.server_side_encryption == "AES256" and
+              .terminal_receipt_binding.key ==
+                "raw/public-data-api/M3TOP3-FINANCE-STOCK-RIGHTS-v1/_pilot_control/runtime_lock_id=PMO-FINANCE-PAGE100-G11C1-20260901123521/pilot_run_id=FINANCE-PAGE100-PILOT-G11C1-20260901123521/terminal-receipt.json" and
+              .terminal_receipt_binding.attempted == true and
+              .terminal_receipt_binding.put_attempts == 1 and
+              .terminal_receipt_binding.confirmed == true and
+              .terminal_receipt_binding.object.key == .terminal_receipt_binding.key and
+              (.terminal_receipt_binding.object.version_id | type == "string" and length > 0) and
+              (.terminal_receipt_binding.object.etag | type == "string" and length > 0) and
+              (.terminal_receipt_binding.object.sha256 | test("^[0-9a-f]{64}$")) and
+              .terminal_receipt_binding.object.bytes > 0 and
+              .terminal_receipt_binding.object.content_type == "application/json" and
+              .terminal_receipt_binding.object.server_side_encryption == "AES256" and
+              .claim_ceiling.source_admission_verdict == "NOT_ADMITTED"
+            ' "$LIVE_OUTPUT" >/dev/null
+
+          jq -cn \
+            --arg terminal_sha256 "$live_sha" \
+            --arg terminal_bytes "$live_bytes" \
+            --arg verdict "$(jq -r '.verdict' "$LIVE_OUTPUT")" \
+            '{verdict:$verdict,terminal_sha256:$terminal_sha256,terminal_bytes:($terminal_bytes|tonumber),claim:"BOUNDED_G11C1_DATA_GENERATION_ONLY_SOURCE_NOT_ADMITTED"}'
+
+      - name: Confirm workflow did not mutate the repository
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -z "$(git status --porcelain)"
