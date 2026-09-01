@@ -1,0 +1,134 @@
+{
+  "artifact": "M3TOP3_FINANCE_CA_PAGE100_S3_DOWNSTREAM_AUTHORITY_BOUNDARY_CHECKPOINT_v1.0",
+  "artifact_kind": "READ_ONLY_DOWNSTREAM_AUTHORITY_RESOLUTION_TERMINAL_CHECKPOINT",
+  "schema_version": 1,
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "persona": "AAA-PMO-ORCHESTRATOR",
+  "repository": "AofSpds/asset-agent-asa",
+  "branch": "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828",
+  "generated_at_utc": "2026-09-01T00:53:17Z",
+  "generated_at_kst": "2026-09-01T09:53:17+09:00",
+  "bootstrap": {
+    "state": "PASS_NO_P0_AUTHORITY_CONFLICT",
+    "active_persistent_locator": "aaa-persistent-locator-active-v0.3@5b2dd5c5ea5bf96eb22163a0598d6879fffada9e",
+    "active_organization": "aaa-organization-active-v1.3@d7c490c373f2df356f31e4459c345328616b4eb3",
+    "active_shared_contract": "aaa-shared-contract-v0.1-final-active-registration-v1.0@4d70f6ae32604bcef3f4a8027074163d5e5c80cd",
+    "persona_state": "ACTIVE_UNCONTESTED"
+  },
+  "pre_checkpoint_readback": {
+    "head_commit": "bce723031444439e65da20b6455e5a06a575607b",
+    "head_tree": "fb9b8e9f03ef57bd98169d525a7bd76fe1d30cc3",
+    "head_message": "pmo: checkpoint G10 issuer exclusion filter S3 terminal pass",
+    "active_or_queued_workflows": 0
+  },
+  "s3_terminal_binding": {
+    "receipt_commit": "dfc1428aff461bbca8e2d2504acb144463349052",
+    "receipt_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_ISSUER_CONFLICT_EXCLUSION_FILTER_S3_TERMINAL_RECEIPT_v1.0.json",
+    "receipt_git_blob": "a6589d2e48ad95703a564e393eed9a071f8bdf75",
+    "state": "TERMINAL_PASS_OWNER_AUTHORIZED_PILOT_ELIGIBLE_SUBSET_FILTER_APPLIED_NO_EXTERNAL_EFFECT",
+    "bas_dt": "20240131",
+    "source_rows": 40,
+    "eligible_rows": 35,
+    "excluded_rows": 5,
+    "excluded_global_row_ordinals": [
+      36,
+      37,
+      38,
+      39,
+      40
+    ],
+    "sealed_eligible_projection_sha256": "8f6986c9a9839ad62fe856dd0c4d31b54ce1982373deffd1404671c4c9fbfd24",
+    "source_admission_verdict": "NOT_ADMITTED",
+    "gate_effect": "PILOT_ELIGIBLE_SUBSET_FILTER_ONLY",
+    "no_rerun": true
+  },
+  "downstream_authority_resolution": {
+    "state": "FAIL_CLOSED_OWNER_ACTION_REQUIRED",
+    "exact_blocker": "MISSING_FRESH_SEPARATELY_BOUND_G11_OR_DOWNSTREAM_DATA_GENERATION_AUTHORITY_AND_ENTRY_GATE_FOR_S3_ELIGIBLE_PROJECTION",
+    "fresh_g11_or_data_generation_authority_found": false,
+    "executable_g11_path_found_in_current_tree": false,
+    "precheck_authorized": false,
+    "workflow_dispatch_authorized": false,
+    "provider_api_calls_authorized_now": false,
+    "quota_reservations_authorized_now": false,
+    "remote_custody_writes_authorized_now": false,
+    "source_admission_pass": false
+  },
+  "controlling_evidence": [
+    {
+      "path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_ISSUER_CONFLICT_OWNER_DECISION_RECEIPT_v1.1.json",
+      "git_blob": "45efc3a45db3691b20a01e04810b8ca6ae16e94a",
+      "fields": {
+        "authority.g11_data_generation_authorized_by_this_decision": false,
+        "resume_contract.g11_or_downstream_execution_requires_existing_separate_gate_and_authority": true
+      }
+    },
+    {
+      "path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_ISSUER_CONFLICT_EXCLUSION_FILTER_S3_AUTHORITY_v1.0.json",
+      "git_blob": "f916b2eecbb1149d1025052440b5220ee0898f99",
+      "fields": {
+        "prohibition": "G11_DATA_GENERATION",
+        "external_effect_ceiling.g10_or_g11_runs": 0,
+        "claim_ceiling.source_admission_verdict": "NOT_ADMITTED"
+      }
+    },
+    {
+      "path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_PILOT_AUTHORITY_v1.0.json",
+      "git_blob": "1772b39eb49a6c54fc027bff6ee3e04d598fac30",
+      "disposition": "EXACT_G10_GENERATION_RUNTIME_ACT_AND_LATCH_BOUND_ONE_ACT_AUTHORITY_CONSUMED_TERMINAL_NOT_REUSABLE"
+    },
+    {
+      "path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G10_LIVE_TERMINAL_RECEIPT_v1.0.json",
+      "git_blob": "4e2ee7a5629d15e96f42fb5868683f222e8067bc",
+      "disposition": "G10_RERUN_AND_L10_LATCH_REUSE_PROHIBITED"
+    },
+    {
+      "path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_PUBLIC_DATA_API_SOURCE_ADMISSION_PLAN_v1.0.json",
+      "git_blob": "8ac7041981ffd6e533ef0d0ec5bc9f0ebd87db3c",
+      "fields": {
+        "execution_gate.state": "CLOSED_TERMINAL_NO_RERUN",
+        "execution_gate.plan_executable": false,
+        "stage_projection.S7.execution_authorized": false,
+        "stage_projection.S8.execution_authorized": false,
+        "stage_projection.S9.execution_authorized": false
+      }
+    }
+  ],
+  "issue_authority": {
+    "issue_49_state": "OPEN",
+    "standing_owner_operating_comment_id": 5464265547,
+    "latest_s3_checkpoint_comment_id": 5481382733,
+    "issue_53_g2_state": "OPEN_NO_G2_CLOSURE",
+    "issue_54_g3_state": "OPEN_NO_G3_CLOSURE",
+    "conclusion": "NO_CURRENT_ISSUE_COMMENT_GRANTS_G11_OR_NEW_DATA_GENERATION"
+  },
+  "no_rerun": {
+    "s2_run": 33403101817,
+    "s3_precheck_run": 33414615913,
+    "s3_apply_run": 33414695818,
+    "same_activation_or_latch_reuse_authorized": false,
+    "same_run_retry_authorized": false
+  },
+  "effect_classification_for_this_authority_resolution": {
+    "github_read_calls": "READ_ONLY",
+    "repository_mutations_before_checkpoint_commit": 0,
+    "aws_calls": 0,
+    "s3_calls": 0,
+    "finance_provider_api_calls": 0,
+    "provider_quota_reservations": 0,
+    "remote_custody_mutations": 0,
+    "g10_or_g11_runs": 0,
+    "normalization_pit_promotion_release_production_actions": 0
+  },
+  "disposition": {
+    "do_not_create_arm_or_dispatch_g11": true,
+    "do_not_create_a_g11_precheck_without_fresh_separate_authority": true,
+    "do_not_rerun_s2_or_s3": true,
+    "do_not_reuse_g10_or_s3_activations_or_latches": true,
+    "stop_at_authority_boundary": true,
+    "owner_action_required": true,
+    "owner_boundary": "FRESH_SEPARATELY_BOUND_G11_OR_DOWNSTREAM_DATA_GENERATION_AUTHORITY_AND_ENTRY_GATE_REQUIRED"
+  },
+  "claim_ceiling": "AUTHORITY_RESOLUTION_ONLY_NO_G11_NO_DATA_GENERATION_NO_SOURCE_ADMISSION_PASS_NO_VALIDATION_PASS_NO_NORMALIZATION_PIT_PROMOTION_RELEASE_OR_PRODUCTION"
+}
