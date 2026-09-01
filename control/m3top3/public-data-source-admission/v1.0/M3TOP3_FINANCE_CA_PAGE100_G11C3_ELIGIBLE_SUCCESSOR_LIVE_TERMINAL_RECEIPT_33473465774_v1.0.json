@@ -1,0 +1,253 @@
+{
+  "artifact": "M3TOP3_FINANCE_CA_PAGE100_G11C3_ELIGIBLE_SUCCESSOR_LIVE_TERMINAL_RECEIPT_33473465774_v1.0",
+  "artifact_kind": "FRESH_G11C3_ELIGIBLE_SUCCESSOR_LIVE_TERMINAL_FAILURE_RECEIPT",
+  "schema_version": 1,
+  "generated_at_utc": "2026-09-01T05:28:02Z",
+  "generated_at_kst": "2026-09-01T14:28:02+09:00",
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "persona": "AAA-PMO-ORCHESTRATOR",
+  "repository": "AofSpds/asset-agent-asa",
+  "branch": "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828",
+  "result": "FAIL_CLOSED",
+  "terminal_state": "TERMINAL_FAIL_CLOSED_AWS_OIDC_STS_PACKED_POLICY_SIZE_138_PERCENT_CREDENTIALS_NOT_ISSUED_RUNNER_NOT_STARTED_ZERO_DOWNSTREAM_EFFECT_NO_RERUN",
+  "entry_gate": "LIVE_NOT_ENTERED",
+  "workflow_execution": {
+    "workflow_path": ".github/workflows/m3top3-finance-page100-g11c3-eligible-successor-live-v1.yml",
+    "github_run_id": "33473465774",
+    "github_job_id": "99747762918",
+    "github_run_attempt": 1,
+    "event_name": "push",
+    "actor": "AofSpds",
+    "head_sha": "e9cd72485a878bb700365eb2ef143c318b85b8a1",
+    "head_tree": "9f3331b148cb762f67d5d547686812c070a66806",
+    "conclusion": "failure",
+    "created_at_utc": "2026-09-01T05:24:14Z",
+    "started_at_utc": "2026-09-01T05:24:14Z",
+    "updated_at_utc": "2026-09-01T05:24:31Z",
+    "artifacts_uploaded": 0,
+    "step_outcomes": [
+      {
+        "ordinal": 1,
+        "name": "Checkout exact fresh LIVE activation revision",
+        "conclusion": "success"
+      },
+      {
+        "ordinal": 2,
+        "name": "Fail closed on LIVE lineage material or PRECHECK receipt drift",
+        "conclusion": "success"
+      },
+      {
+        "ordinal": 3,
+        "name": "Require sealed executable adapter READY before credentials",
+        "conclusion": "success"
+      },
+      {
+        "ordinal": 4,
+        "name": "Load sealed least-privilege and append-only G11C3 session policy",
+        "conclusion": "success"
+      },
+      {
+        "ordinal": 5,
+        "name": "Configure exact bounded G11C3 AWS OIDC session",
+        "conclusion": "failure",
+        "failed_control": "STS_PACKED_POLICY_SIZE_EXCEEDED_138_PERCENT"
+      },
+      {
+        "ordinal": 6,
+        "name": "Run one bounded G11C3 LIVE generation without retry",
+        "conclusion": "skipped"
+      },
+      {
+        "ordinal": 7,
+        "name": "Confirm workflow did not mutate the repository",
+        "conclusion": "success"
+      }
+    ],
+    "cleanup_outcomes": [
+      {
+        "name": "Post Configure exact bounded G11C3 AWS OIDC session",
+        "conclusion": "success"
+      },
+      {
+        "name": "Post Checkout exact fresh LIVE activation revision",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "activation_binding": {
+    "path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C3_ELIGIBLE_SUCCESSOR_LIVE_ACTIVATION_v1.0.json",
+    "git_blob": "1f9ebb606b27a5766a075112412389fe6f58168b",
+    "sha256": "9d3766b090a59c45d74f32113f29318f758af55dfeceea15aa5fcfa1aa0c569d",
+    "bytes": 29486,
+    "commit": "e9cd72485a878bb700365eb2ef143c318b85b8a1",
+    "tree": "9f3331b148cb762f67d5d547686812c070a66806",
+    "commit_message": "Arm M3Top3 Finance Page100 G11C3 bounded LIVE 20260901134119 v1.0",
+    "generation_id": "FINANCE-PAGE100-G11C3-20260901134119",
+    "runtime_lock_id": "PMO-FINANCE-PAGE100-G11C3-20260901134119",
+    "pilot_run_id": "FINANCE-PAGE100-PILOT-G11C3-20260901134119",
+    "act_id": "FINANCE-PAGE100-LIVE-ACT-G11C3-20260901134119",
+    "latch_event_id": "FINANCE-PAGE100-LATCH-G11C3-20260901134119",
+    "armed": true,
+    "consumed": true
+  },
+  "precheck_binding": {
+    "path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C3_ELIGIBLE_SUCCESSOR_PRECHECK_TERMINAL_RECEIPT_33472741288_v1.0.json",
+    "receipt_append_commit": "3b544c359af3e5672c25279eb38c2d2dfb921a0f",
+    "receipt_append_tree": "f4731d31afa38d6501bcb21420a6602e75925603",
+    "receipt_git_blob": "f1eae4c0eb5b8e504190316c0c9a9f27af777e4d",
+    "receipt_sha256": "96edb3d467bdbdefef4a5e14f83d0e44f0a626a447c1c736cf61cd1c2534b28e",
+    "receipt_bytes": 33497,
+    "receipt_payload_sha256": "17a6c78a42c533305d408efdf40938065b336b41d2331a9df7d9a10599d0191b",
+    "github_run_id": "33472741288",
+    "github_job_id": "99745636538",
+    "github_run_attempt": 1,
+    "execution_commit": "5365746614d7014b8c52c9ddcfb80c905eaf9335",
+    "execution_tree": "fdfa3e30a57b1449b8bfd56c952f02fcdf7f04de",
+    "result": "PASS",
+    "terminal_state": "TERMINAL_PASS_FOCUSED_G11C3_PRECHECK_ZERO_EXTERNAL_EFFECT_LIVE_NOT_AUTHORIZED",
+    "live_adapter_gate": "READY",
+    "live_authorized_by_precheck_alone": false
+  },
+  "session_policy_binding": {
+    "path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C3_LIVE_SESSION_POLICY_v1.0.json",
+    "git_blob": "2a497cd129276d166656d49fb6f362672ed8bc77",
+    "sha256": "9664b5ae73d9f3769fee60943abf67bd0eae5dde39b5b369a5f48779d717e18b",
+    "file_bytes_including_final_lf": 2035,
+    "transmitted_compact_ascii_characters": 2034,
+    "statement_count": 4,
+    "version_element_absent": true,
+    "plaintext_size_gate_passed": true,
+    "aws_packed_policy_runtime_gate_passed": false,
+    "packed_policy_size_percent": 138
+  },
+  "failure": {
+    "phase": "AWS_OIDC_ASSUME_ROLE_WITH_WEB_IDENTITY_CREDENTIAL_GATE",
+    "defect_code": "STS_PACKED_POLICY_SIZE_EXCEEDED_138_PERCENT",
+    "defect_class": "SEMANTIC_NEUTRAL_QUOTA_NEUTRAL_CUSTODY_NEUTRAL_PRE_CREDENTIAL_POLICY_PACKING_CONTROL_DEFECT",
+    "failed_step": "Configure exact bounded G11C3 AWS OIDC session",
+    "aws_error": "Packed policy consumes 138% of allotted space, please use smaller policy.",
+    "normalized_aws_error": "PACKED_POLICY_CONSUMES_138_PERCENT_OF_ALLOTTED_SPACE",
+    "sts_action": "AssumeRoleWithWebIdentity",
+    "sts_attempts": 1,
+    "sts_retries": 0,
+    "workflow_retry_max_attempts": 1,
+    "workflow_retry_disabled": true,
+    "aws_credentials_issued": false,
+    "runner_invoked": false,
+    "provider_step_entered": false,
+    "authority_or_scope_absent": false,
+    "model_semantic_change": false,
+    "pit_semantic_change": false,
+    "evidence_meaning_or_admission_semantic_change": false,
+    "effect_or_claim_ceiling_expansion": false,
+    "disposition": "FAIL_CLOSED_NO_RERUN_FRESH_SEPARATELY_BOUND_SUCCESSOR_REQUIRED"
+  },
+  "effect_classification": {
+    "github_oidc_token_requests": 1,
+    "oidc_configuration_attempts": 1,
+    "oidc_configurations_succeeded": 0,
+    "sts_assume_role_with_web_identity_attempts": 1,
+    "sts_assume_role_with_web_identity_successes": 0,
+    "aws_credential_sessions_issued": 0,
+    "aws_calls": 1,
+    "provider_secret_accesses": 0,
+    "runner_invocations": 0,
+    "g11_data_generations": 0,
+    "s3_calls": 0,
+    "s3_get_object_calls": 0,
+    "s3_get_object_version_calls": 0,
+    "s3_list_bucket_versions_calls": 0,
+    "s3_put_calls": 0,
+    "s3_copy_calls": 0,
+    "s3_delete_calls": 0,
+    "finance_provider_api_calls": 0,
+    "finance_provider_network_attempts": 0,
+    "provider_quota_reservations": 0,
+    "raw_objects_written": 0,
+    "checkpoint_writes": 0,
+    "execution_claim_writes": 0,
+    "terminal_receipt_s3_writes": 0,
+    "remote_custody_mutations": 0,
+    "company_master_or_universe_mutations": 0,
+    "github_repository_mutations_by_workflow": 0,
+    "github_actions_artifacts_uploaded": 0,
+    "normalization_actions": 0,
+    "pit_actions": 0,
+    "promotion_actions": 0,
+    "release_actions": 0,
+    "production_actions": 0,
+    "effects_reconciled": true,
+    "ambiguous_side_effects": false
+  },
+  "claim_ceiling": {
+    "validation_claim": "FOCUSED_LIVE_AWS_OIDC_STS_PACKED_POLICY_FAILURE_ONLY",
+    "static_live_gates_passed": true,
+    "credential_gate_passed": false,
+    "aws_credentials_issued": false,
+    "live_runner_started": false,
+    "live_data_generation_started": false,
+    "source_admission_verdict": "NOT_ADMITTED",
+    "issuer_identity_resolved": false,
+    "g2_pass": false,
+    "g3_pass": false,
+    "normalization": false,
+    "pit": false,
+    "promotion": false,
+    "release": false,
+    "production": false
+  },
+  "no_rerun": {
+    "consumed_github_runs": [
+      33272691259,
+      33273146915,
+      33401871715,
+      33403101817,
+      33414615913,
+      33414695818,
+      33465583987,
+      33466306591,
+      33469887723,
+      33472741288,
+      33473465774
+    ],
+    "consumed_generation_id": "FINANCE-PAGE100-G11C3-20260901134119",
+    "consumed_runtime_lock_id": "PMO-FINANCE-PAGE100-G11C3-20260901134119",
+    "consumed_pilot_run_id": "FINANCE-PAGE100-PILOT-G11C3-20260901134119",
+    "consumed_precheck_act_id": "FINANCE-PAGE100-PRECHECK-ACT-G11C3-20260901134119",
+    "consumed_live_act_id": "FINANCE-PAGE100-LIVE-ACT-G11C3-20260901134119",
+    "consumed_latch_event_id": "FINANCE-PAGE100-LATCH-G11C3-20260901134119",
+    "current_live_run_retry_authorized": false,
+    "same_activation_reuse_authorized": false,
+    "same_latch_reuse_authorized": false,
+    "same_generation_reuse_authorized": false,
+    "fresh_successor_required": true,
+    "fresh_successor_requirements": [
+      "FRESH_GENERATION_ID",
+      "FRESH_RUNTIME_LOCK_ID",
+      "FRESH_PILOT_RUN_ID",
+      "FRESH_PRECHECK_ACT_ID",
+      "FRESH_LIVE_ACT_ID",
+      "FRESH_LATCH_EVENT_ID",
+      "FRESH_EXECUTION_TOKEN",
+      "FRESH_PRECHECK"
+    ]
+  },
+  "successor_boundary": {
+    "standing_authority_issue": 49,
+    "standing_authority_comment_id": 5464265547,
+    "owner_action_required_within_existing_bounded_scope": false,
+    "autonomous_semantic_neutral_control_successor_eligible": true,
+    "durable_g11c3_terminal_receipt_required_before_successor": true,
+    "permission_correction_must_be_equivalent_or_strictly_narrower": true,
+    "must_preserve_finance_provider_date_page_network_quota_and_custody_bounds": true,
+    "must_preserve_35_row_projection_and_oa_f01_future_selector_fail_closed_semantics": true,
+    "must_not_rerun_s2_s3_g10_g11_g11c2_or_g11c3": true,
+    "new_or_wider_action_resource_condition_account_bucket_prefix_role_or_custody_authority": false,
+    "normalization_pit_promotion_release_production_authority": false
+  },
+  "receipt_integrity": {
+    "canonicalization": "UTF8_JSON_SORT_KEYS_COMPACT_EXCLUDING_RECEIPT_INTEGRITY",
+    "payload_sha256": "ee49c0b5fe739dd9830250e84659780fbefc7e902021200b7ce0c2b334c5630c"
+  }
+}
