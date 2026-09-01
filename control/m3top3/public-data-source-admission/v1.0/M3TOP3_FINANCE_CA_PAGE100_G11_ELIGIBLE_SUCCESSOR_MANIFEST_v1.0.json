@@ -1,0 +1,257 @@
+{
+  "artifact": "M3TOP3_FINANCE_CA_PAGE100_G11_ELIGIBLE_SUCCESSOR_MANIFEST_v1.0",
+  "artifact_kind": "FRESH_G11_PAGE100_ELIGIBLE_SUCCESSOR_MATERIAL_MANIFEST",
+  "schema_version": 1,
+  "schema": "M3TOP3_FINANCE_CA_PAGE100_G11_ELIGIBLE_SUCCESSOR_MANIFEST_v1.0",
+  "generation_timestamp": "20260901110618",
+  "authority_commit": "19a62491c5168ee4c5f8ece31eba7598f11ebbbc",
+  "repository": "AofSpds/asset-agent-asa",
+  "branch": "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828",
+  "generated_at_utc": "2026-09-01T02:06:18Z",
+  "generated_at_kst": "2026-09-01T11:06:18+09:00",
+  "generation_id": "FINANCE-PAGE100-G11-20260901110618",
+  "runtime_lock_id": "PMO-FINANCE-PAGE100-G11-20260901110618",
+  "pilot_run_id": "FINANCE-PAGE100-PILOT-G11-20260901110618",
+  "preparation_id": "FINANCE-PAGE100-G11-PREPARATION-20260901110618",
+  "state": "PREPARATION_ONLY_LIVE_CLOSED_PENDING_FRESH_PRECHECK_PASS_WITH_SEALED_ADAPTER_READY",
+  "owner_decision_binding": {
+    "historical_owner_authority_commit": "884e1fadebda480f4c38d172eab083cbdbf031b2",
+    "governing_forward_only_receipt_path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11_DOWNSTREAM_OWNER_DECISION_RECEIPT_v1.1.json",
+    "governing_forward_only_receipt_commit": "19a62491c5168ee4c5f8ece31eba7598f11ebbbc",
+    "governing_forward_only_receipt_tree": "572bf2ab23a7d761de8160e6828f8b074618391b",
+    "governing_forward_only_receipt_git_blob": "1a20b86b784c1c69b407a432e08fb476c60b496d",
+    "governing_forward_only_receipt_sha256": "9efa622791a036c870ff4cded87bc4123cfae8089382c90a9ee2e804955ec6dd"
+  },
+  "preparation_binding": {
+    "parent_commit": "19a62491c5168ee4c5f8ece31eba7598f11ebbbc",
+    "parent_tree": "572bf2ab23a7d761de8160e6828f8b074618391b",
+    "preparation_commit": "BOUND_BY_LATER_ACTIVATION",
+    "preparation_tree": "BOUND_BY_LATER_ACTIVATION",
+    "commit_message": "Prepare M3Top3 Finance page100 G11 eligible successor 20260901110618 v1.0",
+    "branch_move_disposition": "STOP_AND_REBIND_BEFORE_ANY_ACTIVATION"
+  },
+  "files": {
+    "authority": {
+      "filename": "M3TOP3_FINANCE_CA_PAGE100_G11_ELIGIBLE_SUCCESSOR_AUTHORITY_v1.0.json",
+      "path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11_ELIGIBLE_SUCCESSOR_AUTHORITY_v1.0.json",
+      "git_blob": "5319c0eea8284ab8596cc19e409d2bbd8cab5744",
+      "sha256": "605c3c87c272a759468890e49c50375e1769681ec8e44f6886d4dc797cd3ccfa"
+    },
+    "plan": {
+      "filename": "M3TOP3_FINANCE_CA_PAGE100_G11_ELIGIBLE_SUCCESSOR_PLAN_v1.0.json",
+      "path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11_ELIGIBLE_SUCCESSOR_PLAN_v1.0.json",
+      "git_blob": "33c1aa48059724166f3b1839b2d61188eec5c417",
+      "sha256": "4c7d68a4ae99a27b07de1979e2d19b433e9c87dc2b08f1c988af49bf8b02711d"
+    },
+    "seed": {
+      "filename": "M3TOP3_FINANCE_CA_PAGE100_G11_ELIGIBLE_SUCCESSOR_CHECKPOINT_SEED_v1.0.json",
+      "path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11_ELIGIBLE_SUCCESSOR_CHECKPOINT_SEED_v1.0.json",
+      "git_blob": "e53c6d6a3c5fdd012facec4a14452abad8f4ac44",
+      "sha256": "7cb8a14b9f7f2b3c68048f864a19418ec82d22f2226dcb794151167a1bab6fed"
+    },
+    "runner": {
+      "filename": "finance_page100_g11_selector_successor.py",
+      "path": "tools/m3top3/finance_page100_g11_selector_successor.py",
+      "git_blob": "54d7bb55515a9dc625150fc2bef1546907e224b0",
+      "sha256": "ebacb78d2a1f1a3129f9c627da044d8d4daadcbdf0096e0b19dcdadd3183a574"
+    },
+    "tests": {
+      "filename": "test_finance_page100_g11_selector_successor.py",
+      "path": "tools/m3top3/tests/test_finance_page100_g11_selector_successor.py",
+      "git_blob": "c471648d27354a56eea90f8b7959485e23cfe82f",
+      "sha256": "c4856c5f1b6fcfe77ec2bcc0ec349633a9acdd7953ff6c65adf12278d15e2e61"
+    },
+    "live_adapter": {
+      "filename": "finance_page100_g11_live_adapter.py",
+      "path": "tools/m3top3/finance_page100_g11_live_adapter.py",
+      "git_blob": "2e06c838f3bb5487628d5032074a9279a1ab25d8",
+      "sha256": "2a60ef0d381cdcd6077fec7eac7bea18b28bb3cad198214063867a904f994dbe"
+    },
+    "adapter_tests": {
+      "filename": "test_finance_page100_g11_live_adapter.py",
+      "path": "tools/m3top3/tests/test_finance_page100_g11_live_adapter.py",
+      "git_blob": "6df934c9211dd36f8e008a9b381955e587888b46",
+      "sha256": "96f9c9ab23e3120ee8bccac0b3a8747e45d2cc8731f8e5f1eaf26ad8709b5e94"
+    },
+    "precheck_session_policy": {
+      "filename": "M3TOP3_FINANCE_CA_PAGE100_G11_PRECHECK_SESSION_POLICY_v1.0.json",
+      "path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11_PRECHECK_SESSION_POLICY_v1.0.json",
+      "git_blob": "073dcc2170a4dcb5f4b07e275f57205dd3a8bfa4",
+      "sha256": "6241f57f308c87c3a34a59c47d26ba6bccc8a0b879568eafd83b2ed6e0bfe9ad"
+    },
+    "live_session_policy": {
+      "filename": "M3TOP3_FINANCE_CA_PAGE100_G11_LIVE_SESSION_POLICY_v1.0.json",
+      "path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11_LIVE_SESSION_POLICY_v1.0.json",
+      "git_blob": "9717553ebf3c2f1e7504be9b7b1b6612add88f8e",
+      "sha256": "e0abf76df9d12ae0a4e36f506305c1dc8e6cea4b5012421b300d2f8434d43bd9"
+    },
+    "precheck_workflow": {
+      "filename": "m3top3-finance-page100-g11-eligible-successor-precheck-v1.yml",
+      "path": ".github/workflows/m3top3-finance-page100-g11-eligible-successor-precheck-v1.yml",
+      "git_blob": "c7dd8a5729ccb44b6ace2b3767fb8098d2bf7071",
+      "sha256": "6b8831e4ebeee388119915465a0306f4db1434728aed1b3aa6418d776a58f85e"
+    },
+    "live_workflow": {
+      "filename": "m3top3-finance-page100-g11-eligible-successor-live-v1.yml",
+      "path": ".github/workflows/m3top3-finance-page100-g11-eligible-successor-live-v1.yml",
+      "git_blob": "b319ec8332f2b1b4006a42c3d1be5ee129f942a3",
+      "sha256": "a4021a9a347c75699a953da7ad299f4ac99ef9dd7ee85bd806cfebb029844dc1"
+    },
+    "precheck_receipt_schema": {
+      "filename": "M3TOP3_FINANCE_CA_PAGE100_G11_FOCUSED_PRECHECK_TERMINAL_RECEIPT_SCHEMA_v1.0.json",
+      "path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11_FOCUSED_PRECHECK_TERMINAL_RECEIPT_SCHEMA_v1.0.json",
+      "git_blob": "8075a4dea5e813b1f4f2ea5e54092e006a1bee48",
+      "sha256": "85ea84e1765bb8a04d1fe25dcd8845dfd22046a9e6c4eafe2a76f26befdb0f2c"
+    },
+    "precheck_receipt_generator": {
+      "filename": "M3TOP3_FINANCE_CA_PAGE100_G11_FOCUSED_PRECHECK_TERMINAL_RECEIPT_GENERATOR_v1.0.py",
+      "path": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11_FOCUSED_PRECHECK_TERMINAL_RECEIPT_GENERATOR_v1.0.py",
+      "git_blob": "1c8302c3b82ab0bc4b4b9e63742cc3542eea9245",
+      "sha256": "0066099be026fc127b4ae57a7d94578220252741c93b502224e8219001924c5e"
+    }
+  },
+  "preparation_exclusions": [
+    "reference/**",
+    "owner_authority_review.json",
+    "g10_seed_vector_recovered.json",
+    "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11_ELIGIBLE_SUCCESSOR_PRECHECK_ACTIVATION_v1.0.json.template",
+    "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11_ELIGIBLE_SUCCESSOR_LIVE_ACTIVATION_v1.0.json.template",
+    "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11_FOCUSED_PRECHECK_TERMINAL_RECEIPT_INPUT_v1.0.template.json",
+    "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11_ELIGIBLE_SUCCESSOR_LIVE_TERMINAL_RECEIPT_v1.0.template.json",
+    "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11_ELIGIBLE_SUCCESSOR_LIVE_TERMINAL_CHECKLIST_v1.0.json",
+    "**/__pycache__/**",
+    "**/*.pyc"
+  ],
+  "local_template_only_exclusions": {
+    "commit_in_preparation": false,
+    "runtime_dependency": false,
+    "workflow_dependency": false,
+    "files": [
+      "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11_ELIGIBLE_SUCCESSOR_PRECHECK_ACTIVATION_v1.0.json.template",
+      "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11_ELIGIBLE_SUCCESSOR_LIVE_ACTIVATION_v1.0.json.template",
+      "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11_FOCUSED_PRECHECK_TERMINAL_RECEIPT_INPUT_v1.0.template.json",
+      "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11_ELIGIBLE_SUCCESSOR_LIVE_TERMINAL_RECEIPT_v1.0.template.json",
+      "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11_ELIGIBLE_SUCCESSOR_LIVE_TERMINAL_CHECKLIST_v1.0.json"
+    ]
+  },
+  "activation_material": {
+    "precheck_activation_commit_message": "Arm M3Top3 Finance Page100 G11 focused PRECHECK 20260901110618 v1.0",
+    "live_activation_commit_message": "Arm M3Top3 Finance Page100 G11 bounded LIVE 20260901110618 v1.0",
+    "activation_commit_binding_marker": "BOUND_BY_GITHUB_EVENT_AFTER",
+    "activation_tree_binding_marker": "BOUND_BY_CHECKED_OUT_HEAD_TREE",
+    "actual_activation_commit_source": "github.event.after",
+    "actual_activation_tree_source": "git rev-parse HEAD^{tree}",
+    "runtime_validation": "GITHUB_EVENT_AFTER_EQUALS_GITHUB_SHA_EQUALS_CHECKED_OUT_HEAD_AND_TREE_IS_DERIVED_FROM_THAT_HEAD",
+    "activation_artifact_self_commit_tree_or_hash_binding_required": false,
+    "governed_non_activation_material_hash_binding_required": true,
+    "template_files_committed_in_preparation": false,
+    "template_files_are_runtime_or_workflow_dependencies": false,
+    "armed_instances_present_in_preparation": false,
+    "activation_contract_sources": [
+      "G11_AUTHORITY",
+      "G11_PLAN",
+      "G11_MANIFEST",
+      "PRECHECK_WORKFLOW",
+      "LIVE_WORKFLOW"
+    ]
+  },
+  "live_adapter_gate": "READY",
+  "live_adapter": {
+    "executable": true,
+    "sealed": true,
+    "ready": true,
+    "path": "tools/m3top3/finance_page100_g11_live_adapter.py",
+    "git_blob": "2e06c838f3bb5487628d5032074a9279a1ab25d8",
+    "sha256": "2a60ef0d381cdcd6077fec7eac7bea18b28bb3cad198214063867a904f994dbe",
+    "factory_symbol": "create_sealed_g11_custody_adapter",
+    "interface_version": "M3TOP3_FINANCE_CA_PAGE100_G11_LIVE_ADAPTER_v1.0",
+    "disposition": "SEALED_READY_PRECHECK_ELIGIBLE_LIVE_STILL_REQUIRES_PASS_RECEIPT_AND_SEPARATE_ACTIVATION"
+  },
+  "safe_executable_adapter": {
+    "ready": true,
+    "runner_path": "tools/m3top3/finance_page100_g11_selector_successor.py",
+    "runner_git_blob": "54d7bb55515a9dc625150fc2bef1546907e224b0",
+    "runner_sha256": "ebacb78d2a1f1a3129f9c627da044d8d4daadcbdf0096e0b19dcdadd3183a574",
+    "path": "tools/m3top3/finance_page100_g11_live_adapter.py",
+    "git_blob": "2e06c838f3bb5487628d5032074a9279a1ab25d8",
+    "sha256": "2a60ef0d381cdcd6077fec7eac7bea18b28bb3cad198214063867a904f994dbe",
+    "factory_symbol": "create_sealed_g11_custody_adapter",
+    "interface_version": "M3TOP3_FINANCE_CA_PAGE100_G11_LIVE_ADAPTER_v1.0",
+    "disposition": "SEALED_READY_PRECHECK_ELIGIBLE_LIVE_STILL_REQUIRES_PASS_RECEIPT_AND_SEPARATE_ACTIVATION"
+  },
+  "entry_gate": {
+    "owner_approved": true,
+    "material_freeze_complete": true,
+    "precheck_activation_armed": false,
+    "fresh_precheck_pass_receipt_present": false,
+    "live_adapter_gate_required": "READY",
+    "live_adapter_gate": "READY",
+    "live_activation_armed": false,
+    "live_open": false,
+    "required_transition": "FREEZE_MATERIAL_THEN_PRECHECK_PASS_THEN_SEPARATE_LIVE_ACTIVATION"
+  },
+  "sealed_scope_summary": {
+    "ordered_primary_date_count": 17,
+    "ordered_primary_dates_sha256": "920b118d7d7abaa10f69e93169698ed380db7162ac3c5024756a07702a7065f6",
+    "g10_spent_primary_acquisitions": 4,
+    "g10_spent_network_attempts": 4,
+    "g11_remaining_primary_acquisitions": 1696,
+    "g11_remaining_network_attempts": 1996,
+    "resume_bas_dt": "20240131",
+    "first_new_page": 5,
+    "live_role_session_duration_seconds": 21600,
+    "owner_cap_spec_sha256": "3f97151c59de575561ea40475bcfed3a4d0a9ca7e274725fb2fd72e4dcab0286",
+    "execution_token_sha256": "8c4b79360d9c0cd73394f8e20c780c592c012cf53ed0d1700c7b4104b58457cf",
+    "fixed_quota_day_kst": "2026-09-01",
+    "precheck_mode": "SEALED_STATIC_ZERO_AWS",
+    "precheck_list_bucket_versions_calls": 0,
+    "live_exact_bounded_list_bucket_versions_calls_before_any_mutation": 3,
+    "live_exact_predecessor_get_object_version_reads_before_any_mutation": 5,
+    "sealed_source_rows": 40,
+    "sealed_eligible_rows": 35,
+    "sealed_excluded_rows": 5,
+    "future_selector_auto_exclusion_authorized": false,
+    "future_selector_disposition": "RAW_CUSTODY_FIRST_THEN_FAIL_CLOSED_PENDING_OWNER_DECISION"
+  },
+  "adapter_execution_order_binding": {
+    "fixed_quota_day_kst": "2026-09-01",
+    "runtime_kst_date_equality_required_before_any_mutation": true,
+    "exact_pre_mutation_order": [
+      "RUNTIME_KST_DATE_EQUALITY_GATE",
+      "FIVE_EXACT_PREDECESSOR_GET_OBJECT_VERSION_READS",
+      "THREE_BOUNDED_LIST_BUCKET_VERSIONS_READS",
+      "RUNTIME_KST_DATE_RECHECK",
+      "EXECUTION_CLAIM_IF_NONE_MATCH_CREATE",
+      "FRESH_CHECKPOINT_QUOTA_PROVIDER"
+    ],
+    "runtime_kst_date_recheck_immediately_before_claim": true,
+    "exact_live_list_bucket_versions_calls": 3,
+    "ordered_list_targets": ["FRESH_G11_GENERATION_PREFIX", "FRESH_G11_CONTROL_PREFIX", "EXACT_2026_09_01_EXECUTION_CLAIM_KEY"],
+    "exact_predecessor_get_object_version_reads": 5,
+    "ordered_read_roles": ["CHECKPOINT", "RAW_PAGE_1", "RAW_PAGE_2", "RAW_PAGE_3", "RAW_PAGE_4"],
+    "all_reads_complete_before_execution_claim": true,
+    "all_three_lists_complete_before_execution_claim": true,
+    "execution_claim_create_precondition": "If-None-Match:*",
+    "execution_claim_created_before_provider_quota_or_other_write": true,
+    "provider_quota_and_other_writes_before_claim": false,
+    "precheck_performs_runtime_aws_reads": false,
+    "live_head_object_calls": 0,
+    "live_predecessor_unversioned_get_object_calls": 0,
+    "fresh_g11_or_claim_unversioned_get_object_use": "UNCERTAIN_WRITE_RECONCILIATION_ONLY"
+  },
+  "no_rerun": {
+    "consumed_github_runs": [
+      33272691259,
+      33273146915,
+      33401871715,
+      33403101817,
+      33414615913,
+      33414695818
+    ],
+    "same_run_retry_authorized": false,
+    "same_activation_reuse_authorized": false,
+    "same_latch_reuse_authorized": false,
+    "github_run_attempt_required": 1
+  },
+  "claim_ceiling": "PREPARATION_ONLY_SOURCE_NOT_ADMITTED_NO_G2_G3_NORMALIZATION_PIT_PROMOTION_RELEASE_OR_PRODUCTION"
+}
