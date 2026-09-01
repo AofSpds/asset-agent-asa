@@ -1,0 +1,2769 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aaa:m3top3:finance-ca-page100:g11c6:focused-precheck-terminal-receipt:v1.0",
+  "title": "M3TOP3 Finance CA Page100 G11C6 Focused PRECHECK Terminal Receipt v1.0",
+  "description": "A PASS proves exactly three bounded OIDC STS policy-packing probes, six STS calls, three temporary credential sessions, and zero downstream data/custody/repository mutation. LIVE remains closed until a separate exact LIVE activation.",
+  "x-live-activation-precheck-pass-binding-contract": {
+    "receipt_append_commit": "GIT_COMMIT_THAT_APPENDED_THE_PRECHECK_TERMINAL_RECEIPT",
+    "receipt_append_tree": "TREE_OF_THE_GIT_COMMIT_THAT_APPENDED_THE_PRECHECK_TERMINAL_RECEIPT",
+    "execution_head_sha": "PRECHECK_WORKFLOW_EXECUTION_HEAD_RECORDED_IN_RECEIPT_COMMIT",
+    "execution_head_tree_sha": "PRECHECK_WORKFLOW_EXECUTION_TREE_RECORDED_IN_RECEIPT_TREE",
+    "legacy_activation_commit_tree_fields_authorized": false
+  },
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "artifact",
+    "artifact_kind",
+    "schema_version",
+    "repository",
+    "branch",
+    "commit",
+    "tree",
+    "github_run_id",
+    "github_job_id",
+    "github_run_attempt",
+    "generation_id",
+    "runtime_lock_id",
+    "pilot_run_id",
+    "act_id",
+    "result",
+    "terminal_state",
+    "lineage",
+    "projection_binding",
+    "material_bindings",
+    "execution_binding",
+    "fresh_identity_binding",
+    "activation_binding",
+    "route_contract",
+    "checks",
+    "observed_effects",
+    "runner_result",
+    "effect_reconciliation",
+    "claim_ceiling",
+    "no_rerun",
+    "live_adapter_gate",
+    "terminal",
+    "receipt_integrity",
+    "predecessor_terminal_g11c4_binding",
+    "policy_material_bindings",
+    "claims",
+    "read_only_observations",
+    "predecessor_terminal_g11c5_binding"
+  ],
+  "properties": {
+    "artifact": {
+      "type": "string",
+      "pattern": "^M3TOP3_FINANCE_CA_PAGE100_G11C6_ELIGIBLE_SUCCESSOR_PRECHECK_TERMINAL_RECEIPT_[0-9]+_v1\\.0$"
+    },
+    "artifact_kind": {
+      "const": "FRESH_G11C6_ELIGIBLE_SUCCESSOR_FOCUSED_PRECHECK_TERMINAL_RECEIPT"
+    },
+    "schema_version": {
+      "const": 1
+    },
+    "repository": {
+      "const": "AofSpds/asset-agent-asa"
+    },
+    "branch": {
+      "const": "aaa-pmo-public-data-g2-g3-source-admission-v1-20260828"
+    },
+    "commit": {
+      "$ref": "#/$defs/git_sha"
+    },
+    "tree": {
+      "$ref": "#/$defs/git_sha"
+    },
+    "github_run_id": {
+      "$ref": "#/$defs/run_id"
+    },
+    "github_job_id": {
+      "$ref": "#/$defs/run_id"
+    },
+    "github_run_attempt": {
+      "const": 1
+    },
+    "generation_id": {
+      "const": "FINANCE-PAGE100-G11C6-20260901155700"
+    },
+    "runtime_lock_id": {
+      "const": "PMO-FINANCE-PAGE100-G11C6-20260901155700"
+    },
+    "pilot_run_id": {
+      "const": "FINANCE-PAGE100-PILOT-G11C6-20260901155700"
+    },
+    "act_id": {
+      "const": "FINANCE-PAGE100-PRECHECK-ACT-G11C6-20260901155700"
+    },
+    "result": {
+      "enum": [
+        "PASS",
+        "FAIL_CLOSED"
+      ]
+    },
+    "terminal_state": {
+      "enum": [
+        "TERMINAL_PASS_FOCUSED_G11C6_PRECHECK_EXACT_3_OIDC_STS_POLICY_PACKING_PROBES_SUCCESS_ZERO_DOWNSTREAM_MUTATION_LIVE_NOT_AUTHORIZED",
+        "TERMINAL_FAIL_CLOSED_FOCUSED_G11C6_PRECHECK_LIVE_NOT_AUTHORIZED"
+      ]
+    },
+    "lineage": {
+      "$ref": "#/$defs/lineage"
+    },
+    "projection_binding": {
+      "$ref": "#/$defs/projection"
+    },
+    "material_bindings": {
+      "$ref": "#/$defs/material_bindings"
+    },
+    "execution_binding": {
+      "$ref": "#/$defs/execution_binding"
+    },
+    "fresh_identity_binding": {
+      "$ref": "#/$defs/fresh_identity"
+    },
+    "activation_binding": {
+      "$ref": "#/$defs/activation_binding"
+    },
+    "route_contract": {
+      "$ref": "#/$defs/route_contract"
+    },
+    "checks": {
+      "$ref": "#/$defs/checks"
+    },
+    "observed_effects": {
+      "$ref": "#/$defs/observed_effects"
+    },
+    "runner_result": {
+      "$ref": "#/$defs/runner_result"
+    },
+    "effect_reconciliation": {
+      "$ref": "#/$defs/effect_reconciliation"
+    },
+    "claim_ceiling": {
+      "$ref": "#/$defs/claim_ceiling"
+    },
+    "no_rerun": {
+      "$ref": "#/$defs/no_rerun"
+    },
+    "live_adapter_gate": {
+      "$ref": "#/$defs/live_adapter_gate"
+    },
+    "terminal": {
+      "$ref": "#/$defs/terminal"
+    },
+    "receipt_integrity": {
+      "type": "object",
+      "required": [
+        "canonicalization",
+        "payload_sha256"
+      ],
+      "properties": {
+        "canonicalization": {
+          "const": "UTF8_JSON_SORT_KEYS_COMPACT_EXCLUDING_RECEIPT_INTEGRITY"
+        },
+        "payload_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "predecessor_terminal_g11c4_binding": {
+      "$ref": "#/$defs/predecessor_terminal_g11c4_binding"
+    },
+    "policy_material_bindings": {
+      "$ref": "#/$defs/policy_material_bindings"
+    },
+    "claims": {
+      "$ref": "#/$defs/claims"
+    },
+    "read_only_observations": {
+      "$ref": "#/$defs/read_only_observations"
+    },
+    "predecessor_terminal_g11c5_binding": {
+      "$ref": "#/$defs/predecessor_terminal_g11c5_binding"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "result": {
+            "const": "PASS"
+          }
+        },
+        "required": [
+          "result"
+        ]
+      },
+      "then": {
+        "properties": {
+          "terminal_state": {
+            "const": "TERMINAL_PASS_FOCUSED_G11C6_PRECHECK_EXACT_3_OIDC_STS_POLICY_PACKING_PROBES_SUCCESS_ZERO_DOWNSTREAM_MUTATION_LIVE_NOT_AUTHORIZED"
+          },
+          "checks": {
+            "$ref": "#/$defs/all_checks_pass"
+          },
+          "observed_effects": {
+            "$ref": "#/$defs/exact_precheck_effects"
+          },
+          "runner_result": {
+            "properties": {
+              "verdict": {
+                "const": "PASS"
+              },
+              "entry_gate": {
+                "const": "FOCUSED_PRECHECK_PASS"
+              },
+              "live_adapter_gate": {
+                "const": "READY"
+              },
+              "workflow_conclusion": {
+                "const": "success"
+              },
+              "sts_policy_probe_count": {
+                "const": 3
+              },
+              "effects": {
+                "$ref": "#/$defs/runner_effects"
+              }
+            }
+          },
+          "live_adapter_gate": {
+            "properties": {
+              "runner_reported_readiness": {
+                "const": "READY"
+              },
+              "state": {
+                "const": "CLOSED_AWAITING_SEPARATE_FRESH_LIVE_ACTIVATION"
+              }
+            }
+          },
+          "terminal": {
+            "properties": {
+              "result": {
+                "const": "PASS"
+              },
+              "failed_invariants": {
+                "maxItems": 0
+              },
+              "live_authorized": {
+                "const": false
+              }
+            }
+          },
+          "claim_ceiling": {
+            "properties": {
+              "validation_claim": {
+                "const": "FOCUSED_G11C6_PRECHECK_POLICY_PACKING_PROBES_ONLY"
+              },
+              "oidc_sts_policy_packing_probe_sessions": {
+                "const": 3
+              },
+              "temporary_credentials_issued_for_probe_sessions": {
+                "const": 3
+              },
+              "live_authorized": {
+                "const": false
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "git_sha": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^[0-9]+$"
+    },
+    "lineage": {
+      "type": "object",
+      "required": [
+        "s3_terminal_receipt_commit",
+        "s3_terminal_receipt_blob",
+        "g10_precheck_run_id",
+        "g10_live_run_id",
+        "s2_precheck_run_id",
+        "g11c2_precheck_run_id",
+        "g11c2_precheck_terminal",
+        "g11c2_live_run_exists",
+        "g11c2_reuse_authorized",
+        "g10_rerun_authorized",
+        "same_activation_reuse_authorized",
+        "same_run_retry_authorized",
+        "g11c3_precheck_run_id",
+        "g11c3_live_run_id",
+        "g11c3_terminal",
+        "g11c3_reuse_authorized",
+        "g11c4_precheck_run_id",
+        "g11c4_precheck_job_id",
+        "g11c4_precheck_run_attempt",
+        "g11c4_terminal",
+        "g11c4_live_run_exists",
+        "g11c4_reuse_authorized",
+        "g11c5_precheck_run_id",
+        "g11c5_precheck_job_id",
+        "g11c5_precheck_run_attempt",
+        "g11c5_precheck_execution_result",
+        "g11c5_terminal_receipt_result",
+        "g11c5_terminal_receipt_contract_valid",
+        "g11c5_terminal",
+        "g11c5_live_run_exists",
+        "g11c5_reuse_authorized"
+      ],
+      "properties": {
+        "s3_terminal_receipt_commit": {
+          "const": "dfc1428aff461bbca8e2d2504acb144463349052"
+        },
+        "s3_terminal_receipt_blob": {
+          "const": "a6589d2e48ad95703a564e393eed9a071f8bdf75"
+        },
+        "g10_precheck_run_id": {
+          "const": "33272691259"
+        },
+        "g10_live_run_id": {
+          "const": "33273146915"
+        },
+        "s2_precheck_run_id": {
+          "const": "33401871715"
+        },
+        "g11c2_precheck_run_id": {
+          "const": "33469887723"
+        },
+        "g11c2_precheck_terminal": {
+          "const": true
+        },
+        "g11c2_live_run_exists": {
+          "const": false
+        },
+        "g11c2_reuse_authorized": {
+          "const": false
+        },
+        "g10_rerun_authorized": {
+          "const": false
+        },
+        "same_activation_reuse_authorized": {
+          "const": false
+        },
+        "same_run_retry_authorized": {
+          "const": false
+        },
+        "g11c3_precheck_run_id": {
+          "const": "33472741288"
+        },
+        "g11c3_live_run_id": {
+          "const": "33473465774"
+        },
+        "g11c3_terminal": {
+          "const": true
+        },
+        "g11c3_reuse_authorized": {
+          "const": false
+        },
+        "g11c4_precheck_run_id": {
+          "const": "33477019917"
+        },
+        "g11c4_precheck_job_id": {
+          "const": "99758300336"
+        },
+        "g11c4_precheck_run_attempt": {
+          "const": 1
+        },
+        "g11c4_terminal": {
+          "const": true
+        },
+        "g11c4_live_run_exists": {
+          "const": false
+        },
+        "g11c4_reuse_authorized": {
+          "const": false
+        },
+        "g11c5_precheck_run_id": {
+          "const": "33479444941"
+        },
+        "g11c5_precheck_job_id": {
+          "const": "99765558713"
+        },
+        "g11c5_precheck_run_attempt": {
+          "const": 1
+        },
+        "g11c5_precheck_execution_result": {
+          "const": "PASS"
+        },
+        "g11c5_terminal_receipt_result": {
+          "const": "FAIL_CLOSED"
+        },
+        "g11c5_terminal_receipt_contract_valid": {
+          "const": false
+        },
+        "g11c5_terminal": {
+          "const": true
+        },
+        "g11c5_live_run_exists": {
+          "const": false
+        },
+        "g11c5_reuse_authorized": {
+          "const": false
+        }
+      }
+    },
+    "projection": {
+      "type": "object",
+      "required": [
+        "base_date",
+        "source_rows",
+        "eligible_rows",
+        "excluded_rows",
+        "missing_rows",
+        "excluded_global_row_ordinals",
+        "selector_match_left_eligible",
+        "eligible_projection_sha256",
+        "selector_custody_sha256",
+        "source_rows_mutated",
+        "source_admission_verdict",
+        "issuer_identity_resolved"
+      ],
+      "properties": {
+        "base_date": {
+          "const": "20240131"
+        },
+        "source_rows": {
+          "const": 40
+        },
+        "eligible_rows": {
+          "const": 35
+        },
+        "excluded_rows": {
+          "const": 5
+        },
+        "missing_rows": {
+          "const": 0
+        },
+        "excluded_global_row_ordinals": {
+          "const": [
+            36,
+            37,
+            38,
+            39,
+            40
+          ]
+        },
+        "selector_match_left_eligible": {
+          "const": false
+        },
+        "eligible_projection_sha256": {
+          "const": "8f6986c9a9839ad62fe856dd0c4d31b54ce1982373deffd1404671c4c9fbfd24"
+        },
+        "selector_custody_sha256": {
+          "const": "f3e7b94dbde722df47cc3bb1a5615068cea42dc1994a91ce92317f5d1fb8b3d6"
+        },
+        "source_rows_mutated": {
+          "const": false
+        },
+        "source_admission_verdict": {
+          "const": "NOT_ADMITTED"
+        },
+        "issuer_identity_resolved": {
+          "const": false
+        }
+      }
+    },
+    "material_bindings": {
+      "type": "object",
+      "required": [
+        "owner_decision_path",
+        "owner_decision_sha256",
+        "authority_path",
+        "authority_sha256",
+        "plan_path",
+        "plan_sha256",
+        "seed_path",
+        "seed_sha256",
+        "manifest_path",
+        "manifest_sha256",
+        "workflow_path",
+        "workflow_sha256",
+        "runner_path",
+        "runner_sha256",
+        "tests_path",
+        "tests_sha256",
+        "authority_git_blob",
+        "activation_base_head_commit",
+        "activation_base_tree",
+        "predecessor_failure_receipt_path",
+        "predecessor_failure_receipt_git_blob",
+        "predecessor_failure_receipt_sha256",
+        "predecessor_failure_payload_sha256",
+        "predecessor_failure_run_id",
+        "predecessor_failure_job_id",
+        "predecessor_failure_bytes",
+        "predecessor_g11c1_preparation_commit",
+        "predecessor_g11c1_preparation_tree",
+        "predecessor_g11c1_terminal_receipt_path",
+        "predecessor_g11c1_terminal_receipt_git_blob",
+        "predecessor_g11c1_terminal_receipt_sha256",
+        "predecessor_g11c1_terminal_receipt_payload_sha256",
+        "predecessor_g11c1_terminal_receipt_bytes",
+        "predecessor_g11c2_preparation_commit",
+        "predecessor_g11c2_preparation_tree",
+        "predecessor_g11c2_precheck_run_id",
+        "predecessor_g11c2_invalidation_receipt_path",
+        "predecessor_g11c2_invalidation_receipt_git_blob",
+        "predecessor_g11c2_invalidation_receipt_sha256",
+        "predecessor_g11c2_invalidation_receipt_payload_sha256",
+        "predecessor_g11c2_invalidation_receipt_bytes",
+        "standing_authority_issue",
+        "standing_authority_comment_id",
+        "owner_cap_spec_sha256",
+        "execution_token_sha256"
+      ],
+      "properties": {
+        "owner_decision_path": {
+          "const": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11_DOWNSTREAM_OWNER_DECISION_RECEIPT_v1.1.json"
+        },
+        "owner_decision_sha256": {
+          "const": "9efa622791a036c870ff4cded87bc4123cfae8089382c90a9ee2e804955ec6dd"
+        },
+        "authority_path": {
+          "const": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C6_ELIGIBLE_SUCCESSOR_AUTHORITY_v1.0.json"
+        },
+        "authority_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "authority_git_blob": {
+          "$ref": "#/$defs/git_sha"
+        },
+        "activation_base_head_commit": {
+          "const": "d0061e9005a74817563588990064af4260ab2bd9"
+        },
+        "activation_base_tree": {
+          "const": "7ba82af78770b8fdcfb914ab080bd280f017918f"
+        },
+        "predecessor_failure_receipt_path": {
+          "const": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11_ELIGIBLE_SUCCESSOR_LIVE_TERMINAL_RECEIPT_33466306591_v1.0.json"
+        },
+        "predecessor_failure_receipt_git_blob": {
+          "const": "00bd90fa57062e438bcddfdcc36be9a5694ef3d9"
+        },
+        "predecessor_failure_receipt_sha256": {
+          "const": "0577dbbacefa40e60e402dcfb37dd0a85c621952ac29314b56a8481d5e2087d6"
+        },
+        "predecessor_failure_payload_sha256": {
+          "const": "bb9d490db07755ddb1da399c4a454abf08679abaeeaae99db5ff58895dec18df"
+        },
+        "predecessor_failure_run_id": {
+          "const": 33466306591
+        },
+        "predecessor_failure_job_id": {
+          "const": 99726777914
+        },
+        "predecessor_failure_bytes": {
+          "const": 7688
+        },
+        "predecessor_g11c1_preparation_commit": {
+          "const": "0ccb62cd4c0ceaa0409a56b40a899d00f531ba09"
+        },
+        "predecessor_g11c1_preparation_tree": {
+          "const": "f35d2bdd68138d527bc8603472311c0ca032988e"
+        },
+        "predecessor_g11c1_terminal_receipt_path": {
+          "const": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C1_PREPARATION_AUDIT_TERMINAL_RECEIPT_20260901130250_v1.0.json"
+        },
+        "predecessor_g11c1_terminal_receipt_git_blob": {
+          "const": "8dbde6505e5cb0b130cd96e8495cd7f2d63703f7"
+        },
+        "predecessor_g11c1_terminal_receipt_sha256": {
+          "const": "737a2dbd844e2fccf4e53fae88ba34cb68a994138a666dbf221e64fd8acd03c1"
+        },
+        "predecessor_g11c1_terminal_receipt_payload_sha256": {
+          "const": "a41f3fa41413ed89a30a84867624b3ea52de5813903da033dd48ac023fdc15df"
+        },
+        "predecessor_g11c1_terminal_receipt_bytes": {
+          "const": 11695
+        },
+        "predecessor_g11c2_preparation_commit": {
+          "const": "203a11baf838955b69a5cc4b7509aff38dbf271b"
+        },
+        "predecessor_g11c2_preparation_tree": {
+          "const": "c5cc0148f3887eeb360761b0105b85a8fbc96cf2"
+        },
+        "predecessor_g11c2_precheck_run_id": {
+          "const": 33469887723
+        },
+        "predecessor_g11c2_invalidation_receipt_path": {
+          "const": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C2_PRE_LIVE_FROZEN_CONTRACT_AUDIT_TERMINAL_RECEIPT_20260901130250_v1.0.json"
+        },
+        "predecessor_g11c2_invalidation_receipt_git_blob": {
+          "const": "46dc2cf1c7f422786f4365b94782cb8982a6bdb2"
+        },
+        "predecessor_g11c2_invalidation_receipt_sha256": {
+          "const": "b7e03464f1f2c53a7446901b88ccb2aa481f940c272970f24cccbb5be1523df6"
+        },
+        "predecessor_g11c2_invalidation_receipt_payload_sha256": {
+          "const": "d94c512c53a2b83c4d8aae0fc54b0558d9d79f00ca699b684189d9831c5f990a"
+        },
+        "predecessor_g11c2_invalidation_receipt_bytes": {
+          "const": 16182
+        },
+        "standing_authority_issue": {
+          "const": 49
+        },
+        "standing_authority_comment_id": {
+          "const": 5464265547
+        },
+        "owner_cap_spec_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "execution_token_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "plan_path": {
+          "const": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C6_ELIGIBLE_SUCCESSOR_PLAN_v1.0.json"
+        },
+        "plan_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "seed_path": {
+          "const": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C6_ELIGIBLE_SUCCESSOR_CHECKPOINT_SEED_v1.0.json"
+        },
+        "seed_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "manifest_path": {
+          "const": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C6_ELIGIBLE_SUCCESSOR_MANIFEST_v1.0.json"
+        },
+        "manifest_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "workflow_path": {
+          "const": ".github/workflows/m3top3-finance-page100-g11c6-eligible-successor-precheck-v1.yml"
+        },
+        "workflow_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "runner_path": {
+          "const": "tools/m3top3/finance_page100_g11c6_selector_successor.py"
+        },
+        "runner_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "tests_path": {
+          "const": "tools/m3top3/tests/test_finance_page100_g11c6_selector_successor.py"
+        },
+        "tests_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "execution_binding": {
+      "type": "object",
+      "required": [
+        "run_id",
+        "job_id",
+        "head_sha",
+        "tree_sha",
+        "artifact_sha256",
+        "workflow_ref",
+        "actor",
+        "event_name",
+        "run_attempt",
+        "forced"
+      ],
+      "properties": {
+        "run_id": {
+          "$ref": "#/$defs/run_id"
+        },
+        "job_id": {
+          "$ref": "#/$defs/run_id"
+        },
+        "head_sha": {
+          "$ref": "#/$defs/git_sha"
+        },
+        "tree_sha": {
+          "$ref": "#/$defs/git_sha"
+        },
+        "artifact_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "workflow_ref": {
+          "const": "AofSpds/asset-agent-asa/.github/workflows/m3top3-finance-page100-g11c6-eligible-successor-precheck-v1.yml@refs/heads/aaa-pmo-public-data-g2-g3-source-admission-v1-20260828"
+        },
+        "actor": {
+          "const": "AofSpds"
+        },
+        "event_name": {
+          "const": "push"
+        },
+        "run_attempt": {
+          "const": 1
+        },
+        "forced": {
+          "const": false
+        }
+      }
+    },
+    "fresh_identity": {
+      "type": "object",
+      "required": [
+        "generation_id",
+        "runtime_lock_id",
+        "pilot_run_id",
+        "preparation_id",
+        "precheck_act_id",
+        "live_act_id",
+        "latch_event_id",
+        "owner_cap_spec_sha256",
+        "execution_token_sha256"
+      ],
+      "properties": {
+        "generation_id": {
+          "const": "FINANCE-PAGE100-G11C6-20260901155700"
+        },
+        "runtime_lock_id": {
+          "const": "PMO-FINANCE-PAGE100-G11C6-20260901155700"
+        },
+        "pilot_run_id": {
+          "const": "FINANCE-PAGE100-PILOT-G11C6-20260901155700"
+        },
+        "preparation_id": {
+          "const": "FINANCE-PAGE100-G11C6-PREPARATION-20260901155700"
+        },
+        "precheck_act_id": {
+          "const": "FINANCE-PAGE100-PRECHECK-ACT-G11C6-20260901155700"
+        },
+        "live_act_id": {
+          "const": "FINANCE-PAGE100-LIVE-ACT-G11C6-20260901155700"
+        },
+        "latch_event_id": {
+          "const": "FINANCE-PAGE100-LATCH-G11C6-20260901155700"
+        },
+        "owner_cap_spec_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "execution_token_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "activation_binding": {
+      "type": "object",
+      "required": [
+        "activation_path",
+        "activation_sha256",
+        "preparation_commit",
+        "preparation_tree",
+        "commit_message",
+        "act_id",
+        "latch_event_id"
+      ],
+      "properties": {
+        "activation_path": {
+          "const": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C6_ELIGIBLE_SUCCESSOR_PRECHECK_ACTIVATION_v1.0.json"
+        },
+        "activation_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "preparation_commit": {
+          "$ref": "#/$defs/git_sha"
+        },
+        "preparation_tree": {
+          "$ref": "#/$defs/git_sha"
+        },
+        "commit_message": {
+          "const": "Arm M3Top3 Finance Page100 G11C6 focused PRECHECK 20260901155700 v1.0"
+        },
+        "act_id": {
+          "const": "FINANCE-PAGE100-PRECHECK-ACT-G11C6-20260901155700"
+        },
+        "latch_event_id": {
+          "const": "FINANCE-PAGE100-LATCH-G11C6-20260901155700"
+        },
+        "activation_base_head_commit": {
+          "const": "d0061e9005a74817563588990064af4260ab2bd9"
+        },
+        "activation_base_tree": {
+          "const": "7ba82af78770b8fdcfb914ab080bd280f017918f"
+        }
+      }
+    },
+    "route_contract": {
+      "type": "object",
+      "required": [
+        "route_kind",
+        "selector_policy",
+        "entry_cursor",
+        "base_date",
+        "eligible_rows",
+        "excluded_rows",
+        "sealed_excluded_count",
+        "future_selector_auto_exclusion",
+        "checkpoint_advance_past_future_selector",
+        "projection_sha256",
+        "ordered_primary_dates_sha256",
+        "primary_date_count",
+        "request_page_size",
+        "max_pages_per_date",
+        "max_attempts_per_logical_page",
+        "aggregate_max_primary_page_acquisitions",
+        "inherited_g10_primary_acquisitions",
+        "maximum_new_g11c6_primary_acquisitions",
+        "aggregate_max_network_attempts_total",
+        "inherited_g10_network_attempts",
+        "maximum_new_g11c6_network_attempts"
+      ],
+      "properties": {
+        "route_kind": {
+          "const": "RESUME_FINANCE_PAGE100_FROM_EXACT_G10_CHECKPOINT"
+        },
+        "selector_policy": {
+          "const": "RAW_CUSTODY_THEN_FAIL_CLOSED_PENDING_OWNER_DECISION_ON_FUTURE_SELECTOR_NO_AUTO_EXCLUSION_NO_CHECKPOINT_ADVANCE"
+        },
+        "entry_cursor": {
+          "const": "basDt=20240131,pageNo=5"
+        },
+        "base_date": {
+          "const": "20240131"
+        },
+        "eligible_rows": {
+          "const": 35
+        },
+        "excluded_rows": {
+          "const": 5
+        },
+        "sealed_excluded_count": {
+          "const": 5
+        },
+        "future_selector_auto_exclusion": {
+          "const": false
+        },
+        "checkpoint_advance_past_future_selector": {
+          "const": false
+        },
+        "projection_sha256": {
+          "const": "8f6986c9a9839ad62fe856dd0c4d31b54ce1982373deffd1404671c4c9fbfd24"
+        },
+        "ordered_primary_dates_sha256": {
+          "const": "920b118d7d7abaa10f69e93169698ed380db7162ac3c5024756a07702a7065f6"
+        },
+        "primary_date_count": {
+          "const": 17
+        },
+        "request_page_size": {
+          "const": 10
+        },
+        "max_pages_per_date": {
+          "const": 100
+        },
+        "max_attempts_per_logical_page": {
+          "const": 2
+        },
+        "aggregate_max_primary_page_acquisitions": {
+          "const": 1700
+        },
+        "inherited_g10_primary_acquisitions": {
+          "const": 4
+        },
+        "maximum_new_g11c6_primary_acquisitions": {
+          "const": 1696
+        },
+        "aggregate_max_network_attempts_total": {
+          "const": 2000
+        },
+        "inherited_g10_network_attempts": {
+          "const": 4
+        },
+        "maximum_new_g11c6_network_attempts": {
+          "const": 1996
+        }
+      }
+    },
+    "check_names": {
+      "type": "object",
+      "required": [
+        "exact_downstream_authority_present_and_in_scope",
+        "route_semantics_and_effect_contract_exactly_bound",
+        "task_branch_head_and_tree_exact",
+        "s3_terminal_receipt_and_no_rerun_state_verified",
+        "sealed_35_row_projection_verified",
+        "predecessor_checkpoint_and_raw_version_bindings_verified",
+        "fresh_generation_runtime_act_identities_verified",
+        "fresh_precheck_activation_and_latch_verified",
+        "consumed_identity_or_latch_reuse_absent",
+        "s2_s3_g10_rerun_absent",
+        "single_writer_concurrency_group_exactly_bound",
+        "github_workflow_identity_and_run_attempt_verified",
+        "owner_decision_oa_f01_verified",
+        "precheck_and_live_session_policies_exactly_bound",
+        "live_session_policy_ascii_and_size_ceiling_verified",
+        "fresh_successor_prefixes_are_new_by_governed_lineage",
+        "finance_date_page_network_quota_bounds_unchanged",
+        "aggregate_remaining_effect_ceiling_verified",
+        "future_selector_raw_custody_then_fail_closed_policy_verified",
+        "live_pre_mutation_order_verified",
+        "focused_deterministic_tests_pass",
+        "runner_live_adapter_readiness_recorded",
+        "source_admission_not_claimed",
+        "forbidden_semantic_and_release_authorities_absent",
+        "observed_effects_complete_and_reconciled",
+        "predecessor_g11c4_terminal_failure_exactly_bound_and_no_rerun",
+        "predecessor_g11c5_terminal_control_failure_exactly_bound_and_no_rerun",
+        "three_policy_material_bindings_exactly_bound",
+        "three_oidc_sts_policy_packing_probes_succeeded",
+        "three_probe_credentials_issued_only",
+        "zero_s3_provider_quota_custody_repository_mutation"
+      ],
+      "additionalProperties": {
+        "type": "boolean"
+      },
+      "properties": {
+        "exact_downstream_authority_present_and_in_scope": {
+          "type": "boolean"
+        },
+        "route_semantics_and_effect_contract_exactly_bound": {
+          "type": "boolean"
+        },
+        "task_branch_head_and_tree_exact": {
+          "type": "boolean"
+        },
+        "s3_terminal_receipt_and_no_rerun_state_verified": {
+          "type": "boolean"
+        },
+        "sealed_35_row_projection_verified": {
+          "type": "boolean"
+        },
+        "predecessor_checkpoint_and_raw_version_bindings_verified": {
+          "type": "boolean"
+        },
+        "fresh_generation_runtime_act_identities_verified": {
+          "type": "boolean"
+        },
+        "fresh_precheck_activation_and_latch_verified": {
+          "type": "boolean"
+        },
+        "consumed_identity_or_latch_reuse_absent": {
+          "type": "boolean"
+        },
+        "s2_s3_g10_rerun_absent": {
+          "type": "boolean"
+        },
+        "single_writer_concurrency_group_exactly_bound": {
+          "type": "boolean"
+        },
+        "github_workflow_identity_and_run_attempt_verified": {
+          "type": "boolean"
+        },
+        "owner_decision_oa_f01_verified": {
+          "type": "boolean"
+        },
+        "precheck_and_live_session_policies_exactly_bound": {
+          "type": "boolean"
+        },
+        "live_session_policy_ascii_and_size_ceiling_verified": {
+          "type": "boolean"
+        },
+        "fresh_successor_prefixes_are_new_by_governed_lineage": {
+          "type": "boolean"
+        },
+        "finance_date_page_network_quota_bounds_unchanged": {
+          "type": "boolean"
+        },
+        "aggregate_remaining_effect_ceiling_verified": {
+          "type": "boolean"
+        },
+        "future_selector_raw_custody_then_fail_closed_policy_verified": {
+          "type": "boolean"
+        },
+        "live_pre_mutation_order_verified": {
+          "type": "boolean"
+        },
+        "focused_deterministic_tests_pass": {
+          "type": "boolean"
+        },
+        "runner_live_adapter_readiness_recorded": {
+          "type": "boolean"
+        },
+        "source_admission_not_claimed": {
+          "type": "boolean"
+        },
+        "forbidden_semantic_and_release_authorities_absent": {
+          "type": "boolean"
+        },
+        "observed_effects_complete_and_reconciled": {
+          "type": "boolean"
+        },
+        "predecessor_g11c4_terminal_failure_exactly_bound_and_no_rerun": {
+          "type": "boolean"
+        },
+        "three_policy_material_bindings_exactly_bound": {
+          "type": "boolean"
+        },
+        "three_oidc_sts_policy_packing_probes_succeeded": {
+          "type": "boolean"
+        },
+        "three_probe_credentials_issued_only": {
+          "type": "boolean"
+        },
+        "zero_s3_provider_quota_custody_repository_mutation": {
+          "type": "boolean"
+        },
+        "predecessor_g11c5_terminal_control_failure_exactly_bound_and_no_rerun": {
+          "type": "boolean"
+        }
+      }
+    },
+    "checks": {
+      "$ref": "#/$defs/check_names"
+    },
+    "all_checks_pass": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/check_names"
+        },
+        {
+          "properties": {
+            "exact_downstream_authority_present_and_in_scope": {
+              "const": true
+            },
+            "route_semantics_and_effect_contract_exactly_bound": {
+              "const": true
+            },
+            "task_branch_head_and_tree_exact": {
+              "const": true
+            },
+            "s3_terminal_receipt_and_no_rerun_state_verified": {
+              "const": true
+            },
+            "sealed_35_row_projection_verified": {
+              "const": true
+            },
+            "predecessor_checkpoint_and_raw_version_bindings_verified": {
+              "const": true
+            },
+            "fresh_generation_runtime_act_identities_verified": {
+              "const": true
+            },
+            "fresh_precheck_activation_and_latch_verified": {
+              "const": true
+            },
+            "consumed_identity_or_latch_reuse_absent": {
+              "const": true
+            },
+            "s2_s3_g10_rerun_absent": {
+              "const": true
+            },
+            "single_writer_concurrency_group_exactly_bound": {
+              "const": true
+            },
+            "github_workflow_identity_and_run_attempt_verified": {
+              "const": true
+            },
+            "owner_decision_oa_f01_verified": {
+              "const": true
+            },
+            "precheck_and_live_session_policies_exactly_bound": {
+              "const": true
+            },
+            "live_session_policy_ascii_and_size_ceiling_verified": {
+              "const": true
+            },
+            "fresh_successor_prefixes_are_new_by_governed_lineage": {
+              "const": true
+            },
+            "finance_date_page_network_quota_bounds_unchanged": {
+              "const": true
+            },
+            "aggregate_remaining_effect_ceiling_verified": {
+              "const": true
+            },
+            "future_selector_raw_custody_then_fail_closed_policy_verified": {
+              "const": true
+            },
+            "live_pre_mutation_order_verified": {
+              "const": true
+            },
+            "focused_deterministic_tests_pass": {
+              "const": true
+            },
+            "runner_live_adapter_readiness_recorded": {
+              "const": true
+            },
+            "source_admission_not_claimed": {
+              "const": true
+            },
+            "forbidden_semantic_and_release_authorities_absent": {
+              "const": true
+            },
+            "observed_effects_complete_and_reconciled": {
+              "const": true
+            },
+            "predecessor_g11c4_terminal_failure_exactly_bound_and_no_rerun": {
+              "const": true
+            },
+            "three_policy_material_bindings_exactly_bound": {
+              "const": true
+            },
+            "three_oidc_sts_policy_packing_probes_succeeded": {
+              "const": true
+            },
+            "three_probe_credentials_issued_only": {
+              "const": true
+            },
+            "zero_s3_provider_quota_custody_repository_mutation": {
+              "const": true
+            },
+            "predecessor_g11c5_terminal_control_failure_exactly_bound_and_no_rerun": {
+              "const": true
+            }
+          }
+        }
+      ]
+    },
+    "observed_effects": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "aws_calls",
+        "sts_calls",
+        "sts_assume_role_attempts",
+        "sts_sessions_assumed",
+        "sts_get_caller_identity_calls",
+        "credentials_issued",
+        "finance_provider_api_calls",
+        "provider_network_attempts",
+        "provider_quota_reservations",
+        "s3_calls",
+        "s3_get_calls",
+        "s3_get_object_calls",
+        "s3_get_object_version_calls",
+        "s3_list_calls",
+        "s3_list_bucket_versions_calls",
+        "s3_put_calls",
+        "s3_copy_calls",
+        "s3_delete_calls",
+        "s3_tagging_mutation_calls",
+        "remote_custody_mutations",
+        "raw_objects_written",
+        "checkpoint_writes",
+        "execution_claim_writes",
+        "terminal_receipt_s3_writes",
+        "quota_ledger_appends",
+        "raw_index_appends",
+        "company_master_mutations",
+        "universe_mutations",
+        "github_repository_mutations_by_workflow",
+        "github_actions_artifacts_uploaded",
+        "normalization_actions",
+        "pit_actions",
+        "promotion_actions",
+        "release_actions",
+        "production_actions",
+        "effects_reconciled",
+        "ambiguous_side_effects",
+        "provider_calls",
+        "quota_reservations",
+        "raw_writes",
+        "s3_put_delete_copy",
+        "repository_mutations_by_workflow",
+        "repository_writes",
+        "g10_runs",
+        "g11_live_runs"
+      ],
+      "properties": {
+        "aws_calls": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sts_calls": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sts_assume_role_attempts": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sts_sessions_assumed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sts_get_caller_identity_calls": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "credentials_issued": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "finance_provider_api_calls": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "provider_network_attempts": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "provider_quota_reservations": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "s3_calls": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "s3_get_calls": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "s3_get_object_calls": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "s3_get_object_version_calls": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "s3_list_calls": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "s3_list_bucket_versions_calls": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "s3_put_calls": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "s3_copy_calls": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "s3_delete_calls": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "s3_tagging_mutation_calls": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "remote_custody_mutations": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "raw_objects_written": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "checkpoint_writes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "execution_claim_writes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "terminal_receipt_s3_writes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "quota_ledger_appends": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "raw_index_appends": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "company_master_mutations": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "universe_mutations": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "github_repository_mutations_by_workflow": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "github_actions_artifacts_uploaded": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "normalization_actions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "pit_actions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "promotion_actions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "release_actions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "production_actions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "effects_reconciled": {
+          "type": "boolean"
+        },
+        "ambiguous_side_effects": {
+          "type": "boolean"
+        },
+        "provider_calls": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "quota_reservations": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "raw_writes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "s3_put_delete_copy": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "repository_mutations_by_workflow": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "repository_writes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "g10_runs": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "g11_live_runs": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "runner_result": {
+      "type": "object",
+      "required": [
+        "verdict",
+        "entry_gate",
+        "live_adapter_gate",
+        "workflow_conclusion",
+        "result_sha256",
+        "sts_policy_probe_count",
+        "observations",
+        "effects"
+      ],
+      "properties": {
+        "verdict": {
+          "const": "PASS"
+        },
+        "entry_gate": {
+          "const": "FOCUSED_PRECHECK_PASS"
+        },
+        "live_adapter_gate": {
+          "enum": [
+            "READY",
+            "BLOCKED_MISSING_EXECUTABLE_CUSTODY_ADAPTERS"
+          ]
+        },
+        "workflow_conclusion": {
+          "enum": [
+            "success",
+            "failure",
+            "cancelled",
+            "timed_out"
+          ]
+        },
+        "result_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "sts_policy_probe_count": {
+          "const": 3
+        },
+        "observations": {
+          "type": "object",
+          "required": [
+            "future_selector_policy",
+            "sealed_exclusion_scope",
+            "required_no_rerun_runs",
+            "live_pre_mutation_order",
+            "live_session_policy_ascii_and_size_ceiling_verified",
+            "sts_policy_probe_count_verified",
+            "sts_policy_probe_roles",
+            "oidc_sts_policy_packing_probes",
+            "sts_policy_probe_count"
+          ],
+          "properties": {
+            "future_selector_policy": {
+              "const": "RAW_CUSTODY_THEN_FAIL_CLOSED_PENDING_OWNER_DECISION"
+            },
+            "sealed_exclusion_scope": {
+              "const": [
+                36,
+                37,
+                38,
+                39,
+                40
+              ]
+            },
+            "required_no_rerun_runs": {
+              "const": [
+                33272691259,
+                33273146915,
+                33401871715,
+                33403101817,
+                33414615913,
+                33414695818,
+                33465583987,
+                33466306591,
+                33469887723,
+                33472741288,
+                33473465774,
+                33477019917,
+                33479444941
+              ]
+            },
+            "live_session_policy_ascii_and_size_ceiling_verified": {
+              "const": true
+            },
+            "sts_policy_probe_count_verified": {
+              "const": 3
+            },
+            "sts_policy_probe_roles": {
+              "const": [
+                "CHECKPOINT_READ",
+                "RAW_READ",
+                "FINAL_LIST_WRITE"
+              ]
+            },
+            "oidc_sts_policy_packing_probes": {
+              "type": "array",
+              "minItems": 3,
+              "maxItems": 3,
+              "prefixItems": [
+                {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/sts_policy_probe"
+                    },
+                    {
+                      "properties": {
+                        "probe_ordinal": {
+                          "const": 1
+                        },
+                        "role": {
+                          "const": "CHECKPOINT_READ"
+                        },
+                        "policy_role": {
+                          "const": "checkpoint_read_session_policy"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/sts_policy_probe"
+                    },
+                    {
+                      "properties": {
+                        "probe_ordinal": {
+                          "const": 2
+                        },
+                        "role": {
+                          "const": "RAW_READ"
+                        },
+                        "policy_role": {
+                          "const": "raw_four_read_session_policy"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/sts_policy_probe"
+                    },
+                    {
+                      "properties": {
+                        "probe_ordinal": {
+                          "const": 3
+                        },
+                        "role": {
+                          "const": "FINAL_LIST_WRITE"
+                        },
+                        "policy_role": {
+                          "const": "final_list_write_session_policy"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "items": false
+            },
+            "live_pre_mutation_order": {
+              "const": [
+                "RUNTIME_KST_DATE_EQUALITY_GATE",
+                "FIVE_EXACT_PREDECESSOR_GET_OBJECT_VERSION_READS",
+                "THREE_BOUNDED_LIST_BUCKET_VERSIONS_READS",
+                "RUNTIME_KST_DATE_RECHECK",
+                "EXECUTION_CLAIM_IF_NONE_MATCH_CREATE",
+                "FRESH_CHECKPOINT_QUOTA_PROVIDER"
+              ]
+            },
+            "sts_policy_probe_count": {
+              "const": 3
+            }
+          }
+        },
+        "effects": {
+          "$ref": "#/$defs/runner_effects"
+        }
+      }
+    },
+    "effect_reconciliation": {
+      "type": "object",
+      "required": [
+        "provider_calls",
+        "quota_reservations",
+        "raw_writes",
+        "s3_put_delete_copy",
+        "repository_mutations_by_workflow",
+        "remote_custody_mutations",
+        "aws_calls",
+        "sts_calls",
+        "sts_assume_role_attempts",
+        "sts_sessions_assumed",
+        "sts_get_caller_identity_calls",
+        "credentials_issued",
+        "s3_calls",
+        "all_mutation_effects_zero",
+        "effects_reconciled",
+        "ambiguous_side_effects"
+      ],
+      "properties": {
+        "provider_calls": {
+          "const": 0
+        },
+        "quota_reservations": {
+          "const": 0
+        },
+        "raw_writes": {
+          "const": 0
+        },
+        "s3_put_delete_copy": {
+          "const": 0
+        },
+        "repository_mutations_by_workflow": {
+          "const": 0
+        },
+        "remote_custody_mutations": {
+          "const": 0
+        },
+        "aws_calls": {
+          "const": 6
+        },
+        "sts_calls": {
+          "const": 6
+        },
+        "sts_assume_role_attempts": {
+          "const": 3
+        },
+        "sts_sessions_assumed": {
+          "const": 3
+        },
+        "sts_get_caller_identity_calls": {
+          "const": 3
+        },
+        "credentials_issued": {
+          "const": 3
+        },
+        "s3_calls": {
+          "const": 0
+        },
+        "all_mutation_effects_zero": {
+          "const": true
+        },
+        "effects_reconciled": {
+          "const": true
+        },
+        "ambiguous_side_effects": {
+          "const": false
+        }
+      }
+    },
+    "claim_ceiling": {
+      "type": "object",
+      "required": [
+        "source_admission_verdict",
+        "g2_pass",
+        "g3_pass",
+        "issuer_identity_resolved",
+        "normalization",
+        "pit",
+        "promotion",
+        "release",
+        "production",
+        "validation_claim",
+        "oidc_sts_policy_packing_probe_sessions",
+        "temporary_credentials_issued_for_probe_sessions",
+        "live_authorized"
+      ],
+      "properties": {
+        "source_admission_verdict": {
+          "const": "NOT_ADMITTED"
+        },
+        "g2_pass": {
+          "const": false
+        },
+        "g3_pass": {
+          "const": false
+        },
+        "issuer_identity_resolved": {
+          "const": false
+        },
+        "normalization": {
+          "const": false
+        },
+        "pit": {
+          "const": false
+        },
+        "promotion": {
+          "const": false
+        },
+        "release": {
+          "const": false
+        },
+        "production": {
+          "const": false
+        },
+        "validation_claim": {
+          "enum": [
+            "FOCUSED_G11C6_PRECHECK_POLICY_PACKING_PROBES_ONLY",
+            "NONE"
+          ]
+        },
+        "oidc_sts_policy_packing_probe_sessions": {
+          "enum": [
+            0,
+            3
+          ]
+        },
+        "temporary_credentials_issued_for_probe_sessions": {
+          "enum": [
+            0,
+            3
+          ]
+        },
+        "live_authorized": {
+          "const": false
+        }
+      }
+    },
+    "no_rerun": {
+      "type": "object",
+      "required": [
+        "consumed_g10_precheck_run",
+        "consumed_g10_live_run",
+        "consumed_s2_precheck_run",
+        "consumed_s2_live_run",
+        "consumed_s3_precheck_run",
+        "consumed_s3_apply_run",
+        "consumed_g11_precheck_run",
+        "consumed_g11_live_run",
+        "consumed_g11c2_precheck_run",
+        "consumed_g11_generation_id",
+        "consumed_g11_runtime_lock_id",
+        "consumed_g11_pilot_run_id",
+        "consumed_g11_precheck_act_id",
+        "consumed_g11_live_act_id",
+        "consumed_g11_latch_event_id",
+        "consumed_generation_ids",
+        "consumed_runtime_lock_ids",
+        "consumed_pilot_run_ids",
+        "consumed_preparation_ids",
+        "consumed_precheck_act_ids",
+        "consumed_live_act_ids",
+        "consumed_latch_event_ids",
+        "current_run_retry_authorized",
+        "same_activation_reuse_authorized",
+        "same_latch_reuse_authorized",
+        "consumed_g11c3_precheck_run",
+        "consumed_g11c3_live_run",
+        "consumed_g11c4_precheck_run",
+        "consumed_g11c5_precheck_run"
+      ],
+      "properties": {
+        "consumed_g10_precheck_run": {
+          "const": "33272691259"
+        },
+        "consumed_g10_live_run": {
+          "const": "33273146915"
+        },
+        "consumed_s2_precheck_run": {
+          "const": "33401871715"
+        },
+        "consumed_s2_live_run": {
+          "const": "33403101817"
+        },
+        "consumed_s3_precheck_run": {
+          "const": "33414615913"
+        },
+        "consumed_s3_apply_run": {
+          "const": "33414695818"
+        },
+        "consumed_g11_precheck_run": {
+          "const": "33465583987"
+        },
+        "consumed_g11_live_run": {
+          "const": "33466306591"
+        },
+        "consumed_g11c2_precheck_run": {
+          "const": "33469887723"
+        },
+        "consumed_g11_generation_id": {
+          "const": "FINANCE-PAGE100-G11-20260901110618"
+        },
+        "consumed_g11_runtime_lock_id": {
+          "const": "PMO-FINANCE-PAGE100-G11-20260901110618"
+        },
+        "consumed_g11_pilot_run_id": {
+          "const": "FINANCE-PAGE100-PILOT-G11-20260901110618"
+        },
+        "consumed_g11_precheck_act_id": {
+          "const": "FINANCE-PAGE100-PRECHECK-ACT-G11-20260901110618"
+        },
+        "consumed_g11_live_act_id": {
+          "const": "FINANCE-PAGE100-LIVE-ACT-G11-20260901110618"
+        },
+        "consumed_g11_latch_event_id": {
+          "const": "FINANCE-PAGE100-LATCH-G11-20260901110618"
+        },
+        "consumed_generation_ids": {
+          "const": [
+            "FINANCE-PAGE100-G11-20260901110618",
+            "FINANCE-PAGE100-G11C1-20260901123521",
+            "FINANCE-PAGE100-G11C2-20260901130250",
+            "FINANCE-PAGE100-G11C3-20260901134119",
+            "FINANCE-PAGE100-G11C4-20260901143300",
+            "FINANCE-PAGE100-G11C5-20260901152200"
+          ]
+        },
+        "consumed_runtime_lock_ids": {
+          "const": [
+            "PMO-FINANCE-PAGE100-G11-20260901110618",
+            "PMO-FINANCE-PAGE100-G11C1-20260901123521",
+            "PMO-FINANCE-PAGE100-G11C2-20260901130250",
+            "PMO-FINANCE-PAGE100-G11C3-20260901134119",
+            "PMO-FINANCE-PAGE100-G11C4-20260901143300",
+            "PMO-FINANCE-PAGE100-G11C5-20260901152200"
+          ]
+        },
+        "consumed_pilot_run_ids": {
+          "const": [
+            "FINANCE-PAGE100-PILOT-G11-20260901110618",
+            "FINANCE-PAGE100-PILOT-G11C1-20260901123521",
+            "FINANCE-PAGE100-PILOT-G11C2-20260901130250",
+            "FINANCE-PAGE100-PILOT-G11C3-20260901134119",
+            "FINANCE-PAGE100-PILOT-G11C4-20260901143300",
+            "FINANCE-PAGE100-PILOT-G11C5-20260901152200"
+          ]
+        },
+        "consumed_preparation_ids": {
+          "const": [
+            "FINANCE-PAGE100-G11C1-PREPARATION-20260901123521",
+            "FINANCE-PAGE100-G11C2-PREPARATION-20260901130250",
+            "FINANCE-PAGE100-G11C3-PREPARATION-20260901134119",
+            "FINANCE-PAGE100-G11C4-PREPARATION-20260901143300",
+            "FINANCE-PAGE100-G11C5-PREPARATION-20260901152200"
+          ]
+        },
+        "consumed_precheck_act_ids": {
+          "const": [
+            "FINANCE-PAGE100-PRECHECK-ACT-G11-20260901110618",
+            "FINANCE-PAGE100-PRECHECK-ACT-G11C1-20260901123521",
+            "FINANCE-PAGE100-PRECHECK-ACT-G11C2-20260901130250",
+            "FINANCE-PAGE100-PRECHECK-ACT-G11C3-20260901134119",
+            "FINANCE-PAGE100-PRECHECK-ACT-G11C4-20260901143300",
+            "FINANCE-PAGE100-PRECHECK-ACT-G11C5-20260901152200"
+          ]
+        },
+        "consumed_live_act_ids": {
+          "const": [
+            "FINANCE-PAGE100-LIVE-ACT-G11-20260901110618",
+            "FINANCE-PAGE100-LIVE-ACT-G11C1-20260901123521",
+            "FINANCE-PAGE100-LIVE-ACT-G11C2-20260901130250",
+            "FINANCE-PAGE100-LIVE-ACT-G11C3-20260901134119",
+            "FINANCE-PAGE100-LIVE-ACT-G11C4-20260901143300",
+            "FINANCE-PAGE100-LIVE-ACT-G11C5-20260901152200"
+          ]
+        },
+        "consumed_latch_event_ids": {
+          "const": [
+            "FINANCE-PAGE100-LATCH-G11-20260901110618",
+            "FINANCE-PAGE100-LATCH-G11C1-20260901123521",
+            "FINANCE-PAGE100-LATCH-G11C2-20260901130250",
+            "FINANCE-PAGE100-LATCH-G11C3-20260901134119",
+            "FINANCE-PAGE100-LATCH-G11C4-20260901143300",
+            "FINANCE-PAGE100-LATCH-G11C5-20260901152200"
+          ]
+        },
+        "current_run_retry_authorized": {
+          "const": false
+        },
+        "same_activation_reuse_authorized": {
+          "const": false
+        },
+        "same_latch_reuse_authorized": {
+          "const": false
+        },
+        "consumed_g11c3_precheck_run": {
+          "const": "33472741288"
+        },
+        "consumed_g11c3_live_run": {
+          "const": "33473465774"
+        },
+        "consumed_g11c4_precheck_run": {
+          "const": "33477019917"
+        },
+        "consumed_g11c5_precheck_run": {
+          "const": "33479444941"
+        }
+      }
+    },
+    "live_adapter_gate": {
+      "type": "object",
+      "required": [
+        "runner_reported_readiness",
+        "state",
+        "precheck_pass_is_necessary_not_sufficient",
+        "precheck_receipt_alone_authorizes_live",
+        "live_activation_observed",
+        "live_provider_adapter_enabled",
+        "live_s3_write_adapter_enabled",
+        "required_live_act_id",
+        "required_latch_event_id"
+      ],
+      "properties": {
+        "runner_reported_readiness": {
+          "enum": [
+            "READY",
+            "BLOCKED_MISSING_EXECUTABLE_CUSTODY_ADAPTERS"
+          ]
+        },
+        "state": {
+          "enum": [
+            "CLOSED_AWAITING_SEPARATE_FRESH_LIVE_ACTIVATION",
+            "CLOSED_ADAPTER_NOT_EXECUTABLE",
+            "CLOSED_PRECHECK_FAILED"
+          ]
+        },
+        "precheck_pass_is_necessary_not_sufficient": {
+          "const": true
+        },
+        "precheck_receipt_alone_authorizes_live": {
+          "const": false
+        },
+        "live_activation_observed": {
+          "const": false
+        },
+        "live_provider_adapter_enabled": {
+          "const": false
+        },
+        "live_s3_write_adapter_enabled": {
+          "const": false
+        },
+        "required_live_act_id": {
+          "const": "FINANCE-PAGE100-LIVE-ACT-G11C6-20260901155700"
+        },
+        "required_latch_event_id": {
+          "const": "FINANCE-PAGE100-LATCH-G11C6-20260901155700"
+        }
+      }
+    },
+    "terminal": {
+      "type": "object",
+      "required": [
+        "result",
+        "terminal_state",
+        "precheck_complete",
+        "failed_invariants",
+        "live_authorized",
+        "live_execution_started",
+        "separate_live_authority_required",
+        "separate_live_activation_and_latch_required",
+        "live_entry_disposition",
+        "rerun_authorized"
+      ],
+      "properties": {
+        "result": {
+          "enum": [
+            "PASS",
+            "FAIL_CLOSED"
+          ]
+        },
+        "terminal_state": {
+          "enum": [
+            "TERMINAL_PASS_FOCUSED_G11C6_PRECHECK_EXACT_3_OIDC_STS_POLICY_PACKING_PROBES_SUCCESS_ZERO_DOWNSTREAM_MUTATION_LIVE_NOT_AUTHORIZED",
+            "TERMINAL_FAIL_CLOSED_FOCUSED_G11C6_PRECHECK_LIVE_NOT_AUTHORIZED"
+          ]
+        },
+        "precheck_complete": {
+          "const": true
+        },
+        "failed_invariants": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "live_authorized": {
+          "const": false
+        },
+        "live_execution_started": {
+          "const": false
+        },
+        "separate_live_authority_required": {
+          "const": true
+        },
+        "separate_live_activation_and_latch_required": {
+          "const": true
+        },
+        "live_entry_disposition": {
+          "enum": [
+            "ELIGIBLE_FOR_SEPARATE_LIVE_ACTIVATION_EVALUATION",
+            "NOT_ELIGIBLE_FOR_LIVE"
+          ]
+        },
+        "rerun_authorized": {
+          "const": false
+        }
+      }
+    },
+    "predecessor_terminal_g11c4_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "generation_id",
+        "runtime_lock_id",
+        "pilot_run_id",
+        "preparation_id",
+        "precheck_act_id",
+        "live_act_id",
+        "latch_event_id",
+        "terminal_receipt_append_commit",
+        "terminal_receipt_append_tree",
+        "terminal_receipt_path",
+        "terminal_receipt_git_blob",
+        "terminal_receipt_sha256",
+        "terminal_receipt_payload_sha256",
+        "terminal_receipt_bytes",
+        "execution_head_sha",
+        "execution_tree_sha",
+        "precheck_run_id",
+        "precheck_job_id",
+        "run_attempt",
+        "result",
+        "terminal_state",
+        "entry_gate",
+        "oidc_token_requests",
+        "aws_calls",
+        "sts_calls",
+        "sts_assume_role_attempts",
+        "sts_assume_role_successes",
+        "sts_sessions_assumed",
+        "sts_get_caller_identity_calls",
+        "credentials_issued",
+        "probe_2_started",
+        "probe_3_started",
+        "runner_started",
+        "s3_calls",
+        "provider_calls",
+        "quota_reservations",
+        "remote_custody_mutations",
+        "repository_mutations_by_workflow",
+        "all_downstream_effects_zero",
+        "live_execution_started",
+        "same_run_retry_authorized",
+        "reuse_authorized"
+      ],
+      "properties": {
+        "generation_id": {
+          "const": "FINANCE-PAGE100-G11C4-20260901143300"
+        },
+        "runtime_lock_id": {
+          "const": "PMO-FINANCE-PAGE100-G11C4-20260901143300"
+        },
+        "pilot_run_id": {
+          "const": "FINANCE-PAGE100-PILOT-G11C4-20260901143300"
+        },
+        "preparation_id": {
+          "const": "FINANCE-PAGE100-G11C4-PREPARATION-20260901143300"
+        },
+        "precheck_act_id": {
+          "const": "FINANCE-PAGE100-PRECHECK-ACT-G11C4-20260901143300"
+        },
+        "live_act_id": {
+          "const": "FINANCE-PAGE100-LIVE-ACT-G11C4-20260901143300"
+        },
+        "latch_event_id": {
+          "const": "FINANCE-PAGE100-LATCH-G11C4-20260901143300"
+        },
+        "terminal_receipt_append_commit": {
+          "const": "6e4660cfbb1730dcaeaa2908c9e1a38de012a920"
+        },
+        "terminal_receipt_append_tree": {
+          "const": "3e4a53a6df8ac7fa4f500c51a951ae9c900476d8"
+        },
+        "terminal_receipt_path": {
+          "const": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C4_ELIGIBLE_SUCCESSOR_PRECHECK_TERMINAL_RECEIPT_33477019917_v1.0.json"
+        },
+        "terminal_receipt_git_blob": {
+          "const": "7839bde0f67cea9762dd30d2c063add07b36aca9"
+        },
+        "terminal_receipt_sha256": {
+          "const": "427fd336552939115a7e4a4ada49dedf74b0dbc5340bc691d1e9c457fcb301ab"
+        },
+        "terminal_receipt_payload_sha256": {
+          "const": "88d6816dbb9ca4f2f1ae91aa82c32bcbcdd5ed119420ff2aa5819a7cb3d847eb"
+        },
+        "terminal_receipt_bytes": {
+          "const": 25645
+        },
+        "execution_head_sha": {
+          "const": "4015867bedf55784584f901bc3afb5e0ca62dc95"
+        },
+        "execution_tree_sha": {
+          "const": "9df8503c01a90ed45d76346f43507cd20fee9365"
+        },
+        "precheck_run_id": {
+          "const": 33477019917
+        },
+        "precheck_job_id": {
+          "const": 99758300336
+        },
+        "run_attempt": {
+          "const": 1
+        },
+        "result": {
+          "const": "FAIL_CLOSED"
+        },
+        "terminal_state": {
+          "const": "TERMINAL_FAIL_CLOSED_FOCUSED_G11C4_PRECHECK_PROBE_1_CHECKPOINT_READ_STS_ASSUME_ROLE_WITH_WEB_IDENTITY_NOT_AUTHORIZED_ONE_STS_ATTEMPT_ZERO_CREDENTIALS_ZERO_DOWNSTREAM_EFFECT_NO_RERUN_LIVE_CLOSED"
+        },
+        "entry_gate": {
+          "const": "FAIL_CLOSED_PRECHECK_PROBE_1_STS_AUTHORIZATION_FAILURE"
+        },
+        "oidc_token_requests": {
+          "const": 1
+        },
+        "aws_calls": {
+          "const": 1
+        },
+        "sts_calls": {
+          "const": 1
+        },
+        "sts_assume_role_attempts": {
+          "const": 1
+        },
+        "sts_assume_role_successes": {
+          "const": 0
+        },
+        "sts_sessions_assumed": {
+          "const": 0
+        },
+        "sts_get_caller_identity_calls": {
+          "const": 0
+        },
+        "credentials_issued": {
+          "const": 0
+        },
+        "probe_2_started": {
+          "const": false
+        },
+        "probe_3_started": {
+          "const": false
+        },
+        "runner_started": {
+          "const": false
+        },
+        "s3_calls": {
+          "const": 0
+        },
+        "provider_calls": {
+          "const": 0
+        },
+        "quota_reservations": {
+          "const": 0
+        },
+        "remote_custody_mutations": {
+          "const": 0
+        },
+        "repository_mutations_by_workflow": {
+          "const": 0
+        },
+        "all_downstream_effects_zero": {
+          "const": true
+        },
+        "live_execution_started": {
+          "const": false
+        },
+        "same_run_retry_authorized": {
+          "const": false
+        },
+        "reuse_authorized": {
+          "const": false
+        }
+      }
+    },
+    "policy_material_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "probe_ordinal",
+        "role",
+        "path",
+        "git_blob",
+        "sha256",
+        "bytes"
+      ],
+      "properties": {
+        "probe_ordinal": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        },
+        "role": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "git_blob": {
+          "$ref": "#/$defs/git_sha"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "policy_material_bindings": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "uniqueItems": true,
+      "prefixItems": [
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/policy_material_binding"
+            },
+            {
+              "properties": {
+                "probe_ordinal": {
+                  "const": 1
+                },
+                "role": {
+                  "const": "checkpoint_read_session_policy"
+                },
+                "path": {
+                  "const": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C6_CHECKPOINT_READ_SESSION_POLICY_v1.0.json"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/policy_material_binding"
+            },
+            {
+              "properties": {
+                "probe_ordinal": {
+                  "const": 2
+                },
+                "role": {
+                  "const": "raw_four_read_session_policy"
+                },
+                "path": {
+                  "const": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C6_RAW_FOUR_READ_SESSION_POLICY_v1.0.json"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/policy_material_binding"
+            },
+            {
+              "properties": {
+                "probe_ordinal": {
+                  "const": 3
+                },
+                "role": {
+                  "const": "final_list_write_session_policy"
+                },
+                "path": {
+                  "const": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C6_FINAL_LIST_WRITE_SESSION_POLICY_v1.0.json"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "items": false
+    },
+    "exact_precheck_effects": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/observed_effects"
+        },
+        {
+          "properties": {
+            "aws_calls": {
+              "const": 6
+            },
+            "sts_calls": {
+              "const": 6
+            },
+            "sts_assume_role_attempts": {
+              "const": 3
+            },
+            "sts_sessions_assumed": {
+              "const": 3
+            },
+            "sts_get_caller_identity_calls": {
+              "const": 3
+            },
+            "credentials_issued": {
+              "const": 3
+            },
+            "finance_provider_api_calls": {
+              "const": 0
+            },
+            "provider_network_attempts": {
+              "const": 0
+            },
+            "provider_quota_reservations": {
+              "const": 0
+            },
+            "s3_calls": {
+              "const": 0
+            },
+            "s3_get_calls": {
+              "const": 0
+            },
+            "s3_get_object_calls": {
+              "const": 0
+            },
+            "s3_get_object_version_calls": {
+              "const": 0
+            },
+            "s3_list_calls": {
+              "const": 0
+            },
+            "s3_list_bucket_versions_calls": {
+              "const": 0
+            },
+            "s3_put_calls": {
+              "const": 0
+            },
+            "s3_copy_calls": {
+              "const": 0
+            },
+            "s3_delete_calls": {
+              "const": 0
+            },
+            "s3_tagging_mutation_calls": {
+              "const": 0
+            },
+            "remote_custody_mutations": {
+              "const": 0
+            },
+            "raw_objects_written": {
+              "const": 0
+            },
+            "checkpoint_writes": {
+              "const": 0
+            },
+            "execution_claim_writes": {
+              "const": 0
+            },
+            "terminal_receipt_s3_writes": {
+              "const": 0
+            },
+            "quota_ledger_appends": {
+              "const": 0
+            },
+            "raw_index_appends": {
+              "const": 0
+            },
+            "company_master_mutations": {
+              "const": 0
+            },
+            "universe_mutations": {
+              "const": 0
+            },
+            "github_repository_mutations_by_workflow": {
+              "const": 0
+            },
+            "github_actions_artifacts_uploaded": {
+              "const": 0
+            },
+            "normalization_actions": {
+              "const": 0
+            },
+            "pit_actions": {
+              "const": 0
+            },
+            "promotion_actions": {
+              "const": 0
+            },
+            "release_actions": {
+              "const": 0
+            },
+            "production_actions": {
+              "const": 0
+            },
+            "effects_reconciled": {
+              "const": true
+            },
+            "ambiguous_side_effects": {
+              "const": false
+            },
+            "provider_calls": {
+              "const": 0
+            },
+            "quota_reservations": {
+              "const": 0
+            },
+            "raw_writes": {
+              "const": 0
+            },
+            "s3_put_delete_copy": {
+              "const": 0
+            },
+            "repository_mutations_by_workflow": {
+              "const": 0
+            },
+            "repository_writes": {
+              "const": 0
+            },
+            "g10_runs": {
+              "const": 0
+            },
+            "g11_live_runs": {
+              "const": 0
+            }
+          }
+        }
+      ]
+    },
+    "sts_policy_probe": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "probe_ordinal",
+        "role",
+        "policy_role",
+        "outcome",
+        "sts_attempts",
+        "sts_successes",
+        "credentials_issued"
+      ],
+      "properties": {
+        "probe_ordinal": {
+          "type": "integer"
+        },
+        "role": {
+          "type": "string"
+        },
+        "policy_role": {
+          "type": "string"
+        },
+        "outcome": {
+          "const": "SUCCESS"
+        },
+        "sts_attempts": {
+          "const": 1
+        },
+        "sts_successes": {
+          "const": 1
+        },
+        "credentials_issued": {
+          "const": 1
+        }
+      }
+    },
+    "claims": {
+      "type": "object",
+      "required": [
+        "source_admission_pass",
+        "issuer_identity_resolved",
+        "normalization_authorized",
+        "pit_authorized",
+        "promotion_authorized",
+        "release_authorized",
+        "production_authorized",
+        "model_semantic_change_authorized",
+        "evidence_meaning_change_authorized",
+        "validation_floor_reduction_authorized",
+        "live_authorized_by_precheck"
+      ],
+      "properties": {
+        "source_admission_pass": {
+          "const": false
+        },
+        "issuer_identity_resolved": {
+          "const": false
+        },
+        "normalization_authorized": {
+          "const": false
+        },
+        "pit_authorized": {
+          "const": false
+        },
+        "promotion_authorized": {
+          "const": false
+        },
+        "release_authorized": {
+          "const": false
+        },
+        "production_authorized": {
+          "const": false
+        },
+        "model_semantic_change_authorized": {
+          "const": false
+        },
+        "evidence_meaning_change_authorized": {
+          "const": false
+        },
+        "validation_floor_reduction_authorized": {
+          "const": false
+        },
+        "live_authorized_by_precheck": {
+          "const": false
+        }
+      }
+    },
+    "runner_effects": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider_calls",
+        "quota_reservations",
+        "aws_calls",
+        "s3_calls",
+        "repository_writes",
+        "remote_custody_mutations",
+        "g10_runs",
+        "g11_live_runs",
+        "normalization_actions",
+        "pit_actions",
+        "promotion_actions",
+        "release_actions",
+        "production_actions",
+        "sts_calls",
+        "sts_assume_role_attempts",
+        "sts_sessions_assumed",
+        "sts_get_caller_identity_calls",
+        "credentials_issued"
+      ],
+      "properties": {
+        "provider_calls": {
+          "const": 0
+        },
+        "quota_reservations": {
+          "const": 0
+        },
+        "aws_calls": {
+          "const": 6
+        },
+        "s3_calls": {
+          "const": 0
+        },
+        "repository_writes": {
+          "const": 0
+        },
+        "remote_custody_mutations": {
+          "const": 0
+        },
+        "g10_runs": {
+          "const": 0
+        },
+        "g11_live_runs": {
+          "const": 0
+        },
+        "normalization_actions": {
+          "const": 0
+        },
+        "pit_actions": {
+          "const": 0
+        },
+        "promotion_actions": {
+          "const": 0
+        },
+        "release_actions": {
+          "const": 0
+        },
+        "production_actions": {
+          "const": 0
+        },
+        "sts_calls": {
+          "const": 6
+        },
+        "sts_assume_role_attempts": {
+          "const": 3
+        },
+        "sts_sessions_assumed": {
+          "const": 3
+        },
+        "sts_get_caller_identity_calls": {
+          "const": 3
+        },
+        "credentials_issued": {
+          "const": 3
+        }
+      }
+    },
+    "read_only_observations": {
+      "type": "object",
+      "required": [
+        "github_read_calls",
+        "aws_read_calls",
+        "s3_read_calls"
+      ],
+      "properties": {
+        "github_read_calls": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "aws_read_calls": {
+          "const": 3
+        },
+        "s3_read_calls": {
+          "const": 0
+        }
+      }
+    },
+    "predecessor_terminal_g11c5_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "generation_id",
+        "runtime_lock_id",
+        "pilot_run_id",
+        "preparation_id",
+        "precheck_act_id",
+        "live_act_id",
+        "latch_event_id",
+        "preparation_commit",
+        "preparation_tree",
+        "precheck_activation_commit",
+        "precheck_activation_tree",
+        "terminal_receipt_append_commit",
+        "terminal_receipt_append_tree",
+        "terminal_receipt_path",
+        "terminal_receipt_git_blob",
+        "terminal_receipt_sha256",
+        "terminal_receipt_payload_sha256",
+        "terminal_receipt_bytes",
+        "execution_head_sha",
+        "execution_tree_sha",
+        "precheck_run_id",
+        "precheck_job_id",
+        "run_attempt",
+        "precheck_execution_result",
+        "result",
+        "terminal_state",
+        "terminal_receipt_contract_valid",
+        "defect",
+        "oidc_token_requests",
+        "aws_calls",
+        "sts_calls",
+        "sts_assume_role_attempts",
+        "sts_sessions_assumed",
+        "sts_get_caller_identity_calls",
+        "credentials_issued",
+        "s3_calls",
+        "provider_calls",
+        "quota_reservations",
+        "remote_custody_mutations",
+        "repository_mutations_by_workflow",
+        "effects_reconciled",
+        "ambiguous_side_effects",
+        "all_downstream_effects_zero",
+        "live_execution_started",
+        "same_run_retry_authorized",
+        "reuse_authorized"
+      ],
+      "properties": {
+        "generation_id": {
+          "const": "FINANCE-PAGE100-G11C5-20260901152200"
+        },
+        "runtime_lock_id": {
+          "const": "PMO-FINANCE-PAGE100-G11C5-20260901152200"
+        },
+        "pilot_run_id": {
+          "const": "FINANCE-PAGE100-PILOT-G11C5-20260901152200"
+        },
+        "preparation_id": {
+          "const": "FINANCE-PAGE100-G11C5-PREPARATION-20260901152200"
+        },
+        "precheck_act_id": {
+          "const": "FINANCE-PAGE100-PRECHECK-ACT-G11C5-20260901152200"
+        },
+        "live_act_id": {
+          "const": "FINANCE-PAGE100-LIVE-ACT-G11C5-20260901152200"
+        },
+        "latch_event_id": {
+          "const": "FINANCE-PAGE100-LATCH-G11C5-20260901152200"
+        },
+        "preparation_commit": {
+          "const": "b73db818d27c80e4ef1b4c5c7b0506691be33920"
+        },
+        "preparation_tree": {
+          "const": "ffab50ec73ab0f29674d82f2d72110a8923a766f"
+        },
+        "precheck_activation_commit": {
+          "const": "1ecfc11dfd7adb9f4de878330ff4e2b5ab786ffe"
+        },
+        "precheck_activation_tree": {
+          "const": "53d13cccc42aae8f4b21adebee3ed71190ba1954"
+        },
+        "terminal_receipt_append_commit": {
+          "const": "d0061e9005a74817563588990064af4260ab2bd9"
+        },
+        "terminal_receipt_append_tree": {
+          "const": "7ba82af78770b8fdcfb914ab080bd280f017918f"
+        },
+        "terminal_receipt_path": {
+          "const": "control/m3top3/public-data-source-admission/v1.0/M3TOP3_FINANCE_CA_PAGE100_G11C5_ELIGIBLE_SUCCESSOR_PRECHECK_TERMINAL_RECEIPT_33479444941_v1.0.json"
+        },
+        "terminal_receipt_git_blob": {
+          "const": "a3d29884a44ca4dac88b9d47bf2447fe24aa0b08"
+        },
+        "terminal_receipt_sha256": {
+          "const": "c518d4ac79b6e7735eae9fe3a799ae7ea29dd4c357508ddd4c85e2d09711b30e"
+        },
+        "terminal_receipt_payload_sha256": {
+          "const": "332d15f75b2f7843046f0eb5d8983fdb3791cef3fa6155803828e1d74008049f"
+        },
+        "terminal_receipt_bytes": {
+          "const": 50220
+        },
+        "execution_head_sha": {
+          "const": "1ecfc11dfd7adb9f4de878330ff4e2b5ab786ffe"
+        },
+        "execution_tree_sha": {
+          "const": "53d13cccc42aae8f4b21adebee3ed71190ba1954"
+        },
+        "precheck_run_id": {
+          "const": 33479444941
+        },
+        "precheck_job_id": {
+          "const": 99765558713
+        },
+        "run_attempt": {
+          "const": 1
+        },
+        "precheck_execution_result": {
+          "const": "PASS"
+        },
+        "result": {
+          "const": "FAIL_CLOSED"
+        },
+        "terminal_state": {
+          "const": "TERMINAL_FAIL_CLOSED_G11C5_PRECHECK_EXECUTION_PASS_RECEIPT_SCHEMA_GENERATOR_NO_RERUN_CONTRACT_MISMATCH_C4_RUN_33477019917_OMITTED_BY_FROZEN_SCHEMA_LIVE_CLOSED_CURRENT_GENERATION_NO_RERUN"
+        },
+        "terminal_receipt_contract_valid": {
+          "const": false
+        },
+        "defect": {
+          "const": "FROZEN_SCHEMA_REQUIRED_NO_RERUN_CONST_OMITS_CONSUMED_G11C4_PRECHECK_RUN_33477019917"
+        },
+        "oidc_token_requests": {
+          "const": 3
+        },
+        "aws_calls": {
+          "const": 6
+        },
+        "sts_calls": {
+          "const": 6
+        },
+        "sts_assume_role_attempts": {
+          "const": 3
+        },
+        "sts_sessions_assumed": {
+          "const": 3
+        },
+        "sts_get_caller_identity_calls": {
+          "const": 3
+        },
+        "credentials_issued": {
+          "const": 3
+        },
+        "s3_calls": {
+          "const": 0
+        },
+        "provider_calls": {
+          "const": 0
+        },
+        "quota_reservations": {
+          "const": 0
+        },
+        "remote_custody_mutations": {
+          "const": 0
+        },
+        "repository_mutations_by_workflow": {
+          "const": 0
+        },
+        "effects_reconciled": {
+          "const": true
+        },
+        "ambiguous_side_effects": {
+          "const": false
+        },
+        "all_downstream_effects_zero": {
+          "const": true
+        },
+        "live_execution_started": {
+          "const": false
+        },
+        "same_run_retry_authorized": {
+          "const": false
+        },
+        "reuse_authorized": {
+          "const": false
+        }
+      }
+    }
+  }
+}
