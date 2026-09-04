@@ -22,6 +22,18 @@
 
 This document freezes a minimum, isolated development workbench design. It does not freeze or replace a model definition, scorer, feature set, PIT rule, universe rule, ranking policy, or production set policy. It does not transfer any validation status from an existing artifact.
 
+### 0.1 C1 correction note — 2026-09-05
+
+This C1 revision is a bounded author correction from exact base `96db4afb5686175ad61eea127d6965102653bffc`. Its implementation and regression checks remain `AUTHORING_CANDIDATE / NOT_VALIDATED / NOT_ACTIVE`; they do not rewrite, supersede, or inherit any earlier validator result. MODV, ENGV, PMOV, and independent validation remain off during author correction.
+
+| Finding ID | C1 correction binding | Author regression evidence |
+|---|---|---|
+| `MODV-FP-001` | `TailRankingStage.rank` and `OpportunityTailRanker.rank` accept recalled candidates only; the `VERIFIED` rankability rule is Opportunity-owned and no `SetPolicy` object reaches the ranker | `test_27_public_ranker_owns_verified_rule_and_rejects_old_policy_arg` |
+| `MODV-FP-002` | Snapshot and validate the replaceable set-stage result against canonical ranked identities, ranks, selected/decision projections, slot coverage, and dispositions before any trace or successful output is built | `test_28_malicious_set_stage_outputs_fail_closed_before_projection` |
+| `MODV-FP-003` | The repository `PITGuard` always runs; a supplied guard is an additive extension and cannot replace the canonical guard | `test_29_canonical_pit_guard_cannot_be_replaced_by_noop_extension` |
+| `ENGV-MWB-01` | Decimal ordering uses a stable identity pre-sort followed by direct exact-Decimal reverse ordering; tie-key sign text is transformed without Decimal arithmetic and canonical zero remains `0` | `test_31_decimal_context_cannot_change_order_ties_or_digest` |
+| `ENGV-MWB-02` | Accepted nested `Mapping`/list containers are recursively copied to plain dict/list containers before both canonical and extension PIT traversal and before parsing | `test_29_canonical_pit_guard_cannot_be_replaced_by_noop_extension`; `test_30_mapping_implementations_are_deep_normalized_for_pit_guard` |
+
 ## 1. Decision and claim ceiling
 
 The candidate is an **interface and mechanical-behavior scaffold** for asking whether a future model can be built without entangling candidate discovery, opportunity ordering, uncertainty, risk, eligibility, and portfolio/set policy. It is deliberately nonresponsive to outcomes: no W1-W8 result, return, MFE, MAE, winner, realized rank, future price, Golden Replay, or Full Replay input may be read or represented.
@@ -59,7 +71,7 @@ flowchart TD
 The stages have one-way, typed interfaces:
 
 1. **Candidate Recall** receives the explicitly supplied development candidate list and emits one recall trace per input row. The v0.1 reference recall adapter is identity-preserving; it performs no search, retrieval, universe inference, or candidate pruning.
-2. **Tail Ranking** orders recalled rows using only the `Opportunity` input declared for the synthetic fixture. It emits a raw rank that does not consult `Confidence`, `Risk`, `Eligibility`, or `Set Policy`.
+2. **Tail Ranking** exposes `rank(recalled)` and orders recalled rows using only the `Opportunity` input declared for the synthetic fixture. It emits a raw rank that does not receive or consult `Confidence`, `Risk`, `Eligibility`, or `Set Policy`.
 3. **Confidence / Risk Assessment** preserves two distinct assessments after raw ranking. Neither assessment may rewrite the raw score or raw rank.
 4. **Set Construction** consumes the immutable raw order, separate assessments, explicit eligibility state, and one predeclared set policy. It emits selected positions plus a complete decision/substitution log. It may not back-propagate a decision into raw ranking.
 
@@ -102,6 +114,8 @@ allowed_risk_states = [VERIFIED]
 opportunity_state_required_for_raw_rank = VERIFIED
 ```
 
+`opportunity_state_required_for_raw_rank` is retained in the v0.1 envelope and `SetPolicy` dataclass solely as a frozen configuration-compatibility assertion. The positive input contract still rejects any value other than `VERIFIED`, but the field is not a runtime argument or input to the tail-ranker interface. Rankability is owned by the Opportunity contract itself.
+
 No confidence-score threshold, risk-score threshold, sector quota, diversity quota, turnover rule, or hidden fallback exists in v0.1. Adding one is a new workbench semantic candidate and requires a new exact target.
 
 ### 4.2 Candidate row
@@ -125,7 +139,7 @@ The existing `PITGuard` is a necessary denylist/cutoff control, not a complete p
 - `eligibility` keys: exactly `state` and `reason_codes`;
 - axis keys: exactly `evidence_state`, `value`, `publication_at`, `evidence_refs`, and optional `reason_codes`.
 
-Unknown keys on the envelope, policy, provenance, candidate, eligibility, or axis surfaces fail closed. `metadata` alone may contain arbitrary JSON keys because it is explicitly nonsemantic; it is still recursively outcome/PIT-guarded and cannot enter any rank, selection, ID, or configuration digest except the full input-provenance digest.
+Unknown keys on the envelope, policy, provenance, candidate, eligibility, or axis surfaces fail closed. `metadata` alone may contain arbitrary JSON keys because it is explicitly nonsemantic; it is still recursively outcome/PIT-guarded and cannot enter any rank, selection, ID, or configuration digest except the full input-provenance digest. Every accepted `Mapping` and list, including nested metadata containers such as `UserDict` or read-only mapping proxies, is deep-copied to plain dict/list containers at the boundary. The same plain-container snapshot is inspected by the PIT guards and used for normalization/parsing, so an opaque mapping implementation cannot create a checked-input/processed-input mismatch.
 
 ### 4.3 Axis state/value validity
 
@@ -159,6 +173,8 @@ Every candidate trace includes all five separate surfaces, recall disposition, r
 
 On an invalid envelope, the engine raises one deterministic contract exception carrying sorted violations with JSON paths. It emits no partial success and does not drop the invalid row. The caller may serialize the exception separately, but may not represent it as a successful workbench result.
 
+Immediately after the replaceable set stage returns, the engine deep-snapshots its result and validates it before constructing raw-output mappings, candidate traces, accounting, IDs, or digests. Selected identity fields, `raw_rank`, and `raw_score` must exactly match the canonical ranking; selection identities and positions must be unique; candidate decisions must scan a canonical-rank prefix; `SELECTED`/`SUBSTITUTED` decisions must project exactly to `selected_set`; `UNFILLED` decisions must cover every remaining slot; and dispositions must coherently cover every and only ranked identity. Any contradiction raises `WorkbenchInvariantError`; the engine does not repair or overwrite the delegate result. A replaceable stage may retain additional nonconflicting diagnostic fields, but those fields cannot replace or alter any required invariant field.
+
 No output field is mapped automatically to an active model, governed score, prediction ledger, outcome ledger, or release artifact.
 
 ## 6. Raw ranking and deterministic tie contract
@@ -174,6 +190,8 @@ The v0.1 synthetic reference tail ranker is intentionally minimal:
 ```
 
 4. Assign unique `raw_rank` values `1..N` after the total sort. Equal opportunity values retain the same `tie_group` but are resolved by bytewise identity ordering.
+
+The key above is semantic notation, not an instruction to evaluate unary `-Decimal`. The reference implementation first applies the UTF-8 identity order, then uses Python's stable sort directly on exact `Decimal` values with reverse ordering. Its serialized descending-score key is an exact textual sign transform; zero is always serialized as `0`. Ordering, tie keys, canonical bytes, and digests must therefore remain identical under different ambient Decimal precision contexts.
 
 This diagnostic tie rule belongs only to the isolated workbench. It does not resolve or alter the existing active `RankingEngine` tie policy.
 
@@ -211,11 +229,11 @@ Any failed equality is a terminal workbench error.
 Before recall, the implementation must:
 
 1. require `fixture_class=SYNTHETIC_NON_OUTCOME` and `official_outcome_data=false`;
-2. call the existing `PITGuard.assert_model_inputs` recursively over every candidate using `snapshot_cutoff_at`;
+2. deep-normalize accepted mapping/list containers, then always call the existing canonical `PITGuard.assert_model_inputs` recursively over every candidate using `snapshot_cutoff_at`;
 3. apply a workbench-local exact denylist for `outcome`, `outcome_label`, `target`, `target_label`, `forward_return`, `realized_return`, `realized_rank`, `selection_winner`, and `top3_winner`, in addition to the existing guard fields;
 4. scan optional metadata and nested lists/maps, not only declared scoring fields;
 5. reject any publication timestamp after the snapshot cutoff or any invalid/non-timezone-aware publication timestamp;
-6. stop before recall on any violation.
+6. run any caller-supplied PIT guard only as an additive extension after retaining the mandatory canonical traversal, and stop before recall on any violation from either guard.
 
 The guard may be strengthened in a successor, but it may not be weakened by configuration. A guard PASS proves only absence of declared forbidden fields and cutoff violations in the supplied synthetic envelope; it does not prove real-world PIT completeness.
 
@@ -292,7 +310,7 @@ These are author checks only. A passing row cannot be called MODV, ENGV, PMOV, o
 
 | Check class | Minimum command/test | PASS condition |
 |---|---|---|
-| Import/syntax | `python -m compileall -q tools/m3top3/model_workbench` | Exit `0`; public package imports without side effects |
+| Import/syntax | `PYTHONDONTWRITEBYTECODE=1 python -B -c "from tools.m3top3.model_workbench import ForwardModelWorkbench, OpportunityTailRanker"` | Exit `0`; public package imports without side effects or bytecode residue |
 | Unit | `python -m unittest tools.m3top3.model_workbench.tests.test_workbench` | All declared contract and stage tests pass |
 | Property-style | Deterministically enumerate all permutations of the small fixture candidate list | Raw ranking and selected set identities are invariant |
 | Metamorphic | Mutate only confidence, risk, eligibility, or irrelevant metadata in isolated copies | Confidence/risk/eligibility/metadata never alter raw rank; eligibility may alter only set outputs |

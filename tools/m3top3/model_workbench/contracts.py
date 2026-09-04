@@ -271,7 +271,7 @@ class CandidateRecallStage(Protocol):
 
 class TailRankingStage(Protocol):
     def rank(
-        self, recalled: Sequence[RecalledCandidate], policy: SetPolicy
+        self, recalled: Sequence[RecalledCandidate]
     ) -> tuple[
         tuple[RankedCandidate, ...], Mapping[str, tuple[str, ...]]
     ]: ...
@@ -732,7 +732,7 @@ def _run_existing_pit_guard(
         if not isinstance(candidate, Mapping):
             continue
         try:
-            guard.assert_model_inputs([dict(candidate)], cutoff_raw)
+            guard.assert_model_inputs([_normalize_json(candidate)], cutoff_raw)
         except PITLeakageError as exc:
             for pit_violation in exc.violations:
                 _add(
@@ -764,7 +764,7 @@ def _normalize_axis(value: Mapping[str, Any]) -> dict[str, Any]:
 
 def _normalize_json(value: Any) -> Any:
     if isinstance(value, Mapping):
-        return {str(key): _normalize_json(item) for key, item in value.items()}
+        return {key: _normalize_json(item) for key, item in value.items()}
     if isinstance(value, list):
         return [_normalize_json(item) for item in value]
     return value
@@ -833,19 +833,23 @@ def _axis_from_normalized(value: Mapping[str, Any]) -> AxisInput:
 def validate_and_parse_envelope(
     envelope: Mapping[str, Any], *, pit_guard: PITGuard | None = None
 ) -> WorkbenchEnvelope:
-    """Apply the positive schema and both outcome/PIT guards before any stage runs."""
+    """Apply the positive schema and mandatory plus additive guards before stages."""
+
+    plain_envelope = _normalize_json(envelope)
 
     violations: list[ContractViolation] = []
-    _validate_local_outcome_firewall(envelope, violations)
+    _validate_local_outcome_firewall(plain_envelope, violations)
 
     if not _check_keys(
-        envelope,
+        plain_envelope,
         path="$",
         allowed=_ENVELOPE_KEYS,
         required=_ENVELOPE_KEYS,
         violations=violations,
     ):
         raise WorkbenchContractError(violations)
+
+    envelope = plain_envelope
 
     if envelope.get("workbench_schema_version") != WORKBENCH_SCHEMA_VERSION:
         _add(
@@ -922,8 +926,15 @@ def validate_and_parse_envelope(
         candidates,
         envelope.get("snapshot_cutoff_at"),
         violations,
-        pit_guard or PITGuard(),
+        PITGuard(),
     )
+    if pit_guard is not None:
+        _run_existing_pit_guard(
+            candidates,
+            envelope.get("snapshot_cutoff_at"),
+            violations,
+            pit_guard,
+        )
 
     if violations:
         raise WorkbenchContractError(violations)

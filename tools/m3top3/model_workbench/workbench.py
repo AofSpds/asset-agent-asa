@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from decimal import Decimal
 from typing import Any, Mapping, Sequence
 
 from tools.m3top3.core import deterministic_id, sha256_hex
@@ -34,6 +35,67 @@ def _sorted_unique(values: Sequence[str]) -> list[str]:
     return sorted(set(values), key=utf8_key)
 
 
+def _descending_decimal_text(value: Decimal) -> str:
+    """Serialize the additive inverse exactly without Decimal arithmetic."""
+
+    canonical = format(value, "f")
+    if value.is_zero():
+        return "0"
+    if canonical.startswith("-"):
+        return canonical[1:]
+    return f"-{canonical}"
+
+
+def _opportunity_value(item: RecalledCandidate) -> Decimal:
+    value = item.candidate.opportunity.value
+    if value is None:
+        raise WorkbenchInvariantError(
+            "VERIFIED opportunity reached ranker without a decimal value"
+        )
+    return value
+
+
+def _snapshot_stage_value(value: Any) -> Any:
+    if isinstance(value, Mapping):
+        return {key: _snapshot_stage_value(item) for key, item in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [_snapshot_stage_value(item) for item in value]
+    return value
+
+
+def _snapshot_stage_rows(value: Any, surface: str) -> tuple[dict[str, Any], ...]:
+    if not isinstance(value, (list, tuple)):
+        raise WorkbenchInvariantError(f"{surface} must be a list or tuple of mappings")
+    rows: list[dict[str, Any]] = []
+    for index, row in enumerate(value):
+        if not isinstance(row, Mapping):
+            raise WorkbenchInvariantError(f"{surface}[{index}] must be a mapping")
+        snapshot = _snapshot_stage_value(row)
+        if not isinstance(snapshot, dict):
+            raise WorkbenchInvariantError(f"{surface}[{index}] snapshot failed")
+        rows.append(snapshot)
+    return tuple(rows)
+
+
+def _validated_string_list(value: Any, surface: str) -> list[str]:
+    if not isinstance(value, list):
+        raise WorkbenchInvariantError(f"{surface} must be a list")
+    if any(not isinstance(item, str) or not item for item in value):
+        raise WorkbenchInvariantError(f"{surface} must contain nonempty strings")
+    if len(set(value)) != len(value):
+        raise WorkbenchInvariantError(f"{surface} must not contain duplicates")
+    return value
+
+
+def _validated_reason_codes(value: Any, surface: str) -> list[str]:
+    reasons = _validated_string_list(value, surface)
+    if not reasons:
+        raise WorkbenchInvariantError(f"{surface} must not be empty")
+    if reasons != sorted(reasons, key=utf8_key):
+        raise WorkbenchInvariantError(f"{surface} must be in canonical order")
+    return reasons
+
+
 class IdentityCandidateRecall(CandidateRecallStage):
     """Development-only recall adapter that preserves every supplied identity."""
 
@@ -50,10 +112,10 @@ class IdentityCandidateRecall(CandidateRecallStage):
 
 
 class OpportunityTailRanker(TailRankingStage):
-    """Ranks only VERIFIED opportunity values using the frozen total tie key."""
+    """Ranks only Opportunity-owned VERIFIED values with the frozen tie rule."""
 
     def rank(
-        self, recalled: Sequence[RecalledCandidate], policy: SetPolicy
+        self, recalled: Sequence[RecalledCandidate]
     ) -> tuple[
         tuple[RankedCandidate, ...], Mapping[str, tuple[str, ...]]
     ]:
@@ -61,14 +123,8 @@ class OpportunityTailRanker(TailRankingStage):
         reasons: dict[str, tuple[str, ...]] = {}
         for item in recalled:
             candidate = item.candidate
-            if (
-                candidate.opportunity.evidence_state
-                is policy.opportunity_state_required_for_raw_rank
-            ):
-                if candidate.opportunity.value is None:
-                    raise WorkbenchInvariantError(
-                        "VERIFIED opportunity reached ranker without a decimal value"
-                    )
+            if candidate.opportunity.evidence_state is EvidenceState.VERIFIED:
+                _opportunity_value(item)
                 rankable.append(item)
                 reasons[candidate.candidate_id] = ()
             else:
@@ -80,11 +136,11 @@ class OpportunityTailRanker(TailRankingStage):
         ordered = sorted(
             rankable,
             key=lambda item: (
-                -item.candidate.opportunity.value,  # type: ignore[operator]
                 utf8_key(item.candidate.candidate_id),
                 utf8_key(item.candidate.pit_snapshot_id),
             ),
         )
+        ordered.sort(key=_opportunity_value, reverse=True)
         ranked: list[RankedCandidate] = []
         for raw_rank, item in enumerate(ordered, 1):
             score = item.candidate.opportunity.value
@@ -100,7 +156,7 @@ class OpportunityTailRanker(TailRankingStage):
                         "tie", {"opportunity_decimal": canonical_score}
                     ),
                     tie_break_key=(
-                        format(-score, "f"),
+                        _descending_decimal_text(score),
                         item.candidate.candidate_id.encode("utf-8").hex(),
                         item.candidate.pit_snapshot_id.encode("utf-8").hex(),
                     ),
@@ -277,7 +333,7 @@ class ForwardModelWorkbench:
         self._ranker = ranker or OpportunityTailRanker()
         self._assessor = assessor or IdentityConfidenceRiskAssessment()
         self._set_constructor = set_constructor or FailClosedSetConstructor()
-        self._pit_guard = pit_guard or PITGuard()
+        self._pit_guard_extension = pit_guard
 
     @staticmethod
     def _policy_mapping(policy: SetPolicy) -> dict[str, Any]:
@@ -323,6 +379,322 @@ class ForwardModelWorkbench:
             }
             for item in ranked
         ]
+
+    @staticmethod
+    def _snapshot_and_validate_set_result(
+        *,
+        set_result: SetConstructionResult,
+        ranked: Sequence[RankedCandidate],
+        policy: SetPolicy,
+    ) -> SetConstructionResult:
+        if not isinstance(set_result, SetConstructionResult):
+            raise WorkbenchInvariantError(
+                "set construction stage must return SetConstructionResult"
+            )
+
+        selected = _snapshot_stage_rows(set_result.selected_set, "selected_set")
+        decisions = _snapshot_stage_rows(set_result.decision_log, "decision_log")
+        if not isinstance(set_result.dispositions, Mapping):
+            raise WorkbenchInvariantError("dispositions must be a mapping")
+        dispositions = _snapshot_stage_value(set_result.dispositions)
+        if not isinstance(dispositions, dict):
+            raise WorkbenchInvariantError("dispositions snapshot failed")
+
+        canonical_ids = [
+            item.recalled.candidate.candidate_id for item in ranked
+        ]
+        canonical_ranks = [item.raw_rank for item in ranked]
+        if len(set(canonical_ids)) != len(canonical_ids):
+            raise WorkbenchInvariantError("canonical ranking contains duplicate identities")
+        if canonical_ranks != list(range(1, len(ranked) + 1)):
+            raise WorkbenchInvariantError("canonical ranking ranks are not contiguous")
+        canonical_by_id = {
+            item.recalled.candidate.candidate_id: item for item in ranked
+        }
+
+        selected_keys = {
+            "set_position",
+            "candidate_id",
+            "company_id",
+            "security_code",
+            "pit_snapshot_id",
+            "raw_rank",
+            "raw_score",
+        }
+        if len(selected) > policy.set_size:
+            raise WorkbenchInvariantError("selected_set exceeds configured set_size")
+        selected_ids: list[str] = []
+        selected_ranks: list[int] = []
+        for index, row in enumerate(selected, 1):
+            surface = f"selected_set[{index - 1}]"
+            if not selected_keys.issubset(row):
+                raise WorkbenchInvariantError(f"{surface} has an invalid shape")
+            candidate_id = row["candidate_id"]
+            if not isinstance(candidate_id, str) or candidate_id not in canonical_by_id:
+                raise WorkbenchInvariantError(
+                    f"{surface} identity is not in the canonical ranking"
+                )
+            if candidate_id in selected_ids:
+                raise WorkbenchInvariantError("selected_set contains a duplicate identity")
+            if type(row["set_position"]) is not int or row["set_position"] != index:
+                raise WorkbenchInvariantError(
+                    "selected_set positions must be unique and contiguous"
+                )
+            ranked_item = canonical_by_id[candidate_id]
+            candidate = ranked_item.recalled.candidate
+            expected = {
+                "set_position": index,
+                "candidate_id": candidate_id,
+                "company_id": candidate.company_id,
+                "security_code": candidate.security_code,
+                "pit_snapshot_id": candidate.pit_snapshot_id,
+                "raw_rank": ranked_item.raw_rank,
+                "raw_score": format(ranked_item.raw_score, "f"),
+            }
+            if type(row["raw_rank"]) is not int or any(
+                row[key] != expected[key] for key in selected_keys
+            ):
+                raise WorkbenchInvariantError(
+                    f"{surface} does not match its canonical ranked row"
+                )
+            selected_ids.append(candidate_id)
+            selected_ranks.append(ranked_item.raw_rank)
+        if selected_ranks != sorted(selected_ranks):
+            raise WorkbenchInvariantError(
+                "selected_set does not preserve canonical rank order"
+            )
+
+        action_values = {item.value for item in SetDecisionAction}
+        candidate_decisions: list[dict[str, Any]] = []
+        unfilled_decisions: list[dict[str, Any]] = []
+        decision_candidate_ids: set[str] = set()
+        saw_unfilled = False
+        for index, row in enumerate(decisions, 1):
+            surface = f"decision_log[{index - 1}]"
+            action = row.get("action")
+            if not isinstance(action, str) or action not in action_values:
+                raise WorkbenchInvariantError(f"{surface} has an invalid action")
+            common_keys = {
+                "decision_index",
+                "action",
+                "candidate_id",
+                "raw_rank",
+                "slot",
+                "reason_codes",
+            }
+            action_key = (
+                "replacement_candidate_id"
+                if action == SetDecisionAction.SKIPPED.value
+                else "skipped_candidate_ids"
+                if action == SetDecisionAction.UNFILLED.value
+                else "substitutes_for_candidate_ids"
+            )
+            if not (common_keys | {action_key}).issubset(row):
+                raise WorkbenchInvariantError(f"{surface} has an invalid shape")
+            if type(row["decision_index"]) is not int or row["decision_index"] != index:
+                raise WorkbenchInvariantError(
+                    "decision indexes must be unique and contiguous"
+                )
+            if (
+                type(row["slot"]) is not int
+                or row["slot"] < 1
+                or row["slot"] > policy.set_size
+            ):
+                raise WorkbenchInvariantError(f"{surface} has an invalid slot")
+            _validated_reason_codes(row["reason_codes"], f"{surface}.reason_codes")
+
+            if action == SetDecisionAction.UNFILLED.value:
+                saw_unfilled = True
+                if row["candidate_id"] is not None or row["raw_rank"] is not None:
+                    raise WorkbenchInvariantError(
+                        "UNFILLED decisions must have null candidate_id and raw_rank"
+                    )
+                _validated_string_list(
+                    row["skipped_candidate_ids"],
+                    f"{surface}.skipped_candidate_ids",
+                )
+                unfilled_decisions.append(row)
+                continue
+
+            if saw_unfilled:
+                raise WorkbenchInvariantError(
+                    "candidate decisions must not follow an UNFILLED decision"
+                )
+            candidate_id = row["candidate_id"]
+            if not isinstance(candidate_id, str) or candidate_id not in canonical_by_id:
+                raise WorkbenchInvariantError(
+                    f"{surface} identity is not in the canonical ranking"
+                )
+            if candidate_id in decision_candidate_ids:
+                raise WorkbenchInvariantError(
+                    "decision_log contains a duplicate candidate identity"
+                )
+            ranked_item = canonical_by_id[candidate_id]
+            if type(row["raw_rank"]) is not int or row["raw_rank"] != ranked_item.raw_rank:
+                raise WorkbenchInvariantError(
+                    f"{surface} raw_rank does not match the canonical ranking"
+                )
+            if action == SetDecisionAction.SKIPPED.value:
+                replacement = row["replacement_candidate_id"]
+                if replacement is not None and (
+                    not isinstance(replacement, str)
+                    or replacement not in canonical_by_id
+                ):
+                    raise WorkbenchInvariantError(
+                        f"{surface} has an invalid replacement identity"
+                    )
+            else:
+                _validated_string_list(
+                    row["substitutes_for_candidate_ids"],
+                    f"{surface}.substitutes_for_candidate_ids",
+                )
+            decision_candidate_ids.add(candidate_id)
+            candidate_decisions.append(row)
+
+        if [row["raw_rank"] for row in candidate_decisions] != list(
+            range(1, len(candidate_decisions) + 1)
+        ):
+            raise WorkbenchInvariantError(
+                "decision_log must scan a contiguous canonical-rank prefix"
+            )
+
+        pending_skips: list[dict[str, Any]] = []
+        selected_projection: list[tuple[str, int, int]] = []
+        selected_count = 0
+        for row in candidate_decisions:
+            expected_slot = selected_count + 1
+            if row["slot"] != expected_slot:
+                raise WorkbenchInvariantError(
+                    "decision slot contradicts sequential set construction"
+                )
+            if row["action"] == SetDecisionAction.SKIPPED.value:
+                pending_skips.append(row)
+                continue
+            if selected_count >= policy.set_size:
+                raise WorkbenchInvariantError(
+                    "decision_log selects beyond configured set_size"
+                )
+            expected_action = (
+                SetDecisionAction.SUBSTITUTED.value
+                if pending_skips
+                else SetDecisionAction.SELECTED.value
+            )
+            if row["action"] != expected_action:
+                raise WorkbenchInvariantError(
+                    "selected decision action contradicts pending skips"
+                )
+            pending_ids = [item["candidate_id"] for item in pending_skips]
+            if row["substitutes_for_candidate_ids"] != pending_ids:
+                raise WorkbenchInvariantError(
+                    "substitution projection contradicts preceding skips"
+                )
+            for skipped in pending_skips:
+                if skipped["replacement_candidate_id"] != row["candidate_id"]:
+                    raise WorkbenchInvariantError(
+                        "skip replacement identity contradicts selected decision"
+                    )
+            selected_projection.append(
+                (row["candidate_id"], row["slot"], row["raw_rank"])
+            )
+            selected_count += 1
+            pending_skips = []
+
+        for skipped in pending_skips:
+            if skipped["replacement_candidate_id"] is not None:
+                raise WorkbenchInvariantError(
+                    "unreplaced skip must have a null replacement identity"
+                )
+
+        selected_rows_projection = [
+            (row["candidate_id"], row["set_position"], row["raw_rank"])
+            for row in selected
+        ]
+        if selected_rows_projection != selected_projection:
+            raise WorkbenchInvariantError(
+                "selected_set contradicts SELECTED/SUBSTITUTED decision projection"
+            )
+        if selected_count < policy.set_size and len(candidate_decisions) != len(ranked):
+            raise WorkbenchInvariantError(
+                "an underfilled set must account for every canonical ranked row"
+            )
+
+        expected_unfilled_slots = list(
+            range(selected_count + 1, policy.set_size + 1)
+        )
+        if [row["slot"] for row in unfilled_decisions] != expected_unfilled_slots:
+            raise WorkbenchInvariantError(
+                "UNFILLED decisions do not cover every remaining set slot"
+            )
+        pending_ids = [item["candidate_id"] for item in pending_skips]
+        for index, row in enumerate(unfilled_decisions):
+            expected_skips = pending_ids if index == 0 else []
+            if row["skipped_candidate_ids"] != expected_skips:
+                raise WorkbenchInvariantError(
+                    "UNFILLED skipped-candidate projection is inconsistent"
+                )
+            if row["reason_codes"] != ["NO_PASSING_CANDIDATE_AVAILABLE"]:
+                raise WorkbenchInvariantError(
+                    "UNFILLED decision has noncanonical reason codes"
+                )
+        covered_slots = [row["set_position"] for row in selected] + [
+            row["slot"] for row in unfilled_decisions
+        ]
+        if covered_slots != list(range(1, policy.set_size + 1)):
+            raise WorkbenchInvariantError(
+                "selected and UNFILLED rows do not cover configured set slots"
+            )
+
+        if set(dispositions) != set(canonical_by_id):
+            raise WorkbenchInvariantError(
+                "dispositions must cover exactly the canonical ranked identities"
+            )
+        decisions_by_id = {
+            row["candidate_id"]: row for row in candidate_decisions
+        }
+        disposition_keys = {"set_disposition", "set_position", "reason_codes"}
+        for candidate_id in canonical_ids:
+            info = dispositions[candidate_id]
+            surface = f"dispositions[{candidate_id!r}]"
+            if not isinstance(info, Mapping) or not disposition_keys.issubset(info):
+                raise WorkbenchInvariantError(f"{surface} has an invalid shape")
+            reasons = _validated_reason_codes(
+                info["reason_codes"], f"{surface}.reason_codes"
+            )
+            decision = decisions_by_id.get(candidate_id)
+            if decision is None:
+                if selected_count != policy.set_size:
+                    raise WorkbenchInvariantError(
+                        "only capacity-reached identities may lack a decision"
+                    )
+                expected_disposition = SetDisposition.NOT_SCANNED_CAPACITY_REACHED.value
+                expected_position = None
+                expected_reasons = ["SET_CAPACITY_REACHED"]
+            elif decision["action"] == SetDecisionAction.SKIPPED.value:
+                expected_disposition = SetDisposition.SKIPPED.value
+                expected_position = None
+                expected_reasons = decision["reason_codes"]
+            else:
+                expected_disposition = SetDisposition.SELECTED.value
+                expected_position = decision["slot"]
+                expected_reasons = decision["reason_codes"]
+            if (
+                info["set_disposition"] != expected_disposition
+                or info["set_position"] != expected_position
+                or reasons != expected_reasons
+                or (
+                    expected_position is not None
+                    and type(info["set_position"]) is not int
+                )
+            ):
+                raise WorkbenchInvariantError(
+                    f"{surface} contradicts the decision projection"
+                )
+
+        return SetConstructionResult(
+            selected_set=selected,
+            decision_log=decisions,
+            dispositions=dispositions,
+        )
 
     @staticmethod
     def _candidate_traces(
@@ -425,18 +797,25 @@ class ForwardModelWorkbench:
         return accounting
 
     def run(self, envelope: Mapping[str, Any]) -> dict[str, Any]:
-        parsed = validate_and_parse_envelope(envelope, pit_guard=self._pit_guard)
+        parsed = validate_and_parse_envelope(
+            envelope, pit_guard=self._pit_guard_extension
+        )
         recalled = self._recall.recall(parsed.candidates)
         if tuple(item.candidate for item in recalled) != tuple(parsed.candidates):
             raise WorkbenchInvariantError(
                 "candidate recall did not preserve every input row and ordering"
             )
 
-        ranked, rank_reasons = self._ranker.rank(recalled, parsed.set_policy)
+        ranked, rank_reasons = self._ranker.rank(recalled)
         assessed = self._assessor.assess(ranked)
         if tuple(item.ranked for item in assessed) != tuple(ranked):
             raise WorkbenchInvariantError("assessment stage changed raw ranking")
         set_result = self._set_constructor.construct(assessed, parsed.set_policy)
+        set_result = self._snapshot_and_validate_set_result(
+            set_result=set_result,
+            ranked=ranked,
+            policy=parsed.set_policy,
+        )
 
         raw_ranking = self._raw_ranking_mapping(ranked)
         candidate_traces = self._candidate_traces(

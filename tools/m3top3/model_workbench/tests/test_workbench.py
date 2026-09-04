@@ -4,7 +4,10 @@ import copy
 import itertools
 import json
 import unittest
+from collections import UserDict
+from decimal import localcontext
 from pathlib import Path
+from types import MappingProxyType
 
 from tools.m3top3.core import canonical_json_bytes, sha256_hex
 from tools.m3top3.model_workbench import (
@@ -13,8 +16,13 @@ from tools.m3top3.model_workbench import (
     WORKBENCH_SCHEMA_VERSION,
     EligibilityState,
     EvidenceState,
+    FailClosedSetConstructor,
     ForwardModelWorkbench,
+    IdentityCandidateRecall,
+    OpportunityTailRanker,
+    SetConstructionResult,
     WorkbenchContractError,
+    WorkbenchInvariantError,
     run_workbench,
     validate_and_parse_envelope,
 )
@@ -47,6 +55,23 @@ def selected_identity(result: dict) -> list[tuple[str, int, int]]:
         (item["candidate_id"], item["set_position"], item["raw_rank"])
         for item in result["selected_set"]
     ]
+
+
+class TamperingSetConstructor:
+    def __init__(self, mutate) -> None:
+        self._mutate = mutate
+
+    def construct(self, assessed, policy) -> SetConstructionResult:
+        valid = FailClosedSetConstructor().construct(assessed, policy)
+        selected = [copy.deepcopy(dict(item)) for item in valid.selected_set]
+        decisions = [copy.deepcopy(dict(item)) for item in valid.decision_log]
+        dispositions = copy.deepcopy(dict(valid.dispositions))
+        self._mutate(selected, decisions, dispositions)
+        return SetConstructionResult(
+            selected_set=tuple(selected),
+            decision_log=tuple(decisions),
+            dispositions=dispositions,
+        )
 
 
 class ModelWorkbenchAuthorSelfCheck(unittest.TestCase):
@@ -479,6 +504,226 @@ class ModelWorkbenchAuthorSelfCheck(unittest.TestCase):
             [trace["security_code"] for trace in result["candidate_traces"]],
             ["000001", "000002", "000003", "000004", "000005", "000006"],
         )
+
+    def test_27_public_ranker_owns_verified_rule_and_rejects_old_policy_arg(self) -> None:
+        parsed = validate_and_parse_envelope(self.fixture)
+        recalled = IdentityCandidateRecall().recall(parsed.candidates)
+        ranker = OpportunityTailRanker()
+
+        ranked, reasons = ranker.rank(recalled)
+
+        self.assertEqual(len(ranked), 5)
+        self.assertEqual([item.raw_rank for item in ranked], [1, 2, 3, 4, 5])
+        self.assertEqual(
+            reasons["candidate-foxtrot"],
+            ("OPPORTUNITY_STATE_UNKNOWN_NOT_VERIFIED",),
+        )
+        with self.assertRaises(TypeError):
+            ranker.rank(recalled, parsed.set_policy)  # type: ignore[call-arg]
+
+        baseline = self.engine.run(self.fixture)
+        policy_mutations = {
+            "policy_id": "M3TOP3-SYNTHETIC-SET-v0.1-ALTERNATE-ID",
+            "set_size": 1,
+        }
+        for key, value in policy_mutations.items():
+            with self.subTest(policy_field=key):
+                mutated = copy.deepcopy(self.fixture)
+                mutated["set_policy"][key] = value
+                self.assertEqual(
+                    self.engine.run(mutated)["raw_ranking"],
+                    baseline["raw_ranking"],
+                )
+
+    def test_28_malicious_set_stage_outputs_fail_closed_before_projection(self) -> None:
+        def selected_rank_only(selected, _decisions, _dispositions) -> None:
+            selected[0]["raw_rank"] = 999
+
+        def selected_and_log_rank(selected, decisions, _dispositions) -> None:
+            candidate_id = selected[0]["candidate_id"]
+            selected[0]["raw_rank"] = 999
+            next(
+                row for row in decisions if row["candidate_id"] == candidate_id
+            )["raw_rank"] = 999
+
+        def duplicate_selection(selected, _decisions, _dispositions) -> None:
+            duplicate = copy.deepcopy(selected[0])
+            duplicate["set_position"] = len(selected) + 1
+            selected.append(duplicate)
+
+        def contradictory_slot(_selected, decisions, _dispositions) -> None:
+            next(
+                row
+                for row in decisions
+                if row["action"] in {"SELECTED", "SUBSTITUTED"}
+            )["slot"] = 2
+
+        def contradictory_disposition(_selected, _decisions, dispositions) -> None:
+            dispositions["candidate-bravo"]["set_disposition"] = "SKIPPED"
+
+        def mutated_identity(selected, _decisions, _dispositions) -> None:
+            selected[0]["company_id"] = "synthetic-company-mutated"
+
+        def unranked_identity(selected, _decisions, _dispositions) -> None:
+            selected[0]["candidate_id"] = "candidate-foxtrot"
+
+        def missing_disposition(_selected, _decisions, dispositions) -> None:
+            del dispositions["candidate-delta"]
+
+        def unhashable_action(_selected, decisions, _dispositions) -> None:
+            decisions[0]["action"] = []
+
+        cases = {
+            "selected_raw_rank_999": selected_rank_only,
+            "selected_and_log_raw_rank_999": selected_and_log_rank,
+            "duplicate_selection": duplicate_selection,
+            "decision_slot_contradiction": contradictory_slot,
+            "disposition_contradiction": contradictory_disposition,
+            "identity_mutation": mutated_identity,
+            "unranked_identity": unranked_identity,
+            "missing_disposition": missing_disposition,
+            "unhashable_invalid_action": unhashable_action,
+        }
+        for name, mutate in cases.items():
+            with self.subTest(name=name):
+                engine = ForwardModelWorkbench(
+                    set_constructor=TamperingSetConstructor(mutate)
+                )
+                with self.assertRaises(WorkbenchInvariantError):
+                    engine.run(copy.deepcopy(self.fixture))
+
+        def add_harmless_diagnostics(selected, decisions, dispositions) -> None:
+            selected[0]["delegate_diagnostic"] = {"state": "observed"}
+            decisions[0]["delegate_diagnostic"] = ["observed"]
+            dispositions["candidate-alpha"]["delegate_diagnostic"] = True
+
+        diagnostic_result = ForwardModelWorkbench(
+            set_constructor=TamperingSetConstructor(add_harmless_diagnostics)
+        ).run(copy.deepcopy(self.fixture))
+        self.assertEqual(
+            selected_identity(diagnostic_result),
+            selected_identity(self.engine.run(self.fixture)),
+        )
+        self.assertEqual(
+            diagnostic_result["selected_set"][0]["delegate_diagnostic"],
+            {"state": "observed"},
+        )
+
+    def test_29_canonical_pit_guard_cannot_be_replaced_by_noop_extension(self) -> None:
+        def contains_only_plain_containers(value) -> bool:
+            if isinstance(value, dict):
+                return type(value) is dict and all(
+                    contains_only_plain_containers(item) for item in value.values()
+                )
+            if isinstance(value, list):
+                return type(value) is list and all(
+                    contains_only_plain_containers(item) for item in value
+                )
+            return True
+
+        class NoOpGuard:
+            def __init__(self) -> None:
+                self.calls = 0
+                self.saw_only_plain_containers = True
+
+            def assert_model_inputs(self, records, _cutoff_at) -> None:
+                self.calls += 1
+                self.saw_only_plain_containers &= contains_only_plain_containers(
+                    records
+                )
+
+        extension = NoOpGuard()
+        mutated = copy.deepcopy(self.fixture)
+        mutated["candidates"][1]["metadata"]["future_close"] = 1
+        with self.assertRaises(WorkbenchContractError) as caught:
+            ForwardModelWorkbench(pit_guard=extension).run(mutated)
+        self.assertIn(
+            "PIT_GUARD_FUTURE_FIELD_IN_MODEL_INPUT",
+            {violation.code for violation in caught.exception.violations},
+        )
+        self.assertEqual(extension.calls, len(self.fixture["candidates"]))
+        self.assertTrue(extension.saw_only_plain_containers)
+
+    def test_30_mapping_implementations_are_deep_normalized_for_pit_guard(self) -> None:
+        forbidden_containers = [
+            UserDict({"future_close": 1}),
+            MappingProxyType({"future_close": 1}),
+        ]
+        for wrapped in forbidden_containers:
+            with self.subTest(forbidden_type=type(wrapped).__name__):
+                mutated = copy.deepcopy(self.fixture)
+                mutated["candidates"][1]["metadata"]["wrapped_mapping"] = wrapped
+                with self.assertRaises(WorkbenchContractError) as caught:
+                    self.engine.run(mutated)
+                self.assertIn(
+                    "PIT_GUARD_FUTURE_FIELD_IN_MODEL_INPUT",
+                    {violation.code for violation in caught.exception.violations},
+                )
+
+        safe_mappings = [
+            UserDict({"safe_value": [1, {"label": "ok"}]}),
+            MappingProxyType({"safe_value": [1, {"label": "ok"}]}),
+        ]
+        for wrapped in safe_mappings:
+            with self.subTest(safe_type=type(wrapped).__name__):
+                wrapped_fixture = copy.deepcopy(self.fixture)
+                wrapped_fixture["candidates"][1]["metadata"][
+                    "wrapped_mapping"
+                ] = wrapped
+                plain_fixture = copy.deepcopy(self.fixture)
+                plain_fixture["candidates"][1]["metadata"]["wrapped_mapping"] = {
+                    "safe_value": [1, {"label": "ok"}]
+                }
+                self.assertEqual(
+                    canonical_json_bytes(self.engine.run(wrapped_fixture)),
+                    canonical_json_bytes(self.engine.run(plain_fixture)),
+                )
+
+    def test_31_decimal_context_cannot_change_order_ties_or_digest(self) -> None:
+        mutated = copy.deepcopy(self.fixture)
+        values = {
+            "candidate-alpha": "10000000000000000000000000001",
+            "candidate-bravo": "10000000000000000000000000002",
+            "candidate-charlie": "10000000000000000000000000002",
+            "candidate-delta": "-1",
+            "candidate-echo": "0",
+        }
+        for candidate in mutated["candidates"]:
+            if candidate["candidate_id"] in values:
+                candidate["opportunity"]["value"] = values[candidate["candidate_id"]]
+
+        with localcontext() as context:
+            context.prec = 28
+            precision_28 = self.engine.run(copy.deepcopy(mutated))
+        with localcontext() as context:
+            context.prec = 60
+            precision_60 = self.engine.run(copy.deepcopy(mutated))
+
+        self.assertEqual(
+            canonical_json_bytes(precision_28), canonical_json_bytes(precision_60)
+        )
+        self.assertEqual(precision_28["result_digest"], precision_60["result_digest"])
+        self.assertEqual(
+            [row["candidate_id"] for row in precision_28["raw_ranking"]],
+            [
+                "candidate-bravo",
+                "candidate-charlie",
+                "candidate-alpha",
+                "candidate-echo",
+                "candidate-delta",
+            ],
+        )
+        by_id = {row["candidate_id"]: row for row in precision_28["raw_ranking"]}
+        self.assertEqual(
+            by_id["candidate-bravo"]["tie_break_key"][0],
+            "-10000000000000000000000000002",
+        )
+        self.assertEqual(
+            by_id["candidate-bravo"]["tie_group"],
+            by_id["candidate-charlie"]["tie_group"],
+        )
+        self.assertEqual(by_id["candidate-echo"]["tie_break_key"][0], "0")
+        self.assertEqual(by_id["candidate-delta"]["tie_break_key"][0], "1")
 
 
 if __name__ == "__main__":
