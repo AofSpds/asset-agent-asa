@@ -1,0 +1,268 @@
+{
+  "workbench_schema_version": "model-workbench-envelope-v0.1",
+  "fixture_class": "SYNTHETIC_NON_OUTCOME",
+  "official_outcome_data": false,
+  "snapshot_cutoff_at": "2026-01-31T23:59:59+09:00",
+  "fixture_provenance": {
+    "provenance_class": "HAND_AUTHORED_SYNTHETIC_DEV_ONLY",
+    "contains_real_market_data": false,
+    "contains_official_w1_w8_data": false,
+    "contains_outcome_labels": false,
+    "source_refs": [],
+    "generator_rule_id": "M3TOP3-SYNTHETIC-CANDIDATES-v0.1",
+    "purpose": "Contract, separation, missingness, ordering, and accounting tests only"
+  },
+  "set_policy": {
+    "policy_id": "M3TOP3-WORKBENCH-SET-POLICY-v0.1",
+    "set_size": 3,
+    "eligibility_required": "TRUE",
+    "allowed_confidence_states": [
+      "VERIFIED"
+    ],
+    "allowed_risk_states": [
+      "VERIFIED"
+    ],
+    "opportunity_state_required_for_raw_rank": "VERIFIED"
+  },
+  "candidates": [
+    {
+      "candidate_id": "candidate-alpha",
+      "company_id": "synthetic-company-alpha",
+      "security_code": "000001",
+      "pit_snapshot_id": "synthetic-pit-alpha",
+      "eligibility": {
+        "state": "FALSE",
+        "reason_codes": [
+          "SYNTHETIC_ELIGIBILITY_EXCLUSION"
+        ]
+      },
+      "opportunity": {
+        "evidence_state": "VERIFIED",
+        "value": "10",
+        "publication_at": "2026-01-30T09:00:00+09:00",
+        "evidence_refs": [
+          "synthetic-evidence-alpha-opportunity"
+        ]
+      },
+      "confidence": {
+        "evidence_state": "VERIFIED",
+        "value": "0.9",
+        "publication_at": "2026-01-30T09:00:00+09:00",
+        "evidence_refs": [
+          "synthetic-evidence-alpha-confidence"
+        ]
+      },
+      "risk": {
+        "evidence_state": "VERIFIED",
+        "value": "0.1",
+        "publication_at": "2026-01-30T09:00:00+09:00",
+        "evidence_refs": [
+          "synthetic-evidence-alpha-risk"
+        ]
+      }
+    },
+    {
+      "candidate_id": "candidate-bravo",
+      "company_id": "synthetic-company-bravo",
+      "security_code": "000002",
+      "pit_snapshot_id": "synthetic-pit-bravo",
+      "eligibility": {
+        "state": "TRUE",
+        "reason_codes": []
+      },
+      "opportunity": {
+        "evidence_state": "VERIFIED",
+        "value": "9",
+        "publication_at": "2026-01-30T10:00:00+09:00",
+        "evidence_refs": [
+          "synthetic-evidence-bravo-opportunity"
+        ]
+      },
+      "confidence": {
+        "evidence_state": "VERIFIED",
+        "value": "0.8",
+        "publication_at": "2026-01-30T10:00:00+09:00",
+        "evidence_refs": [
+          "synthetic-evidence-bravo-confidence"
+        ]
+      },
+      "risk": {
+        "evidence_state": "VERIFIED",
+        "value": "0.2",
+        "publication_at": "2026-01-30T10:00:00+09:00",
+        "evidence_refs": [
+          "synthetic-evidence-bravo-risk"
+        ]
+      },
+      "metadata": {
+        "synthetic_note": "irrelevant to ranking and set policy",
+        "nested": {
+          "tags": [
+            "fixture",
+            "nonsemantic"
+          ]
+        }
+      }
+    },
+    {
+      "candidate_id": "candidate-charlie",
+      "company_id": "synthetic-company-charlie",
+      "security_code": "000003",
+      "pit_snapshot_id": "synthetic-pit-charlie",
+      "eligibility": {
+        "state": "TRUE",
+        "reason_codes": []
+      },
+      "opportunity": {
+        "evidence_state": "VERIFIED",
+        "value": "9",
+        "publication_at": "2026-01-30T11:00:00+09:00",
+        "evidence_refs": [
+          "synthetic-evidence-charlie-opportunity"
+        ]
+      },
+      "confidence": {
+        "evidence_state": "PARTIAL",
+        "value": "0.4",
+        "publication_at": "2026-01-30T11:00:00+09:00",
+        "evidence_refs": [
+          "synthetic-evidence-charlie-confidence"
+        ],
+        "reason_codes": [
+          "SYNTHETIC_PARTIAL_CONFIDENCE"
+        ]
+      },
+      "risk": {
+        "evidence_state": "VERIFIED",
+        "value": "0.3",
+        "publication_at": "2026-01-30T11:00:00+09:00",
+        "evidence_refs": [
+          "synthetic-evidence-charlie-risk"
+        ]
+      }
+    },
+    {
+      "candidate_id": "candidate-delta",
+      "company_id": "synthetic-company-delta",
+      "security_code": "000004",
+      "pit_snapshot_id": "synthetic-pit-delta",
+      "eligibility": {
+        "state": "TRUE",
+        "reason_codes": []
+      },
+      "opportunity": {
+        "evidence_state": "VERIFIED",
+        "value": "8",
+        "publication_at": "2026-01-30T12:00:00+09:00",
+        "evidence_refs": [
+          "synthetic-evidence-delta-opportunity"
+        ]
+      },
+      "confidence": {
+        "evidence_state": "VERIFIED",
+        "value": "0.7",
+        "publication_at": "2026-01-30T12:00:00+09:00",
+        "evidence_refs": [
+          "synthetic-evidence-delta-confidence"
+        ]
+      },
+      "risk": {
+        "evidence_state": "STALE",
+        "value": "0.2",
+        "publication_at": "2026-01-29T12:00:00+09:00",
+        "evidence_refs": [
+          "synthetic-evidence-delta-risk"
+        ],
+        "reason_codes": [
+          "SYNTHETIC_STALE_RISK"
+        ]
+      }
+    },
+    {
+      "candidate_id": "candidate-echo",
+      "company_id": "synthetic-company-echo",
+      "security_code": "000005",
+      "pit_snapshot_id": "synthetic-pit-echo",
+      "eligibility": {
+        "state": "TRUE",
+        "reason_codes": []
+      },
+      "opportunity": {
+        "evidence_state": "VERIFIED",
+        "value": "7",
+        "publication_at": "2026-01-30T13:00:00+09:00",
+        "evidence_refs": [
+          "synthetic-evidence-echo-opportunity"
+        ]
+      },
+      "confidence": {
+        "evidence_state": "VERIFIED",
+        "value": "0.6",
+        "publication_at": "2026-01-30T13:00:00+09:00",
+        "evidence_refs": [
+          "synthetic-evidence-echo-confidence"
+        ]
+      },
+      "risk": {
+        "evidence_state": "VERIFIED",
+        "value": "0.4",
+        "publication_at": "2026-01-30T13:00:00+09:00",
+        "evidence_refs": [
+          "synthetic-evidence-echo-risk"
+        ]
+      }
+    },
+    {
+      "candidate_id": "candidate-foxtrot",
+      "company_id": "synthetic-company-foxtrot",
+      "security_code": "000006",
+      "pit_snapshot_id": "synthetic-pit-foxtrot",
+      "eligibility": {
+        "state": "UNKNOWN",
+        "reason_codes": [
+          "SYNTHETIC_ELIGIBILITY_UNKNOWN"
+        ]
+      },
+      "opportunity": {
+        "evidence_state": "UNKNOWN",
+        "value": null,
+        "publication_at": "2026-01-30T14:00:00+09:00",
+        "evidence_refs": [],
+        "reason_codes": [
+          "SYNTHETIC_OPPORTUNITY_UNKNOWN"
+        ]
+      },
+      "confidence": {
+        "evidence_state": "NOT_FOUND",
+        "value": null,
+        "publication_at": "2026-01-30T14:00:00+09:00",
+        "evidence_refs": [],
+        "reason_codes": [
+          "SYNTHETIC_CONFIDENCE_NOT_FOUND"
+        ]
+      },
+      "risk": {
+        "evidence_state": "CONFLICT",
+        "value": null,
+        "publication_at": "2026-01-30T14:00:00+09:00",
+        "evidence_refs": [
+          "synthetic-evidence-foxtrot-risk-a",
+          "synthetic-evidence-foxtrot-risk-b"
+        ],
+        "reason_codes": [
+          "SYNTHETIC_RISK_CONFLICT"
+        ]
+      },
+      "metadata": {
+        "nested_list": [
+          {
+            "note": "arbitrary synthetic metadata"
+          },
+          {
+            "count": 2
+          }
+        ]
+      }
+    }
+  ]
+}
