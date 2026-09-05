@@ -1092,8 +1092,9 @@ def _bind_price_components_after_seal(paths: dict[str, Path]) -> dict[str, Any]:
     }
 
 
-def _normalize_marcap_rows_after_seal(path: Path) -> list[dict[str, Any]]:
+def _normalize_marcap_rows_after_seal(path: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     try:
+        import pyarrow  # type: ignore[import-not-found]
         import pyarrow.parquet as parquet  # type: ignore[import-not-found]
     except ImportError as exc:
         raise RealInputReplayError(
@@ -1121,7 +1122,13 @@ def _normalize_marcap_rows_after_seal(path: Path) -> list[dict[str, Any]]:
                 "close": row["Close"],
             }
         )
-    return normalized
+    return normalized, {
+        "package": "pyarrow",
+        "version": pyarrow.__version__,
+        "read_columns": ["Date", "Code", "Open", "High", "Low", "Close"],
+        "source_row_count": table.num_rows,
+        "source_schema": str(table.schema),
+    }
 
 
 def _positive_price(value: Any, context: str) -> Decimal:
@@ -1365,7 +1372,8 @@ def execute_w1_outcomes_from_seal(
         "2026": Path(price_2026_path).resolve(),
     }
     price_binding = _bind_price_components_after_seal(paths)
-    normalized_rows = _normalize_marcap_rows_after_seal(paths["2024"])
+    normalized_rows, reader_runtime = _normalize_marcap_rows_after_seal(paths["2024"])
+    price_binding["parquet_reader_runtime"] = reader_runtime
     return calculate_w1_raw_outcomes_from_normalized_rows(
         verified_seal,
         normalized_rows,
