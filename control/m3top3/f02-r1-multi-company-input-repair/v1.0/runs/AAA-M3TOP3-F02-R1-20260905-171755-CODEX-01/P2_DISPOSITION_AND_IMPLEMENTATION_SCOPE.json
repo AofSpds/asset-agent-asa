@@ -7,7 +7,7 @@
   "policy_frozen": true,
   "model_disposition": {
     "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-results/P2_MODEL_MEANING_CLASSIFICATION.json",
-    "sha256": "59108fb5b82bcc6622aaeea1fff475cc7c3563bbe97c9dbd124bd332d7b5e42c"
+    "sha256": "59108fb5b82bcc6622aaeaa1fff475cc7c3563bbe97c9dbd124bd332d7b5e42c"
   },
   "control_disposition": {
     "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-results/P2_CONTROL_PROVENANCE_CLASSIFICATION.json",
@@ -47,5 +47,10 @@
     "PRIOR_SCORE_SEAL",
     "SOURCE_LEDGERS_AND_BYTES"
   ],
-  "no_new_owner_approval_required": true
+  "no_new_owner_approval_required": true,
+  "binding_maintenance": {
+    "recorded_at": "2026-09-05T18:36:00+09:00",
+    "reason": "MODEL_SHA_TRANSCRIPTION_TYPO_CORRECTED_FROM_RAW_BYTES;MODEL_ARTIFACT_BLOB_UNCHANGED",
+    "old_model_sha256": "59108fb5b82bcc6622aaeea1fff475cc7c3563bbe97c9dbd124bd332d7b5e42c"
+  }
 }

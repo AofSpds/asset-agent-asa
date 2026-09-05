@@ -1,7 +1,12 @@
-# F02-R1 Progress Dashboard
+# F02-R1 progress
 
-P0/P1 complete: 30/100 EWU. Four new KIND Q1 reports and cached 005290 recovered with exact matching hashes. Source actions remain 33/48 (10/5/9/9); new raw bytes 4,774,865. No retrieval was repeated.
+As of 2026-09-05T18:42:16.9204973+09:00. Same run; NO-RERUN continuation.
 
-P2 model/control classification is in progress. The first 30-minute checkpoint was not durably completed before the restart; recovered evidence shows source acquisition was complete and input admission awaited P2 and adapter changes. This is a late documentation recovery, not a backdated on-time checkpoint.
-
-All five inputs, pooled scoring, validation and terminal persistence remain to be completed. See CHECKPOINTS.jsonl for exact boundaries.
+- Earned: 70/100 EWU (P0–P3 complete); P4 independent validation pending.
+- Source actions: 33/48; new raw files: 4/8; bytes: 4,774,865/20,000,000; continuation refetches: 0.
+- Input: 5 sources, 20 observed numeric + 20 derived control leaves, full57-row MIS; no new pooled score yet.
+- P2: exploratory mixed-Q1/Q2 fit conditionally compatible; all required P4 roles retained.
+- P3: 31 affected tests plus3 final-helper rechecks; legacy13 relevant tests passed. Author checks are not independent PASS.
+- Runtime recovery: no source evidence loss detected; 30-minute checkpoint recorded late, not backdated.
+- Next terminal event: exact-target CTLV/MODV/ENGV/PMOV/IVA closure.
+- ETA: 40–80 minutes, conditional on P4 findings; CRU/token telemetry NOT_INSTRUMENTED.

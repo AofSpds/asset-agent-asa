@@ -38,6 +38,7 @@ from .shared_interface_guards_v1 import (
 RUNNER_VERSION = "M3TOP3-REAL-INPUT-STRICT-PRAGMATIC-REPLAY-v1.0"
 SOURCE_MANIFEST_SCHEMA = "M3TOP3-REAL-SOURCE-MANIFEST-v1.0"
 FEATURE_LEAF_SCHEMA = "M3TOP3-REAL-FEATURE-LEAF-v1.0"
+F02_R1_SOURCE_SCHEMA = "M3TOP3-F02-R1-SOURCE-MANIFEST-v1.0"
 F02 = "F02_NUMERIC_BUSINESS_INFLECTION"
 F02_ADMISSION_METHOD = "F02_KRX_PROVISIONAL_CORE_OPERATING_METRICS_v1"
 F02_OPERATOR_ID = "M3TOP3_F02_RELATIVE_FROM_OBSERVED_PAIR_v1"
@@ -322,6 +323,13 @@ def validate_source_manifest(
     repo: str | Path,
     expected_run_id: str,
 ) -> dict[str, dict[str, Any]]:
+    if manifest.get("schema_version") == F02_R1_SOURCE_SCHEMA:
+        from . import f02_r1_adapter
+
+        return f02_r1_adapter.validate_source_manifest(
+            manifest, manifest_content_sha256=manifest_content_sha256,
+            repo=repo, expected_run_id=expected_run_id,
+        )
     _assert_exact_keys(manifest, MANIFEST_KEYS, "source manifest")
     if manifest["schema_version"] != SOURCE_MANIFEST_SCHEMA or manifest["run_id"] != expected_run_id:
         raise RealInputReplayError("source manifest schema/run mismatch")
@@ -458,6 +466,13 @@ def validate_feature_leaves(
     population_rows: Iterable[dict[str, Any]],
     expected_run_id: str,
 ) -> list[dict[str, Any]]:
+    if manifest.get("schema_version") == F02_R1_SOURCE_SCHEMA:
+        from . import f02_r1_adapter
+
+        return f02_r1_adapter.validate_feature_leaves(
+            records, manifest=manifest, manifest_content_sha256=manifest_content_sha256,
+            sources=sources, population_rows=population_rows, expected_run_id=expected_run_id,
+        )
     population = {
         (row["window_id"], row["company_id"]): row for row in validate_population(population_rows)
     }
@@ -650,6 +665,11 @@ def build_strict_w1_mis(
         population_rows=population,
         expected_run_id=pmo_run_id,
     )
+    is_r1 = manifest.get("schema_version") == F02_R1_SOURCE_SCHEMA
+    if is_r1:
+        from . import f02_r1_adapter
+
+    admission_method = f02_r1_adapter.ADMISSION_METHOD if is_r1 else F02_ADMISSION_METHOD
     rows = build_window_mis("W1", population, pmo_run_id=pmo_run_id, code_identity=code_identity)
     semantic_sidecar_sha256 = sha256_hex(leaves)
     composite_input_sha256 = sha256_hex(
@@ -682,7 +702,7 @@ def build_strict_w1_mis(
                 source_lineage_refs.add(evidence_ref)
             else:
                 evidence_ref = (
-                    f"ADMISSION_METHOD:{F02_ADMISSION_METHOD}|OPERATOR:{F02_OPERATOR_ID}|"
+                    f"ADMISSION_METHOD:{admission_method}|OPERATOR:{F02_OPERATOR_ID}|"
                     f"REGISTRY:{FEATURE_INPUT_REGISTRY_REF}|LINEAGE:{','.join(sorted(leaf['input_lineage_refs']))}"
                 )
             provenance[dotted] = {
@@ -700,6 +720,7 @@ def build_strict_w1_mis(
 
     validate_strict_w1_mis(rows, code_identity=code_identity)
     return rows, {
+        **({"input_profile": f02_r1_adapter.scientific_profile(manifest)} if is_r1 else {}),
         "source_manifest_content_sha256": manifest_content_sha256,
         "semantic_feature_leaf_sha256": semantic_sidecar_sha256,
         "composite_input_sha256": composite_input_sha256,
@@ -902,7 +923,10 @@ def execute_strict_w1_model_stage(
         "pmo_run_id": pmo_run_id,
         "mode": "STRICT",
         "runner_version": RUNNER_VERSION,
-        "claim_class": "COVERAGE_LIMITED_REAL_INPUT_STRICT_REPLAY",
+        "claim_class": (
+            "F02_R1_OBSERVED_COHORT_PROVISIONAL_EXPLORATORY"
+            if "input_profile" in input_custody else "COVERAGE_LIMITED_REAL_INPUT_STRICT_REPLAY"
+        ),
         "model_stage_state": "COMPLETED_NONEMPTY_STRICT_SCORE",
         "stage_sequence": [
             "POPULATION_BOUND",
@@ -965,7 +989,10 @@ def execute_strict_w1_model_stage(
         "outcome_firewall": {
             "future_price_values_loaded_before_model_selection": False,
             "future_outcome_fields_present_in_model_inputs": False,
-            "price_stage_may_begin_after": "DURABLE_SELECTION_SEAL_COMMIT_AND_READBACK",
+            "price_stage_may_begin_after": (
+                "NOT_AUTHORIZED_UNDER_F02_R1_PACKET"
+                if "input_profile" in input_custody else "DURABLE_SELECTION_SEAL_COMMIT_AND_READBACK"
+            ),
         },
         "claim_ceiling": [
             "NO_OFFICIAL_TOP3_OR_TOP10_CLAIM",
@@ -1006,6 +1033,17 @@ def _seal_payload(model_stage: dict[str, Any]) -> dict[str, Any]:
     return {
         "pmo_run_id": model_stage["pmo_run_id"],
         "mode": model_stage["mode"],
+        **(
+            {
+                "input_profile": copy.deepcopy(model_stage["input_custody"]["input_profile"]),
+                "affected_validation_binding": copy.deepcopy(
+                    model_stage["input_custody"].get("affected_validation_binding")
+                ),
+                "future_access_assertion_scope": "THIS_SCORE_AND_SEAL_ACT_ONLY_NOT_PRIOR_ACTOR_EXPOSURE",
+                "outcome_execution_authorized": False,
+            }
+            if "input_profile" in model_stage["input_custody"] else {}
+        ),
         "successor_executable_bundle_identity": model_stage["successor_executable_bundle_identity"],
         "preserved_predecessor_bundle_identity": model_stage["preserved_predecessor_bundle_identity"],
         "config_hash": model_stage["config_hash"],
@@ -1037,6 +1075,12 @@ def create_selection_seal(model_stage: dict[str, Any], *, sealed_at_kst: str) ->
         raise RealInputReplayError("nonempty completed model stage required before sealing")
     parse_datetime(sealed_at_kst)
     payload = _seal_payload(model_stage)
+    if "input_profile" in payload and (
+        payload["input_profile"].get("scientific_state") != "EXPLORATORY_AFTER_W1_OUTCOME_EXPOSURE"
+        or not isinstance(payload.get("affected_validation_binding"), dict)
+        or payload["affected_validation_binding"].get("state") != "EXACT_TARGET_ALL_REQUIRED_ROLES_PASS"
+    ):
+        raise RealInputReplayError("R1 seal requires truthful custody and exact P4 validation binding")
     if len(payload["include_57_results"]) != 57 or not payload["outcome_measurement_cohort"]:
         raise RealInputReplayError("selection seal requires the full W1 denominator and nonempty measurement cohort")
     digest = sha256_hex(payload)
@@ -1072,6 +1116,14 @@ def validate_selection_seal(seal: dict[str, Any]) -> dict[str, Any]:
     if seal["future_price_values_opened_at_seal"] is not False:
         raise RealInputReplayError("selection seal does not assert an unopened outcome boundary")
     payload = seal["sealed_payload"]
+    if "input_profile" in payload and (
+        payload["input_profile"].get("scientific_state") != "EXPLORATORY_AFTER_W1_OUTCOME_EXPOSURE"
+        or payload.get("outcome_execution_authorized") is not False
+        or payload.get("future_access_assertion_scope") != "THIS_SCORE_AND_SEAL_ACT_ONLY_NOT_PRIOR_ACTOR_EXPOSURE"
+        or not isinstance(payload.get("affected_validation_binding"), dict)
+        or payload["affected_validation_binding"].get("state") != "EXACT_TARGET_ALL_REQUIRED_ROLES_PASS"
+    ):
+        raise RealInputReplayError("R1 seal scientific custody/validation mismatch")
     mapping = payload.get("window_mapping", {})
     if (
         payload.get("mode") != "STRICT"

@@ -1,0 +1,586 @@
+{
+  "schema_version": "M3TOP3-F02-R1-INPUT-MAPPING-v1.0",
+  "run_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01",
+  "created_at": "2026-09-05T18:35:50.3101487+09:00",
+  "profile_design_at": "2026-09-05T18:24:00+09:00",
+  "admission_method": "F02_R1_LATEST_CONFIRMED_QUARTER_NATIVE_UNITS_v1",
+  "scientific_state": "EXPLORATORY_AFTER_W1_OUTCOME_EXPOSURE",
+  "feature_id": "F02_NUMERIC_BUSINESS_INFLECTION",
+  "change_mode": "RELATIVE",
+  "operator_id": "M3TOP3_F02_RELATIVE_FROM_OBSERVED_PAIR_v1",
+  "consumed_registry_git_blob": "5faa4d5739bf9ecb0c11d16f6d7d697ff3983977",
+  "consumed_registry_historical_locator": "79b46dc1f63f1cd215cc0ebc0c91b4ec09e7dc71:control/shared/M3TOP3-FEATURE-INPUT-REGISTRY_v1.0_WORKING.yaml@5faa4d5739bf9ecb0c11d16f6d7d697ff3983977",
+  "registry_resolution": "EXACT_READABLE_GIT_BLOB_NOT_CLAIMED_HISTORICAL_PATH_RESOLUTION",
+  "numeric_policy": "SOURCE_NATIVE_SIGNED_DECIMAL_NO_UNIT_CONVERSION_NO_ROUNDING",
+  "input_selection": "D1_LATEST_CONFIRMED_CUTOFF_SAFE_Q2_PREFERRED_Q1_FALLBACK",
+  "claim_ceiling": "F02_ONLY_OBSERVED_COHORT_PROVISIONAL_NO_OFFICIAL_TOP3_TOP10",
+  "sources": [
+    {
+      "company_id": "KRX:003160",
+      "krx_code": "003160",
+      "issuer": "(주)디아이",
+      "source_id": "SRC-KRX-KIND-003160-20240516-20240516003155",
+      "publication_date": "2024-05-16",
+      "canonical_locator": "https://kind.krx.co.kr/external/2024/05/16/001334/20240516003155/11013.htm",
+      "raw_storage_ref": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/sources/KRX-003160/KRX_003160_20240516_Q1_REPORT_11013.htm",
+      "raw_artifact": {
+        "byte_size": 1404585,
+        "sha256": "2ab621a3862041c57040524aaa3c084c81304685015cbc2be7e6b57ba5fa3fe3",
+        "git_blob": "b99d90f62b47c52389356318ccb328395dcf1130",
+        "media_type": "text/html",
+        "charset": "UTF-8"
+      },
+      "title": "분기보고서",
+      "basis": "CONSOLIDATED",
+      "unit": "KRW",
+      "current_period": "2024Q1",
+      "prior_period": "2023Q1",
+      "quarter_length": "3_MONTHS",
+      "context_table_line": 6516,
+      "table_line": 6543,
+      "statement_title": "연결 손익계산서",
+      "sequence": 64,
+      "metric_labels": {
+        "revenue": "매출액",
+        "operating_profit": "영업이익"
+      },
+      "metric_rows": {
+        "revenue": 3,
+        "operating_profit": 8
+      },
+      "value_columns": {
+        "current": 2,
+        "prior": 4
+      },
+      "metric_pairs": {
+        "revenue": [
+          "34732575950",
+          "39216899579"
+        ],
+        "operating_profit": [
+          "-1836830457",
+          "865831578"
+        ]
+      },
+      "acquired_at": "2026-09-05T17:36:24.3732978+09:00",
+      "acquisition_action_id": "SRA-003160-0009",
+      "source_receipt_path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-ledgers/source_research_a.jsonl",
+      "q2_evidence": {
+        "selected": false,
+        "after_cutoff_candidate_url": "https://kind.krx.co.kr/external/2024/08/14/002471/20240814007837/11012.htm",
+        "after_cutoff_candidate_public_date": "2024-08-14",
+        "bounded_query_action_id": "SRA-003160-0010",
+        "supplementary_receipt_path": null,
+        "global_absence_state": "NOT_PROVEN",
+        "selection": "LATEST_CONFIRMED_CUTOFF_SAFE_IN_BOUNDED_SET_Q1_FALLBACK"
+      },
+      "limitations": [
+        "Q1_FALLBACK",
+        "DATE_ONLY_PUBLICATION",
+        "NOT_GLOBAL_Q2_ABSENCE",
+        "HETEROGENEOUS_Q1_Q2_OBSERVED_COHORT",
+        "NEGATIVE_CURRENT_OPERATING_PROFIT_PROFIT_TO_LOSS"
+      ],
+      "restatement_note": null,
+      "current_period_start": "2024-01-01",
+      "current_period_end": "2024-03-31",
+      "prior_period_start": "2023-01-01",
+      "prior_period_end": "2023-03-31",
+      "period_date_provenance": "EXPLICIT_SOURCE_PERIOD_DATES",
+      "disclosure_type": "FILED_QUARTERLY_REPORT",
+      "confirmation_status": "OFFICIAL_FILED_QUARTERLY_STATEMENT_NO_AUDIT_ATTESTATION",
+      "age_days_from_publication_to_cutoff": 85,
+      "age_days_from_period_end_to_cutoff": 131,
+      "age_basis": "CALENDAR_DATE_DIFFERENCE_TO_W1_CUTOFF_DATE;NO_INTRADAY_PRECISION"
+    },
+    {
+      "company_id": "KRX:025560",
+      "krx_code": "025560",
+      "issuer": "미래산업 주식회사",
+      "source_id": "SRC-KRX-KIND-025560-20240514-20240514003275",
+      "publication_date": "2024-05-14",
+      "canonical_locator": "https://kind.krx.co.kr/external/2024/05/14/001496/20240514003275/11013.htm",
+      "raw_storage_ref": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/sources/KRX-025560/KRX_025560_20240514_Q1_REPORT_11013.htm",
+      "raw_artifact": {
+        "byte_size": 1325372,
+        "sha256": "a547f8b383ecb85f39d5826ab08bf6641c6716a85ba12ddc90efb5c9f303537f",
+        "git_blob": "44a8179c1a003db97cc4e1bc733208edcc0b1df4",
+        "media_type": "text/html",
+        "charset": "UTF-8"
+      },
+      "title": "분기보고서",
+      "basis": "CONSOLIDATED",
+      "unit": "KRW",
+      "current_period": "2024Q1",
+      "prior_period": "2023Q1",
+      "quarter_length": "3_MONTHS",
+      "context_table_line": 3984,
+      "table_line": 4011,
+      "statement_title": "연결 포괄손익계산서",
+      "sequence": 34,
+      "metric_labels": {
+        "revenue": "수익(매출액)",
+        "operating_profit": "영업이익(손실)"
+      },
+      "metric_rows": {
+        "revenue": 3,
+        "operating_profit": 7
+      },
+      "value_columns": {
+        "current": 2,
+        "prior": 4
+      },
+      "metric_pairs": {
+        "revenue": [
+          "5162565692",
+          "4785829491"
+        ],
+        "operating_profit": [
+          "2040268633",
+          "-442977057"
+        ]
+      },
+      "acquired_at": "2026-09-05T17:30:31.7466136+09:00",
+      "acquisition_action_id": "SRA-025560-0005",
+      "source_receipt_path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-ledgers/source_research_a.jsonl",
+      "q2_evidence": {
+        "selected": false,
+        "after_cutoff_candidate_url": "https://kind.krx.co.kr/external/2024/08/14/001390/20240814004272/11012.htm",
+        "after_cutoff_candidate_public_date": "2024-08-14",
+        "bounded_query_action_id": "SRA-025560-0002",
+        "supplementary_receipt_path": null,
+        "global_absence_state": "NOT_PROVEN",
+        "selection": "LATEST_CONFIRMED_CUTOFF_SAFE_IN_BOUNDED_SET_Q1_FALLBACK"
+      },
+      "limitations": [
+        "Q1_FALLBACK",
+        "DATE_ONLY_PUBLICATION",
+        "NOT_GLOBAL_Q2_ABSENCE",
+        "HETEROGENEOUS_Q1_Q2_OBSERVED_COHORT",
+        "RESTATED_PRIOR_OPERATING_PROFIT",
+        "NEGATIVE_PRIOR_OPERATING_PROFIT_TURNAROUND",
+        "SIGNED_CHANGE_VS_ABSOLUTE_PRIOR_NOT_CONVENTIONAL_POSITIVE_BASE_GROWTH"
+      ],
+      "restatement_note": {
+        "raw_note_line": 23818,
+        "prior_before": "-448371497",
+        "adjustment": "5394440",
+        "prior_after": "-442977057",
+        "raw_value_lines": [
+          23874,
+          23875,
+          23876
+        ],
+        "prior_revenue_unchanged": true,
+        "reason": "SAME_CUTOFF_SAFE_SOURCE_DISCLOSED_DISCONTINUED_OPERATION_RECLASSIFICATION"
+      },
+      "current_period_start": "2024-01-01",
+      "current_period_end": "2024-03-31",
+      "prior_period_start": "2023-01-01",
+      "prior_period_end": "2023-03-31",
+      "period_date_provenance": "EXPLICIT_SOURCE_PERIOD_DATES",
+      "disclosure_type": "FILED_QUARTERLY_REPORT",
+      "confirmation_status": "OFFICIAL_FILED_QUARTERLY_STATEMENT_NO_AUDIT_ATTESTATION",
+      "age_days_from_publication_to_cutoff": 87,
+      "age_days_from_period_end_to_cutoff": 131,
+      "age_basis": "CALENDAR_DATE_DIFFERENCE_TO_W1_CUTOFF_DATE;NO_INTRADAY_PRECISION"
+    },
+    {
+      "company_id": "KRX:031980",
+      "krx_code": "031980",
+      "issuer": "피에스케이홀딩스 주식회사",
+      "source_id": "SRC-KRX-KIND-031980-20240516-20240516001477",
+      "publication_date": "2024-05-16",
+      "canonical_locator": "https://kind.krx.co.kr/external/2024/05/16/000652/20240516001477/11013.htm",
+      "raw_storage_ref": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/sources/KRX-031980/KRX_031980_20240516_Q1_REPORT_11013.htm",
+      "raw_artifact": {
+        "byte_size": 961791,
+        "sha256": "8323d301baa3f62a872f2dec7f846d98d0effc0e9e06f7ea6dca5c7c78a598a9",
+        "git_blob": "89a0ebd92b90207ba8e0f5e947f5350c92714039",
+        "media_type": "text/html",
+        "charset": "UTF-8"
+      },
+      "title": "분기보고서",
+      "basis": "CONSOLIDATED",
+      "unit": "KRW",
+      "current_period": "2024Q1",
+      "prior_period": "2023Q1",
+      "quarter_length": "3_MONTHS",
+      "context_table_line": 4223,
+      "table_line": 4250,
+      "statement_title": "연결 포괄손익계산서",
+      "sequence": 35,
+      "metric_labels": {
+        "revenue": "수익(매출액)",
+        "operating_profit": "영업이익(손실)"
+      },
+      "metric_rows": {
+        "revenue": 3,
+        "operating_profit": 7
+      },
+      "value_columns": {
+        "current": 2,
+        "prior": 4
+      },
+      "metric_pairs": {
+        "revenue": [
+          "38094447594",
+          "14913281644"
+        ],
+        "operating_profit": [
+          "15420952017",
+          "3496296368"
+        ]
+      },
+      "acquired_at": "2026-09-05T17:37:43.2995087+09:00",
+      "acquisition_action_id": "SRB-031980-0008",
+      "source_receipt_path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-ledgers/source_research_b.jsonl",
+      "q2_evidence": {
+        "selected": false,
+        "after_cutoff_candidate_url": "https://kind.krx.co.kr/external/2024/08/14/003322/20240814010557/11012.htm",
+        "after_cutoff_candidate_public_date": "2024-08-14",
+        "bounded_query_action_id": "SRB-031980-0009",
+        "supplementary_receipt_path": "control/m3top3/process-calibration/v1.0/runs/AAA-M3TOP3-PROCESS-CALIBRATION-PC1-20260905-143739-CODEX-01/F02_DISCOVERY_RECEIPT.json",
+        "global_absence_state": "NOT_PROVEN",
+        "selection": "LATEST_CONFIRMED_CUTOFF_SAFE_IN_BOUNDED_SET_Q1_FALLBACK"
+      },
+      "limitations": [
+        "Q1_FALLBACK",
+        "DATE_ONLY_PUBLICATION",
+        "NOT_GLOBAL_Q2_ABSENCE",
+        "HETEROGENEOUS_Q1_Q2_OBSERVED_COHORT"
+      ],
+      "restatement_note": null,
+      "current_period_start": "2024-01-01",
+      "current_period_end": "2024-03-31",
+      "prior_period_start": "2023-01-01",
+      "prior_period_end": "2023-03-31",
+      "period_date_provenance": "EXPLICIT_SOURCE_PERIOD_DATES",
+      "disclosure_type": "FILED_QUARTERLY_REPORT",
+      "confirmation_status": "OFFICIAL_FILED_QUARTERLY_STATEMENT_NO_AUDIT_ATTESTATION",
+      "age_days_from_publication_to_cutoff": 85,
+      "age_days_from_period_end_to_cutoff": 131,
+      "age_basis": "CALENDAR_DATE_DIFFERENCE_TO_W1_CUTOFF_DATE;NO_INTRADAY_PRECISION"
+    },
+    {
+      "company_id": "KRX:036200",
+      "krx_code": "036200",
+      "issuer": "유니셈 주식회사",
+      "source_id": "SRC-KRX-KIND-036200-20240510-20240510001413",
+      "publication_date": "2024-05-10",
+      "canonical_locator": "https://kind.krx.co.kr/external/2024/05/10/000637/20240510001413/11013.htm",
+      "raw_storage_ref": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/sources/KRX-036200/KRX_036200_20240510_Q1_REPORT_11013.htm",
+      "raw_artifact": {
+        "byte_size": 1083117,
+        "sha256": "63152e6f1ba5c1b063c6466b54c3d7b7382d948de0aa36f19f8a208a3cb58ab2",
+        "git_blob": "0e451a3feb018cc4d38bd53915d535a44674e267",
+        "media_type": "text/html",
+        "charset": "UTF-8"
+      },
+      "title": "분기보고서",
+      "basis": "CONSOLIDATED",
+      "unit": "KRW",
+      "current_period": "2024Q1",
+      "prior_period": "2023Q1",
+      "quarter_length": "3_MONTHS",
+      "context_table_line": 4381,
+      "table_line": 4408,
+      "statement_title": "연결 포괄손익계산서",
+      "sequence": 29,
+      "metric_labels": {
+        "revenue": "Ⅰ.매출액",
+        "operating_profit": "Ⅴ.영업이익"
+      },
+      "metric_rows": {
+        "revenue": 3,
+        "operating_profit": 7
+      },
+      "value_columns": {
+        "current": 2,
+        "prior": 4
+      },
+      "metric_pairs": {
+        "revenue": [
+          "55186952755",
+          "51753687853"
+        ],
+        "operating_profit": [
+          "4559702713",
+          "4333422148"
+        ]
+      },
+      "acquired_at": "2026-09-05T17:37:43.2995087+09:00",
+      "acquisition_action_id": "SRB-036200-0008",
+      "source_receipt_path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-ledgers/source_research_b.jsonl",
+      "q2_evidence": {
+        "selected": false,
+        "after_cutoff_candidate_url": "https://kind.krx.co.kr/external/2024/08/14/003029/20240814009619/11012.htm",
+        "after_cutoff_candidate_public_date": "2024-08-14",
+        "bounded_query_action_id": "SRB-036200-0009",
+        "supplementary_receipt_path": "control/m3top3/process-calibration/v1.0/runs/AAA-M3TOP3-PROCESS-CALIBRATION-PC1-20260905-143739-CODEX-01/F02_DISCOVERY_RECEIPT.json",
+        "global_absence_state": "NOT_PROVEN",
+        "selection": "LATEST_CONFIRMED_CUTOFF_SAFE_IN_BOUNDED_SET_Q1_FALLBACK"
+      },
+      "limitations": [
+        "Q1_FALLBACK",
+        "DATE_ONLY_PUBLICATION",
+        "NOT_GLOBAL_Q2_ABSENCE",
+        "HETEROGENEOUS_Q1_Q2_OBSERVED_COHORT"
+      ],
+      "restatement_note": null,
+      "current_period_start": "2024-01-01",
+      "current_period_end": "2024-03-31",
+      "prior_period_start": "2023-01-01",
+      "prior_period_end": "2023-03-31",
+      "period_date_provenance": "EXPLICIT_SOURCE_PERIOD_DATES",
+      "disclosure_type": "FILED_QUARTERLY_REPORT",
+      "confirmation_status": "OFFICIAL_FILED_QUARTERLY_STATEMENT_NO_AUDIT_ATTESTATION",
+      "age_days_from_publication_to_cutoff": 91,
+      "age_days_from_period_end_to_cutoff": 131,
+      "age_basis": "CALENDAR_DATE_DIFFERENCE_TO_W1_CUTOFF_DATE;NO_INTRADAY_PRECISION"
+    },
+    {
+      "company_id": "KRX:005290",
+      "krx_code": "005290",
+      "issuer": "(주)동진쎄미켐",
+      "source_id": "SRC-KRX-KIND-005290-20240802-70956",
+      "publication_date": "2024-08-02",
+      "canonical_locator": "https://kind.krx.co.kr/external/2024/08/02/000210/20240730000320/70956.htm",
+      "raw_storage_ref": "control/m3top3/real-input-replay/v1.0/runs/AAA-M3TOP3-REAL-INPUT-STRICT-PRAGMATIC-20260905-114150-CODEX-01/sources/W1/KRX-005290/KRX_005290_20240802_PROVISIONAL_EARNINGS_70956.htm",
+      "raw_artifact": {
+        "byte_size": 16221,
+        "sha256": "5c361107cbd2dc35b236b5358595e036ecb1dd9dc8b06471bca7bf9e550c7db7",
+        "git_blob": "82be77ca6edb47695ca52ccf0ac2b1c69605129f",
+        "media_type": "text/html",
+        "charset": "UTF-8"
+      },
+      "title": "연결재무제표 기준 영업(잠정)실적(공정공시)",
+      "basis": "CONSOLIDATED",
+      "unit": "KRW_MILLION",
+      "current_period": "2024Q2",
+      "prior_period": "2023Q2",
+      "quarter_length": "3_MONTHS",
+      "context_table_line": 18,
+      "table_line": 18,
+      "statement_title": "1. 연결실적내용",
+      "sequence": null,
+      "metric_labels": {
+        "revenue": "매출액",
+        "operating_profit": "영업이익"
+      },
+      "metric_rows": {
+        "revenue": 5,
+        "operating_profit": 7
+      },
+      "value_columns": {
+        "current": 3,
+        "prior": 6
+      },
+      "metric_pairs": {
+        "revenue": [
+          "355414",
+          "331317"
+        ],
+        "operating_profit": [
+          "49972",
+          "45565"
+        ]
+      },
+      "acquired_at": "2026-09-05T12:04:39.4397484+09:00",
+      "acquisition_action_id": "NETWORK_ATTEMPT_18_PRESERVED_FETCH",
+      "source_receipt_path": "control/m3top3/real-input-replay/v1.0/runs/AAA-M3TOP3-REAL-INPUT-STRICT-PRAGMATIC-20260905-114150-CODEX-01/inputs/SOURCE_MANIFEST.json",
+      "q2_evidence": {
+        "selected": true,
+        "selection": "EXACT_CACHED_CONTROL_NO_REFETCH",
+        "global_absence_state": "NOT_ASSESSED"
+      },
+      "limitations": [
+        "PROVISIONAL_NOT_FINAL",
+        "AUDITOR_REVIEW_REPORT_NOT_YET_ISSUED",
+        "MAY_CHANGE_DURING_AUDIT",
+        "CACHED_CONTROL_NO_REFETCH",
+        "HETEROGENEOUS_Q1_Q2_OBSERVED_COHORT"
+      ],
+      "restatement_note": null,
+      "current_period_start": "2024-04-01",
+      "current_period_end": "2024-06-30",
+      "prior_period_start": "2023-04-01",
+      "prior_period_end": "2023-06-30",
+      "period_date_provenance": "EXPLICIT_SOURCE_CALENDAR_QUARTER_LABEL_TO_DATES",
+      "disclosure_type": "PROVISIONAL_EARNINGS_FAIR_DISCLOSURE",
+      "confirmation_status": "PROVISIONAL_NOT_FINAL_AUDITOR_REVIEW_NOT_YET_ISSUED",
+      "age_days_from_publication_to_cutoff": 7,
+      "age_days_from_period_end_to_cutoff": 40,
+      "age_basis": "CALENDAR_DATE_DIFFERENCE_TO_W1_CUTOFF_DATE;NO_INTRADAY_PRECISION"
+    }
+  ],
+  "parsed_cell_bindings": {
+    "SRC-KRX-KIND-003160-20240516-20240516003155": {
+      "/metric_pairs/revenue/current": {
+        "value": "34732575950",
+        "locator": "html:table-line-6543/row-3/cell-2",
+        "cell_start_line": 6581
+      },
+      "/metric_pairs/revenue/prior": {
+        "value": "39216899579",
+        "locator": "html:table-line-6543/row-3/cell-4",
+        "cell_start_line": 6587
+      },
+      "/metric_pairs/operating_profit/current": {
+        "value": "-1836830457",
+        "locator": "html:table-line-6543/row-8/cell-2",
+        "cell_start_line": 6666
+      },
+      "/metric_pairs/operating_profit/prior": {
+        "value": "865831578",
+        "locator": "html:table-line-6543/row-8/cell-4",
+        "cell_start_line": 6672
+      }
+    },
+    "SRC-KRX-KIND-025560-20240514-20240514003275": {
+      "/metric_pairs/revenue/current": {
+        "value": "5162565692",
+        "locator": "html:table-line-4011/row-3/cell-2",
+        "cell_start_line": 4049
+      },
+      "/metric_pairs/revenue/prior": {
+        "value": "4785829491",
+        "locator": "html:table-line-4011/row-3/cell-4",
+        "cell_start_line": 4055
+      },
+      "/metric_pairs/operating_profit/current": {
+        "value": "2040268633",
+        "locator": "html:table-line-4011/row-7/cell-2",
+        "cell_start_line": 4117
+      },
+      "/metric_pairs/operating_profit/prior": {
+        "value": "-442977057",
+        "locator": "html:table-line-4011/row-7/cell-4",
+        "cell_start_line": 4123
+      }
+    },
+    "SRC-KRX-KIND-031980-20240516-20240516001477": {
+      "/metric_pairs/revenue/current": {
+        "value": "38094447594",
+        "locator": "html:table-line-4250/row-3/cell-2",
+        "cell_start_line": 4288
+      },
+      "/metric_pairs/revenue/prior": {
+        "value": "14913281644",
+        "locator": "html:table-line-4250/row-3/cell-4",
+        "cell_start_line": 4294
+      },
+      "/metric_pairs/operating_profit/current": {
+        "value": "15420952017",
+        "locator": "html:table-line-4250/row-7/cell-2",
+        "cell_start_line": 4356
+      },
+      "/metric_pairs/operating_profit/prior": {
+        "value": "3496296368",
+        "locator": "html:table-line-4250/row-7/cell-4",
+        "cell_start_line": 4362
+      }
+    },
+    "SRC-KRX-KIND-036200-20240510-20240510001413": {
+      "/metric_pairs/revenue/current": {
+        "value": "55186952755",
+        "locator": "html:table-line-4408/row-3/cell-2",
+        "cell_start_line": 4446
+      },
+      "/metric_pairs/revenue/prior": {
+        "value": "51753687853",
+        "locator": "html:table-line-4408/row-3/cell-4",
+        "cell_start_line": 4452
+      },
+      "/metric_pairs/operating_profit/current": {
+        "value": "4559702713",
+        "locator": "html:table-line-4408/row-7/cell-2",
+        "cell_start_line": 4514
+      },
+      "/metric_pairs/operating_profit/prior": {
+        "value": "4333422148",
+        "locator": "html:table-line-4408/row-7/cell-4",
+        "cell_start_line": 4520
+      }
+    },
+    "SRC-KRX-KIND-005290-20240802-70956": {
+      "/metric_pairs/revenue/current": {
+        "value": "355414",
+        "locator": "html:table-line-18/row-5/cell-3",
+        "cell_start_line": 42
+      },
+      "/metric_pairs/revenue/prior": {
+        "value": "331317",
+        "locator": "html:table-line-18/row-5/cell-6",
+        "cell_start_line": 45
+      },
+      "/metric_pairs/operating_profit/current": {
+        "value": "49972",
+        "locator": "html:table-line-18/row-7/cell-3",
+        "cell_start_line": 59
+      },
+      "/metric_pairs/operating_profit/prior": {
+        "value": "45565",
+        "locator": "html:table-line-18/row-7/cell-6",
+        "cell_start_line": 62
+      }
+    }
+  },
+  "dependencies": [
+    {
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/INPUT_POLICY_R1.json",
+      "byte_size": 1618,
+      "sha256": "fb62b4afb0f4e3edddcbc8b95e15cd2ea4288be72b9a93c135a9b687f9e0d680"
+    },
+    {
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/OWNER_AUTHORIZATION_BINDING.json",
+      "byte_size": 3151,
+      "sha256": "96aff4ada2cc2a816bbc0b2536d58b4fed54680489cb15f88f78e63598d59404"
+    },
+    {
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/P2_DISPOSITION_AND_IMPLEMENTATION_SCOPE.json",
+      "byte_size": 2515,
+      "sha256": "da75fea80d60bf32c530d2bd04cbffdb0da4e8a2edc40212db34dc95ac3e3df0"
+    },
+    {
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-ledgers/source_research_a.jsonl",
+      "byte_size": 12719,
+      "sha256": "5a71fc2fa25e20a5ffc66b72e015cb4de56d7fc3bb34adba2754fe9f51d9eb81"
+    },
+    {
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-ledgers/source_research_a_result.json",
+      "byte_size": 13383,
+      "sha256": "d84925e78e5fc7e20051a2fac7421e3b7ee0d269666bd7844db380ba96355603"
+    },
+    {
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-ledgers/source_research_b.jsonl",
+      "byte_size": 25216,
+      "sha256": "5c06bfe4831510f642af39cb6f1aa9209e15bdf7c14aeaefa5195961c44ee73d"
+    },
+    {
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-results/P2_CONTROL_PROVENANCE_CLASSIFICATION.json",
+      "byte_size": 19870,
+      "sha256": "8c763b1924c210db7ea97b5e19ea53a62e7532e1b101af72b42113dab30cb1b6"
+    },
+    {
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-results/P2_MODEL_MEANING_CLASSIFICATION.json",
+      "byte_size": 14547,
+      "sha256": "59108fb5b82bcc6622aaeaa1fff475cc7c3563bbe97c9dbd124bd332d7b5e42c"
+    },
+    {
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-results/source_research_b_result.json",
+      "byte_size": 7752,
+      "sha256": "9b5f8d1bcb2140456a9b78de2c3758efdf52dd3cb754aa1ef4ada3e1d7d09f2a"
+    },
+    {
+      "path": "control/m3top3/process-calibration/v1.0/runs/AAA-M3TOP3-PROCESS-CALIBRATION-PC1-20260905-143739-CODEX-01/F02_DISCOVERY_RECEIPT.json",
+      "byte_size": 4221,
+      "sha256": "57cf0a0a7e7d316f86c6591a240cbcddadb894830c827a4d207219631d33b9af"
+    },
+    {
+      "path": "control/m3top3/real-input-replay/v1.0/runs/AAA-M3TOP3-REAL-INPUT-STRICT-PRAGMATIC-20260905-114150-CODEX-01/inputs/SOURCE_MANIFEST.json",
+      "byte_size": 2986,
+      "sha256": "4752fdad038681d6c09381176bdd8ca1837f9ecdd9201eafb3bd4ea682d534de"
+    }
+  ]
+}

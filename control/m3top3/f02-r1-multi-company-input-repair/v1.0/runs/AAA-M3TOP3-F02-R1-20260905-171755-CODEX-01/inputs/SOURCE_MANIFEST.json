@@ -1,0 +1,376 @@
+{
+  "schema_version": "M3TOP3-F02-R1-SOURCE-MANIFEST-v1.0",
+  "manifest_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01-SOURCE-MANIFEST-R1",
+  "run_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01",
+  "created_at": "2026-09-05T18:35:50.3101487+09:00",
+  "purpose": "MODEL_INPUT_ONLY",
+  "population_binding": {
+    "revision": "69a1e7b",
+    "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/g3-annotation-candidate/G3_E_ANNOTATION_INGEST_QUEUE_v0.1.jsonl.gz",
+    "git_blob": "4b3cfbfa9969abe2bd6dff5fdbfeb2db9d31cdae",
+    "compressed_sha256": "8b3671d662457aef8c1a5595b33a85a27e08aaee56238e7218f1df0b4df78353",
+    "row_count": 1016
+  },
+  "windows": [
+    {
+      "window_id": "W1",
+      "window_anchor_date": "2024-08-10",
+      "snapshot_cutoff_at": "2024-08-09T23:59:59+09:00",
+      "entry_date": "2024-08-12",
+      "include_count": 57
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "SRC-KRX-KIND-003160-20240516-20240516003155",
+      "company_id": "KRX:003160",
+      "krx_code": "003160",
+      "source_type": "FILING",
+      "source_tier": null,
+      "title": "분기보고서",
+      "publisher": "KOREA_EXCHANGE_KIND_OFFICIAL",
+      "publication_at": null,
+      "publication_date": "2024-05-16",
+      "publication_precision": "DATE_ONLY",
+      "publication_interval": {
+        "earliest_at": "2024-05-16T00:00:00+09:00",
+        "latest_at": "2024-05-16T23:59:59+09:00",
+        "bound_method_id": "DATE_ONLY_KST_CLOSED_DAY_v1"
+      },
+      "canonical_locator": "https://kind.krx.co.kr/external/2024/05/16/001334/20240516003155/11013.htm",
+      "raw_storage_ref": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/sources/KRX-003160/KRX_003160_20240516_Q1_REPORT_11013.htm",
+      "raw_artifact": {
+        "byte_size": 1404585,
+        "sha256": "2ab621a3862041c57040524aaa3c084c81304685015cbc2be7e6b57ba5fa3fe3",
+        "git_blob": "b99d90f62b47c52389356318ccb328395dcf1130",
+        "media_type": "text/html",
+        "charset": "UTF-8"
+      },
+      "acquired_at": "2026-09-05T17:36:24.3732978+09:00",
+      "acquisition": {
+        "actor_id": "AAA-PMO-ORCHESTRATOR",
+        "method": "REUSE_EXACT_PRESERVED_BYTES_NO_REFETCH",
+        "request_ref": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-ledgers/source_research_a.jsonl#SRA-003160-0009"
+      },
+      "status": "PRESERVED_RAW",
+      "source_limitations": [
+        "Q1_FALLBACK",
+        "DATE_ONLY_PUBLICATION",
+        "NOT_GLOBAL_Q2_ABSENCE",
+        "HETEROGENEOUS_Q1_Q2_OBSERVED_COHORT",
+        "NEGATIVE_CURRENT_OPERATING_PROFIT_PROFIT_TO_LOSS"
+      ],
+      "outcome_custody": {
+        "state": "EXPLORATORY_AFTER_W1_OUTCOME_EXPOSURE",
+        "prior_actor_w1_outcome_exposure": true,
+        "continuation_source_refetch_count": 0,
+        "blind_process_claim": false
+      },
+      "admission": {
+        "state": "ADMITTED_EXPLORATORY_CUTOFF_SAFE",
+        "temporal_status": "CUTOFF_SAFE",
+        "cutoff_at": "2024-08-09T23:59:59+09:00",
+        "reason_code": "F02_R1_LATEST_CONFIRMED_QUARTER_NATIVE_UNITS_v1",
+        "evaluated_at": "2026-09-05T18:35:50.3101487+09:00"
+      }
+    },
+    {
+      "source_id": "SRC-KRX-KIND-025560-20240514-20240514003275",
+      "company_id": "KRX:025560",
+      "krx_code": "025560",
+      "source_type": "FILING",
+      "source_tier": null,
+      "title": "분기보고서",
+      "publisher": "KOREA_EXCHANGE_KIND_OFFICIAL",
+      "publication_at": null,
+      "publication_date": "2024-05-14",
+      "publication_precision": "DATE_ONLY",
+      "publication_interval": {
+        "earliest_at": "2024-05-14T00:00:00+09:00",
+        "latest_at": "2024-05-14T23:59:59+09:00",
+        "bound_method_id": "DATE_ONLY_KST_CLOSED_DAY_v1"
+      },
+      "canonical_locator": "https://kind.krx.co.kr/external/2024/05/14/001496/20240514003275/11013.htm",
+      "raw_storage_ref": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/sources/KRX-025560/KRX_025560_20240514_Q1_REPORT_11013.htm",
+      "raw_artifact": {
+        "byte_size": 1325372,
+        "sha256": "a547f8b383ecb85f39d5826ab08bf6641c6716a85ba12ddc90efb5c9f303537f",
+        "git_blob": "44a8179c1a003db97cc4e1bc733208edcc0b1df4",
+        "media_type": "text/html",
+        "charset": "UTF-8"
+      },
+      "acquired_at": "2026-09-05T17:30:31.7466136+09:00",
+      "acquisition": {
+        "actor_id": "AAA-PMO-ORCHESTRATOR",
+        "method": "REUSE_EXACT_PRESERVED_BYTES_NO_REFETCH",
+        "request_ref": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-ledgers/source_research_a.jsonl#SRA-025560-0005"
+      },
+      "status": "PRESERVED_RAW",
+      "source_limitations": [
+        "Q1_FALLBACK",
+        "DATE_ONLY_PUBLICATION",
+        "NOT_GLOBAL_Q2_ABSENCE",
+        "HETEROGENEOUS_Q1_Q2_OBSERVED_COHORT",
+        "RESTATED_PRIOR_OPERATING_PROFIT",
+        "NEGATIVE_PRIOR_OPERATING_PROFIT_TURNAROUND",
+        "SIGNED_CHANGE_VS_ABSOLUTE_PRIOR_NOT_CONVENTIONAL_POSITIVE_BASE_GROWTH"
+      ],
+      "outcome_custody": {
+        "state": "EXPLORATORY_AFTER_W1_OUTCOME_EXPOSURE",
+        "prior_actor_w1_outcome_exposure": true,
+        "continuation_source_refetch_count": 0,
+        "blind_process_claim": false
+      },
+      "admission": {
+        "state": "ADMITTED_EXPLORATORY_CUTOFF_SAFE",
+        "temporal_status": "CUTOFF_SAFE",
+        "cutoff_at": "2024-08-09T23:59:59+09:00",
+        "reason_code": "F02_R1_LATEST_CONFIRMED_QUARTER_NATIVE_UNITS_v1",
+        "evaluated_at": "2026-09-05T18:35:50.3101487+09:00"
+      }
+    },
+    {
+      "source_id": "SRC-KRX-KIND-031980-20240516-20240516001477",
+      "company_id": "KRX:031980",
+      "krx_code": "031980",
+      "source_type": "FILING",
+      "source_tier": null,
+      "title": "분기보고서",
+      "publisher": "KOREA_EXCHANGE_KIND_OFFICIAL",
+      "publication_at": null,
+      "publication_date": "2024-05-16",
+      "publication_precision": "DATE_ONLY",
+      "publication_interval": {
+        "earliest_at": "2024-05-16T00:00:00+09:00",
+        "latest_at": "2024-05-16T23:59:59+09:00",
+        "bound_method_id": "DATE_ONLY_KST_CLOSED_DAY_v1"
+      },
+      "canonical_locator": "https://kind.krx.co.kr/external/2024/05/16/000652/20240516001477/11013.htm",
+      "raw_storage_ref": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/sources/KRX-031980/KRX_031980_20240516_Q1_REPORT_11013.htm",
+      "raw_artifact": {
+        "byte_size": 961791,
+        "sha256": "8323d301baa3f62a872f2dec7f846d98d0effc0e9e06f7ea6dca5c7c78a598a9",
+        "git_blob": "89a0ebd92b90207ba8e0f5e947f5350c92714039",
+        "media_type": "text/html",
+        "charset": "UTF-8"
+      },
+      "acquired_at": "2026-09-05T17:37:43.2995087+09:00",
+      "acquisition": {
+        "actor_id": "AAA-PMO-ORCHESTRATOR",
+        "method": "REUSE_EXACT_PRESERVED_BYTES_NO_REFETCH",
+        "request_ref": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-ledgers/source_research_b.jsonl#SRB-031980-0008"
+      },
+      "status": "PRESERVED_RAW",
+      "source_limitations": [
+        "Q1_FALLBACK",
+        "DATE_ONLY_PUBLICATION",
+        "NOT_GLOBAL_Q2_ABSENCE",
+        "HETEROGENEOUS_Q1_Q2_OBSERVED_COHORT"
+      ],
+      "outcome_custody": {
+        "state": "EXPLORATORY_AFTER_W1_OUTCOME_EXPOSURE",
+        "prior_actor_w1_outcome_exposure": true,
+        "continuation_source_refetch_count": 0,
+        "blind_process_claim": false
+      },
+      "admission": {
+        "state": "ADMITTED_EXPLORATORY_CUTOFF_SAFE",
+        "temporal_status": "CUTOFF_SAFE",
+        "cutoff_at": "2024-08-09T23:59:59+09:00",
+        "reason_code": "F02_R1_LATEST_CONFIRMED_QUARTER_NATIVE_UNITS_v1",
+        "evaluated_at": "2026-09-05T18:35:50.3101487+09:00"
+      }
+    },
+    {
+      "source_id": "SRC-KRX-KIND-036200-20240510-20240510001413",
+      "company_id": "KRX:036200",
+      "krx_code": "036200",
+      "source_type": "FILING",
+      "source_tier": null,
+      "title": "분기보고서",
+      "publisher": "KOREA_EXCHANGE_KIND_OFFICIAL",
+      "publication_at": null,
+      "publication_date": "2024-05-10",
+      "publication_precision": "DATE_ONLY",
+      "publication_interval": {
+        "earliest_at": "2024-05-10T00:00:00+09:00",
+        "latest_at": "2024-05-10T23:59:59+09:00",
+        "bound_method_id": "DATE_ONLY_KST_CLOSED_DAY_v1"
+      },
+      "canonical_locator": "https://kind.krx.co.kr/external/2024/05/10/000637/20240510001413/11013.htm",
+      "raw_storage_ref": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/sources/KRX-036200/KRX_036200_20240510_Q1_REPORT_11013.htm",
+      "raw_artifact": {
+        "byte_size": 1083117,
+        "sha256": "63152e6f1ba5c1b063c6466b54c3d7b7382d948de0aa36f19f8a208a3cb58ab2",
+        "git_blob": "0e451a3feb018cc4d38bd53915d535a44674e267",
+        "media_type": "text/html",
+        "charset": "UTF-8"
+      },
+      "acquired_at": "2026-09-05T17:37:43.2995087+09:00",
+      "acquisition": {
+        "actor_id": "AAA-PMO-ORCHESTRATOR",
+        "method": "REUSE_EXACT_PRESERVED_BYTES_NO_REFETCH",
+        "request_ref": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-ledgers/source_research_b.jsonl#SRB-036200-0008"
+      },
+      "status": "PRESERVED_RAW",
+      "source_limitations": [
+        "Q1_FALLBACK",
+        "DATE_ONLY_PUBLICATION",
+        "NOT_GLOBAL_Q2_ABSENCE",
+        "HETEROGENEOUS_Q1_Q2_OBSERVED_COHORT"
+      ],
+      "outcome_custody": {
+        "state": "EXPLORATORY_AFTER_W1_OUTCOME_EXPOSURE",
+        "prior_actor_w1_outcome_exposure": true,
+        "continuation_source_refetch_count": 0,
+        "blind_process_claim": false
+      },
+      "admission": {
+        "state": "ADMITTED_EXPLORATORY_CUTOFF_SAFE",
+        "temporal_status": "CUTOFF_SAFE",
+        "cutoff_at": "2024-08-09T23:59:59+09:00",
+        "reason_code": "F02_R1_LATEST_CONFIRMED_QUARTER_NATIVE_UNITS_v1",
+        "evaluated_at": "2026-09-05T18:35:50.3101487+09:00"
+      }
+    },
+    {
+      "source_id": "SRC-KRX-KIND-005290-20240802-70956",
+      "company_id": "KRX:005290",
+      "krx_code": "005290",
+      "source_type": "FILING",
+      "source_tier": null,
+      "title": "연결재무제표 기준 영업(잠정)실적(공정공시)",
+      "publisher": "KOREA_EXCHANGE_KIND_OFFICIAL",
+      "publication_at": null,
+      "publication_date": "2024-08-02",
+      "publication_precision": "DATE_ONLY",
+      "publication_interval": {
+        "earliest_at": "2024-08-02T00:00:00+09:00",
+        "latest_at": "2024-08-02T23:59:59+09:00",
+        "bound_method_id": "DATE_ONLY_KST_CLOSED_DAY_v1"
+      },
+      "canonical_locator": "https://kind.krx.co.kr/external/2024/08/02/000210/20240730000320/70956.htm",
+      "raw_storage_ref": "control/m3top3/real-input-replay/v1.0/runs/AAA-M3TOP3-REAL-INPUT-STRICT-PRAGMATIC-20260905-114150-CODEX-01/sources/W1/KRX-005290/KRX_005290_20240802_PROVISIONAL_EARNINGS_70956.htm",
+      "raw_artifact": {
+        "byte_size": 16221,
+        "sha256": "5c361107cbd2dc35b236b5358595e036ecb1dd9dc8b06471bca7bf9e550c7db7",
+        "git_blob": "82be77ca6edb47695ca52ccf0ac2b1c69605129f",
+        "media_type": "text/html",
+        "charset": "UTF-8"
+      },
+      "acquired_at": "2026-09-05T12:04:39.4397484+09:00",
+      "acquisition": {
+        "actor_id": "AAA-PMO-ORCHESTRATOR",
+        "method": "REUSE_EXACT_PRESERVED_BYTES_NO_REFETCH",
+        "request_ref": "control/m3top3/real-input-replay/v1.0/runs/AAA-M3TOP3-REAL-INPUT-STRICT-PRAGMATIC-20260905-114150-CODEX-01/inputs/SOURCE_MANIFEST.json#NETWORK_ATTEMPT_18_PRESERVED_FETCH"
+      },
+      "status": "PRESERVED_RAW",
+      "source_limitations": [
+        "PROVISIONAL_NOT_FINAL",
+        "AUDITOR_REVIEW_REPORT_NOT_YET_ISSUED",
+        "MAY_CHANGE_DURING_AUDIT",
+        "CACHED_CONTROL_NO_REFETCH",
+        "HETEROGENEOUS_Q1_Q2_OBSERVED_COHORT"
+      ],
+      "outcome_custody": {
+        "state": "EXPLORATORY_AFTER_W1_OUTCOME_EXPOSURE",
+        "prior_actor_w1_outcome_exposure": true,
+        "continuation_source_refetch_count": 0,
+        "blind_process_claim": false
+      },
+      "admission": {
+        "state": "ADMITTED_EXPLORATORY_CUTOFF_SAFE",
+        "temporal_status": "CUTOFF_SAFE",
+        "cutoff_at": "2024-08-09T23:59:59+09:00",
+        "reason_code": "F02_R1_LATEST_CONFIRMED_QUARTER_NATIVE_UNITS_v1",
+        "evaluated_at": "2026-09-05T18:35:50.3101487+09:00"
+      }
+    }
+  ],
+  "input_profile": {
+    "profile_id": "F02_R1_EXPLORATORY_V1",
+    "admission_method": "F02_R1_LATEST_CONFIRMED_QUARTER_NATIVE_UNITS_v1",
+    "scientific_state": "EXPLORATORY_AFTER_W1_OUTCOME_EXPOSURE",
+    "prior_actor_w1_outcome_exposure": true,
+    "blind_process_claim": false,
+    "new_source_actions_in_materialization": 0,
+    "fixed_company_ids": [
+      "KRX:003160",
+      "KRX:005290",
+      "KRX:025560",
+      "KRX:031980",
+      "KRX:036200"
+    ],
+    "mapping": {
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/inputs/INPUT_MAPPING_R1.json",
+      "byte_size": 24121,
+      "sha256": "1d30e0c244aca29093a5fa42b54abd8312a7e0c8c838326e12aae059b28fe30f"
+    },
+    "dependencies": [
+      {
+        "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/INPUT_POLICY_R1.json",
+        "byte_size": 1618,
+        "sha256": "fb62b4afb0f4e3edddcbc8b95e15cd2ea4288be72b9a93c135a9b687f9e0d680"
+      },
+      {
+        "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/OWNER_AUTHORIZATION_BINDING.json",
+        "byte_size": 3151,
+        "sha256": "96aff4ada2cc2a816bbc0b2536d58b4fed54680489cb15f88f78e63598d59404"
+      },
+      {
+        "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/P2_DISPOSITION_AND_IMPLEMENTATION_SCOPE.json",
+        "byte_size": 2515,
+        "sha256": "da75fea80d60bf32c530d2bd04cbffdb0da4e8a2edc40212db34dc95ac3e3df0"
+      },
+      {
+        "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-ledgers/source_research_a.jsonl",
+        "byte_size": 12719,
+        "sha256": "5a71fc2fa25e20a5ffc66b72e015cb4de56d7fc3bb34adba2754fe9f51d9eb81"
+      },
+      {
+        "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-ledgers/source_research_a_result.json",
+        "byte_size": 13383,
+        "sha256": "d84925e78e5fc7e20051a2fac7421e3b7ee0d269666bd7844db380ba96355603"
+      },
+      {
+        "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-ledgers/source_research_b.jsonl",
+        "byte_size": 25216,
+        "sha256": "5c06bfe4831510f642af39cb6f1aa9209e15bdf7c14aeaefa5195961c44ee73d"
+      },
+      {
+        "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-results/P2_CONTROL_PROVENANCE_CLASSIFICATION.json",
+        "byte_size": 19870,
+        "sha256": "8c763b1924c210db7ea97b5e19ea53a62e7532e1b101af72b42113dab30cb1b6"
+      },
+      {
+        "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-results/P2_MODEL_MEANING_CLASSIFICATION.json",
+        "byte_size": 14547,
+        "sha256": "59108fb5b82bcc6622aaeaa1fff475cc7c3563bbe97c9dbd124bd332d7b5e42c"
+      },
+      {
+        "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-results/source_research_b_result.json",
+        "byte_size": 7752,
+        "sha256": "9b5f8d1bcb2140456a9b78de2c3758efdf52dd3cb754aa1ef4ada3e1d7d09f2a"
+      },
+      {
+        "path": "control/m3top3/process-calibration/v1.0/runs/AAA-M3TOP3-PROCESS-CALIBRATION-PC1-20260905-143739-CODEX-01/F02_DISCOVERY_RECEIPT.json",
+        "byte_size": 4221,
+        "sha256": "57cf0a0a7e7d316f86c6591a240cbcddadb894830c827a4d207219631d33b9af"
+      },
+      {
+        "path": "control/m3top3/real-input-replay/v1.0/runs/AAA-M3TOP3-REAL-INPUT-STRICT-PRAGMATIC-20260905-114150-CODEX-01/inputs/SOURCE_MANIFEST.json",
+        "byte_size": 2986,
+        "sha256": "4752fdad038681d6c09381176bdd8ca1837f9ecdd9201eafb3bd4ea682d534de"
+      },
+      {
+        "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/inputs/INPUT_MAPPING_R1.json",
+        "byte_size": 24121,
+        "sha256": "1d30e0c244aca29093a5fa42b54abd8312a7e0c8c838326e12aae059b28fe30f"
+      }
+    ],
+    "consumed_registry_git_blob": "5faa4d5739bf9ecb0c11d16f6d7d697ff3983977",
+    "heterogeneous_periods": "FOUR_2024Q1_VS_2023Q1_AND_CACHED_005290_2024Q2_VS_2023Q2",
+    "unit_policy": "NATIVE_PAIR_UNITS_DIMENSIONLESS_RELATIVE_NO_CONVERSION",
+    "claim_ceiling": "F02_ONLY_OBSERVED_COHORT_PROVISIONAL_NO_OFFICIAL_TOP3_TOP10"
+  }
+}

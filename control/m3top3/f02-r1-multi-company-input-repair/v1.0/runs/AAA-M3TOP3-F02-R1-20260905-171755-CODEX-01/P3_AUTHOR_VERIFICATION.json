@@ -1,0 +1,60 @@
+{
+  "schema_version": "AAA-M3TOP3-F02-R1-P3-AUTHOR-VERIFICATION-v1.0",
+  "run_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01",
+  "recorded_at_kst": "2026-09-05T18:42:16.9204973+09:00",
+  "stage_start_kst": "2026-09-05T18:24:00+09:00",
+  "stage_end_kst": "2026-09-05T18:42:16.9204973+09:00",
+  "state": "P3_COMPLETE_NOT_P4_PASS",
+  "adapter_author": "p2_model/P3_ENGINEERING_AUTHOR_ACT",
+  "test_author": "p2_control/P3_TEST_AUTHOR_ACT",
+  "integration_author": "PMO_ROOT_SINGLE_WRITER",
+  "input_sources": 5,
+  "observed_numeric_leaves": 20,
+  "derived_control_leaves": 20,
+  "estimated_leaves": 0,
+  "mis_denominator": 57,
+  "bundle_identity": "M3TOP3-REAL-INPUT-EXECUTABLE-BUNDLE-SHA256:fe555c17a4ec8244e99755d193f63a67ff10574964b4025b9086cd70cd7321c7",
+  "verification": {
+    "r1_suite": {
+      "methods": 31,
+      "passed": 31,
+      "elapsed_seconds": "106.778"
+    },
+    "final_helper_affected_recheck": {
+      "methods": 3,
+      "passed": 3,
+      "elapsed_seconds": "8.944"
+    },
+    "legacy_tests_01_through_13": {
+      "methods": 13,
+      "passed": 13,
+      "elapsed_seconds": "0.329",
+      "old_score": "50.00",
+      "old_numeric_changes_unchanged": true
+    },
+    "model_components": 13,
+    "model_component_git_preservation": "MATCH",
+    "config_sha256": "eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98",
+    "pc1_tree": "0ea887bd547998678861baea5600045eb0b2e297",
+    "old_real_input_tree": "d28a10eb6472452057fac383d5f63f07a5d6e455",
+    "outcome_execution_function_ast": "UNCHANGED"
+  },
+  "maintenance": [
+    {
+      "classification": "PRE_P4_AUTHOR_CORRECTION",
+      "description": "P2 model reference SHA transcription typo corrected from raw bytes; underlying model classification unchanged."
+    },
+    {
+      "classification": "PRE_P4_AUTHOR_TIGHTENING",
+      "description": "Exact cover cells and header tags added; affected3 tests rerun."
+    },
+    {
+      "classification": "FORMAT_ONLY",
+      "description": "Two touched integration Python files normalized to repository LF before bundle freeze; no preserved model/source files reformatted."
+    }
+  ],
+  "source_actions_added": 0,
+  "r1_score_executions": 0,
+  "price_or_outcome_reads": 0,
+  "next_terminal_event": "P4_EXACT_TARGET_REQUIRED_ROLE_RECEIPTS"
+}

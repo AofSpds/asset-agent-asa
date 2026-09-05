@@ -1,0 +1,59 @@
+{
+  "schema_version": "AAA-M3TOP3-F02-R1-P4-VALIDATION-PLAN-v1.0",
+  "run_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01",
+  "recorded_at_kst": "2026-09-05T18:36:52.4098448+09:00",
+  "target_state": "FREEZE_P3_COMMIT_AND_INPUT_BUNDLE_BEFORE_DISPATCH",
+  "risk_floor": "P0_PIT_PROVENANCE_IMMUTABLE_LINEAGE_WITH_P1_IMPLEMENTATION",
+  "author_verification_is_not_independent_pass": true,
+  "required_roles": [
+    "CTLV",
+    "MODV",
+    "ENGV",
+    "PMOV",
+    "IVA"
+  ],
+  "acceptance_criteria": [
+    "Existing D1/no-rerun authority, same run root, source budgets and no-loss recovery verified.",
+    "Five exact preserved raw source byte/sha/blob/issuer/date identities, conservative DATE_ONLY cutoff and same-source versions verified.",
+    "Twenty numeric cells plus consolidated statement/metric/current and prior-year three-month periods/native units/signs and 025560 same-source restatement verified.",
+    "Q2 fallback evidence includes completed ledgers and cached PC1 receipt; global Q2 absence remains NOT_PROVEN.",
+    "Forty consumed leaves produce complete five F02 blocks in unchanged full57 eligible rows; numeric values only observed and20 controls derived exact registry/operator lineage.",
+    "Q1/Q2 heterogeneity and information-age limitations remain explicit; dimensionless RELATIVE formula, negative prior semantics and zero-prior rejection unchanged.",
+    "Fresh affected positive/negative admission and CLI gate tests pass; no R1 pooled scores before required P4 closure.",
+    "Existing 005290 singleton replays substantive score50 and exact two relative changes under original inputs; no legacy output writes.",
+    "All model components/config/weights/population and old PC1/real-input output trees unchanged; outcome execution function AST unchanged.",
+    "New helper, CLI, replay, mapping, policy and bound dependencies have new exact executable identity; explicit R1 profile, P4 receipt gate and create-once outputs enforced.",
+    "Independent role receipts bind same target commit and bundle; no target author supplies independent PASS. Collect findings once, perform bounded correction and affected recheck if needed."
+  ],
+  "legacy_singleton_comparison": {
+    "existing_test_file": "tools/m3top3/tests/test_real_input_replay_v1.py",
+    "required_methods": "test_01_through_test_13_ONLY;NO_OUTCOME_METHODS",
+    "substantive_preserve": [
+      "005290_ONLY_SCOREABLE",
+      "FINAL_SCORE_50.00",
+      "REVENUE_RELATIVE_0.07273094951360781366485873046",
+      "OP_RELATIVE_0.09671897289586305278174037090",
+      "57_SCORER_ROWS",
+      "127_SELECTION_LEDGER_ROWS"
+    ],
+    "administrative_difference_allowlist": [
+      "pmo_run_id",
+      "engine_run_id",
+      "model_score_id",
+      "code_or_executable_identity",
+      "input_release_or_hash",
+      "created_or_sealed_timestamp",
+      "hashes_derived_only_from_those_bound_administrative_fields"
+    ],
+    "cohort_change_note": "New five-company percentile may change cached control score; no score50 pin in R1."
+  },
+  "forbidden": [
+    "SOURCE_RETRIEVAL",
+    "FULL_PC1_RERUN",
+    "OUTCOME_OR_PRICE_VALUE_READ",
+    "SOURCE_OR_MODEL_EDITS_BY_VALIDATOR",
+    "NEW_PROVIDER_OR_OWNER_APPROVAL",
+    "OLD_OUTPUT_OVERWRITE"
+  ],
+  "p5_followup": "After exact-target P4 PASS run explicit score-and-seal once, then verify actual scorer trace/ranking/denominators/seal and report observed results; no outcome measurement."
+}

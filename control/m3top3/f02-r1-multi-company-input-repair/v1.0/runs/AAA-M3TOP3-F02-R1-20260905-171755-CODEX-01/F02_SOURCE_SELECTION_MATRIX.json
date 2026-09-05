@@ -1,16 +1,16 @@
 {
   "schema_version": "AAA-M3TOP3-F02-R1-SOURCE-SELECTION-MATRIX-v1.0",
   "run_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01",
-  "as_of_kst": "2026-09-05T17:45:31.4742731+09:00",
+  "as_of_kst": "2026-09-05T18:39:26.3143315+09:00",
   "cutoff": "2024-08-09T23:59:59+09:00",
   "bounded_source_authority": "KIND_OFFICIAL_ONLY",
   "input_policy_ref": "INPUT_POLICY_R1.json",
-  "central_admission_state": "P2_PENDING",
+  "central_admission_state": "P3_MATERIALIZED_PENDING_P4",
   "items": [
     {
       "company_id": "KRX:003160",
       "role": "PRIMARY_NEW_ISSUER",
-      "status": "SOURCE_PRESERVED_PENDING_P2",
+      "status": "FIVE_SOURCE_INPUT_MATERIALIZED_PENDING_P4",
       "source_action_units": 10,
       "source_id": "SRC-KRX-KIND-003160-20240516-20240516003155",
       "source_url": "https://kind.krx.co.kr/external/2024/05/16/001334/20240516003155/11013.htm",
@@ -18,7 +18,13 @@
       "source_git_blob": "b99d90f62b47c52389356318ccb328395dcf1130",
       "raw_storage_ref": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/sources/KRX-003160/KRX_003160_20240516_Q1_REPORT_11013.htm",
       "raw_byte_size": 1404585,
-      "public_time": {"precision":"DATE_ONLY","publication_date":"2024-05-16","earliest_at":"2024-05-16T00:00:00+09:00","latest_at":"2024-05-16T23:59:59+09:00","bound_method_id":"DATE_ONLY_KST_CLOSED_DAY_v1"},
+      "public_time": {
+        "precision": "DATE_ONLY",
+        "publication_date": "2024-05-16",
+        "earliest_at": "2024-05-16T00:00:00+09:00",
+        "latest_at": "2024-05-16T23:59:59+09:00",
+        "bound_method_id": "DATE_ONLY_KST_CLOSED_DAY_v1"
+      },
       "selected_period": "2024Q1",
       "comparison_period": "2023Q1",
       "basis": "CONSOLIDATED_DIRECT_QUARTER_3_MONTHS",
@@ -27,17 +33,56 @@
       "exclusion_reason": null,
       "newer_source_limit": "BOUNDED_KIND_ROUTE;NOT_GLOBAL_ABSENCE_CLAIM",
       "failure_class": null,
-      "metric_leaf_state": "FOUR_OBSERVED_VALUES_VERIFIED;EIGHT_LEAF_MATERIALIZATION_PENDING_P2_P3",
+      "metric_leaf_state": "FOUR_OBSERVED_AND_FOUR_DERIVED_CONTROL_LEAVES_MATERIALIZED",
       "metric_pairs": {
-        "revenue": {"current":"34732575950","prior":"39216899579","label":"매출액","current_locator":"html:line-6582","prior_locator":"html:line-6588"},
-        "operating_profit": {"current":"-1836830457","prior":"865831578","label":"영업이익","current_locator":"html:line-6667","prior_locator":"html:line-6673"}
+        "revenue": {
+          "current": "34732575950",
+          "prior": "39216899579",
+          "label": "매출액",
+          "current_locator": "html:table-line-6543/row-3/cell-2",
+          "prior_locator": "html:table-line-6543/row-3/cell-4"
+        },
+        "operating_profit": {
+          "current": "-1836830457",
+          "prior": "865831578",
+          "label": "영업이익",
+          "current_locator": "html:table-line-6543/row-8/cell-2",
+          "prior_locator": "html:table-line-6543/row-8/cell-4"
+        }
       },
-      "limitations": ["Q1_FALLBACK", "NEGATIVE_CURRENT_OPERATING_PROFIT_SIGN_PRESERVED", "PUBLICATION_TIME_NOT_EXPOSED"]
+      "limitations": [
+        "Q1_FALLBACK",
+        "NEGATIVE_CURRENT_OPERATING_PROFIT_SIGN_PRESERVED",
+        "PUBLICATION_TIME_NOT_EXPOSED",
+        "DATE_ONLY_PUBLICATION",
+        "NOT_GLOBAL_Q2_ABSENCE",
+        "HETEROGENEOUS_Q1_Q2_OBSERVED_COHORT",
+        "NEGATIVE_CURRENT_OPERATING_PROFIT_PROFIT_TO_LOSS"
+      ],
+      "current_period_start": "2024-01-01",
+      "current_period_end": "2024-03-31",
+      "prior_period_start": "2023-01-01",
+      "prior_period_end": "2023-03-31",
+      "period_date_provenance": "EXPLICIT_SOURCE_PERIOD_DATES",
+      "disclosure_type": "FILED_QUARTERLY_REPORT",
+      "confirmation_status": "OFFICIAL_FILED_QUARTERLY_STATEMENT_NO_AUDIT_ATTESTATION",
+      "age_days_from_publication_to_cutoff": 85,
+      "age_days_from_period_end_to_cutoff": 131,
+      "q2_evidence": {
+        "selected": false,
+        "after_cutoff_candidate_url": "https://kind.krx.co.kr/external/2024/08/14/002471/20240814007837/11012.htm",
+        "after_cutoff_candidate_public_date": "2024-08-14",
+        "bounded_query_action_id": "SRA-003160-0010",
+        "supplementary_receipt_path": null,
+        "global_absence_state": "NOT_PROVEN",
+        "selection": "LATEST_CONFIRMED_CUTOFF_SAFE_IN_BOUNDED_SET_Q1_FALLBACK"
+      },
+      "restatement_note": null
     },
     {
       "company_id": "KRX:025560",
       "role": "PRIMARY_NEW_ISSUER",
-      "status": "SOURCE_PRESERVED_PENDING_P2",
+      "status": "FIVE_SOURCE_INPUT_MATERIALIZED_PENDING_P4",
       "source_action_units": 5,
       "source_id": "SRC-KRX-KIND-025560-20240514-20240514003275",
       "source_url": "https://kind.krx.co.kr/external/2024/05/14/001496/20240514003275/11013.htm",
@@ -45,7 +90,13 @@
       "source_git_blob": "44a8179c1a003db97cc4e1bc733208edcc0b1df4",
       "raw_storage_ref": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/sources/KRX-025560/KRX_025560_20240514_Q1_REPORT_11013.htm",
       "raw_byte_size": 1325372,
-      "public_time": {"precision":"DATE_ONLY","publication_date":"2024-05-14","earliest_at":"2024-05-14T00:00:00+09:00","latest_at":"2024-05-14T23:59:59+09:00","bound_method_id":"DATE_ONLY_KST_CLOSED_DAY_v1"},
+      "public_time": {
+        "precision": "DATE_ONLY",
+        "publication_date": "2024-05-14",
+        "earliest_at": "2024-05-14T00:00:00+09:00",
+        "latest_at": "2024-05-14T23:59:59+09:00",
+        "bound_method_id": "DATE_ONLY_KST_CLOSED_DAY_v1"
+      },
       "selected_period": "2024Q1",
       "comparison_period": "2023Q1",
       "basis": "CONSOLIDATED_DIRECT_QUARTER_3_MONTHS",
@@ -54,17 +105,71 @@
       "exclusion_reason": null,
       "newer_source_limit": "BOUNDED_KIND_ROUTE;NOT_GLOBAL_ABSENCE_CLAIM",
       "failure_class": null,
-      "metric_leaf_state": "FOUR_OBSERVED_VALUES_VERIFIED;EIGHT_LEAF_MATERIALIZATION_PENDING_P2_P3",
+      "metric_leaf_state": "FOUR_OBSERVED_AND_FOUR_DERIVED_CONTROL_LEAVES_MATERIALIZED",
       "metric_pairs": {
-        "revenue": {"current":"5162565692","prior":"4785829491","label":"수익(매출액)","current_locator":"html:line-4050","prior_locator":"html:line-4056"},
-        "operating_profit": {"current":"2040268633","prior":"-442977057","label":"영업이익(손실)","current_locator":"html:line-4118","prior_locator":"html:line-4124"}
+        "revenue": {
+          "current": "5162565692",
+          "prior": "4785829491",
+          "label": "수익(매출액)",
+          "current_locator": "html:table-line-4011/row-3/cell-2",
+          "prior_locator": "html:table-line-4011/row-3/cell-4"
+        },
+        "operating_profit": {
+          "current": "2040268633",
+          "prior": "-442977057",
+          "label": "영업이익(손실)",
+          "current_locator": "html:table-line-4011/row-7/cell-2",
+          "prior_locator": "html:table-line-4011/row-7/cell-4"
+        }
       },
-      "limitations": ["Q1_FALLBACK", "PRIOR_OPERATING_PROFIT_RESTATED_IN_SELECTED_OFFICIAL_REPORT", "NEGATIVE_PRIOR_OPERATING_PROFIT_SIGN_PRESERVED", "PUBLICATION_TIME_NOT_EXPOSED"]
+      "limitations": [
+        "Q1_FALLBACK",
+        "PRIOR_OPERATING_PROFIT_RESTATED_IN_SELECTED_OFFICIAL_REPORT",
+        "NEGATIVE_PRIOR_OPERATING_PROFIT_SIGN_PRESERVED",
+        "PUBLICATION_TIME_NOT_EXPOSED",
+        "DATE_ONLY_PUBLICATION",
+        "NOT_GLOBAL_Q2_ABSENCE",
+        "HETEROGENEOUS_Q1_Q2_OBSERVED_COHORT",
+        "RESTATED_PRIOR_OPERATING_PROFIT",
+        "NEGATIVE_PRIOR_OPERATING_PROFIT_TURNAROUND",
+        "SIGNED_CHANGE_VS_ABSOLUTE_PRIOR_NOT_CONVENTIONAL_POSITIVE_BASE_GROWTH"
+      ],
+      "current_period_start": "2024-01-01",
+      "current_period_end": "2024-03-31",
+      "prior_period_start": "2023-01-01",
+      "prior_period_end": "2023-03-31",
+      "period_date_provenance": "EXPLICIT_SOURCE_PERIOD_DATES",
+      "disclosure_type": "FILED_QUARTERLY_REPORT",
+      "confirmation_status": "OFFICIAL_FILED_QUARTERLY_STATEMENT_NO_AUDIT_ATTESTATION",
+      "age_days_from_publication_to_cutoff": 87,
+      "age_days_from_period_end_to_cutoff": 131,
+      "q2_evidence": {
+        "selected": false,
+        "after_cutoff_candidate_url": "https://kind.krx.co.kr/external/2024/08/14/001390/20240814004272/11012.htm",
+        "after_cutoff_candidate_public_date": "2024-08-14",
+        "bounded_query_action_id": "SRA-025560-0002",
+        "supplementary_receipt_path": null,
+        "global_absence_state": "NOT_PROVEN",
+        "selection": "LATEST_CONFIRMED_CUTOFF_SAFE_IN_BOUNDED_SET_Q1_FALLBACK"
+      },
+      "restatement_note": {
+        "raw_note_line": 23818,
+        "prior_before": "-448371497",
+        "adjustment": "5394440",
+        "prior_after": "-442977057",
+        "raw_value_lines": [
+          23874,
+          23875,
+          23876
+        ],
+        "prior_revenue_unchanged": true,
+        "reason": "SAME_CUTOFF_SAFE_SOURCE_DISCLOSED_DISCONTINUED_OPERATION_RECLASSIFICATION"
+      }
     },
     {
       "company_id": "KRX:031980",
       "role": "PRIMARY_NEW_ISSUER",
-      "status": "SOURCE_PRESERVED_PENDING_P2",
+      "status": "FIVE_SOURCE_INPUT_MATERIALIZED_PENDING_P4",
       "source_action_units": 9,
       "source_id": "SRC-KRX-KIND-031980-20240516-20240516001477",
       "source_url": "https://kind.krx.co.kr/external/2024/05/16/000652/20240516001477/11013.htm",
@@ -72,7 +177,13 @@
       "source_git_blob": "89a0ebd92b90207ba8e0f5e947f5350c92714039",
       "raw_storage_ref": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/sources/KRX-031980/KRX_031980_20240516_Q1_REPORT_11013.htm",
       "raw_byte_size": 961791,
-      "public_time": {"precision":"DATE_ONLY","publication_date":"2024-05-16","earliest_at":"2024-05-16T00:00:00+09:00","latest_at":"2024-05-16T23:59:59+09:00","bound_method_id":"DATE_ONLY_KST_CLOSED_DAY_v1"},
+      "public_time": {
+        "precision": "DATE_ONLY",
+        "publication_date": "2024-05-16",
+        "earliest_at": "2024-05-16T00:00:00+09:00",
+        "latest_at": "2024-05-16T23:59:59+09:00",
+        "bound_method_id": "DATE_ONLY_KST_CLOSED_DAY_v1"
+      },
       "selected_period": "2024Q1",
       "comparison_period": "2023Q1",
       "basis": "CONSOLIDATED_DIRECT_QUARTER_3_MONTHS",
@@ -81,17 +192,56 @@
       "exclusion_reason": null,
       "newer_source_limit": "BOUNDED_KIND_ROUTE;NOT_GLOBAL_ABSENCE_CLAIM",
       "failure_class": null,
-      "metric_leaf_state": "FOUR_OBSERVED_VALUES_VERIFIED;EIGHT_LEAF_MATERIALIZATION_PENDING_P2_P3",
+      "metric_leaf_state": "FOUR_OBSERVED_AND_FOUR_DERIVED_CONTROL_LEAVES_MATERIALIZED",
       "metric_pairs": {
-        "revenue": {"current":"38094447594","prior":"14913281644","label":"수익(매출액)","row_locator":"normalized-html:line-945"},
-        "operating_profit": {"current":"15420952017","prior":"3496296368","label":"영업이익(손실)","row_locator":"normalized-html:line-949"}
+        "revenue": {
+          "current": "38094447594",
+          "prior": "14913281644",
+          "label": "수익(매출액)",
+          "discovery_locator_not_admission": "normalized-html:line-945",
+          "current_locator": "html:table-line-4250/row-3/cell-2",
+          "prior_locator": "html:table-line-4250/row-3/cell-4"
+        },
+        "operating_profit": {
+          "current": "15420952017",
+          "prior": "3496296368",
+          "label": "영업이익(손실)",
+          "discovery_locator_not_admission": "normalized-html:line-949",
+          "current_locator": "html:table-line-4250/row-7/cell-2",
+          "prior_locator": "html:table-line-4250/row-7/cell-4"
+        }
       },
-      "limitations": ["Q1_FALLBACK", "NORMALIZED_WEB_LINES_REQUIRE_RAW_LOCATOR_REBINDING_IN_P3", "PUBLICATION_TIME_NOT_EXPOSED"]
+      "limitations": [
+        "Q1_FALLBACK",
+        "PUBLICATION_TIME_NOT_EXPOSED",
+        "DATE_ONLY_PUBLICATION",
+        "NOT_GLOBAL_Q2_ABSENCE",
+        "HETEROGENEOUS_Q1_Q2_OBSERVED_COHORT"
+      ],
+      "current_period_start": "2024-01-01",
+      "current_period_end": "2024-03-31",
+      "prior_period_start": "2023-01-01",
+      "prior_period_end": "2023-03-31",
+      "period_date_provenance": "EXPLICIT_SOURCE_PERIOD_DATES",
+      "disclosure_type": "FILED_QUARTERLY_REPORT",
+      "confirmation_status": "OFFICIAL_FILED_QUARTERLY_STATEMENT_NO_AUDIT_ATTESTATION",
+      "age_days_from_publication_to_cutoff": 85,
+      "age_days_from_period_end_to_cutoff": 131,
+      "q2_evidence": {
+        "selected": false,
+        "after_cutoff_candidate_url": "https://kind.krx.co.kr/external/2024/08/14/003322/20240814010557/11012.htm",
+        "after_cutoff_candidate_public_date": "2024-08-14",
+        "bounded_query_action_id": "SRB-031980-0009",
+        "supplementary_receipt_path": "control/m3top3/process-calibration/v1.0/runs/AAA-M3TOP3-PROCESS-CALIBRATION-PC1-20260905-143739-CODEX-01/F02_DISCOVERY_RECEIPT.json",
+        "global_absence_state": "NOT_PROVEN",
+        "selection": "LATEST_CONFIRMED_CUTOFF_SAFE_IN_BOUNDED_SET_Q1_FALLBACK"
+      },
+      "restatement_note": null
     },
     {
       "company_id": "KRX:036200",
       "role": "PRIMARY_NEW_ISSUER",
-      "status": "SOURCE_PRESERVED_PENDING_P2",
+      "status": "FIVE_SOURCE_INPUT_MATERIALIZED_PENDING_P4",
       "source_action_units": 9,
       "source_id": "SRC-KRX-KIND-036200-20240510-20240510001413",
       "source_url": "https://kind.krx.co.kr/external/2024/05/10/000637/20240510001413/11013.htm",
@@ -99,7 +249,13 @@
       "source_git_blob": "0e451a3feb018cc4d38bd53915d535a44674e267",
       "raw_storage_ref": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/sources/KRX-036200/KRX_036200_20240510_Q1_REPORT_11013.htm",
       "raw_byte_size": 1083117,
-      "public_time": {"precision":"DATE_ONLY","publication_date":"2024-05-10","earliest_at":"2024-05-10T00:00:00+09:00","latest_at":"2024-05-10T23:59:59+09:00","bound_method_id":"DATE_ONLY_KST_CLOSED_DAY_v1"},
+      "public_time": {
+        "precision": "DATE_ONLY",
+        "publication_date": "2024-05-10",
+        "earliest_at": "2024-05-10T00:00:00+09:00",
+        "latest_at": "2024-05-10T23:59:59+09:00",
+        "bound_method_id": "DATE_ONLY_KST_CLOSED_DAY_v1"
+      },
       "selected_period": "2024Q1",
       "comparison_period": "2023Q1",
       "basis": "CONSOLIDATED_DIRECT_QUARTER_3_MONTHS",
@@ -108,17 +264,56 @@
       "exclusion_reason": null,
       "newer_source_limit": "BOUNDED_KIND_ROUTE;NOT_GLOBAL_ABSENCE_CLAIM",
       "failure_class": null,
-      "metric_leaf_state": "FOUR_OBSERVED_VALUES_VERIFIED;EIGHT_LEAF_MATERIALIZATION_PENDING_P2_P3",
+      "metric_leaf_state": "FOUR_OBSERVED_AND_FOUR_DERIVED_CONTROL_LEAVES_MATERIALIZED",
       "metric_pairs": {
-        "revenue": {"current":"55186952755","prior":"51753687853","label":"Ⅰ.매출액","row_locator":"normalized-html:line-957"},
-        "operating_profit": {"current":"4559702713","prior":"4333422148","label":"Ⅴ.영업이익","row_locator":"normalized-html:line-961"}
+        "revenue": {
+          "current": "55186952755",
+          "prior": "51753687853",
+          "label": "Ⅰ.매출액",
+          "discovery_locator_not_admission": "normalized-html:line-957",
+          "current_locator": "html:table-line-4408/row-3/cell-2",
+          "prior_locator": "html:table-line-4408/row-3/cell-4"
+        },
+        "operating_profit": {
+          "current": "4559702713",
+          "prior": "4333422148",
+          "label": "Ⅴ.영업이익",
+          "discovery_locator_not_admission": "normalized-html:line-961",
+          "current_locator": "html:table-line-4408/row-7/cell-2",
+          "prior_locator": "html:table-line-4408/row-7/cell-4"
+        }
       },
-      "limitations": ["Q1_FALLBACK", "NORMALIZED_WEB_LINES_REQUIRE_RAW_LOCATOR_REBINDING_IN_P3", "PUBLICATION_TIME_NOT_EXPOSED"]
+      "limitations": [
+        "Q1_FALLBACK",
+        "PUBLICATION_TIME_NOT_EXPOSED",
+        "DATE_ONLY_PUBLICATION",
+        "NOT_GLOBAL_Q2_ABSENCE",
+        "HETEROGENEOUS_Q1_Q2_OBSERVED_COHORT"
+      ],
+      "current_period_start": "2024-01-01",
+      "current_period_end": "2024-03-31",
+      "prior_period_start": "2023-01-01",
+      "prior_period_end": "2023-03-31",
+      "period_date_provenance": "EXPLICIT_SOURCE_PERIOD_DATES",
+      "disclosure_type": "FILED_QUARTERLY_REPORT",
+      "confirmation_status": "OFFICIAL_FILED_QUARTERLY_STATEMENT_NO_AUDIT_ATTESTATION",
+      "age_days_from_publication_to_cutoff": 91,
+      "age_days_from_period_end_to_cutoff": 131,
+      "q2_evidence": {
+        "selected": false,
+        "after_cutoff_candidate_url": "https://kind.krx.co.kr/external/2024/08/14/003029/20240814009619/11012.htm",
+        "after_cutoff_candidate_public_date": "2024-08-14",
+        "bounded_query_action_id": "SRB-036200-0009",
+        "supplementary_receipt_path": "control/m3top3/process-calibration/v1.0/runs/AAA-M3TOP3-PROCESS-CALIBRATION-PC1-20260905-143739-CODEX-01/F02_DISCOVERY_RECEIPT.json",
+        "global_absence_state": "NOT_PROVEN",
+        "selection": "LATEST_CONFIRMED_CUTOFF_SAFE_IN_BOUNDED_SET_Q1_FALLBACK"
+      },
+      "restatement_note": null
     },
     {
       "company_id": "KRX:005290",
       "role": "CACHED_CONTROL",
-      "status": "EXACT_CACHE_REUSE_PENDING_P3_BINDING",
+      "status": "FIVE_SOURCE_INPUT_MATERIALIZED_PENDING_P4",
       "source_action_units": 0,
       "source_id": "SRC-KRX-KIND-005290-20240802-70956",
       "source_url": "https://kind.krx.co.kr/external/2024/08/02/000210/20240730000320/70956.htm",
@@ -126,7 +321,13 @@
       "source_git_blob": "82be77ca6edb47695ca52ccf0ac2b1c69605129f",
       "raw_storage_ref": "control/m3top3/real-input-replay/v1.0/runs/AAA-M3TOP3-REAL-INPUT-STRICT-PRAGMATIC-20260905-114150-CODEX-01/sources/W1/KRX-005290/KRX_005290_20240802_PROVISIONAL_EARNINGS_70956.htm",
       "raw_byte_size": 16221,
-      "public_time": {"precision":"DATE_ONLY","publication_date":"2024-08-02","earliest_at":"2024-08-02T00:00:00+09:00","latest_at":"2024-08-02T23:59:59+09:00","bound_method_id":"DATE_ONLY_KST_CLOSED_DAY_v1"},
+      "public_time": {
+        "precision": "DATE_ONLY",
+        "publication_date": "2024-08-02",
+        "earliest_at": "2024-08-02T00:00:00+09:00",
+        "latest_at": "2024-08-02T23:59:59+09:00",
+        "bound_method_id": "DATE_ONLY_KST_CLOSED_DAY_v1"
+      },
       "selected_period": "2024Q2",
       "comparison_period": "2023Q2",
       "basis": "CONSOLIDATED_DIRECT_QUARTER_3_MONTHS",
@@ -135,9 +336,46 @@
       "exclusion_reason": null,
       "newer_source_limit": "NO_NEW_005290_DISCOVERY_AUTHORIZED",
       "failure_class": null,
-      "metric_leaf_state": "PREDECESSOR_EIGHT_LEAVES_AVAILABLE_PENDING_EXACT_R1_REUSE_BINDING",
-      "metric_pairs": {"revenue":{"current":"355414","prior":"331317"},"operating_profit":{"current":"49972","prior":"45565"}},
-      "limitations": ["PROVISIONAL_DISCLOSURE", "CACHED_CONTROL", "Q2_WHILE_NEW_ISSUERS_USE_Q1"]
+      "metric_leaf_state": "FOUR_OBSERVED_AND_FOUR_DERIVED_CONTROL_LEAVES_MATERIALIZED",
+      "metric_pairs": {
+        "revenue": {
+          "current": "355414",
+          "prior": "331317",
+          "current_locator": "html:table-line-18/row-5/cell-3",
+          "prior_locator": "html:table-line-18/row-5/cell-6"
+        },
+        "operating_profit": {
+          "current": "49972",
+          "prior": "45565",
+          "current_locator": "html:table-line-18/row-7/cell-3",
+          "prior_locator": "html:table-line-18/row-7/cell-6"
+        }
+      },
+      "limitations": [
+        "PROVISIONAL_DISCLOSURE",
+        "CACHED_CONTROL",
+        "Q2_WHILE_NEW_ISSUERS_USE_Q1",
+        "PROVISIONAL_NOT_FINAL",
+        "AUDITOR_REVIEW_REPORT_NOT_YET_ISSUED",
+        "MAY_CHANGE_DURING_AUDIT",
+        "CACHED_CONTROL_NO_REFETCH",
+        "HETEROGENEOUS_Q1_Q2_OBSERVED_COHORT"
+      ],
+      "current_period_start": "2024-04-01",
+      "current_period_end": "2024-06-30",
+      "prior_period_start": "2023-04-01",
+      "prior_period_end": "2023-06-30",
+      "period_date_provenance": "EXPLICIT_SOURCE_CALENDAR_QUARTER_LABEL_TO_DATES",
+      "disclosure_type": "PROVISIONAL_EARNINGS_FAIR_DISCLOSURE",
+      "confirmation_status": "PROVISIONAL_NOT_FINAL_AUDITOR_REVIEW_NOT_YET_ISSUED",
+      "age_days_from_publication_to_cutoff": 7,
+      "age_days_from_period_end_to_cutoff": 40,
+      "q2_evidence": {
+        "selected": true,
+        "selection": "EXACT_CACHED_CONTROL_NO_REFETCH",
+        "global_absence_state": "NOT_ASSESSED"
+      },
+      "restatement_note": null
     }
   ],
   "batch_accounting": {
@@ -145,7 +383,13 @@
     "new_source_bytes": 4774865,
     "cached_control_source_count": 1,
     "source_action_units": 33,
-    "per_issuer_source_action_units": {"KRX:003160":10,"KRX:025560":5,"KRX:031980":9,"KRX:036200":9,"KRX:005290":0},
+    "per_issuer_source_action_units": {
+      "KRX:003160": 10,
+      "KRX:025560": 5,
+      "KRX:031980": 9,
+      "KRX:036200": 9,
+      "KRX:005290": 0
+    },
     "browser_interaction_units": 0,
     "http_request_units": "PARTIAL;2_DIRECT_SUCCESSFUL_REQUESTS_OBSERVED_BY_WORKER_B;WORKER_A_AND_SEMANTIC_WEB_INTERNAL_REQUESTS_NOT_INSTRUMENTED",
     "human_assisted": false,
@@ -155,5 +399,6 @@
     "all_ceilings_satisfied": true
   },
   "companies_outside_batch": "NOT_ASSESSED_IN_THIS_BATCH",
-  "official_top3_claim": "PROHIBITED"
+  "official_top3_claim": "PROHIBITED",
+  "runtime_input_mapping_ref": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/inputs/INPUT_MAPPING_R1.json"
 }
