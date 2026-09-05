@@ -1,11 +1,11 @@
 # M3Top3 First Scorecard — Forward Model/Runner Binding Addendum
 
 - PMO run: `AAA-M3TOP3-FIRST-SCORECARD-20260905-093656-CODEX-01`
-- implementation commit: `bced851e8d1bb7f10c6441752aabbe66550fb91f`
-- implementation tree: `c9c8e8619c17b36666c8902f71bfd894b12faf34`
-- executable bundle identity: `M3TOP3-EXECUTABLE-BUNDLE-SHA256:897ee61120a1645120b69841c3cdb1b6d4713137d0c255a74328770a69d3c94b`
+- implementation commit: `f9f58f542b177a525dbf9f74d45bcf9f8b11dfac`
+- implementation tree: `08427965b3c1254a3b65a6d48fe969fd97d132b6`
+- executable bundle identity: `M3TOP3-EXECUTABLE-BUNDLE-SHA256:82266d51a64382cbd34ee68872a3cd3e3f640c6ff438e84416906f8b8a8ab9c0`
 - status: `FORWARD_CURRENTIZED_COVERAGE_LIMITED_REPLAY_CANDIDATE_NOT_RELEASE`
-- recorded at: `2026-09-05T10:26:05.5312303+09:00`
+- recorded at: `2026-09-05T10:34:38.7466194+09:00`
 
 ## Binding decision
 
@@ -36,14 +36,24 @@ silently treated as the current runner binding; this addendum is the forward run
 
 | Component | SHA-256 |
 |---|---|
+| `__init__.py` | `54b143b394a19dadb286305f267571b62423ad35b92115becc3d025a0dd1a0b3` |
+| `cli_run_coverage_limited_replay.py` | `b44864bfbca0fc874621d000fbf373cadeddc5f8446493af66d8939cd6bcae23` |
 | `contracts_v1.py` | `5528f6e81a36ea8558ea909fc59074684a3dd73c414c723be386712dac77f4aa` |
+| `core.py` | `9d4ecbe324f4f1eece034e3ccc6aabd4968dce1f185ea58de8eb780da03746ec` |
 | `features_v1.py` | `14bca2fecb4ec46cebc432a619af3388b8e8bab69ff7164dff5b52aed75dc981` |
 | `features_v1_narrow_patch.py` | `b5059969e406e6bfaf2269346d9fd9756a50824c9fe068d8a97cdd20d3b82596` |
+| `pit_guard.py` | `7df44af85ecad959c81b629ec63b1cf9d6d57b1c155f715f49a8c5d445afc957` |
+| `runtime_v1.py` | `bfc7a9f1dc7dea20ac1fefb3c3cc8530811674045de691369f46abdda21f55ab` |
 | `scorer_v1.py` | `0bb0fbd1628992b2d49d6f7e06b3cbad1fe470f5bab7f175a89b4691a4d96126` |
 | `shared_interface_guards_v1.py` | `746ae5570a4542b9e67536f77f043bc2ba7e5b54b1e5f599a7fbf6c01c6aee56` |
 | `window_mapping_v11.py` | `6f73ec50cf6ac2f8f2c2da5edda40771704ea02b49fc73f9c275830d97d4cc70` |
 | `m3top3_v1.0.json` | `eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98` |
 | `coverage_limited_replay_v1.py` | `ea4659064fe5cb24aacc2f5cd1f7d7fe7608725b2a0e5e3022c13b9bee1d6e83` |
+
+The first independent affected-only review found that the earlier eight-component aggregate omitted four
+executed dependencies. Commit `f9f58f542b177a525dbf9f74d45bcf9f8b11dfac` closes the local dependency set to
+13 files, includes the CLI bytes in the same aggregate, and fails before binding when tracked or untracked
+worktree changes exist. This is a reproducibility-only correction; it changes no model or data semantics.
 
 ## Reuse and claim boundary
 
