@@ -1,0 +1,81 @@
+{
+  "schema_version": "M3TOP3-PC1-SOURCE-MANIFEST-v1.0",
+  "run_id": "AAA-M3TOP3-PROCESS-CALIBRATION-PC1-20260905-143739-CODEX-01",
+  "created_at_kst": "2026-09-05T15:24:55.6269122+09:00",
+  "purpose": "PROCESS_CALIBRATION_WITH_SEPARATE_FEATURE_AND_OUTCOME_CA_LANES",
+  "window": {
+    "window_id": "W1",
+    "snapshot_cutoff_at": "2024-08-09T23:59:59+09:00",
+    "entry_trade_date": "2024-08-12",
+    "evaluation_last_trade_date": "2024-11-08",
+    "exit_trade_date": "2024-11-11"
+  },
+  "materialized_sources": [
+    {
+      "source_id": "SRC-KRX-KIND-005290-20241114-Q3-11013",
+      "company_id": "KRX:005290",
+      "title": "분기보고서 (2024-01-01 through 2024-09-30)",
+      "publisher": "KOREA_EXCHANGE_KIND_OFFICIAL",
+      "publication_date": "2024-11-14",
+      "canonical_locator": "https://kind.krx.co.kr/external/2024/11/14/001881/20241114004174/11013.htm",
+      "raw_storage_ref": "sources/outcome-ca/KRX-005290/KRX_005290_20241114_Q3_REPORT_11013.htm",
+      "byte_size": 1676499,
+      "sha256": "a3e7febc9b2c1b33511ae051bf830f09815df59335eb4f7182e7c382e4881263",
+      "media_type": "text/html",
+      "charset": "UTF-8",
+      "line_endings": "CRLF_PRESERVED_AS_RAW_SOURCE_BYTES",
+      "acquired_at_kst": "2026-09-05T15:17:50.0235081+09:00",
+      "lane": "OUTCOME_CA_COMPARABILITY_ONLY",
+      "feature_input_admission": "PROHIBITED_POST_CUTOFF_RETROSPECTIVE_EVIDENCE",
+      "status": "PRESERVED_RAW"
+    },
+    {
+      "source_id": "SRC-KRX-KIND-005290-20250319-FY2024-11011",
+      "company_id": "KRX:005290",
+      "title": "사업보고서 (2024-01-01 through 2024-12-31)",
+      "publisher": "KOREA_EXCHANGE_KIND_OFFICIAL",
+      "publication_date": "2025-03-19",
+      "canonical_locator": "https://kind.krx.co.kr/external/2025/03/19/000811/20250319003664/11011.htm",
+      "raw_storage_ref": "sources/outcome-ca/KRX-005290/KRX_005290_20250319_FY2024_ANNUAL_REPORT_11011.htm",
+      "byte_size": 3239320,
+      "sha256": "65cbb79d6c654c27f4916df538bbec123e59c2ced6f367f0b64401f2543f2369",
+      "media_type": "text/html",
+      "charset": "UTF-8",
+      "line_endings": "CRLF_PRESERVED_AS_RAW_SOURCE_BYTES",
+      "acquired_at_kst": "2026-09-05T15:17:54.2152541+09:00",
+      "lane": "OUTCOME_CA_COMPARABILITY_ONLY",
+      "feature_input_admission": "PROHIBITED_POST_CUTOFF_RETROSPECTIVE_EVIDENCE",
+      "status": "PRESERVED_RAW"
+    }
+  ],
+  "content_addressed_reuse": [
+    {
+      "source_id": "SRC-KRX-KIND-005290-20240802-70956",
+      "company_id": "KRX:005290",
+      "canonical_locator": "https://kind.krx.co.kr/external/2024/08/02/000210/20240730000320/70956.htm",
+      "predecessor_storage_ref": "control/m3top3/real-input-replay/v1.0/runs/AAA-M3TOP3-REAL-INPUT-STRICT-PRAGMATIC-20260905-114150-CODEX-01/sources/W1/KRX-005290/KRX_005290_20240802_PROVISIONAL_EARNINGS_70956.htm",
+      "byte_size": 16221,
+      "sha256": "5c361107cbd2dc35b236b5358595e036ecb1dd9dc8b06471bca7bf9e550c7db7",
+      "reuse": "NO_REFETCH_EXACT_PREDECESSOR_BYTES",
+      "lane": "BASELINE_CONTEXT_ONLY"
+    },
+    {
+      "source_id": "SRC-MARCAP-2024-PARQUET",
+      "company_id": "KRX:005290",
+      "external_storage_ref": "C:/Users/ms1pk/Downloads/marcap-2024.parquet",
+      "byte_size": 24572111,
+      "sha256": "b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb",
+      "reuse": "EXACT_HASH_VERIFIED_NO_COPY",
+      "lane": "OUTCOME_CA_COMPARABILITY_ONLY",
+      "semantics": "RAW_IMMUTABLE_NOT_PRICE_CANONICAL"
+    }
+  ],
+  "f02_materialized_source_count": 0,
+  "ca_materialized_source_count": 2,
+  "duplicate_source_fetch_count": 0,
+  "git_custody": {
+    "attribute_rule": "sources/.gitattributes: *.htm -text whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol",
+    "purpose": "Preserve official response bytes without checkout normalization and exclude source-authored line-end whitespace from repository style enforcement.",
+    "pre_stage_and_index_blob_identity": "VERIFIED_MATCH"
+  }
+}

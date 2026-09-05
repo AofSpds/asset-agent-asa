@@ -9,7 +9,11 @@
     "wall_time_clock": "HOST_DATETIMEOFFSET_KST",
     "active_wait_split": "NOT_INSTRUMENTED_UNLESS_A_STAGE_HAS_DIRECTLY_OBSERVED_ACTIVE_AND_WAIT_INTERVALS",
     "token_or_cru": "NOT_INSTRUMENTED_UNLESS_PLATFORM_TELEMETRY_EXPOSES_THE_NUMERATOR",
-    "primary_efficiency_unit": "DECISION_RELEVANT_EVALUATION_PROGRESS"
+    "primary_efficiency_unit": "DECISION_RELEVANT_EVALUATION_PROGRESS",
+    "retrieval_attempt_unit": "ONE_INDEPENDENT_CACHE_LOOKUP_QUERY_RESULT_PAGE_OPEN_OR_SOURCE_FETCH_REQUEST_AT_A_DECISION_BOUNDARY",
+    "aggregate_event_policy": "AN_AGGREGATE_LEDGER_ROW_MAY_DECLARE_ATTEMPT_UNITS_ONLY_WHEN_THE_UNDERLYING_REQUEST_COUNT_IS_OBSERVED; OTHERWISE THE_TOTAL_DENOMINATOR_IS_NOT_INSTRUMENTED",
+    "late_reconstruction_policy": "TOOL_HISTORY_MAY_SUPPORT_AN_EXPLICIT_OBSERVED_LOWER_BOUND_BUT_MUST_NOT_BE_REPORTED_AS_A_COMPLETE_DENOMINATOR",
+    "checkpoint_deadline_policy": "A_LATE_CHECKPOINT_MUST_PRESERVE_ITS_ORIGINAL_MEASUREMENT_CUTOFF_AND_DISCLOSE_LATENESS"
   },
   "ledger_event_required_fields": [
     "run_id",
@@ -66,6 +70,36 @@
     "CA_EXACT_COMPARABLE",
     "CA_NOT_PROVEN",
     "ERROR",
-    "SUCCESS"
+    "SUCCESS",
+    "MISMATCH_DETECTED",
+    "NO_CHANGE",
+    "SKIPPED_NOT_APPLICABLE",
+    "COMPLETE_LATE",
+    "CONTROL_DEVIATION"
+  ],
+  "terminology_clarification": {
+    "baseline_scoreable_rows": 1,
+    "terminal_scoreable_rows": "TOTAL_SCOREABLE_ROWS_AT_TERMINAL",
+    "new_scoreable_rows": "terminal_scoreable_rows - baseline_scoreable_rows",
+    "scoreability_gain": "new_scoreable_rows; equivalent to terminal_scoreable_rows - baseline_scoreable_rows",
+    "reason": "Avoid the dimensionally inconsistent reading of subtracting the baseline twice."
+  },
+  "route_id_mapping": {
+    "LOCAL_CONTENT_HASH_CACHE_CHECK": "R-CACHE-LOCAL",
+    "OFFICIAL_KIND_KRX_DISCOVERY": "R-KIND-OFFICIAL-F02",
+    "OFFICIAL_SOURCE_FETCH_OPEN": "R-KIND-OFFICIAL-F02",
+    "SAME_FORMAT_PARSE": "R-PARSE-KIND-SAME-FORMAT",
+    "PIT_PROVENANCE_ADMISSION": "R-PIT-ADMISSION",
+    "SIDECAR_MATERIALIZATION": "R-SIDECAR-MATERIALIZE",
+    "UNCHANGED_SCORE_AND_SEAL": "R-SCORE-SEAL-UNCHANGED",
+    "BOUNDED_CA_COMPARABILITY": "R-KRX-CA-COMPARABILITY",
+    "AFFECTED_VALIDATION": "R-AFFECTED-VALIDATION"
+  },
+  "corrections": [
+    {
+      "correction_id": "MD-C1",
+      "recorded_at_kst": "2026-09-05T15:24:55.6269122+09:00",
+      "reason": "P0 outcome taxonomy and route vocabulary were incomplete; this additive correction preserves all frozen formulas and records the missing operational states and route mapping."
+    }
   ]
 }

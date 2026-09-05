@@ -18,6 +18,10 @@ STATE = `P0_BASELINE_FROZEN_EXECUTION_IN_PROGRESS`
 - Worker topology: two bounded parallel read/research lanes plus PMO single-writer assembly.
 - Missing active/wait, token, and native CRU telemetry is `NOT_INSTRUMENTED`, never zero.
 
+### P0 append-only correction
+
+The governed predecessor identity was correct, but the new Windows worktree initially materialized `.gitattributes` and the two real-input replay Python files with CRLF bytes. That transient runtime identity was `ef191803...ac3a5`. Exact LF bytes were restored from the clean predecessor worktree; the binder then matched all 16 expected component hashes and sizes and returned `4d828c...b6a4a`. This was byte-materialization rework, not a semantic or Git-content change. The original P0 record is retained and corrected by checkpoint `P0C`.
+
 ## Planned route order
 
 1. Exact local content-hash/cache check.

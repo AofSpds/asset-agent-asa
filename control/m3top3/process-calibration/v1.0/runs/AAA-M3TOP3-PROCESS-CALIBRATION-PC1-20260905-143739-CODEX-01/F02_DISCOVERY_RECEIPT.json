@@ -1,0 +1,52 @@
+{
+  "schema_version": "M3TOP3-PC1-F02-DISCOVERY-RECEIPT-v1.0",
+  "run_id": "AAA-M3TOP3-PROCESS-CALIBRATION-PC1-20260905-143739-CODEX-01",
+  "recorded_at_kst": "2026-09-05T15:24:55.6269122+09:00",
+  "lane": "W1_CUTOFF_SAFE_F02_OFFICIAL_SOURCE",
+  "cutoff_at": "2024-08-09T23:59:59+09:00",
+  "allowed_source": "KOREA_EXCHANGE_KIND_OFFICIAL",
+  "search_surface": "https://kind.krx.co.kr/disclosure/details.do?method=searchDetailsMain",
+  "bounded_search": {
+    "company_exact_title_queries": [
+      {"company_id":"KRX:003160","title_filter":"영업(잠정)","result_count":0,"started_at_kst":"2026-09-05T14:54:45.656+09:00"},
+      {"company_id":"KRX:025560","title_filter":"영업(잠정)","result_count":0,"started_at_kst":"2026-09-05T15:01:13.739+09:00"},
+      {"company_id":"KRX:031980","title_filter":"영업(잠정)","result_count":0,"started_at_kst":"2026-09-05T15:05:42.489+09:00"}
+    ],
+    "company_all_disclosure_cutoff_checks": [
+      {"company_id":"KRX:003160","date_from":"2024-01-01","date_to":"2024-08-09","latest_displayed_filing_date":"2024-07-02","query_started_at_kst":"2026-09-05T15:16:37.211+09:00","query_ended_at_kst":"2026-09-05T15:16:43.114+09:00"},
+      {"company_id":"KRX:025560","date_from":"2024-01-01","date_to":"2024-08-09","latest_displayed_filing_date":"2024-07-26","query_started_at_kst":"2026-09-05T15:15:32.711+09:00","query_ended_at_kst":"2026-09-05T15:15:37.539+09:00"},
+      {"company_id":"KRX:031980","date_from":"2024-01-01","date_to":"2024-08-09","latest_displayed_filing_date":"2024-07-05","query_started_at_kst":"2026-09-05T15:16:09.124+09:00","query_ended_at_kst":"2026-09-05T15:16:13.961+09:00"}
+    ],
+    "global_exact_title_scan": {
+      "date_from":"2024-01-01",
+      "date_to":"2024-08-09",
+      "title_filter":"영업(잠정)",
+      "reported_result_count":1564,
+      "pages_observed":40,
+      "rows_per_page":15,
+      "target_hits":0,
+      "decision_relevant_pages":"1-33; newest 495 filings spanning 2024-08-09 through 2024-07-05",
+      "rework_overscan_pages":"34-40; May/June Q1-cycle results, no target",
+      "submitted_at_kst":"2026-09-05T15:07:34.957+09:00",
+      "ended_at_kst":"NOT_INSTRUMENTED"
+    },
+    "krx_036200_direct_lookup": {
+      "state":"AUTOCOMPLETE_ROUTE_FAILED_THEN_GLOBAL_ROUTE_USED",
+      "same_failure_attempts":"AT_LEAST_2_EXACT_TOTAL_NOT_INSTRUMENTED",
+      "control_finding":"A_FURTHER_UI_REMEDIATION_WAS_ATTEMPTED_AFTER_TWO_SAME_FAILURES;_ATOMIC_COUNTER_WAS_NOT_CAPTURED",
+      "terminal_evidence":"GLOBAL_EXACT_TITLE_SCAN_NO_TARGET_AND_OFFICIAL_HALF_YEAR_REPORT_FILED_AFTER_CUTOFF"
+    }
+  },
+  "after_cutoff_corroboration": [
+    {"company_id":"KRX:025560","title":"반기보고서","filing_date":"2024-08-14","locator":"https://kind.krx.co.kr/external/2024/08/14/001390/20240814004272/11012.htm","classification":"CUTOFF_FAILED_NOT_FETCHED_TO_RUN_STORAGE"},
+    {"company_id":"KRX:031980","title":"반기보고서","filing_date":"2024-08-14","locator":"https://kind.krx.co.kr/external/2024/08/14/003322/20240814010557/11012.htm","classification":"CUTOFF_FAILED_NOT_FETCHED_TO_RUN_STORAGE"},
+    {"company_id":"KRX:036200","title":"반기보고서","filing_date":"2024-08-14","locator":"https://kind.krx.co.kr/external/2024/08/14/003029/20240814009619/11012.htm","classification":"CUTOFF_FAILED_NOT_FETCHED_TO_RUN_STORAGE"}
+  ],
+  "items": [
+    {"company_id":"KRX:003160","found":false,"pit_candidate_values":0,"pit_admitted_values":0,"terminal_reason":"NO_CUTOFF_SAFE_OFFICIAL_F02_SOURCE_AFTER_BOUNDED_ROUTE"},
+    {"company_id":"KRX:025560","found":false,"pit_candidate_values":0,"pit_admitted_values":0,"terminal_reason":"NO_CUTOFF_SAFE_OFFICIAL_F02_SOURCE_AFTER_BOUNDED_ROUTE"},
+    {"company_id":"KRX:031980","found":false,"pit_candidate_values":0,"pit_admitted_values":0,"terminal_reason":"NO_CUTOFF_SAFE_OFFICIAL_F02_SOURCE_AFTER_BOUNDED_ROUTE"},
+    {"company_id":"KRX:036200","found":false,"pit_candidate_values":0,"pit_admitted_values":0,"terminal_reason":"NO_CUTOFF_SAFE_OFFICIAL_F02_SOURCE_AFTER_BOUNDED_ROUTE"}
+  ],
+  "claim_boundary": "BOUNDED_ROUTE_FOUND_NONE;THIS_IS_NOT_A_CLAIM_THAT_NO_DOCUMENT_CAN_EXIST_OUTSIDE_THE_EXECUTED_OFFICIAL_ROUTE"
+}

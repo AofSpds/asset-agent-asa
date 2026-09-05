@@ -1,0 +1,62 @@
+{
+  "schema_version": "M3TOP3-PC1-CA-COMPARABILITY-RECEIPT-v1.0",
+  "run_id": "AAA-M3TOP3-PROCESS-CALIBRATION-PC1-20260905-143739-CODEX-01",
+  "recorded_at_kst": "2026-09-05T15:24:55.6269122+09:00",
+  "company_id": "KRX:005290",
+  "window": {
+    "entry_trade_date": "2024-08-12",
+    "evaluation_last_trade_date": "2024-11-08",
+    "exit_trade_date": "2024-11-11"
+  },
+  "official_evidence": [
+    {
+      "source_id": "SRC-KRX-KIND-005290-20241114-Q3-11013",
+      "sha256": "a3e7febc9b2c1b33511ae051bf830f09815df59335eb4f7182e7c382e4881263",
+      "anchors": [
+        {"lines":"657-688","finding":"2024-Q3 end and 2023 year-end both show 51,414,494 issued shares, KRW 500 par, and KRW 25,707,247 thousand capital."},
+        {"line":754,"finding":"At 2024-09-30, issued and voting shares are 51,414,494."},
+        {"lines":"24779-24886","finding":"The current 제52기3분기 column reports no cash-dividend total, stock-dividend total, cash dividend per ordinary share, or stock dividend per ordinary share."}
+      ]
+    },
+    {
+      "source_id": "SRC-KRX-KIND-005290-20250319-FY2024-11011",
+      "sha256": "65cbb79d6c654c27f4916df538bbec123e59c2ced6f367f0b64401f2543f2369",
+      "anchors": [
+        {"line":78245,"finding":"발행주식수의 변동내역에 대한 기술."},
+        {"line":78250,"finding":"2024 and 2023 year-end issued shares are 51,414,494 and the filing explicitly states there was no movement in either year."},
+        {"lines":"668-699","finding":"Issued shares 51,414,494, par KRW 500, and capital KRW 25,707,247 thousand are unchanged across the displayed years."},
+        {"lines":"821-854","finding":"Reduced-share total and reduction subcategories are all dash values."},
+        {"lines":"88313-88319","finding":"The FY2024 dividend record date is 2024-12-31, after the 2024-11-11 W1 exit."},
+        {"lines":"88474-88491","finding":"FY2024 cash dividend is KRW 200 per ordinary share and stock dividend is absent; the record date is outside W1."},
+        {"lines":"88528-88537","finding":"Interim or quarterly dividend count is absent."}
+      ]
+    }
+  ],
+  "price_buffer_check": {
+    "source_id": "SRC-MARCAP-2024-PARQUET",
+    "sha256": "b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb",
+    "all_2024_company_rows": 244,
+    "all_2024_stocks_unique": [51414494],
+    "w1_hold_rows_through_2024_11_08": 58,
+    "w1_plus_exit_rows_through_2024_11_11": 59,
+    "w1_stocks_unique": [51414494],
+    "w1_zero_or_null_ohlcv_rows": 0,
+    "entry_open_raw": "32600.0",
+    "exit_open_raw": "26100.0",
+    "w1_peak_high_raw": "34300.0"
+  },
+  "classification": {
+    "ca_evidence": "FOUND_USABLE",
+    "w1_item_comparability": "NO_W1_ADJUSTMENT_REQUIRED_SUPPORTED",
+    "split_or_consolidation_wording": "DERIVED_FROM_EXPLICIT_NO_SHARE_COUNT_MOVEMENT_PLUS_UNCHANGED_PAR_AND_CAPITAL;NOT_A_VERBATIM_EVENT_BY_EVENT_DENIAL",
+    "outcome_upgrade": "NO",
+    "terminal_reason": "PRICE_CANONICAL_AND_CA_CONTRACT_GATE_NOT_CLOSED",
+    "preserved_outcome_state": "PRELIMINARY_RAW_PRICE_MEASURED_CA_UNVERIFIED"
+  },
+  "upgrade_blockers": [
+    "THE_BOUND_MARCAP_SOURCE_IS_RAW_IMMUTABLE_NOT_PRICE_CANONICAL",
+    "THE_UNCHANGED_OUTCOME_EXECUTABLE_HAS_NO_INTERFACE_TO_BIND_THIS_CA_RECEIPT",
+    "NO_CODE_OR_CONTRACT_SEMANTIC_CHANGE_IS_AUTHORIZED"
+  ],
+  "claim_boundary": "RETROSPECTIVE_OUTCOME_COMPARABILITY_EVIDENCE_ONLY;NOT_W1_FEATURE_INPUT;NO_TOTAL_RETURN_OR_OFFICIAL_EXACT_RANK_CLAIM"
+}

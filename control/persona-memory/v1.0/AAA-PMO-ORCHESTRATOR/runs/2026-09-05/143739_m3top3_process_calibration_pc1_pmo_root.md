@@ -35,7 +35,7 @@ WORKTREE = C:\Users\ms1pk\dev\asset-agent-asa\asset-agent-asa\p
 
 - Started state: `P0_BASELINE_FREEZE`.
 - Result state: `P0_COMPLETE / P1_IN_PROGRESS`.
-- Blocker: NONE.
+- Blocker: unchanged source adapter is company-specific and cannot admit the four new issuers without a declared bounded correction.
 - Predecessor: `AAA-M3TOP3-REAL-INPUT-STRICT-PRAGMATIC-20260905-114150-CODEX-01@a7b173cf28dc287e1e619e723e938b9bc2c3fd9e`.
 - Executable bundle: `M3TOP3-REAL-INPUT-EXECUTABLE-BUNDLE-SHA256:4d828c0308bf892718832e9cb02d87ee7716b9b62c28d643b69b424b5f2b6a4a`.
 
@@ -48,7 +48,7 @@ WORKTREE = C:\Users\ms1pk\dev\asset-agent-asa\asset-agent-asa\p
 
 - Predecessor branch is clean and matches local+origin `a7b173cf...`.
 - Reviewed code and score/seal commits are ancestors of the predecessor HEAD.
-- Executable bundle identity independently recomputed and matched.
+- P0 initially froze the governed predecessor identity before fresh-worktree runtime-byte verification. The fresh checkout was then found to have CRLF materialization in exactly three components (`ef191803...ac3a5`). P0C preserves that finding, restores exact predecessor LF bytes, and independently verifies all 16 components at `4d828c...b6a4a` with clean Git status.
 
 ## DURABLE_MEMORY_CANDIDATES
 

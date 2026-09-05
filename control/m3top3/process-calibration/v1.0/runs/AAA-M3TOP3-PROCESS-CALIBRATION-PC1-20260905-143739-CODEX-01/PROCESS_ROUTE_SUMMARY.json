@@ -1,10 +1,11 @@
 {
   "schema_version": "M3TOP3-PROCESS-ROUTE-SUMMARY-v1.0",
   "run_id": "AAA-M3TOP3-PROCESS-CALIBRATION-PC1-20260905-143739-CODEX-01",
-  "as_of_kst": "2026-09-05T14:37:58.7049145+09:00",
-  "state": "P0_BASELINE_FROZEN_EXECUTION_NOT_YET_STARTED",
+  "as_of_kst": "2026-09-05T15:24:55.6269122+09:00",
+  "state": "P3_FIVE_ITEM_BATCH_TERMINAL_VALIDATION_PENDING",
   "baseline_scoreable_rows": 1,
-  "terminal_scoreable_rows": null,
+  "terminal_scoreable_rows": 1,
+  "new_scoreable_rows": 0,
   "route_order": [
     "R-CACHE-LOCAL",
     "R-KIND-OFFICIAL-F02",
@@ -12,30 +13,167 @@
     "R-PIT-ADMISSION",
     "R-SIDECAR-MATERIALIZE",
     "R-SCORE-SEAL-UNCHANGED",
-    "R-KRX-CA-COMPARABILITY"
+    "R-KRX-CA-COMPARABILITY",
+    "R-AFFECTED-VALIDATION"
   ],
-  "routes": [],
+  "routes": [
+    {
+      "route_id": "R-CACHE-LOCAL",
+      "attempt_units": 6,
+      "cache_lookup_units": 6,
+      "cache_hit_units": 2,
+      "useful_hits": 2,
+      "result": "ONE_PREDECESSOR_005290_EVIDENCE_HIT_AND_ONE_MARCAP_BUFFER_HIT;FOUR_F02_MISSES"
+    },
+    {
+      "route_id": "R-KIND-COMPANY-EXACT-TITLE",
+      "attempt_units": 3,
+      "useful_hits": 0,
+      "not_found": 3,
+      "result": "ZERO_EXACT_TITLE_RESULTS_FOR_003160_025560_031980_THROUGH_CUTOFF"
+    },
+    {
+      "route_id": "R-KIND-COMPANY-AUTOCOMPLETE",
+      "attempt_units": "AT_LEAST_2_EXACT_TOTAL_NOT_INSTRUMENTED",
+      "useful_hits": 0,
+      "retries": "NOT_INSTRUMENTED_TOTAL",
+      "result": "036200_TARGET_NOT_RESOLVED;ROUTE_SWITCHED",
+      "control_finding": "SAME_FAILURE_LIMIT_AND_ATOMIC_LOGGING_NOT_CLEANLY_ENFORCED"
+    },
+    {
+      "route_id": "R-KIND-GLOBAL-EXACT-TITLE",
+      "attempt_units": 40,
+      "decision_relevant_attempt_units": 33,
+      "rework_overscan_attempt_units": 7,
+      "useful_hits": 0,
+      "result": "ZERO_TARGET_HITS"
+    },
+    {
+      "route_id": "R-KIND-COMPANY-ALL-DISCLOSURES",
+      "attempt_units": 3,
+      "useful_hits": 0,
+      "not_found": 3,
+      "result": "LATEST_CUTOFF_SAFE_DISCLOSURES_DID_NOT_SUPPLY_F02"
+    },
+    {
+      "route_id": "R-WEB-OFFICIAL-CORROBORATION",
+      "attempt_units": "NOT_INSTRUMENTED",
+      "useful_hits": 0,
+      "unusable_or_cutoff_failed_hits": "OBSERVED_AT_LEAST_4_TOTAL_NOT_INSTRUMENTED",
+      "result": "AFTER_CUTOFF_HALF_YEAR_REPORTS_FOR_025560_031980_036200_AND_FALSE_POSITIVE_RESULTS;NO_ADMISSIBLE_F02"
+    },
+    {
+      "route_id": "R-PARSE-KIND-SAME-FORMAT",
+      "attempt_units": 0,
+      "result": "SKIPPED_NO_F02_SOURCE_BYTES"
+    },
+    {
+      "route_id": "R-PIT-ADMISSION",
+      "attempt_units": 0,
+      "pit_candidates": 0,
+      "pit_admitted_values": 0,
+      "result": "NOT_APPLICABLE_ZERO_CANDIDATES"
+    },
+    {
+      "route_id": "R-SIDECAR-MATERIALIZE",
+      "attempt_units": 0,
+      "result": "SKIPPED_NO_ADMITTED_VALUES"
+    },
+    {
+      "route_id": "R-SCORE-SEAL-UNCHANGED",
+      "attempt_units": 0,
+      "scoreable_row_delta": 0,
+      "result": "SKIPPED_NO_NEW_INPUT;PREDECESSOR_SCORE_AND_SEAL_PRESERVED"
+    },
+    {
+      "route_id": "R-KRX-CA-COMPARABILITY",
+      "attempt_units": 2,
+      "official_source_hits": 2,
+      "official_bytes": 4915819,
+      "content_duplicates": 0,
+      "result": "NO_W1_ADJUSTMENT_REQUIRED_SUPPORTED_BUT_NO_CONTRACT_EXACT_OUTCOME_UPGRADE"
+    },
+    {
+      "route_id": "R-AFFECTED-VALIDATION",
+      "attempt_units": 0,
+      "result": "PENDING_P4"
+    }
+  ],
   "items": [
-    {"company_id":"KRX:003160","lane":"F02_OFFICIAL_SOURCE","status":"NOT_STARTED"},
-    {"company_id":"KRX:025560","lane":"F02_OFFICIAL_SOURCE","status":"NOT_STARTED"},
-    {"company_id":"KRX:031980","lane":"F02_OFFICIAL_SOURCE","status":"NOT_STARTED"},
-    {"company_id":"KRX:036200","lane":"F02_OFFICIAL_SOURCE","status":"NOT_STARTED"},
-    {"company_id":"KRX:005290","lane":"CA_OUTCOME_COMPARABILITY_ONLY","status":"NOT_STARTED"}
+    {
+      "company_id": "KRX:003160",
+      "lane": "F02_OFFICIAL_SOURCE",
+      "status": "TERMINAL",
+      "found": false,
+      "cutoff_failed_hits": 0,
+      "pit_candidate_values": 0,
+      "pit_admitted_values": 0,
+      "scoreable_row_delta": 0,
+      "terminal_reason": "NO_CUTOFF_SAFE_OFFICIAL_F02_SOURCE_AFTER_BOUNDED_ROUTE"
+    },
+    {
+      "company_id": "KRX:025560",
+      "lane": "F02_OFFICIAL_SOURCE",
+      "status": "TERMINAL",
+      "found": false,
+      "cutoff_failed_hits": 1,
+      "pit_candidate_values": 0,
+      "pit_admitted_values": 0,
+      "scoreable_row_delta": 0,
+      "terminal_reason": "NO_CUTOFF_SAFE_OFFICIAL_F02_SOURCE_AFTER_BOUNDED_ROUTE"
+    },
+    {
+      "company_id": "KRX:031980",
+      "lane": "F02_OFFICIAL_SOURCE",
+      "status": "TERMINAL",
+      "found": false,
+      "cutoff_failed_hits": 1,
+      "pit_candidate_values": 0,
+      "pit_admitted_values": 0,
+      "scoreable_row_delta": 0,
+      "terminal_reason": "NO_CUTOFF_SAFE_OFFICIAL_F02_SOURCE_AFTER_BOUNDED_ROUTE"
+    },
+    {
+      "company_id": "KRX:036200",
+      "lane": "F02_OFFICIAL_SOURCE",
+      "status": "TERMINAL",
+      "found": false,
+      "cutoff_failed_hits": 1,
+      "pit_candidate_values": 0,
+      "pit_admitted_values": 0,
+      "scoreable_row_delta": 0,
+      "terminal_reason": "NO_CUTOFF_SAFE_OFFICIAL_F02_SOURCE_AFTER_BOUNDED_ROUTE"
+    },
+    {
+      "company_id": "KRX:005290",
+      "lane": "CA_OUTCOME_COMPARABILITY_ONLY",
+      "status": "TERMINAL",
+      "source_documents": 2,
+      "source_bytes": 4915819,
+      "w1_adjustment": "NOT_REQUIRED_SUPPORTED",
+      "outcome_upgrade": false,
+      "scoreable_row_delta": 0,
+      "terminal_reason": "PRICE_CANONICAL_AND_CA_CONTRACT_GATE_NOT_CLOSED",
+      "preserved_state": "PRELIMINARY_RAW_PRICE_MEASURED_CA_UNVERIFIED"
+    }
   ],
   "metrics": {
-    "retrieval_hit_rate": null,
-    "pit_admission_yield": null,
-    "transform_success_rate": null,
-    "scoreability_gain": null,
-    "scoreable_rows_per_wall_hour": null,
+    "retrieval_attempts": "NOT_INSTRUMENTED_TOTAL;OBSERVED_ATOMIC_LOWER_BOUND_54",
+    "useful_source_hits": 4,
+    "retrieval_hit_rate": "NOT_COMPUTABLE_TOTAL_ATTEMPT_UNITS_INCOMPLETE",
+    "pit_admission_yield": "NOT_APPLICABLE_ZERO_CANDIDATES",
+    "transform_success_rate": "NOT_APPLICABLE_ZERO_ADMITTED_SOURCE_VALUES",
+    "scoreability_gain": 0,
+    "scoreable_rows_per_wall_hour_at_p3": 0,
     "scoreable_rows_per_active_hour": "NOT_INSTRUMENTED",
-    "coverage_gain_per_wall_hour": null,
-    "retry_rate": null,
-    "cache_hit_rate": null,
-    "duplicate_fetch_rate": null,
+    "coverage_gain_per_wall_hour_at_p3": 0,
+    "retry_rate": "NOT_INSTRUMENTED",
+    "cache_hit_rate": "2/6 = 0.3333333333333333",
+    "duplicate_fetch_rate": "NOT_INSTRUMENTED_BROWSER_FETCH_TOTAL_INCOMPLETE",
     "validation_rework_ratio": "NOT_INSTRUMENTED",
-    "no_evidence_repeat_count": 0,
-    "route_switch_count": 0,
+    "no_evidence_repeat_count": "OBSERVED_AT_LEAST_1_TOTAL_NOT_INSTRUMENTED",
+    "route_switch_count": "OBSERVED_AT_LEAST_3_TOTAL_NOT_INSTRUMENTED",
     "token_or_cru_per_scoreable_row": "NOT_INSTRUMENTED"
-  }
+  },
+  "instrumentation_status": "PARTIAL_BROWSER_ATTEMPT_TELEMETRY;NO_FALSE_PRECISION"
 }
