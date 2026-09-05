@@ -22,6 +22,7 @@ from .real_input_replay_v1 import (
     execute_w1_outcomes_from_seal,
     load_feature_sidecar,
     load_source_manifest,
+    read_selection_seal,
 )
 
 
@@ -130,6 +131,7 @@ def _parse_args(argv: list[str]) -> argparse.Namespace:
     score.add_argument("--feature-sidecar", type=Path, required=True)
 
     outcome = commands.add_parser("measure-outcomes", help="Verify the durable seal, then open bound price bytes")
+    outcome.add_argument("--repo", type=Path, required=True)
     outcome.add_argument("--selection-seal", type=Path, required=True)
     outcome.add_argument("--output-dir", type=Path, required=True)
     outcome.add_argument("--price-2024", type=Path, required=True)
@@ -214,14 +216,40 @@ def _score_and_seal(args: argparse.Namespace, effective_argv: list[str]) -> dict
     }
 
 
+def _prepare_outcome_execution_context(repo: Path, selection_seal_path: Path) -> dict[str, Any]:
+    # Preserve the strict order: verify the already-persisted seal before checking
+    # executable bytes, and check both before touching any supplied price path.
+    preflight_seal = read_selection_seal(selection_seal_path)
+    _assert_clean_repo(repo)
+    predecessor_binding = _verify_preserved_predecessor(repo)
+    code_identity, code_components = _bind_successor_bundle(repo)
+    sealed_identity = preflight_seal["sealed_payload"]["successor_executable_bundle_identity"]
+    if code_identity != sealed_identity:
+        raise ValueError("current outcome executable bundle does not match the durable selection seal")
+    return {
+        "selection_seal_id": preflight_seal["seal_id"],
+        "successor_executable_bundle_identity": code_identity,
+        "successor_code_components": code_components,
+        "predecessor_binding": predecessor_binding,
+        "repo": str(repo),
+        "git_head": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=repo, text=True).strip(),
+        "git_tree": subprocess.check_output(["git", "rev-parse", "HEAD^{tree}"], cwd=repo, text=True).strip(),
+        "git_branch": subprocess.check_output(["git", "branch", "--show-current"], cwd=repo, text=True).strip(),
+    }
+
+
 def _measure_outcomes(args: argparse.Namespace, effective_argv: list[str]) -> dict[str, Any]:
+    repo = args.repo.resolve()
     output_dir = args.output_dir.resolve()
     started_at = datetime.now(ZoneInfo("Asia/Seoul")).isoformat()
+    execution_context = _prepare_outcome_execution_context(repo, args.selection_seal.resolve())
     result = execute_w1_outcomes_from_seal(
         selection_seal_path=args.selection_seal.resolve(),
         price_2024_path=args.price_2024,
         price_2025_path=args.price_2025,
         price_2026_path=args.price_2026,
+        current_executable_bundle_identity=execution_context["successor_executable_bundle_identity"],
+        expected_selection_seal_id=execution_context["selection_seal_id"],
     )
     output_dir.mkdir(parents=True, exist_ok=True)
     atomic_write_json(output_dir / "STRICT_RAW_OUTCOME_RESULT.json", result)
@@ -240,10 +268,21 @@ def _measure_outcomes(args: argparse.Namespace, effective_argv: list[str]) -> di
         "status": result["outcome_stage_state"],
         "started_at_kst": started_at,
         "finished_at_kst": finished_at,
-        "execution_environment": {"python": sys.version, "platform": platform.platform()},
+        "execution_environment": {
+            "python": sys.version,
+            "platform": platform.platform(),
+            "repo": execution_context["repo"],
+            "git_head": execution_context["git_head"],
+            "git_tree": execution_context["git_tree"],
+            "git_branch": execution_context["git_branch"],
+        },
         "execution_argv": [sys.executable, "-m", "tools.m3top3.cli_run_real_input_replay", *effective_argv],
         "selection_seal_id": result["selection_seal_id"],
         "selection_seal_verified_before_price_access": True,
+        "successor_executable_bundle_identity": execution_context["successor_executable_bundle_identity"],
+        "successor_code_components": execution_context["successor_code_components"],
+        "predecessor_binding": execution_context["predecessor_binding"],
+        "outcome_runtime_receipt": result["price_input_binding"]["parquet_reader_runtime"],
         "price_dataset_identity_sha256": result["price_input_binding"]["dataset_identity_sha256"],
         "outcome_semantic_sha256": result["outcome_semantic_sha256"],
     }

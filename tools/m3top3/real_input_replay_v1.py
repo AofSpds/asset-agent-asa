@@ -1,10 +1,15 @@
 from __future__ import annotations
 
+import base64
 import copy
+import csv
 import hashlib
 import json
 import os
+import platform
+import sys
 from collections import Counter
+from datetime import timedelta
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from typing import Any, Iterable
@@ -54,6 +59,64 @@ W1_MAPPING = {
     "evaluation_last_trade_date": "2024-11-08",
     "horizon_close_date": "2024-11-08",
     "exit_trade_date": "2024-11-11",
+}
+
+W1_KRX_CLOSURES = (
+    "2024-08-15",
+    "2024-09-16",
+    "2024-09-17",
+    "2024-09-18",
+    "2024-10-01",
+    "2024-10-03",
+    "2024-10-09",
+)
+
+
+def _build_expected_w1_holding_dates() -> tuple[str, ...]:
+    start = parse_date(W1_MAPPING["entry_trade_date"])
+    end = parse_date(W1_MAPPING["evaluation_last_trade_date"])
+    closures = {parse_date(value) for value in W1_KRX_CLOSURES}
+    result: list[str] = []
+    current = start
+    while current <= end:
+        if current.weekday() < 5 and current not in closures:
+            result.append(current.isoformat())
+        current += timedelta(days=1)
+    return tuple(result)
+
+
+EXPECTED_W1_HOLDING_DATES = _build_expected_w1_holding_dates()
+W1_REPLAY_CALENDAR_BINDING = {
+    "identity": "REPLAY_ONLY_PRICE_DATE_X_OFFICIAL_KRX_CLOSURE_BINDING-v1",
+    "window_registry_revision": "e59ed048d6da76edcad82c9a58b0d083c6452471",
+    "window_registry_blob": "033817e6335865e411d2bb4b5837434167091458",
+    "window_registry_csv_sha256": "96d63cc98a01b6332cf9486440e7f3fdaa0ec5a2d605f21bc14a4025b46e69fe",
+    "closure_2024_git_blob": "98c93ecb5dafe38723ee06fb07cbd80c7c8a2a4d",
+    "closure_2024_sha256": "d5961ae5998036cc1710fe28e22d324db0233b570dd5c417b088fba1408f857f",
+    "expected_holding_dates": list(EXPECTED_W1_HOLDING_DATES),
+    "expected_holding_date_count": len(EXPECTED_W1_HOLDING_DATES),
+    "expected_holding_dates_sha256": sha256_hex(list(EXPECTED_W1_HOLDING_DATES)),
+    "rule": "INCLUSIVE_ENTRY_TO_EVALUATION_LAST_WEEKDAYS_MINUS_BOUND_KRX_CLOSURES",
+    "authority_ceiling": "APPROVED_REPLAY_ONLY_NOT_PRODUCTION_CALENDAR_RELEASE",
+}
+
+OUTCOME_RUNTIME_POLICY = {
+    "policy_id": "M3TOP3-W1-OUTCOME-PARQUET-RUNTIME-v1",
+    "python": {
+        "implementation": "CPython",
+        "version": "3.12.14",
+        "executable_name": "python.exe",
+        "byte_size": 107_312,
+        "sha256": "ebdb7ddc892a73a9ece422fda408d0bbc2d232904cedeaae359066ef2db37317",
+    },
+    "parquet_reader": {
+        "distribution": "pyarrow",
+        "version": "25.0.1",
+        "dist_info_directory": "pyarrow-25.0.1.dist-info",
+        "record_byte_size": 78_570,
+        "record_sha256": "1eddf4fb72b1b071868dc02d6fc8242125d98c6557ae6af8f783b1c84ef6a797",
+        "verification_rule": "BOUND_RECORD_SHA256_AND_EVERY_HASHED_RECORD_ENTRY_BEFORE_PRICE_ACCESS",
+    },
 }
 
 MANIFEST_KEYS = {
@@ -948,6 +1011,8 @@ def _seal_payload(model_stage: dict[str, Any]) -> dict[str, Any]:
         "selection_ledger_hash": sha256_hex(model_stage["selection_ledger"]),
         "engine_run_id": model_stage["scorer_output"]["run_id"],
         "window_mapping": model_stage["window"],
+        "replay_calendar_binding": copy.deepcopy(W1_REPLAY_CALENDAR_BINDING),
+        "outcome_runtime_policy": copy.deepcopy(OUTCOME_RUNTIME_POLICY),
         "outer_127_accounting": model_stage["window"]["outer_partitions"],
         "ranking_status": model_stage["window"]["ranking_status"],
         "rankable_count": model_stage["window"]["scoreable_count"],
@@ -955,7 +1020,7 @@ def _seal_payload(model_stage: dict[str, Any]) -> dict[str, Any]:
         "rank_tie_policy": "FULL_PRECISION_SCORE_DESC_COMPANY_ID_ASC",
         "official_top3_state": "NOT_AVAILABLE_INCOMPLETE_57_ROW_SCORE_COVERAGE",
         "include_57_results": include_results,
-        "outcome_measurement_cohort_policy": "ALL_SCOREABLE_PRECOMMITTED",
+        "outcome_measurement_cohort_policy": "ALL_SCOREABLE_PRECOMMITTED_NO_SUBSTITUTION",
         "outcome_measurement_cohort": measurement_cohort,
         "selected_company_substitution_policy": "FORBIDDEN",
     }
@@ -1001,12 +1066,21 @@ def validate_selection_seal(seal: dict[str, Any]) -> dict[str, Any]:
     if seal["future_price_values_opened_at_seal"] is not False:
         raise RealInputReplayError("selection seal does not assert an unopened outcome boundary")
     payload = seal["sealed_payload"]
+    mapping = payload.get("window_mapping", {})
     if (
         payload.get("mode") != "STRICT"
         or len(payload.get("include_57_results", [])) != 57
         or not payload.get("outcome_measurement_cohort")
+        or payload.get("outcome_measurement_cohort_policy")
+        != "ALL_SCOREABLE_PRECOMMITTED_NO_SUBSTITUTION"
         or payload.get("selected_company_substitution_policy") != "FORBIDDEN"
-        or payload.get("window_mapping", {}).get("window_anchor_date") != W1_MAPPING["window_anchor_date"]
+        or any(mapping.get(key) != value for key, value in W1_MAPPING.items())
+        or payload.get("replay_calendar_binding") != W1_REPLAY_CALENDAR_BINDING
+        or payload.get("outcome_runtime_policy") != OUTCOME_RUNTIME_POLICY
+        or not str(payload.get("successor_executable_bundle_identity", "")).startswith(
+            "M3TOP3-REAL-INPUT-EXECUTABLE-BUNDLE-SHA256:"
+        )
+        or payload.get("successor_executable_bundle_identity") == PREDECESSOR_EXECUTABLE_BUNDLE_IDENTITY
     ):
         raise RealInputReplayError("selection seal semantic invariant mismatch")
     return seal
@@ -1051,6 +1125,28 @@ def read_selection_seal(path: str | Path) -> dict[str, Any]:
     return validate_selection_seal(seal)
 
 
+def _read_durable_selection_seal_receipt(path: str | Path) -> dict[str, Any]:
+    target = Path(path).resolve()
+    try:
+        raw = target.read_bytes()
+        seal = _strict_json_loads(raw.decode("utf-8"), "durable selection seal")
+    except (OSError, UnicodeDecodeError) as exc:
+        raise RealInputReplayError("durable selection seal is not readable UTF-8") from exc
+    if not isinstance(seal, dict):
+        raise RealInputReplayError("durable selection seal must be a JSON object")
+    validated = validate_selection_seal(seal)
+    if raw != canonical_json_bytes(validated) + b"\n":
+        raise RealInputReplayError("durable selection seal is not the exact canonical committed byte form")
+    return {
+        "receipt_type": "DURABLE_SELECTION_SEAL_CANONICAL_READBACK",
+        "selection_seal": validated,
+        "selection_seal_id": validated["seal_id"],
+        "path": str(target),
+        "byte_size": len(raw),
+        "file_sha256": hashlib.sha256(raw).hexdigest(),
+    }
+
+
 PRICE_COMPONENT_BINDINGS = {
     "2024": {
         "name": "marcap-2024.parquet",
@@ -1071,37 +1167,148 @@ PRICE_COMPONENT_BINDINGS = {
 PRICE_DATASET_IDENTITY_SHA256 = "419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7"
 
 
-def _bind_price_components_after_seal(paths: dict[str, Path]) -> dict[str, Any]:
+def _verify_outcome_runtime_before_price_access(policy: dict[str, Any]) -> dict[str, Any]:
+    if policy != OUTCOME_RUNTIME_POLICY:
+        raise RealInputReplayError("sealed outcome runtime policy is not the reviewed exact policy")
+    expected_python = policy["python"]
+    executable = Path(sys.executable).resolve()
+    executable_identity = {
+        "byte_size": executable.stat().st_size,
+        "sha256": _file_sha256(executable),
+    }
+    if (
+        platform.python_implementation() != expected_python["implementation"]
+        or platform.python_version() != expected_python["version"]
+        or executable.name.lower() != expected_python["executable_name"]
+        or executable_identity
+        != {"byte_size": expected_python["byte_size"], "sha256": expected_python["sha256"]}
+    ):
+        raise RealInputReplayError("Python runtime does not match the sealed outcome runtime policy")
+
+    try:
+        import pyarrow  # type: ignore[import-not-found]
+    except ImportError as exc:
+        raise RealInputReplayError("PYARROW_RUNTIME_UNAVAILABLE_BEFORE_PRICE_ACCESS") from exc
+    expected_reader = policy["parquet_reader"]
+    if getattr(pyarrow, "__version__", None) != expected_reader["version"] or not pyarrow.__file__:
+        raise RealInputReplayError("PyArrow version/module does not match the sealed runtime policy")
+    module_file = Path(pyarrow.__file__).resolve()
+    distribution_root = module_file.parent.parent
+    dist_info = distribution_root / expected_reader["dist_info_directory"]
+    record_path = dist_info / "RECORD"
+    if not record_path.is_file():
+        raise RealInputReplayError("bound PyArrow distribution RECORD is missing")
+    record_bytes = record_path.read_bytes()
+    if {
+        "byte_size": len(record_bytes),
+        "sha256": hashlib.sha256(record_bytes).hexdigest(),
+    } != {
+        "byte_size": expected_reader["record_byte_size"],
+        "sha256": expected_reader["record_sha256"],
+    }:
+        raise RealInputReplayError("PyArrow distribution RECORD identity mismatch")
+
+    verified_entries = 0
+    unhashed_entries = 0
+    try:
+        rows = csv.reader(record_bytes.decode("utf-8").splitlines())
+        for index, row in enumerate(rows, start=1):
+            if len(row) != 3:
+                raise RealInputReplayError(f"PyArrow RECORD row {index}: exact three fields required")
+            relative, recorded_hash, recorded_size = row
+            candidate = (distribution_root / Path(relative)).resolve()
+            try:
+                candidate.relative_to(distribution_root)
+            except ValueError as exc:
+                raise RealInputReplayError(f"PyArrow RECORD row {index}: path escapes distribution root") from exc
+            if not recorded_hash and not recorded_size:
+                unhashed_entries += 1
+                continue
+            if not recorded_hash.startswith("sha256=") or not recorded_size.isdigit():
+                raise RealInputReplayError(f"PyArrow RECORD row {index}: unsupported identity format")
+            try:
+                data = candidate.read_bytes()
+            except OSError as exc:
+                raise RealInputReplayError(f"PyArrow RECORD row {index}: bound file unreadable") from exc
+            encoded = base64.urlsafe_b64encode(hashlib.sha256(data).digest()).rstrip(b"=").decode("ascii")
+            if len(data) != int(recorded_size) or recorded_hash != f"sha256={encoded}":
+                raise RealInputReplayError(f"PyArrow RECORD row {index}: installed file identity mismatch")
+            verified_entries += 1
+    except UnicodeDecodeError as exc:
+        raise RealInputReplayError("PyArrow RECORD is not UTF-8") from exc
+    if verified_entries <= 0:
+        raise RealInputReplayError("PyArrow RECORD verified no installed files")
+    return {
+        "binding_state": "SEALED_RUNTIME_AND_FULL_DISTRIBUTION_VERIFIED_BEFORE_PRICE_ACCESS",
+        "runtime_policy_sha256": sha256_hex(policy),
+        "python": {
+            "executable": str(executable),
+            "version": sys.version,
+            **executable_identity,
+        },
+        "parquet_reader": {
+            "distribution": expected_reader["distribution"],
+            "version": pyarrow.__version__,
+            "module_file": str(module_file),
+            "distribution_root": str(distribution_root),
+            "record_path": str(record_path),
+            "record_byte_size": len(record_bytes),
+            "record_sha256": hashlib.sha256(record_bytes).hexdigest(),
+            "record_hashed_entries_verified": verified_entries,
+            "record_unhashed_entries_ignored": unhashed_entries,
+        },
+    }
+
+
+def _bind_price_components_after_seal(paths: dict[str, Path]) -> tuple[dict[str, Any], bytes]:
     if set(paths) != set(PRICE_COMPONENT_BINDINGS):
         raise RealInputReplayError("exact 2024-2026 price component paths required")
     components = []
+    captured_2024: bytes | None = None
     for year in sorted(PRICE_COMPONENT_BINDINGS):
         expected = PRICE_COMPONENT_BINDINGS[year]
         path = paths[year]
         if not path.is_file():
             raise RealInputReplayError(f"{year} bound price component is missing")
-        observed = {"byte_size": path.stat().st_size, "sha256": _file_sha256(path)}
+        if year == "2024":
+            captured_2024 = path.read_bytes()
+            observed = {
+                "byte_size": len(captured_2024),
+                "sha256": hashlib.sha256(captured_2024).hexdigest(),
+            }
+        else:
+            observed = {"byte_size": path.stat().st_size, "sha256": _file_sha256(path)}
         if observed != {"byte_size": expected["byte_size"], "sha256": expected["sha256"]}:
             raise RealInputReplayError(f"{year} price component identity mismatch")
         components.append({"year": year, "path": str(path), **observed, "name": expected["name"]})
-    return {
-        "binding_state": "EXACT_COMPONENT_BYTES_VERIFIED_AFTER_DURABLE_SELECTION_SEAL",
-        "dataset_identity_sha256": PRICE_DATASET_IDENTITY_SHA256,
-        "source_semantics": "RAW_IMMUTABLE_NOT_PRICE_CANONICAL",
-        "components": components,
-    }
+    if captured_2024 is None:
+        raise RealInputReplayError("2024 price component was not captured")
+    return (
+        {
+            "binding_state": "EXACT_COMPONENT_BYTES_VERIFIED_AFTER_DURABLE_SELECTION_SEAL",
+            "dataset_identity_sha256": PRICE_DATASET_IDENTITY_SHA256,
+            "source_semantics": "RAW_IMMUTABLE_NOT_PRICE_CANONICAL",
+            "decoded_component_year": "2024",
+            "decoded_component_transport": "IN_MEMORY_EXACT_HASHED_BYTE_BUFFER_NO_PATH_REOPEN",
+            "components": components,
+        },
+        captured_2024,
+    )
 
 
-def _normalize_marcap_rows_after_seal(path: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+def _normalize_marcap_rows_after_seal(payload: bytes) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     try:
         import pyarrow  # type: ignore[import-not-found]
         import pyarrow.parquet as parquet  # type: ignore[import-not-found]
     except ImportError as exc:
         raise RealInputReplayError(
-            "PYARROW_RUNTIME_UNAVAILABLE: outcome stage needs a separately bound parquet reader"
+            "PYARROW_RUNTIME_UNAVAILABLE_AFTER_PRECHECK"
         ) from exc
     try:
-        table = parquet.read_table(str(path), columns=["Date", "Code", "Open", "High", "Low", "Close"])
+        table = parquet.read_table(
+            pyarrow.BufferReader(payload),
+            columns=["Date", "Code", "Open", "High", "Low", "Close"],
+        )
     except Exception as exc:
         raise RealInputReplayError("bound 2024 price component could not be read with the expected schema") from exc
     normalized: list[dict[str, Any]] = []
@@ -1128,6 +1335,8 @@ def _normalize_marcap_rows_after_seal(path: Path) -> tuple[list[dict[str, Any]],
         "read_columns": ["Date", "Code", "Open", "High", "Low", "Close"],
         "source_row_count": table.num_rows,
         "source_schema": str(table.schema),
+        "decoded_buffer_byte_size": len(payload),
+        "decoded_buffer_sha256": hashlib.sha256(payload).hexdigest(),
     }
 
 
@@ -1153,13 +1362,14 @@ def _valid_ohlc(row: dict[str, Any], context: str) -> dict[str, Decimal]:
     return {"open": opened, "high": high, "low": low, "close": close}
 
 
-def calculate_w1_raw_outcomes_from_normalized_rows(
+def _calculate_w1_raw_outcomes_from_normalized_rows(
     verified_seal: dict[str, Any],
     price_rows: Iterable[dict[str, Any]],
     *,
     price_binding: dict[str, Any],
+    durable_readback_receipt: dict[str, Any] | None,
 ) -> dict[str, Any]:
-    """Pure post-seal arithmetic helper; public orchestration opens prices only after seal readback."""
+    """Shared arithmetic; only the private receipt-bearing path may emit firewall proof."""
     seal = validate_selection_seal(verified_seal)
     payload = seal["sealed_payload"]
     include_results = payload["include_57_results"]
@@ -1170,10 +1380,13 @@ def calculate_w1_raw_outcomes_from_normalized_rows(
     if not measurement_ids.issubset(comparison):
         raise RealInputReplayError("measurement cohort escapes sealed INCLUDE denominator")
 
-    entry_date = parse_date(W1_MAPPING["entry_trade_date"])
-    evaluation_last = parse_date(W1_MAPPING["evaluation_last_trade_date"])
-    exit_date = parse_date(W1_MAPPING["exit_trade_date"])
-    expected_dates: set[str] = set()
+    mapping = payload["window_mapping"]
+    entry_date = parse_date(mapping["entry_trade_date"])
+    evaluation_last = parse_date(mapping["evaluation_last_trade_date"])
+    exit_date = parse_date(mapping["exit_trade_date"])
+    expected_dates = set(payload["replay_calendar_binding"]["expected_holding_dates"])
+    observed_market_dates: set[str] = set()
+    observed_dates_through_exit: set[str] = set()
     by_key: dict[tuple[str, str], dict[str, Any]] = {}
     comparison_codes = set(comparison.values())
     for index, row in enumerate(price_rows):
@@ -1185,15 +1398,22 @@ def calculate_w1_raw_outcomes_from_normalized_rows(
         day = parse_date(row["date"])
         day_text = day.isoformat()
         if entry_date <= day <= evaluation_last:
-            expected_dates.add(day_text)
+            observed_market_dates.add(day_text)
+        if entry_date <= day <= exit_date:
+            observed_dates_through_exit.add(day_text)
         if code not in comparison_codes or day < entry_date or day > exit_date:
             continue
         key = (code, day_text)
         if key in by_key:
             raise RealInputReplayError(f"duplicate selected-denominator price key: {key}")
         by_key[key] = {**row, "date": day_text}
-    if not expected_dates or entry_date.isoformat() not in expected_dates or evaluation_last.isoformat() not in expected_dates:
-        raise RealInputReplayError("price dataset does not expose the complete W1 market date spine")
+    if observed_market_dates != expected_dates or exit_date.isoformat() not in observed_dates_through_exit:
+        missing = sorted(expected_dates - observed_market_dates)
+        unexpected = sorted(observed_market_dates - expected_dates)
+        raise RealInputReplayError(
+            "price dataset does not expose the exact bound W1 market date spine: "
+            f"missing={missing}, unexpected={unexpected}, exit_present={exit_date.isoformat() in observed_dates_through_exit}"
+        )
 
     outcomes: list[dict[str, Any]] = []
     complete_rows: list[dict[str, Any]] = []
@@ -1300,14 +1520,30 @@ def calculate_w1_raw_outcomes_from_normalized_rows(
             if selected_item_measured_count
             else "NOT_MEASURED_SELECTED_PRICE_PATH_INVALID_OR_MISSING"
         ),
-        "stage_sequence": [
-            "MODEL_SCORED",
-            "SELECTION_SEALED_DURABLE_READBACK_VERIFIED",
-            "PRICE_COMPONENT_BYTES_BOUND",
-            "PRICE_VALUES_READ",
-            "RAW_OUTCOMES_CALCULATED",
-        ],
+        "execution_proof_state": (
+            "DURABLE_SELECTION_SEAL_AND_EXACT_PRICE_BUFFER_VERIFIED"
+            if durable_readback_receipt is not None
+            else "IN_MEMORY_ARITHMETIC_ONLY_NO_DURABLE_FIREWALL_PROOF"
+        ),
+        "stage_sequence": (
+            [
+                "MODEL_SCORED",
+                "SELECTION_SEALED_DURABLE_READBACK_VERIFIED",
+                "OUTCOME_EXECUTABLE_AND_RUNTIME_VERIFIED",
+                "PRICE_COMPONENT_BYTES_BOUND",
+                "PRICE_VALUES_READ_FROM_EXACT_HASHED_BUFFER",
+                "RAW_OUTCOMES_CALCULATED",
+            ]
+            if durable_readback_receipt is not None
+            else [
+                "MODEL_SCORED",
+                "SELECTION_SEAL_CONTENT_VALIDATED_IN_MEMORY_ONLY",
+                "PRELOADED_TEST_ROWS_USED",
+                "RAW_OUTCOME_ARITHMETIC_CALCULATED_WITHOUT_EXECUTION_PROOF",
+            ]
+        ),
         "selection_seal_id": seal["seal_id"],
+        "durable_selection_seal_readback_receipt": durable_readback_receipt,
         "price_input_binding": price_binding,
         "window_mapping": payload["window_mapping"],
         "sealed_measurement_cohort_count": len(measurement_ids),
@@ -1340,7 +1576,7 @@ def calculate_w1_raw_outcomes_from_normalized_rows(
             "unverified": "CORPORATE_ACTION_COMPARABILITY_PRICE_CANONICAL_AND_OFFICIAL_RANK",
         },
         "outcome_firewall": {
-            "selection_seal_readback_verified_before_price_component_access": True,
+            "selection_seal_readback_verified_before_price_component_access": durable_readback_receipt is not None,
             "measurement_cohort_policy": payload["outcome_measurement_cohort_policy"],
             "selected_company_substitution": False,
             "outcome_used_to_change_model_input_score_or_cohort": False,
@@ -1352,30 +1588,61 @@ def calculate_w1_raw_outcomes_from_normalized_rows(
             "NO_MODEL_QUALITY_OR_PRODUCTION_READINESS_CLAIM",
         ],
     }
+    if durable_readback_receipt is None:
+        result["claim_ceiling"].append("NO_OPERATIONAL_OUTCOME_CLAIM_FROM_IN_MEMORY_TEST_HELPER")
     result["outcome_semantic_sha256"] = sha256_hex(result)
     return result
+
+
+def calculate_w1_raw_outcomes_from_normalized_rows_for_test(
+    verified_seal: dict[str, Any],
+    price_rows: Iterable[dict[str, Any]],
+    *,
+    price_binding: dict[str, Any],
+) -> dict[str, Any]:
+    """Arithmetic-fixture helper; deliberately cannot attest durable seal or price-file ordering."""
+    return _calculate_w1_raw_outcomes_from_normalized_rows(
+        verified_seal,
+        price_rows,
+        price_binding=price_binding,
+        durable_readback_receipt=None,
+    )
 
 
 def execute_w1_outcomes_from_seal(
     *,
     selection_seal_path: str | Path,
+    expected_selection_seal_id: str,
+    current_executable_bundle_identity: str,
     price_2024_path: str | Path,
     price_2025_path: str | Path,
     price_2026_path: str | Path,
 ) -> dict[str, Any]:
     # The first filesystem read is the durable selection seal. Price paths are not
     # stat'ed, hashed, imported or opened until this readback passes.
-    verified_seal = read_selection_seal(selection_seal_path)
+    durable_receipt = _read_durable_selection_seal_receipt(selection_seal_path)
+    verified_seal = durable_receipt["selection_seal"]
+    if durable_receipt["selection_seal_id"] != expected_selection_seal_id:
+        raise RealInputReplayError("selection seal changed after preflight readback")
+    sealed_identity = verified_seal["sealed_payload"]["successor_executable_bundle_identity"]
+    if current_executable_bundle_identity != sealed_identity:
+        raise RealInputReplayError("current outcome executable bundle does not match the sealed model executable")
+    runtime_receipt = _verify_outcome_runtime_before_price_access(
+        verified_seal["sealed_payload"]["outcome_runtime_policy"]
+    )
     paths = {
         "2024": Path(price_2024_path).resolve(),
         "2025": Path(price_2025_path).resolve(),
         "2026": Path(price_2026_path).resolve(),
     }
-    price_binding = _bind_price_components_after_seal(paths)
-    normalized_rows, reader_runtime = _normalize_marcap_rows_after_seal(paths["2024"])
-    price_binding["parquet_reader_runtime"] = reader_runtime
-    return calculate_w1_raw_outcomes_from_normalized_rows(
+    price_binding, captured_2024 = _bind_price_components_after_seal(paths)
+    normalized_rows, reader_decode = _normalize_marcap_rows_after_seal(captured_2024)
+    price_binding["parquet_reader_runtime"] = {**runtime_receipt, "decode": reader_decode}
+    return _calculate_w1_raw_outcomes_from_normalized_rows(
         verified_seal,
         normalized_rows,
         price_binding=price_binding,
+        durable_readback_receipt={
+            key: value for key, value in durable_receipt.items() if key != "selection_seal"
+        },
     )

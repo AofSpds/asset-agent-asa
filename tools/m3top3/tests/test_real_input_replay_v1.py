@@ -7,18 +7,21 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
+from tools.m3top3.cli_run_real_input_replay import _prepare_outcome_execution_context
 from tools.m3top3.contracts_v1 import ContractError
+from tools.m3top3.core import sha256_hex
 from tools.m3top3.coverage_limited_replay_v1 import (
     FEATURE_IDS,
     load_population_bytes,
     parse_population_bytes,
 )
 from tools.m3top3.real_input_replay_v1 import (
+    EXPECTED_W1_HOLDING_DATES,
     F02,
     PREDECESSOR_EXECUTABLE_BUNDLE_IDENTITY,
     RealInputReplayError,
     build_strict_w1_mis,
-    calculate_w1_raw_outcomes_from_normalized_rows,
+    calculate_w1_raw_outcomes_from_normalized_rows_for_test,
     commit_selection_seal,
     create_selection_seal,
     execute_strict_w1_model_stage,
@@ -26,6 +29,7 @@ from tools.m3top3.real_input_replay_v1 import (
     load_feature_sidecar,
     load_source_manifest,
     read_selection_seal,
+    validate_selection_seal,
     validate_feature_leaves,
     validate_source_manifest,
 )
@@ -260,20 +264,25 @@ class TestRealInputReplay(unittest.TestCase):
         selected_code = "005290"
         for item in self.seal["sealed_payload"]["include_57_results"]:
             code = item["krx_code"]
-            if code == selected_code:
-                values = [
-                    ("2024-08-12", 100, 105, 80, 100),
-                    ("2024-09-02", 110, 120, 100, 115),
-                    ("2024-11-08", 105, 130, 90, 105),
-                    ("2024-11-11", 110, 115, 105, 112),
-                ]
-            else:
-                values = [
-                    ("2024-08-12", 100, 101, 99, 100),
-                    ("2024-09-02", 105, 110, 100, 105),
-                    ("2024-11-08", 110, 120, 105, 110),
-                    ("2024-11-11", 105, 110, 100, 105),
-                ]
+            values = []
+            for day in EXPECTED_W1_HOLDING_DATES:
+                value = (day, 100, 101, 99, 100)
+                if code == selected_code and day == "2024-08-12":
+                    value = (day, 100, 105, 80, 100)
+                elif code == selected_code and day == "2024-09-02":
+                    value = (day, 110, 120, 100, 115)
+                elif code == selected_code and day == "2024-11-08":
+                    value = (day, 105, 130, 90, 105)
+                elif code != selected_code and day == "2024-09-02":
+                    value = (day, 105, 110, 100, 105)
+                elif code != selected_code and day == "2024-11-08":
+                    value = (day, 110, 120, 105, 110)
+                values.append(value)
+            values.append(
+                ("2024-11-11", 110, 115, 105, 112)
+                if code == selected_code
+                else ("2024-11-11", 105, 110, 100, 105)
+            )
             for day, opened, high, low, close in values:
                 rows.append(
                     {"date": day, "krx_code": code, "open": opened, "high": high, "low": low, "close": close}
@@ -281,7 +290,7 @@ class TestRealInputReplay(unittest.TestCase):
         return rows
 
     def test_14_w1_outcome_arithmetic_and_boundaries(self):
-        result = calculate_w1_raw_outcomes_from_normalized_rows(
+        result = calculate_w1_raw_outcomes_from_normalized_rows_for_test(
             self.seal,
             self._price_fixture(),
             price_binding={"dataset_identity_sha256": "TEST", "source_semantics": "RAW"},
@@ -302,7 +311,7 @@ class TestRealInputReplay(unittest.TestCase):
         rows = self._price_fixture()
         missing_code = next(code for code in {row["krx_code"] for row in rows} if code != "005290")
         rows = [row for row in rows if not (row["krx_code"] == missing_code and row["date"] == "2024-09-02")]
-        result = calculate_w1_raw_outcomes_from_normalized_rows(
+        result = calculate_w1_raw_outcomes_from_normalized_rows_for_test(
             self.seal,
             rows,
             price_binding={"dataset_identity_sha256": "TEST", "source_semantics": "RAW"},
@@ -316,7 +325,7 @@ class TestRealInputReplay(unittest.TestCase):
         rows = self._price_fixture()
         zero = copy.deepcopy(rows)
         next(row for row in zero if row["krx_code"] == "005290" and row["date"] == "2024-08-12")["open"] = 0
-        result = calculate_w1_raw_outcomes_from_normalized_rows(
+        result = calculate_w1_raw_outcomes_from_normalized_rows_for_test(
             self.seal,
             zero,
             price_binding={"dataset_identity_sha256": "TEST"},
@@ -325,34 +334,131 @@ class TestRealInputReplay(unittest.TestCase):
         self.assertEqual(selected["measurement_state"], "NOT_MEASURED_REQUIRED_ENDPOINT_OR_PATH_INVALID")
         duplicate = [*rows, copy.deepcopy(rows[0])]
         with self.assertRaises(RealInputReplayError):
-            calculate_w1_raw_outcomes_from_normalized_rows(self.seal, duplicate, price_binding={})
+            calculate_w1_raw_outcomes_from_normalized_rows_for_test(self.seal, duplicate, price_binding={})
         malformed = copy.deepcopy(rows)
         malformed[0]["krx_code"] = "5290"
         with self.assertRaises(RealInputReplayError):
-            calculate_w1_raw_outcomes_from_normalized_rows(self.seal, malformed, price_binding={})
+            calculate_w1_raw_outcomes_from_normalized_rows_for_test(self.seal, malformed, price_binding={})
 
     def test_17_public_outcome_path_verifies_seal_before_price_access(self):
         order = []
 
         def read_first(_):
             order.append("seal")
-            return self.seal
+            return {
+                "receipt_type": "DURABLE_SELECTION_SEAL_CANONICAL_READBACK",
+                "selection_seal": self.seal,
+                "selection_seal_id": self.seal["seal_id"],
+                "path": "seal.json",
+                "byte_size": 1,
+                "file_sha256": "TEST",
+            }
 
-        def bind_second(_):
+        def runtime_second(_):
+            order.append("runtime")
+            return {"binding_state": "TEST"}
+
+        def bind_third(_):
             order.append("price")
             raise RealInputReplayError("stop after proving order")
 
-        with patch("tools.m3top3.real_input_replay_v1.read_selection_seal", side_effect=read_first), patch(
-            "tools.m3top3.real_input_replay_v1._bind_price_components_after_seal", side_effect=bind_second
+        with patch(
+            "tools.m3top3.real_input_replay_v1._read_durable_selection_seal_receipt",
+            side_effect=read_first,
+        ), patch(
+            "tools.m3top3.real_input_replay_v1._verify_outcome_runtime_before_price_access",
+            side_effect=runtime_second,
+        ), patch(
+            "tools.m3top3.real_input_replay_v1._bind_price_components_after_seal",
+            side_effect=bind_third,
         ):
             with self.assertRaises(RealInputReplayError):
                 execute_w1_outcomes_from_seal(
                     selection_seal_path="seal.json",
+                    expected_selection_seal_id=self.seal["seal_id"],
+                    current_executable_bundle_identity=CODE_ID,
                     price_2024_path="2024.parquet",
                     price_2025_path="2025.parquet",
                     price_2026_path="2026.parquet",
                 )
-        self.assertEqual(order, ["seal", "price"])
+        self.assertEqual(order, ["seal", "runtime", "price"])
+
+    def test_18_outcome_code_identity_mismatch_fails_before_runtime_and_price(self):
+        receipt = {
+            "receipt_type": "DURABLE_SELECTION_SEAL_CANONICAL_READBACK",
+            "selection_seal": self.seal,
+            "selection_seal_id": self.seal["seal_id"],
+            "path": "seal.json",
+            "byte_size": 1,
+            "file_sha256": "TEST",
+        }
+        with patch(
+            "tools.m3top3.real_input_replay_v1._read_durable_selection_seal_receipt",
+            return_value=receipt,
+        ), patch(
+            "tools.m3top3.real_input_replay_v1._verify_outcome_runtime_before_price_access"
+        ) as runtime, patch(
+            "tools.m3top3.real_input_replay_v1._bind_price_components_after_seal"
+        ) as price:
+            with self.assertRaises(RealInputReplayError):
+                execute_w1_outcomes_from_seal(
+                    selection_seal_path="seal.json",
+                    expected_selection_seal_id=self.seal["seal_id"],
+                    current_executable_bundle_identity="M3TOP3-REAL-INPUT-EXECUTABLE-BUNDLE-SHA256:OTHER",
+                    price_2024_path="2024.parquet",
+                    price_2025_path="2025.parquet",
+                    price_2026_path="2026.parquet",
+                )
+        runtime.assert_not_called()
+        price.assert_not_called()
+
+    def test_19_outcome_cli_dirty_context_fails_before_bundle_binding(self):
+        with patch(
+            "tools.m3top3.cli_run_real_input_replay.read_selection_seal",
+            return_value=self.seal,
+        ), patch(
+            "tools.m3top3.cli_run_real_input_replay._assert_clean_repo",
+            side_effect=ValueError("dirty"),
+        ), patch(
+            "tools.m3top3.cli_run_real_input_replay._bind_successor_bundle"
+        ) as bundle:
+            with self.assertRaises(ValueError):
+                _prepare_outcome_execution_context(REPO, Path("seal.json"))
+        bundle.assert_not_called()
+
+    def test_20_rehashed_tampered_full_wm_tuple_still_fails(self):
+        tampered = copy.deepcopy(self.seal)
+        tampered["sealed_payload"]["window_mapping"]["exit_trade_date"] = "2024-11-12"
+        digest = sha256_hex(tampered["sealed_payload"])
+        tampered["seal_content_sha256"] = digest
+        tampered["seal_id"] = f"m3selection_{digest[:32]}"
+        with self.assertRaises(RealInputReplayError):
+            validate_selection_seal(tampered)
+
+    def test_21_missing_entire_bound_market_date_fails_closed(self):
+        rows = [row for row in self._price_fixture() if row["date"] != "2024-09-02"]
+        with self.assertRaises(RealInputReplayError):
+            calculate_w1_raw_outcomes_from_normalized_rows_for_test(
+                self.seal,
+                rows,
+                price_binding={"dataset_identity_sha256": "TEST"},
+            )
+
+    def test_22_in_memory_helper_cannot_claim_durable_firewall(self):
+        result = calculate_w1_raw_outcomes_from_normalized_rows_for_test(
+            self.seal,
+            self._price_fixture(),
+            price_binding={"dataset_identity_sha256": "TEST"},
+        )
+        self.assertEqual(result["execution_proof_state"], "IN_MEMORY_ARITHMETIC_ONLY_NO_DURABLE_FIREWALL_PROOF")
+        self.assertFalse(result["outcome_firewall"]["selection_seal_readback_verified_before_price_component_access"])
+        self.assertIn("NO_OPERATIONAL_OUTCOME_CLAIM_FROM_IN_MEMORY_TEST_HELPER", result["claim_ceiling"])
+
+    def test_23_bound_w1_holding_spine_has_58_exact_dates(self):
+        self.assertEqual(len(EXPECTED_W1_HOLDING_DATES), 58)
+        self.assertEqual(EXPECTED_W1_HOLDING_DATES[0], "2024-08-12")
+        self.assertEqual(EXPECTED_W1_HOLDING_DATES[-1], "2024-11-08")
+        self.assertNotIn("2024-08-15", EXPECTED_W1_HOLDING_DATES)
 
 
 if __name__ == "__main__":
