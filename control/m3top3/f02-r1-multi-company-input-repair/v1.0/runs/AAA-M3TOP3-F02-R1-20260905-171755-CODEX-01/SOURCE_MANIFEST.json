@@ -1,10 +1,79 @@
 {
   "schema_version": "AAA-M3TOP3-F02-R1-SOURCE-MANIFEST-v1.0",
   "run_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01",
-  "as_of_kst": "2026-09-05T17:18:51.2079169+09:00",
+  "as_of_kst": "2026-09-05T18:14:40.3012516+09:00",
   "cutoff": "2024-08-09T23:59:59+09:00",
   "source_authority": "KIND_OFFICIAL_ONLY",
-  "materialized_sources": [],
+  "materialized_sources": [
+    {
+      "source_id": "SRC-KRX-KIND-003160-20240516-20240516003155",
+      "company_id": "KRX:003160",
+      "canonical_locator": "https://kind.krx.co.kr/external/2024/05/16/001334/20240516003155/11013.htm",
+      "publication": {
+        "precision": "DATE_ONLY",
+        "publication_date": "2024-05-16",
+        "earliest_at": "2024-05-16T00:00:00+09:00",
+        "latest_at": "2024-05-16T23:59:59+09:00",
+        "bound_method_id": "DATE_ONLY_KST_CLOSED_DAY_v1"
+      },
+      "raw_storage_ref": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/sources/KRX-003160/KRX_003160_20240516_Q1_REPORT_11013.htm",
+      "byte_size": 1404585,
+      "sha256": "2ab621a3862041c57040524aaa3c084c81304685015cbc2be7e6b57ba5fa3fe3",
+      "git_blob": "b99d90f62b47c52389356318ccb328395dcf1130",
+      "status": "PRESERVED_RAW_PENDING_P2_P3"
+    },
+    {
+      "source_id": "SRC-KRX-KIND-025560-20240514-20240514003275",
+      "company_id": "KRX:025560",
+      "canonical_locator": "https://kind.krx.co.kr/external/2024/05/14/001496/20240514003275/11013.htm",
+      "publication": {
+        "precision": "DATE_ONLY",
+        "publication_date": "2024-05-14",
+        "earliest_at": "2024-05-14T00:00:00+09:00",
+        "latest_at": "2024-05-14T23:59:59+09:00",
+        "bound_method_id": "DATE_ONLY_KST_CLOSED_DAY_v1"
+      },
+      "raw_storage_ref": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/sources/KRX-025560/KRX_025560_20240514_Q1_REPORT_11013.htm",
+      "byte_size": 1325372,
+      "sha256": "a547f8b383ecb85f39d5826ab08bf6641c6716a85ba12ddc90efb5c9f303537f",
+      "git_blob": "44a8179c1a003db97cc4e1bc733208edcc0b1df4",
+      "status": "PRESERVED_RAW_PENDING_P2_P3"
+    },
+    {
+      "source_id": "SRC-KRX-KIND-031980-20240516-20240516001477",
+      "company_id": "KRX:031980",
+      "canonical_locator": "https://kind.krx.co.kr/external/2024/05/16/000652/20240516001477/11013.htm",
+      "publication": {
+        "precision": "DATE_ONLY",
+        "publication_date": "2024-05-16",
+        "earliest_at": "2024-05-16T00:00:00+09:00",
+        "latest_at": "2024-05-16T23:59:59+09:00",
+        "bound_method_id": "DATE_ONLY_KST_CLOSED_DAY_v1"
+      },
+      "raw_storage_ref": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/sources/KRX-031980/KRX_031980_20240516_Q1_REPORT_11013.htm",
+      "byte_size": 961791,
+      "sha256": "8323d301baa3f62a872f2dec7f846d98d0effc0e9e06f7ea6dca5c7c78a598a9",
+      "git_blob": "89a0ebd92b90207ba8e0f5e947f5350c92714039",
+      "status": "PRESERVED_RAW_PENDING_P2_P3"
+    },
+    {
+      "source_id": "SRC-KRX-KIND-036200-20240510-20240510001413",
+      "company_id": "KRX:036200",
+      "canonical_locator": "https://kind.krx.co.kr/external/2024/05/10/000637/20240510001413/11013.htm",
+      "publication": {
+        "precision": "DATE_ONLY",
+        "publication_date": "2024-05-10",
+        "earliest_at": "2024-05-10T00:00:00+09:00",
+        "latest_at": "2024-05-10T23:59:59+09:00",
+        "bound_method_id": "DATE_ONLY_KST_CLOSED_DAY_v1"
+      },
+      "raw_storage_ref": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/sources/KRX-036200/KRX_036200_20240510_Q1_REPORT_11013.htm",
+      "byte_size": 1083117,
+      "sha256": "63152e6f1ba5c1b063c6466b54c3d7b7382d948de0aa36f19f8a208a3cb58ab2",
+      "git_blob": "0e451a3feb018cc4d38bd53915d535a44674e267",
+      "status": "PRESERVED_RAW_PENDING_P2_P3"
+    }
+  ],
   "content_addressed_reuse": [
     {
       "source_id": "SRC-KRX-KIND-005290-20240802-70956",
@@ -16,8 +85,9 @@
       "source_action_units": 0
     }
   ],
-  "new_source_count": 0,
-  "new_source_bytes": 0,
+  "new_source_count": 4,
+  "new_source_bytes": 4774865,
   "source_count_ceiling": 8,
-  "source_byte_ceiling": 20000000
+  "source_byte_ceiling": 20000000,
+  "manifest_class": "P1_DISCOVERY_CUSTODY_NOT_RUNTIME_ADMISSION"
 }

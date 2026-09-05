@@ -1,0 +1,294 @@
+{
+  "schema_version": "AAA-M3TOP3-F02-R1-SOURCE-RESEARCH-WORKER-RESULT-v1.0",
+  "run_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01",
+  "worker_id": "SOURCE_RESEARCH_A",
+  "created_at": "2026-09-05T17:41:15.1765153+09:00",
+  "scope": {
+    "company_ids": [
+      "KRX:003160",
+      "KRX:025560"
+    ],
+    "source_authority": "KIND_OFFICIAL_ONLY",
+    "source_period_start": "2024-01-01",
+    "snapshot_cutoff_at": "2024-08-09T23:59:59+09:00",
+    "period_preference": [
+      "2024Q2",
+      "2024Q1"
+    ],
+    "comparison_rule": "SAME_METRIC_SAME_CONSOLIDATION_BASIS_SAME_QUARTER_LENGTH_PRIOR_YEAR_COMPARABLE",
+    "out_of_scope_actions_performed": false
+  },
+  "control_boundary": {
+    "central_matrix_edited": false,
+    "central_manifest_edited": false,
+    "central_progress_edited": false,
+    "code_edited": false,
+    "central_admission_decisions_made": false,
+    "claim": "This worker result supplies bounded source candidates and exclusion facts only; central P2 validation and admission remain outside this worker's authority."
+  },
+  "runtime": {
+    "browser_skill_read_before_external_source_action": true,
+    "in_app_browser_available": false,
+    "in_app_browser_availability_note": "Browser runtime initialization returned no available browser; official KIND discovery therefore used semantic web retrieval and exact official HTTPS fetches.",
+    "browser_interaction_units": 0
+  },
+  "action_accounting": {
+    "ledger_ref": "worker-ledgers/source_research_a.jsonl",
+    "jsonl_records": 16,
+    "control_records": 1,
+    "source_action_records": 15,
+    "source_action_units": 15,
+    "per_issuer_source_action_units": {
+      "KRX:003160": 10,
+      "KRX:025560": 5
+    },
+    "action_classes": {
+      "SOURCE_QUERY": 11,
+      "RESULT_OPEN": 2,
+      "SOURCE_FETCH": 2
+    },
+    "results": {
+      "USEFUL_HIT": 6,
+      "CUTOFF_FAILED": 3,
+      "NOT_FOUND": 6
+    },
+    "retry_true_records": 2,
+    "http_request_units": "NOT_INSTRUMENTED",
+    "http_request_observation_note": "Two curl fetch commands and thirteen semantic web calls were observable as commands/calls, but underlying HTTP request and redirect counts were not instrumented.",
+    "semantic_web_calls": 13,
+    "curl_fetch_commands": 2,
+    "cache_hits": 0,
+    "raw_materialization_cache_misses": 2,
+    "url_occurrences_in_action_records": 10,
+    "unique_candidate_urls": 5,
+    "reused_url_occurrences": 5,
+    "preserved_raw_content_duplicate_count": 0,
+    "distinct_preserved_sha256_count": 2,
+    "source_candidate_summary": {
+      "distinct_candidates": 5,
+      "selected_cutoff_safe_candidates": 2,
+      "cutoff_excluded_candidates": 3,
+      "query_no_target_outcomes": 6
+    }
+  },
+  "issuers": [
+    {
+      "company_id": "KRX:003160",
+      "issuer": "(주)디아이",
+      "legal_name": "주식회사 디아이",
+      "terminal_classification": "ADMISSIBLE_SOURCE_CANDIDATE_Q1_FALLBACK_PENDING_CENTRAL_P2_ADMISSION",
+      "selected_period": "2024Q1",
+      "selection_reason": "The official 2024 half-year report was published on 2024-08-14, after the 2024-08-09 cutoff. No cutoff-safe admissible Q2 source was located within the bounded official-KIND route, so D1's Q1 fallback is the strongest supported selection. This does not assert that no other source exists.",
+      "q2_preference_resolution": {
+        "status": "CUTOFF_FAILED",
+        "official_candidate_url": "https://kind.krx.co.kr/external/2024/08/14/002471/20240814007837/11012.htm",
+        "publication_date": "2024-08-14",
+        "reason": "DATE_AFTER_SNAPSHOT_CUTOFF",
+        "preserved": false
+      },
+      "source": {
+        "canonical_locator": "https://kind.krx.co.kr/external/2024/05/16/001334/20240516003155/11013.htm",
+        "title": "분 기 보 고 서 (제 64 기)",
+        "issuer_anchor": "lines 85-86: 회사명 : (주)디아이",
+        "legal_name_anchor": "line 252: 당사의 명칭은 주식회사 디아이",
+        "report_start": "2024-01-01",
+        "report_end": "2024-03-31",
+        "report_period_anchor": "lines 24 and 28",
+        "publication_at_or_interval": {
+          "publication_date": "2024-05-16",
+          "publication_time": "NOT_EXPOSED",
+          "precision": "DATE_ONLY",
+          "earliest_possible_at": "2024-05-16T00:00:00+09:00",
+          "latest_possible_at": "2024-05-16T23:59:59+09:00",
+          "bound_method_id": "DATE_ONLY_KST_CLOSED_DAY_v1",
+          "cutoff_status": "CUTOFF_SAFE",
+          "publication_anchor": "line 46"
+        },
+        "storage_ref": "sources/KRX-003160/KRX_003160_20240516_Q1_REPORT_11013.htm",
+        "media_type": "text/html",
+        "charset": "UTF-8",
+        "byte_size": 1404585,
+        "physical_line_count": 26608,
+        "sha256": "2ab621a3862041c57040524aaa3c084c81304685015cbc2be7e6b57ba5fa3fe3"
+      },
+      "statement_context": {
+        "basis": "CONSOLIDATED",
+        "table": "2-2. 연결 손익계산서",
+        "table_anchor": "lines 6515 and 6523",
+        "current_period": "2024-01-01 through 2024-03-31",
+        "prior_period": "2023-01-01 through 2023-03-31",
+        "period_anchor": "lines 6528 and 6533",
+        "unit": "KRW",
+        "unit_anchor": "line 6538: (단위 : 원)",
+        "current_column": "제64기 1분기 / 3개월",
+        "prior_column": "제63기 1분기 / 3개월",
+        "column_anchor": "lines 6555-6569"
+      },
+      "metric_pairs": {
+        "revenue": {
+          "source_label": "매출액",
+          "current_krw": "34732575950",
+          "prior_krw": "39216899579",
+          "current_krw_million_exact": "34732.575950",
+          "prior_krw_million_exact": "39216.899579",
+          "row_and_value_anchors": "label line 6579; current line 6582; prior line 6588",
+          "change_mode": "RELATIVE",
+          "operator_id": "M3TOP3_F02_RELATIVE_FROM_OBSERVED_PAIR_v1"
+        },
+        "operating_profit": {
+          "source_label": "영업이익",
+          "current_krw": "-1836830457",
+          "prior_krw": "865831578",
+          "current_krw_million_exact": "-1836.830457",
+          "prior_krw_million_exact": "865.831578",
+          "row_and_value_anchors": "label line 6664; current line 6667; prior line 6673",
+          "change_mode": "RELATIVE",
+          "operator_id": "M3TOP3_F02_RELATIVE_FROM_OBSERVED_PAIR_v1"
+        }
+      },
+      "comparability": "PASS_SAME_Q1_3_MONTHS_SAME_CONSOLIDATED_BASIS_SAME_KRW_UNIT",
+      "caveats": [
+        {
+          "code": "NEGATIVE_CURRENT_OPERATING_PROFIT_SIGN_PRESERVED",
+          "detail": "Parentheses in the source denote a negative current operating profit; no sign removal was applied."
+        },
+        {
+          "code": "NO_FINANCIAL_STATEMENT_RESTATEMENT_DISCLOSED",
+          "detail": "Line 22174 states that there were no financial-statement restatements during the disclosed recent three-year period."
+        },
+        {
+          "code": "Q1_FALLBACK_IS_BOUNDED_NOT_GLOBAL_ABSENCE_CLAIM",
+          "detail": "The bounded search established a usable Q1 candidate and an after-cutoff Q2 half-year report; it does not infer global absence from search silence."
+        }
+      ],
+      "excluded_candidates": [
+        {
+          "url": "https://kind.krx.co.kr/external/2025/05/15/001095/20250515002536/11013.htm",
+          "reason": "AFTER_CUTOFF_2025_Q1_REPORT_DISCOVERY_CORROBORATION_ONLY"
+        },
+        {
+          "url": "https://kind.krx.co.kr/external/2024/08/14/002471/20240814007837/11012.htm",
+          "reason": "AFTER_CUTOFF_2024_Q2_HALF_YEAR_REPORT"
+        }
+      ]
+    },
+    {
+      "company_id": "KRX:025560",
+      "issuer": "미래산업 주식회사",
+      "terminal_classification": "ADMISSIBLE_SOURCE_CANDIDATE_Q1_FALLBACK_WITH_RESTATED_PRIOR_COMPARATOR_PENDING_CENTRAL_P2_ADMISSION",
+      "selected_period": "2024Q1",
+      "selection_reason": "The official 2024 half-year report was published on 2024-08-14, after the 2024-08-09 cutoff. The cutoff-safe Q1 official filing contains a same-quarter consolidated comparison. The prior operating-profit comparator is explicitly restated in that filing and is retained with disclosure.",
+      "q2_preference_resolution": {
+        "status": "CUTOFF_FAILED",
+        "official_candidate_url": "https://kind.krx.co.kr/external/2024/08/14/001390/20240814004272/11012.htm",
+        "publication_date": "2024-08-14",
+        "reason": "DATE_AFTER_SNAPSHOT_CUTOFF",
+        "preserved": false
+      },
+      "source": {
+        "canonical_locator": "https://kind.krx.co.kr/external/2024/05/14/001496/20240514003275/11013.htm",
+        "title": "분 기 보 고 서 (제 34 기)",
+        "issuer_anchor": "lines 85-86: 회사명 : 미래산업 주식회사",
+        "report_start": "2024-01-01",
+        "report_end": "2024-03-31",
+        "report_period_anchor": "lines 24 and 28",
+        "publication_at_or_interval": {
+          "publication_date": "2024-05-14",
+          "publication_time": "NOT_EXPOSED",
+          "precision": "DATE_ONLY",
+          "earliest_possible_at": "2024-05-14T00:00:00+09:00",
+          "latest_possible_at": "2024-05-14T23:59:59+09:00",
+          "bound_method_id": "DATE_ONLY_KST_CLOSED_DAY_v1",
+          "cutoff_status": "CUTOFF_SAFE",
+          "publication_anchor": "line 46"
+        },
+        "storage_ref": "sources/KRX-025560/KRX_025560_20240514_Q1_REPORT_11013.htm",
+        "media_type": "text/html",
+        "charset": "UTF-8",
+        "byte_size": 1325372,
+        "physical_line_count": 28291,
+        "sha256": "a547f8b383ecb85f39d5826ab08bf6641c6716a85ba12ddc90efb5c9f303537f"
+      },
+      "statement_context": {
+        "basis": "CONSOLIDATED",
+        "table": "2-2. 연결 포괄손익계산서",
+        "table_anchor": "lines 3983 and 3991",
+        "current_period": "2024-01-01 through 2024-03-31",
+        "prior_period": "2023-01-01 through 2023-03-31",
+        "period_anchor": "lines 3996 and 4001",
+        "unit": "KRW",
+        "unit_anchor": "line 4006: (단위 : 원)",
+        "current_column": "제34기 1분기 / 3개월",
+        "prior_column": "제33기 1분기 / 3개월",
+        "column_anchor": "lines 4023-4040"
+      },
+      "metric_pairs": {
+        "revenue": {
+          "source_label": "수익(매출액)",
+          "current_krw": "5162565692",
+          "prior_krw": "4785829491",
+          "current_krw_million_exact": "5162.565692",
+          "prior_krw_million_exact": "4785.829491",
+          "row_and_value_anchors": "label line 4047; current line 4050; prior line 4056",
+          "change_mode": "RELATIVE",
+          "operator_id": "M3TOP3_F02_RELATIVE_FROM_OBSERVED_PAIR_v1"
+        },
+        "operating_profit": {
+          "source_label": "영업이익(손실)",
+          "current_krw": "2040268633",
+          "prior_krw": "-442977057",
+          "current_krw_million_exact": "2040.268633",
+          "prior_krw_million_exact": "-442.977057",
+          "row_and_value_anchors": "label line 4115; current line 4118; prior line 4124",
+          "change_mode": "RELATIVE",
+          "operator_id": "M3TOP3_F02_RELATIVE_FROM_OBSERVED_PAIR_v1"
+        }
+      },
+      "comparability": "PASS_SAME_Q1_3_MONTHS_SAME_CONSOLIDATED_BASIS_SAME_KRW_UNIT_WITH_SOURCE_DISCLOSED_RESTATED_PRIOR_OPERATING_PROFIT",
+      "caveats": [
+        {
+          "code": "PRIOR_OPERATING_PROFIT_RESTATED",
+          "detail": "Line 23818 says the prior-period consolidated statement was reclassified after the GVBT No. 2 partnership disposal decision and discontinued-operation treatment, including an operating-profit adjustment. Lines 23872-23876 show prior operating profit before adjustment -448,371,497 KRW, adjustment +5,394,440 KRW, and restated amount -442,977,057 KRW. The selected comparator is the restated amount displayed in the same official Q1 statement."
+        },
+        {
+          "code": "PRIOR_REVENUE_UNCHANGED_BY_RESTATEMENT",
+          "detail": "Lines 23840-23844 show prior revenue of 4,785,829,491 KRW before and after the reclassification."
+        },
+        {
+          "code": "NEGATIVE_PRIOR_OPERATING_PROFIT_SIGN_PRESERVED",
+          "detail": "Parentheses in the source denote a negative prior operating profit; no sign removal was applied."
+        },
+        {
+          "code": "Q1_FALLBACK_IS_BOUNDED_NOT_GLOBAL_ABSENCE_CLAIM",
+          "detail": "The bounded search established a usable Q1 candidate and an after-cutoff Q2 half-year report; it does not infer global absence from search silence."
+        }
+      ],
+      "excluded_candidates": [
+        {
+          "url": "https://kind.krx.co.kr/external/2024/08/14/001390/20240814004272/11012.htm",
+          "reason": "AFTER_CUTOFF_2024_Q2_HALF_YEAR_REPORT"
+        }
+      ]
+    }
+  ],
+  "raw_artifact_accounting": {
+    "preserved_files": 2,
+    "preserved_files_per_issuer": {
+      "KRX:003160": 1,
+      "KRX:025560": 1
+    },
+    "total_bytes": 2729957,
+    "per_issuer_cap_satisfied": true,
+    "raw_sources_only_under_run_sources": true
+  },
+  "central_state_deltas": {
+    "pit_record_delta": 0,
+    "admitted_record_delta": 0,
+    "transformed_record_delta": 0,
+    "central_artifact_delta": 0,
+    "preserved_raw_source_file_delta": 2,
+    "worker_ledger_file_delta": 1,
+    "worker_result_file_delta": 1
+  },
+  "batch_terminal_classification": "TWO_ADMISSIBLE_SOURCE_CANDIDATES_Q1_FALLBACK_PENDING_CENTRAL_P2_ADMISSION;KRX_025560_RESTATED_PRIOR_OPERATING_PROFIT_CAVEAT_REQUIRED"
+}

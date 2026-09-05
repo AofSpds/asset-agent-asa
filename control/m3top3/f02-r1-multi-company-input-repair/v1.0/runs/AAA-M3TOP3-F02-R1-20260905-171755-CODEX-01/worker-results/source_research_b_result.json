@@ -1,0 +1,166 @@
+{
+  "schema_version": "AAA-M3TOP3-F02-R1-SOURCE-RESEARCH-WORKER-RESULT-v1.0",
+  "run_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01",
+  "worker_id": "SOURCE_RESEARCH_B",
+  "checkpoint_id": "P1",
+  "created_at": "2026-09-05T17:40:54.5504276+09:00",
+  "completed_at": "2026-09-05T17:42:36.0997567+09:00",
+  "status": "COMPLETE",
+  "scope": {
+    "issuers": [
+      "KRX:031980",
+      "KRX:036200"
+    ],
+    "provider_allowlist": [
+      "KIND"
+    ],
+    "source_window_start": "2024-01-01T00:00:00+09:00",
+    "cutoff": "2024-08-09T23:59:59+09:00",
+    "period_preference": "Q2_PREFERRED_Q1_FALLBACK",
+    "source_action_cap_per_issuer": 12,
+    "raw_document_cap_per_issuer": 2
+  },
+  "results": [
+    {
+      "issuer": "KRX:031980",
+      "issuer_name": "피에스케이홀딩스 주식회사",
+      "issuer_identity_verification": {
+        "status": "PASS",
+        "evidence": "Issuer-specific official KIND search bound code 031980 to 피에스케이홀딩스; selected report cover and company-overview text identify 피에스케이홀딩스 주식회사 / PSK HOLDINGS INC."
+      },
+      "selection_status": "FOUND_ADMISSIBLE_Q1_FALLBACK",
+      "q2_preferred_source": null,
+      "q2_search_disposition": "NO_ADMISSIBLE_CUTOFF_SAFE_Q2_PROVISIONAL_RESULT_IN_BOUNDED_ISSUER_SPECIFIC_QUERY",
+      "selected_q1_fallback": {
+        "provider": "KIND",
+        "document_type": "분기보고서",
+        "document_sequence": "제35기 1분기",
+        "source_url": "https://kind.krx.co.kr/external/2024/05/16/000652/20240516001477/11013.htm",
+        "official_receipt_identifier": "20240516001477",
+        "publication_date": "2024-05-16",
+        "publication_time": "NOT_EXPOSED",
+        "publication_precision": "DATE_ONLY",
+        "cutoff_contract": "DATE_ONLY_KST_CLOSED_DAY_v1",
+        "conservative_publication_bound": "2024-05-16T23:59:59+09:00",
+        "cutoff_decision": "PASS",
+        "reporting_period": {
+          "current_start": "2024-01-01",
+          "current_end": "2024-03-31",
+          "prior_start": "2023-01-01",
+          "prior_end": "2023-03-31",
+          "quarter_length": "3_MONTHS"
+        },
+        "basis": "CONSOLIDATED",
+        "unit": "KRW",
+        "table_locator": "Official KIND normalized HTML lines 936-949, 2-2. 연결 포괄손익계산서",
+        "period_locator": "lines 938-940",
+        "column_locator": "lines 941-944; 제35기 1분기 3개월 current and 제34기 1분기 3개월 prior",
+        "revenue": {
+          "row_label": "수익(매출액)",
+          "row_locator": "line 945",
+          "current": 38094447594,
+          "prior": 14913281644
+        },
+        "operating_profit": {
+          "row_label": "영업이익(손실)",
+          "row_locator": "line 949",
+          "current": 15420952017,
+          "prior": 3496296368
+        },
+        "comparability": "PASS_SAME_Q1_3_MONTHS_SAME_CONSOLIDATED_BASIS_SAME_KRW_UNIT",
+        "raw_source": {
+          "local_path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/sources/KRX-031980/KRX_031980_20240516_Q1_REPORT_11013.htm",
+          "bytes": 961791,
+          "sha256": "8323d301baa3f62a872f2dec7f846d98d0effc0e9e06f7ea6dca5c7c78a598a9"
+        }
+      },
+      "source_action_units": 9,
+      "source_action_cap_remaining": 3,
+      "raw_documents_preserved": 1,
+      "terminal_classification": "ADMISSIBLE_Q1_FALLBACK_SOURCE_PRESERVED"
+    },
+    {
+      "issuer": "KRX:036200",
+      "issuer_name": "유니셈 주식회사",
+      "issuer_identity_verification": {
+        "status": "PASS",
+        "evidence": "Issuer-specific official KIND search bound code 036200 to 유니셈; selected report cover identifies 유니셈 주식회사 and the preserved official HTML also contains the 036200 issuer code."
+      },
+      "selection_status": "FOUND_ADMISSIBLE_Q1_FALLBACK",
+      "q2_preferred_source": null,
+      "q2_search_disposition": "NO_ADMISSIBLE_CUTOFF_SAFE_Q2_PROVISIONAL_RESULT_IN_BOUNDED_ISSUER_SPECIFIC_QUERY",
+      "selected_q1_fallback": {
+        "provider": "KIND",
+        "document_type": "분기보고서",
+        "document_sequence": "제29기 1분기",
+        "source_url": "https://kind.krx.co.kr/external/2024/05/10/000637/20240510001413/11013.htm",
+        "official_receipt_identifier": "20240510001413",
+        "publication_date": "2024-05-10",
+        "publication_time": "NOT_EXPOSED",
+        "publication_precision": "DATE_ONLY",
+        "cutoff_contract": "DATE_ONLY_KST_CLOSED_DAY_v1",
+        "conservative_publication_bound": "2024-05-10T23:59:59+09:00",
+        "cutoff_decision": "PASS",
+        "reporting_period": {
+          "current_start": "2024-01-01",
+          "current_end": "2024-03-31",
+          "prior_start": "2023-01-01",
+          "prior_end": "2023-03-31",
+          "quarter_length": "3_MONTHS"
+        },
+        "basis": "CONSOLIDATED",
+        "unit": "KRW",
+        "table_locator": "Official KIND normalized HTML lines 948-961, 연결 포괄손익계산서",
+        "period_locator": "lines 950-952",
+        "column_locator": "lines 953-956; 제29기 1분기 3개월 current and 제28기 1분기 3개월 prior",
+        "revenue": {
+          "row_label": "Ⅰ.매출액",
+          "row_locator": "line 957",
+          "current": 55186952755,
+          "prior": 51753687853
+        },
+        "operating_profit": {
+          "row_label": "Ⅴ.영업이익",
+          "row_locator": "line 961",
+          "current": 4559702713,
+          "prior": 4333422148
+        },
+        "comparability": "PASS_SAME_Q1_3_MONTHS_SAME_CONSOLIDATED_BASIS_SAME_KRW_UNIT",
+        "raw_source": {
+          "local_path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/sources/KRX-036200/KRX_036200_20240510_Q1_REPORT_11013.htm",
+          "bytes": 1083117,
+          "sha256": "63152e6f1ba5c1b063c6466b54c3d7b7382d948de0aa36f19f8a208a3cb58ab2"
+        }
+      },
+      "source_action_units": 9,
+      "source_action_cap_remaining": 3,
+      "raw_documents_preserved": 1,
+      "terminal_classification": "ADMISSIBLE_Q1_FALLBACK_SOURCE_PRESERVED"
+    }
+  ],
+  "instrumentation": {
+    "ledger_records_total": 21,
+    "control_records": 3,
+    "source_action_records": 18,
+    "source_action_units": 18,
+    "attempt_records": 18,
+    "attempt_units": 18,
+    "retry_records": 4,
+    "retry_units": 4,
+    "direct_http_request_units_observed": 2,
+    "connection_attempts_before_http_response": 2,
+    "web_actions_with_http_request_count_not_instrumented": 14,
+    "browser_interaction_units": 0,
+    "browser_runtime_setup_units": 1,
+    "raw_documents_preserved": 2,
+    "raw_bytes_preserved": 2044908
+  },
+  "limitations": [
+    "The in-app Browser runtime returned NO_BROWSER_AVAILABLE before any source action; the failure is separately recorded with zero source-action and HTTP units.",
+    "KIND document HTML exposes the publication date but not an intraday publication time. DATE_ONLY_KST_CLOSED_DAY_v1 conservatively binds each May date to 23:59:59 KST, which remains safely before the 2024-08-09 cutoff.",
+    "The bounded issuer-specific Q2 provisional queries returned no admissible cutoff-safe Q2 source; this is a bounded no-result, not a claim of exhaustive market-wide absence.",
+    "HTTP request counts for web search/open/find actions are not exposed by the web tool and remain NOT_INSTRUMENTED; only the two successful direct raw-byte downloads are counted as observed HTTP requests.",
+    "No DART, company IR, paid provider, new API, market-wide title pagination, corporate-action search, or outcome data was used."
+  ],
+  "worker_terminal": "COMPLETE_TWO_ADMISSIBLE_Q1_FALLBACK_SOURCES_WITH_EXACT_RAW_BYTES"
+}

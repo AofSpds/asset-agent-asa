@@ -47,6 +47,21 @@ WORKTREE = C:\Users\ms1pk\dev\asset-agent-asa\asset-agent-asa\r1
 - Return the first source locator or exact failure promptly; stop identical third retries.
 - Perform P2 meaning/control classification only after actual source shapes are observed.
 
+## P1_FIRST_RETURN
+
+- At `2026-09-05T17:28:34.7925142+09:00`, the bounded route located a cutoff-safe-date official KIND 2024Q1 report candidate for `KRX:025560`: `https://kind.krx.co.kr/external/2024/05/14/001496/20240514003275/11013.htm`.
+- First-return elapsed time was `PT10M39.646S`, within the approximate 15-minute target. Full row/column/unit and D1 fit remain subject to P1/P2 closure.
+
 ## RULE
+
+## OWNER_RUNTIME_RECOVERY_20260905
+
+- Owner directed NO-RERUN continuation after PC/browser restart: preserve the existing working state and completed KIND searches; continue only remaining P2–P6 work without repeat approval.
+- Readback: branch remains task/aaa/m3top3-f02-r1-multi-company-input-repair-20260905, HEAD 8e0d7b60a48a1fd3076e87e167929f06c7ae6d61, same r1 worktree and same run ID.
+- All four new raw files and cached control match the recorded SHA-256 values; source action counts reconcile to 33 (10/5/9/9), with zero repeated retrievals.
+- Last materially complete stage is P1. Its central fold was unfinished: an earlier multi-file apply_patch was rejected atomically, and only the subsequent matrix replacement succeeded. No completed source evidence loss was detected. P2 worker artifacts had not been persisted.
+- Existing run-root custody is retained per Owner recovery direction. Runtime input and score outputs will be versioned below this same root and bound by exact path/hash rules.
+- The first 30-minute checkpoint is documented late from recovered evidence. It is not claimed as an on-time persisted checkpoint.
+- CURRENT_PERSONA_LOCK = AAA-PMO-ORCHESTRATOR (PMO).
 
 This run journal is continuity evidence only. It creates no authority, validation PASS, model semantics, release, or production state.

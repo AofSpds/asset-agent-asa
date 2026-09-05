@@ -1,27 +1,37 @@
 {
   "schema_version": "AAA-PMO-PROGRESS-CURRENT-v1.0",
   "run_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01",
-  "as_of_kst": "2026-09-05T17:18:51.2079169+09:00",
-  "overall_progress_percent": 5,
-  "current_phase": "P1_BOUNDED_SOURCE_AND_PERIOD_CANDIDATE_DISCOVERY",
+  "as_of_kst": "2026-09-05T18:14:40.3012516+09:00",
+  "overall_progress_percent": 30,
+  "current_phase": "P2_D1_CONTRACT_AND_VALIDATION_ROUTE_BINDING",
   "current_phase_progress_percent": 0,
   "validation_closure_progress_percent": 0,
-  "earned_ewu": 5,
+  "earned_ewu": 30,
   "total_frozen_ewu": 100,
-  "elapsed_wall": "PT56.061S",
+  "elapsed_wall": "PT56M45.154S",
   "active_time": "NOT_INSTRUMENTED",
   "wait_block_time": "NOT_INSTRUMENTED",
   "rework_revalidation_time": "PT0S_OBSERVED_COUNTER_ONLY",
-  "eta_range": "PT2H_TO_PT3H50M",
+  "eta_range": "PT1H30M_TO_PT3H",
   "eta_confidence": "LOW",
   "actual_cru_to_date": "NOT_INSTRUMENTED",
   "forecast_cru_at_completion": "NOT_CALIBRATED",
-  "throughput": "0_OF_4_NEW_ISSUERS_TERMINAL;0_NEW_RAW_SOURCES;0_NEW_ADMISSIBLE_INPUTS",
-  "source_actions": {"consumed":0,"ceiling":48,"per_issuer_ceiling":12},
+  "throughput": "4_OF_4_NEW_ISSUERS_SOURCE_TERMINAL;4_NEW_RAW_SOURCES;ADMISSION_PENDING_P2_P3",
+  "source_actions": {
+    "consumed": 33,
+    "ceiling": 48,
+    "per_issuer_ceiling": 12
+  },
   "blockers": [],
   "reopened_units": 0,
-  "last_material_event": "P0_EXACT_APPROVAL_AND_BASELINE_BOUND",
-  "next_terminal_event": "FIRST_ISSUER_SOURCE_LOCATOR_OR_EXACT_FAILURE",
+  "last_material_event": "NO_RERUN_RECOVERY_ALL_FOUR_RAW_HASHES_AND_SOURCE_LEDGERS_MATCH",
+  "next_terminal_event": "P2_MODEL_CONTROL_DISPOSITION",
   "progress_rebase_history": [],
-  "token_cost_forecast": "NOT_INSTRUMENTED"
+  "token_cost_forecast": "NOT_INSTRUMENTED",
+  "runtime_interruption": {
+    "state": "USER_REPORTED_RESTART",
+    "duration": "NOT_INSTRUMENTED",
+    "evidence_loss": "NONE_DETECTED",
+    "source_actions_repeated": 0
+  }
 }
