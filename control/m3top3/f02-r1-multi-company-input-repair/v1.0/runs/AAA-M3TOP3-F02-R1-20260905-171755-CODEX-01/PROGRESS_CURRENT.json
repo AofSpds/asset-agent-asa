@@ -1,9 +1,9 @@
 {
   "schema_version": "AAA-PMO-PROGRESS-CURRENT-v1.0",
   "run_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01",
-  "as_of_kst": "2026-09-05T19:41:37.7343652+09:00",
+  "as_of_kst": "2026-09-05T21:26:16.1024172+09:00",
   "overall_progress_percent": 100,
-  "current_phase": "P6_COMPLETE_LOCAL_TERMINAL",
+  "current_phase": "P6_REMOTE_PERSISTENCE_FINALIZATION",
   "current_phase_progress_percent": 100,
   "validation_closure_progress_percent": 100,
   "earned_ewu": 100,
@@ -24,8 +24,8 @@
   },
   "blockers": [],
   "reopened_units": 0,
-  "last_material_event": "F02_R1_COMPLETION_REPORT_AND_FORECAST_CALIBRATION_COMPLETE_LOCAL",
-  "next_terminal_event": "FINAL_CLOSING_COMMIT_TREE_CLEAN_READBACK_IN_TERMINAL_RESPONSE",
+  "last_material_event": "OWNER_AUTHORIZED_EXACT_REMOTE_TRANSFER_AND_INITIAL_TASK_BRANCH_PUSH_VERIFIED",
+  "next_terminal_event": "FINAL_ADDENDUM_COMMIT_PUSH_AND_REMOTE_HEAD_READBACK",
   "progress_rebase_history": [],
   "token_cost_forecast": "NOT_INSTRUMENTED",
   "runtime_interruption": {
@@ -47,14 +47,25 @@
   "terminal_status": "COMPLETE_MULTI_COMPANY_PROVISIONAL",
   "validation_complete": true,
   "research_objective_met": true,
-  "persistence_complete": "LOCAL_GIT_PAYLOAD_COMPLETE_REPORT_CLOSING_REF_RETURNED_SEPARATELY",
-  "remote_persistence": "AUTO_REVIEW_BLOCKED_BEFORE_EXECUTION",
-  "external_authorization_boundary": "Optional remote push requires explicit payload/destination approval; no remaining source/input/scoring work.",
+  "persistence_complete": "LOCAL_GIT_AND_INITIAL_REMOTE_TASK_BRANCH;FINAL_ADDENDUM_REF_TERMINAL",
+  "remote_persistence": "INITIAL_TASK_BRANCH_COMMIT_VERIFIED:7ebbd2e6a64b46ee1d8c703ab8a9942f30c8dc42;FINAL_ADDENDUM_REF_TERMINAL",
+  "external_authorization_boundary": "FULFILLED_BY_OWNER_FOLLOWUP_FOR_EXISTING_ORIGIN_SAME_TASK_BRANCH_RAW_SOURCE_AND_JOURNAL_PAYLOAD",
   "known_rework_events": [
     "P3_SHA_REFERENCE_TRANSCRIPTION_CORRECTION",
     "P3_EXACT_HEADER_CELL_TIGHTENING_AND_8.944_SECOND_AFFECTED_RECHECK",
     "P3_TOUCHED_INTEGRATION_FILES_LF_NORMALIZATION",
     "P5_READONLY_CANONICAL_VS_RAW_HASH_ASSERTION_CORRECTION"
   ],
-  "formal_post_P4_operative_corrections": 0
+  "formal_post_P4_operative_corrections": 0,
+  "remote_transfer_approval": {
+    "owner_message": "진행하세요.",
+    "scope": "EXISTING_F02_R1_PAYLOAD_INCLUDING_RAW_SOURCE_AND_INTERNAL_JOURNAL_TO_EXISTING_ORIGIN_SAME_TASK_BRANCH",
+    "observed_at_kst": "2026-09-05T21:25:14.7295968+09:00"
+  },
+  "remote_initial_readback": {
+    "at_kst": "2026-09-05T21:26:16.1024172+09:00",
+    "commit": "7ebbd2e6a64b46ee1d8c703ab8a9942f30c8dc42",
+    "main": "950bc98b0702cd5564e3d7b24a6624d9818dfbb9",
+    "authority_refs_unchanged": true
+  }
 }

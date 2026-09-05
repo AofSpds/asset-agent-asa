@@ -8,7 +8,7 @@
   "observed_payload_status": "CLEAN_BEFORE_CLOSING_REPORT_EDITS",
   "branch": "task/aaa/m3top3-f02-r1-multi-company-input-repair-20260905",
   "worktree": "C:\\Users\\ms1pk\\dev\\asset-agent-asa\\asset-agent-asa\\r1",
-  "report_containing_final_ref_convention": "Final containing commit/tree and actual clean status are returned by terminal git readback after this file is committed. No self-referential final hash is fabricated in the file.",
+  "report_containing_final_ref_convention": "Final addendum commit/tree, clean status, and matching remote HEAD are returned by terminal readback after this file is committed and pushed. No self-referential final hash is fabricated in the file.",
   "closing_changed_files_against_pc1": [
     "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/AFFECTED_VALIDATION_REPORT.json",
     "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/CHECKPOINTS.jsonl",
@@ -76,25 +76,42 @@
   ],
   "operative_target": "cdfebb54ced5d75b402fb8605ee6ee5e4578bbdd",
   "operative_target_files_unchanged": 32,
-  "remote_readback_at_kst": "2026-09-05T19:30:27.9098807+09:00",
+  "remote_readback_at_kst": "2026-09-05T21:26:16.1024172+09:00",
   "remote_readback": {
     "persistent_locator": "5b2dd5c5ea5bf96eb22163a0598d6879fffada9e",
     "organization": "d7c490c373f2df356f31e4459c345328616b4eb3",
     "shared_contract": "4d70f6ae32604bcef3f4a8027074163d5e5c80cd",
     "main": "950bc98b0702cd5564e3d7b24a6624d9818dfbb9",
-    "task_branch": "NOT_PRESENT"
+    "task_branch": "7ebbd2e6a64b46ee1d8c703ab8a9942f30c8dc42"
   },
   "local_main_readback": "fdd6a79c3611018b0f83c190e1f3de8a848fc58a",
   "main_modified": false,
   "push": {
     "destination": "https://github.com/AofSpds/asset-agent-asa.git",
     "ref": "refs/heads/task/aaa/m3top3-f02-r1-multi-company-input-repair-20260905",
-    "state": "AUTO_REVIEW_REJECTED_BEFORE_EXECUTION",
-    "command_executed": false,
-    "payload_transferred": false,
-    "reason": "Explicit user approval for transmitting internal artifacts, raw source and journal to this destination was not established by auto-review.",
-    "bypass_or_retry": false,
-    "required_action": "Explicit Owner approval for this task-branch payload/destination transfer if remote persistence is desired."
+    "state": "OWNER_AUTHORIZED_INITIAL_PUSH_VERIFIED_FINAL_ADDENDUM_REF_TERMINAL",
+    "authorization": {
+      "owner_message": "진행하세요.",
+      "scope": "Existing F02-R1 payload including raw source and internal journal to existing origin on same task branch",
+      "observed_at_kst": "2026-09-05T21:25:14.7295968+09:00"
+    },
+    "historical_first_attempt": {
+      "state": "AUTO_REVIEW_REJECTED_BEFORE_EXECUTION",
+      "command_executed": false,
+      "payload_transferred": false,
+      "bypass": false
+    },
+    "initial_authorized_push": {
+      "command_executed": true,
+      "payload_transferred": true,
+      "remote_commit": "7ebbd2e6a64b46ee1d8c703ab8a9942f30c8dc42",
+      "verified_at_kst": "2026-09-05T21:26:16.1024172+09:00"
+    },
+    "final_report_addendum": "COMMIT_AND_PUSH_AFTER_THIS_SELF_NONREFERENTIAL_RECORD;EXACT_REMOTE_REF_RETURNED_IN_TERMINAL",
+    "new_credentials": false,
+    "main_modified": false,
+    "PR_created": false,
+    "required_action": "NONE"
   },
   "PR": "NO_PR_NOT_REQUESTED_NO_MERGE_OR_RELEASE_AUTHORITY",
   "preserved_output_trees": [

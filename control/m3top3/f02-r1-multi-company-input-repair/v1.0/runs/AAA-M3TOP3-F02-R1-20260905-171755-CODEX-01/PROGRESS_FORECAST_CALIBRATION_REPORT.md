@@ -6,11 +6,11 @@ BASELINE_FROZEN = TRUE · REBASE_HISTORY = [] · TOTAL_EWU = 100
 
 ## Outcome and clock boundary
 
-Functional terminal is COMPLETE_MULTI_COMPANY_PROVISIONAL: four new issuers plus one cached control, five required validation-role PASS acts and one new durable score/seal. This is not model-development completion or a performance/OOS result. Local persistence and remote transfer are separate: local score payload is committed; remote push was rejected before execution by auto-review because explicit payload/destination transfer approval was absent. No bypass or transfer occurred.
+Functional terminal is COMPLETE_MULTI_COMPANY_PROVISIONAL: four new issuers plus one cached control, five required validation-role PASS acts and one new durable score/seal. This is not model-development completion or a performance/OOS result. Local persistence and remote transfer are separate. At the original report cutoff, local score payload was committed and a push was rejected before execution because explicit payload/destination approval was absent. Owner later explicitly authorized the exact existing-origin/task-branch transfer; initial remote persistence at `7ebbd2e6a64b46ee1d8c703ab8a9942f30c8dc42` was verified by 21:26:16 KST. No bypass, new credential, main change or source/scorer rerun occurred.
 
 Run start: 2026-09-05T17:17:55.1469424+09:00. Wall to this report cutoff: 139.802 minutes. Final report commit/readback occurs after this document's measurement cutoff and is identified in terminal response. Do not mislabel the document cutoff as the final commit time or infer exact active effort from it.
 
-Original overall forecast is unchanged: P50 planning proxy 125 minutes, conservative planning proxy 240 minutes, LOW confidence. These are not empirically fitted percentiles. To report cutoff, actual wall exceeds P50 by 14.802 minutes (11.84%); it remains below 240 minutes. The four-hour checkpoint is 21:17:55.1469424 KST and was not reached at report cutoff. No timing overrun waived a gate.
+Original overall forecast is unchanged: P50 planning proxy 125 minutes, conservative planning proxy 240 minutes, LOW confidence. These are not empirically fitted percentiles. To report cutoff, actual wall exceeds P50 by 14.802 minutes (11.84%); it remains below 240 minutes. The four-hour checkpoint is 21:17:55.1469424 KST and was not reached at report cutoff or local functional closure. It elapsed only while remote-transfer approval was pending after the task had locally completed; this is not unfinished technical execution. No timing overrun waived a gate.
 
 ## Stage evidence and planned/actual comparison
 
@@ -22,11 +22,11 @@ Original overall forecast is unchanged: P50 planning proxy 125 minutes, conserva
 | P3 | 25 | 35 / 65 min | 18:24:00 design/delegation boundary, overlapping P2 closure | Material verification 18:42:16.9204973; target commit 18:43:21 | Recorded boundary window 18m16.920; not independent exclusive-stage effort. COMPLETE |
 | P4 | 15 | 25 / 50 min | Exact operative candidate commit 18:43:21 | Last PMOV receipt persistence 19:17:19; aggregate freeze 19:25:44.7285839; evidence commit 19:26:18 | Candidate→aggregate 42m23.729; role work/slot waits/aggregation not separately fully instrumented. COMPLETE |
 | P5 | 10 | 10 / 20 min | Actual CLI 19:26:31.699448 | CLI 19:26:42.579538; root checks 19:29:42; IVA return 19:30; payload commit 19:31:47 | CLI execution 10.88009 sec, not total verification/persistence effort. COMPLETE |
-| P6 | 5 | 10 / 20 min | Completion/readback work after P5 checks; exact exclusive start NOT_INSTRUMENTED | Document cutoff 2026-09-05T19:37:43.2411131+09:00; final commit/readback separately returned | Final local reporting/custody close; remote not performed. COMPLETE_LOCAL with remote approval boundary |
+| P6 | 5 | 10 / 20 min | Completion/readback work after P5 checks; exact exclusive start NOT_INSTRUMENTED | Document cutoff 2026-09-05T19:37:43.2411131+09:00; final commit/readback separately returned | Local reporting/custody closed before 4h; Owner later approved remote transfer, initial push/readback completed 21:26 KST. COMPLETE_LOCAL_AND_REMOTE_TASK_BRANCH |
 
 Stage windows overlap and timestamps mix substantive work, saved evidence, aggregation and commit custody. They must not be summed as exclusive active work. P2's 18:30 central checkpoint is not evidence that implementation began only afterward. Missing measurements are retained explicitly rather than backdated.
 
-LAST_MATERIAL_PROGRESS at cutoff = actual five-company score/seal and independent post-score readback complete; report assembled. NEXT_TERMINAL_EVENT = final local report commit/tree/clean status readback. After that event no source, scorer or validation correction work remains. Remote transfer is outside local closure and remains separately blocked.
+LAST_MATERIAL_PROGRESS at cutoff = actual five-company score/seal and independent post-score readback complete; report assembled. NEXT_TERMINAL_EVENT = final local report commit/tree/clean status readback. After that event no source, scorer or validation correction work remained. Remote transfer was later explicitly authorized and the initial branch payload was verified; the final addendum ref is returned in the terminal response.
 
 ## Early checkpoints and interruption
 
@@ -58,9 +58,9 @@ LAST_MATERIAL_PROGRESS at cutoff = actual five-company score/seal and independen
 | P3 known affected recheck | 3 methods / 8.944 sec | Lower-bound observed revalidation event, not all rework |
 | Total active / wait / rework / CRU / token cost | NOT_INSTRUMENTED | No conversion from actions/bytes/tests into CRU |
 | Planned CRU / token price | NOT_CALIBRATED | No invented dollar or token estimate |
-| Remote push transfer | 0 | Rejected before command execution; no payload transmitted |
+| Remote push transfer | 1 initial success + final addendum push reported in terminal | First attempt rejected pre-execution; later exact Owner authorization; task branch only |
 
-The governance Git readback had one sandbox connection failure followed by an allowed read-only escalated call. It is not source discovery and does not increment KIND action counts. Remote push was separately denied by auto-review; no retry or indirect workaround was made.
+The governance Git readback had one sandbox connection failure followed by an allowed read-only escalated call. It is not source discovery and does not increment KIND action counts. Remote push was initially denied by auto-review, with no retry or indirect workaround at that time. After the Owner explicitly approved the stated payload and destination, the ordinary task-branch push succeeded.
 
 ## Rework, findings and forecast history
 
@@ -72,4 +72,4 @@ Immutable Git history retains original forecasts and intermediate reports: P3 ET
 
 The reusable functional result is exact admission across multiple actual source layouts, with native units, publication/period/cell custody and create-once validation-gated sealing. Source-stage elapsed about 26m40 is near its 25-minute planning proxy, but one interrupted observation is insufficient to recalibrate statistical P50/P90 or claim efficiency gains. Overall 125-minute proxy was optimistic for this run. Preserve 240-minute conservative proxy as historical plan, not a future guarantee.
 
-For any separately authorized successor, instrument exclusive active/wait/rework spans and schedule the 30-minute checkpoint before long validation/aggregation work. This is a recommendation, not new implementation or scheduled automation. Do not reopen sources, outcomes, features, windows, providers or budgets. If remote preservation is desired, request explicit approval for the existing task branch and existing origin payload transfer; no additional approval is needed to use the completed local artifacts.
+For any separately authorized successor, instrument exclusive active/wait/rework spans and schedule the 30-minute checkpoint before long validation/aggregation work. This is a recommendation, not new implementation or scheduled automation. Do not reopen sources, outcomes, features, windows, providers or budgets. Owner supplied explicit approval for the existing task branch and existing-origin payload transfer, and remote persistence completed. No further action, PR, merge or release is implied.

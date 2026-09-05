@@ -3,6 +3,7 @@
 PROJECT = AAA · PRODUCT = ASSET AGENT ASA  
 RUN_ID = AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01  
 REPORT_CUTOFF_KST = 2026-09-05T19:37:43.2411131+09:00  
+REMOTE_PERSISTENCE_ADDENDUM_KST = 2026-09-05T21:26:16.1024172+09:00
 TERMINAL = COMPLETE_MULTI_COMPANY_PROVISIONAL
 
 F02-only 관측 5개사의 잠정 비교 경로가 완성됐다. 다른 feature는 여전히 비어 있다. 이번 결과는 공식 Top3/Top10, U127 최적선택, 모델 성능 PASS 또는 투자 추천이 아니다.
@@ -19,12 +20,16 @@ F02-only 관측 5개사의 잠정 비교 경로가 완성됐다. 다른 feature�
 
 두 87.5점 회사는 경제적 우열이 구분된 것이 아니라 동점이다. 기존 회사 ID 오름차순 규칙이 025560, 031980 순서를 정했다. coverage 열은 각 회사의 feature-weight coverage 10%이며, 회사 분모 coverage 5/57와 다르다. 005290의 새 50점은 두 지표 percentile이 각각 50인 실제 계산 결과이지 과거 50점에 강제 고정한 값이 아니다. 003160의 0은 실제 관측 비교점수이며 NA/미입력을 0으로 채운 결과가 아니다.
 
+## 원격 persistence 후속 addendum
+
+원래 완료보고 cutoff에는 원격 전송 권한이 없어 local-only로 정확히 종료했다. Owner 후속 메시지는 그때 요청한 exact payload와 destination—원문·저널 포함 현재 F02-R1 payload, 기존 `https://github.com/AofSpds/asset-agent-asa.git`, 동일 task branch—에 대한 승인으로 적용했다. 최초 성공 push는 `7ebbd2e6a64b46ee1d8c703ab8a9942f30c8dc42`이며 main/authority refs는 변경되지 않았다. 이 후속 전송은 source 재검색, score rerun, PR, merge 또는 release가 아니다.
+
 ## 1. 완료와 미완료의 구분
 
 - VALIDATION_COMPLETE = TRUE: CTLV/MODV/ENGV/PMOV/IVA가 exact P3 대상에 PASS; blocking 0. P5 사후 독립 readback 25 checks PASS.
 - RESEARCH_OBJECTIVE_MET = TRUE: 신규 4개 + cache 대조군 1개 = 실제 비교가능 5개사. 최소 신규 2개/전체 3개 목표 충족.
-- PERSISTENCE_COMPLETE = TRUE_FOR_LOCAL_GIT: 입력/검증/score/seal은 이미 local commit 33b4690bb52b2fb1d593beee3b2549a7da70e699에 보존. 이 보고서와 최종 process envelope의 closing commit/tree/clean readback은 본문 자기참조를 피하기 위해 terminal 반환에 별도 제시한다.
-- REMOTE_PERSISTENCE = BLOCKED_BEFORE_EXECUTION_BY_AUTO_REVIEW. GitHub로 raw source/내부 journal을 전송하는 push는 payload·destination에 대한 명시 승인 부족으로 차단됐다. 전송·우회·새 credential 사용 없음. 로컬 기능 완료와 원격 미보존을 혼동하지 않는다.
+- PERSISTENCE_COMPLETE = TRUE_FOR_LOCAL_AND_REMOTE_TASK_BRANCH. 입력/검증/score/seal은 local payload commit `33b4690bb52b2fb1d593beee3b2549a7da70e699`에, 원격에 처음 전송된 완료보고 payload는 `7ebbd2e6a64b46ee1d8c703ab8a9942f30c8dc42`에 보존됐다. 이 addendum을 포함한 최종 closing commit/tree/remote HEAD는 본문 자기참조를 피하기 위해 terminal 반환에 별도 제시한다.
+- REMOTE_PERSISTENCE = INITIAL_PUSH_VERIFIED; FINAL_ADDENDUM_REF_RETURNED_IN_TERMINAL. 원래 push는 명시적 payload/destination 승인 부족으로 auto-review에서 실행 전에 차단됐지만, Owner가 후속 `진행하세요.`로 기존 origin·동일 task branch 전송을 명시 승인했다. 2026-09-05T21:25:14.7295968+09:00에 승인 적용을 시작했고 2026-09-05T21:26:16.1024172+09:00까지 원격 `7ebbd2e6a64b46ee1d8c703ab8a9942f30c8dc42`을 readback했다. 우회·새 credential·main 변경 없음.
 - NO_PR = 요청되지 않았고 merge/main/release 권한이 없다. Main 반영, release, production, W2–W8 또는 outcome 실행은 하지 않았다.
 
 기존 Strict 1/57 (1.7544%)에서 5/57 (8.7719%)로 4개 증가했다. 적격 57개 전체를 입력 배치에 유지하고 52개는 REPLAY_DATA_INSUFFICIENT로 남겼다. 127 = 5 scored + 52 insufficient + 8 EXCLUDE_PROVEN + 62 EXCLUDE_UNRESOLVED. 경제적 eligibility와 증거확신도, feature scoreability는 별개다. 이번 고정 5개사 밖은 NOT_ASSESSED_IN_THIS_BATCH이며 전체 자료 부재나 부적격으로 재분류하지 않았다.
@@ -152,13 +157,13 @@ R1 score-and-seal 실행 1회: 2026-09-05T19:26:31.699448+09:00–2026-09-05T19:
 
 ## 7. Planned vs actual과 비용
 
-원 계획 P50 125분 / 보수적 240분, LOW confidence를 변경하지 않았다. 보고 cutoff까지 wall 139.802분 (약 2시간 19.8분); final Git 봉인·readback 시간은 terminal 반환시각으로 추가 확인한다. 125분 계획은 초과했고 4시간 checkpoint 21:17:55 KST에는 아직 도달하지 않았다. 계획 초과로 validation gate를 생략하지 않았다.
+원 계획 P50 125분 / 보수적 240분, LOW confidence를 변경하지 않았다. 보고 cutoff까지 wall 139.802분 (약 2시간 19.8분); final Git 봉인·readback 시간은 terminal 반환시각으로 추가 확인한다. 125분 계획은 초과했고 로컬 기능·보고 closure는 19:43 KST경, 4시간 checkpoint 21:17:55 KST 전에 끝났다. 후속 원격 전송 승인 대기는 그 이후까지 이어졌으며 기능 작업 미완료나 active execution으로 계산하지 않는다. 계획 초과로 validation gate를 생략하지 않았다.
 
 첫 locator는 시작 후 10분39.646초로 약 15분 목표 충족. 30분 checkpoint는 17:47:55.1469424까지 저장되지 않았고 18:14:40.3012516에 26분45.154초 늦게 기록했다. 첫 executable input은 18:35:50.3101487, 시작 후 77분55.163초였다. source 완료와 executable input 성공을 같은 사건으로 부르지 않는다.
 
 Source actions 33/48 (003160 10, 025560 5, 031980 9, 036200 9; cache 005290 0), source files 4/8, new bytes 4,774,865/20,000,000. 19 query + 4 result open + 8 source fetch + 2 fetch retry = 33 charged unique actions; 총 37 ledger records 중 control 4는 분리했다. retry flag 6은 action 종류 분해와 다른 계수다. source-human assistance 0, browser interaction 0; Owner의 runtime 복구 지시는 인간의 운영 지시이며 source 수동 선택은 아니다.
 
-HTTP 총량 NOT_INSTRUMENTED (2 direct successful requests만 정확히 관측, 2 sandbox 시도 zero, 29 action의 내부 요청량 미측정). source action 33을 HTTP 33회로 둔갑시키지 않았다. 원격 Git readback은 source action이 아니며 sandbox network 실패 1회 후 허용된 read-only escalation으로 확인했다. push는 안전 검토에서 실행 전 차단돼 전송 0이다.
+HTTP 총량 NOT_INSTRUMENTED (2 direct successful requests만 정확히 관측, 2 sandbox 시도 zero, 29 action의 내부 요청량 미측정). source action 33을 HTTP 33회로 둔갑시키지 않았다. 원격 Git readback은 source action이 아니며 sandbox network 실패 1회 후 허용된 read-only escalation으로 확인했다. 첫 push는 안전 검토에서 실행 전 차단돼 당시 전송 0이었다. 후속 Owner 승인 후 같은 task branch로 1차 전송이 성공했고 원격 commit이 일치했다. 이 보고 addendum의 최종 증분 push 결과는 terminal refs로 확정한다.
 
 ACTIVE/WAIT/REWORK/CRU/token/재시작 지속시간은 NOT_INSTRUMENTED. 알려진 8.944초 affected recheck가 있으므로 누적 재작업 0이나 실측 비용절감율은 주장하지 않는다. 자세한 단계별 timing evidence/forecast 변화는 `PROGRESS_FORECAST_CALIBRATION_REPORT.md` 참조.
 
@@ -174,7 +179,7 @@ ACTIVE/WAIT/REWORK/CRU/token/재시작 지속시간은 NOT_INSTRUMENTED. 알려�
 - Final score/input payload commit `33b4690bb52b2fb1d593beee3b2549a7da70e699`, tree `5b2e5eff5cbd724d7cf1613520051bdc61bcb9c8`; clean readback before closure documents.
 - Report-containing final closing commit/tree are returned exactly after committing this document; no self-referential fabricated hash is embedded here. `P6_PERSISTENCE_READBACK.json` identifies the already-observed payload checkpoint and full closing change set. This distinction is not a claim that the P5 parent is the report-containing final HEAD.
 
-At 19:30:27 KST live remote readback, active locator `5b2dd5c5ea5bf96eb22163a0598d6879fffada9e`, organization `d7c490c373f2df356f31e4459c345328616b4eb3`, shared contract `4d70f6ae32604bcef3f4a8027074163d5e5c80cd`, remote main `950bc98b0702cd5564e3d7b24a6624d9818dfbb9` were unchanged from P0. Local main `fdd6a79c3611018b0f83c190e1f3de8a848fc58a` is separate existing work and was neither adopted nor changed. No new task remote ref was present at that readback; subsequent attempted push was not executed.
+At 19:30:27 KST live remote readback, active locator `5b2dd5c5ea5bf96eb22163a0598d6879fffada9e`, organization `d7c490c373f2df356f31e4459c345328616b4eb3`, shared contract `4d70f6ae32604bcef3f4a8027074163d5e5c80cd`, remote main `950bc98b0702cd5564e3d7b24a6624d9818dfbb9` were unchanged from P0. Local main `fdd6a79c3611018b0f83c190e1f3de8a848fc58a` is separate existing work and was neither adopted nor changed. No new task remote ref was present at that readback; the first attempted push was rejected before execution. After explicit Owner follow-up authorization, the task ref was created and read back at `7ebbd2e6a64b46ee1d8c703ab8a9942f30c8dc42` by 2026-09-05T21:26:16.1024172+09:00.
 
 Preserved old PC1 tree `0ea887bd547998678861baea5600045eb0b2e297`; old real-input output tree `d28a10eb6472452057fac383d5f63f07a5d6e455`; predecessor first-scorecard tree `1d73cc942a3524571ea214724c887c3964dca13f`. Thirteen model components match both predecessor Git blobs and recorded runtime hashes on their respective byte surfaces. Exact P4 32 target files remain unchanged.
 
@@ -182,4 +187,4 @@ Changed files are restricted to the four approved engineering paths, this versio
 
 ## 9. 다음 행동
 
-현재 승인 범위의 source/input/validation/점수·seal 기능 작업은 종료한다. 추가 조사·다른 feature·다음 window·outcome/release를 자동 시작하지 않는다. 원격 보존이 필요하면 이 payload를 기존 origin `https://github.com/AofSpds/asset-agent-asa.git`의 동일 task branch에 전송하는 명시 승인이 필요하다. 이는 원문과 내부 journal의 외부 전송 경계이며 새 provider/credential을 요청하지 않는다. 로컬 산출물은 그대로 사용할 수 있다.
+현재 승인 범위의 source/input/validation/점수·seal 및 task-branch 원격 보존은 종료한다. 추가 조사·다른 feature·다음 window·outcome/release·PR/main merge를 자동 시작하지 않는다. 새 provider/credential은 사용하지 않았다. 이 addendum을 포함한 최종 remote ref는 terminal 반환에서 확인한다.

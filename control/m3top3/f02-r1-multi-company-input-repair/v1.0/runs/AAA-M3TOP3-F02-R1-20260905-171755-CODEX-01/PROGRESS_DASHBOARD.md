@@ -11,5 +11,5 @@ Content close: 2026-09-05T19:41:37.7343652+09:00. Final local closing commit/tre
 - F02-only / mixed Q1-Q2 / historical W1 exposure; no official Top3, performance, holdout, release or production claim.
 - 30-minute checkpoint was late. Active/wait/rework/HTTP/CRU totals NOT_INSTRUMENTED; known affected recheck 8.944 seconds.
 - Local payload commit: 33b4690bb52b2fb1d593beee3b2549a7da70e699; closing report ref returned in terminal readback.
-- Remote push: auto-review rejected before execution because explicit payload/destination transfer approval was absent. No transfer or workaround. Local artifacts remain usable.
-- Next action: none for approved functional scope; explicit remote-transfer approval only if remote preservation is wanted.
+- Remote persistence: original attempt was rejected pre-execution; Owner later explicitly approved the stated raw-source/journal payload and existing destination. Initial remote commit `7ebbd2e6a64b46ee1d8c703ab8a9942f30c8dc42` verified; final addendum ref returned in terminal.
+- Next action: none for approved functional/persistence scope. No PR, main merge, release, outcome, new source or rerun.

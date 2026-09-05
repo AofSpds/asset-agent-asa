@@ -87,3 +87,10 @@ This run journal is continuity evidence only. It creates no authority, validatio
 - Remote push was rejected before command execution by auto-review for absent explicit approval to transmit the source/artifact/journal payload to existing GitHub origin. No transfer, workaround, new credentials or rerun. Local payload is committed; report-containing final ref/tree/clean readback is returned after closing commit. NO_PR: not requested; no merge/main/release authority.
 - VALIDATION_COMPLETE=TRUE; RESEARCH_OBJECTIVE_MET=TRUE; PERSISTENCE_COMPLETE=LOCAL_GIT; REMOTE_PERSISTENCE=BLOCKED_BEFORE_EXECUTION. Optional remote transfer requires exact payload/destination approval, not repeat approval for already-completed source work.
 - No further source, scoring, outcome, feature, window, provider or budget action. CURRENT_PERSONA_LOCK = AAA-PMO-ORCHESTRATOR (PMO).
+
+## OWNER_AUTHORIZED_REMOTE_PERSISTENCE_ADDENDUM
+
+- Owner follow-up `진행하세요.` explicitly authorized the exact previously requested transfer: existing F02-R1 payload including raw source and internal journal to existing GitHub origin on the same task branch. Authorization application began at 2026-09-05T21:25:14.7295968+09:00.
+- The historical auto-review rejection remains true for the first attempt; it executed no command and transferred no payload. No bypass was attempted before new Owner authority.
+- Authorized initial push succeeded. At 2026-09-05T21:26:16.1024172+09:00, remote task ref matched `7ebbd2e6a64b46ee1d8c703ab8a9942f30c8dc42`; remote main `950bc98b0702cd5564e3d7b24a6624d9818dfbb9` and the three authority refs remained unchanged.
+- This transfer added no source action, scorer execution, provider, credential, PR, merge, release or outcome access. Final addendum commit/tree/remote ref are returned after the self-nonreferential closing push.
