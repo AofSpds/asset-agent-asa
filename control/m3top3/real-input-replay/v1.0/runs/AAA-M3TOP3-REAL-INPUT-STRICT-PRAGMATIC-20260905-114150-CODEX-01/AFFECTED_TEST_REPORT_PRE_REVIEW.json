@@ -1,0 +1,52 @@
+{
+  "as_of_kst": "2026-09-05T12:45:44.0770750+09:00",
+  "candidate_head_before_commit": "d8387937f4897c6294ab62f451f999966113bbe3",
+  "final_affected_set": {
+    "case_count": 64,
+    "pass_count": 64,
+    "fail_count": 0,
+    "state": "PASS"
+  },
+  "campaigns": [
+    {
+      "name": "new-real-input-focused-first-run",
+      "case_executions": 17,
+      "pass": 16,
+      "error": 1,
+      "finding": "Windows text-mode exclusive seal write changed LF to CRLF",
+      "correction": "Added O_BINARY and exact byte readback"
+    },
+    {
+      "name": "new-real-input-focused-corrected-run",
+      "case_executions": 17,
+      "pass": 17,
+      "fail": 0,
+      "state": "PASS"
+    },
+    {
+      "name": "predecessor-affected-regression-first-run",
+      "case_executions": 47,
+      "pass": 46,
+      "fail": 1,
+      "finding": "Worktree CRLF materialization changed the runtime config byte hash",
+      "correction": "Rematerialized the unchanged Git object with canonical LF bytes"
+    },
+    {
+      "name": "predecessor-affected-regression-corrected-run",
+      "case_executions": 47,
+      "pass": 47,
+      "fail": 0,
+      "state": "PASS"
+    }
+  ],
+  "total_test_case_executions": 128,
+  "preserved_config_sha256": "eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98",
+  "new_suite": "tools.m3top3.tests.test_real_input_replay_v1",
+  "predecessor_suites": [
+    "tools.m3top3.tests.test_model_v1",
+    "tools.m3top3.tests.test_narrow_fixes_v1",
+    "tools.m3top3.tests.test_coverage_limited_replay_v1",
+    "tools.m3top3.tests.test_golden_scorecard_oracle_v1"
+  ],
+  "claim_limit": "PRE_REVIEW_MECHANICAL_PASS_NOT_ACTUAL_REPLAY_OR_INDEPENDENT_REVIEW"
+}

@@ -1,0 +1,75 @@
+{
+  "schema_version": "M3TOP3-REAL-SOURCE-MANIFEST-v1.0",
+  "manifest_id": "AAA-M3TOP3-W1-REAL-SOURCE-MANIFEST-20260905-01",
+  "run_id": "AAA-M3TOP3-REAL-INPUT-STRICT-PRAGMATIC-20260905-114150-CODEX-01",
+  "created_at": "2026-09-05T12:23:30+09:00",
+  "purpose": "MODEL_INPUT_ONLY",
+  "population_binding": {
+    "revision": "69a1e7b",
+    "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/g3-annotation-candidate/G3_E_ANNOTATION_INGEST_QUEUE_v0.1.jsonl.gz",
+    "git_blob": "4b3cfbfa9969abe2bd6dff5fdbfeb2db9d31cdae",
+    "compressed_sha256": "8b3671d662457aef8c1a5595b33a85a27e08aaee56238e7218f1df0b4df78353",
+    "row_count": 1016
+  },
+  "windows": [
+    {
+      "window_id": "W1",
+      "window_anchor_date": "2024-08-10",
+      "snapshot_cutoff_at": "2024-08-09T23:59:59+09:00",
+      "entry_date": "2024-08-12",
+      "include_count": 57
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "SRC-KRX-KIND-005290-20240802-70956",
+      "company_id": "KRX:005290",
+      "krx_code": "005290",
+      "source_type": "FILING",
+      "source_tier": null,
+      "title": "연결재무제표 기준 영업(잠정)실적(공정공시)",
+      "publisher": "KOREA_EXCHANGE_KIND_OFFICIAL",
+      "publication_at": null,
+      "publication_date": "2024-08-02",
+      "publication_precision": "DATE_ONLY",
+      "publication_interval": {
+        "earliest_at": "2024-08-02T00:00:00+09:00",
+        "latest_at": "2024-08-02T23:59:59+09:00",
+        "bound_method_id": "DATE_ONLY_KST_CLOSED_DAY_v1"
+      },
+      "canonical_locator": "https://kind.krx.co.kr/external/2024/08/02/000210/20240730000320/70956.htm",
+      "raw_storage_ref": "control/m3top3/real-input-replay/v1.0/runs/AAA-M3TOP3-REAL-INPUT-STRICT-PRAGMATIC-20260905-114150-CODEX-01/sources/W1/KRX-005290/KRX_005290_20240802_PROVISIONAL_EARNINGS_70956.htm",
+      "raw_artifact": {
+        "byte_size": 16221,
+        "sha256": "5c361107cbd2dc35b236b5358595e036ecb1dd9dc8b06471bca7bf9e550c7db7",
+        "git_blob": "82be77ca6edb47695ca52ccf0ac2b1c69605129f",
+        "media_type": "text/html",
+        "charset": "UTF-8"
+      },
+      "acquired_at": "2026-09-05T12:04:39.4397484+09:00",
+      "acquisition": {
+        "actor_id": "AAA-PMO-ORCHESTRATOR",
+        "method": "HTTPS_GET",
+        "request_ref": "NETWORK_ATTEMPT_18_PRESERVED_FETCH"
+      },
+      "status": "PRESERVED_RAW",
+      "source_limitations": [
+        "PROVISIONAL_NOT_FINAL",
+        "AUDITOR_REVIEW_REPORT_NOT_YET_ISSUED",
+        "MAY_CHANGE_DURING_AUDIT"
+      ],
+      "outcome_custody": {
+        "state": "UNPROVEN_PROCESS_LEVEL",
+        "outcome_surface_accessed": false,
+        "receipt_ref": "SELECTION_SEAL_PENDING"
+      },
+      "admission": {
+        "state": "ADMITTED_STRICT",
+        "temporal_status": "CUTOFF_SAFE",
+        "cutoff_at": "2024-08-09T23:59:59+09:00",
+        "reason_code": "OFFICIAL_SOURCE_DATE_ONLY_LATEST_BOUND_PRECEDES_CUTOFF",
+        "evaluated_at": "2026-09-05T12:23:30+09:00"
+      }
+    }
+  ]
+}
