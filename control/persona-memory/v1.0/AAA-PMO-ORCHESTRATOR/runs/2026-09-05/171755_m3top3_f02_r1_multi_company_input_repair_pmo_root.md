@@ -10,7 +10,7 @@ PERSONA_CODE = PMO
 TASK_ID = AAA-M3TOP3-F02-R1-MULTI-COMPANY-INPUT-REPAIR-v1.0-20260905
 WORKER_ID = /root
 TIME_START_KST = 2026-09-05T17:17:55.1469424+09:00
-TIME_END_KST = OPEN
+TIME_END_KST = 2026-09-05T19:41:37.7343652+09:00 (LOCAL_CONTENT_CLOSE; final Git custody timestamp returned separately)
 BRANCH = task/aaa/m3top3-f02-r1-multi-company-input-repair-20260905
 WORKTREE = C:\Users\ms1pk\dev\asset-agent-asa\asset-agent-asa\r1
 
@@ -74,3 +74,16 @@ This run journal is continuity evidence only. It creates no authority, validatio
 - Findings frozen at 2026-09-05T19:25:44.7285839+09:00: zero blocking, five nonblocking observations in three themes; zero operative corrections since P4 target freeze.
 - Preserve late 30-minute checkpoint, incomplete HTTP/CRU/rework telemetry, and exploratory exposure caveats. Known pre-P4 affected three-test recheck: 8.944 seconds; total rework NOT_INSTRUMENTED.
 - Completed source acquisition remains 33 charged actions, four files / 4,774,865 bytes, no restart retrieval. P4 earned progress is 85/100 EWU. P5 create-once score-and-seal next.
+
+## P5_P6_TERMINAL_CLOSE
+
+- Terminal: COMPLETE_MULTI_COMPANY_PROVISIONAL. Four new companies plus cached control: 5/57 scoreable (8.7719%), 10% feature coverage each; 52 insufficient and 508 missing feature blocks preserved.
+- One new score-and-seal completed 2026-09-05T19:26:31.699448+09:00–2026-09-05T19:26:42.579538+09:00; seal `m3selection_cda20d73e7ee7d917aa6dc97439051b6`. P5 payload commit `33b4690bb52b2fb1d593beee3b2549a7da70e699`, tree `5b2e5eff5cbd724d7cf1613520051bdc61bcb9c8`.
+- Actual raw pairs, Decimal change traces, metric percentiles/median, deterministic tie order, canonical payload hashes and raw-file hashes all read back. Separate IVA post-score check: 25 PASS / zero blockers. Raw scorer provisional flags do not become official selections; ledger official selections zero.
+- The root readback initially compared different hash surfaces; corrected only the read-only canonical-vs-raw assertion. No input/code/output correction, source acquisition or score rerun occurred.
+- F02_R1_COMPLETION_REPORT and PROGRESS_FORECAST_CALIBRATION_REPORT complete. All original EWU weights retained; local content closure 100/100, not model-development completion.
+- No durable source evidence loss detected after restart; 13-file management state preserved, source actions33, no repeated retrieval. Original 30-minute timing deviation and unknown aggregate active/wait/rework/HTTP/CRU remain disclosed.
+- Final live authority/main readback at19:30:27: locator5b2dd5c…, organizationd7c490c…, contract4d70f6a…, remote main950bc98… unchanged. Local mainfdd6a79… is separate preserved work.
+- Remote push was rejected before command execution by auto-review for absent explicit approval to transmit the source/artifact/journal payload to existing GitHub origin. No transfer, workaround, new credentials or rerun. Local payload is committed; report-containing final ref/tree/clean readback is returned after closing commit. NO_PR: not requested; no merge/main/release authority.
+- VALIDATION_COMPLETE=TRUE; RESEARCH_OBJECTIVE_MET=TRUE; PERSISTENCE_COMPLETE=LOCAL_GIT; REMOTE_PERSISTENCE=BLOCKED_BEFORE_EXECUTION. Optional remote transfer requires exact payload/destination approval, not repeat approval for already-completed source work.
+- No further source, scoring, outcome, feature, window, provider or budget action. CURRENT_PERSONA_LOCK = AAA-PMO-ORCHESTRATOR (PMO).
