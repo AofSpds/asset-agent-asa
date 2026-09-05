@@ -1,0 +1,547 @@
+{
+  "calendar_binding": {
+    "authority_ceiling": "APPROVED_REPLAY_ONLY_NOT_PRODUCTION_CALENDAR_RELEASE",
+    "closure_components": [
+      {
+        "git_blob": "98c93ecb5dafe38723ee06fb07cbd80c7c8a2a4d",
+        "sha256": "d5961ae5998036cc1710fe28e22d324db0233b570dd5c417b088fba1408f857f",
+        "year": 2024
+      },
+      {
+        "git_blob": "583c4c6dc374408bca2c8a8eadbd9ee168468210",
+        "sha256": "c90dcd0f9fd59498f239bbed32f63a300d64f25f9e03020f26a15c40cf017fa8",
+        "year": 2025
+      },
+      {
+        "git_blob": "92c3815e6b8b5383620ec916716e777b51fdd142",
+        "sha256": "89ccce131de8d0c4baa6a30d62b7d2e8e3bdc872c71a21d7d81d4b667330d384",
+        "year": 2026
+      }
+    ],
+    "identity": "REPLAY_ONLY_PRICE_DATE_X_OFFICIAL_KRX_CLOSURE_BINDING-v1",
+    "observed_price_date_count": 637,
+    "reconciliation_state": "EXACT_PRICE_DATE_SET_EQUALS_WEEKDAYS_MINUS_BOUND_OFFICIAL_CLOSURES",
+    "window_registry_blob": "033817e6335865e411d2bb4b5837434167091458",
+    "window_registry_csv_sha256": "96d63cc98a01b6332cf9486440e7f3fdaa0ec5a2d605f21bc14a4025b46e69fe",
+    "window_registry_revision": "e59ed048d6da76edcad82c9a58b0d083c6452471"
+  },
+  "claim_ceiling": [
+    "NO_OBSERVED_MODEL_PERFORMANCE_CLAIM",
+    "NO_CLEAN_HOLDOUT_OR_OOS_CLAIM",
+    "NO_COMPLETE_U127_OR_PIT_INPUT_CLAIM",
+    "NO_PRICE_CANONICAL_OR_CA_COMPLETE_CLAIM",
+    "NO_GOLDEN_FREEZE_OR_PRODUCTION_READINESS_CLAIM"
+  ],
+  "claim_class": "COVERAGE_LIMITED_RETROSPECTIVE_REPLAY",
+  "code_identity": "M3TOP3-EXECUTABLE-BUNDLE-SHA256:82266d51a64382cbd34ee68872a3cd3e3f640c6ff438e84416906f8b8a8ab9c0",
+  "config_hash": "eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98",
+  "model_stage_state": "COMPLETED",
+  "outcome_firewall": {
+    "future_outcome_fields_present_in_model_inputs": false,
+    "future_price_values_loaded_before_model_selection": false,
+    "price_stage_may_begin_after": "MODEL_BATCH_SCORING_COMPLETED"
+  },
+  "outcome_stage_state": "NOT_MEASURED_ZERO_SCORED_SELECTIONS",
+  "pmo_run_id": "AAA-M3TOP3-FIRST-SCORECARD-20260905-093656-CODEX-01",
+  "price_input_binding": {
+    "binding_state": "EXACT_COMPONENT_IDENTITIES_VERIFIED_AFTER_MODEL_STAGE",
+    "components": [
+      {
+        "bytes": 24572111,
+        "name": "marcap-2024.parquet",
+        "path": "C:\\Users\\ms1pk\\Downloads\\marcap-2024.parquet",
+        "sha256": "b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb",
+        "year": "2024"
+      },
+      {
+        "bytes": 25153419,
+        "name": "marcap-2025.parquet",
+        "path": "C:\\Users\\ms1pk\\Downloads\\marcap-2025.parquet",
+        "sha256": "2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e",
+        "year": "2025"
+      },
+      {
+        "bytes": 16198533,
+        "name": "marcap-2026.parquet",
+        "path": "C:\\Users\\ms1pk\\Downloads\\marcap-2026.parquet",
+        "sha256": "5da710a2fc56f8fe9b1f5126295cc30c3b15c0ee35d28ba808a505ec4a2243c1",
+        "year": "2026"
+      }
+    ],
+    "dataset_identity_sha256": "419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7",
+    "future_value_columns_loaded": false,
+    "known_bounded_ca_note": "KRX:183300/W8 has a source-verified material split and suspension; if a score is later available, result measurement must remain excluded until a comparable post-relisting price is bound.",
+    "outcome_values_loaded": false,
+    "reason_outcome_values_not_loaded": "ZERO_MODEL_SCORED_SELECTIONS",
+    "source_semantics": "RAW_IMMUTABLE_NOT_PRICE_CANONICAL"
+  },
+  "runner_version": "M3TOP3-COVERAGE-LIMITED-REPLAY-v1.0-WORKING",
+  "scorecard_state": "COMPLETE_COVERAGE_LIMITED_ZERO_SCOREABLE",
+  "source_population": {
+    "authority": "QUEUE_ONLY_NOT_ADMITTED",
+    "compressed_sha256": "8b3671d662457aef8c1a5595b33a85a27e08aaee56238e7218f1df0b4df78353",
+    "git_blob": "4b3cfbfa9969abe2bd6dff5fdbfeb2db9d31cdae",
+    "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/g3-annotation-candidate/G3_E_ANNOTATION_INGEST_QUEUE_v0.1.jsonl.gz",
+    "revision": "69a1e7b",
+    "row_count": 1016
+  },
+  "stage_sequence": [
+    "POPULATION_BOUND",
+    "PROVENANCE_GUARDS_PASSED",
+    "MODEL_BATCH_SCORING_COMPLETED",
+    "PRICE_INPUT_IDENTITIES_BOUND_AFTER_MODEL_STAGE",
+    "OUTCOME_VALUE_LOAD_SKIPPED_ZERO_SCORED_SELECTIONS",
+    "SCORECARD_FINALIZED"
+  ],
+  "totals": {
+    "exclude_proven_count": 37,
+    "exclude_unresolved_count": 514,
+    "replay_data_insufficient_count": 465,
+    "replay_include_eligibility_count": 465,
+    "result_measured_count": 0,
+    "scoreable_count": 0,
+    "u127_count": 1016
+  },
+  "windows": [
+    {
+      "axis_coverage_observations": [
+        {
+          "axis": "Business_Momentum",
+          "coverage_ratio": "0",
+          "row_count": 57
+        },
+        {
+          "axis": "Expectation_Surprise",
+          "coverage_ratio": "0",
+          "row_count": 57
+        },
+        {
+          "axis": "Forward_Runway",
+          "coverage_ratio": "0",
+          "row_count": 57
+        },
+        {
+          "axis": "Market_Positioning",
+          "coverage_ratio": "0",
+          "row_count": 57
+        },
+        {
+          "axis": "Reliability_Risk",
+          "coverage_ratio": "0",
+          "row_count": 57
+        }
+      ],
+      "engine_run_id": "m3run_5264263db9fc213d4aab4a3527242d7f",
+      "entry": "2024-08-12",
+      "exclude_proven_count": 8,
+      "exclude_unresolved_count": 62,
+      "exit": "2024-11-11",
+      "feature_availability_states": {
+        "NOT_FOUND": 513
+      },
+      "input_hash": "1116d05bd4f427f8d616b0e007fb2e2e37814ecf16925859e0872cd0d023d5ca",
+      "performance_metrics": {
+        "reason": "ZERO_MODEL_SCOREABLE_ROWS",
+        "state": "NOT_MEASURABLE"
+      },
+      "ranking_status": "INCOMPLETE_COVERAGE",
+      "replay_data_insufficient_count": 57,
+      "replay_include_eligibility_count": 57,
+      "result_measured_count": 0,
+      "scoreable_count": 0,
+      "scorer_coverage": "0",
+      "scorer_include_batch_count": 57,
+      "snapshot": "2024-08-09",
+      "top10": [],
+      "top3": [],
+      "u127_count": 127,
+      "window_end": "2024-11-08",
+      "window_id": "W1"
+    },
+    {
+      "axis_coverage_observations": [
+        {
+          "axis": "Business_Momentum",
+          "coverage_ratio": "0",
+          "row_count": 57
+        },
+        {
+          "axis": "Expectation_Surprise",
+          "coverage_ratio": "0",
+          "row_count": 57
+        },
+        {
+          "axis": "Forward_Runway",
+          "coverage_ratio": "0",
+          "row_count": 57
+        },
+        {
+          "axis": "Market_Positioning",
+          "coverage_ratio": "0",
+          "row_count": 57
+        },
+        {
+          "axis": "Reliability_Risk",
+          "coverage_ratio": "0",
+          "row_count": 57
+        }
+      ],
+      "engine_run_id": "m3run_5ddb19735a347267a3cca279b2c7aa8d",
+      "entry": "2024-11-11",
+      "exclude_proven_count": 7,
+      "exclude_unresolved_count": 63,
+      "exit": "2025-02-11",
+      "feature_availability_states": {
+        "NOT_FOUND": 513
+      },
+      "input_hash": "30d5c15df8189012156a1a170d9742fd93c4a2ba6c55f91ab64c20e2281f00cc",
+      "performance_metrics": {
+        "reason": "ZERO_MODEL_SCOREABLE_ROWS",
+        "state": "NOT_MEASURABLE"
+      },
+      "ranking_status": "INCOMPLETE_COVERAGE",
+      "replay_data_insufficient_count": 57,
+      "replay_include_eligibility_count": 57,
+      "result_measured_count": 0,
+      "scoreable_count": 0,
+      "scorer_coverage": "0",
+      "scorer_include_batch_count": 57,
+      "snapshot": "2024-11-08",
+      "top10": [],
+      "top3": [],
+      "u127_count": 127,
+      "window_end": "2025-02-10",
+      "window_id": "W2"
+    },
+    {
+      "axis_coverage_observations": [
+        {
+          "axis": "Business_Momentum",
+          "coverage_ratio": "0",
+          "row_count": 57
+        },
+        {
+          "axis": "Expectation_Surprise",
+          "coverage_ratio": "0",
+          "row_count": 57
+        },
+        {
+          "axis": "Forward_Runway",
+          "coverage_ratio": "0",
+          "row_count": 57
+        },
+        {
+          "axis": "Market_Positioning",
+          "coverage_ratio": "0",
+          "row_count": 57
+        },
+        {
+          "axis": "Reliability_Risk",
+          "coverage_ratio": "0",
+          "row_count": 57
+        }
+      ],
+      "engine_run_id": "m3run_977ed01056a89a3b1ffd6eaff63aca01",
+      "entry": "2025-02-11",
+      "exclude_proven_count": 6,
+      "exclude_unresolved_count": 64,
+      "exit": "2025-05-12",
+      "feature_availability_states": {
+        "NOT_FOUND": 513
+      },
+      "input_hash": "d230e1025335c744d2734bd1a74b628f15171cd45e0c5a02d173e0e5ca9ba0e6",
+      "performance_metrics": {
+        "reason": "ZERO_MODEL_SCOREABLE_ROWS",
+        "state": "NOT_MEASURABLE"
+      },
+      "ranking_status": "INCOMPLETE_COVERAGE",
+      "replay_data_insufficient_count": 57,
+      "replay_include_eligibility_count": 57,
+      "result_measured_count": 0,
+      "scoreable_count": 0,
+      "scorer_coverage": "0",
+      "scorer_include_batch_count": 57,
+      "snapshot": "2025-02-10",
+      "top10": [],
+      "top3": [],
+      "u127_count": 127,
+      "window_end": "2025-05-09",
+      "window_id": "W3"
+    },
+    {
+      "axis_coverage_observations": [
+        {
+          "axis": "Business_Momentum",
+          "coverage_ratio": "0",
+          "row_count": 58
+        },
+        {
+          "axis": "Expectation_Surprise",
+          "coverage_ratio": "0",
+          "row_count": 58
+        },
+        {
+          "axis": "Forward_Runway",
+          "coverage_ratio": "0",
+          "row_count": 58
+        },
+        {
+          "axis": "Market_Positioning",
+          "coverage_ratio": "0",
+          "row_count": 58
+        },
+        {
+          "axis": "Reliability_Risk",
+          "coverage_ratio": "0",
+          "row_count": 58
+        }
+      ],
+      "engine_run_id": "m3run_28e35c6e0c98a5f097ae4864d0010cec",
+      "entry": "2025-05-12",
+      "exclude_proven_count": 3,
+      "exclude_unresolved_count": 66,
+      "exit": "2025-08-11",
+      "feature_availability_states": {
+        "NOT_FOUND": 522
+      },
+      "input_hash": "22f5fe4f0220552343b998217a580ffb5d79b3864107116df0a23df5aeb28dc5",
+      "performance_metrics": {
+        "reason": "ZERO_MODEL_SCOREABLE_ROWS",
+        "state": "NOT_MEASURABLE"
+      },
+      "ranking_status": "INCOMPLETE_COVERAGE",
+      "replay_data_insufficient_count": 58,
+      "replay_include_eligibility_count": 58,
+      "result_measured_count": 0,
+      "scoreable_count": 0,
+      "scorer_coverage": "0",
+      "scorer_include_batch_count": 58,
+      "snapshot": "2025-05-09",
+      "top10": [],
+      "top3": [],
+      "u127_count": 127,
+      "window_end": "2025-08-08",
+      "window_id": "W4"
+    },
+    {
+      "axis_coverage_observations": [
+        {
+          "axis": "Business_Momentum",
+          "coverage_ratio": "0",
+          "row_count": 58
+        },
+        {
+          "axis": "Expectation_Surprise",
+          "coverage_ratio": "0",
+          "row_count": 58
+        },
+        {
+          "axis": "Forward_Runway",
+          "coverage_ratio": "0",
+          "row_count": 58
+        },
+        {
+          "axis": "Market_Positioning",
+          "coverage_ratio": "0",
+          "row_count": 58
+        },
+        {
+          "axis": "Reliability_Risk",
+          "coverage_ratio": "0",
+          "row_count": 58
+        }
+      ],
+      "engine_run_id": "m3run_206868f6aba2afceab50c6b06dfd96ca",
+      "entry": "2025-08-11",
+      "exclude_proven_count": 3,
+      "exclude_unresolved_count": 66,
+      "exit": "2025-11-11",
+      "feature_availability_states": {
+        "NOT_FOUND": 522
+      },
+      "input_hash": "1178e1d447ee834fcc2087eac70dee6c522f095114c4cef83be2c2c035dca12a",
+      "performance_metrics": {
+        "reason": "ZERO_MODEL_SCOREABLE_ROWS",
+        "state": "NOT_MEASURABLE"
+      },
+      "ranking_status": "INCOMPLETE_COVERAGE",
+      "replay_data_insufficient_count": 58,
+      "replay_include_eligibility_count": 58,
+      "result_measured_count": 0,
+      "scoreable_count": 0,
+      "scorer_coverage": "0",
+      "scorer_include_batch_count": 58,
+      "snapshot": "2025-08-08",
+      "top10": [],
+      "top3": [],
+      "u127_count": 127,
+      "window_end": "2025-11-10",
+      "window_id": "W5"
+    },
+    {
+      "axis_coverage_observations": [
+        {
+          "axis": "Business_Momentum",
+          "coverage_ratio": "0",
+          "row_count": 59
+        },
+        {
+          "axis": "Expectation_Surprise",
+          "coverage_ratio": "0",
+          "row_count": 59
+        },
+        {
+          "axis": "Forward_Runway",
+          "coverage_ratio": "0",
+          "row_count": 59
+        },
+        {
+          "axis": "Market_Positioning",
+          "coverage_ratio": "0",
+          "row_count": 59
+        },
+        {
+          "axis": "Reliability_Risk",
+          "coverage_ratio": "0",
+          "row_count": 59
+        }
+      ],
+      "engine_run_id": "m3run_70ef86435fc6468d8e2997e40c72eee7",
+      "entry": "2025-11-11",
+      "exclude_proven_count": 3,
+      "exclude_unresolved_count": 65,
+      "exit": "2026-02-11",
+      "feature_availability_states": {
+        "NOT_FOUND": 531
+      },
+      "input_hash": "e5ef58297106e91c207b39c374a05c6deca38a8a4afd81d863f3591f69814690",
+      "performance_metrics": {
+        "reason": "ZERO_MODEL_SCOREABLE_ROWS",
+        "state": "NOT_MEASURABLE"
+      },
+      "ranking_status": "INCOMPLETE_COVERAGE",
+      "replay_data_insufficient_count": 59,
+      "replay_include_eligibility_count": 59,
+      "result_measured_count": 0,
+      "scoreable_count": 0,
+      "scorer_coverage": "0",
+      "scorer_include_batch_count": 59,
+      "snapshot": "2025-11-10",
+      "top10": [],
+      "top3": [],
+      "u127_count": 127,
+      "window_end": "2026-02-10",
+      "window_id": "W6"
+    },
+    {
+      "axis_coverage_observations": [
+        {
+          "axis": "Business_Momentum",
+          "coverage_ratio": "0",
+          "row_count": 59
+        },
+        {
+          "axis": "Expectation_Surprise",
+          "coverage_ratio": "0",
+          "row_count": 59
+        },
+        {
+          "axis": "Forward_Runway",
+          "coverage_ratio": "0",
+          "row_count": 59
+        },
+        {
+          "axis": "Market_Positioning",
+          "coverage_ratio": "0",
+          "row_count": 59
+        },
+        {
+          "axis": "Reliability_Risk",
+          "coverage_ratio": "0",
+          "row_count": 59
+        }
+      ],
+      "engine_run_id": "m3run_f92509bcdf2148de0c66aeb9f946673a",
+      "entry": "2026-02-11",
+      "exclude_proven_count": 2,
+      "exclude_unresolved_count": 66,
+      "exit": "2026-05-11",
+      "feature_availability_states": {
+        "NOT_FOUND": 531
+      },
+      "input_hash": "6b572c21abc948700339ab8be59b8155b657e24b58305714dcf31507b655430c",
+      "performance_metrics": {
+        "reason": "ZERO_MODEL_SCOREABLE_ROWS",
+        "state": "NOT_MEASURABLE"
+      },
+      "ranking_status": "INCOMPLETE_COVERAGE",
+      "replay_data_insufficient_count": 59,
+      "replay_include_eligibility_count": 59,
+      "result_measured_count": 0,
+      "scoreable_count": 0,
+      "scorer_coverage": "0",
+      "scorer_include_batch_count": 59,
+      "snapshot": "2026-02-10",
+      "top10": [],
+      "top3": [],
+      "u127_count": 127,
+      "window_end": "2026-05-08",
+      "window_id": "W7"
+    },
+    {
+      "axis_coverage_observations": [
+        {
+          "axis": "Business_Momentum",
+          "coverage_ratio": "0",
+          "row_count": 60
+        },
+        {
+          "axis": "Expectation_Surprise",
+          "coverage_ratio": "0",
+          "row_count": 60
+        },
+        {
+          "axis": "Forward_Runway",
+          "coverage_ratio": "0",
+          "row_count": 60
+        },
+        {
+          "axis": "Market_Positioning",
+          "coverage_ratio": "0",
+          "row_count": 60
+        },
+        {
+          "axis": "Reliability_Risk",
+          "coverage_ratio": "0",
+          "row_count": 60
+        }
+      ],
+      "engine_run_id": "m3run_3862d35d6e7611f434c6887c2372b2f7",
+      "entry": "2026-05-11",
+      "exclude_proven_count": 5,
+      "exclude_unresolved_count": 62,
+      "exit": "2026-08-11",
+      "feature_availability_states": {
+        "NOT_FOUND": 540
+      },
+      "input_hash": "7f2d1dd140d104ce678e0e05dafa10d2605980c1325afdac7937dac96b146ddf",
+      "performance_metrics": {
+        "reason": "ZERO_MODEL_SCOREABLE_ROWS",
+        "state": "NOT_MEASURABLE"
+      },
+      "ranking_status": "INCOMPLETE_COVERAGE",
+      "replay_data_insufficient_count": 60,
+      "replay_include_eligibility_count": 60,
+      "result_measured_count": 0,
+      "scoreable_count": 0,
+      "scorer_coverage": "0",
+      "scorer_include_batch_count": 60,
+      "snapshot": "2026-05-08",
+      "top10": [],
+      "top3": [],
+      "u127_count": 127,
+      "window_end": "2026-08-10",
+      "window_id": "W8"
+    }
+  ]
+}

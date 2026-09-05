@@ -1,0 +1,38 @@
+{
+  "pmo_run_id": "AAA-M3TOP3-FIRST-SCORECARD-20260905-093656-CODEX-01",
+  "verification_at_kst": "2026-09-05T10:38:45.8166577+09:00",
+  "executed_git_head": "fdde257f2330d36236b551a303e8149184c18eba",
+  "executed_model_identity": "M3TOP3-EXECUTABLE-BUNDLE-SHA256:82266d51a64382cbd34ee68872a3cd3e3f640c6ff438e84416906f8b8a8ab9c0",
+  "state": "PASS",
+  "invariants": {
+    "selection_ledger_rows": 1016,
+    "unique_window_company_keys": 1016,
+    "outer_partition": {
+      "REPLAY_DATA_INSUFFICIENT": 465,
+      "EXCLUDE_PROVEN": 37,
+      "EXCLUDE_UNRESOLVED": 514
+    },
+    "model_result_ids": 465,
+    "non_null_final_scores": 0,
+    "non_null_exact_ranks": 0,
+    "scoreable_rows": 0,
+    "result_measured_rows": 0,
+    "not_found_feature_blocks": 4185,
+    "zero_coverage_axis_observations": 2325,
+    "future_outcome_value_columns_loaded": false
+  },
+  "output_sha256": {
+    "FIRST_COVERAGE_LIMITED_SCORECARD.json": "8d0730495a5d45d2526190485061dcad6750cbcbf172feb8a792d024141cd27e",
+    "FIRST_COVERAGE_LIMITED_SCORECARD.md": "a169d980648d7fcb37000af29102b61549f76216612eed1c181f3c12215daad4",
+    "MODEL_SELECTION_LEDGER.jsonl": "9d5982ccabba9a8ddc6b90f8fd777d2a4687236489bccfc75777fb6c8c133ff8",
+    "PRICE_CALENDAR_INPUT_CUSTODY.json": "f3d7cad12914633d295ca71817660c1ba1cf55397cc082b90a744c407a4f4778",
+    "REPLAY_RUN_MANIFEST.json": "0e92e5cb9e253bca2dc9f41db255ba4b2ad7cd5919a9fd084df73976726495f5"
+  },
+  "presentation_erratum": {
+    "affected_raw_output": "FIRST_COVERAGE_LIMITED_SCORECARD.md",
+    "incorrect_phrase": "one complete 127-row batch per window",
+    "correct_fact": "one complete INCLUDE batch per window (57-60 rows); 127 is the outer U127 population partitioned before scoring",
+    "numeric_json_or_ledger_affected": false,
+    "treatment": "RAW_EXECUTION_OUTPUT_PRESERVED; FORWARD_CORRECTED_IN_FINAL_EXECUTION_REPORT"
+  }
+}

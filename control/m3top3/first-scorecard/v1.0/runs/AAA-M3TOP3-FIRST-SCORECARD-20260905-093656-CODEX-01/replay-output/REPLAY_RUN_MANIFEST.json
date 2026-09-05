@@ -1,0 +1,110 @@
+{
+  "execution_argv": [
+    "C:\\Users\\ms1pk\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "-m",
+    "tools.m3top3.cli_run_coverage_limited_replay",
+    "--repo",
+    "C:\\Users\\ms1pk\\dev\\asset-agent-asa\\asset-agent-asa\\scorecard",
+    "--output-dir",
+    "C:\\Users\\ms1pk\\dev\\asset-agent-asa\\asset-agent-asa\\scorecard\\control\\m3top3\\first-scorecard\\v1.0\\runs\\AAA-M3TOP3-FIRST-SCORECARD-20260905-093656-CODEX-01\\replay-output",
+    "--pmo-run-id",
+    "AAA-M3TOP3-FIRST-SCORECARD-20260905-093656-CODEX-01",
+    "--price-2024",
+    "C:\\Users\\ms1pk\\Downloads\\marcap-2024.parquet",
+    "--price-2025",
+    "C:\\Users\\ms1pk\\Downloads\\marcap-2025.parquet",
+    "--price-2026",
+    "C:\\Users\\ms1pk\\Downloads\\marcap-2026.parquet"
+  ],
+  "execution_environment": {
+    "git_branch": "task/aaa/m3top3-first-scorecard-20260905",
+    "git_head": "fdde257f2330d36236b551a303e8149184c18eba",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "repo": "C:\\Users\\ms1pk\\dev\\asset-agent-asa\\asset-agent-asa\\scorecard"
+  },
+  "finished_at_kst": "2026-09-05T10:37:30.455624+09:00",
+  "model_code_components": [
+    {
+      "bytes": 96,
+      "path": "tools/m3top3/__init__.py",
+      "sha256": "54b143b394a19dadb286305f267571b62423ad35b92115becc3d025a0dd1a0b3"
+    },
+    {
+      "bytes": 8794,
+      "path": "tools/m3top3/cli_run_coverage_limited_replay.py",
+      "sha256": "b44864bfbca0fc874621d000fbf373cadeddc5f8446493af66d8939cd6bcae23"
+    },
+    {
+      "bytes": 4975,
+      "path": "tools/m3top3/contracts_v1.py",
+      "sha256": "5528f6e81a36ea8558ea909fc59074684a3dd73c414c723be386712dac77f4aa"
+    },
+    {
+      "bytes": 2852,
+      "path": "tools/m3top3/core.py",
+      "sha256": "9d4ecbe324f4f1eece034e3ccc6aabd4968dce1f185ea58de8eb780da03746ec"
+    },
+    {
+      "bytes": 14086,
+      "path": "tools/m3top3/features_v1.py",
+      "sha256": "14bca2fecb4ec46cebc432a619af3388b8e8bab69ff7164dff5b52aed75dc981"
+    },
+    {
+      "bytes": 10367,
+      "path": "tools/m3top3/features_v1_narrow_patch.py",
+      "sha256": "b5059969e406e6bfaf2269346d9fd9756a50824c9fe068d8a97cdd20d3b82596"
+    },
+    {
+      "bytes": 3758,
+      "path": "tools/m3top3/pit_guard.py",
+      "sha256": "7df44af85ecad959c81b629ec63b1cf9d6d57b1c155f715f49a8c5d445afc957"
+    },
+    {
+      "bytes": 990,
+      "path": "tools/m3top3/runtime_v1.py",
+      "sha256": "bfc7a9f1dc7dea20ac1fefb3c3cc8530811674045de691369f46abdda21f55ab"
+    },
+    {
+      "bytes": 9863,
+      "path": "tools/m3top3/scorer_v1.py",
+      "sha256": "0bb0fbd1628992b2d49d6f7e06b3cbad1fe470f5bab7f175a89b4691a4d96126"
+    },
+    {
+      "bytes": 4952,
+      "path": "tools/m3top3/shared_interface_guards_v1.py",
+      "sha256": "746ae5570a4542b9e67536f77f043bc2ba7e5b54b1e5f599a7fbf6c01c6aee56"
+    },
+    {
+      "bytes": 3340,
+      "path": "tools/m3top3/window_mapping_v11.py",
+      "sha256": "6f73ec50cf6ac2f8f2c2da5edda40771704ea02b49fc73f9c275830d97d4cc70"
+    },
+    {
+      "bytes": 2426,
+      "path": "tools/m3top3/configs/m3top3_v1.0.json",
+      "sha256": "eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98"
+    },
+    {
+      "bytes": 24779,
+      "path": "tools/m3top3/coverage_limited_replay_v1.py",
+      "sha256": "ea4659064fe5cb24aacc2f5cd1f7d7fe7608725b2a0e5e3022c13b9bee1d6e83"
+    }
+  ],
+  "model_code_identity": "M3TOP3-EXECUTABLE-BUNDLE-SHA256:82266d51a64382cbd34ee68872a3cd3e3f640c6ff438e84416906f8b8a8ab9c0",
+  "pmo_run_id": "AAA-M3TOP3-FIRST-SCORECARD-20260905-093656-CODEX-01",
+  "runner": {
+    "path": "tools/m3top3/cli_run_coverage_limited_replay.py",
+    "sha256": "b44864bfbca0fc874621d000fbf373cadeddc5f8446493af66d8939cd6bcae23"
+  },
+  "stage_sequence": [
+    "POPULATION_BOUND",
+    "PROVENANCE_GUARDS_PASSED",
+    "MODEL_BATCH_SCORING_COMPLETED",
+    "PRICE_INPUT_IDENTITIES_BOUND_AFTER_MODEL_STAGE",
+    "OUTCOME_VALUE_LOAD_SKIPPED_ZERO_SCORED_SELECTIONS",
+    "SCORECARD_FINALIZED"
+  ],
+  "started_at_kst": "2026-09-05T10:37:30.105456+09:00",
+  "status": "COMPLETED"
+}

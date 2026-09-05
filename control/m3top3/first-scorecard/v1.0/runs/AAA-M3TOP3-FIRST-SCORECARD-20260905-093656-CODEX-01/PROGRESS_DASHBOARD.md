@@ -1,6 +1,6 @@
 # M3Top3 First Scorecard Progress Dashboard
 
-OVERALL 30% · CURRENT PHASE 0% · VALIDATION 0% · EWU 30/100 · elapsed 23m06s · active/wait NOT_INSTRUMENTED · rework/block observed 0/0 · ETA P50 2h / P90 4h from first return (LOW confidence) · CRU NOT_INSTRUMENTED/NOT_CALIBRATED · first segment throughput 1.30 EWU/min · bounded blockers 2 · reopened 0 · workers 4 / validators 0 · last S1 first return persisted · next S2 bounded F06 fix, adapter, Golden and mechanical checks
+OVERALL 100% · CURRENT PHASE COMPLETE · AFFECTED-ONLY VALIDATION 100% (not global) · EWU 100/100 · elapsed 1h01m49s · active/wait NOT_INSTRUMENTED · review-correction rework observed 4m04s · ETA COMPLETE · CRU NOT_INSTRUMENTED/NOT_CALIBRATED · blockers 0 · reopened 0 · workers/validators active 0/0 · first coverage-limited scorecard persisted
 
 ```text
 RUN_ID = AAA-M3TOP3-FIRST-SCORECARD-20260905-093656-CODEX-01
@@ -14,4 +14,6 @@ PARALLELISM = MULTI_WORKER
 OWNER_ACTION = NONE
 ```
 
-Bounded blockers: selected `features_v1_narrow_patch.py` has a known P0 F06 identity-rotation bypass, and no W1–W8 batch/result/scorecard adapter exists. Both have a direct in-scope implementation route; neither requires another policy approval.
+Result: U127 company-window rows 1,016; eligibility include 465; exclude proven 37; exclude unresolved 514; replay-data-insufficient 465; scoreable 0; result measured 0. This is zero scoreability from absent admitted cutoff-safe feature inputs, not zero observed model performance.
+
+Review: one affected-only campaign, initial executable-identity P1 corrected in the same bounded campaign; final 47/47 PASS, P0/P1/P2 0. No prior 261/75/57/400 full suite was rerun.

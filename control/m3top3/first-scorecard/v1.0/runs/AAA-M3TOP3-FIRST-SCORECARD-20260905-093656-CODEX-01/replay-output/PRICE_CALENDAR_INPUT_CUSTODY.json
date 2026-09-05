@@ -1,0 +1,60 @@
+{
+  "calendar": {
+    "authority_ceiling": "APPROVED_REPLAY_ONLY_NOT_PRODUCTION_CALENDAR_RELEASE",
+    "closure_components": [
+      {
+        "git_blob": "98c93ecb5dafe38723ee06fb07cbd80c7c8a2a4d",
+        "sha256": "d5961ae5998036cc1710fe28e22d324db0233b570dd5c417b088fba1408f857f",
+        "year": 2024
+      },
+      {
+        "git_blob": "583c4c6dc374408bca2c8a8eadbd9ee168468210",
+        "sha256": "c90dcd0f9fd59498f239bbed32f63a300d64f25f9e03020f26a15c40cf017fa8",
+        "year": 2025
+      },
+      {
+        "git_blob": "92c3815e6b8b5383620ec916716e777b51fdd142",
+        "sha256": "89ccce131de8d0c4baa6a30d62b7d2e8e3bdc872c71a21d7d81d4b667330d384",
+        "year": 2026
+      }
+    ],
+    "identity": "REPLAY_ONLY_PRICE_DATE_X_OFFICIAL_KRX_CLOSURE_BINDING-v1",
+    "observed_price_date_count": 637,
+    "reconciliation_state": "EXACT_PRICE_DATE_SET_EQUALS_WEEKDAYS_MINUS_BOUND_OFFICIAL_CLOSURES",
+    "window_registry_blob": "033817e6335865e411d2bb4b5837434167091458",
+    "window_registry_csv_sha256": "96d63cc98a01b6332cf9486440e7f3fdaa0ec5a2d605f21bc14a4025b46e69fe",
+    "window_registry_revision": "e59ed048d6da76edcad82c9a58b0d083c6452471"
+  },
+  "price": {
+    "binding_state": "EXACT_COMPONENT_IDENTITIES_VERIFIED_AFTER_MODEL_STAGE",
+    "components": [
+      {
+        "bytes": 24572111,
+        "name": "marcap-2024.parquet",
+        "path": "C:\\Users\\ms1pk\\Downloads\\marcap-2024.parquet",
+        "sha256": "b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb",
+        "year": "2024"
+      },
+      {
+        "bytes": 25153419,
+        "name": "marcap-2025.parquet",
+        "path": "C:\\Users\\ms1pk\\Downloads\\marcap-2025.parquet",
+        "sha256": "2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e",
+        "year": "2025"
+      },
+      {
+        "bytes": 16198533,
+        "name": "marcap-2026.parquet",
+        "path": "C:\\Users\\ms1pk\\Downloads\\marcap-2026.parquet",
+        "sha256": "5da710a2fc56f8fe9b1f5126295cc30c3b15c0ee35d28ba808a505ec4a2243c1",
+        "year": "2026"
+      }
+    ],
+    "dataset_identity_sha256": "419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7",
+    "future_value_columns_loaded": false,
+    "known_bounded_ca_note": "KRX:183300/W8 has a source-verified material split and suspension; if a score is later available, result measurement must remain excluded until a comparable post-relisting price is bound.",
+    "outcome_values_loaded": false,
+    "reason_outcome_values_not_loaded": "ZERO_MODEL_SCORED_SELECTIONS",
+    "source_semantics": "RAW_IMMUTABLE_NOT_PRICE_CANONICAL"
+  }
+}
