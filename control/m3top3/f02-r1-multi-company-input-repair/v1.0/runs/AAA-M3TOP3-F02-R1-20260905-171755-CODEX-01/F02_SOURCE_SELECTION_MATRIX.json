@@ -1,0 +1,16 @@
+{
+  "schema_version": "AAA-M3TOP3-F02-R1-SOURCE-SELECTION-MATRIX-v1.0",
+  "run_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01",
+  "as_of_kst": "2026-09-05T17:18:51.2079169+09:00",
+  "cutoff": "2024-08-09T23:59:59+09:00",
+  "bounded_source_authority": "KIND_OFFICIAL_ONLY",
+  "items": [
+    {"company_id":"KRX:003160","role":"PRIMARY_NEW_ISSUER","status":"NOT_STARTED","source_action_units":0,"source_id":null,"source_hash":null,"public_time":null,"selected_period":null,"basis":null,"unit":null,"selection_reason":null,"exclusion_reason":null,"newer_source_limit":null,"failure_class":null,"metric_leaf_state":"NOT_ASSESSED"},
+    {"company_id":"KRX:025560","role":"PRIMARY_NEW_ISSUER","status":"NOT_STARTED","source_action_units":0,"source_id":null,"source_hash":null,"public_time":null,"selected_period":null,"basis":null,"unit":null,"selection_reason":null,"exclusion_reason":null,"newer_source_limit":null,"failure_class":null,"metric_leaf_state":"NOT_ASSESSED"},
+    {"company_id":"KRX:031980","role":"PRIMARY_NEW_ISSUER","status":"NOT_STARTED","source_action_units":0,"source_id":null,"source_hash":null,"public_time":null,"selected_period":null,"basis":null,"unit":null,"selection_reason":null,"exclusion_reason":null,"newer_source_limit":null,"failure_class":null,"metric_leaf_state":"NOT_ASSESSED"},
+    {"company_id":"KRX:036200","role":"PRIMARY_NEW_ISSUER","status":"NOT_STARTED","source_action_units":0,"source_id":null,"source_hash":null,"public_time":null,"selected_period":null,"basis":null,"unit":null,"selection_reason":null,"exclusion_reason":null,"newer_source_limit":null,"failure_class":null,"metric_leaf_state":"NOT_ASSESSED"},
+    {"company_id":"KRX:005290","role":"CACHED_CONTROL","status":"CACHE_REUSE_PENDING","source_action_units":0,"source_id":"SRC-KRX-KIND-005290-20240802-70956","source_hash":"5c361107cbd2dc35b236b5358595e036ecb1dd9dc8b06471bca7bf9e550c7db7","public_time":"2024-08-02","selected_period":"2024Q2","basis":"CONSOLIDATED_QUARTER","unit":"KRW_MILLION","selection_reason":"EXACT_PREDECESSOR_CACHE_CONTROL_NO_REFETCH","exclusion_reason":null,"newer_source_limit":"NO_NEW_005290_DISCOVERY_AUTHORIZED","failure_class":null,"metric_leaf_state":"PREDECESSOR_EIGHT_LEAVES_PENDING_EXACT_REUSE_CHECK"}
+  ],
+  "companies_outside_batch": "NOT_ASSESSED_IN_THIS_BATCH",
+  "official_top3_claim": "PROHIBITED"
+}

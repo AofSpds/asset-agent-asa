@@ -1,0 +1,65 @@
+{
+  "schema_version": "AAA-M3TOP3-F02-R1-OWNER-AUTHORIZATION-BINDING-v1.0",
+  "run_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01",
+  "recorded_at_kst": "2026-09-05T17:18:51.2079169+09:00",
+  "current_persona_lock": "AAA-PMO-ORCHESTRATOR",
+  "owner_instruction": "EXECUTE_ATTACHED_DOCUMENT",
+  "attached_packet": {
+    "path": "C:/Users/ms1pk/Downloads/AAA_M3TOP3_F02_R1_MULTI_COMPANY_INPUT_REPAIR_REQUEST_v1.0_20260905.md",
+    "byte_size": 26584,
+    "line_count": 249,
+    "sha256": "65c1d9a62109ba9cc657a8416606ac8ac1d39b5edbf60a9e579859f921bdd01b",
+    "git_blob": "8c410fe2aa6cedf1910d01f8bf4529ccb5cd29fb"
+  },
+  "persisted_owner_approval": {
+    "commit": "3bb8c2368f64d93e5e748fd35497946b1cecd198",
+    "tree": "2f9df3ab6ff5192935fd5849724a1db506749b93",
+    "approval_blob": "f82095850a1d98c16ef5eb33ad91888344655fb4",
+    "target_packet_commit": "2f773328e50ab0d6e7f640845251d16ba167b26f",
+    "target_packet_blob": "8c410fe2aa6cedf1910d01f8bf4529ccb5cd29fb",
+    "attached_bytes_equal_approved_packet": true,
+    "decision": "APPROVE",
+    "d1_approved": true
+  },
+  "execution_baseline": {
+    "pc1_terminal_commit": "6b219f9f3a37dd89b26fc1d6ecec6b8eb890fa9f",
+    "pc1_terminal_tree": "c3dbfeac38c1490843ab7400960b63af5d941118",
+    "reviewed_code_commit": "c15cbfa9bbedcb3b388b9d101b269ced2fc83bc5",
+    "predecessor_report_commit": "a7b173cf28dc287e1e619e723e938b9bc2c3fd9e",
+    "score_seal_commit": "0dfef7b81566e6ec018994d5597f3f8f923944d1",
+    "preserved_executable_bundle": "M3TOP3-REAL-INPUT-EXECUTABLE-BUNDLE-SHA256:4d828c0308bf892718832e9cb02d87ee7716b9b62c28d643b69b424b5f2b6a4a",
+    "config_sha256": "eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98"
+  },
+  "current_authority_readback": {
+    "active_persistent_locator": "aaa-persistent-locator-active-v0.3@5b2dd5c5ea5bf96eb22163a0598d6879fffada9e",
+    "active_organization": "aaa-organization-active-v1.3@d7c490c373f2df356f31e4459c345328616b4eb3",
+    "active_shared_contract": "4d70f6ae32604bcef3f4a8027074163d5e5c80cd",
+    "pmo_state": "ACTIVE_UNCONTESTED",
+    "paired_validator": "AAA-PMO-VALIDATOR"
+  },
+  "approved_scope": {
+    "primary_new_issuers": ["KRX:003160", "KRX:025560", "KRX:031980", "KRX:036200"],
+    "cached_control": "KRX:005290",
+    "window": "W1",
+    "cutoff": "2024-08-09T23:59:59+09:00",
+    "external_source_action_ceiling_total": 48,
+    "external_source_action_ceiling_per_new_issuer": 12,
+    "new_raw_source_ceiling_count": 8,
+    "new_raw_source_ceiling_bytes": 20000000,
+    "parallelism": "MAX_TWO_BOUNDED_AUTHOR_RESEARCH_WORKERS_PLUS_PMO_SINGLE_WRITER"
+  },
+  "preserved_prohibitions": [
+    "MODEL_WEIGHT_OR_FEATURE_FORMULA_CHANGE",
+    "SCORER_OR_RANKING_SEMANTIC_CHANGE",
+    "PIT_CUTOFF_OR_OUTCOME_FIREWALL_CHANGE",
+    "ELIGIBILITY_DENOMINATOR_REWRITE",
+    "FUTURE_OUTCOME_AWARE_SELECTION",
+    "NEW_PROVIDER_PAID_DATA_CREDENTIAL_OR_QUOTA_EXPANSION",
+    "PC1_REOPEN_OR_RERUN",
+    "OLD_RESULT_OVERWRITE",
+    "RELEASE_PROMOTION_PRODUCTION"
+  ],
+  "remote_main_observed": "950bc98b0702cd5564e3d7b24a6624d9818dfbb9",
+  "remote_main_is_execution_baseline": false,
+  "competing_successor_branch_found": false
+}

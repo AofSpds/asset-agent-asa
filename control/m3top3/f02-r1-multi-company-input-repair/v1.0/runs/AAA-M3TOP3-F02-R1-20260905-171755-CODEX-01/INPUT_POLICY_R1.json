@@ -1,0 +1,39 @@
+{
+  "schema_version": "AAA-M3TOP3-F02-INPUT-SELECTION-R1-v1.0",
+  "policy_candidate_id": "AAA-M3TOP3-F02-INPUT-SELECTION-R1-v1.0",
+  "run_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01",
+  "owner_approval_state": "APPROVED",
+  "domain_validation_state": "PENDING_P2",
+  "scientific_state": "EXPLORATORY_AFTER_W1_OUTCOME_EXPOSURE",
+  "cutoff": "2024-08-09T23:59:59+09:00",
+  "source_authority": "KIND_OFFICIAL_ONLY",
+  "candidate_period_order": ["2024Q2", "2024Q1"],
+  "selection_rule": "LATEST_CONFIRMED_CUTOFF_SAFE_REALIZED_QUARTER_WITHIN_BOUNDED_SOURCE_SET_Q2_PREFERRED_Q1_FALLBACK",
+  "comparison_rule": "SAME_METRIC_SAME_CONSOLIDATION_BASIS_SAME_QUARTER_LENGTH_PRIOR_YEAR_COMPARABLE",
+  "metrics": ["revenue", "operating_profit"],
+  "consumed_leaf_profile": [
+    "revenue.current",
+    "revenue.prior",
+    "revenue.change_mode",
+    "revenue.operator_id",
+    "operating_profit.current",
+    "operating_profit.prior",
+    "operating_profit.change_mode",
+    "operating_profit.operator_id"
+  ],
+  "change_mode": "RELATIVE",
+  "operator_id": "M3TOP3_F02_RELATIVE_FROM_OBSERVED_PAIR_v1",
+  "allowed_unit_transform": "EXACT_DECIMAL_SCALING_BETWEEN_KRW_KRW_THOUSAND_KRW_MILLION",
+  "forbidden_transforms": [
+    "HALF_YEAR_CUMULATIVE_TO_QUARTER_SUBTRACTION",
+    "ESTIMATION",
+    "ARBITRARY_ROUNDING",
+    "METRIC_PROXY_SUBSTITUTION",
+    "SIGN_REMOVAL"
+  ],
+  "prior_zero": "REJECT_REVIEW_REQUIRED",
+  "heterogeneous_period_policy": "DISCLOSE_PER_COMPANY;POOLED_SCORING_REQUIRES_CONTRACT_FIT_VALIDATION",
+  "missing_or_unavailable": "NOT_ZERO",
+  "model_semantics_changed": false,
+  "pit_cutoff_changed": false
+}

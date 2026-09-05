@@ -1,0 +1,23 @@
+{
+  "schema_version": "AAA-M3TOP3-F02-R1-SOURCE-MANIFEST-v1.0",
+  "run_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01",
+  "as_of_kst": "2026-09-05T17:18:51.2079169+09:00",
+  "cutoff": "2024-08-09T23:59:59+09:00",
+  "source_authority": "KIND_OFFICIAL_ONLY",
+  "materialized_sources": [],
+  "content_addressed_reuse": [
+    {
+      "source_id": "SRC-KRX-KIND-005290-20240802-70956",
+      "company_id": "KRX:005290",
+      "predecessor_storage_ref": "control/m3top3/real-input-replay/v1.0/runs/AAA-M3TOP3-REAL-INPUT-STRICT-PRAGMATIC-20260905-114150-CODEX-01/sources/W1/KRX-005290/KRX_005290_20240802_PROVISIONAL_EARNINGS_70956.htm",
+      "byte_size": 16221,
+      "sha256": "5c361107cbd2dc35b236b5358595e036ecb1dd9dc8b06471bca7bf9e550c7db7",
+      "reuse": "NO_REFETCH_EXACT_PREDECESSOR_BYTES",
+      "source_action_units": 0
+    }
+  ],
+  "new_source_count": 0,
+  "new_source_bytes": 0,
+  "source_count_ceiling": 8,
+  "source_byte_ceiling": 20000000
+}

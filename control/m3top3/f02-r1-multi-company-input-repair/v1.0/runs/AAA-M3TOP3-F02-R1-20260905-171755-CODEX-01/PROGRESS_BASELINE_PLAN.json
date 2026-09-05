@@ -1,0 +1,22 @@
+{
+  "schema_version": "AAA-PMO-PROGRESS-BASELINE-PLAN-v1.0",
+  "run_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01",
+  "frozen_at_kst": "2026-09-05T17:18:51.2079169+09:00",
+  "total_frozen_ewu": 100,
+  "overall_planned_wall_p50": "PT2H5M",
+  "overall_planned_wall_p90": "PT4H",
+  "overall_timing_confidence": "LOW",
+  "planned_cru_p50": "NOT_CALIBRATED",
+  "planned_cru_p90": "NOT_CALIBRATED",
+  "first_issuer_target_kst": "2026-09-05T17:33:51.2079169+09:00",
+  "first_30_minute_checkpoint_kst": "2026-09-05T17:47:55.1469424+09:00",
+  "stages": [
+    {"id":"P0","name":"AUTHORITY_BASELINE_AND_COUNTER_FREEZE","ewu":5,"planned_wall_p50":"PT5M","planned_wall_p90":"PT10M","timing_confidence":"HIGH","dependencies":[],"completion_evidence":["OWNER_AUTHORIZATION_BINDING.json","INPUT_POLICY_R1.json","frozen action counters","isolated branch/worktree"],"terminal_rule":"EXACT_APPROVAL_BASELINE_AND_LIMITS_BOUND"},
+    {"id":"P1","name":"BOUNDED_SOURCE_AND_PERIOD_CANDIDATE_DISCOVERY","ewu":25,"planned_wall_p50":"PT25M","planned_wall_p90":"PT45M","timing_confidence":"LOW","dependencies":["P0"],"completion_evidence":["F02_SOURCE_SELECTION_MATRIX.json","actual raw source or exact failure per issuer","action ledgers"],"terminal_rule":"FOUR_NEW_ISSUERS_HAVE_BOUNDED_CANDIDATE_DISPOSITIONS"},
+    {"id":"P2","name":"D1_CONTRACT_AND_VALIDATION_ROUTE_BINDING","ewu":15,"planned_wall_p50":"PT15M","planned_wall_p90":"PT30M","timing_confidence":"MEDIUM","dependencies":["P1_SOURCE_SHAPE_OBSERVED"],"completion_evidence":["model meaning classification","control PIT and provenance classification","exact validation route"],"terminal_rule":"D1_APPLICABILITY_AND_POOLED_SCORING_GATE_EXPLICIT"},
+    {"id":"P3","name":"ADAPTER_UNIT_LOCATOR_AND_INPUT_VALIDATION","ewu":25,"planned_wall_p50":"PT35M","planned_wall_p90":"PT1H5M","timing_confidence":"LOW","dependencies":["P1","P2"],"completion_evidence":["source-specific adapter","exact unit and locator binding","feature sidecar","affected tests"],"terminal_rule":"ALL_ADMISSIBLE_SOURCES_MATERIALIZED_OR_EXACTLY_REJECTED"},
+    {"id":"P4","name":"AFFECTED_PAIRED_AND_INDEPENDENT_VALIDATION","ewu":15,"planned_wall_p50":"PT25M","planned_wall_p90":"PT50M","timing_confidence":"LOW","dependencies":["P3"],"completion_evidence":["negative cases","preservation diff","paired validation","independent validation when floor applies"],"terminal_rule":"NO_REQUIRED_VALIDATION_RESULT_LEFT_UNRESOLVED_OR_EXACT_BLOCKER_RETURNED"},
+    {"id":"P5","name":"PERMITTED_SCORE_PROVISIONAL_RANK_AND_SEAL_OR_NONEXECUTION","ewu":10,"planned_wall_p50":"PT10M","planned_wall_p90":"PT20M","timing_confidence":"MEDIUM","dependencies":["P4_PASS","POOLED_SCORING_GATE_PASS"],"completion_evidence":["new score/seal or reasoned nonexecution disposition","old results preserved"],"terminal_rule":"SCORING_COMPLETES_WHEN_PERMITTED_OR_IS_EXPLICITLY_NOT_RUN"},
+    {"id":"P6","name":"COST_COMPLETION_AND_PERSISTENCE_CLOSE","ewu":5,"planned_wall_p50":"PT10M","planned_wall_p90":"PT20M","timing_confidence":"MEDIUM","dependencies":["P1","P2","P3","P4","P5"],"completion_evidence":["F02_R1_COMPLETION_REPORT.md","PROGRESS_FORECAST_CALIBRATION_REPORT.md","exact final refs","readback"],"terminal_rule":"TERMINAL_STATE_AND_PERSISTENCE_READBACK_RECORDED"}
+  ]
+}
