@@ -50,3 +50,4 @@
 - Focused checks are 14/14 PASS; the full affected-plus-regression suite is 118/118 PASS with DuckDB and zero skips. `py_compile` and `git diff --check` pass.
 - Score calls and score output files remain zero. Fresh D1 CTLV L1, MODV L1, ENGV L1, and IVA L2 validation is required with no D0 PASS transfer.
 - The declared validator identities are Git- and byte-bound under repository custody; no external cryptographic identity authentication is claimed.
+- D1 exact pre-score target is commit `2700dda2fee8b4f8b6cfab9c075f8b860ffc94f9`, tree `c98194af223562e440d66c47b57f6696110ced47`, bundle `AAA-M3TOP3-F05-R1-D1-2700dda2fee8b4f8b6cfab9c075f8b860ffc94f9-c98194af223562e440d66c47b57f6696110ced47`. `P4_D1_EXACT_TARGET.json` binds 34 immutable files and the unchanged merged input hash. Fresh four-role validation is in progress; scoring remains closed.
