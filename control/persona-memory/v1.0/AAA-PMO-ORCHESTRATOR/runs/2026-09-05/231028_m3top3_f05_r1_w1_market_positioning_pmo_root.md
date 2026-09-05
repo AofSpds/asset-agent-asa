@@ -4,7 +4,7 @@
 - Persona lock: `AAA-PMO-ORCHESTRATOR (PMO)`
 - Started: 2026-09-05 23:10:28 KST
 - Branch: `task/aaa/m3top3-f05-r1-w1-market-positioning-20260905`
-- State: `IN_PROGRESS / P5 VALIDATED CREATE-ONCE SCORE PREPARATION`
+- State: `IN_PROGRESS / P5 SCORE CREATED ONCE; FRESH POST-SCORE IVA AND P6 CLOSURE PENDING`
 
 ## Authority
 
@@ -31,7 +31,7 @@
 - Two pre-target materializations were retained under `evidence/retired/` after routine implementation hardening. Neither was scored.
 - Root D1 affected-plus-regression checks are 118/118 PASS with zero skips. This is supporting author evidence, not an independent P4 PASS.
 - P4 scientific/engineering validation floor is frozen as CTLV L1 + MODV L1 + ENGV L1 + IVA L2 before scoring; PMOV is process-only.
-- No F05 score or provisional rank exists yet. The score gate remains closed until the exact D1 target receives all four fresh independent receipts.
+- The exact D1 target received all four fresh independent receipts before scoring. The F05 W1 provisional score outputs now exist from one create-once engine call.
 - No Owner stop boundary is present.
 
 ## D0 validation disposition
@@ -61,4 +61,14 @@
 - IVA passed 43,810 independent assertions over 3,477 market rows, 171 slice hashes, exact arithmetic, and 31 adversarial mutations.
 - One earlier ENGV attempt was discarded before verdict after accidental peer-evidence exposure; it wrote no artifact. A fresh-context actor issued the sole ENGV PASS. `P4_D1_VALIDATOR_INDEPENDENCE_RECONCILIATION.json` records the exact mapping.
 - `F05_R1_AFFECTED_VALIDATION_REPORT.json` is the machine gate; the companion Markdown report explains the scope and claim ceiling. P4 is complete at 85/100 EWU.
-- Production score calls remain zero until these receipts and aggregate are committed in a clean worktree. The only permitted next act is one create-once W1 provisional score execution.
+- The receipts and aggregate were committed cleanly at `e4a3aacfb1c6b59063cf1968f96e82763833c120`. The permitted create-once W1 provisional score execution then ran exactly once.
+
+## P5 one-shot provisional score
+
+- The score CLI executed once from clean HEAD `e4a3aacfb1c6b59063cf1968f96e82763833c120`; engine run ID is `m3run_d76f0878dc3ced762337fe37b591b3cd`.
+- All 57 W1 INCLUDE companies received an F05 score and deterministic provisional F05 rank. Five previously F02-scoreable companies also received a descriptive F02+F05 combined view.
+- Root post-score readback passed 21/21 checks: exact row counts and rank domains, score correspondence, 5/52 coverage split, target/input/validation bindings, single engine ID, output hashes, false top3/top10 flags, and absence of outcome or official-selection fields.
+- Output SHAs are `37c5a275...d744d` (score JSONL), `7cfd2d09...5360` (F05 ranking CSV), and `5746b865...5f61` (F02+F05 view CSV).
+- F05 provisional leaders are 유진테크, 월덱스, 원익머트리얼즈, 파크시스템스, 와이씨, and 원익IPS at 85.0, followed by RF머트리얼즈 at 79.642857.... Equal-score ordering is the frozen company-ID ascending tie rule, not an economic superiority claim.
+- The claim ceiling remains `F02_F05_PROVISIONAL_EXPLORATORY_NO_OFFICIAL_TOP_K`; no official top-3/top-10, W1 outcomes, W2-W8, main merge, release, provider, credential, or budget action occurred.
+- The score will not be rerun. The next act is a fresh IVA L2 readback of the committed P5 bytes, followed by bundle/seal/completion closure.

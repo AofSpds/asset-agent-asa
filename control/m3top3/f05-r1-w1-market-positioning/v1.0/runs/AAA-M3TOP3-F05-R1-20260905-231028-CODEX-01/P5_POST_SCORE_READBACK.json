@@ -1,0 +1,93 @@
+{
+  "schema_version": "AAA-M3TOP3-F05-R1-P5-POST-SCORE-READBACK-v1.0",
+  "run_id": "AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01",
+  "recorded_at_kst": "2026-09-06T01:39:20+09:00",
+  "status": "PASS",
+  "findings": [],
+  "production_execution": {
+    "execution_head": "e4a3aacfb1c6b59063cf1968f96e82763833c120",
+    "target_commit": "2700dda2fee8b4f8b6cfab9c075f8b860ffc94f9",
+    "target_tree": "c98194af223562e440d66c47b57f6696110ced47",
+    "engine_run_id": "m3run_d76f0878dc3ced762337fe37b591b3cd",
+    "score_engine_call_count": 1,
+    "create_once": true,
+    "production_execution_repeated": false
+  },
+  "input_bindings": {
+    "aggregate_validation_sha256": "ef2fd2c6f53286b332e839cea08a286809f504bf21014da1ade884098adf77e8",
+    "f05_input_jsonl_sha256": "8e5c2991eb1c14bede88300a5fd1d648ce263d3e7a3d6a83b31af9b1e3d873f7",
+    "f02_model_input_batch_sha256": "13667596d8e76f10d319f4129a7cba3b890d2575b3cebf33b78a143740bbbf9e",
+    "config_sha256": "eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98",
+    "merged_input_hash": "78d540e5e0385104ba21a744e28897762f4d15af25f571de1cc57136882b2500"
+  },
+  "output_bindings": [
+    {
+      "path": "score-and-seal/F05_R1_W1_SCORES.jsonl",
+      "bytes": 56858,
+      "sha256": "37c5a27505fb4786f7ee4d4cb5f51d8c5ba5ad39542226ac6f0361ac4f7d744d",
+      "git_blob": "bf541ebefeaf235a1a4f94a2b27570d142e01a91"
+    },
+    {
+      "path": "score-and-seal/F05_R1_W1_PROVISIONAL_RANKING.csv",
+      "bytes": 8969,
+      "sha256": "7cfd2d09fa802ce93092826da4746fb25509ab5358655e6b58532f3190aa5360",
+      "git_blob": "ce3264b44a2c781e6505c6aa5838ca9117f329bb"
+    },
+    {
+      "path": "score-and-seal/F02_F05_PROVISIONAL_MULTI_FEATURE_VIEW.csv",
+      "bytes": 1055,
+      "sha256": "5746b865e22bf8896f89d460c02e73d8a0c85e3e975f711b09a6877153125f61",
+      "git_blob": "20edde90a93d50b38949af9cfe6ad4a6da733d4b"
+    }
+  ],
+  "structural_readback": {
+    "score_rows": 57,
+    "score_unique_company_ids": 57,
+    "score_unique_krx_codes": 57,
+    "ranking_rows": 57,
+    "ranking_unique_company_ids": 57,
+    "f05_rank_domain": "EXACT_1_THROUGH_57",
+    "ranking_score_row_matches": 57,
+    "combined_view_rows": 5,
+    "combined_rank_domain": "EXACT_1_THROUGH_5",
+    "combined_view_score_row_matches": 5,
+    "coverage_ratio_0_3_rows": 5,
+    "coverage_ratio_0_2_rows": 52,
+    "null_combined_rank_rows": 52,
+    "top3_true_rows": 0,
+    "top10_true_rows": 0,
+    "forbidden_outcome_or_official_selection_fields": [],
+    "checks_passed": 21,
+    "checks_failed": 0
+  },
+  "display_name_binding": {
+    "consumed_by_score": false,
+    "purpose": "OWNER_READABLE_RESULT_ONLY",
+    "path": "control/m3top3/f05-r0-readiness/v1.0/runs/AAA-M3TOP3-F05-R0-20260905-214409-CODEX-01/W1_57_MARKET_DATA_COVERAGE.csv",
+    "bytes": 9779,
+    "sha256": "0cc9c955e8762884ffc9115085273c0aaa9505a20d4bd43fab03a5fb7a2852fa",
+    "git_blob": "cd5afceaf5a92a49230c27a86dd329e2dd796f75"
+  },
+  "f05_provisional_leaders": [
+    {"rank": 1, "company_id": "KRX:084370", "canonical_name": "유진테크", "f05_score": "85.00000000000000000000000000"},
+    {"rank": 2, "company_id": "KRX:101160", "canonical_name": "월덱스", "f05_score": "85.00000000000000000000000000"},
+    {"rank": 3, "company_id": "KRX:104830", "canonical_name": "원익머트리얼즈", "f05_score": "85.00000000000000000000000000"},
+    {"rank": 4, "company_id": "KRX:140860", "canonical_name": "파크시스템스", "f05_score": "85.00000000000000000000000000"},
+    {"rank": 5, "company_id": "KRX:232140", "canonical_name": "와이씨", "f05_score": "85.00000000000000000000000000"},
+    {"rank": 6, "company_id": "KRX:240810", "canonical_name": "원익IPS", "f05_score": "85.00000000000000000000000000"},
+    {"rank": 7, "company_id": "KRX:327260", "canonical_name": "RF머트리얼즈", "f05_score": "79.64285714285714285714285714"}
+  ],
+  "f02_f05_provisional_view": [
+    {"rank": 1, "company_id": "KRX:025560", "canonical_name": "미래산업", "f02_score": "87.5", "f05_score": "61.60714285714285714285714285", "combined_score": "75.99206349206349206349206349"},
+    {"rank": 2, "company_id": "KRX:031980", "canonical_name": "PSK홀딩스", "f02_score": "87.5", "f05_score": "39.10714285714285714285714285", "combined_score": "65.99206349206349206349206349"},
+    {"rank": 3, "company_id": "KRX:005290", "canonical_name": "동진쎄미켐", "f02_score": "50", "f05_score": "65.71428571428571428571428571", "combined_score": "56.98412698412698412698412698"},
+    {"rank": 4, "company_id": "KRX:036200", "canonical_name": "유니셈", "f02_score": "25", "f05_score": "20.53571428571428571428571429", "combined_score": "23.01587301587301587301587302"},
+    {"rank": 5, "company_id": "KRX:003160", "canonical_name": "디아이", "f02_score": "0", "f05_score": "41.07142857142857142857142857", "combined_score": "18.25396825396825396825396825"}
+  ],
+  "tie_interpretation": "Ranks among equal F05 scores are deterministic company_id ascending tie breaks and do not imply economic superiority.",
+  "claim_status": "F02_F05_PROVISIONAL_EXPLORATORY_NO_OFFICIAL_TOP_K",
+  "official_top3_or_top10": false,
+  "outcome_execution": false,
+  "owner_decision_required": false,
+  "next": "COMMIT_P5_BYTES_AND_RUN_FRESH_INDEPENDENT_POST_SCORE_READBACK"
+}
