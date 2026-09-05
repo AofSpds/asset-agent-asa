@@ -32,7 +32,16 @@
 
 No F05 raw input, score, rank, seal, model-performance claim, or official Top3 was created. No model/source code, configuration, feature weight, scorer transform, saturation rule, PIT rule, eligibility rule, provider, credential, paid source, budget, custody scope, main branch, release, or production state was changed. No binary market data is included in Git.
 
-The report payload commit and final remote readback are bound by the closeout persistence receipt created after this journal's initial payload commit; the final closing commit is necessarily returned from Git after that receipt is committed.
+## Payload persistence readback
+
+- Task branch: `task/aaa/m3top3-f05-r0-readiness-20260905`
+- Payload commit / tree: `2d9444dea31ab439f963d65468fc362fa3d58c56` / `8583fd12568383255c61e26ea6d3d62e0c44a968`
+- Exact remote payload commit: `2d9444dea31ab439f963d65468fc362fa3d58c56`
+- Remote main commit / tree: `950bc98b0702cd5564e3d7b24a6624d9818dfbb9` / `dd88026ee7b706a72643d5939f1d653ddde8b987` (`UNCHANGED`)
+- Payload worktree status: `CLEAN`
+- Closeout receipt: `control/m3top3/f05-r0-readiness/v1.0/runs/AAA-M3TOP3-F05-R0-20260905-214409-CODEX-01/F05_R0_PERSISTENCE_READBACK.json`
+
+The receipt is committed after the payload and therefore cannot self-reference its own closing commit. The exact final local and remote closing commit/tree are read back after that commit and returned externally.
 
 현재 상태 = F05-R0 100 EWU 종결 / PARTIAL_DECISION_REQUIRED
 핵심 판단 = 원자료 57/57 준비, D1-D6 및 CA·분모 의미 결정 미종결
