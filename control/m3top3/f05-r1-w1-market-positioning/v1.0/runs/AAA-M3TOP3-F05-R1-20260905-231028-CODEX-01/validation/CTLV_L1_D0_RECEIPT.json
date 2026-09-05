@@ -1,0 +1,154 @@
+{
+  "schema_version": "AAA-M3TOP3-F05-R1-VALIDATION-RECEIPT-v1.0",
+  "receipt_id": "AAA-M3TOP3-F05-R1-D0-CTLV-L1-20260906-002731-01",
+  "run_id": "AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01",
+  "target_revision": "D0",
+  "validator_role": "CTLV",
+  "validation_level": "L1",
+  "validator_identity": "root/f05_r1_ctlv_d0",
+  "author_identity": "root/f05_r1_author",
+  "independence_assertion": "Validator did not author or edit the D0 target and independently inspected immutable target bytes, official evidence bodies, source data, input arithmetic, and negative gates.",
+  "supporting_not_self_pass": false,
+  "target_author": false,
+  "target_edited": false,
+  "target_commit": "bc327dddfcc2d826a9ef7c4169b2e8c87f4957f8",
+  "target_tree": "ae502559ccb3dc3ad76c835f5049f993f6da2d01",
+  "target_bundle_identity": "AAA-M3TOP3-F05-R1-D0-bc327dddfcc2d826a9ef7c4169b2e8c87f4957f8-ae502559ccb3dc3ad76c835f5049f993f6da2d01",
+  "target_input_hash": "78d540e5e0385104ba21a744e28897762f4d15af25f571de1cc57136882b2500",
+  "input_bindings": {
+    "f05_input_jsonl_sha256": "8e5c2991eb1c14bede88300a5fd1d648ce263d3e7a3d6a83b31af9b1e3d873f7",
+    "f02_model_input_batch_sha256": "13667596d8e76f10d319f4129a7cba3b890d2575b3cebf33b78a143740bbbf9e",
+    "config_sha256": "eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98"
+  },
+  "authority_bindings": {
+    "owner_policy": {
+      "commit": "709ded3f4440142c05a97dcc03b286ad49fa149b",
+      "tree": "e081e1a980fbace8e4909ce132bf5d03aaacffef",
+      "git_blob": "ab65b65182fddaf31c1b7e0d7e1f0341f4bbdf9e",
+      "bytes": 7102,
+      "sha256": "2bd9ae341904c562a25513286b6546c737df92bfa3a6ca82434c71de396fbacb"
+    },
+    "execution_request": {
+      "commit": "ab1a9a52cbee1825a2ff725a8b997307f7f5e16e",
+      "tree": "a8e4f0e8f8e1955e687f575cb1db2d559bb23cdc",
+      "git_blob": "370c86569717aa1b93ecc748a06766d0400946e0",
+      "bytes": 7847,
+      "sha256": "452b64ac36d37860f72da6367e62fef1c175af3d56b4379651c232e2ab988a53"
+    }
+  },
+  "component_hashes": {
+    "F05_R1_POLICY_BINDING.json": {"git_blob":"c413b37e48af2ff7fd0c0de6eaa4a799aea39de5","bytes":7000,"sha256":"54bb0bb7f57975f2911d1bdae503eabcd702e5c4e8eee37d28accea8b2368137"},
+    "F05_R1_SOURCE_FIELD_BINDING.json": {"git_blob":"9117ee8b1b5687127d06897be3d73c7b0d8e260f","bytes":8877,"sha256":"0e4a43687b8f37b65f21340a6defab1026d87053bbebede63d3337b088ffd2ef"},
+    "F05_R1_OFFICIAL_CA_EVIDENCE_MANIFEST.json": {"git_blob":"dac6374a12d4ac5e383fae08ed875c4698a8f19a","bytes":5106,"sha256":"3fa931f83edb8d5bf3baf493d770cedc1ffa2f4f56ce8aae7a1171ded45fa50b"},
+    "F05_R1_OFFICIAL_CA_SOURCE_CUSTODY.json": {"git_blob":"c91994d83ebf8605526b1adfc5d09fffaa6de495","bytes":4962,"sha256":"84a53966ca5233b699a8b5448ccd13ceede683dc555304945df76c7ba62d7eb7"},
+    "F05_R1_W1_INPUTS.jsonl": {"git_blob":"6f6215dcf5e1390fd8af06001bc919e43d05805b","bytes":267149,"sha256":"8e5c2991eb1c14bede88300a5fd1d648ce263d3e7a3d6a83b31af9b1e3d873f7"},
+    "P4_VALIDATION_PLAN.json": {"git_blob":"25363abbb44cc5c841b817e880f9d95b78f96437","bytes":4173,"sha256":"a1e5ae9584d754e1f9d3c713a6acbd9ff8f081ea841057ad2ee239fdd1bdaca6"},
+    "tools/m3top3/providers.py": {"git_blob":"a0732cc66db5193e7d336521e72adf2855cae824","bytes":10805,"sha256":"1233bbcff071a8905d0fc015d18b8951aa78e013ea4d1a918bb3a48dbcd89707"},
+    "tools/m3top3/f05_r1_market.py": {"git_blob":"846e0dd2eceb5de2f9220219deb88b094dea0edb","bytes":38210,"sha256":"0bc2d4cd3fcaa6a66b540f0b50b6cdb5057996ab5c04ee8aa694038fe5cae53d"},
+    "tools/m3top3/cli_build_f05_r1_inputs.py": {"git_blob":"c500d13b77edf1b867edeafea16b3c400d77da30","bytes":10062,"sha256":"bd71c89c9fad80778a9b7d2209733e29f2787de3adab13f22940461eb0e94b9a"},
+    "tools/m3top3/f05_r1_score_outputs.py": {"git_blob":"82b6f77a173a61e833ac183644b0c358b1c3b274","bytes":22617,"sha256":"c389323cbabd661fd0b2c09bc648d9c3a38be185d9cbc0dbdf0ef65f1669999e"},
+    "tools/m3top3/cli_score_f05_r1_outputs.py": {"git_blob":"5bd166a323f2f6becfb786147c6c59c059ef5502","bytes":20336,"sha256":"c959d72c474cde17e3fc3d5d3abfeb3f815afb861625d8330c6c55c1f6f37761"},
+    "tools/m3top3/features_v1.py": {"git_blob":"35104a7384c3ee6175136e95dded7f3237d69435","bytes":13884,"sha256":"d7c48767a05f5fd883e8619a06a25c019be23e9b5dc464ca75014056253a2882"},
+    "tools/m3top3/features_v1_narrow_patch.py": {"git_blob":"b9017f5db0fb637c8a449d5ee3cb1c4a05481076","bytes":10218,"sha256":"02af5d193b4ec38dab61390c214edff8a0997e02a58e1a1e884bc5b25711d7ac"},
+    "tools/m3top3/scorer_v1.py": {"git_blob":"2a797ea705eeb1aef330754fb08ff2182297c139","bytes":9704,"sha256":"5f940c83acceba1fdc9aaf897a7fe3bbea0469fd80bdc4f9f6d43c32134247fe"},
+    "tools/m3top3/configs/m3top3_v1.0.json": {"git_blob":"043bf24bc8c838a8060360e86614cf5bfefc9145","bytes":2426,"sha256":"eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98"}
+  },
+  "ca_hashes": {
+    "GST-ISSUER-20240611-BONUS": {"bytes":16089,"sha256":"5054a1f0063cb47cb8d649bf6ccda1c1475fc92c788240923642027bdfba6577"},
+    "KRX-20240625001437": {"bytes":3275,"sha256":"16a46a0afa2664f3e902269821967fa9eaff0eb4c07bda2dd388a6487268a3c7"},
+    "KRX-20240724001584": {"bytes":9418,"sha256":"0f1a3e786f5499054815b82d301c1079f01b083532664bc5adca3bdd806affef"},
+    "KRX-20240709000202": {"bytes":38322,"sha256":"c7750d7dafb871ca77ca765eda8947b5ecea7bc232da9579beefbcea380d15f6"},
+    "KRX-20240531001190-VIEWER": {"bytes":24303,"sha256":"4a0555676633a24b055b20d458c09678522831e84fce0f838075ec69642d2407"},
+    "KRX-20240531001190-RESOLUTION": {"bytes":968,"sha256":"ef470fe4bc04b4af08aaf0c0321572ee850efcb320ec7c740bda03a72ad1a781"},
+    "KRX-20240531002320": {"bytes":3281,"sha256":"17a99ebb63495fbb964216b4a9de167b953af63570e9d91a3d00281e1ad9e102"},
+    "KRX-20240726001822": {"bytes":6723,"sha256":"3f3c8127aa0e04a88376ecc80e27d16fe0679c4f268bea82a47f406cdbb5008c"},
+    "KRX-BASE-PRICE-OVERVIEW": {"bytes":1878,"sha256":"497eb707fd5bb077518b772be2922830449e7a52b6528db1b34ed39149175c4e"},
+    "KRX-EX-RIGHT-FORMULA": {"bytes":4362,"sha256":"0ac0f7ab0837a83d662b996c0ed7da111b5b2f7d0b045b16bdf926242d407e03"},
+    "KRX-BASE-PRICE-ADJUSTMENT-CASES": {"bytes":10440,"sha256":"89f1f30449e6b93ecd7f8d47a8604737f85dfefb3e6051a21f0ef1e24c73dd62"}
+  },
+  "commands": [
+    {
+      "name": "target_and_authority_identity_readback",
+      "command": "git rev-parse / git show / git cat-file based immutable identity and SHA-256 readback",
+      "exit_code": 0
+    },
+    {
+      "name": "combined_affected_and_regression_suite_initial_sandbox_attempt",
+      "command": "python -B -X utf8 -m unittest tools.m3top3.tests.test_model_v1 tools.m3top3.tests.test_narrow_fixes_v1 tools.m3top3.tests.test_coverage_limited_replay_v1 tools.m3top3.tests.test_golden_scorecard_oracle_v1 tools.m3top3.tests.test_infrastructure tools.m3top3.tests.test_f05_r1_market tools.m3top3.tests.test_f05_r1_score_outputs tools.m3top3.tests.test_cli_score_f05_r1_outputs -v",
+      "exit_code": 1,
+      "test_count": 113,
+      "stdout_sha256": "aa9171d36272c7f7c817b95ead98209c477474339a225ece2da976b0e64be494",
+      "classification": "ENVIRONMENT_ONLY_DUCKDB_IMPORT_ACL_ERROR_NOT_TARGET_FAILURE"
+    },
+    {
+      "name": "combined_affected_and_regression_suite_authorized_runtime_read",
+      "command": "python -B -X utf8 -m unittest tools.m3top3.tests.test_model_v1 tools.m3top3.tests.test_narrow_fixes_v1 tools.m3top3.tests.test_coverage_limited_replay_v1 tools.m3top3.tests.test_golden_scorecard_oracle_v1 tools.m3top3.tests.test_infrastructure tools.m3top3.tests.test_f05_r1_market tools.m3top3.tests.test_f05_r1_score_outputs tools.m3top3.tests.test_cli_score_f05_r1_outputs -v",
+      "exit_code": 0,
+      "test_count": 113,
+      "stdout_sha256": "662cc0f45c06f573d64afcf0cc46e519254f68342389440cef167c7b415e4b16"
+    },
+    {
+      "name": "independent_parquet_input_ca_and_merged_hash_reperformance",
+      "command": "independent Python/DuckDB read-only reconstruction; production F05 builder and score helper not imported or invoked",
+      "exit_code": 0,
+      "test_count": 57,
+      "stdout_sha256": "baf8ba7834810ec374d90675c02b12db2d5317cd613a7cdd94902e26ceebbd56"
+    },
+    {
+      "name": "static_negative_gate_inspection",
+      "command": "line-by-line review of _validate_gate and its positive receipt fixtures at immutable D0",
+      "exit_code": 0
+    }
+  ],
+  "runtime_versions": {
+    "python": "3.12.14",
+    "duckdb": "1.4.0",
+    "platform": "Windows"
+  },
+  "case_results": {
+    "P01": "PASS_EXACT_21_AND_61_OBSERVATIONS",
+    "P02": "PASS_GST_OFFICIAL_CA_AND_STOCKS_BOUNDARY",
+    "P03": "PASS_EXICON_OFFICIAL_CA_AND_STOCKS_VOLUME_BOUNDARY",
+    "P04": "PASS_TURNOVER_ARITHMETIC_REPERFORMED_57_OF_57",
+    "P05": "PASS_EXACT_57_EQUAL_WEIGHT_BENCHMARK_REPERFORMED",
+    "P06": "PASS_UNCHANGED_F05_TRANSFORM_WEIGHT_AND_SATURATION",
+    "P07": "PASS_EXACT_FIVE_F02_IDENTITIES_AND_0_30_VS_0_20_COVERAGE_CONTROLS",
+    "N01": "PASS_RAW_CLOSE_CA_SEMANTICS_REJECTED",
+    "N02": "PASS_WRONG_ISSUER_DATE_SOURCE_AND_FIELD_REJECTED",
+    "N03": "PASS_POST_CUTOFF_ECONOMIC_OBSERVATION_REJECTED",
+    "N04": "PASS_56_OF_57_DENOMINATOR_REJECTED",
+    "N05": "PASS_MISSING_ZERO_NONFINITE_BOOLEAN_AND_NONINTEGRAL_INPUT_GUARDS",
+    "N06": "PASS_DUPLICATE_MISALIGNED_AND_OFF_BY_ONE_GUARDS",
+    "N07": "PASS_DIVIDEND_SUBSTITUTION_REJECTED_AND_ALIASES_EXACT",
+    "N08": "PASS_INVENTED_FACTOR_AND_NONOFFICIAL_CA_REJECTED",
+    "N09": "PASS_FROZEN_MODEL_SCORER_WEIGHT_CONFIG_DIGEST_BINDING",
+    "N10": "PASS_PHYSICAL_FIELD_AND_PERCENT_SCALING_GUARDS",
+    "N11": "PASS_CANONICAL_LEGACY_ALIAS_AND_LINEAGE_GUARDS",
+    "N12": "FAIL_INDEPENDENCE_RECEIPT_SCHEMA_NOT_ENFORCED_BEFORE_SCORING",
+    "N13": "PASS_PROVISIONAL_CLAIM_AND_RANK_COUNT_CONTROLS"
+  },
+  "findings": [
+    {
+      "finding_id": "CTLV-D0-001",
+      "severity": "BLOCKING_P0_PRE_SCORE_CONTROL",
+      "case": "N12",
+      "title": "Score gate accepts receipt objects without validator identity, level, or independence/no-transfer assertions",
+      "evidence": [
+        "tools/m3top3/f05_r1_score_outputs.py:216",
+        "tools/m3top3/tests/test_f05_r1_score_outputs.py:71",
+        "tools/m3top3/tests/test_cli_score_f05_r1_outputs.py:89"
+      ],
+      "required_correction": "Require and validate role-specific validator_role, validation_level, nonempty unique validator_identity, explicit independence_assertion, supporting_not_self_pass=false, no_pass_transfer=true, and the existing exact target/input fields for every receipt; add pre-engine negative tests for missing and mismatched values.",
+      "pass_transfer": false
+    }
+  ],
+  "role_verdicts": {
+    "CTLV": "FAIL"
+  },
+  "verdict": "FAIL",
+  "no_pass_transfer": true,
+  "score_helper_invoked": false,
+  "score_cli_invoked": false,
+  "score_outputs_generated": false,
+  "issued_at_kst": "2026-09-06T00:27:31+09:00"
+}

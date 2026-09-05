@@ -33,3 +33,10 @@
 - P4 scientific/engineering validation floor is frozen as CTLV L1 + MODV L1 + ENGV L1 + IVA L2 before scoring; PMOV is process-only.
 - No F05 score or provisional rank exists yet. The score gate remains closed until the exact D0 target receives all four independent receipts.
 - No Owner stop boundary is present.
+
+## D0 validation disposition
+
+- D0 target `bc327dddfcc2d826a9ef7c4169b2e8c87f4957f8` / tree `ae502559ccb3dc3ad76c835f5049f993f6da2d01` is rejected for scoring.
+- CTLV found `CTLV-D0-001`: the old gate did not require formal validator role, level, identity, independence, and no-transfer fields.
+- MODV L1 and IVA L2 passed their independent substantive work; IVA completed 27,566 assertions. Their PASS verdicts do not transfer to D1.
+- This is a bounded implementation-control correction, not an Owner policy boundary. The score gate remains closed and D1 full affected revalidation is mandatory.

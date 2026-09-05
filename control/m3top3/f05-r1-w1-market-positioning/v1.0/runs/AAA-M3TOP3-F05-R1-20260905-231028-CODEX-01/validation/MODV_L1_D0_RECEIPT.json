@@ -1,0 +1,144 @@
+{
+  "schema_version": "AAA-M3TOP3-F05-R1-INDEPENDENT-VALIDATION-RECEIPT-v1.0",
+  "receipt_id": "AAA-M3TOP3-F05-R1-D0-MODV-L1-20260906-002659-01",
+  "run_id": "AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01",
+  "target_revision": "D0",
+  "validator_role": "MODV",
+  "validation_level": "L1",
+  "validator_identity": "codex:/root/f05_r1_modv_d0",
+  "author_identity": "root/f05_r1_author",
+  "independence_assertion": {
+    "independent": true,
+    "same_as_author": false,
+    "read_other_validator_journals_before_findings_frozen": false,
+    "implementation_or_target_artifacts_edited": false,
+    "written_paths_limited_to_own_journal_and_receipt": true,
+    "statement": "The validator independently inspected and reperformed the immutable D0 mathematical/model target and did not author or edit it."
+  },
+  "supporting_not_self_pass": false,
+  "target_author": false,
+  "target_edited": false,
+  "target_commit": "bc327dddfcc2d826a9ef7c4169b2e8c87f4957f8",
+  "target_tree": "ae502559ccb3dc3ad76c835f5049f993f6da2d01",
+  "target_bundle_identity": "AAA-M3TOP3-F05-R1-D0-bc327dddfcc2d826a9ef7c4169b2e8c87f4957f8-ae502559ccb3dc3ad76c835f5049f993f6da2d01",
+  "target_input_hash": "78d540e5e0385104ba21a744e28897762f4d15af25f571de1cc57136882b2500",
+  "input_bindings": {
+    "f05_input_jsonl_sha256": "8e5c2991eb1c14bede88300a5fd1d648ce263d3e7a3d6a83b31af9b1e3d873f7",
+    "f02_model_input_batch_sha256": "13667596d8e76f10d319f4129a7cba3b890d2575b3cebf33b78a143740bbbf9e",
+    "config_sha256": "eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98"
+  },
+  "hashes": {
+    "price_parquet_sha256": "b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb",
+    "cohort_identity_sha256": "c72593633c88cb6913c703da626b95d6111c7b0fa5783ccef6d373b2adf8c546",
+    "session_grid_sha256": "8667d8b63eeaa5332b0c1390dec179c43c692591a7c3db4c5b1a6cf31217a911",
+    "ca_manifest_sha256": "3fa931f83edb8d5bf3baf493d770cedc1ffa2f4f56ce8aae7a1171ded45fa50b",
+    "ca_custody_sha256": "84a53966ca5233b699a8b5448ccd13ceede683dc555304945df76c7ba62d7eb7",
+    "f02_prior_score_sha256": "868bfc419075de80edb9a40e48daeefb5789666345a373ad81cd3fe8056bca42",
+    "f05_input_git_blob": "6f6215dcf5e1390fd8af06001bc919e43d05805b",
+    "f05_market_git_blob": "846e0dd2eceb5de2f9220219deb88b094dea0edb",
+    "f05_score_output_git_blob": "82b6f77a173a61e833ac183644b0c358b1c3b274",
+    "provider_git_blob": "a0732cc66db5193e7d336521e72adf2855cae824",
+    "features_v1_git_blob": "35104a7384c3ee6175136e95dded7f3237d69435",
+    "features_v1_narrow_patch_git_blob": "b9017f5db0fb637c8a449d5ee3cb1c4a05481076",
+    "scorer_v1_git_blob": "2a797ea705eeb1aef330754fb08ff2182297c139",
+    "config_git_blob": "043bf24bc8c838a8060360e86614cf5bfefc9145"
+  },
+  "commands": [
+    {
+      "command_id": "MODV-C01",
+      "command": "git status --short --branch; git rev-parse HEAD; git rev-parse 'HEAD^{tree}'",
+      "result": "PASS",
+      "summary": "Checkout matched exact D0 commit bc327d... and tree ae5025... before validation."
+    },
+    {
+      "command_id": "MODV-C02",
+      "command": "git diff --exit-code 5fb34b... bc327d... -- <four frozen model/config paths>; git ls-tree bc327d... -- <same paths>",
+      "result": "PASS",
+      "summary": "No frozen model/config drift; all approved Git blobs matched."
+    },
+    {
+      "command_id": "MODV-C03",
+      "command": "bundled-python -B -X utf8 - <independent stdlib Decimal plus DuckDB read-only recomputation; no repository module imports>",
+      "result": "PASS",
+      "summary": "57/57 20d, 60d, turnover, and both benchmark values matched; 3,477 source observations; merged hash matched; no forbidden key; no scorer/helper invocation."
+    },
+    {
+      "command_id": "MODV-C03A",
+      "command": "initial form of MODV-C03 with validator-only diagnostic magnitude assertion",
+      "result": "VALIDATOR_HARNESS_ASSERTION_CORRECTED_NO_TARGET_FINDING",
+      "summary": "An arbitrary >0.1 naive-vs-compound difference threshold stopped on Exicon at 0.03438359607142644089784412897; governed equality checks had passed. The threshold was removed and the semantically relevant non-equality check passed."
+    },
+    {
+      "command_id": "MODV-C04",
+      "command": "python -B -X utf8 -m unittest tools.m3top3.tests.test_f05_r1_market -v",
+      "result": "PASS",
+      "summary": "32 tests run; 32 passed; 0 failures; 0 errors; 0 skipped."
+    },
+    {
+      "command_id": "MODV-C05",
+      "command": "rg official GST/Exicon facts and KRX base-price semantics in exact vendored custody bodies; recompute all custody file hashes",
+      "result": "PASS",
+      "summary": "All 11 official body byte/hash bindings and the required CA facts matched."
+    },
+    {
+      "command_id": "MODV-C06",
+      "command": "Test-Path <three score outputs>; static readback of F05 formula, saturation, exact-five axis formula, and provisional claim guard",
+      "result": "PASS",
+      "summary": "No score output existed and no score helper/CLI was invoked; unchanged formulas and bounded claim guards were present."
+    },
+    {
+      "command_id": "MODV-C07",
+      "command": "rg -i future|outcome|winner|mfe|mae|entry|post-cutoff-date F05_R1_W1_INPUTS.jsonl",
+      "result": "PASS",
+      "summary": "No leakage token or post-cutoff date hit."
+    }
+  ],
+  "recomputation_results": {
+    "f05_rows": 57,
+    "source_observations": 3477,
+    "sessions_per_company": 61,
+    "return_20_exact_matches": 57,
+    "return_60_exact_matches": 57,
+    "turnover_acceleration_exact_matches": 57,
+    "benchmark_20_exact_matches": 57,
+    "benchmark_60_exact_matches": 57,
+    "benchmark_denominator": 57,
+    "max_changes_ratio_consistency_difference_percentage_points": "0.00500",
+    "gst_compound_vs_naive_60d_absolute_difference": "0.3435597977617711092922586086",
+    "exicon_compound_vs_naive_60d_absolute_difference": "0.03438359607142644089784412897",
+    "official_custody_files_rehashed": 11,
+    "forbidden_key_hits": 0,
+    "score_helper_invocations": 0,
+    "score_outputs_created": 0
+  },
+  "case_results": [
+    {"case_id": "P01", "result": "PASS", "evidence": "57/57 exact 20/60 interval recomputation over 21/61 observations."},
+    {"case_id": "P02", "result": "PASS", "evidence": "GST official 2024-06-26 base-price row and 2024-07-24 Stocks boundary matched; compounded result differs from raw-close ratio."},
+    {"case_id": "P03", "result": "PASS", "evidence": "Exicon official 2024-06-03 base-price row and 2024-07-31 Volume/Stocks boundary matched; compounded result differs from raw-close ratio."},
+    {"case_id": "P04", "result": "PASS", "evidence": "57/57 exact daily Volume/Stocks recent20/prior20 acceleration matches."},
+    {"case_id": "P05", "result": "PASS", "evidence": "Exact 57-member identity and equal-weight /57 benchmark match on both horizons."},
+    {"case_id": "P06", "result": "PASS", "evidence": "Frozen robust percentile, .50/.30/.20 velocity, saturation, and model blobs verified; affected tests passed."},
+    {"case_id": "P07", "result": "PASS", "evidence": "Exact five F02 identities/scores and (25*F02+20*F05)/45 axis algebra verified; 0.30/0.20 feature coverage guards remain."},
+    {"case_id": "N01", "result": "PASS", "evidence": "Raw-close CA semantics rejected by code/tests; real GST/Exicon inputs match ChangesRatio compounding."},
+    {"case_id": "N02", "result": "PASS", "evidence": "Exact issuer/code, official event facts/refs, CA rows, and physical return fields are fail-closed."},
+    {"case_id": "N03", "result": "PASS", "evidence": "Exact 2024-08-09 cutoff and post-cutoff row rejection verified."},
+    {"case_id": "N04", "result": "PASS", "evidence": "56/57 and denominator shrink rejection verified."},
+    {"case_id": "N05", "result": "PASS", "evidence": "Invalid Volume/Stocks types and values reject; all 3,477 admitted observations are positive integral values."},
+    {"case_id": "N06", "result": "PASS", "evidence": "Duplicate, missing/misaligned session, cutoff, and off-by-one guards verified."},
+    {"case_id": "N07", "result": "PASS", "evidence": "Dividend/adjusted-close substitution rejects; canonical/legacy values are exact aliases."},
+    {"case_id": "N08", "result": "PASS", "evidence": "Any supplied adjustment factor rejects and official evidence hashes cannot self-authorize after body mutation."},
+    {"case_id": "N09", "result": "PASS", "evidence": "F05 weight and all frozen model/config Git blobs match approved values."},
+    {"case_id": "N10", "result": "PASS", "evidence": "Physical fields and percent scaling are bound; provider type/backward-compatibility tests passed."},
+    {"case_id": "N11", "result": "PASS", "evidence": "Canonical/legacy aliases, common benchmarks, and lineage/calculation traces are present and equal."},
+    {"case_id": "N12", "result": "PASS", "evidence": "Pre-score outputs absent; static score gate requires exact-target independent PASS receipts. No score path was invoked by MODV."},
+    {"case_id": "N13", "result": "PASS", "evidence": "Static outputs are exact-count/rank guarded and labeled provisional exploratory with official top-k flags disabled."}
+  ],
+  "findings": [],
+  "role_verdicts": {
+    "MODV": "PASS"
+  },
+  "verdict": "PASS",
+  "scoring_permitted_by_this_receipt_alone": false,
+  "no_pass_transfer": true,
+  "issued_at_kst": "2026-09-06T00:26:59+09:00"
+}

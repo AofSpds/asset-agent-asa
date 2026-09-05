@@ -1,0 +1,131 @@
+{
+  "schema_version": "AAA-M3TOP3-F05-R1-IVA-L2-RECEIPT-v1.0",
+  "receipt_id": "AAA-M3TOP3-F05-R1-IVA-L2-D0-20260906-002527-01",
+  "run_id": "AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01",
+  "target_revision": "D0",
+  "validator_role": "IVA",
+  "validation_level": "L2",
+  "validator_identity": "root/f05_r1_iva_d0::IVA-L2-INDEPENDENT-20260906-002527",
+  "author_identity": "root/f05_r1_author",
+  "independence_assertion": "Findings were frozen without reading CTLV, MODV, or ENGV journals or receipts. The validator did not import or call tools.m3top3.f05_r1_market, did not invoke the unchanged scoring engine or production score CLI, did not edit the target, and wrote only its IVA journal and receipt.",
+  "supporting_not_self_pass": false,
+  "target_author": false,
+  "target_edited": false,
+  "target_commit": "bc327dddfcc2d826a9ef7c4169b2e8c87f4957f8",
+  "target_tree": "ae502559ccb3dc3ad76c835f5049f993f6da2d01",
+  "target_bundle_identity": "AAA-M3TOP3-F05-R1-D0-bc327dddfcc2d826a9ef7c4169b2e8c87f4957f8-ae502559ccb3dc3ad76c835f5049f993f6da2d01",
+  "target_input_hash": "78d540e5e0385104ba21a744e28897762f4d15af25f571de1cc57136882b2500",
+  "input_bindings": {
+    "f05_input_jsonl_sha256": "8e5c2991eb1c14bede88300a5fd1d648ce263d3e7a3d6a83b31af9b1e3d873f7",
+    "f02_model_input_batch_sha256": "13667596d8e76f10d319f4129a7cba3b890d2575b3cebf33b78a143740bbbf9e",
+    "config_sha256": "eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98"
+  },
+  "independent_method": {
+    "source": "C:/Users/ms1pk/Downloads/marcap-2024.parquet",
+    "query_engine": "DuckDB in-memory connection; direct read_parquet query; no author builder import or call",
+    "calendar": "independently select the last 61 distinct source sessions at or before 2024-08-09 and require the same ordered grid for all 57 exact W1 members",
+    "numeric_conversion": "Decimal(str(source_value))",
+    "decimal_context": {
+      "precision": 64,
+      "rounding": "ROUND_HALF_EVEN"
+    },
+    "return_20": "chronological product(1 + ChangesRatio/100) over the final 20 interval rows, minus 1",
+    "return_60": "chronological product(1 + ChangesRatio/100) over the final 60 interval rows, minus 1",
+    "turnover_acceleration": "mean(final 20 Volume/Stocks) / mean(immediately prior 20 Volume/Stocks) - 1",
+    "benchmark": "company_id-ascending Decimal sum divided by the fixed denominator 57, no shrink",
+    "trace_validation": "independently rebuild and compare all 171 source-slice digests plus governed endpoint, count, source, semantic, alias, flag, and lineage fields",
+    "ca_validation": "rehash all 11 vendored official bodies and compare GST/Exicon ex-right and listing-boundary source rows to official facts",
+    "f02_join_validation": "deep-copy the exact persisted F02 batch, replace only F05 NOT_FOUND blocks with the target F05 raw inputs, canonicalize without scoring, and compare the merged hash and 0.30/0.20 coverage partitions",
+    "score_engine_invoked": false,
+    "production_score_cli_invoked": false
+  },
+  "component_hashes": {
+    "f05_input_jsonl_sha256": "8e5c2991eb1c14bede88300a5fd1d648ce263d3e7a3d6a83b31af9b1e3d873f7",
+    "f02_model_input_batch_sha256": "13667596d8e76f10d319f4129a7cba3b890d2575b3cebf33b78a143740bbbf9e",
+    "config_sha256": "eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98",
+    "price_parquet_sha256": "b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb",
+    "cohort_artifact_sha256": "8ac8ba439b3decb2690e04ec8fa7d40e40c37dd1ab0329bf3d24bf8253eba6a1",
+    "cohort_identity_sha256": "c72593633c88cb6913c703da626b95d6111c7b0fa5783ccef6d373b2adf8c546",
+    "session_grid_sha256": "8667d8b63eeaa5332b0c1390dec179c43c692591a7c3db4c5b1a6cf31217a911",
+    "ca_manifest_artifact_sha256": "3fa931f83edb8d5bf3baf493d770cedc1ffa2f4f56ce8aae7a1171ded45fa50b",
+    "ca_manifest_semantic_sha256": "b947cce6c75a7a9fb1f09aab6cd2d7042ed4823098cd814f62d7adc5ce88318f",
+    "ca_custody_artifact_sha256": "84a53966ca5233b699a8b5448ccd13ceede683dc555304945df76c7ba62d7eb7",
+    "ca_custody_semantic_sha256": "e38dcedfabbe6743bda7358c0387fa6624bdedfc4da2ff6840d1bf2351cce1d5",
+    "policy_binding_sha256": "54bb0bb7f57975f2911d1bdae503eabcd702e5c4e8eee37d28accea8b2368137",
+    "source_field_binding_sha256": "0e4a43687b8f37b65f21340a6defab1026d87053bbebede63d3337b088ffd2ef",
+    "merged_f02_f05_input_sha256": "78d540e5e0385104ba21a744e28897762f4d15af25f571de1cc57136882b2500"
+  },
+  "ca_body_hashes": {
+    "GST-ISSUER-20240611-BONUS": "5054a1f0063cb47cb8d649bf6ccda1c1475fc92c788240923642027bdfba6577",
+    "KRX-20240625001437": "16a46a0afa2664f3e902269821967fa9eaff0eb4c07bda2dd388a6487268a3c7",
+    "KRX-20240724001584": "0f1a3e786f5499054815b82d301c1079f01b083532664bc5adca3bdd806affef",
+    "KRX-20240709000202": "c7750d7dafb871ca77ca765eda8947b5ecea7bc232da9579beefbcea380d15f6",
+    "KRX-20240531001190-VIEWER": "4a0555676633a24b055b20d458c09678522831e84fce0f838075ec69642d2407",
+    "KRX-20240531001190-RESOLUTION": "ef470fe4bc04b4af08aaf0c0321572ee850efcb320ec7c740bda03a72ad1a781",
+    "KRX-20240531002320": "17a99ebb63495fbb964216b4a9de167b953af63570e9d91a3d00281e1ad9e102",
+    "KRX-20240726001822": "3f3c8127aa0e04a88376ecc80e27d16fe0679c4f268bea82a47f406cdbb5008c",
+    "KRX-BASE-PRICE-OVERVIEW": "497eb707fd5bb077518b772be2922830449e7a52b6528db1b34ed39149175c4e",
+    "KRX-EX-RIGHT-FORMULA": "0ac0f7ab0837a83d662b996c0ed7da111b5b2f7d0b045b16bdf926242d407e03",
+    "KRX-BASE-PRICE-ADJUSTMENT-CASES": "89f1f30449e6b93ecd7f8d47a8604737f85dfefb3e6051a21f0ef1e24c73dd62"
+  },
+  "commands": [
+    "git rev-parse bc327dddfcc2d826a9ef7c4169b2e8c87f4957f8",
+    "git rev-parse bc327dddfcc2d826a9ef7c4169b2e8c87f4957f8^{tree}",
+    "PYTHONPATH=C:/Users/ms1pk/AppData/Local/Temp/aaa-f05-r1-20260905-runtime C:/Users/ms1pk/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -B -X utf8 - [standalone IVA program on stdin]",
+    "DuckDB: SELECT DISTINCT CAST(Date AS DATE) ... WHERE Date <= 2024-08-09 ORDER BY Date",
+    "DuckDB: SELECT Date, Code, Close, Changes, ChangesRatio, Volume, Amount, Stocks ... WHERE exact 57 codes AND Date BETWEEN 2024-05-16 AND 2024-08-09 ORDER BY Code, Date"
+  ],
+  "runtime": {
+    "python": "3.12.14",
+    "duckdb": "1.4.0",
+    "decimal_precision": 64,
+    "decimal_rounding": "ROUND_HALF_EVEN",
+    "source_rows": 3477,
+    "companies": 57,
+    "sessions": 61
+  },
+  "test_count": 27566,
+  "stdout_sha256": "ceac5ce39f62980dded33eb0f146c7ebe4b961d3a27116834f9877ce990d6150",
+  "case_results": [
+    {"case_id":"TARGET","assertions":2,"result":"PASS"},
+    {"case_id":"HASH_BINDINGS","assertions":7,"result":"PASS"},
+    {"case_id":"F05_CANONICAL","assertions":63,"result":"PASS"},
+    {"case_id":"COHORT","assertions":5,"result":"PASS"},
+    {"case_id":"CA_EVIDENCE","assertions":39,"result":"PASS"},
+    {"case_id":"CALENDAR","assertions":5,"result":"PASS"},
+    {"case_id":"SOURCE_VALUES","assertions":24339,"result":"PASS"},
+    {"case_id":"GRID_ROWS","assertions":117,"result":"PASS"},
+    {"case_id":"ALL_VALUES","assertions":513,"result":"PASS"},
+    {"case_id":"IDENTITY_TRACE","assertions":2109,"result":"PASS"},
+    {"case_id":"SLICE_HASHES","assertions":171,"result":"PASS"},
+    {"case_id":"LINEAGE","assertions":114,"result":"PASS"},
+    {"case_id":"PIT_SCORE_FREE","assertions":57,"result":"PASS"},
+    {"case_id":"CA_MARKET_ROWS","assertions":15,"result":"PASS"},
+    {"case_id":"F02_JOIN","assertions":10,"result":"PASS"}
+  ],
+  "benchmark_values": {
+    "universe_20d_equal_weight_market_price_return": "-0.2124153885346208337758748387981210510982875684105824670798651096",
+    "universe_60d_equal_weight_market_price_return": "-0.2427557483310895727201166322683066906964043950156641786131060302"
+  },
+  "coverage_expectations": {
+    "exact_five_company_ids": [
+      "KRX:003160",
+      "KRX:005290",
+      "KRX:025560",
+      "KRX:031980",
+      "KRX:036200"
+    ],
+    "exact_five_count": 5,
+    "exact_five_coverage": "0.30",
+    "other_count": 52,
+    "other_coverage": "0.20",
+    "score_executed": false
+  },
+  "findings": [],
+  "role_verdicts": {
+    "IVA": "PASS"
+  },
+  "verdict": "PASS",
+  "no_pass_transfer": true,
+  "issued_at_kst": "2026-09-06T00:25:27+09:00"
+}
