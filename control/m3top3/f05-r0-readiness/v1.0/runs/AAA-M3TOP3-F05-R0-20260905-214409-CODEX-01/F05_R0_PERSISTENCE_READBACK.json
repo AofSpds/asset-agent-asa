@@ -1,0 +1,44 @@
+{
+  "schema_version": "AAA-M3TOP3-F05-R0-PERSISTENCE-READBACK-v1.0",
+  "run_id": "AAA-M3TOP3-F05-R0-20260905-214409-CODEX-01",
+  "recorded_at_kst": "2026-09-05T22:25:51+09:00",
+  "branch": "task/aaa/m3top3-f05-r0-readiness-20260905",
+  "base": {
+    "commit": "950bc98b0702cd5564e3d7b24a6624d9818dfbb9",
+    "tree": "dd88026ee7b706a72643d5939f1d653ddde8b987"
+  },
+  "payload": {
+    "commit": "2d9444dea31ab439f963d65468fc362fa3d58c56",
+    "tree": "8583fd12568383255c61e26ea6d3d62e0c44a968",
+    "parent": "950bc98b0702cd5564e3d7b24a6624d9818dfbb9",
+    "files_changed": 16,
+    "scope": "F05_R0_REPORT_ARTIFACTS_AND_PMO_JOURNAL_ONLY"
+  },
+  "remote_payload_readback": {
+    "method": "git ls-remote origin exact refs/heads names",
+    "task_ref": "refs/heads/task/aaa/m3top3-f05-r0-readiness-20260905",
+    "task_commit": "2d9444dea31ab439f963d65468fc362fa3d58c56",
+    "task_tree": "8583fd12568383255c61e26ea6d3d62e0c44a968",
+    "matches_local_payload": true,
+    "main_ref": "refs/heads/main",
+    "main_commit": "950bc98b0702cd5564e3d7b24a6624d9818dfbb9",
+    "main_tree": "dd88026ee7b706a72643d5939f1d653ddde8b987",
+    "main_unchanged_from_authorized_base": true
+  },
+  "payload_blob_readback": {
+    "F05_R0_READINESS_REPORT.md": "7663c27df8b9427f7c6e1001aeac2ff1d4509c3b",
+    "W1_57_COHORT_BINDING.json": "d2698e901eabb4013f339ce1f163cd0c7c14d879",
+    "W1_57_MARKET_DATA_COVERAGE.csv": "cd5afceaf5a92a49230c27a86dd329e2dd796f75",
+    "W1_57_CA_DISCONTINUITY_READINESS.csv": "1cd10d8ccf57034f5ea5bbc0027dd341acb573e1",
+    "F05_UPSTREAM_DEFINITION_RECOVERY.md": "909553170aaec92945e91c8fb4aa67b17227b1ba",
+    "W1_BENCHMARK_FEASIBILITY.md": "d402f2793a7959358bb14fd677b3fc4d08d755a3",
+    "F05_PIT_LEAKAGE_AUDIT.md": "8fb710833026f1f17804ebb3a6b3ac8dd401d47d",
+    "F05_R0_EXECUTION_LEDGER.jsonl_at_payload": "ffc07f7432ee18d2dd919e655e8ce292e9779ec0",
+    "PMO_journal_at_payload": "0d80bb4ad2f37e26ab72c3d9b035a4ac41731416"
+  },
+  "pre_receipt_worktree_status": "CLEAN",
+  "closeout_note": "This receipt is committed in a child closeout commit. Its own final commit cannot self-reference; exact final local and remote commit/tree are read back after commit and returned externally.",
+  "f05_r1_executed": false,
+  "main_mutated": false,
+  "merge_release_or_production_performed": false
+}

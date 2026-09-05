@@ -1,0 +1,32 @@
+{
+  "schema_version": "AAA-PMO-PROGRESS-CURRENT-v1.0",
+  "run_id": "AAA-M3TOP3-F05-R0-20260905-214409-CODEX-01",
+  "as_of_kst": "2026-09-05T22:11:38+09:00",
+  "overall_progress_percent": 100,
+  "current_phase": "TERMINAL",
+  "current_phase_progress_percent": 100,
+  "validation_closure_progress_percent": null,
+  "validation_closure_state": "NOT_APPLICABLE_READINESS_ACT_NO_VALIDATION_VERDICT_AUTHORIZED",
+  "earned_ewu": 100,
+  "total_frozen_ewu": 100,
+  "elapsed_wall": "NOT_INSTRUMENTED",
+  "active_time": "NOT_INSTRUMENTED",
+  "wait_time": "NOT_INSTRUMENTED",
+  "rework_time": "NOT_INSTRUMENTED",
+  "blocked_time": "NOT_INSTRUMENTED",
+  "active_workers": 0,
+  "active_validators": 0,
+  "eta_p50": "PT0S_TERMINAL",
+  "eta_p90": "PT0S_TERMINAL",
+  "eta_confidence": "TERMINAL",
+  "actual_cru_to_date": "NOT_INSTRUMENTED",
+  "forecast_cru_at_completion": "NOT_CALIBRATED",
+  "last_material_progress": "ALL_FROZEN_READINESS_EVIDENCE_AND_TERMINAL_SYNTHESIS_CLOSED",
+  "next_terminal_event": "NONE",
+  "blockers": [
+    "D1_THROUGH_D6_EXACT_SEMANTICS_NOT_GOVERNED",
+    "GST_AND_EXICON_CA_DISCONTINUITY_ADJUDICATION_NOT_CLOSED",
+    "RUNTIME_ADAPTER_FIELD_EXPOSURE_NOT_AUTHORIZED"
+  ],
+  "terminal_status": "PARTIAL_DECISION_REQUIRED"
+}

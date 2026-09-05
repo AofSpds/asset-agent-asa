@@ -1,0 +1,98 @@
+{
+  "schema_version": "AAA-PMO-PROGRESS-BASELINE-PLAN-v1.0",
+  "run_id": "AAA-M3TOP3-F05-R0-20260905-214409-CODEX-01",
+  "frozen_at_kst": "2026-09-05T21:44:09+09:00",
+  "task_class": "P1_BOUNDED_READONLY_EXECUTION_AND_REPORT_PERSISTENCE",
+  "current_action": "F05_R0_READINESS_INSPECTION_ONLY",
+  "authorized_scope": [
+    "EXACT_W1_57_COHORT_BINDING",
+    "PRE_CUTOFF_MARKET_DATA_AVAILABILITY_DIAGNOSTICS",
+    "BOUNDED_CA_AND_RAW_DISCONTINUITY_READINESS",
+    "EXACT_UPSTREAM_DEFINITION_RECOVERY_D1_THROUGH_D6",
+    "W1_57_BENCHMARK_FEASIBILITY",
+    "PIT_AND_OUTCOME_LEAKAGE_AUDIT",
+    "REPORT_ONLY_TASK_BRANCH_PERSISTENCE"
+  ],
+  "explicit_exclusions": [
+    "F05_SCORE_OR_INPUT_MATERIALIZATION",
+    "MODEL_SOURCE_OR_CONFIG_MUTATION",
+    "NEW_FINANCIAL_OR_CA_SEMANTICS",
+    "NEW_PROVIDER_CREDENTIAL_PAID_SOURCE_OR_BUDGET",
+    "MAIN_MUTATION_MERGE_RELEASE_OR_PRODUCTION",
+    "F05_R1"
+  ],
+  "acceptance_criteria": [
+    "BOUND_POPULATION_DIGEST_AND_W1_57_8_62_COUNTS_EXACT",
+    "EXACT_BOUND_PRICE_COMPONENT_IDENTITIES_RECONFIRMED",
+    "57_COMPANY_PRE_CUTOFF_COVERAGE_AND_EXCEPTION_EVIDENCE_PERSISTED",
+    "SOURCE_VERIFIED_CA_AND_HEURISTIC_DISCONTINUITY_DISTINGUISHED",
+    "D1_THROUGH_D6_EACH_USE_ONE_AUTHORIZED_CLASSIFICATION",
+    "EXACT_57_BENCHMARK_DENOMINATOR_FEASIBILITY_DISPOSITIONED",
+    "NO_POST_CUTOFF_ECONOMIC_VALUE_ADMITTED",
+    "ONE_AUTHORIZED_TERMINAL_STATE_AND_EXACT_GIT_READBACK"
+  ],
+  "total_frozen_ewu": 100,
+  "overall_planned_wall_p50": "PT35M",
+  "overall_planned_wall_p90": "PT1H30M",
+  "overall_timing_confidence": "LOW_MEDIUM",
+  "planned_cru_p50": "NOT_CALIBRATED",
+  "planned_cru_p90": "NOT_CALIBRATED",
+  "planned_git_read": {
+    "report_branch_base": "950bc98b0702cd5564e3d7b24a6624d9818dfbb9",
+    "authorization_commit": "fc9a8b8cb7b6bd220aa0b32a58e459f043b7d762",
+    "reference_model_code_revision": "c15cbfa9bbedcb3b388b9d101b269ced2fc83bc5",
+    "population_revision": "69a1e7b7971d38bf23694ed63a914ff796386b78"
+  },
+  "planned_workers": "UP_TO_2_CONCURRENT_BOUNDED_READONLY_WORKERS",
+  "planned_validators": "NONE_NO_VALIDATION_VERDICT_AUTHORIZED",
+  "parallelism": "MULTI_WORKER_BOUNDED",
+  "correction_expectation": "ONE_REPORT_EVIDENCE_CORRECTION_BATCH_IF_NEEDED",
+  "owner_check_limit": "NO_REPEAT_APPROVAL_WITHIN_EXACT_SCOPE",
+  "terminal_condition": [
+    "READY_FOR_F05_R1",
+    "PARTIAL_DECISION_REQUIRED",
+    "HOLD_DATA_NOT_READY"
+  ],
+  "stages": [
+    {
+      "id": "P0",
+      "name": "EXACT_POPULATION_MARKET_IDENTITY_AND_RAW_COVERAGE",
+      "ewu": 25,
+      "dependencies": [],
+      "completion_evidence": ["W1_57_COHORT_BINDING.json", "W1_57_MARKET_DATA_COVERAGE.csv"],
+      "terminal_rule": "EXACT_COHORT_AND_BOUND_BYTES_READABLE_OR_HOLD"
+    },
+    {
+      "id": "P1",
+      "name": "CA_AND_RAW_DISCONTINUITY_READINESS",
+      "ewu": 25,
+      "dependencies": ["P0"],
+      "completion_evidence": ["W1_57_CA_DISCONTINUITY_READINESS.csv"],
+      "terminal_rule": "SOURCE_VERIFIED_AND_HEURISTIC_STATES_SEPARATED"
+    },
+    {
+      "id": "P2",
+      "name": "W1_57_BENCHMARK_FEASIBILITY",
+      "ewu": 15,
+      "dependencies": ["P0", "P3"],
+      "completion_evidence": ["W1_BENCHMARK_FEASIBILITY.md"],
+      "terminal_rule": "EXACT_57_STARTING_DENOMINATOR_AND_MISSINGNESS_RULE_DISPOSITIONED"
+    },
+    {
+      "id": "P3",
+      "name": "UPSTREAM_DEFINITION_RECOVERY_D1_THROUGH_D6",
+      "ewu": 25,
+      "dependencies": [],
+      "completion_evidence": ["F05_UPSTREAM_DEFINITION_RECOVERY.md"],
+      "terminal_rule": "SIX_AUTHORIZED_CLASSIFICATIONS_RECORDED"
+    },
+    {
+      "id": "P4",
+      "name": "PIT_LEAKAGE_AUDIT_TERMINAL_SYNTHESIS_AND_PERSISTENCE",
+      "ewu": 10,
+      "dependencies": ["P0", "P1", "P2", "P3"],
+      "completion_evidence": ["F05_PIT_LEAKAGE_AUDIT.md", "F05_R0_READINESS_REPORT.md", "exact Git readback"],
+      "terminal_rule": "ONE_AUTHORIZED_TERMINAL_AND_NO_F05_R1_EXECUTION"
+    }
+  ]
+}
