@@ -1,0 +1,99 @@
+{
+  "artifact_id": "AAA-M3TOP3-REAL-INPUT-REPLAY-PROGRESS-BASELINE-20260905-114150-CODEX-01",
+  "run_id": "AAA-M3TOP3-REAL-INPUT-STRICT-PRAGMATIC-20260905-114150-CODEX-01",
+  "frozen_at_kst": "2026-09-05T11:47:02.4168942+09:00",
+  "task_class": "NORMAL_IMPLEMENTATION_WITH_PIT_AND_MODEL_INPUT_IMPACT",
+  "current_action": "STRICT_REAL_INPUT_TO_SCORE_TO_AVAILABLE_OUTCOME_REPLAY",
+  "authorized_scope": "EXISTING_SOURCE_STRICT_CONNECTION_AND_BOUNDED_W1_EXECUTION",
+  "total_frozen_ewu": 100,
+  "first_return_target_kst": "2026-09-05T12:11:50.2453872+09:00",
+  "overall_eta": "PT2H_TO_PT5H_INITIAL_LOW_CONFIDENCE",
+  "planned_cru_p50": "NOT_CALIBRATED",
+  "planned_cru_p90": "NOT_CALIBRATED",
+  "planned_workers": 2,
+  "planned_validators": 1,
+  "parallelism": "MAX_TWO_WRITING_WORKERS_PMO_ASSEMBLES; CURRENT_DISCOVERY_WORKERS_READ_ONLY",
+  "correction_expectation": "ONE_CONSOLIDATED_CORRECTION_BATCH_IF_REQUIRED",
+  "owner_check_limit": "ONLY_NEW_ESTIMATION_METHOD_OR_OTHER_RESERVED_BOUNDARY",
+  "terminal_condition": "ONE_DEFINED_RUN_TERMINAL_STATE_PERSISTED_WITH_EXACT_COUNTS_AND_REFS",
+  "stages": [
+    {
+      "id": "R0",
+      "name": "SUCCESSION_START_AND_IDENTITY_FREEZE",
+      "ewu": 5,
+      "planned_wall_p50": "PT10M",
+      "planned_wall_p90_or_range": "PT5M_TO_PT15M",
+      "timing_confidence": "MEDIUM",
+      "dependencies": [],
+      "completion_evidence": ["RUN_START_AND_SCOPE", "BOOTSTRAP_READBACK", "ISOLATED_BRANCH_WORKTREE"],
+      "terminal_rule": "START_IDENTITIES_FIXED_AND_NO_DUPLICATE_ON_OBSERVABLE_SURFACES"
+    },
+    {
+      "id": "R1",
+      "name": "CONSUMED_FIELDS_AND_FIRST_REAL_SOURCE",
+      "ewu": 10,
+      "planned_wall_p50": "PT20M",
+      "planned_wall_p90_or_range": "PT15M_TO_PT30M",
+      "timing_confidence": "LOW",
+      "dependencies": ["R0"],
+      "completion_evidence": ["FIRST_REAL_SOURCE", "FIXED_PILOT_SET", "EXACT_ADMISSION_GAP_OR_TRACE"],
+      "terminal_rule": "ONE_SOURCE_REACHES_A_CONTRACT_CONSUMED_FIELD_OR_EXACT_LOCAL_GAP_IS_ROW_COUNTED"
+    },
+    {
+      "id": "R2",
+      "name": "SIDECAR_IMPORTER_AND_NONEMPTY_OUTCOME_RUNNER",
+      "ewu": 25,
+      "planned_wall_p50": "PT60M",
+      "planned_wall_p90_or_range": "PT30M_TO_PT120M",
+      "timing_confidence": "LOW",
+      "dependencies": ["R1"],
+      "completion_evidence": ["IMPLEMENTATION_DIFF", "POSITIVE_REAL_INPUT_PATH_TEST", "ALL_MISSING_REGRESSION"],
+      "terminal_rule": "REAL_VALUES_CAN_REACH_UNCHANGED_SCORER_WITH_PIT_AND_LINEAGE_GUARDS"
+    },
+    {
+      "id": "R3",
+      "name": "FIXED_W1_REAL_INPUT_PILOT_AND_BATCH_ASSEMBLY",
+      "ewu": 20,
+      "planned_wall_p50": "PT60M",
+      "planned_wall_p90_or_range": "PT30M_TO_PT120M",
+      "timing_confidence": "LOW",
+      "dependencies": ["R1", "R2"],
+      "completion_evidence": ["SOURCE_MANIFEST", "FEATURE_SIDECAR", "W1_INPUT_BATCH", "LINEAGE_TRACE"],
+      "terminal_rule": "W1_57_ROW_BATCH_ASSEMBLED_WITH_REAL_VALUES_OR_EXACT_ROW_COUNTED_BLOCKER"
+    },
+    {
+      "id": "R4",
+      "name": "ONE_AFFECTED_ONLY_INDEPENDENT_REVIEW_CAMPAIGN",
+      "ewu": 15,
+      "planned_wall_p50": "PT40M",
+      "planned_wall_p90_or_range": "PT20M_TO_PT75M",
+      "timing_confidence": "LOW",
+      "dependencies": ["R2", "R3"],
+      "completion_evidence": ["EXACT_CANDIDATE", "INDEPENDENT_REVIEW_RECEIPT", "AFFECTED_RECHECK_IF_REQUIRED"],
+      "terminal_rule": "NO_BLOCKING_FINDING_OR_ONE_BOUNDED_CORRECTION_RECHECK_COMPLETED"
+    },
+    {
+      "id": "R5",
+      "name": "STRICT_REPLAY_AND_AVAILABLE_OUTCOME_MEASUREMENT",
+      "ewu": 15,
+      "planned_wall_p50": "PT20M",
+      "planned_wall_p90_or_range": "PT10M_TO_PT45M",
+      "timing_confidence": "LOW",
+      "dependencies": ["R4"],
+      "completion_evidence": ["STRICT_SCORE_LEDGER", "IMMUTABLE_SELECTION", "OUTCOME_LEDGER_OR_EXACT_UNMEASURABLE_REASONS"],
+      "terminal_rule": "NONEMPTY_STRICT_RESULT_EXECUTED_OR_EXACT_OBJECTIVE_FAILURE_PERSISTED"
+    },
+    {
+      "id": "R6",
+      "name": "PERSISTENCE_FINAL_REPORT_AND_CALIBRATION",
+      "ewu": 10,
+      "planned_wall_p50": "PT15M",
+      "planned_wall_p90_or_range": "PT10M_TO_PT30M",
+      "timing_confidence": "MEDIUM",
+      "dependencies": ["R5"],
+      "completion_evidence": ["FINAL_REPORT", "FORECAST_CALIBRATION", "COMMIT_PUSH_READBACK"],
+      "terminal_rule": "ONE_TERMINAL_STATE_AND_ALL_EXACT_REFS_DURABLY_PUBLISHED"
+    }
+  ],
+  "progress_rebase_history": []
+}
