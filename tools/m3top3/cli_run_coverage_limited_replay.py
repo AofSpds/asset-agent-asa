@@ -40,9 +40,14 @@ PRICE_BINDINGS = {
 }
 PRICE_DATASET_IDENTITY = "419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7"
 MODEL_COMPONENTS = (
+    "tools/m3top3/__init__.py",
+    "tools/m3top3/cli_run_coverage_limited_replay.py",
     "tools/m3top3/contracts_v1.py",
+    "tools/m3top3/core.py",
     "tools/m3top3/features_v1.py",
     "tools/m3top3/features_v1_narrow_patch.py",
+    "tools/m3top3/pit_guard.py",
+    "tools/m3top3/runtime_v1.py",
     "tools/m3top3/scorer_v1.py",
     "tools/m3top3/shared_interface_guards_v1.py",
     "tools/m3top3/window_mapping_v11.py",
@@ -72,6 +77,16 @@ def _bind_code(repo: Path) -> tuple[str, list[dict[str, object]]]:
         )
     identity = "M3TOP3-EXECUTABLE-BUNDLE-SHA256:" + sha256_hex(components)
     return identity, components
+
+
+def _assert_clean_repo(repo: Path) -> None:
+    status = subprocess.check_output(
+        ["git", "status", "--porcelain=v1", "--untracked-files=all"],
+        cwd=repo,
+        text=True,
+    )
+    if status:
+        raise ValueError("replay requires a clean worktree so bound Git and executable bytes cannot diverge")
 
 
 def _bind_prices(paths: dict[str, Path]) -> dict[str, object]:
@@ -115,6 +130,7 @@ def main(argv: list[str] | None = None) -> int:
     repo = args.repo.resolve()
     output_dir = args.output_dir.resolve()
     started_at = datetime.now(ZoneInfo("Asia/Seoul")).isoformat()
+    _assert_clean_repo(repo)
     code_identity, code_components = _bind_code(repo)
     population = parse_population_bytes(load_population_bytes(repo))
 

@@ -3,6 +3,7 @@ from __future__ import annotations
 import copy
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from tools.m3top3.coverage_limited_replay_v1 import (
     EXPECTED_COUNTS,
@@ -16,6 +17,7 @@ from tools.m3top3.coverage_limited_replay_v1 import (
     scorecard_markdown,
     validate_replay_mis_shape,
 )
+from tools.m3top3.cli_run_coverage_limited_replay import MODEL_COMPONENTS, _assert_clean_repo, _bind_code
 
 
 REPO = Path(__file__).resolve().parents[3]
@@ -110,6 +112,35 @@ class TestCoverageLimitedReplay(unittest.TestCase):
         )
         rendered = scorecard_markdown(finalize_without_scored_rows(result))
         self.assertIn("executed zero-scoreable scorecard, not a zero-performance result", rendered)
+
+    def test_09_executable_identity_closes_local_dependency_set(self):
+        required = {
+            "tools/m3top3/__init__.py",
+            "tools/m3top3/cli_run_coverage_limited_replay.py",
+            "tools/m3top3/contracts_v1.py",
+            "tools/m3top3/core.py",
+            "tools/m3top3/coverage_limited_replay_v1.py",
+            "tools/m3top3/features_v1.py",
+            "tools/m3top3/features_v1_narrow_patch.py",
+            "tools/m3top3/pit_guard.py",
+            "tools/m3top3/runtime_v1.py",
+            "tools/m3top3/scorer_v1.py",
+            "tools/m3top3/shared_interface_guards_v1.py",
+            "tools/m3top3/window_mapping_v11.py",
+            "tools/m3top3/configs/m3top3_v1.0.json",
+        }
+        self.assertEqual(set(MODEL_COMPONENTS), required)
+        identity, components = _bind_code(REPO)
+        self.assertTrue(identity.startswith("M3TOP3-EXECUTABLE-BUNDLE-SHA256:"))
+        self.assertEqual({row["path"] for row in components}, required)
+
+    def test_10_dirty_worktree_fails_before_binding(self):
+        with patch(
+            "tools.m3top3.cli_run_coverage_limited_replay.subprocess.check_output",
+            return_value=" M tools/m3top3/core.py\n",
+        ):
+            with self.assertRaises(ValueError):
+                _assert_clean_repo(REPO)
 
 
 if __name__ == "__main__":
