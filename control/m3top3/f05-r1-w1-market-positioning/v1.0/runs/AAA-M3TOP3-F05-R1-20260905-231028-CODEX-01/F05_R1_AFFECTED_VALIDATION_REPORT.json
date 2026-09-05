@@ -1,0 +1,311 @@
+{
+  "schema_version": "AAA-M3TOP3-F05-R1-AFFECTED-VALIDATION-REPORT-v1.0",
+  "run_id": "AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01",
+  "issued_at_kst": "2026-09-06T01:28:00+09:00",
+  "target_revision": "D1",
+  "status": "PASS",
+  "scoring_permitted": true,
+  "target_author": false,
+  "blocking_findings": [],
+  "target_commit": "2700dda2fee8b4f8b6cfab9c075f8b860ffc94f9",
+  "target_tree": "c98194af223562e440d66c47b57f6696110ced47",
+  "target_bundle_identity": "AAA-M3TOP3-F05-R1-D1-2700dda2fee8b4f8b6cfab9c075f8b860ffc94f9-c98194af223562e440d66c47b57f6696110ced47",
+  "target_input_hash": "78d540e5e0385104ba21a744e28897762f4d15af25f571de1cc57136882b2500",
+  "input_bindings": {
+    "f05_input_jsonl_sha256": "8e5c2991eb1c14bede88300a5fd1d648ce263d3e7a3d6a83b31af9b1e3d873f7",
+    "f02_model_input_batch_sha256": "13667596d8e76f10d319f4129a7cba3b890d2575b3cebf33b78a143740bbbf9e",
+    "config_sha256": "eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98"
+  },
+  "role_verdicts": {
+    "CTLV": "PASS",
+    "MODV": "PASS",
+    "ENGV": "PASS",
+    "IVA": "PASS"
+  },
+  "validation_receipts": [
+    {
+      "role": "CTLV",
+      "validation_level": "L1",
+      "receipt_id": "AAA-M3TOP3-F05-R1-D1-CTLV-L1-20260906-010919-01",
+      "validator_identity": "root/f05_r1_ctlv_d1",
+      "path": "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/validation/CTLV_L1_D1_RECEIPT.json",
+      "sha256": "b7ab7e892ac41a1066560278eabf4d1703a3bb774549d2bd232350732f343cda"
+    },
+    {
+      "role": "MODV",
+      "validation_level": "L1",
+      "receipt_id": "AAA-M3TOP3-F05-R1-D1-MODV-L1-20260906-010638-01",
+      "validator_identity": "root/f05_r1_modv_d1",
+      "path": "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/validation/MODV_L1_D1_RECEIPT.json",
+      "sha256": "3ad30e5eda92b7badba452faa222b20aab7c14da9a37a5ae4c080c47cfd1d504"
+    },
+    {
+      "role": "ENGV",
+      "validation_level": "L1",
+      "receipt_id": "AAA-M3TOP3-F05-R1-D1-ENGV-L1-20260906-012411-01",
+      "validator_identity": "root/f05_r1_engv_d1",
+      "path": "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/validation/ENGV_L1_D1_RECEIPT.json",
+      "sha256": "33b43018661688d32b5314208a8e0362f9ceb29ec2cec1cffc9acb112cec63f3"
+    },
+    {
+      "role": "IVA",
+      "validation_level": "L2",
+      "receipt_id": "AAA-M3TOP3-F05-R1-D1-IVA-L2-20260906-011813-01",
+      "validator_identity": "root/f05_r1_iva_d1",
+      "path": "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/validation/IVA_L2_D1_RECEIPT.json",
+      "sha256": "03bd67d3f6569624ea08bd80217c07ddd7b0d579497c0f8f332463a322997cf1"
+    }
+  ],
+  "validated_target_files": [
+    {
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/score-and-seal/STRICT_MODEL_INPUT_BATCH.json",
+      "bytes": 252360,
+      "sha256": "13667596d8e76f10d319f4129a7cba3b890d2575b3cebf33b78a143740bbbf9e",
+      "git_blob": "8aca0b6ff6d9cfa5466c89343367a622614e592f"
+    },
+    {
+      "path": "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/F02_R1_REUSE_BINDING.json",
+      "bytes": 3059,
+      "sha256": "dca276eac4afc304797224146f7bfee2b80db3e05310d240d2f96aa39e5ba364",
+      "git_blob": "6460ad1f83f67063c4348c2d0469f234d813a540"
+    },
+    {
+      "path": "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/F05_R1_ADAPTER_CHANGE_REPORT.md",
+      "bytes": 4976,
+      "sha256": "825484b9eb5a17ab2b4b7a4376e03d3019d02e58686c8e65b0b257e8196365eb",
+      "git_blob": "6d300c93971b79e0597b341eaf4bb08d7cf0b559"
+    },
+    {
+      "path": "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/F05_R1_BOUND_DATA_PRECHECK.json",
+      "bytes": 1718,
+      "sha256": "127a66447187f8023d48ad999fb09c2ee39f7d6f2eb7120f8400c27e81152c15",
+      "git_blob": "36ccb95a3245b64c35e8d0822ce36f06bad33ca5"
+    },
+    {
+      "path": "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/F05_R1_CA_ADJUDICATION_REPORT.md",
+      "bytes": 5661,
+      "sha256": "0df217a65af3bed184557034bdf8c1925aed1d25a01e5a56ea12d3b6eac0ec6e",
+      "git_blob": "3b7adaafc32b636ca833e3e744f425cabf99d4c6"
+    },
+    {
+      "path": "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/F05_R1_INPUT_MATERIALIZATION_SPEC.json",
+      "bytes": 3088,
+      "sha256": "f5a917d66ea97668f1d5e72734969044dfc688d46e927dc1fd52c78301e84a08",
+      "git_blob": "ada2d5e580240991a8823015b1310b62fc69d466"
+    },
+    {
+      "path": "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/F05_R1_OFFICIAL_CA_EVIDENCE_MANIFEST.json",
+      "bytes": 5106,
+      "sha256": "3fa931f83edb8d5bf3baf493d770cedc1ffa2f4f56ce8aae7a1171ded45fa50b",
+      "git_blob": "dac6374a12d4ac5e383fae08ed875c4698a8f19a"
+    },
+    {
+      "path": "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/F05_R1_OFFICIAL_CA_SOURCE_CUSTODY.json",
+      "bytes": 4962,
+      "sha256": "84a53966ca5233b699a8b5448ccd13ceede683dc555304945df76c7ba62d7eb7",
+      "git_blob": "c91994d83ebf8605526b1adfc5d09fffaa6de495"
+    },
+    {
+      "path": "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/F05_R1_POLICY_BINDING.json",
+      "bytes": 7000,
+      "sha256": "54bb0bb7f57975f2911d1bdae503eabcd702e5c4e8eee37d28accea8b2368137",
+      "git_blob": "c413b37e48af2ff7fd0c0de6eaa4a799aea39de5"
+    },
+    {
+      "path": "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/F05_R1_PRE_SCORE_INPUT_RECEIPT.json",
+      "bytes": 2272,
+      "sha256": "8e3c6fe931c794dad281d14a142bb5eb38338a36d3e99d13b95b404a766c69b4",
+      "git_blob": "a6e3dc7c881de1204e2292d5175f356c4b8be862"
+    },
+    {
+      "path": "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/F05_R1_SOURCE_FIELD_BINDING.json",
+      "bytes": 8877,
+      "sha256": "0e4a43687b8f37b65f21340a6defab1026d87053bbebede63d3337b088ffd2ef",
+      "git_blob": "9117ee8b1b5687127d06897be3d73c7b0d8e260f"
+    },
+    {
+      "path": "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/F05_R1_W1_INPUTS.jsonl",
+      "bytes": 267149,
+      "sha256": "8e5c2991eb1c14bede88300a5fd1d648ce263d3e7a3d6a83b31af9b1e3d873f7",
+      "git_blob": "6f6215dcf5e1390fd8af06001bc919e43d05805b"
+    },
+    {
+      "path": "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/P4_D1_AUTHOR_VERIFICATION.json",
+      "bytes": 2511,
+      "sha256": "7d3e89ac5964536eebcc90270b5f8aec713c427b222ae98be9537c568c9e1535",
+      "git_blob": "cc3bfe678baf49b5c184427975fe7150fb3b6006"
+    },
+    {
+      "path": "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/P4_D1_CORRECTION_REPORT.md",
+      "bytes": 2942,
+      "sha256": "b284615eeb27fff68021ed6d2d1edbc3097fe4eb3c1b6b15dcdd539a1e4514f8",
+      "git_blob": "9fd3c52e224fe955376aab88ccc94cd14d477b93"
+    },
+    {
+      "path": "tools/m3top3/__init__.py",
+      "bytes": 96,
+      "sha256": "54b143b394a19dadb286305f267571b62423ad35b92115becc3d025a0dd1a0b3",
+      "git_blob": "9c3a6a28360b46df52b320a5c27f8a1096867199"
+    },
+    {
+      "path": "tools/m3top3/cli_build_f05_r1_inputs.py",
+      "bytes": 10062,
+      "sha256": "bd71c89c9fad80778a9b7d2209733e29f2787de3adab13f22940461eb0e94b9a",
+      "git_blob": "c500d13b77edf1b867edeafea16b3c400d77da30"
+    },
+    {
+      "path": "tools/m3top3/cli_score_f05_r1_outputs.py",
+      "bytes": 22236,
+      "sha256": "072a51ac5ed1cf6e09e5dd3b3897c7774e548b91a7a7f554337550ccb4840a74",
+      "git_blob": "a7bd097318a2ab3b334200667ecbd287ea2a3866"
+    },
+    {
+      "path": "tools/m3top3/configs/m3top3_v1.0.json",
+      "bytes": 2426,
+      "sha256": "eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98",
+      "git_blob": "043bf24bc8c838a8060360e86614cf5bfefc9145"
+    },
+    {
+      "path": "tools/m3top3/contracts_v1.py",
+      "bytes": 4975,
+      "sha256": "5528f6e81a36ea8558ea909fc59074684a3dd73c414c723be386712dac77f4aa",
+      "git_blob": "161c3817cf0e0f0827a294b7fde150ab6b6cbcda"
+    },
+    {
+      "path": "tools/m3top3/core.py",
+      "bytes": 2852,
+      "sha256": "9d4ecbe324f4f1eece034e3ccc6aabd4968dce1f185ea58de8eb780da03746ec",
+      "git_blob": "e81561e737c3419013dc1bc5adff5ae258365862"
+    },
+    {
+      "path": "tools/m3top3/coverage_limited_replay_v1.py",
+      "bytes": 25308,
+      "sha256": "0ecfc9be42849d9ddf4a0db3f450826d747c189a11e579ceeec7965cceac251a",
+      "git_blob": "80fb0dac86b919596bd5c82314e619dd2c8b12b9"
+    },
+    {
+      "path": "tools/m3top3/f05_r1_market.py",
+      "bytes": 38210,
+      "sha256": "0bc2d4cd3fcaa6a66b540f0b50b6cdb5057996ab5c04ee8aa694038fe5cae53d",
+      "git_blob": "846e0dd2eceb5de2f9220219deb88b094dea0edb"
+    },
+    {
+      "path": "tools/m3top3/f05_r1_score_outputs.py",
+      "bytes": 28140,
+      "sha256": "ac39bb56f6c03402efc56b5e63871024644f909771bfbacf29a85dae53bda8c4",
+      "git_blob": "f033e1e985d9de37c70722dc6cc8c2c49ef42ddb"
+    },
+    {
+      "path": "tools/m3top3/features_v1.py",
+      "bytes": 14086,
+      "sha256": "14bca2fecb4ec46cebc432a619af3388b8e8bab69ff7164dff5b52aed75dc981",
+      "git_blob": "35104a7384c3ee6175136e95dded7f3237d69435"
+    },
+    {
+      "path": "tools/m3top3/features_v1_narrow_patch.py",
+      "bytes": 10475,
+      "sha256": "6109f320038eeebd93e02897b3ee2aceb286516b446708367daddbe1afa98e8f",
+      "git_blob": "b9017f5db0fb637c8a449d5ee3cb1c4a05481076"
+    },
+    {
+      "path": "tools/m3top3/pit_guard.py",
+      "bytes": 3758,
+      "sha256": "7df44af85ecad959c81b629ec63b1cf9d6d57b1c155f715f49a8c5d445afc957",
+      "git_blob": "f2aa6a3d0114bec4e617519ccc406adb21584054"
+    },
+    {
+      "path": "tools/m3top3/providers.py",
+      "bytes": 10941,
+      "sha256": "fb321bf75328f94c3f87a3c45d58c1c63b249b6206296c1324c4e26fdc3d11ef",
+      "git_blob": "a0732cc66db5193e7d336521e72adf2855cae824"
+    },
+    {
+      "path": "tools/m3top3/real_input_replay_v1.py",
+      "bytes": 84679,
+      "sha256": "635358edf8bd53e9184288de5ed3b262e872af709afb6f2800e29d58a2b788ef",
+      "git_blob": "836002c748550b32418a486d44d5183aef7169ad"
+    },
+    {
+      "path": "tools/m3top3/scorer_v1.py",
+      "bytes": 9863,
+      "sha256": "0bb0fbd1628992b2d49d6f7e06b3cbad1fe470f5bab7f175a89b4691a4d96126",
+      "git_blob": "2a797ea705eeb1aef330754fb08ff2182297c139"
+    },
+    {
+      "path": "tools/m3top3/shared_interface_guards_v1.py",
+      "bytes": 4952,
+      "sha256": "746ae5570a4542b9e67536f77f043bc2ba7e5b54b1e5f599a7fbf6c01c6aee56",
+      "git_blob": "ce5b3b3ad0f09bcbea2aee24abd591974154ea91"
+    },
+    {
+      "path": "tools/m3top3/tests/test_cli_score_f05_r1_outputs.py",
+      "bytes": 15543,
+      "sha256": "ff7c8c4a9a36ea7d690eb1a5444a46622eb04dd669d10b4ecb63c95dad3aa6fc",
+      "git_blob": "b7abeaa835a2752b7d60b49521e36a6820745d8b"
+    },
+    {
+      "path": "tools/m3top3/tests/test_f05_r1_market.py",
+      "bytes": 38312,
+      "sha256": "3594b813f8f134f57faedc8e8c20978d2c9f520607b8c8c895e3aa06c48fbd20",
+      "git_blob": "665665ae28f219a237b14207c29084227ad8daa0"
+    },
+    {
+      "path": "tools/m3top3/tests/test_f05_r1_score_outputs.py",
+      "bytes": 24763,
+      "sha256": "2aa23609bdb450d8de1032e17cbcdb561495a15fe0a6d95f6304f525cb8b5e5c",
+      "git_blob": "36b2d8ad742a0368777b074dae2f304dbdbee7de"
+    },
+    {
+      "path": "tools/m3top3/window_mapping_v11.py",
+      "bytes": 3340,
+      "sha256": "6f73ec50cf6ac2f8f2c2da5edda40771704ea02b49fc73f9c275830d97d4cc70",
+      "git_blob": "4fa61dc8d0e7e3b6e2414a8eb41d5960e27a92a1"
+    }
+  ],
+  "validated_target_file_count": 34,
+  "case_dispositions": {
+    "positive": {
+      "P01": "PASS",
+      "P02": "PASS",
+      "P03": "PASS",
+      "P04": "PASS",
+      "P05": "PASS",
+      "P06": "PASS",
+      "P07": "PASS"
+    },
+    "negative": {
+      "N01": "PASS_REJECTED_AS_REQUIRED",
+      "N02": "PASS_REJECTED_AS_REQUIRED",
+      "N03": "PASS_REJECTED_AS_REQUIRED",
+      "N04": "PASS_REJECTED_AS_REQUIRED",
+      "N05": "PASS_REJECTED_AS_REQUIRED",
+      "N06": "PASS_REJECTED_AS_REQUIRED",
+      "N07": "PASS_REJECTED_AS_REQUIRED",
+      "N08": "PASS_REJECTED_AS_REQUIRED",
+      "N09": "PASS_REJECTED_AS_REQUIRED",
+      "N10": "PASS_REJECTED_AS_REQUIRED",
+      "N11": "PASS_REJECTED_AS_REQUIRED",
+      "N12": "PASS_REJECTED_AS_REQUIRED",
+      "N13": "PASS_REJECTED_AS_REQUIRED"
+    }
+  },
+  "independent_evidence": {
+    "ctlv": "34/34 target; 57/57 source reconstruction; 11/11 CA custody; 22/22 adversarial; 118/118 tests",
+    "modv": "8607 raw rows; 171 metrics; exact-57 benchmark; CA arithmetic; 39/39 affected checks",
+    "engv": "34/34 target; 14/14 focused; 118/118 full zero skip; 3/3 post-helper drift probes",
+    "iva": "43810 assertions; 3477 market rows; 171 slice hashes; 31 adversarial mutations"
+  },
+  "independence_reconciliation": {
+    "path": "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/P4_D1_VALIDATOR_INDEPENDENCE_RECONCILIATION.json",
+    "bytes": 2010,
+    "sha256": "a6900bde24aeaddf7d0cd4a2c12d972bdad2e7444d586c6401d411135a2cbfbd",
+    "discarded_lane_verdict": null,
+    "replacement_engv_physical_actor": "root/f05_r1_engv_d1_fresh"
+  },
+  "d0_pass_transfer": false,
+  "score_calls": 0,
+  "official_top3_or_top10": false,
+  "outcome_execution": false,
+  "claim_ceiling": "F02_F05_PROVISIONAL_EXPLORATORY_NO_OFFICIAL_TOP_K",
+  "next": "ONE_CREATE_ONCE_PRODUCTION_SCORE_EXECUTION"
+}

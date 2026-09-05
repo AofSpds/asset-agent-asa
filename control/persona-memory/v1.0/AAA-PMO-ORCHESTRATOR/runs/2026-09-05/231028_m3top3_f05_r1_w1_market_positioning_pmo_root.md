@@ -4,7 +4,7 @@
 - Persona lock: `AAA-PMO-ORCHESTRATOR (PMO)`
 - Started: 2026-09-05 23:10:28 KST
 - Branch: `task/aaa/m3top3-f05-r1-w1-market-positioning-20260905`
-- State: `IN_PROGRESS / P4 D1 EXACT-TARGET FREEZE`
+- State: `IN_PROGRESS / P5 VALIDATED CREATE-ONCE SCORE PREPARATION`
 
 ## Authority
 
@@ -50,4 +50,15 @@
 - Focused checks are 14/14 PASS; the full affected-plus-regression suite is 118/118 PASS with DuckDB and zero skips. `py_compile` and `git diff --check` pass.
 - Score calls and score output files remain zero. Fresh D1 CTLV L1, MODV L1, ENGV L1, and IVA L2 validation is required with no D0 PASS transfer.
 - The declared validator identities are Git- and byte-bound under repository custody; no external cryptographic identity authentication is claimed.
-- D1 exact pre-score target is commit `2700dda2fee8b4f8b6cfab9c075f8b860ffc94f9`, tree `c98194af223562e440d66c47b57f6696110ced47`, bundle `AAA-M3TOP3-F05-R1-D1-2700dda2fee8b4f8b6cfab9c075f8b860ffc94f9-c98194af223562e440d66c47b57f6696110ced47`. `P4_D1_EXACT_TARGET.json` binds 34 immutable files and the unchanged merged input hash. Fresh four-role validation is in progress; scoring remains closed.
+- D1 exact pre-score target is commit `2700dda2fee8b4f8b6cfab9c075f8b860ffc94f9`, tree `c98194af223562e440d66c47b57f6696110ced47`, bundle `AAA-M3TOP3-F05-R1-D1-2700dda2fee8b4f8b6cfab9c075f8b860ffc94f9-c98194af223562e440d66c47b57f6696110ced47`. `P4_D1_EXACT_TARGET.json` binds 34 immutable files and the unchanged merged input hash. Fresh four-role validation is complete; scoring is permitted only after the aggregate and receipts are committed in a clean worktree.
+
+## D1 validation closure
+
+- Fresh CTLV L1, MODV L1, ENGV L1, and IVA L2 all PASS the exact D1 target with zero findings. No D0 PASS transferred.
+- CTLV verified 34/34 target files, 57/57 source reconstruction, 11/11 official CA bodies, 22/22 adversarial cases, and 118/118 tests.
+- MODV independently read 8,607 raw rows and matched 171 market metrics, exact-57 benchmarks, both CA boundaries, and 39 affected checks.
+- ENGV passed 14/14 focused and 118/118 full checks with DuckDB and zero skips, plus 3/3 post-helper drift probes.
+- IVA passed 43,810 independent assertions over 3,477 market rows, 171 slice hashes, exact arithmetic, and 31 adversarial mutations.
+- One earlier ENGV attempt was discarded before verdict after accidental peer-evidence exposure; it wrote no artifact. A fresh-context actor issued the sole ENGV PASS. `P4_D1_VALIDATOR_INDEPENDENCE_RECONCILIATION.json` records the exact mapping.
+- `F05_R1_AFFECTED_VALIDATION_REPORT.json` is the machine gate; the companion Markdown report explains the scope and claim ceiling. P4 is complete at 85/100 EWU.
+- Production score calls remain zero until these receipts and aggregate are committed in a clean worktree. The only permitted next act is one create-once W1 provisional score execution.

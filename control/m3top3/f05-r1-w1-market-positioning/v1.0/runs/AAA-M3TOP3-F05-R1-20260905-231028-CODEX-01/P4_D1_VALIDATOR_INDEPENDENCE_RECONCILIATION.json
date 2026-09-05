@@ -1,0 +1,38 @@
+{
+  "schema_version": "AAA-M3TOP3-F05-R1-P4-D1-VALIDATOR-INDEPENDENCE-RECONCILIATION-v1.0",
+  "run_id": "AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01",
+  "recorded_at_kst": "2026-09-06T01:27:37+09:00",
+  "target_revision": "D1",
+  "target_commit": "2700dda2fee8b4f8b6cfab9c075f8b860ffc94f9",
+  "target_tree": "c98194af223562e440d66c47b57f6696110ced47",
+  "discarded_lane": {
+    "physical_execution_actor": "root/f05_r1_engv_d1",
+    "event": "PRE_FINDING_FREEZE_BROAD_SEARCH_EXPOSED_MODV_D1_CASE_DISPOSITION_LINES",
+    "formal_verdict_issued": false,
+    "receipt_written": false,
+    "journal_written": false,
+    "target_edited": false,
+    "pass_transfer": false,
+    "classification": "INDEPENDENCE_CONTAMINATION_DISCARDED_BEFORE_VERDICT"
+  },
+  "replacement_lane": {
+    "physical_execution_actor": "root/f05_r1_engv_d1_fresh",
+    "canonical_validator_identity": "root/f05_r1_engv_d1",
+    "validator_role": "ENGV",
+    "validation_level": "L1",
+    "fresh_context": true,
+    "peer_d1_receipts_or_journals_read_before_findings_frozen": false,
+    "target_author": false,
+    "target_edited": false,
+    "receipt_path": "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/validation/ENGV_L1_D1_RECEIPT.json",
+    "receipt_sha256": "33b43018661688d32b5314208a8e0362f9ceb29ec2cec1cffc9acb112cec63f3",
+    "journal_path": "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/validation/journals/ENGV_L1_D1_JOURNAL.md",
+    "journal_sha256": "33933d061e7aeda51f1246824d90aa937c4efe5b12365b7483e3b3ae63314751",
+    "verdict": "PASS",
+    "findings": []
+  },
+  "identity_mapping_meaning": "The frozen gate pins a canonical role-lane declaration. This record discloses the distinct fresh physical actor that executed that lane; it does not claim external cryptographic principal authentication.",
+  "required_independence_floor_preserved": true,
+  "validation_floor_reduced": false,
+  "owner_decision_required": false
+}

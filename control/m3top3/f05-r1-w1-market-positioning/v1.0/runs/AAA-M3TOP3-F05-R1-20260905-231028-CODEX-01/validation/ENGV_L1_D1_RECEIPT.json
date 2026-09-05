@@ -1,0 +1,126 @@
+{
+  "schema_version": "AAA-M3TOP3-F05-R1-INDEPENDENT-VALIDATION-RECEIPT-v1.0",
+  "receipt_id": "AAA-M3TOP3-F05-R1-D1-ENGV-L1-20260906-012411-01",
+  "run_id": "AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01",
+  "recorded_at_kst": "2026-09-06T01:24:11+09:00",
+  "target_revision": "D1",
+  "validator_role": "ENGV",
+  "validation_level": "L1",
+  "validator_identity": "root/f05_r1_engv_d1",
+  "physical_execution_actor": "root/f05_r1_engv_d1_fresh",
+  "validator_identity_mapping": "PHYSICAL_EXECUTION_ACTOR_MAPPED_TO_CLEAN_CANONICAL_ENGV_ROLE_LANE_AFTER_EARLIER_CONTAMINATED_LANE_WAS_DISCARDED_WITHOUT_A_VERDICT",
+  "author_identity": "root/f05_r1_author",
+  "independence_assertion": "INDEPENDENT_OF_TARGET_AUTHOR_AND_OTHER_VALIDATORS",
+  "supporting_not_self_pass": false,
+  "target_author": false,
+  "target_edited": false,
+  "no_pass_transfer": true,
+  "verdict": "PASS",
+  "findings": [],
+  "target_commit": "2700dda2fee8b4f8b6cfab9c075f8b860ffc94f9",
+  "target_tree": "c98194af223562e440d66c47b57f6696110ced47",
+  "target_bundle_identity": "AAA-M3TOP3-F05-R1-D1-2700dda2fee8b4f8b6cfab9c075f8b860ffc94f9-c98194af223562e440d66c47b57f6696110ced47",
+  "target_input_hash": "78d540e5e0385104ba21a744e28897762f4d15af25f571de1cc57136882b2500",
+  "input_bindings": {
+    "f05_input_jsonl_sha256": "8e5c2991eb1c14bede88300a5fd1d648ce263d3e7a3d6a83b31af9b1e3d873f7",
+    "f02_model_input_batch_sha256": "13667596d8e76f10d319f4129a7cba3b890d2575b3cebf33b78a143740bbbf9e",
+    "config_sha256": "eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98"
+  },
+  "role_verdicts": {
+    "ENGV": "PASS"
+  },
+  "target_binding_verification": {
+    "manifest_path": "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/P4_D1_EXACT_TARGET.json",
+    "declared_file_count": 34,
+    "verified_file_count": 34,
+    "worktree_byte_length_matches": 34,
+    "worktree_sha256_matches": 34,
+    "target_commit_git_blob_matches": 34,
+    "mismatches": 0
+  },
+  "authority_bindings": {
+    "owner_policy_commit": "709ded3f4440142c05a97dcc03b286ad49fa149b",
+    "owner_policy_blob": "ab65b65182fddaf31c1b7e0d7e1f0341f4bbdf9e",
+    "owner_request_commit": "ab1a9a52cbee1825a2ff725a8b997307f7f5e16e",
+    "owner_request_blob": "370c86569717aa1b93ecc748a06766d0400946e0"
+  },
+  "engineering_checks": {
+    "focused_d1_score_gate_and_cli": {
+      "tests": 14,
+      "passed": 14,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    "full_affected_plus_regression": {
+      "tests": 118,
+      "passed": 118,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "duckdb_case_included": true
+    },
+    "additional_post_helper_adversarial": {
+      "cases": 3,
+      "passed": 3,
+      "persist_calls": 0,
+      "output_directories_created": 0
+    },
+    "in_memory_compile": {
+      "files": 4,
+      "passed": 4
+    },
+    "d1_diff_check": "PASS",
+    "raw_parquet": {
+      "bytes": 24572111,
+      "sha256": "b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb"
+    },
+    "cohort_artifact": {
+      "bytes": 10698,
+      "sha256": "8ac8ba439b3decb2690e04ec8fa7d40e40c37dd1ab0329bf3d24bf8253eba6a1"
+    },
+    "f05_materialized_input": {
+      "bytes": 267149,
+      "rows": 57,
+      "unique_company_ids": 57,
+      "unique_krx_codes": 57,
+      "available_rows": 57,
+      "company_id_order": "ASCENDING",
+      "distinct_20d_benchmarks": 1,
+      "distinct_60d_benchmarks": 1
+    },
+    "production_score_cli_calls": 0,
+    "score_outputs_created": 0
+  },
+  "preservation": {
+    "model_feature_scorer_config_changed": false,
+    "eligibility_changed": false,
+    "pit_changed": false,
+    "denominator_changed": false,
+    "provider_or_source_expanded": false,
+    "semantic_deviation": false,
+    "verified_unchanged_runtime_blob_count_across_d1": 10
+  },
+  "engineering_case_verdicts": {
+    "P01": "PASS_ADDITIVE_PRICE_ROW_AND_CSV_BACKWARD_COMPATIBILITY",
+    "P02": "PASS_DUCKDB_EXISTING_PARQUET_FIELD_EXPOSURE_AND_EXACT_OPTIONAL_TYPES",
+    "P03": "PASS_ORDINARY_SECURITY_EXACT_21_AND_61_OBSERVATION_WINDOWS",
+    "P04": "PASS_GST_CA_REFERENCE_PRICE_AND_SHARE_COUNT_BOUNDARIES",
+    "P05": "PASS_EXICON_CA_REFERENCE_PRICE_AND_SHARE_COUNT_BOUNDARIES",
+    "P06": "PASS_EXACT_RECENT_20_OVER_PRIOR_20_TURNOVER_ARITHMETIC",
+    "P07": "PASS_EXACT_57_EQUAL_WEIGHT_BENCHMARK_AND_UNCHANGED_ENGINE_COMPATIBILITY",
+    "N01": "PASS_NAIVE_RAW_CLOSE_CA_RETURN_REJECTED",
+    "N02": "PASS_WRONG_ISSUER_DATE_SOURCE_FIELD_OR_SOURCE_BINDING_REJECTED",
+    "N03": "PASS_POST_CUTOFF_OR_SHIFTED_CUTOFF_INPUT_REJECTED",
+    "N04": "PASS_DENOMINATOR_OR_COHORT_DRIFT_REJECTED",
+    "N05": "PASS_MISSING_ZERO_NONPOSITIVE_OR_NONINTEGRAL_REQUIRED_VALUES_REJECTED",
+    "N06": "PASS_DUPLICATE_OR_MISALIGNED_SESSION_ENDPOINTS_REJECTED",
+    "N07": "PASS_CASH_DIVIDEND_TOTAL_RETURN_SUBSTITUTION_REJECTED",
+    "N08": "PASS_INVENTED_OR_PRECOMPUTED_CA_FACTOR_REJECTED",
+    "N09": "PASS_MODEL_SCORER_CONFIG_ELIGIBILITY_AND_PIT_DRIFT_REJECTED_OR_ABSENT",
+    "N10": "PASS_D1_FORMAL_RECEIPT_REVISION_ROLE_LEVEL_IDENTITY_ID_AND_ASSERTIONS_ENFORCED",
+    "N11": "PASS_CANONICAL_ROLE_ORDER_EXACT_DESCRIPTOR_AND_ACTUAL_RECEIPT_PATH_ENFORCED",
+    "N12": "PASS_CONSISTENT_WHOLE_SET_REHASH_AND_D0_PROVENANCE_REWRITE_REJECTED",
+    "N13": "PASS_PRE_AND_POST_HELPER_HEAD_WORKTREE_BOUND_BYTE_TARGET_BLOB_AND_CREATE_ONCE_DRIFT_REJECTED"
+  }
+}
