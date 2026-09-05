@@ -1,0 +1,146 @@
+{
+  "schema_version": "AAA-M3TOP3-F02-R1-POST-SCORE-READBACK-v1.0",
+  "run_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01",
+  "checked_at_kst": "2026-09-05T19:29:42.265569+09:00",
+  "status": "PASS",
+  "verification_class": "PMO_AUTHOR_READBACK_NOT_INDEPENDENT_P4",
+  "score_executions": 1,
+  "source_actions_repeated": 0,
+  "files": [
+    {
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/score-and-seal/SCORE_AND_SEAL_RUN_MANIFEST.json",
+      "bytes": 21043,
+      "sha256": "0bb46aa9bcaf0aa1bd1889f01b9945317f849308f23aa4a641b9b7c21b2622e4"
+    },
+    {
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/score-and-seal/SELECTION_SEAL.json",
+      "bytes": 28522,
+      "sha256": "40dd56900e3c6eec94c6f3e381fe47028b50c27646d93d6101879a203f02b198"
+    },
+    {
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/score-and-seal/STRICT_MODEL_INPUT_BATCH.json",
+      "bytes": 252360,
+      "sha256": "13667596d8e76f10d319f4129a7cba3b890d2575b3cebf33b78a143740bbbf9e"
+    },
+    {
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/score-and-seal/STRICT_MODEL_SCORE_BATCH.json",
+      "bytes": 312754,
+      "sha256": "868bfc419075de80edb9a40e48daeefb5789666345a373ad81cd3fe8056bca42"
+    },
+    {
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/score-and-seal/STRICT_MODEL_STAGE_SUMMARY.json",
+      "bytes": 12449,
+      "sha256": "28a671bc9c5c07b3c7a974e1b850f35a4c730fa7c7dd494d72d082e4f6c0995a"
+    },
+    {
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/score-and-seal/STRICT_SELECTION_LEDGER.jsonl",
+      "bytes": 68358,
+      "sha256": "809f78f65f4e2de4dc95687fd388beb2927f8962614d0c78a065575edab8b3eb"
+    }
+  ],
+  "canonical_payload_hashes": {
+    "model_input_batch_sha256": "d2a9aa606195ed326264bc4742edcc9953487ba5a36faf1faf271e26e1e50aab",
+    "scorer_output_sha256": "a6a28a206a07748f8667914a2a84c2fb2a1cb19bc331131756aeba4f6d038098",
+    "selection_ledger_sha256": "02d2b4798be150c24148a6c228446fd976f194146fec76d9451309b46a97e898"
+  },
+  "seal_id": "m3selection_cda20d73e7ee7d917aa6dc97439051b6",
+  "seal_content_sha256": "cda20d73e7ee7d917aa6dc97439051b60a1d0c0fd4c620a43da87261b5a6fb5f",
+  "score_started_at": "2026-09-05T19:26:31.699448+09:00",
+  "score_finished_at": "2026-09-05T19:26:42.579538+09:00",
+  "score_execution_head": "48eef6f3105112f637d8783395bcbad883d5af96",
+  "checks": {
+    "canonical_persisted_payload_hashes": "PASS",
+    "canonical_seal_payload": "PASS",
+    "raw_source_hashes": 5,
+    "unchanged_P4_target_files": 32,
+    "input_rows": 57,
+    "selection_ledger_rows": 127,
+    "scoreable_rows": 5,
+    "insufficient_rows": 52,
+    "missing_feature_blocks": 508,
+    "exact_raw_pair_relative_changes": 10,
+    "cohort_percentiles_and_median": "PASS",
+    "unchanged_tie_break_company_id_ascending": "PASS",
+    "preserved_old_output_trees": "PASS",
+    "outcome_execution": false,
+    "official_selection_flags_all_false": true
+  },
+  "actual_results": [
+    {
+      "company_id": "KRX:025560",
+      "relative_changes": {
+        "operating_profit": "5.605811070255947815374104127",
+        "revenue": "0.07871910223890590338626838471"
+      },
+      "metric_percentiles": [
+        "100",
+        "75"
+      ],
+      "F02": "87.5",
+      "final_score": "87.500",
+      "feature_coverage_ratio": "0.1",
+      "partial_rank": 1
+    },
+    {
+      "company_id": "KRX:031980",
+      "relative_changes": {
+        "operating_profit": "3.410653558474308377052319725",
+        "revenue": "1.554397382371329672716801271"
+      },
+      "metric_percentiles": [
+        "75",
+        "100"
+      ],
+      "F02": "87.5",
+      "final_score": "87.500",
+      "feature_coverage_ratio": "0.1",
+      "partial_rank": 2
+    },
+    {
+      "company_id": "KRX:005290",
+      "relative_changes": {
+        "operating_profit": "0.09671897289586305278174037090",
+        "revenue": "0.07273094951360781366485873046"
+      },
+      "metric_percentiles": [
+        "50",
+        "50"
+      ],
+      "F02": "50",
+      "final_score": "50.00",
+      "feature_coverage_ratio": "0.1",
+      "partial_rank": 3
+    },
+    {
+      "company_id": "KRX:036200",
+      "relative_changes": {
+        "operating_profit": "0.05221752168881931878657117160",
+        "revenue": "0.06633855565523693077331665376"
+      },
+      "metric_percentiles": [
+        "25",
+        "25"
+      ],
+      "F02": "25",
+      "final_score": "25.00",
+      "feature_coverage_ratio": "0.1",
+      "partial_rank": 4
+    },
+    {
+      "company_id": "KRX:003160",
+      "relative_changes": {
+        "operating_profit": "-3.121463924015023623913148615",
+        "revenue": "-0.1143467147362480691732502345"
+      },
+      "metric_percentiles": [
+        "0",
+        "0"
+      ],
+      "F02": "0",
+      "final_score": "0",
+      "feature_coverage_ratio": "0.1",
+      "partial_rank": 5
+    }
+  ],
+  "verification_correction_disclosure": "Initial readback assertion compared semantic payload hashes with formatted raw file hashes. Corrected this read-only assertion to existing canonical JSON hash contract; no source, input, scorer or output changes and no score rerun."
+}

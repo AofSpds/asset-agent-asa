@@ -1,16 +1,16 @@
 {
   "schema_version": "AAA-M3TOP3-F02-R1-SOURCE-SELECTION-MATRIX-v1.0",
   "run_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01",
-  "as_of_kst": "2026-09-05T18:39:26.3143315+09:00",
+  "as_of_kst": "2026-09-05T19:29:42.265569+09:00",
   "cutoff": "2024-08-09T23:59:59+09:00",
   "bounded_source_authority": "KIND_OFFICIAL_ONLY",
   "input_policy_ref": "INPUT_POLICY_R1.json",
-  "central_admission_state": "P3_MATERIALIZED_PENDING_P4",
+  "central_admission_state": "P4_VALIDATED_P5_SCORED_AND_SEALED_EXPLORATORY",
   "items": [
     {
       "company_id": "KRX:003160",
       "role": "PRIMARY_NEW_ISSUER",
-      "status": "FIVE_SOURCE_INPUT_MATERIALIZED_PENDING_P4",
+      "status": "ADMITTED_VALIDATED_SCORED_EXPLORATORY",
       "source_action_units": 10,
       "source_id": "SRC-KRX-KIND-003160-20240516-20240516003155",
       "source_url": "https://kind.krx.co.kr/external/2024/05/16/001334/20240516003155/11013.htm",
@@ -33,7 +33,7 @@
       "exclusion_reason": null,
       "newer_source_limit": "BOUNDED_KIND_ROUTE;NOT_GLOBAL_ABSENCE_CLAIM",
       "failure_class": null,
-      "metric_leaf_state": "FOUR_OBSERVED_AND_FOUR_DERIVED_CONTROL_LEAVES_MATERIALIZED",
+      "metric_leaf_state": "FOUR_OBSERVED_AND_FOUR_DERIVED_CONTROL_LEAVES_VERIFIED_AND_CONSUMED",
       "metric_pairs": {
         "revenue": {
           "current": "34732575950",
@@ -77,12 +77,22 @@
         "global_absence_state": "NOT_PROVEN",
         "selection": "LATEST_CONFIRMED_CUTOFF_SAFE_IN_BOUNDED_SET_Q1_FALLBACK"
       },
-      "restatement_note": null
+      "restatement_note": null,
+      "actual_score": {
+        "F02": "0",
+        "final_score": "0",
+        "feature_coverage_ratio": "0.1",
+        "partial_rank": 5,
+        "relative_changes": {
+          "operating_profit": "-3.121463924015023623913148615",
+          "revenue": "-0.1143467147362480691732502345"
+        }
+      }
     },
     {
       "company_id": "KRX:025560",
       "role": "PRIMARY_NEW_ISSUER",
-      "status": "FIVE_SOURCE_INPUT_MATERIALIZED_PENDING_P4",
+      "status": "ADMITTED_VALIDATED_SCORED_EXPLORATORY",
       "source_action_units": 5,
       "source_id": "SRC-KRX-KIND-025560-20240514-20240514003275",
       "source_url": "https://kind.krx.co.kr/external/2024/05/14/001496/20240514003275/11013.htm",
@@ -105,7 +115,7 @@
       "exclusion_reason": null,
       "newer_source_limit": "BOUNDED_KIND_ROUTE;NOT_GLOBAL_ABSENCE_CLAIM",
       "failure_class": null,
-      "metric_leaf_state": "FOUR_OBSERVED_AND_FOUR_DERIVED_CONTROL_LEAVES_MATERIALIZED",
+      "metric_leaf_state": "FOUR_OBSERVED_AND_FOUR_DERIVED_CONTROL_LEAVES_VERIFIED_AND_CONSUMED",
       "metric_pairs": {
         "revenue": {
           "current": "5162565692",
@@ -164,12 +174,22 @@
         ],
         "prior_revenue_unchanged": true,
         "reason": "SAME_CUTOFF_SAFE_SOURCE_DISCLOSED_DISCONTINUED_OPERATION_RECLASSIFICATION"
+      },
+      "actual_score": {
+        "F02": "87.5",
+        "final_score": "87.500",
+        "feature_coverage_ratio": "0.1",
+        "partial_rank": 1,
+        "relative_changes": {
+          "operating_profit": "5.605811070255947815374104127",
+          "revenue": "0.07871910223890590338626838471"
+        }
       }
     },
     {
       "company_id": "KRX:031980",
       "role": "PRIMARY_NEW_ISSUER",
-      "status": "FIVE_SOURCE_INPUT_MATERIALIZED_PENDING_P4",
+      "status": "ADMITTED_VALIDATED_SCORED_EXPLORATORY",
       "source_action_units": 9,
       "source_id": "SRC-KRX-KIND-031980-20240516-20240516001477",
       "source_url": "https://kind.krx.co.kr/external/2024/05/16/000652/20240516001477/11013.htm",
@@ -192,7 +212,7 @@
       "exclusion_reason": null,
       "newer_source_limit": "BOUNDED_KIND_ROUTE;NOT_GLOBAL_ABSENCE_CLAIM",
       "failure_class": null,
-      "metric_leaf_state": "FOUR_OBSERVED_AND_FOUR_DERIVED_CONTROL_LEAVES_MATERIALIZED",
+      "metric_leaf_state": "FOUR_OBSERVED_AND_FOUR_DERIVED_CONTROL_LEAVES_VERIFIED_AND_CONSUMED",
       "metric_pairs": {
         "revenue": {
           "current": "38094447594",
@@ -236,12 +256,22 @@
         "global_absence_state": "NOT_PROVEN",
         "selection": "LATEST_CONFIRMED_CUTOFF_SAFE_IN_BOUNDED_SET_Q1_FALLBACK"
       },
-      "restatement_note": null
+      "restatement_note": null,
+      "actual_score": {
+        "F02": "87.5",
+        "final_score": "87.500",
+        "feature_coverage_ratio": "0.1",
+        "partial_rank": 2,
+        "relative_changes": {
+          "operating_profit": "3.410653558474308377052319725",
+          "revenue": "1.554397382371329672716801271"
+        }
+      }
     },
     {
       "company_id": "KRX:036200",
       "role": "PRIMARY_NEW_ISSUER",
-      "status": "FIVE_SOURCE_INPUT_MATERIALIZED_PENDING_P4",
+      "status": "ADMITTED_VALIDATED_SCORED_EXPLORATORY",
       "source_action_units": 9,
       "source_id": "SRC-KRX-KIND-036200-20240510-20240510001413",
       "source_url": "https://kind.krx.co.kr/external/2024/05/10/000637/20240510001413/11013.htm",
@@ -264,7 +294,7 @@
       "exclusion_reason": null,
       "newer_source_limit": "BOUNDED_KIND_ROUTE;NOT_GLOBAL_ABSENCE_CLAIM",
       "failure_class": null,
-      "metric_leaf_state": "FOUR_OBSERVED_AND_FOUR_DERIVED_CONTROL_LEAVES_MATERIALIZED",
+      "metric_leaf_state": "FOUR_OBSERVED_AND_FOUR_DERIVED_CONTROL_LEAVES_VERIFIED_AND_CONSUMED",
       "metric_pairs": {
         "revenue": {
           "current": "55186952755",
@@ -308,12 +338,22 @@
         "global_absence_state": "NOT_PROVEN",
         "selection": "LATEST_CONFIRMED_CUTOFF_SAFE_IN_BOUNDED_SET_Q1_FALLBACK"
       },
-      "restatement_note": null
+      "restatement_note": null,
+      "actual_score": {
+        "F02": "25",
+        "final_score": "25.00",
+        "feature_coverage_ratio": "0.1",
+        "partial_rank": 4,
+        "relative_changes": {
+          "operating_profit": "0.05221752168881931878657117160",
+          "revenue": "0.06633855565523693077331665376"
+        }
+      }
     },
     {
       "company_id": "KRX:005290",
       "role": "CACHED_CONTROL",
-      "status": "FIVE_SOURCE_INPUT_MATERIALIZED_PENDING_P4",
+      "status": "ADMITTED_VALIDATED_SCORED_EXPLORATORY",
       "source_action_units": 0,
       "source_id": "SRC-KRX-KIND-005290-20240802-70956",
       "source_url": "https://kind.krx.co.kr/external/2024/08/02/000210/20240730000320/70956.htm",
@@ -336,7 +376,7 @@
       "exclusion_reason": null,
       "newer_source_limit": "NO_NEW_005290_DISCOVERY_AUTHORIZED",
       "failure_class": null,
-      "metric_leaf_state": "FOUR_OBSERVED_AND_FOUR_DERIVED_CONTROL_LEAVES_MATERIALIZED",
+      "metric_leaf_state": "FOUR_OBSERVED_AND_FOUR_DERIVED_CONTROL_LEAVES_VERIFIED_AND_CONSUMED",
       "metric_pairs": {
         "revenue": {
           "current": "355414",
@@ -375,7 +415,17 @@
         "selection": "EXACT_CACHED_CONTROL_NO_REFETCH",
         "global_absence_state": "NOT_ASSESSED"
       },
-      "restatement_note": null
+      "restatement_note": null,
+      "actual_score": {
+        "F02": "50",
+        "final_score": "50.00",
+        "feature_coverage_ratio": "0.1",
+        "partial_rank": 3,
+        "relative_changes": {
+          "operating_profit": "0.09671897289586305278174037090",
+          "revenue": "0.07273094951360781366485873046"
+        }
+      }
     }
   ],
   "batch_accounting": {
@@ -400,5 +450,11 @@
   },
   "companies_outside_batch": "NOT_ASSESSED_IN_THIS_BATCH",
   "official_top3_claim": "PROHIBITED",
-  "runtime_input_mapping_ref": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/inputs/INPUT_MAPPING_R1.json"
+  "runtime_input_mapping_ref": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/inputs/INPUT_MAPPING_R1.json",
+  "terminal_evidence": {
+    "affected_validation_report": "AFFECTED_VALIDATION_REPORT.json",
+    "post_score_readback": "P5_POST_SCORE_READBACK.json",
+    "selection_seal": "score-and-seal/SELECTION_SEAL.json",
+    "seal_id": "m3selection_cda20d73e7ee7d917aa6dc97439051b6"
+  }
 }

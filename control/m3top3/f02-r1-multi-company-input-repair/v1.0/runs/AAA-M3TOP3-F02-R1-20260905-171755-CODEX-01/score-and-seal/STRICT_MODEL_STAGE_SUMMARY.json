@@ -1,0 +1,263 @@
+{
+  "claim_ceiling": [
+    "NO_OFFICIAL_TOP3_OR_TOP10_CLAIM",
+    "NO_COMPLETE_W1_INPUT_COVERAGE_CLAIM",
+    "NO_CLEAN_HOLDOUT_OR_OOS_CLAIM",
+    "NO_MODEL_QUALITY_OR_PRODUCTION_READINESS_CLAIM"
+  ],
+  "claim_class": "F02_R1_OBSERVED_COHORT_PROVISIONAL_EXPLORATORY",
+  "config_hash": "eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98",
+  "input_custody": {
+    "admitted_feature_block_count": 5,
+    "affected_validation_binding": {
+      "report_path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/AFFECTED_VALIDATION_REPORT.json",
+      "report_sha256": "886e012c0053cbe1efe309278ef55c5290a653ac7f1902cfef6da65732368956",
+      "state": "EXACT_TARGET_ALL_REQUIRED_ROLES_PASS",
+      "target_commit": "cdfebb54ced5d75b402fb8605ee6ee5e4578bbdd",
+      "validation_receipts": [
+        {
+          "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/validation/CTLV_R1.json",
+          "role": "CTLV",
+          "sha256": "b499c3d7f88378b8b590291aedd9250329f338e5f9759050cb319d9b51d2c9e3"
+        },
+        {
+          "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/validation/MODV_R1.json",
+          "role": "MODV",
+          "sha256": "c89f799099ead1b59fb15f6f80914ca53300ae509fb4ab47e348f96d08411faf"
+        },
+        {
+          "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/validation/ENGV_R1.json",
+          "role": "ENGV",
+          "sha256": "1b2dfb3e212aa405d960435254c4154b4d685e67b02ff30ca72f755d1cd84a7c"
+        },
+        {
+          "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/validation/PMOV_R1.json",
+          "role": "PMOV",
+          "sha256": "24cd75bef194ec3d8bf1bc4895576656e2effa612d9b509c2997944a11bf5833"
+        },
+        {
+          "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/validation/IVA_R1.json",
+          "role": "IVA",
+          "sha256": "b597f430375cafcae215e4ed8dd18d707d4a2211564de680ef65c5587affc0b8"
+        }
+      ]
+    },
+    "composite_input_sha256": "3e2679c2545aa8cb8febbbc1b573bbdec23d18494dcfb6904845d4a686f3ec97",
+    "derived_control_leaf_count": 20,
+    "derived_relative_change_count": 10,
+    "estimated_leaf_count": 0,
+    "feature_sidecar_raw_file_sha256": "bb1619b7d037919c576d9c688789814a9474da76635d39edd6e37a2b00f727cc",
+    "input_profile": {
+      "admission_method": "F02_R1_LATEST_CONFIRMED_QUARTER_NATIVE_UNITS_v1",
+      "blind_process_claim": false,
+      "claim_ceiling": "F02_ONLY_OBSERVED_COHORT_PROVISIONAL_NO_OFFICIAL_TOP3_TOP10",
+      "consumed_registry_git_blob": "5faa4d5739bf9ecb0c11d16f6d7d697ff3983977",
+      "dependencies": [
+        {
+          "byte_size": 1618,
+          "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/INPUT_POLICY_R1.json",
+          "sha256": "fb62b4afb0f4e3edddcbc8b95e15cd2ea4288be72b9a93c135a9b687f9e0d680"
+        },
+        {
+          "byte_size": 3151,
+          "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/OWNER_AUTHORIZATION_BINDING.json",
+          "sha256": "96aff4ada2cc2a816bbc0b2536d58b4fed54680489cb15f88f78e63598d59404"
+        },
+        {
+          "byte_size": 2515,
+          "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/P2_DISPOSITION_AND_IMPLEMENTATION_SCOPE.json",
+          "sha256": "da75fea80d60bf32c530d2bd04cbffdb0da4e8a2edc40212db34dc95ac3e3df0"
+        },
+        {
+          "byte_size": 12719,
+          "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-ledgers/source_research_a.jsonl",
+          "sha256": "5a71fc2fa25e20a5ffc66b72e015cb4de56d7fc3bb34adba2754fe9f51d9eb81"
+        },
+        {
+          "byte_size": 13383,
+          "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-ledgers/source_research_a_result.json",
+          "sha256": "d84925e78e5fc7e20051a2fac7421e3b7ee0d269666bd7844db380ba96355603"
+        },
+        {
+          "byte_size": 25216,
+          "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-ledgers/source_research_b.jsonl",
+          "sha256": "5c06bfe4831510f642af39cb6f1aa9209e15bdf7c14aeaefa5195961c44ee73d"
+        },
+        {
+          "byte_size": 19870,
+          "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-results/P2_CONTROL_PROVENANCE_CLASSIFICATION.json",
+          "sha256": "8c763b1924c210db7ea97b5e19ea53a62e7532e1b101af72b42113dab30cb1b6"
+        },
+        {
+          "byte_size": 14547,
+          "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-results/P2_MODEL_MEANING_CLASSIFICATION.json",
+          "sha256": "59108fb5b82bcc6622aaeaa1fff475cc7c3563bbe97c9dbd124bd332d7b5e42c"
+        },
+        {
+          "byte_size": 7752,
+          "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-results/source_research_b_result.json",
+          "sha256": "9b5f8d1bcb2140456a9b78de2c3758efdf52dd3cb754aa1ef4ada3e1d7d09f2a"
+        },
+        {
+          "byte_size": 4221,
+          "path": "control/m3top3/process-calibration/v1.0/runs/AAA-M3TOP3-PROCESS-CALIBRATION-PC1-20260905-143739-CODEX-01/F02_DISCOVERY_RECEIPT.json",
+          "sha256": "57cf0a0a7e7d316f86c6591a240cbcddadb894830c827a4d207219631d33b9af"
+        },
+        {
+          "byte_size": 2986,
+          "path": "control/m3top3/real-input-replay/v1.0/runs/AAA-M3TOP3-REAL-INPUT-STRICT-PRAGMATIC-20260905-114150-CODEX-01/inputs/SOURCE_MANIFEST.json",
+          "sha256": "4752fdad038681d6c09381176bdd8ca1837f9ecdd9201eafb3bd4ea682d534de"
+        },
+        {
+          "byte_size": 24121,
+          "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/inputs/INPUT_MAPPING_R1.json",
+          "sha256": "1d30e0c244aca29093a5fa42b54abd8312a7e0c8c838326e12aae059b28fe30f"
+        }
+      ],
+      "fixed_company_ids": [
+        "KRX:003160",
+        "KRX:005290",
+        "KRX:025560",
+        "KRX:031980",
+        "KRX:036200"
+      ],
+      "heterogeneous_periods": "FOUR_2024Q1_VS_2023Q1_AND_CACHED_005290_2024Q2_VS_2023Q2",
+      "mapping": {
+        "byte_size": 24121,
+        "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/inputs/INPUT_MAPPING_R1.json",
+        "sha256": "1d30e0c244aca29093a5fa42b54abd8312a7e0c8c838326e12aae059b28fe30f"
+      },
+      "new_source_actions_in_materialization": 0,
+      "prior_actor_w1_outcome_exposure": true,
+      "profile_id": "F02_R1_EXPLORATORY_V1",
+      "scientific_state": "EXPLORATORY_AFTER_W1_OUTCOME_EXPOSURE",
+      "unit_policy": "NATIVE_PAIR_UNITS_DIMENSIONLESS_RELATIVE_NO_CONVERSION"
+    },
+    "observed_numeric_leaf_count": 20,
+    "semantic_feature_leaf_sha256": "4eb97470ac48e3ab087178dc60fd1157aefc4674803b3f13b81f4fe28c779c7d",
+    "sidecar_leaf_count": 40,
+    "source_count": 5,
+    "source_manifest_content_sha256": "b3bf4af1a27811b72073595af07a61eb0edfbd326fda349d3f0e98cb3f2b6900"
+  },
+  "mode": "STRICT",
+  "model_stage_state": "COMPLETED_NONEMPTY_STRICT_SCORE",
+  "outcome_firewall": {
+    "future_outcome_fields_present_in_model_inputs": false,
+    "future_price_values_loaded_before_model_selection": false,
+    "price_stage_may_begin_after": "NOT_AUTHORIZED_UNDER_F02_R1_PACKET"
+  },
+  "persisted_payload_hashes": {
+    "model_input_batch_sha256": "d2a9aa606195ed326264bc4742edcc9953487ba5a36faf1faf271e26e1e50aab",
+    "scorer_output_sha256": "a6a28a206a07748f8667914a2a84c2fb2a1cb19bc331131756aeba4f6d038098",
+    "selection_ledger_sha256": "02d2b4798be150c24148a6c228446fd976f194146fec76d9451309b46a97e898"
+  },
+  "pmo_run_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01",
+  "preserved_predecessor_bundle_identity": "M3TOP3-EXECUTABLE-BUNDLE-SHA256:82266d51a64382cbd34ee68872a3cd3e3f640c6ff438e84416906f8b8a8ab9c0",
+  "runner_version": "M3TOP3-REAL-INPUT-STRICT-PRAGMATIC-REPLAY-v1.0",
+  "source_population": {
+    "authority": "QUEUE_ONLY_WITH_EXPLICIT_SUCCESSOR_LEAF_OVERLAY",
+    "compressed_sha256": "8b3671d662457aef8c1a5595b33a85a27e08aaee56238e7218f1df0b4df78353",
+    "git_blob": "4b3cfbfa9969abe2bd6dff5fdbfeb2db9d31cdae",
+    "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/g3-annotation-candidate/G3_E_ANNOTATION_INGEST_QUEUE_v0.1.jsonl.gz",
+    "revision": "69a1e7b",
+    "row_count": 1016
+  },
+  "stage_sequence": [
+    "POPULATION_BOUND",
+    "SOURCE_CUSTODY_VERIFIED",
+    "STRICT_FEATURE_LEAVES_ADMITTED",
+    "CONSUMED_POINTERS_AND_PROVENANCE_VERIFIED",
+    "W1_COMPLETE_INCLUDE_BATCH_SCORED"
+  ],
+  "strict_value_classification": {
+    "calculated_relative_change_count": 10,
+    "derived_control_leaf_count": 20,
+    "estimated_leaf_count": 0,
+    "observed_numeric_leaf_count": 20,
+    "unverified_or_missing_feature_block_count": 508
+  },
+  "successor_executable_bundle_identity": "M3TOP3-REAL-INPUT-EXECUTABLE-BUNDLE-SHA256:fe555c17a4ec8244e99755d193f63a67ff10574964b4025b9086cd70cd7321c7",
+  "window": {
+    "coverage_limited_order": [
+      {
+        "company_id": "KRX:025560",
+        "final_score": "87.500",
+        "partial_rank": 1,
+        "score_status": "PROVISIONAL_MISSING_FEATURES",
+        "warning_flags": [
+          "MISSING_FEATURES_RENORMALIZED",
+          "INCOMPLETE_ELIGIBLE_DENOMINATOR"
+        ]
+      },
+      {
+        "company_id": "KRX:031980",
+        "final_score": "87.500",
+        "partial_rank": 2,
+        "score_status": "PROVISIONAL_MISSING_FEATURES",
+        "warning_flags": [
+          "MISSING_FEATURES_RENORMALIZED",
+          "INCOMPLETE_ELIGIBLE_DENOMINATOR"
+        ]
+      },
+      {
+        "company_id": "KRX:005290",
+        "final_score": "50.00",
+        "partial_rank": 3,
+        "score_status": "PROVISIONAL_MISSING_FEATURES",
+        "warning_flags": [
+          "MISSING_FEATURES_RENORMALIZED",
+          "INCOMPLETE_ELIGIBLE_DENOMINATOR"
+        ]
+      },
+      {
+        "company_id": "KRX:036200",
+        "final_score": "25.00",
+        "partial_rank": 4,
+        "score_status": "PROVISIONAL_MISSING_FEATURES",
+        "warning_flags": [
+          "MISSING_FEATURES_RENORMALIZED",
+          "INCOMPLETE_ELIGIBLE_DENOMINATOR"
+        ]
+      },
+      {
+        "company_id": "KRX:003160",
+        "final_score": "0",
+        "partial_rank": 5,
+        "score_status": "PROVISIONAL_MISSING_FEATURES",
+        "warning_flags": [
+          "MISSING_FEATURES_RENORMALIZED",
+          "INCOMPLETE_ELIGIBLE_DENOMINATOR"
+        ]
+      }
+    ],
+    "entry_trade_date": "2024-08-12",
+    "evaluation_last_trade_date": "2024-11-08",
+    "exclude_proven_count": 8,
+    "exclude_unresolved_count": 62,
+    "exit_trade_date": "2024-11-11",
+    "feature_availability_states": {
+      "AVAILABLE": 5,
+      "NOT_FOUND": 508
+    },
+    "horizon_close_date": "2024-11-08",
+    "nominal_window_end": "2024-11-10",
+    "official_top3_state": "NOT_AVAILABLE_INCOMPLETE_57_ROW_SCORE_COVERAGE",
+    "outcome_measurement_cohort_policy": "ALL_SCOREABLE_PRECOMMITTED_NO_SUBSTITUTION",
+    "outer_partitions": {
+      "EXCLUDE_PROVEN": 8,
+      "EXCLUDE_UNRESOLVED": 62,
+      "INCLUDE_SCORED": 5,
+      "REPLAY_DATA_INSUFFICIENT": 52
+    },
+    "ranking_status": "INCOMPLETE_COVERAGE",
+    "replay_data_insufficient_count": 52,
+    "replay_include_eligibility_count": 57,
+    "scoreable_count": 5,
+    "scorer_coverage": "0.08771929824561403508771929825",
+    "scorer_include_batch_count": 57,
+    "snapshot_cutoff_at": "2024-08-09T23:59:59+09:00",
+    "u127_count": 127,
+    "window_anchor_date": "2024-08-10",
+    "window_id": "W1"
+  }
+}

@@ -1,22 +1,22 @@
 {
   "schema_version": "AAA-PMO-PROGRESS-CURRENT-v1.0",
   "run_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01",
-  "as_of_kst": "2026-09-05T19:25:44.7285839+09:00",
-  "overall_progress_percent": 85,
-  "current_phase": "P5_NEW_R1_SCORE_AND_SEAL",
+  "as_of_kst": "2026-09-05T19:29:42.265569+09:00",
+  "overall_progress_percent": 95,
+  "current_phase": "P6_COMPLETION_AND_PERSISTENCE_CLOSE",
   "current_phase_progress_percent": 0,
   "validation_closure_progress_percent": 100,
-  "earned_ewu": 85,
+  "earned_ewu": 95,
   "total_frozen_ewu": 100,
-  "elapsed_wall": "PT7669.582S",
+  "elapsed_wall": "PT7907.119S",
   "active_time": "NOT_INSTRUMENTED",
   "wait_block_time": "NOT_INSTRUMENTED",
   "rework_revalidation_time": "NOT_INSTRUMENTED",
-  "eta_range": "PT10M_TO_PT25M",
+  "eta_range": "PT5M_TO_PT15M",
   "eta_confidence": "MEDIUM_LOW",
   "actual_cru_to_date": "NOT_INSTRUMENTED",
   "forecast_cru_at_completion": "NOT_CALIBRATED",
-  "throughput": "5_SOURCES_40_LEAVES_57_ROW_MIS_ADMISSION_VERIFIED",
+  "throughput": "5_COMPARABLE_COMPANIES_5_OF_57_PROVISIONAL_SCOREABLE",
   "source_actions": {
     "consumed": 33,
     "ceiling": 48,
@@ -24,8 +24,8 @@
   },
   "blockers": [],
   "reopened_units": 0,
-  "last_material_event": "ALL_FIVE_P4_ROLE_RECEIPTS_PASS_AND_FINDINGS_FROZEN",
-  "next_terminal_event": "ONE_NEW_R1_SCORE_AND_SEAL",
+  "last_material_event": "ONE_NEW_R1_SCORE_SEAL_AND_ACTUAL_PAYLOAD_READBACK_COMPLETE",
+  "next_terminal_event": "FINAL_REPORTS_COMMIT_AND_REMOTE_READBACK",
   "progress_rebase_history": [],
   "token_cost_forecast": "NOT_INSTRUMENTED",
   "runtime_interruption": {
@@ -42,5 +42,6 @@
     "IVA"
   ],
   "validation_roles_remaining": [],
-  "known_affected_recheck_seconds": 8.944
+  "known_affected_recheck_seconds": 8.944,
+  "r1_score_executions": 1
 }

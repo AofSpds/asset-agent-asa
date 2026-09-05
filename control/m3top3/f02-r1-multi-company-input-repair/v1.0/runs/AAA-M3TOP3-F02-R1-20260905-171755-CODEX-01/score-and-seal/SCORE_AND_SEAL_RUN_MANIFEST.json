@@ -1,0 +1,429 @@
+{
+  "affected_validation_binding": {
+    "report_path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/AFFECTED_VALIDATION_REPORT.json",
+    "report_sha256": "886e012c0053cbe1efe309278ef55c5290a653ac7f1902cfef6da65732368956",
+    "state": "EXACT_TARGET_ALL_REQUIRED_ROLES_PASS",
+    "target_commit": "cdfebb54ced5d75b402fb8605ee6ee5e4578bbdd",
+    "validation_receipts": [
+      {
+        "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/validation/CTLV_R1.json",
+        "role": "CTLV",
+        "sha256": "b499c3d7f88378b8b590291aedd9250329f338e5f9759050cb319d9b51d2c9e3"
+      },
+      {
+        "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/validation/MODV_R1.json",
+        "role": "MODV",
+        "sha256": "c89f799099ead1b59fb15f6f80914ca53300ae509fb4ab47e348f96d08411faf"
+      },
+      {
+        "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/validation/ENGV_R1.json",
+        "role": "ENGV",
+        "sha256": "1b2dfb3e212aa405d960435254c4154b4d685e67b02ff30ca72f755d1cd84a7c"
+      },
+      {
+        "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/validation/PMOV_R1.json",
+        "role": "PMOV",
+        "sha256": "24cd75bef194ec3d8bf1bc4895576656e2effa612d9b509c2997944a11bf5833"
+      },
+      {
+        "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/validation/IVA_R1.json",
+        "role": "IVA",
+        "sha256": "b597f430375cafcae215e4ed8dd18d707d4a2211564de680ef65c5587affc0b8"
+      }
+    ]
+  },
+  "execution_argv": [
+    "C:\\Users\\ms1pk\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "-m",
+    "tools.m3top3.cli_run_real_input_replay",
+    "score-and-seal",
+    "--repo",
+    "C:\\Users\\ms1pk\\dev\\asset-agent-asa\\asset-agent-asa\\r1",
+    "--output-dir",
+    "C:\\Users\\ms1pk\\dev\\asset-agent-asa\\asset-agent-asa\\r1/control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/score-and-seal",
+    "--pmo-run-id",
+    "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01",
+    "--source-manifest",
+    "C:\\Users\\ms1pk\\dev\\asset-agent-asa\\asset-agent-asa\\r1/control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/inputs/SOURCE_MANIFEST.json",
+    "--feature-sidecar",
+    "C:\\Users\\ms1pk\\dev\\asset-agent-asa\\asset-agent-asa\\r1/control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/inputs/FEATURE_SIDECAR.jsonl",
+    "--input-profile",
+    "F02_R1_EXPLORATORY_V1",
+    "--affected-validation-report",
+    "C:\\Users\\ms1pk\\dev\\asset-agent-asa\\asset-agent-asa\\r1/control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/AFFECTED_VALIDATION_REPORT.json"
+  ],
+  "execution_environment": {
+    "git_branch": "task/aaa/m3top3-f02-r1-multi-company-input-repair-20260905",
+    "git_head": "48eef6f3105112f637d8783395bcbad883d5af96",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "repo": "C:\\Users\\ms1pk\\dev\\asset-agent-asa\\asset-agent-asa\\r1"
+  },
+  "feature_sidecar_raw_file_sha256": "bb1619b7d037919c576d9c688789814a9474da76635d39edd6e37a2b00f727cc",
+  "finished_at_kst": "2026-09-05T19:26:42.579538+09:00",
+  "future_price_path_argument_present": false,
+  "future_price_value_read_count": 0,
+  "input_profile": {
+    "admission_method": "F02_R1_LATEST_CONFIRMED_QUARTER_NATIVE_UNITS_v1",
+    "blind_process_claim": false,
+    "claim_ceiling": "F02_ONLY_OBSERVED_COHORT_PROVISIONAL_NO_OFFICIAL_TOP3_TOP10",
+    "consumed_registry_git_blob": "5faa4d5739bf9ecb0c11d16f6d7d697ff3983977",
+    "dependencies": [
+      {
+        "byte_size": 1618,
+        "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/INPUT_POLICY_R1.json",
+        "sha256": "fb62b4afb0f4e3edddcbc8b95e15cd2ea4288be72b9a93c135a9b687f9e0d680"
+      },
+      {
+        "byte_size": 3151,
+        "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/OWNER_AUTHORIZATION_BINDING.json",
+        "sha256": "96aff4ada2cc2a816bbc0b2536d58b4fed54680489cb15f88f78e63598d59404"
+      },
+      {
+        "byte_size": 2515,
+        "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/P2_DISPOSITION_AND_IMPLEMENTATION_SCOPE.json",
+        "sha256": "da75fea80d60bf32c530d2bd04cbffdb0da4e8a2edc40212db34dc95ac3e3df0"
+      },
+      {
+        "byte_size": 12719,
+        "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-ledgers/source_research_a.jsonl",
+        "sha256": "5a71fc2fa25e20a5ffc66b72e015cb4de56d7fc3bb34adba2754fe9f51d9eb81"
+      },
+      {
+        "byte_size": 13383,
+        "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-ledgers/source_research_a_result.json",
+        "sha256": "d84925e78e5fc7e20051a2fac7421e3b7ee0d269666bd7844db380ba96355603"
+      },
+      {
+        "byte_size": 25216,
+        "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-ledgers/source_research_b.jsonl",
+        "sha256": "5c06bfe4831510f642af39cb6f1aa9209e15bdf7c14aeaefa5195961c44ee73d"
+      },
+      {
+        "byte_size": 19870,
+        "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-results/P2_CONTROL_PROVENANCE_CLASSIFICATION.json",
+        "sha256": "8c763b1924c210db7ea97b5e19ea53a62e7532e1b101af72b42113dab30cb1b6"
+      },
+      {
+        "byte_size": 14547,
+        "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-results/P2_MODEL_MEANING_CLASSIFICATION.json",
+        "sha256": "59108fb5b82bcc6622aaeaa1fff475cc7c3563bbe97c9dbd124bd332d7b5e42c"
+      },
+      {
+        "byte_size": 7752,
+        "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-results/source_research_b_result.json",
+        "sha256": "9b5f8d1bcb2140456a9b78de2c3758efdf52dd3cb754aa1ef4ada3e1d7d09f2a"
+      },
+      {
+        "byte_size": 4221,
+        "path": "control/m3top3/process-calibration/v1.0/runs/AAA-M3TOP3-PROCESS-CALIBRATION-PC1-20260905-143739-CODEX-01/F02_DISCOVERY_RECEIPT.json",
+        "sha256": "57cf0a0a7e7d316f86c6591a240cbcddadb894830c827a4d207219631d33b9af"
+      },
+      {
+        "byte_size": 2986,
+        "path": "control/m3top3/real-input-replay/v1.0/runs/AAA-M3TOP3-REAL-INPUT-STRICT-PRAGMATIC-20260905-114150-CODEX-01/inputs/SOURCE_MANIFEST.json",
+        "sha256": "4752fdad038681d6c09381176bdd8ca1837f9ecdd9201eafb3bd4ea682d534de"
+      },
+      {
+        "byte_size": 24121,
+        "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/inputs/INPUT_MAPPING_R1.json",
+        "sha256": "1d30e0c244aca29093a5fa42b54abd8312a7e0c8c838326e12aae059b28fe30f"
+      }
+    ],
+    "fixed_company_ids": [
+      "KRX:003160",
+      "KRX:005290",
+      "KRX:025560",
+      "KRX:031980",
+      "KRX:036200"
+    ],
+    "heterogeneous_periods": "FOUR_2024Q1_VS_2023Q1_AND_CACHED_005290_2024Q2_VS_2023Q2",
+    "mapping": {
+      "byte_size": 24121,
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/inputs/INPUT_MAPPING_R1.json",
+      "sha256": "1d30e0c244aca29093a5fa42b54abd8312a7e0c8c838326e12aae059b28fe30f"
+    },
+    "new_source_actions_in_materialization": 0,
+    "prior_actor_w1_outcome_exposure": true,
+    "profile_id": "F02_R1_EXPLORATORY_V1",
+    "scientific_state": "EXPLORATORY_AFTER_W1_OUTCOME_EXPOSURE",
+    "unit_policy": "NATIVE_PAIR_UNITS_DIMENSIONLESS_RELATIVE_NO_CONVERSION"
+  },
+  "outcome_execution_authorized": false,
+  "phase": "SCORE_AND_SEAL",
+  "pmo_run_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01",
+  "predecessor_binding": {
+    "f02_r1_preservation": {
+      "baseline_commit": "6b219f9f3a37dd89b26fc1d6ecec6b8eb890fa9f",
+      "preserved_output_trees": [
+        {
+          "path": "control/m3top3/process-calibration/v1.0/runs/AAA-M3TOP3-PROCESS-CALIBRATION-PC1-20260905-143739-CODEX-01",
+          "tree": "0ea887bd547998678861baea5600045eb0b2e297"
+        },
+        {
+          "path": "control/m3top3/real-input-replay/v1.0/runs/AAA-M3TOP3-REAL-INPUT-STRICT-PRAGMATIC-20260905-114150-CODEX-01",
+          "tree": "d28a10eb6472452057fac383d5f63f07a5d6e455"
+        }
+      ]
+    },
+    "model_components": [
+      {
+        "byte_size": 96,
+        "git_blob": "9c3a6a28360b46df52b320a5c27f8a1096867199",
+        "path": "tools/m3top3/__init__.py",
+        "repository_blob_byte_identical": true,
+        "runtime_sha256": "54b143b394a19dadb286305f267571b62423ad35b92115becc3d025a0dd1a0b3"
+      },
+      {
+        "byte_size": 9010,
+        "git_blob": "5be5536def2724d4db7f4c0f7eee1a5046c80bb3",
+        "path": "tools/m3top3/cli_run_coverage_limited_replay.py",
+        "repository_blob_byte_identical": true,
+        "runtime_sha256": "793db3d2e2504c3504e8c3f40c980ed9904c16e9d389b76ae80e77f951d313bf"
+      },
+      {
+        "byte_size": 4975,
+        "git_blob": "161c3817cf0e0f0827a294b7fde150ab6b6cbcda",
+        "path": "tools/m3top3/contracts_v1.py",
+        "repository_blob_byte_identical": true,
+        "runtime_sha256": "5528f6e81a36ea8558ea909fc59074684a3dd73c414c723be386712dac77f4aa"
+      },
+      {
+        "byte_size": 2852,
+        "git_blob": "e81561e737c3419013dc1bc5adff5ae258365862",
+        "path": "tools/m3top3/core.py",
+        "repository_blob_byte_identical": true,
+        "runtime_sha256": "9d4ecbe324f4f1eece034e3ccc6aabd4968dce1f185ea58de8eb780da03746ec"
+      },
+      {
+        "byte_size": 14086,
+        "git_blob": "35104a7384c3ee6175136e95dded7f3237d69435",
+        "path": "tools/m3top3/features_v1.py",
+        "repository_blob_byte_identical": true,
+        "runtime_sha256": "14bca2fecb4ec46cebc432a619af3388b8e8bab69ff7164dff5b52aed75dc981"
+      },
+      {
+        "byte_size": 10475,
+        "git_blob": "b9017f5db0fb637c8a449d5ee3cb1c4a05481076",
+        "path": "tools/m3top3/features_v1_narrow_patch.py",
+        "repository_blob_byte_identical": true,
+        "runtime_sha256": "6109f320038eeebd93e02897b3ee2aceb286516b446708367daddbe1afa98e8f"
+      },
+      {
+        "byte_size": 3758,
+        "git_blob": "f2aa6a3d0114bec4e617519ccc406adb21584054",
+        "path": "tools/m3top3/pit_guard.py",
+        "repository_blob_byte_identical": true,
+        "runtime_sha256": "7df44af85ecad959c81b629ec63b1cf9d6d57b1c155f715f49a8c5d445afc957"
+      },
+      {
+        "byte_size": 990,
+        "git_blob": "3988ddee8a6437790873398cf59ee82ed6534931",
+        "path": "tools/m3top3/runtime_v1.py",
+        "repository_blob_byte_identical": true,
+        "runtime_sha256": "bfc7a9f1dc7dea20ac1fefb3c3cc8530811674045de691369f46abdda21f55ab"
+      },
+      {
+        "byte_size": 9863,
+        "git_blob": "2a797ea705eeb1aef330754fb08ff2182297c139",
+        "path": "tools/m3top3/scorer_v1.py",
+        "repository_blob_byte_identical": true,
+        "runtime_sha256": "0bb0fbd1628992b2d49d6f7e06b3cbad1fe470f5bab7f175a89b4691a4d96126"
+      },
+      {
+        "byte_size": 4952,
+        "git_blob": "ce5b3b3ad0f09bcbea2aee24abd591974154ea91",
+        "path": "tools/m3top3/shared_interface_guards_v1.py",
+        "repository_blob_byte_identical": true,
+        "runtime_sha256": "746ae5570a4542b9e67536f77f043bc2ba7e5b54b1e5f599a7fbf6c01c6aee56"
+      },
+      {
+        "byte_size": 3340,
+        "git_blob": "4fa61dc8d0e7e3b6e2414a8eb41d5960e27a92a1",
+        "path": "tools/m3top3/window_mapping_v11.py",
+        "repository_blob_byte_identical": true,
+        "runtime_sha256": "6f73ec50cf6ac2f8f2c2da5edda40771704ea02b49fc73f9c275830d97d4cc70"
+      },
+      {
+        "byte_size": 2426,
+        "git_blob": "043bf24bc8c838a8060360e86614cf5bfefc9145",
+        "path": "tools/m3top3/configs/m3top3_v1.0.json",
+        "repository_blob_byte_identical": true,
+        "runtime_sha256": "eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98"
+      },
+      {
+        "byte_size": 25308,
+        "git_blob": "80fb0dac86b919596bd5c82314e619dd2c8b12b9",
+        "path": "tools/m3top3/coverage_limited_replay_v1.py",
+        "repository_blob_byte_identical": true,
+        "runtime_sha256": "0ecfc9be42849d9ddf4a0db3f450826d747c189a11e579ceeec7965cceac251a"
+      }
+    ],
+    "predecessor_executable_bundle_identity": "M3TOP3-EXECUTABLE-BUNDLE-SHA256:82266d51a64382cbd34ee68872a3cd3e3f640c6ff438e84416906f8b8a8ab9c0",
+    "predecessor_head": "79b46dc1f63f1cd215cc0ebc0c91b4ec09e7dc71",
+    "predecessor_zero_scoreable_output_tree": "1d73cc942a3524571ea214724c887c3964dca13f"
+  },
+  "scientific_state": "EXPLORATORY_AFTER_W1_OUTCOME_EXPOSURE",
+  "selection_seal_id": "m3selection_cda20d73e7ee7d917aa6dc97439051b6",
+  "source_manifest_content_sha256": "b3bf4af1a27811b72073595af07a61eb0edfbd326fda349d3f0e98cb3f2b6900",
+  "started_at_kst": "2026-09-05T19:26:31.699448+09:00",
+  "status": "COMPLETED_NONEMPTY_STRICT_SCORE_AND_DURABLE_SEAL",
+  "successor_code_components": [
+    {
+      "byte_size": 96,
+      "path": "tools/m3top3/__init__.py",
+      "sha256": "54b143b394a19dadb286305f267571b62423ad35b92115becc3d025a0dd1a0b3"
+    },
+    {
+      "byte_size": 9010,
+      "path": "tools/m3top3/cli_run_coverage_limited_replay.py",
+      "sha256": "793db3d2e2504c3504e8c3f40c980ed9904c16e9d389b76ae80e77f951d313bf"
+    },
+    {
+      "byte_size": 4975,
+      "path": "tools/m3top3/contracts_v1.py",
+      "sha256": "5528f6e81a36ea8558ea909fc59074684a3dd73c414c723be386712dac77f4aa"
+    },
+    {
+      "byte_size": 2852,
+      "path": "tools/m3top3/core.py",
+      "sha256": "9d4ecbe324f4f1eece034e3ccc6aabd4968dce1f185ea58de8eb780da03746ec"
+    },
+    {
+      "byte_size": 14086,
+      "path": "tools/m3top3/features_v1.py",
+      "sha256": "14bca2fecb4ec46cebc432a619af3388b8e8bab69ff7164dff5b52aed75dc981"
+    },
+    {
+      "byte_size": 10475,
+      "path": "tools/m3top3/features_v1_narrow_patch.py",
+      "sha256": "6109f320038eeebd93e02897b3ee2aceb286516b446708367daddbe1afa98e8f"
+    },
+    {
+      "byte_size": 3758,
+      "path": "tools/m3top3/pit_guard.py",
+      "sha256": "7df44af85ecad959c81b629ec63b1cf9d6d57b1c155f715f49a8c5d445afc957"
+    },
+    {
+      "byte_size": 990,
+      "path": "tools/m3top3/runtime_v1.py",
+      "sha256": "bfc7a9f1dc7dea20ac1fefb3c3cc8530811674045de691369f46abdda21f55ab"
+    },
+    {
+      "byte_size": 9863,
+      "path": "tools/m3top3/scorer_v1.py",
+      "sha256": "0bb0fbd1628992b2d49d6f7e06b3cbad1fe470f5bab7f175a89b4691a4d96126"
+    },
+    {
+      "byte_size": 4952,
+      "path": "tools/m3top3/shared_interface_guards_v1.py",
+      "sha256": "746ae5570a4542b9e67536f77f043bc2ba7e5b54b1e5f599a7fbf6c01c6aee56"
+    },
+    {
+      "byte_size": 3340,
+      "path": "tools/m3top3/window_mapping_v11.py",
+      "sha256": "6f73ec50cf6ac2f8f2c2da5edda40771704ea02b49fc73f9c275830d97d4cc70"
+    },
+    {
+      "byte_size": 2426,
+      "path": "tools/m3top3/configs/m3top3_v1.0.json",
+      "sha256": "eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98"
+    },
+    {
+      "byte_size": 25308,
+      "path": "tools/m3top3/coverage_limited_replay_v1.py",
+      "sha256": "0ecfc9be42849d9ddf4a0db3f450826d747c189a11e579ceeec7965cceac251a"
+    },
+    {
+      "byte_size": 309,
+      "path": ".gitattributes",
+      "sha256": "0e82fdbe0de8a92a899663cd3117899635888e9dee74b913469fe769ff098bfc"
+    },
+    {
+      "byte_size": 82918,
+      "path": "tools/m3top3/real_input_replay_v1.py",
+      "sha256": "12d746416276aeab3b0e543d32084b212954c85ae16961a810aaa6b1297af71d"
+    },
+    {
+      "byte_size": 21989,
+      "path": "tools/m3top3/cli_run_real_input_replay.py",
+      "sha256": "c2330fc3f86566a3878a1146897f8b93c3c410a3f09d4a74b71623f4f1bbc01c"
+    },
+    {
+      "byte_size": 31071,
+      "path": "tools/m3top3/f02_r1_adapter.py",
+      "sha256": "a06bcfc6153971c095ab4948ea2022f03ddf456c28df3634823e6509f9be20d6"
+    },
+    {
+      "byte_size": 1618,
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/INPUT_POLICY_R1.json",
+      "sha256": "fb62b4afb0f4e3edddcbc8b95e15cd2ea4288be72b9a93c135a9b687f9e0d680"
+    },
+    {
+      "byte_size": 3151,
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/OWNER_AUTHORIZATION_BINDING.json",
+      "sha256": "96aff4ada2cc2a816bbc0b2536d58b4fed54680489cb15f88f78e63598d59404"
+    },
+    {
+      "byte_size": 2515,
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/P2_DISPOSITION_AND_IMPLEMENTATION_SCOPE.json",
+      "sha256": "da75fea80d60bf32c530d2bd04cbffdb0da4e8a2edc40212db34dc95ac3e3df0"
+    },
+    {
+      "byte_size": 12719,
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-ledgers/source_research_a.jsonl",
+      "sha256": "5a71fc2fa25e20a5ffc66b72e015cb4de56d7fc3bb34adba2754fe9f51d9eb81"
+    },
+    {
+      "byte_size": 13383,
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-ledgers/source_research_a_result.json",
+      "sha256": "d84925e78e5fc7e20051a2fac7421e3b7ee0d269666bd7844db380ba96355603"
+    },
+    {
+      "byte_size": 25216,
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-ledgers/source_research_b.jsonl",
+      "sha256": "5c06bfe4831510f642af39cb6f1aa9209e15bdf7c14aeaefa5195961c44ee73d"
+    },
+    {
+      "byte_size": 19870,
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-results/P2_CONTROL_PROVENANCE_CLASSIFICATION.json",
+      "sha256": "8c763b1924c210db7ea97b5e19ea53a62e7532e1b101af72b42113dab30cb1b6"
+    },
+    {
+      "byte_size": 14547,
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-results/P2_MODEL_MEANING_CLASSIFICATION.json",
+      "sha256": "59108fb5b82bcc6622aaeaa1fff475cc7c3563bbe97c9dbd124bd332d7b5e42c"
+    },
+    {
+      "byte_size": 7752,
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-results/source_research_b_result.json",
+      "sha256": "9b5f8d1bcb2140456a9b78de2c3758efdf52dd3cb754aa1ef4ada3e1d7d09f2a"
+    },
+    {
+      "byte_size": 4221,
+      "path": "control/m3top3/process-calibration/v1.0/runs/AAA-M3TOP3-PROCESS-CALIBRATION-PC1-20260905-143739-CODEX-01/F02_DISCOVERY_RECEIPT.json",
+      "sha256": "57cf0a0a7e7d316f86c6591a240cbcddadb894830c827a4d207219631d33b9af"
+    },
+    {
+      "byte_size": 2986,
+      "path": "control/m3top3/real-input-replay/v1.0/runs/AAA-M3TOP3-REAL-INPUT-STRICT-PRAGMATIC-20260905-114150-CODEX-01/inputs/SOURCE_MANIFEST.json",
+      "sha256": "4752fdad038681d6c09381176bdd8ca1837f9ecdd9201eafb3bd4ea682d534de"
+    },
+    {
+      "byte_size": 24121,
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/inputs/INPUT_MAPPING_R1.json",
+      "sha256": "1d30e0c244aca29093a5fa42b54abd8312a7e0c8c838326e12aae059b28fe30f"
+    },
+    {
+      "byte_size": 17274,
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/inputs/SOURCE_MANIFEST.json",
+      "sha256": "b3bf4af1a27811b72073595af07a61eb0edfbd326fda349d3f0e98cb3f2b6900"
+    },
+    {
+      "byte_size": 62227,
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/inputs/FEATURE_SIDECAR.jsonl",
+      "sha256": "bb1619b7d037919c576d9c688789814a9474da76635d39edd6e37a2b00f727cc"
+    }
+  ],
+  "successor_executable_bundle_identity": "M3TOP3-REAL-INPUT-EXECUTABLE-BUNDLE-SHA256:fe555c17a4ec8244e99755d193f63a67ff10574964b4025b9086cd70cd7321c7"
+}
