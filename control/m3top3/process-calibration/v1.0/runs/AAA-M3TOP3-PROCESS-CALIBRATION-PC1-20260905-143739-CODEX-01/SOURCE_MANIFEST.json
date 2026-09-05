@@ -73,6 +73,7 @@
   "f02_materialized_source_count": 0,
   "ca_materialized_source_count": 2,
   "duplicate_source_fetch_count": 0,
+  "duplicate_source_fetch_count_scope": "ONLY_THE_TWO_MATERIALIZED_CA_OBJECTS;EXTERNAL_BROWSER_FETCH_TOTAL_NOT_INSTRUMENTED",
   "git_custody": {
     "attribute_rule": "sources/.gitattributes: *.htm -text whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol",
     "purpose": "Preserve official response bytes without checkout normalization and exclude source-authored line-end whitespace from repository style enforcement.",

@@ -1,24 +1,26 @@
 {
   "schema_version": "AAA-PMO-PROGRESS-CURRENT-v1.0",
   "run_id": "AAA-M3TOP3-PROCESS-CALIBRATION-PC1-20260905-143739-CODEX-01",
-  "as_of_kst": "2026-09-05T15:24:55.6269122+09:00",
-  "overall_progress_percent": 75,
-  "current_phase": "P4_AFFECTED_VALIDATION_CLOSE",
-  "current_phase_progress_percent": 0,
-  "validation_closure_progress_percent": 0,
-  "earned_ewu": 75,
+  "as_of_kst": "2026-09-05T16:00:46.9632098+09:00",
+  "overall_progress_percent": 100,
+  "current_phase": "COMPLETE",
+  "current_phase_progress_percent": 100,
+  "validation_closure_progress_percent": 100,
+  "earned_ewu": 100,
   "total_frozen_ewu": 100,
-  "elapsed_wall": "PT47M16.246S",
+  "elapsed_wall": "PT1H23M7.583S",
   "active_time": "NOT_INSTRUMENTED",
   "wait_block_time": "NOT_INSTRUMENTED",
   "rework_revalidation_time": "NOT_INSTRUMENTED",
-  "eta_range": "PT25M_TO_PT55M",
-  "eta_confidence": "MEDIUM",
+  "eta_range": "PT0S",
+  "eta_confidence": "HIGH",
   "actual_cru_to_date": "NOT_INSTRUMENTED",
-  "forecast_cru_at_completion": "NOT_CALIBRATED",
+  "forecast_cru_at_completion": "NOT_CALIBRATED_NO_NATIVE_CRU_TELEMETRY",
   "throughput": "0_NEW_SCOREABLE_ROWS;5_OF_5_ITEMS_TERMINAL",
-  "blockers": [
-    "PRICE_CANONICAL_AND_CA_CONTRACT_GATE_NOT_CLOSED_FOR_KRX_005290"
+  "blockers": [],
+  "residual_boundaries": [
+    "PRICE_CANONICAL_AND_CA_CONTRACT_GATE_NOT_CLOSED_FOR_KRX_005290",
+    "BROWSER_ATTEMPT_TOTALS_REMAIN_PARTIALLY_INSTRUMENTED"
   ],
   "quality_findings": [
     "P1_RETURN_RECORDED_LATE",
@@ -26,7 +28,7 @@
     "SEVEN_GLOBAL_SEARCH_PAGES_WERE_DECISION_IRRELEVANT_OVERSCAN"
   ],
   "reopened_units": 0,
-  "last_material_event": "P3_ALL_FIVE_ITEMS_TERMINAL_ZERO_SCOREABILITY_GAIN",
+  "last_material_event": "P5C_INDEPENDENT_CLOSURE_AUDIT_CORRECTIONS_COMPLETE",
   "progress_rebase_history": [],
   "rework_correction_history": [
     {

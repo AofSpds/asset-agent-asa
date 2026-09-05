@@ -1,8 +1,8 @@
 {
   "schema_version": "M3TOP3-PROCESS-ROUTE-SUMMARY-v1.0",
   "run_id": "AAA-M3TOP3-PROCESS-CALIBRATION-PC1-20260905-143739-CODEX-01",
-  "as_of_kst": "2026-09-05T15:24:55.6269122+09:00",
-  "state": "P3_FIVE_ITEM_BATCH_TERMINAL_VALIDATION_PENDING",
+  "as_of_kst": "2026-09-05T16:00:46.9632098+09:00",
+  "state": "COMPLETE_BOUNDED_ZERO_GAIN_PARTIAL_TELEMETRY",
   "baseline_scoreable_rows": 1,
   "terminal_scoreable_rows": 1,
   "new_scoreable_rows": 0,
@@ -14,7 +14,9 @@
     "R-SIDECAR-MATERIALIZE",
     "R-SCORE-SEAL-UNCHANGED",
     "R-KRX-CA-COMPARABILITY",
-    "R-AFFECTED-VALIDATION"
+    "R-AFFECTED-VALIDATION",
+    "R-POST-RUN-CALIBRATION",
+    "R-POST-RUN-CLOSURE-AUDIT"
   ],
   "routes": [
     {
@@ -95,8 +97,26 @@
     },
     {
       "route_id": "R-AFFECTED-VALIDATION",
-      "attempt_units": 0,
-      "result": "PENDING_P4"
+      "attempt_units": 2,
+      "validation_rechecks": 1,
+      "fresh_checks_passed": 31,
+      "code_test_executions": 0,
+      "avoided_duplicate_test_case_executions": 71,
+      "result": "PASS_WITH_PROCESS_TELEMETRY_LIMITATIONS"
+    },
+    {
+      "route_id": "R-POST-RUN-CALIBRATION",
+      "attempt_units": 1,
+      "wall_ms": 427436,
+      "result": "COMPLETE_PLAN_VS_ACTUAL_ROUTE_RANKING_AND_PRECOMMITTED_W2_CONTROLS"
+    },
+    {
+      "route_id": "R-POST-RUN-CLOSURE-AUDIT",
+      "attempt_units": 1,
+      "wall_ms": 642510,
+      "record_contradictions_corrected": 4,
+      "generated_cache_directories_removed": 1,
+      "result": "PASS_FOUR_RECORD_CONTRADICTIONS_CORRECTED_FINAL_CLEAN_CHECK_DEFERRED_TO_POST_COMMIT"
     }
   ],
   "items": [
@@ -158,7 +178,7 @@
     }
   ],
   "metrics": {
-    "retrieval_attempts": "NOT_INSTRUMENTED_TOTAL;OBSERVED_ATOMIC_LOWER_BOUND_54",
+    "retrieval_attempts": "NOT_INSTRUMENTED_TOTAL;KNOWN_ROUTE_UNIT_LOWER_BOUND_56;ATOMIC_LEDGER_LOWER_BOUND_54",
     "useful_source_hits": 4,
     "retrieval_hit_rate": "NOT_COMPUTABLE_TOTAL_ATTEMPT_UNITS_INCOMPLETE",
     "pit_admission_yield": "NOT_APPLICABLE_ZERO_CANDIDATES",
@@ -175,5 +195,16 @@
     "route_switch_count": "OBSERVED_AT_LEAST_3_TOTAL_NOT_INSTRUMENTED",
     "token_or_cru_per_scoreable_row": "NOT_INSTRUMENTED"
   },
-  "instrumentation_status": "PARTIAL_BROWSER_ATTEMPT_TELEMETRY;NO_FALSE_PRECISION"
+  "instrumentation_status": "PARTIAL_BROWSER_ATTEMPT_TELEMETRY;NO_FALSE_PRECISION",
+  "completion": {
+    "started_at_kst": "2026-09-05T14:37:39.3805426+09:00",
+    "ended_at_kst": "2026-09-05T16:00:46.9632098+09:00",
+    "elapsed_wall": "PT1H23M7.583S",
+    "planned_wall_p50": "PT1H35M",
+    "planned_wall_p90": "PT3H10M",
+    "p50_delta": "PT11M52.417S_EARLY",
+    "p90_delta": "PT1H46M52.417S_EARLY",
+    "terminal_items": 5,
+    "unresolved_in_scope_validation_blockers": 0
+  }
 }

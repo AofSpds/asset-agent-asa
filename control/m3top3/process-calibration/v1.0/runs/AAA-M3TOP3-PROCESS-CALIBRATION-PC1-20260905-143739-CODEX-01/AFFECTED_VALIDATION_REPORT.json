@@ -1,0 +1,93 @@
+{
+  "schema_version": "M3TOP3-PC1-AFFECTED-VALIDATION-REPORT-v1.0",
+  "run_id": "AAA-M3TOP3-PROCESS-CALIBRATION-PC1-20260905-143739-CODEX-01",
+  "candidate_commit": "e21961d836f41dd34291c9b09e6c44a9dec64df5",
+  "validation_mode": "FRESH_DATA_LINEAGE_AND_AFFECTED_GUARDS_ONLY",
+  "result": "PASS_WITH_PROCESS_TELEMETRY_LIMITATIONS",
+  "passing_execution": {
+    "started_at_kst": "2026-09-05T15:42:55.0370556+09:00",
+    "ended_at_kst": "2026-09-05T15:42:57.0172637+09:00",
+    "wall_ms": 1980,
+    "active_ms": "NOT_INSTRUMENTED",
+    "wait_ms": "NOT_INSTRUMENTED",
+    "checks_passed": 31
+  },
+  "fresh_checks": [
+    "ELEVEN_TOP_LEVEL_JSON_OR_JSONL_ARTIFACTS_PARSE",
+    "ALL_LEDGER_ROWS_HAVE_25_REQUIRED_FIELDS",
+    "CHECKPOINT_P0_PRESENT",
+    "CHECKPOINT_P0C_PRESENT",
+    "CHECKPOINT_P0C2_PRESENT",
+    "CHECKPOINT_P1-30M_PRESENT",
+    "CHECKPOINT_P1_PRESENT",
+    "CHECKPOINT_P2_PRESENT",
+    "CHECKPOINT_P3_PRESENT",
+    "FIVE_ITEMS_ONLY",
+    "FIVE_OF_FIVE_ITEMS_TERMINAL",
+    "SCOREABILITY_ARITHMETIC_1_TO_1_DELTA_0",
+    "Q3_SOURCE_SIZE_AND_SHA256",
+    "FY2024_SOURCE_SIZE_AND_SHA256",
+    "Q3_HEAD_BLOB_EQUALS_RAW_BYTES",
+    "FY2024_HEAD_BLOB_EQUALS_RAW_BYTES",
+    "Q3_PHYSICAL_LINE_COUNT_32054",
+    "FY2024_PHYSICAL_LINE_COUNT_97069",
+    "Q3_LINE_754_SHARE_COUNT",
+    "Q3_LINE_24784_CURRENT_COLUMN",
+    "Q3_LINES_24815_24816_NO_CASH_DIVIDEND_TOTAL",
+    "Q3_LINES_24821_24822_NO_STOCK_DIVIDEND_TOTAL",
+    "FY2024_LINES_78245_78250_NO_SHARE_MOVEMENT",
+    "FY2024_DIVIDEND_RECORD_DATE_AFTER_W1",
+    "FY2024_CASH_200_AND_NO_STOCK_DIVIDEND",
+    "PREDECESSOR_005290_RAW_OUTCOME_PRESERVED",
+    "EXECUTABLE_BUNDLE_16_OF_16_EXACT",
+    "NO_EXECUTABLE_COMPONENT_CHANGE_FROM_PREDECESSOR_REPORT_HEAD",
+    "PRIOR_71_CASE_VALIDATION_REUSE_BOUND_TO_SAME_BYTES",
+    "COMMITTED_PC1_DIFF_CHECK",
+    "WORKTREE_CLEAN_AT_VALIDATION"
+  ],
+  "source_custody": {
+    "q3": {
+      "byte_size": 1676499,
+      "sha256": "a3e7febc9b2c1b33511ae051bf830f09815df59335eb4f7182e7c382e4881263",
+      "git_blob": "89677f34f9036121c4de83bb54470e77f1206f1c",
+      "working_bytes_equal_head_blob": true
+    },
+    "fy2024": {
+      "byte_size": 3239320,
+      "sha256": "65cbb79d6c654c27f4916df538bbec123e59c2ced6f367f0b64401f2543f2369",
+      "git_blob": "a716b8d53b3fda82909ccf178f0b3a64663890c3",
+      "working_bytes_equal_head_blob": true
+    },
+    "raw_byte_rule": "sources/.gitattributes: *.htm -text whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol"
+  },
+  "prior_validation_reused": {
+    "reviewed_code_commit": "c15cbfa9bbedcb3b388b9d101b269ced2fc83bc5",
+    "executable_bundle": "M3TOP3-REAL-INPUT-EXECUTABLE-BUNDLE-SHA256:4d828c0308bf892718832e9cb02d87ee7716b9b62c28d643b69b424b5f2b6a4a",
+    "prior_campaign": "71_OF_71_AFFECTED_TESTS_PASS",
+    "reuse_basis": "CURRENT_16_COMPONENT_BUNDLE_IS_BYTE_IDENTICAL",
+    "duplicate_full_campaign_rerun": "AVOIDED",
+    "avoided_duplicate_test_case_executions": 71
+  },
+  "execution_counts": {
+    "validation_executions": 2,
+    "validation_rechecks": 1,
+    "code_test_executions": 0,
+    "model_score_executions": 0,
+    "outcome_executions": 0
+  },
+  "validation_rework": {
+    "first_execution_result": "VALIDATOR_ASSERTION_ERROR_EXPECTED_10_TOP_LEVEL_JSON_ARTIFACTS_ACTUAL_11",
+    "data_or_product_finding": false,
+    "second_execution_result": "PASS_31_OF_31",
+    "active_ms": "NOT_INSTRUMENTED",
+    "ratio": "NOT_INSTRUMENTED"
+  },
+  "findings": [
+    {"severity":"P0","count":0,"state":"NONE"},
+    {"severity":"P1","count":1,"finding":"BROWSER_ATTEMPT_UNITS_AND_HIT_RETRY_DUPLICATE_DENOMINATORS_NOT_FULLY_INSTRUMENTED","resolution":"METRICS_LEFT_UNCOMPUTED;NEXT_WINDOW_REQUIRES_ATOMIC_WRAPPER"},
+    {"severity":"P2","count":3,"findings":["P1_30_MINUTE_RETURN_RECORDED_LATE","SEVEN_GLOBAL_SEARCH_PAGES_WERE_DECISION_IRRELEVANT_OVERSCAN","036200_SAME_FAILURE_STOP_RULE_NOT_CLEANLY_ENFORCED_AND_COUNTED"],"resolution":"DISCLOSED_AND_CONVERTED_TO_NEXT_WINDOW_GATES"},
+    {"severity":"P3","count":2,"findings":["WINDOWS_CRLF_EXECUTABLE_MATERIALIZATION_REQUIRED_P0C_REWORK","FIRST_VALIDATION_ASSERTION_EXPECTED_10_INSTEAD_OF_11_JSON_ARTIFACTS"],"resolution":"CORRECTED_AND_RECHECKED"}
+  ],
+  "unresolved_in_scope_validation_blockers": 0,
+  "claim_boundary": "PASS_APPLIES_TO_NEW_SOURCE_CUSTODY_LINEAGE_TERMINAL_ARITHMETIC_AND_UNCHANGED_EXECUTABLE_IDENTITY;IT_DOES_NOT_CLOSE_PRICE_CANONICAL_OR_PROMOTE_MODEL_OR_OUTCOME_STATUS"
+}
