@@ -1,0 +1,48 @@
+{
+  "schema_version": "AAA-M3TOP3-F05-R1-F02-REUSE-BINDING-v1.0",
+  "run_id": "AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01",
+  "bound_at_kst": "2026-09-05T23:25:00+09:00",
+  "reuse_only": true,
+  "source_actions_repeated": 0,
+  "f02_input_repair_rerun": false,
+  "source_run": {
+    "run_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01",
+    "final_commit": "b0e4b60e6380ad12705ded8f05efce13843bbf3c",
+    "run_tree": "b0dd417c8c959cd89a17527a6246d6b62dc3a82c",
+    "score_and_seal_tree": "d70959ef06e531ef33594fe6f032e628647898e1",
+    "model_input_path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/score-and-seal/STRICT_MODEL_INPUT_BATCH.json",
+    "model_input_git_blob": "8aca0b6ff6d9cfa5466c89343367a622614e592f",
+    "model_input_worktree_bytes": 252360,
+    "model_input_worktree_sha256": "13667596d8e76f10d319f4129a7cba3b890d2575b3cebf33b78a143740bbbf9e",
+    "score_path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/score-and-seal/STRICT_MODEL_SCORE_BATCH.json",
+    "score_git_blob": "32949c420ef5aabbe84d60efe1e2be35a9aafcd3",
+    "score_worktree_bytes": 312754,
+    "score_worktree_sha256": "868bfc419075de80edb9a40e48daeefb5789666345a373ad81cd3fe8056bca42",
+    "seal_path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/score-and-seal/SELECTION_SEAL.json",
+    "seal_git_blob": "e549e636735345cbdddfa06cfd89c9aad4ae28be",
+    "seal_worktree_bytes": 28523,
+    "seal_worktree_sha256": "fefc80aa969b849e0ff467607e7bf7514767a3ef336dff755239d1a19a992c38",
+    "prior_iva_post_score_path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/P5_IVA_POST_SCORE_READBACK.json",
+    "prior_iva_result": "PASS_BOUNDED_POST_SCORE_READBACK"
+  },
+  "exact_five": [
+    {"company_id":"KRX:003160","f02_score":"0"},
+    {"company_id":"KRX:005290","f02_score":"50"},
+    {"company_id":"KRX:025560","f02_score":"87.5"},
+    {"company_id":"KRX:031980","f02_score":"87.5"},
+    {"company_id":"KRX:036200","f02_score":"25"}
+  ],
+  "combined_view_rule": {
+    "available_feature_weight_five": "30",
+    "available_feature_weight_other_52": "20",
+    "feature_coverage_five": "0.30",
+    "feature_coverage_other_52": "0.20",
+    "five_company_existing_scorer_semantics": "Business_Momentum axis weight 25 applied to F02 axis score and Market_Positioning axis weight 20 applied to F05 axis score, renormalized over available axis weight 45",
+    "formula": "(25 * F02 + 20 * F05) / 45",
+    "full_universe_use": "F05_ONLY_PROVISIONAL_RANKING_SEPARATE_FROM_FIVE_COMPANY_VIEW"
+  },
+  "scientific_limitation": "The reused F02 run is explicitly marked EXPLORATORY_AFTER_W1_OUTCOME_EXPOSURE in its bundle. The F02+F05 table is therefore only a bounded provisional descriptive view, not an official selection or clean holdout/OOS result.",
+  "official_top3_top10": false,
+  "investment_recommendation": false,
+  "owner_action_required": false
+}

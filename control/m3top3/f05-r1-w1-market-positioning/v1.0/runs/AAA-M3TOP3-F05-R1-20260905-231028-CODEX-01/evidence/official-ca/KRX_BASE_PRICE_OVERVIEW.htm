@@ -1,0 +1,60 @@
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head><title>Global KRX | </title>
+</head>
+<body>
+
+
+
+
+<div class="design-title-list1" id="c81e728d9d4c2f636f067f89cc14862c">
+
+<dl>
+	<dt>Base Price</dt>
+	<dd>The standard price to setup the price limit<br>
+		Generally it is the previous day’s closing price.<br>
+		However, separate standard base price shall be applied, in case of change of right, due to ex-rights caused by paid or non-paid capital increase, change listing due to change of face value, etc.
+	</dd>
+	
+	<dt>Daily Price Limit</dt>
+	<dd>Current price limit in the KOSDAQ market is 30%.<br>
+		The price limit shall be calculated by multiplying 0.3 to the base price. After the calculation, any residual amount less than tick size corresponding to the base price shall be rounded off.
+	</dd>
+	
+	<dt>Upper/Lower Price limit</dt>
+	<dd>Upper limit or lower limit are calculated by adding or deducting the price limit to the base price, and odds less than minimum order unit shall be dropped.
+		<div class="design-box2" id="eccbc87e4b5ce2fe28308fd9f2a7baf3">
+		<dl>
+			<dt>(Example) Calculation of Daily Price Limit for an issue with the base price of 9,940</dt>
+			<dd>
+				<div class="design-content-list1" id="a87ff679a2f3e71d9181a67b7542122c">
+
+				<ul>
+					<li><em>Price Change Limit</em> : 9,940 x 0.3 = 2,982 &rArr; 2,980 (Round off residual amount less than the tick size of base price)</li> 
+					<li><em>Upper Price Limit</em> : 9,940 + 2,980 = 12,920</li> 
+					<li><em>Lower Price Limit</em> : 9,940 - 2,980 = 6,960</li>
+				</ul>
+				
+</div>
+<script>$.listTitle('a87ff679a2f3e71d9181a67b7542122c');</script>
+			</dd>
+		</dl>
+		</div>
+<script>$.listTitle('eccbc87e4b5ce2fe28308fd9f2a7baf3')</script>
+	</dd>
+</dl>
+
+</div>
+<script>$.listTitle('c81e728d9d4c2f636f067f89cc14862c');</script>
+
+
+
+
+</body>
+</html>

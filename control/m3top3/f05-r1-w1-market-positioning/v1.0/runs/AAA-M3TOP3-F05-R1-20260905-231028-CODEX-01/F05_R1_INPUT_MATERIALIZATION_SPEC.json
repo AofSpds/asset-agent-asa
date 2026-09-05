@@ -1,0 +1,71 @@
+{
+  "schema_version": "AAA-M3TOP3-F05-R1-INPUT-MATERIALIZATION-SPEC-v1.0",
+  "run_id": "AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01",
+  "frozen_at_kst": "2026-09-05T23:27:00+09:00",
+  "state": "INPUT_MATERIALIZATION_ALLOWED_SCORE_GATE_CLOSED",
+  "source": {
+    "path": "C:/Users/ms1pk/Downloads/marcap-2024.parquet",
+    "bytes": 24572111,
+    "sha256": "b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb",
+    "semantics": "RAW_IMMUTABLE_NOT_PRICE_CANONICAL",
+    "read_fields_only": ["Date", "Code", "Name", "Open", "High", "Low", "Close", "Changes", "ChangesRatio", "Volume", "Amount", "Stocks"]
+  },
+  "cohort": {
+    "path": "control/m3top3/f05-r0-readiness/v1.0/runs/AAA-M3TOP3-F05-R0-20260905-214409-CODEX-01/W1_57_COHORT_BINDING.json",
+    "artifact_git_blob": "d2698e901eabb4013f339ce1f163cd0c7c14d879",
+    "artifact_worktree_bytes": 10698,
+    "artifact_worktree_sha256": "8ac8ba439b3decb2690e04ec8fa7d40e40c37dd1ab0329bf3d24bf8253eba6a1",
+    "count": 57,
+    "population_revision": "69a1e7b7971d38bf23694ed63a914ff796386b78",
+    "population_git_blob": "4b3cfbfa9969abe2bd6dff5fdbfeb2db9d31cdae",
+    "population_sha256": "8b3671d662457aef8c1a5595b33a85a27e08aaee56238e7218f1df0b4df78353",
+    "sorted_member_identity_sha256": "c72593633c88cb6913c703da626b95d6111c7b0fa5783ccef6d373b2adf8c546"
+  },
+  "calendar": {
+    "source": "distinct ordered Date values in the exact bound Parquet",
+    "cutoff": "2024-08-09",
+    "last_61_first": "2024-05-16",
+    "last_61_last": "2024-08-09",
+    "last_61_count": 61,
+    "last_61_newline_terminated_sha256": "be19ae803f8be6fee53acb41e68cc4a76db9709157e3c450955c1925d6bae3ac"
+    ,"last_61_no_terminal_newline_sha256": "8667d8b63eeaa5332b0c1390dec179c43c692591a7c3db4c5b1a6cf31217a911"
+  },
+  "control_dependencies": {
+    "policy": "F05_R1_POLICY_BINDING.json",
+    "source_fields": "F05_R1_SOURCE_FIELD_BINDING.json",
+    "corporate_actions": "F05_R1_OFFICIAL_CA_EVIDENCE_MANIFEST.json",
+    "required_ca_records": [
+      "KRX-20240625001437",
+      "KRX-20240724001584",
+      "KRX-20240531001190",
+      "KRX-20240726001822"
+    ]
+  },
+  "output": {
+    "path": "F05_R1_W1_INPUTS.jsonl",
+    "row_count": 57,
+    "encoding": "UTF-8",
+    "line_order": "company_id ascending",
+    "canonical_json": "sorted keys, compact separators, one terminal LF per row",
+    "scores_present": false,
+    "per_row_lineage": "source SHA256 + company code + exact cutoff/windows + field/formula version",
+    "benchmark_denominator": 57
+  },
+  "fail_closed": [
+    "source bytes or schema mismatch",
+    "cohort identity mismatch",
+    "calendar identity mismatch",
+    "CA evidence record mismatch",
+    "row or endpoint mismatch",
+    "any missing/zero/nonfinite/nonintegral required value",
+    "any post-cutoff row",
+    "any raw-close/dividend/factor substitution",
+    "benchmark denominator other than 57"
+  ],
+  "score_gate": {
+    "state": "CLOSED",
+    "may_open_only_after": ["CTLV_L1_PASS", "MODV_L1_PASS", "ENGV_L1_PASS", "IVA_L2_PASS"],
+    "score_executions_before_open": 0
+  },
+  "owner_action_required": false
+}

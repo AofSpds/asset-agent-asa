@@ -1,0 +1,10 @@
+{
+  "schema_version": "AAA-PMO-PROGRESS-WEIGHT-CALIBRATION-v1.0",
+  "run_id": "AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01",
+  "frozen_at_kst": "2026-09-05T23:10:28+09:00",
+  "total_frozen_ewu": 100,
+  "weights": {"P0": 10, "P1": 15, "P2": 20, "P3": 20, "P4": 20, "P5": 10, "P6": 5},
+  "earned_rule": "ONLY_PREDECLARED_EVIDENCE_CLOSURE",
+  "rebase_history": [],
+  "cru_profile": "NOT_CALIBRATED"
+}

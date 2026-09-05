@@ -1,0 +1,142 @@
+{
+  "schema_version": "AAA-M3TOP3-F05-R1-POLICY-BINDING-v1.0",
+  "run_id": "AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01",
+  "bound_at_kst": "2026-09-05T23:22:32+09:00",
+  "status": "BOUND_EXACT_NO_DEVIATION",
+  "owner_authority": {
+    "policy_id": "AAA-M3TOP3-F05-MARKET-RECOGNITION-POLICY-v1.0-20260905",
+    "decision": "APPROVE",
+    "policy_commit": "709ded3f4440142c05a97dcc03b286ad49fa149b",
+    "policy_tree": "e081e1a980fbace8e4909ce132bf5d03aaacffef",
+    "policy_path": "control/persona-memory/v1.0/AAA-ASA/runs/2026-09-05/2254_OWNER_APPROVAL_F05_MARKET_RECOGNITION_POLICY_AND_CONDITIONAL_R1_EXECUTION_v1.0.md",
+    "policy_blob": "ab65b65182fddaf31c1b7e0d7e1f0341f4bbdf9e",
+    "policy_bytes": 7102,
+    "policy_sha256": "2bd9ae341904c562a25513286b6546c737df92bfa3a6ca82434c71de396fbacb",
+    "execution_authorized": "TRUE_WITH_PRECHECK",
+    "request_commit": "ab1a9a52cbee1825a2ff725a8b997307f7f5e16e",
+    "request_tree": "a8e4f0e8f8e1955e687f575cb1db2d559bb23cdc",
+    "request_path": "control/persona-memory/v1.0/AAA-ASA/runs/2026-09-05/2256_M3TOP3_F05_R1_OWNER_AUTHORIZED_PMO_EXECUTION_REQUEST_v1.0.md",
+    "request_blob": "370c86569717aa1b93ecc748a06766d0400946e0",
+    "request_bytes": 7847,
+    "request_sha256": "452b64ac36d37860f72da6367e62fef1c175af3d56b4379651c232e2ab988a53",
+    "no_redundant_question_commit": "6db4a549d5e1a8e18ffe1226ad70e4bf090ba696",
+    "no_redundant_question_path": "control/persona-memory/v1.0/AAA-ASA/runs/2026-09-05/2303_OWNER_DIRECTION_NO_REDUNDANT_QUESTIONS_WITHIN_APPROVED_SCOPE_v1.0.md",
+    "no_redundant_question_blob": "23f7d89ccd7c3ce1a2c36aeab1162011b75afc14",
+    "no_redundant_question_sha256": "cf10e7ccac34b433c8379f175a9b724ec39ad1a083c1937f0b437683c3e7eb38"
+  },
+  "execution_identity": {
+    "branch": "task/aaa/m3top3-f05-r1-w1-market-positioning-20260905",
+    "worktree": "C:/Users/ms1pk/dev/asset-agent-asa/asset-agent-asa/f05-r1",
+    "executable_base_commit": "b0e4b60e6380ad12705ded8f05efce13843bbf3c",
+    "executable_base_tree": "01e9ed6dddc6c23af44811fb5cd072c199f02dd6",
+    "r0_final_commit": "87a5025f7e126eb66f8864ae8b106f6c5c65aba4",
+    "r0_final_tree": "7ab484e88cf5a1aa073f0267e462b3d4e2f06ab2",
+    "composition_commit": "5fb34b229868d66b6f8a02d9686445c6c4b9398d",
+    "composition_tree": "44771b00d126fa4f73767c90a156a70559a23945",
+    "r0_rerun": false,
+    "f02_r1_rerun": false,
+    "main_mutated": false
+  },
+  "preserved_model": {
+    "model_version": "M3TOP3-v1.0",
+    "feature_id": "F05_MARKET_POSITIONING_BALANCE",
+    "feature_weight": "20",
+    "recognition_velocity_weights": {
+      "relative_20d_percentile": "0.50",
+      "relative_60d_percentile": "0.30",
+      "turnover_acceleration_percentile": "0.20"
+    },
+    "saturation_rule": "max(0, recognition_velocity-85), plus only already-supplied optional valuation/diffusion penalties, total capped at 30",
+    "optional_valuation_diffusion_policy": "ABSENT_NOT_INVENTED_NO_OPTIONAL_PENALTY",
+    "features_v1_git_blob_expected": "35104a7384c3ee6175136e95dded7f3237d69435",
+    "features_v1_narrow_patch_git_blob_expected": "b9017f5db0fb637c8a449d5ee3cb1c4a05481076",
+    "scorer_v1_git_blob_expected": "2a797ea705eeb1aef330754fb08ff2182297c139",
+    "config_git_blob_expected": "043bf24bc8c838a8060360e86614cf5bfefc9145",
+    "config_sha256_expected": "eecde22a7744cff505b624bb6f0bdb11714352a122632238ea68d9cd0fbacb98"
+  },
+  "bound_semantics": {
+    "P1_economic_meaning": "market-price and trading-activity recognition balance, not investor total return",
+    "P2_horizons": {
+      "calendar": "KRX_TRADING_SESSIONS_FROM_BOUND_DATA",
+      "cutoff_date": "2024-08-09",
+      "return_20d": "20 daily intervals over 21 ordered session observations ending at cutoff",
+      "return_60d": "60 daily intervals over 61 ordered session observations ending at cutoff",
+      "off_by_one_policy": "EXPLICIT_ENDPOINTS_REQUIRED"
+    },
+    "P3_market_price_return": {
+      "daily_change": "bound ChangesRatio percentage-point field reflecting KRX reference/base-price daily change semantics",
+      "scaling": "daily_decimal_return = Decimal(ChangesRatio) / 100",
+      "compounding": "product(1 + daily_decimal_return) - 1 over exactly the ending 20 or 60 interval rows",
+      "raw_close_ratio_across_corporate_action": "FORBIDDEN",
+      "cash_dividend_reinvestment": "EXCLUDED",
+      "adjustment_factor": "NOT_INFERRED_NOT_MATERIALIZED"
+    },
+    "P4_trading_activity": {
+      "daily_turnover": "Volume / Stocks",
+      "prior_window": "20 sessions immediately preceding the recent 20 sessions",
+      "recent_window": "last 20 sessions ending at cutoff",
+      "acceleration": "mean(recent_20_daily_turnover) / mean(prior_20_daily_turnover) - 1",
+      "silent_fill": "FORBIDDEN"
+    },
+    "P5_benchmark": {
+      "cohort": "exact W1 INCLUDE 57 only",
+      "arithmetic": "simple equal-weight mean of 57 admissible company returns independently for each horizon",
+      "required_denominator": 57,
+      "denominator_shrink": "FORBIDDEN"
+    },
+    "P6_corporate_actions": {
+      "truth_source": "official issuer or KRX evidence only",
+      "heuristic_role": "review trigger only",
+      "required_companies": ["KRX:083450", "KRX:092870"],
+      "post_cutoff_rewriting": "FORBIDDEN"
+    },
+    "P7_pit_firewall": {
+      "latest_economic_observation": "2024-08-09",
+      "forbidden": [
+        "2024-08-12_OR_LATER_PRICE",
+        "ENTRY_OR_OUTCOME_DATA",
+        "MFE_OR_MAE",
+        "FUTURE_RANK_OR_WINNER",
+        "FUTURE_CLOSE_OR_HIGH"
+      ]
+    }
+  },
+  "exact_w1_population": {
+    "population_revision": "69a1e7b7971d38bf23694ed63a914ff796386b78",
+    "population_path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/g3-annotation-candidate/G3_E_ANNOTATION_INGEST_QUEUE_v0.1.jsonl.gz",
+    "population_git_blob": "4b3cfbfa9969abe2bd6dff5fdbfeb2db9d31cdae",
+    "population_bytes": 73327,
+    "population_sha256": "8b3671d662457aef8c1a5595b33a85a27e08aaee56238e7218f1df0b4df78353",
+    "outer_rows": 127,
+    "include": 57,
+    "exclude_proven": 8,
+    "exclude_unresolved": 62,
+    "current_universe_substitution": false
+  },
+  "validation_floor": {
+    "risk_classification": "P0_F05_SCIENTIFIC_SEMANTICS_PIT_DENOMINATOR_IMMUTABLE_LINEAGE_WITH_P1_ADAPTER_FIELD_EXPOSURE",
+    "required_before_scoring": [
+      "CTLV_L1",
+      "MODV_L1",
+      "ENGV_L1",
+      "IVA_L2"
+    ],
+    "pmo_validation_role": "PROCESS_AND_COMPLETION_AUDIT_ONLY",
+    "author_may_self_issue_independent_pass": false,
+    "score_gate": "ONE_FROZEN_PRE_SCORE_TARGET_AND_ALL_REQUIRED_INDEPENDENT_PASS_RECEIPTS"
+  },
+  "authorized_claim_ceiling": [
+    "BOUNDED_W1_F05_FUNCTIONAL_RESULT",
+    "F05_ONLY_PROVISIONAL_CROSS_SECTIONAL_RANKING",
+    "F02_F05_PROVISIONAL_FIVE_COMPANY_VIEW"
+  ],
+  "forbidden_claims": [
+    "OFFICIAL_TOP3_OR_TOP10",
+    "M3TOP3_PERFORMANCE_PASS",
+    "HOLDOUT_OR_OOS_PERFORMANCE",
+    "RELEASE_READINESS",
+    "INVESTMENT_RECOMMENDATION"
+  ],
+  "semantic_deviation": false,
+  "owner_action_required": false
+}

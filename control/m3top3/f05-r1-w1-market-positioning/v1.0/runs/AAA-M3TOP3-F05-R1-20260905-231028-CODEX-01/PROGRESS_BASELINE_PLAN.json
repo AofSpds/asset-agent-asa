@@ -1,0 +1,132 @@
+{
+  "schema_version": "AAA-PMO-PROGRESS-BASELINE-PLAN-v1.0",
+  "run_id": "AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01",
+  "frozen_at_kst": "2026-09-05T23:10:28+09:00",
+  "task_class": "P1_MODEL_CONTROL_ENGINEERING_EXECUTION_WITH_CONDITIONAL_W1_COMPUTATION",
+  "execution_grade": "EXTRA_HIGH",
+  "pro_class": "PRO_PREFERRED_FOR_CA_AND_FINAL_SYNTHESIS_EXTRA_HIGH_AVAILABLE",
+  "parallelism": "MULTI_WORKER_BOUNDED_SINGLE_WRITER_PER_ARTIFACT",
+  "authorized_scope": [
+    "F05_P1_THROUGH_P7_EXACT_POLICY_BINDING",
+    "SEMANTIC_NEUTRAL_EXISTING_PARQUET_FIELD_EXPOSURE",
+    "GST_AND_EXICON_OFFICIAL_CA_ADJUDICATION",
+    "AFFECTED_VALIDATION_AT_CURRENT_RISK_FLOOR",
+    "CONDITIONAL_EXACT_W1_57_F05_COMPUTATION",
+    "F05_ONLY_PROVISIONAL_RANKING",
+    "EXISTING_F02_FIVE_COMPANY_PROVISIONAL_MULTI_FEATURE_VIEW",
+    "TASK_BRANCH_REPORT_SEAL_AND_REMOTE_PERSISTENCE"
+  ],
+  "explicit_exclusions": [
+    "MODEL_WEIGHT_OR_DOWNSTREAM_F05_TRANSFORM_CHANGE",
+    "SATURATION_PENALTY_CHANGE",
+    "PIT_OR_ELIGIBILITY_CHANGE",
+    "CA_FACTOR_INFERENCE",
+    "CASH_DIVIDEND_TOTAL_RETURN_SUBSTITUTION",
+    "DENOMINATOR_SHRINK",
+    "NEW_PROVIDER_CREDENTIAL_PAID_SOURCE_OR_BUDGET",
+    "W2_W8_OR_OUTCOME_EXECUTION",
+    "MAIN_MUTATION_MERGE_RELEASE_OR_PRODUCTION",
+    "OFFICIAL_TOP3_TOP10_OR_INVESTMENT_RECOMMENDATION"
+  ],
+  "planned_wall_p50": "PT2H20M",
+  "planned_wall_p90": "PT5H",
+  "timing_confidence": "LOW",
+  "planned_cru_p50": "NOT_CALIBRATED",
+  "planned_cru_p90": "NOT_CALIBRATED",
+  "total_frozen_ewu": 100,
+  "terminal_states": [
+    "COMPLETE_F05_R1_W1_PROVISIONAL",
+    "COMPLETE_PARTIAL_F05_R1",
+    "BLOCKED_EXACT_DECISION_REQUIRED"
+  ],
+  "exact_start_refs": {
+    "executable_base_commit": "b0e4b60e6380ad12705ded8f05efce13843bbf3c",
+    "executable_base_tree": "01e9ed6dddc6c23af44811fb5cd072c199f02dd6",
+    "r0_final_commit": "87a5025f7e126eb66f8864ae8b106f6c5c65aba4",
+    "r0_final_tree": "7ab484e88cf5a1aa073f0267e462b3d4e2f06ab2",
+    "owner_policy_commit": "709ded3f4440142c05a97dcc03b286ad49fa149b",
+    "execution_request_commit": "ab1a9a52cbee1825a2ff725a8b997307f7f5e16e",
+    "no_redundant_question_commit": "6db4a549d5e1a8e18ffe1226ad70e4bf090ba696",
+    "composition_head": "5fb34b229868d66b6f8a02d9686445c6c4b9398d",
+    "composition_tree": "44771b00d126fa4f73767c90a156a70559a23945"
+  },
+  "stages": [
+    {
+      "id": "P0",
+      "name": "AUTHORITY_IDENTITY_ISOLATION_AND_INPUT_RECONFIRMATION",
+      "ewu": 10,
+      "planned_wall_p50": "PT10M",
+      "planned_wall_p90": "PT25M",
+      "timing_confidence": "MEDIUM",
+      "dependencies": [],
+      "completion_evidence": ["exact authority/blob/hash readback", "isolated branch/worktree", "R0/population/price/F02 identity readback"],
+      "terminal_rule": "IDENTITIES_EXACT_OR_BLOCKED_EXACT_DECISION_REQUIRED"
+    },
+    {
+      "id": "P1",
+      "name": "MOD_CTL_POLICY_AND_SOURCE_FIELD_BINDING",
+      "ewu": 15,
+      "planned_wall_p50": "PT20M",
+      "planned_wall_p90": "PT45M",
+      "timing_confidence": "MEDIUM",
+      "dependencies": ["P0"],
+      "completion_evidence": ["F05_R1_POLICY_BINDING.json", "F05_R1_SOURCE_FIELD_BINDING.json"],
+      "terminal_rule": "EXACT_APPROVED_SEMANTICS_OR_STOP"
+    },
+    {
+      "id": "P2",
+      "name": "SEMANTIC_NEUTRAL_ADAPTER_AND_UPSTREAM_IMPLEMENTATION",
+      "ewu": 20,
+      "planned_wall_p50": "PT30M",
+      "planned_wall_p90": "PT1H10M",
+      "timing_confidence": "LOW_MEDIUM",
+      "dependencies": ["P1"],
+      "completion_evidence": ["bounded code diff", "F05_R1_ADAPTER_CHANGE_REPORT.md", "author unit checks"],
+      "terminal_rule": "NO_SEMANTIC_DEVIATION_OR_STOP"
+    },
+    {
+      "id": "P3",
+      "name": "GST_AND_EXICON_OFFICIAL_CA_ADJUDICATION",
+      "ewu": 20,
+      "planned_wall_p50": "PT25M",
+      "planned_wall_p90": "PT1H30M",
+      "timing_confidence": "LOW",
+      "dependencies": ["P0"],
+      "completion_evidence": ["F05_R1_CA_ADJUDICATION_REPORT.md", "official issuer/KRX source custody and hashes"],
+      "terminal_rule": "BOTH_BOUNDARIES_EVIDENCE_CLOSED_OR_STOP"
+    },
+    {
+      "id": "P4",
+      "name": "AFFECTED_VALIDATION_AND_INDEPENDENCE_FLOOR",
+      "ewu": 20,
+      "planned_wall_p50": "PT40M",
+      "planned_wall_p90": "PT1H30M",
+      "timing_confidence": "LOW_MEDIUM",
+      "dependencies": ["P1", "P2", "P3"],
+      "completion_evidence": ["F05_R1_AFFECTED_VALIDATION_REPORT.json", "F05_R1_AFFECTED_VALIDATION_REPORT.md", "unique paired-validator and IVA journals"],
+      "terminal_rule": "CURRENT_RISK_FLOOR_MET_WITH_ZERO_BLOCKING_FINDINGS_OR_STOP"
+    },
+    {
+      "id": "P5",
+      "name": "CONDITIONAL_W1_57_INPUT_SCORE_AND_PROVISIONAL_VIEWS",
+      "ewu": 10,
+      "planned_wall_p50": "PT20M",
+      "planned_wall_p90": "PT45M",
+      "timing_confidence": "MEDIUM",
+      "dependencies": ["P4"],
+      "completion_evidence": ["F05_R1_W1_INPUTS.jsonl", "F05_R1_W1_SCORES.jsonl", "F05_R1_W1_PROVISIONAL_RANKING.csv", "F02_F05_PROVISIONAL_MULTI_FEATURE_VIEW.csv"],
+      "terminal_rule": "EXACT_57_ONLY_AND_PROVISIONAL_CLAIM_CEILING"
+    },
+    {
+      "id": "P6",
+      "name": "BUNDLE_SEAL_COMPLETION_REPORT_AND_PERSISTENCE",
+      "ewu": 5,
+      "planned_wall_p50": "PT15M",
+      "planned_wall_p90": "PT35M",
+      "timing_confidence": "MEDIUM",
+      "dependencies": ["P5"],
+      "completion_evidence": ["F05_R1_COMPLETION_REPORT.md", "bundle/seal/readback", "clean local equals remote task ref"],
+      "terminal_rule": "ONE_TERMINAL_AND_EXACT_GIT_READBACK"
+    }
+  ]
+}

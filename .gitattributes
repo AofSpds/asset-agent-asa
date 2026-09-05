@@ -1,3 +1,10 @@
 /tools/m3top3/configs/m3top3_v1.0.json text eol=lf
 /control/m3top3/real-input-replay/v1.0/runs/AAA-M3TOP3-REAL-INPUT-STRICT-PRAGMATIC-20260905-114150-CODEX-01/inputs/** -text
 /control/m3top3/real-input-replay/v1.0/runs/AAA-M3TOP3-REAL-INPUT-STRICT-PRAGMATIC-20260905-114150-CODEX-01/sources/** -text -diff
+/tools/m3top3/**/*.py text eol=lf
+/control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/**/*.json text eol=lf
+/control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/**/*.jsonl text eol=lf
+/control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/**/*.md text eol=lf
+/control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/**/evidence/official-ca/** -text -diff
+/control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/**/evidence/retired/*.jsonl text eol=lf
+/control/persona-memory/v1.0/AAA-PMO-ORCHESTRATOR/runs/**/*.md text eol=lf

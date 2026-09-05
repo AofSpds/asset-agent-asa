@@ -1,0 +1,191 @@
+{
+  "schema_version": "AAA-M3TOP3-F05-R1-SOURCE-FIELD-BINDING-v1.0",
+  "run_id": "AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01",
+  "bound_at_kst": "2026-09-05T23:22:32+09:00",
+  "status": "BOUND_EXACT_PENDING_INDEPENDENT_VALIDATION",
+  "source_identity": {
+    "dataset_id": "SEMI-PRICE-MARCAP-KRX-2024-2026_v1",
+    "dataset_identity_sha256": "419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7",
+    "semantics": "RAW_IMMUTABLE_NOT_PRICE_CANONICAL",
+    "economic_source_expansion": false,
+    "new_provider": false,
+    "credentials": false,
+    "paid_source": false,
+    "budget_used": false,
+    "components": [
+      {
+        "path": "C:/Users/ms1pk/Downloads/marcap-2024.parquet",
+        "bytes": 24572111,
+        "sha256": "b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb",
+        "economic_values_admitted": "ONLY_ROWS_AT_OR_BEFORE_2024-08-09"
+      },
+      {
+        "path": "C:/Users/ms1pk/Downloads/marcap-2025.parquet",
+        "bytes": 25153419,
+        "sha256": "2bfd93c217eb74263bc5020b23fa6debb6b02531c11eaccc2826639bc191559e",
+        "economic_values_admitted": false
+      },
+      {
+        "path": "C:/Users/ms1pk/Downloads/marcap-2026.parquet",
+        "bytes": 16198533,
+        "sha256": "5da710a2fc56f8fe9b1f5126295cc30c3b15c0ee35d28ba808a505ec4a2243c1",
+        "economic_values_admitted": false
+      }
+    ]
+  },
+  "physical_schema": [
+    {"field":"Code","type":"VARCHAR"},
+    {"field":"Name","type":"VARCHAR"},
+    {"field":"Close","type":"DOUBLE"},
+    {"field":"Dept","type":"VARCHAR"},
+    {"field":"ChangeCode","type":"VARCHAR"},
+    {"field":"Changes","type":"DOUBLE"},
+    {"field":"ChangesRatio","type":"DOUBLE"},
+    {"field":"Volume","type":"DOUBLE"},
+    {"field":"Amount","type":"DOUBLE"},
+    {"field":"Open","type":"DOUBLE"},
+    {"field":"High","type":"DOUBLE"},
+    {"field":"Low","type":"DOUBLE"},
+    {"field":"Marcap","type":"DOUBLE"},
+    {"field":"Stocks","type":"BIGINT"},
+    {"field":"Market","type":"VARCHAR"},
+    {"field":"MarketId","type":"VARCHAR"},
+    {"field":"Rank","type":"BIGINT"},
+    {"field":"Date","type":"TIMESTAMP_NS"}
+  ],
+  "field_contract": {
+    "Date": {
+      "role": "ordered KRX trading-session identity",
+      "conversion": "CAST_TO_DATE_WITHOUT_TIMEZONE_SHIFT",
+      "required": true,
+      "rules": ["UNIQUE_PER_CODE", "STRICTLY_INCREASING", "NOT_AFTER_2024-08-09"]
+    },
+    "Code": {
+      "role": "security identity",
+      "conversion": "six-character zero-padded code mapped exactly to KRX:{Code}",
+      "required": true
+    },
+    "Name": {
+      "role": "raw-source display diagnostic only; canonical display name comes from the exact W1 cohort binding",
+      "required_for_F05_score": false,
+      "adapter_exposure_required": false,
+      "economic_computation": false
+    },
+    "Close": {
+      "role": "raw close evidence and explicit anti-naive-return guard only",
+      "unit": "KRW per share",
+      "required": true,
+      "return_computation": false,
+      "forbidden_use": "adjacent raw-close ratio across corporate-action boundary"
+    },
+    "Changes": {
+      "role": "required admission-time reference-price absolute-change consistency evidence; not the scored return field",
+      "unit": "KRW per share",
+      "required_for_bound_source_admission": true,
+      "direct_scoring_arithmetic": false
+    },
+    "ChangesRatio": {
+      "role": "sole scored daily market-price change field",
+      "unit": "percentage points",
+      "scale": "divide by 100 exactly after Decimal conversion from source text representation",
+      "semantic_basis": "daily change relative to the applicable KRX prior/reference/base price, including KRX corporate-action base-price resets",
+      "required": true,
+      "missing_rule": "company is inadmissible; no fill",
+      "value_rule": "finite, non-boolean, greater than -100 percentage points",
+      "arithmetic": "compound product(1 + ChangesRatio/100) - 1",
+      "cash_dividend_reinvestment": false,
+      "adjustment_factor": false
+    },
+    "Volume": {
+      "role": "daily turnover numerator",
+      "unit": "shares",
+      "required": true,
+      "value_rule": "finite, integral, strictly positive; zero or missing is inadmissible",
+      "silent_fill": false
+    },
+    "Amount": {
+      "role": "required bound-row integrity and lineage diagnostic; not used in the F05 formula",
+      "unit": "KRW",
+      "required_for_bound_source_admission": true,
+      "direct_scoring_arithmetic": false
+    },
+    "Stocks": {
+      "role": "daily turnover denominator and official share-count boundary cross-check",
+      "unit": "listed shares",
+      "required": true,
+      "value_rule": "integer, strictly positive; zero or missing is inadmissible",
+      "silent_fill": false
+    },
+    "Rank": {
+      "role": "FORBIDDEN_NOT_READ",
+      "economic_computation": false
+    }
+  },
+  "exact_windows": {
+    "cutoff": "2024-08-09",
+    "available_sessions_to_cutoff_in_2024": 151,
+    "last_61_session_grid_newline_terminated_sha256": "be19ae803f8be6fee53acb41e68cc4a76db9709157e3c450955c1925d6bae3ac",
+    "last_61_session_grid_no_terminal_newline_sha256": "8667d8b63eeaa5332b0c1390dec179c43c692591a7c3db4c5b1a6cf31217a911",
+    "last_61_session_dates": [
+      "2024-05-16", "2024-05-17", "2024-05-20", "2024-05-21", "2024-05-22", "2024-05-23", "2024-05-24", "2024-05-27", "2024-05-28", "2024-05-29", "2024-05-30", "2024-05-31",
+      "2024-06-03", "2024-06-04", "2024-06-05", "2024-06-07", "2024-06-10", "2024-06-11", "2024-06-12", "2024-06-13", "2024-06-14", "2024-06-17", "2024-06-18", "2024-06-19", "2024-06-20", "2024-06-21", "2024-06-24", "2024-06-25", "2024-06-26", "2024-06-27", "2024-06-28",
+      "2024-07-01", "2024-07-02", "2024-07-03", "2024-07-04", "2024-07-05", "2024-07-08", "2024-07-09", "2024-07-10", "2024-07-11", "2024-07-12", "2024-07-15", "2024-07-16", "2024-07-17", "2024-07-18", "2024-07-19", "2024-07-22", "2024-07-23", "2024-07-24", "2024-07-25", "2024-07-26", "2024-07-29", "2024-07-30", "2024-07-31",
+      "2024-08-01", "2024-08-02", "2024-08-05", "2024-08-06", "2024-08-07", "2024-08-08", "2024-08-09"
+    ],
+    "return_60d_observation_endpoints": {"first":"2024-05-16","last":"2024-08-09","observations":61},
+    "return_60d_interval_rows": {"first":"2024-05-17","last":"2024-08-09","intervals":60},
+    "return_20d_observation_endpoints": {"first":"2024-07-12","last":"2024-08-09","observations":21},
+    "return_20d_interval_rows": {"first":"2024-07-15","last":"2024-08-09","intervals":20},
+    "turnover_prior_20_rows": {"first":"2024-06-17","last":"2024-07-12","observations":20},
+    "turnover_recent_20_rows": {"first":"2024-07-15","last":"2024-08-09","observations":20},
+    "calendar_or_endpoint_misalignment": "INADMISSIBLE"
+  },
+  "company_horizon_lineage": {
+    "cohort_binding_path": "control/m3top3/f05-r0-readiness/v1.0/runs/AAA-M3TOP3-F05-R0-20260905-214409-CODEX-01/W1_57_COHORT_BINDING.json",
+    "cohort_binding_git_blob": "d2698e901eabb4013f339ce1f163cd0c7c14d879",
+    "cohort_binding_worktree_bytes": 10698,
+    "cohort_binding_worktree_sha256": "8ac8ba439b3decb2690e04ec8fa7d40e40c37dd1ab0329bf3d24bf8253eba6a1",
+    "cohort_count": 57,
+    "sorted_company_id_code_newline_join_sha256": "c72593633c88cb6913c703da626b95d6111c7b0fa5783ccef6d373b2adf8c546",
+    "all_company_rows_source": "C:/Users/ms1pk/Downloads/marcap-2024.parquet",
+    "per_company_required_rows": 61,
+    "benchmark_required_denominator": 57,
+    "lineage_materialization": "each output input row must carry source component SHA256, code, cutoff, exact endpoint dates, interval counts, and formula version"
+  },
+  "corporate_action_field_proofs": [
+    {
+      "company_id": "KRX:083450",
+      "date": "2024-06-26",
+      "official_krx_base_price_krw": 21700,
+      "raw_close_krw": 21600,
+      "Changes": -100,
+      "ChangesRatio_percentage_points": -0.46,
+      "admissible_interpretation": "KRX reference/base-price daily change",
+      "naive_prior_close_ratio": "REJECTED"
+    },
+    {
+      "company_id": "KRX:092870",
+      "date": "2024-06-03",
+      "official_krx_base_price_krw": 19470,
+      "raw_close_krw": 20400,
+      "Changes": 930,
+      "ChangesRatio_percentage_points": 4.78,
+      "admissible_interpretation": "KRX reference/base-price daily change",
+      "naive_prior_close_ratio": "REJECTED"
+    }
+  ],
+  "official_ca_evidence_manifest": "F05_R1_OFFICIAL_CA_EVIDENCE_MANIFEST.json",
+  "official_ca_source_custody": "F05_R1_OFFICIAL_CA_SOURCE_CUSTODY.json",
+  "missing_and_rejection_policy": [
+    "NO_DENOMINATOR_SHRINK",
+    "NO_DUPLICATE_DATE_CODE",
+    "NO_FUTURE_OR_POST_CUTOFF_ROWS",
+    "NO_MISALIGNED_ENDPOINTS",
+    "NO_ZERO_OR_MISSING_VOLUME_OR_STOCKS",
+    "NO_PERCENT_FRACTION_SCALE_CONFUSION",
+    "NO_RAW_CLOSE_CA_RETURN",
+    "NO_CASH_DIVIDEND_TOTAL_RETURN",
+    "NO_INVENTED_CA_FACTOR"
+  ],
+  "owner_action_required": false
+}

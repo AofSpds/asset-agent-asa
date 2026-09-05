@@ -1,0 +1,45 @@
+{
+  "schema_version": "AAA-M3TOP3-F05-R1-PRE-SCORE-INPUT-RECEIPT-v1.0",
+  "run_id": "AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01",
+  "recorded_at_kst": "2026-09-06T00:12:00+09:00",
+  "status": "MATERIALIZED_SCORE_FREE_PENDING_INDEPENDENT_VALIDATION",
+  "artifact": {
+    "path": "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/F05_R1_W1_INPUTS.jsonl",
+    "bytes": 267149,
+    "sha256": "8e5c2991eb1c14bede88300a5fd1d648ce263d3e7a3d6a83b31af9b1e3d873f7",
+    "row_count": 57,
+    "unique_company_ids": 57,
+    "unique_krx_codes": 57,
+    "company_id_ascending": true,
+    "cutoff_date": "2024-08-09",
+    "benchmark_member_count": 57,
+    "availability_state": "AVAILABLE",
+    "score_rank_outcome_keys": 0
+  },
+  "upstream_bindings": {
+    "cohort_artifact_sha256": "8ac8ba439b3decb2690e04ec8fa7d40e40c37dd1ab0329bf3d24bf8253eba6a1",
+    "cohort_identity_sha256": "c72593633c88cb6913c703da626b95d6111c7b0fa5783ccef6d373b2adf8c546",
+    "price_parquet_sha256": "b0c38943e67637d5faf88429880092cf0f46a394be39860dd3bcd0b04231bccb",
+    "ca_manifest_sha256": "3fa931f83edb8d5bf3baf493d770cedc1ffa2f4f56ce8aae7a1171ded45fa50b",
+    "ca_custody_sha256": "84a53966ca5233b699a8b5448ccd13ceede683dc555304945df76c7ba62d7eb7",
+    "f02_persisted_input_sha256": "13667596d8e76f10d319f4129a7cba3b890d2575b3cebf33b78a143740bbbf9e",
+    "config_sha256": "eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98",
+    "merged_f02_f05_input_hash": "78d540e5e0385104ba21a744e28897762f4d15af25f571de1cc57136882b2500"
+  },
+  "retired_pre_target_materializations": [
+    {
+      "path": "evidence/retired/F05_R1_W1_INPUTS_PRE_AVAILABILITY_BINDING_RETIRED.jsonl",
+      "bytes": 265268,
+      "sha256": "3d65f7d290741813c7a35a205aae5f5c6c179f9b168907024e75a00b0eef5896",
+      "reason": "EXPLICIT_AVAILABILITY_AND_CANONICAL_ORDER_GUARDS_NOT_YET_FINAL"
+    },
+    {
+      "path": "evidence/retired/F05_R1_W1_INPUTS_PRE_CANONICAL_SUM_ORDER_RETIRED.jsonl",
+      "bytes": 267149,
+      "sha256": "8e5c2991eb1c14bede88300a5fd1d648ce263d3e7a3d6a83b31af9b1e3d873f7",
+      "reason": "CONSERVATIVE_RECHECK_AFTER_DECIMAL_SUM_ORDER_GUARD; FINAL_RECHECK_BYTE_IDENTICAL"
+    }
+  ],
+  "score_executed": false,
+  "score_gate": "CLOSED_PENDING_P4"
+}

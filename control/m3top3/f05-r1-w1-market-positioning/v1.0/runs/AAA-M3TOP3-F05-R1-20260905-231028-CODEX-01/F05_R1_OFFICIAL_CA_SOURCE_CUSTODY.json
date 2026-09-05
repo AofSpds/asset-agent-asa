@@ -1,0 +1,100 @@
+{
+  "schema_version": "AAA-M3TOP3-F05-R1-OFFICIAL-CA-SOURCE-CUSTODY-v1.0",
+  "run_id": "AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01",
+  "retrieved_at_kst": "2026-09-05T23:30:00+09:00",
+  "status": "EXACT_RESPONSE_BYTES_VENDORED_AND_HASHED",
+  "purpose": "custody of already-authorized official issuer/KRX corporate-action and KRX rule evidence; never an economic price provider",
+  "files": [
+    {
+      "evidence_id": "GST-ISSUER-20240611-BONUS",
+      "url": "https://www.gst-in.com/cn/board/board.php?bbsid=ir&idx=66&pg=3",
+      "path": "evidence/official-ca/GST_ISSUER_20240611_BONUS_NOTICE.htm",
+      "bytes": 16089,
+      "sha256": "5054a1f0063cb47cb8d649bf6ccda1c1475fc92c788240923642027bdfba6577",
+      "content_check": "PASS_9300515_SHARES_RECORD_2024-06-27_ONE_FOR_ONE"
+    },
+    {
+      "evidence_id": "KRX-20240625001437",
+      "url": "https://kind.krx.co.kr/external/2024/06/25/000508/20240625001437/70766.htm",
+      "path": "evidence/official-ca/KRX_20240625001437_GST_EX_RIGHT.htm",
+      "bytes": 3275,
+      "sha256": "16a46a0afa2664f3e902269821967fa9eaff0eb4c07bda2dd388a6487268a3c7",
+      "content_check": "PASS_A083450_BASE_21700_EFFECTIVE_2024-06-26_BONUS"
+    },
+    {
+      "evidence_id": "KRX-20240724001584",
+      "url": "https://kind.krx.co.kr/external/2024/07/24/000527/20240724001584/70791.htm",
+      "path": "evidence/official-ca/KRX_20240724001584_GST_ADDITIONAL_LISTING.htm",
+      "bytes": 9418,
+      "sha256": "0f1a3e786f5499054815b82d301c1079f01b083532664bc5adca3bdd806affef",
+      "content_check": "PASS_A083450_ADD_9300515_TOTAL_18618260_LIST_2024-07-24"
+    },
+    {
+      "evidence_id": "KRX-20240709000202",
+      "url": "https://kind.krx.co.kr/external/2024/07/09/000130/20240709000202/11306.htm",
+      "path": "evidence/official-ca/KRX_20240709000202_EXICON_RIGHTS_DECISION.htm",
+      "bytes": 38322,
+      "sha256": "c7750d7dafb871ca77ca765eda8947b5ecea7bc232da9579beefbcea380d15f6",
+      "content_check": "PASS_092870_ADD_2202000_PRE_10848797_RECORD_2024-06-04_LIST_2024-07-31"
+    },
+    {
+      "evidence_id": "KRX-20240531001190-VIEWER",
+      "url": "https://kind.krx.co.kr/common/disclsviewer.do?method=search&acptno=20240531001190&docno=&viewerhost=&viewport=",
+      "path": "evidence/official-ca/KRX_20240531001190_EXICON_EX_RIGHT_VIEWER.htm",
+      "bytes": 24303,
+      "sha256": "4a0555676633a24b055b20d458c09678522831e84fce0f838075ec69642d2407",
+      "content_check": "PASS_VIEWER_ACCEPTANCE_20240531001190_COMPANY_092870_DOC_20240531002320"
+    },
+    {
+      "evidence_id": "KRX-20240531001190-RESOLUTION",
+      "url": "https://kind.krx.co.kr/common/disclsviewer.do?method=searchContents&acptNo=20240531001190&docNo=20240531002320",
+      "path": "evidence/official-ca/KRX_20240531001190_EXICON_EX_RIGHT_CONTENT.htm",
+      "bytes": 968,
+      "sha256": "ef470fe4bc04b4af08aaf0c0321572ee850efcb320ec7c740bda03a72ad1a781",
+      "content_check": "PASS_RESOLVES_EXACT_EXTERNAL_DOC_PATH"
+    },
+    {
+      "evidence_id": "KRX-20240531002320",
+      "url": "https://kind.krx.co.kr/external/2024/05/31/001190/20240531002320/70766.htm",
+      "path": "evidence/official-ca/KRX_20240531002320_EXICON_EX_RIGHT.htm",
+      "bytes": 3281,
+      "sha256": "17a99ebb63495fbb964216b4a9de167b953af63570e9d91a3d00281e1ad9e102",
+      "content_check": "PASS_A092870_BASE_19470_EFFECTIVE_2024-06-03_RIGHTS"
+    },
+    {
+      "evidence_id": "KRX-20240726001822",
+      "url": "https://kind.krx.co.kr/external/2024/07/26/000831/20240726001822/70791.htm",
+      "path": "evidence/official-ca/KRX_20240726001822_EXICON_ADDITIONAL_LISTING.htm",
+      "bytes": 6723,
+      "sha256": "3f3c8127aa0e04a88376ecc80e27d16fe0679c4f268bea82a47f406cdbb5008c",
+      "content_check": "PASS_A092870_ADD_2202000_TOTAL_13050797_LIST_2024-07-31"
+    },
+    {
+      "evidence_id": "KRX-BASE-PRICE-OVERVIEW",
+      "url": "https://global.krx.co.kr/contents/GLB/06/0602/0602020202/GLB0602020202T2.jsp",
+      "path": "evidence/official-ca/KRX_BASE_PRICE_OVERVIEW.htm",
+      "bytes": 1878,
+      "sha256": "497eb707fd5bb077518b772be2922830449e7a52b6528db1b34ed39149175c4e"
+    },
+    {
+      "evidence_id": "KRX-EX-RIGHT-FORMULA",
+      "url": "https://global.krx.co.kr/contents/GLB/06/0602/0602020202/GLB0602020202T3.jsp",
+      "path": "evidence/official-ca/KRX_EX_RIGHT_FORMULA.htm",
+      "bytes": 4362,
+      "sha256": "0ac0f7ab0837a83d662b996c0ed7da111b5b2f7d0b045b16bdf926242d407e03"
+    },
+    {
+      "evidence_id": "KRX-BASE-PRICE-ADJUSTMENT-CASES",
+      "url": "https://global.krx.co.kr/contents/GLB/06/0602/0602010201/GLB0602010201T6.jsp",
+      "path": "evidence/official-ca/KRX_BASE_PRICE_ADJUSTMENT_CASES.htm",
+      "bytes": 10440,
+      "sha256": "89f1f30449e6b93ecd7f8d47a8604737f85dfefb3e6051a21f0ef1e24c73dd62"
+    }
+  ],
+  "new_economic_provider": false,
+  "credential": false,
+  "paid_source": false,
+  "budget_used": false,
+  "post_cutoff_economic_input": false,
+  "adjustment_factor_inferred": false
+}

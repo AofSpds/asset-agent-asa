@@ -1,0 +1,65 @@
+{
+  "schema_version": "AAA-M3TOP3-F05-R1-P4-VALIDATION-PLAN-v1.0",
+  "run_id": "AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01",
+  "frozen_at_kst": "2026-09-05T23:24:00+09:00",
+  "risk_classification": "P0_F05_SCIENTIFIC_SEMANTICS_PIT_DENOMINATOR_IMMUTABLE_LINEAGE_WITH_P1_ADAPTER_FIELD_EXPOSURE",
+  "shared_contract_triggers": ["SC-02", "SC-05", "SC-12", "G01"],
+  "required_pre_score_receipts": [
+    {"role":"CTLV","level":"L1","scope":"policy/source/CA/PIT/exact-57 identity"},
+    {"role":"MODV","level":"L1","scope":"20d/60d math, turnover, benchmark, unchanged downstream F05"},
+    {"role":"ENGV","level":"L1","scope":"additive provider exposure, builder fail-closed gates, regression"},
+    {"role":"IVA","level":"L2","scope":"independent reconstruction and reperformance on exact frozen target"}
+  ],
+  "pmo_role": {
+    "role": "PMOV",
+    "scope": "authority, process, completeness, aggregation",
+    "may_substitute_for_scientific_or_independent_receipt": false
+  },
+  "freeze_order": [
+    "materialize final 57-row F05 input bytes without scores",
+    "materialize policy, source-field, CA, code, and test artifacts",
+    "commit one exact pre-score D0 target and bind commit/tree/component/input hashes",
+    "obtain CTLV L1, MODV L1, ENGV L1, and IVA L2 independent receipts",
+    "if any bounded defect exists, correct once, freeze D1, and revalidate the affected target without PASS transfer",
+    "aggregate only exact-target PASS receipts",
+    "execute score and seal once",
+    "obtain independent post-score IVA readback of the actual output bytes"
+  ],
+  "positive_cases": [
+    "P01 ordinary non-CA 21/61 observations produce exactly 20/60 ChangesRatio intervals",
+    "P02 GST 2024-06-26 official KRX base-price change and 2024-07-24 exact Stocks boundary",
+    "P03 Exicon 2024-06-03 official KRX base-price change and 2024-07-31 Volume/Stocks boundary",
+    "P04 exact daily Volume/Stocks and recent20/prior20 acceleration arithmetic",
+    "P05 exact 57-member equal-weight benchmark identity",
+    "P06 unchanged robust percentile, 0.50/0.30/0.20 recognition velocity, and saturation",
+    "P07 exact five persisted F02 identities joined to F05 with 0.30 coverage; other 52 remain F05-only 0.20"
+  ],
+  "negative_cases": [
+    "N01 reject raw-close return at a CA boundary",
+    "N02 reject wrong issuer, event date, official source reference, or physical return field",
+    "N03 reject any economic observation later than 2024-08-09",
+    "N04 reject 56/57 and every silent benchmark denominator shrink",
+    "N05 reject missing, zero, nonfinite, boolean, or nonintegral Volume/Stocks",
+    "N06 reject duplicate code/date, missing or misaligned sessions, cutoff mismatch, and off-by-one intervals",
+    "N07 reject cash-dividend or adjusted-close total-return substitution; legacy scorer keys must be exact aliases only",
+    "N08 reject inferred adjustment factors and heuristic-as-CA truth",
+    "N09 reject F05 weight, features_v1, scorer_v1, narrow-patch, or config drift",
+    "N10 reject missing/wrong physical fields and percent/fraction scaling confusion while retaining old-provider compatibility",
+    "N11 reject canonical/legacy alias value or lineage mismatch",
+    "N12 reject scoring without exact-target independent PASS receipts or with dirty/preexisting outputs",
+    "N13 reject output counts/ranks or claims outside the provisional ceiling"
+  ],
+  "safe_regression_command": "python -B -X utf8 -m unittest tools.m3top3.tests.test_model_v1 tools.m3top3.tests.test_narrow_fixes_v1 tools.m3top3.tests.test_coverage_limited_replay_v1 tools.m3top3.tests.test_golden_scorecard_oracle_v1 tools.m3top3.tests.test_infrastructure -v",
+  "affected_command": "python -B -X utf8 -m unittest tools.m3top3.tests.test_f05_r1_market -v",
+  "f02_reuse_command": null,
+  "f02_reuse_reason": "existing exact F02 inputs/scores/IVA are byte-bound and are not source-retrieved or rerun",
+  "forbidden_test_execution": [
+    "real-input outcome methods",
+    "W2-W8",
+    "post-cutoff price",
+    "future rank, winner, MFE, or MAE"
+  ],
+  "receipt_directory": "validation",
+  "score_gate_initial_state": "CLOSED",
+  "owner_action_required": false
+}

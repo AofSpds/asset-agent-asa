@@ -1,0 +1,134 @@
+{
+  "schema_version": "AAA-M3TOP3-F05-R1-OFFICIAL-CA-EVIDENCE-MANIFEST-v1.0",
+  "run_id": "AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01",
+  "read_at_kst": "2026-09-05T23:21:00+09:00",
+  "cutoff_date": "2024-08-09",
+  "status": "OFFICIAL_EVIDENCE_CLOSED",
+  "records": [
+    {
+      "evidence_id": "GST-ISSUER-20240611-BONUS",
+      "authority": "ISSUER",
+      "company_id": "KRX:083450",
+      "published_date": "2024-06-11",
+      "title": "신주발행(무상증자)공고 및 명의개서정지 공고",
+      "url": "https://www.gst-in.com/cn/board/board.php?bbsid=ir&idx=66&pg=3",
+      "facts": {
+        "new_ordinary_shares": 9300515,
+        "allotment": "one new share per one owned share",
+        "record_date": "2024-06-27",
+        "expected_listing_date": "2024-07-24"
+      },
+      "pit_admissible": true
+    },
+    {
+      "evidence_id": "KRX-20240625001437",
+      "authority": "KRX",
+      "company_id": "KRX:083450",
+      "published_date": "2024-06-25",
+      "title": "권리락",
+      "url": "https://kind.krx.co.kr/external/2024/06/25/000508/20240625001437/70766.htm",
+      "facts": {
+        "security_code": "A083450",
+        "security_type": "ordinary",
+        "base_price_krw": 21700,
+        "effective_date": "2024-06-26",
+        "reason": "bonus issue"
+      },
+      "pit_admissible": true
+    },
+    {
+      "evidence_id": "KRX-20240724001584",
+      "authority": "KRX",
+      "company_id": "KRX:083450",
+      "published_date": "2024-07-24",
+      "title": "추가상장(무상증자)",
+      "url": "https://kind.krx.co.kr/external/2024/07/24/000527/20240724001584/70791.htm",
+      "facts": {
+        "new_ordinary_shares": 9300515,
+        "post_listing_total_shares": 18618260,
+        "listing_date": "2024-07-24",
+        "reason": "bonus issue",
+        "issue_record_date": "2024-06-27"
+      },
+      "pit_admissible": true
+    },
+    {
+      "evidence_id": "KRX-20240709000202",
+      "authority": "KRX_ISSUER_FILING",
+      "company_id": "KRX:092870",
+      "published_date": "2024-07-09",
+      "initial_filing_date": "2024-04-23",
+      "title": "유상증자 결정",
+      "url": "https://kind.krx.co.kr/external/2024/07/09/000130/20240709000202/11306.htm",
+      "facts": {
+        "new_ordinary_shares": 2202000,
+        "pre_issue_total_shares": 10848797,
+        "method": "shareholder allocation followed by public offering of unsubscribed shares",
+        "final_issue_price_krw": 15130,
+        "record_date": "2024-06-04",
+        "allotment_per_share": "0.2137779189",
+        "payment_date": "2024-07-19",
+        "expected_listing_date": "2024-07-31"
+      },
+      "pit_admissible": true
+    },
+    {
+      "evidence_id": "KRX-20240531001190",
+      "authority": "KRX",
+      "company_id": "KRX:092870",
+      "published_date": "2024-05-31",
+      "title": "권리락(유상증자)",
+      "url": "https://kind.krx.co.kr/common/disclsviewer.do?method=search&acptno=20240531001190&docno=&viewerhost=&viewport=",
+      "facts": {
+        "security_code": "A092870",
+        "base_price_krw": 19470,
+        "effective_date": "2024-06-03",
+        "reason": "rights issue"
+      },
+      "pit_admissible": true
+    },
+    {
+      "evidence_id": "KRX-20240726001822",
+      "authority": "KRX",
+      "company_id": "KRX:092870",
+      "published_date": "2024-07-26",
+      "title": "추가상장",
+      "url": "https://kind.krx.co.kr/external/2024/07/26/000831/20240726001822/70791.htm",
+      "facts": {
+        "new_ordinary_shares": 2202000,
+        "post_listing_total_shares": 13050797,
+        "listing_date": "2024-07-31",
+        "reason": "rights issue",
+        "issue_price_krw": 15130
+      },
+      "pit_admissible": true
+    },
+    {
+      "evidence_id": "KRX-BASE-PRICE-RULES",
+      "authority": "KRX",
+      "company_id": null,
+      "published_date": null,
+      "title": "KRX base-price and ex-right reference-price rules",
+      "urls": [
+        "https://global.krx.co.kr/contents/GLB/06/0602/0602020202/GLB0602020202T2.jsp",
+        "https://global.krx.co.kr/contents/GLB/06/0602/0602020202/GLB0602020202T3.jsp",
+        "https://global.krx.co.kr/contents/GLB/06/0602/0602010201/GLB0602010201T6.jsp"
+      ],
+      "facts": {
+        "ordinary_case": "base price generally prior close",
+        "corporate_action_case": "paid and bonus issues use theoretical reference/base-price treatment with tick rounding",
+        "scored_consequence": "reference-aware daily change may be compounded; raw adjacent closes may not cross a CA basis reset"
+      },
+      "pit_admissible": "CONTROL_SEMANTICS_ONLY"
+    }
+  ],
+  "post_cutoff_material": {
+    "read_for_economic_decision": false,
+    "used_in_input_or_score": false
+  },
+  "source_custody": "F05_R1_OFFICIAL_CA_SOURCE_CUSTODY.json",
+  "raw_web_response_vendored": true,
+  "custody_note": "Official acceptance numbers, dates, URLs, adjudicative facts, exact fetched response bytes, and SHA-256 values are persisted. These bodies are corporate-action/control evidence, never economic price inputs.",
+  "adjustment_factor_inferred": false,
+  "owner_action_required": false
+}
