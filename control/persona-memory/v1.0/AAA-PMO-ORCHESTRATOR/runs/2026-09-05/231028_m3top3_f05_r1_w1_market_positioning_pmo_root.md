@@ -4,7 +4,7 @@
 - Persona lock: `AAA-PMO-ORCHESTRATOR (PMO)`
 - Started: 2026-09-05 23:10:28 KST
 - Branch: `task/aaa/m3top3-f05-r1-w1-market-positioning-20260905`
-- State: `IN_PROGRESS / P6 LOCAL BUNDLE-SEAL-REPORT READY; REMOTE PERSISTENCE PENDING`
+- State: `TERMINAL / COMPLETE_F05_R1_W1_PROVISIONAL`
 
 ## Authority
 
@@ -87,3 +87,11 @@
 - The Owner-first completion report is materialized with terminal `COMPLETE_F05_R1_W1_PROVISIONAL`. It explicitly distinguishes the six-way 85-point tie and the five-company F02+F05 descriptive view from any official selection.
 - Both task runtime locations are absent after cleanup. No source, input, evidence, score, or old output byte was deleted.
 - Remaining act: commit and push the local closure payload to the exact task ref, verify remote main remains unchanged, then persist the non-self-referential readback. No Owner decision boundary is present.
+
+## P6 persistence and terminal
+
+- Closure payload commit `04045b5494ce5b264ca6c10f59a4339a3d262b54` / tree `4edc3aa3b746f86b39c11f7a5b8459d54ec77e1e` was pushed only to `refs/heads/task/aaa/m3top3-f05-r1-w1-market-positioning-20260905`.
+- Exact `git ls-remote` readback matched that task commit. Remote main remained `950bc98b0702cd5564e3d7b24a6624d9818dfbb9`; no PR, main mutation, merge, release, or production act occurred.
+- `F05_R1_PERSISTENCE_READBACK.json` binds the observed closure commit/tree, 75-path composition diff, critical closure blobs, unchanged 34-file D1 target, unchanged score blobs, cleanup, and remote refs.
+- The persistence receipt and terminal-control update form a non-self-referential child commit. That child cannot embed its own commit hash; exact final local/tree/remote equality is returned after the child push.
+- Earned work is 100/100 EWU. Score engine calls remain exactly one. Terminal is `COMPLETE_F05_R1_W1_PROVISIONAL`; Owner action is none.

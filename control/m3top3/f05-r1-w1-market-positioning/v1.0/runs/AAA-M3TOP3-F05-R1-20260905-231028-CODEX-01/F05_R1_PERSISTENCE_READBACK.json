@@ -1,0 +1,212 @@
+{
+  "schema_version": "AAA-M3TOP3-F05-R1-PERSISTENCE-READBACK-v1.0",
+  "run_id": "AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01",
+  "recorded_at_kst": "2026-09-06T03:38:33+09:00",
+  "scope": "EXACT_OBSERVED_CLOSURE_PAYLOAD_REMOTE_READBACK_AND_DECLARED_NON_SELF_REFERENTIAL_FINAL_RECEIPT_CHILD",
+  "branch": "task/aaa/m3top3-f05-r1-w1-market-positioning-20260905",
+  "worktree": "C:\\Users\\ms1pk\\dev\\asset-agent-asa\\asset-agent-asa\\f05-r1",
+  "composition_base": {
+    "commit": "5fb34b229868d66b6f8a02d9686445c6c4b9398d",
+    "tree": "44771b00d126fa4f73767c90a156a70559a23945"
+  },
+  "score_payload": {
+    "commit": "e273b052c8ef663ae0f151c5747e9112b4cd811d",
+    "tree": "e272648ee236b4d5866dd09e818749486386771a",
+    "status": "CLEAN_COMMITTED_CREATE_ONCE_OUTPUT_PAYLOAD"
+  },
+  "post_score_validation_payload": {
+    "commit": "9de0bcedb5287b47d2a09082d7ffc1d41c5e9867",
+    "tree": "174f8512c0669443b8ac2f9b57dac3390963205f",
+    "verdict": "PASS",
+    "findings": 0,
+    "validator_score_calls": 0
+  },
+  "closure_payload": {
+    "commit": "04045b5494ce5b264ca6c10f59a4339a3d262b54",
+    "tree": "4edc3aa3b746f86b39c11f7a5b8459d54ec77e1e",
+    "parent": "9de0bcedb5287b47d2a09082d7ffc1d41c5e9867",
+    "files_changed_in_commit": 9,
+    "scope": "BUNDLE_SEAL_OWNER_FIRST_COMPLETION_REPORT_AND_LOCAL_P6_CONTROL"
+  },
+  "remote_payload_readback": {
+    "method": "git ls-remote origin exact refs/heads names",
+    "verified_at_kst": "2026-09-06T03:38:33+09:00",
+    "task_ref": "refs/heads/task/aaa/m3top3-f05-r1-w1-market-positioning-20260905",
+    "task_commit": "04045b5494ce5b264ca6c10f59a4339a3d262b54",
+    "task_tree_from_matching_local_commit": "4edc3aa3b746f86b39c11f7a5b8459d54ec77e1e",
+    "matches_local_closure_payload": true,
+    "main_ref": "refs/heads/main",
+    "main_commit": "950bc98b0702cd5564e3d7b24a6624d9818dfbb9",
+    "main_tree": "dd88026ee7b706a72643d5939f1d653ddde8b987",
+    "main_unchanged_from_pre_push_readback": true
+  },
+  "payload_blob_readback": {
+    "F05_R1_BUNDLE_MANIFEST.json": {
+      "bytes": 17083,
+      "sha256": "af6644c80078e3adf12a4cf5a32a579aff21f363f6c079168bf660ed95bcf046",
+      "git_blob": "0552dcf18a828a2912cb3f2f117a46619caa265f",
+      "bundle_id": "f05r1bundle_7c700db5b89ae06e85ed5c8ba718ce68",
+      "canonical_payload_sha256": "7c700db5b89ae06e85ed5c8ba718ce68b39c9cabc1915c4d554aedf5cf7f7bec"
+    },
+    "F05_R1_PROVISIONAL_RESULT_SEAL.json": {
+      "bytes": 5569,
+      "sha256": "55ef59f1f565e2a36dbef840eb95a8ef9335c53fbf1c236e0ea459b85bed2e43",
+      "git_blob": "db6675b64bd15258acdfaf53f2fc13b8f585f3d0",
+      "seal_id": "f05r1seal_c4473f7ba95384195397e8c514545705",
+      "canonical_sealed_payload_sha256": "c4473f7ba95384195397e8c514545705960932cc83d1fae1f1d51da4f6512e0a"
+    },
+    "F05_R1_COMPLETION_REPORT.md": {
+      "bytes": 11159,
+      "sha256": "d06ef39d6ef25c4213d9677899243063a71c478ba3bb889b4fc69074fbf2ab72",
+      "git_blob": "a6dd759d0655069648ce96733640a30ab6ca2c99"
+    },
+    "F05_R1_PROCESS_ACTION_LEDGER.jsonl_at_closure": {
+      "bytes": 16847,
+      "sha256": "a6a51927b2367d9993ebf5c4e2cb91d6024865316424a8dc9e6be622be765851",
+      "git_blob": "65c92da2b92e99762fbea7433199d3aa1723ea1b"
+    },
+    "PROGRESS_CURRENT.json_at_closure": {
+      "bytes": 1287,
+      "sha256": "13ee4f5bb3e8a79b68dfb48dff414a34ff0758e8da62fa2afad6e3c4e8ae4d4d",
+      "git_blob": "ba33f9133e68a357ad06a82c7eff7b2534f82854"
+    },
+    "PMO_journal_at_closure": {
+      "bytes": 10032,
+      "sha256": "5c0c80797553a193d4045cc3eb0cc563542728402afedc1c6c8da6be52951645",
+      "git_blob": "dc19fa497e83ce3b8daa27a491fff22ed9f84619"
+    }
+  },
+  "closing_changed_files_against_composition": [
+    ".gitattributes",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/F02_R1_REUSE_BINDING.json",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/F05_R1_ADAPTER_CHANGE_REPORT.md",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/F05_R1_AFFECTED_VALIDATION_REPORT.json",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/F05_R1_AFFECTED_VALIDATION_REPORT.md",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/F05_R1_BOUND_DATA_PRECHECK.json",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/F05_R1_BUNDLE_MANIFEST.json",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/F05_R1_CA_ADJUDICATION_REPORT.md",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/F05_R1_CHECKPOINTS.jsonl",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/F05_R1_COMPLETION_REPORT.md",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/F05_R1_INPUT_MATERIALIZATION_SPEC.json",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/F05_R1_OFFICIAL_CA_EVIDENCE_MANIFEST.json",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/F05_R1_OFFICIAL_CA_SOURCE_CUSTODY.json",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/F05_R1_POLICY_BINDING.json",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/F05_R1_PRE_SCORE_INPUT_RECEIPT.json",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/F05_R1_PROCESS_ACTION_LEDGER.jsonl",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/F05_R1_PROVISIONAL_RESULT_SEAL.json",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/F05_R1_SCORE_OUTPUT_CLI_RECEIPT.json",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/F05_R1_SOURCE_FIELD_BINDING.json",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/F05_R1_W1_INPUTS.jsonl",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/P2_AUTHOR_VERIFICATION.json",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/P4_D1_AUTHOR_VERIFICATION.json",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/P4_D1_CORRECTION_REPORT.md",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/P4_D1_EXACT_TARGET.json",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/P4_D1_VALIDATOR_INDEPENDENCE_RECONCILIATION.json",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/P4_VALIDATION_PLAN.json",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/P5_IVA_POST_SCORE_READBACK.json",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/P5_POST_SCORE_READBACK.json",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/PROGRESS_BASELINE_PLAN.json",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/PROGRESS_CURRENT.json",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/PROGRESS_DASHBOARD.md",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/PROGRESS_EVENTS.jsonl",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/PROGRESS_WEIGHT_CALIBRATION.json",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/evidence/official-ca/GST_ISSUER_20240611_BONUS_NOTICE.htm",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/evidence/official-ca/KRX_20240531001190_EXICON_EX_RIGHT_CONTENT.htm",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/evidence/official-ca/KRX_20240531001190_EXICON_EX_RIGHT_VIEWER.htm",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/evidence/official-ca/KRX_20240531002320_EXICON_EX_RIGHT.htm",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/evidence/official-ca/KRX_20240625001437_GST_EX_RIGHT.htm",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/evidence/official-ca/KRX_20240709000202_EXICON_RIGHTS_DECISION.htm",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/evidence/official-ca/KRX_20240724001584_GST_ADDITIONAL_LISTING.htm",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/evidence/official-ca/KRX_20240726001822_EXICON_ADDITIONAL_LISTING.htm",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/evidence/official-ca/KRX_BASE_PRICE_ADJUSTMENT_CASES.htm",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/evidence/official-ca/KRX_BASE_PRICE_OVERVIEW.htm",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/evidence/official-ca/KRX_EX_RIGHT_FORMULA.htm",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/evidence/retired/F05_R1_W1_INPUTS_PRE_AVAILABILITY_BINDING_RETIRED.jsonl",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/evidence/retired/F05_R1_W1_INPUTS_PRE_CANONICAL_SUM_ORDER_RETIRED.jsonl",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/score-and-seal/F02_F05_PROVISIONAL_MULTI_FEATURE_VIEW.csv",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/score-and-seal/F05_R1_W1_PROVISIONAL_RANKING.csv",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/score-and-seal/F05_R1_W1_SCORES.jsonl",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/validation/CTLV_L1_D0_RECEIPT.json",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/validation/CTLV_L1_D1_RECEIPT.json",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/validation/ENGV_L1_D1_RECEIPT.json",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/validation/F05_R1_D0_VALIDATION_AGGREGATE.json",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/validation/F05_R1_D0_VALIDATION_REPORT.md",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/validation/IVA_L2_D0_RECEIPT.json",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/validation/IVA_L2_D1_RECEIPT.json",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/validation/MODV_L1_D0_RECEIPT.json",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/validation/MODV_L1_D1_RECEIPT.json",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/validation/journals/CTLV_L1_D0_JOURNAL.md",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/validation/journals/CTLV_L1_D1_JOURNAL.md",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/validation/journals/ENGV_L1_D1_JOURNAL.md",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/validation/journals/IVA_L2_D0_JOURNAL.md",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/validation/journals/IVA_L2_D1_JOURNAL.md",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/validation/journals/IVA_L2_POST_SCORE_JOURNAL.md",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/validation/journals/MODV_L1_D0_JOURNAL.md",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01/validation/journals/MODV_L1_D1_JOURNAL.md",
+    "control/persona-memory/v1.0/AAA-PMO-ORCHESTRATOR/runs/2026-09-05/231028_m3top3_f05_r1_w1_market_positioning_pmo_root.md",
+    "tools/m3top3/cli_build_f05_r1_inputs.py",
+    "tools/m3top3/cli_score_f05_r1_outputs.py",
+    "tools/m3top3/f05_r1_market.py",
+    "tools/m3top3/f05_r1_score_outputs.py",
+    "tools/m3top3/providers.py",
+    "tools/m3top3/tests/test_cli_score_f05_r1_outputs.py",
+    "tools/m3top3/tests/test_f05_r1_market.py",
+    "tools/m3top3/tests/test_f05_r1_score_outputs.py"
+  ],
+  "closing_changed_file_count": 75,
+  "closing_changed_paths_ordered_lf_terminated_sha256": "df1ca94ae7703c57df37d03a899651e3a0c7c3905d81dee525566767854b88f1",
+  "authorized_engineering_paths": [
+    "tools/m3top3/providers.py",
+    "tools/m3top3/f05_r1_market.py",
+    "tools/m3top3/cli_build_f05_r1_inputs.py",
+    "tools/m3top3/f05_r1_score_outputs.py",
+    "tools/m3top3/cli_score_f05_r1_outputs.py",
+    "tools/m3top3/tests/test_f05_r1_market.py",
+    "tools/m3top3/tests/test_f05_r1_score_outputs.py",
+    "tools/m3top3/tests/test_cli_score_f05_r1_outputs.py"
+  ],
+  "remaining_allowed_scope": [
+    ".gitattributes",
+    "control/m3top3/f05-r1-w1-market-positioning/v1.0/runs/AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01",
+    "control/persona-memory/v1.0/AAA-PMO-ORCHESTRATOR/runs/2026-09-05/231028_m3top3_f05_r1_w1_market_positioning_pmo_root.md"
+  ],
+  "operative_target": {
+    "commit": "2700dda2fee8b4f8b6cfab9c075f8b860ffc94f9",
+    "tree": "c98194af223562e440d66c47b57f6696110ced47",
+    "validated_target_files": 34,
+    "validated_target_files_unchanged_at_closure": 34
+  },
+  "score_output_blobs_unchanged": {
+    "F05_R1_W1_SCORES.jsonl": "bf541ebefeaf235a1a4f94a2b27570d142e01a91",
+    "F05_R1_W1_PROVISIONAL_RANKING.csv": "ce3264b44a2c781e6505c6aa5838ca9117f329bb",
+    "F02_F05_PROVISIONAL_MULTI_FEATURE_VIEW.csv": "20edde90a93d50b38949af9cfe6ad4a6da733d4b"
+  },
+  "production_score_execution": {
+    "engine_run_id": "m3run_d76f0878dc3ced762337fe37b591b3cd",
+    "score_engine_call_count": 1,
+    "reruns": 0
+  },
+  "ephemeral_runtime_cleanup": {
+    "worktree_runtime_exists_after": false,
+    "external_task_runtime_exists_after": false,
+    "score_input_or_evidence_removed": false
+  },
+  "pre_receipt_worktree_status": "CLEAN_AFTER_CLOSURE_COMMIT_AND_REMOTE_READBACK",
+  "push": {
+    "destination": "https://github.com/AofSpds/asset-agent-asa.git",
+    "ref": "refs/heads/task/aaa/m3top3-f05-r1-w1-market-positioning-20260905",
+    "closure_payload_state": "INITIAL_TASK_REF_PUSH_VERIFIED",
+    "final_receipt_child": "COMMIT_AND_PUSH_AFTER_THIS_NON_SELF_REFERENTIAL_RECORD; EXACT_FINAL_REF_RETURNED_IN_TERMINAL",
+    "new_credentials": false,
+    "main_modified": false,
+    "pr_created": false
+  },
+  "terminal": "COMPLETE_F05_R1_W1_PROVISIONAL",
+  "official_top3_or_top10": false,
+  "outcome_execution": false,
+  "w2_w8_execution": false,
+  "pr": "NO_PR_NOT_REQUESTED_NO_MERGE_OR_RELEASE_AUTHORITY",
+  "main_mutated": false,
+  "merge_release_or_production_performed": false,
+  "closeout_note": "This persistence receipt is committed in a child closeout commit and cannot self-reference its own final commit. Exact final local commit/tree, clean status, matching remote task ref, and unchanged remote main are read back after commit and returned externally."
+}
