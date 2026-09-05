@@ -230,6 +230,31 @@ def _verify_head_evidence(repo: Path, paths: Mapping[str, bytes]) -> None:
             raise F05ScoreCLIError(f"bound evidence changed during pre-score checks: {relative}")
 
 
+def _verify_exact_receipt_descriptor_paths(
+    report: Mapping[str, Any], receipt_paths: Mapping[str, str]
+) -> None:
+    descriptors = report.get("validation_receipts")
+    if not isinstance(descriptors, list) or len(descriptors) != len(REQUIRED_VALIDATOR_ROLES):
+        raise F05ScoreCLIError("aggregate validation receipt descriptors are incomplete")
+    by_role: dict[str, Mapping[str, Any]] = {}
+    for descriptor in descriptors:
+        if not isinstance(descriptor, Mapping):
+            raise F05ScoreCLIError("aggregate validation receipt descriptor must be an object")
+        role = descriptor.get("role")
+        if role not in REQUIRED_VALIDATOR_ROLES or role in by_role:
+            raise F05ScoreCLIError("aggregate validation receipt descriptor roles are invalid")
+        by_role[role] = descriptor
+    if set(receipt_paths) != set(REQUIRED_VALIDATOR_ROLES) or set(by_role) != set(
+        REQUIRED_VALIDATOR_ROLES
+    ):
+        raise F05ScoreCLIError("receipt path bindings must be exactly CTLV/MODV/ENGV/IVA")
+    for role in REQUIRED_VALIDATOR_ROLES:
+        if by_role[role].get("path") != receipt_paths[role]:
+            raise F05ScoreCLIError(
+                f"{role} aggregate descriptor path does not match the receipt actually read"
+            )
+
+
 def _verify_exact_target(
     repo: Path,
     report: Mapping[str, Any],
@@ -325,6 +350,7 @@ def execute(args: argparse.Namespace) -> dict[str, Any]:
 
     receipt_bytes: dict[str, bytes] = {}
     receipt_evidence: dict[str, bytes] = {}
+    receipt_paths: dict[str, str] = {}
     resolved_inputs = {f05_path, f02_path, config_path, report_path}
     for role in REQUIRED_VALIDATOR_ROLES:
         prefix = role.lower()
@@ -347,21 +373,22 @@ def execute(args: argparse.Namespace) -> dict[str, Any]:
             raise F05ScoreCLIError(f"{role} validation receipt run_id mismatch")
         receipt_bytes[role] = raw
         receipt_evidence[relative] = raw
+        receipt_paths[role] = relative
+
+    _verify_exact_receipt_descriptor_paths(report, receipt_paths)
 
     _assert_clean_worktree(repo)
     required_paths = set(REQUIRED_VALIDATED_RUNTIME_PATHS)
     required_paths.update({f05_relative, f02_relative, config_relative})
     target_commit, target_tree, head = _verify_exact_target(repo, report, required_paths)
-    _verify_head_evidence(
-        repo,
-        {
-            f05_relative: f05_bytes,
-            f02_relative: f02_bytes,
-            config_relative: config_bytes,
-            report_relative: report_bytes,
-            **receipt_evidence,
-        },
-    )
+    bound_evidence = {
+        f05_relative: f05_bytes,
+        f02_relative: f02_bytes,
+        config_relative: config_bytes,
+        report_relative: report_bytes,
+        **receipt_evidence,
+    }
+    _verify_head_evidence(repo, bound_evidence)
     if output_dir.exists():
         raise FileExistsError(f"create-once output directory already exists: {output_dir}")
 
@@ -371,6 +398,7 @@ def execute(args: argparse.Namespace) -> dict[str, Any]:
         config_json=config_bytes,
         aggregate_validation_json=report_bytes,
         validation_receipt_json_by_role=receipt_bytes,
+        validation_receipt_path_by_role=receipt_paths,
     )
     if not isinstance(artifacts, F05ScoreArtifacts):
         raise F05ScoreCLIError("score helper returned an invalid artifact bundle")
@@ -381,15 +409,24 @@ def execute(args: argparse.Namespace) -> dict[str, Any]:
     # before the single create-once persistence call.
     if output_dir.exists():
         raise FileExistsError(f"create-once output directory already exists: {output_dir}")
+    current_head = _git(repo, "rev-parse", "HEAD").stdout.strip()
+    if current_head != head:
+        raise F05ScoreCLIError("Git HEAD changed while the score helper was running")
     _assert_clean_worktree(repo)
-    for path, original, context in (
-        (f05_path, f05_bytes, "F05 input JSONL"),
-        (f02_path, f02_bytes, "F02 persisted MIS"),
-        (config_path, config_bytes, "model configuration"),
-        (report_path, report_bytes, "aggregate validation report"),
-    ):
+    for relative, original in bound_evidence.items():
+        path = repo / Path(*PurePosixPath(relative).parts)
         if path.read_bytes() != original:
-            raise F05ScoreCLIError(f"{context} changed before persistence")
+            raise F05ScoreCLIError(f"bound evidence changed before persistence: {relative}")
+    second_target_commit, second_target_tree, second_head = _verify_exact_target(
+        repo, report, required_paths
+    )
+    if (
+        second_target_commit != target_commit
+        or second_target_tree != target_tree
+        or second_head != head
+    ):
+        raise F05ScoreCLIError("validated Git target changed before persistence")
+    _verify_head_evidence(repo, bound_evidence)
     hashes = persist_f05_r1_outputs(artifacts, output_dir)
 
     expected_names = {SCORE_FILENAME, RANKING_FILENAME, FIVE_FILENAME}

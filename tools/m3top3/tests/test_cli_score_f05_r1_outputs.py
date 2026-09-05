@@ -12,10 +12,15 @@ from unittest.mock import patch
 
 from tools.m3top3 import cli_score_f05_r1_outputs as cli
 from tools.m3top3.f05_r1_score_outputs import (
+    AGGREGATE_VALIDATION_SCHEMA_VERSION,
     EXPECTED_CONFIG_SHA256,
     EXPECTED_F02_INPUT_BATCH_SHA256,
+    EXPECTED_INDEPENDENCE_ASSERTION,
+    EXPECTED_TARGET_AUTHOR_IDENTITY,
+    EXPECTED_VALIDATION_LEVEL_BY_ROLE,
     F05ScoreArtifacts,
     F05ScoreOutputError,
+    INDEPENDENT_VALIDATION_RECEIPT_SCHEMA_VERSION,
 )
 
 
@@ -65,7 +70,10 @@ class SyntheticValidatedRepo:
         self.target_tree = self._git("rev-parse", "HEAD^{tree}")
 
         self.merged_input_hash = "c" * 64
-        self.target_bundle = "M3TOP3-F05-R1-SYNTHETIC-VALIDATED-BUNDLE"
+        self.target_revision = "D1"
+        self.target_bundle = (
+            f"AAA-M3TOP3-F05-R1-D1-{self.target_commit}-{self.target_tree}"
+        )
         self.input_bindings = {
             "f05_input_jsonl_sha256": _sha(self.f05_bytes),
             "f02_model_input_batch_sha256": _sha(self.f02_bytes),
@@ -86,11 +94,28 @@ class SyntheticValidatedRepo:
         self.receipt_bytes = {}
         descriptors = []
         for role in cli.REQUIRED_VALIDATOR_ROLES:
+            receipt_id = (
+                f"AAA-M3TOP3-F05-R1-D1-{role}-"
+                f"{EXPECTED_VALIDATION_LEVEL_BY_ROLE[role]}-20260906-010000-01"
+            )
+            validator_identity = f"root/f05_r1_{role.lower()}_d1"
             receipt = {
+                "schema_version": INDEPENDENT_VALIDATION_RECEIPT_SCHEMA_VERSION,
+                "receipt_id": receipt_id,
                 "run_id": RUN_ID,
+                "target_revision": self.target_revision,
+                "validator_role": role,
+                "validation_level": EXPECTED_VALIDATION_LEVEL_BY_ROLE[role],
+                "validator_identity": validator_identity,
+                "author_identity": EXPECTED_TARGET_AUTHOR_IDENTITY,
+                "independence_assertion": EXPECTED_INDEPENDENCE_ASSERTION,
+                "supporting_not_self_pass": False,
                 "role_verdicts": {role: "PASS"},
                 "target_author": False,
                 "target_edited": False,
+                "no_pass_transfer": True,
+                "verdict": "PASS",
+                "findings": [],
                 "target_commit": self.target_commit,
                 "target_tree": self.target_tree,
                 "target_bundle_identity": self.target_bundle,
@@ -102,10 +127,19 @@ class SyntheticValidatedRepo:
             self.receipt_relatives[role] = relative
             self.receipt_bytes[role] = raw
             self._write(relative, raw)
-            descriptors.append({"role": role, "path": relative, "sha256": _sha(raw)})
+            descriptors.append({
+                "role": role,
+                "validation_level": EXPECTED_VALIDATION_LEVEL_BY_ROLE[role],
+                "receipt_id": receipt_id,
+                "validator_identity": validator_identity,
+                "path": relative,
+                "sha256": _sha(raw),
+            })
 
         self.report = {
+            "schema_version": AGGREGATE_VALIDATION_SCHEMA_VERSION,
             "run_id": RUN_ID,
+            "target_revision": self.target_revision,
             "status": "PASS",
             "scoring_permitted": True,
             "target_author": False,
@@ -278,6 +312,54 @@ class TestF05R1ScoreOutputCLI(unittest.TestCase):
             with self.assertRaisesRegex(F05ScoreOutputError, "synthetic gate failure"):
                 cli.execute(self.fixture.args)
             build.assert_called_once()
+        self.assertFalse(self.fixture.output_dir.exists())
+
+    def test_falsified_or_nonexistent_descriptor_path_never_calls_helper(self):
+        baseline = copy.deepcopy(self.fixture.report["validation_receipts"])
+        cases = (
+            (
+                "falsified_existing_path",
+                self.fixture.receipt_relatives["MODV"],
+            ),
+            (
+                "nonexistent_path",
+                (RUN_ROOT / "validation" / "DOES_NOT_EXIST.json").as_posix(),
+            ),
+        )
+        for name, false_path in cases:
+            with self.subTest(case=name):
+                descriptors = copy.deepcopy(baseline)
+                next(item for item in descriptors if item["role"] == "CTLV")["path"] = (
+                    false_path
+                )
+                self.fixture.update_report_and_commit(validation_receipts=descriptors)
+                with patch.object(cli, "build_f05_r1_outputs") as build:
+                    with self.assertRaisesRegex(
+                        cli.F05ScoreCLIError, "descriptor path does not match"
+                    ):
+                        cli.execute(self.fixture.args)
+                    build.assert_not_called()
+                self.assertFalse(self.fixture.output_dir.exists())
+
+    def test_helper_time_committed_runtime_drift_blocks_persistence(self):
+        artifacts = self.fixture.artifacts()
+
+        def commit_runtime_drift(**_kwargs):
+            changed = self.fixture.repo / "tools/m3top3/core.py"
+            changed.write_bytes(changed.read_bytes() + b"helper-time committed drift\n")
+            self.fixture._commit("adversarial helper-time runtime drift")
+            return artifacts
+
+        with (
+            patch.object(
+                cli, "build_f05_r1_outputs", side_effect=commit_runtime_drift
+            ) as build,
+            patch.object(cli, "persist_f05_r1_outputs") as persist,
+        ):
+            with self.assertRaisesRegex(cli.F05ScoreCLIError, "HEAD changed"):
+                cli.execute(self.fixture.args)
+            build.assert_called_once()
+            persist.assert_not_called()
         self.assertFalse(self.fixture.output_dir.exists())
 
 

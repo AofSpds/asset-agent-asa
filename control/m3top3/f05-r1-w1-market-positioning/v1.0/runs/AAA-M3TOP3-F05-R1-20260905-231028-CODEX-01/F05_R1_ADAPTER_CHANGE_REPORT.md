@@ -23,10 +23,12 @@ The existing Parquet already contained every required raw field. The change expo
 - `tools/m3top3/cli_build_f05_r1_inputs.py`
   - Verifies every input artifact hash and creates canonical score-free JSONL once, without overwrite.
 - `tools/m3top3/f05_r1_score_outputs.py`
-  - Is a separate, fail-closed output stage. It cannot call the unchanged engine without exact-target CTLV L1, MODV L1, ENGV L1, and IVA L2 PASS receipts.
+  - Is a separate, fail-closed output stage. D0 showed that its first receipt gate bound hashes and target bytes but did not enforce every formal independent-receipt field; D0 was rejected without scoring.
+  - The bounded D1 correction now pins the exact D1 revision/bundle, role/level/validator identity/receipt-ID convention, author separation, independence/no-transfer assertions, empty findings, exact input/target bytes, and the actual CLI-read receipt paths before engine construction.
   - Produces a 57-company F05-only provisional ranking and a separate exact-five F02+F05 view. The five-company combined rank is 1..5 only; the other 52 receive no combined rank.
 - `tools/m3top3/cli_score_f05_r1_outputs.py`
-  - Requires a clean worktree, exact Git target ancestry/tree/blob bindings, raw input/report/receipt hashes, and an absent output directory both before engine invocation and before create-once persistence.
+  - Requires a clean worktree, exact Git target ancestry/tree/blob bindings, raw input/report/receipt hashes, and an absent output directory before engine invocation.
+  - D1 additionally rechecks captured HEAD, clean state, all bound bytes, and validated-target blobs after the helper returns and before create-once persistence, closing helper-time Git drift.
 
 ## Preserved implementation
 
@@ -50,10 +52,13 @@ The existing Parquet already contained every required raw field. The change expo
 
 Two pre-target materializations were conservatively retired after implementation hardening. They remain under `evidence/retired/`, cannot be selected by the score CLI, and are recorded in the process ledger. The second retired byte stream is identical to the final stream; re-materialization established that the later order guard caused no additional byte change for the exact bound cohort.
 
-## Author checks
+## Author checks and D1 correction addendum
 
-- Root affected-plus-regression suite: 113/113 PASS, DuckDB case included, zero skips.
-- Score-output CLI synthetic suite: 5/5 PASS with the score helper mocked; no production score invocation.
-- `git diff --check`: to be repeated immediately before the D0 target commit.
+- Original D0 supporting suite: 113/113 PASS, DuckDB case included, zero skips. It did not contain the complete formal-receipt and helper-time race adversarial cases; CTLV therefore correctly rejected D0.
+- D1 focused score-gate/CLI suite: 14/14 PASS.
+- D1 full affected-plus-regression suite: 118/118 PASS, DuckDB case included, zero skips.
+- D1 adversarial cases explicitly reject a consistently rehashed D0/provenance set, a false aggregate receipt path, and a helper-time committed runtime drift before output persistence.
+- `py_compile` and `git diff --check`: PASS.
+- Production score invocation remains 0.
 
-These checks support the target freeze but do not replace the required independent P4 receipts.
+These checks support the D1 target freeze but do not replace fresh CTLV L1, MODV L1, ENGV L1, and IVA L2 exact-target receipts. JSON validator identities are byte-bound declarations under repository custody, not external cryptographic signatures.

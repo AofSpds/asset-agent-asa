@@ -32,6 +32,34 @@ from .scorer_v1 import M3Top3V1Engine
 EXPECTED_F02_INPUT_BATCH_SHA256 = "13667596d8e76f10d319f4129a7cba3b890d2575b3cebf33b78a143740bbbf9e"
 EXPECTED_CONFIG_SHA256 = "eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98"
 REQUIRED_VALIDATOR_ROLES = ("CTLV", "MODV", "ENGV", "IVA")
+EXPECTED_VALIDATION_LEVEL_BY_ROLE = {
+    "CTLV": "L1",
+    "MODV": "L1",
+    "ENGV": "L1",
+    "IVA": "L2",
+}
+EXPECTED_TARGET_REVISION = "D1"
+EXPECTED_VALIDATOR_IDENTITY_BY_ROLE = {
+    role: f"root/f05_r1_{role.lower()}_d1" for role in REQUIRED_VALIDATOR_ROLES
+}
+AGGREGATE_VALIDATION_SCHEMA_VERSION = (
+    "AAA-M3TOP3-F05-R1-AFFECTED-VALIDATION-REPORT-v1.0"
+)
+INDEPENDENT_VALIDATION_RECEIPT_SCHEMA_VERSION = (
+    "AAA-M3TOP3-F05-R1-INDEPENDENT-VALIDATION-RECEIPT-v1.0"
+)
+EXPECTED_TARGET_AUTHOR_IDENTITY = "root/f05_r1_author"
+EXPECTED_INDEPENDENCE_ASSERTION = "INDEPENDENT_OF_TARGET_AUTHOR_AND_OTHER_VALIDATORS"
+RECEIPT_DESCRIPTOR_FIELDS = frozenset(
+    {
+        "role",
+        "validation_level",
+        "receipt_id",
+        "validator_identity",
+        "path",
+        "sha256",
+    }
+)
 F02_FIXED_COMPANY_IDS = frozenset((
     "KRX:003160", "KRX:005290", "KRX:025560", "KRX:031980", "KRX:036200",
 ))
@@ -132,6 +160,12 @@ def _require_sha(value: Any, context: str, length: int = 64) -> str:
     return value
 
 
+def _require_nonempty_text(value: Any, context: str) -> str:
+    if not isinstance(value, str) or not value or value != value.strip():
+        raise F05ScoreOutputError(f"{context} must be a nonempty trimmed string")
+    return value
+
+
 def _validate_f05_rows(rows: list[dict[str, Any]]) -> None:
     if len(rows) != EXPECTED_W1_DENOMINATOR:
         raise F05ScoreOutputError("F05 score input must contain exactly 57 rows")
@@ -180,55 +214,131 @@ def _validate_gate(
     report: Mapping[str, Any],
     report_sha256: str,
     receipts: Mapping[str, tuple[Mapping[str, Any], str]],
+    receipt_paths: Mapping[str, str],
     input_bindings: Mapping[str, str],
     merged_input_hash: str,
 ) -> tuple[str, str, str]:
+    if report.get("schema_version") != AGGREGATE_VALIDATION_SCHEMA_VERSION:
+        raise F05ScoreOutputError("aggregate validation schema version mismatch")
+    run_id = _require_nonempty_text(report.get("run_id"), "aggregate validation run_id")
+    if report.get("target_revision") != EXPECTED_TARGET_REVISION:
+        raise F05ScoreOutputError("aggregate validation target_revision must be exactly D1")
+    target_revision = EXPECTED_TARGET_REVISION
     if report.get("status") != "PASS" or report.get("scoring_permitted") is not True:
         raise F05ScoreOutputError("aggregate validation has not permitted scoring")
     if report.get("target_author") is not False:
         raise F05ScoreOutputError("aggregate validation must declare target_author=false")
-    if report.get("blocking_findings") not in ([], 0):
+    if report.get("blocking_findings") != []:
         raise F05ScoreOutputError("aggregate validation has blocking findings")
     target_commit = _require_sha(report.get("target_commit"), "target_commit", 40)
     target_tree = _require_sha(report.get("target_tree"), "target_tree", 40)
-    target_bundle = report.get("target_bundle_identity")
-    if not isinstance(target_bundle, str) or not target_bundle.strip():
-        raise F05ScoreOutputError("aggregate validation target bundle is missing")
+    target_bundle = f"AAA-M3TOP3-F05-R1-D1-{target_commit}-{target_tree}"
+    if report.get("target_bundle_identity") != target_bundle:
+        raise F05ScoreOutputError("aggregate validation target bundle identity mismatch")
     if report.get("target_input_hash") != merged_input_hash:
         raise F05ScoreOutputError("aggregate validation target input hash mismatch")
     if report.get("input_bindings") != dict(input_bindings):
         raise F05ScoreOutputError("aggregate validation input byte bindings mismatch")
-    role_verdicts = report.get("role_verdicts")
-    if not isinstance(role_verdicts, dict) or any(
-        role_verdicts.get(role) != "PASS" for role in REQUIRED_VALIDATOR_ROLES
-    ):
-        raise F05ScoreOutputError("all CTLV/MODV/ENGV/IVA verdicts must be PASS")
+    expected_role_verdicts = {role: "PASS" for role in REQUIRED_VALIDATOR_ROLES}
+    if report.get("role_verdicts") != expected_role_verdicts:
+        raise F05ScoreOutputError(
+            "aggregate role verdicts must be exactly CTLV/MODV/ENGV/IVA PASS"
+        )
     descriptors = report.get("validation_receipts")
-    if not isinstance(descriptors, list):
+    if not isinstance(descriptors, list) or len(descriptors) != len(REQUIRED_VALIDATOR_ROLES):
         raise F05ScoreOutputError("aggregate validation receipt bindings are missing")
-    by_role = {}
+    if set(receipt_paths) != set(REQUIRED_VALIDATOR_ROLES):
+        raise F05ScoreOutputError("receipt paths must be exactly CTLV/MODV/ENGV/IVA")
+    exact_receipt_paths = {
+        role: _require_nonempty_text(receipt_paths[role], f"{role} receipt path")
+        for role in REQUIRED_VALIDATOR_ROLES
+    }
+    if len(set(exact_receipt_paths.values())) != len(REQUIRED_VALIDATOR_ROLES):
+        raise F05ScoreOutputError("independent validation receipt paths must be unique")
+
+    by_role: dict[str, Mapping[str, Any]] = {}
     for descriptor in descriptors:
-        if not isinstance(descriptor, dict) or descriptor.get("role") in by_role:
+        if not isinstance(descriptor, dict) or set(descriptor) != RECEIPT_DESCRIPTOR_FIELDS:
+            raise F05ScoreOutputError("aggregate validation receipt descriptor schema mismatch")
+        role = descriptor.get("role")
+        if role not in REQUIRED_VALIDATOR_ROLES or role in by_role:
             raise F05ScoreOutputError("aggregate validation receipt roles must be unique")
-        by_role[descriptor.get("role")] = descriptor
+        _require_nonempty_text(
+            descriptor.get("path"), f"{role} aggregate receipt descriptor path"
+        )
+        _require_sha(descriptor.get("sha256"), f"{role} receipt descriptor SHA-256")
+        by_role[role] = descriptor
+    if [descriptor["role"] for descriptor in descriptors] != list(REQUIRED_VALIDATOR_ROLES):
+        raise F05ScoreOutputError(
+            "aggregate validation receipt descriptors must use canonical role order"
+        )
     if set(by_role) != set(REQUIRED_VALIDATOR_ROLES) or set(receipts) != set(REQUIRED_VALIDATOR_ROLES):
         raise F05ScoreOutputError("validation receipts must be exactly CTLV/MODV/ENGV/IVA")
+
+    receipt_ids: set[str] = set()
+    validator_identities: set[str] = set()
     for role in REQUIRED_VALIDATOR_ROLES:
         receipt, receipt_sha = receipts[role]
-        if by_role[role].get("sha256") != receipt_sha:
+        descriptor = by_role[role]
+        receipt_id = _require_nonempty_text(receipt.get("receipt_id"), f"{role} receipt_id")
+        validator_identity = _require_nonempty_text(
+            receipt.get("validator_identity"), f"{role} validator_identity"
+        )
+        expected_level = EXPECTED_VALIDATION_LEVEL_BY_ROLE[role]
+        expected_receipt_id_pattern = (
+            rf"AAA-M3TOP3-F05-R1-D1-{role}-{expected_level}-"
+            r"[0-9]{8}-[0-9]{6}-[0-9]{2}"
+        )
+        if re.fullmatch(expected_receipt_id_pattern, receipt_id) is None:
+            raise F05ScoreOutputError(f"{role} receipt_id does not match the D1 role/level pattern")
+        if validator_identity != EXPECTED_VALIDATOR_IDENTITY_BY_ROLE[role]:
+            raise F05ScoreOutputError(f"{role} validator_identity is not the pinned D1 identity")
+        if receipt_id in receipt_ids:
+            raise F05ScoreOutputError("independent validation receipt_ids must be unique")
+        if validator_identity in validator_identities:
+            raise F05ScoreOutputError("independent validator identities must be unique")
+        receipt_ids.add(receipt_id)
+        validator_identities.add(validator_identity)
+
+        if descriptor != {
+            "role": role,
+            "validation_level": expected_level,
+            "receipt_id": receipt_id,
+            "validator_identity": validator_identity,
+            "path": exact_receipt_paths[role],
+            "sha256": receipt_sha,
+        }:
+            raise F05ScoreOutputError(f"{role} aggregate receipt descriptor mismatch")
+        if descriptor.get("sha256") != receipt_sha:
             raise F05ScoreOutputError(f"{role} receipt byte binding mismatch")
         if (
-            receipt.get("target_author") is not False
+            receipt.get("schema_version")
+            != INDEPENDENT_VALIDATION_RECEIPT_SCHEMA_VERSION
+            or receipt.get("run_id") != run_id
+            or receipt.get("target_revision") != target_revision
+            or receipt.get("validator_role") != role
+            or receipt.get("validation_level") != expected_level
+            or receipt.get("author_identity") != EXPECTED_TARGET_AUTHOR_IDENTITY
+            or validator_identity == EXPECTED_TARGET_AUTHOR_IDENTITY
+            or receipt.get("independence_assertion") != EXPECTED_INDEPENDENCE_ASSERTION
+            or receipt.get("supporting_not_self_pass") is not False
+            or receipt.get("target_author") is not False
             or receipt.get("target_edited") is not False
+            or receipt.get("no_pass_transfer") is not True
+            or receipt.get("verdict") != "PASS"
+            or receipt.get("findings") != []
             or receipt.get("target_commit") != target_commit
             or receipt.get("target_tree") != target_tree
             or receipt.get("target_bundle_identity") != target_bundle
             or receipt.get("target_input_hash") != merged_input_hash
             or receipt.get("input_bindings") != dict(input_bindings)
-            or not isinstance(receipt.get("role_verdicts"), dict)
-            or receipt["role_verdicts"].get(role) != "PASS"
+            or receipt.get("role_verdicts") != {role: "PASS"}
         ):
             raise F05ScoreOutputError(f"{role} receipt does not bind an independent exact-target PASS")
+    # Receipt identities are exact, unique, Git/byte-bound declarations, but
+    # they are not cryptographically signed.  This gate therefore validates
+    # declared provenance under the repository custody boundary; it does not
+    # authenticate a human or service principal outside that boundary.
     return target_commit, target_tree, target_bundle
 
 
@@ -247,6 +357,7 @@ def build_f05_r1_outputs(
     config_json: bytes,
     aggregate_validation_json: bytes,
     validation_receipt_json_by_role: Mapping[str, bytes],
+    validation_receipt_path_by_role: Mapping[str, str],
 ) -> F05ScoreArtifacts:
     """Validate all bindings, invoke the unchanged engine once, and render bytes.
 
@@ -303,7 +414,12 @@ def build_f05_r1_outputs(
         receipts[role] = (parsed, _sha256(raw))
     report_sha = _sha256(aggregate_validation_json)
     target_commit, target_tree, target_bundle = _validate_gate(
-        report, report_sha, receipts, input_bindings, merged_input_hash
+        report,
+        report_sha,
+        receipts,
+        validation_receipt_path_by_role,
+        input_bindings,
+        merged_input_hash,
     )
 
     # The unchanged scorer historically runs in Python's default Decimal

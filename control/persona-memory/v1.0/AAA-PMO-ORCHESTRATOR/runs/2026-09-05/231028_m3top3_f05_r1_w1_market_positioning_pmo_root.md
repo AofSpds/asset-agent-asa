@@ -4,7 +4,7 @@
 - Persona lock: `AAA-PMO-ORCHESTRATOR (PMO)`
 - Started: 2026-09-05 23:10:28 KST
 - Branch: `task/aaa/m3top3-f05-r1-w1-market-positioning-20260905`
-- State: `IN_PROGRESS / P4 EXACT-TARGET FREEZE`
+- State: `IN_PROGRESS / P4 D1 EXACT-TARGET FREEZE`
 
 ## Authority
 
@@ -26,12 +26,12 @@
 - P0 complete: exact authority, R0, W1 population, price objects, F02-R1, model, scorer, and config identities reconfirmed.
 - P1 materialized: approved P1-P7 semantics and exact source-field contract bound with no deviation.
 - P3 materialized: GST and Exicon corporate-action boundaries closed with official issuer/KRX evidence; no adjustment factor inferred.
-- P2 is complete. The semantic-neutral field exposure, exact F05 builder, input CLI, and fail-closed score-output envelope are implemented; the single-author lane is closed.
+- P2 is complete. The semantic-neutral field exposure, exact F05 builder, input CLI, and score-output envelope are implemented. D0 reopened a bounded author lane for N12 only; the D1 correction lane is now closed pending exact-target validation.
 - Final score-free input is 57/57, 267,149 bytes, SHA256 `8e5c2991eb1c14bede88300a5fd1d648ce263d3e7a3d6a83b31af9b1e3d873f7`; merged F02+F05 input hash is `78d540e5e0385104ba21a744e28897762f4d15af25f571de1cc57136882b2500`.
 - Two pre-target materializations were retained under `evidence/retired/` after routine implementation hardening. Neither was scored.
-- Root affected-plus-regression checks are 113/113 PASS with zero skips. This is supporting author evidence, not an independent P4 PASS.
+- Root D1 affected-plus-regression checks are 118/118 PASS with zero skips. This is supporting author evidence, not an independent P4 PASS.
 - P4 scientific/engineering validation floor is frozen as CTLV L1 + MODV L1 + ENGV L1 + IVA L2 before scoring; PMOV is process-only.
-- No F05 score or provisional rank exists yet. The score gate remains closed until the exact D0 target receives all four independent receipts.
+- No F05 score or provisional rank exists yet. The score gate remains closed until the exact D1 target receives all four fresh independent receipts.
 - No Owner stop boundary is present.
 
 ## D0 validation disposition
@@ -40,3 +40,13 @@
 - CTLV found `CTLV-D0-001`: the old gate did not require formal validator role, level, identity, independence, and no-transfer fields.
 - MODV L1 and IVA L2 passed their independent substantive work; IVA completed 27,566 assertions. Their PASS verdicts do not transfer to D1.
 - This is a bounded implementation-control correction, not an Owner policy boundary. The score gate remains closed and D1 full affected revalidation is mandatory.
+
+## D1 bounded correction
+
+- Canonical target author identity remains `root/f05_r1_author`; the implementation actor `root/f05_r1_d1_gate_correction` and root integration actor are explicitly bound to that non-independent author lane.
+- The corrected gate pins exact D1 revision/bundle, role/level/identity/receipt-ID conventions, author separation, independence and no-transfer assertions, receipt hashes, actual CLI-read receipt paths, target bytes, and input bytes before engine construction.
+- The CLI rechecks HEAD, clean worktree, every bound input/report/receipt byte, and all validated target blobs after the helper returns and before persistence.
+- Three adversarial reproductions are now closed: consistent D0 whole-set rehash, aggregate receipt-path substitution, and helper-time committed runtime drift.
+- Focused checks are 14/14 PASS; the full affected-plus-regression suite is 118/118 PASS with DuckDB and zero skips. `py_compile` and `git diff --check` pass.
+- Score calls and score output files remain zero. Fresh D1 CTLV L1, MODV L1, ENGV L1, and IVA L2 validation is required with no D0 PASS transfer.
+- The declared validator identities are Git- and byte-bound under repository custody; no external cryptographic identity authentication is claimed.

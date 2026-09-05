@@ -1,0 +1,58 @@
+{
+  "schema_version": "AAA-M3TOP3-F05-R1-P4-D1-AUTHOR-VERIFICATION-v1.0",
+  "run_id": "AAA-M3TOP3-F05-R1-20260905-231028-CODEX-01",
+  "recorded_at_kst": "2026-09-06T00:51:00+09:00",
+  "status": "SUPPORTING_EVIDENCE_NOT_FORMAL_INDEPENDENT_PASS",
+  "target_revision_to_freeze": "D1",
+  "canonical_author_identity": "root/f05_r1_author",
+  "canonical_author_lane_binding": {
+    "implementation_actor": "root/f05_r1_d1_gate_correction",
+    "review_and_integration_actor": "root",
+    "meaning": "Both actors operated within the single canonical target-author lane and are ineligible to issue a D1 independent validation PASS."
+  },
+  "predecessor": {
+    "d0_target_commit": "bc327dddfcc2d826a9ef7c4169b2e8c87f4957f8",
+    "d0_target_tree": "ae502559ccb3dc3ad76c835f5049f993f6da2d01",
+    "d0_validation_commit": "6dc37f81640cc4aa833d6aaab136cd6c3a02ef98",
+    "d0_validation_tree": "7fc2b71167cb862398af91496d8f29ac9c726cbd",
+    "blocking_finding": "CTLV-D0-001 / N12",
+    "pass_transfer": false
+  },
+  "changed_files": [
+    "tools/m3top3/f05_r1_score_outputs.py",
+    "tools/m3top3/cli_score_f05_r1_outputs.py",
+    "tools/m3top3/tests/test_f05_r1_score_outputs.py",
+    "tools/m3top3/tests/test_cli_score_f05_r1_outputs.py"
+  ],
+  "closed_controls": [
+    "PINNED_D1_REVISION_AND_DERIVED_TARGET_BUNDLE",
+    "PINNED_ROLE_LEVEL_VALIDATOR_IDENTITY_AND_RECEIPT_ID_PATTERN",
+    "EXACT_CLI_READ_RECEIPT_PATH_TO_AGGREGATE_DESCRIPTOR_BINDING",
+    "WHOLE_SET_REHASH_REJECTED_BEFORE_ENGINE",
+    "POST_HELPER_HEAD_CLEAN_BYTES_AND_TARGET_BLOBS_REVERIFIED_BEFORE_PERSISTENCE"
+  ],
+  "residual_trust_boundary": "DECLARED_VALIDATOR_IDENTITIES_ARE_GIT_AND_BYTE_BOUND_BUT_NOT_EXTERNALLY_CRYPTOGRAPHICALLY_AUTHENTICATED",
+  "verification": {
+    "focused_tests": 14,
+    "full_tests": 118,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "duckdb_included": true,
+    "py_compile": "PASS",
+    "git_diff_check": "PASS",
+    "adversarial_cases_added": 3
+  },
+  "preservation": {
+    "f05_input_sha256": "8e5c2991eb1c14bede88300a5fd1d648ce263d3e7a3d6a83b31af9b1e3d873f7",
+    "merged_f02_f05_input_hash": "78d540e5e0385104ba21a744e28897762f4d15af25f571de1cc57136882b2500",
+    "model_feature_scorer_config_changed": false,
+    "f05_weight_changed": false,
+    "denominator_changed": false,
+    "source_or_ca_evidence_changed": false,
+    "production_score_calls": 0
+  },
+  "required_fresh_validation": ["CTLV_L1", "MODV_L1", "ENGV_L1", "IVA_L2"],
+  "formal_pass_claimed": false,
+  "owner_decision_required": false
+}
