@@ -115,7 +115,13 @@ OUTCOME_RUNTIME_POLICY = {
         "dist_info_directory": "pyarrow-25.0.1.dist-info",
         "record_byte_size": 78_570,
         "record_sha256": "1eddf4fb72b1b071868dc02d6fc8242125d98c6557ae6af8f783b1c84ef6a797",
-        "verification_rule": "BOUND_RECORD_SHA256_AND_EVERY_HASHED_RECORD_ENTRY_BEFORE_PRICE_ACCESS",
+        "unhashed_existing_allowlist": ["pyarrow-25.0.1.dist-info/RECORD"],
+        "require_dont_write_bytecode": True,
+        "require_pycache_prefix": None,
+        "verification_rule": (
+            "LOCATE_WITHOUT_IMPORT_THEN_VERIFY_RECORD_AND_EVERY_HASHED_ENTRY_AND_REJECT_"
+            "NONALLOWLIST_UNHASHED_EXISTING_BYTES_BEFORE_IMPORT_AND_PRICE_ACCESS"
+        ),
     },
 }
 
@@ -1167,6 +1173,63 @@ PRICE_COMPONENT_BINDINGS = {
 PRICE_DATASET_IDENTITY_SHA256 = "419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7"
 
 
+def _verify_distribution_record_entries(
+    distribution_root: Path,
+    record_bytes: bytes,
+    *,
+    unhashed_existing_allowlist: set[str],
+) -> dict[str, int]:
+    verified_entries = 0
+    allowed_unhashed_existing = 0
+    declared_unhashed_absent = 0
+    seen_allowlist: set[str] = set()
+    try:
+        rows = csv.reader(record_bytes.decode("utf-8").splitlines())
+        for index, row in enumerate(rows, start=1):
+            if len(row) != 3:
+                raise RealInputReplayError(f"PyArrow RECORD row {index}: exact three fields required")
+            relative, recorded_hash, recorded_size = row
+            candidate = (distribution_root / Path(relative)).resolve()
+            try:
+                candidate.relative_to(distribution_root)
+            except ValueError as exc:
+                raise RealInputReplayError(f"PyArrow RECORD row {index}: path escapes distribution root") from exc
+            if not recorded_hash and not recorded_size:
+                if relative in unhashed_existing_allowlist:
+                    if not candidate.is_file():
+                        raise RealInputReplayError(f"PyArrow RECORD row {index}: allowlisted file is missing")
+                    seen_allowlist.add(relative)
+                    allowed_unhashed_existing += 1
+                elif candidate.exists():
+                    raise RealInputReplayError(
+                        f"PyArrow RECORD row {index}: unhashed executable/cache bytes are present"
+                    )
+                else:
+                    declared_unhashed_absent += 1
+                continue
+            if not recorded_hash.startswith("sha256=") or not recorded_size.isdigit():
+                raise RealInputReplayError(f"PyArrow RECORD row {index}: unsupported identity format")
+            try:
+                data = candidate.read_bytes()
+            except OSError as exc:
+                raise RealInputReplayError(f"PyArrow RECORD row {index}: bound file unreadable") from exc
+            encoded = base64.urlsafe_b64encode(hashlib.sha256(data).digest()).rstrip(b"=").decode("ascii")
+            if len(data) != int(recorded_size) or recorded_hash != f"sha256={encoded}":
+                raise RealInputReplayError(f"PyArrow RECORD row {index}: installed file identity mismatch")
+            verified_entries += 1
+    except UnicodeDecodeError as exc:
+        raise RealInputReplayError("PyArrow RECORD is not UTF-8") from exc
+    if seen_allowlist != unhashed_existing_allowlist:
+        raise RealInputReplayError("PyArrow RECORD unhashed allowlist is not represented exactly")
+    if verified_entries <= 0:
+        raise RealInputReplayError("PyArrow RECORD verified no installed files")
+    return {
+        "record_hashed_entries_verified": verified_entries,
+        "record_unhashed_existing_allowlisted": allowed_unhashed_existing,
+        "record_unhashed_declared_absent": declared_unhashed_absent,
+    }
+
+
 def _verify_outcome_runtime_before_price_access(policy: dict[str, Any]) -> dict[str, Any]:
     if policy != OUTCOME_RUNTIME_POLICY:
         raise RealInputReplayError("sealed outcome runtime policy is not the reviewed exact policy")
@@ -1185,19 +1248,33 @@ def _verify_outcome_runtime_before_price_access(policy: dict[str, Any]) -> dict[
     ):
         raise RealInputReplayError("Python runtime does not match the sealed outcome runtime policy")
 
-    try:
-        import pyarrow  # type: ignore[import-not-found]
-    except ImportError as exc:
-        raise RealInputReplayError("PYARROW_RUNTIME_UNAVAILABLE_BEFORE_PRICE_ACCESS") from exc
     expected_reader = policy["parquet_reader"]
-    if getattr(pyarrow, "__version__", None) != expected_reader["version"] or not pyarrow.__file__:
-        raise RealInputReplayError("PyArrow version/module does not match the sealed runtime policy")
-    module_file = Path(pyarrow.__file__).resolve()
-    distribution_root = module_file.parent.parent
+    if (
+        sys.dont_write_bytecode is not expected_reader["require_dont_write_bytecode"]
+        or sys.pycache_prefix is not expected_reader["require_pycache_prefix"]
+    ):
+        raise RealInputReplayError("outcome process must disable bytecode writes and use no external cache prefix")
+    if any(name == "pyarrow" or name.startswith("pyarrow.") for name in sys.modules):
+        raise RealInputReplayError("PyArrow was imported before exact distribution verification")
+
+    candidate_roots: set[Path] = set()
+    for raw_root in sys.path:
+        try:
+            root = Path(raw_root or os.getcwd()).resolve()
+        except (OSError, TypeError):
+            continue
+        module_init = root / "pyarrow" / "__init__.py"
+        record = root / expected_reader["dist_info_directory"] / "RECORD"
+        if module_init.is_file() and record.is_file():
+            candidate_roots.add(root)
+    if len(candidate_roots) != 1:
+        raise RealInputReplayError(
+            f"exactly one unimported bound PyArrow distribution required; found {len(candidate_roots)}"
+        )
+    distribution_root = next(iter(candidate_roots))
+    expected_module_file = (distribution_root / "pyarrow" / "__init__.py").resolve()
     dist_info = distribution_root / expected_reader["dist_info_directory"]
     record_path = dist_info / "RECORD"
-    if not record_path.is_file():
-        raise RealInputReplayError("bound PyArrow distribution RECORD is missing")
     record_bytes = record_path.read_bytes()
     if {
         "byte_size": len(record_bytes),
@@ -1207,39 +1284,24 @@ def _verify_outcome_runtime_before_price_access(policy: dict[str, Any]) -> dict[
         "sha256": expected_reader["record_sha256"],
     }:
         raise RealInputReplayError("PyArrow distribution RECORD identity mismatch")
-
-    verified_entries = 0
-    unhashed_entries = 0
+    record_verification = _verify_distribution_record_entries(
+        distribution_root,
+        record_bytes,
+        unhashed_existing_allowlist=set(expected_reader["unhashed_existing_allowlist"]),
+    )
     try:
-        rows = csv.reader(record_bytes.decode("utf-8").splitlines())
-        for index, row in enumerate(rows, start=1):
-            if len(row) != 3:
-                raise RealInputReplayError(f"PyArrow RECORD row {index}: exact three fields required")
-            relative, recorded_hash, recorded_size = row
-            candidate = (distribution_root / Path(relative)).resolve()
-            try:
-                candidate.relative_to(distribution_root)
-            except ValueError as exc:
-                raise RealInputReplayError(f"PyArrow RECORD row {index}: path escapes distribution root") from exc
-            if not recorded_hash and not recorded_size:
-                unhashed_entries += 1
-                continue
-            if not recorded_hash.startswith("sha256=") or not recorded_size.isdigit():
-                raise RealInputReplayError(f"PyArrow RECORD row {index}: unsupported identity format")
-            try:
-                data = candidate.read_bytes()
-            except OSError as exc:
-                raise RealInputReplayError(f"PyArrow RECORD row {index}: bound file unreadable") from exc
-            encoded = base64.urlsafe_b64encode(hashlib.sha256(data).digest()).rstrip(b"=").decode("ascii")
-            if len(data) != int(recorded_size) or recorded_hash != f"sha256={encoded}":
-                raise RealInputReplayError(f"PyArrow RECORD row {index}: installed file identity mismatch")
-            verified_entries += 1
-    except UnicodeDecodeError as exc:
-        raise RealInputReplayError("PyArrow RECORD is not UTF-8") from exc
-    if verified_entries <= 0:
-        raise RealInputReplayError("PyArrow RECORD verified no installed files")
+        import pyarrow  # type: ignore[import-not-found]
+    except ImportError as exc:
+        raise RealInputReplayError("PYARROW_RUNTIME_UNAVAILABLE_AFTER_EXACT_FILE_VERIFICATION") from exc
+    if (
+        getattr(pyarrow, "__version__", None) != expected_reader["version"]
+        or not pyarrow.__file__
+        or Path(pyarrow.__file__).resolve() != expected_module_file
+    ):
+        raise RealInputReplayError("PyArrow import does not resolve to the preverified exact distribution")
+    module_file = Path(pyarrow.__file__).resolve()
     return {
-        "binding_state": "SEALED_RUNTIME_AND_FULL_DISTRIBUTION_VERIFIED_BEFORE_PRICE_ACCESS",
+        "binding_state": "SEALED_RUNTIME_AND_ALL_EXECUTABLE_DISTRIBUTION_BYTES_VERIFIED_BEFORE_IMPORT_AND_PRICE_ACCESS",
         "runtime_policy_sha256": sha256_hex(policy),
         "python": {
             "executable": str(executable),
@@ -1254,8 +1316,7 @@ def _verify_outcome_runtime_before_price_access(policy: dict[str, Any]) -> dict[
             "record_path": str(record_path),
             "record_byte_size": len(record_bytes),
             "record_sha256": hashlib.sha256(record_bytes).hexdigest(),
-            "record_hashed_entries_verified": verified_entries,
-            "record_unhashed_entries_ignored": unhashed_entries,
+            **record_verification,
         },
     }
 

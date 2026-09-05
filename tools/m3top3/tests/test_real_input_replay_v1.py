@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import base64
 import copy
+import hashlib
 import json
 import tempfile
 import unittest
@@ -20,6 +22,7 @@ from tools.m3top3.real_input_replay_v1 import (
     F02,
     PREDECESSOR_EXECUTABLE_BUNDLE_IDENTITY,
     RealInputReplayError,
+    _verify_distribution_record_entries,
     build_strict_w1_mis,
     calculate_w1_raw_outcomes_from_normalized_rows_for_test,
     commit_selection_seal,
@@ -459,6 +462,47 @@ class TestRealInputReplay(unittest.TestCase):
         self.assertEqual(EXPECTED_W1_HOLDING_DATES[0], "2024-08-12")
         self.assertEqual(EXPECTED_W1_HOLDING_DATES[-1], "2024-11-08")
         self.assertNotIn("2024-08-15", EXPECTED_W1_HOLDING_DATES)
+
+    def test_24_unhashed_existing_bytecode_is_rejected_before_import(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            package = root / "pyarrow"
+            dist_info = root / "pyarrow-25.0.1.dist-info"
+            package.mkdir()
+            dist_info.mkdir()
+            hashed = package / "module.py"
+            hashed.write_bytes(b"bound")
+            digest = base64.urlsafe_b64encode(hashlib.sha256(b"bound").digest()).rstrip(b"=").decode("ascii")
+            record = dist_info / "RECORD"
+            pyc = package / "__pycache__" / "module.cpython-312.pyc"
+            pyc.parent.mkdir()
+            pyc.write_bytes(b"unbound executable bytes")
+            record_bytes = (
+                f"pyarrow/module.py,sha256={digest},5\n"
+                "pyarrow/__pycache__/module.cpython-312.pyc,,\n"
+                "pyarrow-25.0.1.dist-info/RECORD,,\n"
+            ).encode("utf-8")
+            record.write_bytes(record_bytes)
+            with self.assertRaises(RealInputReplayError):
+                _verify_distribution_record_entries(
+                    root,
+                    record_bytes,
+                    unhashed_existing_allowlist={"pyarrow-25.0.1.dist-info/RECORD"},
+                )
+            pyc.unlink()
+            receipt = _verify_distribution_record_entries(
+                root,
+                record_bytes,
+                unhashed_existing_allowlist={"pyarrow-25.0.1.dist-info/RECORD"},
+            )
+            self.assertEqual(
+                receipt,
+                {
+                    "record_hashed_entries_verified": 1,
+                    "record_unhashed_existing_allowlisted": 1,
+                    "record_unhashed_declared_absent": 1,
+                },
+            )
 
 
 if __name__ == "__main__":
