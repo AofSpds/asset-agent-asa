@@ -1,0 +1,3 @@
+{"event_id":"E0001","time_kst":"2026-09-05T09:36:56.1322777+09:00","stage":"S0","event":"ACTUAL_START","earned_ewu_delta":0,"evidence":"USER_EXECUTION_REQUEST_RECEIVED"}
+{"event_id":"E0002","time_kst":"2026-09-05T09:44:00+09:00","stage":"S0","event":"START_FREEZE_COMPLETE","earned_ewu_delta":10,"evidence":"RUN_ID_ENV_BRANCH_WORKTREE_SOURCE_REFS_AND_DEDUP_CHECK_RECORDED"}
+{"event_id":"E0003","time_kst":"2026-09-05T09:45:22.6017826+09:00","stage":"S1","event":"BOUNDED_SPECIALISTS_DISPATCHED","earned_ewu_delta":0,"evidence":"MODEL_BINDING_WINDOW_AVAILABILITY_INPUT_CUSTODY_READ_ONLY_WORKERS"}

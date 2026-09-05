@@ -1,0 +1,71 @@
+{
+  "artifact_id": "AAA-M3TOP3-FIRST-SCORECARD-PROGRESS-BASELINE-20260905-093656-CODEX-01",
+  "run_id": "AAA-M3TOP3-FIRST-SCORECARD-20260905-093656-CODEX-01",
+  "frozen_at_kst": "2026-09-05T09:44:00+09:00",
+  "execution_grade": "EXTRA_HIGH",
+  "pro_class": "PRO_PREFERRED_FOR_MODEL_DATA_RECONCILIATION_NOT_REQUIRED_FOR_MECHANICAL_CHECKS",
+  "parallelism": "MULTI_WORKER",
+  "total_frozen_ewu": 100,
+  "first_return_target_kst": "2026-09-05T10:06:56.1322777+09:00",
+  "overall_eta": "NOT_YET_ESTIMATED_PENDING_FIRST_AVAILABILITY_SEGMENT",
+  "planned_cru_p50": "NOT_CALIBRATED",
+  "planned_cru_p90": "NOT_CALIBRATED",
+  "stages": [
+    {
+      "id": "S0",
+      "name": "CURRENTIZATION_DUPLICATE_CHECK_AND_START_FREEZE",
+      "ewu": 10,
+      "planned_wall_p50": "PT10M",
+      "planned_wall_p90_or_range": "PT20M",
+      "timing_confidence": "MEDIUM",
+      "dependencies": [],
+      "completion_evidence": ["RUN_JOURNAL", "DEDUP_READBACK", "ISOLATED_BRANCH_WORKTREE"],
+      "terminal_rule": "ALL_START_IDENTITIES_AND_NO_DUPLICATE_OBSERVED"
+    },
+    {
+      "id": "S1",
+      "name": "EXACT_MODEL_BINDING_AND_W1_W8_AVAILABILITY",
+      "ewu": 20,
+      "planned_wall_p50": "PT20M",
+      "planned_wall_p90_or_range": "PT30M_TO_PT45M",
+      "timing_confidence": "LOW",
+      "dependencies": ["S0"],
+      "completion_evidence": ["BINDING_TABLE", "WINDOW_AVAILABILITY_TABLE", "INPUT_CUSTODY_GAPS"],
+      "terminal_rule": "COUNTS_AND_IDENTITIES_RETURNED_WITHOUT_INVENTED_VALUES"
+    },
+    {
+      "id": "S2",
+      "name": "BOUNDED_ASSEMBLY_GOLDEN_AND_MECHANICAL_CHECKS",
+      "ewu": 30,
+      "planned_wall_p50": "NOT_YET_ESTIMATED_AFTER_S1",
+      "planned_wall_p90_or_range": "NOT_YET_ESTIMATED_AFTER_S1",
+      "timing_confidence": "INSUFFICIENT_EVIDENCE",
+      "dependencies": ["S1"],
+      "completion_evidence": ["REPRODUCIBLE_INPUT_MANIFEST", "BOUNDED_ASSEMBLY", "AFFECTED_TEST_EVIDENCE"],
+      "terminal_rule": "ASSEMBLY_FROZEN_OR_ROW_COUNTED_BLOCKER_RETURNED"
+    },
+    {
+      "id": "S3",
+      "name": "ONE_AFFECTED_ONLY_REVIEW",
+      "ewu": 20,
+      "planned_wall_p50": "NOT_YET_ESTIMATED_AFTER_S1",
+      "planned_wall_p90_or_range": "NOT_YET_ESTIMATED_AFTER_S1",
+      "timing_confidence": "INSUFFICIENT_EVIDENCE",
+      "dependencies": ["S2"],
+      "completion_evidence": ["EXACT_FROZEN_TARGET", "ROLE_ORIGINAL_RETURNS", "INTEGRATED_FINDING_MAP"],
+      "terminal_rule": "NO_BLOCKER_OR_SINGLE_TERMINAL_BLOCKER_REPORT"
+    },
+    {
+      "id": "S4",
+      "name": "COVERAGE_LIMITED_REPLAY_SCORECARD_AND_PERSISTENCE",
+      "ewu": 20,
+      "planned_wall_p50": "NOT_YET_ESTIMATED_AFTER_S1",
+      "planned_wall_p90_or_range": "NOT_YET_ESTIMATED_AFTER_S1",
+      "timing_confidence": "INSUFFICIENT_EVIDENCE",
+      "dependencies": ["S3"],
+      "completion_evidence": ["REPLAY_RECEIPT", "WINDOW_SCORECARD", "COVERAGE_AND_LIMITATIONS", "PERSISTENCE_READBACK"],
+      "terminal_rule": "FIRST_SCORECARD_RETURNED_OR_EXACT_EXECUTION_BLOCKER_RETURNED"
+    }
+  ],
+  "progress_rebase_history": []
+}
