@@ -1,18 +1,18 @@
 {
   "schema_version": "AAA-PMO-PROGRESS-CURRENT-v1.0",
   "run_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01",
-  "as_of_kst": "2026-09-05T18:42:16.9204973+09:00",
-  "overall_progress_percent": 70,
-  "current_phase": "P4_AFFECTED_PAIRED_AND_INDEPENDENT_VALIDATION",
+  "as_of_kst": "2026-09-05T19:25:44.7285839+09:00",
+  "overall_progress_percent": 85,
+  "current_phase": "P5_NEW_R1_SCORE_AND_SEAL",
   "current_phase_progress_percent": 0,
-  "validation_closure_progress_percent": 0,
-  "earned_ewu": 70,
+  "validation_closure_progress_percent": 100,
+  "earned_ewu": 85,
   "total_frozen_ewu": 100,
-  "elapsed_wall": "PT5061.774S",
+  "elapsed_wall": "PT7669.582S",
   "active_time": "NOT_INSTRUMENTED",
   "wait_block_time": "NOT_INSTRUMENTED",
-  "rework_revalidation_time": "PT0S_OBSERVED_COUNTER_ONLY",
-  "eta_range": "PT40M_TO_PT1H20M",
+  "rework_revalidation_time": "NOT_INSTRUMENTED",
+  "eta_range": "PT10M_TO_PT25M",
   "eta_confidence": "MEDIUM_LOW",
   "actual_cru_to_date": "NOT_INSTRUMENTED",
   "forecast_cru_at_completion": "NOT_CALIBRATED",
@@ -24,8 +24,8 @@
   },
   "blockers": [],
   "reopened_units": 0,
-  "last_material_event": "P3_CODE_INPUTS_AND_AUTHOR_TESTS_COMPLETE",
-  "next_terminal_event": "P4_EXACT_TARGET_VALIDATION",
+  "last_material_event": "ALL_FIVE_P4_ROLE_RECEIPTS_PASS_AND_FINDINGS_FROZEN",
+  "next_terminal_event": "ONE_NEW_R1_SCORE_AND_SEAL",
   "progress_rebase_history": [],
   "token_cost_forecast": "NOT_INSTRUMENTED",
   "runtime_interruption": {
@@ -33,5 +33,14 @@
     "duration": "NOT_INSTRUMENTED",
     "evidence_loss": "NONE_DETECTED",
     "source_actions_repeated": 0
-  }
+  },
+  "validation_roles_completed": [
+    "CTLV",
+    "MODV",
+    "ENGV",
+    "PMOV",
+    "IVA"
+  ],
+  "validation_roles_remaining": [],
+  "known_affected_recheck_seconds": 8.944
 }

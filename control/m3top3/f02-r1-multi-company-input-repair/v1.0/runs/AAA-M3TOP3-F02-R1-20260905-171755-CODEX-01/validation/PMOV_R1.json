@@ -1,0 +1,274 @@
+{
+  "schema_version": "AAA-M3TOP3-F02-R1-PMOV-VALIDATION-RECEIPT-v1.0",
+  "validation_act_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01-P4-PMOV-01",
+  "parent_wbs": "P4",
+  "risk_tier": "P0_PIT_PROVENANCE_IMMUTABLE_LINEAGE_WITH_P1_IMPLEMENTATION",
+  "trigger_reason": "Separate PMO authority, recovery continuity, source-accounting, exact-target packaging and terminal-routing validation.",
+  "persona": "AAA-PMO-VALIDATOR",
+  "current_persona_lock": "AAA-PMO-VALIDATOR (PMOV)",
+  "worker_id": "p4_modv_REINSTANTIATED_AS_PMOV_DISTINCT_ACT",
+  "target_commit": "cdfebb54ced5d75b402fb8605ee6ee5e4578bbdd",
+  "target_tree": "79d12edb12d15ad96a56b9656950f2d40e3f85a6",
+  "target_bundle_identity": "M3TOP3-REAL-INPUT-EXECUTABLE-BUNDLE-SHA256:fe555c17a4ec8244e99755d193f63a67ff10574964b4025b9086cd70cd7321c7",
+  "target_author": false,
+  "target_edited": false,
+  "role_verdicts": {
+    "PMOV": "PASS"
+  },
+  "validation_layer": "L1_PAIRED_PMO_GOVERNANCE_DOMAIN",
+  "verdict_scope": "P4 current exact-target process/control readiness only. This is not future P5 score/seal verification, P6 completion, Owner acceptance, release or a clean out-of-sample claim. Historical timeliness deviation remains recorded.",
+  "independence": {
+    "same_non_author_reviewer_previously_performed_MODV_and_ENGV": true,
+    "prior_acts": [
+      {
+        "validation_act_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01-P4-MODV-01",
+        "receipt_sha256": "c89f799099ead1b59fb15f6f80914ca53300ae509fb4ab47e348f96d08411faf"
+      },
+      {
+        "validation_act_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01-P4-ENGV-01",
+        "receipt_sha256": "1b2dfb3e212aa405d960435254c4154b4d685e67b02ff30ca72f755d1cd84a7c"
+      }
+    ],
+    "prior_receipts_preserved": true,
+    "new_separate_persona_act": true,
+    "operative_code_input_tests_authored": false,
+    "other_reviewer_findings_read": false,
+    "CTLV_IVA_receipts_read": false,
+    "verdict_directed_by_PMO": false,
+    "imported_prior_PASS": false,
+    "note": "Root assigned a separate PMOV act to the completed non-author reviewer after runtime agent-thread limits. This is the same reviewer under a distinct governed role, not another independent person. PMOV reached its own verdict from the packet, recovery evidence, ledgers, packaging and progress readback. Fresh separate IVA remains mandatory; this role reuse does not replace it."
+  },
+  "bootstrap": {
+    "local_AGENTS_read": true,
+    "bootstrap_pointer_reread": true,
+    "common_project_memory_and_universal_behavior_reread": true,
+    "persona_memory": "control/persona-memory/v1.0/AAA-PMO-VALIDATOR/MEMORY.md",
+    "persona_worklog": "control/persona-memory/v1.0/AAA-PMO-VALIDATOR/WORKLOG.md",
+    "authority_blob": "942ece9458acdb2edc56318a0e3e48cb8bad5caf",
+    "active_pair_activation_blob": "3579860fd20e497161e13a9ccc8fa0c7fac0db61",
+    "active_pair_id": "AAA-PAIR-PMO-PMOV-v1.1",
+    "active_pair_digest": "f0b76dc42a2e25d843fa2bbb03b8bbdd620f2bd46b5c37597549ac4557192d35",
+    "authority_scope": "PMO authority firewall, routing integrity, blocker suppression, governance, semantic preservation and undeclared mutation detection. No operative author edits, independent IVA substitution, Owner acceptance, Freeze/Release/Production authority."
+  },
+  "authority_and_recovery": {
+    "attached_packet_sha256": "65c1d9a62109ba9cc657a8416606ac8ac1d39b5edbf60a9e579859f921bdd01b",
+    "attached_packet_git_blob": "8c410fe2aa6cedf1910d01f8bf4529ccb5cd29fb",
+    "attached_packet_byte_size": 26584,
+    "attached_packet_exact_bytes_independently_matched": true,
+    "approved_owner_record_commit": "3bb8c2368f64d93e5e748fd35497946b1cecd198",
+    "approved_owner_record_blob": "f82095850a1d98c16ef5eb33ad91888344655fb4",
+    "approval_binding": "Subsequent Owner approval activates the exact originally DRAFT packet and D1 within its bounded scope. The newer explicit Owner no-rerun direction requires continuation in this existing root, not a second source run or fresh-root reset.",
+    "existing_run_root": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01",
+    "branch": "task/aaa/m3top3-f02-r1-multi-company-input-repair-20260905",
+    "p0_commit": "8e0d7b60a48a1fd3076e87e167929f06c7ae6d61",
+    "recovery_commit": "ca7bcfbc443768411c2ba2e182a45e1c92636c97",
+    "last_materially_completed_stage_at_restart": "P1_SOURCE_EVIDENCE; P2 central admission/classification was not durably completed",
+    "initial_management_files_retained": 13,
+    "source_evidence_lost": "NONE_DETECTED_FROM_DURABLE_RECORDS_AND_BYTE_READBACK",
+    "completed_source_actions_repeated_after_recovery": 0,
+    "preservation_basis": "All four new raw files and cached 005290 source match recorded hashes; four raw Git blobs and source ledgers are unchanged from recovery commit to candidate. P0 baseline plan, weights, input policy and authorization binding remain unchanged. Failed pre-recovery central-fold patch was not a completed source action; recovering/folding durable evidence does not authorize new retrieval.",
+    "limitation": "Cannot prove existence or absence of unrecorded unsaved UI state. No lost durable source evidence was detected; no claim that the browser session itself was restored."
+  },
+  "pmo_checks": [
+    {
+      "id": "PMOV-R1-01",
+      "result": "PASS",
+      "subject": "Owner scope and authority firewall",
+      "evidence": "Read the full exact attached packet, immutable Owner approval record, authorization binding and PMO journal recovery direction. No further Owner approval is required inside that scope. No provider, credentials, budget, W1 cutoff, D1 choice, population denominator or previous sealed output authority is expanded."
+    },
+    {
+      "id": "PMOV-R1-02",
+      "result": "PASS",
+      "subject": "No-rerun source continuity",
+      "evidence": "Fresh read-only comparison confirms all 13 initial management files remain present, all 33 source action IDs are unique, source ledgers unchanged from recovery commit, all four new raw SHA256/size/blob matches, and sole cached control bytes match. No post-recovery source action is recorded. Last source action ended 17:39:14.0757997+09:00, before recovery."
+    },
+    {
+      "id": "PMOV-R1-03",
+      "result": "PASS",
+      "subject": "Bounded source accounting",
+      "evidence": "33 source actions within 48 overall and each issuer within 12: 003160=10,025560=5,031980=9,036200=9. Four new raw files total 4,774,865 bytes, within 8-file/20-MB caps. Browser interaction and human-assisted action counts are zero; known direct HTTP count is two while aggregate HTTP total remains NOT_INSTRUMENTED. Retry classification is retained and not conflated with repeated completed recovery actions."
+    },
+    {
+      "id": "PMOV-R1-04",
+      "result": "PASS",
+      "subject": "PIT and model/control boundary",
+      "evidence": "Frozen cutoff is 2024-08-09T23:59:59+09:00. D1 bounded Q2 search / Q1 fallback disposition, same-source 025560 restatement, negative-prior signed RELATIVE semantics, native-unit dimensionless computation and explicit Q2 absence NOT_PROVEN are carried in existing P2 records and exact executable inputs. Cached 005290 Q2 is not refetched. Prior outcome exposure remains EXPLORATORY_AFTER_W1_OUTCOME_EXPOSURE; no future-outcome-aware selection or control-score forcing is authorized."
+    },
+    {
+      "id": "PMOV-R1-05",
+      "result": "PASS",
+      "subject": "Authorized versus actual package",
+      "evidence": "Fresh comparison of actual baseline-to-candidate changed files with P4_EXACT_TARGET confirms exactly 34 authorized changed paths: existing-run artifacts, PMO run journal and four frozen engineering paths. All 32 operative target files match target Git blobs and actual runtime SHA256. Post-candidate P4_EXACT_TARGET packaging and PROGRESS_CURRENT status updates are nonoperative; no code/input target changes are present."
+    },
+    {
+      "id": "PMOV-R1-06",
+      "result": "PASS",
+      "subject": "Frozen progress denominator and pending gates",
+      "evidence": "Four earned progress deltas 5+25+15+25=70 equal current 70/100; P0-P3 completed, P4 closure not earned. WBS weights and original 125/240-minute LOW-confidence planning priors are unchanged. P4 current phase status does not constitute all-role PASS, P5 actual scoring or P6 completion. The score-and-seal directory is not yet created."
+    },
+    {
+      "id": "PMOV-R1-07",
+      "result": "PASS_WITH_RECORDED_HISTORICAL_DEVIATION",
+      "subject": "Checkpoint and measurement truthfulness",
+      "evidence": "First locator at 17:28:34.7925142 was about 10m40s after start. Thirty-minute checkpoint due 17:47:55.1469424 was not persisted then; recovery record at 18:14:40.3012516 explicitly says LATE_DOCUMENTATION_AFTER_RESTART;NOT_BACKDATED. Source pairs/raw evidence had existed by 17:45:31, but first central executable input at 18:35:50 is not misrepresented as meeting 30 minutes. Active/wait/restart duration/CRU unknowns remain explicit. See two nonblocking process observations."
+    },
+    {
+      "id": "PMOV-R1-08",
+      "result": "PASS",
+      "subject": "Operator-source-input-validation-terminal routing",
+      "evidence": "Existing P4 plan requires exact candidate/bundle, all five real role receipts, first-pass finding freeze and affected validation report before engine. Required path is approved operator scope -> retained source/hash/cell/period evidence -> materialized inputs -> exact target paired+IVA gate -> P5 new create-once score/seal -> P6 actual completion report and Git readback. This receipt supplies only PMOV, and does not claim future stages passed."
+    }
+  ],
+  "source_accounting_readback": {
+    "source_action_count": 33,
+    "source_action_ceiling": 48,
+    "per_issuer_ceiling": 12,
+    "source_action_by_issuer": {
+      "KRX:003160": 10,
+      "KRX:025560": 5,
+      "KRX:031980": 9,
+      "KRX:036200": 9
+    },
+    "source_action_class_counts": {
+      "SOURCE_QUERY": 19,
+      "RESULT_OPEN": 4,
+      "SOURCE_FETCH": 8,
+      "SOURCE_FETCH_RETRY": 2
+    },
+    "retry_flag_count": 6,
+    "http_total": "NOT_INSTRUMENTED",
+    "observed_direct_http_count": 2,
+    "browser_interaction_count": 0,
+    "human_assisted_action_count": 0,
+    "new_raw_file_count": 4,
+    "new_raw_byte_size": 4774865,
+    "raw_files": [
+      {
+        "company_id": "KRX:003160",
+        "sha256": "2ab621a3862041c57040524aaa3c084c81304685015cbc2be7e6b57ba5fa3fe3",
+        "byte_size": 1404585,
+        "recovery_commit_blob_equal": true
+      },
+      {
+        "company_id": "KRX:025560",
+        "sha256": "a547f8b383ecb85f39d5826ab08bf6641c6716a85ba12ddc90efb5c9f303537f",
+        "byte_size": 1325372,
+        "recovery_commit_blob_equal": true
+      },
+      {
+        "company_id": "KRX:031980",
+        "sha256": "8323d301baa3f62a872f2dec7f846d98d0effc0e9e06f7ea6dca5c7c78a598a9",
+        "byte_size": 961791,
+        "recovery_commit_blob_equal": true
+      },
+      {
+        "company_id": "KRX:036200",
+        "sha256": "63152e6f1ba5c1b063c6466b54c3d7b7382d948de0aa36f19f8a208a3cb58ab2",
+        "byte_size": 1083117,
+        "recovery_commit_blob_equal": true
+      }
+    ],
+    "cached_control_sha256": "5c361107cbd2dc35b236b5358595e036ecb1dd9dc8b06471bca7bf9e550c7db7"
+  },
+  "verification_evidence": {
+    "fresh_read_only_accounting_script": "PASS: exact HEAD/tree; 32 operative runtime hashes and target blobs; 34 changed-path equality and scope; 13 retained management files; frozen P0 policy/authorization/plan/weights; 33 unique bounded ledger actions; four raw hashes/sizes/recovery blobs; cached control; 70/100 progress; no score output; exact attached packet SHA256/blob.",
+    "source_calls": 0,
+    "network_calls": 0,
+    "future_price_or_outcome_value_reads": 0,
+    "pooled_engine_calls": 0,
+    "original_tests_edited": false,
+    "new_score_or_seal_created": false,
+    "evidence_files": [
+      "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/OWNER_AUTHORIZATION_BINDING.json",
+      "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/CHECKPOINTS.jsonl",
+      "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/PROCESS_ACTION_LEDGER.jsonl",
+      "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/F02_SOURCE_SELECTION_MATRIX.json",
+      "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/SOURCE_MANIFEST.json",
+      "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/P4_VALIDATION_PLAN.json",
+      "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/P4_EXACT_TARGET.json",
+      "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/P3_AUTHOR_VERIFICATION.json",
+      "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/PROGRESS_BASELINE_PLAN.json",
+      "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/PROGRESS_EVENTS.jsonl",
+      "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/PROGRESS_CURRENT.json",
+      "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/PROGRESS_DASHBOARD.md",
+      "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/PROGRESS_WEIGHT_CALIBRATION.json",
+      "control/persona-memory/v1.0/AAA-PMO-ORCHESTRATOR/runs/2026-09-05/171755_m3top3_f02_r1_multi_company_input_repair_pmo_root.md"
+    ],
+    "final_readback": "At 19:14:12+09:00 HEAD/tree remain frozen candidate, working tools/m3top3 diff empty, and prior MODV/ENGV receipt SHA256 values unchanged."
+  },
+  "findings": [
+    {
+      "id": "PMOV-OBS-01",
+      "severity": "NONBLOCKING_PROCESS_OBSERVATION",
+      "status": "HISTORICAL_DEVIATION_PRESERVED",
+      "blocking": false,
+      "subject": "Thirty-minute checkpoint was late",
+      "evidence": "Due 17:47:55; recorded after recovery at 18:14:40 with persisted_at_due_time=false. This timing requirement was not met despite recoverable source evidence existing earlier.",
+      "disposition": "Do not rerun completed retrieval or backdate progress. Carry the deviation and actual first executable-input time into final planned-versus-actual reporting. Scoped current P4 PASS does not certify all historical timing compliance."
+    },
+    {
+      "id": "PMOV-OBS-02",
+      "severity": "NONBLOCKING_PROCESS_OBSERVATION",
+      "status": "P6_TELEMETRY_CLARIFICATION_REQUIRED",
+      "blocking": false,
+      "subject": "Observed zero counter is not total rework time",
+      "evidence": "PROGRESS_CURRENT uses PT0S_OBSERVED_COUNTER_ONLY while P3 author verification records an affected three-test recheck of 8.944 seconds. Total review/rework/CRU time was not instrumented.",
+      "disposition": "At P6 retain cumulative rework/revalidation time as NOT_INSTRUMENTED, distinguish any zero post-P4 correction counter from cumulative actual time, and separately disclose the observed 8.944-second recheck lower bound. Do not present global zero cost. This is nonoperative reporting clarification, not permission to change code, input, gate or denominator."
+    }
+  ],
+  "blocking_finding_count": 0,
+  "remaining_P5_P6_closure_conditions": [
+    "Freeze all real CTLV, MODV, ENGV, PMOV and separate fresh IVA first-pass receipts/findings against this exact commit and bundle. Resolve any blocking findings through the approved bounded correction/revalidation route; no role may import another PASS.",
+    "Create the truthful AFFECTED_VALIDATION_REPORT with actual receipt hashes, exact 31-component bundle and 32-file target binding; maintain clean committed operative ancestry before the score CLI. No new five-company pooled engine run until every required real role passes.",
+    "P5 must execute the new R1-only create-once score/seal path and independently read back actual full57-population result, all40 consumed leaves, coverage, F02 values/rank comparability, lineage and seal hashes. Do not predict or pre-certify those results here.",
+    "Preserve model/features/scorer/config/weights, population127/57/8/62, old PC1 and prior score/seal trees, W1 cutoff and exploratory outcome-exposure label. No outcome/price execution is authorized.",
+    "P6 completion report must begin with the required company/quarter/publication/revenue YoY/operating-profit YoY/F02/coverage/provisional-rank/limitations table, and then ground COMPLETE_MULTI_COMPANY_PROVISIONAL or other permitted terminal status in actual comparable-company count, real validation and actual new seal.",
+    "Report VALIDATION_COMPLETE, PERSISTENCE_COMPLETE and RESEARCH_OBJECTIVE_MET separately from actual completed evidence. Update earned EWU only when stages are materially complete; retain the frozen 100 denominator and original 125/240-minute LOW planning priors.",
+    "Carry late checkpoint, actual first executable input, restart uncertainty, source33/48 and per-issuer counts, raw bytes, unknown HTTP/active/wait/rework/CRU measurements and observed recheck timing into final reporting. Do not backdate, rebase to manufacture on-time status, or silently waive the packet's four-hour stop if reached.",
+    "Return F02_R1_COMPLETION_REPORT first, then exact final commit/tree/branch/changed-files/persistence readback and PR or NO_PR reason. No automatic merge, release, production claim or new Owner scope expansion."
+  ],
+  "terminal_state_at_review": {
+    "P4_PMOV_validation": "COMPLETE_FOR_THIS_EXACT_TARGET",
+    "all_required_P4_validation": "NOT_CERTIFIED_BY_THIS_RECEIPT_PENDING_REAL_AGGREGATION",
+    "P5_score_and_seal": "NOT_EXECUTED",
+    "P6_completion_report": "NOT_CREATED",
+    "VALIDATION_COMPLETE": "PENDING_AGGREGATE_P4",
+    "PERSISTENCE_COMPLETE": "PENDING_FINAL_OUTPUT_COMMIT_AND_READBACK",
+    "RESEARCH_OBJECTIVE_MET": "PENDING_ACTUAL_P5_OUTPUT_ASSESSMENT"
+  },
+  "limitations": [
+    "PMOV is process/authority validation, not an independent re-performance of MODV mathematics, ENGV tests or IVA L2. Same non-author reviewer role reuse is disclosed.",
+    "No CTLV or IVA findings were read before this first-pass freeze. Their actual findings can still require correction after aggregation.",
+    "No source retrieval, new prices/outcome values, five-company pooled score or seal execution occurred in this act.",
+    "Historical checkpoint lateness cannot be retroactively corrected. P4 readiness PASS is not a claim that every operational timing requirement was met.",
+    "Runtime interruption duration and total CRU/active/wait/rework measurements remain unknown; durable evidence readback does not reconstruct unsaved browser state.",
+    "P5/P6 final evidence and exact final Git state do not exist yet and are not certified by this receipt."
+  ],
+  "telemetry": {
+    "start_kst": "2026-09-05T19:04:19.3871599+09:00",
+    "substantive_readback_completed_kst": "2026-09-05T19:09:14.1820250+09:00",
+    "final_target_readback_kst": "2026-09-05T19:14:12.3972904+09:00",
+    "announced_separate_act_forecast": "5_TO_12_MINUTES",
+    "parent_progress_plan": "Existing frozen P4 WBS; no EWU denominator/weight rebase",
+    "elapsed_to_substantive_readback_seconds": "294.7948651",
+    "active_review": "NOT_INSTRUMENTED",
+    "queue_wait": "NOT_INSTRUMENTED",
+    "context_load": "NOT_INSTRUMENTED",
+    "direct_review": "NOT_INSTRUMENTED",
+    "token_or_cru": "NOT_INSTRUMENTED",
+    "source_actions": 0,
+    "network_calls": 0,
+    "pooled_engine_calls": 0,
+    "target_edit_count": 0,
+    "commits_created": 0,
+    "full_repository_scan": false,
+    "blocking_finding_count": 0,
+    "nonblocking_process_observation_count": 2
+  },
+  "persistence": {
+    "only_written_artifact": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/validation/PMOV_R1.json",
+    "shared_memory_or_worklog_mutated": false,
+    "unique_receipt_is_separate_act_durable_journal": true,
+    "next_route": "PMO all-role first-pass freeze and real affected validation report; then permitted P5 execution, P6 actual final report and Git readback."
+  }
+}

@@ -1,0 +1,213 @@
+{
+  "schema_version": "AAA-M3TOP3-F02-R1-P4-EXACT-TARGET-v1.0",
+  "run_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01",
+  "target_commit": "cdfebb54ced5d75b402fb8605ee6ee5e4578bbdd",
+  "target_tree": "79d12edb12d15ad96a56b9656950f2d40e3f85a6",
+  "target_bundle_identity": "M3TOP3-REAL-INPUT-EXECUTABLE-BUNDLE-SHA256:fe555c17a4ec8244e99755d193f63a67ff10574964b4025b9086cd70cd7321c7",
+  "target_author_agents": [
+    "root",
+    "p2_model",
+    "p2_control"
+  ],
+  "validated_target_files": [
+    {
+      "path": "tools/m3top3/__init__.py",
+      "sha256": "54b143b394a19dadb286305f267571b62423ad35b92115becc3d025a0dd1a0b3",
+      "git_blob": "9c3a6a28360b46df52b320a5c27f8a1096867199"
+    },
+    {
+      "path": "tools/m3top3/cli_run_coverage_limited_replay.py",
+      "sha256": "793db3d2e2504c3504e8c3f40c980ed9904c16e9d389b76ae80e77f951d313bf",
+      "git_blob": "5be5536def2724d4db7f4c0f7eee1a5046c80bb3"
+    },
+    {
+      "path": "tools/m3top3/contracts_v1.py",
+      "sha256": "5528f6e81a36ea8558ea909fc59074684a3dd73c414c723be386712dac77f4aa",
+      "git_blob": "161c3817cf0e0f0827a294b7fde150ab6b6cbcda"
+    },
+    {
+      "path": "tools/m3top3/core.py",
+      "sha256": "9d4ecbe324f4f1eece034e3ccc6aabd4968dce1f185ea58de8eb780da03746ec",
+      "git_blob": "e81561e737c3419013dc1bc5adff5ae258365862"
+    },
+    {
+      "path": "tools/m3top3/features_v1.py",
+      "sha256": "14bca2fecb4ec46cebc432a619af3388b8e8bab69ff7164dff5b52aed75dc981",
+      "git_blob": "35104a7384c3ee6175136e95dded7f3237d69435"
+    },
+    {
+      "path": "tools/m3top3/features_v1_narrow_patch.py",
+      "sha256": "6109f320038eeebd93e02897b3ee2aceb286516b446708367daddbe1afa98e8f",
+      "git_blob": "b9017f5db0fb637c8a449d5ee3cb1c4a05481076"
+    },
+    {
+      "path": "tools/m3top3/pit_guard.py",
+      "sha256": "7df44af85ecad959c81b629ec63b1cf9d6d57b1c155f715f49a8c5d445afc957",
+      "git_blob": "f2aa6a3d0114bec4e617519ccc406adb21584054"
+    },
+    {
+      "path": "tools/m3top3/runtime_v1.py",
+      "sha256": "bfc7a9f1dc7dea20ac1fefb3c3cc8530811674045de691369f46abdda21f55ab",
+      "git_blob": "3988ddee8a6437790873398cf59ee82ed6534931"
+    },
+    {
+      "path": "tools/m3top3/scorer_v1.py",
+      "sha256": "0bb0fbd1628992b2d49d6f7e06b3cbad1fe470f5bab7f175a89b4691a4d96126",
+      "git_blob": "2a797ea705eeb1aef330754fb08ff2182297c139"
+    },
+    {
+      "path": "tools/m3top3/shared_interface_guards_v1.py",
+      "sha256": "746ae5570a4542b9e67536f77f043bc2ba7e5b54b1e5f599a7fbf6c01c6aee56",
+      "git_blob": "ce5b3b3ad0f09bcbea2aee24abd591974154ea91"
+    },
+    {
+      "path": "tools/m3top3/window_mapping_v11.py",
+      "sha256": "6f73ec50cf6ac2f8f2c2da5edda40771704ea02b49fc73f9c275830d97d4cc70",
+      "git_blob": "4fa61dc8d0e7e3b6e2414a8eb41d5960e27a92a1"
+    },
+    {
+      "path": "tools/m3top3/configs/m3top3_v1.0.json",
+      "sha256": "eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98",
+      "git_blob": "043bf24bc8c838a8060360e86614cf5bfefc9145"
+    },
+    {
+      "path": "tools/m3top3/coverage_limited_replay_v1.py",
+      "sha256": "0ecfc9be42849d9ddf4a0db3f450826d747c189a11e579ceeec7965cceac251a",
+      "git_blob": "80fb0dac86b919596bd5c82314e619dd2c8b12b9"
+    },
+    {
+      "path": ".gitattributes",
+      "sha256": "0e82fdbe0de8a92a899663cd3117899635888e9dee74b913469fe769ff098bfc",
+      "git_blob": "6426702cfa2c21a55155f0f1d5115d6484aab63c"
+    },
+    {
+      "path": "tools/m3top3/real_input_replay_v1.py",
+      "sha256": "12d746416276aeab3b0e543d32084b212954c85ae16961a810aaa6b1297af71d",
+      "git_blob": "836002c748550b32418a486d44d5183aef7169ad"
+    },
+    {
+      "path": "tools/m3top3/cli_run_real_input_replay.py",
+      "sha256": "c2330fc3f86566a3878a1146897f8b93c3c410a3f09d4a74b71623f4f1bbc01c",
+      "git_blob": "74c8563cd722f14a1cfa669cf0695f17b1de3e87"
+    },
+    {
+      "path": "tools/m3top3/f02_r1_adapter.py",
+      "sha256": "a06bcfc6153971c095ab4948ea2022f03ddf456c28df3634823e6509f9be20d6",
+      "git_blob": "0fd5a8901e4d5a7762c43d0446a5107bc9f7b216"
+    },
+    {
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/INPUT_POLICY_R1.json",
+      "sha256": "fb62b4afb0f4e3edddcbc8b95e15cd2ea4288be72b9a93c135a9b687f9e0d680",
+      "git_blob": "e46b2b7d32fa49d51130818ef5a88622eb1e73d9"
+    },
+    {
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/OWNER_AUTHORIZATION_BINDING.json",
+      "sha256": "96aff4ada2cc2a816bbc0b2536d58b4fed54680489cb15f88f78e63598d59404",
+      "git_blob": "1d20e36781d5d9b8042a3a163fc8e395ecd91824"
+    },
+    {
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/P2_DISPOSITION_AND_IMPLEMENTATION_SCOPE.json",
+      "sha256": "da75fea80d60bf32c530d2bd04cbffdb0da4e8a2edc40212db34dc95ac3e3df0",
+      "git_blob": "76f66a89cfe371da580ed8c3c5aa8eaa25d97f9f"
+    },
+    {
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-ledgers/source_research_a.jsonl",
+      "sha256": "5a71fc2fa25e20a5ffc66b72e015cb4de56d7fc3bb34adba2754fe9f51d9eb81",
+      "git_blob": "f615b0688ce0f4bdb764f8b170931a40d8bd4d3c"
+    },
+    {
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-ledgers/source_research_a_result.json",
+      "sha256": "d84925e78e5fc7e20051a2fac7421e3b7ee0d269666bd7844db380ba96355603",
+      "git_blob": "5f1e0dd63e51aed2cbd98db85bf678682e926b2b"
+    },
+    {
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-ledgers/source_research_b.jsonl",
+      "sha256": "5c06bfe4831510f642af39cb6f1aa9209e15bdf7c14aeaefa5195961c44ee73d",
+      "git_blob": "a7d5bb177bfcab2db2c5637cc357811bf28cfe85"
+    },
+    {
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-results/P2_CONTROL_PROVENANCE_CLASSIFICATION.json",
+      "sha256": "8c763b1924c210db7ea97b5e19ea53a62e7532e1b101af72b42113dab30cb1b6",
+      "git_blob": "b1e0cca03be29c589c80ed51c4d39dfbf59527e8"
+    },
+    {
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-results/P2_MODEL_MEANING_CLASSIFICATION.json",
+      "sha256": "59108fb5b82bcc6622aaeaa1fff475cc7c3563bbe97c9dbd124bd332d7b5e42c",
+      "git_blob": "9984b3eae1db1c51713677eb4e6262407204dc5e"
+    },
+    {
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-results/source_research_b_result.json",
+      "sha256": "9b5f8d1bcb2140456a9b78de2c3758efdf52dd3cb754aa1ef4ada3e1d7d09f2a",
+      "git_blob": "2035862386beeb6c18fea47e208426056fa81802"
+    },
+    {
+      "path": "control/m3top3/process-calibration/v1.0/runs/AAA-M3TOP3-PROCESS-CALIBRATION-PC1-20260905-143739-CODEX-01/F02_DISCOVERY_RECEIPT.json",
+      "sha256": "57cf0a0a7e7d316f86c6591a240cbcddadb894830c827a4d207219631d33b9af",
+      "git_blob": "0ff2bc443e94f0e6241e33677eaac6e0093be4a8"
+    },
+    {
+      "path": "control/m3top3/real-input-replay/v1.0/runs/AAA-M3TOP3-REAL-INPUT-STRICT-PRAGMATIC-20260905-114150-CODEX-01/inputs/SOURCE_MANIFEST.json",
+      "sha256": "4752fdad038681d6c09381176bdd8ca1837f9ecdd9201eafb3bd4ea682d534de",
+      "git_blob": "08fe7b1875e91f1d0cac82b228c45de8d0d82c13"
+    },
+    {
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/inputs/INPUT_MAPPING_R1.json",
+      "sha256": "1d30e0c244aca29093a5fa42b54abd8312a7e0c8c838326e12aae059b28fe30f",
+      "git_blob": "32bf760e089fc04f62867479ecd834f5b82fb650"
+    },
+    {
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/inputs/SOURCE_MANIFEST.json",
+      "sha256": "b3bf4af1a27811b72073595af07a61eb0edfbd326fda349d3f0e98cb3f2b6900",
+      "git_blob": "2c70f839b92916162bca09c45685d89695ebfe82"
+    },
+    {
+      "path": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/inputs/FEATURE_SIDECAR.jsonl",
+      "sha256": "bb1619b7d037919c576d9c688789814a9474da76635d39edd6e37a2b00f727cc",
+      "git_blob": "96724660bbb2c01d2f8150ddbf21d7f85e6122f0"
+    },
+    {
+      "path": "tools/m3top3/tests/test_f02_r1_adapter.py",
+      "sha256": "cff4016597e014a957996ef3c9878f60f4f51269a0af155dd9e89dda322ddba1",
+      "git_blob": "f7c5bf3c1d2e268b63fbc305ea31dad7419e4ea7"
+    }
+  ],
+  "changed_files_from_pc1": [
+    "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/CHECKPOINTS.jsonl",
+    "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/F02_SOURCE_SELECTION_MATRIX.json",
+    "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/INPUT_BUNDLE_BINDING.json",
+    "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/INPUT_POLICY_R1.json",
+    "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/OWNER_AUTHORIZATION_BINDING.json",
+    "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/P2_DISPOSITION_AND_IMPLEMENTATION_SCOPE.json",
+    "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/P3_AUTHOR_VERIFICATION.json",
+    "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/P4_VALIDATION_PLAN.json",
+    "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/PROCESS_ACTION_LEDGER.jsonl",
+    "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/PROGRESS_BASELINE_PLAN.json",
+    "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/PROGRESS_CURRENT.json",
+    "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/PROGRESS_DASHBOARD.md",
+    "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/PROGRESS_EVENTS.jsonl",
+    "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/PROGRESS_WEIGHT_CALIBRATION.json",
+    "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/SOURCE_MANIFEST.json",
+    "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/inputs/FEATURE_SIDECAR.jsonl",
+    "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/inputs/INPUT_MAPPING_R1.json",
+    "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/inputs/SOURCE_MANIFEST.json",
+    "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/sources/.gitattributes",
+    "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/sources/KRX-003160/KRX_003160_20240516_Q1_REPORT_11013.htm",
+    "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/sources/KRX-025560/KRX_025560_20240514_Q1_REPORT_11013.htm",
+    "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/sources/KRX-031980/KRX_031980_20240516_Q1_REPORT_11013.htm",
+    "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/sources/KRX-036200/KRX_036200_20240510_Q1_REPORT_11013.htm",
+    "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-ledgers/source_research_a.jsonl",
+    "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-ledgers/source_research_a_result.json",
+    "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-ledgers/source_research_b.jsonl",
+    "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-results/P2_CONTROL_PROVENANCE_CLASSIFICATION.json",
+    "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-results/P2_MODEL_MEANING_CLASSIFICATION.json",
+    "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/worker-results/source_research_b_result.json",
+    "control/persona-memory/v1.0/AAA-PMO-ORCHESTRATOR/runs/2026-09-05/171755_m3top3_f02_r1_multi_company_input_repair_pmo_root.md",
+    "tools/m3top3/cli_run_real_input_replay.py",
+    "tools/m3top3/f02_r1_adapter.py",
+    "tools/m3top3/real_input_replay_v1.py",
+    "tools/m3top3/tests/test_f02_r1_adapter.py"
+  ],
+  "outside_authorized_touch_set": [],
+  "source_manifest_sha256": "b3bf4af1a27811b72073595af07a61eb0edfbd326fda349d3f0e98cb3f2b6900",
+  "feature_sidecar_sha256": "bb1619b7d037919c576d9c688789814a9474da76635d39edd6e37a2b00f727cc"
+}

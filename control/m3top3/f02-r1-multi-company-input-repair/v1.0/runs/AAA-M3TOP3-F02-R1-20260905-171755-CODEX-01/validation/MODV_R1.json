@@ -1,0 +1,394 @@
+{
+  "schema_version": "AAA-M3TOP3-F02-R1-MODV-VALIDATION-RECEIPT-v1.0",
+  "validation_act_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01-P4-MODV-01",
+  "parent_wbs": "P4",
+  "risk_tier": "P0_PIT_PROVENANCE_WITH_P1_MODEL_INPUT_IMPLEMENTATION",
+  "trigger_reason": "Independent paired model-meaning and preservation validation before the approved exploratory F02-R1 score stage.",
+  "persona": "AAA-MODEL-VALIDATOR",
+  "current_persona_lock": "AAA-MODEL-VALIDATOR (MODV)",
+  "worker_id": "p4_modv",
+  "validation_layer": "L1_PAIRED_MODEL_DOMAIN",
+  "target_author": false,
+  "target_edited": false,
+  "target_commit": "cdfebb54ced5d75b402fb8605ee6ee5e4578bbdd",
+  "target_tree": "79d12edb12d15ad96a56b9656950f2d40e3f85a6",
+  "target_bundle_identity": "M3TOP3-REAL-INPUT-EXECUTABLE-BUNDLE-SHA256:fe555c17a4ec8244e99755d193f63a67ff10574964b4025b9086cd70cd7321c7",
+  "role_verdicts": {
+    "MODV": "PASS"
+  },
+  "verdict_scope": "Exact candidate model-input meaning, consumed-scope and preserved model behavior only. This receipt is not L2 IVA, Owner acceptance, performance validation or a P5 scored-output receipt.",
+  "independent_first_pass": true,
+  "other_validator_findings_read": false,
+  "authority_loadout": {
+    "local_entry": "AGENTS.md",
+    "bootstrap_pointer": "control/bootstrap/project-instructions/v1.0/AAA_PROJECT_INSTRUCTIONS_CURRENT_CANDIDATE_v1.0.json",
+    "local_adapter": "control/bootstrap/codex/v1.0/AAA_CODEX_LOCAL_BOOTSTRAP_v1.0.md",
+    "canonical_project_instructions": "control/bootstrap/project-instructions/v1.0/AAA_PROJECT_INSTRUCTIONS_CANONICAL_v1.0.md",
+    "active_organization_commit": "d7c490c373f2df356f31e4459c345328616b4eb3",
+    "active_pair_activation_blob": "3579860fd20e497161e13a9ccc8fa0c7fac0db61",
+    "active_current_state_blob": "cad42e60efea2eb67bb663b5ff889277c028e66c",
+    "active_shared_contract_state_blob": "9463e3802abd09d41c20675239c2df7739ac2751",
+    "current_pair": [
+      "AAA-MODEL-ARCHITECT",
+      "AAA-MODEL-VALIDATOR"
+    ],
+    "common_memory_and_universal_behavior_loaded": true,
+    "persona_memory": "control/persona-memory/v1.0/AAA-MODEL-VALIDATOR/MEMORY.md",
+    "persona_worklog": "control/persona-memory/v1.0/AAA-MODEL-VALIDATOR/WORKLOG.md",
+    "selected_target_and_boundaries": "P4_VALIDATION_PLAN.json; P2 model/control classifications; P2_DISPOSITION_AND_IMPLEMENTATION_SCOPE.json; INPUT_POLICY_R1.json"
+  },
+  "model_meaning_findings": [
+    {
+      "id": "MODV-R1-01",
+      "result": "PASS",
+      "subject": "D1 latest confirmed cutoff-safe quarter fit",
+      "basis": "Frozen F02 schema calls for latest realized revenue/operating profit and an appropriate prior comparable period; it does not mandate an identical quarter across issuers. Owner D1 explicitly prefers bounded confirmed Q2 with Q1 fallback. Each admitted pair is same-quarter YoY, three months, consolidated and internally same unit. Four Q1 observations plus the exact cached Q2 control therefore fit only the declared latest-supported-year-over-year exploratory cross-section, not a common-quarter comparison."
+    },
+    {
+      "id": "MODV-R1-02",
+      "result": "PASS",
+      "subject": "Source-to-leaf signed numeric and period readback",
+      "basis": "Independently inspected all20 numeric raw HTML cells, four Q1 statement title/current and prior-period/unit contexts, cached Q2 current/prior-year quarter headers, and025560 raw restatement note/adjustment. Fresh admission/MIS build reverified five raw source SHA/byte/blob pins and all40 exact leaves. No source retrieval or re-materialized source evidence."
+    },
+    {
+      "id": "MODV-R1-03",
+      "result": "PASS",
+      "subject": "Same-source restatement",
+      "basis": "025560 selected2024-05-14 Q1 consolidated filing discloses discontinued-operation reclassification. Raw note23818 and cells23874/23875/23876 establish -448371497 +5394440 = -442977057 KRW. The current statement prior comparator is -442977057, known before W1 cutoff; using it does not project a later restatement backward."
+    },
+    {
+      "id": "MODV-R1-04",
+      "result": "PASS",
+      "subject": "RELATIVE signs, negative prior and native units",
+      "basis": "Actual unchanged FeatureEngineV1NarrowPatch.f02 computes (Decimal(current)-Decimal(prior))/abs(Decimal(prior)) and rejects zero prior. 003160 profit-to-loss remains negative;025560 loss-to-profit becomes a positive signed improvement relative to the absolute prior loss. Raw KRW new inputs and KRW_MILLION control pairs require no conversion because units cancel within each pair. Independent Decimal checks passed for all10 pairs under exact positive scales1e-6,1e-3,1e3,1e6. No binary float, sign removal, estimation or half-year subtraction."
+    },
+    {
+      "id": "MODV-R1-05",
+      "result": "PASS",
+      "subject": "Actual consumed scope and missingness",
+      "basis": "Read exact registry blob5faa4d5739bf9ecb0c11d16f6d7d697ff3983977 and actual f02 consumer, strict MIS builder and validation. Each of five issuers has exactly revenue/operating_profit current/prior/change_mode/operator_id, i.e.40 leaves total (20observed,20derived). Full57 eligible rows remain;508 other feature blocks remain NOT_FOUND. No metric_changes alternative or extra feature injection. W1 population remains127=57eligible+8tradability-ineligible+62unresolved."
+    },
+    {
+      "id": "MODV-R1-06",
+      "result": "PASS",
+      "subject": "Model/scorer/features/config/weights preservation",
+      "basis": "All13 MODEL_COMPONENTS have exactly the predecessor Git blobs and exactly the previously sealed run's runtime SHA256 values. Feature schema and original legacy test file blobs also equal the PC1 baseline. The R1 replay diff adds versioned admission dispatch, provenance/custody and guarded seal metadata, with no model arithmetic change. Old PC1 and old real-input run trees remain byte-identical repository trees."
+    },
+    {
+      "id": "MODV-R1-07",
+      "result": "PASS",
+      "subject": "Legacy singleton substantive invariants",
+      "basis": "Fresh unedited original test methods01–13 all pass. 005290 remains the only scoreable issuer, score50.00, revenue relative0.07273094951360781366485873046, operating-profit relative0.09671897289586305278174037090,57scorer rows and127selection-ledger rows. Test temporary seals did not write legacy outputs."
+    },
+    {
+      "id": "MODV-R1-08",
+      "result": "PASS",
+      "subject": "Scientific custody and claim boundary",
+      "basis": "Runtime manifest and MIS custody carry EXPLORATORY_AFTER_W1_OUTCOME_EXPOSURE, prior actor exposure true and blind-process claim false. R1 claim class/sidecar mapping chain preserve F02-only observed-cohort provisional interpretation and Q1/Q2 limitations. Explicit CLI all-role gate precedes score execution; MODV has not run the new pooled engine."
+    }
+  ],
+  "evidence": {
+    "source_manifest_sha256": "b3bf4af1a27811b72073595af07a61eb0edfbd326fda349d3f0e98cb3f2b6900",
+    "feature_sidecar_sha256": "bb1619b7d037919c576d9c688789814a9474da76635d39edd6e37a2b00f727cc",
+    "input_mapping_sha256": "1d30e0c244aca29093a5fa42b54abd8312a7e0c8c838326e12aae059b28fe30f",
+    "model_components": [
+      {
+        "path": "tools/m3top3/__init__.py",
+        "runtime_sha256": "54b143b394a19dadb286305f267571b62423ad35b92115becc3d025a0dd1a0b3",
+        "blob": "9c3a6a28360b46df52b320a5c27f8a1096867199",
+        "baseline_runtime_and_git_identity": "PASS"
+      },
+      {
+        "path": "tools/m3top3/cli_run_coverage_limited_replay.py",
+        "runtime_sha256": "793db3d2e2504c3504e8c3f40c980ed9904c16e9d389b76ae80e77f951d313bf",
+        "blob": "5be5536def2724d4db7f4c0f7eee1a5046c80bb3",
+        "baseline_runtime_and_git_identity": "PASS"
+      },
+      {
+        "path": "tools/m3top3/contracts_v1.py",
+        "runtime_sha256": "5528f6e81a36ea8558ea909fc59074684a3dd73c414c723be386712dac77f4aa",
+        "blob": "161c3817cf0e0f0827a294b7fde150ab6b6cbcda",
+        "baseline_runtime_and_git_identity": "PASS"
+      },
+      {
+        "path": "tools/m3top3/core.py",
+        "runtime_sha256": "9d4ecbe324f4f1eece034e3ccc6aabd4968dce1f185ea58de8eb780da03746ec",
+        "blob": "e81561e737c3419013dc1bc5adff5ae258365862",
+        "baseline_runtime_and_git_identity": "PASS"
+      },
+      {
+        "path": "tools/m3top3/features_v1.py",
+        "runtime_sha256": "14bca2fecb4ec46cebc432a619af3388b8e8bab69ff7164dff5b52aed75dc981",
+        "blob": "35104a7384c3ee6175136e95dded7f3237d69435",
+        "baseline_runtime_and_git_identity": "PASS"
+      },
+      {
+        "path": "tools/m3top3/features_v1_narrow_patch.py",
+        "runtime_sha256": "6109f320038eeebd93e02897b3ee2aceb286516b446708367daddbe1afa98e8f",
+        "blob": "b9017f5db0fb637c8a449d5ee3cb1c4a05481076",
+        "baseline_runtime_and_git_identity": "PASS"
+      },
+      {
+        "path": "tools/m3top3/pit_guard.py",
+        "runtime_sha256": "7df44af85ecad959c81b629ec63b1cf9d6d57b1c155f715f49a8c5d445afc957",
+        "blob": "f2aa6a3d0114bec4e617519ccc406adb21584054",
+        "baseline_runtime_and_git_identity": "PASS"
+      },
+      {
+        "path": "tools/m3top3/runtime_v1.py",
+        "runtime_sha256": "bfc7a9f1dc7dea20ac1fefb3c3cc8530811674045de691369f46abdda21f55ab",
+        "blob": "3988ddee8a6437790873398cf59ee82ed6534931",
+        "baseline_runtime_and_git_identity": "PASS"
+      },
+      {
+        "path": "tools/m3top3/scorer_v1.py",
+        "runtime_sha256": "0bb0fbd1628992b2d49d6f7e06b3cbad1fe470f5bab7f175a89b4691a4d96126",
+        "blob": "2a797ea705eeb1aef330754fb08ff2182297c139",
+        "baseline_runtime_and_git_identity": "PASS"
+      },
+      {
+        "path": "tools/m3top3/shared_interface_guards_v1.py",
+        "runtime_sha256": "746ae5570a4542b9e67536f77f043bc2ba7e5b54b1e5f599a7fbf6c01c6aee56",
+        "blob": "ce5b3b3ad0f09bcbea2aee24abd591974154ea91",
+        "baseline_runtime_and_git_identity": "PASS"
+      },
+      {
+        "path": "tools/m3top3/window_mapping_v11.py",
+        "runtime_sha256": "6f73ec50cf6ac2f8f2c2da5edda40771704ea02b49fc73f9c275830d97d4cc70",
+        "blob": "4fa61dc8d0e7e3b6e2414a8eb41d5960e27a92a1",
+        "baseline_runtime_and_git_identity": "PASS"
+      },
+      {
+        "path": "tools/m3top3/configs/m3top3_v1.0.json",
+        "runtime_sha256": "eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98",
+        "blob": "043bf24bc8c838a8060360e86614cf5bfefc9145",
+        "baseline_runtime_and_git_identity": "PASS"
+      },
+      {
+        "path": "tools/m3top3/coverage_limited_replay_v1.py",
+        "runtime_sha256": "0ecfc9be42849d9ddf4a0db3f450826d747c189a11e579ceeec7965cceac251a",
+        "blob": "80fb0dac86b919596bd5c82314e619dd2c8b12b9",
+        "baseline_runtime_and_git_identity": "PASS"
+      }
+    ],
+    "population_w1": {
+      "ELIGIBLE": 57,
+      "INELIGIBLE_BY_TRADABILITY": 8,
+      "UNRESOLVED": 62
+    },
+    "mis_rows": 57,
+    "leaf_states": {
+      "DERIVED": 20,
+      "OBSERVED": 20
+    },
+    "unavailable_feature_blocks": 508,
+    "raw_pair_arithmetic_not_pooled_scores": [
+      {
+        "company_id": "KRX:003160",
+        "metric": "operating_profit",
+        "current": "-1836830457",
+        "prior": "865831578",
+        "unit": "KRW",
+        "relative": "-3.121463924015023623913148615",
+        "scale_invariance": "PASS"
+      },
+      {
+        "company_id": "KRX:003160",
+        "metric": "revenue",
+        "current": "34732575950",
+        "prior": "39216899579",
+        "unit": "KRW",
+        "relative": "-0.1143467147362480691732502345",
+        "scale_invariance": "PASS"
+      },
+      {
+        "company_id": "KRX:005290",
+        "metric": "operating_profit",
+        "current": "49972",
+        "prior": "45565",
+        "unit": "KRW_MILLION",
+        "relative": "0.09671897289586305278174037090",
+        "scale_invariance": "PASS"
+      },
+      {
+        "company_id": "KRX:005290",
+        "metric": "revenue",
+        "current": "355414",
+        "prior": "331317",
+        "unit": "KRW_MILLION",
+        "relative": "0.07273094951360781366485873046",
+        "scale_invariance": "PASS"
+      },
+      {
+        "company_id": "KRX:025560",
+        "metric": "operating_profit",
+        "current": "2040268633",
+        "prior": "-442977057",
+        "unit": "KRW",
+        "relative": "5.605811070255947815374104127",
+        "scale_invariance": "PASS"
+      },
+      {
+        "company_id": "KRX:025560",
+        "metric": "revenue",
+        "current": "5162565692",
+        "prior": "4785829491",
+        "unit": "KRW",
+        "relative": "0.07871910223890590338626838471",
+        "scale_invariance": "PASS"
+      },
+      {
+        "company_id": "KRX:031980",
+        "metric": "operating_profit",
+        "current": "15420952017",
+        "prior": "3496296368",
+        "unit": "KRW",
+        "relative": "3.410653558474308377052319725",
+        "scale_invariance": "PASS"
+      },
+      {
+        "company_id": "KRX:031980",
+        "metric": "revenue",
+        "current": "38094447594",
+        "prior": "14913281644",
+        "unit": "KRW",
+        "relative": "1.554397382371329672716801271",
+        "scale_invariance": "PASS"
+      },
+      {
+        "company_id": "KRX:036200",
+        "metric": "operating_profit",
+        "current": "4559702713",
+        "prior": "4333422148",
+        "unit": "KRW",
+        "relative": "0.05221752168881931878657117160",
+        "scale_invariance": "PASS"
+      },
+      {
+        "company_id": "KRX:036200",
+        "metric": "revenue",
+        "current": "55186952755",
+        "prior": "51753687853",
+        "unit": "KRW",
+        "relative": "0.06633855565523693077331665376",
+        "scale_invariance": "PASS"
+      }
+    ],
+    "old_output_trees": {
+      "baseline_commit": "6b219f9f3a37dd89b26fc1d6ecec6b8eb890fa9f",
+      "preserved_output_trees": [
+        {
+          "path": "control/m3top3/process-calibration/v1.0/runs/AAA-M3TOP3-PROCESS-CALIBRATION-PC1-20260905-143739-CODEX-01",
+          "tree": "0ea887bd547998678861baea5600045eb0b2e297"
+        },
+        {
+          "path": "control/m3top3/real-input-replay/v1.0/runs/AAA-M3TOP3-REAL-INPUT-STRICT-PRAGMATIC-20260905-114150-CODEX-01",
+          "tree": "d28a10eb6472452057fac383d5f63f07a5d6e455"
+        }
+      ]
+    },
+    "git_line_ending_diagnostic": "An initial diagnostic incorrectly equated Git-blob LF bytes with Windows working CRLF bytes and stopped at __init__.py. core.autocrlf=true explained the representational difference. Correct same-surface comparison then independently matched all13 Git blobs and all13 prior sealed runtime SHA256 values. No artifact correction was made and no model drift exists."
+  },
+  "tests": [
+    {
+      "suite": "tools.m3top3.tests.test_real_input_replay_v1.TestRealInputReplay",
+      "methods": "test_01 through test_13 ONLY",
+      "run_fresh": true,
+      "tests_run": 13,
+      "failures": 0,
+      "errors": 0,
+      "reported_seconds": "0.302",
+      "outcome_methods_executed": false,
+      "original_test_file_edited": false,
+      "substantive_legacy_result": {
+        "company_id": "KRX:005290",
+        "score": "50.00",
+        "scorer_rows": 57,
+        "selection_ledger_rows": 127,
+        "revenue_relative": "0.07273094951360781366485873046",
+        "operating_profit_relative": "0.09671897289586305278174037090"
+      }
+    },
+    {
+      "suite": "tools.m3top3.tests.test_f02_r1_adapter.TestF02R1Admission",
+      "methods": [
+        "test_wrong_period_scope_and_unit_are_rejected",
+        "test_negative_signs_and_restated_prior_cannot_be_silently_changed",
+        "test_zero_prior_nonfinite_and_binary_float_are_rejected",
+        "test_operator_mode_and_derived_lineage_are_required",
+        "test_partial_duplicate_and_extra_feature_leaves_are_rejected",
+        "test_parser_checks_semantics_beyond_raw_hash_gate",
+        "test_parser_rejects_wrong_public_date_and_missing_restatement_explanation"
+      ],
+      "run_fresh": true,
+      "tests_run": 7,
+      "failures": 0,
+      "errors": 0,
+      "reported_seconds": "43.877",
+      "new_pooled_engine_calls": 0
+    },
+    {
+      "check": "Independent exact bundle + predecessor Git/runtime identity + full57 MIS +40leaves +10pair Decimal scale invariance",
+      "result": "PASS",
+      "new_pooled_engine_blocked_by_mock": true,
+      "reported_command_wall_seconds": "7.6283042"
+    }
+  ],
+  "substantive_vs_administrative": {
+    "substantive_must_preserve": [
+      "Observed current/prior values and signs",
+      "RELATIVE abs-prior arithmetic",
+      "Negative andzero-prior semantics",
+      "Scorer/feature/config/weights",
+      "Missingness and eligible population",
+      "Legacy singleton result and exact relative traces"
+    ],
+    "permitted_administrative_fields": [
+      "pmo_run_id",
+      "engine_run_id",
+      "model_score_id",
+      "code_or_executable_identity",
+      "input_release_or_hash",
+      "created_or_sealed_timestamp",
+      "Hashes derived only from those bound administrative fields"
+    ],
+    "note": "New five-company cohort is an approved input-coverage change. Its cross-sectional percentile scores may differ from the cached singleton's50.00; forcing50would itself alter model semantics. No new cohort scores are asserted in this receipt."
+  },
+  "findings": [],
+  "limitations": [
+    "Q2 global absence and globally latest issuer correction are NOT_PROVEN. Only completed bounded-source evidence supports Q1 fallback.",
+    "Four Q1 issuers and one provisional Q2 control have unequal information age, seasonal mix and filing assurance. Pooled output is latest-supported YoY, not an equal-quarter financial comparison.",
+    "025560 negative-prior turnaround must be labeled signed change relative to absolute prior, not ordinary positive-base profit growth; same-source restatement must remain visible.",
+    "Small five-observation F02-only cohort yields sample-sensitive percentile ranks; no official Top3/Top10, U127 optimality, performance or clean-out-of-sample claim.",
+    "This paired domain PASS does not replace CTLV/ENGV/PMOV/IVA receipts; P5 scores and seals require all required exact-target gates, then fresh scored-output trace/readback."
+  ],
+  "telemetry": {
+    "completed_at_kst": "2026-09-05T18:51:31.3745529+09:00",
+    "validation_start": "NOT_INSTRUMENTED",
+    "total_wall": "NOT_INSTRUMENTED",
+    "active_review": "NOT_INSTRUMENTED",
+    "queue_wait": "NOT_INSTRUMENTED",
+    "dependency_wait": "NOT_INSTRUMENTED",
+    "context_load": "NOT_INSTRUMENTED",
+    "direct_review": "NOT_INSTRUMENTED",
+    "test_time_seconds": "44.179",
+    "source_retrieval_actions": 0,
+    "future_price_or_outcome_value_reads": 0,
+    "new_pooled_engine_calls": 0,
+    "target_authoring_or_correction_count": 0,
+    "commits_created": 0,
+    "full_repository_scan": false,
+    "reused_test_pass": false,
+    "revalidation_count": 0,
+    "finding_count": 0,
+    "incidental_read_scope_note": "A bounded hash-text search also returned model runtime hash metadata lines from a prior outcome manifest; no price/outcome values or outcome execution were read/run.",
+    "token_or_cru": "NOT_INSTRUMENTED",
+    "final_readback": "HEAD and tree unchanged. Untracked PMO P4_EXACT_TARGET.json was present and not edited by MODV."
+  },
+  "persistence": {
+    "only_written_artifact": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/validation/MODV_R1.json",
+    "shared_memory_or_worklog_mutated": false,
+    "unique_receipt_is_this_act_durable_journal": true,
+    "next_route": "PMO first-pass finding freeze; all other P4 roles; permitted P5 score/seal then exact output validation."
+  }
+}

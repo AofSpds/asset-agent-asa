@@ -1,0 +1,218 @@
+{
+  "schema_version": "AAA-M3TOP3-F02-R1-ENGV-VALIDATION-RECEIPT-v1.0",
+  "validation_act_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01-P4-ENGV-01",
+  "parent_wbs": "P4",
+  "risk_tier": "P0_PIT_PROVENANCE_IMMUTABLE_LINEAGE_WITH_P1_IMPLEMENTATION",
+  "trigger_reason": "Separate paired engineering review of fixed-source admission, executable identity and pre-score validation gate.",
+  "persona": "AAA-ENGINEERING-VALIDATOR",
+  "current_persona_lock": "AAA-ENGINEERING-VALIDATOR (ENGV)",
+  "worker_id": "p4_modv_REINSTANTIATED_AS_ENGV_DISTINCT_ACT",
+  "target_commit": "cdfebb54ced5d75b402fb8605ee6ee5e4578bbdd",
+  "target_tree": "79d12edb12d15ad96a56b9656950f2d40e3f85a6",
+  "target_bundle_identity": "M3TOP3-REAL-INPUT-EXECUTABLE-BUNDLE-SHA256:fe555c17a4ec8244e99755d193f63a67ff10574964b4025b9086cd70cd7321c7",
+  "target_author": false,
+  "target_edited": false,
+  "role_verdicts": {
+    "ENGV": "PASS"
+  },
+  "validation_layer": "L1_PAIRED_ENGINEERING_DOMAIN",
+  "independence": {
+    "same_non_author_reviewer_previously_performed_MODV": true,
+    "prior_act_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01-P4-MODV-01",
+    "prior_receipt_preserved_sha256": "c89f799099ead1b59fb15f6f80914ca53300ae509fb4ab47e348f96d08411faf",
+    "new_separate_persona_act": true,
+    "operative_code_input_tests_authored": false,
+    "other_reviewer_findings_read": false,
+    "CTLV_IVA_PMOV_receipts_read": false,
+    "verdict_directed_by_PMO": false,
+    "note": "Resource limit prevented a new child. PMO explicitly assigned a separate ENGV act to this finished non-author reviewer. Same-reviewer reuse is disclosed, not represented as another independent human/model reviewer. Fresh ENGV tests and engineering probes were executed; no prior PASS was imported as this verdict."
+  },
+  "bootstrap": {
+    "local_AGENTS_read": true,
+    "bootstrap_pointer_reread": true,
+    "codex_local_adapter_reread": true,
+    "common_project_memory_and_universal_behavior_reread": true,
+    "selector_registry_reread": true,
+    "persona_memory": "control/persona-memory/v1.0/AAA-ENGINEERING-VALIDATOR/MEMORY.md",
+    "persona_worklog": "control/persona-memory/v1.0/AAA-ENGINEERING-VALIDATOR/WORKLOG.md",
+    "active_pair_activation_blob": "3579860fd20e497161e13a9ccc8fa0c7fac0db61",
+    "current_pair": [
+      "AAA-ENGINEERING-ORCHESTRATOR",
+      "AAA-ENGINEERING-VALIDATOR"
+    ],
+    "authority_scope": "Engineering paired validation only; no author correction, L2 IVA, Owner acceptance, Freeze/Release/Production authority."
+  },
+  "engineering_checks": [
+    {
+      "id": "ENGV-R1-01",
+      "result": "PASS",
+      "subject": "Authorized versus actual touch",
+      "evidence": "Candidate diff against PC1 baseline6b219f9f3a37dd89b26fc1d6ecec6b8eb890fa9f contains34files: four authorized engineering paths, new/updated existing-run artifacts and the PMO run journal. No model/scorer/features/config/population or prior run outputs were modified. Fresh final working diff over tools/m3top3 is empty."
+    },
+    {
+      "id": "ENGV-R1-02",
+      "result": "PASS",
+      "subject": "Versioned strict admission dispatch",
+      "evidence": "Legacy source/leaf schema path remains separate. Only explicit M3TOP3-F02-R1-SOURCE-MANIFEST-v1.0 dispatches to the fixed R1 helper. Helper validates exact run ID, regenerates expected mapping/manifest and compares strict canonical JSON and persisted bytes. Exact40leaves are regenerated from validated source contexts, not accepted from self-declared consumed fields."
+    },
+    {
+      "id": "ENGV-R1-03",
+      "result": "PASS",
+      "subject": "Five exact raw-source identities and paths",
+      "evidence": "Helper pins each issuer, canonical KIND receipt, byte size/SHA256/Git blob, exact new source path or sole cached005290path. _read_bound rejects absolute paths,backslash/drive/colon,traversal/dot components and every symlink/reparse component before reading. Rehashing mutated raw bytes or mapping cannot override the executable fixed pins. No networking or source writes exist in the helper."
+    },
+    {
+      "id": "ENGV-R1-04",
+      "result": "PASS",
+      "subject": "Deterministic cell topology and numeric semantics",
+      "evidence": "HTMLParser binds physical table-start line,row and cell, whole decoded numeric cell, exact metric row, consolidated context, current/prior-year Q1 dates or cachedQ2 header, three-month columns and unit. Q1 header types/spans are checked. Numeric whole-token parsing preserves parentheses as negative and does not accept substring matches. Fixed source bytes additionally bind all unparsed structure. Same-source025560restatement explanation and three adjustment cells are checked."
+    },
+    {
+      "id": "ENGV-R1-05",
+      "result": "PASS",
+      "subject": "Types, lineage and missingness",
+      "evidence": "Strict JSON loading rejects floats,nonfinite constants and duplicate keys. Expected-leaf canonical equality rejects bool/int/type substitutions and missing/extra/duplicate leaves.20numeric leaves are OBSERVED native-unit decimal strings;20controls are DERIVED with operator/mode and exact current/prior lineage. No conversion,rounding,estimation or proxy is introduced. Fresh full57MIS test retains all9feature blocks,52unobservedF02blocks and456other missing feature blocks."
+    },
+    {
+      "id": "ENGV-R1-06",
+      "result": "PASS",
+      "subject": "Exact31-component executable identity",
+      "evidence": "Fresh bundle recomputation matches fe555c17a4ec8244e99755d193f63a67ff10574964b4025b9086cd70cd7321c7.31components cover preserved model/config,CLI/replay/helper,mapping,manifest,sidecar and declared policy/authority/ledger/classification/cached-receipt dependencies. Raw source identity closes transitively through hashed helper pins and mapping/manifest hashes. Gate separately binds32target files including the affected test file."
+    },
+    {
+      "id": "ENGV-R1-07",
+      "result": "PASS",
+      "subject": "Explicit CLI profile and all-role gate before engine",
+      "evidence": "_score_and_seal checks clean worktree,preserved predecessor,schema/profile agreement,new exact bundle and preserved old output trees,then _verify_r1_validation_gate,before population model execution. Gate requires exact paths/run/create-once output,report PASS/scoring permission,manifest/sidecar hashes,exact31components,target ancestor,32target blob/hash matches and CTLV/MODV/ENGV/PMOV/IVA receipt hashes with same commit/bundle,PASS and target_author=false. Fresh positive in-memory fixture and14negative mutations exercise this path without invoking the engine."
+    },
+    {
+      "id": "ENGV-R1-08",
+      "result": "PASS",
+      "subject": "Create-once outputs and seal lineage",
+      "evidence": "R1 gate rejects any preexisting score-and-seal output directory; subsequent mkdir(exist_ok=False) prevents overwriting a concurrently created directory before output writes. Original per-file atomic writers and durable seal readback remain. R1 seal adds input profile,affected-validation binding,act-only future-access assertion and outcome_execution_authorized=false; seal creation/validation reject missing gate or false custody. Existing affected tests verify existing output rejection and missing P4 seal rejection."
+    },
+    {
+      "id": "ENGV-R1-09",
+      "result": "PASS",
+      "subject": "Outcome execution preservation and boundary",
+      "evidence": "AST comparisons against PC1 baseline prove two CLI and six replay price/outcome functions unchanged. No outcome/price function was executed in this act. R1 CLI outcome preparation cannot match the R1 extended bundle using the preserved legacy outcome component set, while R1 seal metadata explicitly disallows outcome execution. This review does not authorize an outcome stage."
+    }
+  ],
+  "test_evidence": {
+    "full_affected_suite": {
+      "command": "C:/Users/ms1pk/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -B -X utf8 -m unittest tools.m3top3.tests.test_f02_r1_adapter -v",
+      "fresh_run": true,
+      "tests_run": 31,
+      "failures": 0,
+      "errors": 0,
+      "reported_seconds": "104.878",
+      "result": "OK",
+      "pooled_engine_calls": 0,
+      "coverage_families": [
+        "Fixed-five positive admission",
+        "Conservative DATE_ONLY cutoff",
+        "Deterministic build and reorder",
+        "Full population/MIS/missingness",
+        "Legacy identity rejection",
+        "Issuer/schema/hash/blob/size/duplicate/path mutations",
+        "Period/basis/unit/sign/restatement mutations",
+        "Zero/nonfinite/float rejection",
+        "Operator/mode/lineage scope",
+        "Transform/estimation/outcome-field rejection",
+        "False blind custody",
+        "Dependency/mapping rehash tampering",
+        "Bundle coverage",
+        "CLI missing gate/profile/existing output",
+        "Seal missing gate",
+        "Parser semantic mutations beyond hash gate"
+      ]
+    },
+    "supplemental_gate_probe": {
+      "scope": "SYNTHETIC_IN_MEMORY_GATE_TEST_ONLY_NOT_P4_AUTHORIZATION",
+      "positive_branch": "PASS_WITH_IN_MEMORY_TEST_RECEIPTS_ONLY",
+      "actual_git_target_checks_used": true,
+      "synthetic_report_or_receipt_files_written": 0,
+      "pooled_engine_calls": 0,
+      "component_count": 31,
+      "target_file_count": 32,
+      "required_role_count": 5,
+      "negative_cases": [
+        "nonpass_report",
+        "scoring_forbidden",
+        "bundle_mismatch",
+        "manifest_mismatch",
+        "sidecar_mismatch",
+        "missing_component",
+        "missing_test_target",
+        "target_blob_mismatch",
+        "missing_role",
+        "receipt_hash_mismatch",
+        "receipt_target_mismatch",
+        "receipt_bundle_mismatch",
+        "receipt_nonpass",
+        "receipt_target_author"
+      ],
+      "negative_case_count": 14,
+      "negative_cases_rejected": 14,
+      "mocking_boundary": "Only Path.read_text and receipt/report hash access were intercepted for clearly named ENGV_TEST_ONLY in-memory artifacts. Real repository component hashes,Git target/HEAD blobs and ancestry were checked. No synthetic validation authorization was persisted or applied to scoring."
+    },
+    "outcome_ast_preservation": {
+      "baseline": "6b219f9f3a37dd89b26fc1d6ecec6b8eb890fa9f",
+      "method": "ast.dump(include_attributes=False) equality of each named original function",
+      "result": "PASS_8_OF_8",
+      "functions": {
+        "tools/m3top3/cli_run_real_input_replay.py": [
+          "_prepare_outcome_execution_context",
+          "_measure_outcomes"
+        ],
+        "tools/m3top3/real_input_replay_v1.py": [
+          "_verify_outcome_runtime_before_price_access",
+          "_bind_price_components_after_seal",
+          "_positive_price",
+          "_calculate_w1_raw_outcomes_from_normalized_rows",
+          "calculate_w1_raw_outcomes_from_normalized_rows_for_test",
+          "execute_w1_outcomes_from_seal"
+        ]
+      }
+    }
+  },
+  "findings": [],
+  "limitations": [
+    "Purpose-built exact-source profile, not a general financial-report parser or permission to admit arbitrary new issuer/source bytes.",
+    "Positive gate coverage used clearly synthetic in-memory receipts. Actual aggregate P4 permission requires the real five-role receipts and PMO report after first-pass freeze.",
+    "Fresh actual five-company score trace,rank/coverage and persisted seal verification remain P5 work and were not performed in this ENGV act.",
+    "Same reviewer previously completed MODV; the two distinct non-author acts do not substitute for fresh independent IVA L2.",
+    "Prior exposed W1 outcome state remains exploratory; this engineering PASS is not model performance,official selection,clean out-of-sample or Owner acceptance."
+  ],
+  "telemetry": {
+    "start_kst": "2026-09-05T18:55:11.9621399+09:00",
+    "review_completed_at_kst": "2026-09-05T19:00:06.4938199+09:00",
+    "elapsed_to_final_readback_seconds": "294.53168",
+    "separate_act_prior_time_forecast": "NOT_SEPARATELY_RECORDED;EXISTING_PARENT_P4_PLAN_APPLIES",
+    "parent_progress_plan": "Existing P4 WBS; no EWU denominator/weight rebase",
+    "test_seconds": "104.878",
+    "active_review": "NOT_INSTRUMENTED",
+    "queue_wait": "NOT_INSTRUMENTED",
+    "dependency_wait": "NOT_INSTRUMENTED",
+    "context_load": "NOT_INSTRUMENTED",
+    "direct_review": "NOT_INSTRUMENTED",
+    "source_actions": 0,
+    "network_calls": 0,
+    "future_price_or_outcome_value_reads": 0,
+    "pooled_engine_calls": 0,
+    "target_edit_count": 0,
+    "commits_created": 0,
+    "full_repository_scan": false,
+    "validation_recheck_count": 0,
+    "reused_test_pass": false,
+    "finding_count": 0,
+    "token_or_cru": "NOT_INSTRUMENTED",
+    "final_target_readback": "HEAD and tree remain exact frozen candidate; no working engineering diff; MODV receipt hash unchanged."
+  },
+  "persistence": {
+    "only_written_artifact": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/validation/ENGV_R1.json",
+    "shared_memory_or_worklog_mutated": false,
+    "unique_receipt_is_separate_act_durable_journal": true,
+    "next_route": "PMO all-first-pass finding freeze and remaining real P4 receipts; exact aggregate gate; then permitted P5 scoring and output/seal verification."
+  }
+}

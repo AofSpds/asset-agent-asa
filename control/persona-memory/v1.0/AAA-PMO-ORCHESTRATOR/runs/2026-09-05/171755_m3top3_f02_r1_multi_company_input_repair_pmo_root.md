@@ -65,3 +65,12 @@ WORKTREE = C:\Users\ms1pk\dev\asset-agent-asa\asset-agent-asa\r1
 - CURRENT_PERSONA_LOCK = AAA-PMO-ORCHESTRATOR (PMO).
 
 This run journal is continuity evidence only. It creates no authority, validation PASS, model semantics, release, or production state.
+
+## P2_P3_P4_CONTINUATION
+
+- P2 exact D1/model/control disposition committed at `8b1b9b17db211e529a7f21867ceb9c51724286be`; exploratory admission only.
+- P3 five exact sources / 40 leaves / 57-row input admission frozen at `cdfebb54ced5d75b402fb8605ee6ee5e4578bbdd`, tree `79d12edb12d15ad96a56b9656950f2d40e3f85a6`. No pooled R1 score has run.
+- P4 all five required role acts PASS; three non-author reviewers performed CTLV, MODV/ENGV/PMOV (separate bootstrapped acts), and independent IVA. Root only aggregates their receipts.
+- Findings frozen at 2026-09-05T19:25:44.7285839+09:00: zero blocking, five nonblocking observations in three themes; zero operative corrections since P4 target freeze.
+- Preserve late 30-minute checkpoint, incomplete HTTP/CRU/rework telemetry, and exploratory exposure caveats. Known pre-P4 affected three-test recheck: 8.944 seconds; total rework NOT_INSTRUMENTED.
+- Completed source acquisition remains 33 charged actions, four files / 4,774,865 bytes, no restart retrieval. P4 earned progress is 85/100 EWU. P5 create-once score-and-seal next.
