@@ -1,0 +1,203 @@
+{
+  "oracle_version": "M3TOP3-GOLDEN-SCORE-ORACLE-v1.0-INDEPENDENT-FORMULA",
+  "fixtures": {
+    "AAA-M3TOP3-GR-FX-08": {
+      "state": "EXACT_BOUND",
+      "rows": [
+        {
+          "company_id": "KRX:058470",
+          "axis_scores": {
+            "Business_Momentum": "50.00",
+            "Expectation_Surprise": "50.00",
+            "Market_Positioning": "50.00",
+            "Forward_Runway": "50.00",
+            "Reliability_Risk": "50.00"
+          },
+          "pre_gate_score": "50.00",
+          "final_score": "50.00",
+          "score_status": "RANKABLE",
+          "exact_rank": 1,
+          "top3": true,
+          "top10": true
+        },
+        {
+          "company_id": "KRX:095340",
+          "axis_scores": {
+            "Business_Momentum": "50.00",
+            "Expectation_Surprise": "50.00",
+            "Market_Positioning": "50.00",
+            "Forward_Runway": "50.00",
+            "Reliability_Risk": "50.00"
+          },
+          "pre_gate_score": "50.00",
+          "final_score": "50.00",
+          "score_status": "RANKABLE",
+          "exact_rank": 2,
+          "top3": true,
+          "top10": true
+        }
+      ],
+      "coverage": "1.00"
+    },
+    "AAA-M3TOP3-GR-FX-09": {
+      "state": "CONTROL_GAP_NOT_EXACTLY_BOUND",
+      "rows": [
+        {
+          "company_id": "KRX:058470",
+          "axis_scores": {
+            "Business_Momentum": "50.00",
+            "Expectation_Surprise": "50.00",
+            "Market_Positioning": "50.00",
+            "Forward_Runway": "50.00",
+            "Reliability_Risk": "50.00"
+          },
+          "pre_gate_score": "50.00",
+          "final_score": null,
+          "score_status": "CONTROL_GAP_GATE_NOT_BOUND"
+        },
+        {
+          "company_id": "KRX:095340",
+          "axis_scores": {
+            "Business_Momentum": "56.00",
+            "Expectation_Surprise": "50.00",
+            "Market_Positioning": "50.00",
+            "Forward_Runway": "50.00",
+            "Reliability_Risk": "50.00"
+          },
+          "pre_gate_score": "51.50",
+          "final_score": null,
+          "score_status": "CONTROL_GAP_GATE_NOT_BOUND"
+        },
+        {
+          "company_id": "KRX:232140",
+          "axis_scores": {
+            "Business_Momentum": null,
+            "Expectation_Surprise": null,
+            "Market_Positioning": null,
+            "Forward_Runway": null,
+            "Reliability_Risk": null
+          },
+          "pre_gate_score": null,
+          "final_score": null,
+          "score_status": "INSUFFICIENT_INPUT"
+        }
+      ],
+      "certain_snapshot_state": "INCOMPLETE_COVERAGE",
+      "conditional_feature_rankability": "2/3",
+      "gap": [
+        "risk_gate_state missing for all rows",
+        "eligibility uses non-contract field/value eligibility='TRUE'",
+        "fixture absent from authorized_fixture_ids"
+      ]
+    },
+    "AAA-M3TOP3-GR-FX-12": {
+      "state": "EXACT_SCORE_ARITHMETIC_BOUND_RANKING_OUT_OF_SCOPE",
+      "company_id": "KRX:319660",
+      "axis_scores": {
+        "Business_Momentum": "40.00",
+        "Expectation_Surprise": "30.00",
+        "Market_Positioning": "100.00",
+        "Forward_Runway": "30.00",
+        "Reliability_Risk": "75.00"
+      },
+      "pre_gate_score": "51.00",
+      "final_score": "51.00",
+      "score_status": "RANKABLE"
+    },
+    "AAA-M3TOP3-GR-FX-13": {
+      "state": "EXACT_SCORE_ARITHMETIC_BOUND_RANKING_OUT_OF_SCOPE",
+      "company_id": "KRX:084370",
+      "axis_scores": {
+        "Business_Momentum": "56.00",
+        "Expectation_Surprise": "54.00",
+        "Market_Positioning": "60.00",
+        "Forward_Runway": "44.00",
+        "Reliability_Risk": "50.00"
+      },
+      "pre_gate_score": "53.30",
+      "final_score": "53.30",
+      "score_status": "RANKABLE"
+    },
+    "AAA-M3TOP3-GR-FX-14": {
+      "state": "EXACT_BOUND",
+      "rows": [
+        {
+          "company_id": "KRX:042700",
+          "axis_scores": {
+            "Business_Momentum": "86.00",
+            "Expectation_Surprise": "62.00",
+            "Market_Positioning": "50.00",
+            "Forward_Runway": "50.00",
+            "Reliability_Risk": "50.00"
+          },
+          "pre_gate_score": "62.00",
+          "final_score": "62.00",
+          "score_status": "RANKABLE",
+          "exact_rank": 1,
+          "top3": true,
+          "top10": true
+        },
+        {
+          "company_id": "KRX:031980",
+          "axis_scores": {
+            "Business_Momentum": "76.00",
+            "Expectation_Surprise": "56.00",
+            "Market_Positioning": "50.00",
+            "Forward_Runway": "50.00",
+            "Reliability_Risk": "50.00"
+          },
+          "pre_gate_score": "58.00",
+          "final_score": "58.00",
+          "score_status": "RANKABLE",
+          "exact_rank": 2,
+          "top3": true,
+          "top10": true
+        },
+        {
+          "company_id": "KRX:089030",
+          "axis_scores": {
+            "Business_Momentum": "66.00",
+            "Expectation_Surprise": "50.00",
+            "Market_Positioning": "50.00",
+            "Forward_Runway": "50.00",
+            "Reliability_Risk": "50.00"
+          },
+          "pre_gate_score": "54.00",
+          "final_score": "54.00",
+          "score_status": "RANKABLE",
+          "exact_rank": 3,
+          "top3": true,
+          "top10": true
+        },
+        {
+          "company_id": "KRX:232140",
+          "axis_scores": {
+            "Business_Momentum": "56.00",
+            "Expectation_Surprise": "44.00",
+            "Market_Positioning": "50.00",
+            "Forward_Runway": "50.00",
+            "Reliability_Risk": "50.00"
+          },
+          "pre_gate_score": "50.00",
+          "final_score": "50.00",
+          "score_status": "RANKABLE",
+          "exact_rank": 4,
+          "top3": false,
+          "top10": true
+        }
+      ],
+      "top3_set": [
+        "KRX:042700",
+        "KRX:031980",
+        "KRX:089030"
+      ],
+      "top10_diagnostic_view": [
+        "KRX:042700",
+        "KRX:031980",
+        "KRX:089030",
+        "KRX:232140"
+      ],
+      "coverage": "1.00"
+    }
+  }
+}

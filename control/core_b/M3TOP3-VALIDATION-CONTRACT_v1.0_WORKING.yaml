@@ -1,0 +1,108 @@
+contract_id: M3TOP3-VALIDATION-CONTRACT
+version: v1.0_WORKING
+status: RECOVERED_AND_FORMALIZED_NOT_FROZEN
+project: semiconductor-research
+owner_persona: SEMI-MODEL-VALIDATION-DESIGN-ARCHITECT
+as_of: '2026-08-15T22:52:00+09:00'
+source_bootstrap_packet_sha256: 73c3968d46c1f833bfe229bc50589507e28912e641026ce6d2474b755a863500
+primary_validation_metric:
+  name: TOP3_ACTUAL_TOP10_HIT_PERFORMANCE
+  ground_truth: 3M_MFE_RETURN_EXACT_RANK
+  reporting:
+    - TOP3_ACTUAL_TOP10_HIT_COUNT_PER_WINDOW
+    - AGGREGATE_TOP3_ACTUAL_TOP10_HIT_RATE
+hard_defense:
+  - WINDOW_CRITICAL_MISS_RATE
+  - TOP3_ACTUAL_TOP20_HIT_COUNT_RATE
+tail_defense:
+  - TOP3_WORST_ACTUAL_RANK
+  - RANK_GT_30_DIAGNOSTIC_COUNT
+  - RANK_GT_50_DIAGNOSTIC_COUNT
+  - DEEP_TAIL_FALSE_POSITIVES
+model_top10_health:
+  - MODEL_TOP10_ACTUAL_TOP10_HIT_COUNT
+  - MODEL_TOP10_ACTUAL_TOP20_HIT_COUNT
+  - MODEL_TOP10_ACTUAL_TOP50_HIT_COUNT
+  - MODEL_TOP10_RANK_GT_50_COUNT
+  - MODEL_TOP10_MEDIAN_ACTUAL_RANK
+  - MODEL_TOP10_WORST_ACTUAL_RANK
+path_investability_diagnostics:
+  - MFE
+  - MAE
+  - MAX_CLOSE_RETURN
+  - TERMINAL_RETURN
+  - TIME_TO_PEAK
+  - PEAK_TO_TERMINAL_GIVEBACK
+  - POST_PEAK_DRAWDOWN
+  - PEAK_PERSISTENCE
+stability_diagnostics:
+  - TOP3_OVERLAP
+  - TOP10_OVERLAP
+  - RANK_DISPLACEMENT
+  - CRITICAL_MISS_SENSITIVITY_UNDER_SMALL_PERTURBATION
+critical_miss:
+  binary_rule: MAX_ACTUAL_MFE_RANK_AMONG_M3TOP3_GT_20
+  severity_companion: WORST_ACTUAL_RANK
+risk_detection_metric: OPEN_DESIGN_ITEM
+risk_detection_direction:
+  - WARNING_RECALL
+  - FALSE_ALARMS
+  - MISSED_WARNINGS
+  - WARNING_LEAD_TIME
+  - RANK_DETERIORATION
+  - DEEP_TAIL_FAILURES
+calibration_metric: OPEN_DESIGN_ITEM
+turnover_metric: OPEN_DESIGN_ITEM
+coverage_metric: OPEN_DESIGN_ITEM
+no_tune_rule:
+  baseline_v1_must_be_frozen_before_actual_historical_outcomes_are_used_for_tuning: true
+  overwrite_v1_after_outcome_review: forbidden
+  changes_after_outcome_review_require_new_model_version: true
+  same_frozen_snapshots_used_for_version_comparison: true
+  retrospective_improvement_alone_sufficient_for_deployment: false
+  prospective_confirmation_required: true
+holdout_rule:
+  status: OPEN_DESIGN_ITEM
+  mandatory_before_v1_1_tuning_from_baseline_results: true
+walk_forward_rule:
+  status: OPEN_DESIGN_ITEM
+  daily_historical_replay_direction: ACCEPTED
+model_version_comparison:
+  same_frozen_snapshots: required
+  original_outputs_vs_replays: distinct
+  comparison_families:
+    - TOP10_IMPROVEMENT
+    - CRITICAL_MISS_REDUCTION
+    - DEEP_TAIL_REDUCTION
+    - PORTFOLIO_RETURN
+    - DRAWDOWN
+    - RISK_LEAD_TIME
+    - FALSE_ALARM
+    - TURNOVER
+    - STABILITY
+model_freeze_gate:
+  status: PARTIAL_OPEN_CONTRACT
+  minimum_requirements:
+    - MODEL_OBJECTIVE_FIXED
+    - FEATURE_SCHEMA_FIXED
+    - SCORER_SEMANTICS_FIXED
+    - WEIGHT_VERSION_FIXED
+    - RANKING_TOP3_TOP10_CONTRACT_FIXED
+    - CRITICAL_MISS_CONTRACT_FIXED
+    - SHARED_SNAPSHOT_INPUT_WINDOW_ENTRY_EXIT_OUTCOME_INTERFACES_RECONCILED
+    - NO_TUNE_BOUNDARY_FIXED
+    - BASELINE_COMPARISON_CONTRACT_DEFINED
+    - VALIDATION_DATASET_IDENTITY_FIXED
+    - PRICE_CA_U127_READINESS_GATES_SATISFIED
+    - REPLAY_REPRODUCIBILITY_DEMONSTRATED
+    - INDEPENDENT_VALIDATION_COMPLETED
+    - MATERIAL_BLOCKERS_DOCUMENTED
+    - CORE_B_FREEZE_RECOMMENDATION
+    - PROJECT_OWNER_FINAL_FREEZE_APPROVAL
+independent_validation:
+  designer: CORE_B
+  internal_design_checks_allowed: true
+  self_certify_independent_freeze_validation: false
+  independent_validator: SEMI-VALIDATION-AUDITOR
+actual_replay_status: NOT_EXECUTED
+ready_to_run_official_actual_replay: false
