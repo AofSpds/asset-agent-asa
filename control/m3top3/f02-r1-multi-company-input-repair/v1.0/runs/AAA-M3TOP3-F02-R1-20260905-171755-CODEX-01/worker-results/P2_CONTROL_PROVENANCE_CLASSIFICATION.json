@@ -1,0 +1,178 @@
+{
+  "schema_version": "AAA-M3TOP3-F02-R1-P2-CONTROL-PROVENANCE-CLASSIFICATION-v1.0",
+  "run_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01",
+  "classification_act_id": "F02-R1-P2-CTL-RECOVERY-20260905-1818",
+  "recorded_at_kst": "2026-09-05T18:18:00+09:00",
+  "authoring_persona": "AAA-CONTROL-ARCHITECT",
+  "current_persona_lock": "AAA-CONTROL-ARCHITECT (CTL)",
+  "worker_id": "p2_control",
+  "act_role": "P2_ADVISORY_CONTROL_DESIGN_CLASSIFICATION_ONLY",
+  "classification_state": "CONDITIONALLY_COMPATIBLE_REQUIRES_P3_IMPLEMENTATION_AND_P4_EXACT_VALIDATION",
+  "implementation_pass": false,
+  "paired_validation_state": "NOT_PERFORMED_BY_THIS_AUTHOR",
+  "independent_validation_state": "NOT_PERFORMED_BY_THIS_AUTHOR",
+  "scope": {
+    "local_only": true,
+    "source_actions_performed": 0,
+    "external_calls_performed": 0,
+    "code_edited": false,
+    "commits_created": 0,
+    "only_written_artifact": "worker-results/P2_CONTROL_PROVENANCE_CLASSIFICATION.json",
+    "reviewed_git_head": "8e0d7b60a48a1fd3076e87e167929f06c7ae6d61",
+    "reviewed_branch": "task/aaa/m3top3-f02-r1-multi-company-input-repair-20260905",
+    "reviewed_worktree": "C:/Users/ms1pk/dev/asset-agent-asa/asset-agent-asa/r1",
+    "owner_recovery_direction": "CONTINUE_EXISTING_RUN_NO_RERUN_NO_COMPLETED_SOURCE_SEARCH_REDO_PRESERVE_EXISTING_WORKING_STATE",
+    "existing_run_root_preserved": true
+  },
+  "authority_binding": {
+    "owner_d1_approval_commit": "3bb8c2368f64d93e5e748fd35497946b1cecd198",
+    "owner_d1_approval_blob": "f82095850a1d98c16ef5eb33ad91888344655fb4",
+    "approved_packet_blob": "8c410fe2aa6cedf1910d01f8bf4529ccb5cd29fb",
+    "owner_authorization_binding_sha256": "96aff4ada2cc2a816bbc0b2536d58b4fed54680489cb15f88f78e63598d59404",
+    "input_policy_r1_observed_sha256": "fb62b4afb0f4e3edddcbc8b95e15cd2ea4288be72b9a93c135a9b687f9e0d680",
+    "active_persistent_locator_commit": "5b2dd5c5ea5bf96eb22163a0598d6879fffada9e",
+    "active_organization_commit": "d7c490c373f2df356f31e4459c345328616b4eb3",
+    "active_shared_contract_commit": "4d70f6ae32604bcef3f4a8027074163d5e5c80cd",
+    "shared_contract_content_blob": "d7702c1491bded7b2b90e857007599c36bc58b7d",
+    "common_guard_blob": "2bff1b6e8431bc36064d3dfd31bc245a4cf4829f",
+    "common_guard_route": "G_01_EXISTING_HIGH_RISK_VALIDATION_FLOOR;G_06_EXACT_TARGET;G_07_INDEPENDENT_FIRST_PASS;G_10_NO_PASS_TRANSFER;G_11_IVA_INDEPENDENCE",
+    "current_pair": ["AAA-CONTROL-ARCHITECT", "AAA-CONTROL-VALIDATOR"],
+    "independent_role": "AAA-VALIDATION-AUDITOR",
+    "renewed_owner_approval_required_in_existing_scope": false
+  },
+  "risk_classification": {
+    "current_advisory_act": "BOUNDED_NON_EXECUTING_REVIEW",
+    "resulting_adapter_input_and_seal_change": "P0_CONTROL_PIT_ADMISSIBILITY_FAIL_CLOSED_AND_IMMUTABLE_LINEAGE_WITH_P1_MODEL_INPUT_IMPLEMENTATION",
+    "reason": "The remaining work changes source admission, source-root and custody profile, issuer-specific input mapping and exact model-input/seal lineage. Preserved formulas and cutoff do not reduce the PIT/provenance validation floor.",
+    "model_semantic_change_authorized": false,
+    "pit_cutoff_semantic_change_authorized": false,
+    "shared_contract_semantic_change_authorized": false,
+    "scope_expansion_required": false,
+    "automatic_full_replay_required": false,
+    "full_pc1_rerun_required": false
+  },
+  "mandatory_controls": [
+    {
+      "id": "CTL-R1-01-TEMPORAL",
+      "requirement": "Keep publication_at null and precision DATE_ONLY. Derive the exact KST closed-day interval from each source publication date; require latest_at <= 2024-08-09T23:59:59+09:00. Do not invent intraday time or substitute reporting-period end for public availability.",
+      "disposition": "COMPATIBLE_WITH_EXISTING_DATE_ONLY_KST_CLOSED_DAY_v1",
+      "evidence": "Four preserved Q1 covers: publication date at raw line 46, issuer at raw line 86, period at raw lines 24 and 28; cached 005290 predecessor manifest binds 2024-08-02."
+    },
+    {
+      "id": "CTL-R1-02-BOUNDED-Q2",
+      "requirement": "Bind completed source ledger actions and exact prior PC1 discovery receipt for Q2 disposition. Preserve both after-cutoff candidate exclusion and NOT_PROVEN_GLOBAL_ABSENCE. Q1 fallback means latest confirmed cutoff-safe quarter in the bounded set, not proof no other Q2 source exists.",
+      "disposition": "D1_Q1_FALLBACK_SUPPORTED_WITH_DISCLOSED_BOUNDED_EVIDENCE",
+      "evidence": "SRA-003160-0010; SRA-025560-0002; SRB-031980-0009; SRB-036200-0009; PC1 F02_DISCOVERY_RECEIPT.json blob 0ff2bc443e94f0e6241e33677eaac6e0093be4a8. Prior PC1 explicitly records 031980 and 036200 Aug14 half-year URLs."
+    },
+    {
+      "id": "CTL-R1-03-EXACT-SOURCE-AND-VERSION",
+      "requirement": "Bind company/code, legal issuer name, canonical KIND HTTPS URL, receipt identifier, report title/sequence, publication interval, raw byte size/SHA256/Git blob/UTF-8, acquisition ledger action and exact source version. Reject cross-issuer substitution and changed bytes. A selected source does not prove global absence of later corrections.",
+      "disposition": "P3_RUNTIME_BINDING_REQUIRED",
+      "evidence": "Five locally readable source hashes match the recorded manifest; source-specific cover and table contexts were inspected."
+    },
+    {
+      "id": "CTL-R1-04-TABLE-CELL-PERIOD",
+      "requirement": "Each numeric leaf must bind the exact raw source hash plus consolidated table, metric row, current/prior-year 3-month column, same-quarter periods, unit and sign. Bind raw physical lines or an equally deterministic source-hash-bound table/cell locator. Reject normalized-web-only line references, first number matches, standalone tables, adjacent cumulative or previous-quarter columns, and partial metric pairs.",
+      "disposition": "P3_RAW_LOCATOR_REBINDING_REQUIRED",
+      "evidence": "031980 raw table 4222, period 4235/4240, unit 4245, 3-month headers 4270/4276, revenue 4289/4295 and operating profit 4357/4363. 036200 raw table 4380, period 4393/4398, unit 4403, 3-month headers 4428/4434, revenue 4447/4453 and operating profit 4515/4521."
+    },
+    {
+      "id": "CTL-R1-05-RESTATEMENT-SIGN",
+      "requirement": "Preserve 003160 negative current operating profit and 025560 negative prior operating profit. For 025560 use the restated prior comparator displayed in the selected cutoff-safe Q1 consolidated statement, carrying the same-source reclassification note; do not silently substitute the unreclassified amount or post-cutoff restatement. Reject zero prior as the approved policy specifies; negative prior arithmetic/model interpretation remains MOD/MODV responsibility.",
+      "disposition": "SOURCE_DISCLOSED_RESTATEMENT_IS_TRACEABLE_NOT_AN_UNDISCLOSED_PROXY",
+      "evidence": "003160 raw line 6667 (1,836,830,457); 025560 raw line 4124 (442,977,057). 025560 raw line 23818 explains discontinued-operation reclassification; line 23874 is (448,371,497) before reclassification, line 23876 is (442,977,057) after it."
+    },
+    {
+      "id": "CTL-R1-06-UNIT-AND-DERIVATION",
+      "requirement": "Preserve original observed KRW values and KRW units for all four new issuers, and original KRW_MILLION values for 005290. If normalized values are materialized, exact Decimal scaling must be explicit derived lineage with source value, source unit, target unit and transform identifier; it must not be mislabeled as an untransformed observed value. No binary float, arbitrary rounding, sign removal, estimation or half-year subtraction.",
+      "disposition": "RAW_UNIT_PROFILE_PREFERRED;EXACT_DERIVED_SCALING_OPTION_ALLOWED_BY_D1",
+      "evidence": "All four selected Q1 tables state (단위 : 원); cached 005290 states 구분(단위 : 백만원, %)."
+    },
+    {
+      "id": "CTL-R1-07-CUSTODY-TRUTH",
+      "requirement": "Carry scientific_state EXPLORATORY_AFTER_W1_OUTCOME_EXPOSURE through policy, runtime manifest, model input summary, score/seal and completion report. Distinguish prior actor/session exposure from this act's access counter. Do not write actor-wide outcome_surface_accessed=false to satisfy the predecessor strict adapter. Record source retrieval/input derivation as evidence-bounded and outcome-free in this continuation only where supported. No future price/outcome paths or value reads in scoring.",
+      "disposition": "VERSIONED_EXPLORATORY_PROFILE_REQUIRED;NO_STRICT_BLIND_CUSTODY_CLAIM",
+      "evidence": "INPUT_POLICY_R1.json scientific_state; prior real_input_replay_v1.py custody assertion only accepts outcome_surface_accessed=false and therefore cannot be reused unchanged with false custody attestations."
+    },
+    {
+      "id": "CTL-R1-08-PATHS-AND-NO-RERUN",
+      "requirement": "Retain this existing F02-R1 run root and all completed ledger/raw evidence. Version the runtime path profile: new sources must resolve under this exact run sources root and match the fixed issuer/source mapping; cached control may resolve only to the exact 005290 predecessor file and digest. Reject absolute/path-traversal/symlink escape and arbitrary predecessor-root access. Fresh input and score/seal artifacts may be create-once descendants of this existing run; never overwrite PC1 or prior score/seal. Reuse completed retrievals without new source actions.",
+      "disposition": "EXISTING_WORKING_STATE_PRESERVED_WITH_NEW_VERSIONED_RUNTIME_BINDING",
+      "new_source_root": "control/m3top3/f02-r1-multi-company-input-repair/v1.0/runs/AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01/sources",
+      "only_external_cached_source": "control/m3top3/real-input-replay/v1.0/runs/AAA-M3TOP3-REAL-INPUT-STRICT-PRAGMATIC-20260905-114150-CODEX-01/sources/W1/KRX-005290/KRX_005290_20240802_PROVISIONAL_EARNINGS_70956.htm"
+    },
+    {
+      "id": "CTL-R1-09-CONSUMED-SCOPE",
+      "requirement": "Bind all eight F02 metric_pairs leaves per admitted issuer, with four observed numeric leaves and four derived control leaves. The executable consumed-path registry/resolver, not self-declared input consumed_fields, defines required scope. change_mode=RELATIVE and operator_id=M3TOP3_F02_RELATIVE_FROM_OBSERVED_PAIR_v1 require exact input lineage and registry binding; no extra model features may be introduced.",
+      "registry_blob": "5faa4d5739bf9ecb0c11d16f6d7d697ff3983977",
+      "registry_locator_note": "Use the exact readable Git blob when the historical composite commit:path locator does not resolve. Preserve its code-derived scope; do not fabricate successful path resolution.",
+      "disposition": "P3_MATERIALIZATION_AND_P4_ACTUAL_CONSUMER_COMPARISON_REQUIRED"
+    },
+    {
+      "id": "CTL-R1-10-BUNDLE-PRESERVATION",
+      "requirement": "Create a new executable bundle identity including the versioned R1 adapter/CLI, source mapping and relevant runtime profile/config identities. Prove preserved model/feature/scorer/weights/config components by exact VCS/blob and runtime hash comparison against the bound predecessor. Bind policy, mapping, manifest, sidecar, validation target and model inputs by exact identities in the score/seal chain; do not transfer an old validation PASS to new bytes.",
+      "preserved_config_sha256": "eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98",
+      "preserved_predecessor_bundle": "M3TOP3-REAL-INPUT-EXECUTABLE-BUNDLE-SHA256:4d828c0308bf892718832e9cb02d87ee7716b9b62c28d643b69b424b5f2b6a4a",
+      "disposition": "P3_NEW_RUNTIME_IDENTITY_P4_EXACT_VALIDATION_P5_CREATE_ONCE_SEAL"
+    },
+    {
+      "id": "CTL-R1-11-DENOMINATOR-AND-CLAIMS",
+      "requirement": "Preserve W1 population/eligibility denominator 127/57/8/62 and all unadmitted/missing feature states. Disclose 2024Q1 new issuers versus 2024Q2 cached control and only pool after MOD/MODV contract fit. Score/rank ceiling is F02-only observed-cohort provisional exploratory; no official Top3/Top10, U127 optimality, model performance, release, promotion or production claim.",
+      "disposition": "SCORING_CONDITIONAL_ON_MODEL_CONTRACT_FIT_AND_REQUIRED_VALIDATION"
+    },
+    {
+      "id": "CTL-R1-12-RECOVERY-ACCOUNTING",
+      "requirement": "Keep completed source actions append-only and reconcile exact unique action IDs. Existing 33 source-action units (10/5/9/9; cached control 0) and four new raw files totaling 4774865 bytes remain charged. HTTP telemetry not exposed by tools remains NOT_INSTRUMENTED, separate from source-action and browser counts. Recovery/local parsing must not be billed as fresh retrieval. An irrecoverable completed result needs an explicit durable loss classification before any permitted repeat.",
+      "disposition": "ALL_FIVE_SOURCE_HASHES_LOCALLY_RECOVERABLE;NO_SOURCE_REPEAT_NEEDED"
+    }
+  ],
+  "source_evidence": [
+    {"company_id":"KRX:003160","period":"2024Q1_VS_2023Q1","sha256":"2ab621a3862041c57040524aaa3c084c81304685015cbc2be7e6b57ba5fa3fe3","git_blob":"b99d90f62b47c52389356318ccb328395dcf1130","unit":"KRW","raw_table_line":6515,"period_lines":[6528,6533],"unit_line":6538,"three_month_column_lines":[6563,6569],"revenue_cell_lines":[6582,6588],"operating_profit_cell_lines":[6667,6673],"public_date":"2024-05-16","raw_hash_readback":"MATCH"},
+    {"company_id":"KRX:025560","period":"2024Q1_VS_2023Q1","sha256":"a547f8b383ecb85f39d5826ab08bf6641c6716a85ba12ddc90efb5c9f303537f","git_blob":"44a8179c1a003db97cc4e1bc733208edcc0b1df4","unit":"KRW","raw_table_line":3983,"period_lines":[3996,4001],"unit_line":4006,"three_month_column_lines":[4031,4037],"revenue_cell_lines":[4050,4056],"operating_profit_cell_lines":[4118,4124],"public_date":"2024-05-14","restated_prior_note_line":23818,"raw_hash_readback":"MATCH"},
+    {"company_id":"KRX:031980","period":"2024Q1_VS_2023Q1","sha256":"8323d301baa3f62a872f2dec7f846d98d0effc0e9e06f7ea6dca5c7c78a598a9","git_blob":"89a0ebd92b90207ba8e0f5e947f5350c92714039","unit":"KRW","raw_table_line":4222,"period_lines":[4235,4240],"unit_line":4245,"three_month_column_lines":[4270,4276],"revenue_cell_lines":[4289,4295],"operating_profit_cell_lines":[4357,4363],"public_date":"2024-05-16","raw_hash_readback":"MATCH"},
+    {"company_id":"KRX:036200","period":"2024Q1_VS_2023Q1","sha256":"63152e6f1ba5c1b063c6466b54c3d7b7382d948de0aa36f19f8a208a3cb58ab2","git_blob":"0e451a3feb018cc4d38bd53915d535a44674e267","unit":"KRW","raw_table_line":4380,"period_lines":[4393,4398],"unit_line":4403,"three_month_column_lines":[4428,4434],"revenue_cell_lines":[4447,4453],"operating_profit_cell_lines":[4515,4521],"public_date":"2024-05-10","raw_hash_readback":"MATCH"},
+    {"company_id":"KRX:005290","period":"2024Q2_VS_2023Q2","sha256":"5c361107cbd2dc35b236b5358595e036ecb1dd9dc8b06471bca7bf9e550c7db7","git_blob":"82be77ca6edb47695ca52ccf0ac2b1c69605129f","unit":"KRW_MILLION","raw_table_line":18,"unit_line":27,"quarter_column_lines":[35,37],"revenue_cell_lines":[42,45],"operating_profit_cell_lines":[59,62],"public_date":"2024-08-02","raw_hash_readback":"MATCH","role":"EXACT_CACHED_CONTROL_ONLY"}
+  ],
+  "q2_evidence_binding": {
+    "pc1_receipt_path": "control/m3top3/process-calibration/v1.0/runs/AAA-M3TOP3-PROCESS-CALIBRATION-PC1-20260905-143739-CODEX-01/F02_DISCOVERY_RECEIPT.json",
+    "pc1_receipt_git_blob": "0ff2bc443e94f0e6241e33677eaac6e0093be4a8",
+    "pc1_terminal_commit": "6b219f9f3a37dd89b26fc1d6ecec6b8eb890fa9f",
+    "cached_supplementary_evidence": [
+      {"company_id":"KRX:031980","filing_date":"2024-08-14","url":"https://kind.krx.co.kr/external/2024/08/14/003322/20240814010557/11012.htm","classification":"AFTER_CUTOFF_CANDIDATE_FROM_CACHED_DISCOVERY_RECEIPT_NOT_NEW_RAW_SOURCE"},
+      {"company_id":"KRX:036200","filing_date":"2024-08-14","url":"https://kind.krx.co.kr/external/2024/08/14/003029/20240814009619/11012.htm","classification":"AFTER_CUTOFF_CANDIDATE_FROM_CACHED_DISCOVERY_RECEIPT_NOT_NEW_RAW_SOURCE"}
+    ],
+    "scope": "Q2_PREFERENCE_DISPOSITION_ONLY_NOT_METRIC_VALUE_INPUT",
+    "global_q2_absence_state": "NOT_PROVEN",
+    "initial_review_question_resolution": "Central known-after-cutoff statement for 031980/036200 is supported by durable PC1 supplementary evidence; bind that exact receipt instead of treating worker-B ledger alone as the complete evidence set."
+  },
+  "required_validation_route": {
+    "pre_validation": "Freeze the P3 operative target commit/tree/blob set, acceptance criteria, source hashes, mapping/policy/bundle identities, preserve set and authorized-vs-actual touch evidence.",
+    "paired_domain_slices": [
+      {"role":"AAA-CONTROL-VALIDATOR","required":true,"scope":"PIT intervals, custody truth, source/issuer/version/cell binding, exact paths, immutable lineage, cached evidence reuse and control requirements."},
+      {"role":"AAA-MODEL-VALIDATOR","required":true,"scope":"D1 contract fit, heterogeneous quarter interpretation, negative/restated comparator semantics, consumed paths and model/feature/scorer/config/denominator preservation."},
+      {"role":"AAA-ENGINEERING-VALIDATOR","required":true,"scope":"Affected adapter/CLI implementation, fail-closed negative cases, exact Decimal unit handling, reproducibility and create-once seal behavior."},
+      {"role":"AAA-PMO-VALIDATOR","required":true,"scope":"Packet scope, no-rerun recovery accounting, exact handoff/validation target, completion claims and persistence/readback closure."}
+    ],
+    "research_slice": "Source evidence correctness is explicitly included in the CTLV target. If a separate Research PASS is claimed, obtain AAA-RESEARCH-VALIDATOR for that separate authoring result; this classification creates no Research PASS.",
+    "independent_l2": {"role":"AAA-VALIDATION-AUDITOR","required":true,"scope":"P0 PIT/provenance/immutable lineage, authorized-vs-actual preservation, exact-target validation and independent-act audit; no authoring or correction of target in the same validation act."},
+    "independence": "P2 authors and P3 implementers cannot self-issue paired or independent PASS. Role-scoped independent first passes use the same frozen target; PMO does not dictate verdicts; material corrections require a new target and affected recheck.",
+    "p5_permission": "Only after model contract fit and all applicable exact P4 receipts allow scoring. Otherwise persist reasoned score/seal nonexecution and the appropriate packet terminal status.",
+    "owner_l3": "D1 and continuation are already approved; no new approval inside preserved packet scope. Freeze/release/production remain outside scope."
+  },
+  "minimum_affected_negative_checks": [
+    "Post-cutoff interval or promoted precise timestamp is rejected.",
+    "Wrong issuer, source hash, source receipt, raw path escape or nonallowlisted cached path is rejected.",
+    "Wrong quarter, cumulative column, standalone basis, metric label, sign or normalized-web-only locator is rejected.",
+    "Missing/duplicate consumed leaf, missing operator/mode/derived lineage or registry mismatch is rejected.",
+    "Zero prior, nonfinite value, binary JSON float, untracked rounding or unproven scaling is rejected.",
+    "False blind custody state, future outcome field/path, changed model component or denominator is rejected.",
+    "Existing score/seal overwrite and bundle/input/mapping digest mismatch are rejected."
+  ],
+  "durable_input_refs": [
+    {"path":"worker-ledgers/source_research_a.jsonl","sha256":"5a71fc2fa25e20a5ffc66b72e015cb4de56d7fc3bb34adba2754fe9f51d9eb81"},
+    {"path":"worker-ledgers/source_research_b.jsonl","sha256":"5c06bfe4831510f642af39cb6f1aa9209e15bdf7c14aeaefa5195961c44ee73d"},
+    {"path":"worker-ledgers/source_research_a_result.json","sha256":"d84925e78e5fc7e20051a2fac7421e3b7ee0d269666bd7844db380ba96355603"},
+    {"path":"worker-results/source_research_b_result.json","sha256":"9b5f8d1bcb2140456a9b78de2c3758efdf52dd3cb754aa1ef4ada3e1d7d09f2a"}
+  ],
+  "terminal_disposition": "P2_CONTROL_DESIGN_REQUIREMENTS_COMPLETE;P3_IMPLEMENTATION_MAY_CONTINUE_IN_APPROVED_EXISTING_RUN;NO_IMPLEMENTATION_OR_VALIDATION_PASS_ISSUED"
+}

@@ -1,0 +1,180 @@
+{
+  "schema_version": "AAA-M3TOP3-F02-R1-P2-MODEL-MEANING-CLASSIFICATION-v1.0",
+  "artifact_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01-P2-MOD-RECOVERY-01",
+  "run_id": "AAA-M3TOP3-F02-R1-20260905-171755-CODEX-01",
+  "created_at": "2026-09-05T18:18:00+09:00",
+  "current_persona_lock": "AAA-MODEL-ARCHITECT (MOD)",
+  "worker_id": "p2_model",
+  "authoring_state": "COMPLETE_CLASSIFICATION_ONLY",
+  "disposition": "PASS_EXPLORATORY_POOLED_WITH_LIMITATIONS",
+  "classification_scope": "MODEL_MEANING_FIT_OF_PRESERVED_SOURCE_SHAPES_TO_OWNER_APPROVED_D1_AND_UNCHANGED_F02_OPERATOR",
+  "independent_validation_pass_created": false,
+  "paired_validation_state": "PENDING_EXACT_IMPLEMENTATION_TARGET_P4",
+  "independent_validation_state": "PENDING_EXACT_IMPLEMENTATION_TARGET_P4",
+  "score_execution_authorized_by_this_artifact_alone": false,
+  "authority_context": {
+    "owner_policy": "D1_ALREADY_APPROVED",
+    "active_organization_commit": "d7c490c373f2df356f31e4459c345328616b4eb3",
+    "active_shared_contract_commit": "4d70f6ae32604bcef3f4a8027074163d5e5c80cd",
+    "current_core_b_pair": ["AAA-MODEL-ARCHITECT", "AAA-MODEL-VALIDATOR"],
+    "working_branch": "task/aaa/m3top3-f02-r1-multi-company-input-repair-20260905",
+    "head_at_review_start": "8e0d7b60a48a1fd3076e87e167929f06c7ae6d61",
+    "run_continuation": "NO_RERUN_EXISTING_P1_EVIDENCE_REUSED",
+    "worker_source_actions": 0,
+    "future_outcome_reads": 0,
+    "only_worker_write": "worker-results/P2_MODEL_MEANING_CLASSIFICATION.json",
+    "shared_memory_or_worklog_mutated": false
+  },
+  "reviewed_evidence": {
+    "input_policy": {
+      "path_relative_to_run": "INPUT_POLICY_R1.json",
+      "sha256_at_review": "fb62b4afb0f4e3eddcbc8b95e15cd2ea4288be72b9a93c135a9b687f9e0d680"
+    },
+    "source_selection_matrix": {
+      "path_relative_to_run": "F02_SOURCE_SELECTION_MATRIX.json",
+      "sha256_at_review": "216b139ffbb63af8ec0743942db079ce81c991fb45b762820499f8604b4ec970"
+    },
+    "source_worker_a_result": {
+      "path_relative_to_run": "worker-ledgers/source_research_a_result.json",
+      "sha256": "d84925e78e5fc7e20051a2fac7421e3b7ee0d269666bd7844db380ba96355603"
+    },
+    "source_worker_b_result": {
+      "path_relative_to_run": "worker-results/source_research_b_result.json",
+      "sha256": "9b5f8d1bcb2140456a9b78de2c3758efdf52dd3cb754aa1ef4ada3e1d7d09f2a"
+    },
+    "feature_schema": {
+      "path": "control/core_b/M3TOP3-FEATURE-SCHEMA_v1.0_WORKING.yaml",
+      "git_blob": "2550f781c2a901c0faada95dfc4a788503ec669b",
+      "sha256_local_bytes": "624897f48b21e3a79ab219784a42e8d1fb1a91af070e8ec26e02b6918bbee8ea",
+      "clauses": ["F02_NUMERIC_BUSINESS_INFLECTION.raw_pit_inputs", "F02_NUMERIC_BUSINESS_INFLECTION.publication_availability_requirement", "F02_NUMERIC_BUSINESS_INFLECTION.transformation", "normalization_common.missing_rule"]
+    },
+    "consumed_path_registry_git_blob": "5faa4d5739bf9ecb0c11d16f6d7d697ff3983977",
+    "unchanged_implementation": [
+      {"path": "tools/m3top3/features_v1.py", "git_blob": "35104a7384c3ee6175136e95dded7f3237d69435", "sha256_local_bytes": "14bca2fecb4ec46cebc432a619af3388b8e8bab69ff7164dff5b52aed75dc981"},
+      {"path": "tools/m3top3/features_v1_narrow_patch.py", "git_blob": "b9017f5db0fb637c8a449d5ee3cb1c4a05481076", "sha256_local_bytes": "6109f320038eeebd93e02897b3ee2aceb286516b446708367daddbe1afa98e8f"},
+      {"path": "tools/m3top3/scorer_v1.py", "git_blob": "2a797ea705eeb1aef330754fb08ff2182297c139", "sha256_local_bytes": "0bb0fbd1628992b2d49d6f7e06b3cbad1fe470f5bab7f175a89b4691a4d96126"}
+    ]
+  },
+  "model_fit": {
+    "metric_choice": {
+      "disposition": "COMPATIBLE",
+      "metrics": ["revenue", "operating_profit"],
+      "reason": "Both are explicit realized F02 inputs. Every issuer uses the same two metrics, consolidated basis, direct three-month current and prior-year same-quarter columns. No operating margin, net income, backlog or utilization proxy is substituted."
+    },
+    "period_heterogeneity": {
+      "disposition": "COMPATIBLE_FOR_D1_EXPLORATORY_POOLED_SCORING_WITH_DISCLOSURE",
+      "new_issuers": "2024Q1_VS_2023Q1",
+      "cached_control": "2024Q2_VS_2023Q2",
+      "same_snapshot_cutoff": "2024-08-09T23:59:59+09:00",
+      "reason": "The F02 schema requires the appropriate prior comparable period for each realized metric; it does not prescribe an identical fiscal quarter across all issuers. D1 explicitly chooses the latest confirmed cutoff-safe realized quarter in the bounded source set, with Q2 preferred and Q1 fallback. Each observed pair is internally same-quarter, same-basis and three months, and enters the same W1 eligible snapshot. The resulting common object is latest supported year-over-year realized change, not a common-quarter cross-section.",
+      "q2_absence_claim": "NOT_PROVEN_GLOBALLY;PRESERVE_BOUNDED_NO_ADMISSIBLE_RESULT_AND_AFTER_CUTOFF_CANDIDATE_EVIDENCE",
+      "limitations": ["UNEQUAL_INFORMATION_AGE_Q1_VS_Q2", "SEASONALITY_CAN_DIFFER_ACROSS_QUARTERS_DESPITE_WITHIN_ISSUER_YOY_MATCH", "BUSINESS_MIX_AND_EQUIPMENT_RECOGNITION_LUMPINESS", "SMALL_OBSERVED_COHORT_SENSITIVE_PERCENTILE_RANKS"]
+    },
+    "unit_and_operator": {
+      "disposition": "COMPATIBLE_WITH_RAW_UNIT_PRESERVATION",
+      "change_mode": "RELATIVE",
+      "operator_id": "M3TOP3_F02_RELATIVE_FROM_OBSERVED_PAIR_v1",
+      "unchanged_formula": "(Decimal(current) - Decimal(prior)) / abs(Decimal(prior))",
+      "formula_source": "tools/m3top3/features_v1_narrow_patch.py:FeatureEngineV1NarrowPatch.f02",
+      "new_issuer_pair_unit": "KRW",
+      "cached_control_pair_unit": "KRW_MILLION",
+      "conversion_required": false,
+      "reason": "RELATIVE change is dimensionless. Multiplying both values in one pair by the same positive exact unit scale cancels algebraically. Raw KRW new-issuer pairs may therefore coexist with raw KRW_MILLION control pairs. Both values within each pair must have the same unit, currency, accounting basis and period length. Preserve raw signed Decimal strings; no rounding or binary float conversion is needed.",
+      "prior_zero": "REJECT_REVIEW_REQUIRED",
+      "sign_rule": "PRESERVE_SIGN_IN_CURRENT_AND_PRIOR;ABS_APPLIES_ONLY_TO_FORMULA_DENOMINATOR",
+      "reporting_rule": "Revenue may be reported as YoY percent. For negative-prior operating profit label the percentage as signed change relative to absolute prior and explicitly disclose turnaround; do not imply a conventional positive-base profit growth rate."
+    },
+    "normalization": {
+      "disposition": "USE_UNCHANGED_ENGINE",
+      "rule": "UNCHANGED_5_95_WINSORIZATION_THEN_PERCENTILE_PER_METRIC_THEN_MEDIAN_OF_REVENUE_AND_OPERATING_PROFIT_PERCENTILES",
+      "universe_rule": "RETAIN_ALL_127_RECORDS_AND_57_ELIGIBLE_DENOMINATOR;ONLY_ADMISSIBLE_AVAILABLE_F02_VALUES_ENTER_OBSERVED_METRIC_PERCENTILES",
+      "missingness": "UNOBSERVED_FEATURES_AND_ISSUERS_REMAIN_MISSING_OR_NOT_ASSESSED;NO_ZERO_FILL",
+      "claim_ceiling": "F02_ONLY_OBSERVED_COHORT_PROVISIONAL;NOT_OFFICIAL_TOP3_TOP10_U127_OPTIMAL_OR_MODEL_PERFORMANCE"
+    }
+  },
+  "issuer_dispositions": [
+    {
+      "company_id": "KRX:003160",
+      "disposition": "ADMISSIBLE_MODEL_MEANING_WITH_LIMITATIONS",
+      "source_sha256": "2ab621a3862041c57040524aaa3c084c81304685015cbc2be7e6b57ba5fa3fe3",
+      "source_git_blob": "b99d90f62b47c52389356318ccb328395dcf1130",
+      "raw_html_context_lines": "6515-6676",
+      "periods": ["2024Q1", "2023Q1"],
+      "unit": "KRW",
+      "revenue_pair": ["34732575950", "39216899579"],
+      "operating_profit_pair": ["-1836830457", "865831578"],
+      "meaning": "Revenue declines and operating profit changes from profit to loss. The unchanged signed RELATIVE operator produces negative changes; parentheses must parse as negative current operating profit.",
+      "limitations": ["Q1_FALLBACK", "PROFIT_TO_LOSS", "BASE_EFFECT_AND_ONE_QUARTER_MIX_RISK"]
+    },
+    {
+      "company_id": "KRX:025560",
+      "disposition": "ADMISSIBLE_MODEL_MEANING_WITH_RESTATED_COMPARATOR_AND_TURNAROUND_DISCLOSURE",
+      "source_sha256": "a547f8b383ecb85f39d5826ab08bf6641c6716a85ba12ddc90efb5c9f303537f",
+      "source_git_blob": "44a8179c1a003db97cc4e1bc733208edcc0b1df4",
+      "raw_html_context_lines": "3983-4127",
+      "restatement_context_lines": "13209;23818;23840-23844;23872-23876",
+      "periods": ["2024Q1", "2023Q1"],
+      "unit": "KRW",
+      "revenue_pair": ["5162565692", "4785829491"],
+      "operating_profit_pair": ["2040268633", "-442977057"],
+      "prior_operating_profit_before_restatement": "-448371497",
+      "prior_operating_profit_reclassification_adjustment": "5394440",
+      "meaning": "Use the comparative amount actually displayed in the cutoff-safe 2024 Q1 consolidated statement. The same source discloses discontinued-operation reclassification and the adjustment from -448,371,497 to -442,977,057 KRW. This is historical restatement knowledge available by W1, not future restatement knowledge. Revenue is unchanged by the disclosed reclassification. The negative prior denominator is nonzero; the existing abs(prior) formula measures the improvement from loss to profit without reversing its sign.",
+      "limitations": ["Q1_FALLBACK", "LOSS_TO_PROFIT_TURNAROUND", "PRIOR_OPERATING_PROFIT_RESTATED_IN_SELECTED_SOURCE", "LARGE_RELATIVE_CHANGE_FROM_SMALL_LOSS_BASE", "NO_CLAIM_OF_CONVENTIONAL_POSITIVE_BASE_PROFIT_GROWTH"]
+    },
+    {
+      "company_id": "KRX:031980",
+      "disposition": "ADMISSIBLE_MODEL_MEANING_WITH_LIMITATIONS",
+      "source_sha256": "8323d301baa3f62a872f2dec7f846d98d0effc0e9e06f7ea6dca5c7c78a598a9",
+      "source_git_blob": "89a0ebd92b90207ba8e0f5e947f5350c92714039",
+      "raw_html_context_lines": "4222-4366",
+      "raw_current_prior_cell_lines": {"revenue": [4289, 4295], "operating_profit": [4357, 4363]},
+      "periods": ["2024Q1", "2023Q1"],
+      "unit": "KRW",
+      "revenue_pair": ["38094447594", "14913281644"],
+      "operating_profit_pair": ["15420952017", "3496296368"],
+      "limitations": ["Q1_FALLBACK", "LARGE_YOY_CHANGE_AND_BASE_EFFECT_RISK", "P3_MUST_BIND_RAW_TABLE_CELL_LOCATORS"]
+    },
+    {
+      "company_id": "KRX:036200",
+      "disposition": "ADMISSIBLE_MODEL_MEANING_WITH_LIMITATIONS",
+      "source_sha256": "63152e6f1ba5c1b063c6466b54c3d7b7382d948de0aa36f19f8a208a3cb58ab2",
+      "source_git_blob": "0e451a3feb018cc4d38bd53915d535a44674e267",
+      "raw_html_context_lines": "4380-4524",
+      "raw_current_prior_cell_lines": {"revenue": [4447, 4453], "operating_profit": [4515, 4521]},
+      "periods": ["2024Q1", "2023Q1"],
+      "unit": "KRW",
+      "revenue_pair": ["55186952755", "51753687853"],
+      "operating_profit_pair": ["4559702713", "4333422148"],
+      "limitations": ["Q1_FALLBACK", "ONE_QUARTER_MIX_AND_SEASONALITY_RISK", "P3_MUST_BIND_RAW_TABLE_CELL_LOCATORS"]
+    },
+    {
+      "company_id": "KRX:005290",
+      "disposition": "EXACT_CACHED_CONTROL_REUSE_WITH_PROVISIONAL_DISCLOSURE",
+      "source_sha256": "5c361107cbd2dc35b236b5358595e036ecb1dd9dc8b06471bca7bf9e550c7db7",
+      "source_git_blob": "82be77ca6edb47695ca52ccf0ac2b1c69605129f",
+      "raw_html_context_lines": "21-62;164",
+      "periods": ["2024Q2", "2023Q2"],
+      "unit": "KRW_MILLION",
+      "revenue_pair": ["355414", "331317"],
+      "operating_profit_pair": ["49972", "45565"],
+      "limitations": ["PRE_AUDIT_PROVISIONAL_REALIZED_EARNINGS", "Q2_WHILE_NEW_ISSUERS_ARE_Q1", "EXACT_CACHE_ONLY_NO_REFETCH"]
+    }
+  ],
+  "required_implementation_conditions": [
+    {"id": "MOD-P3-01", "condition": "Materialize exactly revenue and operating_profit current, prior, change_mode=RELATIVE and the bound operator_id for each admitted issuer. Keep all other features, weights, scorer and eligibility states unchanged."},
+    {"id": "MOD-P3-02", "condition": "Bind every consumed numeric leaf to the preserved source hash, issuer, publication bound, consolidated table, same-quarter current/prior three-month column, row label, unit and exact raw cell. Bind mode/operator leaves to the approved derivation policy and implementation lineage."},
+    {"id": "MOD-P3-03", "condition": "Retain raw signed Decimal strings in each source's native unit; if exact scaling is used, record it for both values and prove the dimensionless relative result is invariant. Do not round, strip signs, use half-year subtraction or substitute a metric."},
+    {"id": "MOD-P3-04", "condition": "Carry per-issuer reporting periods, Q1 fallback bounded evidence, 025560 prior restatement/turnaround and 005290 provisional source status into FEATURE_SIDECAR and the completion report."},
+    {"id": "MOD-P3-05", "condition": "Run the existing unchanged engine against the governed full W1 snapshot after validation gates permit; preserve 127/57/8/62 denominators and all previous PC1/score/seal artifacts."}
+  ],
+  "required_p4_validation_conditions": [
+    {"id": "MOD-P4-01", "condition": "Independent source-to-leaf readback confirms all 20 observed numeric cells, ten same-unit/same-metric/same-basis/same-quarter pairs, publication bounds and source byte hashes, including raw locator rebinding for worker B sources."},
+    {"id": "MOD-P4-02", "condition": "Affected tests prove negative-current deterioration, negative-prior turnaround, prior-zero rejection, wrong period/basis/unit/issuer/hash/column rejection and raw-unit relative scale invariance without modifying model arithmetic."},
+    {"id": "MOD-P4-03", "condition": "Exact-target preservation evidence confirms unchanged model/schema/features/scorer/weight config, missingness behavior, eligibility denominator and future-outcome firewall; tests alone do not establish preservation."},
+    {"id": "MOD-P4-04", "condition": "Paired domain review and required independent audit must disposition the materialized policy/adapter/input/sidecar bundle before P5 scoring. This author classification is not their validation receipt."},
+    {"id": "MOD-P4-05", "condition": "Verify F02 per-metric percentile/median traces and output coverage using the unchanged engine, label all ranks observed-cohort provisional, and prevent official Top3/Top10 or full-universe scientific performance claims despite any engine-generated flags."},
+    {"id": "MOD-P4-06", "condition": "If control validation cannot establish publication/provenance or contract fit for a candidate, remove it from admitted input without imputation and re-evaluate whether the remaining validated cohort satisfies the permitted P5/terminal requirements."}
+  ],
+  "terminal_for_this_worker": "P2_MODEL_MEANING_CLASSIFICATION_COMPLETE_IMPLEMENTATION_AND_VALIDATION_PENDING"
+}
