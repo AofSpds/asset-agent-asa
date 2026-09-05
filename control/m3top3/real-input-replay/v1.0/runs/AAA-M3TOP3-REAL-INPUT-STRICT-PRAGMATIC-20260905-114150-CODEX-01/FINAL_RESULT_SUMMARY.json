@@ -1,0 +1,80 @@
+{
+  "schema_version": "M3TOP3-REAL-INPUT-REPLAY-FINAL-SUMMARY-v1.0",
+  "pmo_run_id": "AAA-M3TOP3-REAL-INPUT-STRICT-PRAGMATIC-20260905-114150-CODEX-01",
+  "as_of_kst": "2026-09-05T13:58:16.7580074+09:00",
+  "terminal_status": "PARTIAL_NONEMPTY_SCORE_ONLY",
+  "terminal_status_qualification": "PRELIMINARY_RAW_OUTCOME_DIAGNOSTIC_MEASURED_BUT_CONTRACT_EXACT_OUTCOME_UNMEASURED",
+  "actual_start_at_kst": "2026-09-05T11:41:50.2453872+09:00",
+  "actual_outcome_finished_at_kst": "2026-09-05T13:54:36.672287+09:00",
+  "branch": "task/aaa/m3top3-real-input-replay-20260905",
+  "reviewed_code_commit": "c15cbfa9bbedcb3b388b9d101b269ced2fc83bc5",
+  "score_and_seal_commit": "0dfef7b81566e6ec018994d5597f3f8f923944d1",
+  "successor_executable_bundle_identity": "M3TOP3-REAL-INPUT-EXECUTABLE-BUNDLE-SHA256:4d828c0308bf892718832e9cb02d87ee7716b9b62c28d643b69b424b5f2b6a4a",
+  "preserved_predecessor": {
+    "commit": "79b46dc1f63f1cd215cc0ebc0c91b4ec09e7dc71",
+    "zero_scoreable_output_tree": "1d73cc942a3524571ea214724c887c3964dca13f",
+    "executable_bundle_identity": "M3TOP3-EXECUTABLE-BUNDLE-SHA256:82266d51a64382cbd34ee68872a3cd3e3f640c6ff438e84416906f8b8a8ab9c0"
+  },
+  "strict": {
+    "window": "W1",
+    "outer_count": 127,
+    "include_count": 57,
+    "proven_exclusion_count": 8,
+    "unresolved_exclusion_count": 62,
+    "observed_numeric_leaf_count": 4,
+    "derived_control_leaf_count": 4,
+    "calculated_relative_change_count": 2,
+    "estimated_leaf_count": 0,
+    "missing_feature_block_count": 512,
+    "scoreable_count": 1,
+    "coverage": "0.01754385964912280701754385965",
+    "ranking_status": "INCOMPLETE_COVERAGE",
+    "official_top3_state": "NOT_AVAILABLE_INCOMPLETE_57_ROW_SCORE_COVERAGE",
+    "measurement_cohort_count": 1,
+    "measurement_cohort_policy": "ALL_SCOREABLE_PRECOMMITTED_NO_SUBSTITUTION",
+    "selection_seal_id": "m3selection_5bae1c9cb07ecc0dad46262813f4198e"
+  },
+  "scored_item": {
+    "company_id": "KRX:005290",
+    "final_score": "50.00",
+    "score_status": "PROVISIONAL_MISSING_FEATURES",
+    "feature_coverage_ratio": "0.1",
+    "revenue_relative_change": "0.07273094951360781366485873046",
+    "operating_profit_relative_change": "0.09671897289586305278174037090"
+  },
+  "outcome": {
+    "state": "PRELIMINARY_RAW_PRICE_MEASURED_CA_UNVERIFIED",
+    "execution_proof_state": "DURABLE_SELECTION_SEAL_AND_EXACT_PRICE_BUFFER_VERIFIED",
+    "comparison_complete_raw_path_count": 57,
+    "selected_item_raw_measured_count": 1,
+    "selected_contract_exact_outcome_count": 0,
+    "raw_unadjusted_mfe_return": "0.052147239263803680981595092",
+    "w1_include57_raw_unadjusted_mfe_rank": 55,
+    "raw_unadjusted_horizon_close_return": "-0.1947852760736196319018404908",
+    "raw_unadjusted_exit_open_return": "-0.1993865030674846625766871166",
+    "actual_mfe_exact_rank": null,
+    "mae_return": null,
+    "corporate_action_state": "UNVERIFIED_NOT_ASSUMED_NONE",
+    "outcome_semantic_sha256": "e80fe827b0f9f57d881a8ca230a948237be5392964cf10d64f12813e5716b8f6"
+  },
+  "pragmatic": {
+    "status": "NO_DEFENSIBLE_ESTIMATE_EXECUTED",
+    "lane_state": "PRAGMATIC_DEFERRED_POLICY_NOT_BOUND",
+    "sensitivity_executed": false,
+    "strict_blocked": false
+  },
+  "validation": {
+    "final_affected_tests": "71/71 PASS",
+    "test_case_executions_total": 585,
+    "independent_review": "PASS_NO_RESIDUAL_P0_P1",
+    "gf09_promoted": false
+  },
+  "resource_accounting": {
+    "source_documents_admitted": 1,
+    "source_document_limit": 24,
+    "source_network_attempts": 18,
+    "source_network_attempt_limit": 40,
+    "runtime_package_install_attempts": 2,
+    "token_cru": "NOT_INSTRUMENTED"
+  }
+}
