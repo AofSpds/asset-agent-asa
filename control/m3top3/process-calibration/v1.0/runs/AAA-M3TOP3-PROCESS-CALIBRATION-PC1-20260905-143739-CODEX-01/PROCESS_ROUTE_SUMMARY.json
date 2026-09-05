@@ -1,0 +1,41 @@
+{
+  "schema_version": "M3TOP3-PROCESS-ROUTE-SUMMARY-v1.0",
+  "run_id": "AAA-M3TOP3-PROCESS-CALIBRATION-PC1-20260905-143739-CODEX-01",
+  "as_of_kst": "2026-09-05T14:37:58.7049145+09:00",
+  "state": "P0_BASELINE_FROZEN_EXECUTION_NOT_YET_STARTED",
+  "baseline_scoreable_rows": 1,
+  "terminal_scoreable_rows": null,
+  "route_order": [
+    "R-CACHE-LOCAL",
+    "R-KIND-OFFICIAL-F02",
+    "R-PARSE-KIND-SAME-FORMAT",
+    "R-PIT-ADMISSION",
+    "R-SIDECAR-MATERIALIZE",
+    "R-SCORE-SEAL-UNCHANGED",
+    "R-KRX-CA-COMPARABILITY"
+  ],
+  "routes": [],
+  "items": [
+    {"company_id":"KRX:003160","lane":"F02_OFFICIAL_SOURCE","status":"NOT_STARTED"},
+    {"company_id":"KRX:025560","lane":"F02_OFFICIAL_SOURCE","status":"NOT_STARTED"},
+    {"company_id":"KRX:031980","lane":"F02_OFFICIAL_SOURCE","status":"NOT_STARTED"},
+    {"company_id":"KRX:036200","lane":"F02_OFFICIAL_SOURCE","status":"NOT_STARTED"},
+    {"company_id":"KRX:005290","lane":"CA_OUTCOME_COMPARABILITY_ONLY","status":"NOT_STARTED"}
+  ],
+  "metrics": {
+    "retrieval_hit_rate": null,
+    "pit_admission_yield": null,
+    "transform_success_rate": null,
+    "scoreability_gain": null,
+    "scoreable_rows_per_wall_hour": null,
+    "scoreable_rows_per_active_hour": "NOT_INSTRUMENTED",
+    "coverage_gain_per_wall_hour": null,
+    "retry_rate": null,
+    "cache_hit_rate": null,
+    "duplicate_fetch_rate": null,
+    "validation_rework_ratio": "NOT_INSTRUMENTED",
+    "no_evidence_repeat_count": 0,
+    "route_switch_count": 0,
+    "token_or_cru_per_scoreable_row": "NOT_INSTRUMENTED"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": "AAA-PMO-PROGRESS-BASELINE-PLAN-v1.0",
+  "run_id": "AAA-M3TOP3-PROCESS-CALIBRATION-PC1-20260905-143739-CODEX-01",
+  "frozen_at_kst": "2026-09-05T14:37:58.7049145+09:00",
+  "total_frozen_ewu": 100,
+  "overall_planned_wall_p50": "PT1H35M",
+  "overall_planned_wall_p90": "PT3H10M",
+  "overall_timing_confidence": "LOW",
+  "planned_cru_p50": "NOT_CALIBRATED",
+  "planned_cru_p90": "NOT_CALIBRATED",
+  "first_30_minute_target_kst": "2026-09-05T15:07:39.3805426+09:00",
+  "stages": [
+    {"id":"P0","name":"BASELINE_FREEZE","ewu":10,"planned_wall_p50":"PT10M","planned_wall_p90":"PT20M","timing_confidence":"HIGH","dependencies":[],"completion_evidence":["PROCESS_METRIC_DEFINITIONS.json","P0 checkpoint","exact predecessor and bundle identity"],"terminal_rule":"P0_COMPLETE_BEFORE_MATERIAL_ROUTE_EXECUTION"},
+    {"id":"P1","name":"DISCOVERY_AND_ACQUISITION","ewu":25,"planned_wall_p50":"PT25M","planned_wall_p90":"PT45M","timing_confidence":"LOW","dependencies":["P0"],"completion_evidence":["per-attempt ledger","first admitted source or exact failing stage","P1 checkpoint"],"terminal_rule":"FOUR_F02_ITEMS_HAVE_BOUNDED_DISCOVERY_STATE_AND_P1_RECORDED"},
+    {"id":"P2","name":"PARSE_ADMIT_AND_FIRST_SCORE_SUCCESS","ewu":25,"planned_wall_p50":"PT20M","planned_wall_p90":"PT40M","timing_confidence":"LOW","dependencies":["P1"],"completion_evidence":["source hashes","sidecar lineage","first new scoreable timing or NOT_APPLICABLE reason"],"terminal_rule":"FIRST_NEW_SCOREABLE_ROW_COMPLETES_OR_ALL_F02_ROUTES_TERMINALIZE"},
+    {"id":"P3","name":"FIVE_ITEM_BATCH_TERMINAL","ewu":15,"planned_wall_p50":"PT10M","planned_wall_p90":"PT25M","timing_confidence":"LOW","dependencies":["P1"],"completion_evidence":["terminal disposition for all five items","per-route summary","CA result"],"terminal_rule":"ALL_FIVE_ITEMS_TERMINAL"},
+    {"id":"P4","name":"AFFECTED_VALIDATION_CLOSE","ewu":15,"planned_wall_p50":"PT15M","planned_wall_p90":"PT30M","timing_confidence":"MEDIUM","dependencies":["P2","P3"],"completion_evidence":["exact fresh checks","bundle byte identity","findings and test execution count"],"terminal_rule":"NO_UNRESOLVED_IN_SCOPE_VALIDATION_BLOCKER"},
+    {"id":"P5","name":"POST_RUN_CALIBRATION","ewu":10,"planned_wall_p50":"PT15M","planned_wall_p90":"PT30M","timing_confidence":"MEDIUM","dependencies":["P4"],"completion_evidence":["completed tuning report","plan-vs-actual","next Window changes"],"terminal_rule":"P5_ARTIFACTS_COMPLETE"}
+  ]
+}
