@@ -1,0 +1,54 @@
+{
+  "pmo_run_id": "AAA-M3TOP3-FIRST-SCORECARD-20260905-093656-CODEX-01",
+  "implementation_commit": "bced851e8d1bb7f10c6441752aabbe66550fb91f",
+  "report_kind": "PRE_REVIEW_AFFECTED_ENGINEERING_CHECKS",
+  "recorded_at_kst": "2026-09-05T10:26:05.5312303+09:00",
+  "scope": [
+    "existing v1 contract/feature/scorer behavior",
+    "bounded F06 identity hardening",
+    "coverage-limited replay population and missingness adapter",
+    "Golden independent arithmetic plus GF08/GF14 production scorer boundary"
+  ],
+  "not_run": [
+    "prior unchanged 261/75/57/400 full suites",
+    "global validation",
+    "production or release validation",
+    "historical outcome metrics"
+  ],
+  "command": "python -m unittest tools.m3top3.tests.test_model_v1 tools.m3top3.tests.test_narrow_fixes_v1 tools.m3top3.tests.test_coverage_limited_replay_v1 tools.m3top3.tests.test_golden_scorecard_oracle_v1 -v",
+  "final_result": {
+    "tests_run": 45,
+    "passed": 45,
+    "failed": 0,
+    "errors": 0,
+    "elapsed_seconds": 0.883,
+    "status": "PASS"
+  },
+  "earlier_nonterminal_findings": [
+    {
+      "finding": "restored config working-tree CRLF bytes did not match the exact raw config SHA required by the runtime test",
+      "disposition": "config materialized with exact LF bytes; raw SHA-256 now eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98; rerun PASS"
+    },
+    {
+      "finding": "source eligibility label is INELIGIBLE_BY_TRADABILITY rather than a normalized INELIGIBLE token",
+      "disposition": "adapter preserves exact source token and maps it only to outer EXCLUDE_PROVEN; rerun PASS"
+    },
+    {
+      "finding": "U127 contains alphanumeric six-character KRX codes such as 0017J0",
+      "disposition": "identity validator accepts exact uppercase alphanumeric KRX codes without numeric-only normalization; rerun PASS"
+    }
+  ],
+  "golden": {
+    "exact_bound": [
+      "AAA-M3TOP3-GR-FX-08",
+      "AAA-M3TOP3-GR-FX-12",
+      "AAA-M3TOP3-GR-FX-13",
+      "AAA-M3TOP3-GR-FX-14"
+    ],
+    "explicit_control_gap": [
+      "AAA-M3TOP3-GR-FX-09"
+    ],
+    "state": "PASS_WITH_EXPLICIT_GF09_CONTROL_GAP"
+  },
+  "ready_for_one_affected_only_independent_review": true
+}
