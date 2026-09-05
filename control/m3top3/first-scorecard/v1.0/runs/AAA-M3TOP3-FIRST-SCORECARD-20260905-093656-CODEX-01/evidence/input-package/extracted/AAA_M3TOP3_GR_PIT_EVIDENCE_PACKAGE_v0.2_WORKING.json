@@ -1,0 +1,562 @@
+{
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "target_model": "M3TOP3-v1.0",
+  "authoring_owner": "AAA-RESEARCH-ORCHESTRATOR",
+  "validation_owner": "AAA-RESEARCH-VALIDATOR",
+  "created_at": "2026-08-19T02:53:00+09:00",
+  "source_work_packet": "AAA_M3TOP3_v1_GOLDEN_RESEARCH_PACKAGE_INPUT_COMPLETENESS_SUCCESSOR_AUTHORING_v1.0",
+  "source_work_packet_citation": "turn71file0",
+  "source_control_recovery": "AAA_M3TOP3_v1_GOLDEN_REPLAY_EXACT_CONTROL_BINDING_RECOVERY_v1.1 / turn71file0",
+  "source_model_reconciliation": "AAA_M3TOP3_v1_GOLDEN_REPLAY_CTL_EXACT_SOURCE_MODEL_RECONCILIATION_v1.0 / turn73file0",
+  "model_source_state": "EXACT_CURRENT_NORMATIVE_MODEL_SEMANTICS_RECOVERED_NOT_FROZEN_RELEASE",
+  "model_normative_source_set": {
+    "SC-01_MODEL_IDENTITY": [
+      {
+        "id": "M3TOP3-MODEL-CONTRACT_v1.0_WORKING",
+        "git_blob": "a5bc212aa07166db46b38070f54737cb47a7f090"
+      },
+      {
+        "id": "M3TOP3-NO-TUNE-BASELINE-LOCK_v1.2_WORKING",
+        "git_blob": "9cdbda6180661d8bc9214ae32cde5246ef6a23aa"
+      }
+    ],
+    "SC-02_FEATURE_MISSINGNESS": [
+      {
+        "id": "M3TOP3-FEATURE-SCHEMA_v1.0_WORKING",
+        "git_blob": "2550f781c2a901c0faada95dfc4a788503ec669b"
+      },
+      {
+        "id": "M3TOP3-FEATURE-INPUT-REGISTRY_v1.0_WORKING",
+        "git_blob": "5faa4d5739bf9ecb0c11d16f6d7d697ff3983977"
+      },
+      {
+        "id": "M3TOP3-PIT-CONSUMED-PROVENANCE-CONTRACT_v1.0_WORKING",
+        "git_blob": "b7a00087f9b9985d6d5523bf6524361e5ae620fe"
+      }
+    ],
+    "SC-03_SCORER_WEIGHT": [
+      {
+        "id": "M3TOP3-SCORER-CONTRACT_v1.0_WORKING",
+        "git_blob": "18ecdefbb7f8fddaa3d7189494fab9c00547d59e"
+      },
+      {
+        "id": "M3TOP3-WEIGHT-VERSION_v1.0_WORKING",
+        "git_blob": "76974860c75f5e164b49639208f8950595c71981"
+      }
+    ],
+    "SC-04_RANKING_SELECTION": [
+      {
+        "id": "M3TOP3-SCORER-CONTRACT_v1.0_WORKING",
+        "git_blob": "18ecdefbb7f8fddaa3d7189494fab9c00547d59e"
+      },
+      {
+        "id": "M3TOP3-COVERAGE-RELEASE-POLICY_v1.0_WORKING",
+        "git_blob": "0532eb3b921438538fa4cca908832cf5a770ca84"
+      },
+      {
+        "id": "M3TOP3-MODEL-CONTRACT_v1.0_WORKING",
+        "git_blob": "a5bc212aa07166db46b38070f54737cb47a7f090"
+      }
+    ],
+    "SC-05_PIT": [
+      {
+        "id": "M3TOP3-PIT-CONSUMED-PROVENANCE-CONTRACT_v1.0_WORKING",
+        "git_blob": "b7a00087f9b9985d6d5523bf6524361e5ae620fe"
+      }
+    ],
+    "SC-06_WINDOW_OUTCOME": [
+      {
+        "id": "SEMI-WINDOW-MAPPING-CONTRACT_WM-v1.1",
+        "git_blob": "01cad79f9cd49680f6bdc4eac80f01ccd52b7e86"
+      },
+      {
+        "id": "M3TOP3-MODEL-CONTRACT_v1.0_WORKING",
+        "git_blob": "a5bc212aa07166db46b38070f54737cb47a7f090"
+      },
+      {
+        "id": "M3TOP3-VALIDATION-CONTRACT_v1.0_WORKING",
+        "git_blob": "41ef43f1c534f15ebbfc22713a971ff3c8b94b29"
+      }
+    ]
+  },
+  "lineage": {
+    "mode": "MATERIAL_FIXTURE_INPUT_SUCCESSOR",
+    "successor_of": {
+      "object_id": "AAA-M3TOP3-GR-PIT-EVIDENCE-PACKAGE-v0.1-WORKING",
+      "version": "v0.1-WORKING",
+      "source_package_id": "AAA-M3TOP3-GR-RESEARCH-PACKAGE-v0.1-WORKING",
+      "source_package_zip_sha256": "3aaee7c1de2bd6f97e5ffd808fba980bf73fea1b604fb3c3b79e2be005180002",
+      "source_package_manifest_sha256": "c54c56d135ff439be5ee7e06afc6c1d2a2d822d5baf2c462aa0b4388f380d64c",
+      "source_component_digest": "a27ca78ad76fc08450275c59051f81e9b8338ba23d9d61336a91791fabe53d33",
+      "sha256": "fe022900be1aeba3140e60c6bfe257818e1dd32f0a81ba9b586a139eecd4bcc5",
+      "byte_size": 25875
+    },
+    "historical_identity_inheritance": false,
+    "prior_validation_transfer": false,
+    "rematerialization": false,
+    "semantic_change_scope": "SUCCESSOR_IDENTITY_ONLY_PIT_EVIDENCE_SCIENTIFIC_ITEMS_UNCHANGED",
+    "model_semantic_change": false,
+    "outcome_driven_change": false
+  },
+  "authority": {
+    "canonical": false,
+    "frozen": false,
+    "active_release": false,
+    "official_golden_replay_authorized": false,
+    "pit_admission_pass": false,
+    "paired_validation_state": "PENDING",
+    "independent_validation_state": "NOT_PERFORMED",
+    "owner_acceptance_state": "NOT_CLAIMED"
+  },
+  "future_outcome_firewall": {
+    "fixture_selection_used_future_outcomes": false,
+    "future_outcome_available_to_model_input_path": false,
+    "model_tuning_from_outcomes": false
+  },
+  "object_id": "AAA-M3TOP3-GR-PIT-EVIDENCE-PACKAGE-v0.2-WORKING",
+  "version": "v0.2-WORKING",
+  "artifact_kind": "PIT_SAFE_RESEARCH_EVIDENCE_PACKAGE_WORKING_CANDIDATE",
+  "authoring_state": "COMPLETE_WORKING_CANDIDATE",
+  "evidence_state": "PARTIAL_WITH_NOT_PROVEN_RELEASE_BINDINGS",
+  "evidence_item_count": 17,
+  "pit_rules": [
+    "FACT_EXISTED_AT_TIME != PUBLIC_EVIDENCE_AVAILABLE_AT_TIME",
+    "CURRENT_WEB_AVAILABILITY != HISTORICAL_PIT_AVAILABILITY",
+    "FUTURE_OUTCOME != HISTORICAL_INPUT",
+    "NOT_FOUND != FALSE",
+    "UNKNOWN != ZERO",
+    "AI_ADJUDICATION != GROUND_TRUTH"
+  ],
+  "domain_separation": {
+    "logical_separation": true,
+    "physical_separate_artifact": false,
+    "model_admissible_domain_digest": "181531d33b587ed83674a0de8a9ccc61a2de45dd761b52bde75b3438b2c9a87b",
+    "post_hoc_evaluation_domain_digest": "bc4ede929c9948e52b9d98f0365d7cd91f3b4554403aeb2b76a3d7320cb3dfb8",
+    "golden_input_candidate_may_reference_post_hoc_domain": false,
+    "final_execution_physical_access_separation": "PENDING_ENGINEERING_CONTROL_CONFORMANCE"
+  },
+  "bounded_disconfirming_search": {
+    "JI_TECH": "NO_MATERIAL_CONTRADICTORY_PRIMARY_SOURCE_IDENTIFIED_IN_BOUNDED_CHECK",
+    "MIRAE_CA": "NO_MATERIAL_CONTRADICTION; 2025-05-29 filing is a correction preserving the 16:1 reduction decision",
+    "KRX_CALENDAR": "NO_CONTRADICTORY_OFFICIAL_SOURCE_FOUND; exact governed production calendar release still NOT_PROVEN"
+  },
+  "model_admissible_pit_evidence_items": [
+    {
+      "evidence_id": "EVID-JIT-SDA-20240524",
+      "fixture_ids": [
+        "AAA-M3TOP3-GR-FX-01"
+      ],
+      "source_id": "SDA-2024-05-24-JITECH",
+      "source_type": "TIER_1_GOVERNMENT_PRIMARY",
+      "source_locator": "https://www.saemangeum.go.kr/sda/brd/view.do?key=2009074409621&nttSn=8816",
+      "publication_date": "2024-05-24",
+      "publication_time": "NOT_PROVEN",
+      "effective_date": "2024-05-23",
+      "snapshot_cutoff": "2024-08-09",
+      "available_before_cutoff": true,
+      "fact": "Saemangeum Development Agency stated that use approval for JI Tech's Saemangeum plant was completed on 2024-05-23 and published the completion news on 2024-05-24.",
+      "interpretation": "Pre-cutoff primary public evidence of an operating/commercial facility milestone; exact M3TOP3 feature mapping remains model-owned.",
+      "evidence_status": "VERIFIED_PRIMARY_PUBLICATION_DATE",
+      "confidence": "HIGH",
+      "conflict_ref": "",
+      "retrieval_time": "2026-08-19T02:11:00+09:00",
+      "archival_version_identity": "LIVE_OFFICIAL_PAGE_RETRIEVED_2026-08-19",
+      "future_outcome_domain": false
+    },
+    {
+      "evidence_id": "EVID-JIT-DART-20240524000201",
+      "fixture_ids": [
+        "AAA-M3TOP3-GR-FX-01"
+      ],
+      "source_id": "DART:20240524000201",
+      "source_type": "TIER_1_REGULATORY_PRIMARY_ID_HISTORICAL_PROJECT_REFERENCE",
+      "source_locator": "DART_RCP_NO:20240524000201",
+      "publication_date": "2024-05-24",
+      "publication_time": "NOT_PROVEN_FROM_CURRENT_PRIMARY_READBACK",
+      "effective_date": "NOT_PROVEN",
+      "snapshot_cutoff": "2024-08-09",
+      "available_before_cutoff": true,
+      "fact": "Historical project evidence identifies DART receipt 20240524000201 for JI Tech as published on 2024-05-24.",
+      "interpretation": "The receipt identifier and date are retained as a historical project reference; exact current primary byte/page readback was not obtained in this act.",
+      "evidence_status": "PARTIAL_PRIMARY_ID_HISTORICAL_REFERENCE",
+      "confidence": "MEDIUM_HIGH",
+      "conflict_ref": "",
+      "retrieval_time": "2026-08-19T02:11:00+09:00",
+      "archival_version_identity": "RCP_NO_BOUND_NO_CURRENT_EXACT_PAGE_BYTES",
+      "future_outcome_domain": false
+    },
+    {
+      "evidence_id": "EVID-JIT-DART-TIME-SECONDARY",
+      "fixture_ids": [
+        "AAA-M3TOP3-GR-FX-01"
+      ],
+      "source_id": "AWAKEPLUS-DART-INDEX-JITECH-20240524",
+      "source_type": "TIER_2_SECONDARY_INDEX",
+      "source_locator": "https://awakeplus.co.kr/data/dart/공시001?company=417500",
+      "publication_date": "2024-05-24",
+      "publication_time": "13:51:54",
+      "effective_date": "NOT_APPLICABLE",
+      "snapshot_cutoff": "2024-08-09",
+      "available_before_cutoff": true,
+      "fact": "A secondary DART index lists JI Tech's 2024.03 quarterly filing at 2024-05-24 13:51:54.",
+      "interpretation": "Secondary corroboration only; not promoted to primary timestamp authority.",
+      "evidence_status": "CORROBORATING_SECONDARY",
+      "confidence": "MEDIUM",
+      "conflict_ref": "",
+      "retrieval_time": "2026-08-19T02:11:00+09:00",
+      "archival_version_identity": "LIVE_SECONDARY_PAGE_2026-08-19",
+      "future_outcome_domain": false
+    },
+    {
+      "evidence_id": "EVID-ZENICS-W1-NOTPROVEN",
+      "fixture_ids": [
+        "AAA-M3TOP3-GR-FX-03"
+      ],
+      "source_id": "U127_HISTORICAL_CONTROL_ZENICS_W1",
+      "source_type": "HISTORICAL_PROJECT_CONTROL_REFERENCE",
+      "source_locator": "HISTORICAL_U127_LOGICAL_REFERENCE:KRX:381620/W1",
+      "publication_date": "NOT_PROVEN",
+      "publication_time": "NOT_PROVEN",
+      "effective_date": "NOT_PROVEN",
+      "snapshot_cutoff": "2024-08-09",
+      "available_before_cutoff": "NOT_PROVEN",
+      "fact": "Historical project control state preserved KRX:381620/W1 as unresolved due to unproven historical provenance/publication timing.",
+      "interpretation": "NOT_PROVEN is the required evidence state; current availability must not repair it.",
+      "evidence_status": "NOT_PROVEN",
+      "confidence": "NOT_APPLICABLE",
+      "conflict_ref": "ECR-02",
+      "retrieval_time": "2026-08-19T02:11:00+09:00",
+      "archival_version_identity": "HISTORICAL_PROJECT_REFERENCE_ONLY",
+      "future_outcome_domain": false
+    },
+    {
+      "evidence_id": "EVID-SEMITES-W1-NOTPROVEN",
+      "fixture_ids": [
+        "AAA-M3TOP3-GR-FX-11"
+      ],
+      "source_id": "U127_HISTORICAL_CONTROL_SEMITES_W1",
+      "source_type": "HISTORICAL_PROJECT_CONTROL_REFERENCE",
+      "source_locator": "HISTORICAL_U127_LOGICAL_REFERENCE:KRX:0017J0/W1",
+      "publication_date": "NOT_PROVEN",
+      "publication_time": "NOT_PROVEN",
+      "effective_date": "NOT_PROVEN",
+      "snapshot_cutoff": "2024-08-09",
+      "available_before_cutoff": "NOT_PROVEN",
+      "fact": "Historical project control state preserved KRX:0017J0/W1 as unresolved.",
+      "interpretation": "No inference to FALSE or exclusion is allowed.",
+      "evidence_status": "NOT_PROVEN",
+      "confidence": "NOT_APPLICABLE",
+      "conflict_ref": "ECR-03",
+      "retrieval_time": "2026-08-19T02:11:00+09:00",
+      "archival_version_identity": "HISTORICAL_PROJECT_REFERENCE_ONLY",
+      "future_outcome_domain": false
+    },
+    {
+      "evidence_id": "EVID-SEMITES-W2-POSTCUTOFF",
+      "fixture_ids": [
+        "AAA-M3TOP3-GR-FX-11"
+      ],
+      "source_id": "U127_HISTORICAL_CONTROL_SEMITES_W2",
+      "source_type": "HISTORICAL_PROJECT_CONTROL_REFERENCE",
+      "source_locator": "HISTORICAL_U127_LOGICAL_REFERENCE:KRX:0017J0/W2",
+      "publication_date": "2024-11-25",
+      "publication_time": "NOT_PROVEN",
+      "effective_date": "NOT_PROVEN",
+      "snapshot_cutoff": "2024-11-08",
+      "available_before_cutoff": false,
+      "fact": "The dated qualifying partner evidence recorded by the historical project is 2024-11-25, later than the W2 cutoff 2024-11-08.",
+      "interpretation": "POST_CUTOFF remains POST_CUTOFF; later evidence cannot repair historical PIT state.",
+      "evidence_status": "VERIFIED_TEMPORAL_RELATION_FROM_HISTORICAL_CONTROL_REFERENCE",
+      "confidence": "MEDIUM_HIGH",
+      "conflict_ref": "ECR-04",
+      "retrieval_time": "2026-08-19T02:11:00+09:00",
+      "archival_version_identity": "HISTORICAL_PROJECT_REFERENCE_ONLY",
+      "future_outcome_domain": false
+    },
+    {
+      "evidence_id": "EVID-MIRAE-KRX-ID",
+      "fixture_ids": [
+        "AAA-M3TOP3-GR-FX-15"
+      ],
+      "source_id": "KRX-CORP-025560",
+      "source_type": "TIER_1_EXCHANGE_PRIMARY",
+      "source_locator": "https://kind.krx.co.kr/corpdetail/totalinfo.do?isurCd=02556&kisComCd=265560&method=searchTotalInfo&repIsuCd=KR7025560004",
+      "publication_date": "NOT_APPLICABLE_DYNAMIC",
+      "publication_time": "NOT_APPLICABLE",
+      "effective_date": "NOT_APPLICABLE",
+      "snapshot_cutoff": "NOT_USED_FOR_HISTORICAL_PIT_FACT",
+      "available_before_cutoff": "NOT_APPLICABLE",
+      "fact": "KRX current company page identifies Mirae Industry with security code 025560.",
+      "interpretation": "Current identity corroboration only; not proof of historical eligibility at the snapshot.",
+      "evidence_status": "VERIFIED_CURRENT_IDENTITY_CAUTION_HISTORICAL_USE",
+      "confidence": "HIGH",
+      "conflict_ref": "ECR-11",
+      "retrieval_time": "2026-08-19T02:11:00+09:00",
+      "archival_version_identity": "LIVE_KRX_CORP_PAGE_2026-08-19",
+      "future_outcome_domain": false
+    },
+    {
+      "evidence_id": "EVID-KRX-TRADINGDAY-RULE",
+      "fixture_ids": [
+        "AAA-M3TOP3-GR-FX-16"
+      ],
+      "source_id": "KRX-GLOBAL-TRADING-DAY-RULE",
+      "source_type": "TIER_1_EXCHANGE_PRIMARY",
+      "source_locator": "https://global.krx.co.kr/contents/GLB/06/0602/0602010201/GLB0602010201T1.jsp",
+      "publication_date": "NOT_APPLICABLE_RULE_PAGE",
+      "publication_time": "NOT_APPLICABLE",
+      "effective_date": "CURRENT_RULE_REFERENCE",
+      "snapshot_cutoff": "2026-05-08",
+      "available_before_cutoff": "NOT_PROVEN_FOR_HISTORICAL_PAGE_VERSION",
+      "fact": "KRX describes regular stock-market trading days as Monday through Friday with specified non-trading holidays and exchange-designated closures.",
+      "interpretation": "Rule framework supports weekend-boundary construction but is not itself the exact governed production KRX calendar release.",
+      "evidence_status": "VERIFIED_CURRENT_RULE_REFERENCE",
+      "confidence": "HIGH",
+      "conflict_ref": "ECR-08",
+      "retrieval_time": "2026-08-19T02:11:00+09:00",
+      "archival_version_identity": "LIVE_KRX_RULE_PAGE_2026-08-19",
+      "future_outcome_domain": false
+    },
+    {
+      "evidence_id": "EVID-U46-LEGACY-IDENTITY",
+      "fixture_ids": [
+        "AAA-M3TOP3-GR-FX-10",
+        "AAA-M3TOP3-GR-FX-11"
+      ],
+      "source_id": "SEMI-UNIVERSE_v1.0",
+      "source_type": "HISTORICAL_REGISTERED_PROJECT_ARTIFACT",
+      "source_locator": "PROJECT_LEGACY_ARTIFACT:SEMI-UNIVERSE_v1.0",
+      "publication_date": "NOT_APPLICABLE",
+      "publication_time": "NOT_APPLICABLE",
+      "effective_date": "HISTORICAL_ARTIFACT",
+      "snapshot_cutoff": "NOT_APPLICABLE",
+      "available_before_cutoff": "NOT_APPLICABLE",
+      "fact": "Legacy SEMI-UNIVERSE v1.0 is a distinct 46-company universe artifact.",
+      "interpretation": "U46 must not be silently normalized to U127.",
+      "evidence_status": "VERIFIED_PROJECT_ARTIFACT_IDENTITY_REFERENCE",
+      "confidence": "HIGH",
+      "conflict_ref": "",
+      "retrieval_time": "2026-08-19T02:11:00+09:00",
+      "archival_version_identity": "SHA256:eef313bc71bd0a5cb019f92e43e1bf38c2a63633bb847320d1cb4c8fe4ea9023",
+      "future_outcome_domain": false
+    },
+    {
+      "evidence_id": "EVID-U127-LOGICAL-REFERENCE",
+      "fixture_ids": [
+        "AAA-M3TOP3-GR-FX-01",
+        "AAA-M3TOP3-GR-FX-03",
+        "AAA-M3TOP3-GR-FX-10",
+        "AAA-M3TOP3-GR-FX-11",
+        "AAA-M3TOP3-GR-FX-15"
+      ],
+      "source_id": "U127_CURRENT_LOGICAL_CONTROL_REFERENCE",
+      "source_type": "HISTORICAL_PROJECT_LOGICAL_REFERENCE",
+      "source_locator": "HISTORICAL_PROJECT_REFERENCE:U127_CURRENT_LOGICAL_CONTROL_REFERENCE",
+      "publication_date": "NOT_APPLICABLE",
+      "publication_time": "NOT_APPLICABLE",
+      "effective_date": "WORKING_REFERENCE",
+      "snapshot_cutoff": "VARIOUS",
+      "available_before_cutoff": "NOT_APPLICABLE",
+      "fact": "Historical project reference states U127 membership 127/127, entry eligibility resolved W1-W8, 1013/1016 certified BP cells, 125/127 complete histories, and three unresolved cells.",
+      "interpretation": "Logical reference only; exact governed Universe/Eligibility Release identity is not proven.",
+      "evidence_status": "PARTIAL_EXACT_RELEASE_NOT_PROVEN",
+      "confidence": "MEDIUM_HIGH",
+      "conflict_ref": "ECR-01",
+      "retrieval_time": "2026-08-19T02:11:00+09:00",
+      "archival_version_identity": "HISTORICAL_PROJECT_REFERENCE_ONLY",
+      "future_outcome_domain": false
+    },
+    {
+      "evidence_id": "EVID-MODEL-FEATURE-SCHEMA",
+      "fixture_ids": [
+        "AAA-M3TOP3-GR-FX-02",
+        "AAA-M3TOP3-GR-FX-04",
+        "AAA-M3TOP3-GR-FX-06",
+        "AAA-M3TOP3-GR-FX-07",
+        "AAA-M3TOP3-GR-FX-18",
+        "AAA-M3TOP3-GR-FX-19"
+      ],
+      "source_id": "M3TOP3-FEATURE-SCHEMA_v1.0_WORKING",
+      "source_type": "CURRENT_NORMATIVE_MODEL_SOURCE_VIA_ACTIVE_SHARED_CONTRACT",
+      "source_locator": "GIT_BLOB:2550f781c2a901c0faada95dfc4a788503ec669b",
+      "publication_date": "2026-08-15",
+      "publication_time": "NOT_MATERIAL",
+      "effective_date": "WORKING_CORE_B_REFERENCE",
+      "snapshot_cutoff": "NOT_APPLICABLE_CONTROLLED_FIXTURES",
+      "available_before_cutoff": "NOT_APPLICABLE",
+      "fact": "Current normative M3TOP3 feature/missingness semantics are bound by the active Shared Contract source matrix.",
+      "interpretation": "Research consumes the exact current normative constraint set without authoring model semantics.",
+      "evidence_status": "VERIFIED_EXACT_CURRENT_NORMATIVE_SOURCE_BINDING",
+      "confidence": "HIGH",
+      "conflict_ref": "ECR-09",
+      "retrieval_time": "2026-08-19T02:11:00+09:00",
+      "archival_version_identity": "GIT_BLOB:2550f781c2a901c0faada95dfc4a788503ec669b",
+      "future_outcome_domain": false
+    },
+    {
+      "evidence_id": "EVID-GOLDEN-PREPARATION",
+      "fixture_ids": [
+        "AAA-M3TOP3-GR-FX-01",
+        "AAA-M3TOP3-GR-FX-02",
+        "AAA-M3TOP3-GR-FX-03",
+        "AAA-M3TOP3-GR-FX-04",
+        "AAA-M3TOP3-GR-FX-05",
+        "AAA-M3TOP3-GR-FX-06",
+        "AAA-M3TOP3-GR-FX-07",
+        "AAA-M3TOP3-GR-FX-08",
+        "AAA-M3TOP3-GR-FX-09",
+        "AAA-M3TOP3-GR-FX-10",
+        "AAA-M3TOP3-GR-FX-11",
+        "AAA-M3TOP3-GR-FX-12",
+        "AAA-M3TOP3-GR-FX-13",
+        "AAA-M3TOP3-GR-FX-14",
+        "AAA-M3TOP3-GR-FX-15",
+        "AAA-M3TOP3-GR-FX-16",
+        "AAA-M3TOP3-GR-FX-17",
+        "AAA-M3TOP3-GR-FX-18",
+        "AAA-M3TOP3-GR-FX-19",
+        "AAA-M3TOP3-GR-FX-20"
+      ],
+      "source_id": "M3TOP3-v1-GOLDEN-REPLAY-SCIENTIFIC-PREPARATION",
+      "source_type": "CURRENT_ACTIVE_REFERENCE_CORE_B_WORKING",
+      "source_locator": "git:AofSpds/asset-agent-asa@aaa-organization-active-v1.3:control/core_b/M3TOP3-v1-GOLDEN-REPLAY-SCIENTIFIC-PREPARATION_v0.3_WORKING.yaml",
+      "publication_date": "2026-08-17",
+      "publication_time": "NOT_MATERIAL",
+      "effective_date": "CURRENT_WORKING_REFERENCE",
+      "snapshot_cutoff": "NOT_APPLICABLE",
+      "available_before_cutoff": "NOT_APPLICABLE",
+      "fact": "Current Golden preparation defines GF-01 through GF-20 taxonomy and Golden entry gates.",
+      "interpretation": "GF-01..GF-20 taxonomy is a coverage requirement. The current preparation artifact has an identity/version defect and is not used as the final exact Golden target; underlying current model semantics are independently recovered through the active Shared Contract.",
+      "evidence_status": "VERIFIED_EXACT_GIT_REFERENCE_WITH_PATH_EMBEDDED_VERSION_DIVERGENCE",
+      "confidence": "HIGH",
+      "conflict_ref": "ECR-12",
+      "retrieval_time": "2026-08-19T02:11:00+09:00",
+      "archival_version_identity": "GIT_BLOB:315bffb3d0803da7b6f7da18268b8ab6b0e3ba4b",
+      "future_outcome_domain": false
+    },
+    {
+      "evidence_id": "EVID-KRX-HOLIDAY-CALENDAR-PAGE",
+      "fixture_ids": [
+        "AAA-M3TOP3-GR-FX-16"
+      ],
+      "source_id": "KRX-MARKET-HOLIDAY-PAGE",
+      "source_type": "TIER_1_EXCHANGE_PRIMARY",
+      "source_locator": "https://open.krx.co.kr/contents/MKD/01/0110/01100305/MKD01100305.jsp",
+      "publication_date": "NOT_APPLICABLE_DYNAMIC",
+      "publication_time": "NOT_APPLICABLE",
+      "effective_date": "CURRENT_RULE_REFERENCE",
+      "snapshot_cutoff": "2026-05-08",
+      "available_before_cutoff": "NOT_PROVEN_FOR_HISTORICAL_PAGE_VERSION",
+      "fact": "KRX maintains an official market holiday information page.",
+      "interpretation": "Source route for calendar verification; not the project-governed production calendar release identity.",
+      "evidence_status": "VERIFIED_CURRENT_SOURCE_ROUTE",
+      "confidence": "HIGH",
+      "conflict_ref": "ECR-08",
+      "retrieval_time": "2026-08-19T02:11:00+09:00",
+      "archival_version_identity": "LIVE_KRX_PAGE_2026-08-19",
+      "future_outcome_domain": false
+    },
+    {
+      "evidence_id": "EVID-MODEL-RECONCILIATION-20260819",
+      "fixture_ids": [
+        "AAA-M3TOP3-GR-FX-02",
+        "AAA-M3TOP3-GR-FX-07",
+        "AAA-M3TOP3-GR-FX-08",
+        "AAA-M3TOP3-GR-FX-09",
+        "AAA-M3TOP3-GR-FX-12",
+        "AAA-M3TOP3-GR-FX-13",
+        "AAA-M3TOP3-GR-FX-14",
+        "AAA-M3TOP3-GR-FX-18"
+      ],
+      "source_id": "AAA_M3TOP3_v1_GOLDEN_REPLAY_CTL_EXACT_SOURCE_MODEL_RECONCILIATION_v1.0",
+      "source_type": "CURRENT_MODEL_ARCHITECT_RECONCILIATION_RETURN",
+      "source_locator": "PROJECT_FILE_CITATION:turn73file0",
+      "publication_date": "2026-08-19",
+      "publication_time": "02:11 KST",
+      "effective_date": "CURRENT_RECONCILIATION",
+      "snapshot_cutoff": "NOT_APPLICABLE_CONTROL_REFERENCE",
+      "available_before_cutoff": "NOT_APPLICABLE",
+      "fact": "Current normative model semantics for Feature, Missingness, Imputation, Scorer, Weight, Ranking/Tie, Top-K, Window, Numeric, and Future-Outcome firewall were exactly recovered via the active Shared Contract source matrix.",
+      "interpretation": "This closes model-semantic source gaps but does not create a Frozen Model Release or permit Research to invent model-output expectations.",
+      "evidence_status": "VERIFIED_PROJECT_CURRENT_RECONCILIATION",
+      "confidence": "HIGH",
+      "conflict_ref": "",
+      "retrieval_time": "2026-08-19T02:11:00+09:00",
+      "archival_version_identity": "PROJECT_FILE:turn73file0",
+      "future_outcome_domain": false
+    }
+  ],
+  "post_hoc_future_outcome_or_evaluation_items": [
+    {
+      "evidence_id": "EVID-MIRAE-KIND-CA-20250416-20250529",
+      "fixture_ids": [
+        "AAA-M3TOP3-GR-FX-15"
+      ],
+      "source_id": "KIND:20250529000297/11309",
+      "source_type": "TIER_1_EXCHANGE_PRIMARY",
+      "source_locator": "https://kind.krx.co.kr/external/2025/05/29/000108/20250529000297/11309.htm",
+      "publication_date": "2025-04-16",
+      "publication_time": "NOT_PROVEN",
+      "effective_date": "2025-06-30",
+      "snapshot_cutoff": "2025-05-09",
+      "available_before_cutoff": true,
+      "fact": "Mirae Industry disclosed a 16:1 no-consideration capital reduction (93.75% reduction) by board decision on 2025-04-16; the corrected report on 2025-05-29 retained the capital-reduction plan and reference date 2025-06-30.",
+      "interpretation": "The CA decision was publicly knowable before the fixture snapshot, while the price-basis corporate-action event/reference date is post-snapshot. For GF-15 it is isolated to price/corporate-action boundary handling and not supplied to the model input path.",
+      "evidence_status": "VERIFIED_PRIMARY",
+      "confidence": "HIGH",
+      "conflict_ref": "",
+      "retrieval_time": "2026-08-19T02:11:00+09:00",
+      "archival_version_identity": "KIND_CORRECTED_REPORT_20250529",
+      "future_outcome_domain": true
+    },
+    {
+      "evidence_id": "EVID-KRX-OBSERVED-20260508-20260511",
+      "fixture_ids": [
+        "AAA-M3TOP3-GR-FX-16"
+      ],
+      "source_id": "KIND:20260617000885/10601",
+      "source_type": "TIER_1_EXCHANGE_PRIMARY_INDIRECT_TRADING_DATE_EVIDENCE",
+      "source_locator": "https://kind.krx.co.kr/external/2026/06/17/000287/20260617000885/10601.htm",
+      "publication_date": "2026-06-17",
+      "publication_time": "NOT_PROVEN",
+      "effective_date": "2026-05-08_AND_2026-05-11_ROWS",
+      "snapshot_cutoff": "2026-05-08",
+      "available_before_cutoff": false,
+      "fact": "A later official KRX/KIND filing contains market-pricing rows for both 2026-05-08 and 2026-05-11, corroborating that both dates were trading dates.",
+      "interpretation": "This is post-cutoff corroboration for a controlled calendar fixture only; it must not be used as PIT model evidence. Exact production calendar identity remains pending.",
+      "evidence_status": "VERIFIED_POST_HOC_CALENDAR_CORROBORATION",
+      "confidence": "HIGH",
+      "conflict_ref": "ECR-08",
+      "retrieval_time": "2026-08-19T02:11:00+09:00",
+      "archival_version_identity": "KIND_REPORT_20260617",
+      "future_outcome_domain": true
+    },
+    {
+      "evidence_id": "EVID-PRICE-RAW-MANIFEST",
+      "fixture_ids": [
+        "AAA-M3TOP3-GR-FX-15",
+        "AAA-M3TOP3-GR-FX-16"
+      ],
+      "source_id": "SEMI-PRICE-MARCAP-KRX-2024-2026_v1",
+      "source_type": "CURRENT_ACTIVE_LEGACY_DATA_MANIFEST",
+      "source_locator": "git:AofSpds/asset-agent-asa@aaa-organization-active-v1.3:data-manifests/price/SEMI-PRICE-MARCAP-KRX-2024-2026_v1.yaml",
+      "publication_date": "2026-08-15",
+      "publication_time": "NOT_MATERIAL",
+      "effective_date": "RAW_DATASET_REFERENCE",
+      "snapshot_cutoff": "VARIOUS",
+      "available_before_cutoff": "NOT_APPLICABLE_AS_RAW_DATA_RELEASE_IDENTITY",
+      "fact": "Raw KRX-derived marcap 2024-2026 component bytes are identity-verified and materialized, while canonical cutover and official Golden Price release are not established.",
+      "interpretation": "Raw byte identity is suitable as fixture construction evidence but cannot be promoted to Official Golden Price Release.",
+      "evidence_status": "VERIFIED_RAW_IDENTITY_OFFICIAL_RELEASE_NOT_PROVEN",
+      "confidence": "HIGH",
+      "conflict_ref": "ECR-06",
+      "retrieval_time": "2026-08-19T02:11:00+09:00",
+      "archival_version_identity": "DATASET_SHA256:419893f0dc8c08019a746182135630cc5f94d6e7ebc2874d5bd23cb54c0a72f7",
+      "future_outcome_domain": true
+    }
+  ],
+  "future_outcome_available_to_model_input_path": false,
+  "fixture_input_completeness_correction_uses_historical_fact_claims": false,
+  "fixture_input_completeness_correction_uses_future_outcomes": false
+}

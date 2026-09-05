@@ -1,25 +1,28 @@
 {
   "run_id": "AAA-M3TOP3-FIRST-SCORECARD-20260905-093656-CODEX-01",
-  "updated_at_kst": "2026-09-05T09:45:22.6017826+09:00",
-  "overall_progress_percent": 10,
-  "current_phase": "S1_EXACT_MODEL_BINDING_AND_W1_W8_AVAILABILITY",
+  "updated_at_kst": "2026-09-05T10:00:02.5892220+09:00",
+  "overall_progress_percent": 30,
+  "current_phase": "S2_BOUNDED_ASSEMBLY_GOLDEN_AND_MECHANICAL_CHECKS",
   "current_phase_progress_percent": 0,
   "validation_closure_percent": 0,
-  "earned_ewu": 10,
+  "earned_ewu": 30,
   "total_frozen_ewu": 100,
   "actual_cru_to_date": "NOT_INSTRUMENTED",
   "forecast_cru_at_completion": "NOT_CALIBRATED",
-  "elapsed_wall": "MEASURE_AT_NEXT_CHECKPOINT",
+  "elapsed_wall": "PT23M6.4569443S",
   "active_time": "NOT_INSTRUMENTED",
   "wait_time": "NOT_INSTRUMENTED",
   "rework_time": "PT0S_OBSERVED",
   "blocked_time": "PT0S_OBSERVED",
   "active_workers": 4,
   "active_validators": 0,
-  "eta_p50": "NOT_YET_ESTIMATED",
-  "eta_p90": "NOT_YET_ESTIMATED",
-  "blockers": [],
+  "eta_p50": "PT2H_FROM_FIRST_RETURN",
+  "eta_p90": "PT4H_FROM_FIRST_RETURN",
+  "blockers": [
+    "KNOWN_P0_F06_IDENTITY_ROTATION_BYPASS_IN_SELECTED_NARROW_PATCH_REQUIRES_BOUNDED_FIX",
+    "W1_W8_BATCH_RESULT_AND_SCORECARD_ADAPTER_NOT_PRESENT"
+  ],
   "reopened_units": 0,
-  "last_material_progress": "S0_START_FREEZE_COMPLETE",
-  "next_terminal_event": "S1_BINDING_AND_AVAILABILITY_FIRST_RETURN"
+  "last_material_progress": "S1_FIRST_RETURN_PERSISTED_WITH_EXACT_BINDING_AND_1016_ROW_AVAILABILITY_PARTITION",
+  "next_terminal_event": "S2_BOUNDED_FIX_ADAPTER_GOLDEN_AND_MECHANICAL_CHECKS"
 }

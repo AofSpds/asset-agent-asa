@@ -1,0 +1,947 @@
+{
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "target_model": "M3TOP3-v1.0",
+  "authoring_owner": "AAA-RESEARCH-ORCHESTRATOR",
+  "validation_owner": "AAA-RESEARCH-VALIDATOR",
+  "created_at": "2026-08-19T02:53:00+09:00",
+  "source_work_packet": "AAA_M3TOP3_v1_GOLDEN_RESEARCH_PACKAGE_INPUT_COMPLETENESS_SUCCESSOR_AUTHORING_v1.0",
+  "source_work_packet_citation": "turn71file0",
+  "source_control_recovery": "AAA_M3TOP3_v1_GOLDEN_REPLAY_EXACT_CONTROL_BINDING_RECOVERY_v1.1 / turn71file0",
+  "source_model_reconciliation": "AAA_M3TOP3_v1_GOLDEN_REPLAY_CTL_EXACT_SOURCE_MODEL_RECONCILIATION_v1.0 / turn73file0",
+  "model_source_state": "EXACT_CURRENT_NORMATIVE_MODEL_SEMANTICS_RECOVERED_NOT_FROZEN_RELEASE",
+  "model_normative_source_set": {
+    "SC-01_MODEL_IDENTITY": [
+      {
+        "id": "M3TOP3-MODEL-CONTRACT_v1.0_WORKING",
+        "git_blob": "a5bc212aa07166db46b38070f54737cb47a7f090"
+      },
+      {
+        "id": "M3TOP3-NO-TUNE-BASELINE-LOCK_v1.2_WORKING",
+        "git_blob": "9cdbda6180661d8bc9214ae32cde5246ef6a23aa"
+      }
+    ],
+    "SC-02_FEATURE_MISSINGNESS": [
+      {
+        "id": "M3TOP3-FEATURE-SCHEMA_v1.0_WORKING",
+        "git_blob": "2550f781c2a901c0faada95dfc4a788503ec669b"
+      },
+      {
+        "id": "M3TOP3-FEATURE-INPUT-REGISTRY_v1.0_WORKING",
+        "git_blob": "5faa4d5739bf9ecb0c11d16f6d7d697ff3983977"
+      },
+      {
+        "id": "M3TOP3-PIT-CONSUMED-PROVENANCE-CONTRACT_v1.0_WORKING",
+        "git_blob": "b7a00087f9b9985d6d5523bf6524361e5ae620fe"
+      }
+    ],
+    "SC-03_SCORER_WEIGHT": [
+      {
+        "id": "M3TOP3-SCORER-CONTRACT_v1.0_WORKING",
+        "git_blob": "18ecdefbb7f8fddaa3d7189494fab9c00547d59e"
+      },
+      {
+        "id": "M3TOP3-WEIGHT-VERSION_v1.0_WORKING",
+        "git_blob": "76974860c75f5e164b49639208f8950595c71981"
+      }
+    ],
+    "SC-04_RANKING_SELECTION": [
+      {
+        "id": "M3TOP3-SCORER-CONTRACT_v1.0_WORKING",
+        "git_blob": "18ecdefbb7f8fddaa3d7189494fab9c00547d59e"
+      },
+      {
+        "id": "M3TOP3-COVERAGE-RELEASE-POLICY_v1.0_WORKING",
+        "git_blob": "0532eb3b921438538fa4cca908832cf5a770ca84"
+      },
+      {
+        "id": "M3TOP3-MODEL-CONTRACT_v1.0_WORKING",
+        "git_blob": "a5bc212aa07166db46b38070f54737cb47a7f090"
+      }
+    ],
+    "SC-05_PIT": [
+      {
+        "id": "M3TOP3-PIT-CONSUMED-PROVENANCE-CONTRACT_v1.0_WORKING",
+        "git_blob": "b7a00087f9b9985d6d5523bf6524361e5ae620fe"
+      }
+    ],
+    "SC-06_WINDOW_OUTCOME": [
+      {
+        "id": "SEMI-WINDOW-MAPPING-CONTRACT_WM-v1.1",
+        "git_blob": "01cad79f9cd49680f6bdc4eac80f01ccd52b7e86"
+      },
+      {
+        "id": "M3TOP3-MODEL-CONTRACT_v1.0_WORKING",
+        "git_blob": "a5bc212aa07166db46b38070f54737cb47a7f090"
+      },
+      {
+        "id": "M3TOP3-VALIDATION-CONTRACT_v1.0_WORKING",
+        "git_blob": "41ef43f1c534f15ebbfc22713a971ff3c8b94b29"
+      }
+    ]
+  },
+  "lineage": {
+    "mode": "MATERIAL_FIXTURE_INPUT_SUCCESSOR",
+    "successor_of": {
+      "object_id": "AAA-M3TOP3-GR-EXPECTED-RESULT-REFERENCE-v0.1-WORKING",
+      "version": "v0.1-WORKING",
+      "source_package_id": "AAA-M3TOP3-GR-RESEARCH-PACKAGE-v0.1-WORKING",
+      "source_package_zip_sha256": "3aaee7c1de2bd6f97e5ffd808fba980bf73fea1b604fb3c3b79e2be005180002",
+      "source_package_manifest_sha256": "c54c56d135ff439be5ee7e06afc6c1d2a2d822d5baf2c462aa0b4388f380d64c",
+      "source_component_digest": "a27ca78ad76fc08450275c59051f81e9b8338ba23d9d61336a91791fabe53d33",
+      "sha256": "5f803c9671fa31506a6d5c90203902022324dfb69f58a05456b74b90d4c37404",
+      "byte_size": 37101
+    },
+    "historical_identity_inheritance": false,
+    "prior_validation_transfer": false,
+    "rematerialization": false,
+    "semantic_change_scope": "SUCCESSOR_IDENTITY_AND_INPUT_COMPLETENESS_REFERENCE_ONLY",
+    "model_semantic_change": false,
+    "outcome_driven_change": false
+  },
+  "authority": {
+    "canonical": false,
+    "frozen": false,
+    "active_release": false,
+    "official_golden_replay_authorized": false,
+    "pit_admission_pass": false,
+    "paired_validation_state": "PENDING",
+    "independent_validation_state": "NOT_PERFORMED",
+    "owner_acceptance_state": "NOT_CLAIMED"
+  },
+  "future_outcome_firewall": {
+    "fixture_selection_used_future_outcomes": false,
+    "future_outcome_available_to_model_input_path": false,
+    "model_tuning_from_outcomes": false
+  },
+  "object_id": "AAA-M3TOP3-GR-EXPECTED-RESULT-REFERENCE-v0.2-WORKING",
+  "version": "v0.2-WORKING",
+  "artifact_kind": "INDEPENDENT_RESEARCH_OWNED_EXPECTED_STATE_REFERENCE",
+  "authoring_state": "COMPLETE_RESEARCH_SCOPE_WITH_MODEL_OUTPUT_BINDING_PENDING",
+  "implementation_under_test_used_to_establish_expected_values": false,
+  "research_expected_reference_count": 51,
+  "model_output_pending_fixture_ids": [
+    "AAA-M3TOP3-GR-FX-08",
+    "AAA-M3TOP3-GR-FX-09",
+    "AAA-M3TOP3-GR-FX-12",
+    "AAA-M3TOP3-GR-FX-13",
+    "AAA-M3TOP3-GR-FX-14"
+  ],
+  "model_semantics_source_gap": false,
+  "model_frozen_release_gap": true,
+  "expected_references": [
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-01",
+      "research_owned_expected_fields": [
+        {
+          "expected_field": "publication_before_cutoff",
+          "expected_value": true,
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-JIT-SDA-20240524",
+            "EVID-JIT-DART-20240524000201",
+            "EVID-JIT-DART-TIME-SECONDARY",
+            "EVID-U127-LOGICAL-REFERENCE"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        },
+        {
+          "expected_field": "evidence_status",
+          "expected_value": "VERIFIED_PRIMARY_DATE",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-JIT-SDA-20240524",
+            "EVID-JIT-DART-20240524000201",
+            "EVID-JIT-DART-TIME-SECONDARY",
+            "EVID-U127-LOGICAL-REFERENCE"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        },
+        {
+          "expected_field": "pit_candidate_state",
+          "expected_value": "ADMISSIBLE_CANDIDATE_NOT_PIT_PASS",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-JIT-SDA-20240524",
+            "EVID-JIT-DART-20240524000201",
+            "EVID-JIT-DART-TIME-SECONDARY",
+            "EVID-U127-LOGICAL-REFERENCE"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        }
+      ],
+      "model_owned_expected_fields": []
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-02",
+      "research_owned_expected_fields": [
+        {
+          "expected_field": "F01_state",
+          "expected_value": "MISSING_NA",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-MODEL-FEATURE-SCHEMA",
+            "EVID-MODEL-RECONCILIATION-20260819"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        },
+        {
+          "expected_field": "zero_fill",
+          "expected_value": "PROHIBITED",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-MODEL-FEATURE-SCHEMA",
+            "EVID-MODEL-RECONCILIATION-20260819"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        },
+        {
+          "expected_field": "false_fill",
+          "expected_value": "PROHIBITED",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-MODEL-FEATURE-SCHEMA",
+            "EVID-MODEL-RECONCILIATION-20260819"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        }
+      ],
+      "model_owned_expected_fields": []
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-03",
+      "research_owned_expected_fields": [
+        {
+          "expected_field": "evidence_status",
+          "expected_value": "NOT_PROVEN",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-ZENICS-W1-NOTPROVEN",
+            "EVID-U127-LOGICAL-REFERENCE"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        },
+        {
+          "expected_field": "available_before_cutoff",
+          "expected_value": "NOT_PROVEN",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-ZENICS-W1-NOTPROVEN",
+            "EVID-U127-LOGICAL-REFERENCE"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        },
+        {
+          "expected_field": "promotion_to_false_zero_verified",
+          "expected_value": "PROHIBITED",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-ZENICS-W1-NOTPROVEN",
+            "EVID-U127-LOGICAL-REFERENCE"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        }
+      ],
+      "model_owned_expected_fields": []
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-04",
+      "research_owned_expected_fields": [
+        {
+          "expected_field": "retrieval_state",
+          "expected_value": "NOT_FOUND",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-MODEL-FEATURE-SCHEMA"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        },
+        {
+          "expected_field": "negative_business_fact_inferred",
+          "expected_value": false,
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-MODEL-FEATURE-SCHEMA"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        }
+      ],
+      "model_owned_expected_fields": []
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-05",
+      "research_owned_expected_fields": [
+        {
+          "expected_field": "T0_minus_1s",
+          "expected_value": "AVAILABLE_BEFORE_CUTOFF_TRUE",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-MODEL-FEATURE-SCHEMA"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        },
+        {
+          "expected_field": "T0_plus_1s",
+          "expected_value": "AVAILABLE_BEFORE_CUTOFF_FALSE",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-MODEL-FEATURE-SCHEMA"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        }
+      ],
+      "model_owned_expected_fields": []
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-06",
+      "research_owned_expected_fields": [
+        {
+          "expected_field": "fact_existed_at_cutoff",
+          "expected_value": true,
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-MODEL-FEATURE-SCHEMA"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        },
+        {
+          "expected_field": "public_evidence_available_at_cutoff",
+          "expected_value": false,
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-MODEL-FEATURE-SCHEMA"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        }
+      ],
+      "model_owned_expected_fields": []
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-07",
+      "research_owned_expected_fields": [
+        {
+          "expected_field": "missing_value_state",
+          "expected_value": "NA",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-MODEL-FEATURE-SCHEMA",
+            "EVID-MODEL-RECONCILIATION-20260819"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        },
+        {
+          "expected_field": "silent_value_imputation",
+          "expected_value": "PROHIBITED",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-MODEL-FEATURE-SCHEMA",
+            "EVID-MODEL-RECONCILIATION-20260819"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        },
+        {
+          "expected_field": "available_weight_renormalization",
+          "expected_value": "MODEL_MATHEMATICAL_MISSINGNESS_HANDLING",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-MODEL-FEATURE-SCHEMA",
+            "EVID-MODEL-RECONCILIATION-20260819"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        }
+      ],
+      "model_owned_expected_fields": []
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-08",
+      "research_owned_expected_fields": [
+        {
+          "expected_field": "input_pair_equality",
+          "expected_value": "IDENTICAL_CONTROLLED_FEATURE_INPUTS",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-MODEL-RECONCILIATION-20260819"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        },
+        {
+          "expected_field": "normative_tie_rule_reference",
+          "expected_value": "EXACT_FINAL_SCORE_TIE_TO_COMPANY_ID_ASC",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-MODEL-RECONCILIATION-20260819"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        }
+      ],
+      "model_owned_expected_fields": [
+        {
+          "expected_field": "EXPECTED_FINAL_SCORES",
+          "expected_value": "PENDING_AAA-MODEL-ARCHITECT_BINDING",
+          "derivation_method": "NOT_AUTHORED_BY_RESEARCH",
+          "source_refs": [
+            "AAA_M3TOP3_v1_GOLDEN_REPLAY_CTL_EXACT_SOURCE_MODEL_RECONCILIATION_v1.0"
+          ],
+          "independence_basis": "MODEL_MUST_PRECOMMIT_EXPECTED_OUTPUT_FROM_CURRENT_NORMATIVE_SEMANTICS_NOT_IMPLEMENTATION_FIRST_OUTPUT",
+          "created_before_official_result_inspection": "PENDING"
+        },
+        {
+          "expected_field": "EXPECTED_ORDER",
+          "expected_value": "PENDING_AAA-MODEL-ARCHITECT_BINDING",
+          "derivation_method": "NOT_AUTHORED_BY_RESEARCH",
+          "source_refs": [
+            "AAA_M3TOP3_v1_GOLDEN_REPLAY_CTL_EXACT_SOURCE_MODEL_RECONCILIATION_v1.0"
+          ],
+          "independence_basis": "MODEL_MUST_PRECOMMIT_EXPECTED_OUTPUT_FROM_CURRENT_NORMATIVE_SEMANTICS_NOT_IMPLEMENTATION_FIRST_OUTPUT",
+          "created_before_official_result_inspection": "PENDING"
+        }
+      ]
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-09",
+      "research_owned_expected_fields": [
+        {
+          "expected_field": "eligible_count",
+          "expected_value": 3,
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-MODEL-RECONCILIATION-20260819"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        },
+        {
+          "expected_field": "deliberately_unrankable_count",
+          "expected_value": 1,
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-MODEL-RECONCILIATION-20260819"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        },
+        {
+          "expected_field": "expected_snapshot_state_reference",
+          "expected_value": "INCOMPLETE_COVERAGE_IF_ELIGIBLE_COMPANY_HAS_NO_RANKABLE_SCORE",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-MODEL-RECONCILIATION-20260819"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        }
+      ],
+      "model_owned_expected_fields": [
+        {
+          "expected_field": "EXPECTED_RANKABILITY_AND_SNAPSHOT_COVERAGE_STATE",
+          "expected_value": "PENDING_AAA-MODEL-ARCHITECT_BINDING",
+          "derivation_method": "NOT_AUTHORED_BY_RESEARCH",
+          "source_refs": [
+            "AAA_M3TOP3_v1_GOLDEN_REPLAY_CTL_EXACT_SOURCE_MODEL_RECONCILIATION_v1.0"
+          ],
+          "independence_basis": "MODEL_MUST_PRECOMMIT_EXPECTED_OUTPUT_FROM_CURRENT_NORMATIVE_SEMANTICS_NOT_IMPLEMENTATION_FIRST_OUTPUT",
+          "created_before_official_result_inspection": "PENDING"
+        }
+      ]
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-10",
+      "research_owned_expected_fields": [
+        {
+          "expected_field": "identity_match",
+          "expected_value": false,
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-U46-LEGACY-IDENTITY",
+            "EVID-U127-LOGICAL-REFERENCE"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        },
+        {
+          "expected_field": "silent_substitution",
+          "expected_value": "PROHIBITED",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-U46-LEGACY-IDENTITY",
+            "EVID-U127-LOGICAL-REFERENCE"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        },
+        {
+          "expected_field": "expected_guard_state",
+          "expected_value": "MISMATCH_SURFACED_FAIL_CLOSED",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-U46-LEGACY-IDENTITY",
+            "EVID-U127-LOGICAL-REFERENCE"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        }
+      ],
+      "model_owned_expected_fields": []
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-11",
+      "research_owned_expected_fields": [
+        {
+          "expected_field": "u46_equals_u127",
+          "expected_value": false,
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-U46-LEGACY-IDENTITY",
+            "EVID-U127-LOGICAL-REFERENCE",
+            "EVID-SEMITES-W1-NOTPROVEN",
+            "EVID-SEMITES-W2-POSTCUTOFF"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        },
+        {
+          "expected_field": "silent_normalization",
+          "expected_value": "PROHIBITED",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-U46-LEGACY-IDENTITY",
+            "EVID-U127-LOGICAL-REFERENCE",
+            "EVID-SEMITES-W1-NOTPROVEN",
+            "EVID-SEMITES-W2-POSTCUTOFF"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        },
+        {
+          "expected_field": "w2_later_evidence_relation",
+          "expected_value": "POST_CUTOFF",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-U46-LEGACY-IDENTITY",
+            "EVID-U127-LOGICAL-REFERENCE",
+            "EVID-SEMITES-W1-NOTPROVEN",
+            "EVID-SEMITES-W2-POSTCUTOFF"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        }
+      ],
+      "model_owned_expected_fields": []
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-12",
+      "research_owned_expected_fields": [
+        {
+          "expected_field": "numeric_contract",
+          "expected_value": "EXACT_DECIMAL_NO_TOLERANCE",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-MODEL-RECONCILIATION-20260819"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        },
+        {
+          "expected_field": "scorer_contract",
+          "expected_value": "GATED_LINEAR",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-MODEL-RECONCILIATION-20260819"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        }
+      ],
+      "model_owned_expected_fields": [
+        {
+          "expected_field": "EXPECTED_AXIS_SCORES",
+          "expected_value": "PENDING_AAA-MODEL-ARCHITECT_BINDING",
+          "derivation_method": "NOT_AUTHORED_BY_RESEARCH",
+          "source_refs": [
+            "AAA_M3TOP3_v1_GOLDEN_REPLAY_CTL_EXACT_SOURCE_MODEL_RECONCILIATION_v1.0"
+          ],
+          "independence_basis": "MODEL_MUST_PRECOMMIT_EXPECTED_OUTPUT_FROM_CURRENT_NORMATIVE_SEMANTICS_NOT_IMPLEMENTATION_FIRST_OUTPUT",
+          "created_before_official_result_inspection": "PENDING"
+        },
+        {
+          "expected_field": "EXPECTED_PRE_GATE_SCORE",
+          "expected_value": "PENDING_AAA-MODEL-ARCHITECT_BINDING",
+          "derivation_method": "NOT_AUTHORED_BY_RESEARCH",
+          "source_refs": [
+            "AAA_M3TOP3_v1_GOLDEN_REPLAY_CTL_EXACT_SOURCE_MODEL_RECONCILIATION_v1.0"
+          ],
+          "independence_basis": "MODEL_MUST_PRECOMMIT_EXPECTED_OUTPUT_FROM_CURRENT_NORMATIVE_SEMANTICS_NOT_IMPLEMENTATION_FIRST_OUTPUT",
+          "created_before_official_result_inspection": "PENDING"
+        },
+        {
+          "expected_field": "EXPECTED_FINAL_SCORE",
+          "expected_value": "PENDING_AAA-MODEL-ARCHITECT_BINDING",
+          "derivation_method": "NOT_AUTHORED_BY_RESEARCH",
+          "source_refs": [
+            "AAA_M3TOP3_v1_GOLDEN_REPLAY_CTL_EXACT_SOURCE_MODEL_RECONCILIATION_v1.0"
+          ],
+          "independence_basis": "MODEL_MUST_PRECOMMIT_EXPECTED_OUTPUT_FROM_CURRENT_NORMATIVE_SEMANTICS_NOT_IMPLEMENTATION_FIRST_OUTPUT",
+          "created_before_official_result_inspection": "PENDING"
+        }
+      ]
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-13",
+      "research_owned_expected_fields": [
+        {
+          "expected_field": "current_weight_id",
+          "expected_value": "M3TOP3-WEIGHT-VERSION_v1.0_WORKING",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-MODEL-RECONCILIATION-20260819"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        },
+        {
+          "expected_field": "legacy_weight_reuse",
+          "expected_value": "PROHIBITED",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-MODEL-RECONCILIATION-20260819"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        }
+      ],
+      "model_owned_expected_fields": [
+        {
+          "expected_field": "EXPECTED_WEIGHTED_AXIS_AND_FINAL_SCORE",
+          "expected_value": "PENDING_AAA-MODEL-ARCHITECT_BINDING",
+          "derivation_method": "NOT_AUTHORED_BY_RESEARCH",
+          "source_refs": [
+            "AAA_M3TOP3_v1_GOLDEN_REPLAY_CTL_EXACT_SOURCE_MODEL_RECONCILIATION_v1.0"
+          ],
+          "independence_basis": "MODEL_MUST_PRECOMMIT_EXPECTED_OUTPUT_FROM_CURRENT_NORMATIVE_SEMANTICS_NOT_IMPLEMENTATION_FIRST_OUTPUT",
+          "created_before_official_result_inspection": "PENDING"
+        }
+      ]
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-14",
+      "research_owned_expected_fields": [
+        {
+          "expected_field": "top3_rule_reference",
+          "expected_value": "rank<=3",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-MODEL-RECONCILIATION-20260819"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        },
+        {
+          "expected_field": "top10_rule_reference",
+          "expected_value": "rank<=10 diagnostic same ranking",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-MODEL-RECONCILIATION-20260819"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        }
+      ],
+      "model_owned_expected_fields": [
+        {
+          "expected_field": "EXPECTED_FULL_RANKING",
+          "expected_value": "PENDING_AAA-MODEL-ARCHITECT_BINDING",
+          "derivation_method": "NOT_AUTHORED_BY_RESEARCH",
+          "source_refs": [
+            "AAA_M3TOP3_v1_GOLDEN_REPLAY_CTL_EXACT_SOURCE_MODEL_RECONCILIATION_v1.0"
+          ],
+          "independence_basis": "MODEL_MUST_PRECOMMIT_EXPECTED_OUTPUT_FROM_CURRENT_NORMATIVE_SEMANTICS_NOT_IMPLEMENTATION_FIRST_OUTPUT",
+          "created_before_official_result_inspection": "PENDING"
+        },
+        {
+          "expected_field": "EXPECTED_TOP3_SET",
+          "expected_value": "PENDING_AAA-MODEL-ARCHITECT_BINDING",
+          "derivation_method": "NOT_AUTHORED_BY_RESEARCH",
+          "source_refs": [
+            "AAA_M3TOP3_v1_GOLDEN_REPLAY_CTL_EXACT_SOURCE_MODEL_RECONCILIATION_v1.0"
+          ],
+          "independence_basis": "MODEL_MUST_PRECOMMIT_EXPECTED_OUTPUT_FROM_CURRENT_NORMATIVE_SEMANTICS_NOT_IMPLEMENTATION_FIRST_OUTPUT",
+          "created_before_official_result_inspection": "PENDING"
+        },
+        {
+          "expected_field": "EXPECTED_TOP10_DIAGNOSTIC_VIEW",
+          "expected_value": "PENDING_AAA-MODEL-ARCHITECT_BINDING",
+          "derivation_method": "NOT_AUTHORED_BY_RESEARCH",
+          "source_refs": [
+            "AAA_M3TOP3_v1_GOLDEN_REPLAY_CTL_EXACT_SOURCE_MODEL_RECONCILIATION_v1.0"
+          ],
+          "independence_basis": "MODEL_MUST_PRECOMMIT_EXPECTED_OUTPUT_FROM_CURRENT_NORMATIVE_SEMANTICS_NOT_IMPLEMENTATION_FIRST_OUTPUT",
+          "created_before_official_result_inspection": "PENDING"
+        }
+      ]
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-15",
+      "research_owned_expected_fields": [
+        {
+          "expected_field": "ca_decision_public_before_snapshot",
+          "expected_value": true,
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-MIRAE-KIND-CA-20250416-20250529",
+            "EVID-MIRAE-KRX-ID",
+            "EVID-PRICE-RAW-MANIFEST",
+            "EVID-U127-LOGICAL-REFERENCE"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        },
+        {
+          "expected_field": "ca_reference_date_after_snapshot",
+          "expected_value": true,
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-MIRAE-KIND-CA-20250416-20250529",
+            "EVID-MIRAE-KRX-ID",
+            "EVID-PRICE-RAW-MANIFEST",
+            "EVID-U127-LOGICAL-REFERENCE"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        },
+        {
+          "expected_field": "model_input_use_for_this_fixture",
+          "expected_value": false,
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-MIRAE-KIND-CA-20250416-20250529",
+            "EVID-MIRAE-KRX-ID",
+            "EVID-PRICE-RAW-MANIFEST",
+            "EVID-U127-LOGICAL-REFERENCE"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        },
+        {
+          "expected_field": "adjustment_factor",
+          "expected_value": "NOT_AUTHORED_BY_RESEARCH",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-MIRAE-KIND-CA-20250416-20250529",
+            "EVID-MIRAE-KRX-ID",
+            "EVID-PRICE-RAW-MANIFEST",
+            "EVID-U127-LOGICAL-REFERENCE"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        }
+      ],
+      "model_owned_expected_fields": []
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-16",
+      "research_owned_expected_fields": [
+        {
+          "expected_field": "anchor_or_cutoff_date",
+          "expected_value": "2026-05-08",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-KRX-TRADINGDAY-RULE",
+            "EVID-KRX-OBSERVED-20260508-20260511",
+            "EVID-KRX-HOLIDAY-CALENDAR-PAGE",
+            "EVID-PRICE-RAW-MANIFEST"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        },
+        {
+          "expected_field": "post_hoc_observed_next_trade_candidate",
+          "expected_value": "2026-05-11",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-KRX-TRADINGDAY-RULE",
+            "EVID-KRX-OBSERVED-20260508-20260511",
+            "EVID-KRX-HOLIDAY-CALENDAR-PAGE",
+            "EVID-PRICE-RAW-MANIFEST"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        },
+        {
+          "expected_field": "governed_calendar_release",
+          "expected_value": "NOT_PROVEN",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-KRX-TRADINGDAY-RULE",
+            "EVID-KRX-OBSERVED-20260508-20260511",
+            "EVID-KRX-HOLIDAY-CALENDAR-PAGE",
+            "EVID-PRICE-RAW-MANIFEST"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        }
+      ],
+      "model_owned_expected_fields": []
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-17",
+      "research_owned_expected_fields": [
+        {
+          "expected_field": "expected_count",
+          "expected_value": 20,
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-GOLDEN-PREPARATION",
+            "EVID-MODEL-RECONCILIATION-20260819"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        },
+        {
+          "expected_field": "terminal_count",
+          "expected_value": 19,
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-GOLDEN-PREPARATION",
+            "EVID-MODEL-RECONCILIATION-20260819"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        },
+        {
+          "expected_field": "complete",
+          "expected_value": false,
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-GOLDEN-PREPARATION",
+            "EVID-MODEL-RECONCILIATION-20260819"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        }
+      ],
+      "model_owned_expected_fields": []
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-18",
+      "research_owned_expected_fields": [
+        {
+          "expected_field": "actual_future_outcome_value_present",
+          "expected_value": false,
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-MODEL-FEATURE-SCHEMA",
+            "EVID-MODEL-RECONCILIATION-20260819"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        },
+        {
+          "expected_field": "expected_guard_requirement",
+          "expected_value": "FAIL_CLOSED_ON_SCORE_AFFECTING_FUTURE_OUTCOME_PATH",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-MODEL-FEATURE-SCHEMA",
+            "EVID-MODEL-RECONCILIATION-20260819"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        }
+      ],
+      "model_owned_expected_fields": []
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-19",
+      "research_owned_expected_fields": [
+        {
+          "expected_field": "evidence_status",
+          "expected_value": "NOT_PROVEN",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-MODEL-FEATURE-SCHEMA"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        },
+        {
+          "expected_field": "ai_adjudication_is_ground_truth",
+          "expected_value": false,
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-MODEL-FEATURE-SCHEMA"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        }
+      ],
+      "model_owned_expected_fields": []
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-20",
+      "research_owned_expected_fields": [
+        {
+          "expected_field": "prior_result_overwrite",
+          "expected_value": "PROHIBITED",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-GOLDEN-PREPARATION",
+            "EVID-MODEL-RECONCILIATION-20260819"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        },
+        {
+          "expected_field": "rerun_materialization",
+          "expected_value": "NEW_IMMUTABLE_RESULT_IDENTITY_REQUIRED",
+          "derivation_method": "PREESTABLISHED_RESEARCH_CONTROL_OR_PRIMARY_SOURCE_TIMING",
+          "source_refs": [
+            "EVID-GOLDEN-PREPARATION",
+            "EVID-MODEL-RECONCILIATION-20260819"
+          ],
+          "independence_basis": "NOT_DERIVED_FROM_IMPLEMENTATION_UNDER_TEST",
+          "created_before_official_result_inspection": true
+        }
+      ],
+      "model_owned_expected_fields": []
+    }
+  ],
+  "fixture_input_completeness_state": "COMPLETE_FOR_FX08_FX12_FX13_FX14_PENDING_MODEL_DERIVATION",
+  "controlled_fixture_input_binding_summary": {
+    "FX08": {
+      "risk_gate_state": "EXPLICIT_NONE_PER_ROW",
+      "eligibility_state": "EXPLICIT_TRUE_PER_ROW"
+    },
+    "FX12": {
+      "risk_gate_state": "EXPLICIT_NONE"
+    },
+    "FX13": {
+      "risk_gate_state": "EXPLICIT_NONE"
+    },
+    "FX14": {
+      "risk_gate_state": "EXPLICIT_NONE_PER_ROW",
+      "eligibility_state": "EXPLICIT_TRUE_PER_ROW"
+    },
+    "historical_fact_claimed": false,
+    "outcome_used": false,
+    "model_expected_outputs": "PENDING_MODEL_BINDING"
+  }
+}

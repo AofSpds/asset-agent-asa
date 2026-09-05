@@ -1,0 +1,235 @@
+{
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "target_model": "M3TOP3-v1.0",
+  "authoring_owner": "AAA-RESEARCH-ORCHESTRATOR",
+  "validation_owner": "AAA-RESEARCH-VALIDATOR",
+  "created_at": "2026-08-19T02:53:00+09:00",
+  "source_work_packet": "AAA_M3TOP3_v1_GOLDEN_RESEARCH_PACKAGE_INPUT_COMPLETENESS_SUCCESSOR_AUTHORING_v1.0",
+  "source_work_packet_citation": "turn71file0",
+  "source_control_recovery": "AAA_M3TOP3_v1_GOLDEN_REPLAY_EXACT_CONTROL_BINDING_RECOVERY_v1.1 / turn71file0",
+  "source_model_reconciliation": "AAA_M3TOP3_v1_GOLDEN_REPLAY_CTL_EXACT_SOURCE_MODEL_RECONCILIATION_v1.0 / turn73file0",
+  "model_source_state": "EXACT_CURRENT_NORMATIVE_MODEL_SEMANTICS_RECOVERED_NOT_FROZEN_RELEASE",
+  "model_normative_source_set": {
+    "SC-01_MODEL_IDENTITY": [
+      {
+        "id": "M3TOP3-MODEL-CONTRACT_v1.0_WORKING",
+        "git_blob": "a5bc212aa07166db46b38070f54737cb47a7f090"
+      },
+      {
+        "id": "M3TOP3-NO-TUNE-BASELINE-LOCK_v1.2_WORKING",
+        "git_blob": "9cdbda6180661d8bc9214ae32cde5246ef6a23aa"
+      }
+    ],
+    "SC-02_FEATURE_MISSINGNESS": [
+      {
+        "id": "M3TOP3-FEATURE-SCHEMA_v1.0_WORKING",
+        "git_blob": "2550f781c2a901c0faada95dfc4a788503ec669b"
+      },
+      {
+        "id": "M3TOP3-FEATURE-INPUT-REGISTRY_v1.0_WORKING",
+        "git_blob": "5faa4d5739bf9ecb0c11d16f6d7d697ff3983977"
+      },
+      {
+        "id": "M3TOP3-PIT-CONSUMED-PROVENANCE-CONTRACT_v1.0_WORKING",
+        "git_blob": "b7a00087f9b9985d6d5523bf6524361e5ae620fe"
+      }
+    ],
+    "SC-03_SCORER_WEIGHT": [
+      {
+        "id": "M3TOP3-SCORER-CONTRACT_v1.0_WORKING",
+        "git_blob": "18ecdefbb7f8fddaa3d7189494fab9c00547d59e"
+      },
+      {
+        "id": "M3TOP3-WEIGHT-VERSION_v1.0_WORKING",
+        "git_blob": "76974860c75f5e164b49639208f8950595c71981"
+      }
+    ],
+    "SC-04_RANKING_SELECTION": [
+      {
+        "id": "M3TOP3-SCORER-CONTRACT_v1.0_WORKING",
+        "git_blob": "18ecdefbb7f8fddaa3d7189494fab9c00547d59e"
+      },
+      {
+        "id": "M3TOP3-COVERAGE-RELEASE-POLICY_v1.0_WORKING",
+        "git_blob": "0532eb3b921438538fa4cca908832cf5a770ca84"
+      },
+      {
+        "id": "M3TOP3-MODEL-CONTRACT_v1.0_WORKING",
+        "git_blob": "a5bc212aa07166db46b38070f54737cb47a7f090"
+      }
+    ],
+    "SC-05_PIT": [
+      {
+        "id": "M3TOP3-PIT-CONSUMED-PROVENANCE-CONTRACT_v1.0_WORKING",
+        "git_blob": "b7a00087f9b9985d6d5523bf6524361e5ae620fe"
+      }
+    ],
+    "SC-06_WINDOW_OUTCOME": [
+      {
+        "id": "SEMI-WINDOW-MAPPING-CONTRACT_WM-v1.1",
+        "git_blob": "01cad79f9cd49680f6bdc4eac80f01ccd52b7e86"
+      },
+      {
+        "id": "M3TOP3-MODEL-CONTRACT_v1.0_WORKING",
+        "git_blob": "a5bc212aa07166db46b38070f54737cb47a7f090"
+      },
+      {
+        "id": "M3TOP3-VALIDATION-CONTRACT_v1.0_WORKING",
+        "git_blob": "41ef43f1c534f15ebbfc22713a971ff3c8b94b29"
+      }
+    ]
+  },
+  "lineage": {
+    "mode": "MATERIAL_FIXTURE_INPUT_SUCCESSOR",
+    "successor_of": {
+      "object_id": "AAA-M3TOP3-GR-RESEARCH-READINESS-MANIFEST-v0.1-WORKING",
+      "version": "v0.1-WORKING",
+      "source_package_id": "AAA-M3TOP3-GR-RESEARCH-PACKAGE-v0.1-WORKING",
+      "source_package_zip_sha256": "3aaee7c1de2bd6f97e5ffd808fba980bf73fea1b604fb3c3b79e2be005180002",
+      "source_package_manifest_sha256": "c54c56d135ff439be5ee7e06afc6c1d2a2d822d5baf2c462aa0b4388f380d64c",
+      "source_component_digest": "a27ca78ad76fc08450275c59051f81e9b8338ba23d9d61336a91791fabe53d33",
+      "sha256": "b9e76701ee0aca8989ef1880f3fca29237ac3291ec9e2923ad2d76f1447385d0",
+      "byte_size": 8557
+    },
+    "historical_identity_inheritance": false,
+    "prior_validation_transfer": false,
+    "rematerialization": false,
+    "semantic_change_scope": "SUCCESSOR_READINESS_REBINDING_AFTER_FIXTURE_INPUT_COMPLETENESS_CORRECTION",
+    "model_semantic_change": false,
+    "outcome_driven_change": false
+  },
+  "authority": {
+    "canonical": false,
+    "frozen": false,
+    "active_release": false,
+    "official_golden_replay_authorized": false,
+    "pit_admission_pass": false,
+    "paired_validation_state": "PENDING",
+    "independent_validation_state": "NOT_PERFORMED",
+    "owner_acceptance_state": "NOT_CLAIMED"
+  },
+  "future_outcome_firewall": {
+    "fixture_selection_used_future_outcomes": false,
+    "future_outcome_available_to_model_input_path": false,
+    "model_tuning_from_outcomes": false
+  },
+  "object_id": "AAA-M3TOP3-GR-RESEARCH-READINESS-MANIFEST-v0.2-WORKING",
+  "version": "v0.2-WORKING",
+  "artifact_kind": "RESEARCH_READINESS_MANIFEST_WORKING_CANDIDATE",
+  "authoring_state": "COMPLETE_WORKING_CANDIDATE",
+  "evidence_state": "PARTIAL_WITH_EXPLICIT_NOT_PROVEN_CONTROL_RELEASES",
+  "paired_validation_state": "PENDING",
+  "independent_validation_state": "NOT_PERFORMED",
+  "owner_acceptance_state": "NOT_CLAIMED",
+  "fixture_count": 20,
+  "coverage_class_count": 20,
+  "unmapped_coverage_classes": [],
+  "expected_item_count": 20,
+  "evidence_item_count": 17,
+  "open_dependency_register_count": 12,
+  "actual_trusted_source_contradiction_count": 1,
+  "actual_trusted_source_contradiction_ids": [
+    "ECR-12_ARTIFACT_IDENTITY_NOT_SCIENTIFIC_MODEL_SEMANTIC"
+  ],
+  "model_output_pending_fixture_ids": [
+    "AAA-M3TOP3-GR-FX-08",
+    "AAA-M3TOP3-GR-FX-09",
+    "AAA-M3TOP3-GR-FX-12",
+    "AAA-M3TOP3-GR-FX-13",
+    "AAA-M3TOP3-GR-FX-14"
+  ],
+  "model_semantic_source_state": "CLOSED_EXACT_CURRENT_NORMATIVE",
+  "model_release_state": "NOT_FROZEN_NOT_PROVEN",
+  "research_artifact_components": [
+    {
+      "slot": "RES-AUTH-01-S",
+      "object_id": "AAA-M3TOP3-GR-FIXTURE-SET-v0.2-WORKING",
+      "runtime_transport_path": "/mnt/data/AAA_M3TOP3_GR_RESEARCH_PACKAGE_v0.2_WORKING/AAA_M3TOP3_GR_FIXTURE_SET_v0.2_WORKING.json",
+      "sha256": "8c80b4bab8c1d85ecf8f85295d1b233952aee0a817814c9e20b1b81170c21412",
+      "byte_size": 62801
+    },
+    {
+      "slot": "RES-AUTH-02-S",
+      "object_id": "AAA-M3TOP3-GR-FIXTURE-INVENTORY-v0.2-WORKING",
+      "runtime_transport_path": "/mnt/data/AAA_M3TOP3_GR_RESEARCH_PACKAGE_v0.2_WORKING/AAA_M3TOP3_GR_FIXTURE_INVENTORY_v0.2_WORKING.json",
+      "sha256": "ca415e4d7966c4574cf42b9e8e1a8c54c1ef1d369a8db1682a2e655efc07cb4a",
+      "byte_size": 30615
+    },
+    {
+      "slot": "RES-AUTH-03-S",
+      "object_id": "AAA-M3TOP3-GR-FIXTURE-COVERAGE-MATRIX-v0.2-WORKING",
+      "runtime_transport_path": "/mnt/data/AAA_M3TOP3_GR_RESEARCH_PACKAGE_v0.2_WORKING/AAA_M3TOP3_GR_FIXTURE_COVERAGE_MATRIX_v0.2_WORKING.csv",
+      "sha256": "b8bb3c027ec69396aca695019e42bd85430e156ddf89abfbaddc8680e0d646c5",
+      "byte_size": 4411
+    },
+    {
+      "slot": "RES-AUTH-04-S",
+      "object_id": "AAA-M3TOP3-GR-EXPECTED-ITEM-SET-v0.2-WORKING",
+      "runtime_transport_path": "/mnt/data/AAA_M3TOP3_GR_RESEARCH_PACKAGE_v0.2_WORKING/AAA_M3TOP3_GR_EXPECTED_ITEM_SET_v0.2_WORKING.json",
+      "sha256": "c31f66796a40a2db2396e90b005cdcf58b7f4b3f5c61055e61aec8d6ac04dc5c",
+      "byte_size": 24932
+    },
+    {
+      "slot": "RES-AUTH-05-S",
+      "object_id": "AAA-M3TOP3-GR-PIT-EVIDENCE-PACKAGE-v0.2-WORKING",
+      "runtime_transport_path": "/mnt/data/AAA_M3TOP3_GR_RESEARCH_PACKAGE_v0.2_WORKING/AAA_M3TOP3_GR_PIT_EVIDENCE_PACKAGE_v0.2_WORKING.json",
+      "sha256": "d98404fe8a8523773245a679a49fac7ec349b55a2faf516216945f75e6b58905",
+      "byte_size": 26779
+    },
+    {
+      "slot": "RES-AUTH-06-S",
+      "object_id": "AAA-M3TOP3-GR-EVIDENCE-CONFLICT-REGISTER-v0.2-WORKING",
+      "runtime_transport_path": "/mnt/data/AAA_M3TOP3_GR_RESEARCH_PACKAGE_v0.2_WORKING/AAA_M3TOP3_GR_EVIDENCE_CONFLICT_REGISTER_v0.2_WORKING.csv",
+      "sha256": "a48d1d0bd3196943ffd35be649de69ff79b3c191050dcf5c3c91b445990d1ba6",
+      "byte_size": 4438
+    },
+    {
+      "slot": "RES-AUTH-07-S",
+      "object_id": "AAA-M3TOP3-GR-GOLDEN-INPUT-CANDIDATE-v0.2-WORKING",
+      "runtime_transport_path": "/mnt/data/AAA_M3TOP3_GR_RESEARCH_PACKAGE_v0.2_WORKING/AAA_M3TOP3_GR_GOLDEN_INPUT_CANDIDATE_v0.2_WORKING.json",
+      "sha256": "9cf085e7bae0001e3172b2f479ad7298da92693a474c4881b66ab730c394087a",
+      "byte_size": 8086
+    },
+    {
+      "slot": "RES-AUTH-08-S",
+      "object_id": "AAA-M3TOP3-GR-EXPECTED-RESULT-REFERENCE-v0.2-WORKING",
+      "runtime_transport_path": "/mnt/data/AAA_M3TOP3_GR_RESEARCH_PACKAGE_v0.2_WORKING/AAA_M3TOP3_GR_EXPECTED_RESULT_REFERENCE_v0.2_WORKING.json",
+      "sha256": "f170597edb8670f4edeee707f687cabae3c63733a1bce2ab0824a413945b8c4d",
+      "byte_size": 38493
+    }
+  ],
+  "unresolved_dependencies": {
+    "model": [
+      "INDEPENDENT_EXPECTED_MODEL_OUTPUT_BINDINGS_GF08_GF09_GF12_GF13_GF14",
+      "CLEAN_GOLDEN_PREPARATION_TARGET_SUCCESSOR_BINDING"
+    ],
+    "control": [
+      "EXACT_U127_UNIVERSE_ELIGIBILITY_RELEASE",
+      "PIT_ADMISSION",
+      "OFFICIAL_GOLDEN_PRICE_RELEASE",
+      "PROJECT_AUTHORITATIVE_CA_RELEASE_OR_TREATMENT",
+      "PRODUCTION_KRX_TRADING_CALENDAR_RELEASE",
+      "GOVERNED_PERSISTENT_RESEARCH_ARTIFACT_PATH",
+      "FROZEN_OR_ADMISSIBLE_MODEL_RELEASE_BINDING"
+    ],
+    "engineering": [
+      "GOLDEN_HARNESS_EXACT_IDENTITY",
+      "EXPECTED_WORK_ENFORCEMENT_BINDING",
+      "RESULT_AND_SNAPSHOT_IMMUTABILITY_CONFORMANCE",
+      "COMPLETE_FUTURE_OUTCOME_INFORMATION_FLOW_CONFORMANCE",
+      "FRESH_IV_IMPLEMENTATION_TARGET"
+    ]
+  },
+  "research_l1_target_ready": "YES_EXACT_RUNTIME_BYTE_SET_READY; PERSISTENT_REGISTRATION_BLOCKED",
+  "official_golden_ready": false,
+  "fixture_input_completeness_state": "COMPLETE_FOR_AUTHORIZED_FIXTURE_FIELDS",
+  "predecessor_input_completeness_findings": [
+    "GAP-MOD-GR-01_FX08_FX12_FX13_FX14_RISK_GATE_STATE_MISSING",
+    "GAP-MOD-GR-02_FX08_FX14_ELIGIBILITY_STATE_MISSING"
+  ],
+  "successor_correction_records": [
+    "ECR-13",
+    "ECR-14"
+  ]
+}

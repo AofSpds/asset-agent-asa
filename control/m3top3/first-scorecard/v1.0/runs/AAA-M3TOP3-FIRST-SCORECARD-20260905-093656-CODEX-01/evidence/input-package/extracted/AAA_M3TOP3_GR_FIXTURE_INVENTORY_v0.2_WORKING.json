@@ -1,0 +1,799 @@
+{
+  "project": "AAA",
+  "product": "ASSET AGENT ASA",
+  "target_model": "M3TOP3-v1.0",
+  "authoring_owner": "AAA-RESEARCH-ORCHESTRATOR",
+  "validation_owner": "AAA-RESEARCH-VALIDATOR",
+  "created_at": "2026-08-19T02:53:00+09:00",
+  "source_work_packet": "AAA_M3TOP3_v1_GOLDEN_RESEARCH_PACKAGE_INPUT_COMPLETENESS_SUCCESSOR_AUTHORING_v1.0",
+  "source_work_packet_citation": "turn71file0",
+  "source_control_recovery": "AAA_M3TOP3_v1_GOLDEN_REPLAY_EXACT_CONTROL_BINDING_RECOVERY_v1.1 / turn71file0",
+  "source_model_reconciliation": "AAA_M3TOP3_v1_GOLDEN_REPLAY_CTL_EXACT_SOURCE_MODEL_RECONCILIATION_v1.0 / turn73file0",
+  "model_source_state": "EXACT_CURRENT_NORMATIVE_MODEL_SEMANTICS_RECOVERED_NOT_FROZEN_RELEASE",
+  "model_normative_source_set": {
+    "SC-01_MODEL_IDENTITY": [
+      {
+        "id": "M3TOP3-MODEL-CONTRACT_v1.0_WORKING",
+        "git_blob": "a5bc212aa07166db46b38070f54737cb47a7f090"
+      },
+      {
+        "id": "M3TOP3-NO-TUNE-BASELINE-LOCK_v1.2_WORKING",
+        "git_blob": "9cdbda6180661d8bc9214ae32cde5246ef6a23aa"
+      }
+    ],
+    "SC-02_FEATURE_MISSINGNESS": [
+      {
+        "id": "M3TOP3-FEATURE-SCHEMA_v1.0_WORKING",
+        "git_blob": "2550f781c2a901c0faada95dfc4a788503ec669b"
+      },
+      {
+        "id": "M3TOP3-FEATURE-INPUT-REGISTRY_v1.0_WORKING",
+        "git_blob": "5faa4d5739bf9ecb0c11d16f6d7d697ff3983977"
+      },
+      {
+        "id": "M3TOP3-PIT-CONSUMED-PROVENANCE-CONTRACT_v1.0_WORKING",
+        "git_blob": "b7a00087f9b9985d6d5523bf6524361e5ae620fe"
+      }
+    ],
+    "SC-03_SCORER_WEIGHT": [
+      {
+        "id": "M3TOP3-SCORER-CONTRACT_v1.0_WORKING",
+        "git_blob": "18ecdefbb7f8fddaa3d7189494fab9c00547d59e"
+      },
+      {
+        "id": "M3TOP3-WEIGHT-VERSION_v1.0_WORKING",
+        "git_blob": "76974860c75f5e164b49639208f8950595c71981"
+      }
+    ],
+    "SC-04_RANKING_SELECTION": [
+      {
+        "id": "M3TOP3-SCORER-CONTRACT_v1.0_WORKING",
+        "git_blob": "18ecdefbb7f8fddaa3d7189494fab9c00547d59e"
+      },
+      {
+        "id": "M3TOP3-COVERAGE-RELEASE-POLICY_v1.0_WORKING",
+        "git_blob": "0532eb3b921438538fa4cca908832cf5a770ca84"
+      },
+      {
+        "id": "M3TOP3-MODEL-CONTRACT_v1.0_WORKING",
+        "git_blob": "a5bc212aa07166db46b38070f54737cb47a7f090"
+      }
+    ],
+    "SC-05_PIT": [
+      {
+        "id": "M3TOP3-PIT-CONSUMED-PROVENANCE-CONTRACT_v1.0_WORKING",
+        "git_blob": "b7a00087f9b9985d6d5523bf6524361e5ae620fe"
+      }
+    ],
+    "SC-06_WINDOW_OUTCOME": [
+      {
+        "id": "SEMI-WINDOW-MAPPING-CONTRACT_WM-v1.1",
+        "git_blob": "01cad79f9cd49680f6bdc4eac80f01ccd52b7e86"
+      },
+      {
+        "id": "M3TOP3-MODEL-CONTRACT_v1.0_WORKING",
+        "git_blob": "a5bc212aa07166db46b38070f54737cb47a7f090"
+      },
+      {
+        "id": "M3TOP3-VALIDATION-CONTRACT_v1.0_WORKING",
+        "git_blob": "41ef43f1c534f15ebbfc22713a971ff3c8b94b29"
+      }
+    ]
+  },
+  "lineage": {
+    "mode": "MATERIAL_FIXTURE_INPUT_SUCCESSOR",
+    "successor_of": {
+      "object_id": "AAA-M3TOP3-GR-FIXTURE-INVENTORY-v0.1-WORKING",
+      "version": "v0.1-WORKING",
+      "source_package_id": "AAA-M3TOP3-GR-RESEARCH-PACKAGE-v0.1-WORKING",
+      "source_package_zip_sha256": "3aaee7c1de2bd6f97e5ffd808fba980bf73fea1b604fb3c3b79e2be005180002",
+      "source_package_manifest_sha256": "c54c56d135ff439be5ee7e06afc6c1d2a2d822d5baf2c462aa0b4388f380d64c",
+      "source_component_digest": "a27ca78ad76fc08450275c59051f81e9b8338ba23d9d61336a91791fabe53d33",
+      "sha256": "fa32b708897e76970379c95b215a23e3fdbde5af6656e739dacde96e03eaf343",
+      "byte_size": 25811
+    },
+    "historical_identity_inheritance": false,
+    "prior_validation_transfer": false,
+    "rematerialization": false,
+    "semantic_change_scope": "FIXTURE_INPUT_COMPLETENESS_DEPENDENT_INVENTORY_METADATA",
+    "model_semantic_change": false,
+    "outcome_driven_change": false
+  },
+  "authority": {
+    "canonical": false,
+    "frozen": false,
+    "active_release": false,
+    "official_golden_replay_authorized": false,
+    "pit_admission_pass": false,
+    "paired_validation_state": "PENDING",
+    "independent_validation_state": "NOT_PERFORMED",
+    "owner_acceptance_state": "NOT_CLAIMED"
+  },
+  "future_outcome_firewall": {
+    "fixture_selection_used_future_outcomes": false,
+    "future_outcome_available_to_model_input_path": false,
+    "model_tuning_from_outcomes": false
+  },
+  "object_id": "AAA-M3TOP3-GR-FIXTURE-INVENTORY-v0.2-WORKING",
+  "version": "v0.2-WORKING",
+  "artifact_kind": "GOLDEN_REPLAY_RESEARCH_FIXTURE_INVENTORY_WORKING_CANDIDATE",
+  "authoring_state": "COMPLETE_WORKING_CANDIDATE",
+  "evidence_state": "PARTIAL_WITH_EXPLICIT_EXTERNAL_BINDINGS",
+  "fixture_count": 20,
+  "source_fixture_set_id": "AAA-M3TOP3-GR-FIXTURE-SET-v0.2-WORKING",
+  "inventory": [
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-01",
+      "coverage_class": "GF-01_NORMAL_FULLY_SUPPORTED",
+      "fixture_kind": "HISTORICAL_PRIMARY_SOURCE_POSITIVE_CONTROL",
+      "company_or_security_ids": [
+        "KRX:417500"
+      ],
+      "snapshot_cutoff": "2024-08-09",
+      "authoring_disposition": "AUTHORED_COMPLETE_RESEARCH_SCOPE",
+      "research_owned_expected_state": {
+        "publication_before_cutoff": true,
+        "evidence_status": "VERIFIED_PRIMARY_DATE",
+        "pit_candidate_state": "ADMISSIBLE_CANDIDATE_NOT_PIT_PASS"
+      },
+      "model_semantic_binding_state": "EXACT_CURRENT_NORMATIVE_SOURCE_RECOVERED",
+      "model_output_expectation_state": "NOT_REQUIRED",
+      "pending_model_output_expectations": [],
+      "pending_control_bindings": [
+        "EXACT_U127_UNIVERSE_ELIGIBILITY_RELEASE",
+        "PIT_ADMISSION",
+        "PRODUCTION_KRX_CALENDAR_RELEASE"
+      ],
+      "evidence_refs": [
+        "EVID-JIT-SDA-20240524",
+        "EVID-JIT-DART-20240524000201",
+        "EVID-JIT-DART-TIME-SECONDARY",
+        "EVID-U127-LOGICAL-REFERENCE"
+      ],
+      "future_outcome_present_in_research_package": false,
+      "future_outcome_available_to_model_input_path": false,
+      "historical_transport_reference_only": "GRF-01"
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-02",
+      "coverage_class": "GF-02_FEATURE_MISSINGNESS",
+      "fixture_kind": "CONTROLLED",
+      "company_or_security_ids": [
+        "KRX:232140"
+      ],
+      "snapshot_cutoff": "2025-11-10",
+      "authoring_disposition": "AUTHORED_COMPLETE_RESEARCH_SCOPE",
+      "research_owned_expected_state": {
+        "F01_state": "MISSING_NA",
+        "zero_fill": "PROHIBITED",
+        "false_fill": "PROHIBITED"
+      },
+      "model_semantic_binding_state": "EXACT_CURRENT_NORMATIVE_SOURCE_RECOVERED",
+      "model_output_expectation_state": "NOT_REQUIRED",
+      "pending_model_output_expectations": [],
+      "pending_control_bindings": [],
+      "evidence_refs": [
+        "EVID-MODEL-FEATURE-SCHEMA",
+        "EVID-MODEL-RECONCILIATION-20260819"
+      ],
+      "future_outcome_present_in_research_package": false,
+      "future_outcome_available_to_model_input_path": false,
+      "historical_transport_reference_only": "GRF-02"
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-03",
+      "coverage_class": "GF-03_NOT_PROVEN_UNKNOWN_EVIDENCE",
+      "fixture_kind": "HISTORICAL_EPISTEMIC_CONTROL",
+      "company_or_security_ids": [
+        "KRX:381620"
+      ],
+      "snapshot_cutoff": "2024-08-09",
+      "authoring_disposition": "AUTHORED_COMPLETE_RESEARCH_SCOPE",
+      "research_owned_expected_state": {
+        "evidence_status": "NOT_PROVEN",
+        "available_before_cutoff": "NOT_PROVEN",
+        "promotion_to_false_zero_verified": "PROHIBITED"
+      },
+      "model_semantic_binding_state": "EXACT_CURRENT_NORMATIVE_SOURCE_RECOVERED",
+      "model_output_expectation_state": "NOT_REQUIRED",
+      "pending_model_output_expectations": [],
+      "pending_control_bindings": [
+        "EXACT_U127_UNIVERSE_ELIGIBILITY_RELEASE"
+      ],
+      "evidence_refs": [
+        "EVID-ZENICS-W1-NOTPROVEN",
+        "EVID-U127-LOGICAL-REFERENCE"
+      ],
+      "future_outcome_present_in_research_package": false,
+      "future_outcome_available_to_model_input_path": false,
+      "historical_transport_reference_only": "GRF-03"
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-04",
+      "coverage_class": "GF-04_RETRIEVAL_NOT_FOUND",
+      "fixture_kind": "CONTROLLED",
+      "company_or_security_ids": [
+        "KRX:281820"
+      ],
+      "snapshot_cutoff": "2025-02-10",
+      "authoring_disposition": "AUTHORED_COMPLETE_RESEARCH_SCOPE",
+      "research_owned_expected_state": {
+        "retrieval_state": "NOT_FOUND",
+        "negative_business_fact_inferred": false
+      },
+      "model_semantic_binding_state": "EXACT_CURRENT_NORMATIVE_SOURCE_RECOVERED",
+      "model_output_expectation_state": "NOT_REQUIRED",
+      "pending_model_output_expectations": [],
+      "pending_control_bindings": [],
+      "evidence_refs": [
+        "EVID-MODEL-FEATURE-SCHEMA"
+      ],
+      "future_outcome_present_in_research_package": false,
+      "future_outcome_available_to_model_input_path": false,
+      "historical_transport_reference_only": "GRF-04"
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-05",
+      "coverage_class": "GF-05_PIT_PUBLICATION_TIME_BOUNDARY",
+      "fixture_kind": "CONTROLLED_TEMPORAL_PAIR",
+      "company_or_security_ids": [
+        "KRX:417500"
+      ],
+      "snapshot_cutoff": "CONTROLLED_T0:2025-01-02T12:00:00+09:00",
+      "authoring_disposition": "AUTHORED_COMPLETE_RESEARCH_SCOPE",
+      "research_owned_expected_state": {
+        "T0_minus_1s": "AVAILABLE_BEFORE_CUTOFF_TRUE",
+        "T0_plus_1s": "AVAILABLE_BEFORE_CUTOFF_FALSE"
+      },
+      "model_semantic_binding_state": "EXACT_CURRENT_NORMATIVE_SOURCE_RECOVERED",
+      "model_output_expectation_state": "NOT_REQUIRED",
+      "pending_model_output_expectations": [],
+      "pending_control_bindings": [],
+      "evidence_refs": [
+        "EVID-MODEL-FEATURE-SCHEMA"
+      ],
+      "future_outcome_present_in_research_package": false,
+      "future_outcome_available_to_model_input_path": false,
+      "historical_transport_reference_only": "GRF-05"
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-06",
+      "coverage_class": "GF-06_FACT_EXISTS_PUBLIC_EVIDENCE_NOT_AVAILABLE",
+      "fixture_kind": "CONTROLLED_TEMPORAL_LAG",
+      "company_or_security_ids": [
+        "KRX:417500"
+      ],
+      "snapshot_cutoff": "CONTROLLED_T0:2025-01-02T12:00:00+09:00",
+      "authoring_disposition": "AUTHORED_COMPLETE_RESEARCH_SCOPE",
+      "research_owned_expected_state": {
+        "fact_existed_at_cutoff": true,
+        "public_evidence_available_at_cutoff": false
+      },
+      "model_semantic_binding_state": "EXACT_CURRENT_NORMATIVE_SOURCE_RECOVERED",
+      "model_output_expectation_state": "NOT_REQUIRED",
+      "pending_model_output_expectations": [],
+      "pending_control_bindings": [],
+      "evidence_refs": [
+        "EVID-MODEL-FEATURE-SCHEMA"
+      ],
+      "future_outcome_present_in_research_package": false,
+      "future_outcome_available_to_model_input_path": false,
+      "historical_transport_reference_only": "GRF-06"
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-07",
+      "coverage_class": "GF-07_IMPUTATION_SENSITIVE",
+      "fixture_kind": "CONTROLLED",
+      "company_or_security_ids": [
+        "KRX:140860"
+      ],
+      "snapshot_cutoff": "2025-11-10",
+      "authoring_disposition": "AUTHORED_COMPLETE_RESEARCH_SCOPE",
+      "research_owned_expected_state": {
+        "missing_value_state": "NA",
+        "silent_value_imputation": "PROHIBITED",
+        "available_weight_renormalization": "MODEL_MATHEMATICAL_MISSINGNESS_HANDLING"
+      },
+      "model_semantic_binding_state": "EXACT_CURRENT_NORMATIVE_SOURCE_RECOVERED",
+      "model_output_expectation_state": "NOT_REQUIRED",
+      "pending_model_output_expectations": [],
+      "pending_control_bindings": [],
+      "evidence_refs": [
+        "EVID-MODEL-FEATURE-SCHEMA",
+        "EVID-MODEL-RECONCILIATION-20260819"
+      ],
+      "future_outcome_present_in_research_package": false,
+      "future_outcome_available_to_model_input_path": false,
+      "historical_transport_reference_only": "GRF-07"
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-08",
+      "coverage_class": "GF-08_RANKING_TIE",
+      "fixture_kind": "CONTROLLED",
+      "company_or_security_ids": [
+        "KRX:058470",
+        "KRX:095340"
+      ],
+      "snapshot_cutoff": "2025-11-10",
+      "authoring_disposition": "AUTHORED_COMPLETE_RESEARCH_SCOPE",
+      "research_owned_expected_state": {
+        "input_pair_equality": "IDENTICAL_CONTROLLED_FEATURE_INPUTS",
+        "normative_tie_rule_reference": "EXACT_FINAL_SCORE_TIE_TO_COMPANY_ID_ASC"
+      },
+      "model_semantic_binding_state": "EXACT_CURRENT_NORMATIVE_SOURCE_RECOVERED",
+      "model_output_expectation_state": "PENDING_AAA-MODEL-ARCHITECT_BINDING",
+      "pending_model_output_expectations": [
+        "EXPECTED_FINAL_SCORES",
+        "EXPECTED_ORDER"
+      ],
+      "pending_control_bindings": [],
+      "evidence_refs": [
+        "EVID-MODEL-RECONCILIATION-20260819"
+      ],
+      "future_outcome_present_in_research_package": false,
+      "future_outcome_available_to_model_input_path": false,
+      "historical_transport_reference_only": "GRF-08",
+      "controlled_input_bindings": [
+        {
+          "row_or_company_id": "row_A",
+          "company_id": "KRX:058470",
+          "field": "risk_gate_state",
+          "selected_value": "NONE",
+          "historical_fact_claimed": false,
+          "outcome_used": false
+        },
+        {
+          "row_or_company_id": "row_A",
+          "company_id": "KRX:058470",
+          "field": "eligibility_state",
+          "selected_value": true,
+          "historical_fact_claimed": false,
+          "outcome_used": false
+        },
+        {
+          "row_or_company_id": "row_B",
+          "company_id": "KRX:095340",
+          "field": "risk_gate_state",
+          "selected_value": "NONE",
+          "historical_fact_claimed": false,
+          "outcome_used": false
+        },
+        {
+          "row_or_company_id": "row_B",
+          "company_id": "KRX:095340",
+          "field": "eligibility_state",
+          "selected_value": true,
+          "historical_fact_claimed": false,
+          "outcome_used": false
+        }
+      ],
+      "fixture_input_completeness_state": "COMPLETE_FOR_MODEL_DERIVATION"
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-09",
+      "coverage_class": "GF-09_RANKABILITY_INCOMPLETE_COVERAGE",
+      "fixture_kind": "CONTROLLED",
+      "company_or_security_ids": [
+        "KRX:232140",
+        "KRX:058470",
+        "KRX:095340"
+      ],
+      "snapshot_cutoff": "2025-11-10",
+      "authoring_disposition": "AUTHORED_COMPLETE_RESEARCH_SCOPE",
+      "research_owned_expected_state": {
+        "eligible_count": 3,
+        "deliberately_unrankable_count": 1,
+        "expected_snapshot_state_reference": "INCOMPLETE_COVERAGE_IF_ELIGIBLE_COMPANY_HAS_NO_RANKABLE_SCORE"
+      },
+      "model_semantic_binding_state": "EXACT_CURRENT_NORMATIVE_SOURCE_RECOVERED",
+      "model_output_expectation_state": "PENDING_AAA-MODEL-ARCHITECT_BINDING",
+      "pending_model_output_expectations": [
+        "EXPECTED_RANKABILITY_AND_SNAPSHOT_COVERAGE_STATE"
+      ],
+      "pending_control_bindings": [],
+      "evidence_refs": [
+        "EVID-MODEL-RECONCILIATION-20260819"
+      ],
+      "future_outcome_present_in_research_package": false,
+      "future_outcome_available_to_model_input_path": false,
+      "historical_transport_reference_only": "GRF-09"
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-10",
+      "coverage_class": "GF-10_UNIVERSE_ELIGIBILITY_RELEASE_MISMATCH",
+      "fixture_kind": "CONTROLLED_IDENTITY_MISMATCH",
+      "company_or_security_ids": [
+        "KRX:089970"
+      ],
+      "snapshot_cutoff": "2025-11-10",
+      "authoring_disposition": "AUTHORED_COMPLETE_RESEARCH_SCOPE",
+      "research_owned_expected_state": {
+        "identity_match": false,
+        "silent_substitution": "PROHIBITED",
+        "expected_guard_state": "MISMATCH_SURFACED_FAIL_CLOSED"
+      },
+      "model_semantic_binding_state": "EXACT_CURRENT_NORMATIVE_SOURCE_RECOVERED",
+      "model_output_expectation_state": "NOT_REQUIRED",
+      "pending_model_output_expectations": [],
+      "pending_control_bindings": [
+        "EXACT_U127_RELEASE_ID_FOR_OFFICIAL_ACT"
+      ],
+      "evidence_refs": [
+        "EVID-U46-LEGACY-IDENTITY",
+        "EVID-U127-LOGICAL-REFERENCE"
+      ],
+      "future_outcome_present_in_research_package": false,
+      "future_outcome_available_to_model_input_path": false,
+      "historical_transport_reference_only": "GRF-10"
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-11",
+      "coverage_class": "GF-11_U46_VS_U127_IDENTITY_GUARD",
+      "fixture_kind": "HISTORICAL_PLUS_CONTROLLED_IDENTITY",
+      "company_or_security_ids": [
+        "KRX:0017J0"
+      ],
+      "snapshot_cutoff": "2024-11-08",
+      "authoring_disposition": "AUTHORED_COMPLETE_RESEARCH_SCOPE",
+      "research_owned_expected_state": {
+        "u46_equals_u127": false,
+        "silent_normalization": "PROHIBITED",
+        "w2_later_evidence_relation": "POST_CUTOFF"
+      },
+      "model_semantic_binding_state": "EXACT_CURRENT_NORMATIVE_SOURCE_RECOVERED",
+      "model_output_expectation_state": "NOT_REQUIRED",
+      "pending_model_output_expectations": [],
+      "pending_control_bindings": [
+        "EXACT_U127_UNIVERSE_ELIGIBILITY_RELEASE"
+      ],
+      "evidence_refs": [
+        "EVID-U46-LEGACY-IDENTITY",
+        "EVID-U127-LOGICAL-REFERENCE",
+        "EVID-SEMITES-W1-NOTPROVEN",
+        "EVID-SEMITES-W2-POSTCUTOFF"
+      ],
+      "future_outcome_present_in_research_package": false,
+      "future_outcome_available_to_model_input_path": false,
+      "historical_transport_reference_only": "GRF-11"
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-12",
+      "coverage_class": "GF-12_SCORER_ARITHMETIC_BOUNDARY",
+      "fixture_kind": "CONTROLLED",
+      "company_or_security_ids": [
+        "KRX:319660"
+      ],
+      "snapshot_cutoff": "2026-02-10",
+      "authoring_disposition": "AUTHORED_COMPLETE_RESEARCH_SCOPE",
+      "research_owned_expected_state": {
+        "numeric_contract": "EXACT_DECIMAL_NO_TOLERANCE",
+        "scorer_contract": "GATED_LINEAR"
+      },
+      "model_semantic_binding_state": "EXACT_CURRENT_NORMATIVE_SOURCE_RECOVERED",
+      "model_output_expectation_state": "PENDING_AAA-MODEL-ARCHITECT_BINDING",
+      "pending_model_output_expectations": [
+        "EXPECTED_AXIS_SCORES",
+        "EXPECTED_PRE_GATE_SCORE",
+        "EXPECTED_FINAL_SCORE"
+      ],
+      "pending_control_bindings": [],
+      "evidence_refs": [
+        "EVID-MODEL-RECONCILIATION-20260819"
+      ],
+      "future_outcome_present_in_research_package": false,
+      "future_outcome_available_to_model_input_path": false,
+      "historical_transport_reference_only": "GRF-12",
+      "controlled_input_bindings": [
+        {
+          "row_or_company_id": "KRX:319660",
+          "company_id": "KRX:319660",
+          "field": "risk_gate_state",
+          "selected_value": "NONE",
+          "historical_fact_claimed": false,
+          "outcome_used": false
+        }
+      ],
+      "fixture_input_completeness_state": "COMPLETE_FOR_MODEL_DERIVATION"
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-13",
+      "coverage_class": "GF-13_WEIGHT_APPLICATION_IDENTITY",
+      "fixture_kind": "CONTROLLED",
+      "company_or_security_ids": [
+        "KRX:084370"
+      ],
+      "snapshot_cutoff": "2026-02-10",
+      "authoring_disposition": "AUTHORED_COMPLETE_RESEARCH_SCOPE",
+      "research_owned_expected_state": {
+        "current_weight_id": "M3TOP3-WEIGHT-VERSION_v1.0_WORKING",
+        "legacy_weight_reuse": "PROHIBITED"
+      },
+      "model_semantic_binding_state": "EXACT_CURRENT_NORMATIVE_SOURCE_RECOVERED",
+      "model_output_expectation_state": "PENDING_AAA-MODEL-ARCHITECT_BINDING",
+      "pending_model_output_expectations": [
+        "EXPECTED_WEIGHTED_AXIS_AND_FINAL_SCORE"
+      ],
+      "pending_control_bindings": [],
+      "evidence_refs": [
+        "EVID-MODEL-RECONCILIATION-20260819"
+      ],
+      "future_outcome_present_in_research_package": false,
+      "future_outcome_available_to_model_input_path": false,
+      "historical_transport_reference_only": "GRF-13",
+      "controlled_input_bindings": [
+        {
+          "row_or_company_id": "KRX:084370",
+          "company_id": "KRX:084370",
+          "field": "risk_gate_state",
+          "selected_value": "NONE",
+          "historical_fact_claimed": false,
+          "outcome_used": false
+        }
+      ],
+      "fixture_input_completeness_state": "COMPLETE_FOR_MODEL_DERIVATION"
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-14",
+      "coverage_class": "GF-14_TOP3_TOPK_SELECTION_BOUNDARY",
+      "fixture_kind": "CONTROLLED",
+      "company_or_security_ids": [
+        "KRX:042700",
+        "KRX:031980",
+        "KRX:089030",
+        "KRX:232140"
+      ],
+      "snapshot_cutoff": "2026-02-10",
+      "authoring_disposition": "AUTHORED_COMPLETE_RESEARCH_SCOPE",
+      "research_owned_expected_state": {
+        "top3_rule_reference": "rank<=3",
+        "top10_rule_reference": "rank<=10 diagnostic same ranking"
+      },
+      "model_semantic_binding_state": "EXACT_CURRENT_NORMATIVE_SOURCE_RECOVERED",
+      "model_output_expectation_state": "PENDING_AAA-MODEL-ARCHITECT_BINDING",
+      "pending_model_output_expectations": [
+        "EXPECTED_FULL_RANKING",
+        "EXPECTED_TOP3_SET",
+        "EXPECTED_TOP10_DIAGNOSTIC_VIEW"
+      ],
+      "pending_control_bindings": [],
+      "evidence_refs": [
+        "EVID-MODEL-RECONCILIATION-20260819"
+      ],
+      "future_outcome_present_in_research_package": false,
+      "future_outcome_available_to_model_input_path": false,
+      "historical_transport_reference_only": "GRF-14",
+      "controlled_input_bindings": [
+        {
+          "row_or_company_id": "row_1",
+          "company_id": "KRX:042700",
+          "field": "risk_gate_state",
+          "selected_value": "NONE",
+          "historical_fact_claimed": false,
+          "outcome_used": false
+        },
+        {
+          "row_or_company_id": "row_1",
+          "company_id": "KRX:042700",
+          "field": "eligibility_state",
+          "selected_value": true,
+          "historical_fact_claimed": false,
+          "outcome_used": false
+        },
+        {
+          "row_or_company_id": "row_2",
+          "company_id": "KRX:031980",
+          "field": "risk_gate_state",
+          "selected_value": "NONE",
+          "historical_fact_claimed": false,
+          "outcome_used": false
+        },
+        {
+          "row_or_company_id": "row_2",
+          "company_id": "KRX:031980",
+          "field": "eligibility_state",
+          "selected_value": true,
+          "historical_fact_claimed": false,
+          "outcome_used": false
+        },
+        {
+          "row_or_company_id": "row_3",
+          "company_id": "KRX:089030",
+          "field": "risk_gate_state",
+          "selected_value": "NONE",
+          "historical_fact_claimed": false,
+          "outcome_used": false
+        },
+        {
+          "row_or_company_id": "row_3",
+          "company_id": "KRX:089030",
+          "field": "eligibility_state",
+          "selected_value": true,
+          "historical_fact_claimed": false,
+          "outcome_used": false
+        },
+        {
+          "row_or_company_id": "row_4",
+          "company_id": "KRX:232140",
+          "field": "risk_gate_state",
+          "selected_value": "NONE",
+          "historical_fact_claimed": false,
+          "outcome_used": false
+        },
+        {
+          "row_or_company_id": "row_4",
+          "company_id": "KRX:232140",
+          "field": "eligibility_state",
+          "selected_value": true,
+          "historical_fact_claimed": false,
+          "outcome_used": false
+        }
+      ],
+      "fixture_input_completeness_state": "COMPLETE_FOR_MODEL_DERIVATION"
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-15",
+      "coverage_class": "GF-15_CORPORATE_ACTION_PRICE_RELEASE_BOUNDARY",
+      "fixture_kind": "HISTORICAL_PRIMARY_SOURCE_CA_BOUNDARY",
+      "company_or_security_ids": [
+        "KRX:025560"
+      ],
+      "snapshot_cutoff": "2025-05-09",
+      "authoring_disposition": "AUTHORED_COMPLETE_RESEARCH_SCOPE",
+      "research_owned_expected_state": {
+        "ca_decision_public_before_snapshot": true,
+        "ca_reference_date_after_snapshot": true,
+        "model_input_use_for_this_fixture": false,
+        "adjustment_factor": "NOT_AUTHORED_BY_RESEARCH"
+      },
+      "model_semantic_binding_state": "EXACT_CURRENT_NORMATIVE_SOURCE_RECOVERED",
+      "model_output_expectation_state": "NOT_REQUIRED",
+      "pending_model_output_expectations": [],
+      "pending_control_bindings": [
+        "OFFICIAL_GOLDEN_PRICE_RELEASE",
+        "PROJECT_AUTHORITATIVE_CA_RELEASE_OR_TREATMENT",
+        "PRODUCTION_KRX_CALENDAR_RELEASE",
+        "EXACT_U127_RELEASE"
+      ],
+      "evidence_refs": [
+        "EVID-MIRAE-KIND-CA-20250416-20250529",
+        "EVID-MIRAE-KRX-ID",
+        "EVID-PRICE-RAW-MANIFEST",
+        "EVID-U127-LOGICAL-REFERENCE"
+      ],
+      "future_outcome_present_in_research_package": true,
+      "future_outcome_available_to_model_input_path": false,
+      "historical_transport_reference_only": "GRF-15"
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-16",
+      "coverage_class": "GF-16_TRADING_CALENDAR_BOUNDARY",
+      "fixture_kind": "CONTROLLED_PLUS_EXCHANGE_CORROBORATED_CALENDAR",
+      "company_or_security_ids": [
+        "KRX:281820"
+      ],
+      "snapshot_cutoff": "2026-05-08",
+      "authoring_disposition": "AUTHORED_COMPLETE_RESEARCH_SCOPE",
+      "research_owned_expected_state": {
+        "anchor_or_cutoff_date": "2026-05-08",
+        "post_hoc_observed_next_trade_candidate": "2026-05-11",
+        "governed_calendar_release": "NOT_PROVEN"
+      },
+      "model_semantic_binding_state": "EXACT_CURRENT_NORMATIVE_SOURCE_RECOVERED",
+      "model_output_expectation_state": "NOT_REQUIRED",
+      "pending_model_output_expectations": [],
+      "pending_control_bindings": [
+        "PRODUCTION_KRX_TRADING_CALENDAR_RELEASE"
+      ],
+      "evidence_refs": [
+        "EVID-KRX-TRADINGDAY-RULE",
+        "EVID-KRX-OBSERVED-20260508-20260511",
+        "EVID-KRX-HOLIDAY-CALENDAR-PAGE",
+        "EVID-PRICE-RAW-MANIFEST"
+      ],
+      "future_outcome_present_in_research_package": true,
+      "future_outcome_available_to_model_input_path": false,
+      "historical_transport_reference_only": "GRF-16"
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-17",
+      "coverage_class": "GF-17_PARTIAL_EXPECTED_WORK_COMPLETION",
+      "fixture_kind": "CONTROLLED_EXPECTED_WORK_SET",
+      "company_or_security_ids": [],
+      "snapshot_cutoff": null,
+      "authoring_disposition": "AUTHORED_COMPLETE_RESEARCH_SCOPE",
+      "research_owned_expected_state": {
+        "expected_count": 20,
+        "terminal_count": 19,
+        "complete": false
+      },
+      "model_semantic_binding_state": "EXACT_CURRENT_NORMATIVE_SOURCE_RECOVERED",
+      "model_output_expectation_state": "NOT_REQUIRED",
+      "pending_model_output_expectations": [],
+      "pending_control_bindings": [],
+      "evidence_refs": [
+        "EVID-GOLDEN-PREPARATION",
+        "EVID-MODEL-RECONCILIATION-20260819"
+      ],
+      "future_outcome_present_in_research_package": false,
+      "future_outcome_available_to_model_input_path": false,
+      "historical_transport_reference_only": "GRF-17"
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-18",
+      "coverage_class": "GF-18_FUTURE_OUTCOME_LEAKAGE",
+      "fixture_kind": "CONTROLLED_FORBIDDEN_FIELD_MARKER",
+      "company_or_security_ids": [
+        "KRX:042700"
+      ],
+      "snapshot_cutoff": "2025-08-08",
+      "authoring_disposition": "AUTHORED_COMPLETE_RESEARCH_SCOPE_ENGINEERING_CONFORMANCE_PENDING",
+      "research_owned_expected_state": {
+        "actual_future_outcome_value_present": false,
+        "expected_guard_requirement": "FAIL_CLOSED_ON_SCORE_AFFECTING_FUTURE_OUTCOME_PATH"
+      },
+      "model_semantic_binding_state": "EXACT_CURRENT_NORMATIVE_SOURCE_RECOVERED",
+      "model_output_expectation_state": "NOT_REQUIRED",
+      "pending_model_output_expectations": [],
+      "pending_control_bindings": [],
+      "evidence_refs": [
+        "EVID-MODEL-FEATURE-SCHEMA",
+        "EVID-MODEL-RECONCILIATION-20260819"
+      ],
+      "future_outcome_present_in_research_package": false,
+      "future_outcome_available_to_model_input_path": false,
+      "historical_transport_reference_only": "GRF-18"
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-19",
+      "coverage_class": "GF-19_AI_ADJUDICATION_NOT_GROUND_TRUTH",
+      "fixture_kind": "CONTROLLED_AI_ONLY_CLAIM",
+      "company_or_security_ids": [
+        "KRX:417840"
+      ],
+      "snapshot_cutoff": "2026-05-08",
+      "authoring_disposition": "AUTHORED_COMPLETE_RESEARCH_SCOPE",
+      "research_owned_expected_state": {
+        "evidence_status": "NOT_PROVEN",
+        "ai_adjudication_is_ground_truth": false
+      },
+      "model_semantic_binding_state": "EXACT_CURRENT_NORMATIVE_SOURCE_RECOVERED",
+      "model_output_expectation_state": "NOT_REQUIRED",
+      "pending_model_output_expectations": [],
+      "pending_control_bindings": [],
+      "evidence_refs": [
+        "EVID-MODEL-FEATURE-SCHEMA"
+      ],
+      "future_outcome_present_in_research_package": false,
+      "future_outcome_available_to_model_input_path": false,
+      "historical_transport_reference_only": "GRF-19"
+    },
+    {
+      "fixture_id": "AAA-M3TOP3-GR-FX-20",
+      "coverage_class": "GF-20_FROZEN_RESULT_APPEND_ONLY_NO_OVERWRITE",
+      "fixture_kind": "CONTROLLED_RESULT_LINEAGE",
+      "company_or_security_ids": [
+        "KRX:140860"
+      ],
+      "snapshot_cutoff": "2025-11-10",
+      "authoring_disposition": "AUTHORED_COMPLETE_RESEARCH_SCOPE",
+      "research_owned_expected_state": {
+        "prior_result_overwrite": "PROHIBITED",
+        "rerun_materialization": "NEW_IMMUTABLE_RESULT_IDENTITY_REQUIRED"
+      },
+      "model_semantic_binding_state": "EXACT_CURRENT_NORMATIVE_SOURCE_RECOVERED",
+      "model_output_expectation_state": "NOT_REQUIRED",
+      "pending_model_output_expectations": [],
+      "pending_control_bindings": [
+        "GOLDEN_INSTANCE_RESULT_LINEAGE_BINDING"
+      ],
+      "evidence_refs": [
+        "EVID-GOLDEN-PREPARATION",
+        "EVID-MODEL-RECONCILIATION-20260819"
+      ],
+      "future_outcome_present_in_research_package": false,
+      "future_outcome_available_to_model_input_path": false,
+      "historical_transport_reference_only": "GRF-20"
+    }
+  ],
+  "fixture_input_completeness_successor_state": "COMPLETE_FOR_AUTHORIZED_FIXTURES"
+}

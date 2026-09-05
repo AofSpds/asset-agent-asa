@@ -1,6 +1,6 @@
 # M3Top3 First Scorecard Progress Dashboard
 
-OVERALL 10% · CURRENT PHASE 0% · VALIDATION 0% · EWU 10/100 · elapsed pending next measured checkpoint · active/wait NOT_INSTRUMENTED · rework/block observed 0/0 · ETA NOT_YET_ESTIMATED (LOW confidence) · CRU NOT_INSTRUMENTED/NOT_CALIBRATED · throughput not yet measured · blockers 0 · reopened 0 · workers 4 / validators 0 · last S1 specialist dispatch · next S1 binding/availability return
+OVERALL 30% · CURRENT PHASE 0% · VALIDATION 0% · EWU 30/100 · elapsed 23m06s · active/wait NOT_INSTRUMENTED · rework/block observed 0/0 · ETA P50 2h / P90 4h from first return (LOW confidence) · CRU NOT_INSTRUMENTED/NOT_CALIBRATED · first segment throughput 1.30 EWU/min · bounded blockers 2 · reopened 0 · workers 4 / validators 0 · last S1 first return persisted · next S2 bounded F06 fix, adapter, Golden and mechanical checks
 
 ```text
 RUN_ID = AAA-M3TOP3-FIRST-SCORECARD-20260905-093656-CODEX-01
@@ -13,3 +13,5 @@ PRO_CLASS = PRO_PREFERRED_FOR_MODEL_DATA_RECONCILIATION_NOT_REQUIRED_FOR_MECHANI
 PARALLELISM = MULTI_WORKER
 OWNER_ACTION = NONE
 ```
+
+Bounded blockers: selected `features_v1_narrow_patch.py` has a known P0 F06 identity-rotation bypass, and no W1–W8 batch/result/scorecard adapter exists. Both have a direct in-scope implementation route; neither requires another policy approval.
