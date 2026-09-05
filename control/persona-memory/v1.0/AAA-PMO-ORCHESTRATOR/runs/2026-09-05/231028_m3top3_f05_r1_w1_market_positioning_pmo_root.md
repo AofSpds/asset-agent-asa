@@ -4,7 +4,7 @@
 - Persona lock: `AAA-PMO-ORCHESTRATOR (PMO)`
 - Started: 2026-09-05 23:10:28 KST
 - Branch: `task/aaa/m3top3-f05-r1-w1-market-positioning-20260905`
-- State: `IN_PROGRESS / P5 SCORE CREATED ONCE; FRESH POST-SCORE IVA AND P6 CLOSURE PENDING`
+- State: `IN_PROGRESS / P6 LOCAL BUNDLE-SEAL-REPORT READY; REMOTE PERSISTENCE PENDING`
 
 ## Authority
 
@@ -72,3 +72,18 @@
 - F05 provisional leaders are 유진테크, 월덱스, 원익머트리얼즈, 파크시스템스, 와이씨, and 원익IPS at 85.0, followed by RF머트리얼즈 at 79.642857.... Equal-score ordering is the frozen company-ID ascending tie rule, not an economic superiority claim.
 - The claim ceiling remains `F02_F05_PROVISIONAL_EXPLORATORY_NO_OFFICIAL_TOP_K`; no official top-3/top-10, W1 outcomes, W2-W8, main merge, release, provider, credential, or budget action occurred.
 - The score will not be rerun. The next act is a fresh IVA L2 readback of the committed P5 bytes, followed by bundle/seal/completion closure.
+
+## P5 independent post-score closure
+
+- Fresh IVA L2 validated committed score payload `e273b052c8ef663ae0f151c5747e9112b4cd811d` / tree `e272648ee236b4d5866dd09e818749486386771a` without importing the production scorer or invoking the engine.
+- The validator froze PASS and empty findings before opening the CLI receipt, then reconciled that receipt separately. It did not read the root P5 readback or PMO P5 narrative before verdict.
+- All 57 F05 Decimal scores, recognition velocities, saturation penalties, and ranks matched independent reconstruction; all five combined formulas matched exactly. IVA recorded 868 assertions PASS and a separate corroborating lane recorded 29/29 grouped invariants PASS.
+- `P5_IVA_POST_SCORE_READBACK.json` SHA-256 is `a3771e516da22de778eadfd16dde567f0a194e1870091766304b9e2e8f9a8a3e`. Findings remain zero; validator score calls remain zero.
+
+## P6 local closure
+
+- Bundle `f05r1bundle_7c700db5b89ae06e85ed5c8ba718ce68` binds the exact authority, input, CA, implementation, D1 validation, P5 output, and post-score IVA surfaces. Its canonical payload SHA-256 is `7c700db5b89ae06e85ed5c8ba718ce68b39c9cabc1915c4d554aedf5cf7f7bec`.
+- Provisional result integrity seal `f05r1seal_c4473f7ba95384195397e8c514545705` binds that manifest and the exact output/claim ceiling. Its canonical sealed-payload SHA-256 is `c4473f7ba95384195397e8c514545705960932cc83d1fae1f1d51da4f6512e0a`.
+- The Owner-first completion report is materialized with terminal `COMPLETE_F05_R1_W1_PROVISIONAL`. It explicitly distinguishes the six-way 85-point tie and the five-company F02+F05 descriptive view from any official selection.
+- Both task runtime locations are absent after cleanup. No source, input, evidence, score, or old output byte was deleted.
+- Remaining act: commit and push the local closure payload to the exact task ref, verify remote main remains unchanged, then persist the non-self-referential readback. No Owner decision boundary is present.
