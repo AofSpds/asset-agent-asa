@@ -1,0 +1,104 @@
+{
+  "claim_ceiling": [
+    "NO_OFFICIAL_TOP3_OR_TOP10_CLAIM",
+    "NO_COMPLETE_W1_INPUT_COVERAGE_CLAIM",
+    "NO_CLEAN_HOLDOUT_OR_OOS_CLAIM",
+    "NO_MODEL_QUALITY_OR_PRODUCTION_READINESS_CLAIM"
+  ],
+  "claim_class": "COVERAGE_LIMITED_REAL_INPUT_STRICT_REPLAY",
+  "config_hash": "eecde22a7744cff505c624bb6f0bdb11714352a122632238ea68d9cd0fbacb98",
+  "input_custody": {
+    "admitted_feature_block_count": 1,
+    "composite_input_sha256": "bfdb1d6044f01dfdee6f3256c51ea3b42d8b6e8195a6c60869c723c347830198",
+    "derived_control_leaf_count": 4,
+    "derived_relative_change_count": 2,
+    "estimated_leaf_count": 0,
+    "feature_sidecar_raw_file_sha256": "419391b6f9414ccc0aa1870b8cbac86c2bcb9ecd19c4087be92907d908f964e8",
+    "observed_numeric_leaf_count": 4,
+    "semantic_feature_leaf_sha256": "b4db12c17966dda51473380e76a5f77958850ef9d91292440f0f4f0b142420e2",
+    "sidecar_leaf_count": 8,
+    "source_count": 1,
+    "source_manifest_content_sha256": "4752fdad038681d6c09381176bdd8ca1837f9ecdd9201eafb3bd4ea682d534de"
+  },
+  "mode": "STRICT",
+  "model_stage_state": "COMPLETED_NONEMPTY_STRICT_SCORE",
+  "outcome_firewall": {
+    "future_outcome_fields_present_in_model_inputs": false,
+    "future_price_values_loaded_before_model_selection": false,
+    "price_stage_may_begin_after": "DURABLE_SELECTION_SEAL_COMMIT_AND_READBACK"
+  },
+  "persisted_payload_hashes": {
+    "model_input_batch_sha256": "3da6e0bde8e61d56cea2e9d96a627eec5e84541d2b0388ff26e601614adb4829",
+    "scorer_output_sha256": "d30d2210392847f08756deb27c1bd39cf304088018657c1fbe3b0a0b45642b74",
+    "selection_ledger_sha256": "a3a114bcee19179cdc99ae94a9df388f90286649547b059ef4175741f33a8509"
+  },
+  "pmo_run_id": "AAA-M3TOP3-REAL-INPUT-STRICT-PRAGMATIC-20260905-114150-CODEX-01",
+  "preserved_predecessor_bundle_identity": "M3TOP3-EXECUTABLE-BUNDLE-SHA256:82266d51a64382cbd34ee68872a3cd3e3f640c6ff438e84416906f8b8a8ab9c0",
+  "runner_version": "M3TOP3-REAL-INPUT-STRICT-PRAGMATIC-REPLAY-v1.0",
+  "source_population": {
+    "authority": "QUEUE_ONLY_WITH_EXPLICIT_SUCCESSOR_LEAF_OVERLAY",
+    "compressed_sha256": "8b3671d662457aef8c1a5595b33a85a27e08aaee56238e7218f1df0b4df78353",
+    "git_blob": "4b3cfbfa9969abe2bd6dff5fdbfeb2db9d31cdae",
+    "path": "control/m3top3/recovery/2026-08-26/fast-close-worker-results/g3-annotation-candidate/G3_E_ANNOTATION_INGEST_QUEUE_v0.1.jsonl.gz",
+    "revision": "69a1e7b",
+    "row_count": 1016
+  },
+  "stage_sequence": [
+    "POPULATION_BOUND",
+    "SOURCE_CUSTODY_VERIFIED",
+    "STRICT_FEATURE_LEAVES_ADMITTED",
+    "CONSUMED_POINTERS_AND_PROVENANCE_VERIFIED",
+    "W1_COMPLETE_INCLUDE_BATCH_SCORED"
+  ],
+  "strict_value_classification": {
+    "calculated_relative_change_count": 2,
+    "derived_control_leaf_count": 4,
+    "estimated_leaf_count": 0,
+    "observed_numeric_leaf_count": 4,
+    "unverified_or_missing_feature_block_count": 512
+  },
+  "successor_executable_bundle_identity": "M3TOP3-REAL-INPUT-EXECUTABLE-BUNDLE-SHA256:4d828c0308bf892718832e9cb02d87ee7716b9b62c28d643b69b424b5f2b6a4a",
+  "window": {
+    "coverage_limited_order": [
+      {
+        "company_id": "KRX:005290",
+        "final_score": "50.00",
+        "partial_rank": 1,
+        "score_status": "PROVISIONAL_MISSING_FEATURES",
+        "warning_flags": [
+          "MISSING_FEATURES_RENORMALIZED",
+          "INCOMPLETE_ELIGIBLE_DENOMINATOR"
+        ]
+      }
+    ],
+    "entry_trade_date": "2024-08-12",
+    "evaluation_last_trade_date": "2024-11-08",
+    "exclude_proven_count": 8,
+    "exclude_unresolved_count": 62,
+    "exit_trade_date": "2024-11-11",
+    "feature_availability_states": {
+      "AVAILABLE": 1,
+      "NOT_FOUND": 512
+    },
+    "horizon_close_date": "2024-11-08",
+    "nominal_window_end": "2024-11-10",
+    "official_top3_state": "NOT_AVAILABLE_INCOMPLETE_57_ROW_SCORE_COVERAGE",
+    "outcome_measurement_cohort_policy": "ALL_SCOREABLE_PRECOMMITTED_NO_SUBSTITUTION",
+    "outer_partitions": {
+      "EXCLUDE_PROVEN": 8,
+      "EXCLUDE_UNRESOLVED": 62,
+      "INCLUDE_SCORED": 1,
+      "REPLAY_DATA_INSUFFICIENT": 56
+    },
+    "ranking_status": "INCOMPLETE_COVERAGE",
+    "replay_data_insufficient_count": 56,
+    "replay_include_eligibility_count": 57,
+    "scoreable_count": 1,
+    "scorer_coverage": "0.01754385964912280701754385965",
+    "scorer_include_batch_count": 57,
+    "snapshot_cutoff_at": "2024-08-09T23:59:59+09:00",
+    "u127_count": 127,
+    "window_anchor_date": "2024-08-10",
+    "window_id": "W1"
+  }
+}

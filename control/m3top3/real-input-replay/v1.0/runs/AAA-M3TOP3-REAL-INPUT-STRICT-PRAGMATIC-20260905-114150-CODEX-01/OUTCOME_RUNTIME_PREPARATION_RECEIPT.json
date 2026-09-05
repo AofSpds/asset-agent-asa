@@ -1,0 +1,29 @@
+{
+  "schema_version": "M3TOP3-OUTCOME-RUNTIME-PREPARATION-RECEIPT-v1.0",
+  "pmo_run_id": "AAA-M3TOP3-REAL-INPUT-STRICT-PRAGMATIC-20260905-114150-CODEX-01",
+  "prepared_at_kst": "2026-09-05T13:53:12.1749967+09:00",
+  "runtime_root": "C:\\Users\\ms1pk\\.codex\\visualizations\\2026\\09\\04\\01a06e8c-f493-70c0-899d-66fd1781b3bf\\pydeps-real-input-replay",
+  "python": {
+    "version": "3.12.14",
+    "executable": "C:\\Users\\ms1pk\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "byte_size": 107312,
+    "sha256": "ebdb7ddc892a73a9ece422fda408d0bbc2d232904cedeaae359066ef2db37317"
+  },
+  "pyarrow": {
+    "version": "25.0.1",
+    "record_byte_size": 78570,
+    "record_sha256": "1eddf4fb72b1b071868dc02d6fc8242125d98c6557ae6af8f783b1c84ef6a797",
+    "record_hashed_entries_verified": 761,
+    "record_unhashed_existing_allowlisted": 1,
+    "record_unhashed_declared_absent": 105
+  },
+  "bytecode_preparation": {
+    "generated_pyc_removed": 105,
+    "removed_bytes": 4010316,
+    "remaining_pyc": 0,
+    "scope": "ISOLATED_PYARROW_RUNTIME_ONLY",
+    "recovery": "REINSTALL_PYARROW_25_0_1"
+  },
+  "runtime_policy_sha256": "c30a92ebf7feb1555f5728ceab5ab995c692e57c7c32fb0cc5390c569c7f0581",
+  "preflight_state": "PASS_ALL_EXECUTABLE_DISTRIBUTION_BYTES_BOUND_BEFORE_IMPORT_AND_PRICE_ACCESS"
+}
